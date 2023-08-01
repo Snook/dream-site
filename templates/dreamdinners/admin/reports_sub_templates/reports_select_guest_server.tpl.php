@@ -1,0 +1,33 @@
+<table style="width: 100%;">
+	<tr>
+		<td class="form_subtitle_cell"><a href="main.php?page=admin_main"><b>BackOffice Home</b></a></td>
+	</tr>
+	<tr>
+		<td class="form_subtitle_cell"><b>Guests &amp; Orders</b></td>
+	</tr>
+	<tr>
+		<td>
+			<a href="main.php?page=admin_reports_cancellations">Cancellation Report</a><br/>
+			<a href="main.php?page=admin_reports_saved_orders">Saved Orders Report</a><br/>
+			<a href="main.php?page=admin_reports_entree">Entr&eacute;e Report</a><br/>
+		</td>
+	</tr>
+</table>
+
+<table style="width: 100%;">
+	<tr>
+		<td class="form_subtitle_cell"><b>Supporting Menu Materials</b></td>
+	</tr>
+	<tr>
+		<td>
+			<a href="main.php?page=admin_session_tools_printing">Generic Menu Supporting Documents</a><br/>
+			<a href="main.php?page=admin_reports_customer_menu_item_labels&interface=1">Generic Cooking Instruction
+				Labels</a><br/>
+			<?php if (!$this->storeIsDistributionCenter) { ?>
+				<a href="main.php?page=admin_reports_menu_item_nutritional_labels">Nutritional Labels</a><br/>
+			<?php } ?>
+			<?php if ($this->storeSupportsPlatePoints) { ?>
+				<a href="main.php?page=admin_user_plate_points&print_blank_form=true" target="_blank">Blank PLATEPOINTS Enrollment Form</a><br/>
+			<?php } ?>
+	</tr>
+</table>

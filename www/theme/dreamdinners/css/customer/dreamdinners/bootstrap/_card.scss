@@ -1,0 +1,53 @@
+.card-deck {
+
+  .card {
+    height: calc(100% - 1rem);
+
+    &.disabled {
+      color: $text-muted !important;
+
+      .dd-icon, .card-title {
+          color: $gray-400 !important;
+      }
+    }
+  }
+
+}
+
+// if ie10+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+
+  // fixes stretched images in cards
+  .card-deck {
+
+    .card {
+      display: block;
+    }
+
+  }
+
+  // fixes stretched images in cards
+  .card-group {
+
+    > .card {
+      display: block;
+    }
+
+  }
+}
+
+.card-title {
+  text-transform: uppercase;
+  font-weight: 700;
+  min-height: 2rem;
+}
+
+.card-body {
+  padding: 0.5rem;
+}
+
+.card-link {
+  font-size: 0.7rem;
+  text-decoration: underline;
+  font-weight: 700;
+}

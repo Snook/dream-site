@@ -1,0 +1,35 @@
+.alert-red-royal {
+  color: $white;
+  background-color: $red-royal;
+  border-color: darken($red-royal, 10%);
+}
+.alert-red-royal hr {
+  border-top-color: darken($red-royal, 5%);
+}
+.alert-red-royal .alert-link {
+  color: $green-light;
+}
+
+.alert-cyan-dark {
+  color: $white;
+  background-color: $cyan-dark;
+  border-color: darken($cyan-dark, 10%);
+}
+.alert-cyan-dark hr {
+  border-top-color: darken($cyan-dark, 5%);
+}
+.alert-cyan-dark .alert-link {
+  color: $green-light;
+}
+
+.alert-orange {
+  color: $white;
+  background-color: $orange;
+  border-color: darken($orange, 10%);
+}
+.alert-orange-dark hr {
+  border-top-color: darken($orange, 5%);
+}
+.alert-orange-dark .alert-link {
+  color: $green-light;
+}

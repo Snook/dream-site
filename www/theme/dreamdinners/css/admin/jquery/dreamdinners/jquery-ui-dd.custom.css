@@ -1,0 +1,23 @@
+.ui-widget-header {
+	border: 1px solid #a8a84b;
+	background: #a8a84b url(images/ui-bg_gloss-wave_35_f6a828_500x100.png) 50% 50% repeat-x;
+	color: #fff;
+	font-weight: bold;
+	}
+
+.ui-dialog {
+	position: absolute;
+	padding: .2em;
+	width: 300px;
+	overflow: hidden;
+	-webkit-box-shadow: 5px 5px 6px 1px rgba(0, 0, 0, 0.15);
+	-moz-box-shadow: 5px 5px 6px 1px rgba(0, 0, 0, 0.15);
+	box-shadow: 5px 5px 6px 1px rgba(0, 0, 0, 0.15);
+
+	filter: Shadow(Color='gray', Direction=135, Strength=6);
+	-ms-filter: "progid:DXImageTransform.Microsoft.shadow(Color='gray', Direction=135, Strength=6)";
+	}
+
+.ui-tooltip {
+	padding: 0px;
+	}

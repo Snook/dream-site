@@ -1,0 +1,59 @@
+body {
+ margin: 0px 0px 0px 0px;
+ padding: 0;
+ background-color: #fff;
+ font-family: "Arial", serif;
+ font-size: 14px;
+ color: #444444;
+ line-height: 130%;
+ }
+
+ a:link {
+ color: #959a21;
+ text-decoration: underline;
+ }
+ a:visited {
+ color: #959a21;
+ text-decoration: underline;
+ }
+
+ a:hover {
+ color: #959a21;
+ text-decoration: underline;
+}
+
+.sectionhead {
+font-size: 16px;
+font-weight: bold;
+color: #444444;
+}
+
+.subheads {
+font-size: 14px;
+font-weight: bold;
+color: #444444;
+}
+
+.order_receipt_table {
+border: 1px solid #dddddd;
+border-bottom: 1px solid #dddddd;
+border-left: 1px solid #dddddd;
+border-right: 1px solid #dddddd;
+border-top: 1px solid #dddddd;
+border-color: #dddddd;
+border-width: 1px;
+}
+
+.order_receipt_cell {
+background: #dddddd;
+}
+
+/* -------------------------------------------------------------------------------------------------------------- */
+/* css for living the dream round up -----------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------------------------------------- */
+.ltd_round_up {
+	padding: 20px 20px 20px 20px;
+	border: 1px solid #5c7760;
+	background-color: #e87722 !important;
+	color: #000;
+	}

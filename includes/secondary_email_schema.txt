@@ -1,0 +1,22 @@
+ALTER TABLE `user`
+ADD COLUMN `secondary_email`  varchar(255) NULL AFTER `primary_email`;
+
+ALTER TABLE `user`
+ADD INDEX `IDX_secondary_email` USING BTREE (`secondary_email`) ;
+
+CREATE TABLE `corporate_crate_client` (
+  `id` mediumint(11) unsigned NOT NULL AUTO_INCREMENT,
+  `company_name` varchar(256) DEFAULT NULL,
+  `triggering_domain` varchar(256) DEFAULT NULL,
+  `icon_path` varchar(512) DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `IDX_triggering_domain` (`triggering_domain`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+ALTER TABLE `store`
+ADD COLUMN `supports_corporate_crate`  tinyint(1) UNSIGNED NOT NULL DEFAULT 0 AFTER `food_testing_w9`;
+
+ALTER TABLE `session_weekly_template_item`
+MODIFY COLUMN `session_type`  enum('SPECIAL_EVENT','STANDARD') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'STANDARD' AFTER `start_time`;
+

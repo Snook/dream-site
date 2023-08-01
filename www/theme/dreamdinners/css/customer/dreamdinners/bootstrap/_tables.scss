@@ -1,0 +1,25 @@
+// Zebra-striping every 2 rows
+//
+// Default zebra-stripe styles (alternating gray and transparent backgrounds)
+
+.table-striped-2 {
+  tbody tr:nth-of-type(4n), tbody tr:nth-child(4n-1) {
+    background-color: $table-accent-bg;
+  }
+}
+
+
+// Table backgrounds
+//
+// Exact selectors below required to override `.table-striped` and prevent
+// inheritance to nested tables.
+
+@each $color, $value in $theme-colors {
+  .table-hover-#{$color} {
+    tbody tr {
+      @include hover() {
+        background-color: theme-color-level($color, $table-bg-level);
+      }
+    }
+  }
+}

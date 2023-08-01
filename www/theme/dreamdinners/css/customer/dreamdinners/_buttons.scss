@@ -1,0 +1,28 @@
+// ripple effect when clicking buttons
+.btn-ripple:not(.disabled) {
+  -webkit-transition-duration: 0.4s; // Safari
+  transition-duration: 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple:not(.disabled):after {
+  content: "";
+  background: $gray-light;
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -40px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+
+.btn-ripple:not(.disabled):active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+}

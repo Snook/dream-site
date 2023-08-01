@@ -1,0 +1,251 @@
+<?php
+/*
+ * Created on Jun 23, 2005
+ *
+ * To change the template for this generated file go to
+ * Window - Preferences - PHPeclipse - PHP - Code Templates
+ */
+
+require_once('includes/CForm.inc');
+require_once('includes/ValidationRules.inc');
+require_once('includes/CAppUtil.inc');
+require_once('includes/DAO/BusinessObject/CStore.php');
+
+class form_login
+{
+
+	/**
+	 * Builds a login form
+	 * Out: returns a CForm object
+	 */
+	static function BuildAndProcessForm()
+	{
+		$Form = new CForm;
+		$Form->Repost = false;
+		$Form->Bootstrap = true;
+
+		$suppressBounce = false;
+
+		if (isset($_POST['nobo']))
+		{
+			$suppressBounce = true;
+		}
+
+		//handle forgotten password
+		if ($_POST && isset($_POST['forgotPassword']) && isset($_POST['forgot_primary_email']))
+		{
+			CUser::resetPwd($_POST['forgot_primary_email']);
+		}
+
+		//$Form->DefaultValues['primary_email_login'] = "Email";
+		//$Form->DefaultValues['password_login'] = "Password";
+
+		// turn off autocomplete for staff
+		$autocomplete_username = true;
+		$autocomplete_password = true;
+
+		if (!empty(CUser::getUserByCookie()->user_type) && !in_array(CUser::getUserByCookie()->user_type, array(
+				CUser::GUEST,
+				CUser::CUSTOMER
+			)))
+		{
+			$autocomplete_username = true;
+			$autocomplete_password = false;
+
+			if (CUser::getUserByCookie()->user_type == CUser::SITE_ADMIN && defined('ENABLE_SITE_ADMIN_TIMEOUT') && ENABLE_SITE_ADMIN_TIMEOUT != true)
+			{
+				$autocomplete_username = true;
+				$autocomplete_password = true;
+			}
+		}
+
+		// Create form elements
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::name => "primary_email_login",
+			CForm::required => true,
+			CForm::placeholder => '*Email',
+			CForm::autocomplete => $autocomplete_username,
+			CForm::maxlength => 64,
+			CForm::xss_filter => true,
+			CForm::size => 25
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Password,
+			CForm::name => "password_login",
+			CForm::required => true,
+			CForm::placeholder => '*Password',
+			CForm::autocomplete => $autocomplete_password,
+			CForm::maxlength => 41,
+			CForm::xss_filter => true,
+			CForm::size => 25
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::CheckBox,
+			CForm::label => "Stay logged in",
+			CForm::name => "remember_login"
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Button,
+			CForm::name => "submit_login",
+			CForm::css_class => "btn btn-primary btn-block btn-spinner",
+			CForm::value => 'Log in'
+		));
+
+		if (isset($_GET['back']) && $_GET['back'])
+		{
+			$Form->AddElement(array(
+				CForm::type => CForm::Hidden,
+				CForm::name => "back",
+				CForm::value => $_GET['back']
+			));
+		}
+		else
+		{
+			$Form->AddElement(array(
+				CForm::type => CForm::Hidden,
+				CForm::name => "back",
+				CForm::value => $_SERVER['REQUEST_URI']
+			));
+		}
+
+		$user = CUser::getCurrentUser();
+		if (!$user)
+		{
+			throw new Exception('user is null');
+		}
+
+		//
+		// Check for POST
+		//
+		if ($_POST && isset($_POST['submit_login']))
+		{
+			//authenticate user
+			if ($Form->value('primary_email_login') && $Form->value('password_login'))
+			{
+				if ($user->Authenticate($Form->value('primary_email_login'), $Form->value('password_login')))
+				{
+					$remember_login = false;
+
+					if (isset($_POST['remember_login']))
+					{
+						$remember_login = true;
+					}
+
+					$redirectCustomer = $user->Login($remember_login);
+
+					// -------------------------------------------------------------------- handle login attempt at support portal
+					$trigger = empty($_REQUEST["host_url"]) ? false : $_REQUEST["host_url"];
+
+					if ($trigger && defined('REMAUTHSTRNEW') && ($_REQUEST["host_url"] == "support.dreamdinners.com" || $_REQUEST["host_url"] == "support.lovingwithfood.com"))
+					{
+						CApp::signupOrLoginToFreshDeskSupportPortalNew($_REQUEST,false, true, $_REQUEST["host_url"]);
+					}
+					//---------------------------------------------------------------------
+
+					if (!$suppressBounce)
+					{
+						CApp::bounce($redirectCustomer);
+					}
+				}
+				else
+				{
+					CBrowserSession::ClearCookie();
+					if (!$suppressBounce)
+					{
+						CApp::instance()->template()->setErrorMsg('The e-mail address and password you entered do not match any accounts on record. Please make sure that you have correctly entered the e-mail address associated with your dreamdinners.com account.');
+					}
+				}
+			}
+		}
+		else
+		{
+			// no login credentials submitted
+			$browserSession = CBrowserSession::instance();
+			$user = CUser::getCurrentUser();
+
+			if (CBrowserSession::isPrevious())
+			{
+				$user->joinAdd($browserSession);
+				$user->selectAdd();
+				$user->selectAdd('user.*');
+
+				if ($browserSession->isPrevious && $user->find(true) && $user->id)
+				{
+					// user is logged in
+
+					// -----------------------------------------------------------------handle access from support portal
+					$trigger = empty($_REQUEST["host_url"]) ? false : $_REQUEST["host_url"];
+
+					if ($trigger && defined('REMAUTHSTRNEW') && $_REQUEST["host_url"] == "support.dreamdinners.com")
+					{
+						if (isset($_GET['page']) && $_GET['page'] != "signout")
+						{
+							CApp::signupOrLoginToFreshDeskSupportPortalNew($_REQUEST,false, true);
+						}
+					}
+					// ------------------------------------------------------------------
+					$user->getMembershipStatus(); // Note: without params this method looks for memberships current for today's menu/month.
+					$user->getPlatePointsSummary();
+					$user->getUserPreferences();
+					$user->setMealAndFamilySize();
+
+					$user->setLogin();
+
+					// CES 09/18/07 also load the browser instance fron the Database as we are now using a value stored with the session.
+					$browserSession->find(true);
+
+					if ($user->isFranchiseAccess())
+					{
+						$initialStore = !empty($browserSession->current_store_id) ? $browserSession->current_store_id : $user->getInitialFranchiseStore();
+						CStore::setUpFranchiseStore($initialStore);
+					}
+
+					// site admin has 10 minute time out reset on every access
+					if ($user->user_type != CUser::CUSTOMER)
+					{
+						$browserSession->prolongSession($user);
+					}
+
+					//remove the where clause from the previous join
+					$user->whereAdd(); /// CES ??? Why? No more finds performed on this object - or are there?
+				}
+				else
+				{
+					// user is not logged in
+					$user->firstname = "Guest";
+					$user->id = 0;
+				}
+			}
+		}
+
+		//if we are not in store view, and the user does not have a
+		//primary email address, then keep them on the account page
+		//until they enter one
+		if (!$suppressBounce)
+		{
+			if ((!CApp::$isStoreView) && $user->isLoggedIn() && (!$user->primary_email) && (@$_GET['page'] != 'account'))
+			{
+				CApp::bounce('main.php?page=account');
+			}
+		}
+
+		//if already signed in, get name
+		$Form->DefaultValues['is_logged_in'] = $user->isLoggedIn();
+		$Form->DefaultValues['user_type'] = $user->user_type;
+
+		if (!empty($user->id))
+		{
+		  $Form->DefaultValues['id'] = $user->id;
+		}
+
+		$Form->DefaultValues['home_store_id'] = CBrowserSession::getCurrentStore();
+
+		return $Form;
+	}
+}
+
+?>

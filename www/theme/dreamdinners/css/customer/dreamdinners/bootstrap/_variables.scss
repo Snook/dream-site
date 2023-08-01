@@ -1,0 +1,118 @@
+// Variables
+//
+// Variables should follow the `$component-state-property-size` formula for
+// consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
+
+// Color system
+
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+$grays: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$grays: map-merge(
+                (
+                        "100": $gray-100,
+                        "200": $gray-200,
+                        "300": $gray-300,
+                        "400": $gray-400,
+                        "500": $gray-500,
+                        "600": $gray-600,
+                        "700": $gray-700,
+                        "800": $gray-800,
+                        "900": $gray-900
+                ),
+                $grays
+);
+
+$green: #959a21;
+$green-light: #b9bf33;
+$green-dark: #767b21;
+$green-dark-extra: #5b5e18;
+$gray: #e8e8e8;
+$gray-light: #f6f6f6;
+$gray-dark: #555;
+$cyan: #45cfd1;
+$cyan-dark: #2db5b7;
+$cyan-extra-dark: #198787;
+$cyan-light: #9dd8d8;
+$cyan-extra-light: #e3f9f9;
+$yellow: #ffc107;
+$yellow-light: #f9f5e5;
+$orange: #e87722;
+$orange-dark: #8F4801;
+$dark: #343a40;
+$white: #fff;
+$red: #bc2a09;
+$red-royal: #9b1c31;
+
+// redefine bootstrap's primary and secondary colors
+$primary: $green;
+$secondary: $green-dark-extra;
+
+// create new theme options for all colors
+$theme-colors: (
+        (
+                "green": $green,
+                "green-light": $green-light,
+                "green-dark": $green-dark,
+                "green-dark-extra": $green-dark-extra,
+                "gray": $gray,
+                "gray-light": $gray-light,
+                "gray-dark": $gray-dark,
+                "cyan": $cyan,
+                "cyan-dark": $cyan-dark,
+                "cyan-extra-dark": $cyan-extra-dark,
+                "cyan-light": $cyan-light,
+                "cyan-extra-light": $cyan-extra-light,
+                "yellow": $yellow,
+                "yellow-light": $yellow-light,
+                "orange": $orange,
+                "orange-dark": $orange-dark,
+                "red": $red,
+                "red-royal": $red-royal,
+                "dark": $dark,
+                "gray-100": $gray-100,
+                "gray-200": $gray-200,
+                "gray-300": $gray-300,
+                "gray-400": $gray-400,
+                "gray-500": $gray-500,
+                "gray-600": $gray-600,
+                "gray-700": $gray-700,
+                "gray-800": $gray-800,
+                "gray-900": $gray-900
+
+        )
+);
+
+$border-radius:               0;
+$border-radius-lg:            0;
+$border-radius-sm:            0;
+
+$tooltip-bg:                  $green-dark-extra;
+$tooltip-arrow-color:         $green-dark-extra;
+
+$nav-tabs-border-color:             $green;
+$nav-tabs-link-hover-border-color:  $green-light $green-light $nav-tabs-border-color;
+$nav-tabs-link-active-color:        $white;
+$nav-tabs-link-active-bg:           $green;
+$nav-tabs-link-active-border-color: $green $green $nav-tabs-link-active-bg;
+
+$font-family-sans-serif:      "Montserrat", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif";
+
+$custom-control-label-disabled-color:           $gray-500 !default;
+
+$font-size-base:              1rem !default;
+$h1-font-size:                $font-size-base * 2;
+$h2-font-size:                $font-size-base * 1.85;
+
+$zindex-sticky:                     990;

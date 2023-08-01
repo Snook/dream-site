@@ -1,0 +1,160 @@
+
+/* ***************** Report Headers ***************************/
+.subheaders{
+		border: 1px;
+		border-color: #7C7C7C;
+		border-style: solid;
+}
+
+.subheaders_gray_bg{
+		border: 1px;
+		border-color: #CCCCCC;
+		border-style: solid;
+		background-color: #ececec;		
+}
+
+.cc_data_cell
+{
+	border-style:solid solid solid solid;
+	border-color:silver;
+	border-width:1px;
+}
+
+.reset{
+		border: 0px;
+
+}
+
+
+.headers{
+		border: 0px solid black;
+		background-color: #CCCCCC;
+	}
+
+.topfield{
+			font-size: 12px;
+			border-top: #d1d1d1 1px dashed;
+		}
+
+.bottomfield{
+			font-size: 12px;
+			border-bottom: #d1d1d1 1px dashed;
+		}
+
+
+.showstate{ /*Definition for state toggling image */
+	cursor:hand;
+	cursor:pointer;
+	float: right;
+	margin-top: 2px;
+	margin-right: 3px;
+}
+
+
+.switchcontent{
+
+	display:none;
+
+	border: 0px solid black;
+	border-top-width: 0;
+}
+
+.subheads {
+	font-size: 11px;
+	font-weight: bold;
+	background-color: #DCDCDC;
+	border: 1px #808080 solid;
+    padding:2px;
+    text-align: center;
+}
+
+.alert {
+	font-size: 11px;
+	font-family: "Trebuchet MS", serif;
+	background-color: #f8f6f5;
+	padding:2px;
+}
+
+
+.header {
+	font-size: 11px;
+	font-weight: bold;
+	padding:2px;
+}
+
+
+.elementsOn {
+	font-size: 11px;
+	background-color: #f8f6f5;
+	border: 1px #FFFFFF solid;
+	text-align: center;
+	padding:2px;
+}
+
+.elements {
+	font-size: 11px;
+	background-color: #FFFFFF;
+	text-align: center;
+	padding:2px;
+}
+
+.outlinerow {
+	font-size: 11px;
+	border-top: #d1d1d1 1px dashed;
+	text-align: center;
+	padding:2px;
+}
+
+.outlinecolumn {
+	font-size: 11px;
+	text-align: center;
+	background-color: #f8f6f5;
+	padding:6px;
+	border-bottom: #d1d1d1 1px dashed;
+	margin-right:4px;
+	margin-left:4px;
+}
+
+.Readme_title {
+	font-size: 18px;
+	font-weight: bold;
+	background-color: #EAE7E5;
+	border: 1px #878787 solid;
+    text-align: left;
+
+}
+
+.Readme_Outline {
+	border-bottom: #d1d1d1 1px dashed;
+
+}
+
+.Readme_header {
+	font-size: 18px;
+	font-weight: bold;
+	background-color: #FFFFEF;
+    text-align: left;
+}
+
+.Readme_header_large {
+	font-size: 20px;
+	font-weight: bold;
+	background-color: #FFFFEF;
+    text-align: left;
+}
+
+
+.Readme
+{
+	font-family: "Trebuchet MS", serif;
+	font-size: 12px;
+	background-color: #FFFFEF;
+	color: #000000;
+	border-top: none white 0px;
+	border-bottom: none white 0px;
+	border-right: none white 0px;
+	border-left: none white 0px;
+	border: 1px #808080 solid;
+	text-align: left;
+	padding:2px;
+}

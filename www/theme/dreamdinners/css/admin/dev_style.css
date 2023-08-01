@@ -1,0 +1,11 @@
+.dev_branch_message{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background-color: #A8B355;
+	font-weight: bold;
+	color: #FFF;
+	text-shadow: 1px 1px 1px #000;
+	padding: 4px 10px;
+	border-radius: 0 8px 0 0;
+	}

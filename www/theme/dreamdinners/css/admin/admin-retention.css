@@ -1,0 +1,285 @@
+.inactive_labels
+{
+	background-color: #e9e9e9;
+
+	border-top: #d1d1d1 1px dashed;
+	border-bottom: #d1d1d1 1px dashed;
+	border-right: none white 0px;
+	border-left: none white 0px;
+}
+
+.inactive_headers
+{
+	font-size: 11px;
+	font-weight: bold;
+	background-color: #DCDCDC;
+	padding:4px;
+
+}
+
+.inactive_rows
+{
+	font-size: 11px;
+	background-color: #EEEEEE;
+	padding:4px;
+
+}
+
+.inactive_rows_large
+{
+	font-size: 11px;
+	background-color: #EEEEEE;
+	padding:4px;
+
+}
+
+.retention
+{
+	font-family: "Trebuchet MS", serif;
+	font-size: 11px;
+	background-color: #e9e9e9;
+	color: #000000;
+	border-top: none white 0px;
+	border-bottom: none white 0px;
+	border-right: none white 0px;
+	border-left: none white 0px;
+	text-align: left;
+}
+
+.subheads {
+	font-size: 11px;
+	font-weight: bold;
+	background-color: #DCDCDC;
+    padding:-1px;
+    margin:2px;
+    text-align: center;
+}
+
+.subheads2 {
+	font-size: 10pt;
+	background-color: #DCDCDC;
+	border-top: #d1d1d1 1px dashed;
+	border-bottom: #d1d1d1 1px dashed;
+    padding:12px;
+    text-align: left;
+
+}
+
+.ActiveGuestMainOutline
+{
+	background-color: #DCDCDC;
+	width: 806px;
+	display: block;
+}
+
+.ActiveGuestMainOutlineActiveReport
+{
+	background-color: #DCDCDC;
+	width: 790px;
+	display: block;
+}
+
+.ActiveGuestSubHead {
+	font-size: 10pt;
+	background-color: #FFFFFF;
+	border-top: #d1d1d1 1px dashed;
+	border-left: #d1d1d1 1px dashed;
+	border-right: #d1d1d1 1px dashed;
+	border-bottom: #d1d1d1 1px dashed;
+
+    margin: 0cm 0cm 0cm 0cm;
+    text-align: center;
+	width: 800px;
+	align:center;
+
+
+}
+
+.ActiveGuestSubHeadActive {
+	font-size: 10pt;
+	background-color: #FFFFFF;
+	border-top: #d1d1d1 1px dashed;
+	border-left: #d1d1d1 1px dashed;
+	border-right: #d1d1d1 1px dashed;
+	border-bottom: #d1d1d1 1px dashed;
+
+    margin: 0cm 0cm 0cm 0cm;
+    text-align: center;
+	width: 794px;
+	align:center;
+
+
+}
+
+.indicators {
+	font-size: 11px;
+	background-color: #DCDCDC;
+	border-top: #777777 1px dashed;
+
+    text-align: left;
+    width: 800px;
+    display: block;
+}
+
+.masterfield {
+	display: none;
+}
+
+.subheadsLabel {
+	font-size: 10pt;
+	background-color: #FFFFFF;
+	border-top: #d1d1d1 1px dashed;
+	padding:12px;
+	text-align: left;
+}
+
+
+.details {
+	font-size: 11px;
+	font-weight: bold;
+	padding-left:4px;
+	background-color: #DCDCDC;
+    text-align: left;
+}
+
+.details_rows {
+	font-size: 11px;
+
+	padding-left:4px;
+	background-color: #FFFFFF;
+    text-align: left;
+}
+
+.customer {
+	font-size: 11px;
+	font-weight: bold;
+	padding:0px;
+	background-color: #DCDCDC;
+    text-align: left;
+}
+
+
+.detailsOffwithPad{
+	font-size: 11px;
+    margin:0px;
+    background-color: #FFFFFF;
+	padding-bottom: 30%;
+    text-align: left;
+}
+
+
+
+.detailsOff  {
+	font-size: 11px;
+    margin:0px;
+    background-color: #FFFFFF;
+    text-align: left;
+}
+
+.guest {
+	font-size: 11px;
+    padding:0px;
+    margin:0px;
+    background-color: #FFFFFF;
+    text-align: left;
+}
+
+.outlinemain {
+
+	border: 1px #BFBFBF solid;
+	background-color: #FFFFFF;
+}
+
+.outline {
+	color: #000000;
+	border: 1px #808080 solid;
+
+}
+
+.outlinedisabled {
+	color: #B1B1B1;
+	border: 1px #808080 solid;
+	background-color: #DDDDDD;
+}
+
+.detailsstad {
+	font-size: 11px;
+	font-weight: bold;
+	padding:2px;
+	background-color: #DCDCDC;
+    text-align: left;
+}
+
+.detailsInactive {
+	font-size: 11px;
+	background-color: #DCDCDC;
+    padding:2px;
+    border: 1px #808080 solid;
+    text-align: left;
+}
+
+
+.header {
+	font-size: 14px;
+	padding:2px;
+	color: #777777;
+}
+
+.standard {
+	font-size: 12px;
+	padding:2px;
+	color: #777777;
+}
+
+.elementsOn {
+	font-size: 11px;
+	background-color: #DCDCDC;
+	border: 1px #FFFFFF solid;
+	text-align: center;
+	padding:0px;
+}
+
+.elements {
+	font-size: 11px;
+	background-color: #FFFFFF;
+	text-align: center;
+	padding:0px;
+}
+
+table.tools {
+	font-size: 9pt;
+	color: #000000;
+	border: 0px;
+}
+
+table.tools td {
+	padding: 3px;
+}
+
+table.tools td.header {
+	color: #999999;
+	font-size: 11pt;
+	font-weight: bold;
+	border-bottom: #d1d1d1 1px dashed;
+}
+
+table.tools tr.normal {
+	background-color: #e9e9e9;
+	text-align: left;
+}
+
+table.tools td.range {
+	font-weight: bold;
+	font-size: 10pt;
+	padding: 8px;
+	text-align: center;
+	vertical-align: middle;
+	border: #e5e5e5 3px solid;
+	color: #555555;
+	background-color: #FFFFFF;
+}
+
+table.tools td.footer {
+	border-top: #d1d1d1 1px dashed;
+	padding-bottom: 10px;
+}

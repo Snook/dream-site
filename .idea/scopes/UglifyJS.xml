@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="UglifyJS" pattern="file:*.js&amp;&amp;!file:*.min.js&amp;&amp;!file:*vendor//*" />
+</component>

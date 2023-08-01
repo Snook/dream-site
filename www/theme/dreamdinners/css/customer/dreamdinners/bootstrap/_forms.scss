@@ -1,0 +1,10 @@
+.form-control {
+
+  &::placeholder {
+    font-size: .75rem;
+  }
+
+  option:disabled {
+    background-color: $gray-200;
+  }
+}

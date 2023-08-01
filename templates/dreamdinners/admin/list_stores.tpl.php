@@ -1,0 +1,94 @@
+<?php $this->setScript('head', SCRIPT_PATH . '/admin/list_stores.min.js'); ?>
+<?php $this->setOnload('admin_list_stores_init();'); ?>
+<?php $this->assign('page_title','Search Stores'); ?>
+<?php $this->assign('topnav','store'); ?>
+<?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
+
+<h1>Search Stores</h1>
+
+<form action="" method="get">
+	<input type="hidden" name="page" value="admin_list_stores" />Search (string or id):
+	<input type="hidden" name="letter_select" value="<?php echo $this->letter_select; ?>" />
+	<input type="text" name="q" value="<?php echo $this->q; ?>" />
+	<input type="submit" class="button" value="Search" />
+</form>
+
+<table style="width: 100%;">
+<tr>
+	<td>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=A" class="button">A</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=B" class="button">B</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=C" class="button">C</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=D" class="button">D</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=E" class="button">E</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=F" class="button">F</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=G" class="button">G</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=H" class="button">H</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=I" class="button">I</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=J" class="button">J</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=K" class="button">K</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=L" class="button">L</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=M" class="button">M</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=N" class="button">N</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=O" class="button">O</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=P" class="button">P</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=Q" class="button">Q</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=R" class="button">R</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=S" class="button">S</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=T" class="button">T</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=U" class="button">U</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=V" class="button">V</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=W" class="button">W</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=X" class="button">X</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=Y" class="button">Y</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=Z" class="button">Z</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=etc" class="button">ETC</a>
+		<a href="main.php?page=admin_list_stores&amp;letter_select=all" class="button">Show	All</a>
+	</td>
+</tr>
+</table>
+
+Or Select Store: <?php echo $this->form_list_stores['store_html']; ?>
+
+<?php if ($this->rows) { ?>
+<div style="margin-top: 10px;">
+
+	<span style="float: right;"><?php include $this->loadTemplate('admin/export.tpl.php'); ?></span>
+	Your query returned <?php echo $this->rowcount; ?> matches:
+
+	<table style="width: 100%;">
+	<tr>
+		<td class="bgcolor_medium header_row">ID</td>
+		<td class="bgcolor_medium header_row">HO ID</td>
+		<td class="bgcolor_medium header_row">Store Name</td>
+		<td class="bgcolor_medium header_row">City</td>
+		<td class="bgcolor_medium header_row">State</td>
+		<td class="bgcolor_medium header_row">Active</td>
+		<td class="bgcolor_medium header_row">Merch Info</td>
+		<td class="bgcolor_medium header_row">Franchise</td>
+
+	</tr>
+	<?php $active = 1; foreach( $this->rows as $id => $row ) { ?>
+	<?php if ($active && $active != $row['active']) { $active = false; ?>
+	<tr>
+		<td class="bgcolor_medium header_row" style="text-align:left;" colspan="8">Inactive</td>
+	</tr>
+	<?php } ?>
+	<tr>
+		<td class="bgcolor_light"><a href="main.php?page=admin_store_details&amp;id=<?php echo $id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $row['id']; ?></a></td>
+		<td class="bgcolor_light"><a href="main.php?page=admin_store_details&amp;id=<?php echo $id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $row['home_office_id']; ?></a></td>
+		<td class="bgcolor_light"><a href="main.php?page=admin_store_details&amp;id=<?php echo $id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo CAppUtil::truncate($row['store_name'],30); ?></a></td>
+		<td class="bgcolor_light"><?php echo $row['city']; ?></td>
+		<td class="bgcolor_light" style="text-align:center;"><?php echo $row['state_id']; ?></td>
+		<td class="bgcolor_light" style="text-align:center;"><?php echo (!empty($row['active'])) ? '<span style="color:green;">Yes</span>' : '<span style="color:red;">No</span>'; ?></td>
+		<td class="bgcolor_light" style="text-align:center;"><a href="main.php?page=admin_merchant&amp;store=<?php echo $id; ?>">edit</a></td>
+		<td class="bgcolor_light"><a href="main.php?page=admin_franchise_details&amp;id=<?php echo $row['franchise_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo CAppUtil::truncate($row['franchise_name'],30); ?></a></td>
+	</tr>
+	<?php } ?>
+	</table>
+
+</div>
+
+<?php } ?>
+
+<?php include $this->loadTemplate('admin/page_footer.tpl.php'); ?>

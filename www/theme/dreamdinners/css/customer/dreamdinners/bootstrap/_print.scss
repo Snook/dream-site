@@ -1,0 +1,23 @@
+@if $enable-print-styles {
+  @media print {
+    // Remove link underlines when printing
+    a {
+      text-decoration: none !important;
+    }
+  }
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @for $i from 1 through $grid-columns {
+
+      @media print {
+        .col-print#{$infix}-#{$i} {
+          @include make-col($i, $grid-columns);
+        }
+      }
+    }
+  }
+}

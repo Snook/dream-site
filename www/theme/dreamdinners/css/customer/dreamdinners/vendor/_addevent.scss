@@ -1,0 +1,105 @@
+.addeventatc {
+  @extend .dropdown;
+}
+
+.addeventatc_dropdown {
+  @extend .dropdown-menu;
+  left: 0 !important;
+  top: 100% !important;
+
+  span {
+    @extend .dropdown-item;
+
+    em {
+      @extend .collapse;
+    }
+  }
+
+  .ateappleical {
+    &:before {
+      @extend .dd-icon;
+      @extend .icon-apple;
+      @extend .pr-2;
+    }
+
+    &:hover:before {
+      color: $white;
+    }
+  }
+
+  .ategoogle {
+    &:before {
+      @extend .dd-icon;
+      @extend .icon-google;
+      @extend .pr-2;
+    }
+
+    &:hover:before {
+      color: $white;
+    }
+  }
+
+  .ateoffice365 {
+    &:before {
+      @extend .dd-icon;
+      @extend .icon-office365;
+      @extend .pr-2;
+    }
+
+    &:hover:before {
+      color: $white;
+    }
+  }
+
+  .ateoutlook {
+    &:before {
+      @extend .dd-icon;
+      @extend .icon-outlook;
+      @extend .pr-2;
+    }
+
+    &:hover:before {
+      color: $white;
+    }
+  }
+
+  .ateoutlookcom {
+    &:before {
+      @extend .dd-icon;
+      @extend .icon-outlookcom;
+      @extend .pr-2;
+    }
+
+    &:hover:before {
+      color: $white;
+    }
+  }
+
+  .ateyahoo {
+    &:before {
+      @extend .dd-icon;
+      @extend .icon-yahoo;
+      @extend .pr-2;
+    }
+
+    &:hover:before {
+      color: $white;
+    }
+  }
+
+  .atefacebook {
+    &:before {
+      @extend .dd-icon;
+      @extend .icon-facebook;
+      @extend .pr-2;
+    }
+
+    &:hover:before {
+      color: $white;
+    }
+  }
+
+  .copyx {
+    @extend .collapse;
+  }
+}

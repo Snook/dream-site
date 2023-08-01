@@ -1,0 +1,106 @@
+// utilities
+.background-size-cover {
+  background-size: cover;
+}
+
+// images
+.bg-image-family {
+  background: url('../../../images/home_content/meal-kit-menu-item.webp') no-repeat top;
+  background-color: $gray;
+  background-size: cover;
+}
+
+.bg-image-foundation {
+  background: url('../../../images/about_us/foundation.webp') no-repeat center;
+  background-color: $orange;
+  background-size: cover;
+}
+
+.bg-image-impact {
+  background: url('../../../images/home_content/impact.jpg') no-repeat center;
+  background-color: $cyan;
+  background-size: cover;
+}
+
+.bg-image-store {
+  background: url('../../../images/stores/store-landing.webp') no-repeat center;
+  background-color: $gray;
+  background-size: cover;
+}
+
+.bg-image-intro-offer {
+  background: url('../../../images/home_content/starter-pack.webp') no-repeat center;
+  background-color: $gray;
+  background-size: cover;
+}
+
+.bg-image-monthly-menu {
+  background: url('../../../images/landing_pages/monthly-menu-bg.webp') no-repeat center;
+  background-color: $gray;
+  background-size: cover;
+}
+
+.bg-image-our-food {
+  background: url('../../../images/about_us/our-food.webp') no-repeat center;
+  background-color: $green-dark;
+  background-size: cover;
+}
+
+.bg-image-our-story {
+  background: url('../../../images/about_us/our-store.webp') no-repeat center;
+  background-color: $green-dark-extra;
+  background-size: cover;
+}
+
+.bg-image-platepoints {
+  background: url("../../../images/style/platepoints/platepoints-bg-image.jpg") no-repeat top;
+  background-color: $cyan;
+  background-size: cover;
+}
+
+.bg-image-reviews {
+  background: url("../../../images/home_content/reviews.png") no-repeat center;
+  background-color: $green-dark-extra;
+  background-size: cover;
+}
+
+.bg-image-mission {
+  background: url("../../../images/about_us/mission.png") no-repeat center;
+  background-color: $white;
+  background-size: cover;
+}
+
+.bg-image-meal-prep-bundles {
+  background: url("../../../images/landing_pages/family-dinner.webp") no-repeat center;
+  background-color: $gray;
+  background-size: cover;
+}
+
+.bg-image-landing-page {
+  background: url("../../../images/landing_pages/meal-kit-menu-bg.jpg") no-repeat center;
+  background-color: $gray;
+  background-size: cover;
+}
+
+.bg-image-prepared-meals {
+  background: url("../../../images/landing_pages/prepared-meals-menu-item.webp") no-repeat center;
+  background-color: $gray;
+  background-size: cover;
+}
+
+.bg-image-local-meal-prep {
+  background: url("../../../images/landing_pages/local-meal-prep-menu-item.webp") no-repeat center;
+  background-color: $gray;
+  background-size: cover;
+}
+
+
+.bg-image-meal-prep-company {
+  background: url("../../../images/landing_pages/meal-prep-company-menu-image.webp") no-repeat center;
+  background-color: $gray;
+  background-size: cover;
+}
+
+.dimmed_dd_image {
+  opacity: 0.3;
+}

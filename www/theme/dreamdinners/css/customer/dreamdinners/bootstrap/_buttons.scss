@@ -1,0 +1,16 @@
+.btn {
+  font-weight: 600;
+  text-transform: uppercase;
+
+  &.disabled,
+  &:disabled {
+    cursor: initial;
+  }
+}
+
+// change font size on super small screens
+@media only screen and (max-width: 350px) {
+  .btn {
+    font-size: .8rem;
+  }
+}

@@ -1,0 +1,23 @@
+	.tabs-container li.tab.inactive {
+		background-color: #B7B793;
+		}
+
+		.tabs-container li.tab.inactive:hover {
+			background-color: #BCBF98;
+		}
+
+		.tabs-container li.tab.selected.inactive {
+			background-color: #BCBF98;
+			/*border-bottom: 2px solid #BCBF98;*/
+			border-bottom: 0px;
+			}
+
+		.tabs-container li.tab.selected {
+			border-bottom: 0px;
+			}
+
+
+		/* tab content */
+	.tabs-content .content.inactive {
+		border: 4px solid #BCBF98;
+		}

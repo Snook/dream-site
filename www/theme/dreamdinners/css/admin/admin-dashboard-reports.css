@@ -1,0 +1,105 @@
+.dashboard_header {
+	font-size: 11px;
+	font-weight: bold;
+	background-color: #CCCCCC;
+	border: 1px #878787 solid;
+    padding:2px;
+    text-align: left;
+}
+
+.dashboard_subheads {
+	font-size: 11px;
+	font-weight: bold;
+	color: black;
+	background-color: #A3A3A3;
+	border: 1px #808080 solid;
+    padding:2px;
+    text-align: left;
+}
+
+
+.dashboard_elements {
+	font-size: 11px;
+	background-color: #A3A3A3;
+	border: 1px #808080 solid;
+	text-align: left;
+	padding:2px;
+}
+
+.dashboard_elementsOff {
+	font-size: 11px;
+	background-color: #FFFFFF;
+	text-align: left;
+	padding:2px;
+}
+
+h3 {
+
+	font-size: 14px;
+
+}
+
+.dashboardReadme
+{
+	font-family: "Trebuchet MS", serif;
+	font-size: 12px;
+	background-color: #FFFFEF;
+	color: #000000;
+	border-top: none white 0px;
+	border-bottom: none white 0px;
+	border-right: none white 0px;
+	border-left: none white 0px;
+	border: 1px #808080 solid;
+	text-align: left;
+}
+
+.dashboard
+{
+	font-family: "Trebuchet MS", serif;
+	font-size: 11px;
+	background-color: #EAE7E5;
+	color: #000000;
+	border-top: none white 0px;
+	border-bottom: none white 0px;
+	border-right: none white 0px;
+	border-left: none white 0px;
+	border: 1px #808080 solid;
+	text-align: left;
+}
+
+.dashboard_Readme_header {
+	font-size: 16px;
+	font-weight: bold;
+	background-color: #EAE7E5;
+	border: 1px #878787 solid;
+    padding:2px;
+    text-align: left;
+}
+
+.dashboard_title {
+	font-size: 18px;
+	font-weight: bold;
+	background-color: #EAE7E5;
+	border: 0px #878787 solid;
+    padding:2px;
+    text-align: left;
+}
+
+.dashboard_sub_title {
+font-family: "Trebuchet MS", serif;
+	font-size: 14px;
+	font-weight: bold;
+	background-color: #EAE7E5;
+	border: 0px #878787 solid;
+    padding:2px;
+    text-align: left;
+}
+
+.dashboard_Readme_title {
+	font-size: 18px;
+	font-weight: bold;
+	background-color: #EAE7E5;
+	border: 1px #878787 solid;
+    padding:2px;
+    text-align: left;
+}

@@ -1,0 +1,45 @@
+
+body {
+	background: none !important;
+}
+#outer {
+	width: 0;
+}
+#container {
+	width: 700px;
+}
+.page {
+	background: none;
+	width: 100%;
+	max-width: unset;
+}
+
+.space_right_delimited,
+.space_right_open,
+.space_section_head,
+.label_delimited,
+.value_delimited,
+.value_delimited_top30,
+.space_right_delimited_top30,
+.top30resultsBG
+{
+	color: #000000;
+	background: none;
+	background-color: #ffffff;
+}
+
+#app_maint_message,
+#app_fadmin_maint_message,
+.dev_branch_message,
+.emergency_mode_message {
+	display: none;
+}
+
+@media print {
+	@page {
+		size: auto;
+		}
+	body {
+			min-width: auto !important;
+		}
+	}

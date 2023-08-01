@@ -1,0 +1,4 @@
+body {
+  // prevents website from zooming on double touch click, website would zoom adding two of an item to cart
+  touch-action: manipulation;
+}

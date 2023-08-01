@@ -1,0 +1,113 @@
+.sales_mix_input, .inventory_input {
+	width:60px;
+}
+
+.header_top {
+	border-top: 2px solid black;
+	border-left: 2px solid black;
+	border-right: 2px solid black;
+	margin-bottom: 0px;
+}
+
+.header_bottom {
+	border-bottom: 2px solid black;
+	border-left: 2px solid black;
+	border-right: 2px solid black;
+	margin-top: 0px;
+
+}
+
+.IM_header {
+	margin: 0px;
+	padding: 5px;
+}
+
+.table thead th {
+	vertical-align: bottom;
+	border-bottom: none;
+
+}
+
+.table-sm th, .table-sm td {
+	padding: 4px;
+	padding-top: 4px;
+	padding-right: 4px;
+	padding-bottom: 4px;
+	padding-left: 4px;
+}
+
+.table {
+	width: 100%;
+	margin-bottom: 0rem;
+}
+
+.thick_left_border {
+	border-left: #0a0c0d 2px solid;
+}
+
+.unsaved {
+	background-color: #E0E0E0;
+	border-color: #505050;
+	border-width: 1px;
+	color: #710b05 !important;
+	vertical-align: center;
+	text-align: center;
+
+}
+
+.saved {
+	background-color: #FFFFFF;
+	border-color: #FFFFFF;
+	border-width: 1px;
+	color: #4e7048 !important;
+	vertical-align: center;
+	text-align: center;
+}
+
+.static_unsaved_even {
+	background-color: #E8E8E8;
+	color: #710b05 !important;
+	vertical-align: center;
+	text-align: center;
+}
+
+.static_unsaved_odd {
+	background-color: #bfbbab;
+	color: #710b05 !important;
+	vertical-align: center;
+	text-align: center;
+}
+
+.static_saved_even {
+	background-color: #F6F6F6;
+	color: #4e7048 !important;
+	vertical-align: center;
+	text-align: center;
+	font-weight: bold;
+
+}
+
+.static_saved_odd {
+	background-color: #F2E8D6;
+	color: #4e7048 !important;
+	vertical-align: center;
+	text-align: center;
+	font-weight: bold;
+}
+
+.dirty {
+	background-color: #ffdfc5;
+	color: #ef851b !important;
+}
+
+.actuals_cell {
+	background-color: #f5f1f1;
+	color: #ef4848 !important;
+	vertical-align: center;
+	text-align: left;
+	font-weight: normal;
+	}
+
+.deviation_text {
+	font-weight: bold;
+	color: #ef851b; }

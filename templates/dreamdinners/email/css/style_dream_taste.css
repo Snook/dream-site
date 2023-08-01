@@ -1,0 +1,47 @@
+body {
+ margin: 0px 0px 0px 0px;
+ padding: 0;
+ background-color: #FFF;
+ font-family: "Arial", serif;
+ font-size: 14px;
+ color: #444444;
+ line-height: 100%;
+ }
+
+ a:link {
+ color: #959a21;
+ text-decoration: underline;
+ }
+ a:visited {
+ color: #959a21;
+ text-decoration: underline;
+ }
+
+ a:hover {
+ color: #959a21;
+ text-decoration: underline;
+}
+
+.sectionhead {
+font-size: 16px;
+font-weight: bold;
+color: #444444;
+}
+
+.subheads {
+font-size: 14px;
+font-weight: bold;
+color: #444444;
+}
+
+.title {
+font-size: 22px;
+font-weight: bold;
+color: #959a21;
+}
+
+.title-black {
+font-size: 22px;
+font-weight: bold;
+color: #000000;
+}

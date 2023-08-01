@@ -1,0 +1,59 @@
+.social_btn {
+  @extend .btn;
+}
+
+.social_btn.facebook {
+  color: #fff !important;
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, .5);
+  background-color: #4c66a4;
+}
+
+.social_btn.facebook.logo {
+  background-repeat: no-repeat;
+  background-position: 2px 2px;
+  padding-left: 34px;
+  background-image: url('../../images/style/social/facebook-logo-24x24.png');
+}
+
+.social_btn.facebook:hover {
+  box-shadow: 0 0 8px #5474b3;
+}
+
+.social_btn.twitter {
+  color: #fff !important;
+  font-weight: bold;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  background-color: #0097c5;
+}
+
+.social_btn.twitter.logo {
+  background-repeat: no-repeat;
+  background-position: 2px 2px;
+  padding-left: 34px;
+  background-image: url('../../images/style/social/twitter-logo-24x24.png');
+}
+
+.social_btn.twitter:hover {
+  box-shadow: 0 0 8px #61bcd8;
+}
+
+.social_btn.google {
+  color: #fff !important;
+  font-weight: bold;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  background-color: #dd4b39;
+}
+
+.social_btn.google.logo {
+  background-repeat: no-repeat;
+  background-position: 2px 2px;
+  padding-left: 34px;
+  background-image: url('../../images/style/social/google-logo-24x24.png');
+}
+
+.social_btn.google:hover {
+  box-shadow: 0 0 8px #df4e59;
+}

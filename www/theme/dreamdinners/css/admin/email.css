@@ -1,0 +1,32 @@
+#recipient_list {
+	float: left;
+	width: 80%;
+	background-color: #fff;
+	border: 1px solid #A9A9A9;
+	padding: 4px;
+	min-height: 19px;
+	}
+.recipient {
+	float: left;
+	background-color: #F5F5F5;
+	border: 1px solid #A9A9A9;
+	margin: 2px 4px 2px 0px;
+	white-space: nowrap;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	}
+.recipient > .name {
+	cursor: default;
+	padding-left: 4px;
+	}
+.recipient > .name > .delete {
+	width: 10px;
+	height: 10px;
+	margin-right: 4px;
+	fill: #767676;
+
+	}
+.recipient > .name > .delete:hover {
+	fill: red;
+	cursor: pointer;
+	}

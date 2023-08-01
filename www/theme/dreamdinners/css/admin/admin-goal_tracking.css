@@ -1,0 +1,222 @@
+@CHARSET "ISO-8859-1";
+
+.page {
+	color:#000;
+	padding:6px;
+	margin:auto;
+	width:1250px;
+	border:0px solid #000;
+	background:#ded6cb;
+}
+
+.sgs_upper_header
+{
+	vertical-align:top;
+	border-top: solid gray 1px;
+	border-left: solid gray 1px;
+	background-color: #BEB7AE;
+	text-align:center;
+	font-weight: bold;
+	font-size: 8pt;
+	padding:2px;
+	margin:0px;
+}
+
+.sgs_lower_header
+{
+	vertical-align:bottom;
+	border-bottom: solid gray 1px;
+	border-left: solid gray 1px;
+	background-color: #BEB7AE;
+	text-align:center;
+	font-weight: bold;
+	font-size: 7pt;
+	padding:2px;
+	margin:px;
+}
+
+
+.session_cell
+{
+	background-color: #FFFFFF;
+	border-bottom: solid gray 1px;
+	border-left: solid gray 1px;
+	text-align:center;
+	font-size: 7pt;
+	padding:2px;
+	margin:0px;
+
+}
+
+.session_cell_no_padding
+{
+	background-color: #FFFFFF;
+	border-bottom: solid gray 1px;
+	border-left: solid gray 1px;
+	text-align:center;
+	font-size: 7pt;
+	padding:0px;
+	margin:0px;
+	
+}
+
+.week_space
+{
+	background-color: #D8E4BC;
+	text-align:center;
+	font-size: 7pt;
+	padding:2px;
+	margin:px;
+	
+}
+
+.all_space
+{
+	background-color: #BEB7AE;
+	text-align:center;
+	font-size: 7pt;
+	padding:2px;
+	margin:px;
+	
+}
+
+
+.day_space
+{
+	background-color: #B8CCE4;
+	text-align:center;
+	font-size: 7pt;
+	padding:2px;
+	margin:px;
+}
+
+.small_label
+{
+	
+	text-align:right;
+	font-weight: bold;
+
+	
+}
+
+
+
+.hide_left_border
+{
+	border-left-style: none;
+}
+
+.hide_bottom_border
+{
+	border-bottom-style: none;
+}
+
+.add_bottom_border
+{
+	border-bottom: solid gray 1px;
+}
+
+.add_left_border
+{
+	border-left: solid gray 1px;
+}
+
+
+.add_top_border
+{
+	border-top: solid gray 1px;
+}
+
+.add_right_border
+{
+	border-right: solid gray 1px;
+}
+
+
+.bold_left_border
+{
+	border-left: solid black 2px;
+}
+
+
+.gt_input
+{
+	background-color:#FFFFFF;
+	font-weight:bold;
+	font-color:#303030;
+	font-size: 8pt;	
+	max-width: 70px;
+	text-align:center;
+}
+
+.gt_input_count
+{
+	background-color:#FFFFFF;
+	font-weight:bold;
+	font-color:#303030;
+	font-size: 8pt;	
+	max-width: 70px;
+	text-align:center;
+}
+
+
+input[readonly]
+{
+	background-color:#F0F0F0;
+	font-weight:bold;
+	font-color:#303030;
+	font-size: 8pt;	
+	text-align:center;
+	
+}
+
+label
+{
+	border:none;
+	background-color:transparent;
+	font-weight:bold;
+	font-color:#303030;
+	font-size: 8pt;	
+	text-align:left;
+	
+}
+
+.out_of_month
+{
+	background-color: #B0B0B0;
+}
+
+.goal_not_met
+{
+	background-color: #FF8585 !important; 
+}
+
+.goal_met
+{
+	background-color: #D8E4BC !important;
+}
+
+.todays_row
+{
+	background-color: #FFFFCC;
+	border-bottom: solid red 2px;
+	border-top: solid red 2px;
+	
+}
+
+.disc_control
+{
+	border:thin solid gray;
+	background-color: #A0A0A0;
+	cursor: pointer;
+}
+
+.disc_control:hover
+{
+	color: #fff;
+}
+
+.unsaved_field
+{
+	border: solid red 2px;
+}

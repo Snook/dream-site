@@ -1,0 +1,9 @@
+// fix for extra select menu caret
+.custom-select{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  option:disabled {
+    background-color: $gray-200;
+  }
+}

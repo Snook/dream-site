@@ -1,0 +1,1 @@
+A Food Testing recipe has been made available to your store, please visit the <a href="<?php echo HTTPS_BASE; ?>main.php?page=admin_food_testing_survey&recipe=<?php echo $this->survey_id; ?>">Food Testing Manager</a> to retrieve your documents.

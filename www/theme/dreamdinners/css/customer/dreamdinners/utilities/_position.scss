@@ -1,0 +1,6 @@
+.sticky-top {
+  @supports (position: -webkit-sticky) {
+    position: -webkit-sticky;
+    top: 0;
+  }
+}

@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /*page=login_ex*
+
+User-agent: *
+Disallow: /*page=admin_*
+
+User-agent: *
+Disallow:

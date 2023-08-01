@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="UglifyJS Vendor" pattern="(file:*vendor/*.js||file:*vendor/*.json)&amp;&amp;!file:*vendor/vendor.min.js" />
+</component>

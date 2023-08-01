@@ -1,0 +1,33 @@
+.navbar {
+
+  %container-flex-properties {
+    display: initial;
+  }
+
+  .my-account-img {
+    width: 30px;
+    height: 30px;
+  }
+
+}
+
+.navbar-brand img {
+  max-height: 2.5rem;
+}
+
+.navbar-nav .nav-link:hover, .active-nav {
+  color: $black;
+  border-bottom: 4px solid $green;
+  margin-bottom: -4px !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: $black;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.navbar-light .navbar-toggler {
+  border-color: $white;
+}

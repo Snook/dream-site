@@ -1,0 +1,40 @@
+.pagination {
+
+  &.step-bar {
+
+    .page-link {
+      border: 0;
+      text-align: center;
+    }
+
+    .step-pill {
+      background-color: $primary;
+      height: .5rem;
+      border-radius: 999rem;
+      margin: 0 auto .5rem;
+    }
+
+  }
+
+}
+
+.page-item {
+
+  &.current .page-link {
+    font-weight: bold;
+  }
+
+  &.disabled .page-link {
+    color: $gray-600;
+  }
+
+  &.complete .step-pill {
+    background-color: lighten($primary, 20%);
+  }
+
+  &.disabled .step-pill {
+    background-color: $gray-300;
+  }
+
+}
+

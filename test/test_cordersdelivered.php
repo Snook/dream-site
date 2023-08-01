@@ -1,0 +1,23 @@
+<?php
+
+if (true)
+{
+	require_once("C:\\Development\\Sites\\DD_Delivered\\includes\\Config.inc");
+}
+else
+{
+	require_once("C:\\Development\\Sites\\DD_Delivered\\includes\\Config.inc");
+}
+require_once 'includes/DAO/BusinessObject/COrdersDelivered.php';
+require_once '/processor/calculatetax.php';
+
+
+$order = new COrdersDelivered();
+$order->id = 3619260;
+$order->find(true);
+$order->applyTax();
+
+//$processor = new calculatetax();
+echo $processor->addtax();
+
+?>

@@ -1,0 +1,101 @@
+// loading.io/button
+.ld-spin {
+  width: 1em;
+  height: 1em;
+  position: relative;
+  color: inherit;
+  display: inline-block;
+  -webkit-animation: ld-spin 1s infinite;
+  animation: ld-spin 1s infinite;
+}
+
+.ld-spin:after {
+  position: absolute;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: " ";
+  display: inline-block;
+  background: center center no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 0.15em;
+  -webkit-background-clip: padding-box;
+  border-color: currentColor currentColor currentColor transparent;
+  box-sizing: border-box;
+}
+
+@keyframes ld-spin {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+  50% {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes ld-spin {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+  50% {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.btn-spinner {
+  position: relative;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  transition-timing-function: ease-in;
+  overflow: hidden;
+  padding: .375rem 2em;
+}
+
+.btn-spinner > .ld-spin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -0.5em;
+  opacity: 0;
+  z-index: -100;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  transition-timing-function: ease-in;
+}
+
+.btn-spinner.btn-spinning > .ld-spin {
+  opacity: 1;
+  z-index: auto;
+}
+
+.btn-spinner.btn-spinning.btn-spinner-pad {
+  padding-right: 2.5em !important;
+}
+
+.btn-spinner > .ld-spin {
+  top: 50%;
+  left: auto;
+  right: 1em;
+}

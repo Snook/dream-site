@@ -1,0 +1,207 @@
+<?php
+require_once 'includes/CLog.inc';
+
+/**
+ * Class TransientDataStore: a storage and retrieval mechanism for transient data
+ *
+ * Data is referenced by class and ID and can be up to 4GB in size.
+ *
+ * Data is automatically deleted after the specified number of days.
+ *
+ * The actual storage mechanism is opaque to the calling code,
+ * could be backed up by a file system, for example, or a database
+ *
+ */
+class TransientDataStore
+{
+	const SHIPPING_RATE_CACHE = 'SHIPPING_RATE_CACHE';
+	const SHIPPING_SHIPMENT_CACHE = 'SHIPPING_SHIPMENT_CACHE';
+	const SHIPPING_SHIP_NOTIFICATION_NEW = 'SHIPPING_SHIP_NOTIFICATION_NEW';
+	const SHIPPING_SHIP_NOTIFICATION_DONE = 'SHIPPING_SHIP_NOTIFICATION_DONE';
+	const SHIPPING_TRACKING_CACHE = 'SHIPPING_TRACKING_CACHE';
+	const TAX_RATE_CACHE = 'TAX_RATE_CACHE';
+
+	private $_db = false;
+
+	/**
+	 * @param $data_class enum (SHIPPING_RATE_CACHE,TAX_RATE_CACHE,SHIPPING_TRACKING_CACHE,SHIPPING_SHIP_NOTIFICATION_DONE,SHIPPING_SHIP_NOTIFICATION_NEW)
+	 * @param $data_reference
+	 *
+	 * @return associative array (successful=>boolean, error_message=>string, data_class=string, data_id=long, data=blob,
+	 * expires=timestamp)
+	 */
+	public static function retrieveData($data_class, $data_reference = null)
+	{
+		$db = self::connect();
+		$result = array();
+
+		$dataRefSearch = is_null($data_reference) ? '' : "and data_reference = '{$data_reference}'";
+
+		$sql = "select id, data_reference, data_class, data, expires, timestamp_created from transient_data_store where data_class = '{$data_class}' " . $dataRefSearch ." limit 1";
+		$dbresult = mysqli_query($db, $sql);
+
+		if (!$dbresult)
+		{
+			$result['successful'] = false;
+			$result['error_message'] = "Error in " . __METHOD__ . ": " . mysqli_error($db) . "\n" . $sql;
+
+			CLog::RecordNew(CLog::ERROR, $result['error_message'], "", "", false);
+			mysqli_free_result($dbresult);
+			mysqli_close($db);
+
+			return $result;
+		}
+
+		if ($row = mysqli_fetch_assoc($dbresult))
+		{
+			$result['data_class'] = $row['data_class'];
+			$result['id'] = $row['id'];
+			$result['data'] = $row['data'];
+			$result['data_reference'] = $row['data_reference'];
+			$result['expires'] = $row['expires'];
+			$result['created'] = $row['timestamp_created'];
+			$result['successful'] = true;
+		}
+		else
+		{
+			$result['successful'] = false;//no match
+		}
+
+		mysqli_free_result($dbresult);
+		mysqli_close($db);
+
+		return $result;
+	}
+
+	/**
+	 * @param $data_class
+	 * @param $data_reference unique key by class
+	 * @param $data
+	 * @param $howManyDaysUntilExpires
+	 *
+	 * @return associative array (successful=>boolean, error_message=>string
+	 * @throws Exception
+	 */
+	public static function storeData($data_class, $data_reference, $data, $howManyDaysUntilExpires, $forceUnique = false)
+	{
+		$db = self::connect();
+		$result = array();
+
+		if( $forceUnique ){
+			//check if record with same data_class and data_reference already exists,
+			//if it does do not insert duplicate record
+			$sql = "select * from transient_data_store where data_class = '{$data_class}' and data_reference =  '{$data_reference}'";
+			$dbresult = mysqli_query($db, $sql);
+
+			if( $dbresult && mysqli_num_rows($dbresult) > 0){
+				$result['successful'] = true;
+				$result['message'] = "Matching record, no need to insert\n" . $sql;
+				mysqli_free_result($dbresult);
+				mysqli_close($db);
+
+				return $result;
+			}
+		}
+
+		//Set up an expiration date
+		$expiration_date = new DateTime("now");
+		date_add($expiration_date, new DateInterval("P" . $howManyDaysUntilExpires . "D"));
+		$formattedDate = $expiration_date->format("Y-m-d");
+		$sql = "insert into transient_data_store ( data_class, data_reference, data, expires) values ('{$data_class}', '{$data_reference}','{$data}', '{$formattedDate}')";
+		$dbresult = mysqli_query($db, $sql);
+
+		if (!$dbresult)
+		{
+			$result['successful'] = false;
+			$result['error_message'] = "Error in " . __METHOD__ . ": " . mysqli_error($db) . "\n" . $sql;
+
+			CLog::RecordNew(CLog::ERROR, $result['error_message'], "", "", false);
+
+		}else{
+			$result['successful'] = true;
+		}
+
+
+		mysqli_close($db);
+
+		return $result;
+	}
+
+	/**
+	 * @param $recordId
+	 * @param $data_class
+
+	 *
+	 * @return associative array (successful=>boolean, error_message=>string
+	 * @throws Exception
+	 */
+	public static function updateDataClass($recordId, $data_class)
+	{
+		$db = self::connect();
+		$result = array();
+
+		//Set up an expiration date
+
+		$sql = "update transient_data_store set data_class = '{$data_class}' where id = {$recordId}";
+		$dbresult = mysqli_query($db, $sql);
+
+		if (!$dbresult)
+		{
+			$result['successful'] = false;
+			$result['error_message'] = "Error in " . __METHOD__ . ": " . mysqli_error($db) . "\n" . $sql;
+
+			CLog::RecordNew(CLog::ERROR, $result['error_message'], "", "", false);
+
+		}else{
+			$result['successful'] = true;
+		}
+
+		mysqli_free_result($dbresult);
+		mysqli_close($db);
+
+		return $result;
+	}
+
+	/**
+	 * True deletes all records from Transient_data_store that have an expiry before today's date
+	 * @return array
+	 */
+	public static function cleanupStale()
+	{
+		$db = self::connect();
+		$result = array();
+
+		//Set up an expiration date
+
+		$sql = "delete from transient_data_store where expires < CURDATE()";
+		$dbresult = mysqli_query($db, $sql);
+
+		if (!$dbresult)
+		{
+			$result['successful'] = false;
+			$result['error_message'] = "Error in " . __METHOD__ . ": " . mysqli_error($db) . "\n" . $sql;
+
+			CLog::RecordNew(CLog::ERROR, $result['error_message'], "", "", false);
+
+			mysqli_close($db);
+			return $result;
+		}
+
+		$result['successful'] = true;
+		mysqli_close($db);
+
+		return $result;
+	}
+
+	static function connect()
+	{
+
+		$_db = mysqli_connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD);
+		mysqli_select_db($_db, DB_DATABASE);
+
+		return $_db;
+	}
+
+}
+
+?>

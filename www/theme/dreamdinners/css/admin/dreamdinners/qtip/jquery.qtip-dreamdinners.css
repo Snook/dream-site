@@ -1,0 +1,94 @@
+.ui-widget-overlay, .ui-dialog {
+	z-index: 15000;
+	}
+
+/*! Dream Dinners Session Popup style */
+.ui-tooltip-dreamdinners_sp
+{
+	border: 0px;
+	}
+
+.ui-tooltip-dreamdinners_sp .qtip-titlebar,
+.ui-tooltip-dreamdinners_sp .qtip-content{
+	border-color: #1c4f40;
+	background-color: #ececec;
+	color: #555;
+	font-size: 14px;
+	}
+
+.ui-tooltip-dreamdinners_sp .qtip-titlebar{
+	border:0px;
+	background-color: #1c4f40;
+	color: #fff;
+	font-size: 15px;
+	font-weight: 700;
+	text-transform: uppercase;
+	height: 15px;
+	}
+
+.ui-tooltip-dreamdinners_sp .qtip-icon{
+	border-color: #CCC;
+	background: #F1F1F1;
+	color: #777;
+	text-decoration: none;
+	}
+
+.ui-tooltip-dreamdinners_sp .qtip-titlebar .ui-state-hover{
+	border-color: #AAA;
+	color: #111;
+	}
+
+.ui-tooltip-dreamdinners_sp .btn {
+	margin-right:20px;
+	margin-top:10px;
+	float: right;
+	}
+
+/*! Dream Dinners tooltip style */
+.ui-tooltip-dreamdinners_tt
+{
+	border: 0px;
+	}
+
+.ui-tooltip-dreamdinners_tt .qtip-titlebar,
+.ui-tooltip-dreamdinners_tt .qtip-content{
+	max-width: 280px;
+	border-color: #1E5143;
+	background-color: #1E5143;
+	color: #C3C861;
+	font-size: 12px;
+	font-weight: bold;
+	}
+
+/*! Dream Dinners store tooltip style */
+.ui-tooltip-dreamdinners_store
+{
+	border: 0px;
+	min-width: 350px;
+	}
+
+.ui-tooltip-dreamdinners_store .qtip-titlebar,
+.ui-tooltip-dreamdinners_store .qtip-content{
+	border-color: #1c4f40;
+	background-color: #dddcd8;
+	color: #555;
+	font-size: 12px;
+	font-weight: bold;
+	}
+
+/*! Dream Dinners user_details style */
+.ui-tooltip-dreamdinners_user_tt
+{
+	border: 0px;
+	max-width: 500px;
+	}
+
+.ui-tooltip-dreamdinners_user_tt .qtip-titlebar,
+.ui-tooltip-dreamdinners_user_tt .qtip-content{
+	max-width: 500px;
+	border-color: #1E5143;
+	background-color: #1E5143;
+	color: #C3C861;
+	font-size: 12px;
+	font-weight: bold;
+	}
