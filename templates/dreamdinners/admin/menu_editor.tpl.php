@@ -3,6 +3,12 @@
 <?php $this->assign('page_title', 'Menu Editor'); ?>
 <?php $this->assign('topnav', 'store'); ?>
 <?php $this->assign('helpLinkSection', 'ME'); ?>
+<?php $this->setScriptVar('limitToInventoryControl = ' . ($this->limitToInventoryControl ? 'true' : 'false') . ';'); ?>
+<?php $this->setScriptVar('storeSupportsPlatePoints = ' . ($this->storeSupportsPlatePoints ? 'true' : 'false') . ';'); ?>
+<?php $this->setScriptVar('storeInfo = ' . json_encode($this->storeInfo->toArray()) . ';'); ?>
+<?php $this->setScriptVar('markupData = ' . json_encode($this->markupData) . ';'); ?>
+<?php $this->setScriptVar('menuInfo = ' . $this->menuInfoJS . ';'); ?>
+<?php $this->setScriptVar('isEnabled_Markup = ' . ($this->DAO_menu->isEnabled_Markup() ? 'true' : 'false') . ';'); ?>
 
 <?php //include $this->loadTemplate('admin/subtemplate/page_header/page_header.tpl.php'); ?>
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
@@ -34,9 +40,9 @@
 			</div>
 		</div>
 
-		<form name="menu_editor_form" id="menu_editor_form" action="main.php?page=admin_menu_editor" method="post" class="needs-validation" novalidate>
-			<input type="hidden" name="finalize" id="finalize" value="true">
-			<?php echo $this->form['hidden_html']; ?>
+		<form name="menu_editor_form" id="menu_editor_form" method="post" class="needs-validation" novalidate>
+			<input type="hidden" name="action" id="action" value="none">
+			<?php echo $this->form['hidden_html' ]; ?>
 
 			<div class="form-row">
 				<div class="form-group col-4">
@@ -49,6 +55,20 @@
 						<?php echo $this->form['menus_html']; ?>
 					</div>
 				</div>
+				<?php if (isset($this->form['store_html'])) { ?>
+					<div class="form-group col-8 pr-2 text-right">
+
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									Store
+								</div>
+							</div>
+							<?php echo $this->form['store_html']; ?>
+						</div>
+
+					</div>
+				<?php } ?>
 			</div>
 
 			<div class="form-row">
@@ -61,7 +81,7 @@
 								Menu link
 							</div>
 						</div>
-						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->DAO_store->id; ?>-<?php echo $this->DAO_menu->menu_name_abbr; ?>" readonly>
+						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->store_id; ?>-<?php echo $this->menuInfo['menu_name_abbr']; ?>" readonly>
 					</div>
 
 				</div>
@@ -74,7 +94,7 @@
 								Store link
 							</div>
 						</div>
-						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->DAO_store->id; ?>" readonly>
+						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->store_id; ?>" readonly>
 					</div>
 
 				</div>
@@ -91,7 +111,7 @@
 								Menu starter
 							</div>
 						</div>
-						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->DAO_store->id; ?>-<?php echo $this->DAO_menu->menu_name_abbr; ?>-starter" readonly>
+						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->store_id; ?>-<?php echo $this->menuInfo['menu_name_abbr']; ?>-starter" readonly>
 					</div>
 
 				</div>
@@ -104,7 +124,7 @@
 								Store starter
 							</div>
 						</div>
-						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->DAO_store->id; ?>-starter" readonly>
+						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->store_id; ?>-starter" readonly>
 					</div>
 
 				</div>
@@ -124,7 +144,7 @@
 						</div>
 					</div>
 
-					<?php if (false && CStore::isCoreTestStore($this->DAO_store->id, $this->DAO_menu->id)) { ?>
+					<?php if (false && CStore::isCoreTestStore($this->storeInfo->id, $this->menuInfo['menu_id'])) { ?>
 						<div class="form-group col-4">
 							<div class="input-group">
 								<div class="input-group-prepend">
@@ -148,7 +168,7 @@
 						</div>
 					</div>
 
-					<?php if (false && CStore::isCoreTestStore($this->DAO_store->id, $this->DAO_menu->id)) { ?>
+					<?php if (false && CStore::isCoreTestStore($this->storeInfo->id, $this->menuInfo['menu_id'])) { ?>
 						<div class="form-group col-4">
 							<div class="input-group">
 								<div class="input-group-prepend">
@@ -179,7 +199,7 @@
 
 			<div class="form-row">
 
-				<?php if (!$this->DAO_order_minimum->isZeroDollarAssembly() && $this->DAO_menu->isEnabled_Assembly_Fee()) { ?>
+				<?php if (!$this->DAO_order_minimum->isZeroDollarAssembly() && $this->allow_assembly_fee) { ?>
 
 					<div class="form-group col">
 						<div class="input-group">
@@ -226,16 +246,12 @@
 
 			</div>
 
-			<div class="form-row alert alert-danger font-weight-bold text-center unsaved-message collapse">
-				<div class="col">
-					Your changes have not yet been saved. Finalize all changes to see updated values.
-				</div>
-			</div>
-
 			<div class="form-row">
 				<div class="form-group col text-right">
-					<input name="submit_changes" id="submit_changes" type="submit" value="Finalize All Changes" class="btn btn-primary" />
-					<a href="main.php?page=admin_menu_editor" class="btn btn-primary">Reset to current</a>
+
+					<input name="submit_changes" id="submit_changes" type="button" value="Finalize All Changes" class="btn btn-primary" onclick="confirm_and_check_form()" />
+					<input type="button" value="Reset to Current" onclick="resetPage();" class="btn btn-primary" />
+					<div id="saved_message" class="text-danger font-weight-bold collapse">Your changes have not yet been saved. Finalize all changes to see updated values.</div>
 				</div>
 			</div>
 
@@ -244,27 +260,25 @@
 
 					<nav>
 						<div class="nav nav-tabs" id="nav-tab" role="tablist">
-							<a class="nav-link active nav-tab" id="nav-core-tab" data-urlpush="true" data-nav="core" data-toggle="tab" href="#nav-core" role="tab" aria-controls="nav-core" aria-selected="true">Core</a>
-							<a class="nav-link nav-tab" id="nav-efl-tab" data-nav="efl" data-urlpush="true" data-toggle="tab" href="#nav-efl" role="tab" aria-controls="nav-efl" aria-selected="false">Extended Fast Lane</a>
-							<a class="nav-link nav-tab" id="nav-sides-tab" data-nav="sides" data-urlpush="true" data-toggle="tab" href="#nav-sides" role="tab" aria-controls="nav-sides" aria-selected="false">Sides &amp; Sweets</a>
-							<?php if (!empty($this->pricingReferenceArray)) { ?>
-								<a class="nav-link nav-tab" id="nav-pricing-tab" data-nav="pricing" data-urlpush="true" data-toggle="tab" href="#nav-pricing" role="tab" aria-controls="nav-pricing" aria-selected="false">Pricing Reference</a>
-							<?php } ?>
+							<a class="nav-link active nav-tab" id="nav-specials-tab" data-nav="specials" data-toggle="tab" href="#nav-specials" role="tab" aria-controls="nav-specials" aria-selected="true">Core</a>
+							<a class="nav-link nav-tab" id="nav-efl-tab" data-nav="efl" data-toggle="tab" href="#nav-efl" role="tab" aria-controls="nav-efl" aria-selected="false">Extended Fast Lane</a>
+							<a class="nav-link nav-tab" id="nav-sides-tab" data-nav="sides" data-toggle="tab" href="#nav-sides" role="tab" aria-controls="nav-sides" aria-selected="false">Sides &amp; Sweets</a>
+							<a class="nav-link nav-tab" id="nav-pricing-tab" data-nav="pricing" data-toggle="tab" href="#nav-pricing" role="tab" aria-controls="nav-pricing" aria-selected="false">Pricing Reference</a>
 						</div>
 					</nav>
 
 					<div class="tab-content bg-white" id="nav-tabContent">
-						<div class="tab-pane fade show active" id="nav-core" role="tabpanel" aria-labelledby="nav-core-tab">
+						<div class="tab-pane fade show active" id="nav-specials" role="tabpanel" aria-labelledby="nav-specials-tab">
 							<?php if ($this->DAO_menu->isEnabled_MarkupRoundUp()) { ?>
 								<div class="col text-right py-2">
-									<span class="btn btn-primary" data-round_up_markup="CORE" data-tooltip="Set the Override price from the Markup price rounded-up to nearest 50 cents. This will overwrite the existing value, if any.">Round Markup Price</span>
+									<input name="submit_rounding" id="submit_rounding" type="button" value="Round Markup Price" class="btn btn-primary" onclick="confirm_and_round_form('core')" data-tooltip="Set the Override price from the Markup price rounded-up to nearest 50 cents. This will overwrite the existing value, if any."/>
 								</div>
 							<?php } ?>
 
 							<table id="itemsTbl" class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
 								<thead class="text-center bg-white sticky-top ddtemp-z-index-0">
 								<tr>
-									<th class="align-middle">Show on customer menu</th>
+									<th class="align-middle">Hide on customer menu</th>
 									<th class="align-middle">Item title <span class="font-weight-normal">(Recipe ID)</span></th>
 									<th class="align-middle">Size</th>
 									<?php if ($this->DAO_menu->isEnabled_Markup()) { ?>
@@ -280,59 +294,67 @@
 								</tr>
 								</thead>
 								<tbody class="text-white-space-nowrap text-center">
-								<?php if (!empty($this->menuItemArray[CMenuItem::CORE])) { ?>
+								<?php if (!empty($this->menuInfo['Specials'])) { ?>
 
-									<?php $lastEntreeID = false; $tabindex = 0; foreach ($this->menuItemArray[CMenuItem::CORE] as $DAO_menu_item) { ?>
-										<?php if ($DAO_menu_item->pricing_type != CMenuItem::INTRO && !($DAO_menu_item->is_side_dish && $DAO_menu_item->pricing_type == CMenuItem::HALF)) { ?>
-											<tr id="row_<?php echo $DAO_menu_item->id; ?>" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>">
+									<?php $lastEntreeID = false; $tabindex = 0; foreach ($this->menuInfo['Specials'] as $planNode) { ?>
+										<?php if (is_array($planNode) && $planNode['pricing_type'] != CMenuItem::INTRO && !($planNode['is_side_dish'] && $planNode['pricing_type'] == CMenuItem::HALF)) { ?>
+											<tr id="row_<?php echo $planNode['id' ]; ?>" data-menu_item_id="<?php echo $planNode['id' ]; ?>">
 												<td class="align-middle">
-													<?php if ($DAO_menu_item->is_visibility_controllable) { ?>
-														<?php echo $this->form['vis_' . $DAO_menu_item->id . '_html']; ?>
+													<?php if ($planNode['is_visibility_controllable']) { ?>
+														<input data-orgval="<?php echo (!$planNode['is_visible'] ? "CHECKED" : ""); ?>" data-menu_item_id="<?php echo $planNode['id' ]; ?>" id="vis_<?php echo $planNode['id' ]; ?>" name="vis_<?php echo $planNode['id' ]; ?>" type="checkbox" <?php echo (!$planNode['is_visible'] ? "CHECKED" : ""); ?> />
 													<?php } ?>
 												</td>
 
 												<td class="align-middle text-left">
-													<a href="main.php?page=item&amp;recipe=<?php echo $DAO_menu_item->recipe_id; ?>&amp;ov_menu=<?php echo $this->DAO_menu->id;?>" class="link-dinner-details" data-tooltip="Dinner Details"
-													   data-recipe_id="<?php echo $DAO_menu_item->recipe_id; ?>" data-store_id="<?php echo $this->DAO_store->id; ?>" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>" data-menu_id="<?php echo $this->DAO_menu->id; ?>"
+													<a href="main.php?page=item&amp;recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" class="link-dinner-details" data-tooltip="Dinner Details"
+													   data-recipe_id="<?php echo $planNode['recipe_id']; ?>" data-store_id="<?php echo $this->storeInfo->id; ?>" data-menu_item_id="<?php echo $planNode['id']; ?>" data-menu_id="<?php echo $this->menuInfo['menu_id']; ?>"
 													   target="_blank"><i class="fas fa-file-alt font-size-medium-small mr-1"></i></a>
-													<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $DAO_menu_item->id . ' &bull; Recipe ID: ' . $DAO_menu_item->recipe_id . '"' : ''; ?>>
-														<?php echo $DAO_menu_item->menu_item_name; ?> (<?php echo $DAO_menu_item->recipe_id;?>)
+													<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $planNode['id'] . ' &bull; Recipe ID: ' . $planNode['recipe_id'] . '"' : ''; ?>>
+														<?php echo $planNode['menu_item_name']; ?> (<?php echo $planNode['recipe_id'];?>)
 													</span>
-													<?php if (!empty($DAO_menu_item->is_bundle)) { ?><i class="fas fa-layer-group font-size-small" data-tooltip="<?php echo (!empty($DAO_menu_item->admin_notes)) ? $DAO_menu_item->admin_notes : 'Meal bundle' ?>"></i><?php } ?>
-													<?php if (!empty($this->DAO_store->supports_ltd_roundup) && $DAO_menu_item->ltd_menu_item_value) { ?><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/menu-icon07.png" class="img_valign" data-tooltip="$1 is added to price to be donated to DDF" /><?php } ?>
+													<?php if (!empty($planNode['is_bundle'])) { ?><i class="fas fa-layer-group font-size-small" data-tooltip="<?php echo (!empty($planNode['admin_notes'])) ? $planNode['admin_notes'] : 'Meal bundle' ?>"></i><?php } ?>
+													<?php if (!empty($this->storeInfo->supports_ltd_roundup) && $planNode['ltd_menu_item_value']) { ?><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/menu-icon07.png" class="img_valign" data-tooltip="$1 is added to price to be donated to DDF" /><?php } ?>
 												</td>
 
 												<td class="align-middle text-left">
-													<?php echo $DAO_menu_item->pricing_type_info['pricing_type_name_short_w_qty'] ;?>
+													<?php echo $planNode['pricing_type_info']['pricing_type_name_short_w_qty'] ;?>
 												</td>
 
 												<?php if ($this->DAO_menu->isEnabled_Markup()) { ?>
 													<td class="align-middle">
-														<?php echo $DAO_menu_item->base_price; ?>
+														<?php echo $planNode['base_price' ]; ?>
 													</td>
 												<?php } ?>
 
-												<td class="align-middle <?php if (!empty($this->DAO_store->supports_ltd_roundup) && $DAO_menu_item->ltd_menu_item_value) { ?>text-orange font-weight-bold" data-tooltip="$1 is added to price to be donated to DDF<?php } ?>">
-													<?php echo CTemplate::moneyFormat($DAO_menu_item->store_price); ?>
+												<td class="align-middle <?php if (!empty($this->storeInfo->supports_ltd_roundup) && $planNode['ltd_menu_item_value']) { ?>text-orange font-weight-bold" data-tooltip="$1 is added to price to be donated to DDF<?php } ?>">
+													<?php echo CTemplate::moneyFormat($planNode['price']); ?>
 												</td>
 
 												<?php if ($this->DAO_menu->isEnabled_Markup()) { ?>
-													<td class="align-middle markup-price" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>">
-														<?php echo CTemplate::moneyFormat($DAO_menu_item->store_price); ?>
+													<td class="align-middle markup-price">
+														<?php echo CTemplate::moneyFormat($planNode['price']); ?>
 													</td>
 												<?php } ?>
 
 												<td class="align-middle">
-													<?php if ($DAO_menu_item->is_price_controllable) { ?>
-														<?php echo $this->form['ovr_' . $DAO_menu_item->id . '_html']; ?>
+													<?php if ($planNode['is_price_controllable']) { ?>
+														<input class="form-control form-control-sm no-spin-button core-override-price-input"
+															   data-orgval="<?php echo $planNode['override_price' ]; ?>"
+															   data-menu_item_id="<?php echo $planNode['id' ]; ?>"
+															   data-lowest_tier_price="<?php echo $planNode['pricing_tiers'][1][$planNode['pricing_type']]->price; ?>"
+															   data-highest_tier_price="<?php echo $planNode['pricing_tiers'][3][$planNode['pricing_type']]->price; ?>"
+															   id="ovr_<?php echo $planNode['id' ]; ?>"
+															   <?php if ($this->limitToInventoryControl) { ?>readonly="readonly"<?php } ?>
+															   name="ovr_<?php echo $planNode['id' ]; ?>" value="<?php echo $planNode['override_price' ]; ?>"
+															   type="number" step="any" size="3" maxlength="6" tabindex="<?php echo ++$tabindex; ?>" />
 													<?php } ?>
 												</td>
 
-												<td class="align-middle preview-price font-weight-bold text-danger <?php if (!empty($this->DAO_store->supports_ltd_roundup) && $DAO_menu_item->ltd_menu_item_value) { ?>text-orange font-weight-bold" data-tooltip="$1 is added to price to be donated to DDF<?php } ?>" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>"></td>
+												<td class="align-middle preview-price font-weight-bold text-danger <?php if (!empty($this->storeInfo->supports_ltd_roundup) && $planNode['ltd_menu_item_value']) { ?>text-orange font-weight-bold" data-tooltip="$1 is added to price to be donated to DDF<?php } ?>"></td>
 
-												<?php if ($lastEntreeID != $DAO_menu_item->entree_id) { $lastEntreeID = $DAO_menu_item->entree_id; ?>
-													<td rowspan="<?php echo $DAO_menu_item->sub_entree_count; ?>" class="align-middle">
-														<?php echo $DAO_menu_item->override_inventory - $DAO_menu_item->number_sold  ?>
+												<?php if ($lastEntreeID != $planNode['entree_id']) { $lastEntreeID = $planNode['entree_id']; ?>
+													<td rowspan="<?php echo $planNode['sub_entree_count']; ?>" class="align-middle">
+														<?php echo $planNode['override_inventory'] - $planNode['number_sold']  ?>
 													</td>
 												<?php } ?>
 											</tr>
@@ -345,17 +367,20 @@
 						</div>
 						<div class="tab-pane fade" id="nav-efl" role="tabpanel" aria-labelledby="nav-efl-tab">
 
+
 							<div class="col text-right py-2">
-								<span data-add_past_menu_item="efl" class="btn btn-primary">Add EFL Menu Item</span>
+								<?php if (isset($this->canAddEFLItems) && $this->canAddEFLItems) {?>
+									<span id="add_past_menu_item" class="btn btn-primary">Add EFL Menu Item</span>
+								<?php } ?>
 								<?php if ($this->DAO_menu->isEnabled_MarkupRoundUp()) { ?>
-									<span class="btn btn-primary" data-round_up_markup="EXTENDED" data-tooltip="Set the Override price from the Markup price rounded-up to nearest 50 cents. This will overwrite the existing value, if any.">Round Markup Price</span>
+									<input name="submit_rounding" id="submit_rounding" type="button" value="Round Markup Price" class="btn btn-primary" onclick="confirm_and_round_form('efl')" data-tooltip="Set the Override price from the Markup price rounded-up to nearest 50 cents. This will overwrite the existing value, if any."/>
 								<?php } ?>
 							</div>
 
 							<table id="EFLitemsTbl" class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
 								<thead class="text-center bg-white sticky-top ddtemp-z-index-0">
 								<tr>
-									<th class="align-middle">Show on customer menu</th>
+									<th class="align-middle">Hide on Freezer page</th>
 									<th class="align-middle">Show on Sides &amp; Sweets Forms</th>
 									<th class="align-middle">Item title <span class="font-weight-normal">(Recipe ID)</span></th>
 									<th class="align-middle">Size</th>
@@ -375,80 +400,80 @@
 								</tr>
 								</thead>
 								<tbody class="text-white-space-nowrap text-center">
-								<?php if (!empty($this->menuItemArray[CMenuItem::EXTENDED])) { ?>
-									<?php $lastEntreeID = false; $tabindex = 0; foreach ($this->menuItemArray[CMenuItem::EXTENDED] as $DAO_menu_item) { ?>
-										<?php if ($DAO_menu_item->pricing_type != CMenuItem::INTRO && !($DAO_menu_item->is_side_dish && $DAO_menu_item->pricing_type == CMenuItem::HALF)) { ?>
-											<tr id="row_<?php echo $DAO_menu_item->id; ?>" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>">
+								<?php if (!empty($this->menuInfo['Extended Fast Lane'])) { ?>
+									<?php $lastEntreeID = false; $tabindex = 0; foreach ($this->menuInfo['Extended Fast Lane'] as $planNode) { ?>
+										<?php if (is_array($planNode) && $planNode['pricing_type'] != CMenuItem::INTRO && !($planNode['is_side_dish'] && $planNode['pricing_type'] == CMenuItem::HALF)) { ?>
+											<tr id="row_<?php echo $planNode['id' ]; ?>" data-menu_item_id="<?php echo $planNode['id' ]; ?>">
 
 												<td class="align-middle">
-													<?php if ($DAO_menu_item->is_visibility_controllable) { ?>
-														<?php echo $this->form['vis_' . $DAO_menu_item->id . '_html']; ?>
+													<?php if ($planNode['is_visibility_controllable']) { ?>
+														<input data-orgval="<?php echo (!$planNode['is_visible'] ? "CHECKED" : ""); ?>" data-menu_item_id="<?php echo $planNode['id' ]; ?>" data-entree_id="<?php echo $planNode['entree_id' ]; ?>" id="vis_<?php echo $planNode['id' ]; ?>" name="vis_<?php echo $planNode['id' ]; ?>" type="checkbox" <?php echo (!$planNode['is_visible'] ? "CHECKED" : ""); ?> />
 													<?php } ?>
 												</td>
 
 												<td class="align-middle">
-													<?php if ($DAO_menu_item->is_store_special) { ?>
-														<?php echo $this->form['pic_' . $DAO_menu_item->id . '_html']; ?>
+													<?php if ($planNode['is_store_special']) { ?>
+														<input data-orgval="<?php echo ($planNode['show_on_pick_sheet'] ? "CHECKED" : ""); ?>" id="pic_<?php echo $planNode['id' ]; ?>" name="pic_<?php echo $planNode['id' ]; ?>" type="checkbox" <?php echo ($planNode['show_on_pick_sheet'] ? "CHECKED" : ""); ?> />
 													<?php } ?>
 												</td>
 
 												<td class="align-middle text-left">
-													<a href="main.php?page=item&amp;recipe=<?php echo $DAO_menu_item->recipe_id; ?>&amp;ov_menu=<?php echo $this->DAO_menu->id;?>" class="link-dinner-details" data-tooltip="Dinner Details"
-													   data-recipe_id="<?php echo $DAO_menu_item->recipe_id; ?>" data-store_id="<?php echo $this->DAO_store->id; ?>" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>" data-menu_id="<?php echo $this->DAO_menu->id; ?>"
+													<a href="main.php?page=item&amp;recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" class="link-dinner-details" data-tooltip="Dinner Details"
+													   data-recipe_id="<?php echo $planNode['recipe_id']; ?>" data-store_id="<?php echo $this->storeInfo->id; ?>" data-menu_item_id="<?php echo $planNode['id']; ?>" data-menu_id="<?php echo $this->menuInfo['menu_id']; ?>"
 													   target="_blank"><i class="fas fa-file-alt font-size-medium-small mr-1"></i></a>
-													<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $DAO_menu_item->id . ' &bull; Recipe ID: ' . $DAO_menu_item->recipe_id . '"' : ''; ?>>
-														<?php echo $DAO_menu_item->menu_item_name; ?> (<?php echo $DAO_menu_item->recipe_id;?>)
+													<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $planNode['id'] . ' &bull; Recipe ID: ' . $planNode['recipe_id'] . '"' : ''; ?>>
+														<?php echo $planNode['menu_item_name']; ?> (<?php echo $planNode['recipe_id'];?>)
 													</span>
-													<?php if (!empty($DAO_menu_item->is_bundle)) { ?><i class="fas fa-layer-group font-size-small" data-tooltip="<?php echo (!empty($DAO_menu_item->admin_notes)) ? $DAO_menu_item->admin_notes : 'Meal bundle' ?>"></i><?php } ?>
+													<?php if (!empty($planNode['is_bundle'])) { ?><i class="fas fa-layer-group font-size-small" data-tooltip="<?php echo (!empty($planNode['admin_notes'])) ? $planNode['admin_notes'] : 'Meal bundle' ?>"></i><?php } ?>
 												</td>
 
 												<td class="align-middle">
-													<?php echo $DAO_menu_item->pricing_type_info['pricing_type_name_short_w_qty']; ?>
+													<?php echo $planNode['pricing_type_info']['pricing_type_name_short_w_qty']; ?>
 												</td>
 
 												<?php if ($this->DAO_menu->isEnabled_Markup()) { ?>
 													<td class="align-middle">
-														<?php echo $DAO_menu_item->base_price; ?>
+														<?php echo $planNode['base_price' ]; ?>
 													</td>
 												<?php  }  ?>
 
 												<td class="align-middle">
-													<?php echo $DAO_menu_item->store_price; ?>
+													<?php echo $planNode['price' ]; ?>
 												</td>
 
 												<?php if ($this->DAO_menu->isEnabled_Markup()) { ?>
-													<td class="align-middle markup-price" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>">
-														<?php if ((!empty($this->markupData['markup_value_4_serving']) && $DAO_menu_item->pricing_type == CMenuItem::FOUR) || (!empty($this->markupData['markup_value_2_serving']) && $DAO_menu_item->pricing_type == CMenuItem::TWO) || (!empty($this->markupData['markup_value_3_serving']) && $DAO_menu_item->pricing_type == CMenuItem::HALF) || (!empty($this->markupData['markup_value_6_serving']) && $DAO_menu_item->pricing_type == CMenuItem::FULL)) { ?>
-															<?php echo $DAO_menu_item->store_price; ?>
+													<td class="align-middle markup-price">
+														<?php if ((!empty($this->markupData['markup_value_4_serving']) && $planNode['pricing_type'] == CMenuItem::FOUR) || (!empty($this->markupData['markup_value_2_serving']) && $planNode['pricing_type'] == CMenuItem::TWO) || (!empty($this->markupData['markup_value_3_serving']) && $planNode['pricing_type'] == CMenuItem::HALF) || (!empty($this->markupData['markup_value_6_serving']) && $planNode['pricing_type'] == CMenuItem::FULL)) { ?>
+															<?php echo $planNode['price' ]; ?>
 														<?php  }  ?>
 													</td>
 												<?php  }  ?>
 
 												<td class="align-middle">
-													<?php if ($DAO_menu_item->is_price_controllable) { ?>
-														<?php echo $this->form['ovr_' . $DAO_menu_item->id . '_html']; ?>
+													<?php if ($planNode['is_price_controllable']) { ?>
+														<input class="form-control form-control-sm no-spin-button efl-override-price-input" data-orgval="<?php echo $planNode['override_price' ]; ?>" id="ovr_<?php echo $planNode['id' ]; ?>" <?php if ($this->limitToInventoryControl) { ?>readonly="readonly"<?php } ?> name="ovr_<?php echo $planNode['id' ]; ?>" value="<?php echo $planNode['override_price' ]; ?>" type="number" step="any" size="3" maxlength="6" tabindex="<?php echo ++$tabindex; ?>" />
 													<?php } ?>
 												</td>
 
 												<?php if ($this->DAO_menu->isEnabled_MarkDown()) { ?>
 													<td class="align-middle">
 														<?php if (isset($this->canAddEFLItems) && $this->canAddEFLItems) { ?>
-															<?php if ($DAO_menu_item->markdown_id) { ?>
-																<button class="btn btn-primary" id="mkdn_<?php echo $DAO_menu_item->id; ?>" data-markdown_id="<?php echo $DAO_menu_item->markdown_id?>" data-markdown_value="<?php echo $DAO_menu_item->markdown_value?>" data-org_val="<?php echo $DAO_menu_item->markdown_value?>" ><?php echo $DAO_menu_item->markdown_value?>%</button>
+															<?php if ($planNode['markdown_id']) { ?>
+																<button class="btn btn-primary" id="mkdn_<?php echo $planNode['id']; ?>" data-markdown_id="<?php echo $planNode['markdown_id']?>" data-markdown_value="<?php echo $planNode['markdown_value']?>" data-org_val="<?php echo $planNode['markdown_value']?>" ><?php echo $planNode['markdown_value']?>%</button>
 															<?php } else { ?>
-																<button class="btn btn-primary" id="add-mkdn_<?php echo $DAO_menu_item->id; ?>">Add</button>
+																<button class="btn btn-primary" id="add-mkdn_<?php echo $planNode['id']; ?>">Add</button>
 															<?php } ?>
 														<?php } ?>
 													</td>
 												<?php } ?>
 
-												<td class="align-middle preview-price font-weight-bold text-danger" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>">
+												<td class="align-middle preview-price font-weight-bold text-danger">
 
 												</td>
 
-												<?php if ($lastEntreeID != $DAO_menu_item->entree_id) { $lastEntreeID = $DAO_menu_item->entree_id; ?>
-													<td rowspan="<?php echo $DAO_menu_item->sub_entree_count; ?>" class="align-middle">
-														<?php echo $DAO_menu_item->override_inventory - $DAO_menu_item->number_sold  ?>
+												<?php if ($lastEntreeID != $planNode['entree_id']) { $lastEntreeID = $planNode['entree_id']; ?>
+													<td rowspan="<?php echo $planNode['sub_entree_count']; ?>" class="align-middle">
+														<?php echo $planNode['override_inventory'] - $planNode['number_sold']  ?>
 													</td>
 												<?php } ?>
 
@@ -469,11 +494,13 @@
 						<div class="tab-pane fade" id="nav-sides" role="tabpanel" aria-labelledby="nav-sides-tab">
 							<?php if (!$this->limitToInventoryControl) { ?>
 								<div class="col text-right py-2" id="CTS_default_price_control">
-									<span data-add_past_menu_item="sides" class="btn btn-primary">Add Sides &amp; Sweets Menu Item</span>
-									<span class="btn btn-primary sides-sweets-get-pricing" data-operation="default_pricing_save">Save Sides &amp; Sweets Defaults</span>
-									<span class="btn btn-primary sides-sweets-get-pricing" data-operation="default_pricing_get">Retrieve Sides &amp; Sweets Defaults</span>
+									<?php if (isset($this->canAddEFLItems) && $this->canAddEFLItems) {?>
+										<span id="add_past_menu_item_sides" class="btn btn-primary">Add Sides & Sweets Menu Item</span>
+									<?php } ?>
+									<button onclick="SavePricing(); return false;" class="btn btn-primary">Save Sides &amp; Sweets Defaults</button>
+									<button onclick="RetrievePricing(); return false;" class="btn btn-primary">Retrieve Sides &amp; Sweets Defaults</button>
 									<?php if ($this->DAO_menu->isEnabled_MarkupRoundUp()) { ?>
-										<span class="btn btn-primary" data-round_up_markup="SIDE" data-tooltip="Set the Override price from the Markup price rounded-up to nearest 50 cents. This will overwrite the existing value, if any.">Round Markup Price</span>
+										<input name="submit_rounding" id="submit_rounding" type="button" value="Round Markup Price" class="btn btn-primary" onclick="confirm_and_round_form('side')" data-tooltip="Set the Override price from the Markup price rounded-up to nearest 50 cents. This will overwrite the existing value, if any."/>
 									<?php } ?>
 									<br />
 									<span id="dp_error" class="warning_text"></span>
@@ -484,7 +511,7 @@
 							<table id="ctsItemsTbl" class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
 								<thead class="text-center bg-white sticky-top ddtemp-z-index-0">
 								<tr>
-									<th class="align-middle">Show on customer menu</th>
+									<th class="align-middle">Show on Freezer page</th>
 									<th class="align-middle">Show on Sides &amp; Sweets Forms</th>
 									<th class="align-middle">Hide Item Everywhere</th>
 									<th class="align-middle">Item title <span class="font-weight-normal">(Recipe ID)</span></th>
@@ -498,69 +525,69 @@
 								</tr>
 								</thead>
 								<tbody class="text-white-space-nowrap text-center">
-								<?php if (!empty($this->menuItemArray[CMenuItem::SIDE])) { ?>
-									<?php $subcategory = false; foreach ($this->menuItemArray[CMenuItem::SIDE] as $id => $DAO_menu_item) { ?>
-										<?php if ($subcategory != $DAO_menu_item->subcategory_label)  { $subcategory = $DAO_menu_item->subcategory_label; ?>
+								<?php if (!empty($this->CTSMenu)) { ?>
+									<?php $subcategory = false; foreach ($this->CTSMenu as $id => $ctsItem) { ?>
+										<?php if ($subcategory != $ctsItem['subcategory_label' ])  { $subcategory = $ctsItem['subcategory_label' ]; ?>
 											<tr>
 												<td colspan="11" class="font-weight-bold py-3">
-													<?php echo $DAO_menu_item->subcategory_label; ?>
+													<?php echo $ctsItem['subcategory_label' ]; ?>
 												</td>
 											</tr>
 										<?php } ?>
-										<tr id="row_<?php echo $DAO_menu_item->id; ?>" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>">
+										<tr id="row_<?php echo $ctsItem['id' ]; ?>" data-menu_item_id="<?php echo $ctsItem['id' ]; ?>">
 											<td class="align-middle">
-												<?php if ($DAO_menu_item->is_visibility_controllable) { ?>
-													<?php echo $this->form['vis_' . $DAO_menu_item->id . '_html']; ?>
+												<?php if ($ctsItem['is_visibility_controllable']) { ?>
+													<input data-orgval="<?php echo ($ctsItem['is_visible'] ? "CHECKED" : ""); ?>" data-menu_item_id="<?php echo $ctsItem['id' ]; ?>" id="vis_<?php echo $ctsItem['id' ]; ?>" name="vis_<?php echo $ctsItem['id' ]; ?>" type="checkbox" <?php echo ($ctsItem['is_visible'] ? "CHECKED" : ""); ?> />
 												<?php } ?>
 											</td>
 
 											<td class="align-middle">
-												<?php echo $this->form['form_' . $DAO_menu_item->id . '_html']; ?>
+												<input data-orgval="<?php echo ($ctsItem['show_on_order_form'] ? "CHECKED" : ""); ?>" data-menu_item_id="<?php echo $ctsItem['id' ]; ?>" id="form_<?php echo $ctsItem['id' ]; ?>" name="form_<?php echo $ctsItem['id' ]; ?>" type="checkbox" <?php echo ($ctsItem['show_on_order_form'] ? "CHECKED" : ""); ?> />
 											</td>
 
 											<td class="align-middle">
-												<?php echo $this->form['hid_' . $DAO_menu_item->id . '_html']; ?>
+												<input data-orgval="<?php echo ($ctsItem['is_hidden_everywhere'] ? "CHECKED" : ""); ?>" data-menu_item_id="<?php echo $ctsItem['id' ]; ?>" id="hid_<?php echo $ctsItem['id' ]; ?>" name="hid_<?php echo $ctsItem['id' ]; ?>" type="checkbox" <?php echo ($ctsItem['is_hidden_everywhere'] ? "CHECKED" : ""); ?>>
 											</td>
 
 											<td class="align-middle text-left">
-												<a href="main.php?page=item&amp;recipe=<?php echo $DAO_menu_item->recipe_id; ?>&amp;ov_menu=<?php echo $this->DAO_menu->id;?>" class="link-dinner-details" data-tooltip="Dinner Details"
-												   data-recipe_id="<?php echo $DAO_menu_item->recipe_id; ?>" data-store_id="<?php echo $this->DAO_store->id; ?>" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>" data-menu_id="<?php echo $this->DAO_menu->id; ?>"
+												<a href="main.php?page=item&amp;recipe=<?php echo $ctsItem['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" class="link-dinner-details" data-tooltip="Dinner Details"
+												   data-recipe_id="<?php echo $ctsItem['recipe_id']; ?>" data-store_id="<?php echo $this->storeInfo->id; ?>" data-menu_item_id="<?php echo $ctsItem['id']; ?>" data-menu_id="<?php echo $this->menuInfo['menu_id']; ?>"
 												   target="_blank"><i class="fas fa-file-alt font-size-medium-small mr-1"></i></a>
-												<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $DAO_menu_item->id . ' &bull; Recipe ID: ' . $DAO_menu_item->recipe_id . '"' : ''; ?>>
-													<?php echo $DAO_menu_item->menu_item_name; ?> (<?php echo $DAO_menu_item->recipe_id;?>)
+												<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $ctsItem['id'] . ' &bull; Recipe ID: ' . $ctsItem['recipe_id'] . '"' : ''; ?>>
+													<?php echo $ctsItem['menu_item_name']; ?> (<?php echo $ctsItem['recipe_id'];?>)
 												</span>
-												<?php if (!empty($DAO_menu_item->is_bundle)) { ?><i class="fas fa-layer-group font-size-small" data-tooltip="<?php echo (!empty($DAO_menu_item->admin_notes)) ? $DAO_menu_item->admin_notes : 'Meal bundle' ?>"></i><?php } ?>
-												<div id="rec_id_<?php echo $DAO_menu_item->id; ?>" class="collapse"><?php echo $DAO_menu_item->recipe_id; ?></div>
+												<?php if (!empty($ctsItem['is_bundle'])) { ?><i class="fas fa-layer-group font-size-small" data-tooltip="<?php echo (!empty($planNode['admin_notes'])) ? $planNode['admin_notes'] : 'Meal bundle' ?>"></i><?php } ?>
+												<div id="rec_id_<?php echo $ctsItem['id' ]; ?>" class="collapse"><?php echo $ctsItem['recipe_id' ]; ?></div>
 											</td>
 
 											<td class="align-middle">1 item</td>
 
 											<td class="align-middle">
-												<?php echo $DAO_menu_item->price; ?>
+												<?php echo $ctsItem['base_price' ]; ?>
 											</td>
 
 											<td class="align-middle">
-												<?php echo $DAO_menu_item->store_price; ?>
+												<?php echo $ctsItem['price' ]; ?>
 											</td>
 
-											<td class="align-middle markup-price" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>">
-												<?php if ((!empty($this->markupData['markup_value_2_serving']) && $DAO_menu_item->pricing_type == CMenuItem::TWO) || (!empty($this->markupData['markup_value_4_serving']) && $DAO_menu_item->pricing_type == CMenuItem::FOUR) || (!empty($this->markupData['markup_value_3_serving']) && $DAO_menu_item->pricing_type == CMenuItem::HALF) || (!empty($this->markupData['markup_value_6_serving']) && $DAO_menu_item->pricing_type == CMenuItem::FULL)) { ?>
-													<?php echo $DAO_menu_item->store_price; ?>
+											<td class="align-middle markup-price">
+												<?php if ((!empty($this->markupData['markup_value_2_serving']) && $ctsItem['pricing_type'] == CMenuItem::TWO) || (!empty($this->markupData['markup_value_4_serving']) && $ctsItem['pricing_type'] == CMenuItem::FOUR) || (!empty($this->markupData['markup_value_3_serving']) && $ctsItem['pricing_type'] == CMenuItem::HALF) || (!empty($this->markupData['markup_value_6_serving']) && $ctsItem['pricing_type'] == CMenuItem::FULL)) { ?>
+													<?php echo $ctsItem['price' ]; ?>
 												<?php } ?>
 											</td>
 
 											<td class="align-middle">
-												<?php if ($DAO_menu_item->is_price_controllable) { ?>
-													<?php echo $this->form['ovr_' . $DAO_menu_item->id . '_html']; ?>
+												<?php if ($ctsItem['is_price_controllable']) { ?>
+													<input class="form-control form-control-sm no-spin-button side-override-price-input" data-orgval="<?php echo $ctsItem['override_price' ]; ?>" id="ovr_<?php echo $ctsItem['id' ]; ?>" name="ovr_<?php echo $ctsItem['id' ]; ?>" value="<?php echo $ctsItem['override_price' ]; ?>" type="number" step="any" size="3" maxlength="6" tabindex="<?php echo $tabindex++; ?>" <?php if ($this->limitToInventoryControl) { ?>readonly="readonly"<?php } ?> />
 												<?php } ?>
 											</td>
 
-											<td class="align-middle preview-price font-weight-bold text-danger" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>">
+											<td class="align-middle preview-price font-weight-bold text-danger">
 
 											</td>
 
 											<td class="align-middle">
-												<?php echo $DAO_menu_item->override_inventory - $DAO_menu_item->number_sold; ?>
+												<?php echo $ctsItem['override_inventory'] - $ctsItem['number_sold' ]; ?>
 											</td>
 
 										</tr>
@@ -574,29 +601,29 @@
 							</table>
 
 						</div>
-						<?php if (!empty($this->pricingReferenceArray)) { ?>
-							<div class="tab-pane fade" id="nav-pricing" role="tabpanel" aria-labelledby="nav-pricing-tab">
-								<br/>
+						<div class="tab-pane fade" id="nav-pricing" role="tabpanel" aria-labelledby="nav-pricing-tab">
+							<br/>
 
-								<table id="pricingTbl" class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
-									<thead class="text-center bg-white sticky-top ddtemp-z-index-0">
-									<tr>
-										<th class="align-middle text-left"></th>
-										<th class="align-middle <?php echo (($this->DAO_store->core_pricing_tier == 1) ? 'bg-green-light' : '' ); ?>" colspan="2">Tier 1</th>
-										<th class="align-middle <?php echo (($this->DAO_store->core_pricing_tier == 2) ? 'bg-green-light' : '' ); ?>" colspan="2">Tier 2</th>
-										<th class="align-middle <?php echo (($this->DAO_store->core_pricing_tier == 3) ? 'bg-green-light' : '' ); ?>" colspan="2">Tier 3</th>
-									</tr>
-									<tr>
-										<th class="align-middle text-left">Item title <span class="font-weight-normal">(Recipe ID)</span></th>
-										<th class="align-middle">Medium</th>
-										<th class="align-middle">Large</th>
-										<th class="align-middle">Medium</th>
-										<th class="align-middle">Large</th>
-										<th class="align-middle">Medium</th>
-										<th class="align-middle">Large</th>
-									</tr>
-									</thead>
-									<tbody class="text-white-space-nowrap text-center">
+							<table id="pricingTbl" class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
+								<thead class="text-center bg-white sticky-top ddtemp-z-index-0">
+								<tr>
+									<th class="align-middle text-left"></th>
+									<th class="align-middle <?php echo (($this->storeInfo->core_pricing_tier == 1) ? 'bg-green-light' : '' ); ?>" colspan="2">Tier 1</th>
+									<th class="align-middle <?php echo (($this->storeInfo->core_pricing_tier == 2) ? 'bg-green-light' : '' ); ?>" colspan="2">Tier 2</th>
+									<th class="align-middle <?php echo (($this->storeInfo->core_pricing_tier == 3) ? 'bg-green-light' : '' ); ?>" colspan="2">Tier 3</th>
+								</tr>
+								<tr>
+									<th class="align-middle text-left">Item title <span class="font-weight-normal">(Recipe ID)</span></th>
+									<th class="align-middle">Medium</th>
+									<th class="align-middle">Large</th>
+									<th class="align-middle">Medium</th>
+									<th class="align-middle">Large</th>
+									<th class="align-middle">Medium</th>
+									<th class="align-middle">Large</th>
+								</tr>
+								</thead>
+								<tbody class="text-white-space-nowrap text-center">
+								<?php if (!empty($this->pricingReferenceArray)) { ?>
 									<?php foreach ($this->pricingReferenceArray AS $DAO_menu_item) { ?>
 										<?php if (!empty($DAO_menu_item->pricing_tiers)) { ?>
 											<tr>
@@ -636,10 +663,10 @@
 											</tr>
 										<?php } ?>
 									<?php } ?>
-									</tbody>
-								</table>
-							</div>
-						<?php } ?>
+								<?php } ?>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -656,10 +683,10 @@
 				</div>
 				<div class="col-5 text-right">
 					<div>
-						<input name="submit_changes" id="submit_changes" type="submit" value="Finalize All Changes" class="btn btn-primary" onclick="confirm_and_check_form()" />
-						<a href="main.php?page=admin_menu_editor" class="btn btn-primary">Reset to current</a>
+						<input name="submit_changes" id="submit_changes" type="button" value="Finalize All Changes" class="btn btn-primary" onclick="confirm_and_check_form()" />
+						<input type="button" value="Reset to Current" onclick="resetPage();" class="btn btn-primary" />
 					</div>
-					<div class="text-danger font-weight-bold unsaved-message collapse">Your changes have not yet been saved. Finalize all changes to see updated values.</div><br />
+					<div id="saved_message_2" class="text-danger font-weight-bold collapse">Your changes have not yet been saved. Finalize all changes to see updated values.</div><br />
 				</div>
 			</div>
 
