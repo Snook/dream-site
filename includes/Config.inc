@@ -28,6 +28,7 @@ if(isset($_SERVER['HTTP_USER_AGENT']))
 if (isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == "161.58.88.173")
 {
 	include ("config/Config.prod1.inc");
+	define('SERVER_ENV', 'LIVE');
 }
 else
 {
@@ -37,40 +38,47 @@ else
 	{
 		case 'DREA02VMW01':
 			include ("config/Config.DREA02VMW01.inc");
+			define('SERVER_ENV', 'LIVE');
 			break;
 		case 'chors.dreamdinners.com':
 			include ("config/Config.chors.inc");
+			define('SERVER_ENV', 'LIVE');
 			break;
 		case 'Prod7VMDev1.dreamdinners.local':
 			include ("config/Config.prod1.inc");
+			define('SERVER_ENV', 'LIVE');
 			break;
 		case 'Carls-MVP':
 		case 'Carls-MVP.local':
 		case 'PF1VHAWY-CS10':
 			include ("config/Config.carl.inc");
-			break;
+			define('SERVER_ENV', 'DEV');
+		break;
 		case 'PF115FU6-RS10':
 		case 'PF1VHAWY-RS10':
 			include ("config/Config.ryans.inc");
-			break;
+			define('SERVER_ENV', 'DEV');
+		break;
 		case 'PF2LTCZ6-EL10':
 			include ("config/Config.evan.inc");
+			define('SERVER_ENV', 'DEV');
 			break;
-        case 'PF15KUPU-TB10':
-            include ("config/Config.tyler.inc");
-            break;
 		case 'C-DB1-Reports-2':
 			include ("config/Config.C-DB1-Reports-2.inc");
+			efine('SERVER_ENV', 'TEST');
 			break;
 		case 'sandbox.dreamdinners.com':
 			include ("config/Config.sandbox.inc");
+			define('SERVER_ENV', 'TEST');
 			break;
 		case 'branch.dreamdinners.com':
 			include ("config/Config.prod1.inc");
+			define('SERVER_ENV', 'TEST');
 			break;
 		default:
 			// DEFAULT Uses the prod settings
 			include ("config/Config.DREA02VMW01.inc");
+			define('SERVER_ENV', 'LIVE');
 	}
 }
 
@@ -156,7 +164,7 @@ define('TIMESTAMPNOW', date('Y-m-d H:i:s', TIMENOW));
 
 define('SLOT_STEALING_CUTOFF_MENU', 124);
 
-define('JAVASCRIPT_CSS_VERSION', 668);
+define('JAVASCRIPT_CSS_VERSION', 669);
 
 define('FADMIN_TIMEOUT', 15); // set minutes to enable timout for everyone but customers, false to disable
 

@@ -2140,7 +2140,7 @@ class COrders extends DAO_Orders
 			{
 				$ordersArray[$Order->id]['future_session'] = true;
 
-				if( $verify_freezer_inventory )
+				if ($verify_freezer_inventory)
 				{
 
 					$store_id = $Order->store_id;
@@ -2167,7 +2167,6 @@ class COrders extends DAO_Orders
 							break;
 						}
 					}
-
 				}
 
 				if (strtotime($Order->session_start) > $cutoff)
@@ -5026,7 +5025,7 @@ class COrders extends DAO_Orders
 
 				if ($useCurrent || !array_key_exists($mi_obj->id, $toddItems))
 				{
-					$totalPrice += $qty * $mi_obj->price;
+					$totalPrice += $qty * $mi_obj->store_price;
 				}
 				else
 				{
@@ -5035,7 +5034,7 @@ class COrders extends DAO_Orders
 						$thisPrice = ($mi_obj->pricing_type == 'HALF' ? $half_price : $full_price);
 						if (self::isPriceGreaterThan($thisPrice, $mi_obj->price))
 						{
-							$thisPrice = $mi_obj->price;
+							$thisPrice = $mi_obj->store_price;
 						}
 
 						$totalPrice += ($thisPrice * $qty);
@@ -5361,7 +5360,7 @@ class COrders extends DAO_Orders
 				{
 					if (isset($mi_obj->override_price))
 					{
-						$thisMarkupAmt = ($mi_obj->override_price * $qty) - ($mi_obj->price * $qty);
+						$thisMarkupAmt = ($mi_obj->override_price * $qty) - ($mi_obj->store_price * $qty);
 						if ($thisMarkupAmt > 0)
 						{
 							$this->subtotal_home_store_markup += $thisMarkupAmt;
@@ -5374,7 +5373,7 @@ class COrders extends DAO_Orders
 						if ($this->family_savings_discount_version == 2)
 						{
 							$mi_obj->store_price = self::std_round(self::getItemMarkupMultiSubtotal($markup, $mi_obj, 1));
-							$thisMarkupAmt = self::getItemMarkupMultiSubtotal($markup, $mi_obj, $qty) - ($mi_obj->price * $qty);
+							$thisMarkupAmt = self::getItemMarkupMultiSubtotal($markup, $mi_obj, $qty) - ($mi_obj->store_price * $qty);
 							if ($thisMarkupAmt > 0)
 							{
 								$this->subtotal_home_store_markup += $thisMarkupAmt;
@@ -5383,7 +5382,7 @@ class COrders extends DAO_Orders
 						else
 						{
 							$mi_obj->store_price = self::std_round(self::getItemMarkupMultiSubtotal($markup, $mi_obj, 1));
-							$thisMarkupAmt = self::getItemMarkupSubtotal($markup, $mi_obj, $qty) - ($mi_obj->price * $qty);
+							$thisMarkupAmt = self::getItemMarkupSubtotal($markup, $mi_obj, $qty) - ($mi_obj->store_price * $qty);
 							if ($thisMarkupAmt > 0)
 							{
 								$this->subtotal_home_store_markup += $thisMarkupAmt;
@@ -5397,9 +5396,9 @@ class COrders extends DAO_Orders
 					{
 						$thisPrice = ($mi_obj->pricing_type == 'HALF' ? $half_price : $full_price);
 
-						if (self::isPriceGreaterThan($thisPrice, $mi_obj->price))
+						if (self::isPriceGreaterThan($thisPrice, $mi_obj->store_price))
 						{
-							$thisMarkupAmt = ($thisPrice - $mi_obj->price) * $qty;
+							$thisMarkupAmt = ($thisPrice - $mi_obj->store_price) * $qty;
 
 							$this->subtotal_home_store_markup += $thisMarkupAmt;
 						}

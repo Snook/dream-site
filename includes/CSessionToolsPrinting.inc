@@ -448,6 +448,7 @@ class CSessionToolsData
 		$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
 			'menu_to_menu_item_store_id' => $this->store_id,
 			'join_order_item_order_id' => $order_ids,
+			'exclude_menu_item_is_bundle' => true,
 			'exclude_menu_item_category_core' => false,
 			'exclude_menu_item_category_efl' => false,
 			'exclude_menu_item_category_sides_sweets' => false,
@@ -457,8 +458,8 @@ class CSessionToolsData
 		$menuItems = array();
 		while ($DAO_menu_item->fetch())
 		{
-			$order_id_containing_item = explode(',',$DAO_menu_item->order_ids);
-			foreach($order_id_containing_item as $order_id)
+			$order_id_containing_item = explode(',', $DAO_menu_item->order_ids);
+			foreach ($order_id_containing_item as $order_id)
 			{
 				if (empty($menuItems[$order_id][$DAO_menu_item->recipe_id]['entree']) || $DAO_menu_item->id == $DAO_menu_item->entree_id)
 				{
@@ -466,7 +467,6 @@ class CSessionToolsData
 				}
 
 				$menuItems[$order_id][$DAO_menu_item->recipe_id]['menu_item'][$DAO_menu_item->id] = $DAO_menu_item->cloneObj();
-
 			}
 
 			// track all recipes used
@@ -638,6 +638,7 @@ class CSessionToolsPDFDrawer
 {
 	const kHEADER_ROW_HEIGHT = 13;
 	const kKEADER_ROW_Y = 26;
+	const FREEZER_HEADER_ROW_HEIGHT = 27.5;
 
 	private $data = null;
 
@@ -1343,32 +1344,40 @@ class CSessionToolsPDFDrawer
 
 		// Ratings
 		$RatingyPos = $yPos + 6;
-		$guestFavorite = $cellLeftMargin;
-		if ($this->data->userInfo && isset($menuItemArray['rating']))
+		if (defined('SERVER_ENV') && SERVER_ENV === 'LIVE')
 		{
-			if ($menuItemArray['entree']->menu_label != 'Guest Favorite')
+			if ($this->data->userInfo && isset($menuItemArray['entree']->DAO_food_survey->rating))
 			{
+				$this->printRatingsStars($cellLeftMargin + 50, $RatingyPos - .25, 4, $menuItemArray['entree']->DAO_food_survey->rating);
+			}
+			else if (!empty($globalRating) && $menuItemArray['entree']->menu_label != 'New')
+			{
+				//has rating and the menu label is not new
 				$this->pdf->SetXY($cellLeftMargin, $RatingyPos + .25);
 				$this->pdf->MultiCellTag(76, 3, "<t9lg>" . $menuItemArray['entree']->menu_label . "</t9lg>", $this->showBorders, 'L');
-				$this->printRatingsStars($cellLeftMargin + 50, $RatingyPos - .25, 4, $menuItemArray['rating']);
-				if (!empty($menuItemArray['entree']->menu_label))
+				$this->printRatingsValue($cellLeftMargin + 50, $RatingyPos, 3, number_format(round($globalRating, 1), 1), false, $menuItemArray, false);
+			}
+		}
+		else
+		{
+			// ICONS
+			$icon_xpos_offset = $cellLeftMargin + 70;
+			$icon_ypos_offset = $RatingyPos + .25;
+			$icon_size = 3.5;
+
+			// The array is in the desired order, reverse the icon sort since we draw from right to left
+			$reverse_icons = array_reverse($menuItemArray['entree']->icons);
+			foreach ($reverse_icons as $icon)
+			{
+				if ($icon['print_meal_detail_enabled'] && $icon['show'])
 				{
-					$guestFavorite += 25;
+					$this->pdf->Image(ASSETS_PATH . '/pdf_label/' . $icon['png_icon'], $icon_xpos_offset, $icon_ypos_offset, $icon_size);
+					$icon_xpos_offset = $icon_xpos_offset - $icon_size;
 				}
 			}
-			else
-			{
-				$this->printRatingsStars($cellLeftMargin + 50, $RatingyPos - .25, 4, $menuItemArray['rating']);
-			}
 		}
-		else if (!empty($globalRating) && $menuItemArray['entree']->menu_label != 'New')
-		{
-			//has rating and the menu label is not new
-			$this->pdf->SetXY($cellLeftMargin, $RatingyPos + .25);
-			$this->pdf->MultiCellTag(76, 3, "<t9lg>" . $menuItemArray['entree']->menu_label . "</t9lg>", $this->showBorders, 'L');
-			$this->printRatingsValue($cellLeftMargin + 50, $RatingyPos, 3, number_format(round($globalRating, 1), 1), false, $menuItemArray, false);
-		}
-		else if (!empty($menuItemArray['entree']->menu_label))
+
+		if (!empty($menuItemArray['entree']->menu_label))
 		{
 			$this->pdf->SetXY($cellLeftMargin, $RatingyPos + .25);
 			$this->pdf->MultiCellTag(76, 3, "<t9lg>" . $menuItemArray['entree']->menu_label . "</t9lg>", $this->showBorders, 'L');
@@ -1377,12 +1386,7 @@ class CSessionToolsPDFDrawer
 		// favorite
 		if (!empty($this->data->userInfo) && !empty($menuItemArray['entree']->DAO_food_survey->would_order_again) && $menuItemArray['entree']->DAO_food_survey->would_order_again == 1)
 		{
-			$favPos_X = $cellLeftMargin;
-			if (!empty($menuItemArray['entree']->menu_label))
-			{
-				$favPos_X += $this->pdf->GetStringWidth($menuItemArray['entree']->menu_label) - 2;
-			}
-			$this->pdf->SetXY($favPos_X, $RatingyPos + .5);
+			$this->pdf->SetXY($cellLeftMargin + 32, $RatingyPos + .5);
 			$this->pdf->MultiCellTag(76, 3, "<t9rb>FAVORITE</t9rb>", $this->showBorders, 'L');
 		}
 
@@ -1492,15 +1496,14 @@ class CSessionToolsPDFDrawer
 			$this->pdf->SetFillColor(222, 222, 222);
 		}
 
-		//$rows = $this->calculateFreezerSheetRowHeight($menuItemArray);
-		$rows = null;
+		$rows = $this->calculateFreezerSheetRowHeight($menuItemArray);
 		if (is_null($rows))
 		{
 			$rows = self::kHEADER_ROW_HEIGHT;
 		}
 		else
 		{
-			$rows += self::kHEADER_ROW_HEIGHT + 18;
+			$rows += self::kHEADER_ROW_HEIGHT;
 		}
 		// Background
 		$width = CSessionToolsPDF::kPAGE_WIDTH - (CSessionToolsPDF::kLEFT_MARGIN * 2) - 7;
@@ -1585,7 +1588,7 @@ class CSessionToolsPDFDrawer
 		$srv_box_ypos_start = $yPos;
 		$y_offest = $srv_box_ypos_start;
 
-		foreach($menuItemArray['menu_item'] AS $menuItem)
+		foreach ($menuItemArray['menu_item'] as $menuItem)
 		{
 			$item_count = $menuItem->DAO_order_item->item_count;
 
@@ -1645,27 +1648,24 @@ class CSessionToolsPDFDrawer
 
 	function calculateFreezerSheetRowHeight($orderItem)
 	{
-		$quantityData = (!empty($orderItem['entree']->DAO_order_item->item_count) ? $orderItem['entree']->DAO_order_item->item_count : false);
-
-		$total_item_count = 3;
+		$total_item_count = 0;
 		$rows = 0;
 
-		if (!empty($quantityData))
+		foreach ($orderItem['menu_item'] as $DAO_menu_item)
 		{
-			foreach ($quantityData as $pricing_type => $attrs)
-			{
-				$rows++;
-				$total_item_count += $attrs['item_count'];
-			}
-		}
-		if ($total_item_count > 1)
-		{
-			$rows += floor($total_item_count / 6);
+			$rows++;
+			$total_item_count += $DAO_menu_item->DAO_order_item->item_count;
 		}
 
-		if ($rows < 3)
+		if ($total_item_count > 1)
 		{
-			$rows = 5;
+			$rows += floor($total_item_count / 6); // break every six checkboxes
+		}
+
+		// 3 is the minimum height of a row
+		if ($rows <= 3)
+		{
+			$rows = 3;
 		}
 
 		return $rows;
@@ -1673,12 +1673,9 @@ class CSessionToolsPDFDrawer
 
 	function printMenuToolRow_Nutritional($menuItemArray, $yPos, $count, $row_height)
 	{
-		$backGroundIsDark = true;
-
 		if ($count % 2 == 0)
 		{
 			$this->pdf->SetFillColor(255, 255, 255);
-			$backGroundIsDark = false;
 		}
 		else
 		{
@@ -1986,7 +1983,7 @@ class CSessionToolsPDFDrawer
 		$x_offset = 0;
 		$count = 0;
 
-		foreach (CRecipe::getIconSchematic() AS $icon)
+		foreach (CRecipe::getIconSchematic() as $icon)
 		{
 			if ($count++ == 7)
 			{
@@ -2481,28 +2478,29 @@ class CSessionToolsPDFDrawer
 		$this->printHeader_Freezer(CSessionToolsPDF::kHORZ_CENTER, 6, $this->data->menu_id);
 		$this->printMenuToolHeaderRow_Freezer();
 
-		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
-		$count = 0;
+		$yPos = self::FREEZER_HEADER_ROW_HEIGHT;
+		$menu_item_count = 0;
+		$total_rows = 0;
 
 		if (!empty($this->data->orderItems[$this->data->userInfo->orderInfo['orderInfo']['id']]))
 		{
-			$total_rows = 3;
 			foreach ($this->data->orderItems[$this->data->userInfo->orderInfo['orderInfo']['id']] as $orderItem)
 			{
 				//dynamically size page based on the number of items or each size
-				//$next_rows = $this->calculateFreezerSheetRowHeight($orderItem);
-				$next_rows = null;
+				$next_rows = $this->calculateFreezerSheetRowHeight($orderItem);
 
 				$total_rows += $next_rows;
-				if ($count > 1 && ($total_rows > 70))
+				if (++$menu_item_count > 15 || ($total_rows > 50))
 				{
+					$yPos = self::FREEZER_HEADER_ROW_HEIGHT;
+					$menu_item_count = 0;
+
 					$this->pdf->AddPage();
 
 					$this->printLogo(CSessionToolsPDF::kLEFT_MARGIN, CSessionToolsPDF::kTOP_MARGIN, 31.8, false, $this->data->menu_id, true);
 					$this->printHeader_Freezer(CSessionToolsPDF::kHORZ_CENTER, 6, $this->data->menu_id);
 					$this->printMenuToolHeaderRow_Freezer();
 
-					$yPos = 27.5;
 					$total_rows = $next_rows;
 				}
 
@@ -2528,18 +2526,18 @@ class CSessionToolsPDFDrawer
 
 		if ($yPos <= 232)
 		{
-			$this->printFreezerList_Notes(CSessionToolsPDF::kLEFT_MARGIN + 7, $yPos);
+			$orderDetails = false;
+			if (!empty($this->data->orderItems[$this->data->userInfo->orderInfo['orderInfo']['id']]))
+			{
+				$orderDetails = $this->data->orderItems[$this->data->userInfo->orderInfo['orderInfo']['id']];
+			}
+
+			$this->printFreezerList_Notes(CSessionToolsPDF::kLEFT_MARGIN + 7, $yPos, $orderDetails);
 		}
 	}
 
-	function calculateRowBasedOnItems()
+	function printFreezerList_Notes($xPos, $yPos, $orderDetails = false)
 	{
-
-	}
-
-	function printFreezerList_Notes($xPos, $yPos)
-	{
-
 		$this->pdf->SetFillColor(255, 255, 255);
 		$width = CSessionToolsPDF::kPAGE_WIDTH - (CSessionToolsPDF::kLEFT_MARGIN * 2) - 7;
 		$this->pdf->Rect(CSessionToolsPDF::kLEFT_MARGIN + 7, $yPos, $width, 30, 'F');
@@ -2553,6 +2551,31 @@ class CSessionToolsPDFDrawer
 		$this->pdf->MultiCellTag(CSessionToolsPDF::kPAGE_WIDTH - 23, 4, "<h8>Quick Thaw Tip: Submerged your meal in cold tap water, changing the water every 30 minutes so it continues to thaw. The meal should thaw in an hour or less. To speed things up, separate the bags of sauce and meat and place them directly in the cold water. Once thawed, cook the meal immediately.</h8>", $this->showBorders, 'L');
 
 		$this->pdf->Rect($xPos, $yPos + 20.5, CSessionToolsPDF::kPAGE_WIDTH - $xPos - 8, CSessionToolsPDF::kPAGE_HEIGHT - $yPos - 45);
+
+		if ($orderDetails)
+		{
+			$personNotePos = $yPos + 25;
+			$personNoteCount = 0;
+			foreach ($orderDetails as $orderItem)
+			{
+				if (!empty($orderItem['entree']->DAO_food_survey_comments->personal_note))
+				{
+					$noteString = "<h9b>" . $orderItem['entree']->menu_item_name . ":</h9b> <h9>" . $orderItem['entree']->DAO_food_survey_comments->personal_note . "</h9>";
+
+					$this->pdf->SetXY($xPos + 2, $personNotePos);
+					$this->pdf->MultiCellTag($width - 2, 4, $noteString, $this->showBorders, 'L');
+
+					$personNotePos += 4 * $this->pdf->NbLines($width - 2, $noteString);
+					$personNoteCount++;
+				}
+			}
+
+			if (!empty($personNoteCount))
+			{
+				$this->pdf->SetXY($xPos, $yPos + 21);
+				$this->pdf->MultiCellTag($width, 4, "<h9>Your Personal Recipe Notes from My Reviews</h9>", $this->showBorders, 'L');
+			}
+		}
 	}
 
 	function printNutritionalPDF()

@@ -23,39 +23,33 @@
 				<div class="row mb-5">
 					<div class="col">
 						<p class="text-center"><img src="<?php echo IMAGES_PATH; ?>/events_programs/fundraisers.jpg" alt="Fundraising at Dream Dinners" class="img-fluid" /></p>
-						<h3 class="mb-4">Fundraising with Dream Dinners</h3>
-						<p>Our pick up and in-store fundraisers make it easy and safe for families to support your cause and take home dinner. Everyone wins!</p>
+						<h3 class="mb-4 mt-4">Hosting a fundraiser at your local Dream Dinners is easy and delicious.</h3>
+						<p class="mb-4">Let us host an Open House RSVP event for your group! During the event, attendees can taste samples, see a Dream Dinners demo and win prizes. Set up a table to promote your organization. Attendees can donate directly to your cause. If guests place orders for Dream Dinners online, they can pick them up at the event. We will also have a fully stocked freezer for attendees to shop from.</p>
+
 						
-						<!--<p>And each year in March, we host our March Matchness event. Dream Dinners will award the top 10 March fundraisers with a donation match of up to $500! You really can't lose. Contact your store to  schedule your March fundraiser today!</p>
-
-						<p><i>*See terms for contest details.</i></p>-->
-
-						<p class="font-weight-bold text-uppercase mb-1">What we do</p>
-						<p>Hosting a fundraiser at your local Dream Dinners is easy and delicious. Each fundraiser attendee receives three medium meals for just $60 and your organization gets $10 for each purchase.</p>
-
 						<div class="row mb-4">
 							<div class="col">
 								<p class="font-weight-bold text-uppercase mb-1">How it works</p>
 								<div class="card-group text-center">
 									<div class="card">
 										<div class="card-header font-weight-bold">Choose a Date & Time</div>
-										<i class="dd-icon icon-event font-size-extra-extra-large text-orange m-4"></i>
+										<i class="dd-icon icon-calendar_add font-size-extra-extra-large text-orange m-4"></i>
 										<div class="card-body">
 											<p class="card-text">Pick a date and time that works for your organization.</p>
 										</div>
 									</div>
 									<div class="card">
 										<div class="card-header font-weight-bold">Promote your event</div>
-										<i class="dd-icon icon-print font-size-extra-extra-large text-orange m-4"></i>
+										<i class="dd-icon icon-email_1 font-size-extra-extra-large text-orange m-4"></i>
 										<div class="card-body">
-											<p class="card-text">Invite guests to join your Meal Prep Fundraiser event.</p>
+											<p class="card-text">Invite guests to join your Fundraiser event.</p>
 										</div>
 									</div>
 									<div class="card">
 										<div class="card-header font-weight-bold">Host your event &nbsp;&nbsp;&nbsp;</div>
-										<i class="dd-icon icon-email_1 font-size-extra-extra-large text-orange m-4"></i>
+										<i class="dd-icon icon-shop-front font-size-extra-extra-large text-orange m-4"></i>
 										<div class="card-body">
-											<p class="card-text">Earn $10 for every meal prep order placed.</p>
+											<p class="card-text">Have a great time connecting with your community.</p>
 										</div>
 									</div>
 									<div class="card">

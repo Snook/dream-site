@@ -39,7 +39,7 @@ class processor_session_rsvp extends CPageProcessor
 			}
 
 			// get the session details from the submitted session id
-			$DAO_session = DAO_CFactory::create('session');
+			$DAO_session = DAO_CFactory::create('session', true);
 			$DAO_session->id = $cartSessionID;
 			$DAO_session->find_DAO_session(true);
 
@@ -98,7 +98,7 @@ class processor_session_rsvp extends CPageProcessor
 				else // create a new user and RSVP
 				{
 					// get the session details from the submitted session id
-					$DAO_session = DAO_CFactory::create('session');
+					$DAO_session = DAO_CFactory::create('session', true);
 					$DAO_session->id = $cartSessionID;
 					$DAO_session->find(true);
 
