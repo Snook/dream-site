@@ -1,0 +1,102 @@
+<TaskOptions>
+  <TaskOptions>
+    <option name="arguments" value="--comments /^!/ --output vendor.min.js --source-map &quot;root='js/src/dreamdinners',url='vendor.min.js.map',includeSources&quot; -- jquery/jquery.js bootstrap/bootstrap.bundle.min.js bootbox/bootbox.js jquery.cookie.js scrolltofixed/jquery-scrolltofixed.js cleave/cleave.js jquery.ba-dotimeout.js jquery-ui/jquery-ui.js" />
+    <option name="checkSyntaxErrors" value="true" />
+    <option name="description" />
+    <option name="exitCodeBehavior" value="ERROR" />
+    <option name="fileExtension" value="js" />
+    <option name="immediateSync" value="true" />
+    <option name="name" value="UglifyJS Customer Vendor" />
+    <option name="output" value="vendor.min.js:vendor.min.js.map" />
+    <option name="outputFilters">
+      <array />
+    </option>
+    <option name="outputFromStdout" value="false" />
+    <option name="program" value="uglifyjs" />
+    <option name="runOnExternalChanges" value="true" />
+    <option name="scopeName" value="UglifyJS Vendor" />
+    <option name="trackOnlyRoot" value="false" />
+    <option name="workingDir" value="$ProjectFileDir$/www/theme/dreamdinners/scripts/customer/vendor" />
+    <envs />
+  </TaskOptions>
+  <TaskOptions>
+    <option name="arguments" value="$FileName$ -m --output $FileNameWithoutExtension$.min.js --source-map &quot;root='js/src/dreamdinners',url='$FileNameWithoutExtension$.min.js.map',includeSources&quot; --comments /^!/" />
+    <option name="checkSyntaxErrors" value="true" />
+    <option name="description" />
+    <option name="exitCodeBehavior" value="ERROR" />
+    <option name="fileExtension" value="js" />
+    <option name="immediateSync" value="true" />
+    <option name="name" value="UglifyJS Admin" />
+    <option name="output" value="$FileNameWithoutExtension$.min.js:$FileNameWithoutExtension$.min.js.map" />
+    <option name="outputFilters">
+      <array />
+    </option>
+    <option name="outputFromStdout" value="false" />
+    <option name="program" value="uglifyjs" />
+    <option name="runOnExternalChanges" value="true" />
+    <option name="scopeName" value="UglifyJS" />
+    <option name="trackOnlyRoot" value="true" />
+    <option name="workingDir" value="$FileDir$" />
+    <envs />
+  </TaskOptions>
+  <TaskOptions>
+    <option name="arguments" value="$FileName$:$FileNameWithoutExtension$.min.css --style compressed" />
+    <option name="checkSyntaxErrors" value="true" />
+    <option name="description" />
+    <option name="exitCodeBehavior" value="ERROR" />
+    <option name="fileExtension" value="scss" />
+    <option name="immediateSync" value="true" />
+    <option name="name" value="SCSS Minify" />
+    <option name="output" value="$FileNameWithoutExtension$.min.css:$FileNameWithoutExtension$.min.css.map" />
+    <option name="outputFilters">
+      <array />
+    </option>
+    <option name="outputFromStdout" value="false" />
+    <option name="program" value="sass" />
+    <option name="runOnExternalChanges" value="true" />
+    <option name="scopeName" value="Project Files" />
+    <option name="trackOnlyRoot" value="false" />
+    <option name="workingDir" value="$FileDir$" />
+    <envs />
+  </TaskOptions>
+  <TaskOptions>
+    <option name="arguments" value="$FileName$:$FileNameWithoutExtension$.css" />
+    <option name="checkSyntaxErrors" value="true" />
+    <option name="description" />
+    <option name="exitCodeBehavior" value="ERROR" />
+    <option name="fileExtension" value="scss" />
+    <option name="immediateSync" value="true" />
+    <option name="name" value="SCSS" />
+    <option name="output" value="$FileNameWithoutExtension$.css:$FileNameWithoutExtension$.css.map" />
+    <option name="outputFilters">
+      <array />
+    </option>
+    <option name="outputFromStdout" value="false" />
+    <option name="program" value="sass" />
+    <option name="runOnExternalChanges" value="true" />
+    <option name="scopeName" value="Project Files" />
+    <option name="trackOnlyRoot" value="false" />
+    <option name="workingDir" value="$FileDir$" />
+    <envs />
+  </TaskOptions>
+  <TaskOptions>
+    <option name="arguments" value="$FileName$ -m --output $FileNameWithoutExtension$.min.js --source-map &quot;root='js/src/dreamdinners',url='$FileNameWithoutExtension$.min.js.map',includeSources&quot; --comments /^!/" />
+    <option name="checkSyntaxErrors" value="true" />
+    <option name="description" />
+    <option name="exitCodeBehavior" value="ERROR" />
+    <option name="fileExtension" value="js" />
+    <option name="immediateSync" value="true" />
+    <option name="name" value="UglifyJS Customer" />
+    <option name="output" value="$FileNameWithoutExtension$.min.js:$FileNameWithoutExtension$.min.js.map" />
+    <option name="outputFilters">
+      <array />
+    </option>
+    <option name="outputFromStdout" value="false" />
+    <option name="program" value="uglifyjs" />
+    <option name="runOnExternalChanges" value="true" />
+    <option name="scopeName" value="UglifyJS" />
+    <option name="trackOnlyRoot" value="true" />
+    <option name="workingDir" value="$FileDir$" />
+    <envs />
+  </TaskOptions>
+</TaskOptions>
