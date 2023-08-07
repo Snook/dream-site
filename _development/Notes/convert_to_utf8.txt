@@ -1,0 +1,84 @@
+#
+# Reference
+#
+# https://www.blueboxcloud.com/insight/blog-article/getting-out-of-mysql-character-set-hell
+#
+
+# update the database default to utf8
+
+ALTER DATABASE dreamsite CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+# Make sure everything is UTF8
+
+mysql> show variables like 'char%';
++--------------------------+-----------------------------------------------+
+| Variable_name            | Value                                         |
++--------------------------+-----------------------------------------------+
+| character_set_client     | utf8                                          |
+| character_set_connection | utf8                                          |
+| character_set_database   | utf8                                          |
+| character_set_filesystem | binary                                        |
+| character_set_results    | utf8                                          |
+| character_set_server     | latin1                                        |
+| character_set_system     | utf8                                          |
+| character_sets_dir       | c:\wamp\bin\mysql\mysql5.6.12\share\charsets\ |
++--------------------------+-----------------------------------------------+
+8 rows in set
+
+# fix anything that is not utf8
+
+mysql> SET NAMES utf8 COLLATE utf8_unicode_ci;
+
+mysql> set character_set_server = utf8;
+
+# drop problem foreign keys
+
+ALTER TABLE dreamsite.address DROP FOREIGN KEY FK_address_country;
+ALTER TABLE dreamsite.address DROP FOREIGN KEY FK_address_state;
+ALTER TABLE dreamsite.store DROP FOREIGN KEY FK_country_id;
+ALTER TABLE dreamsite.store DROP FOREIGN KEY FK_state_id;
+
+# Run the following generated queries
+
+SELECT CONCAT("ALTER TABLE dreamsite.", t.table_name, " CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;\n","ALTER TABLE dreamsite.", t.table_name, " CHARACTER SET utf8 COLLATE utf8_unicode_ci;") AS `rename` FROM INFORMATION_SCHEMA.TABLES t WHERE TABLE_SCHEMA = 'dreamsite';
+
+# check for collation that didn't update
+
+mysql> show table status where collation like '%latin1%';
+
+# Edit mysql config add to [mysqld]
+
+init_connect='SET collation_connection = utf8_unicode_ci'
+init_connect='SET NAMES utf8'
+character-set-server=utf8
+collation-server=utf8_unicode_ci
+
+# add to [client]
+
+default-character-set=utf8
+
+# add to [mysql]
+
+default-character-set=utf8
+
+# edit php.ini
+
+default_charset = "UTF-8"
+
+
+### bonus sql, cleanup
+# removes menu_item_html_title and resorts columns
+
+ALTER TABLE `menu_item`
+DROP COLUMN `menu_item_html_title`,
+MODIFY COLUMN `entree_id`  int(11) NOT NULL DEFAULT 0 AFTER `id`,
+MODIFY COLUMN `recipe_id`  mediumint(8) UNSIGNED NULL DEFAULT NULL AFTER `entree_id`,
+MODIFY COLUMN `menu_program_id`  int(10) UNSIGNED NOT NULL DEFAULT 1 AFTER `menu_order_priority`,
+MODIFY COLUMN `master_grouping_id`  int(10) UNSIGNED NOT NULL DEFAULT 0 AFTER `menu_program_id`,
+MODIFY COLUMN `cross_program_grouping_id`  int(10) UNSIGNED NOT NULL DEFAULT 0 AFTER `master_grouping_id`,
+MODIFY COLUMN `is_key_menu_push_item`  tinyint(4) NOT NULL DEFAULT 0 AFTER `cross_program_grouping_id`,
+MODIFY COLUMN `station_number`  tinyint(4) NULL DEFAULT NULL AFTER `is_key_menu_push_item`,
+MODIFY COLUMN `has_included_side`  tinyint(1) UNSIGNED NULL DEFAULT 0 AFTER `station_number`;
+
+
+

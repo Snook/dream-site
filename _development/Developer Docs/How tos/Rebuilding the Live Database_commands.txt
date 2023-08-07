@@ -1,0 +1,25 @@
+ mysql -uroot -p
+FLUSH TABLES WITH READ LOCK;
+SET GLOBAL read_only = 1;
+
+mysqldump --routines --single-transaction --quick -uroot -p --host=localhost dreamsite | gzip > /home/carls/dd_full.sql.gz
+mysqldump --routines --single-transaction --quick -uroot -p --host=localhost dreamlog | gzip > /home/carls/dd_log.sql.gz
+
+ drop database dreamsite;
+ drop database dreamlog;
+ 
+ systemctl stop mariadb
+ 
+ rm ...
+ 
+ systemctl start mariadb
+ 
+{ echo 'SET sql_log_bin = 0;' ; gzip -dc /home/carls/dd_log.sql.gz ; } | mysql -uroot -p dreamlog
+{ echo 'SET sql_log_bin = 0;' ; gzip -dc /home/carls/dd_full.sql.gz ; } | mysql -uroot -p dreamsite
+
+SET sql_log_bin = 1;
+
+gzip -dc < /home/carls/dd_full.sql.gz | mysql -uroot -p dreamsite
+
+
+CHANGE MASTER TO MASTER_LOG_FILE='mysql-bin.000001', MASTER_LOG_POS=245;

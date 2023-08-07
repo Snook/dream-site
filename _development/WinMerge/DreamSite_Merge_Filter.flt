@@ -1,0 +1,34 @@
+## This is a directory/file filter for WinMerge 
+name: Dream Dinners Merge Filter
+desc: Exclude Source Control files, directories and minified files
+
+## This is an inclusive (loose) filter
+## (it lets through everything not specified)
+def: include
+
+## Filters for filenames begin with f: 
+## Filters for directories begin with d: 
+## (Inline comments begin with " ##" and extend to the end of the line) 
+
+## f: \.bzrignore$ ## Bazaar ignore file
+## f: \.cvsignore$ ## CVS ignore file
+## f: \.gitignore$ ## Git ignore file
+## f: \.hgignore$ ## Mercurial ignore file
+## f: \.svnignore$ ## Subversion ignore file
+## f: \.js.map$ ## Subversion ignore file
+
+f: \.(vs[sp])?scc$  ## Visual SourceSafe files
+
+d: \\\.svn$ ## Subversion working copy
+d: \\_svn$  ## Subversion working copy ASP.NET Hack
+d: \\cvs$   ## CVS control directory
+d: \\\.git$ ## Git directory
+d: \\\.bzr$ ## Bazaar branch
+d: \\\.hg$ ## Mercurial repository
+
+d: \\_development$  ## Exlude dev folder
+d: \\includes\\config$ ## Exlude personal config
+
+f: \.js.map$  ## Exclude min files
+f: \.min.js$  ## Exclude min files
+f: \.min.css$  ## Exclude min files
