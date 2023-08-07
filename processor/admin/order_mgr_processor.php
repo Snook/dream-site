@@ -2597,11 +2597,6 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			$OrderObj->points_discount_total = $_POST['plate_points_discount'];
 		}
 
-		if (isset($_POST['referral_reward_discount']) && is_numeric($_POST['referral_reward_discount']))
-		{
-			$OrderObj->discount_total_customer_referral_credit = $_POST['referral_reward_discount'];
-		}
-
 		if (!empty($_POST['PUDSetting']))
 		{
 			if ($_POST['PUDSetting'] == "noUP")

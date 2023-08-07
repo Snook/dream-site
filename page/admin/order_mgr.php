@@ -116,7 +116,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			if (empty($_REQUEST['user']) || !is_numeric($_REQUEST['user']))
 			{
 				$tpl->setErrorMsg("There was a problem with the user ID specified.");
-				CApp::bounce("/?page=admin_main");
+				CApp::bounce("main.php?page=admin_main");
 			}
 
 			$this->originalOrder = DAO_CFactory::create('orders');
@@ -142,14 +142,14 @@ class page_admin_order_mgr extends CPageAdminOnly
 					if ($e->getCode() == processor_admin_order_mgr_processor::dd_general_exception_code && strpos($e->getMessage(), "no open slots") !== false)
 					{
 						$tpl->setErrorMsg("The session has no open slots for this order. Please return to the Sessions and Menu Page and select a new session.");
-						CApp::bounce("/?page=admin_main&session=" . $_POST['session']);
+						CApp::bounce("main.php?page=admin_main&session=" . $_POST['session']);
 					}
 				}
 
 				// success at this point so refresh the page with the new order id
 
 				$orderID = $processor->getOrderID();
-				CApp::bounce("/?page=admin_order_mgr&order=" . $orderID);
+				CApp::bounce("main.php?page=admin_order_mgr&order=" . $orderID);
 			}
 		}
 		else
@@ -161,7 +161,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			if (!$this->originalOrder->find(true))
 			{
 				$tpl->setErrorMsg("An order with the id " . $this->originalOrder->id . " was not found. Please double check the order number, if the issue persists, please contact support.");
-				CApp::bounce("/?page=admin_main");
+				CApp::bounce("main.php?page=admin_main");
 			}
 
 			$booking = DAO_CFactory::create('booking');
@@ -188,7 +188,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				else
 				{
 					$tpl->setErrorMsg("There was a problem with the order ID specified.");
-					CApp::bounce("/?page=admin_main");
+					CApp::bounce("main.php?page=admin_main");
 					// TODO: or we could leave them here with a NEW order
 				}
 			}
@@ -199,6 +199,14 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 				$this->orderState = $booking->status;
 			}
+		}
+
+		$hasOtherOrders = OrdersHelper::getInstance()->hasOtherMenuMonthOrders($this->originalOrder->id);
+		$tpl->assign("hasOtherMenuMonthOrders", $hasOtherOrders);
+		if ($hasOtherOrders)
+		{
+			$otherOrderInfo = OrdersHelper::getInstance()->fetchOtherMenuMonthOrders($this->originalOrder->id);
+			$tpl->assign("other_order_info", $otherOrderInfo);
 		}
 
 		$tpl->assign("store_id", $this->originalOrder->store_id);
@@ -239,7 +247,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			}
 			else
 			{
-				CApp::bounce('/?page=admin_main');
+				CApp::bounce('main.php?page=admin_main');
 			}
 		}
 
@@ -254,12 +262,12 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 		if ($this->orderState == 'NEW' && $this->daoStore->store_type == CStore::DISTRIBUTION_CENTER)
 		{
-			CApp::bounce('/?page=admin_order_mgr_delivered&user=' . $this->originalOrder->user_id);
+			CApp::bounce('main.php?page=admin_order_mgr_delivered&user=' . $this->originalOrder->user_id);
 		}
 
 		if (!CStore::userHasAccessToStore($this->daoStore->id))
 		{
-			CApp::bounce('/?page=admin_main');
+			CApp::bounce('main.php?page=admin_main');
 		}
 
 		if (CUser::getCurrentUser()->isFranchiseAccess() && $this->orderState != 'NEW')
@@ -270,7 +278,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 				$storeName = $this->daoStore->store_name;
 				$tpl->setErrorMsg("This order (#{$this->originalOrder->id}) was placed at a different store. Please change to the $storeName store to edit it.");
-				CApp::bounce('/?page=admin_main');
+				CApp::bounce('main.php?page=admin_main');
 			}
 		}
 
@@ -286,16 +294,9 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 		$order_minimum = null;
 
+
 		if ($this->orderState != 'NEW')
 		{
-			$hasOtherOrders = OrdersHelper::getInstance()->hasOtherMenuMonthOrders($this->originalOrder->id);
-			$tpl->assign("hasOtherMenuMonthOrders", $hasOtherOrders);
-			if ($hasOtherOrders)
-			{
-				$otherOrderInfo = OrdersHelper::getInstance()->fetchOtherMenuMonthOrders($this->originalOrder->id);
-				$tpl->assign("other_order_info", $otherOrderInfo);
-			}
-
 			// ask order to rebuild itself
 			// TODO: reconstruct should one day also reconstruct any products from the original order.
 			// as of 7/13/09 the only products are the dfl subscriptions. We will handle those specifically for now.
@@ -333,7 +334,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				unset($_GET['back']);
 				unset($tpl->back);
 
-				CApp::bounce('/?page=admin_order_mgr_delivered&order=' . $this->originalOrder->id);
+				CApp::bounce('main.php?page=admin_order_mgr_delivered&order=' . $this->originalOrder->id);
 			}
 
 			$Form->AddElement(array(
@@ -355,7 +356,8 @@ class page_admin_order_mgr extends CPageAdminOnly
 		$customizationDetails = new stdClass();
 		$customizationDetails->cost = $this->originalOrder->subtotal_meal_customization_fee;
 		$customizationDetails = json_encode($customizationDetails);
-		$tpl->assign('meal_customization', $customizationDetails);
+		$tpl->assign('meal_customization',$customizationDetails);
+
 
 		$tpl->assign("PlatePointsRulesVersion", $this->PlatePointsRulesVersion);
 
@@ -884,7 +886,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		// -------------------------------------Set up menu
 		if ($this->orderState != 'NEW')
 		{
-			$menuInfo = COrders::buildOrderEditMenuPlanArrays($Session->menu_id, $markup, true, $this->daoStore, 'FeaturedFirst');
+			$menuInfo = COrders::buildOrderEditMenuPlanArrays($Session->menu_id, $markup, true, $this->daoStore,'FeaturedFirst');
 
 			$ctsArray = CMenu::buildCTSArray($this->daoStore, $Session->menu_id, $markup);
 
@@ -1048,7 +1050,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 									}
 									else
 									{
-										$orgPrices[$item] = $menu_item['price'];
+										$orgPrices[$item] = $menu_item['override_price'];
 									}
 								}
 							}
@@ -1064,8 +1066,8 @@ class page_admin_order_mgr extends CPageAdminOnly
 									'data-menu_item_id' => $menu_item['id'],
 									'data-intro_item' => (!empty($bundleItems['bundle'][$menu_item['id']]) ? 'true' : 'false'),
 									'data-menu_category_id' => $menu_item['menu_item_category_id'],
-									'data-item_count_per_item' => empty($menu_item['item_count_per_item']) ? 1 : $menu_item['item_count_per_item'],
-									'data-item_is_customizable' => $menu_item['item_is_customizable'] ? '1' : '0',
+									'data-item_count_per_item' => empty($menu_item['item_count_per_item'])?1:$menu_item['item_count_per_item'],
+									'data-item_is_customizable' => $menu_item['item_is_customizable']?'1':'0',
 									'data-menu_class' => $categoryName
 								),
 								Cform::min => 0,
@@ -1089,7 +1091,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 								$sideStationBundleInfo[$menu_item['id']] = $subItems;
 
-								if (array_key_exists('bundle', $subItems))
+								if( array_key_exists('bundle', $subItems) )
 								{
 									foreach ($subItems['bundle'] as $sid => $subItemInfo)
 									{
@@ -1270,7 +1272,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 						'data-intro_item' => (!empty($bundleItems['bundle'][$id]) ? 'true' : 'false'),
 						'data-menu_category_id' => 9,
 						'data-menu_class' => 'Sides & Sweets',
-						'data-item_count_per_item' => empty($data['item_count_per_item']) ? 1 : $data['item_count_per_item'],
+						'data-item_count_per_item' => empty($data['item_count_per_item'])?1:$data['item_count_per_item'],
 						'data-item_is_customizable' => 0,
 						'data-index' => $index++
 					),
@@ -1616,6 +1618,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		$Form->DefaultValues['total_bag_count'] = (is_null($this->originalOrder->total_bag_count) ? 0 : $this->originalOrder->total_bag_count);
 		$Form->DefaultValues['subtotal_meal_customization_fee'] = (is_null($this->originalOrder->subtotal_meal_customization_fee) ? 0 : $this->originalOrder->subtotal_meal_customization_fee);
 
+
 		//order/meal customizations
 		$shouldLockCustomizationFeeField = !$this->originalOrder->opted_to_customize_recipes;
 		$tpl->assign('shouldLockCustomizationFeeField', $shouldLockCustomizationFeeField);
@@ -1626,10 +1629,11 @@ class page_admin_order_mgr extends CPageAdminOnly
 		$tpl->assign('meal_customization_preferences_json', $orderCustomizationWrapper->mealCustomizationToJson());
 		$tpl->assign('meal_customization_cost', json_encode(CStoreFee::fetchCustomizationFees($this->daoStore)));
 		$hasManualCost = $this->originalOrder->subtotal_meal_customization_fee != $this->daoStore->customizationFeeForMealCount($this->originalOrder->total_customized_meal_count);
-		$tpl->assign('dont_recalculate_customization_cost', ($hasManualCost ? "true" : "false"));
+		$tpl->assign('dont_recalculate_customization_cost', ($hasManualCost? "true":"false"));
 
 		$hasCustomizationOptionsSelected = $orderCustomizationWrapper->hasMealCustomizationPreferencesSet();
 		$tpl->assign('default_meal_customization_to_selected', ((is_null($this->originalOrder->opted_to_customize_recipes) && $hasCustomizationOptionsSelected) ? true : false));
+
 
 		$shouldLockBagCountToField = !is_null($this->originalOrder->total_bag_count);
 		$tpl->assign('shouldLockBagCountToField', $shouldLockBagCountToField);
@@ -1992,7 +1996,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$tpl->assign('orderIsEligibleForMembershipDiscount', false);
 		}
 
-		$maxAvailableReferralRewardCredit  = $this->handleReferralRewards($tpl,$Form, $this->originalOrder);
+		$this->handleReferralRewards($tpl,$Form, $this->originalOrder);
 
 		$tpl->assign('userIsPlatePointsGuest', $this->userIsPlatePointsGuest);
 		$tpl->assign('storeSupportsPlatePoints', $this->storeSupportsPlatePoints);
@@ -2278,9 +2282,9 @@ class page_admin_order_mgr extends CPageAdminOnly
 						COrders::sendEditedOrderConfirmationEmail($this->User, $this->originalOrder);
 					}
 
-					$tpl->assign('back', "/?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+					$tpl->assign('back', "main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 
-					CApp::bounce("/?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+					CApp::bounce("main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 				}
 				catch (Exception $e)
 				{
@@ -2486,6 +2490,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 					}
 				}
 
+
 				if (!empty($_POST['opted_to_bring_bags']))
 				{
 					$this->originalOrder->subtotal_bag_fee = 0.00;
@@ -2518,7 +2523,8 @@ class page_admin_order_mgr extends CPageAdminOnly
 					}
 				}
 
-				self::adjustMealCustomizationOnOrder($this->originalOrder, $_POST);
+				self::adjustMealCustomizationOnOrder($this->originalOrder,$_POST);
+
 
 				// remember state so that we can restore some critical values if an exception occurs
 				$originalOrderPriorToUpdate = clone($this->originalOrder);
@@ -2555,35 +2561,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 					{
 						$pp_credit_adjust_summary = CPointsCredits::AdjustPointsForOrderEdit($this->originalOrder, 0);
 						$this->originalOrder->points_discount_total = 0;
-					}
-
-					// Referral Rewards Discount
-					if (isset($_POST['referral_reward_discount']))
-					{
-
-						if (empty($_POST['referral_reward_discount']))
-						{
-							$_POST['referral_reward_discount'] = 0;
-						}
-
-						if ($_POST['referral_reward_discount'] > $maxAvailableReferralRewardCredit)
-						{
-							$_POST['referral_reward_discount'] = $maxAvailableReferralRewardCredit;
-						}
-
-						if ($_POST['referral_reward_discount'] < 0)
-						{
-							$_POST['referral_reward_discount'] = 0;
-						}
-
-						$pp_credit_adjust_summary = CCustomerReferralCredit::AdjustPointsForOrderEdit($this->originalOrder, $_POST['referral_reward_discount']);
-
-						$this->originalOrder->discount_total_customer_referral_credit = $_POST['referral_reward_discount'];
-					}
-					else
-					{
-						$pp_credit_adjust_summary = CCustomerReferralCredit::AdjustPointsForOrderEdit($this->originalOrder, 0);
-						$this->originalOrder->discount_total_customer_referral_credit = 0;
 					}
 
 					self::cleanUpForeignKeys($order_record);
@@ -2706,6 +2683,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 						}
 					}
 
+
 					if (!isset($this->originalOrder->bundle_id) || $this->originalOrder->bundle_id === '' || $this->originalOrder->bundle_id === '0' || $this->originalOrder->bundle_id === 0)
 					{
 						$this->originalOrder->bundle_id = 'null';
@@ -2781,9 +2759,9 @@ class page_admin_order_mgr extends CPageAdminOnly
 						COrders::sendEditedOrderConfirmationEmail($this->User, $this->originalOrder);
 					}
 
-					$tpl->assign('back', "/?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+					$tpl->assign('back', "main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 
-					CApp::bounce("/?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+					CApp::bounce("main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 				}
 				catch (Exception $e)
 				{
@@ -2910,7 +2888,10 @@ class page_admin_order_mgr extends CPageAdminOnly
 				'orderInfo' => array('grand_total' => 0),
 				'paymentInfo' => array(),
 				'sessionInfo' => array(),
-				'storeInfo' => $this->daoStore->toArray()
+				'storeInfo' => array(
+					'store_name' => $this->daoStore->store_name,
+					'default_bag_fee' => $this->daoStore->default_bag_fee
+				)
 			);
 		}
 
@@ -2930,7 +2911,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 			CForm::label => '<span id="OEH_auto_pay_msg"></span>'
 		));
 
-		$tpl->assign('menuInfo', false);
 		if ($this->orderState != 'NEW')
 		{
 			$tpl->assign('planArray', $planArray);
@@ -4616,8 +4596,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 	}
 
 	//Set customization values so that the Order->recalculate function will generate the correct totals
-	public static function adjustMealCustomizationOnOrder(&$order, $args)
-	{
+	public static function adjustMealCustomizationOnOrder(&$order,$args){
 		if (!empty($args['opted_to_customize_recipes']))//name is reversed
 		{
 			$order->subtotal_meal_customization_fee = 0.00;
@@ -4644,12 +4623,12 @@ class page_admin_order_mgr extends CPageAdminOnly
 				if (isset($args['subtotal_meal_customization_fee']) && $args['subtotal_meal_customization_fee'] != $order->subtotal_meal_customization_fee)
 				{
 					$order->subtotal_meal_customization_fee = $args['subtotal_meal_customization_fee'];
-					if ($args['manual_customization_fee'] == 'true')
-					{
+					if($args['manual_customization_fee'] == 'true'){
 						$order->setShouldRecalculateMealCustomizationFee(false);
 					}
 					$customizations = OrdersCustomization::getInstance($order);
 					$order->order_customization = $customizations->orderCustomizationToJson();
+
 				}
 				$order->opted_to_customize_recipes = 1;
 				$order->total_customized_meal_count = $order::getNumberOfCustomizableMealsFromItems($order, $order->getStore()->allow_preassembled_customization);
@@ -4895,8 +4874,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 			{
 				$query = "SELECT
 					mmi.override_price AS override_price,
-       				mmi.store_id AS store_id,
-      				r.override_menu_id AS menu_id,
 					mimd.id as markdown_id,
 					mimd.markdown_value,
 					r.ltd_menu_item_value,
@@ -4922,7 +4899,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$menuItemInfo->query($query);
 			while ($menuItemInfo->fetch())
 			{
-				//$menuItemInfo->store_price = null;
 				$qty = null;
 
 				if (isset($array[COrders::QUANTITY_PREFIX . $menuItemInfo->id]))
@@ -4940,8 +4916,10 @@ class page_admin_order_mgr extends CPageAdminOnly
 				{
 					$menuItemInfo->override_price = $orgPrices[$menuItemInfo->id];
 
-					$menuItemInfo->price = $menuItemInfo->override_price;
-					$menuItemInfo->store_price = $menuItemInfo->override_price;
+					if ($menuItemInfo->override_price < $menuItemInfo->price)
+					{
+						$menuItemInfo->price = $menuItemInfo->override_price;
+					}
 				}
 
 				if ($menuItemInfo->pricing_type == CMenuItem::INTRO)
@@ -5101,8 +5079,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 				$tpl->assign('noReferralRewardReason', "Referral Rewards are not available.");
 			}
 		}
-
-		return $maxAvailableReferralRewards;
 	}
 }
 
