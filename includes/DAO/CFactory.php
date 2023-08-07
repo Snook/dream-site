@@ -33,6 +33,7 @@ class DAO_CFactory
 		'CCouponCode' => 'DAO_Coupon_code',
 		'CCouponCodeProgram' => 'DAO_Coupon_code_program',
 		'CCustomerReferral' => 'DAO_Customer_referral',
+		'CCustomerReferralCredit' => 'DAO_Customer_referral_credit',
 		'CDreamRewardsHistory' => 'DAO_Dream_rewards_history',
 		'CDreamTasteEvent' => 'DAO_Dream_taste_event_properties',
 		'CEnrollmentPackage' => 'DAO_Enrollment_package',
