@@ -24,28 +24,36 @@
 					<div class="col">
 						<div class="card-group text-center">
 							<div class="card border-0 mx-1">
-								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Summer-ToolKit.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/summer-toolkit-458x344.png" alt="Summer Toolkit" class="img-fluid" /></a>
+								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Back-to-School-Toolkit.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/back-to-school-toolkit-458x344.png" alt="Back to School" class="img-fluid" /></a>
 								<div class="card-body">
-								<h5 class="card-title">Summer Toolkit</h5>
+								<h5 class="card-title">Back to School Toolkit</h5>
 									<p class="card-text">Filled with activities, tips and tricks to keep the kiddos entertained.</p>
-									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Summer-ToolKit.pdf" target="_blank" class="btn btn-primary">Download Toolkit</a></p>
+									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Back-to-School-Toolkit.pdf" target="_blank" class="btn btn-primary">Download Toolkit</a></p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Summer-Placemat.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/summer-placemat-458x344.png" alt="Summer Placemat" class="img-fluid" /></a>								<div class="card-body">
-									<h5 class="card-title">Summer Themed Placemat</h5>
+								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Back-to-School-Placemat.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/back-to-school-placemat-458x344.png" alt="Back to School Placemat" class="img-fluid" /></a>								<div class="card-body">
+									<h5 class="card-title">Back to School Placemat</h5>
 									<p class="card-text">Download and print a 11x17 fun activity placemat.</p>
-									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Summer-Placemat.pdf" target="_blank" class="btn btn-primary">Download Placemat</a></p>
+									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Back-to-School-Placemat.pdf" target="_blank" class="btn btn-primary">Download Placemat</a></p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
+								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Back-to-School-Note-Cards.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/back-to-school-note-cards-458x344.png" alt="Back to School notes" class="img-fluid" /></a>
+								<div class="card-body">
+									<h5 class="card-title">Back to School Notes</h5>
+									<p class="card-text">Add one of these sweet notes their lunchbox to brighten their day.</p>
+									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Back-to-School-Note-Cards.pdf" target="_blank" class="btn btn-primary">Download Notes</a></p>
+								</div>
+							</div>
+							<!--<div class="card border-0 mx-1">
 								<a href="/main.php?page=gift_card_order" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/gift-cards-458x344.png" alt="Dream Dinner Gift Cards" class="img-fluid" /></a>
 								<div class="card-body">
 									<h5 class="card-title">Dream Dinners Gift Cards</h5>
-									<p class="card-text">Looking for the perfect gift?<br/>Bring joy with ready to cook meals this summer.</p>
+									<p class="card-text">Looking for the perfect gift?<br/>Bring joy with ready to cook meals.</p>
 									<p><a href="/main.php?page=gift_card_order" class="btn btn-primary">Buy a Gift Card</a></p>
 								</div>
-							</div>
+							</div>-->
 						</div>
 					</div>
 				</div>
