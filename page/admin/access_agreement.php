@@ -3,6 +3,7 @@ require_once("includes/CPageAdminOnly.inc");
 
 class page_admin_access_agreement extends CPageAdminOnly {
 
+	//change
 	function runNewEmployee()
 	{
 		$this->runAccessAgreement();
