@@ -6,8 +6,7 @@
  * Window - Preferences - PHPeclipse - PHP - Code Templates
  */
 
-//require_once("C:\wamp\www\DreamSite\includes\Config.inc");
-require_once("/DreamSite/includes/Config.inc");
+require_once("../../../includes/Config.inc");
 
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/CFactory.php");
@@ -20,9 +19,8 @@ $trans_amount = 100;
 $ccRef = "manual";
 
  try {	//static function loadDebitGiftCard($gift_card_number, $trans_amount, $ccRef, $POS_type='M', $store_id = false)
- 	
 
-        $result =  CGiftCard::loadDebitGiftCard($accountNumber, $trans_amount, $ccRef);
+	 $result =  CGiftCard::loadDebitGiftCard($accountNumber, $trans_amount, $ccRef);
 
         if ($result)
 			echo "load Successful!! " . $result .  "\n";
