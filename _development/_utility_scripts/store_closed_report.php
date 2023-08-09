@@ -5,10 +5,8 @@
  * Copyright 2013 DreamDinners
  * @author Carls
  */
-//require_once("c:\wamp\www\DreamPay\includes\Config.inc");
-//require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
 
-require_once("/DreamSite/includes/Config.inc");
+require_once("../../includes/Config.inc");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/BusinessObject/CUserData.php");
 require_once("DAO/BusinessObject/CPointsUserHistory.php");
@@ -70,9 +68,8 @@ try {
    $path = "/DreamSite/stores_closed.csv";
    //$path = "C:\\Development\\Sites\\DreamSite\\Recent_Scripts\\stores_closed.csv";
     $fh = fopen($path, 'w');
-    
-    
-    $stores = new DAO();
+
+	$stores = new DAO();
 
     $stores->query("select s.store_id, st.home_office_id, st.store_name, st.city, st.state_id,  CONCAT(WEEK(s.session_start), ' ', YEAR(s.session_start)) as da_week, count(distinct b.order_id) as da_count from session s
                                         join booking b on b.session_id = s.id and b.status = 'ACTIVE'
@@ -136,7 +133,6 @@ try {
     }
 
     fclose($fh);
-    
 }
 catch (exception $e)
 {

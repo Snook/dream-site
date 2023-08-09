@@ -5,8 +5,7 @@
  * Copyright 2013 DreamDinners
  * @author Carls
  */
-//require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
-require_once("/DreamSite/includes/Config.inc");
+require_once("../../includes/Config.inc");
 
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/BusinessObject/CUserData.php");
@@ -190,7 +189,6 @@ try {
    }
 
     fclose($fh);
-    
 }
 catch (exception $e)
 {

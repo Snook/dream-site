@@ -5,10 +5,7 @@
  * Copyright 2013 DreamDinners
  * @author Carls
  */
-//require_once("c:\wamp\www\DreamPay\includes\Config.inc");
-//require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
-
-require_once("/DreamSite/includes/Config.inc");
+require_once("../../includes/Config.inc");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/BusinessObject/CUserData.php");
 require_once("DAO/BusinessObject/CPointsUserHistory.php");
@@ -90,8 +87,8 @@ try {
                     join store st on st.id= u.home_store_id and st.active = 1 and st.id in (30,61,80,159,200,244)
                     group by u.home_store_id, CONCAT(MONTH(puh.timestamp_created),'-',YEAR(puh.timestamp_created)), puh.json_meta
                     order by u.home_store_id desc, puh.timestamp_created desc");
-                    
-    while($gift2->fetch())
+
+	while($gift2->fetch())
     {
           $mainarray[$gift2->home_store_id]['member'][$gift2->da_month]= $gift2->total;
     }
@@ -106,7 +103,6 @@ try {
 
 
     fclose($fh);
-    
 }
 catch (exception $e)
 {

@@ -9,7 +9,7 @@
  // 1) Create new 3 servings intro items for the June Menu
 
 //require_once("C:\\Users\\Carl.Samuelson\\Zend\workspaces\\DefaultWorkspace\\Responsive\\includes\\Config.inc");
-require_once("/DreamSite/includes/Config.inc");
+require_once("../../includes/Config.inc");
 
 
 require_once("DAO/BusinessObject/COrders.php");
