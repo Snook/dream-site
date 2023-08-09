@@ -8289,10 +8289,15 @@ class COrders extends DAO_Orders
 
 		try
 		{
-			// On the live server we must eat exceptions here as the order has been committed at thgis point.  If an excpetion occurs here and is alloe
+			// On the live server we must eat exceptions here as the order has been committed at this point.  If an exception occurs here and is allow
 			if ($this->points_discount_total > 0)
 			{
 				CPointsCredits::processCredits($this->user_id, $this->points_discount_total, $this->id);
+			}
+
+			if ($this->discount_total_customer_referral_credit > 0)
+			{
+				CCustomerReferralCredit::processCredits($this->user_id, $this->discount_total_customer_referral_credit, $this->id);
 			}
 
 			// Notes: LMH [ PING PROJECT ADDITION 5/10/2007]
