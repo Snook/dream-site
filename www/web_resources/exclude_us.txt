@@ -1,0 +1,1 @@
+This file is here as a convenience when archiving the application. The exclude-tag=exclude_us.txt directive causes tar to ignore this directory.
