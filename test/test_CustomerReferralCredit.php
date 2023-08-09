@@ -26,6 +26,6 @@ while ($DAO_customer_referral_credit->fetch())
 $amountToProcess = 8.73;
 $order_id = 3833646;
 
-CCustomerReferralCredit::processCredits($DAO_user->id, $amountToProcess, $order_id);
+//CCustomerReferralCredit::processCredits($DAO_user->id, $amountToProcess, $order_id);
 
 ?>
