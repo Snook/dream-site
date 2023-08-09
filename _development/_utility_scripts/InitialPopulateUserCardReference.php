@@ -5,9 +5,7 @@
  * Copyright 2013 DreamDinners
  * @author Carls
  */
-//require_once("c:\wamp\www\DreamPay\includes\Config.inc");
-//require_once("C:\Development\Sites\DreamSite\includes\Config.inc");
-require_once("/DreamSite/includes/Config.inc");
+require_once("../../includes/Config.inc");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/BusinessObject/CPayment.php");
 require_once("DAO/BusinessObject/CPointsUserHistory.php");
@@ -72,7 +70,7 @@ try {
 		echo "Found $count guests with referencable transactions\r\n";
 	}
   //  fclose($fh);
-    
+
 }
 catch (exception $e)
 {

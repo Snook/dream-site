@@ -6,8 +6,7 @@
  * Window - Preferences - PHPeclipse - PHP - Code Templates
  */
 
-//require_once("C:\wamp\www\DreamSite\includes\Config.inc");
-require_once("/DreamSite/includes/Config.inc");
+require_once("../../../includes/Config.inc");
 
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/CFactory.php");

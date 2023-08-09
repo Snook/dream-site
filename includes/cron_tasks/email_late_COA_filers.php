@@ -5,8 +5,7 @@
  * Copyright 2013 DreamDinners
  * @author Carls
  */
-//require_once("C:\\Users\\Carl.Samuelson\\Zend\workspaces\\DefaultWorkspace12\\DreamSite\\includes\\Config.inc");
-require_once("/DreamSite/includes/Config.inc");
+require_once("../Config.inc");
 require_once("DAO/CFactory.php");
 require_once("CLog.inc");
 require_once("CMailHandlers.inc");
@@ -19,22 +18,21 @@ define('TEST_MODE', false);
 
 function sendFirstCOAReminderEmail($storeObj, $previousMonthName, $curMonthName)
 {
-	
+
 	$data = array("owners" => $storeObj->firstnames, "prevMonth" => $previousMonthName, "curMonth" => $curMonthName );
-	
+
 	$firstnames = explode(",",$storeObj->firstnames );
-	$fullnames = explode(",",$storeObj->fullnames );	
+	$fullnames = explode(",", $storeObj->fullnames);
 	$addresses = explode(",",$storeObj->email_addresses );
 	$IDs = explode(",",$storeObj->owner_ids );
-	
+
 	$aUserID = array_pop($IDs);
-	
-	
+
 	$Mail = new CMail();
-	
+
 	$contentsText = CMail::mailMerge('coa_first_reminder.txt.php', $data);
 	$contentsHtml = CMail::mailMerge('coa_first_reminder.html.php', $data);
-	
+
 	$Mail->send("Finance Dept",
 		"finance@dreamdinners.com",
 		$storeObj->fullnames,
@@ -46,22 +44,21 @@ function sendFirstCOAReminderEmail($storeObj, $previousMonthName, $curMonthName)
 		'',
 		$aUserID,
 		'coa_first_reminder');
-	
+
 }
 
 function sendSecondCOAReminderEmail($storeObj)
 {
 
 	$data = array("owners" => $storeObj->firstnames);
-	
+
 	$firstnames = explode(",",$storeObj->firstnames );
 	$fullnames = explode(",",$storeObj->fullnames );
 	$addresses = explode(",",$storeObj->email_addresses );
 	$IDs = explode(",",$storeObj->owner_ids );
-	
+
 	$aUserID = array_pop($IDs);
-	
-	
+
 	$Mail = new CMail();
 
 	$contentsText = CMail::mailMerge('coa_second_reminder.txt.php', $data);
@@ -89,29 +86,27 @@ try {
 		CLog::RecordCronTask(1, CLog::FAILURE, CLog::EMAIL_LATE_COA_FILERS, "email_late_COA_filers called but cron is disabled.");
 		exit;
 	}
-	
+
 	$curMonth = date("n");
 	$curYear = date('Y');
 	$curDay = date("j");
 	$curMonthName = date("F");
-		
+
 	//The crontab will be set up to call this script on the 21st and the 24th.   Let's be cautious and be sure it is one of those 2 days and do nothing if not
-	
+
 	if (!TEST_MODE && $curDay != 21)
 	{
 		CLog::RecordCronTask(1, CLog::FAILURE, CLog::EMAIL_LATE_COA_FILERS, "email_late_COA_filers: Called on wrong day: $curDay");
 		exit;
 	}
-	
+
 	$previousMonthTS = mktime(0,0,0,$curMonth-1,1,$curYear);
 	$selectMonth = date("Y-m-d", $previousMonthTS);
 	$previousMonthName = date("F", $previousMonthTS);
-	
-		
+
 	// The first reminder is from Finance
 	$storeObj = DAO_CFactory::create('store');
-		
-		
+
 	if (TEST_MODE)
 	{
 		$storeObj->query("select iq.* from
@@ -123,20 +118,20 @@ try {
 			where st.active = 1
 			group by st.id) as iq
 			where ISNULL(iq.net_income) limit 1");
-		
-			while($storeObj->fetch())
+
+		while($storeObj->fetch())
 			{
-								
+
 				sendFirstCOAReminderEmail($storeObj, $previousMonthName, $curMonthName);
 			//	sendSecondCOAReminderEmail($storeObj);
 			}
 	}
-	else 
+	else
 	{
-		
+
 		$totalCount = 0;
-			
-			$storeObj->query("select iq.* from
+
+		$storeObj->query("select iq.* from
 				(select st.id, st.franchise_id, smpl.net_income, GROUP_CONCAT(u.primary_email) as email_addresses, GROUP_CONCAT(u.user_type), count(DISTINCT u.id) as owner_count, GROUP_CONCAT(u.id) as owner_ids,
 				GROUP_CONCAT(u.firstname) as firstnames, GROUP_CONCAT(CONCAT(u.firstname, ' ', u.lastname)) as fullnames  from store st
 				left join store_monthly_profit_and_loss smpl on date = '$selectMonth' and smpl.store_id = st.id
@@ -145,24 +140,23 @@ try {
 				where st.active = 1
 				group by st.id) as iq
 				where ISNULL(iq.net_income)");
-			
-			
-			while($storeObj->fetch())
+
+		while($storeObj->fetch())
 			{
-					
+
 				$totalCount++;
-				
+
 				if ($curDay == 21)
 				{
 					sendFirstCOAReminderEmail($storeObj, $previousMonthName, $curMonthName);
 				}
-			//	else 
+				//	else
 			//	{
 			//		sendSecondCOAReminderEmail($storeObj);
 			//	}
 			}
-			
-			if ($curDay == 21)
+
+		if ($curDay == 21)
 			{
 				CLog::RecordCronTask($totalCount, CLog::SUCCESS, CLog::EMAIL_LATE_COA_FILERS, "$totalCount stores were sent the first reminder.");
 			}
@@ -170,11 +164,8 @@ try {
 			//{
 			//	CLog::RecordCronTask($totalCount, CLog::SUCCESS, CLog::EMAIL_LATE_COA_FILERS, "$totalCount stores were sent the final reminder.");
 			//}
-				
-				
-		}
-	
-		
+
+	}
 	//echo "would have deleted $totalCount saved orders - $cutoffdate\r\n";
 
 }

@@ -1,5 +1,5 @@
 <?php
-require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
+require_once("../includes/Config.inc");
 require_once("DAO/BusinessObject/COrdersDelivered.php");
 require_once 'includes/api/tax/avalara/AvalaraTaxManager.php';
 require_once 'includes/api/tax/avalara/AvalaraTaxWrapper.php';

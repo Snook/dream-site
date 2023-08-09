@@ -5,8 +5,7 @@
  * Copyright 2013 DreamDinners
  * @author Carls
  */
-require_once("C:\Users\Carl.Samuelson\Zend\workspaces\DefaultWorkspace12\DreamSite\includes\Config.inc");
-//require_once("/DreamSite/includes/Config.inc");
+require_once("../../../includes/Config.inc");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/BusinessObject/CUserData.php");
 require_once("DAO/BusinessObject/CPointsUserHistory.php");
@@ -20,7 +19,7 @@ try {
 	//$path = "/DreamSite/new_nums.csv";
 	$fp = fopen($path, 'r');
 	$totalCount = 0;
-	
+
 	while (!feof($fp))
 	{
 		$buffer = fgets($fp, 4096);
@@ -32,27 +31,25 @@ try {
 		}
 
 		$valArr = explode(",", $buffer);
-		
-		
-    	$acct_check = DAO_CFactory::create('gift_card_order');
+
+		$acct_check = DAO_CFactory::create('gift_card_order');
     	$acct_check->id = $valArr[0];
     	$acct_check->find(true);
-    	
-    	if (!empty($acct_check->clear_card_number) || !empty($acct_check->gift_card_account_number))
+
+		if (!empty($acct_check->clear_card_number) || !empty($acct_check->gift_card_account_number))
     	{
     		throw new Exception("Row {} has an existing GC number");
     	}
-		
-    	$acct_check->query("update gift_card_order set clear_card_number = '{$valArr[1]}' where id = {$valArr[0]};");
-		
 
-    	$acct_set = DAO_CFactory::create('gift_card_order');
-    	    	
-    	$message = CCrypto::encode(base64_encode($valArr[1]));
+		$acct_check->query("update gift_card_order set clear_card_number = '{$valArr[1]}' where id = {$valArr[0]};");
+
+		$acct_set = DAO_CFactory::create('gift_card_order');
+
+		$message = CCrypto::encode(base64_encode($valArr[1]));
     	$acct_set->query("Call store_gcan('$message', {$valArr[0]})");
     	$totalCount++;
 	}
-	
+
 	CLog::Record("CRON: $totalCount cards processed.");
 
 }

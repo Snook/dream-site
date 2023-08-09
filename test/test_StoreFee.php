@@ -1,5 +1,5 @@
 <?php
-require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
+require_once("../includes/Config.inc");
 require_once 'includes/DAO/BusinessObject/CUser.php';
 require_once 'includes/DAO/BusinessObject/CStoreFee.php';
 require_once 'includes/DAO/BusinessObject/CStore.php';
@@ -37,5 +37,3 @@ echo $meal2->no_added_salt.PHP_EOL.PHP_EOL;
 
 $oc = $inst->orderCustomizationToObj();
 //echo $inst->orderCustomizationToJson().PHP_EOL;;
-
-

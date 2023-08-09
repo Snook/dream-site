@@ -1,5 +1,5 @@
 <?php
-require_once("C:\\Development\\Sites\\DD_Delivered\\includes\\Config.inc");
+require_once("../includes/Config.inc");
 require_once("includes/DAO/BusinessObject/COrdersDigest.php");
 require_once("CLog.inc");
 require_once("CAppUtil.inc");

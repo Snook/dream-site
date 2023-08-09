@@ -8,15 +8,7 @@
 
 define('dev', false);
 
-
-if (dev)
-{
-	require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
-}
-else
-{
-	require_once("/DreamSite/includes/Config.inc");
-}
+require_once("../../includes/Config.inc");
 
 require_once("CLog.inc");
 require_once("CAppUtil.inc");
@@ -560,7 +552,7 @@ try {
 
 
         $dd_in2 = DAO_CFactory::create('orders');
-        $dd_in2->query("select 
+        $dd_in2->query("select
                     SUM(SUBSTR(json_meta, -3, 2)) as juice from points_user_history puh
                     where YEAR(puh.timestamp_created) = $year and MONTH(puh.timestamp_created) = $month and puh.is_deleted = 0 and puh.event_type = 'REWARD_CREDIT'");
 

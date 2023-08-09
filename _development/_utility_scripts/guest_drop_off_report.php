@@ -7,18 +7,11 @@
  */
 
  // 1) Create new 3 servings intro items for the June Menu
- 
+
 define('DEV', false);
 define('REVERSE', false);
 
-if (DEV)
-{
-    require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
-}
-else 
-{
-    require_once("/DreamSite/includes/Config.inc");
-}
+require_once("../../includes/Config.inc");
 
 require_once("DAO/BusinessObject/COrders.php");
 require_once("DAO/BusinessObject/CUser.php");
@@ -38,20 +31,19 @@ $RegularOrdersOnly = true;
 //$Year = 2018;  $Cap_menu = 209;
 $Year = 2021;  $Cap_menu = 221;
  try {
-     
-     
-     $storeObj = new DAO();
+
+
+	 $storeObj = new DAO();
      $storeArr = array();
      $storeObj->query("select id, home_office_id, store_name, city, state_id, is_corporate_owned from store where is_deleted = 0");
      while($storeObj->fetch())
      {
          $storeArr[$storeObj->id] = array('hoid' => $storeObj->home_office_id, 'store_name' => $storeObj->store_name, 'city'=> $storeObj->city, 'state_id' => $storeObj->state_id, 'is_corporate_owned' => $storeObj->is_corporate_owned);
      }
-     
-     
-     if (REVERSE)
+
+	 if (REVERSE)
      {
-     
+
          if (DEV)
          {
              $path = "C:\\Development\\Sites\\DreamSite\\Guests_of_Year_$Year.csv";
@@ -65,7 +57,7 @@ $Year = 2021;  $Cap_menu = 221;
              $path3 = "/DreamSite/Dropoff_reporting/reverse_guests_drop_off_summary (all orders) $Year.csv";
          }
      }
-     else 
+	 else
      {
          if (DEV)
          {
@@ -80,31 +72,40 @@ $Year = 2021;  $Cap_menu = 221;
              $path3 = "/DreamSite/guests_drop_off_summary_$Year.csv";
          }
      }
-         
+
      $src_fp = fopen($path, 'r');
  	 $dest_fp = fopen($path2, 'w+');
- 	
- 	$len = fputcsv($dest_fp, array("Store ID", "HOID", "Store Name", "City", "State", "Is Corproate", "ID", "First Name", "Last Name", "Email", 
+
+	 $len = fputcsv($dest_fp, array(
+		 "Store ID",
+		 "HOID",
+		 "Store Name",
+		 "City",
+		 "State",
+		 "Is Corproate",
+		 "ID",
+		 "First Name",
+		 "Last Name",
+		 "Email",
  	    "First Session", "First Session Type", "Visit Count", "User Class", "Attendance Span", "Attendance Frequency", "Is Currrent") );
- 	
+
  	$dest_fp_sum = fopen($path3, 'w+');
- 	
- 	
- 	$summaryArray = array();
- 	
+
+	 $summaryArray = array();
+
  	 $headers = fgetcsv( $src_fp);
- 	 
+
  	 echo " beginning processing ...\r\n";
- 	 
+
  	 $counter = 0;
- 	
+
  	 while($thisRow = fgetcsv( $src_fp))
  	 {
  	     $menu_id = array_pop($thisRow);
- 	     
+
  	     $counter++;
  	   //  print_r($thisRow);
- 	   
+
  	     // USER Classes
  	     // ------------------
  	     // 4 month span classes
@@ -116,11 +117,10 @@ $Year = 2021;  $Cap_menu = 221;
  	     // three orders out at first standard
  	     // three orders and done
  	     $userDetailArray = array();
- 	     
+
  	     $attendance_studier = new DAO();
- 	     
- 	     
- 	     if ($RegularOrdersOnly)
+
+		 if ($RegularOrdersOnly)
  	     {
  	         $attendance_studier->query("select o.user_id, o.type_of_order, s.menu_id, s.session_start, s.store_id, 0 as host_required, 0 as can_rsvp_only from booking b
                          	     join session s on s.id = b.session_id
@@ -128,7 +128,7 @@ $Year = 2021;  $Cap_menu = 221;
                          	     where b.user_id = {$thisRow[0]} and b.status = 'ACTIVE' and o.type_of_order = 'STANDARD'
                          	     order by s.session_start");
  	     }
- 	     else 
+		 else
  	     {
      	     $attendance_studier->query("select o.type_of_order, s.session_start, s.menu_id, s.store_id, dtep.host_required, dtep.can_rsvp_only from booking b
                          	     join session s on s.id = b.session_id
@@ -138,41 +138,39 @@ $Year = 2021;  $Cap_menu = 221;
                          	     where b.user_id = {$thisRow[0]} and b.status = 'ACTIVE'
                          	     order by s.session_start");
  	     }
- 	     
+
  	     $visitsThisGuest = $attendance_studier->N;
  	     if ($attendance_studier->N == 0)
  	     {
  	         continue;
  	     }
- 	     
+
  	     $firstOrderPromo = false;
  	     $secondOrderPromo = false;
  	     $orderCount = 0;
  	     $regularOrderCount = 0;
- 	     
+
  	     $firstSessionDate = false;
  	     $lastStoreAttended = false;
  	     $firstSessionType = false;
- 	     
+
  	     $lastSessionMenu = false;
  	     $skippedMenuCount = 0;
- 	     
- 	     
- 	     while ($attendance_studier->fetch())
+
+		 while ($attendance_studier->fetch())
  	     {
  	         $orderCount++;
-			 
-			if ($RegularOrdersOnly && ($attendance_studier->type_of_order == 'FUNDRAISER' || $attendance_studier->type_of_order == 'DREAM_TASTE'))
+
+			 if ($RegularOrdersOnly && ($attendance_studier->type_of_order == 'FUNDRAISER' || $attendance_studier->type_of_order == 'DREAM_TASTE'))
 			{
-				throw new Exception("Should be no promos 1 " . $thisRow[0]);	
+				throw new Exception("Should be no promos 1 " . $thisRow[0]);
 			}
 
- 	         
- 	         if ($orderCount == 1)
+			 if ($orderCount == 1)
  	         {
  	             $firstSessionDate = $attendance_studier->session_start;
- 	             
- 	             $firstSessionType = $attendance_studier->type_of_order;
+
+				 $firstSessionType = $attendance_studier->type_of_order;
  	             if ($firstSessionType == 'DREAM_TASTE')
  	             {
  	                 if ($attendance_studier->can_rsvp_only)
@@ -185,42 +183,39 @@ $Year = 2021;  $Cap_menu = 221;
  	                 }
  	             }
  	         }
- 	         
- 	         
- 	         if ($orderCount == 1 &&
+
+			 if ($orderCount == 1 &&
  	             ($attendance_studier->type_of_order == 'DREAM_TASTE' || $attendance_studier->type_of_order == 'FUNDRAISER' || $attendance_studier->type_of_order == 'INTRO'))
  	         {
  	             $firstOrderPromo = true;
  	         }
- 	         
- 	         if ($orderCount == 2 &&
+
+			 if ($orderCount == 2 &&
  	             ($attendance_studier->type_of_order == 'DREAM_TASTE' || $attendance_studier->type_of_order == 'FUNDRAISER' || $attendance_studier->type_of_order == 'INTRO'))
  	         {
  	             $secondOrderPromo = true;
  	         }
- 	         
- 	         if ($attendance_studier->type_of_order == 'STANDARD')
+
+			 if ($attendance_studier->type_of_order == 'STANDARD')
  	         {
  	             $regularOrderCount++;
  	         }
- 	         
- 	         if ($lastSessionMenu && $attendance_studier->menu_id - $lastSessionMenu > 1)
+
+			 if ($lastSessionMenu && $attendance_studier->menu_id - $lastSessionMenu > 1)
  	         {
  	             $skippedMenuCount++;
  	         }
- 	         
- 	         
- 	         
- 	         $lastSessionMenu = $attendance_studier->menu_id;
+
+			 $lastSessionMenu = $attendance_studier->menu_id;
  	         $lastSessionDate = $attendance_studier->session_start;
  	         $lastStoreAttended = $attendance_studier->store_id;
  	     }
- 	     
- 	     $attendSpan = (strtotime($lastSessionDate) - strtotime($firstSessionDate)) / 86400;
+
+		 $attendSpan = (strtotime($lastSessionDate) - strtotime($firstSessionDate)) / 86400;
  	     $attendFreq = $attendSpan / $orderCount;
  	     $IsCurrent = (time() - strtotime(strtotime($lastSessionDate)) > (86400 * 45));
- 	     
- 	     $isIntermittent = false;
+
+		 $isIntermittent = false;
  	     if ($regularOrderCount > 3)
  	     {
  	         $threshold = (int)$regularOrderCount / 2;
@@ -229,12 +224,11 @@ $Year = 2021;  $Cap_menu = 221;
  	             $isIntermittent = true;
  	         }
  	     }
- 	     
- 	     
- 	     if (!isset($summaryArray[$lastStoreAttended]))
+
+		 if (!isset($summaryArray[$lastStoreAttended]))
  	     {
- 	         $summaryArray[$lastStoreAttended] = 
- 	              array('store_id' => $lastStoreAttended, 
+			 $summaryArray[$lastStoreAttended] = array(
+				 'store_id' => $lastStoreAttended,
  	                  "hoid" => $storeArr[$lastStoreAttended]['hoid'],
  	                  "store_name" => $storeArr[$lastStoreAttended]['store_name'],
  	                  "city" => $storeArr[$lastStoreAttended]['city'],
@@ -287,25 +281,23 @@ $Year = 2021;  $Cap_menu = 221;
  	                  'num_intermittent' => 0
  	              );
  	     }
- 	     
- 	     
- 	     $summaryArray[$lastStoreAttended]['temp_count']++;
+
+		 $summaryArray[$lastStoreAttended]['temp_count']++;
  	     $summaryArray[$lastStoreAttended]['temp_sum_freq'] += $attendFreq;
  	     $summaryArray[$lastStoreAttended]['temp_sum_span'] += $attendSpan;
  	     $summaryArray[$lastStoreAttended]['temp_sum_visits'] += $visitsThisGuest;
- 	     
- 	     if ($isIntermittent)
+
+		 if ($isIntermittent)
  	     {
  	         $summaryArray[$lastStoreAttended]['num_intermittent']++;
  	     }
- 	     
- 	     
- 	     if ($IsCurrent)
+
+		 if ($IsCurrent)
  	     {
  	         $summaryArray[$lastStoreAttended]['Current Guest']++;
  	     }
- 	    
- 	     // store summary
+
+		 // store summary
  	     if ($orderCount > 11)
  	     {
  	         $summaryArray[$lastStoreAttended]['12 plus']++;
@@ -314,23 +306,23 @@ $Year = 2021;  $Cap_menu = 221;
  	     {
  	         $summaryArray[$lastStoreAttended]["$orderCount out"]++;
  	     }
- 	     
- 	     if ($orderCount == 1)
+
+		 if ($orderCount == 1)
  	     {
- 	         
- 	         if ($firstOrderPromo)
+
+			 if ($firstOrderPromo)
  	         {
  	             $summaryArray[$lastStoreAttended]['one_Promo_and_done']++;
  	         }
- 	         else 
+			 else
  	         {
  	             $summaryArray[$lastStoreAttended]['one_Standard_and_done']++;
  	         }
  	     }
  	     else if ($orderCount == 2)
  	     {
- 	         
- 	         if ($firstOrderPromo && $secondOrderPromo)
+
+			 if ($firstOrderPromo && $secondOrderPromo)
  	         {
  	             $summaryArray[$lastStoreAttended]['two_promo_and_done']++;
  	         }
@@ -350,15 +342,14 @@ $Year = 2021;  $Cap_menu = 221;
  	             $summaryArray[$lastStoreAttended]['three_orders_and_done']++;
  	         }
  	     }
- 	     
- 	     //user detail
- 	     
- 	     
- 	     $thisUserClass = "Usual";
+
+		 //user detail
+
+		 $thisUserClass = "Usual";
  	     if ($orderCount == 1)
  	     {
- 	         
- 	         if ($firstOrderPromo)
+
+			 if ($firstOrderPromo)
  	         {
  	             $thisUserClass = 'one_Promo_and_done';
  	         }
@@ -369,8 +360,8 @@ $Year = 2021;  $Cap_menu = 221;
  	     }
  	     else if ($orderCount == 2)
  	     {
- 	         
- 	         if ($firstOrderPromo && $secondOrderPromo)
+
+			 if ($firstOrderPromo && $secondOrderPromo)
  	         {
  	             $thisUserClass = 'two_promo_and_done';
  	         }
@@ -390,66 +381,67 @@ $Year = 2021;  $Cap_menu = 221;
  	             $thisUserClass = 'three_orders_and_done';
  	         }
  	     }
- 	     
- 	     $attendSpan = (strtotime($lastSessionDate) - strtotime($firstSessionDate)) / 86400;
+
+		 $attendSpan = (strtotime($lastSessionDate) - strtotime($firstSessionDate)) / 86400;
  	     $attendFreq = $attendSpan / $orderCount;
- 	     
- 	     $userDetailArray = array_merge($storeArr[$lastStoreAttended], $thisRow, array($firstSessionType, $orderCount, $thisUserClass, $attendSpan, $attendFreq, ($IsCurrent ? "Yes" : "No")));
- 	     
- 	     $len = fputcsv($dest_fp, $userDetailArray);
- 	     
- 	     if ($counter % 500 == 0)
+
+		 $userDetailArray = array_merge($storeArr[$lastStoreAttended], $thisRow, array($firstSessionType, $orderCount, $thisUserClass, $attendSpan, $attendFreq, ($IsCurrent ? "Yes" : "No")));
+
+		 $len = fputcsv($dest_fp, $userDetailArray);
+
+		 if ($counter % 500 == 0)
  	     {
  	         echo $counter . " users processed\r\n";
  	     }
  	 }
- 	 
- 	 $len = fputcsv($dest_fp_sum, array("Store ID", "HOID", "Store Name", "City", "State", "Is Corporate", 
+
+	 $len = fputcsv($dest_fp_sum, array(
+		 "Store ID",
+		 "HOID",
+		 "Store Name",
+		 "City",
+		 "State",
+		 "Is Corporate",
  	     "One Promo and out", "%", "One Std and Out", "%", "Two Promo and Out", "%", "Two Orders (1 promo) and Out", "%", "Three and out w/ Promo", "%", "Three and Out", "%", "1 Order", "%", "2 Order", "%", "3 Order", "%",
  	     "4 Order", "%", "5 Order", "%", "6 Order", "%", "7 Order", "%", "8 Order", "%", "9 Order", "%", "10 Order", "%", "11 Order", "%", "12 Plus", "%", "Total New in Period", "Num Current", "Average Span", "Average #  Visits" , "# Intermittent Guests"));
- 	
- 	 
- 	 echo " beginning summary output ...\r\n";
- 	 
- 	 foreach($summaryArray as $store => &$data)
- 	 { 	               
+
+	 echo " beginning summary output ...\r\n";
+
+	 foreach($summaryArray as $store => &$data)
+	 {
  	     $data['one_Promo_and_done %'] = $data['one_Promo_and_done'] / $data['temp_count'];
  	     $data['one_Standard_and_done %'] = $data['one_Standard_and_done'] / $data['temp_count'];
  	     $data['two_promo_and_done %'] = $data['two_promo_and_done'] / $data['temp_count'];
  	     $data['two_orders_one_promo %'] = $data['two_orders_one_promo'] / $data['temp_count'];
  	     $data['three_orders_out_at_first_standard %'] = $data['three_orders_out_at_first_standard'] / $data['temp_count'];
  	     $data['three_orders_and_done %'] = $data['three_orders_and_done'] / $data['temp_count'];
- 	     
- 	     $data['total_new'] = $data['temp_count'];
+
+		 $data['total_new'] = $data['temp_count'];
 
  	     for ($i = 1; $i < 12; $i++)
  	     {
  	         $data["$i out %"] = $data["$i out"] / $data['temp_count'];
  	     }
- 	     
- 	     $data["12 plus %"] = $data["12 plus"] / $data['temp_count'];
- 	     
- 	     
- 	     $data['Average Attend Span'] = $data['temp_sum_span'] / $data['temp_count'];
+
+		 $data["12 plus %"] = $data["12 plus"] / $data['temp_count'];
+
+		 $data['Average Attend Span'] = $data['temp_sum_span'] / $data['temp_count'];
  	     $data['Average Num Visits'] = $data['temp_sum_visits'] / $data['temp_count'];
- 	     
- 	     unset($data['temp_count']);
+
+		 unset($data['temp_count']);
  	     unset($data['temp_sum_span']);
  	     unset($data['temp_sum_freq']);
  	     unset($data['temp_sum_visits']);
- 	     
- 	     $len = fputcsv($dest_fp_sum, $data);
+
+		 $len = fputcsv($dest_fp_sum, $data);
  	 }
- 	 
-	
- 	fclose($src_fp);
+
+	 fclose($src_fp);
  	fclose($dest_fp);
  	fclose($dest_fp_sum);
- 	
- 	echo " Done! \r\n";
- 	
 
-	} catch (exception $e) {
+	 echo " Done! \r\n";
+ } catch (exception $e) {
 		echo "new user behVIOR report failed: exception occurred<br>\n";
 		echo "reason: " . $e->getMessage();
 		CLog::RecordException($e);

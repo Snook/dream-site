@@ -1,7 +1,5 @@
 <?php
-require_once("/DreamSite/includes/Config.inc");
-//require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
-
+require_once("../Config.inc");
 require_once("CLog.inc");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/BusinessObject/CMenu.php");
@@ -17,7 +15,7 @@ try {
 		exit;
 	}
 	date_default_timezone_set('America/New_York');
-	$eventTime = date("Y-m-d H:i:s");;
+	$eventTime = date("Y-m-d H:i:s");
 	$currentMenuId = CMenu::getCurrentMenuId();
 
 
@@ -64,7 +62,7 @@ try {
 
 			$remainingInventory = (is_null($menu_item_inventory->override_inventory) ? $menu_item_inventory->initial_inventory - $menu_item_inventory->number_sold : $menu_item_inventory->override_inventory - $menu_item_inventory->number_sold);
 			//used to uniquely identify events by data - eliminate duplicates per day
-			$compositeKey = $stores->id.'|'.$currentMenuId.'|'.$menu_item_inventory->recipe_id .'|'.date("Y-m-d");;
+			$compositeKey = $stores->id.'|'.$currentMenuId.'|'.$menu_item_inventory->recipe_id .'|'.date("Y-m-d");
 			$recordExists= CStoreActivityLog::doesKeyExist($compositeKey);
 			if( $remainingInventory <= $THRESHOLD && !$recordExists){
 

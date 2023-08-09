@@ -10,15 +10,7 @@ define('BACKUP', true);
 define('TEST_DESTINATION', false);
 define('TEST_REPORT_DEST', false);
 
-if (DEV)
-{
-	require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
-}
-else
-{
-	require_once("/DreamReports/includes/Config.inc");
-}
-
+require_once("../../../includes/Config.inc");
 require_once("DAO/BusinessObject/COrders.php");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/BusinessObject/CMenuItem.php");
@@ -179,7 +171,7 @@ function isRoutingInvoice($fileName)
 	{
 		return true;
 	}
-	
+
 	return false;
 }
 
@@ -283,7 +275,7 @@ $conn_id = ftp_connect($ftp_server);
 // login with username and password
 $login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
 
-// try to change the directory to 
+	// try to change the directory to
 if (ftp_chdir($conn_id, SRC_DIR)) {
 	logstr("Current directory is now: " . ftp_pwd($conn_id));
 } else {

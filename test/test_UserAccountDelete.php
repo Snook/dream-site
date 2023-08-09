@@ -1,5 +1,5 @@
 <?php
-require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
+require_once("../includes/Config.inc");
 require_once("DAO/BusinessObject/CUser.php");
 
 
@@ -14,5 +14,3 @@ CEmail::accountRequestDelete($user);
 //$result = $user->hasPendingDataRequest();
 //
 //echo $result;
-
-

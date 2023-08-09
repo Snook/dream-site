@@ -1,5 +1,5 @@
 <?php
-require_once("C:\\Development\\Sites\\DeliveredPhase2\\includes\\Config.inc");
+require_once("../includes/Config.inc");
 require_once 'includes/CEditOrderPaymentManager.inc';
 require_once 'includes/CApp.inc';
 require_once 'DAO/BusinessObject/COrdersDelivered.php';
@@ -408,11 +408,11 @@ class CEditOrderPaymentManagerTest
 		echo 'Total Original Payment Records is == ' . $this->originalPaymentCount .PHP_EOL;
 		echo 'Total New Payment Records is == ' . $Payment->N  .PHP_EOL;
 		echo 'Payment Records create is == ' . ($Payment->N - $this->originalPaymentCount ).PHP_EOL;
-		echo 'Total Payment tests == ' . $this->paymentTestCount .PHP_EOL;;
+		echo 'Total Payment tests == ' . $this->paymentTestCount .PHP_EOL;
 
 		if($showPaymentRecord){
 			echo PHP_EOL.PHP_EOL.PHP_EOL;
-			echo 'Payment Records ' .PHP_EOL;;
+			echo 'Payment Records ' .PHP_EOL;
 			while ($Payment->fetch())
 			{
 				echo 'Order Id: ' . $Payment->order_id . ', Type: ' . $Payment->payment_type . ', Number:' . $Payment->payment_number . ', Ref:' . $Payment->payment_transaction_number . ', Amount:' . $Payment->total_amount . ', Created:' . $Payment->timestamp_created .PHP_EOL;

@@ -1,5 +1,5 @@
 <?php
-require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
+require_once("../includes/Config.inc");
 
 require_once 'includes/DAO/BusinessObject/CStatesAndProvinces.php';
 require_once 'includes/DAO/BusinessObject/COrderMinimum.php';
@@ -26,7 +26,7 @@ $reulst = CStatesAndProvinces::IsValid($state_id);
 if ($reulst)
 {
 	$name = CStatesAndProvinces::GetName();
-	
+
 }
 
 echo $name;
@@ -42,17 +42,16 @@ $resultArr = array();
 
 for ($x = 0; $x < 500; $x++)
 {
-	
+
 	$weekGetter->query("select Week('$date', 3) as weekNum, DAYOFWEEK('$date') as day");
 	$weekGetter->fetch();
 	$weekNum = 	$weekGetter->weekNum;
 	$dateTS = strtotime($date);
-	
-	
+
 	$phpWeekNum = date("W", $dateTS);
-	
+
 	$resultArr[$date] = "SQL: $weekNum | PHP: $phpWeekNum | " . $dayMap[$weekGetter->day];
-	
+
 	$dateTS += 86400;
 	$date = date("Y-m-d H:i:s", $dateTS);
 }
@@ -60,7 +59,7 @@ for ($x = 0; $x < 500; $x++)
 print_r($resultArr);
 
 /*
- * 
+ *
  * Array
 (
     [2017-01-01 00:00:00] => SQL: 52 | PHP: 52 | Sunday
