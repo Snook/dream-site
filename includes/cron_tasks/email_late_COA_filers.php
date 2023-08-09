@@ -6,7 +6,7 @@
  * @author Carls
  */
 //require_once("C:\\Users\\Carl.Samuelson\\Zend\workspaces\\DefaultWorkspace12\\DreamSite\\includes\\Config.inc");
-require_once("/DreamSite/includes/Config.inc");
+require_once("../Config.inc");
 require_once("DAO/CFactory.php");
 require_once("CLog.inc");
 require_once("CMailHandlers.inc");

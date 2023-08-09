@@ -1,6 +1,6 @@
 <?php
 //require_once("C:\\Users\\Carl.Samuelson\\Zend\\workspaces\\DefaultWorkspace\\DreamSite\\includes\\Config.inc");
-require_once("/DreamSite/includes/Config.inc");
+require_once("../Config.inc");
 require_once("CLog.inc");
 require_once("CDashboardReport.inc");
 require_once("CDashboardReportMenuBased.inc");

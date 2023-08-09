@@ -1,6 +1,6 @@
 <?php
 
-require_once("/DreamSite/includes/Config.inc");
+require_once("../Config.inc");
 //require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
 
 require_once("CLog.inc");

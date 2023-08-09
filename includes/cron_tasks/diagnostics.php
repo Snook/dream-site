@@ -7,7 +7,7 @@
  * @author Carls
  */
 // require_once("c:\wamp\www\DreamSite\includes\Config.inc");
-require_once("/DreamSite/includes/Config.inc");
+require_once("../Config.inc");
 require_once("DAO/CFactory.php");
 require_once("CLog.inc");
 

@@ -15,7 +15,7 @@ if (DEV)
 }
 else
 {
-	require_once("/DreamSite/includes/Config.inc");
+	require_once("../Config.inc");
 }
 
 require_once("DAO/BusinessObject/CUser.php");
