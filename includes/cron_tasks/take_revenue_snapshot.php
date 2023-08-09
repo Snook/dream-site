@@ -1,8 +1,6 @@
 <?php
 
 require_once("../Config.inc");
-//require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
-
 require_once("CLog.inc");
 require_once("DAO/BusinessObject/CDreamTasteEvent.php");
 require_once("DAO/BusinessObject/CUser.php");
@@ -78,13 +76,13 @@ function getSnapshotForStore($store_id, $day, $month, $year, $duration )
 	else
 	{
 		return $rows['total_less_discounts'];
-	}	
+	}
 }
 
 	try {
 
 		$StoreCount = 0;
-		
+
 		if (defined("DISABLE_CRON") && DISABLE_CRON)
 		{
 			CLog::Record("CRON: take_revenue_snapshot called but cron is disabled");
@@ -94,47 +92,41 @@ function getSnapshotForStore($store_id, $day, $month, $year, $duration )
 		$months = array(date("Y-m-01"));
 		$months[] = date("Y-m-01", strtotime(date("Y-m-01") . ' +1 month'));
 		$months[] = date("Y-m-01", strtotime(date("Y-m-01") . ' +2 month'));
-		
+
 		if (date('j') < 7)
 		{
 			//capture last month as well
 			array_unshift($months, date("Y-m-01", strtotime(date("Y-m-01") . ' -1 month')));
 		}
-		
+
 
 		foreach($months as $thisMonth)
 		{
-		
+
 			list($menuStartDate, $menuInterval) =  CMenu::getMenuStartandInterval(false, $thisMonth);
-			
-				
+
 			$dateParts = explode("-", $menuStartDate);
 			$day = $dateParts[2];
 			$month = $dateParts[1];
 			$year = $dateParts[0];
 			$duration = "$menuInterval DAY";
-				
+
 			$dateParts = explode("-", $thisMonth);
 			$calMonthDay = 1;
 			$calMonthMonth = $dateParts[1];
 			$calMonthYear = $dateParts[0];
 			$calMonthDuration  = " 1 MONTH";
-			
-			
-			
-			
+
 			$storeObj = DAO_CFactory::create('store');
 			$storeObj->query("select id from store where active = 1");
 			while($storeObj->fetch())
 			{
 				$curMenuAGR = getSnapshotForStore($storeObj->id, $day, $month, $year, $duration);
 				$curMonthAGR = getSnapshotForStore($storeObj->id, $calMonthDay, $calMonthMonth, $calMonthYear, $calMonthDuration);
-				
-				
+
 				if (is_null($curMonthAGR)) $curMonthAGR= 0;
 				if (is_null($curMenuAGR)) $curMenuAGR= 0;
-				
-				
+
 				$SnapShotObj = DAO_CFactory::create('dashboard_metrics_agr_snapshots');
 				$SnapShotObj->date = date("Y-m-d");
 				$SnapShotObj->store_id = $storeObj->id;
@@ -143,16 +135,10 @@ function getSnapshotForStore($store_id, $day, $month, $year, $duration )
 				$SnapShotObj->agr_menu_month = $curMenuAGR;
 				$SnapShotObj->timestamp_created = "now()";
 				$SnapShotObj->insert();
-				
+
 				$StoreCount++;
 			}
-		
 		}
-		
-		
-		
-		
-		
 
 		CLog::Record("CRON: $StoreCount store revenue snapshots taken.");
 

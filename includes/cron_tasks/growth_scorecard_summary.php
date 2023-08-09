@@ -1,5 +1,4 @@
 <?php
-//require_once("C:\\Users\\Carl.Samuelson\\Zend\\workspaces\\DefaultWorkspace\\DreamSite\\includes\\Config.inc");
 require_once("../Config.inc");
 require_once("CLog.inc");
 require_once("CDashboardReport.inc");
@@ -19,13 +18,13 @@ $StoreCount = 0;
   //      echo "Caught at shutdown: " . print_r($error, true);
  //   }
 //});
-    
+
 
 try {
-    
+
     /*
     TODO
-    
+
     if (defined("DISABLE_CRON") && DISABLE_CRON)
     {
         CLog::Record("CRON: process_dashboard_cache_new called but cron is disabled");
@@ -33,24 +32,22 @@ try {
         exit;
     }
     */
- 
+
  $Count = 0;
-    
+
     if (false)
     {
-        
+
         $cutoffTime = date("Y-m-d H:i:s");
         $cutoffTime = date("Y-m-d H:i:s", strtotime($cutoffTime) + 86400);
-        
-        
-        $weekStartDateTS = strtotime('2018-12-31 00:00:00');
+
+		$weekStartDateTS = strtotime('2018-12-31 00:00:00');
         $weekEndDateTS = strtotime('2019-04-22 00:00:00');
-        
-        $storeObj = DAO_CFactory::create('store');
+
+		$storeObj = DAO_CFactory::create('store');
         $storeObj->query("select id from store where active = 1");
-        
-        
-        while($storeObj->fetch())
+
+		while($storeObj->fetch())
         {
 			$Count++;
            // $weekDate = new DateTime(date("Y-m-d 00:00:00", $weekStartDateTS));
@@ -61,16 +58,16 @@ try {
           //      CDashboardWeekBased::updateGrowthScoreCard($storeObj->id, $curWeek, $curYear, $cutoffTime);
           //      $weekDate->modify('+7 days');
          //       echo "built week " . $weekDate->format("Y-m-d") . "\r\n";
-                
-         //   }
+
+			//   }
          //   echo "weeks complete\r\n";
             // 198
-			
-            $curMenuID = 197;
-            
-            $menuObj = new DAO();
-            
-            while($curMenuID < 213)
+
+			$curMenuID = 197;
+
+			$menuObj = new DAO();
+
+			while($curMenuID < 213)
             {
 
                 $menuObj->query("select menu_start from menu where id = " . $curMenuID);
@@ -78,62 +75,52 @@ try {
 
                 CDashboardMenuBased::updateGrowthScoreCard($storeObj->id, $curMenuID, $menuObj->menu_start, $cutoffTime, false);
                 echo "built month " . $curMenuID . "\r\n";
-                
-                $curMenuID++;
-            }
-            
-            echo "----------------------------store " .$storeObj->id . " complete $Count;\r\n";
-            
-        }
-        
 
-        echo "All stores complete $Count;\r\n";
-        
-        exit;
+				$curMenuID++;
+            }
+
+			echo "----------------------------store " .$storeObj->id . " complete $Count;\r\n";
+		}
+
+		echo "All stores complete $Count;\r\n";
+
+		exit;
     }
-    
-    
-    
-    $now = date("Y-m-d");
+
+	$now = date("Y-m-d");
     $menuObj = new CMenu();
     $menuObj->query("SELECT id, menu_start FROM menu WHERE '$now' <= global_menu_end_date ORDER BY id LIMIT 1");
     $menuObj->fetch();
     $curMenuID = $menuObj->id;
-    
-    $cutoffTime = date("Y-m-d H:i:s");
+
+	$cutoffTime = date("Y-m-d H:i:s");
     $cutoffTime = date("Y-m-d H:i:s", strtotime($cutoffTime) + 86400);
-    
-    $storeObj = DAO_CFactory::create('store');
+
+	$storeObj = DAO_CFactory::create('store');
     $storeObj->query("select id from store where active = 1");
-    
-    
-    list($weekStartDateTS, $weekEndDateTS) = CDashboardWeekBased::getFullActiveDateRange();
-    
-    
-    while($storeObj->fetch())
+
+	list($weekStartDateTS, $weekEndDateTS) = CDashboardWeekBased::getFullActiveDateRange();
+
+	while($storeObj->fetch())
     {// now processes both calendar and menu based months
-        
-        CDashboardMenuBased::updateGrowthScoreCard($storeObj->id, $curMenuID, $menuObj->menu_start, $cutoffTime);
-        
-        /*
-        $weekDate = new DateTime(date("Y-m-d 00:00:00", $weekStartDateTS));
-        while(strtotime($weekDate->format('Y-m-d 00:00:00')) < $weekEndDateTS)
-        {
-            $curWeek = $weekDate->format('W');
-            $curYear = $weekDate->format('o');
-            //     echo "building " . $weekDate->format('Y-m-d') . "\r\n";
-            CDashboardWeekBased::updateGrowthScoreCard($storeObj->id, $curWeek, $curYear, $cutoffTime);
-            $weekDate->modify('+7 days');
-        }
-        */
+
+		CDashboardMenuBased::updateGrowthScoreCard($storeObj->id, $curMenuID, $menuObj->menu_start, $cutoffTime);
+
+		/*
+		$weekDate = new DateTime(date("Y-m-d 00:00:00", $weekStartDateTS));
+		while(strtotime($weekDate->format('Y-m-d 00:00:00')) < $weekEndDateTS)
+		{
+			$curWeek = $weekDate->format('W');
+			$curYear = $weekDate->format('o');
+			//     echo "building " . $weekDate->format('Y-m-d') . "\r\n";
+			CDashboardWeekBased::updateGrowthScoreCard($storeObj->id, $curWeek, $curYear, $cutoffTime);
+			$weekDate->modify('+7 days');
+		}
+		*/
         $StoreCount++;
     }
-    
-        
-   // CLog::RecordCronTask($StoreCount, CLog::SUCCESS, CLog::DASHBOARDCACHING, "process_dashboard_cache_new: Metrics cached for $StoreCount stores");
-    
-    
-    
+	// CLog::RecordCronTask($StoreCount, CLog::SUCCESS, CLog::DASHBOARDCACHING, "process_dashboard_cache_new: Metrics cached for $StoreCount stores");
+
 } catch (exception $e) {
    // CLog::RecordCronTask($StoreCount, CLog::PARTIAL_FAILURE, CLog::DASHBOARDCACHING, "process_dashboard_cache_new: Exception occurred: " . $e->getMessage());
     CLog::RecordException($e);

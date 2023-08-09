@@ -6,7 +6,6 @@
  * Copyright 2005 DreamDinners
  * @author Carls
  */
-// require_once("c:\wamp\www\DreamSite\includes\Config.inc");
 require_once("../Config.inc");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/CFactory.php");
@@ -84,10 +83,10 @@ try {
 	// Note: exception are handled, logged but not rethrown in the send_reminder_email function
 	while ($Booking->fetch())
 	{
-	    
-	    // NOTE: SalesForce takes over on 9/24/2018 - send_reminder_email() is still called from the cron job but now only logs what
+
+		// NOTE: SalesForce takes over on 9/24/2018 - send_reminder_email() is still called from the cron job but now only logs what
 	    // Fadmin would have sent for comparison purposes
-	    
+
 		$Booking->send_reminder_email();
 		$totalCount++;
 	}

@@ -6,15 +6,13 @@
  * Copyright 2005 DreamDinners
  * @author Carls
  */
-//require_once("C:\\Users\\Carl.Samuelson\\Zend\\workspaces\\DefaultWorkspace\\DreamSite\\includes\\Config.inc");
-
 require_once("../Config.inc");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/CFactory.php");
 require_once("CLog.inc");
 
 try {
-    
+
     $processed = 0;
 
 
@@ -25,8 +23,7 @@ try {
 		exit;
 	}
 
-	
-  $recipes = new DAO();
+	$recipes = new DAO();
   $recipes->query("select distinct recipe_id from menu_item where is_deleted = 0 and not isnull(recipe_id) and recipe_id <> ''");
 
   $processed = 0;
@@ -61,10 +58,8 @@ try {
 
 
    }
-   
-   CLog::RecordCronTask($processed, CLog::SUCCESS, CLog::CACHE_GLOBAL_RECIPE_RATING, "cache_global_recipe_ratings completed successfully.");
-    
-    
+
+	CLog::RecordCronTask($processed, CLog::SUCCESS, CLog::CACHE_GLOBAL_RECIPE_RATING, "cache_global_recipe_ratings completed successfully.");
 } catch (exception $e) {
 	CLog::RecordCronTask($processed, CLog::PARTIAL_FAILURE, CLog::CACHE_GLOBAL_RECIPE_RATING, "cache_global_recipe_ratings: Exception occurred: " . $e->getMessage());
 	CLog::RecordException($e);

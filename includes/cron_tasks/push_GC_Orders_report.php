@@ -1,6 +1,5 @@
 <?php
 
-//require_once("c:\wamp\www\DreamSite\includes\Config.inc");
 require_once("../Config.inc");
 require_once("DAO/BusinessObject/CGiftCard.php");
 require_once("DAO/CFactory.php");

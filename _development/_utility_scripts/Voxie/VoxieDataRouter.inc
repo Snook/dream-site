@@ -25,18 +25,18 @@ class VoxieDataRouter
 
 		if ($env == 'DEV')
 		{
-			require_once(defined(DEV_PATH_TO_CONFIG_FILE)?DEV_PATH_TO_CONFIG_FILE:"C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
+			require_once("../../../includes/Config.inc");
 			$this->temp_file_path = defined(DEV_OUPUT_DIRECTORY)?DEV_OUPUT_DIRECTORY:"C:\\Development\\output\\voxie\\";
 		}
 		elseif ($env == 'TEST')
 		{
-			require_once("/DreamReports/includes/Config.inc");
+			require_once("../../../includes/Config.inc");
 			$this->temp_file_path = "/DreamReports/voxie/tmp/";
 		}
 		else
 		{
 			error_reporting(E_ERROR );
-			require_once("/DreamReports/includes/Config.inc");
+			require_once("../../../includes/Config.inc");
 			$this->temp_file_path = "/DreamReports/voxie/tmp/";
 		}
 
@@ -79,7 +79,7 @@ class VoxieDataRouter
 		if(!$resultToken->isFailure())
 		{
 			$full_file_path = $resultToken->getPayload();
-			
+
 			$this->sendToVoxieVia($method,$full_file_path,$resultToken);
 
 			if(!$resultToken->isFailure())

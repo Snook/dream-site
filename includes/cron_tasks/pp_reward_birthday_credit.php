@@ -1,23 +1,5 @@
 <?php
-/*
- * Created on Dec 8, 2005
- *
- * Copyright 2013 DreamDinners
- * @author Carls
- */
-//require_once("c:\wamp\www\PlatePoints\includes\Config.inc");
-
-define ('DEV', false);
-
-if (DEV)
-{
-	require_once("C:\Users\Carl.Samuelson\Zend\workspaces\DefaultWorkspace12\DreamSite\includes\Config.inc");	
-}
-else
-{
-	require_once("../Config.inc");
-}
-
+require_once("../Config.inc");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/BusinessObject/CUserData.php");
 require_once("DAO/BusinessObject/CPointsUserHistory.php");
@@ -40,14 +22,14 @@ try {
 	$curMonth = date("n");
 	$curYear = date('Y');
 	$curDay = date("j");
-	
+
 	// Note: the cron job is set to run on the 1st and 24th of each month
 	// If it runs on the 1st we are handling the current month
 	// otherwise we are running it for the upcoming month
 	//On the first we pick up anyone who has registered after the 24th
-	
+
 	//UPDATE:  this task is huge so breaking it up over 3 days
-	
+
 	if ($curDay > 15)
 	{
 
@@ -66,12 +48,11 @@ try {
 	    $curYear = 2015;
 	}
 
-	
 	if (false)
 	{
 		echo "month: " . $curMonth . "\r\n";
 		echo "year: " . $curYear . "\r\n";
-		
+
 		exit;
 	}
 
@@ -82,7 +63,7 @@ try {
 
 		exit;
 	}
-	
+
 	$segmentNumber = 5; // segment 5 mean process all
 	switch($curDay)
 	{
@@ -101,39 +82,39 @@ try {
 		default:
 			$segmentNumber = 5; // all
 	}
-		
+
 	if (DEV)
 	{
 		$exec = "\"C:\\Program Files\\Zend\Zend Studio 13.6.1\\plugins\\com.zend.php.executables.windows_7.1.3.201703171134\\resources\\php.exe\"";
 	}
-	else 
+	else
 	{
 		$exec = "/usr/bin/php";
 	}
-	
+
 	if (DEV)
 	{
 		$cmd = "C:\\Users\\Carl.Samuelson\\Zend\\workspaces\\DefaultWorkspace12\\DreamSite\\includes\\cron_tasks\\pp_reward_birthday_credit_subtask.php";
 	}
-	else 
+	else
 	{
 		$cmd = "/DreamSite/includes/cron_tasks/pp_reward_birthday_credit_subtask.php";
 	}
-	
+
 	$cmd = $exec . " " . $cmd . " " . $curYear . " " . $curMonth . " " . $segmentNumber;
-		
+
 	$result = system($cmd);
-	
+
 	if ($result)
 	{
 		if (strpos($result, "Fatal error") !== false)
 		{
-			
+
 			CLog::RecordCronTask(0, CLog::PARTIAL_FAILURE, CLog::BIRTHDAY_REWARDS, "pp_reward_birthday_credit received fatal error - trying again: " . $result);
-			
+
 			// most likely ran out of memory so try one more time
 			$result = system($cmd);
-			
+
 			if (strpos($result, "Fatal error") !== false)
 			{
 				CLog::RecordCronTask(0, CLog::FAILURE, CLog::BIRTHDAY_REWARDS, "1 pp_reward_birthday_credit received unknown error: " . $result);
@@ -158,12 +139,10 @@ try {
 			CLog::RecordCronTask(0, CLog::FAILURE, CLog::BIRTHDAY_REWARDS, "3 pp_reward_birthday_credit received unknown error: " . $result);
 		}
 	}
-	else 
+	else
 	{
 		CLog::RecordCronTask(0, CLog::FAILURE, CLog::BIRTHDAY_REWARDS, "4 pp_reward_birthday_credit received unknown error: " . $result);
 	}
-			
-
 }
 catch (exception $e)
 {

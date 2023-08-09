@@ -6,7 +6,6 @@
  * Copyright 2005 DreamDinners
  * @author Carls
  */
-// require_once("c:\wamp\www\DreamSite\includes\Config.inc");
 require_once("../Config.inc");
 require_once("DAO/CFactory.php");
 require_once("CLog.inc");

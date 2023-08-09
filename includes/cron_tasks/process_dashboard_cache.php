@@ -1,6 +1,5 @@
 <?php
-require_once("/DreamReports/includes/Config.inc");
-
+require_once("../Config.inc");
 require_once("CLog.inc");
 require_once("CDashboardReport.inc");
 

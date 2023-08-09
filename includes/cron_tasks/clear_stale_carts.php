@@ -6,8 +6,6 @@
  * Copyright 2005 DreamDinners
  * @author Carls
  */
-//require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
-
 require_once("../Config.inc");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/CFactory.php");

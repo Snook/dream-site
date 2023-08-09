@@ -6,8 +6,7 @@
  * Copyright 2005 DreamDinners
  * @author Carls
  */
-//require_once("C:\\Users\\Carl.Samuelson\\Zend\workspaces\\DefaultWorkspace\\DreamSite\\includes\\Config.inc");
-require_once("/DreamReports/includes/Config.inc");
+require_once("../Config.inc");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/CFactory.php");
 require_once("CLog.inc");
@@ -26,24 +25,22 @@ try {
 		CLog::RecordCronTask(1, CLog::FAILURE, CLog::CACHE_WEEKLY_METRICS, "update_weekly_metrics called but cron is disabled.");
 		exit;
 	}
-	
-	
-	
+
 	list($startDateTS, $endDateTS) = CDashboardWeekBased::getFullActiveDateRange();
 
 	//$startDateTS = strtotime('2019-05-06 00:00:00');
-	
+
 	$totalCount = 0;
 	$stores = new DAO();
 	$stores->query("select id from store where active = 1");
-	
+
 	while($stores->fetch())
 	{
 	    $store_id = $stores->id;
 	    $totalCount++;
 	 //   echo "building for store " . $store_id . "\r\n";
-	    
-	    $weekDate = new DateTime(date("Y-m-d 00:00:00", $startDateTS));
+
+		$weekDate = new DateTime(date("Y-m-d 00:00:00", $startDateTS));
 	    while(strtotime($weekDate->format('Y-m-d 00:00:00')) < $endDateTS)
 	    {
 	        $curWeek = $weekDate->format('W');
@@ -52,9 +49,7 @@ try {
 	        CDashboardWeekBased::updateGuestMetrics($store_id, $curWeek, $curYear);
 	        $weekDate->modify('+7 days');
 	    }
-	    
 	}
-	
 
 	CLog::RecordCronTask($totalCount, CLog::SUCCESS, CLog::CACHE_WEEKLY_METRICS, " $totalCount stores weekly metrics processed.");
 }

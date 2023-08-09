@@ -6,18 +6,7 @@
  * @author Carls
  */
 
-define ('DEV', false);
-
-if (DEV)
-{
-	require_once("C:\Users\Carl.Samuelson\Zend\workspaces\DefaultWorkspace12\DreamSite\includes\Config.inc");
-	
-}
-else
-{
-	require_once("../Config.inc");
-}
-
+require_once("../Config.inc");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/BusinessObject/CUserData.php");
 require_once("DAO/BusinessObject/CPointsUserHistory.php");
@@ -32,11 +21,11 @@ function fatal_handler() {
 
     $error = error_get_last();
 
-    if( $error !== NULL  && $error["type"] == 1) 
+	if ($error !== null && $error["type"] == 1)
 	{
         $errno   = $error["type"];
         $errstr  = $error["message"];
-		
+
 
         echo "Fatal error: " . $errstr;
     }
@@ -49,18 +38,18 @@ set_time_limit(7200);
 ini_set('memory_limit','1012M');
 
 try {
-	
+
 	if (isset($argv[2] ))
 	{
 		$curMonth = $argv[2];
 		$monthArray = CUserData::monthArray();
 		$monthName = $monthArray[$curMonth];
 	}
-	else 
+	else
 	{
 		return "bad month number";
 	}
-	
+
 	if (isset($argv[1] ))
 	{
 		$curYear = $argv[1];
@@ -69,26 +58,25 @@ try {
 	{
 		return "bad year number";
 	}
-	
+
 	if (isset($argv[3] ))
 	{
 		$segmentNumber = $argv[3];
 	}
-	else 
+	else
 	{
 		$segmentNumber = 5;
 	}
-	
+
 	$arr = array();
-	
 
 	if (false) //set to true to force memory exhaustion or timeout
 	{
 		ini_set('memory_limit','12M');
 	//	set_time_limit(1);
-		
+
 		$count = 0;
-		
+
 		while($count++ < 100000000)
 		{
 			$count++;
@@ -96,11 +84,11 @@ try {
 			$arr[] = $alloc;
 			sleep(1);
 		}
-	}	
-	
-	
+	}
+
+
 	$segmentClause = "";
-	
+
 	if ($segmentNumber == 1)
 	{
 		$segmentClause = " and LEFT(u.lastname, 1) in ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H') ";
@@ -117,8 +105,7 @@ try {
 	{
 		$segmentClause = " and LEFT(u.lastname, 1) not in ('A', 'B', 'C', 'D','E', 'F','G', 'H','I', 'J','K', 'L','M', 'N','O', 'P','Q', 'R','S', 'T','U', 'V','W', 'X', 'Y', 'Z') ";
 	}
-		
-		
+
 	$BirthdayBoys = DAO_CFactory::create('user_data');
 
 	$BirthdayBoys->query("select u.lastname,ud.user_id, ud.user_data_value, puh.id as puh_id from user_data ud
@@ -136,23 +123,22 @@ try {
 			{
 				echo "Would have awarded : " . $BirthdayBoys->lastname . "\r\n";
 			}
-			else 
+			else
 			{
 				CPointsUserHistory::handleEvent($BirthdayBoys->user_id, CPointsUserHistory::BIRTHDAY_MONTH, array('comments' => 'Earned $' . CPointsUserHistory::$eventMetaData[CPointsUserHistory::BIRTHDAY_MONTH]['credit'] . ' birthday credit!', 'year' => $curYear, 'month' => $curMonth));
 			}
-			
+
 			$totalCount++;
 		}
 	}
-	
+
 	echo "Success:" . $totalCount;
-	
 }
 catch (exception $e)
 {
     CLog::RecordCronTask($totalCount, CLog::PARTIAL_FAILURE, CLog::BIRTHDAY_REWARDS, "pp_reward_birthday_credit: Exception occurred: " . $e->getMessage());
 	CLog::RecordException($e);
-	
+
 	return $e->getMessage();
 }
 
