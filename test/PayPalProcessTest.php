@@ -1,5 +1,5 @@
 <?php
-require_once("C:\\Program Files (x86)\\Zend\\Apache2\\htdocs\\DDU\\includes\\Config.inc");
+require_once("../includes/Config.inc");
 require_once 'includes/payment/PayPalProcess.php';
 require_once 'includes/CLog.inc';
 
@@ -21,9 +21,9 @@ class PayPalProcessTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        
+
         // TODO Auto-generated PayPalProcessTest::setUp()
-        
+
         $this->payPalProcess = new PayPalProcess(/* parameters */);
     }
 
@@ -34,8 +34,8 @@ class PayPalProcessTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated PayPalProcessTest::tearDown()
         $this->payPalProcess = null;
-        
-        parent::tearDown();
+
+		parent::tearDown();
     }
 
     /**
@@ -53,8 +53,8 @@ class PayPalProcessTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated PayPalProcessTest->test__construct()
         $this->markTestIncomplete("__construct test not implemented");
-        
-        $this->payPalProcess->__construct(/* parameters */);
+
+		$this->payPalProcess->__construct(/* parameters */);
     }
 
     /**
@@ -64,8 +64,8 @@ class PayPalProcessTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated PayPalProcessTest->testGetResult()
         $this->markTestIncomplete("getResult test not implemented");
-        
-        $this->payPalProcess->getResult(/* parameters */);
+
+		$this->payPalProcess->getResult(/* parameters */);
     }
 
     /**
@@ -75,8 +75,8 @@ class PayPalProcessTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated PayPalProcessTest->testGetRequest()
         $this->markTestIncomplete("getRequest test not implemented");
-        
-        $this->payPalProcess->getRequest(/* parameters */);
+
+		$this->payPalProcess->getRequest(/* parameters */);
     }
 
     /**
@@ -86,8 +86,8 @@ class PayPalProcessTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated PayPalProcessTest->testGetResponseMessage()
         $this->markTestIncomplete("getResponseMessage test not implemented");
-        
-        $this->payPalProcess->getResponseMessage(/* parameters */);
+
+		$this->payPalProcess->getResponseMessage(/* parameters */);
     }
 
     /**
@@ -97,8 +97,8 @@ class PayPalProcessTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated PayPalProcessTest->testGetUsersExplanation()
         $this->markTestIncomplete("getUsersExplanation test not implemented");
-        
-        $this->payPalProcess->getUsersExplanation(/* parameters */);
+
+		$this->payPalProcess->getUsersExplanation(/* parameters */);
     }
 
     /**
@@ -108,8 +108,8 @@ class PayPalProcessTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated PayPalProcessTest->testGetMerchantAccountId()
         $this->markTestIncomplete("getMerchantAccountId test not implemented");
-        
-        $this->payPalProcess->getMerchantAccountId(/* parameters */);
+
+		$this->payPalProcess->getMerchantAccountId(/* parameters */);
     }
 
     /**
@@ -119,24 +119,23 @@ class PayPalProcessTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated PayPalProcessTest->testGetSystemName()
         $this->markTestIncomplete("getSystemName test not implemented");
-        
-        $this->payPalProcess->getSystemName(/* parameters */);
+
+		$this->payPalProcess->getSystemName(/* parameters */);
     }
 
     /**
      * Tests PayPalProcess::getFullErrorDescription()
      */
     public function testGetFullErrorDescription()
-    {     
+	{
         $this->markTestIncomplete("getFullErrorDescription test not implemented");
-        
-        /*
-        for ($x = 0; $x < 106; $x++)
-        {        
-            $result = array('RESPMSG' => "placeholder", 'RESULT' => $x);
-            PayPalProcess::getFullErrorDescription($result, 244);
-        }
-        */
+		/*
+		for ($x = 0; $x < 106; $x++)
+		{
+			$result = array('RESPMSG' => "placeholder", 'RESULT' => $x);
+			PayPalProcess::getFullErrorDescription($result, 244);
+		}
+		*/
     }
 
     /**
@@ -146,8 +145,8 @@ class PayPalProcessTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated PayPalProcessTest->testGetPNRef()
         $this->markTestIncomplete("getPNRef test not implemented");
-        
-        $this->payPalProcess->getPNRef(/* parameters */);
+
+		$this->payPalProcess->getPNRef(/* parameters */);
     }
 
     /**
@@ -157,8 +156,8 @@ class PayPalProcessTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated PayPalProcessTest::testScrubUserData()
         $this->markTestIncomplete("scrubUserData test not implemented");
-        
-        PayPalProcess::scrubUserData(/* parameters */);
+
+		PayPalProcess::scrubUserData(/* parameters */);
     }
 
     /**
@@ -168,8 +167,8 @@ class PayPalProcessTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated PayPalProcessTest::testEncodeCommentPayload()
         $this->markTestIncomplete("encodeCommentPayload test not implemented");
-        
-        PayPalProcess::encodeCommentPayload(/* parameters */);
+
+		PayPalProcess::encodeCommentPayload(/* parameters */);
     }
 
     /**
@@ -179,8 +178,8 @@ class PayPalProcessTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated PayPalProcessTest::testDecodeCommentPayload()
         $this->markTestIncomplete("decodeCommentPayload test not implemented");
-        
-        PayPalProcess::decodeCommentPayload(/* parameters */);
+
+		PayPalProcess::decodeCommentPayload(/* parameters */);
     }
 
     /**
@@ -190,8 +189,8 @@ class PayPalProcessTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated PayPalProcessTest::testRemoveOffendingCharacters()
         $this->markTestIncomplete("removeOffendingCharacters test not implemented");
-        
-        PayPalProcess::removeOffendingCharacters(/* parameters */);
+
+		PayPalProcess::removeOffendingCharacters(/* parameters */);
     }
 
     /**
@@ -209,8 +208,8 @@ class PayPalProcessTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated PayPalProcessTest->testProcessPayment()
         $this->markTestIncomplete("processPayment test not implemented");
-        
-        $this->payPalProcess->processPayment(/* parameters */);
+
+		$this->payPalProcess->processPayment(/* parameters */);
     }
 
     /**
@@ -220,8 +219,8 @@ class PayPalProcessTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated PayPalProcessTest->testProcessGiftCardOrder()
         $this->markTestIncomplete("processGiftCardOrder test not implemented");
-        
-        $this->payPalProcess->processGiftCardOrder(/* parameters */);
+
+		$this->payPalProcess->processGiftCardOrder(/* parameters */);
     }
 
     /**
@@ -231,8 +230,7 @@ class PayPalProcessTest extends PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated PayPalProcessTest->testPayFlowTest()
         $this->markTestIncomplete("payFlowTest test not implemented");
-        
-        $this->payPalProcess->payFlowTest(/* parameters */);
+
+		$this->payPalProcess->payFlowTest(/* parameters */);
     }
 }
-

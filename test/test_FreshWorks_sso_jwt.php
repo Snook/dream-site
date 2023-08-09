@@ -1,5 +1,5 @@
 <?php
-require_once("C:\\Development\\Sites\\DD_Delivered\\includes\\Config.inc");
+require_once("../includes/Config.inc");
 
 $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
 $encoded_header = base64url_encode($header);

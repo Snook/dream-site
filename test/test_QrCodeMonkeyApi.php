@@ -1,5 +1,5 @@
 <?php
-require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
+require_once("../includes/Config.inc");
 
 require_once 'includes/api/marketing/qrcodemonkey/QrCodeMonkeyManager.php';
 
@@ -47,4 +47,3 @@ $ecc: This parameter specifies the error correction capability of QR. It has 4 l
 $pixel_Size: This specifies the pixel size of QR.
 $frame_Size: This specifies the size of Qr. It is from level 1-10.
 */
-

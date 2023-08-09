@@ -1,5 +1,5 @@
 <?php
-require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
+require_once("../includes/Config.inc");
 require_once 'includes/api/shipping/shipstation/ShipStationManager.php';
 require_once 'includes/api/shipping/shipstation/ShipStationOrderWrapper.php';
 

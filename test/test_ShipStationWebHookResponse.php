@@ -1,5 +1,5 @@
 <?php
-require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
+require_once("../includes/Config.inc");
 require_once 'includes/api/shipping/shipstation/ShipStationManager.php';
 require_once 'includes/api/shipping/shipstation/ShipStationOrderBatchWrapper.php';
 
@@ -13,4 +13,3 @@ require_once 'includes/api/shipping/shipstation/ShipStationOrderBatchWrapper.php
 
 //Fetch one unprocessed from transient_data_store: select * from transient_data_store where data_class = SHIPPING_SHIP_NOTIFICATION_NEW
 $batchWrapper = ShipStationManager::getInstance()->loadOrderShippingInfo();
-
