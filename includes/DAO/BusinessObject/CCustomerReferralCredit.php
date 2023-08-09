@@ -7,11 +7,23 @@ class CCustomerReferralCredit extends DAO_Customer_referral_credit
 	const EXPIRED = 'EXPIRED';
 	const CONSUMED = 'CONSUMED';
 
+	function consume()
+	{
+		$this->credit_state = CCustomerReferralCredit::CONSUMED;
+		$this->update();
+	}
+
+	function expire()
+	{
+		$this->credit_state = CCustomerReferralCredit::EXPIRED;
+		$this->update();
+	}
+
 	static function getUsersAvailableCredits($user_id)
 	{
 		$DAO_customer_referral_credit = DAO_CFactory::create('customer_referral_credit');
 		$DAO_customer_referral_credit->user_id = $user_id;
-		$DAO_customer_referral_credit->credit_state = CPointsCredits::AVAILABLE;
+		$DAO_customer_referral_credit->credit_state = CCustomerReferralCredit::AVAILABLE;
 		$DAO_customer_referral_credit->orderBy("expiration_date ASC");
 		$DAO_customer_referral_credit->find();
 
@@ -25,6 +37,48 @@ class CCustomerReferralCredit extends DAO_Customer_referral_credit
 		return $referralCreditArray;
 	}
 
+	static function processCredits($user_id, $amountToProcess, $order_id)
+	{
+		$referralCreditArray = CCustomerReferralCredit::getUsersAvailableCredits($user_id);
+
+		$remainingToProcess = $amountToProcess;
+
+		foreach ($referralCreditArray as $DAO_customer_referral_credit)
+		{
+			if ($remainingToProcess > 0)
+			{
+				$thisCreditAmount = $DAO_customer_referral_credit->dollar_value;
+
+				if ($thisCreditAmount <= $remainingToProcess)
+				{
+					// completely consume this credit
+					$remainingToProcess -= $thisCreditAmount;
+					$creditUpdater = DAO_CFactory::create('customer_referral_credit', true);
+					$creditUpdater->order_id = $order_id;
+					$creditUpdater->consume();
+				}
+				else if ($remainingToProcess < $thisCreditAmount)
+				{
+					$remainder = $thisCreditAmount - $remainingToProcess;
+					$creditUpdater2 = DAO_CFactory::create('customer_referral_credit', true);
+					$creditUpdater2->order_id = $order_id;
+					$creditUpdater2->original_amount = $thisCreditAmount;
+					$creditUpdater2->dollar_value = $remainingToProcess;
+					$creditUpdater2->consume();
+
+					$remainder_inserter = DAO_CFactory::create('customer_referral_credit', true);
+					$remainder_inserter->dollar_value = $remainder;
+					$remainder_inserter->credit_state = CCustomerReferralCredit::AVAILABLE;
+					$remainder_inserter->expiration_date = $DAO_customer_referral_credit->expiration_date;
+					$remainder_inserter->parent_of_partial = $DAO_customer_referral_credit->id;
+					$remainder_inserter->user_id = $user_id;
+					$remainder_inserter->insert();
+
+					$remainingToProcess = 0;
+				}
+			}
+		}
+	}
 }
 
 ?>
