@@ -58,7 +58,7 @@ class CCustomerReferralCredit extends DAO_Customer_referral_credit
 		$DAO_customer_referral_credit = DAO_CFactory::create('customer_referral_credit', true);
 		$DAO_customer_referral_credit->user_id = $user_id;
 		$DAO_customer_referral_credit->selectAdd("SUM(customer_referral_credit.dollar_value) as total_available");
-		$DAO_customer_referral_credit->whereAdd("customer_referral_credit.credit_state = '" . CCustomerReferralCredit::AVAILABLE . "' OR (customer_referral_credit.credit_state = '" . CCustomerReferralCredit::CONSUMED . "' and customer_referral_credit.order_id = '" . $order_id . "'");
+		$DAO_customer_referral_credit->whereAdd("customer_referral_credit.credit_state = '" . CCustomerReferralCredit::AVAILABLE . "' OR (customer_referral_credit.credit_state = '" . CCustomerReferralCredit::CONSUMED . "' and customer_referral_credit.order_id = '" . $order_id . "')");
 		$DAO_customer_referral_credit->find(true);
 
 		if ($DAO_customer_referral_credit->N)

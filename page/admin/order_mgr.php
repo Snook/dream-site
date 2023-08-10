@@ -11,7 +11,9 @@ require_once("DAO/BusinessObject/CGiftCard.php");
 require_once("DAO/BusinessObject/CFundraiser.php");
 require_once('DAO/BusinessObject/CMenuItemInventoryHistory.php');
 require_once('DAO/BusinessObject/COrderMinimum.php');
-require_once('includes/DAO/BusinessObject/CStoreCredit.php');
+require_once('DAO/BusinessObject/CStoreCredit.php');
+require_once('DAO/BusinessObject/CCustomerReferralCredit.php');
+
 require_once("ValidationRules.inc");
 require_once("CAppUtil.inc");
 require_once("OrdersHelper.php");
@@ -37,6 +39,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		'limited_access' => false,
 		'direct_order' => true,
 		'dinner_dollars' => true,
+		'referral_reward' => true,
 		'coupon_code' => true,
 		'preferred' => true,
 		'session' => true,
@@ -490,6 +493,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				$bundleInfo = CBundle::getBundleInfo($dreamTasteProperties->bundle_id, $Session->menu_id, $this->daoStore);
 
 				$this->discountEligable['dinner_dollars'] = false;
+				$this->discountEligable['referral_reward'] = false;
 				$this->discountEligable['coupon_code'] = true;
 				$this->discountEligable['preferred'] = false;
 				$this->discountEligable['session'] = false;
@@ -523,6 +527,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				$bundleInfo = CBundle::getBundleInfo($fundraiserProperties->bundle_id, $Session->menu_id, $this->daoStore->id);
 
 				$this->discountEligable['dinner_dollars'] = false;
+				$this->discountEligable['referral_reward'] = false;
 				$this->discountEligable['coupon_code'] = true;
 				$this->discountEligable['preferred'] = false;
 				$this->discountEligable['session'] = false;
@@ -1989,6 +1994,8 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$tpl->assign('storeSupportsMembership', false);
 			$tpl->assign('orderIsEligibleForMembershipDiscount', false);
 		}
+
+		$this->handleReferralRewards($tpl,$Form, $this->originalOrder);
 
 		$tpl->assign('userIsPlatePointsGuest', $this->userIsPlatePointsGuest);
 		$tpl->assign('storeSupportsPlatePoints', $this->storeSupportsPlatePoints);
@@ -5018,6 +5025,59 @@ class page_admin_order_mgr extends CPageAdminOnly
 				$description = "Pending Delayed Payment Adjustment- Org amount: $orgAmount New amount: $adjAmount";
 
 				CStoreHistory::recordStoreEvent($this->originalOrder->user_id, $this->originalOrder->store_id, $this->originalOrder->id, 200, $orgPayment->id, 'null', 'null', $description);
+			}
+		}
+	}
+
+	function handleReferralRewards($tpl,&$Form,$order)
+	{
+		$Form->DefaultValues['referral_reward_discount'] = "";
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Money,
+			CForm::name => 'referral_reward_discount',
+			CForm::org_value => $order->points_discount_total,
+			CForm::onKeyUp => 'handlePlatePointsDiscount',
+			CForm::onChange => 'handlePlatePointsDiscount',
+			CForm::autocomplete => false
+		));
+
+
+		$maxAvailableReferralRewards = CCustomerReferralCredit::getAvailableCreditForUserAndOrder($order->user_id, $order->id);
+
+		$tpl->assign('maxReferralRewards', $maxAvailableReferralRewards);
+		$tpl->assign('maxReferralRewardsDeduction', 0);
+
+		if ( $maxAvailableReferralRewards > 0 )
+		{
+
+			if ($order->discount_total_customer_referral_credit== 0)
+			{
+				$Form->DefaultValues['referral_reward_discount'] = "";
+			}
+			else
+			{
+				$Form->DefaultValues['referral_reward_discount'] = $order->discount_total_customer_referral_credit;
+			}
+
+			$Form->AddElement(array(
+				CForm::type => CForm::Money,
+				CForm::name => 'referral_reward_discount',
+				CForm::org_value => $order->points_discount_total,
+				CForm::onKeyUp => 'handlePlatePointsDiscount',
+				CForm::onChange => 'handlePlatePointsDiscount',
+				CForm::autocomplete => false
+			));
+		}
+		else
+		{
+			if ($maxAvailableReferralRewards <= 0)
+			{
+				$tpl->assign('noReferralRewardReason', "The guest does not currently have any Referral Rewards.");
+			}
+			else
+			{
+				$tpl->assign('noReferralRewardReason', "Referral Rewards are not available.");
 			}
 		}
 	}
