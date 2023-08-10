@@ -740,14 +740,13 @@ class CCustomerReferral extends DAO_Customer_referral
 		{
 			// determine payment amount
 			$reward_amount = 10;
-			$DateTime_expiration_date = new DateTime('+1 year');
 
 			// add store credit
 			$DAO_customer_referral_credit = DAO_CFactory::create('customer_referral_credit', true);
 			$DAO_customer_referral_credit->user_id = $this->referring_user_id;
 			$DAO_customer_referral_credit->credit_state = CCustomerReferralCredit::AVAILABLE;
 			$DAO_customer_referral_credit->dollar_value = $reward_amount;
-			$DAO_customer_referral_credit->expiration_date = $DateTime_expiration_date->format('Y-m-d 03:00:00');
+			$DAO_customer_referral_credit->expiration_date = CTemplate::formatDateTime('Y-m-d 03:00:00', false, false, '+1 year');
 			$DAO_customer_referral_credit->insert();
 
 			$DAO_user = DAO_CFactory::create('user', true);
