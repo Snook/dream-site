@@ -105,7 +105,7 @@ class page_admin_order_history extends CPageAdminOnly
 		$tpl->assign('user', $User->toArray());
 		$tpl->assign('user_id', $User->id);
 
-		$Orders = self::fetchOrderHistory($User->id, self::$PAGE_SIZE);
+		$Orders = self::fetchOrderHistory($User->id, 0, self::$PAGE_SIZE);
 
 		//paging control
 		$totalFetchedOrder = count($Orders);

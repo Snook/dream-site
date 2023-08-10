@@ -42,7 +42,7 @@
 	{
 		include $this->loadTemplateIfElse('customer/subtemplate/event_theme/standard/made_for_you/remote_pickup_private/' . CTemplate::dateTimeFormat($this->menu_info['menu_name'], YEAR_UNDERSCORE_MONTH) . '/header.tpl.php', 'customer/subtemplate/event_theme/standard/made_for_you/remote_pickup_private/default/header.tpl.php');
 	}
-	else if ($this->cart_info['sessionObj']->isMadeForYou() && !empty($this->cart_info['cart_info_array']['direct_invite']))
+	else if ($this->cart_info['sessionObj']->isMadeForYou() && !$this->cart_info['sessionObj']->isDelivery() && !empty($this->cart_info['cart_info_array']['direct_invite']))
 	{
 		include $this->loadTemplateIfElse('customer/subtemplate/event_theme/standard/made_for_you/standard/' . CTemplate::dateTimeFormat($this->menu_info['menu_name'], YEAR_UNDERSCORE_MONTH) . '/header.tpl.php', 'customer/subtemplate/event_theme/standard/made_for_you/standard/default/header.tpl.php');
 	}
