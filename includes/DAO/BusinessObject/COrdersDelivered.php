@@ -528,7 +528,8 @@ class COrdersDelivered extends COrders
 	{
 		$boxes = $this->getBoxes();
 		//	$menu_id = $this->session->menu_id;
-		$menu_id = current($boxes)['bundle']->menu_id;
+		$menu_id_curr = current($boxes);
+		$menu_id = $menu_id_curr['bundle']->menu_id;
 
 		$parentStoreId = CStore::getParentStoreID($this->session->store_id);
 
@@ -908,7 +909,7 @@ class COrdersDelivered extends COrders
 			$adminUser = CUser::getCurrentUser()->id;
 			foreach($boxInstanceArray as $box_inst_id)
 			{
-				$box_instances->query("update box_instance set is_deleted = 1, edit_sequence_id = {$order_record->id}, updated_by = $adminUser where id = $box_inst_id");
+				$box_instances->query("update box_instance set is_deleted = 1, updated_by = $adminUser where id = $box_inst_id");
 			}
 
 			// record changes to the master
@@ -1076,6 +1077,11 @@ class COrdersDelivered extends COrders
 		if ($this->points_discount_total > 0)
 		{
 			CPointsCredits::processCredits($this->user_id, $this->points_discount_total, $this->id);
+		}
+
+		if ($this->discount_total_customer_referral_credit > 0)
+		{
+			CCustomerReferralCredit::processCredits($this->user_id, $this->discount_total_customer_referral_credit, $this->id);
 		}
 
 		if ($this->boxes)
@@ -2745,7 +2751,8 @@ class COrdersDelivered extends COrders
 		if ($boxes)
 		{
 
-			$menu_id = current($boxes)['bundle']->menu_id;
+			$menu_id_curr = current($boxes);
+			$menu_id = $menu_id_curr['bundle']->menu_id;
 
 			foreach ($boxes as $box_inst_id => $boxItems)
 			{
