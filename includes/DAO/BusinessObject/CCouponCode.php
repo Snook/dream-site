@@ -233,7 +233,7 @@ class CCouponCode extends DAO_Coupon_code
 			$couponErrorsArray["not_valid_for_stores"] = "This code is not supported by this store.";
 			$couponErrorsArray["not_valid_for_unknown_menu"] = "This promo cannot be used with the the Dinners For Life Menu";
 			$couponErrorsArray["not_valid_with_points_credits"] = "This code cannot be used with Dinner Dollars.";
-			$couponErrorsArray["not_valid_with_referral_credits"] = "This code cannot be used with Referral Credits.";
+			$couponErrorsArray["not_valid_with_referral_credits"] = "This code cannot be used with Referral Reward.";
 			$couponErrorsArray["no_ft_items"] = "This code is only valid for Sides &amp; Sweets sides and no sides are found in the cart.";
 			$couponErrorsArray["no_order"] = "There is an issue with your order, please review your cart.";
 			$couponErrorsArray["menu_item_out_of_stock"] = "The menu item is currently unavailable.";

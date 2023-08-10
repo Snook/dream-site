@@ -354,7 +354,7 @@
 		<div class="form-group col-md-6">
 			<div class="input-group">
 				<div class="input-group-prepend">
-					<label class="input-group-text font-size-small" for="valid_with_customer_referral_credit">Referral Credit</label>
+					<label class="input-group-text font-size-small" for="valid_with_customer_referral_credit">Referral Reward</label>
 				</div>
 				<?php echo $this->CouponForm['valid_with_customer_referral_credit_html']; ?>
 			</div>
