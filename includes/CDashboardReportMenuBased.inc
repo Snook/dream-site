@@ -1248,7 +1248,7 @@ class CDashboardMenuBased
 			$digest12 = DAO_CFactory::create('orders_digest');
 			$thisMenuID = $MenuObj->id;
 			$nextMenuID = $thisMenuID + 1;
-			$digest12->query("select iq.* from (
+			$digest12->query("select distinct iq.* from (
 				select distinct od.user_id from orders_digest od
 				join booking b on b.order_id = od.order_id and b.status = 'ACTIVE'
 				join session s on s.id = b.session_id and s.menu_id = $thisMenuID
