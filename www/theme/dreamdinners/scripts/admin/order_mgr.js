@@ -15,7 +15,9 @@ var relatedOrdersAreLoaded = false;
 var currentlySavingOrder = false;
 var onTimeShotAtSupplyingZeroPaymentHasOccurred = false;
 var needPlatePointsMaxDiscountChangeWarning = false;
+var needRefferalRewardMaxDiscountChangeWarning = false;
 var lastMaxPPDiscountAmount = -1;
+var lastMaxReferralRewardDiscountAmount = -1;
 let feesTabIsDirty = false;
 
 function admin_order_mgr_init()
@@ -5875,6 +5877,13 @@ function getAbbreviatedChangeString()
 
 	}
 
+	if (needRefferalRewardMaxDiscountChangeWarning)
+	{
+		htmlStr += "<div style='color:red;'>Warning: The amount discountable by Referral Rewards has changed. You may wish to review and adjust the Referral Rewards discount.</div>";
+
+	}
+
+
 	for (var item in changeList.stdMenuItems)
 	{
 		if (changeList.stdMenuItems.hasOwnProperty(item))
@@ -7130,7 +7139,69 @@ function calculateTotal()
 			"background-color": "#fff",
 			"color": "#000"
 		});
-		$("#pp_discountable_cost_msg").hide();
+	}
+
+
+	let discountableReferralRewardAmount = total + Number(document.getElementById('subtotal_service_fee').value);
+
+	if (typeof coupon != 'undefined' && coupon.limit_to_mfy_fee == '1' && coupon.discount_method == 'FLAT')
+	{
+
+		let currentServiceFee = $("#subtotal_service_fee").val();
+
+		// adjust the discountablePlatePointsAmount and service to match coupon
+		discountableReferralRewardAmount = formatAsMoney(discountableReferralRewardAmount - currentServiceFee);
+		$("#OEH_subtotal_service_fee").val(currentServiceFee);
+
+		hasServiceFeeWithMFYCoupon = true;
+		if (discountableReferralRewardAmount < 0)
+		{
+			discountableReferralRewardAmount = 0;
+		}
+
+	}
+
+	needRefferalRewardMaxDiscountChangeWarning = false;
+
+	if (discountableReferralRewardAmount != lastMaxReferralRewardDiscountAmount && lastMaxReferralRewardDiscountAmount != -1)
+	{
+		needRefferalRewardMaxDiscountChangeWarning = true;
+	}
+
+	lastMaxReferralRewardDiscountAmount = discountableReferralRewardAmount;
+
+	if (couponlimitedToFT)
+	{
+		let tempCouponVal = Number(document.getElementById('couponValue').value);
+		discountableReferralRewardAmount -= tempCouponVal;
+		if (discountableReferralRewardAmount < 0)
+		{
+			discountableReferralRewardAmount = 0;
+		}
+
+	}
+
+	$("#referral_reward_discount").html(formatAsMoney(discountableReferralRewardAmount))
+
+
+	if (discountableReferralRewardAmount <= 0)
+	{
+		$("#referral_reward_discount").attr("disabled", "disabled");
+		$("#referral_reward_discount").css({
+			"background-color": "#c0c0c0",
+			"color": "#060606"
+		});
+		$("#rr_discountable_cost_msg").show();
+
+	}
+	else if (!discountEligable.limited_access)
+	{
+		$("#referral_reward_discount").removeAttr("disabled");
+		$("#referral_reward_discount").css({
+			"background-color": "#fff",
+			"color": "#000"
+		});
+		$("#rr_discountable_cost_msg").hide();
 
 	}
 
@@ -7144,6 +7215,24 @@ function calculateTotal()
 	}
 
 	if (maxPPCredit > maxPPDeduction)
+	{
+		$('#tbody_max_plate_points_deduction').show();
+	}
+	else
+	{
+		$('#tbody_max_plate_points_deduction').hide();
+	}
+
+	let maxRRCredit = $("#referral_reward_available").html() * 1;
+	let maxRRDeduction = $("#max_referral_reward_deduction").html() * 1;
+	let curRRDiscount = $("#referral_reward_discount").val() * 1;
+
+	if (maxRRDeduction < curRRDiscount)
+	{
+		$("#referral_reward_discount").val(maxRRDeduction);
+	}
+
+	if (maxRRCredit > maxRRDeduction)
 	{
 		$('#tbody_max_plate_points_deduction').show();
 	}
@@ -7324,6 +7413,30 @@ function calculateTotal()
 		// This is now done in the taxesd section
 
 		newGrandTotal = formatAsMoney(newGrandTotal - curPPDiscount);
+	}
+
+	let curReferralRewardDiscount = 0;
+	// ----------------------------------------------  Referral Reward Discount
+	if ($('#referral_reward_discount').length)
+	{
+		curReferralRewardDiscount = $('#referral_reward_discount').val();
+		if (curReferralRewardDiscount * 1 > discountablePlatePointsAmount * 1)
+		{
+			curReferralRewardDiscount = discountablePlatePointsAmount;
+
+			if (curReferralRewardDiscount == 0)
+			{
+				$('#referral_reward_discount').val("");
+			}
+			else
+			{
+				$('#referral_reward_discount').val(formatAsMoney(curReferralRewardDiscount));
+			}
+		}
+
+		$('#OEH_referral_reward_order_discount').html(formatAsMoney(curReferralRewardDiscount));
+
+		newGrandTotal = formatAsMoney(newGrandTotal - curReferralRewardDiscount);
 	}
 
 	// ---------------------------------------------- Direct Order
