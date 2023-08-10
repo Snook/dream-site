@@ -18,7 +18,10 @@ CREATE TABLE `customer_referral_credit` (
 
 
 ALTER TABLE `dreamsite`.`orders`
-	ADD COLUMN `discount_total_customer_referral_credit` decimal(6) NOT NULL DEFAULT 0.00 AFTER `menu_program_id`;
+	ADD COLUMN `discount_total_customer_referral_credit` decimal(6, 2) NOT NULL DEFAULT 0.00 AFTER `menu_program_id`;
+
+ALTER TABLE `dreamsite`.`edited_orders`
+	ADD COLUMN `discount_total_customer_referral_credit` decimal(6, 2) NOT NULL DEFAULT 0.00 AFTER `inviting_user_id`;
 
 ALTER TABLE `dreamcart`.`cart_contents`
-	ADD COLUMN `discount_total_customer_referral_credit` decimal(6) NOT NULL DEFAULT 0.00 AFTER `direct_order_discount`;
+	ADD COLUMN `discount_total_customer_referral_credit` decimal(6, 2) NOT NULL DEFAULT 0.00 AFTER `direct_order_discount`;
