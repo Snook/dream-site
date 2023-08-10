@@ -4131,6 +4131,18 @@ function HideLineItemsIfZero()
 		$('#platePointsDiscountRow').show();
 	}
 
+	var referralRewardDiscountOrg = Number($('#OEH_referral_reward_order_discount_orig').html());
+	var referralRewardDiscount = Number($('#OEH_referral_reward_order_discount').html());
+
+	if (referralRewardDiscountOrg == 0 && referralRewardDiscount == 0)
+	{
+		$('#referralRewardDiscountRow').hide();
+	}
+	else
+	{
+		$('#referralRewardDiscountRow').show();
+	}
+
 	var platePointsDiscountOrg = Number($('#OEH_plate_points_discount_org_fee').html());
 	var platePointsDiscount = Number($('#OEH_plate_points_order_discount_fee').html());
 
@@ -4248,6 +4260,7 @@ function ShowAllLineItems()
 	$('#nonFoodTaxRow').show();
 	$('#productSubtotalRow').show();
 	$('#platePointsDiscountRow').show();
+	$('#referralRewardDiscountRow').show();
 	$('#preferredUserDiscountRow').show();
 	$('#sessionDiscountRow').show();
 	$('#LTDRoundUpRow').show();
