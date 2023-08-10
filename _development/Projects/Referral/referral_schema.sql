@@ -25,3 +25,6 @@ ALTER TABLE `dreamsite`.`edited_orders`
 
 ALTER TABLE `dreamcart`.`cart_contents`
 	ADD COLUMN `discount_total_customer_referral_credit` decimal(6, 2) NOT NULL DEFAULT 0.00 AFTER `direct_order_discount`;
+
+ALTER TABLE `dreamsite`.`coupon_code`
+	ADD COLUMN `valid_with_customer_referral_credit` tinyint(1) UNSIGNED NULL DEFAULT 0 AFTER `valid_DFL_Menu`;
