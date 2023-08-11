@@ -4,18 +4,19 @@
 	"private": true,
 	"scripts": {
 		"start": "npm-watch",
-		"css:compile": "sass --style expanded --source-map --embed-sources --no-error-css www/theme/dreamdinners/css/customer:www/theme/dreamdinners/css/customer",
+		"css:compile:admin": "sass --style expanded --source-map --embed-sources --no-error-css src/www/theme/dreamdinners/css/admin/admin-styles.scss:www/theme/dreamdinners/css/admin/admin-styles.css",
+		"css:compile:customer": "sass --style expanded --source-map --embed-sources --no-error-css www/theme/dreamdinners/css/customer/dreamdinners.css:www/theme/dreamdinners/css/customer/dreamdinners.css",
 		"css:minify": "npm-run-all --aggregate-output --parallel css:minify-*",
 		"css:minify-main": "cleancss -O1 --format breakWith=lf --with-rebase --source-map --source-map-inline-sources --output www/theme/dreamdinners/css/customer/ --batch --batch-suffix \".min\" \"www/theme/dreamdinners/css/customer/*.css\" \"!www/theme/dreamdinners/css/customer/*.min.css\" \"!www/theme/dreamdinners/css/customer/*rtl*.css\"",
 		"uglify:admin": "uglifyjs-folder src/www/theme/dreamdinners/js/admin -eo www/theme/dreamdinners/scripts/admin --config-file uglify-admin.json",
 		"uglify:customer": "uglifyjs-folder src/www/theme/dreamdinners/js/customer -eo www/theme/dreamdinners/scripts/customer --config-file uglify-customer.json",
-		"build:css": "npm-run-all css:compile css:minify",
+		"build:css": "npm-run-all css:compile:admin css:compile:customer css:minify",
 		"build:js": "npm-run-all uglify:admin uglify:customer"
 	},
 	"watch": {
 		"build:css": {
 			"patterns": [
-				"src/www/theme/dreamdinners/css/customer"
+				"src/www/theme/dreamdinners/css"
 			],
 			"extensions": [
 				"scss"
