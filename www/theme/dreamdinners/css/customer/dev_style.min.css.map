@@ -1,1 +1,1 @@
-{"version":3,"sources":["www\\theme\\dreamdinners\\css\\customer\\dev_style.css"],"names":[],"mappings":"AAAA,oBACC,SAAU,MACV,OAAQ,EACR,KAAM,EACN,QAAS","sourcesContent":[".dev_branch_message{\r\n\tposition: fixed;\r\n\tbottom: 0;\r\n\tleft: 0;\r\n\tz-index: 1;\r\n\t}"]}
+{"version":3,"sources":["www\\theme\\dreamdinners\\css\\customer\\dev_style.css"],"names":[],"mappings":"AAAA,oBACC,SAAU,MACV,OAAQ,EACR,KAAM,EACN,QAAS","sourcesContent":[".dev_branch_message{\n\tposition: fixed;\n\tbottom: 0;\n\tleft: 0;\n\tz-index: 1;\n\t}"]}
