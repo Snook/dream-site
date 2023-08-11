@@ -3,8 +3,8 @@
 @import "admin-btn";
 @import "admin-style";
 
-@import "./jquery/jquery-ui.min.css";
-@import "./jquery/dreamdinners/jquery-ui-dd.custom.css";
-@import "./vendor/qtip/jquery.qtip.css";
-@import "./dreamdinners/qtip/jquery.qtip-dreamdinners.css";
-@import "./dreamdinners/menu_bar.css";
+@import "../jquery/jquery-ui.min";
+@import "../jquery/dreamdinners/jquery-ui-dd.custom";
+@import "../vendor/qtip/jquery.qtip";
+@import "../dreamdinners/qtip/jquery.qtip-dreamdinners";
+@import "../dreamdinners/menu_bar";
