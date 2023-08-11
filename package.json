@@ -5,14 +5,14 @@
 	"scripts": {
 		"start": "npm-watch",
 		"build:all": "npm-run-all build:css build:js",
-		"build:css": "npm-run-all css:sass:admin css:sass:customer css:minify",
-		"build:js": "npm-run-all js:uglify:admin js:uglify:customer",
-		"css:sass:admin": "sass --style expanded --source-map --embed-sources --no-error-css src/www/theme/dreamdinners/css/admin/admin-styles.scss:www/theme/dreamdinners/css/admin/admin-styles.css",
-		"css:sass:customer": "sass --style expanded --source-map --embed-sources --no-error-css www/theme/dreamdinners/css/customer/dreamdinners.css:www/theme/dreamdinners/css/customer/dreamdinners.css",
+		"build:css": "npm-run-all css:sass:customer css:sass:admin css:minify",
+		"build:js": "npm-run-all js:uglify:customer js:uglify:admin",
+		"css:sass:customer": "sass -I node_modules/ --style expanded --source-map --embed-sources --no-error-css src/www/theme/dreamdinners/css/customer/dreamdinners.scss:www/theme/dreamdinners/css/customer/dreamdinners.css",
+		"css:sass:admin": "sass -I node_modules/ --style expanded --source-map --embed-sources --no-error-css src/www/theme/dreamdinners/css/admin/admin-styles.scss:www/theme/dreamdinners/css/admin/admin-styles.css",
 		"css:minify": "npm-run-all --aggregate-output --parallel css:minify:*",
 		"css:minify:main": "cleancss -O1 --format breakWith=lf --with-rebase --source-map --source-map-inline-sources --output www/theme/dreamdinners/css/customer/ --batch --batch-suffix \".min\" \"www/theme/dreamdinners/css/customer/*.css\" \"!www/theme/dreamdinners/css/customer/*.min.css\" \"!www/theme/dreamdinners/css/customer/*rtl*.css\"",
-		"js:uglify:admin": "uglifyjs-folder src/www/theme/dreamdinners/js/admin -eo www/theme/dreamdinners/scripts/admin --config-file uglify-admin.json",
-		"js:uglify:customer": "uglifyjs-folder src/www/theme/dreamdinners/js/customer -eo www/theme/dreamdinners/scripts/customer --config-file uglify-customer.json"
+		"js:uglify:customer": "uglifyjs-folder src/www/theme/dreamdinners/js/customer -eo www/theme/dreamdinners/scripts/customer --config-file uglify-customer.json",
+		"js:uglify:admin": "uglifyjs-folder src/www/theme/dreamdinners/js/admin -eo www/theme/dreamdinners/scripts/admin --config-file uglify-admin.json"
 	},
 	"watch": {
 		"build:css": {
