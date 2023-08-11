@@ -1,6 +1,8 @@
 {
 	"sourceMap": {
-		"root": "js/src/admin",
-		"includeSources": true
+		"root": "js/src/dreamdinners/admin",
+		"filename": "{file}",
+		"includeSources": true,
+		"url": "{file}.map"
 	}
 }
