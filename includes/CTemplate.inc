@@ -988,7 +988,7 @@ class CTemplate extends Savant2
 		if (!$isAdmin)
 		{
 			// vendor scripts
-			self::setScript('foot', SCRIPT_PATH . '/customer/vendor/vendor.min.js');
+			self::setScript('foot', SCRIPT_PATH . '/customer/vendor.min.js');
 
 			// dd scripts
 			self::setScript('foot', SCRIPT_PATH . '/customer/global.min.js'); // common DD functions
