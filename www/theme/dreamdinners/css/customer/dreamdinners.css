@@ -17974,7 +17974,7 @@ a.fc-event:hover {
 .fc-event:hover,
 .fc-event-selected {
   /* TOUCH */
-  }
+}
 
 .fc-event:hover .fc-event-resizer, .fc-event-selected .fc-event-resizer {
   display: block;
@@ -18197,7 +18197,7 @@ A HORIZONTAL event
 .fc-daygrid-day-events,
 .fc-daygrid-event-harness {
   /* for event top/bottom margins */
-  }
+}
 
 .fc-daygrid-day-frame:before, .fc-daygrid-day-events:before, .fc-daygrid-event-harness:before {
   content: "";
@@ -18280,7 +18280,7 @@ A HORIZONTAL event
 
 .fc .fc-daygrid-body-natural {
   /* can coexist with -unbalanced */
-  }
+}
 
 .fc .fc-daygrid-body-natural .fc-daygrid-day-events {
   margin-bottom: 1em;
@@ -20390,6 +20390,7 @@ A VERTICAL event
   box-shadow: 0 0 8px #df4e59;
 }
 
+/*# sourceMappingURL=dreamdinners.css.map */
 /*# sourceMappingURL=dreamdinners.css.map */
 /*# sourceMappingURL=dreamdinners.css.map */
 /*# sourceMappingURL=dreamdinners.css.map */
