@@ -57,7 +57,7 @@ function init_money_formatting()
 			e.keyCode == 39 || // right arrow
 			e.keyCode == 45 || // negative sign
 			(e.which > 47 && e.which < 58 )) // numbers
-		{				
+		{
 				return true;
 		}
 		else if (e.keyCode == 13)
@@ -79,40 +79,40 @@ function init_money_formatting()
 
 function init_update_p_and_l_data()
 {
-	
-	var total_expenses = new Number(0);
+
+	var total_expenses = Number(0);
 	$('[data-dd_subtype="expense"]').each(function() {
-		total_expenses += new Number(removeFormatting($(this).val()));
+		total_expenses += Number(removeFormatting($(this).val()));
 	});
-		
-	var agr = new Number(removeFormatting($("#p_and_l_total_agr").html()));
-	var marketing_total = new Number(removeFormatting($("#p_and_l_marketing_total").html()));
-	var royalty_total = new Number(removeFormatting($("#p_and_l_royalty_total").html()));
-	var net_income = new Number(removeFormatting($("#net_income").val()));
-	
+
+	var agr = Number(removeFormatting($("#p_and_l_total_agr").html()));
+	var marketing_total = Number(removeFormatting($("#p_and_l_marketing_total").html()));
+	var royalty_total = Number(removeFormatting($("#p_and_l_royalty_total").html()));
+	var net_income = Number(removeFormatting($("#net_income").val()));
+
 	$("#other_expenses").val(addFormatting(agr - (total_expenses + marketing_total + royalty_total) - net_income));
 
-	
-	
+
+
 	$(".gt_input").keyup(function() {
 
-		var net_income = new Number(removeFormatting($("#net_income").val()));
-		
-		var total_expenses =  new Number(0);
+		var net_income = Number(removeFormatting($("#net_income").val()));
+
+		var total_expenses =  Number(0);
 		$('[data-dd_subtype="expense"]').each(function() {
-			total_expenses += new Number(removeFormatting($(this).val()));
+			total_expenses += Number(removeFormatting($(this).val()));
 		});
 
-		var agr = new Number(removeFormatting($("#p_and_l_total_agr").html()));
-		
+		var agr = Number(removeFormatting($("#p_and_l_total_agr").html()));
+
 		$("#other_expenses").val(addFormatting(agr - (total_expenses + marketing_total + royalty_total)- net_income));
 	});
-	
-	
+
+
 	$("#update_p_and_l").click(function()
 	{
 		var validation_error_occurred = false;
-		
+
 		$("#owner_hours, #employee_hours, #manager_hours").each(function()
 		{
 			if (isNaN($(this).val()))
@@ -121,18 +121,18 @@ function init_update_p_and_l_data()
 					title: 'Error',
 					message: "The hours fields must be a number."
 				});
-							
+
 				validation_error_occurred = true;
-				
+
 			}
 		});
-		
+
 		if (validation_error_occurred)
 		{
 			return false;
 		}
-		
-		var dataObj = new Object();
+
+		var dataObj = {};
 
 		$("#finance_tab input").each(function() {
 			dataObj[this.id] = removeFormatting($(this).val());
@@ -164,7 +164,7 @@ function init_update_p_and_l_data()
 				if(json.processor_success)
 				{
 					dd_toast({message: "Your data was saved."});
-					
+
 					if (hasChangedCOGS)
 					{
 						hasChangedCOGS = false;
@@ -267,12 +267,12 @@ function updateGOGSfields(month, year)
 			{
 				for (var weekNum in json.food_costs)
 				{
-					
+
 					 var thisCost = json.food_costs[weekNum];
 
 					if (weekNum.length == 1)
 						weekNum = "0" + weekNum;
-					
+
 					if (weekNum == "00")
 						weekNum = '53';
 
@@ -285,14 +285,14 @@ function updateGOGSfields(month, year)
 
 						if (weekNum.length == 1)
 							weekNum = "0" + weekNum;
-						
+
 						if (weekNum == "00")
 							weekNum = '53';
 
 
 					 $("#lc_" + weekNum + "_" + year).val(addFormatting(thisCost));
-					 
-					 
+
+
 				}
 
 				calculatePage();
@@ -459,9 +459,9 @@ function _report_submitClick(form)
 
 function removeFormatting(stringVal)
 {
-	
+
 	if (stringVal == null || stringVal == "") return stringVal;
-	
+
 	stringVal = stringVal.replace(/,/, "");
 	stringVal = stringVal.replace(/\$/, "");
 
@@ -472,7 +472,7 @@ function removeFormatting(stringVal)
 function addFormatting(numericVal)
 {
 	if (numericVal == null || numericVal == "") return "";
-	
+
 	numericVal = accounting.formatMoney(numericVal,"$",2,",",".","%s%v");
 
 	return numericVal;
@@ -1076,4 +1076,3 @@ function init_exposure_controls()
 
 
 }
-

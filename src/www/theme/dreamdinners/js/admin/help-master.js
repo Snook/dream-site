@@ -1,5 +1,5 @@
-var ddHelpData = new Object();
-ddHelpData['dashboard'] = new Object();
+var ddHelpData = {};
+ddHelpData['dashboard'] = {};
 ddHelpData['dashboard']['adjusted_gross_revenue'] =
 {title: "Adjusted Gross Revenue",
  help_text: "Adjusted Gross Revenue is the total store revenue for the given month minus sales tax and with a few other adjustments. It is equal to the amount that royalties are based on. Amounts are based on session date.",
@@ -219,7 +219,7 @@ ddHelpData['dashboard']['sessions']['adjusted_gross_revenue'] =
 tech_text: ""
 };
 
-ddHelpData['dashboard']['RSVPs'] = new Object();
+ddHelpData['dashboard']['RSVPs'] = {};
 ddHelpData['dashboard']['RSVPs']['rsvp_count'] =
     {title: "RSVP Guest Count",
         help_text: "An RSVP guest is a potential guest invited to a Friend's Night Out Workshop.",
@@ -231,7 +231,7 @@ ddHelpData['dashboard']['RSVPs']['rsvp_upgrade_count'] =
         tech_text: ""
     };
 
-ddHelpData['dashboard']['retention'] = new Object();
+ddHelpData['dashboard']['retention'] = {};
 ddHelpData['dashboard']['retention']['converted_guests'] =
 {title: "Converted Guests",
  help_text: "A converted guest is a new or reacquired guest in the current period that has subsequently placed another order.",
@@ -258,14 +258,14 @@ ddHelpData['dashboard']['retention']['retention_rate'] =
  help_text: "This metric takes the number of existing guests with a regular order for this menu, who have placed an order for the next menu, and compares it to the total number of existing guests with a regular order for this menu.  The percentage noted in parentheses is based on ALL regular orders for this menu, whereas the main metric is only looking at regular orders for sessions that have already occurred.",
 tech_text: "Note: In-store rules are not applied. The guest simply has to have a regular order in the following month regardless of when the order was placed."
 };
-ddHelpData['dashboard']['ranking'] = new Object();
+ddHelpData['dashboard']['ranking'] = {};
 ddHelpData['dashboard']['ranking']['percent_increase'] =
 {title: "Gross Revenue by % Increase",
  help_text: "This the percent increase of the current period's adjusted gross revenue compared to the same month of last year.",
 tech_text: ""
 };
-ddHelpData['trending'] = new Object();
-ddHelpData['trending']['performance'] = new Object();
+ddHelpData['trending'] = {};
+ddHelpData['trending']['performance'] = {};
 ddHelpData['trending']['performance']['last_year_agr'] =
 {title: "Last Year Adjusted Gross Revenue",
 help_text: "The adjsuted revenue for your store for the same month 1 year ago.",
@@ -321,7 +321,7 @@ ddHelpData['trending']['performance']['top_5_average'] =
  help_text: "The average for each metric of the most current month (the month just previous to the current month) for the top 5 most improved stores.",
 tech_text: ""
 };
-ddHelpData['trending']['guest_habits'] = new Object();
+ddHelpData['trending']['guest_habits'] = {};
 ddHelpData['trending']['guest_habits']['existing_count'] =
 {title: "Existing Guest Count",
  help_text: "This is the number of existing guests that attended a session in the month.",
@@ -374,7 +374,7 @@ help_text: "The total number of canceled orders for sessions in the given month.
 tech_text: ""
 };
 
-ddHelpData['p_and_l'] = new Object();
+ddHelpData['p_and_l'] = {};
 ddHelpData['p_and_l']['cogs'] =
 {title: "Cost of Goods Sold",
 help_text: "Include these accounts from your P&L:  5000 - COGS Food, 5010 - COGS Packaging, 5020 - COGS Discounts",
@@ -497,7 +497,7 @@ tech_text: ""
 };
 
 
-ddHelpData['inv_mgr'] = new Object();
+ddHelpData['inv_mgr'] = {};
 
 ddHelpData['inv_mgr']['national_sales_mix'] =
     {title: "National Sales Mix",
@@ -617,4 +617,3 @@ ddHelpData['inv_mgr']['adj_weeks_invntory_5'] =
      help_text: "Week 5 manually adjusted inventory numbers.",
      tech_text: ""
     };
-

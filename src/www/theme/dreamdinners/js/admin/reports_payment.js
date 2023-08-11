@@ -10,7 +10,7 @@ function reports_payment_init()
 
 	isPaymentReconciliationReport = true;
 	init_filters();
-	
+
 	init_store_selector('dd_js_tree_payment_report');
 
 }
@@ -153,20 +153,20 @@ function _override_check_form()
 	if (!isFranchiseAccess)
 	{
 
-		
+
 		var selectedStoreNodes =  $('#store_selector').jstree(true).get_selected();
-		
-		var postVal = new Array();
+
+		var postVal = [];
 		var count = 0;
-		
-		for (var i = 0; i < selectedStoreNodes.length; ++i) 
+
+		for (var i = 0; i < selectedStoreNodes.length; ++i)
 		{
 			var testNode = $('#store_selector').jstree(true).get_node("#" + selectedStoreNodes[i]);
-			if (testNode.state.hidden)	
+			if (testNode.state.hidden)
 			{
 				$('#store_selector').jstree(true).deselect_node("#" + selectedStoreNodes[i]);
 				continue;
-			}	
+			}
 
 			if (selectedStoreNodes[i].indexOf("tree_store") == 0)
 			{
@@ -174,14 +174,14 @@ function _override_check_form()
 				postVal[count++] = thisID[1];
 			}
 		}
-		
+
 
 		if (postVal.length > 0)
 		{
 			$("#requested_stores").val(postVal);
 			hasStore = true;
 		}
-		else		
+		else
 		{
 			$("#requested_stores").val("");
 

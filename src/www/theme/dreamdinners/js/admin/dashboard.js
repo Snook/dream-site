@@ -68,7 +68,7 @@ function dashboard_init()
 				type: 'POST',
 				dataType: 'json',
 				data: {
-					report_type: 'menu_based',					
+					report_type: 'menu_based',
 					metric_type: metric,
 					month: curMonth
 				},
@@ -128,17 +128,17 @@ function runMultiStoreReport()
 
 	var selectedStoreNodes = $('#store_selector').jstree(true).get_selected();
 
-	var postVal = new Array();
+	var postVal = [];
 	var count = 0;
 
 	for (var i = 0; i < selectedStoreNodes.length; ++i)
 	{
 		var testNode = $('#store_selector').jstree(true).get_node("#" + selectedStoreNodes[i]);
-		if (testNode.state.hidden)	
+		if (testNode.state.hidden)
 		{
 			$('#store_selector').jstree(true).deselect_node("#" + selectedStoreNodes[i]);
 			continue;
-		}	
+		}
 
 		if (selectedStoreNodes[i].indexOf("tree_store") == 0)
 		{
@@ -332,4 +332,3 @@ function print_dashboard()
 	$('#dashboard_form')[0].target = targ;
 	$('#dashboard_form')[0].action = act;
 }
-

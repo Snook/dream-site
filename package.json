@@ -1,53 +1,77 @@
 {
-  "name": "dream-dinners",
-  "homepage": "https://dreamdinners.com",
-  "private": true,
-  "scripts": {
-    "start": "npm-watch",
-    "css": "npm-run-all css-compile css-minify",
-    "css-compile": "sass --style expanded --source-map --embed-sources --no-error-css www/theme/dreamdinners/css/customer:www/theme/dreamdinners/css/customer",
-    "css-minify": "npm-run-all --aggregate-output --parallel css-minify-*",
-    "css-minify-main": "cleancss -O1 --format breakWith=lf --with-rebase --source-map --source-map-inline-sources --output www/theme/dreamdinners/css/customer/ --batch --batch-suffix \".min\" \"www/theme/dreamdinners/css/customer/*.css\" \"!www/theme/dreamdinners/css/customer/*.min.css\" \"!www/theme/dreamdinners/css/customer/*rtl*.css\""
-  },
-  "watch": {
-    "css": {
-      "patterns": [
-        "www/theme/dreamdinners/css/customer"
-      ],
-      "extensions": [
-        "scss"
-      ],
-      "delay": 250,
-      "runOnChangeOnly": true
-    }
-  },
-  "dependencies": {
-    "@types/bootstrap": "^5.1.12",
-    "bootbox": "^5.5.3",
-    "bootstrap": "^4.6.1",
-    "cleave.js": "^1.6.0",
-    "clipboard": "^2.0.11",
-    "fullcalendar": "^5.5.1",
-    "hellojs": "^1.19.5",
-    "jquery": "^3.6.0",
-    "jquery-ui": "^1.12.1",
-    "jquery-uitablefilter": "^1.0.0",
-    "jquery.cookie": "^1.4.1",
-    "jstree": "^3.3.12",
-    "moment": "^2.29.3",
-    "qtip2": "^3.0.3"
-  },
-  "devDependencies": {
-    "clean-css-cli": "^5.6.0",
-    "node-sass": "^7.0.1",
-    "npm-run-all": "^4.1.5",
-    "npm-watch": "^0.11.0",
-    "postcss": "^8.3.8",
-    "postcss-cli": "^9.0.1",
-    "postcss-loader": "^6.2.1",
-    "sass": "^1.52.1",
-    "sass-loader": "^12.6.0",
-    "terser": "^5.9.0",
-    "uglify-js": "^3.15.5"
-  }
+	"name": "dream-dinners",
+	"homepage": "https://dreamdinners.com",
+	"private": true,
+	"scripts": {
+		"start": "npm-watch",
+		"css:compile": "sass --style expanded --source-map --embed-sources --no-error-css www/theme/dreamdinners/css/customer:www/theme/dreamdinners/css/customer",
+		"css:minify": "npm-run-all --aggregate-output --parallel css:minify-*",
+		"css:minify-main": "cleancss -O1 --format breakWith=lf --with-rebase --source-map --source-map-inline-sources --output www/theme/dreamdinners/css/customer/ --batch --batch-suffix \".min\" \"www/theme/dreamdinners/css/customer/*.css\" \"!www/theme/dreamdinners/css/customer/*.min.css\" \"!www/theme/dreamdinners/css/customer/*rtl*.css\"",
+		"uglify:admin": "uglifyjs-folder src/www/theme/dreamdinners/js/admin -eo www/theme/dreamdinners/scripts/admin --config-file uglify-admin.json",
+		"uglify:customer": "uglifyjs-folder src/www/theme/dreamdinners/js/customer -eo www/theme/dreamdinners/scripts/customer --config-file uglify-customer.json",
+		"build:css": "npm-run-all css:compile css:minify",
+		"build:js": "npm-run-all uglify:admin uglify:customer"
+	},
+	"watch": {
+		"build:css": {
+			"patterns": [
+				"src/www/theme/dreamdinners/css/customer"
+			],
+			"extensions": [
+				"scss"
+			],
+			"delay": 250,
+			"runOnChangeOnly": true
+		},
+		"uglify:admin": {
+			"patterns": [
+				"src/www/theme/dreamdinners/js/admin"
+			],
+			"extensions": [
+				"js"
+			],
+			"delay": 250,
+			"runOnChangeOnly": true
+		},
+		"uglify:customer": {
+			"patterns": [
+				"src/www/theme/dreamdinners/js/customer"
+			],
+			"extensions": [
+				"js"
+			],
+			"delay": 250,
+			"runOnChangeOnly": true
+		}
+	},
+	"dependencies": {
+		"@types/bootstrap": "^5.1.12",
+		"bootbox": "^5.5.3",
+		"bootstrap": "^4.6.1",
+		"cleave.js": "^1.6.0",
+		"clipboard": "^2.0.11",
+		"fullcalendar": "^5.5.1",
+		"hellojs": "^1.19.5",
+		"jquery": "^3.6.0",
+		"jquery-ui": "^1.12.1",
+		"jquery-uitablefilter": "^1.0.0",
+		"jquery.cookie": "^1.4.1",
+		"jstree": "^3.3.12",
+		"moment": "^2.29.3",
+		"qtip2": "^3.0.3"
+	},
+	"devDependencies": {
+		"clean-css-cli": "^5.6.0",
+		"node-sass": "^7.0.1",
+		"npm-run-all": "^4.1.5",
+		"npm-watch": "^0.11.0",
+		"postcss": "^8.3.8",
+		"postcss-cli": "^9.0.1",
+		"postcss-loader": "^6.2.1",
+		"sass": "^1.52.1",
+		"sass-loader": "^12.6.0",
+		"terser": "^5.9.0",
+		"uglify-js": "^3.15.5",
+		"uglifyjs-folder": "^3.3.0"
+	}
 }

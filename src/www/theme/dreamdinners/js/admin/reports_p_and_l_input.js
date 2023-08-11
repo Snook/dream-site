@@ -20,8 +20,8 @@ function reports_p_and_l_init()
 	$(".gt_input").each(function() {
 		$(this).val(addFormatting($(this).val()));
 	});
-	
-	
+
+
 	window.onbeforeunload = function (event) {
 		if (detectChanges())
 		{
@@ -62,7 +62,7 @@ function init_money_formatting()
 			e.keyCode == 39 || // right arrow
 			e.keyCode == 45 || // negative sign
 			(e.which > 47 && e.which < 58 )) // numbers
-		{				
+		{
 				return true;
 		}
 		else if (e.keyCode == 13)
@@ -85,14 +85,14 @@ function init_money_formatting()
 function detectChanges()
 {
 	var foundChange = false;
-	
+
 	$("#finance_div input").each(function() {
 
 		if (this.id != 'other_expenses')
 		{
 			var org = $(this).data('org_value');
 			var cur = removeFormatting($(this).val());
-			
+
 			if (org * 1 != cur * 1)
 			{
 				$(this).addClass('unsaved_field');
@@ -112,43 +112,43 @@ function detectChanges()
 
 function init_update_p_and_l_data()
 {
-	
-	var total_expenses = new Number(0);
+
+	var total_expenses = Number(0);
 	$('[data-dd_subtype="expense"]').each(function() {
-		total_expenses += new Number(removeFormatting($(this).val()));
+		total_expenses += Number(removeFormatting($(this).val()));
 	});
-		
-	var agr = new Number(removeFormatting($("#p_and_l_total_agr").html()));
-	var marketing_total = new Number(removeFormatting($("#p_and_l_marketing_total").html()));
-	var royalty_total = new Number(removeFormatting($("#p_and_l_royalty_total").html()));
-	var net_income = new Number(removeFormatting($("#net_income").val()));
-	var salesforce_fee =  new Number(removeFormatting($("#p_and_l_salesforce_fee").html()));
-	
-	
+
+	var agr = Number(removeFormatting($("#p_and_l_total_agr").html()));
+	var marketing_total = Number(removeFormatting($("#p_and_l_marketing_total").html()));
+	var royalty_total = Number(removeFormatting($("#p_and_l_royalty_total").html()));
+	var net_income = Number(removeFormatting($("#net_income").val()));
+	var salesforce_fee =  Number(removeFormatting($("#p_and_l_salesforce_fee").html()));
+
+
 	$("#other_expenses").val(addFormatting(agr - (total_expenses + marketing_total + royalty_total + salesforce_fee) - net_income));
 
-	
-	
+
+
 	$(".gt_input").keyup(function() {
 
-		var net_income = new Number(removeFormatting($("#net_income").val()));
-		
-		var total_expenses =  new Number(0);
+		var net_income = Number(removeFormatting($("#net_income").val()));
+
+		var total_expenses =  Number(0);
 		$('[data-dd_subtype="expense"]').each(function() {
-			total_expenses += new Number(removeFormatting($(this).val()));
+			total_expenses += Number(removeFormatting($(this).val()));
 		});
 
-		var agr = new Number(removeFormatting($("#p_and_l_total_agr").html()));
-		
+		var agr = Number(removeFormatting($("#p_and_l_total_agr").html()));
+
 		$("#other_expenses").val(addFormatting(agr - (total_expenses + marketing_total + royalty_total + salesforce_fee)- net_income));
 	});
-	
-	
+
+
 	$("#update_p_and_l").click(function()
 	{
-				
+
 		var validation_error_occurred = false;
-		
+
 		$("#owner_hours, #employee_hours, #manager_hours").each(function()
 		{
 			if (isNaN($(this).val()))
@@ -157,18 +157,18 @@ function init_update_p_and_l_data()
 					title: 'Error',
 					message: "The hours fields must be a number."
 				});
-							
+
 				validation_error_occurred = true;
-				
+
 			}
 		});
-		
+
 		if (validation_error_occurred)
 		{
 			return false;
 		}
-		
-		var dataObj = new Object();
+
+		var dataObj = {};
 
 		$("#finance_div input").each(function() {
 			dataObj[this.id] = removeFormatting($(this).val());
@@ -200,13 +200,13 @@ function init_update_p_and_l_data()
 				if(json.processor_success)
 				{
 					dd_toast({message: "Your data was saved."});
-					
+
 					if (hasChangedCOGS)
 					{
 						hasChangedCOGS = false;
 						$("#cogs_msg").html("");
 					}
-					
+
 					$("#finance_div input").each(function() {
 
 						if (this.id != 'other_expenses')
@@ -224,7 +224,7 @@ function init_update_p_and_l_data()
 						title: 'Error',
 						message: json.processor_message
 					});
-					
+
 					detectChanges();
 
 				}
@@ -298,7 +298,7 @@ function _report_submitClick(form)
 	var canProceed = true;
 	if (detectChanges())
 	{
-		canProceed = false;		
+		canProceed = false;
 
 		dd_message({
 			title: 'Unsaved Changes',
@@ -312,7 +312,7 @@ function _report_submitClick(form)
 			}
 		});
 	}
-		
+
 	if (canProceed)
 	{
 		return doRunReport();
@@ -321,9 +321,9 @@ function _report_submitClick(form)
 
 function removeFormatting(stringVal)
 {
-	
+
 	if (stringVal == null || stringVal == "") return stringVal;
-	
+
 	stringVal = stringVal.replace(/,/, "");
 	stringVal = stringVal.replace(/\$/, "");
 
@@ -334,7 +334,7 @@ function removeFormatting(stringVal)
 function addFormatting(numericVal)
 {
 	if (numericVal == null || numericVal == "") return "";
-	
+
 	numericVal = accounting.formatMoney(numericVal,"$",2,",",".","%s%v");
 
 	return numericVal;
