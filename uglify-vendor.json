@@ -1,0 +1,10 @@
+{
+	"output": "www/theme/dreamdinners/css/customer/vendor.min.js",
+	"comments": "/^!/",
+	"sourceMap": {
+		"root": "js/src/dreamdinners/customer",
+		"filename": "vendor.min.js.map",
+		"includeSources": true,
+		"url": "vendor.min.js.map"
+	}
+}
