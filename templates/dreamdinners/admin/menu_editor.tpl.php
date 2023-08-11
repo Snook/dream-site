@@ -1,4 +1,4 @@
-<?php $this->setScript('head', SCRIPT_PATH . '/admin/menu_editor.js'); ?>
+<?php $this->setScript('head', SCRIPT_PATH . '/admin/menu_editor.min.js'); ?>
 <?php $this->setScript('head', SCRIPT_PATH . '/admin/vendor/jquery.uitablefilter.js'); ?>
 <?php $this->assign('page_title', 'Menu Editor'); ?>
 <?php $this->assign('topnav', 'store'); ?>
