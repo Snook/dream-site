@@ -64,7 +64,7 @@ function check_survey_completed()
 		{
 			form_completed = false;
 
-			return;
+
 		}
 
 	});
@@ -76,7 +76,7 @@ function check_survey_completed()
 		{
 			form_completed = false;
 
-			return;
+
 		}
 
 	});

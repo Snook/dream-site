@@ -8,10 +8,10 @@ function reports_dashboard_aggregate_init()
 	wm_select_state_cookie_name = false; //'dd_pr_tree_selected_state';
 
 	init_store_selector('dd_js_tree_weekly_metrics');
-	
+
 //	$("#hide_inactive").prop("disabled", true);
-	
-	
+
+
 	init_filters();
 
 }
@@ -19,7 +19,7 @@ function reports_dashboard_aggregate_init()
 
 function init_filters()
 {
-	
+
 	$('[id^="wm_"]').each(function(){
 
 		if ($.totalStorage(this.id) != null)
@@ -73,25 +73,25 @@ function _override_check_form()
 {
 	if ($("#store_typeselected_stores").is(":checked"))
 	{
-		
+
 		var selectedStoreNodes =  $('#store_selector').jstree(true).get_selected();
-		
-		var postVal = new Array();
-		
+
+		var postVal = [];
+
 		var count = 0;
 
-		for (var i = 0; i < selectedStoreNodes.length; ++i) 
+		for (var i = 0; i < selectedStoreNodes.length; ++i)
 		{
-			
+
 			var testNode = $('#store_selector').jstree(true).get_node("#" + selectedStoreNodes[i]);
-			if (testNode.state.hidden)	
+			if (testNode.state.hidden)
 			{
 				$('#store_selector').jstree(true).deselect_node("#" + selectedStoreNodes[i]);
 				continue;
-			}	
+			}
 
-			
-			
+
+
 			if (selectedStoreNodes[i].indexOf("tree_store") == 0)
 			{
 				var thisID = selectedStoreNodes[i].split("-");
@@ -111,7 +111,7 @@ function _override_check_form()
 			dd_message({
 				message: "Please choose at least one store."
 			});
-			
+
 			return false;
 		}
 

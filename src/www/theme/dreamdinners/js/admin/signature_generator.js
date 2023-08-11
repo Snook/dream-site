@@ -21,7 +21,7 @@ function download_signature()
 
 function generate_html_signature()
 {
-	var element = new Object();
+	var element = {};
 	$('[id^="sig-"]').each(function() {
 		var id = this.id.split("-")[1];
 
