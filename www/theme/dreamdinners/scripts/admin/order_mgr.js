@@ -1742,6 +1742,12 @@ function saveDiscounts(payOnCompletion, saveDeliveryAddressUponCompletion)
 		plate_points_discount = "0.00";
 	}
 
+	let referral_reward_discount = $("#referral_reward_discount").val();
+	if (isNaN(referral_reward_discount))
+	{
+		referral_reward_discount = "0.00";
+	}
+
 	var SessDiscSetting = $('input[name=SessDisc]:checked', '#editorForm').val();
 
 	if (SessDiscSetting == null || SessDiscSetting == "")
@@ -1809,6 +1815,7 @@ function saveDiscounts(payOnCompletion, saveDeliveryAddressUponCompletion)
 			direct_order_discount: direct_order_discount,
 			PUDSetting: PUDSetting,
 			plate_points_discount: plate_points_discount,
+			referral_reward_discount: referral_reward_discount,
 			SessDiscSetting: SessDiscSetting,
 			coupon_id: coupon_id,
 			coupon_free_menu_item: coupon_free_menu_item,

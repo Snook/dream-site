@@ -1996,7 +1996,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$tpl->assign('orderIsEligibleForMembershipDiscount', false);
 		}
 
-		$this->handleReferralRewards($tpl,$Form, $this->originalOrder);
+		$maxAvailableReferralRewardCredit  = $this->handleReferralRewards($tpl,$Form, $this->originalOrder);
 
 		$tpl->assign('userIsPlatePointsGuest', $this->userIsPlatePointsGuest);
 		$tpl->assign('storeSupportsPlatePoints', $this->storeSupportsPlatePoints);
@@ -2561,6 +2561,35 @@ class page_admin_order_mgr extends CPageAdminOnly
 					{
 						$pp_credit_adjust_summary = CPointsCredits::AdjustPointsForOrderEdit($this->originalOrder, 0);
 						$this->originalOrder->points_discount_total = 0;
+					}
+
+					// Referral Rewards Discount
+					if (isset($_POST['referral_reward_discount']))
+					{
+
+						if (empty($_POST['referral_reward_discount']))
+						{
+							$_POST['referral_reward_discount'] = 0;
+						}
+
+						if ($_POST['referral_reward_discount'] > $maxAvailableReferralRewardCredit)
+						{
+							$_POST['referral_reward_discount'] = $maxAvailableReferralRewardCredit;
+						}
+
+						if ($_POST['referral_reward_discount'] < 0)
+						{
+							$_POST['referral_reward_discount'] = 0;
+						}
+
+						$pp_credit_adjust_summary = CCustomerReferralCredit::AdjustPointsForOrderEdit($this->originalOrder, $_POST['referral_reward_discount']);
+
+						$this->originalOrder->discount_total_customer_referral_credit = $_POST['referral_reward_discount'];
+					}
+					else
+					{
+						$pp_credit_adjust_summary = CCustomerReferralCredit::CCustomerReferralCredit($this->originalOrder, 0);
+						$this->originalOrder->discount_total_customer_referral_credit = 0;
 					}
 
 					self::cleanUpForeignKeys($order_record);
@@ -5079,6 +5108,8 @@ class page_admin_order_mgr extends CPageAdminOnly
 				$tpl->assign('noReferralRewardReason', "Referral Rewards are not available.");
 			}
 		}
+
+		return $maxAvailableReferralRewards;
 	}
 }
 
