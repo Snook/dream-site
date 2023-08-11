@@ -1,0 +1,1 @@
+{"version":3,"sources":["www\\theme\\dreamdinners\\css\\admin\\order_mgr_saved.css"],"names":[],"mappings":"AAAA,mBACC,MAAO,QAGR,iBACC,QAAS","sourcesContent":[".order_state_title {\n\tcolor: #ff7a00;\n\t}\n\n.show_compare_td {\n\tdisplay: none;\n\t}"]}
