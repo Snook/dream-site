@@ -4,6 +4,7 @@ var config = {};
 
 var configCustomer = Object.assign({}, config, {
 	name: "configCustomer",
+	mode: "production",
 	entry: [
 		'script-loader!jquery',
 		'script-loader!bootstrap/dist/js/bootstrap.bundle.js',
@@ -19,6 +20,7 @@ var configCustomer = Object.assign({}, config, {
 
 var configAdmin = Object.assign({}, config, {
 	name: "configAdmin",
+	mode: "production",
 	entry: [
 		'script-loader!jquery',
 		'script-loader!bootstrap/dist/js/bootstrap.bundle.js',
