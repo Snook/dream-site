@@ -2093,7 +2093,6 @@ function confirm_order_attended(user_id, order_id)
 					800,
 					{
 						offset: -25,
-						easing: 'easeOutBack',
 						onAfter: function ()
 						{
 							elem.trigger('click');
