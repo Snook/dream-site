@@ -6,13 +6,13 @@
 		"start": "npm-watch",
 		"build:all": "npm-run-all build:css build:js",
 		"build:css": "npm-run-all css:sass:customer css:sass:admin css:minify",
-		"build:js": "npm-run-all js:concat:vendor js:uglify:customer js:uglify:admin",
+		"build:js": "npm-run-all js:webpack:vendor js:uglify:customer js:uglify:admin",
 		"css:sass:customer": "sass -I node_modules/ --style expanded --source-map --embed-sources --no-error-css src/www/theme/dreamdinners/css/customer/dreamdinners.scss:www/theme/dreamdinners/css/customer/dreamdinners.css",
 		"css:sass:admin": "sass -I node_modules/ --style expanded --source-map --embed-sources --no-error-css src/www/theme/dreamdinners/css/admin/admin-styles.scss:www/theme/dreamdinners/css/admin/admin-styles.css",
 		"css:minify": "npm-run-all --aggregate-output --parallel css:minify:*",
 		"css:minify:customer": "cleancss -b www/theme/dreamdinners/css/customer/*.css !www/theme/dreamdinners/css/customer/*.min.css -f breakWith:lf --batch-suffix .min --with-rebase --source-map --source-map-inline-sources --output www/theme/dreamdinners/css/customer",
 		"css:minify:admin": "cleancss -b www/theme/dreamdinners/css/admin/*.css !www/theme/dreamdinners/css/admin/*.min.css -f breakWith:lf --batch-suffix .min --source-map --with-rebase --source-map-inline-sources --output www/theme/dreamdinners/css/admin",
-		"js:concat:vendor": "concat-cli -f node_modules/jquery/dist/jquery.js node_modules/bootstrap/dist/js/bootstrap.bundle.js node_modules/bootbox/bootbox.js node_modules/jquery.cookie/jquery.cookie.js node_modules/scrolltofixed/jquery-scrolltofixed.js node_modules/cleave.js/dist/cleave.js src/www/theme/dreamdinners/js/customer/vendor/jquery.ba-dotimeout.js node_modules/jquery-ui/build/release.js -o src/www/theme/dreamdinners/js/customer/vendor.js",
+		"js:webpack:vendor": "webpack",
 		"js:uglify:customer": "uglifyjs-folder -p '*.js,!*min.js' src/www/theme/dreamdinners/js/customer -eo www/theme/dreamdinners/scripts/customer --config-file uglify-customer.json",
 		"js:uglify:admin": "uglifyjs-folder -p '*.js,!*min.js' src/www/theme/dreamdinners/js/admin -eo www/theme/dreamdinners/scripts/admin --config-file uglify-admin.json"
 	},
@@ -38,10 +38,11 @@
 			"runOnChangeOnly": true
 		}
 	},
-	"dependencies": {
+	"devDependencies": {
 		"@types/bootstrap": "^5.1.12",
-		"bootbox": "^5.5.3",
+		"bootbox": "^6.0.0",
 		"bootstrap": "^4.6.2",
+		"clean-css-cli": "^5.6.2",
 		"cleave.js": "^1.6.0",
 		"clipboard": "^2.0.11",
 		"fullcalendar": "^5.5.1",
@@ -51,16 +52,15 @@
 		"jquery.cookie": "^1.4.1",
 		"jstree": "^3.3.12",
 		"moment": "^2.29.3",
-		"qtip2": "^3.0.3",
-		"scrolltofixed": "^1.0.6"
-	},
-	"devDependencies": {
-		"clean-css-cli": "^5.6.2",
-		"concat-cli": "^4.0.0",
 		"npm-run-all": "^4.1.5",
 		"npm-watch": "^0.11.0",
+		"qtip2": "^3.0.3",
 		"sass": "^1.52.1",
+		"script-loader": "^0.7.2",
+		"scrolltofixed": "^1.0.6",
 		"uglify-js": "^3.17.4",
-		"uglifyjs-folder": "^3.3.0"
+		"uglifyjs-folder": "^3.3.0",
+		"webpack": "^5.88.2",
+		"webpack-cli": "^5.1.4"
 	}
 }

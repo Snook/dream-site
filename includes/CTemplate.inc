@@ -861,7 +861,8 @@ class CTemplate extends Savant2
 		return $rtn;
 	}
 
-	static function sessionTypeDateTimeFormat($dateStr, $sessionType,$overrideDateFormat, $store = false, $toolTipFormat = false, $doAppendAdditional = false){
+	static function sessionTypeDateTimeFormat($dateStr, $sessionType, $overrideDateFormat, $store = false, $toolTipFormat = false, $doAppendAdditional = false)
+	{
 		switch ($sessionType)
 		{
 			case CSession::WALK_IN:
@@ -872,7 +873,6 @@ class CTemplate extends Savant2
 		}
 
 		return $result;
-
 	}
 
 	static function telephoneFormat($phoneString)
@@ -1012,9 +1012,7 @@ class CTemplate extends Savant2
 			$script_pos = ($this->page_is_bootstrap ? 'foot' : 'head');
 
 			// libraries
-			self::setScript($script_pos, SCRIPT_PATH . '/admin/vendor/jquery/jquery.min.js');
-			self::setScript($script_pos, SCRIPT_PATH . '/admin/vendor/bootstrap/bootstrap.bundle.min.js');
-			self::setScript($script_pos, SCRIPT_PATH . '/admin/vendor/bootbox/bootbox.min.js');
+			self::setScript($script_pos, SCRIPT_PATH . '/admin/vendor.min.js');
 
 			if (!$this->page_is_bootstrap)
 			{
@@ -1025,12 +1023,8 @@ class CTemplate extends Savant2
 				self::setScript($script_pos, SCRIPT_PATH . '/admin/vendor/qtip/jquery.qtip.js'); // nice tooltip popup elements
 			}
 
-			self::setScript($script_pos, SCRIPT_PATH . '/admin/vendor/jquery-ui/jquery-ui.min.js'); // add UI effects to jquery such as modal popups
-			self::setScript($script_pos, SCRIPT_PATH . '/admin/vendor/jquery.cookie.js'); // cookie management
 			self::setScript($script_pos, SCRIPT_PATH . '/admin/vendor/totalstorage/jquery.total-storage.min.js'); // localstorage management
-			self::setScript($script_pos, SCRIPT_PATH . '/admin/vendor/jquery.ba-dotimeout.js'); // setTimeout management
 			self::setScript($script_pos, SCRIPT_PATH . '/admin/vendor/jquery.idle.js'); // idle timeout
-			self::setScript($script_pos, SCRIPT_PATH . '/admin/vendor/cleave/cleave.min.js'); // handle input masks
 
 			// dd scripts
 			self::setScript($script_pos, SCRIPT_PATH . '/customer/global.min.js'); // common DD functions
