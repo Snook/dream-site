@@ -1,0 +1,1 @@
+{"version":3,"sources":["www\\theme\\dreamdinners\\css\\admin\\session_details.css"],"names":[],"mappings":"AAAA,oBACC,eAAe,IACf,WAAW,MACX,YAAY,OAGb,mBACC,YAAY","sourcesContent":[".sessionDetailLabel {\n\tvertical-align:top;\n\ttext-align:right;\n\twhite-space:nowrap;\n\t}\n\t\n.sessionDetailData {\n\tfont-weight:bold;\n\t}\t"]}

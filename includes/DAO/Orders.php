@@ -98,6 +98,7 @@ class DAO_Orders extends DAO
 	public $is_migrated;                     // int(4)
 	public $inviting_user_id;                // int(10)  multiple_key unsigned
 	public $menu_program_id;                 // int(10)  not_null unsigned
+	public $discount_total_customer_referral_credit;             // real(8)
 	public $points_discount_total;             // real(8)
 	public $points_are_actualized;            // int(1)
 	public $pp_discount_mfy_fee_first;        // int(1)

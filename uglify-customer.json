@@ -1,0 +1,8 @@
+{
+	"sourceMap": {
+		"root": "js/src/dreamdinners/customer",
+		"filename": "{file}",
+		"includeSources": true,
+		"url": "{file}.map"
+	}
+}

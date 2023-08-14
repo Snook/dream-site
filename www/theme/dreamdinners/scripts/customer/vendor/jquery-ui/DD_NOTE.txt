@@ -1,1 +1,0 @@
-jQuery UI build is custom. Build without "Tooltip" module. Tooltips are provided by Bootstrap.
