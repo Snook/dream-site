@@ -3,8 +3,8 @@ $HIDDENPAGENAME = "admin_home_office_reports_weekly_metrics";
 $this->assign('page_title','Weekly Metrics Report');
 
 $this->setScript('head', SCRIPT_PATH . '/admin/vendor/jstree.min.js');
-$this->setScript('head', SCRIPT_PATH . '/admin/store_tree.js');
-$this->setScript('head', SCRIPT_PATH . '/admin/reports_weekly_metrics.js');
+$this->setScript('head', SCRIPT_PATH . '/admin/store_tree.min.js');
+$this->setScript('head', SCRIPT_PATH . '/admin/reports_weekly_metrics.min.js');
 $this->setCSS(CSS_PATH . '/admin/jquery/jsTree/default/style.css');
 $this->setOnload('reports_dashboard_aggregate_init();');
 
