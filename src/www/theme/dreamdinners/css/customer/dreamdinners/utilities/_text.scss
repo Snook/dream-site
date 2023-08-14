@@ -27,25 +27,25 @@
 }
 
 .text-color-session-type-fundraiser {
-  @extend .text-orange;
+  color: $orange;
 }
 
 .text-color-session-type-open_house {
-  @extend .text-cyan;
+  color: $cyan;
 }
 
 .text-color-session-type-open_house_holiday {
-  @extend .text-cyan;
+  color: $cyan;
 }
 
 .text-color-session-type-private_party, .text-color-session-type-remote_pickup_private {
-  @extend .text-green-dark;
+  color: $green-dark;
 }
 
 .text-color-session-type-dream_taste {
-  @extend .text-green-light;
+  color: $green-light;
 }
 
 .text-color-session-type-friends_night_out {
-  @extend .text-gray-dark;
+  color: $gray-dark;
 }

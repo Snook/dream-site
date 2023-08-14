@@ -5,19 +5,19 @@
 
 // Color system
 
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
+$white:    #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:    #000;
 
-$grays: () !default;
+$grays: ();
 // stylelint-disable-next-line scss/dollar-variable-default
 $grays: map-merge(
                 (
@@ -94,9 +94,7 @@ $theme-colors: (
         )
 );
 
-$border-radius:               0;
-$border-radius-lg:            0;
-$border-radius-sm:            0;
+$enable-rounded: false;
 
 $tooltip-bg:                  $green-dark-extra;
 $tooltip-arrow-color:         $green-dark-extra;
@@ -109,9 +107,9 @@ $nav-tabs-link-active-border-color: $green $green $nav-tabs-link-active-bg;
 
 $font-family-sans-serif:      "Montserrat", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif";
 
-$custom-control-label-disabled-color:           $gray-500 !default;
+$custom-control-label-disabled-color:           $gray-500;
 
-$font-size-base:              1rem !default;
+$font-size-base:              1rem;
 $h1-font-size:                $font-size-base * 2;
 $h2-font-size:                $font-size-base * 1.85;
 
