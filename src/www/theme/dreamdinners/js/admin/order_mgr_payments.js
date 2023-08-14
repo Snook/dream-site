@@ -314,6 +314,7 @@ function handleCouponCodeResult(json)
 		couponDiscountMethod = json.discount_method;
 		couponDiscountVar = json.discount_var;
 		couponlimitedToFT = json.limit_to_finishing_touch;
+		couponIsValidWithReferralCredit = json.valid_with_customer_referral_credit;
 		couponIsValidWithPlatePoints = json.valid_with_plate_points_credits;
 		couponFreeMenuItemRequired = true;
 
@@ -668,6 +669,65 @@ function stripLeadingZeroes(val)
 
 	return retVal;
 
+}
+
+function handleReferralRewardDiscount(val)
+{
+	//todo: evanl - is this relevant to RR?
+	if (!couponIsValidWithPlatePoints)
+	{
+		$('#referral_reward_discount').val( formatAsMoney(0) );
+
+		dd_message({
+			title: 'Alert',
+			message: 'Customer Referral Reward cannot be used with the attached coupon.'
+		});
+
+	}
+
+	if ((isNaN(val) || val <= 0) && val != ".")
+	{
+		$('#referral_reward_discount').val(formatAsMoney(0));
+		calculateTotal();
+		return;
+	}
+
+	needPlatePointsMaxDiscountChangeWarning = false;
+
+	val = formatAsMoney(Math.abs(val)) * 1;
+
+	let maxReferralRewardCredit = $("#referral_reward_available").html() * 1;
+	let maxReferralRewardDeduction = $("#max_referral_reward_deduction").html() * 1;
+	let curReferralRewardDiscount = $("#referral_reward_discount").val() * 1;
+
+	if (maxReferralRewardDeduction < curReferralRewardDiscount)
+	{
+		$("#referral_reward_discount").val(maxReferralRewardDeduction);
+	}
+
+	if (maxReferralRewardCredit > maxReferralRewardDeduction)
+	{
+		$('#tbody_max_referral_reward').show();
+	}
+	else
+	{
+		$('#tbody_max_referral_reward').hide();
+	}
+
+	var cap = maxReferralRewardCredit;
+	if (cap > maxReferralRewardDeduction)
+	{
+		cap = maxReferralRewardDeduction;
+	}
+
+	if (val > cap)
+	{
+		val = cap;
+		$('#referral_reward_discount').val(val);
+
+	}
+
+	calculateTotal();
 }
 
 function handlePlatePointsDiscount(val)

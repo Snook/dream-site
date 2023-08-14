@@ -11,7 +11,9 @@ require_once("DAO/BusinessObject/CGiftCard.php");
 require_once("DAO/BusinessObject/CFundraiser.php");
 require_once('DAO/BusinessObject/CMenuItemInventoryHistory.php');
 require_once('DAO/BusinessObject/COrderMinimum.php');
-require_once('includes/DAO/BusinessObject/CStoreCredit.php');
+require_once('DAO/BusinessObject/CStoreCredit.php');
+require_once('DAO/BusinessObject/CCustomerReferralCredit.php');
+
 require_once("ValidationRules.inc");
 require_once("CAppUtil.inc");
 require_once("OrdersHelper.php");
@@ -37,6 +39,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		'limited_access' => false,
 		'direct_order' => true,
 		'dinner_dollars' => true,
+		'referral_reward' => true,
 		'coupon_code' => true,
 		'preferred' => true,
 		'session' => true,
@@ -490,6 +493,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				$bundleInfo = CBundle::getBundleInfo($dreamTasteProperties->bundle_id, $Session->menu_id, $this->daoStore);
 
 				$this->discountEligable['dinner_dollars'] = false;
+				$this->discountEligable['referral_reward'] = false;
 				$this->discountEligable['coupon_code'] = true;
 				$this->discountEligable['preferred'] = false;
 				$this->discountEligable['session'] = false;
@@ -523,6 +527,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				$bundleInfo = CBundle::getBundleInfo($fundraiserProperties->bundle_id, $Session->menu_id, $this->daoStore->id);
 
 				$this->discountEligable['dinner_dollars'] = false;
+				$this->discountEligable['referral_reward'] = false;
 				$this->discountEligable['coupon_code'] = true;
 				$this->discountEligable['preferred'] = false;
 				$this->discountEligable['session'] = false;
@@ -1376,6 +1381,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$tpl->assign('couponDiscountVar', $coupon->discount_var);
 			$tpl->assign('couponlimitedToFT', ($coupon->limit_to_finishing_touch ? true : false));
 			$tpl->assign('couponlimitedToCore', ($coupon->limit_to_core ? true : false));
+			$tpl->assign('couponIsValidWithReferralCredit', ($coupon->valid_with_customer_referral_credit ? true : false));
 			$tpl->assign('couponIsValidWithPlatePoints', ($coupon->valid_with_plate_points_credits ? true : false));
 
 			$tpl->assign('couponFreeMenuItem', (!empty($this->originalOrder->coupon_free_menu_item) ? $this->originalOrder->coupon_free_menu_item : false));
@@ -1990,6 +1996,8 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$tpl->assign('orderIsEligibleForMembershipDiscount', false);
 		}
 
+		$maxAvailableReferralRewardCredit  = $this->handleReferralRewards($tpl,$Form, $this->originalOrder);
+
 		$tpl->assign('userIsPlatePointsGuest', $this->userIsPlatePointsGuest);
 		$tpl->assign('storeSupportsPlatePoints', $this->storeSupportsPlatePoints);
 
@@ -2555,6 +2563,35 @@ class page_admin_order_mgr extends CPageAdminOnly
 						$this->originalOrder->points_discount_total = 0;
 					}
 
+					// Referral Rewards Discount
+					if (isset($_POST['referral_reward_discount']))
+					{
+
+						if (empty($_POST['referral_reward_discount']))
+						{
+							$_POST['referral_reward_discount'] = 0;
+						}
+
+						if ($_POST['referral_reward_discount'] > $maxAvailableReferralRewardCredit)
+						{
+							$_POST['referral_reward_discount'] = $maxAvailableReferralRewardCredit;
+						}
+
+						if ($_POST['referral_reward_discount'] < 0)
+						{
+							$_POST['referral_reward_discount'] = 0;
+						}
+
+						$pp_credit_adjust_summary = CCustomerReferralCredit::AdjustPointsForOrderEdit($this->originalOrder, $_POST['referral_reward_discount']);
+
+						$this->originalOrder->discount_total_customer_referral_credit = $_POST['referral_reward_discount'];
+					}
+					else
+					{
+						$pp_credit_adjust_summary = CCustomerReferralCredit::CCustomerReferralCredit($this->originalOrder, 0);
+						$this->originalOrder->discount_total_customer_referral_credit = 0;
+					}
+
 					self::cleanUpForeignKeys($order_record);
 
 					if ($order_record->promo_code_id === '0' || $order_record->promo_code_id === 0)
@@ -2666,6 +2703,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 							$tpl->assign('couponDiscountVar', $coupon->discount_var);
 							$tpl->assign('couponlimitedToFT', ($coupon->limit_to_finishing_touch ? true : false));
 							$tpl->assign('couponlimitedToCore', ($coupon->limit_to_core ? true : false));
+							$tpl->assign('couponIsValidWithReferralCredit', ($coupon->valid_with_customer_referral_credit ? true : false));
 							$tpl->assign('couponIsValidWithPlatePoints', ($coupon->valid_with_plate_points_credits ? true : false));
 						}
 						else
@@ -5020,6 +5058,58 @@ class page_admin_order_mgr extends CPageAdminOnly
 				CStoreHistory::recordStoreEvent($this->originalOrder->user_id, $this->originalOrder->store_id, $this->originalOrder->id, 200, $orgPayment->id, 'null', 'null', $description);
 			}
 		}
+	}
+
+	function handleReferralRewards($tpl,&$Form,$order)
+	{
+		$maxAvailableReferralRewards = CCustomerReferralCredit::getAvailableCreditForUserAndOrder($order->user_id, $order->id);
+		$maxAllowedReferralRewards = '50.00';
+
+		$tpl->assign('maxReferralRewards', $maxAvailableReferralRewards);
+
+		if(floatval($maxAvailableReferralRewards) <= floatval($maxAllowedReferralRewards))
+		{
+			$tpl->assign('maxReferralRewardsDeduction', $maxAvailableReferralRewards);
+		}
+		else
+		{
+			$tpl->assign('maxReferralRewardsDeduction', $maxAllowedReferralRewards);
+		}
+
+		if ( $maxAvailableReferralRewards > 0 )
+		{
+
+			if ($order->discount_total_customer_referral_credit== 0)
+			{
+				$Form->DefaultValues['referral_reward_discount'] = "";
+			}
+			else
+			{
+				$Form->DefaultValues['referral_reward_discount'] = $order->discount_total_customer_referral_credit;
+			}
+
+			$Form->AddElement(array(
+				CForm::type => CForm::Money,
+				CForm::name => 'referral_reward_discount',
+				CForm::org_value => $order->discount_total_customer_referral_credit,
+				CForm::onKeyUp => 'handleReferralRewardDiscount',
+				CForm::onChange => 'handleReferralRewardDiscount',
+				CForm::autocomplete => false
+			));
+		}
+		else
+		{
+			if ($maxAvailableReferralRewards <= 0)
+			{
+				$tpl->assign('noReferralRewardReason', "The guest does not currently have any Referral Rewards.");
+			}
+			else
+			{
+				$tpl->assign('noReferralRewardReason', "Referral Rewards are not available.");
+			}
+		}
+
+		return $maxAvailableReferralRewards;
 	}
 }
 

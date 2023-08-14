@@ -461,6 +461,7 @@ class CCartStorage
 			$uberArray['order']['order_user_notes'] = $row["order_user_notes"];
 			$uberArray['order']['order_admin_notes'] = $row["order_admin_notes"];
 			$uberArray['order']['direct_order_discount'] = $row["direct_order_discount"];
+			$uberArray['order']['discount_total_customer_referral_credit'] = $row["discount_total_customer_referral_credit"];
 			$uberArray['order']['points_discount_total'] = $row["points_discount_total"];
 			$uberArray['order']['misc_food_subtotal'] = $row["misc_food_subtotal"];
 			$uberArray['order']['misc_food_subtotal_desc'] = $row["misc_food_subtotal_desc"];
@@ -629,7 +630,7 @@ class CCartStorage
 		}
 
 		$szInsert = "update dreamcart.cart_contents set state = 'INITIALIZED', store_id = null, session_id = null, menu_id = null, order_user_notes = null,
-		order_admin_notes = null, direct_order_discount = 0, points_discount_total = 0,
+		order_admin_notes = null, direct_order_discount = 0, discount_total_customer_referral_credit = 0, points_discount_total = 0,
 		misc_food_subtotal = 0, misc_food_subtotal_desc = null, misc_nonfood_subtotal = 0,
 		misc_nonfood_subtotal_desc = null, subtotal_service_fee = 0, service_fee_description = null,
 		ltd_round_up_value = null, bundle_id = null, coupon_code_id = null, promo_code_id = 0, volume_discount_id = null, has_added_store_credit = 0,
@@ -685,6 +686,12 @@ class CCartStorage
 			$coupon_clause = "coupon_code_id = {$orderObj->coupon_code_id}";
 		}
 
+		$customer_referral_credit_clause = "discount_total_customer_referral_credit = 0";
+		if (!empty($orderObj->discount_total_customer_referral_credit) && is_numeric($orderObj->discount_total_customer_referral_credit))
+		{
+			$customer_referral_credit_clause = "discount_total_customer_referral_credit = {$orderObj->discount_total_customer_referral_credit}";
+		}
+
 		$points_clause = "points_discount_total = 0";
 		if (!empty($orderObj->points_discount_total) && is_numeric($orderObj->points_discount_total))
 		{
@@ -734,7 +741,7 @@ class CCartStorage
 		}
 
 		$szInsert = "update dreamcart.cart_contents set state = 'CURRENT', $storeClause, $sessionClause, $menuClause order_user_notes = '{$orderObj->order_user_notes}',
-					order_admin_notes = '{$orderObj->order_admin_notes}', $direct_clause, $points_clause,
+					order_admin_notes = '{$orderObj->order_admin_notes}', $direct_clause, $customer_referral_credit_clause, $points_clause,
 					 $service_fee_clause, service_fee_description = '{$orderObj->service_fee_description}',
 						$round_up_clause, $bundle_clause, $coupon_clause, $promo_clause, $volume_clause,
 						 is_sampler = $SamplerValue, is_TODD = $TODD_Value, total_customized_meal_count = {$orderObj->total_customized_meal_count},subtotal_meal_customization_fee = {$orderObj->subtotal_meal_customization_fee}, order_customization = '{$orderObj->order_customization}' where id = $data_ref";
@@ -969,6 +976,7 @@ class CCartStorage
 			$tempOrder->order_user_notes = $row["order_user_notes"];
 			$tempOrder->order_admin_notes = $row["order_admin_notes"];
 			$tempOrder->direct_order_discount = $row["direct_order_discount"];
+			$tempOrder->discount_total_customer_referral_credit = $row["discount_total_customer_referral_credit"];
 			$tempOrder->points_discount_total = $row["points_discount_total"];
 			$tempOrder->misc_food_subtotal = $row["misc_food_subtotal"];
 			$tempOrder->misc_food_subtotal_desc = $row["misc_food_subtotal_desc"];

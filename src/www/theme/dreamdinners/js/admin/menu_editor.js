@@ -1,2440 +1,565 @@
-let numberOfCustomerFacingCTSItems = 0;
-let numberOfCustomerFacingEFLItems = 0;
-let sidesDataArray = [];
-let gNumOptionalsAdded = 0;
-let notShown = true;
-let dp_processing = false;
-let xmlHttp = null;
-let noOverrideUnderBase = true;
+$(function () {
 
-function resetPage()
-{
-	document.getElementById('action').value = "menuChange";
-	document.getElementById('menu_editor_form').submit();
-}
+	$("#menu_editor_form").submit(function (e) {
 
-function getPreviewItemPrice(itemID)
-{
-	// does not exist so return the current price
-	let ovrPrice = Number($("#ovr_" + itemID).val());
+		e.preventDefault();
+		let form = this;
 
-	if (isNaN(ovrPrice) || ovrPrice.valueOf() == 0)
-	{
-		// does not exist so return the markup price
-		return Number($("#row_" + itemID + " > .preview-price").text());
-	}
-
-	return ovrPrice;
-}
-
-function removeOptionSelected()
-{
-	let elSel = document.getElementById('sides');
-	for (let i = elSel.length - 1; i >= 1; i--)
-	{
-		if (elSel.options[i].selected)
-		{
-			elSel.remove(i);
-		}
-	}
-}
-
-function removeItem(itemNum)
-{
-	gNumOptionalsAdded--;
-	let rowID = "row_" + itemNum;
-	let rowObj = document.getElementById(rowID);
-	rowObj.parentNode.removeChild(rowObj);
-
-	let sidesData = sidesDataArray[itemNum];
-	let sideName = "(" + sidesData['SUPC_number'] + ") " + sidesData['name'];
-
-	let selObj = document.getElementById('sides');
-
-	selObj.options[selObj.length] = new Option(sideName, itemNum);
-
-	calculatePage();
-}
-
-function displayValidationErrorMsg(msg)
-{
-	msg = "<span style='color:red; font-size:larger;'>" + msg + "</span>";
-
-	dd_message({
-		title: 'Error',
-		message: msg
-	});
-}
-
-function clearErrors()
-{
-	let statusDiv = document.getElementById('errorMsg');
-	statusDiv.style.display = 'none';
-	let statusTextDiv = document.getElementById('errorMsgText');
-	statusTextDiv.innerHTML = "";
-}
-
-function storeChange(obj)
-{
-	document.getElementById('action').value = "storeChange";
-	document.getElementById('menu_editor_form').submit();
-}
-
-function menuChange(obj)
-{
-	document.getElementById('action').value = "menuChange";
-	document.getElementById('menu_editor_form').submit();
-}
-
-function confirm_and_round_form(tab)
-{
-	const finalizeMessage = "Are you sure want to update all Override Prices with rounded Markup Prices? " +
-		"This action will replace existing override prices with the newly calculated price.";
-	let hasOverridePrice = false;
-	$('.' + tab + '-override-price-input').each(function () {
-			hasOverridePrice = $(this).val().trim() !== '';
-		}
-	);
-
-	if (hasOverridePrice)
-	{
-		dd_message({
-			title: 'Attention',
-			message: finalizeMessage,
-			modal: true,
-			confirm: function () {
-				round_markup_to_override(tab);
-				return false;
-			},
-			cancel: function () {
-				return false;
+		bootbox.confirm("Are you sure want to submit these changes to your menu? If the menu is active the changes will be immediately available to your customers.", function (result) {
+			if (result)
+			{
+				form.submit();
+				return true;
+			}
+			else
+			{
+				$("#menu_editor_form").removeClass('was-validated');
+				return true;
 			}
 		});
-	}
-	else
-	{
-		round_markup_to_override(tab);
-	}
-
-	return false;
-}
-
-function round_markup_to_override(tab)
-{
-	let dirty = false;
-	$('.markup-price').each(function (index) {
-		if ($(this).is('[readonly]'))
-		{
-			//nothing;
-		}
-		else
-		{
-			let o_input = $(this).parent().find('.' + tab + '-override-price-input');
-			if (o_input.length)
-			{
-				let price = parseFloat($(this).text());
-				let o_price = Math.ceil(price * 2) / 2;
-				o_input.val(o_price.toFixed(2));
-				dirty = true;
-			}
-		}
 	});
 
-	if (dirty)
-	{
-		calculatePage();
-		$('#saved_message, #saved_message_2').showFlex();
-	}
+	$('#menus').on('change', function (e) {
 
-}
+		let menu_id = $(this).val();
 
-function selectedDefault()
-{
-	if (notShown)
-	{
-		bootbox.alert("Any Menus that do not currently have their own specific settings finalized will inherit these default settings.");
-		notShown = false;
-	}
+		create_and_submit_form({
+			action: 'main.php?page=admin_menu_editor_new',
+			input: ({
+				'action': 'changeMenu',
+				'menus': menu_id
+			})
+		});
 
-	calculatePage();
-}
+	});
 
-function getXmlHttpObject()
-{
-	let objXMLHttp = null;
+	$('#store').on('change', function (e) {
 
-	try
-	{
-		// Opera 8.0+, Firefox, Safari
-		objXMLHttp = new XMLHttpRequest();
-	}
-	catch (e)
-	{
-		// Internet Explorer Browsers
-		try
+		let store_id = $(this).val();
+
+		create_and_submit_form({
+			action: 'main.php?page=admin_menu_editor_new',
+			input: ({
+				'action': 'changeStore',
+				'store': store_id
+			})
+		});
+
+	});
+
+	$(document).on('change keyup', '.override-price-input', function (e) {
+
+		let new_value = formatAsMoney($.trim($(this).val()));
+		let new_value_cents = new_value.toString().split('.')[1];
+		let orgval = $(this).data('orgval');
+		let ltd_menu_item_value = $(this).data('ltd_menu_item_value');
+		let menu_item_id = $(this).data('menu_item_id');
+		let tier_1_price = $(this).data('tier_1_price');
+		let tier_2_price = $(this).data('tier_2_price');
+		let tier_3_price = $(this).data('tier_3_price');
+		let preview_price = null;
+
+		$(this).removeClass([
+			'border-green',
+			'border-orange',
+			'border-red',
+			'border-width-2'
+		]);
+
+		$("#row_" + menu_item_id + " > .preview-price").removeClass([
+			'text-green',
+			'text-orange',
+			'text-red'
+		]).text('');
+
+		if ($(this).val() && orgval != new_value)
 		{
-			objXMLHttp = new ActiveXObject("Msxml2.XMLHTTP");
+			let preview_price = Number(new_value) + Number(ltd_menu_item_value);
+
+			$("#row_" + menu_item_id + " > .preview-price").text(preview_price);
+
+			if ((tier_1_price && tier_3_price) && (new_value < tier_1_price || new_value > tier_3_price))
+			{
+				$("#row_" + menu_item_id + " > .preview-price").addClass('text-red');
+				$(this).addClass('border-red border-width-2');
+			}
+			else if (new_value_cents != '49' && new_value_cents != '99')
+			{
+				$("#row_" + menu_item_id + " > .preview-price").addClass('text-orange');
+				$(this).addClass('border-orange border-width-2');
+			}
+			else
+			{
+				$("#row_" + menu_item_id + " > .preview-price").addClass('text-green');
+				$(this).addClass('border-green');
+			}
 		}
-		catch (e)
+
+	});
+
+	$(document).on('change keyup', '.markup-input', function (e) {
+
+		let markup_type = $(this).attr('name');
+		let markup_value = Number($(this).val());
+		let pricing_type = $(this).data('pricing_type');
+
+		switch (markup_type)
 		{
-			try
-			{
-				objXMLHttp = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-			catch (e)
-			{
-				// Something went wrong
-			}
+			case 'markup_2_serving':
+			case 'markup_3_serving':
+			case 'markup_4_serving':
+			case 'markup_6_serving':
+				// loop price input that isn't a side or readonly
+				$('.override-price-input[data-pricing_type="' + pricing_type + '"]:not([data-category_group="SIDE"][readonly])').each(function () {
+					let menu_item_id = $(this).data('menu_item_id');
+					let base_price = Number($(this).data('price'));
+					let markup_price = formatAsMoney(base_price + (Math.round((base_price * markup_value) + 0.00000001) / 100));
+					$('.markup-price[data-menu_item_id="' + menu_item_id + '"]').text(markup_price);
+				});
+				break;
+			case 'markup_sides':
+				// loop price input that is a side and not readonly
+				$('.override-price-input[data-category_group="SIDE"]:not([readonly])').each(function () {
+					let menu_item_id = $(this).data('menu_item_id');
+					let base_price = Number($(this).data('price'));
+					let markup_price = formatAsMoney(base_price + (Math.round((base_price * markup_value) + 0.00000001) / 100));
+					$('.markup-price[data-menu_item_id="' + menu_item_id + '"]').text(markup_price);
+				});
+				break;
 		}
-	}
 
-	return objXMLHttp;
-}
+	});
+	$('.markup-input').trigger('change');
 
-function def_price_save_handleTimeout()
-{
-	if (dp_processing)
-	{
-		dp_processing = false;
+	// check for changes
+	$(document).on('change keyup', '.visibility-select, .override-price-input, .markup-input', function (e) {
 
-		let printString = "The server has not responded. Please try again.";
+		let is_unsaved = false;
+		$('.unsaved-message').hideFlex();
 
-		document.getElementById("dp_error").style.display = 'block';
+		// check if any options are changed
+		$('.visibility-select').each(function () {
 
-		document.getElementById("dp_error").innerHTML = printString;
-		document.getElementById('dp_proc_mess').style.display = "none";
-	}
-}
+			$(this).removeClass([
+				'border-orange'
+			]);
 
-function def_price_retreive_handleTimeout()
-{
-	if (dp_processing)
-	{
-		dp_processing = false;
-
-		let printString = "The server has not responded. Please try again.";
-
-		document.getElementById("dp_error").style.display = 'block';
-
-		document.getElementById("dp_error").innerHTML = printString;
-		document.getElementById('dp_proc_mess').style.display = "none";
-	}
-}
-
-function SaveDefPricingComplete()
-{
-	if ((xmlHttp.readyState == 4 || xmlHttp.readyState == "complete") && dp_processing)
-	{
-		dp_processing = false;
-		document.getElementById('dp_proc_mess').style.display = "none";
-		let printString = "Sides &amp; Sweets default pricing has been saved";
-		document.getElementById("dp_error").style.display = 'block';
-		document.getElementById("dp_error").innerHTML = printString;
-	}
-}
-
-function RetrieveDefPricingComplete()
-{
-	if ((xmlHttp.readyState == 4 || xmlHttp.readyState == "complete") && dp_processing)
-	{
-		dp_processing = false;
-
-		if (xmlHttp.responseText && xmlHttp.responseText != "error" && xmlHttp.responseText != "")
-		{
-			let pricingArray = xmlHttp.responseText.split("|");
-			let RidMap = [];
-			for (let key in pricingArray)
+			if (Number($(this).val()) != Number($(this).data('orgval')))
 			{
-				var item = pricingArray[key].split("~");
-				if (item[0])
-				{
-					RidMap[item[0]] = [
-						item[1],
-						item[2],
-						item[3]
-					];
-				}
+				$(this).addClass([
+					'border-orange'
+				]);
+
+				is_unsaved = true;
+
 			}
 
-			calculatePage();
+		});
 
-			let totalCurrentlyWebVisible = numberOfCustomerFacingCTSItems;
+		// check if any override prices are changed
+		$('.override-price-input').each(function () {
 
-			let ctsItemRows = document.getElementById('ctsItemsTbl').rows;
+			let new_value = formatAsMoney($.trim($(this).val()));
+			let new_value_cents = new_value.toString().split('.')[1];
+			let orgval = $(this).data('orgval');
 
-			for (let i = 0; i < ctsItemRows.length; i++)
+			if (orgval != '' && orgval != new_value)
 			{
-				if (ctsItemRows[i].id.indexOf('row_') == -1)
-				{
-					continue;
-				}
+				is_unsaved = true;
 
-				let itemNumber = null;
-				itemNumber = ctsItemRows[i].id.substr(4);
+			}
 
-				let rid = document.getElementById('rec_id_' + itemNumber).innerHTML;
+		});
 
-				if (RidMap[rid])
-				{
-					let overrideElemName = 'ovr_' + itemNumber;
-					let overrideElem = document.getElementById(overrideElemName);
-					if (overrideElem)
-					{
-						overrideElem.value = RidMap[rid][2];
-					}
+		// check if any markup values are changed
+		$('.markup-input').each(function () {
 
-					let showCustomerBox = document.getElementById('vis_' + itemNumber);
+			let new_value = formatAsMoney($.trim($(this).val()));
+			let new_value_cents = new_value.toString().split('.')[1];
+			let orgval = $(this).data('orgval');
 
-					let is_web_visible = showCustomerBox.checked;
+			if (orgval != '' && orgval != new_value)
+			{
+				is_unsaved = true;
 
-					if (showCustomerBox)
-					{
-						if (RidMap[rid][0] == "1")
+			}
+
+		});
+
+		if (is_unsaved)
+		{
+			$('.unsaved-message').showFlex();
+		}
+
+	});
+
+	// handle adding efl and side menu items to menu
+	$(document).on('click', '[data-add_past_menu_item]:not(.disabled)', function (e) {
+
+		e.preventDefault();
+
+		let add_menu_item = {
+			'menu_id': $('#menus').val(),
+			'store_id': STORE_DETAILS.id,
+			'item_type': $(this).data('add_past_menu_item'),
+			'selected_items': {},
+			'dialog': null
+		}
+
+		// create the modal ui with bootbox
+		add_menu_item.dialog = bootbox.dialog({
+			message: '<p><i class="fa fa-spin fa-spinner"></i> Loading menu items...</p>',
+			size: 'large',
+			closeButton: false,
+			buttons: {
+				add_items: {
+					label: "Add selected menu items",
+					className: 'btn-primary disabled add-menu-items-confirm',
+					callback: function () {
+
+						// nothing selected, close window
+						if (Object.keys(add_menu_item.selected_items).length === 0)
 						{
-							if (!is_web_visible && totalCurrentlyWebVisible < 20)
-							{
-								showCustomerBox.checked = true;
-								totalCurrentlyWebVisible++;
-							}
+							return true;
+						}
+
+						// using native confirm since bootstrap doesn't support multiple modals
+						if (confirm("This will immediately add the listed items to the menu. Are you sure you wish to add the selected menu items to the menu?"))
+						{
+							add_menu_item.dialog.find('.bootbox-body').html('<p><i class="fa fa-spin fa-spinner"></i> Adding menu items...</p>');
+							add_menu_item.dialog.find('.modal-footer').hideFlex();
+
+							$.ajax({
+								url: 'ddproc.php',
+								type: 'POST',
+								dataType: 'json',
+								timeout: 60000,
+								data: {
+									processor: 'admin_menu_editor',
+									menu_id: add_menu_item.menu_id,
+									store_id: add_menu_item.store_id,
+									op: 'add_items',
+									items: add_menu_item.selected_items
+								},
+								success: function (json) {
+									if (json.processor_success)
+									{
+										bounce('main.php?page=admin_menu_editor_new&tab=nav-' + add_menu_item.item_type);
+									}
+									else
+									{
+										add_menu_item.dialog.find('.bootbox-body').html('<p>' + json.processor_message + '</p>');
+									}
+								},
+								error: function (objAJAXRequest, strError) {
+									add_menu_item.dialog.find('.bootbox-body').html('<p>Unexpected error: ' + strError + '</p>');
+								}
+							});
+						}
+
+						// confirmation dialog is presented above, prevent dialog from closing
+						return false;
+					}
+				},
+				cancel: {
+					label: "Cancel",
+					className: 'btn-danger',
+					callback: function () {
+						return true;
+					}
+				}
+			},
+			onShow: function (e) {
+				// load the menu items
+				$.ajax({
+					url: 'ddproc.php',
+					type: 'POST',
+					dataType: 'json',
+					timeout: 60000,
+					data: {
+						processor: 'admin_menu_editor',
+						menu_id: add_menu_item.menu_id,
+						store_id: add_menu_item.store_id,
+						op: 'get_items',
+						item_type: add_menu_item.item_type
+					},
+					success: function (json) {
+						if (json.processor_success)
+						{
+							add_menu_item.dialog.find('.bootbox-body').html(json.menu_item_html);
 						}
 						else
 						{
-							if (is_web_visible)
-							{
-								showCustomerBox.checked = false;
-								totalCurrentlyWebVisible--;
-							}
+							add_menu_item.dialog.find('.bootbox-body').html('<p>' + json.processor_message + '</p>');
 						}
+					},
+					error: function (objAJAXRequest, strError) {
+						add_menu_item.dialog.find('.bootbox-body').html('<p>Unexpected error: ' + strError + '</p>');
 					}
-
-					let hideEverywhereBox = document.getElementById('hid_' + itemNumber);
-					if (hideEverywhereBox)
-					{
-						if (RidMap[rid][1] == "1")
-						{
-							hideEverywhereBox.checked = true;
-						}
-						else
-						{
-							hideEverywhereBox.checked = false;
-						}
-					}
-				}
+				});
 			}
-			calculatePage();
+		});
 
-			document.getElementById('dp_proc_mess').style.display = "none";
-			document.getElementById("dp_error").style.display = 'none';
-		}
-		else
-		{
-			document.getElementById('dp_proc_mess').style.display = "none";
-			let printString = "There was an error when retrieving the default prices. Please try again.";
-			document.getElementById("dp_error").style.display = 'block';
-			document.getElementById("dp_error").innerHTML = printString;
-		}
-	}
-}
+		// handle add menu item button
+		$(add_menu_item.dialog).on('click', '[data-add_menu_item]:not(.disabled)', function (e) {
 
-function SavePricing()
-{
-	dd_message({
-		title: 'Save Default Pricing and Visibility',
-		message: 'Are you sure you want to save the default Sides and Sweets pricing and visibility? This cannot be undone.',
-		confirm: function () {
-			let payLoad = "data=";
-			// Chef Touched Selections
-			let ctsItemRows = document.getElementById('ctsItemsTbl').rows;
-			for (let i = 0; i < ctsItemRows.length; i++)
+			e.preventDefault();
+			$(this).addClass('disabled');
+
+			let menu_item_id = $(this).data('add_menu_item');
+			let entree_id = $(this).data('entree_id');
+			let recipe_id = $(this).data('recipe_id');
+
+			// add this item to list to be saved
+			add_menu_item.selected_items[entree_id] = entree_id;
+
+			// enable the submit button
+			add_menu_item.dialog.find('.modal-footer > .add-menu-items-confirm').removeClass('disabled');
+
+			$('.row_menu_editor_add_item[data-recipe_id="' + recipe_id + '"]').showFlex();
+
+		});
+
+		// handel cancel adding a menu item
+		$(add_menu_item.dialog).on('click', '[data-add_menu_item_cancel]:not(.disabled)', function (e) {
+
+			e.preventDefault();
+			let menu_item_id = $(this).data('add_menu_item_cancel');
+			let entree_id = $(this).data('entree_id');
+			let recipe_id = $(this).data('recipe_id');
+
+			// remove this item from list to be saved
+			delete add_menu_item.selected_items[entree_id];
+
+			// no entries in unsaved_entries, disable the submit button
+			if (Object.keys(add_menu_item.selected_items).length === 0)
 			{
-				if (ctsItemRows[i].id.indexOf('row_') == -1)
-				{
-					continue;
-				}
-
-				let itemNumber = null;
-				itemNumber = ctsItemRows[i].id.substr(4);
-
-				let rid = document.getElementById('rec_id_' + itemNumber).innerHTML;
-
-				let currentPrice = Number(menuInfo.mid[itemNumber].price);
-				let previewPrice = Number($("#row_" + itemNumber + " > .preview-price").text());
-				let basePrice = Number(menuInfo.mid[itemNumber].base_price);
-
-				if (previewPrice != "" && previewPrice != 0 && !isNaN(previewPrice))
-				{
-					currentPrice = previewPrice;
-				}
-
-				if (currentPrice < basePrice)
-				{
-					document.getElementById('dp_proc_mess').style.display = "none";
-					document.getElementById("dp_error").style.display = "block";
-					document.getElementById("dp_error").innerHTML = "Override price must be greater than the price.";
-					return;
-				}
-
-				let show_to_customer = "0";
-
-				if (document.getElementById('vis_' + itemNumber) && document.getElementById('vis_' + itemNumber).checked)
-				{
-					show_to_customer = "1";
-				}
-
-				let hide_completely = "0";
-				if (document.getElementById('hid_' + itemNumber) && document.getElementById('hid_' + itemNumber).checked)
-				{
-					hide_completely = "1";
-				}
-
-				payLoad += rid + "~" + show_to_customer + "~" + hide_completely + "~" + currentPrice + "|";
+				add_menu_item.dialog.find('.modal-footer > .add-menu-items-confirm').addClass('disabled');
 			}
 
-			xmlHttp = getXmlHttpObject();
-			if (xmlHttp == null)
+			$('[data-add_menu_item="' + menu_item_id + '"]').removeClass('disabled');
+			$('.row_menu_editor_add_item[data-recipe_id="' + recipe_id + '"]').hideFlex();
+
+		});
+
+		// handle menu item search
+		$(add_menu_item.dialog).on('keyup change', '#add_menu_item_filter', function (e) {
+
+			$.uiTableFilter($('#add_menu_item_recipe_list'), this.value);
+
+		});
+
+		// handle search input clearing
+		$(add_menu_item.dialog).on('click', '#add_menu_item_clear_filter', function (e) {
+
+			$('#add_menu_item_filter').val('').change();
+
+		});
+
+		// handel menu info lookup, we load within the modal becaues Bootstrap doesn't support multiple modals
+		$(add_menu_item.dialog).on('click', '[data-add_menu_item_info]', function (e) {
+
+			let entree_id = $(this).data('entree_id');
+			let recipe_id = $(this).data('recipe_id');
+			let fetched = $('.add_menu_item_info[data-recipe_id="' + recipe_id + '"]').data('fetched');
+
+			if (fetched)
 			{
-				// temporary
-				bootbox.alert("The Default Pricing function is not compatible with your browser. Please contact your store for assistance.");
+				$('.add_menu_item_info[data-recipe_id="' + recipe_id + '"]').showFlex();
 				return;
 			}
 
-			document.getElementById('dp_proc_mess').style.display = "inline";
-			document.getElementById("dp_error").style.display = "none";
-			document.getElementById("dp_error").innerHTML = "";
+			$('.add_menu_item_info[data-recipe_id="' + recipe_id + '"]').html('<span class="font-weight-bold"><i class="fa fa-spin fa-spinner"></i> Loading menu item info...</span>').showFlex();
 
-			let url = "ddproc.php?processor=admin_defaultPricingProcessor&action=save&store_id=" + storeInfo.id;
-			//	var url = "ddproc.php?processor=admin_defaultPricingProcessor&action=save&data=" + payLoad + "&store_id=<?=$this->store_id?>";
-			xmlHttp.onreadystatechange = SaveDefPricingComplete;
+			$.ajax({
+				url: 'ddproc.php',
+				type: 'POST',
+				timeout: 20000,
+				dataType: 'json',
+				data: {
+					processor: 'admin_menu_editor',
+					menu_id: add_menu_item.menu_id,
+					store_id: add_menu_item.store_id,
+					op: 'menu_item_info',
+					entree_id: entree_id,
+					recipe_id: recipe_id
+				},
+				success: function (json) {
+					$('.add_menu_item_info[data-recipe_id="' + recipe_id + '"]').data('fetched', true).html(json.data);
+				},
+				error: function (objAJAXRequest, strError) {
+					response = 'Unexpected error: ' + strError;
+					dd_message({
+						title: 'Error',
+						message: response
+					});
+				}
 
-			xmlHttp.open("POST", url, true);
-			xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xmlHttp.setRequestHeader("Content-length", payLoad.length);
-			xmlHttp.setRequestHeader("Connection", "close");
-			xmlHttp.send(payLoad);
+			});
+		});
 
-			setTimeout("def_price_save_handleTimeout();", 20000);
-			dp_processing = true;
-		},
-		cancel: function () {
-		}
+		// hadle closing the menu item info panel
+		$(add_menu_item.dialog).on('click', '[data-add_menu_item_info_close]', function (e) {
+
+			let recipe_id = $(this).data('add_menu_item_info_close');
+
+			$('.add_menu_item_info[data-recipe_id="' + recipe_id + '"]').hideFlex();
+
+		});
+
+	}); // end adding efl and side menu items to menu
+
+	// handle markup roundup
+	$(document).on('click', '[data-round_up_markup]', function (e) {
+
+		let item_type = $(this).data('round_up_markup');
+
+		bootbox.confirm("Are you sure want to update all Override Prices with rounded Markup Prices? This action will replace existing override prices with the newly calculated price.", function (result) {
+			if (result)
+			{
+				$('.override-price-input[data-category_group="' + item_type + '"]:not([readonly])').each(function () {
+
+					if ($.trim($(this).val()) != '')
+					{
+						let o_input = Number($(this).val());
+						let o_price = Math.ceil(price * 2) / 2;
+						o_input.val(o_price.toFixed(2));
+					}
+
+				});
+
+				return true;
+			}
+		});
+
 	});
 
-}
+	// handle fetchin default pricing
+	$(document).on('click', '.sides-sweets-get-pricing', function (e) {
 
-function RetrievePricing()
-{
-	if (dp_processing)
-	{
-		return;
-	}
+		let operation = $(this).data('operation');
 
-	xmlHttp = getXmlHttpObject();
-	if (xmlHttp == null)
-	{
-		// temporary
-		bootbox.alert("The Default Pricing function is not compatible with your browser. Please contact your store for assistance.");
-		return;
-	}
-
-	dd_message({
-		title: 'Retrieve Default Pricing and Visibility',
-		message: 'Are you sure you want to retrieve the default Sides and Sweets pricing and visibility? This cannot be undone.',
-		confirm: function () {
-
-			document.getElementById('dp_proc_mess').style.display = "inline";
-			document.getElementById("dp_error").style.display = "none";
-			document.getElementById("dp_error").innerHTML = "";
-
-			var url = "ddproc.php?processor=admin_defaultPricingProcessor&action=retrieve&store_id=" + storeInfo.id;
-			//	var url = "ddproc.php?processor=admin_defaultPricingProcessor&action=save&data=" + payLoad + "&store_id=<?=$this->store_id?>";
-			xmlHttp.onreadystatechange = RetrieveDefPricingComplete;
-
-			xmlHttp.open("GET", url, true);
-			xmlHttp.send(null);
-
-			setTimeout("def_price_retreive_handleTimeout();", 20000);
-			dp_processing = true;
-		},
-		cancel: function () {
-		}
-	});
-
-}
-
-function calculatePage()
-{
-	numberOfCustomerFacingCTSItems = 0;
-	numberOfCustomerFacingEFLItems = 0;
-
-	let uniqueEFLEntreeId = [];
-	let is_unsaved = false;
-
-	let sidesCount = 0;
-
-	let current2ServMarkup = ((!$('#markup_2_serving').val()) ? null : $('#markup_2_serving').val());
-	let current3ServMarkup = ((!$('#markup_3_serving').val()) ? null : $('#markup_3_serving').val());
-	let current4ServMarkup = ((!$('#markup_4_serving').val()) ? null : $('#markup_4_serving').val());
-	let current6ServMarkup = ((!$('#markup_6_serving').val()) ? null : $('#markup_6_serving').val());
-	let currentSidesMarkup = ((!$('#markup_sides').val()) ? null : $('#markup_sides').val());
-	let currentAssemblyFee = ((!$('#assembly_fee').val()) ? null : $('#assembly_fee').val());
-	let currentDeliveryAssemblyFee = ((!$('#delivery_assembly_fee').val()) ? null : $('#delivery_assembly_fee').val());
-
-	let currentDefaultStatus = document.getElementById('is_default_markupno').checked ? 0 : 1;
-
-	if ($('#delivery_assembly_fee').length != 0)
-	{
-		if (formatAsMoney(markupData.delivery_assembly_fee) != formatAsMoney(currentDeliveryAssemblyFee))
+		if (operation === 'default_pricing_get')
 		{
-			is_unsaved = true;
-			//dd_console_log("Unsaved 1");
-		}
-	}
-
-	if ($('#assembly_fee').length != 0)
-	{
-		if (formatAsMoney(markupData.assembly_fee) != formatAsMoney(currentAssemblyFee))
-		{
-			is_unsaved = true;
-			//dd_console_log("Unsaved 2");
-		}
-	}
-
-	if ($('#markup_2_serving').length != 0)
-	{
-		if (formatAsMoney(markupData.markup_value_2_serving) != formatAsMoney(current2ServMarkup))
-		{
-			is_unsaved = true;
-			//dd_console_log("Unsaved 3");
-		}
-	}
-
-	if ($('#markup_3_serving').length != 0)
-	{
-		if (formatAsMoney(markupData.markup_value_3_serving) != formatAsMoney(current3ServMarkup))
-		{
-			is_unsaved = true;
-			//dd_console_log("Unsaved 4");
-		}
-	}
-
-	if ($('#markup_4_serving').length != 0)
-	{
-		if (formatAsMoney(markupData.markup_value_4_serving) != formatAsMoney(current4ServMarkup))
-		{
-			is_unsaved = true;
-			//dd_console_log("Unsaved 5");
-		}
-	}
-
-	if ($('#markup_6_serving').length != 0)
-	{
-		if (formatAsMoney(markupData.markup_value_6_serving) != formatAsMoney(current6ServMarkup))
-		{
-			is_unsaved = true;
-			//dd_console_log("Unsaved 6");
-		}
-	}
-
-	if ($('#markup_sides').length != 0)
-	{
-		if (formatAsMoney(markupData.markup_value_sides) != formatAsMoney(currentSidesMarkup))
-		{
-			is_unsaved = true;
-			//dd_console_log("Unsaved 7");
-		}
-	}
-
-	if (menuInfo.menu_id != '100')
-	{
-		if (markupData.is_default != currentDefaultStatus)
-		{
-			is_unsaved = true;
-			//dd_console_log("Unsaved 8");
-		}
-	}
-
-	let itemRows = document.getElementById('itemsTbl').rows;
-
-	for (let i = 0; i < itemRows.length; i++)
-	{
-		if (itemRows[i].id.indexOf('row_') == -1 && itemRows[i].id != 'addonEditorRow')
-		{
-			continue;
-		}
-
-		let itemNumber = null;
-
-		if (itemRows[i].id == 'addonEditorRow')
-		{
-			itemNumber = itemRows[i].getAttribute('item_id');
-			if (!itemNumber)
-			{
-				continue;
-			}
-		}
-		else
-		{
-			itemNumber = itemRows[i].id.substr(4);
-		}
-
-		let basePrice = Number(menuInfo.mid[itemNumber].base_price);
-		let currentPrice = Number(menuInfo.mid[itemNumber].price);
-
-		let ltd_menu_item_value = 0;
-		if (storeInfo.supports_ltd_roundup == 1)
-		{
-			ltd_menu_item_value = Number(formatAsMoney(menuInfo.mid[itemNumber].ltd_menu_item_value));
-		}
-
-		if (menuInfo.mid[itemNumber].is_chef_touched == '1')
-		{
-			sidesCount++;
-		}
-
-		let overridePrice = Number(0);
-		let orgOverridePrice = Number(0);
-
-		if (document.getElementById('ovr_' + itemNumber))
-		{
-			overridePrice = Number(formatAsMoney(document.getElementById('ovr_' + itemNumber).value));
-			orgOverridePrice = Number(formatAsMoney(document.getElementById('ovr_' + itemNumber).getAttribute('data-orgval')));
-		}
-
-		if (overridePrice > 0 && ltd_menu_item_value > 0)
-		{
-			overridePrice = Number(formatAsMoney((overridePrice * 1) + (ltd_menu_item_value * 1)));
-		}
-
-		let markupPrice = null;
-
-		// if current markup then update markup column
-		$("#row_" + itemNumber + " > .markup-price").html();
-
-		if (menuInfo.mid[itemNumber].pricing_type == "HALF")
-		{
-			if (current3ServMarkup == 0 || current3ServMarkup == null || current3ServMarkup == "")
-			{
-				markupPrice = basePrice;
-				if (ltd_menu_item_value > 0)
+			bootbox.confirm("Are you sure want to update all Override Prices with rounded Markup Prices? This action will replace existing override prices with the newly calculated price.", function (result) {
+				if (result)
 				{
-					markupPrice = Number((markupPrice * 1) + (ltd_menu_item_value * 1));
+					$.ajax({
+						url: 'ddproc.php',
+						type: 'POST',
+						timeout: 20000,
+						dataType: 'json',
+						data: {
+							processor: 'admin_menu_editor',
+							store_id: STORE_DETAILS.id,
+							op: operation
+						},
+						success: function (json) {
+							if (json.processor_success)
+							{
+								$.each(json.pricingData, function (recipe_id, pricing_type) {
+									$.each(pricing_type, function (pricing_type, pricing) {
+										$('.override-price-input[data-recipe_id="' + recipe_id + '"][data-pricing_type="' + pricing_type + '"]:not([readonly])').val(pricing.default_price).trigger('change');
+									});
+								});
+							}
+						},
+						error: function (objAJAXRequest, strError) {
+							response = 'Unexpected error: ' + strError;
+							dd_message({
+								title: 'Error',
+								message: response
+							});
+						}
+
+					});
+					return true;
 				}
-			}
-			else
-			{
-				markupPrice = formatAsMoney(basePrice + (Math.round((basePrice * current3ServMarkup) + 0.000000001) / 100));
+			});
+		}
+		else if (operation === 'default_pricing_save')
+		{
+			let prices = {};
 
-				$("#row_" + itemNumber + " > .markup-price").html(markupPrice);
+			$('.override-price-input[data-category_group="SIDE"]:not([readonly])').each(function () {
 
-				if (ltd_menu_item_value > 0)
+				let save_price = 0;
+				let recipe_id = $(this).data('recipe_id');
+				let menu_item_id = $(this).data('menu_item_id');
+				let price = Number($(this).data('price'));
+				let markup_price = Number($('.markup-price[data-menu_item_id="' + menu_item_id + '"]').text());
+				let override_price = Number($(this).val());
+				let vis = $('.visibility-select[data-recipe_id="' + recipe_id + '"][data-visibility_type="vis"]').val();
+				let hid = $('.visibility-select[data-recipe_id="' + recipe_id + '"][data-visibility_type="hid"]').val();
+				let form = $('.visibility-select[data-recipe_id="' + recipe_id + '"][data-visibility_type="form"]').val();
+
+				if (override_price !== 0)
 				{
-					markupPrice = Number((markupPrice * 1) + (ltd_menu_item_value * 1));
+					save_price = override_price;
 				}
-
-			}
-		}
-		else if (menuInfo.mid[itemNumber].pricing_type == "TWO")
-		{
-			if (current2ServMarkup == 0 || current2ServMarkup == null || current2ServMarkup == "")
-			{
-				markupPrice = basePrice;
-				if (ltd_menu_item_value > 0)
+				else if (markup_price !== 0)
 				{
-					markupPrice = Number((markupPrice * 1) + (ltd_menu_item_value * 1));
-				}
-
-			}
-			else
-			{
-				markupPrice = formatAsMoney(basePrice + (Math.round((basePrice * current2ServMarkup) + 0.000000001) / 100));
-
-				$("#row_" + itemNumber + " > .markup-price").html(markupPrice);
-
-				if (ltd_menu_item_value > 0)
-				{
-					markupPrice = Number((markupPrice * 1) + (ltd_menu_item_value * 1));
-				}
-
-			}
-		}
-		else if (menuInfo.mid[itemNumber].pricing_type == "FOUR")
-		{
-			if (current4ServMarkup == 0 || current4ServMarkup == null || current4ServMarkup == "")
-			{
-				markupPrice = basePrice;
-				if (ltd_menu_item_value > 0)
-				{
-					markupPrice = Number((markupPrice * 1) + (ltd_menu_item_value * 1));
-				}
-
-			}
-			else
-			{
-				markupPrice = formatAsMoney(basePrice + (Math.round((basePrice * current4ServMarkup) + 0.000000001) / 100));
-
-				$("#row_" + itemNumber + " > .markup-price").html(markupPrice);
-
-				if (ltd_menu_item_value > 0)
-				{
-					markupPrice = Number((markupPrice * 1) + (ltd_menu_item_value * 1));
-				}
-
-			}
-		}
-		else // menuInfo.mid[itemNumber].pricing_type == "FULL"
-		{
-			if (current6ServMarkup == 0 || current6ServMarkup == null || current6ServMarkup == "")
-			{
-				markupPrice = basePrice;
-
-				if (ltd_menu_item_value > 0)
-				{
-					markupPrice = Number((markupPrice * 1) + (ltd_menu_item_value * 1));
-				}
-
-			}
-			else
-			{
-				markupPrice = formatAsMoney(basePrice + (Math.round((basePrice * current6ServMarkup) + 0.00000001) / 100));
-
-				$("#row_" + itemNumber + " > .markup-price").html(markupPrice);
-
-				if (ltd_menu_item_value > 0)
-				{
-					markupPrice = Number((markupPrice * 1) + (ltd_menu_item_value * 1));
-				}
-			}
-		}
-
-		markupPrice = formatAsMoney(markupPrice) * 1;
-
-		let ORdelta = overridePrice - currentPrice;
-		let MUdelta = markupPrice - currentPrice;
-
-		let newPriceByMarkUp = false;
-		if (MUdelta != 0 && ORdelta != 0)
-		{
-			newPriceByMarkUp = true;
-		}
-
-		if (isEnabled_Markup && newPriceByMarkUp > 0 && overridePrice == 0)
-		{
-			$("#row_" + itemNumber + " > .preview-price").text(formatAsMoney(markupPrice));
-			is_unsaved = true;
-			//dd_console_log("Unsaved 9");
-		}
-		else if (overridePrice > 0 && ORdelta != 0)
-		{
-			$("#row_" + itemNumber + " > .preview-price").text(formatAsMoney(overridePrice));
-			is_unsaved = true;
-			//dd_console_log("Unsaved 10");
-		}
-		else if (isEnabled_Markup && overridePrice > 0 && newPriceByMarkUp)
-		{
-			$("#row_" + itemNumber + " > .preview-price").text(formatAsMoney(markupPrice));
-			is_unsaved = true;
-			//dd_console_log("Unsaved 11");
-		}
-		else
-		{
-			$("#row_" + itemNumber + " > .preview-price").text('');
-		}
-
-		let visFlag = document.getElementById("vis_" + itemNumber);
-		if (visFlag)
-		{
-			orgState = visFlag.getAttribute('data-orgval');
-			if ((visFlag.checked && orgState != 'CHECKED') || (!visFlag.checked && orgState == 'CHECKED'))
-			{
-				is_unsaved = true;
-				//dd_console_log("Unsaved 12");
-			}
-		}
-	}
-
-	// EFL Items
-
-	let EFL_itemRows = document.getElementById('EFLitemsTbl').rows;
-
-	for (let i = 0; i < EFL_itemRows.length; i++)
-	{
-		if (EFL_itemRows[i].id.indexOf('row_') == -1 && EFL_itemRows[i].id != 'addonEditorRow')
-		{
-			continue;
-		}
-
-		let itemNumber = null;
-		if (EFL_itemRows[i].id == 'addonEditorRow')
-		{
-			itemNumber = EFL_itemRows[i].getAttribute('item_id');
-			if (!itemNumber)
-			{
-				continue;
-			}
-		}
-		else
-		{
-			itemNumber = EFL_itemRows[i].id.substr(4);
-		}
-
-		let basePrice = Number(menuInfo.mid[itemNumber].base_price);
-		let currentPrice = Number(menuInfo.mid[itemNumber].price);
-
-		if (!$('#vis_' + itemNumber).is(':checked'))
-		{
-			let entreeId = $('#vis_' + itemNumber).data('entree_id');
-
-			if (!uniqueEFLEntreeId.includes(entreeId))
-			{
-				numberOfCustomerFacingEFLItems++;
-				uniqueEFLEntreeId.push(entreeId);
-			}
-
-		}
-
-		if (menuInfo.mid[itemNumber].is_chef_touched == '1')
-		{
-			sidesCount++;
-		}
-
-		if (itemNumber == 13944)
-		{
-			let x = 1;
-		}
-
-		let overridePrice = Number(0);
-		let orgOverridePrice = Number(0);
-
-		if (document.getElementById('ovr_' + itemNumber))
-		{
-			overridePrice = Number(formatAsMoney(document.getElementById('ovr_' + itemNumber).value));
-			orgOverridePrice = Number(formatAsMoney(document.getElementById('ovr_' + itemNumber).getAttribute('data-orgval')));
-		}
-
-		let markupPrice = null;
-
-		// if current markup then update markup column
-		$("#row_" + itemNumber + " > .markup-price").html();
-
-		if (menuInfo.mid[itemNumber].pricing_type == "HALF")
-		{
-			if (current3ServMarkup == 0 || current3ServMarkup == null || current3ServMarkup == "")
-			{
-				markupPrice = basePrice;
-			}
-			else
-			{
-				markupPrice = formatAsMoney(basePrice + (Math.round((basePrice * current3ServMarkup) + 0.00000001) / 100));
-				$("#row_" + itemNumber + " > .markup-price").html(markupPrice);
-			}
-		}
-		else if (menuInfo.mid[itemNumber].pricing_type == "TWO")
-		{
-			if (current2ServMarkup == 0 || current2ServMarkup == null || current2ServMarkup == "")
-			{
-				markupPrice = basePrice;
-			}
-			else
-			{
-				markupPrice = formatAsMoney(basePrice + (Math.round((basePrice * current2ServMarkup) + 0.00000001) / 100));
-				$("#row_" + itemNumber + " > .markup-price").html(markupPrice);
-			}
-		}
-		else if (menuInfo.mid[itemNumber].pricing_type == "FOUR")
-		{
-			if (current4ServMarkup == 0 || current4ServMarkup == null || current4ServMarkup == "")
-			{
-				markupPrice = basePrice;
-			}
-			else // menuInfo.mid[itemNumber].pricing_type == "FULL"
-			{
-				markupPrice = formatAsMoney(basePrice + (Math.round((basePrice * current4ServMarkup) + 0.00000001) / 100));
-				$("#row_" + itemNumber + " > .markup-price").html(markupPrice);
-			}
-		}
-		else // servingSize == "FULL"
-		{
-			if (current6ServMarkup == 0 || current6ServMarkup == null || current6ServMarkup == "")
-			{
-				markupPrice = basePrice;
-			}
-			else
-			{
-				markupPrice = formatAsMoney(basePrice + (Math.round((basePrice * current6ServMarkup) + 0.00000001) / 100));
-				$("#row_" + itemNumber + " > .markup-price").html(markupPrice);
-			}
-		}
-
-		let markdown_change = false;
-		// At this point we know the new price... apply the markdown if it exists
-		if (isEnabled_Markup && $('#mkdn_' + itemNumber)[0])
-		{
-			let markdown = $('#mkdn_' + itemNumber);
-			let markdown_value = formatAsMoney(markdown.data('markdown_value'));
-			let original_markdown = markdown.data('org_val');
-			let markedDownPrice = 0;
-			if (overridePrice > 0)
-			{
-				overridePrice -= formatAsMoney(overridePrice * (markdown_value / 100));
-				markedDownPrice = overridePrice;
-			}
-			else if (markupPrice > 0)
-			{
-				let discount = Number(formatAsMoney(markupPrice * (markdown_value / 100)));
-				markupPrice = formatAsMoney((markupPrice * 100) / 100);
-				markupPrice = Math.round((markupPrice - discount.valueOf()) * 100) / 100;
-				markedDownPrice = markupPrice;
-			}
-
-			if (original_markdown != markdown_value)
-			{
-				markdown_change = true;
-			}
-
-		}
-
-		let ORdelta = overridePrice - currentPrice;
-		let MUdelta = markupPrice - currentPrice;
-
-		if (Math.abs(ORdelta) < .005)
-		{
-			ORdelta = 0;
-		}
-		if (Math.abs(MUdelta) < .005)
-		{
-			MUdelta = 0;
-		}
-
-		let newPriceByMarkUp = false;
-		if (MUdelta != 0 && ORdelta != 0)
-		{
-			newPriceByMarkUp = true;
-		}
-
-		if (overridePrice > 0 && ORdelta != 0)
-		{
-			$("#row_" + itemNumber + " > .preview-price").text(formatAsMoney(overridePrice));
-			is_unsaved = true;
-			//dd_console_log("Unsaved 13");
-		}
-		else if (isEnabled_Markup && newPriceByMarkUp)
-		{
-			$("#row_" + itemNumber + " > .preview-price").text(formatAsMoney(markupPrice));
-			is_unsaved = true;
-			//dd_console_log("Unsaved 14");
-		}
-		else if (markdown_change)
-		{
-			$("#row_" + itemNumber + " > .preview-price").text(formatAsMoney(markedDownPrice));
-			is_unsaved = true;
-		}
-		else
-		{
-			$("#row_" + itemNumber + " > .preview-price").text('');
-		}
-
-		let visFlag = document.getElementById("vis_" + itemNumber);
-		if (visFlag)
-		{
-			let orgState = visFlag.getAttribute('data-orgval');
-			if ((visFlag.checked && orgState != 'CHECKED') || (!visFlag.checked && orgState == 'CHECKED'))
-			{
-				is_unsaved = true;
-				//dd_console_log("Unsaved 15");
-			}
-		}
-
-		let picFlag = document.getElementById("pic_" + itemNumber);
-		if (picFlag)
-		{
-			let orgState = picFlag.getAttribute('data-orgval');
-			if ((picFlag.checked && orgState != 'CHECKED') || (!picFlag.checked && orgState == 'CHECKED'))
-			{
-				is_unsaved = true;
-				//dd_console_log("Unsaved 16");
-			}
-		}
-
-	}
-
-	// Chef Touched Selections
-	let ctsItemRows = document.getElementById('ctsItemsTbl').rows;
-	for (let i = 0; i < ctsItemRows.length; i++)
-	{
-		if (ctsItemRows[i].id.indexOf('row_') == -1)
-		{
-			continue;
-		}
-
-		let itemNumber = null;
-		itemNumber = ctsItemRows[i].id.substr(4);
-
-		let basePrice = Number(menuInfo.mid[itemNumber].base_price);
-		let currentPrice = Number(menuInfo.mid[itemNumber].price);
-
-		if (menuInfo.mid[itemNumber].is_chef_touched == '1')
-		{
-			sidesCount++;
-		}
-
-		let overridePrice = Number(0);
-		let orgOverridePrice = Number(0);
-
-		if (document.getElementById('ovr_' + itemNumber))
-		{
-			overridePrice = Number(formatAsMoney(document.getElementById('ovr_' + itemNumber).value));
-			orgOverridePrice = Number(formatAsMoney(document.getElementById('ovr_' + itemNumber).getAttribute('data-orgval')));
-		}
-
-		let markupPrice = null;
-
-		if ($('#vis_' + itemNumber).is(':checked'))
-		{
-			numberOfCustomerFacingCTSItems++;
-		}
-
-		if (currentSidesMarkup == 0 || currentSidesMarkup == null || currentSidesMarkup == "")
-		{
-			$("#row_" + itemNumber + " > .markup-price").html();
-			markupPrice = basePrice;
-		}
-		else
-		{
-			markupPrice = formatAsMoney(basePrice + (Math.round((basePrice * currentSidesMarkup) + 0.00000001) / 100));
-			$("#row_" + itemNumber + " > .markup-price").html(markupPrice);
-		}
-
-		markupPrice = formatAsMoney(markupPrice) * 1;
-
-		let ORdelta = overridePrice - currentPrice;
-		let MUdelta = markupPrice - currentPrice;
-
-		let newPriceByMarkUp = false;
-		if (MUdelta != 0 && ORdelta != 0)
-		{
-			newPriceByMarkUp = true;
-		}
-
-		if (overridePrice > 0 && ORdelta != 0)
-		{
-			$("#row_" + itemNumber + " > .preview-price").text(formatAsMoney(overridePrice));
-			is_unsaved = true;
-			//dd_console_log("Unsaved 17");
-		}
-		else if (isEnabled_Markup && newPriceByMarkUp)
-		{
-			$("#row_" + itemNumber + " > .preview-price").text(formatAsMoney(markupPrice));
-			is_unsaved = true;
-			//dd_console_log("Unsaved 18");
-		}
-		else
-		{
-			$("#row_" + itemNumber + " > .preview-price").text('');
-		}
-
-		let visFlag = document.getElementById("vis_" + itemNumber);
-		if (visFlag)
-		{
-			let orgState = visFlag.getAttribute('data-orgval');
-			if ((visFlag.checked && orgState != 'CHECKED') || (!visFlag.checked && orgState == 'CHECKED'))
-			{
-				is_unsaved = true;
-				//dd_console_log("Unsaved 19");
-			}
-		}
-
-		let hidFlag = document.getElementById("hid_" + itemNumber);
-		if (hidFlag)
-		{
-			let orgState = hidFlag.getAttribute('data-orgval');
-			if ((hidFlag.checked && orgState != 'CHECKED') || (!hidFlag.checked && orgState == 'CHECKED'))
-			{
-				is_unsaved = true;
-				//dd_console_log("Unsaved 20");
-			}
-		}
-
-		let formFlag = document.getElementById("form_" + itemNumber);
-		if (formFlag)
-		{
-			let orgState = formFlag.getAttribute('data-orgval');
-			if ((formFlag.checked && orgState != 'CHECKED') || (!formFlag.checked && orgState == 'CHECKED'))
-			{
-				is_unsaved = true;
-				//dd_console_log("Unsaved 21");
-			}
-		}
-
-	}
-
-	if (gNumOptionalsAdded != 0)
-	{
-		is_unsaved = true;
-		//dd_console_log("Unsaved 22");
-	}
-
-	if (is_unsaved)
-	{
-		$('#saved_message, #saved_message_2').showFlex();
-	}
-	else
-	{
-		$('#saved_message, #saved_message_2').hideFlex();
-	}
-}
-
-function confirm_and_check_form()
-{
-	let form = $("#menu_editor_form")[0];
-
-	clearErrors();
-
-	let validated = _check_form(form);
-
-	let current2ServMarkup = ((!$('#markup_2_serving').val()) ? null : $('#markup_2_serving').val());
-	let current3ServMarkup = ((!$('#markup_3_serving').val()) ? null : $('#markup_3_serving').val());
-	let current4ServMarkup = ((!$('#markup_4_serving').val()) ? null : $('#markup_4_serving').val());
-	let current6ServMarkup = ((!$('#markup_6_serving').val()) ? null : $('#markup_6_serving').val());
-	let currentSidesMarkup = ((!$('#markup_sides').val()) ? null : $('#markup_sides').val());
-	let warnOffOfEmptyMarkups = false;
-
-	let currentVolumeReward = "0";
-
-	let message = "";
-
-	if (validated)
-	{
-		if (current2ServMarkup < 0 || current4ServMarkup < 0 || current3ServMarkup < 0 || current6ServMarkup < 0 || currentSidesMarkup < 0)
-		{
-			message = "Negative per cent markups are not currently permitted.<br />";
-		}
-
-		if (current2ServMarkup > 70 || current4ServMarkup > 70 || current3ServMarkup > 70 || current6ServMarkup > 70 || currentSidesMarkup > 70)
-		{
-			message += "Markups greater than 70% are not currently permitted.<br />";
-		}
-
-		if (currentVolumeReward < 0)
-		{
-			message += "Negative volume discounts are not permitted.<br />";
-		}
-
-		if (currentVolumeReward > 75)
-		{
-			message += "Volume Dscounts greater than $75.00 are not currently permitted.<br />";
-		}
-
-		if (currentVolumeReward == "")
-		{
-			message += "Please supply a valid volume discount. Use zero if you want no volume discount applied.<br />";
-		}
-
-		if (($('#markup_2_serving').length != 0 && current2ServMarkup == null) || ($('#markup_4_serving').length != 0 && current4ServMarkup == null) || ($('#markup_3_serving').length != 0 && current3ServMarkup == null) || ($('#markup_6_serving').length != 0 && current6ServMarkup == null) || ($('#markup_sides').length != 0 && currentSidesMarkup == null))
-		{
-			warnOffOfEmptyMarkups = true;
-		}
-
-		let assembly_fee = ((!$('#assembly_fee').val()) ? 0 : $('#assembly_fee').val());
-		if (assembly_fee < 0)
-		{
-			message += "The Assembly Fee must be greater than or equal to 0.<br />";
-		}
-
-		let delivery_assembly_fee = ((!$('#delivery_assembly_fee').val()) ? 0 : $('#delivery_assembly_fee').val())
-		if (delivery_assembly_fee < 0)
-		{
-			message += "The Delivery Assembly Fee must be greater than or equal to 0.<br />";
-		}
-
-		let itemRows = document.getElementById('itemsTbl').rows;
-
-		let encounteredBasePriceIssue = false;
-		let problemItemList = "";
-
-		for (let i = 0; i < itemRows.length; i++)
-		{
-			if (itemRows[i].id.indexOf('row_') == -1)
-			{
-				continue;
-			}
-
-			let itemNumber = itemRows[i].id.substr(4);
-			let basePrice = Number(menuInfo.mid[itemNumber].base_price);
-			let overridePrice = "";
-
-			if (document.getElementById('ovr_' + itemNumber))
-			{
-				overridePrice = Number(document.getElementById('ovr_' + itemNumber).value);
-			}
-
-			if (overridePrice && overridePrice != "")
-			{
-				if (noOverrideUnderBase && overridePrice < basePrice)
-				{
-					encounteredBasePriceIssue = true;
-
-					problemItemList += menuInfo.mid[itemNumber].menu_item_name + "<br />";
-
-				}
-				if (overridePrice > 999)
-				{
-					message += "The Override Price must be less than $999.00<br />";
-					break;
-				}
-			}
-
-		}
-
-		let EFL_itemRows = document.getElementById('EFLitemsTbl').rows;
-
-		for (let i = 0; i < EFL_itemRows.length; i++)
-		{
-			if (EFL_itemRows[i].id.indexOf('row_') == -1)
-			{
-				continue;
-			}
-
-			let itemNumber = EFL_itemRows[i].id.substr(4);
-			let basePrice = Number(menuInfo.mid[itemNumber].base_price);
-
-			let markdownObj = $("#mkdn_" + itemNumber)[0];
-			let markDownPostObj = $("#upd_mkdn_" + itemNumber)[0];
-
-			if (markdownObj)
-			{
-				let value = $(markdownObj).data("markdown_id") + "|" + $(markdownObj).data("markdown_value");
-
-				if (!markDownPostObj)
-				{
-					let el = document.createElement('input');
-					el.setAttribute("type", "hidden");
-					el.setAttribute("value", value);
-					let idStr = "upd_mkdn_" + itemNumber;
-					el.setAttribute("id", idStr);
-					el.setAttribute("name", idStr);
-					markdownObj.appendChild(el);
+					save_price = markup_price;
 				}
 				else
 				{
-					markDownPostObj.val(value);
+					save_price = price;
 				}
 
-			}
-
-			let overridePrice = "";
-
-			if (document.getElementById('ovr_' + itemNumber))
-			{
-				overridePrice = Number(document.getElementById('ovr_' + itemNumber).value);
-			}
-
-			if (overridePrice && overridePrice != "")
-			{
-				if (noOverrideUnderBase && overridePrice < basePrice)
+				if (save_price !== 0)
 				{
-					encounteredBasePriceIssue = true;
-					problemItemList += menuInfo.mid[itemNumber].menu_item_name + "<br />";
-
-				}
-				if (overridePrice > 999)
-				{
-					message += "The Override Price must be less than $999.00<br />";
-					break;
-				}
-			}
-
-		}
-
-		let ctsItemRows = document.getElementById('ctsItemsTbl').rows;
-
-		for (let i = 0; i < ctsItemRows.length; i++)
-		{
-			if (ctsItemRows[i].id.indexOf('row_') == -1)
-			{
-				continue;
-			}
-
-			let itemNumber = ctsItemRows[i].id.substr(4);
-			let basePrice = Number(menuInfo.mid[itemNumber].base_price);
-			let overridePrice = "";
-
-			if (document.getElementById('ovr_' + itemNumber))
-			{
-				overridePrice = Number(document.getElementById('ovr_' + itemNumber).value);
-			}
-
-			if (overridePrice && overridePrice != "")
-			{
-				if (noOverrideUnderBase && overridePrice < basePrice)
-				{
-					encounteredBasePriceIssue = true;
-					problemItemList += menuInfo.mid[itemNumber].menu_item_name + "<br />";
+					prices[recipe_id] = {
+						'price': save_price,
+						'vis': vis,
+						'hid': hid,
+						'form': form
+					};
 				}
 
-				if (overridePrice > 999)
-				{
-					message += "The Override Price must be less than $999.00<br />";
-					break;
-				}
-			}
-		}
+			});
 
-		if (encounteredBasePriceIssue)
-		{
-			message += "The Override Price must be greater than the base price for:<br />";
-			message += problemItemList;
-
-		}
-
-		if (message != "")
-		{
-			validated = false;
-			displayValidationErrorMsg(message);
-		}
-	}
-
-	if (validated)
-	{
-		let finalizeMessage = "Are you sure want to submit these changes to your menu? If the menu is active the changes will be immediately available to your customers.";
-
-		if (warnOffOfEmptyMarkups)
-		{
-			finalizeMessage += "<br /><br /><span class='text-red font-weight-bold'>One or more of the Percentage MarkUp values is empty or 0. Please review and correct if this was unintentional.</span><br />";
-		}
-
-		dd_message({
-			title: 'Attention',
-			message: finalizeMessage,
-			modal: true,
-			confirm: function () {
-				document.getElementById('action').value = "finalize";
-				$("#menu_editor_form").submit();
-				return false;
-			},
-			cancel: function () {
-				return false;
-			}
-		});
-
-		/*
-		if (confirm(finalizeMessage))
-		{
-			document.getElementById('action').value = "finalize";
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-		*/
-	}
-
-	return false;
-}
-
-function getMarkUpPrice(servingsSize, basePrice)
-{
-
-	let markupPrice = Number(basePrice);
-	basePrice = Number(basePrice);
-
-	let current2ServMarkup = ((!$('#markup_2_serving').val()) ? null : $('#markup_2_serving').val());
-	let current3ServMarkup = ((!$('#markup_3_serving').val()) ? null : $('#markup_3_serving').val());
-	let current4ServMarkup = ((!$('#markup_4_serving').val()) ? null : $('#markup_4_serving').val());
-	let current6ServMarkup = ((!$('#markup_6_serving').val()) ? null : $('#markup_6_serving').val());
-
-	// if current markup then update markup column
-	if (servingsSize == "Sm (2)")
-	{
-		if (current2ServMarkup == 0 || current2ServMarkup == null || current2ServMarkup == "")
-		{
-			markupPrice = basePrice.valueOf();
-		}
-		else
-		{
-			markupPrice = formatAsMoney(basePrice.valueOf() + (Math.round(basePrice.valueOf() * current2ServMarkup) / 100));
-		}
-	}
-	else if (servingsSize == "Md (4)")
-	{
-		if (current4ServMarkup == 0 || current4ServMarkup == null || current4ServMarkup == "")
-		{
-			markupPrice = basePrice.valueOf();
-		}
-		else
-		{
-			markupPrice = formatAsMoney(basePrice.valueOf() + (Math.round(basePrice.valueOf() * current4ServMarkup) / 100));
-		}
-	}
-	else if (servingsSize == "Md (3)")
-	{
-		if (current3ServMarkup == 0 || current3ServMarkup == null || current3ServMarkup == "")
-		{
-			markupPrice = basePrice.valueOf();
-		}
-		else
-		{
-			markupPrice = formatAsMoney(basePrice.valueOf() + (Math.round(basePrice.valueOf() * current3ServMarkup) / 100));
-		}
-	}
-	else
-	{
-		if (current6ServMarkup == 0 || current6ServMarkup == null || current6ServMarkup == "")
-		{
-			markupPrice = basePrice.valueOf();
-		}
-		else
-		{
-			markupPrice = formatAsMoney(basePrice.valueOf() + (Math.round(basePrice.valueOf() * current6ServMarkup) / 100));
-		}
-	}
-
-	return markupPrice;
-}
-
-function addUnsavedEFLItem(item_id, name, size, base_price, thisItemCount, countItemsInRecipe)
-{
-	let insertCellNum = 0;
-
-	if (item_id == 0)
-	{
-		return;
-	} // do nothing
-
-	var tbl = document.getElementById('EFLitemsTbl');
-
-	var row = tbl.insertRow(-1);
-	row.setAttribute("id", "row_" + item_id);
-
-	// visibility cell
-	var cellLeft = row.insertCell(0);
-
-	var visBox = document.createElement("input");
-
-	visBox.setAttribute("type", "checkbox");
-	var idStr = "vis_" + item_id;
-	visBox.setAttribute("id", idStr);
-	visBox.setAttribute("name", idStr);
-	visBox.setAttribute("class", "align-middle");
-	visBox.setAttribute("data-orgval", "CHECKED");
-	visBox.setAttribute("data-menu_item_id", item_id);
-	visBox.setAttribute("checked", "checked");
-	cellLeft.appendChild(visBox);
-
-	// picksheet cell
-	var cellLeft2 = row.insertCell(++insertCellNum);
-
-	var pickBox = document.createElement("input");
-
-	pickBox.setAttribute("type", "checkbox");
-	var idStr = "pic_" + item_id;
-	pickBox.setAttribute("id", idStr);
-	pickBox.setAttribute("name", idStr);
-	pickBox.setAttribute("class", "align-middle");
-	pickBox.setAttribute("data-orgval", "");
-	pickBox.setAttribute("step", "any");
-
-	cellLeft2.appendChild(pickBox);
-
-	// name cell
-	var cellName = row.insertCell(++insertCellNum);
-	cellName.setAttribute("class", "align-middle text-left");
-
-	var nameNode = document.createTextNode(name);
-	cellName.appendChild(nameNode);
-
-	// size cell
-	var cellSize = row.insertCell(++insertCellNum);
-	cellSize.setAttribute("class", "align-middle");
-
-	var el = document.createTextNode(size);
-	cellSize.appendChild(el);
-
-	if (isEnabled_Markup)
-	{
-		// basePrice cell
-		var cellbase = row.insertCell(++insertCellNum);
-		cellbase.setAttribute("class", "align-middle");
-
-		var el = document.createTextNode(formatAsMoney(base_price));
-		cellbase.appendChild(el);
-
-		var markup_price = getMarkUpPrice(size, base_price);
-	}
-
-	// currentPrice cell
-	var cellcurrent = row.insertCell(++insertCellNum);
-	cellcurrent.setAttribute("class", "align-middle");
-
-	if (isEnabled_Markup)
-	{
-		var el = document.createTextNode(markup_price);
-	}
-	else
-	{
-		var el = document.createTextNode(formatAsMoney(base_price));
-	}
-	cellcurrent.appendChild(el);
-
-	if (isEnabled_Markup)
-	{
-		// markupPrice cell
-		var cellmarkup = row.insertCell(++insertCellNum);
-		cellmarkup.setAttribute("class", "align-middle markup-price");
-
-		var el = document.createTextNode(markup_price);
-		cellmarkup.appendChild(el);
-	}
-
-	// overridePrice cell
-	var celloverride = row.insertCell(++insertCellNum);
-
-	var el = document.createElement('input');
-	el.setAttribute("type", "number");
-	el.setAttribute("size", "3");
-	el.setAttribute("step", "any");
-
-	el.setAttribute("class", "form-control form-control-sm no-spin-button");
-
-	el.setAttribute("maxlength", "6");
-	el.setAttribute("data-orgval", "");
-
-	var idStr = "ovr_" + item_id;
-	el.setAttribute("id", idStr);
-	el.setAttribute("name", idStr);
-	if (!isEnabled_Markup)
-	{
-		el.setAttribute("value", formatAsMoney(base_price));
-	}
-	celloverride.appendChild(el);
-
-	// markdown
-	var cellmarkdown = row.insertCell(++insertCellNum);
-
-	var el = document.createElement('button');
-	var idStr = "add-mkdn_" + item_id;
-	el.setAttribute("id", idStr);
-	el.setAttribute("class", "button");
-	var buttonTextNode = document.createTextNode("Add");
-	el.appendChild(buttonTextNode);
-
-	cellmarkdown.appendChild(el);
-
-	// previewPrice cell
-	var cellpreview = row.insertCell(++insertCellNum);
-	cellpreview.setAttribute("class", "align-middle preview-price");
-}
-
-function addUnsavedSideItem(item_id, name, size, base_price, category_label)
-{
-	let insertCellNum = 0;
-
-	if (item_id == 0)
-	{
-		return;
-	} // do nothing
-
-	var tbl = document.getElementById('ctsItemsTbl');
-
-	if ($('#temp_category').length == 0)
-	{
-		var row = tbl.insertRow(-1);
-		row.setAttribute("id", "temp_category");
-
-		var cellName = row.insertCell(0);
-		cellName.setAttribute("class", "font-weight-bold py-3");
-		cellName.setAttribute("colspan", "11");
-		var nameNode = document.createTextNode('Newly Added Items');
-		cellName.appendChild(nameNode);
-	}
-
-	var row = tbl.insertRow(-1);
-	row.setAttribute("id", "row_" + item_id);
-
-	// visibility cell
-	var cellLeft = row.insertCell(insertCellNum++);
-
-	var visBox = document.createElement("input");
-
-	visBox.setAttribute("type", "checkbox");
-	var idStr = "vis_" + item_id;
-	visBox.setAttribute("id", idStr);
-	visBox.setAttribute("name", idStr);
-	visBox.setAttribute("class", "align-middle");
-	visBox.setAttribute("data-orgval", "CHECKED");
-	visBox.setAttribute("data-menu_item_id", item_id);
-	visBox.setAttribute("checked", "checked");
-	cellLeft.appendChild(visBox);
-
-	// picksheet cell
-	var cellLeft2 = row.insertCell(insertCellNum++);
-
-	var pickBox = document.createElement("input");
-
-	pickBox.setAttribute("type", "checkbox");
-	var idStr = "form_" + item_id;
-	pickBox.setAttribute("id", idStr);
-	pickBox.setAttribute("name", idStr);
-	pickBox.setAttribute("class", "align-middle");
-	pickBox.setAttribute("data-orgval", "");
-	pickBox.setAttribute("step", "any");
-
-	cellLeft2.appendChild(pickBox);
-
-	// hide everywhere cell
-	var cellLeft3 = row.insertCell(insertCellNum++);
-
-	var pickBox = document.createElement("input");
-
-	pickBox.setAttribute("type", "checkbox");
-	var idStr = "hid_" + item_id;
-	pickBox.setAttribute("id", idStr);
-	pickBox.setAttribute("name", idStr);
-	pickBox.setAttribute("class", "align-middle");
-	pickBox.setAttribute("data-orgval", "");
-	pickBox.setAttribute("step", "any");
-
-	cellLeft3.appendChild(pickBox);
-
-	// name cell
-	var cellName = row.insertCell(insertCellNum++);
-	cellName.setAttribute("class", "align-middle text-left");
-	var nameNode = document.createTextNode(name);
-	cellName.appendChild(nameNode);
-
-	// size cell
-	var cellSize = row.insertCell(insertCellNum++);
-	cellSize.setAttribute("class", "align-middle");
-	var el = document.createTextNode(size);
-	cellSize.appendChild(el);
-
-	// basePrice cell
-	var cellbase = row.insertCell(insertCellNum++);
-	cellbase.setAttribute("class", "align-middle");
-	var el = document.createTextNode(formatAsMoney(base_price));
-	cellbase.appendChild(el);
-
-	var markup_price = getMarkUpPrice(size, base_price);
-
-	// currentPrice cell
-	var cellcurrent = row.insertCell(insertCellNum++);
-	cellcurrent.setAttribute("class", "align-middle");
-	var el = document.createTextNode(markup_price);
-	cellcurrent.appendChild(el);
-
-	// markupPrice cell
-	var cellmarkup = row.insertCell(insertCellNum++);
-	cellmarkup.setAttribute("class", "align-middle markup-price");
-	var el = document.createTextNode(markup_price);
-	cellmarkup.appendChild(el);
-
-	// overridePrice cell
-	var celloverride = row.insertCell(insertCellNum++);
-	var el = document.createElement('input');
-	el.setAttribute("type", "number");
-	el.setAttribute("size", "3");
-	el.setAttribute("step", "any");
-
-	el.setAttribute("class", "form-control form-control-sm no-spin-button");
-
-	el.setAttribute("maxlength", "6");
-	el.setAttribute("data-orgval", "");
-
-	var idStr = "ovr_" + item_id;
-	el.setAttribute("id", idStr);
-	el.setAttribute("name", idStr);
-	celloverride.appendChild(el);
-
-	// previewPrice cell
-	var cellpreview = row.insertCell(insertCellNum++);
-	cellpreview.setAttribute("class", "align-middle preview-price");
-	var el = document.createTextNode('');
-	cellpreview.appendChild(el);
-
-	// remianingInventory cell
-	var cellremaining = row.insertCell(insertCellNum++);
-	cellremaining.setAttribute("class", "align-middle remaining-price");
-	var el = document.createTextNode('0');
-	cellremaining.appendChild(el);
-}
-
-function giveTabFocus()
-{
-	const params = new Proxy(new URLSearchParams(window.location.search), {
-		get: (searchParams, prop) => searchParams.get(prop)
-	});
-	let value = params.tabs; // "some_value"
-	if (typeof value != 'undefined' && value != null)
-	{
-		value = value.substring(value.indexOf('menu.') + 5);
-		$(document).find("[data-nav='" + value + "']").click();
-	}
-
-}
-
-function initNavTab()
-{
-
-	var oldUrl = $('#inv-nav-button').attr("href"); // Get current url
-	var newUrl = oldUrl.substring(0, oldUrl.indexOf('&tabs'));
-	const params = new Proxy(new URLSearchParams(window.location.search), {
-		get: (searchParams, prop) => searchParams.get(prop)
-	});
-
-	if (typeof params.tabs != 'undefined' && params.tabs != null)
-	{
-		newUrl = newUrl + '&tabs=' + params.tabs;
-		$('#inv-nav-button').attr("href", newUrl);
-	}
-
-	$('.nav-tab').each(function () {
-		$(this).on('click', function () {
-			var oldUrl = $('#inv-nav-button').attr("href"); // Get current url
-			var newUrl = oldUrl.substring(0, oldUrl.indexOf('&tabs'));
-			newUrl = newUrl + '&tabs=menu.' + $(this).data('nav');
-			$('#inv-nav-button').attr("href", newUrl);
-		});
-	});
-}
-
-$(function () {
-
-	$(document).ready(function () {
-		calculatePage()
-		giveTabFocus();
-		initNavTab();
-	});
-
-	$(document).on('change keyup', '#markup_6_serving, #markup_4_serving, #markup_3_serving, #markup_2_serving, #markup_sides, #assembly_fee, #delivery_assembly_fee, #volume_reward, [name="is_default_markup"], [id^=pic_], [id^=form_], [id^=ovr_], [id^=vis_], [id^=hid_]', function (e) {
-		calculatePage();
-	});
-
-	$(document).on('change keyup', '[id^=vis_]', function (e) {
-
-		let menu_item_id = $(this).data('menu_item_id');
-		let checkedState = $(this).is(':checked');
-
-		// Sides & Sweets
-		if (menuInfo.mid[menu_item_id].is_chef_touched == '1')
-		{
-			if (checkedState && numberOfCustomerFacingCTSItems > 20)
+			if (Object.keys(prices).length !== 0)
 			{
-				$(this).prop({'checked': false});
-
-				bootbox.alert('You can only display 20 Sides &amp; Sweets items on the customer facing menu.');
-			}
-			else
-			{
-				$('#hid_' + menu_item_id).prop({'checked': false});
-			}
-		}
-		// EFL
-		else if (menuInfo.mid[menu_item_id].is_store_special == '1')
-		{
-			if (!checkedState && numberOfCustomerFacingEFLItems > 10)
-			{
-				$(this).prop({'checked': true});
-
-				bootbox.alert("You can only make 10 Fast Lane items visible at a time. Please hide another store special if you wish to make this item visible.");
-			}
-		}
-
-	});
-
-	$(document).on('change keyup', '[id^=form_]', function (e) {
-
-		let menu_item_id = $(this).data('menu_item_id');
-
-		$('#hid_' + menu_item_id).prop({'checked': false});
-
-	});
-
-	$(document).on('change keyup', '[id^=hid_]', function (e) {
-
-		let menu_item_id = $(this).data('menu_item_id');
-
-		$('#vis_' + menu_item_id).prop({'checked': false});
-		$('#form_' + menu_item_id).prop({'checked': false});
-
-	});
-
-	$(document).on('keyup change', '#filter', function (e) {
-		$.uiTableFilter($('#recipe_list'), this.value);
-	});
-
-	$(document).on('click', '#clear_filter', function (e) {
-
-		$('#filter').val('').change();
-
-		if (!Modernizr.input.placeholder)
-		{
-			// trick to restore placeholder on IE
-			$('#filter').focus().blur();
-		}
-
-	});
-
-	// handle markdowns
-	$(document).on('click', '[id^=mkdn_]', function (e) {
-
-		tempArr = this.id.split("_");
-		let itemID = tempArr[1];
-
-		let markdownVal = $(this).data('markdown_value');
-		let markdownID = $(this).data('markdown_id');
-
-		dd_message({
-			title: 'Edit Markdown',
-			div_id: "edit_mkdn",
-			message: $("#markdown_editor").html(),
-			height: 350,
-			width: 400,
-			resizable: true,
-			noOk: true,
-			open: function () {
-				$("#edit_mkdn").find("#markdown_amount").val(markdownVal);
-
-				let start_price = getPreviewItemPrice(itemID);
-
-				let price = start_price;
-				price -= (price * (markdownVal / 100));
-
-				$("#edit_mkdn").find("#markdown_price").val(formatAsMoney(price));
-
-				$("#edit_mkdn").find("#markdown_amount").on('keyup', function (e) {
-					price = start_price;
-
-					newDiscount = $(this).val();
-
-					if (newDiscount < 0)
+				bootbox.confirm("Are you sure you want to save the default Sides and Sweets pricing and visibility? This cannot be undone.", function (result) {
+					if (result)
 					{
-						newDiscount = 0;
-						$(this).val(newDiscount);
-					}
-
-					if (newDiscount > 20)
-					{
-						newDiscount = 20;
-						$(this).val(newDiscount);
-					}
-
-					price -= (price * (newDiscount / 100));
-					$("#edit_mkdn").find("#markdown_price").val(formatAsMoney(price));
-				});
-
-				$("#edit_mkdn").find("#markdown_price").on('keyup', function (e) {
-
-					let targetPrice = $(this).val();
-					let newPercentage = ((start_price - targetPrice) / start_price) * 100;
-
-					$("#edit_mkdn").find("#markdown_amount").val(formatAsMoney(newPercentage));
-
-				});
-
-				$("#edit_mkdn").find("#current_price").html("$" + formatAsMoney(menuInfo.mid[itemID].price));
-
-				$("#edit_mkdn").find("#base_price").html("$" + formatAsMoney(menuInfo.mid[itemID].base_price));
-
-				$("#edit_mkdn").find("#item_title").html(menuInfo.mid[itemID].menu_item_name);
-
-			},
-			buttons: {
-				Accept: function () {
-
-					let start_price = getPreviewItemPrice(itemID);
-
-					let newPercentage = $("#edit_mkdn").find("#markdown_amount").val();
-					if (newPercentage > 20)
-					{
-						newPercentage = 20;
-						price = (start_price * (newPercentage / 100));
-						$("#edit_mkdn").find("#markdown_amount").val(formatAsMoney(newPercentage));
-						$("#edit_mkdn").find("#markdown_price").val(formatAsMoney(start_price - price));
-
-						dd_message({
-							title: 'Error',
-							message: "The percentage of discount is limited to 20%. The amounts have been adjusted. Please review and re-submit."
-						});
-						return;
-
-					}
-					else if (newPercentage < 0)
-					{
-						newPercentage = 0;
-						$("#edit_mkdn").find("#markdown_amount").val(formatAsMoney(newPercentage));
-						$("#edit_mkdn").find("#markdown_price").val(formatAsMoney(start_price));
-
-						dd_message({
-							title: 'Error',
-							message: "The percentage of discount cannot be negative. The amounts have been adjusted. Please review and re-submit."
-						});
-						return;
-
-					}
-
-					$('#mkdn_' + itemID).html(formatAsMoney(newPercentage) + "%");
-					$('#mkdn_' + itemID).data('markdown_value', newPercentage);
-					calculatePage();
-
-					$(this).remove();
-				},
-				Cancel: function () {
-					$(this).remove();
-				}
-			}
-		});
-
-		return false;
-	});
-
-	// handle_add_new_markdown
-	$(document).on('click', '[id^=add-mkdn_]', function (e) {
-
-		tempArr = this.id.split("_");
-		let itemID = tempArr[1];
-
-		let markdownVal = $(this).data('markdown_value');
-		let markdownID = $(this).data('markdown_id');
-
-		dd_message({
-			title: 'Add Markdown',
-			div_id: "new_mkdn",
-			message: $("#markdown_editor").html(),
-			height: 350,
-			width: 400,
-			resizable: true,
-			noOk: true,
-			open: function () {
-				$("#new_mkdn").find("#markdown_amount").val(markdownVal);
-
-				let start_price = getPreviewItemPrice(itemID);
-
-				$("#new_mkdn").find("#markdown_price").val(formatAsMoney(start_price));
-				$("#new_mkdn").find("#markdown_amount").val(formatAsMoney(0));
-
-				$("#new_mkdn").find("#markdown_amount").on('keyup', function (e) {
-					price = start_price;
-					newDiscount = $(this).val();
-
-					if (newDiscount < 0)
-					{
-						newDiscount = 0;
-						$(this).val(newDiscount);
-					}
-
-					if (newDiscount > 20)
-					{
-						newDiscount = 20;
-						$(this).val(newDiscount);
-					}
-
-					price -= (price * (newDiscount / 100));
-					$("#new_mkdn").find("#markdown_price").val(formatAsMoney(price));
-				});
-
-				$("#new_mkdn").find("#markdown_price").on('keyup', function (e) {
-
-					let targetPrice = $(this).val();
-					let newPercentage = ((start_price - targetPrice) / start_price) * 100;
-
-					$("#new_mkdn").find("#markdown_amount").val(formatAsMoney(newPercentage));
-
-				});
-
-				$("#new_mkdn").find("#current_price").html("$" + formatAsMoney(menuInfo.mid[itemID].price));
-
-				$("#new_mkdn").find("#base_price").html("$" + formatAsMoney(menuInfo.mid[itemID].base_price));
-
-				$("#new_mkdn").find("#item_title").html(menuInfo.mid[itemID].menu_item_name);
-
-			},
-			buttons: {
-				Accept: function () {
-					let start_price = getPreviewItemPrice(itemID);
-
-					let newPercentage = $("#new_mkdn").find("#markdown_amount").val();
-					if (newPercentage > 20)
-					{
-						newPercentage = 20;
-						price = (start_price * (newPercentage / 100));
-						$("#new_mkdn").find("#markdown_amount").val(formatAsMoney(newPercentage));
-						$("#new_mkdn").find("#markdown_price").val(formatAsMoney(start_price - price));
-
-						dd_message({
-							title: 'Error',
-							message: "The percentage of discount is limited to 20%. The amounts have been adjusted. Please review and re-submit."
-						});
-						return;
-
-					}
-					else if (newPercentage < 0)
-					{
-						newPercentage = 0;
-						$("#new_mkdn").find("#markdown_amount").val(formatAsMoney(newPercentage));
-						$("#new_mkdn").find("#markdown_price").val(formatAsMoney(start_price));
-
-						dd_message({
-							title: 'Error',
-							message: "The percentage of discount cannot be negative. The amounts have been adjusted. Please review and re-submit."
-						});
-						return;
-
-					}
-
-					let new_button = '<button class="button" id="mkdn_' + itemID + '" data-org_val="0" data-markdown_id="new" data-markdown_value="' + newDiscount + '" >' + formatAsMoney(newDiscount) + '%</button>';
-					$('#add-mkdn_' + itemID).replaceWith(new_button);
-					calculatePage();
-
-					$(this).remove();
-
-				},
-				Cancel: function () {
-					$(this).remove();
-				}
-			}
-		});
-
-		return false;
-	});
-
-	$(document).on('click', '#add_past_menu_item:not(.disabled)', function (e) {
-
-		displayModalWaitDialog('wait_for_adding_item_div', "Retrieving items. Please wait ...");
-
-		showPopup({
-			modal: true,
-			title: 'Add EFL Item',
-			noOk: true,
-			closeOnEscape: false,
-			height: 720,
-			div_id: 'add_menu_item_popup_div',
-			module: 'page=admin_menu_editor_add_item&menu_id=' + menuInfo.menu_id,
-			open: function (event, ui) {
-				$(this).parent().find('.ui-dialog-titlebar-close').hide();
-				$("#wait_for_adding_item_div").remove();
-			},
-			buttons: {
-				Cancel: function () {
-					$(this).remove();
-				},
-				Okay: function () {
-
-					let entreeList = {};
-
-					$('#sel_list').find('[data-rmv_menu_item]').each(function () {
-
-						let thisEntree = $(this).data('entree_id');
-						entreeList[thisEntree] = thisEntree;
-
-					});
-
-					dd_message({
-						title: '',
-						message: 'This will immediately add the listed items to the menu. Are you sure?',
-						noOk: true,
-						height: 180,
-						buttons: {
-							'Add Items to Menu': function () {
-
-								$.ajax({
-									url: 'ddproc.php',
-									type: 'POST',
-									timeout: 20000,
-									dataType: 'json',
-									data: {
-										processor: 'admin_menuEditor',
-										store_id: STORE_DETAILS.id,
-										op: 'add_menu_item',
-										menu_id: menuInfo.menu_id,
-										entree_ids: entreeList
-									},
-									success: function (json) {
-										if (json.processor_success)
-										{
-											for (let entree_id in json.results)
-											{
-												let count = json.results[entree_id]['count'];
-												let items = json.results[entree_id]['items'];
-
-												let handledCount = 1;
-												for (let id in items)
-												{
-													// update json array with latest data
-													menuInfo = json.menuInfo;
-
-													addUnsavedEFLItem(items[id].item_id, items[id].name, items[id].size, items[id].base_price, handledCount, count);
-													handledCount++;
-
-												}
-												calculatePage();
-
-												if (handledCount > 1)
-												{
-													$("#empty_menu_message").remove();
-												}
-											}
-										}
-										else
-										{
-											dd_message({
-												title: 'Error',
-												message: json.processor_message
-											});
-										}
-									},
-									error: function (objAJAXRequest, strError) {
-										response = 'Unexpected error: ' + strError;
-										dd_message({
-											title: 'Error',
-											message: response
-										});
-
-									}
-
-								});
-
-								$(this).remove();
-								$('#add_menu_item_popup_div').remove();
-
+						$.ajax({
+							url: 'ddproc.php',
+							type: 'POST',
+							timeout: 20000,
+							dataType: 'json',
+							data: {
+								processor: 'admin_menu_editor',
+								store_id: STORE_DETAILS.id,
+								op: operation,
+								prices: prices
 							},
-							'Cancel': function () {
-								$(this).remove();
-							}
-						}
-					});
-				}
-
-			},
-			close: function () {
-				bounce('main.php?page=admin_menu_editor&tabs=menu.efl');
-			}
-		});
-
-	});
-
-	$(document).on('click', '[data-add_menu_item]', function (e) {
-		// prevent multiple submissions
-		if ($(this).hasClass('disabled'))
-		{
-
-		}
-		else
-		{
-			$(this).addClass('disabled');
-
-			let entree_id = $(this).data('entree_id');
-			let recipe_id = $(this).data('recipe_id');
-
-			let tr = $('[data-recipe_id_row="' + recipe_id + '"]').clone();
-
-			tr.find("[data-rmv_menu_item=" + entree_id + "]").show();
-			tr.find("[data-add_menu_item=" + entree_id + "]").remove();
-
-			$("#selected_items tbody").append(tr);
-		}
-
-	});
-
-	$(document).on('click', '[data-rmv_menu_item]', function (e) {
-
-		let entree_id = $(this).data('entree_id');
-		let recipe_id = $(this).data('recipe_id');
-
-		$('#selected_items tbody [data-recipe_id_row="' + recipe_id + '"]').remove();
-		let org_tr = $('#recipe_list tbody [data-recipe_id_row="' + recipe_id + '"]');
-		org_tr.find('[data-add_menu_item="' + entree_id + '"]').removeClass('disabled');
-
-	});
-
-	$(document).on('click', '[data-info_menu_item]', function (e) {
-
-		let entree_id = $(this).data('entree_id');
-		let recipe_id = $(this).data('recipe_id');
-
-		$.ajax({
-			url: 'ddproc.php',
-			type: 'POST',
-			timeout: 20000,
-			dataType: 'json',
-			data: {
-				processor: 'admin_menuEditor',
-				store_id: STORE_DETAILS.id,
-				op: 'menu_item_info',
-				menu_id: menuInfo.menu_id,
-				entree_id: entree_id,
-				recipe_id: recipe_id
-			},
-			success: function (json) {
-				dd_message({
-					modal: true,
-					title: 'Item Information',
-					height: 720,
-					width: 720,
-					message: json.data,
-					open: function () {
-						handle_tabbed_content();
-					}
-				});
-
-			},
-			error: function (objAJAXRequest, strError) {
-				response = 'Unexpected error: ' + strError;
-				dd_message({
-					title: 'Error',
-					message: response
-				});
-
-			}
-
-		});
-	});
-
-	//////---------Add past Sides & Sweets
-
-	$(document).on('click', '#add_past_menu_item_sides', function (e) {
-
-		displayModalWaitDialog('wait_for_adding_item_div', "Retrieving Sides & Sweets. Please wait ...");
-
-		showPopup({
-			modal: true,
-			title: 'Add Sides & Sweets',
-			noOk: true,
-			closeOnEscape: false,
-			height: 720,
-			div_id: 'add_menu_item_popup_div',
-			module: 'page=admin_menu_editor_add_sides_sweets&menu_id=' + menuInfo.menu_id,
-			open: function (event, ui) {
-				$(this).parent().find('.ui-dialog-titlebar-close').hide();
-				$("#wait_for_adding_item_div").remove();
-			},
-			buttons: {
-				Cancel: function () {
-					$(this).remove();
-				},
-				Okay: function () {
-
-					let entreeList = {};
-
-					let errorMissingCategory = false;
-					$('#sel_list').find('[data-rmv_menu_side]').each(function () {
-
-						let thisEntree = $(this).data('entree_id');
-						entreeList[thisEntree] = thisEntree;
-						let categoryLabel = $("[data-recipe_category=" + thisEntree + "]:visible").find(":selected").val();
-						if (typeof categoryLabel == 'undefined'){
-							categoryLabel = $("[data-recipe_category=" + thisEntree + "]:visible").html();
-						}
-
-						if (typeof categoryLabel == 'undefined')
-						{
-
-							$("[data-recipe_category=" + thisEntree + "]").css("border-color", "red");
-							errorMissingCategory = true;
-						}else{
-							entreeList[thisEntree] = categoryLabel;
-						}
-					});
-
-					if (errorMissingCategory)
-					{
-						console.log('Missing');
-
-						dd_message({
-							title: 'Please select a category for all items',
-							message: 'Please select a category for all items'
-						});
-					}
-					else
-					{
-						dd_message({
-							title: '',
-							message: 'This will immediately add the listed Sides & Sweets to the menu. Are you sure?',
-							noOk: true,
-							height: 180,
-							buttons: {
-								'Add Sides & Sweets to Menu': function () {
-
-									$.ajax({
-										url: 'ddproc.php',
-										type: 'POST',
-										timeout: 20000,
-										dataType: 'json',
-										data: {
-											processor: 'admin_menuEditor',
-											store_id: STORE_DETAILS.id,
-											op: 'add_menu_side',
-											menu_id: menuInfo.menu_id,
-											entree_ids: entreeList
-										},
-										success: function (json) {
-											if (json.processor_success)
-											{
-												let handledCount = 0;
-												for (let entree_id in json.results)
-												{
-													let count = json.results[entree_id]['count'];
-													let items = json.results[entree_id]['items'];
-
-													let handledCount = 1;
-													for (let id in items)
-													{
-														// update json array with latest data
-														menuInfo = json.menuInfo;
-
-														addUnsavedSideItem(items[id].item_id, items[id].name, items[id].size, items[id].base_price, items[id].subcategory_label);
-														handledCount++;
-
-													}
-												}
-
-												calculatePage();
-
-												if (handledCount > 1)
-												{
-													$("#empty_menu_message").remove();
-												}
-
-												$([
-													document.documentElement,
-													document.body
-												]).animate({
-													scrollTop: $("#temp_category").offset().top
-												}, 2000);
-											}
-											else
-											{
-												dd_message({
-													title: 'Error adding Sides & Sweets',
-													message: json.processor_message
-												});
-											}
-										},
-										error: function (objAJAXRequest, strError) {
-											response = 'Unexpected error: ' + strError;
-											dd_message({
-												title: 'Network Error adding Sides and Sweets',
-												message: response
-											});
-
-										}
-
+							success: function (json) {
+								if (json.processor_success)
+								{
+									$.each(json.pricingData, function (recipe_id, pricing_type) {
+										$.each(pricing_type, function (pricing_type, pricing) {
+											$('.override-price-input[data-recipe_id="' + recipe_id + '"][data-pricing_type="' + pricing_type + '"]:not([readonly])').val(pricing.default_price).trigger('change');
+										});
 									});
-
-									$(this).remove();
-									$('#add_menu_item_popup_div').remove();
-
-								},
-								'Cancel': function () {
-									$(this).remove();
 								}
+							},
+							error: function (objAJAXRequest, strError) {
+								response = 'Unexpected error: ' + strError;
+								dd_message({
+									title: 'Error',
+									message: response
+								});
 							}
+
 						});
-					}
-				}
-
-			},
-			close: function () {
-				bounce('main.php?page=admin_menu_editor&tabs=menu.efl');
-			}
-		});
-
-	});
-
-	$(document).on('change', '[data-recipe_category]', function (e) {
-		let categoryLabel = $(this).find(":selected").val();
-
-		if (typeof categoryLabel == 'undefined')
-		{
-			$(this).css("border-color", "red");
-		}
-		else
-		{
-			$(this).css("border-color", "black");
-		}
-	});
-
-	$(document).on('click', '[data-add_menu_side]', function (e) {
-		// prevent multiple submissions
-		if ($(this).hasClass('disabled'))
-		{
-
-		}
-		else
-		{
-			$(this).addClass('disabled');
-
-			let entree_id = $(this).data('entree_id');
-			let recipe_id = $(this).data('recipe_id');
-
-			let tr = $('[data-recipe_id_row="' + recipe_id + '"]').clone();
-
-			tr.find("[data-rmv_menu_side=" + entree_id + "]").show();
-			tr.find("[data-add_menu_side=" + entree_id + "]").remove();
-
-			tr.find("[data-recipe_category=" + entree_id + "]").show();
-
-			let oldCategory = tr.find("[data-old_category=" + entree_id + "]").html();
-
-			tr.find("[data-old_category=" + entree_id + "]").remove();
-
-			$("#selected_items tbody").append(tr);
-
-			$("[data-recipe_category=" + entree_id + "]").val(oldCategory);
-		}
-
-	});
-
-	$(document).on('click', '[data-rmv_menu_side]', function (e) {
-
-		let entree_id = $(this).data('entree_id');
-		let recipe_id = $(this).data('recipe_id');
-
-		$('#selected_items tbody [data-recipe_id_row="' + recipe_id + '"]').remove();
-		let org_tr = $('#recipe_list tbody [data-recipe_id_row="' + recipe_id + '"]');
-		org_tr.find('[data-add_menu_side="' + entree_id + '"]').removeClass('disabled');
-
-	});
-
-	$(document).on('click', '[data-info_menu_side]', function (e) {
-
-		let entree_id = $(this).data('entree_id');
-		let recipe_id = $(this).data('recipe_id');
-
-		$.ajax({
-			url: 'ddproc.php',
-			type: 'POST',
-			timeout: 20000,
-			dataType: 'json',
-			data: {
-				processor: 'admin_menuEditor',
-				store_id: STORE_DETAILS.id,
-				op: 'menu_item_info',
-				menu_id: menuInfo.menu_id,
-				entree_id: entree_id,
-				recipe_id: recipe_id
-			},
-			success: function (json) {
-				dd_message({
-					modal: true,
-					title: 'Item Information',
-					height: 720,
-					width: 720,
-					message: json.data,
-					open: function () {
-						handle_tabbed_content();
+						return true;
 					}
 				});
-
-			},
-			error: function (objAJAXRequest, strError) {
-				response = 'Unexpected error: ' + strError;
-				dd_message({
-					title: 'Error',
-					message: response
-				});
-
 			}
 
-		});
+		}
+
 	});
+
 });
