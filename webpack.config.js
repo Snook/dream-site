@@ -26,7 +26,7 @@ var configAdmin = Object.assign({}, config, {
 		'script-loader!./node_modules/jquery.cookie/jquery.cookie.js',
 		'script-loader!./node_modules/scrolltofixed/jquery-scrolltofixed.js',
 		'script-loader!./node_modules/cleave.js/dist/cleave.js',
-		'script-loader!./src/www/theme/dreamdinners/js/customer/vendor/jquery.ba-dotimeout.js',
+		'script-loader!./src/www/theme/dreamdinners/js/vendor/jquery.ba-dotimeout.js',
 		'script-loader!./node_modules/jquery-ui/dist/jquery-ui.js'
 	],
 	output: {
