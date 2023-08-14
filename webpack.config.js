@@ -5,11 +5,11 @@ var config = {};
 var configCustomer = Object.assign({}, config, {
 	name: "configCustomer",
 	entry: [
-		'script-loader!./node_modules/jquery/dist/jquery.js',
-		'script-loader!./node_modules/bootstrap/dist/js/bootstrap.bundle.js',
-		'script-loader!./node_modules/bootbox/bootbox.js',
-		'script-loader!./node_modules/jquery.cookie/jquery.cookie.js',
-		'script-loader!./node_modules/cleave.js/dist/cleave.js'
+		'script-loader!jquery',
+		'script-loader!bootstrap/dist/js/bootstrap.bundle.js',
+		'script-loader!bootbox',
+		'script-loader!jquery.cookie',
+		'script-loader!cleave.js/dist/cleave.js'
 	],
 	output: {
 		filename: 'vendor.min.js',
@@ -18,16 +18,16 @@ var configCustomer = Object.assign({}, config, {
 });
 
 var configAdmin = Object.assign({}, config, {
-	name: "configCustomer",
+	name: "configAdmin",
 	entry: [
-		'script-loader!./node_modules/jquery/dist/jquery.js',
-		'script-loader!./node_modules/bootstrap/dist/js/bootstrap.bundle.js',
-		'script-loader!./node_modules/bootbox/bootbox.js',
-		'script-loader!./node_modules/jquery.cookie/jquery.cookie.js',
-		'script-loader!./node_modules/scrolltofixed/jquery-scrolltofixed.js',
-		'script-loader!./node_modules/cleave.js/dist/cleave.js',
-		'script-loader!./src/www/theme/dreamdinners/js/vendor/jquery.ba-dotimeout.js',
-		'script-loader!./node_modules/jquery-ui/dist/jquery-ui.js'
+		'script-loader!jquery',
+		'script-loader!bootstrap/dist/js/bootstrap.bundle.js',
+		'script-loader!bootbox',
+		'script-loader!jquery.cookie',
+		'script-loader!cleave.js/dist/cleave.js',
+		'script-loader!scrolltofixed',
+		'script-loader!jquery-ui',
+		'script-loader!./src/www/theme/dreamdinners/js/vendor/jquery.ba-dotimeout.js'
 	],
 	output: {
 		filename: 'vendor.min.js',
