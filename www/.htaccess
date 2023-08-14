@@ -97,9 +97,6 @@ RewriteRule ^ - [E=protossl:s]
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 RewriteRule ^ http%{ENV:protossl}://%1%{REQUEST_URI} [L,R=301]
 
-# Disable reading of map files, comment out to debug site
-RedirectMatch 403 ^/.+\.(map)$
-
 # handle script/css cache defeat
 RewriteRule ^theme/(.+)/(scripts|css)/[0-9]+/admin/(.+)$ /theme/$1/$2/admin/$3 [L]
 RewriteRule ^theme/(.+)/(scripts|css)/[0-9]+/(.+)$ /theme/$1/$2/$3 [L]
