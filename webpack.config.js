@@ -10,7 +10,8 @@ var configCustomer = Object.assign({}, config, {
 		'script-loader!bootstrap/dist/js/bootstrap.bundle.js',
 		'script-loader!bootbox',
 		'script-loader!jquery.cookie',
-		'script-loader!cleave.js/dist/cleave.js'
+		'script-loader!cleave.js/dist/cleave.js',
+		'script-loader!scrolltofixed'
 	],
 	output: {
 		filename: 'vendor.min.js',
