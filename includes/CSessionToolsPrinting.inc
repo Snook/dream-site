@@ -395,7 +395,7 @@ class CSessionToolsData
 
 		if ($minimum->getMinimumType() == COrderMinimum::ITEM)
 		{
-			return 'Standard order is ' . $minimum->getMinimum() . ' meals.';
+			return 'Qualifying order is ' . $minimum->getMinimum() . ' meals.';
 		}
 
 		if ($minimum->getMinimumType() == COrderMinimum::SERVING)
@@ -1303,7 +1303,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->Image($stars_image_path, $star_xPos, $yPos + .25, $width, $height);
 	}
 
-	function printMenuToolRow($menuItemArray, $yPos, $count, $globalRating)
+	function printMenuToolRow($menuItemArray, $yPos, $count, $globalRating, $includeFooterHr = false)
 	{
 		$this->showBorders = 0;
 
@@ -1375,6 +1375,15 @@ class CSessionToolsPDFDrawer
 					$icon_xpos_offset = $icon_xpos_offset - $icon_size;
 				}
 			}
+
+			if (defined('SERVER_ENV') && SERVER_ENV !== 'LIVE')
+			{
+				if (!empty($this->data->userInfo) && !empty($menuItemArray['entree']->DAO_food_survey->would_order_again) && $menuItemArray['entree']->DAO_food_survey->would_order_again == 1)
+				{
+					$stars_image_path = ASSETS_PATH . '/pdf_label/paper_menu/star_rate.png';
+					$this->pdf->Image($stars_image_path, $icon_xpos_offset, $icon_ypos_offset, $icon_size);
+				}
+			}
 		}
 
 		if (!empty($menuItemArray['entree']->menu_label))
@@ -1383,11 +1392,15 @@ class CSessionToolsPDFDrawer
 			$this->pdf->MultiCellTag(76, 3, "<t9lg>" . $menuItemArray['entree']->menu_label . "</t9lg>", $this->showBorders, 'L');
 		}
 
-		// favorite
-		if (!empty($this->data->userInfo) && !empty($menuItemArray['entree']->DAO_food_survey->would_order_again) && $menuItemArray['entree']->DAO_food_survey->would_order_again == 1)
+
+		if (defined('SERVER_ENV') && SERVER_ENV === 'LIVE')
 		{
-			$this->pdf->SetXY($cellLeftMargin + 32, $RatingyPos + .5);
-			$this->pdf->MultiCellTag(76, 3, "<t9rb>FAVORITE</t9rb>", $this->showBorders, 'L');
+			// favorite
+			if (!empty($this->data->userInfo) && !empty($menuItemArray['entree']->DAO_food_survey->would_order_again) && $menuItemArray['entree']->DAO_food_survey->would_order_again == 1)
+			{
+				$this->pdf->SetXY($cellLeftMargin + 32, $RatingyPos + .5);
+				$this->pdf->MultiCellTag(76, 3, "<t9rb>FAVORITE</t9rb>", $this->showBorders, 'L');
+			}
 		}
 
 		// Description
@@ -1414,9 +1427,13 @@ class CSessionToolsPDFDrawer
 			$price_xPos += 11;
 		}
 
-		// footer hr
-		$this->pdf->SetFillColor($this->color['light_green']['r'], $this->color['light_green']['g'], $this->color['light_green']['b']);
-		$this->pdf->Rect(5, CSessionToolsPDF::kPAGE_HEIGHT - 24, 205, .5, 'F');
+		if($includeFooterHr)
+		{
+			// footer hr
+			$this->pdf->SetFillColor($this->color['light_green']['r'], $this->color['light_green']['g'], $this->color['light_green']['b']);
+			$this->pdf->Rect(5, CSessionToolsPDF::kPAGE_HEIGHT - 24, 205, .5, 'F');
+		}
+
 	}
 
 	function printMenuToolRow_RecipeExpert($menuItemArray, $yPos, $count, $row_height)
@@ -1919,20 +1936,31 @@ class CSessionToolsPDFDrawer
 		$this->pdf->MultiCellTag(CSessionToolsPDF::lPAGE_WIDTH - (CSessionToolsPDF::kLEFT_MARGIN * 2), 4, "<t9>Flavor Profile Key:     As - Asian     A - American     C - Classic Comfort     I - Italian     M - Mexican</t9>", $this->showBorders, 'C');
 	}
 
-	function printMenuNotes($yPos, $includeQRcode = false, $qrData = null)
+	function printMenuNotes($yPos, $includePrintedOn = false, $includeQRcode = false, $qrData = null)
 	{
+
+		$printedNote = '';
+		if ($includePrintedOn)
+		{
+			$dt = new DateTime("now");
+			$printedNote = "Pricing subject to change. Printed on: {$dt->format('F d, Y')}";
+		}
+
+		$note = "Foods prepared at Dream Dinners may contain allergens introduced during the assembly process. Potential food allergies include: milk, casein, whey, egg, albumin, shellfish, tree nuts, wheat, gluten, peanuts and soy beans. {$this->data->minimumNote} {$printedNote}";
+
 		$textAlign = 'C';
 		if ($includeQRcode)
 		{
 			$textAlign = 'L';
 		}
-		$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN, $yPos);
-		$this->pdf->MultiCellTag(CSessionToolsPDF::kPAGE_WIDTH - 30, 3, "<t8>Foods prepared at Dream Dinners may contain allergens introduced during the assembly process. Potential food allergies include: milk, casein, whey, egg, albumin, shellfish, tree nuts, wheat, gluten, peanuts and soy beans. {$this->data->minimumNote}</t8>", $this->showBorders, $textAlign);
+		$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN, $yPos + 6);
+		$this->pdf->MultiCellTag(CSessionToolsPDF::kPAGE_WIDTH - 30, 3, "<t7>{$note}</t7>", $this->showBorders, $textAlign);
 
 		if ($includeQRcode)
 		{
 			$this->pdf->Image($this->getStoreMenuQrCodePath($qrData->store_id, $qrData->menu_id, false), CSessionToolsPDF::kPAGE_WIDTH - 22, $yPos, 18);
 		}
+
 	}
 
 	function printMenuNotes_Intro($yPos)
@@ -1978,7 +2006,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->RotatedText("<h8>{$this->data->storeInfo->store_name} - {$addressLine} - {$contactLine}</h8>", 90);
 	}
 
-	function printIconLegend($yPos, $xPos)
+	function printIconLegend($yPos, $xPos, $addFavoriteStar = false)
 	{
 		$x_offset = 0;
 		$count = 0;
@@ -2002,6 +2030,17 @@ class CSessionToolsPDFDrawer
 				$this->pdf->MultiCellTag($cell_width, 4, $icon['label'], $this->showBorders, 'L');
 				$x_offset += $cell_width;
 			}
+		}
+
+		if($addFavoriteStar)
+		{
+			$this->pdf->Image(ASSETS_PATH . '/pdf_label/paper_menu/star_rate.png', CSessionToolsPDF::kLEFT_MARGIN + $xPos + $x_offset, $yPos, 3.5);
+
+			$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN + $xPos + $x_offset + 3.5, $yPos);
+			$this->pdf->SetFont('helvetica', '', 6);
+			$this->pdf->SetTextColor(0);
+			$cell_width = $this->pdf->GetStringWidth('Personal Favorite') + 6;
+			$this->pdf->MultiCellTag($cell_width, 4, 'Personal Favorite', $this->showBorders, 'L');
 		}
 	}
 
@@ -2365,7 +2404,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->SetDrawColor(0);
 	}
 
-	function printStoreSummary($yPos, $includePrintedOn = false, $align = 'C')
+	function printStoreSummary($yPos, $includePrintedOn = false, $align = 'C', $includeStoreName = true)
 	{
 		$streetAddress = $this->data->storeInfo->address_line1;
 		if (!empty($this->data->storeInfo->address_line2))
@@ -2377,20 +2416,26 @@ class CSessionToolsPDFDrawer
 
 		$contactLine = $this->data->storeInfo->email_address . " - " . $this->data->storeInfo->telephone_day;
 
-		$printedOnPadding = 0;
+		$printedOnPadding = -1;
 		if ($includePrintedOn)
 		{
 			$printedOnPadding = 3;
 		}
 
+		$storeName = $this->data->storeInfo->store_name . ' - ';
+		if(!$includeStoreName)
+		{
+			$storeName = '';
+		}
+
 		$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN, $yPos - $printedOnPadding);
-		$this->pdf->MultiCellTag(CSessionToolsPDF::kPAGE_WIDTH - 16, 4, "<t8>{$this->data->storeInfo->store_name} - {$addressLine} - {$contactLine}</t8>", $this->showBorders, $align);
+		$this->pdf->MultiCellTag(CSessionToolsPDF::kPAGE_WIDTH - 16, 4, "<t7>{$storeName}{$addressLine} - {$contactLine}</t7>", $this->showBorders, $align);
 
 		if ($includePrintedOn)
 		{
 			$dt = new DateTime("now");
 			$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN, $yPos + 2);
-			$this->pdf->MultiCellTag(CSessionToolsPDF::kPAGE_WIDTH - 16, 4, "<t8>Pricing subject to change. Printed on: {$dt->format('F d, Y')}</t8>", $this->showBorders, $align);
+			$this->pdf->MultiCellTag(CSessionToolsPDF::kPAGE_WIDTH - 16, 4, "<t7>Pricing subject to change. Printed on: {$dt->format('F d, Y')}</t7>", $this->showBorders, $align);
 		}
 	}
 
@@ -2422,14 +2467,15 @@ class CSessionToolsPDFDrawer
 					$yPos = 27.5;
 				}
 
-				$this->printMenuToolRow($menuItemArray, $yPos, $count, $globalRating);
+				$this->printMenuToolRow($menuItemArray, $yPos, $count, $globalRating, false);
 				$yPos += self::kHEADER_ROW_HEIGHT + 7.5;
 			}
 		}
 
 		$this->printSessionAndPaymentSummary(CSessionToolsPDF::kPAGE_HEIGHT - 68, CSessionToolsPDF::kLEFT_MARGIN + 100, $count);
-		$this->printMenuNotes(CSessionToolsPDF::kPAGE_HEIGHT - 21, true, $this->data);
-		$this->printStoreSummary(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 15.5, true, 'L');
+		$this->printIconLegend(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 28, 0, true);
+		$this->printMenuNotes(CSessionToolsPDF::kPAGE_HEIGHT - 21, true, true, $this->data);
+		$this->printStoreSummary(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 15.5, false, 'L', false);
 	}
 
 	function printNextMonthsMenuPDF()
@@ -2466,8 +2512,9 @@ class CSessionToolsPDFDrawer
 		}
 
 		$this->printSessionAndPaymentSummary(CSessionToolsPDF::kPAGE_HEIGHT - 68, CSessionToolsPDF::kLEFT_MARGIN + 100, $count);
-		$this->printMenuNotes(CSessionToolsPDF::kPAGE_HEIGHT - 21, true, $this->data);
-		$this->printStoreSummary(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 15.5, true, 'L');
+		$this->printIconLegend(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 28, 0, true);
+		$this->printMenuNotes(CSessionToolsPDF::kPAGE_HEIGHT - 21, true, true, $this->data);
+		$this->printStoreSummary(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 15.5, false, 'L', false);
 	}
 
 	function printFreezerListPDF()
@@ -2749,8 +2796,9 @@ class CSessionToolsPDFDrawer
 		}
 
 		$this->printSessionAndPaymentSummary(CSessionToolsPDF::kPAGE_HEIGHT - 68, CSessionToolsPDF::kLEFT_MARGIN + 100, $count);
-		$this->printStoreSummary(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 15.5, true, 'L');
-		$this->printMenuNotes(CSessionToolsPDF::kPAGE_HEIGHT - 21, true, $this->data);
+		$this->printIconLegend(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 28, 0, false);
+		$this->printMenuNotes(CSessionToolsPDF::kPAGE_HEIGHT - 21, true, true, $this->data);
+		$this->printStoreSummary(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 15.5, false, 'L', false);
 	}
 
 	function printTextMessageReminders($xPos, $yPos)
