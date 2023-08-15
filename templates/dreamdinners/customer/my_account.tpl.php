@@ -82,7 +82,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Your link</span>
 							</div>
-							<input type="text" id="my_share_pp_link" class="form-control" aria-label="Your referral link" value="<?php echo HTTPS_BASE; ?>share/<?php echo CUser::getCurrentUser()->id; ?>">
+							<input type="text" id="my_share_pp_link" class="form-control" aria-label="Your referral link" value="<?php echo HTTPS_BASE; ?>share/<?php echo CUser::getCurrentUser()->id; ?>" readonly />
 							<div class="input-group-append">
 								<button class="input-group-text btn-clip" data-toggle="tooltip" data-placement="top" title="Copy link to clipboard"  data-clipboard-target="#my_share_pp_link" ><i class="fas fa-clipboard-list"></i></button>
 							</div>
