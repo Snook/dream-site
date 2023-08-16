@@ -320,6 +320,11 @@ class CBooking extends DAO_Booking
 
 	static function userBookingHistory($user_ids, $store_id, $session_start)
 	{
+		if (empty($user_ids))
+		{
+			return false;
+		}
+
 		$userHistory = DAO_CFactory::create('booking');
 		/*
 		 * TODO: last_session_id_attended, booking_type, session_type are not accurate!
