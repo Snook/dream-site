@@ -97,7 +97,7 @@ class CUserPreferred extends DAO_User_preferred
 		$preferredObj = $orderObj->getPreferredObj();
 
 		//short circuit case for when cap is set to none
-		if ($preferredObj->preferred_cap_type == CUserPreferred::PREFERRED_CAP_NONE)
+		if ($preferredObj && $preferredObj->preferred_cap_type == CUserPreferred::PREFERRED_CAP_NONE)
 		{
 			$result->hasBeenMet = false;
 			$remainingInfo->type = $preferredObj->preferred_cap_type;
@@ -125,8 +125,11 @@ class CUserPreferred extends DAO_User_preferred
 		{
 			$result->hasBeenMet = false;
 
-			$remainingInfo->type = $preferredObj->preferred_cap_type;
-			$remainingInfo->countRemaining = $preferredObj->preferred_cap_value;
+			if ($preferredObj)
+			{
+				$remainingInfo->type = $preferredObj->preferred_cap_type;
+				$remainingInfo->countRemaining = $preferredObj->preferred_cap_value;
+			}
 
 			$result->remainingObj = $remainingInfo;
 
@@ -161,24 +164,31 @@ class CUserPreferred extends DAO_User_preferred
 		}
 
 		//If switch between the two in a single month, and an order is already placed, then the current one will be applied.
-		if (($preferredObj->preferred_cap_type == CUserPreferred::PREFERRED_CAP_ITEMS && $countTowardsItemCap >= $preferredObj->preferred_cap_value) ||
-			($preferredObj->preferred_cap_type == CUserPreferred::PREFERRED_CAP_SERVINGS && $countTowardsServingsCap >= $preferredObj->preferred_cap_value))
+		if ($preferredObj)
 		{
-			$result->hasBeenMet = true;
-			$result->remainingObj = new stdClass();
-			$result->remainingObj->type = null;
-			$result->remainingObj->countRemaining = null;
+			if (($preferredObj->preferred_cap_type == CUserPreferred::PREFERRED_CAP_ITEMS && $countTowardsItemCap >= $preferredObj->preferred_cap_value) || ($preferredObj->preferred_cap_type == CUserPreferred::PREFERRED_CAP_SERVINGS && $countTowardsServingsCap >= $preferredObj->preferred_cap_value))
+			{
+				$result->hasBeenMet = true;
+				$result->remainingObj = new stdClass();
+				$result->remainingObj->type = null;
+				$result->remainingObj->countRemaining = null;
 
-			return $result;
+				return $result;
+			}
 		}
 
 		$result->hasBeenMet = false;
-		$remainingInfo->type = $preferredObj->preferred_cap_type;
-		if ($preferredObj->preferred_cap_type == CUserPreferred::PREFERRED_CAP_ITEMS ){
-			$remainingInfo->countRemaining = ($preferredObj->preferred_cap_value - $countTowardsItemCap );
-		}else if ($preferredObj->preferred_cap_type == CUserPreferred::PREFERRED_CAP_SERVINGS){
-			$remainingInfo->countRemaining = ($preferredObj->preferred_cap_value - $countTowardsServingsCap);
+
+		if ($preferredObj)
+		{
+			$remainingInfo->type = $preferredObj->preferred_cap_type;
+			if ($preferredObj->preferred_cap_type == CUserPreferred::PREFERRED_CAP_ITEMS ){
+				$remainingInfo->countRemaining = ($preferredObj->preferred_cap_value - $countTowardsItemCap );
+			}else if ($preferredObj->preferred_cap_type == CUserPreferred::PREFERRED_CAP_SERVINGS){
+				$remainingInfo->countRemaining = ($preferredObj->preferred_cap_value - $countTowardsServingsCap);
+			}
 		}
+
 		$result->remainingObj = $remainingInfo;
 		$result->orderAllotment= $orderAllotment;
 
