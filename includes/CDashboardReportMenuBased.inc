@@ -1323,13 +1323,17 @@ class CDashboardMenuBased
 		$currentMonthGuests->fetch();
 
 		$last_month_menu_id = $menu_id - 1;
+
 		$lastMonth = new DAO();
-		$lastMonth->query("select count(distinct b.user_id) as retained_count, GROUP_CONCAT(distinct b.user_id) as guest_list  from session s
+		if (!empty($currentMonthGuests->guest_list))
+		{
+			$lastMonth->query("select count(distinct b.user_id) as retained_count, GROUP_CONCAT(distinct b.user_id) as guest_list  from session s
                                 		join booking b on b.session_id = s.id and b.status = 'ACTIVE' and b.is_deleted = 0  and b.user_id in ({$currentMonthGuests->guest_list})
                                 		join orders o on o.id = b.order_id and o.type_of_order = 'STANDARD'
             		                      where s.menu_id = $last_month_menu_id and s.store_id = $store_id");
 
-		$lastMonth->fetch();
+			$lastMonth->fetch();
+		}
 
 		if (empty($lastMonth->retained_count))
 		{
