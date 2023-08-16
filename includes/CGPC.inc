@@ -135,14 +135,14 @@ class CGPC
 					break;
 				case TYPE_STR:
 					$data = trim(strval($data));
-					$data = filter_var($data, FILTER_SANITIZE_STRING);
+					$data = strip_tags($data);
                     $_db = mysqli_connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD);
                     mysqli_select_db($_db, DB_DATABASE);
                     $data = CGPC::safeSQL($data, $_db);
 					break;
                 case TYPE_STR_SIMPLE:
                     $data = trim(strval($data));
-                    $data = filter_var($data, FILTER_SANITIZE_STRING);
+                    $data = strip_tags($data);
                     break;
 				case TYPE_EMAIL:
 					$data = trim(strval($data));
