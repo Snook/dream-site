@@ -141,7 +141,6 @@
 									</tr>
 									<tr>
 										<td colspan="2" scope="col">
-											<div><?php echo $this->curItem['servings_per_container_str']; ?></div>
 											<div class="row font-weight-bold">
 												<div class="col">
 													Serving size
