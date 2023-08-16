@@ -2843,8 +2843,11 @@ class CSession extends DAO_Session
 		}
 
 		// query to get each session details
-		$sessionsIDs = implode(',', $sessionsIDArray);
-		$sessionDetailsArray = self::getSessionDetailArray($sessionsIDs, $get_bookings);
+		if (!empty($sessionsIDArray))
+		{
+			$sessionsIDs = implode(',', $sessionsIDArray);
+			$sessionDetailsArray = self::getSessionDetailArray($sessionsIDs, $get_bookings);
+		}
 
 		// put session details into $sessionInfoArray['sessions']
 		foreach ($sessionInfoArray['sessions'] as $date => $day)
