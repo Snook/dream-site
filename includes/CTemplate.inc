@@ -1013,6 +1013,7 @@ class CTemplate extends Savant2
 
 			// libraries
 			self::setScript($script_pos, SCRIPT_PATH . '/admin/vendor.min.js');
+			self::setScript($script_pos, SCRIPT_PATH . '/admin/vendor/jquery-ui/jquery-ui.min.js');
 
 			if (!$this->page_is_bootstrap)
 			{

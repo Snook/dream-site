@@ -29,7 +29,6 @@ var configAdmin = Object.assign({}, config, {
 		'script-loader!jquery.cookie',
 		'script-loader!cleave.js/dist/cleave.js',
 		'script-loader!scrolltofixed',
-		'script-loader!jquery-ui',
 		'script-loader!./src/www/theme/dreamdinners/js/vendor/jquery.ba-dotimeout.js'
 	],
 	output: {
