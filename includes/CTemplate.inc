@@ -1054,8 +1054,7 @@ class CTemplate extends Savant2
 		{
 			if ($msg = self::getDebugMsg())
 			{
-				$msg = addslashes(htmlspecialchars($msg));
-				self::$head_onload_array[] = 'dd_message( { message: \'' . str_replace("\n", " \\\n", $msg) . '\' } );';
+				self::$head_onload_array[] = "dd_message( { size: 'extra-large', message: '" . str_replace("\n", " \\\n", $msg) . "' } );";
 			}
 		}
 
