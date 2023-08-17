@@ -635,17 +635,17 @@ class CMenu extends DAO_Menu
 			$DAO_menu_item->whereAdd("(menu_item_inventory.override_inventory -  menu_item_inventory.number_sold) > 0");
 		}
 
-		if (!empty($optionsArray['groupBy']))
-		{
-			$DAO_menu_item->groupBy($optionsArray['groupBy']);
-		}
-		else if ($optionsArray['groupBy'] == 'EntreeID')
+		if ($optionsArray['groupBy'] == 'EntreeID')
 		{
 			$DAO_menu_item->groupBy("menu_item.entree_id");
 		}
 		else if ($optionsArray['groupBy'] == 'RecipeID')
 		{
 			$DAO_menu_item->groupBy("menu_item.recipe_id");
+		}
+		else if (!empty($optionsArray['groupBy']))
+		{
+			$DAO_menu_item->groupBy($optionsArray['groupBy']);
 		}
 		else
 		{
