@@ -121,6 +121,11 @@ class processor_admin_order_history extends CPageProcessor
 		$tpl->assign('orders', $data);
 		$tpl->assign('user_id', $user_id);
 
+		$DAO_user = DAO_CFactory::create('user');
+		$DAO_user->id = $user_id;
+		$DAO_user->find(true);
+		$tpl->assign('user', $DAO_user->toArray());
+
 		$allowPrev = $current_page > 0;
 		$tpl->assign('pagination', true);
 		$tpl->assign('pagination_prev', $allowPrev);

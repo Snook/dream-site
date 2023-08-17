@@ -10,7 +10,7 @@
 		</div>
 	</div>
 <?php } ?>
-<?php if ($this->no_more_rows) { ?>
+<?php if (!empty($this->no_more_rows)) { ?>
 	<table id="orders_history_table">
 	<tbody>
 	<tr>
@@ -74,7 +74,7 @@
 							<a class="button" href="main.php?page=admin_order_mgr&amp;order=<?php echo $order['order_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Edit</a>
 							<?php if ($order['status'] != CBooking::SAVED) {
 								$cancelPrefix = ($is_delivered ? "gd_cancel_delivered_order-" : "gd_cancel_order-"); ?>
-								<span id="<?php echo $cancelPrefix; ?><?php echo $order['id']; ?>" data-user_id="<?php echo $this->user['id']; ?>" data-store_id="<?php echo $order['store_id']; ?>" data-session_id="<?php echo $order['session_id']; ?>" data-order_id="<?php echo $order['order_id']; ?>" data-menu_id="<?php echo $order['idmenu']; ?>" class="button">Cancel Order</span>
+								<span id="<?php echo $cancelPrefix; ?><?php echo $order['id']; ?>" data-user_id="<?php echo $this->user["id"]; ?>" data-store_id="<?php echo $order['store_id']; ?>" data-session_id="<?php echo $order['session_id']; ?>" data-order_id="<?php echo $order['order_id']; ?>" data-menu_id="<?php echo $order['idmenu']; ?>" class="button">Cancel Order</span>
 							<?php } else { ?>
 								<span id="gd_delete_order-<?php echo $order['id']; ?>" data-user_id="<?php echo $this->user['id']; ?>" data-store_id="<?php echo $order['store_id']; ?>" data-session_id="<?php echo $order['session_id']; ?>" data-order_id="<?php echo $order['order_id']; ?>" data-menu_id="<?php echo $order['idmenu']; ?>" class="button">Delete Order</span>
 							<?php } } else if (!$this->emergency_mode) { ?>
