@@ -1207,7 +1207,7 @@ class COrders extends DAO_Orders
 			return $this->session;
 		}
 
-		if ($this->session->id)
+		if (!empty($this->session->id))
 		{
 			$Session = DAO_CFactory::create('session');
 			$Session->id = $this->session->id;

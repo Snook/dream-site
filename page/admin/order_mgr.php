@@ -198,14 +198,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 			}
 		}
 
-		$hasOtherOrders = OrdersHelper::getInstance()->hasOtherMenuMonthOrders($this->originalOrder->id);
-		$tpl->assign("hasOtherMenuMonthOrders", $hasOtherOrders);
-		if ($hasOtherOrders)
-		{
-			$otherOrderInfo = OrdersHelper::getInstance()->fetchOtherMenuMonthOrders($this->originalOrder->id);
-			$tpl->assign("other_order_info", $otherOrderInfo);
-		}
-
 		$tpl->assign("store_id", $this->originalOrder->store_id);
 		$tpl->assign("orderState", $this->orderState);
 
@@ -291,9 +283,16 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 		$order_minimum = null;
 
-
 		if ($this->orderState != 'NEW')
 		{
+			$hasOtherOrders = OrdersHelper::getInstance()->hasOtherMenuMonthOrders($this->originalOrder->id);
+			$tpl->assign("hasOtherMenuMonthOrders", $hasOtherOrders);
+			if ($hasOtherOrders)
+			{
+				$otherOrderInfo = OrdersHelper::getInstance()->fetchOtherMenuMonthOrders($this->originalOrder->id);
+				$tpl->assign("other_order_info", $otherOrderInfo);
+			}
+
 			// ask order to rebuild itself
 			// TODO: reconstruct should one day also reconstruct any products from the original order.
 			// as of 7/13/09 the only products are the dfl subscriptions. We will handle those specifically for now.
@@ -353,8 +352,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		$customizationDetails = new stdClass();
 		$customizationDetails->cost = $this->originalOrder->subtotal_meal_customization_fee;
 		$customizationDetails = json_encode($customizationDetails);
-		$tpl->assign('meal_customization',$customizationDetails);
-
+		$tpl->assign('meal_customization', $customizationDetails);
 
 		$tpl->assign("PlatePointsRulesVersion", $this->PlatePointsRulesVersion);
 
@@ -881,7 +879,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		// -------------------------------------Set up menu
 		if ($this->orderState != 'NEW')
 		{
-			$menuInfo = COrders::buildOrderEditMenuPlanArrays($Session->menu_id, $markup, true, $this->daoStore,'FeaturedFirst');
+			$menuInfo = COrders::buildOrderEditMenuPlanArrays($Session->menu_id, $markup, true, $this->daoStore, 'FeaturedFirst');
 
 			$ctsArray = CMenu::buildCTSArray($this->daoStore, $Session->menu_id, $markup);
 
@@ -1061,8 +1059,8 @@ class page_admin_order_mgr extends CPageAdminOnly
 									'data-menu_item_id' => $menu_item['id'],
 									'data-intro_item' => (!empty($bundleItems['bundle'][$menu_item['id']]) ? 'true' : 'false'),
 									'data-menu_category_id' => $menu_item['menu_item_category_id'],
-									'data-item_count_per_item' => empty($menu_item['item_count_per_item'])?1:$menu_item['item_count_per_item'],
-									'data-item_is_customizable' => $menu_item['item_is_customizable']?'1':'0',
+									'data-item_count_per_item' => empty($menu_item['item_count_per_item']) ? 1 : $menu_item['item_count_per_item'],
+									'data-item_is_customizable' => $menu_item['item_is_customizable'] ? '1' : '0',
 									'data-menu_class' => $categoryName
 								),
 								Cform::min => 0,
@@ -1086,7 +1084,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 								$sideStationBundleInfo[$menu_item['id']] = $subItems;
 
-								if( array_key_exists('bundle', $subItems) )
+								if (array_key_exists('bundle', $subItems))
 								{
 									foreach ($subItems['bundle'] as $sid => $subItemInfo)
 									{
@@ -1267,7 +1265,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 						'data-intro_item' => (!empty($bundleItems['bundle'][$id]) ? 'true' : 'false'),
 						'data-menu_category_id' => 9,
 						'data-menu_class' => 'Sides & Sweets',
-						'data-item_count_per_item' => empty($data['item_count_per_item'])?1:$data['item_count_per_item'],
+						'data-item_count_per_item' => empty($data['item_count_per_item']) ? 1 : $data['item_count_per_item'],
 						'data-item_is_customizable' => 0,
 						'data-index' => $index++
 					),
@@ -1612,7 +1610,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 		$Form->DefaultValues['total_bag_count'] = (is_null($this->originalOrder->total_bag_count) ? 0 : $this->originalOrder->total_bag_count);
 		$Form->DefaultValues['subtotal_meal_customization_fee'] = (is_null($this->originalOrder->subtotal_meal_customization_fee) ? 0 : $this->originalOrder->subtotal_meal_customization_fee);
 
-
 		//order/meal customizations
 		$shouldLockCustomizationFeeField = !$this->originalOrder->opted_to_customize_recipes;
 		$tpl->assign('shouldLockCustomizationFeeField', $shouldLockCustomizationFeeField);
@@ -1623,11 +1620,10 @@ class page_admin_order_mgr extends CPageAdminOnly
 		$tpl->assign('meal_customization_preferences_json', $orderCustomizationWrapper->mealCustomizationToJson());
 		$tpl->assign('meal_customization_cost', json_encode(CStoreFee::fetchCustomizationFees($this->daoStore)));
 		$hasManualCost = $this->originalOrder->subtotal_meal_customization_fee != $this->daoStore->customizationFeeForMealCount($this->originalOrder->total_customized_meal_count);
-		$tpl->assign('dont_recalculate_customization_cost', ($hasManualCost? "true":"false"));
+		$tpl->assign('dont_recalculate_customization_cost', ($hasManualCost ? "true" : "false"));
 
 		$hasCustomizationOptionsSelected = $orderCustomizationWrapper->hasMealCustomizationPreferencesSet();
 		$tpl->assign('default_meal_customization_to_selected', ((is_null($this->originalOrder->opted_to_customize_recipes) && $hasCustomizationOptionsSelected) ? true : false));
-
 
 		$shouldLockBagCountToField = !is_null($this->originalOrder->total_bag_count);
 		$tpl->assign('shouldLockBagCountToField', $shouldLockBagCountToField);
@@ -2482,7 +2478,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 					}
 				}
 
-
 				if (!empty($_POST['opted_to_bring_bags']))
 				{
 					$this->originalOrder->subtotal_bag_fee = 0.00;
@@ -2515,8 +2510,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 					}
 				}
 
-				self::adjustMealCustomizationOnOrder($this->originalOrder,$_POST);
-
+				self::adjustMealCustomizationOnOrder($this->originalOrder, $_POST);
 
 				// remember state so that we can restore some critical values if an exception occurs
 				$originalOrderPriorToUpdate = clone($this->originalOrder);
@@ -2673,7 +2667,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 							$tpl->assign('couponIsValidWithPlatePoints', true);
 						}
 					}
-
 
 					if (!isset($this->originalOrder->bundle_id) || $this->originalOrder->bundle_id === '' || $this->originalOrder->bundle_id === '0' || $this->originalOrder->bundle_id === 0)
 					{
@@ -2879,10 +2872,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				'orderInfo' => array('grand_total' => 0),
 				'paymentInfo' => array(),
 				'sessionInfo' => array(),
-				'storeInfo' => array(
-					'store_name' => $this->daoStore->store_name,
-					'default_bag_fee' => $this->daoStore->default_bag_fee
-				)
+				'storeInfo' => $this->daoStore->toArray()
 			);
 		}
 
@@ -2902,6 +2892,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			CForm::label => '<span id="OEH_auto_pay_msg"></span>'
 		));
 
+		$tpl->assign('menuInfo', false);
 		if ($this->orderState != 'NEW')
 		{
 			$tpl->assign('planArray', $planArray);
@@ -4587,7 +4578,8 @@ class page_admin_order_mgr extends CPageAdminOnly
 	}
 
 	//Set customization values so that the Order->recalculate function will generate the correct totals
-	public static function adjustMealCustomizationOnOrder(&$order,$args){
+	public static function adjustMealCustomizationOnOrder(&$order, $args)
+	{
 		if (!empty($args['opted_to_customize_recipes']))//name is reversed
 		{
 			$order->subtotal_meal_customization_fee = 0.00;
@@ -4614,12 +4606,12 @@ class page_admin_order_mgr extends CPageAdminOnly
 				if (isset($args['subtotal_meal_customization_fee']) && $args['subtotal_meal_customization_fee'] != $order->subtotal_meal_customization_fee)
 				{
 					$order->subtotal_meal_customization_fee = $args['subtotal_meal_customization_fee'];
-					if($args['manual_customization_fee'] == 'true'){
+					if ($args['manual_customization_fee'] == 'true')
+					{
 						$order->setShouldRecalculateMealCustomizationFee(false);
 					}
 					$customizations = OrdersCustomization::getInstance($order);
 					$order->order_customization = $customizations->orderCustomizationToJson();
-
 				}
 				$order->opted_to_customize_recipes = 1;
 				$order->total_customized_meal_count = $order::getNumberOfCustomizableMealsFromItems($order, $order->getStore()->allow_preassembled_customization);
