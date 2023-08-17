@@ -282,24 +282,24 @@
 					$is_refund = '';
 					$payment_text_decor = 'text-decoration:none;';
 
-					if (isset ($payment['delayed_payment_status']) && ($payment['delayed_payment_status'] == 'CANCELLED' || $payment['delayed_payment_status'] == 'FAIL'))
-					{
-						$payment_text_decor = 'text-decoration:line-through;color:#808080;';
-						$is_cancelled = 'cancelled_';
-					}
-					else if(isset($payment['is_delayed_payment']) && $payment['is_delayed_payment'] && isset($payment['delayed_payment_status']) && $payment['delayed_payment_status'] != 'SUCCESS')
-					{
-						$payment_text_decor = 'color:#808080;';
-					}
-
-					if($payment['payment_type'] == 'REFUND_CASH' || $payment['payment_type'] == 'REFUND' || $payment['payment_type'] == 'REFUND_STORE_CREDIT' || $payment['payment_type'] == 'REFUND_GIFT_CARD')
-					{
-						$payment_text_decor = 'color:#808080;';
-						$is_refund = 'refund_';
-					}
-
 					if (is_array($payment))
 					{
+						if (isset ($payment['delayed_payment_status']) && ($payment['delayed_payment_status'] == 'CANCELLED' || $payment['delayed_payment_status'] == 'FAIL'))
+						{
+							$payment_text_decor = 'text-decoration:line-through;color:#808080;';
+							$is_cancelled = 'cancelled_';
+						}
+						else if(isset($payment['is_delayed_payment']) && $payment['is_delayed_payment'] && isset($payment['delayed_payment_status']) && $payment['delayed_payment_status'] != 'SUCCESS')
+						{
+							$payment_text_decor = 'color:#808080;';
+						}
+
+						if($payment['payment_type'] == 'REFUND_CASH' || $payment['payment_type'] == 'REFUND' || $payment['payment_type'] == 'REFUND_STORE_CREDIT' || $payment['payment_type'] == 'REFUND_GIFT_CARD')
+						{
+							$payment_text_decor = 'color:#808080;';
+							$is_refund = 'refund_';
+						}
+
 						$paymentName = CPayment::translatePaymentTypeStr($payment['payment_info']['other']);
 
 						if (isset($payment['credit_card_type']) && isset($payment['payment_number']['other']))
