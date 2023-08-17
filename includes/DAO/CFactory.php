@@ -51,7 +51,6 @@ class DAO_CFactory
 		'CMenuItemInventoryHistory' => 'DAO_Menu_item_inventory_history',
 		'CMenuItemNutrition' => 'DAO_Menu_item_nutrition',
 		'CMenuToMenuItem' => 'DAO_Menu_to_menu_item',
-		'CMessage' => 'DAO_Message',
 		'COrderMinimum' => 'DAO_Order_minimum',
 		'COrders' => 'DAO_Orders',
 		'COrdersDigest' => 'DAO_Orders_digest',

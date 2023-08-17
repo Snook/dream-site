@@ -1856,13 +1856,6 @@ class processor_admin_order_mgr_processor_delivered extends CPageProcessor
 						$token = CSRF::getNewToken('om_payment_2');
 					}
 
-					if (!empty($rslt['additional_info']))
-					{
-						require_once("includes/DAO/BusinessObject/CMessage.php");
-
-						CMessage::postMessage('ORDER_WARNING', $rslt['additional_info'], $OrderObj->store_id, false, $OrderObj->id);
-					}
-
 					//all good
 					echo json_encode(array(
 						'processor_success' => true,
