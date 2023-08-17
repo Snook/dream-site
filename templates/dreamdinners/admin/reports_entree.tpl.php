@@ -148,6 +148,8 @@ if ($this->report_submitted == true)
 		$total_servings = 0;
 		$total_items_sold = 0;
 		$total_intros = 0;
+		$total_2Serv = 0;
+		$total_4Serv = 0;
 		$total_3Serv = 0;
 		$total_6Serv = 0;
 
@@ -172,8 +174,15 @@ if ($this->report_submitted == true)
 						$total_items_sold += $entity['line_total'];
 						$total_intros += $entity[CMenuItem::INTRO];
 
-						$total_2Serv += $entity['two'];
-						$total_4Serv += $entity['four'];
+						if (!empty($entity['two']))
+						{
+							$total_2Serv += $entity['two'];
+						}
+
+						if (!empty($entity['four']))
+						{
+							$total_4Serv += $entity['four'];
+						}
 
 						$total_3Serv += $entity['medium'];
 						$total_6Serv += $entity['large'];
@@ -356,8 +365,15 @@ if ($this->report_submitted == true)
 						$total_items_sold += $entity['line_total'] ;
 						$total_intros += $entity[CMenuItem::INTRO] ;
 
-						$total_2Serv += $entity['two'];
-						$total_4Serv += $entity['four'];
+						if (!empty($entity['two']))
+						{
+							$total_2Serv += $entity['two'];
+						}
+						if (!empty($entity['four']))
+						{
+							$total_4Serv += $entity['four'];
+						}
+
 						$total_3Serv += $entity['medium'];
 						$total_6Serv += $entity['large'];
 
