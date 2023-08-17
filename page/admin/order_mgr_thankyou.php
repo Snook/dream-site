@@ -1,6 +1,5 @@
 <?php // order_mgr_thankyou.php
 require_once("includes/CPageAdminOnly.inc");
-require_once("includes/DAO/BusinessObject/CMessage.php");
 
 class page_admin_order_mgr_thankyou extends CPageAdminOnly
 {
@@ -189,14 +188,6 @@ class page_admin_order_mgr_thankyou extends CPageAdminOnly
 		else
 		{
 			$corporate_crate_client = false;
-		}
-
-
-		$order_warnings = CMessage::getOrderWarnings($order_id);
-
-		if (!empty($order_warnings))
-		{
-			$tpl->setStatusMsg($order_warnings);
 		}
 
 		$tpl->assign('user', $User);
