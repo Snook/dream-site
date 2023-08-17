@@ -2388,7 +2388,7 @@ class CMenuItem extends DAO_Menu_item
 				'entree_id' => $item->entree_id,
 				'menu_item_name' => $item->menu_item_name,
 				'recipe_id' => $item->recipe_id,
-				'parent_item' => $item->parent_item,
+				'parent_item' => (!empty($item->parent_item) ? $item->parent_item : null),
 				'category_id' => $item->category_id,
 				'qty_in_cart' => $item->qty_in_cart,
 				'remaining_servings' => $item->remaining_servings,
@@ -2397,7 +2397,7 @@ class CMenuItem extends DAO_Menu_item
 				'pricing_type_info' => $item->pricing_type_info,
 				'price' => $item->store_price,
 				'is_bundle' => $item->is_bundle,
-				'number_items_required' => $item->number_items_required,
+				'number_items_required' => (!empty($item->number_items_required) ? $item->number_items_required : null),
 				'item_count_per_item' => $item->item_count_per_item,
 				'item_contributes_to_minimum_order' => ($item->category_id < 5 and $item->is_store_special == 0),
 				'bundle_to_menu_item_group_id' => (!empty($item->bundle_to_menu_item_group_id) ? $item->bundle_to_menu_item_group_id : false)
