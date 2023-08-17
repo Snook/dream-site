@@ -84,10 +84,14 @@ or Pick a Month: <?php echo $this->form_array['override_month_html']; ?>
 	<td><?php echo $this->form_array['report_type_html']['dt_single_store']; ?><label for="report_typedt_single_store" >Select Store</label>:
 	<?php echo $this->form_array['store_html']; ?></td>
 </tr>
-	<tr>
-		<td style="text-align:right; vertical-align:top;"></td>
-		<td style="vertical-align:top; "><?php echo $this->form_array['report_type_html']['dt_soft_launch']; ?><label for="report_typedt_corp_stores" >Soft Launch Stores</label></td>
-	</tr>
+<tr>
+	<td style="text-align:right; vertical-align:top;"></td>
+	<td style="vertical-align:top; "><?php echo $this->form_array['report_type_html']['dt_soft_launch']; ?><label for="report_typedt_corp_stores" >Marketing Test Stores</label></td>
+</tr>
+<tr>
+	<td style="text-align:right; vertical-align:top;"></td>
+	<td style="vertical-align:top; "><?php echo $this->form_array['report_type_html']['dt_non_soft_launch']; ?><label for="report_typedt_corp_stores" >Non-Marketing Test Stores</label></td>
+</tr>
 <tr>
 	<td style="text-align:right; vertical-align:top;"></td>
 	<td style="vertical-align:top; "><?php echo $this->form_array['report_type_html']['dt_custom']; ?><label for="report_typedt_corp_stores" >Select Multiple Stores</label></td>
