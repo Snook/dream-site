@@ -521,8 +521,7 @@ class CLog {
 
 	static function RecordNavigation($destination, $route)
 	{
-
-	    if ($destination == 'debug_cart' || $destination == 'cart_watcher')
+		if ($destination == 'debug_cart' || $destination == 'cart_watcher')
 	    {
 	        return;
 	    }

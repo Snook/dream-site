@@ -1342,10 +1342,11 @@ class CSessionToolsPDFDrawer
 		$this->pdf->SetXY($cellLeftMargin, $yPos);
 		$this->pdf->MultiCellTag(76, 3, $menu_item_title, $this->showBorders, 'L');
 
-		// Ratings
+
 		$RatingyPos = $yPos + 6;
-		if (defined('SERVER_ENV') && SERVER_ENV === 'LIVE')
+		if (false)
 		{
+			// Ratings - can be removed if ratings will never be used
 			if ($this->data->userInfo && isset($menuItemArray['entree']->DAO_food_survey->rating))
 			{
 				$this->printRatingsStars($cellLeftMargin + 50, $RatingyPos - .25, 4, $menuItemArray['entree']->DAO_food_survey->rating);
@@ -1376,15 +1377,13 @@ class CSessionToolsPDFDrawer
 				}
 			}
 
-			if (defined('SERVER_ENV') && SERVER_ENV !== 'LIVE')
+			if (!empty($this->data->userInfo) && !empty($menuItemArray['entree']->DAO_food_survey->would_order_again) && $menuItemArray['entree']->DAO_food_survey->would_order_again == 1)
 			{
-				if (!empty($this->data->userInfo) && !empty($menuItemArray['entree']->DAO_food_survey->would_order_again) && $menuItemArray['entree']->DAO_food_survey->would_order_again == 1)
-				{
-					$stars_image_path = ASSETS_PATH . '/pdf_label/paper_menu/star_rate.png';
-					$this->pdf->Image($stars_image_path, $icon_xpos_offset, $icon_ypos_offset, $icon_size);
-				}
+				$stars_image_path = ASSETS_PATH . '/pdf_label/paper_menu/star_rate.png';
+				$this->pdf->Image($stars_image_path, $icon_xpos_offset, $icon_ypos_offset, $icon_size);
 			}
 		}
+
 
 		if (!empty($menuItemArray['entree']->menu_label))
 		{
@@ -1393,14 +1392,11 @@ class CSessionToolsPDFDrawer
 		}
 
 
-		if (defined('SERVER_ENV') && SERVER_ENV === 'LIVE')
+		// favorite
+		if (!empty($this->data->userInfo) && !empty($menuItemArray['entree']->DAO_food_survey->would_order_again) && $menuItemArray['entree']->DAO_food_survey->would_order_again == 1)
 		{
-			// favorite
-			if (!empty($this->data->userInfo) && !empty($menuItemArray['entree']->DAO_food_survey->would_order_again) && $menuItemArray['entree']->DAO_food_survey->would_order_again == 1)
-			{
-				$this->pdf->SetXY($cellLeftMargin + 32, $RatingyPos + .5);
-				$this->pdf->MultiCellTag(76, 3, "<t9rb>FAVORITE</t9rb>", $this->showBorders, 'L');
-			}
+			$this->pdf->SetXY($cellLeftMargin + 32, $RatingyPos + .5);
+			$this->pdf->MultiCellTag(76, 3, "<t9rb>FAVORITE</t9rb>", $this->showBorders, 'L');
 		}
 
 		// Description
