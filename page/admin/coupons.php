@@ -321,7 +321,7 @@ class page_admin_coupons extends CPageAdminOnly
 				'coupon_code_description' => $DAO_coupon_code->coupon_code_description,
 				'coupon_type' => $DAO_coupon_code->discount_method,
 				'coupon_menu_item_id' => $DAO_coupon_code->menu_item_id,
-				'coupon_menu_item_name' => $DAO_coupon_code->DAO_menu_item->menu_item_namee,
+				'coupon_menu_item_name' => $DAO_coupon_code->DAO_menu_item->menu_item_name,
 				'valid_timespan_start' => $DAO_coupon_code->valid_timespan_start,
 				'valid_timespan_end' => $DAO_coupon_code->valid_timespan_end,
 				'excluded' => (!empty($DAO_coupon_code->DAO_store_coupon_code_exclusion->id) ? true : false)
