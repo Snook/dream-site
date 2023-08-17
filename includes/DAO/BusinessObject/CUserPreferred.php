@@ -111,14 +111,15 @@ class CUserPreferred extends DAO_User_preferred
 		//fetch all orders for this menu
 		$Orders = DAO_CFactory::create("orders");
 		$session = $orderObj->getSessionObj(false);
-		$query = "select o.id, o.user_preferred_discount_total, o.user_preferred_discount_cap_type, o.user_preferred_discount_cap_applied from orders o
+		if (!empty($session))
+		{
+			$Orders->query("select o.id, o.user_preferred_discount_total, o.user_preferred_discount_cap_type, o.user_preferred_discount_cap_applied from orders o
 							join booking b on b.order_id = o.id and b.is_deleted = 0 and b.status in ('SAVED','RESCHEDULED','ACTIVE')
 							join session s on s.id = b.session_id and s.is_deleted = 0 
 							where o.user_id = $orderObj->user_id
 							and o.is_deleted = 0
-							and s.menu_id = $session->menu_id";
-
-		$Orders->query($query);
+							and s.menu_id = $session->menu_id");
+		}
 
 		//no other orders in menu so cap can not have been met
 		if ($Orders->N == 0)
@@ -136,15 +137,14 @@ class CUserPreferred extends DAO_User_preferred
 			return $result;
 		}
 
-
 		//Other orders...loop through to see if they have capacity fulfilled
 		$countTowardsItemCap = 0;
 		$countTowardsServingsCap = 0;
 		$orderAllotment = array();
 		while ($Orders->fetch())
 		{
-
-			if($orderObj->id == $Orders->id){
+			if ($orderObj->id == $Orders->id)
+			{
 				//we need to calculate based on updated item so don't include in remaining
 				continue;
 			}
@@ -182,18 +182,20 @@ class CUserPreferred extends DAO_User_preferred
 		if ($preferredObj)
 		{
 			$remainingInfo->type = $preferredObj->preferred_cap_type;
-			if ($preferredObj->preferred_cap_type == CUserPreferred::PREFERRED_CAP_ITEMS ){
-				$remainingInfo->countRemaining = ($preferredObj->preferred_cap_value - $countTowardsItemCap );
-			}else if ($preferredObj->preferred_cap_type == CUserPreferred::PREFERRED_CAP_SERVINGS){
+			if ($preferredObj->preferred_cap_type == CUserPreferred::PREFERRED_CAP_ITEMS)
+			{
+				$remainingInfo->countRemaining = ($preferredObj->preferred_cap_value - $countTowardsItemCap);
+			}
+			else if ($preferredObj->preferred_cap_type == CUserPreferred::PREFERRED_CAP_SERVINGS)
+			{
 				$remainingInfo->countRemaining = ($preferredObj->preferred_cap_value - $countTowardsServingsCap);
 			}
 		}
 
 		$result->remainingObj = $remainingInfo;
-		$result->orderAllotment= $orderAllotment;
+		$result->orderAllotment = $orderAllotment;
 
 		return $result;
-
 	}
 
 	/**
@@ -265,7 +267,7 @@ class CUserPreferred extends DAO_User_preferred
 						{
 							//Sides and Sweets
 							if ($preferredObj->include_sides && ($item->is_side_dish || $item->is_menu_addon || $item->is_chef_touched) && ($item->menu_item_category_id > 4 || ($item->menu_item_category_id == 4 && $item->is_store_special == 1)))
-								{
+							{
 								if (is_null($item->override_price))
 								{
 									if (!isset($markup))
@@ -281,7 +283,7 @@ class CUserPreferred extends DAO_User_preferred
 								}
 								$applied = true;
 							}
-							else if ($countIncluded < $remaining && !in_array($item->id, $exclusionList) && ($item->menu_item_category_id < 4 || ( $item->menu_item_category_id < 5  && ($item->menu_item_category_id == 4 && $item->is_store_special == 0))))
+							else if ($countIncluded < $remaining && !in_array($item->id, $exclusionList) && ($item->menu_item_category_id < 4 || ($item->menu_item_category_id < 5 && ($item->menu_item_category_id == 4 && $item->is_store_special == 0))))
 							{
 
 								$sumIncludedCost += $item->override_price;
@@ -335,7 +337,7 @@ class CUserPreferred extends DAO_User_preferred
 								}
 								$applied = true;
 							}
-							else if ($countIncludedServings < $remaining && !in_array($item->id, $exclusionList) && ($item->menu_item_category_id < 4 || ( $item->menu_item_category_id < 5  && ($item->menu_item_category_id == 4 && $item->is_store_special == 0))))
+							else if ($countIncludedServings < $remaining && !in_array($item->id, $exclusionList) && ($item->menu_item_category_id < 4 || ($item->menu_item_category_id < 5 && ($item->menu_item_category_id == 4 && $item->is_store_special == 0))))
 							{
 								if ($item->servings_per_item > $remaining)
 								{
