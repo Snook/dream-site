@@ -314,6 +314,13 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			CForm::type => CForm::RadioButton,
 			CForm::name => "report_type",
 			CForm::onChange => "report_type_select",
+			CForm::value => 'dt_non_soft_launch'
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::RadioButton,
+			CForm::name => "report_type",
+			CForm::onChange => "report_type_select",
 			CForm::value => 'dt_custom'
 		));
 
@@ -638,54 +645,27 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			$occupiedFundraiserSessionCount = CDashboardMenuBased::getOccupiedSessionCountForMonth($curMonthStartDate, $curMonthInterval, 'FUNDRAISER', $store);
 			$tpl->assign('occupiedFundraiserSessionCount', $occupiedFundraiserSessionCount);
 		}
-		else if (!$hadError && $reportType == 'dt_soft_launch')
+		else if (!$hadError && ($reportType == 'dt_soft_launch' || $reportType == 'dt_non_soft_launch'))
 		{
-
-			$titleString = "Dashboard Report for Soft Launch Store Set";
+			$MARKETING_TEST_STORES = array(30, 54, 61, 63, 91, 136, 215, 232, 244, 261, 264, 288, 308, 309);
+			$titleString = "Dashboard Report for Marketing Test Store Set";
 
 			$storeArr = array();
-			$tempStoreArr = [
-				28,
-				29,
-				30,
-				54,
-				62,
-				63,
-				67,
-				80,
-				82,
-				96,
-				99,
-				101,
-				102,
-				103,
-				105,
-				108,
-				119,
-				121,
-				127,
-				133,
-				136,
-				158,
-				159,
-				166,
-				171,
-				175,
-				204,
-				208,
-				215,
-				229,
-				239,
-				244,
-				262,
-				274,
-				281,
-				288,
-				302,
-				307,
-				308,
-				309
-			];
+			if ($reportType == 'dt_soft_launch')
+			{
+				$tempStoreArr = $MARKETING_TEST_STORES;
+			}
+			else
+			{
+				$titleString = "Dashboard Report for Non-Marketing Test Store Set";
+				$query = "select GROUP_CONCAT(id) as ids from store where id not in (".implode(",",$MARKETING_TEST_STORES).") and active = 1 and is_deleted = 0 order by id";
+				$storeInfo = DAO_CFactory::create('store');
+				$storeInfo->query($query);
+				$storeInfo->fetch();
+
+				$tempStoreArr = explode(',',$storeInfo->ids);
+			}
+
 
 			$allowsAdditionalOrdering = false;
 			foreach ($tempStoreArr as $thisStore)
@@ -712,7 +692,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 					{
 						$names .= $storeNames->store_name . ', ';
 					}
-					$titleString = "Dashboard Report for Soft Launch Stores: <p style='font-size: xx-small;'>" . rtrim($names, ', ') . "</p>";
+					$titleString .= ": <p style='font-size: xx-small;'>" . rtrim($names, ', ') . "</p>";
 				}
 
 				// current month AGR

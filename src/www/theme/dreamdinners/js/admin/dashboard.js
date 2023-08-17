@@ -154,7 +154,7 @@ function runMultiStoreReport()
 
 function report_type_select(obj)
 {
-	if ($("#report_typedt_single_store").is(":checked") || $("#report_typedt_soft_launch").is(":checked"))
+	if ($("#report_typedt_single_store").is(":checked") || $("#report_typedt_soft_launch").is(":checked") || $("#report_typedt_non_soft_launch").is(":checked"))
 	{
 		$("#custom_store_select").hide();
 	}
