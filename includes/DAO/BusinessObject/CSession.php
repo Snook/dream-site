@@ -3159,6 +3159,11 @@ class CSession extends DAO_Session
 	 */
 	static function getSessionDetailArray($session_id, $get_bookings = true, $get_order_info = false)
 	{
+		if (DEBUG && empty($session_id))
+		{
+			throw new Exception("No session id specified for CSession::getSessionDetailArray()");
+		}
+
 		$Session = DAO_CFactory::create('session');
 
 		$Session->query("SELECT iq.*,
