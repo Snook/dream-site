@@ -17,12 +17,6 @@ var BugHerdConfig = {
 })(document, 'script');
  */
 
-function dd_debug(settings)
-{
-	dd_message(settings);
-}
-
-
 (function() {
 
 	$(document).on('click', '.watch_cart', function (e) {
