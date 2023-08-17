@@ -1860,7 +1860,7 @@ class CSession extends DAO_Session
 
 		if ($excludeGuest && is_numeric($excludeGuest))
 		{
-			$RSVPs->whereAdd("sr.user_id <> $excludeGuest");
+			$RSVPs->whereAdd("session_rsvp.user_id <> $excludeGuest");
 		}
 
 		$RSVPs->joinAdd(DAO_CFactory::create('user'), array('useWhereAsOn' => true));
