@@ -2528,6 +2528,7 @@ class CSessionToolsPDFDrawer
 		$yPos = self::FREEZER_HEADER_ROW_HEIGHT;
 		$menu_item_count = 0;
 		$total_rows = 0;
+		$count = 0;
 
 		if (!empty($this->data->orderItems[$this->data->userInfo->orderInfo['orderInfo']['id']]))
 		{
