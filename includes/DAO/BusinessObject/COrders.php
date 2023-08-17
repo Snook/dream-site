@@ -438,7 +438,7 @@ class COrders extends DAO_Orders
 		while ($bookingObj->fetch())
 		{
 			$sessionData = null;
-			if ($returnSessionDetails)
+			if ($returnSessionDetails && !empty($bookingObj->session_id))
 			{
 				$sessionData = CSession::getSessionDetail($bookingObj->session_id, false);
 			}
