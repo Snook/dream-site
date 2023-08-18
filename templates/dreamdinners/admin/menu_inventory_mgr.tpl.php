@@ -1,6 +1,6 @@
 
 <?php $this->setCSS(CSS_PATH . '/admin/inventory_mgr.css'); ?>
-<?php $this->setScript('head', SCRIPT_PATH . '/admin/menu_inv_mgr.js'); ?>
+<?php $this->setScript('head', SCRIPT_PATH . '/admin/menu_inv_mgr.min.js'); ?>
 <?php $this->setScript('head', SCRIPT_PATH . '/admin/vendor/jquery.stickyTableHeaders.js'); ?>
 
 <?php $this->assign('page_title', 'Inventory Manager'); ?>
