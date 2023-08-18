@@ -4,6 +4,7 @@
  */
 require_once 'DAO/Menu_item.php';
 require_once 'DAO/BusinessObject/COrders.php';
+require_once 'DAO/BusinessObject/CBundle.php';
 
 class CMenuItem extends DAO_Menu_item
 {
