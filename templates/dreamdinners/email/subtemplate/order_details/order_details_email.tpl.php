@@ -16,8 +16,18 @@
 							echo ' - '.$this->sessionInfo['session_end_dtf_time_only'];
 						}?>
 						<br />
-						<strong> Location:</strong>
-						<?= $this->sessionInfo['store_name'] ?><br />
+						<?php if (!empty($this->sessionInfo["session_remote_location"])) { ?>
+							<strong> Location:</strong>
+							<?php echo $this->sessionInfo["session_remote_location"]->location_title; ?>
+							- <?php echo $this->sessionInfo["session_remote_location"]->address_line1; ?><?php echo (!empty($this->sessionInfo["session_remote_location"]->address_line2)) ?  ',' . $this->sessionInfo["session_remote_location"]->address_line2 : ''; ?>
+							<?php echo $this->sessionInfo["session_remote_location"]->city; ?>,
+							<?php echo $this->sessionInfo["session_remote_location"]->state_id; ?>
+							<?php echo $this->sessionInfo["session_remote_location"]->postal_code; ?>
+							<br />
+						<?php } else { ?>
+							<strong> Location:</strong>
+							<?php echo $this->sessionInfo['store_name'] ?><br />
+						<?php } ?>
 						<strong>Order Confirmation:</strong> <a href="<?= HTTPS_BASE ?>main.php?page=<?= $this->details_page ?>&order=<?= $this->orderInfo['id'] ?>">
 							<?= $this->orderInfo['order_confirmation']?>
 						</a>
