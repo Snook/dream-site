@@ -573,6 +573,66 @@ function hideStatusMessage(type)
 	$('#' + type).slideUp();
 }
 
+function modal_message(settings)
+{
+	var config = {
+		title: false,
+		message: false,
+		size: false // small, large, extra-large
+	};
+
+	$.extend(config, settings);
+
+	if (typeof config.confirm != 'undefined')
+	{
+		// convert old dd_message
+		if (typeof config.confirm == 'function')
+		{
+			config.buttons = {
+				confirm: {
+					label: 'Confirm',
+					className: 'btn-primary',
+					callback: config.confirm
+				},
+				cancel: {
+					label: 'Cancel',
+					className: 'btn-secondary',
+					callback: config.cancel
+				}
+			}
+		}
+
+		bootbox.dialog(config);
+	}
+	else if (typeof config.buttons != 'undefined')
+	{
+		// convert old dd_message
+		var buttons = {};
+
+		$.each(config.buttons, function (key, value) {
+
+			if (typeof value == 'function')
+			{
+				buttons[key] = {
+					label: key,
+					className: 'btn-primary',
+					callback: value
+				}
+			}
+
+		});
+
+		config.buttons = buttons;
+
+		bootbox.dialog(config);
+	}
+	else
+	{
+		bootbox.alert(config);
+	}
+
+}
+
 function dd_message(settings)
 {
 	var config = {
