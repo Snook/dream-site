@@ -685,7 +685,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 				if (count($storeArr) < 50)
 				{
 					$storeNames = new DAO();
-					$q = "select s.store_name from store s where s.id in (" . implode(",", $storeArr) . ") order by s.store_name";
+					$q = "select s.store_name from store s where s.id in (" . implode(",", $storeArr) . ",312) order by s.store_name";
 					$storeNames->query($q);
 					$names = '';
 					while ($storeNames->fetch())
