@@ -99,7 +99,7 @@ function handle_browser_location()
 			}
 			else if (status == 'error' || status == 'no_result')
 			{
-				dd_message({message: results});
+				modal_message({message: results});
 			}
 			else
 			{
@@ -128,13 +128,13 @@ function handle_address_search()
 {
 	if (!$('#zipsearch_zipcode').getVal() && (!$('#zipsearch_city').getVal() && !$('#zipsearch_state_id').getVal()))
 	{
-		dd_message({message: 'Zip code or City & State required'});
+		modal_message({message: 'Zip code or City & State required'});
 		return false;
 	}
 
 	if (!$('#zipsearch_zipcode').getVal() && (($('#zipsearch_city').getVal() && !$('#zipsearch_state_id').getVal()) || (!$('#zipsearch_city').getVal() && $('#zipsearch_state_id').getVal())))
 	{
-		dd_message({message: 'City & State required'});
+		modal_message({message: 'City & State required'});
 		return false;
 	}
 
@@ -198,7 +198,7 @@ function handle_address_search()
 					else if (status == 'error' || status == 'no_results')
 					{
 
-						dd_message({message: results});
+						modal_message({message: results});
 					}
 					else
 					{
@@ -242,7 +242,7 @@ function handle_zipcode_search()
 	address_search = '';
 	if ($('#zipsearch_zipcode_only').getVal() == '')
 	{
-		dd_message({message: 'Zip code required'});
+		modal_message({message: 'Zip code required'});
 		return false;
 	}else{
 		address_search += ' ' + $('#zipsearch_zipcode_only').getVal();

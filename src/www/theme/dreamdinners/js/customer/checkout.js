@@ -10,7 +10,7 @@ function handle_ltd_round_up()
 
 			if (USER_PREFERENCES.LTD_AUTO_ROUND_UP.value == '' && (!$.cookie('ltdru') || $.cookie('ltdru') != session_id))
 			{
-				dd_message({
+				modal_message({
 					title: 'My Preferences',
 					message: 'Would you like to automatically round up every time you order? You can edit this setting any time in <span class="font-weight-bold">My Preferences</span>.<div class="text-center; mt-1"><select id="ltd-round_up_opt_in"><option>Select a Round Up value</option><option value="1">Nearest Dollar</option><option value="2">2 Dollars</option><option value="5">5 Dollars</option><option value="10">10 Dollars</option><option value="35">35 Dollars</option><option value="54">54 Dollars</option></select></div>',
 					modal: true,
@@ -27,7 +27,7 @@ function handle_ltd_round_up()
 
 							if (rup_value > 0)
 							{
-								dd_message({
+								modal_message({
 									div_id: 'rup_confirm',
 									title: 'My Preferences',
 									message: 'You have chosen to set your auto Round Up to ' + ((rup_value == 1) ? 'the nearest dollar.' : '$' + rup_value),
@@ -38,7 +38,7 @@ function handle_ltd_round_up()
 
 										if (ltd_round_up_value == 0 && rup_value != 1 || ($('#ltd_round_up_select option:selected').index() == 0 && !$.cookie('ltdru')))
 										{
-											dd_message({
+											modal_message({
 												title: 'My Preferences',
 												message: 'Preference saved. Would you like to use your selected Round Up value on this order? This can be reviewed and edited.',
 												modal: true,
@@ -124,7 +124,7 @@ function handle_ltd_round_up()
 					}
 					else
 					{
-						dd_message({
+						modal_message({
 							title: 'Error',
 							message: json.processor_message
 						});
@@ -133,7 +133,7 @@ function handle_ltd_round_up()
 				error: function (objAJAXRequest, strError) {
 					//	console.log('OM Intense logging: ' + message);
 
-					dd_message({
+					modal_message({
 						title: 'Error',
 						message: 'Unexpected error: ' + strError
 					});
@@ -178,7 +178,7 @@ function handle_checkout_delayed_payment()
 
 			$('#is_store_specific_flat_rate_delayed_payment1, #is_flat_rate_delayed_payment1, #is_delayed_payment1').on('click', function (e) {
 
-				dd_message({
+				modal_message({
 					title: lang.en.tc.terms_and_conditions,
 					message: lang.en.tc.delayed_payment,
 					modal: true,
@@ -199,7 +199,7 @@ function handle_checkout_delayed_payment()
 
 							$('#is_store_specific_flat_rate_delayed_payment0, #is_flat_rate_delayed_payment0, #is_delayed_payment0').click();
 
-							dd_message({
+							modal_message({
 								title: lang.en.tc.terms_and_conditions,
 								message: lang.en.tc.delayed_payment_decline
 							});
@@ -364,14 +364,14 @@ function editSavePlatePointsCredits(force)
 				}
 				else
 				{
-					dd_message({
+					modal_message({
 						title: 'Error',
 						message: json.processor_message
 					});
 				}
 			},
 			error: function (objAJAXRequest, strError) {
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: 'Unexpected error: ' + strError
 				});
@@ -805,14 +805,14 @@ function remove_dinner_dollars()
 			}
 			else
 			{
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: json.processor_message
 				});
 			}
 		},
 		error: function (objAJAXRequest, strError) {
-			dd_message({
+			modal_message({
 				title: 'Error',
 				message: 'Unexpected error: ' + strError
 			});
@@ -883,7 +883,7 @@ function remove_payment_coupon()
 			}
 			else
 			{
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: json.processor_message
 				});
@@ -891,7 +891,7 @@ function remove_payment_coupon()
 
 		},
 		error: function (objAJAXRequest, strError) {
-			dd_message({
+			modal_message({
 				title: 'Error',
 				message: 'Unexpected error: ' + strError
 			});
@@ -918,14 +918,14 @@ function update_special_instructions()
 			}
 			else
 			{
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: json.processor_message
 				});
 			}
 		},
 		error: function (objAJAXRequest, strError) {
-			dd_message({
+			modal_message({
 				title: 'Error',
 				message: 'Unexpected error: ' + strError
 			});
@@ -986,14 +986,14 @@ function update_bag_opt_out()
 			}
 			else
 			{
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: json.processor_message
 				});
 			}
 		},
 		error: function (objAJAXRequest, strError) {
-			dd_message({
+			modal_message({
 				title: 'Error',
 				message: 'Unexpected error: ' + strError
 			});
@@ -1009,7 +1009,7 @@ function add_payment_coupon()
 
 	if (!add_coupon_code)
 	{
-		dd_message({
+		modal_message({
 			title: 'Error',
 			message: 'Please enter a promo code.'
 		});
@@ -1064,7 +1064,7 @@ function add_payment_coupon()
 						var dd_val = $('#plate_points_discount').val();
 						if (maxPPDeduction >= service_fee && maxPPDeduction - dd_val < service_fee)
 						{
-							dd_message({
+							modal_message({
 								title: 'Error',
 								message: 'The Service fee is already discounted by using Dinner Dollars. If you wish to use this coupon please lower the amount of Dinner Dollars applied.'
 							});
@@ -1092,14 +1092,14 @@ function add_payment_coupon()
 				}
 				else
 				{
-					dd_message({
+					modal_message({
 						title: 'Error',
 						message: json.processor_message
 					});
 				}
 			},
 			error: function (objAJAXRequest, strError) {
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: 'Unexpected error: ' + strError
 				});
@@ -1142,7 +1142,7 @@ function get_gift_card_balance()
 
 	if (!gc_number)
 	{
-		dd_message({
+		modal_message({
 			title: 'Error',
 			message: 'Please enter a gift card number.'
 		});
@@ -1162,21 +1162,21 @@ function get_gift_card_balance()
 			success: function (json) {
 				if (json.processor_success)
 				{
-					dd_message({
+					modal_message({
 						title: 'Gift Card Balance',
 						message: "Balance for card number <b>" + json.card_number + "</b> is <b>" + json.card_balance + "</b>"
 					});
 				}
 				else
 				{
-					dd_message({
+					modal_message({
 						title: 'Gift Card Balance Error',
 						message: json.processor_message
 					});
 				}
 			},
 			error: function (objAJAXRequest, strError) {
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: 'Unexpected error: ' + strError
 				});
@@ -1207,7 +1207,7 @@ function getGiftCardNumberAndAmount()
 
 		didHandleDuplicate = true;
 		returnData.replacementObj = this;
-		dd_message({
+		modal_message({
 			title: 'Attention',
 			message: 'You have already entered this gift card number. If you proceed the current amount will be replaced by the amount you are now submitting.',
 			modal: true,
@@ -1242,14 +1242,14 @@ function do_add_gift_card(transaction_data)
 
 	if (!transaction_data.gc_number)
 	{
-		dd_message({
+		modal_message({
 			title: 'Error',
 			message: 'Please enter a gift card number.'
 		});
 	}
 	else if (!transaction_data.gc_amount)
 	{
-		dd_message({
+		modal_message({
 			title: 'Error',
 			message: 'Please enter a gift card amount.'
 		});
@@ -1282,14 +1282,14 @@ function do_add_gift_card(transaction_data)
 
 					if (json.card_balance == "Invalid Card")
 					{
-						dd_message({
+						modal_message({
 							title: 'Gift Card Error',
 							message: 'The card number is invalid.'
 						});
 					}
 					else if ((json.card_balance * 1) < (transaction_data.gc_amount * 1))
 					{
-						dd_message({
+						modal_message({
 							title: 'Gift Card Error',
 							message: 'There are not enough funds on the gift card for this amount. Available balance: ' + json.card_balance
 						});
@@ -1346,14 +1346,14 @@ function do_add_gift_card(transaction_data)
 								}
 								else
 								{
-									dd_message({
+									modal_message({
 										title: 'Gift Card Error',
 										message: json.processor_message
 									});
 								}
 							},
 							error: function (objAJAXRequest, strError) {
-								dd_message({
+								modal_message({
 									title: 'Error',
 									message: 'Unexpected error: ' + strError
 								});
@@ -1368,7 +1368,7 @@ function do_add_gift_card(transaction_data)
 				{
 					$('#debit_gift_card_number').data('processing', false);
 
-					dd_message({
+					modal_message({
 						title: 'Gift Card Error',
 						message: json.processor_message
 					});
@@ -1378,7 +1378,7 @@ function do_add_gift_card(transaction_data)
 
 				$('#debit_gift_card_number').data('processing', false);
 
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: 'Unexpected error: ' + strError
 				});
@@ -1446,14 +1446,14 @@ function add_all_store_credit()
 			}
 			else
 			{
-				dd_message({
+				modal_message({
 					title: 'Gift Card Error',
 					message: json.processor_message
 				});
 			}
 		},
 		error: function (objAJAXRequest, strError) {
-			dd_message({
+			modal_message({
 				title: 'Error',
 				message: 'Unexpected error: ' + strError
 			});
@@ -1486,14 +1486,14 @@ function removeAllStoreCredit(settings)
 			}
 			else
 			{
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: json.processor_message
 				});
 			}
 		},
 		error: function (objAJAXRequest, strError) {
-			dd_message({
+			modal_message({
 				title: 'Error',
 				message: 'Unexpected error: ' + strError
 			});
@@ -1548,14 +1548,14 @@ function remove_payment(settings)
 			}
 			else
 			{
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: json.processor_message
 				});
 			}
 		},
 		error: function (objAJAXRequest, strError) {
-			dd_message({
+			modal_message({
 				title: 'Error',
 				message: 'Unexpected error: ' + strError
 			});
@@ -1597,7 +1597,7 @@ function handleOrderCustomizations(form){
 				});
 				if (!requiredOptionSelected)
 				{
-					dd_message({
+					modal_message({
 						title: 'Missing Customization Options',
 						message: "At least one meal customization option is required if 'Customize this order' is checked."
 					});
@@ -1688,14 +1688,14 @@ function remove_credit_card_reference(settings)
 			}
 			else
 			{
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: json.processor_message
 				});
 			}
 		},
 		error: function (objAJAXRequest, strError) {
-			dd_message({
+			modal_message({
 				title: 'Error',
 				message: 'Unexpected error: ' + strError
 			});
@@ -1765,7 +1765,7 @@ function add_payment_credit_card()
 
 				if (cart_subtotal == 0)
 				{
-					dd_message({
+					modal_message({
 						title: 'Alert',
 						message: 'You have added all required payments, you may now submit your order.'
 					});
@@ -1773,7 +1773,7 @@ function add_payment_credit_card()
 			}
 			else
 			{
-				dd_message({
+				modal_message({
 					title: 'Credit Card Error',
 					message: json.processor_message
 				});
@@ -1781,7 +1781,7 @@ function add_payment_credit_card()
 			}
 		},
 		error: function (objAJAXRequest, strError) {
-			dd_message({
+			modal_message({
 				title: 'Error',
 				message: 'Unexpected error: ' + strError
 			});
@@ -1819,7 +1819,7 @@ $(function () {
 	});
 
 	$(document).on('click', '.help-cvv', function (e) {
-		dd_message({
+		modal_message({
 			title: 'Help',
 			message: 'The security code is a 3 digit number located on the back of MasterCard, Visa, Discover. On American Express cards, the security code is a group of 4 digits printed on the front.'
 		})
@@ -1939,7 +1939,7 @@ $(function () {
 		}
 
 		// show removal confirmation
-		dd_message({
+		modal_message({
 			title: 'Remove ' + remove.type,
 			message: 'Are you sure you wish to remove ' + remove.title + '.',
 			confirm: function () {
@@ -2038,7 +2038,7 @@ $(function () {
 						switch (json.status)
 						{
 							case 'no_inventory':
-								dd_message({
+								modal_message({
 									message: json.processor_message,
 									buttons: {
 										"Cancel": function () {
@@ -2056,7 +2056,7 @@ $(function () {
 								});
 								break;
 							case 'not_eligible':
-								dd_message({
+								modal_message({
 									message: 'We are sorry, Dream Dinners does not currently ship to ' + addy.postal_code,
 									buttons: {
 										"Close": function () {
@@ -2101,7 +2101,7 @@ $(function () {
 					}
 				},
 				error: function (objAJAXRequest, strError) {
-					dd_message({
+					modal_message({
 						title: 'Error',
 						message: 'Unexpected error: ' + strError
 					});
@@ -2148,7 +2148,7 @@ $(function () {
 
 		let href = $(this).attr('href');
 
-		dd_message({
+		modal_message({
 			message : 'Menu item availability and taxes may be different for another delivery area. In order to change the zip code, we need to send you through the order process again.',
 			buttons: {
 				"Change Zip": function () {
@@ -2295,14 +2295,14 @@ function handleMealCustomizationMasterCheckbox(allow_customization){
 			}
 			else
 			{
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: json.processor_message
 				});
 			}
 		},
 		error: function (objAJAXRequest, strError) {
-			dd_message({
+			modal_message({
 				title: 'Error',
 				message: 'Unexpected error: ' + strError
 			});
@@ -2370,14 +2370,14 @@ function preferenceChangeListener(pref, setting, user_id, callback){
 				}
 				else
 				{
-					dd_message({
+					modal_message({
 						title: 'Error',
 						message: json.processor_message
 					});
 				}
 			},
 			error: function (objAJAXRequest, strError) {
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: 'Unexpected error: ' + strError
 				});

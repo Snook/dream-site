@@ -1054,11 +1054,11 @@ class CTemplate extends Savant2
 		{
 			if ($msg = self::getDebugMsg())
 			{
-				self::$head_onload_array[] = "dd_message( { size: 'extra-large', message: '" . str_replace("\n", " \\\n", $msg) . "' } );";
+				self::$head_onload_array[] = "modal_message( { size: 'extra-large', message: '" . str_replace("\n", " \\\n", $msg) . "' } );";
 			}
 		}
 
-		// Follwing included in front end
+		// Following included in front end
 		if ($isAdmin)
 		{
 			self::$head_onload_array[] = 'admin_global_init();';

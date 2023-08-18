@@ -40,7 +40,7 @@ function incrementBox(menu_item_id, update_action)
 	{
 		if (box_info.custom_box.info.number_items == box_info.number_items_required && box_info.custom_box.info.number_servings == box_info.number_servings_required)
 		{
-			dd_message({
+			modal_message({
 				message: 'The box is full, you may now add the box to your cart.',
 				buttons: {
 					"Add Box": function () {
@@ -392,7 +392,7 @@ $(function () {
 
 		if (!add_coupon_code)
 		{
-			dd_message({
+			modal_message({
 				title: 'Error',
 				message: 'Please enter a promo code.'
 			});
@@ -428,14 +428,14 @@ $(function () {
 					}
 					else
 					{
-						dd_message({
+						modal_message({
 							title: 'Error',
 							message: json.processor_message
 						});
 					}
 				},
 				error: function (objAJAXRequest, strError) {
-					dd_message({
+					modal_message({
 						title: 'Error',
 						message: 'Unexpected error: ' + strError
 					});
@@ -475,7 +475,7 @@ $(function () {
 				}
 				else
 				{
-					dd_message({
+					modal_message({
 						title: 'Error',
 						message: json.processor_message
 					});
@@ -483,7 +483,7 @@ $(function () {
 
 			},
 			error: function (objAJAXRequest, strError) {
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: 'Unexpected error: ' + strError
 				});

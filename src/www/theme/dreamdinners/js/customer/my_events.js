@@ -122,7 +122,7 @@ function list_contacts(contacts)
 	}
 	else
 	{
-		dd_message({
+		modal_message({
 			title: 'Error',
 			message: 'No email addresses found in address book.'
 		});

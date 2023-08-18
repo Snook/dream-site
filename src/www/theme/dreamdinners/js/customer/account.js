@@ -282,21 +282,21 @@ $(document).on('click', '.account-request-data:not(.disabled)', function (e) {
 					success: function (json) {
 						if (json.processor_success)
 						{
-							dd_message({
+							modal_message({
 								title: 'Account Data Management',
 								message: 'The request for a copy of your account information has been submitted.'
 							});
 						}
 						else
 						{
-							dd_message({
+							modal_message({
 								title: 'Processing Error',
 								message: json.processor_message
 							});
 						}
 					},
 					error: function (objAJAXRequest, strError) {
-						dd_message({
+						modal_message({
 							title: 'Error',
 							message: response = 'Unexpected error:' + strError
 						});
@@ -345,7 +345,7 @@ $(document).on('click', '.account-request-delete:not(.disabled)', function (e) {
 							}
 							else
 							{
-								dd_message({
+								modal_message({
 									title: 'Error',
 									message: json.processor_message
 								});
@@ -353,14 +353,14 @@ $(document).on('click', '.account-request-delete:not(.disabled)', function (e) {
 						}
 						else
 						{
-							dd_message({
+							modal_message({
 								title: 'Processing Error',
 								message: json.processor_message
 							});
 						}
 					},
 					error: function (objAJAXRequest, strError) {
-						dd_message({
+						modal_message({
 							title: 'Error',
 							message: response = 'Unexpected error:' + strError
 						});
@@ -684,14 +684,14 @@ function remove_credit_card_reference(settings)
 			}
 			else
 			{
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: json.processor_message
 				});
 			}
 		},
 		error: function (objAJAXRequest, strError) {
-			dd_message({
+			modal_message({
 				title: 'Error',
 				message: 'Unexpected error: ' + strError
 			});
@@ -741,7 +741,7 @@ $(function () {
 		remove.type = 'Item';
 
 		// show removal confirmation
-		dd_message({
+		modal_message({
 			title: 'Remove ' + remove.type,
 			message: 'Are you sure you wish to remove ' + remove.title + '.',
 			confirm: function () {
