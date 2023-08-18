@@ -639,7 +639,7 @@ class page_admin_reports_trending_menu_based extends CPageAdminOnly
 
 
 				// create file name
-				$agrName = "AGR_" + $store;
+				$agrName = "AGR_" . $store;
 				$agrName = md5($agrName) . ".png";
 				$tpl->assign("agr_image_path", IMAGES_PATH . "/charts/agr/" . $agrName);
 				$agrPath = APP_BASE . "www/theme/" . THEME . "/images/charts/agr/" . $agrName;
@@ -733,7 +733,7 @@ class page_admin_reports_trending_menu_based extends CPageAdminOnly
 					// Stroke image to a file and browser
 
 					// create file name
-					$guestName = "GUEST_" + $store;
+					$guestName = "GUEST_" . $store;
 					$guestName = md5($guestName) . ".png";
 					$tpl->assign("guest_image_path", IMAGES_PATH . "/charts/guests/" . $guestName);
 					$guestPath = APP_BASE . "www/theme/" . THEME . "/images/charts/guests/" . $guestName;

@@ -733,11 +733,27 @@ class CCartStorage
 			$SamplerValue = 1;
 		}
 
-		$szInsert = "update dreamcart.cart_contents set state = 'CURRENT', $storeClause, $sessionClause, $menuClause order_user_notes = '{$orderObj->order_user_notes}',
-					order_admin_notes = '{$orderObj->order_admin_notes}', $direct_clause, $points_clause,
-					 $service_fee_clause, service_fee_description = '{$orderObj->service_fee_description}',
-						$round_up_clause, $bundle_clause, $coupon_clause, $promo_clause, $volume_clause,
-						 is_sampler = $SamplerValue, is_TODD = $TODD_Value, total_customized_meal_count = {$orderObj->total_customized_meal_count},subtotal_meal_customization_fee = {$orderObj->subtotal_meal_customization_fee}, order_customization = '{$orderObj->order_customization}' where id = $data_ref";
+		$szInsert = "update dreamcart.cart_contents set state = 'CURRENT', 
+			$storeClause, 
+			$sessionClause,
+			$menuClause 
+			order_user_notes = '{$orderObj->order_user_notes}',
+			order_admin_notes = '{$orderObj->order_admin_notes}', 
+			$direct_clause, 
+			$points_clause,
+			$service_fee_clause,
+			service_fee_description = '{$orderObj->service_fee_description}',
+			$round_up_clause, 
+			$bundle_clause, 
+			$coupon_clause, 
+			$promo_clause, 
+			$volume_clause,
+			is_sampler = $SamplerValue,
+			is_TODD = $TODD_Value, 
+			total_customized_meal_count = {$orderObj->total_customized_meal_count},
+			subtotal_meal_customization_fee = {$orderObj->subtotal_meal_customization_fee}, 
+			order_customization = '{$orderObj->order_customization}' 
+			where id = $data_ref";
 
 		$result = mysqli_query($this->_db, $szInsert);
 		$this->checkResult($result);

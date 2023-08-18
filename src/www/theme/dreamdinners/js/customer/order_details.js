@@ -28,14 +28,14 @@ $(document).on('click','#handle-plate-points-enroll', function (e) {
 				$('#plate-points-fields').addClass('collapse');
 				$('#plate-points-checkbox').addClass('collapse');
 
-				dd_message({
+				modal_message({
 					title: 'PlatePoints Enrollment Complete',
 					message: 'You are now enrolled in the PlatePoints program.'
 				});
 			}
 			else
 			{
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: 'There was a problem opting into the PlatePoints program.'
 				});
@@ -78,7 +78,7 @@ $(document).on('click','#handle-cancel-delivered-order', function (e) {
 			if (json.processor_success && json.data)
 			{
 
-				dd_message({
+				modal_message({
 					title: 'Cancel Order?',
 					message: json.data,
 					size: 'large',
@@ -88,7 +88,7 @@ $(document).on('click','#handle-cancel-delivered-order', function (e) {
 						var reason = $("#cancellation_reason").val();
 						if (reason == "")
 						{
-							dd_message({
+							modal_message({
 								title: '',
 								div_id: 'Uneek262020',
 								message: "Please select a reason for cancelling"});
@@ -134,7 +134,7 @@ $(document).on('click','#handle-cancel-delivered-order', function (e) {
 								if (json.processor_success)
 								{
 
-									dd_message({
+									modal_message({
 										title: 'Order was Canceled',
 										message: json.data,
 										div_id: 'cancel_order',
@@ -151,7 +151,7 @@ $(document).on('click','#handle-cancel-delivered-order', function (e) {
 								}
 								else
 								{
-									dd_message({
+									modal_message({
 										title: 'Error Cancelling Order',
 										message: json.processor_message
 									});
@@ -161,7 +161,7 @@ $(document).on('click','#handle-cancel-delivered-order', function (e) {
 							error: function (objAJAXRequest, strError) {
 								console.log('Unexpected error: ' + strError);
 								spinner.remove();
-								dd_message({
+								modal_message({
 									title: 'Error Cancelling Order',
 									message: 'Sorry, their was an error processing your order cancellation.',
 									buttons: {
@@ -179,7 +179,7 @@ $(document).on('click','#handle-cancel-delivered-order', function (e) {
 			}
 			else
 			{
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: json.processor_message
 				});
@@ -188,7 +188,7 @@ $(document).on('click','#handle-cancel-delivered-order', function (e) {
 		},
 		error: function (objAJAXRequest, strError) {
 			response = 'Unexpected error: ' + strError;
-			dd_message({
+			modal_message({
 				title: 'Error',
 				message: response
 			});

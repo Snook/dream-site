@@ -506,7 +506,7 @@ class CTemplate extends Savant2
 			$value = 0;
 		}
 
-		return number_format($value, $decimals, '.', $sep);
+		return number_format(floatval($value), $decimals, '.', $sep);
 	}
 
 	static function divide_and_format($dividend, $divisor, $decimals, $sep = ",")
@@ -1054,12 +1054,11 @@ class CTemplate extends Savant2
 		{
 			if ($msg = self::getDebugMsg())
 			{
-				$msg = addslashes(htmlspecialchars($msg));
-				self::$head_onload_array[] = 'dd_message( { message: \'' . str_replace("\n", " \\\n", $msg) . '\' } );';
+				self::$head_onload_array[] = "modal_message( { size: 'extra-large', message: '" . str_replace("\n", " \\\n", $msg) . "' } );";
 			}
 		}
 
-		// Follwing included in front end
+		// Following included in front end
 		if ($isAdmin)
 		{
 			self::$head_onload_array[] = 'admin_global_init();';
