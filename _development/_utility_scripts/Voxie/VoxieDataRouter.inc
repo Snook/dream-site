@@ -30,13 +30,13 @@ class VoxieDataRouter
 		}
 		elseif ($env == 'TEST')
 		{
-			require_once("../../../includes/Config.inc");
+			require_once("../includes/Config.inc");
 			$this->temp_file_path = "/DreamReports/voxie/tmp/";
 		}
 		else
 		{
+			require_once("../includes/Config.inc");
 			error_reporting(E_ERROR );
-			require_once("../../../includes/Config.inc");
 			$this->temp_file_path = "/DreamReports/voxie/tmp/";
 		}
 
@@ -145,7 +145,7 @@ class VoxieDataRouter
 		{
 			$labels = array("Store ID", "User ID", "First Name", "Last Name", "Telephone", "Last Session Date",
 							"Last Session Time", "Last Session Type", "Next Session Date","Next Session Time",
-							"Next Session Type","Next Session Status","User Share URL");
+							"Next Session Type","Next Session Status","User Share URL", "Send Reminder Date");
 
 			fputcsv($dest_fp, $labels, ',');
 
@@ -227,7 +227,9 @@ class VoxieDataRouter
 										 $this->csvClean($nextSession['startTime']),
 										 $this->csvClean($this->mapSessionType($nextSession['sessionInfo'])),
 										 $this->csvClean($nextSession['status']),
-										 $this->csvClean($userObj->share)) ;
+										 $this->csvClean($userObj->share),
+										 $this->csvClean($this->determinePreviousDaysDate($nextSession['startDate'])),
+										) ;
 
 						fputcsv($dest_fp, $lineArr, ',');
 						$resultToken->showProgress(++$lineCount, $userObj->N);
@@ -282,7 +284,10 @@ class VoxieDataRouter
 		}
 		else
 		{
-			$sftp->chdir('samples');
+			$sftp->chdir('transform');
+			$sftp->chdir('contacts');
+
+			//$sftp->chdir('samples');
 			$resultToken->addProcessingMessages('Directory on the server is: '.$sftp->pwd());
 
 			if($this->env == 'LIVE')
@@ -417,6 +422,18 @@ class VoxieDataRouter
 		}
 
 		$Mail->sendEmail();
+	}
+
+	private function determinePreviousDaysDate($currentDate)
+	{
+		$dayBefore = "";
+		if(!empty($currentDate))
+		{
+			$ymd = DateTime::createFromFormat('m/d/y', $currentDate);
+			$dayBefore = $ymd->modify("-1 days")->format('m/d/y');
+		}
+
+		return $dayBefore;
 	}
 
 	private function mapSessionType($sessionInfo)
