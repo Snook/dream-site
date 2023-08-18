@@ -14,6 +14,6 @@ $DAO_user = DAO_CFactory::create('user');
 $DAO_user->id = $DAO_orders->user_id;
 $DAO_user->find(true);
 
-COrders::sendConfirmationEmail($DAO_user, $DAO_orders, $DAO_orders->getGiftCards());
+COrders::sendConfirmationEmail($DAO_user, $DAO_orders);
 
 ?>
