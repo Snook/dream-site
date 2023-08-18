@@ -733,6 +733,8 @@ class CCartStorage
 			$SamplerValue = 1;
 		}
 
+		$customization = str_replace("'","''",$orderObj->order_customization);
+
 		$szInsert = "update dreamcart.cart_contents set state = 'CURRENT', 
 			$storeClause, 
 			$sessionClause,
@@ -752,7 +754,7 @@ class CCartStorage
 			is_TODD = $TODD_Value, 
 			total_customized_meal_count = {$orderObj->total_customized_meal_count},
 			subtotal_meal_customization_fee = {$orderObj->subtotal_meal_customization_fee}, 
-			order_customization = '{$orderObj->order_customization}' 
+			order_customization = '{$customization}' 
 			where id = $data_ref";
 
 		$result = mysqli_query($this->_db, $szInsert);
