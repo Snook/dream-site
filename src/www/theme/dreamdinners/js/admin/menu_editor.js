@@ -5,7 +5,7 @@ let gNumOptionalsAdded = 0;
 let notShown = true;
 let dp_processing = false;
 let xmlHttp = null;
-let noOverrideUnderBase = true;
+let noOverrideUnderBase = false;
 
 function resetPage()
 {
