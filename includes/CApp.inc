@@ -817,7 +817,7 @@ class CApp
 		{
 			parse_str($parts['query'], $query); // form array of target query parameters
 
-			$isAdmin = substr($query['page'], 0, 6) == 'admin_';
+			$isAdmin = (!empty($query['page']) && substr($query['page'], 0, 6) == 'admin_');
 
 			// remove parameters from get that are in the target so there are no duplicates
 			foreach ($query AS $key => $value)
