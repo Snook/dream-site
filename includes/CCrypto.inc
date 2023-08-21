@@ -5,8 +5,8 @@
 * generator, however, we'll do it here for portability. This will be
 * needed for use with the creation of an IV for encode/decode functions.
 */
-mt_srand((double)microtime()*1000000);
-srand((double)microtime()*1000000);
+mt_srand(intval(microtime(true) * 1000000));
+srand(intval(microtime(true) * 1000000));
 
 class CCrypto {
 
@@ -23,7 +23,7 @@ class CCrypto {
 	static private $_ENCRYPT_KEY =
 	             "nDsI2VfeCaURkEpiSz1McjY5qLXhtr0dGPgJOxA7Nw4blFoBuZ9mHv6KQT3yW8";
 	                  // /--- EACH CHARACTER MUST BE UNIQUE. NO DUPS ---/
-		
+
     /**
      * stringSplit - Parses out a string into x number of byte chunk characters.
      * Example: $arr = self::stringSplit('Hi', 1);
@@ -191,7 +191,7 @@ class CCrypto {
 
         return trim($_decoded);
     }
-    
+
     static function genIV() {
 		$iv = (int) mt_rand(1, 500);   // or use rand()
     }
