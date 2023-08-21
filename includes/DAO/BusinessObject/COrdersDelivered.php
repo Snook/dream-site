@@ -183,7 +183,7 @@ class COrdersDelivered extends COrders
 		$this->orderShipping->shipping_tax = 0.0;
 
 		$this->orderShipping->tracking_number = 'null';
-		$this->orderShipping->tracking_number_received = '0000-00-00 00:00:00';
+		$this->orderShipping->tracking_number_received = '1970-01-01 00:00:01';
 
 		if ($save)
 		{

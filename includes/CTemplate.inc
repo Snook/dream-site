@@ -717,7 +717,7 @@ class CTemplate extends Savant2
 	static function dateTimeFormat($dateStr, $format = NORMAL, $store = false, $toolTipFormat = false)
 	{
 
-		if (!isset($dateStr) || $dateStr == "" || $dateStr == "0000-00-00 00:00:00")
+		if (!isset($dateStr) || $dateStr == "" || $dateStr == "1970-01-01 00:00:01")
 		{
 			return "unavailable";
 		}

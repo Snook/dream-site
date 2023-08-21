@@ -62,7 +62,7 @@ if (file_exists("../includes/CApp.inc"))
 					$maintenance_messages[] = $row;
 				}
 
-				if (!empty($row['disable_site_start']) && $row['disable_site_start'] != '0000-00-00 00:00:00' && $time_now >= $row['disable_site_start'])
+				if (!empty($row['disable_site_start']) && $row['disable_site_start'] != '1970-01-01 00:00:01' && $time_now >= $row['disable_site_start'])
 				{
 					$site_disabled = true;
 				}

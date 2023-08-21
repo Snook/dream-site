@@ -416,7 +416,7 @@ class page_admin_user_referral extends CPageAdminOnly {
 			'email' => (!empty($referrals->referring_user_email) ? $referrals->referring_user_email : "unknown"),
 			'user_id' => (!empty($referrals->referring_user_id) ? $referrals->referring_user_id : "0"),
 			'type' => CCustomerReferral::$EvenShorterOriginationDescription[$referrals->origination_type_code],
-			'date' => ($referrals->sequence_timestamp != '0000-00-00 00:00:00' ? $referrals->sequence_timestamp : $referrals->timestamp_created),
+			'date' => ($referrals->sequence_timestamp != '1970-01-01 00:00:01' ? $referrals->sequence_timestamp : $referrals->timestamp_created),
 			'status' => CCustomerReferral::$ShortStatusDescription[$referrals->referral_status],
 			'ordered' => (!empty($referrals->first_order_id) ? $referrals->first_order_id : "-"),
 			'is_pending' => ($referrals->referral_status == 3),

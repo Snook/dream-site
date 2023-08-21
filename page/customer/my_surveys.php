@@ -117,7 +117,7 @@ class page_my_surveys extends CPage {
 				INNER JOIN food_testing AS ft ON ft.id = fts.food_testing_id
 				WHERE ftss.id = '" . $survey_id . "'
 				AND ftss.user_id = '" . $User->id . "'
-				AND (ISNULL(ftss.timestamp_completed) OR ftss.timestamp_completed = '0000-00-00 00:00:00')
+				AND (ISNULL(ftss.timestamp_completed) OR ftss.timestamp_completed = '1970-01-01 00:00:01')
 				AND ftss.timestamp_received IS NOT NULL
 				AND ftss.is_deleted = '0'
 				AND fts.is_deleted = '0'
@@ -126,7 +126,7 @@ class page_my_surveys extends CPage {
 			if ($recipe->fetch())
 			{
 				$recipe = $recipe->toArray();
-				if ($recipe['timestamp_created'] == '0000-00-00 00:00:00')
+				if ($recipe['timestamp_created'] == '1970-01-01 00:00:01')
 				{
 					$recipe['timestamp_created'] = $recipe['timestamp_updated'];
 				}
