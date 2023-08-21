@@ -1,3 +1,4 @@
+# MariaDB 10.4.28
 (SELECT CONCAT("ALTER TABLE ", col.TABLE_SCHEMA, ".`", col.TABLE_NAME, "` ALTER  ", col.COLUMN_NAME, " SET DEFAULT '1970-01-01 00:00:01';") AS `set_default`
  FROM INFORMATION_SCHEMA.COLUMNS AS col
  WHERE (col.TABLE_SCHEMA = 'dreamcart' OR col.TABLE_SCHEMA = 'dreamlog' OR col.TABLE_SCHEMA = 'dreamsite') AND (col.DATA_TYPE = 'timestamp' OR col.DATA_TYPE = 'datetime')
@@ -6,6 +7,21 @@ UNION
 (SELECT CONCAT("UPDATE ",col.TABLE_SCHEMA,".`",col.TABLE_NAME,"` SET ",col.COLUMN_NAME," = '1970-01-01 00:00:01'",IF(col.COLUMN_NAME != col2.COLUMN_NAME, concat(", ", col2.COLUMN_NAME," = ",col2.COLUMN_NAME), "")," WHERE ",col.COLUMN_NAME," = '0000-00-00 00:00:00';") AS `set_default`
  FROM INFORMATION_SCHEMA.COLUMNS AS col
 		  JOIN INFORMATION_SCHEMA.COLUMNS AS col2 ON col2.EXTRA = "on update current_timestamp()" AND col2.TABLE_SCHEMA=col.TABLE_SCHEMA AND col2.TABLE_NAME=col.TABLE_NAME
+ WHERE (col.DATA_TYPE = "timestamp" OR col.DATA_TYPE = "datetime")
+		 AND (col.TABLE_SCHEMA = 'dreamcart' OR col.TABLE_SCHEMA = 'dreamlog' OR col.TABLE_SCHEMA = 'dreamsite')
+ GROUP BY col.TABLE_SCHEMA, col.TABLE_NAME, col.COLUMN_NAME
+ ORDER BY col.TABLE_SCHEMA, col.TABLE_NAME, col.COLUMN_NAME)
+
+
+# MariaDB 5.5.68
+(SELECT CONCAT("ALTER TABLE ", col.TABLE_SCHEMA, ".`", col.TABLE_NAME, "` ALTER  ", col.COLUMN_NAME, " SET DEFAULT '1970-01-01 00:00:01';") AS `set_default`
+ FROM INFORMATION_SCHEMA.COLUMNS AS col
+ WHERE (col.TABLE_SCHEMA = 'dreamcart' OR col.TABLE_SCHEMA = 'dreamlog' OR col.TABLE_SCHEMA = 'dreamsite') AND (col.DATA_TYPE = 'timestamp' OR col.DATA_TYPE = 'datetime')
+ GROUP BY col.TABLE_SCHEMA, col.TABLE_NAME)
+UNION
+(SELECT CONCAT("UPDATE ",col.TABLE_SCHEMA,".`",col.TABLE_NAME,"` SET ",col.COLUMN_NAME," = '1970-01-01 00:00:01'",IF(col.COLUMN_NAME != col2.COLUMN_NAME, concat(", ", col2.COLUMN_NAME," = ",col2.COLUMN_NAME), "")," WHERE ",col.COLUMN_NAME," = '0000-00-00 00:00:00';") AS `set_default`
+ FROM INFORMATION_SCHEMA.COLUMNS AS col
+		  JOIN INFORMATION_SCHEMA.COLUMNS AS col2 ON col2.EXTRA = "on update CURRENT_TIMESTAMP" AND col2.TABLE_SCHEMA=col.TABLE_SCHEMA AND col2.TABLE_NAME=col.TABLE_NAME
  WHERE (col.DATA_TYPE = "timestamp" OR col.DATA_TYPE = "datetime")
 		 AND (col.TABLE_SCHEMA = 'dreamcart' OR col.TABLE_SCHEMA = 'dreamlog' OR col.TABLE_SCHEMA = 'dreamsite')
  GROUP BY col.TABLE_SCHEMA, col.TABLE_NAME, col.COLUMN_NAME
