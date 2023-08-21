@@ -590,7 +590,7 @@ class CLog {
             $content .= (!empty($postCopy) ? "POST\r\n" . print_r($postCopy, true) : "");
             $content = $utils->quoteSmart($content);
 
-            $cookies = (!empty($_COOKIE) ?  $utils->quoteSmart(print_r($_COOKIE, true)) : "");
+            $cookies = (!empty($_COOKIE) ?  $utils->quoteSmart(print_r($_COOKIE, true)) : "null");
 
             $szInsert = "INSERT into " . DB_LOG_DATABASE . ".nav_log 
                 (user_id,
