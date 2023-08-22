@@ -1839,10 +1839,9 @@ class CSessionToolsPDFDrawer
 		}
 
 		// price 3-serving
-		if (!empty($menuItemArray['price_half']))
+		if (count($menuItemArray['menu_item']) >1)
 		{
 			$this->pdf->Rect(CSessionToolsPDF::kLEFT_MARGIN + 179, $yPos + 5, 3, 3);
-
 			$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN + 183.5, $yPos + 4.5);
 			$this->pdf->MultiCellTag(6, 4, "<t9b>or</t9b>", $this->showBorders, 'C');
 		}
