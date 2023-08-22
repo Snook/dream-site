@@ -132,7 +132,7 @@ class OrdersHelper
 
 		$activityData = array_merge($bookingData, $sessionData, $menuItemData, $inventoryData, $sidesFormData);
 
-		$activityData = self::filterAndSortOrderActivityByDay($activityData, $startingDate, $daysBack, $filter, $store_id);
+		$activityData = self::filterAndSortOrderActivityByDay($activityData, $startingDate, $store_id, $daysBack, $filter);
 
 		return $activityData;
 	}
@@ -226,7 +226,7 @@ class OrdersHelper
 		return $retVal;
 	}
 
-	private static function filterAndSortOrderActivityByDay($activityInput, $laterDate, $daysBack = 1, $include = null, $store_id)
+	private static function filterAndSortOrderActivityByDay($activityInput, $laterDate, $store_id, $daysBack = 1, $include = null)
 	{
 		$DAO_store = DAO_CFactory::create('store');
 		$DAO_store->id = $store_id;

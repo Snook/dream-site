@@ -467,7 +467,7 @@ class page_session_menu extends CPage
 			if ($minimum->hasFreezerInventory())
 			{
 
-				if ($tpl->menu_view != 'session_menu_freezer')
+				if (empty($tpl->menu_view) || $tpl->menu_view != 'session_menu_freezer')
 				{
 					return 'Select a meal to get started or click continue.';
 				}

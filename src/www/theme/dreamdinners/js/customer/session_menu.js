@@ -128,7 +128,7 @@ function inventoryCheck(menu_item_id)
 
 	if (total_servings + newServingsThisInstance > menuItemInfo['mid'][menu_item_id].remaining_servings)
 	{
-		dd_message({
+		modal_message({
 			title: 'Inventory Limit Reached',
 			message: "Please contact your store if you wish to purchase more of this item. The store's available inventory limit has been reached."
 		});
@@ -883,7 +883,7 @@ function update_cart(menu_item_id, action)
 					err_message = "You have added the number of dinners allowed for this special event or session type. Please remove a dinner from your cart to add this dinner.";
 				}
 
-				dd_message({
+				modal_message({
 					title: "Error",
 					message: err_message,
 					callback: function () {
@@ -913,7 +913,7 @@ function update_cart(menu_item_id, action)
 			$('.btn-spinning').removeClass('btn-spinning');
 			$('.ld-spin').remove();
 
-			dd_message({
+			modal_message({
 				title: "Error",
 				message: 'Unexpected error, if you continue to receive this message please contact your store.'
 			})
@@ -999,14 +999,14 @@ $(function () {
 
 					if (order_type == 'DREAM_TASTE')
 					{
-						dd_message({
+						modal_message({
 							title: 'Event Offer',
 							message: 'You have completed your Meal Prep Workshop order and are ready to checkout.'
 						});
 					}
 					else
 					{
-						dd_message({
+						modal_message({
 							title: 'Event Offer',
 							message: 'You have completed your Fundraiser order and are ready to checkout.'
 						});
@@ -1031,7 +1031,7 @@ $(function () {
 
 				if (entree_total >= 2)
 				{
-					dd_message({
+					modal_message({
 						title: 'Meal Prep Starter Pack',
 						message: 'Meal Prep Starter Pack orders are limited to only 1 large or 1 medium selection per meal.'
 					});
@@ -1047,7 +1047,7 @@ $(function () {
 				{
 					$(this).removeClass('disabled');
 
-					dd_message({
+					modal_message({
 						title: 'Meal Prep Starter Pack',
 						message: 'You have completed your Meal Prep Starter Pack and are ready to checkout.'
 					});
@@ -1057,7 +1057,7 @@ $(function () {
 				}
 				else if (servings > number_servings_required)
 				{
-					dd_message({
+					modal_message({
 						title: 'Meal Prep Starter Pack',
 						message: 'You have 1 medium meal left to complete your Meal Prep Starter Pack. You may order six medium dinners or three large dinners (or a combination of both sizes).'
 					});
@@ -1213,7 +1213,7 @@ $(function () {
 				}
 				else
 				{
-					dd_message({
+					modal_message({
 						title: 'Error',
 						message: json.processor_message
 					});
@@ -1280,7 +1280,7 @@ $(function () {
 				}
 				else
 				{
-					dd_message({
+					modal_message({
 						title: 'Error',
 						message: json.processor_message
 					});
@@ -1487,7 +1487,7 @@ $(function () {
 
 			if (canIncrement !== true)
 			{
-				dd_message({
+				modal_message({
 					title: 'Max Items Reached',
 					message: canIncrement
 				});
@@ -1527,7 +1527,7 @@ $(function () {
 
 		if (!add_coupon_code)
 		{
-			dd_message({
+			modal_message({
 				title: 'Error',
 				message: 'Please enter a promo code.'
 			});
@@ -1582,14 +1582,14 @@ $(function () {
 					}
 					else
 					{
-						dd_message({
+						modal_message({
 							title: 'Error',
 							message: json.processor_message
 						});
 					}
 				},
 				error: function (objAJAXRequest, strError) {
-					dd_message({
+					modal_message({
 						title: 'Error',
 						message: 'Unexpected error: ' + strError
 					});
@@ -1641,7 +1641,7 @@ $(function () {
 				output: 'json'
 			},
 			success: function (json) {
-				dd_message({
+				modal_message({
 					title: 'Clear your Cart',
 					message: json.html,
 					height: 300,
@@ -1762,7 +1762,7 @@ $(function () {
 				}
 				else
 				{
-					dd_message({
+					modal_message({
 						title: 'Error',
 						message: json.processor_message
 					});
@@ -1770,7 +1770,7 @@ $(function () {
 
 			},
 			error: function (objAJAXRequest, strError) {
-				dd_message({
+				modal_message({
 					title: 'Error',
 					message: 'Unexpected error: ' + strError
 				});
@@ -1824,7 +1824,7 @@ $(function () {
 					}
 					else if (!json.processor_success && json.processor_message)
 					{
-						dd_message({
+						modal_message({
 							message: json.processor_message
 						});
 

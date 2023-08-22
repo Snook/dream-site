@@ -457,7 +457,7 @@ class DB
             @include_once "DB/{$type}.php";
         }
 
-        $classname = "DB_${type}";
+        $classname = "DB_{$type}";
 
         if (!class_exists($classname)) {
             $tmp = PEAR::raiseError(null, DB_ERROR_NOT_FOUND, null, null,
@@ -530,12 +530,12 @@ class DB
 
         if (isset($options['debug']) && $options['debug'] >= 2) {
             // expose php errors with sufficient debug level
-            include_once "DB/${type}.php";
+            include_once "DB/{$type}.php";
         } else {
-            @include_once "DB/${type}.php";
+            @include_once "DB/{$type}.php";
         }
 
-        $classname = "DB_${type}";
+        $classname = "DB_{$type}";
         if (!class_exists($classname)) {
             $tmp = PEAR::raiseError(null, DB_ERROR_NOT_FOUND, null, null,
                                     "Unable to include the DB/{$type}.php"
@@ -864,7 +864,7 @@ class DB
          * defined, and means that we deal with strings and array in the same
          * manner. */
         $dsnArray = DB::parseDSN($dsn);
-        
+
         if ($hidePassword) {
             $dsnArray['password'] = 'PASSWORD';
         }
@@ -874,7 +874,7 @@ class DB
         if (is_string($dsn) && strpos($dsn, 'tcp') === false && $dsnArray['protocol'] == 'tcp') {
             $dsnArray['protocol'] = false;
         }
-        
+
         // Now we just have to construct the actual string. This is ugly.
         $dsnString = $dsnArray['phptype'];
         if ($dsnArray['dbsyntax']) {
@@ -897,7 +897,7 @@ class DB
             $dsnString .= ':'.$dsnArray['port'];
         }
         $dsnString .= '/'.$dsnArray['database'];
-        
+
         /* Option handling. Unfortunately, parseDSN simply places options into
          * the top-level array, so we'll first get rid of the fields defined by
          * DB and see what's left. */
@@ -924,7 +924,7 @@ class DB
 
         return $dsnString;
     }
-    
+
     // }}}
 }
 

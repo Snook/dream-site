@@ -55,7 +55,7 @@ class page_session extends CPage
 
 		// process invite by link with session id - user id
 		// dreamdinners.com/session/<session_id>-<user_id>
-		if (!empty($_REQUEST['sid']) && is_numeric($_REQUEST['sid']) && !empty($_REQUEST['jid']) && !is_numeric($_REQUEST['jid']))
+		if (!empty($_REQUEST['sid']) && is_numeric($_REQUEST['sid']) && !empty($_REQUEST['jid']) && is_numeric($_REQUEST['jid']))
 		{
 			/// TODO: may need to throttle these requests as they represent a potential DOS attack
 

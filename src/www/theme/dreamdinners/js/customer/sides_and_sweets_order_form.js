@@ -12,7 +12,7 @@ $(document).on('change keyup', '[data-menu_item_id]', function (e) {
 		{
 			$(this).val($(this).prop('max'));
 
-			dd_message({message: 'Amount exceeded maximum available inventory of ' + $(this).prop('max') + '.'})
+			modal_message({message: 'Amount exceeded maximum available inventory of ' + $(this).prop('max') + '.'})
 		}
 		else if ($(this).val() == '' && $(this).not(':focus').length)
 		{

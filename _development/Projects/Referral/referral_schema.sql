@@ -8,7 +8,7 @@ CREATE TABLE `customer_referral_credit` (
 	`original_amount` decimal(6,2) DEFAULT NULL,
 	`expiration_date` datetime DEFAULT NULL,
 	`timestamp_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	`timestamp_created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+	`timestamp_created` timestamp NOT NULL DEFAULT '1970-01-01 00:00:01',
 	`updated_by` int(11) unsigned DEFAULT NULL,
 	`created_by` int(11) unsigned DEFAULT NULL,
 	`is_deleted` tinyint(4) NOT NULL DEFAULT '0',

@@ -717,7 +717,7 @@ class CTemplate extends Savant2
 	static function dateTimeFormat($dateStr, $format = NORMAL, $store = false, $toolTipFormat = false)
 	{
 
-		if (!isset($dateStr) || $dateStr == "" || $dateStr == "0000-00-00 00:00:00")
+		if (!isset($dateStr) || $dateStr == "" || $dateStr == "1970-01-01 00:00:01")
 		{
 			return "unavailable";
 		}
@@ -1054,12 +1054,11 @@ class CTemplate extends Savant2
 		{
 			if ($msg = self::getDebugMsg())
 			{
-				$msg = addslashes(htmlspecialchars($msg));
-				self::$head_onload_array[] = 'dd_message( { message: \'' . str_replace("\n", " \\\n", $msg) . '\' } );';
+				self::$head_onload_array[] = "modal_message( { size: 'extra-large', message: '" . str_replace("\n", " \\\n", $msg) . "' } );";
 			}
 		}
 
-		// Follwing included in front end
+		// Following included in front end
 		if ($isAdmin)
 		{
 			self::$head_onload_array[] = 'admin_global_init();';

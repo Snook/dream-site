@@ -535,7 +535,7 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 
 			$ItemForm->DefaultValues["close_interval_hours"] = $storeObj->close_session_hours;
 			$ItemForm->DefaultValues['close_interval_hours'] = 24;
-			if($_REQUEST['meal_customization_close_interval'])
+			if(!empty($_REQUEST['meal_customization_close_interval']))
 			{
 				$ItemForm->DefaultValues['meal_customization_close_interval'] = $_REQUEST['meal_customization_close_interval'];
 			}

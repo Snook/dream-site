@@ -291,7 +291,7 @@ function showPopup(config)
 		success: function (data, status) {
 			settings.message = data;
 
-			dd_message(settings);
+			modal_message(settings);
 
 			if (typeof settings.callBack == 'function')
 			{
@@ -358,7 +358,7 @@ function setStoreAndBeginOrder(config)
 
 function showMap(address)
 {
-	dd_message({
+	modal_message({
 		width: 670,
 		height: 580,
 		modal: false,
@@ -369,7 +369,7 @@ function showMap(address)
 
 function confirmNavigate(goUrl, message)
 {
-	dd_message({
+	modal_message({
 		message: message,
 		confirm: function () {
 			bounce(goUrl);
@@ -582,12 +582,12 @@ function fetchToasts(json)
 	}
 }
 
-function dd_message(settings)
+function modal_message(settings)
 {
 	var config = {
 		title: false,
 		message: false,
-		size: false // small, large
+		size: false // small, large, extra-large
 	};
 
 	$.extend(config, settings);
@@ -657,7 +657,7 @@ function showTermsAndConditions(jobject)
 		url: tandc_url,
 		type: 'GET',
 		success: function (data, status) {
-			dd_message({
+			modal_message({
 				title: 'Dream Dinners Terms and Conditions',
 				message: data,
 				height: 500,
@@ -682,7 +682,7 @@ function showTermsAndConditions(jobject)
 
 function dd_alert(msg)
 {
-	dd_message({
+	modal_message({
 		title: 'Alert',
 		message: msg
 	});
@@ -725,7 +725,7 @@ function cookieCheck()
 
 	if (!$.cookie('chkcookie') && !overrideCookieCheck)
 	{
-		dd_message({
+		modal_message({
 			title: 'Alert',
 			message: 'You have cookies turned off in your browser. Please check your settings, and enable cookies for this site in order to continue. Thank you.'
 		});
@@ -1417,7 +1417,7 @@ $(document).on('click', '.clear-cart, .clear-cart-gc', function (e) {
 			output: 'json'
 		},
 		success: function (json) {
-			dd_message({
+			modal_message({
 				title: 'Clear your Cart',
 				message: json.html,
 				height: 300,
@@ -1504,7 +1504,7 @@ $(document).on('click', '.clear-edit-delivered-order', function (e) {
 			output: 'json'
 		},
 		success: function (json) {
-			dd_message({
+			modal_message({
 				title: 'Clear Cart',
 				message: 'Are you sure you want to stop editing this Delivered order?',
 				height: 300,
@@ -1774,7 +1774,7 @@ $(document).on('keyup change', '.dd-strip-tags', function (e) {
 $(document).ajaxError(function (event, jqxhr, settings, exception) {
 	AJAX_IN_PROCESS = false;
 	dd_console_log('Ajax Error: ' + jqxhr.statusText);
-	//dd_message({ title: 'Ajax Error', message: request.statusText });
+	//modal_message({ title: 'Ajax Error', message: request.statusText });
 });
 
 // userpreferences
@@ -1814,7 +1814,7 @@ $(document).on('click', '[data-user_pref][type=checkbox]', function (e) {
 
 			if (!json.processor_success)
 			{
-				dd_message({message: json.processor_message});
+				modal_message({message: json.processor_message});
 
 				$(this).prop('checked', $(pref_elem).data('user_pref_orig'));
 			}
@@ -1829,7 +1829,7 @@ $(document).on('click', '[data-user_pref][type=checkbox]', function (e) {
 
 			if (!json.processor_success)
 			{
-				dd_message({message: json.processor_message});
+				modal_message({message: json.processor_message});
 
 				$(this).prop('checked', $(pref_elem).data('user_pref_orig'));
 			}
@@ -1865,7 +1865,7 @@ $(document).on('change', '[data-user_pref]select', function (e) {
 
 		if (!json.processor_success)
 		{
-			dd_message({message: json.processor_message});
+			modal_message({message: json.processor_message});
 
 			$(pref_elem).val($(pref_elem).data('user_pref_orig'));
 		}
@@ -1921,7 +1921,7 @@ $(document).on('focus', '[data-user_pref]input[type=text]', function (e) {
 
 					if (!json.processor_success)
 					{
-						dd_message({message: json.processor_message});
+						modal_message({message: json.processor_message});
 
 						$(pref_elem).val($(this).data('user_pref_orig'));
 					}
@@ -1942,7 +1942,7 @@ $(document).on('focus', '[data-user_pref]input[type=text]', function (e) {
 
 					if (!json.processor_success)
 					{
-						dd_message({message: json.processor_message});
+						modal_message({message: json.processor_message});
 
 						$(pref_elem).val($(this).data('user_pref_orig'));
 					}
@@ -2020,7 +2020,7 @@ $(document).on('focus', '[data-user_pref]textarea', function (e) {
 				preferenceChangeListener($(pref_elem).data('user_pref'), $(pref_elem).val(), user_id, function (json) {
 					if (!json.processor_success)
 					{
-						dd_message({message: json.processor_message});
+						modal_message({message: json.processor_message});
 
 						$(pref_elem).val($(this).data('user_pref_orig'));
 					}
@@ -2040,7 +2040,7 @@ $(document).on('focus', '[data-user_pref]textarea', function (e) {
 				set_user_pref($(pref_elem).data('user_pref'), $(pref_elem).val(), user_id, function (json) {
 					if (!json.processor_success)
 					{
-						dd_message({message: json.processor_message});
+						modal_message({message: json.processor_message});
 
 						$(pref_elem).val($(this).data('user_pref_orig'));
 					}

@@ -209,7 +209,7 @@ class CCustomerReferral extends DAO_Customer_referral
 		$referral->referral_status = 1;
 		$referral->referred_user_email = "";
 		$referral->referred_user_name = "";
-		$referral->session_properties_id = $$sessionPropertiesID;
+		$referral->session_properties_id = $sessionPropertiesID;
 		$referral->origination_type_code = $referralType;
 		$referral->inviting_user_name = "";
 		$referral->origination_uid = self::generateUniqueID();

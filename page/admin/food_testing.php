@@ -301,7 +301,7 @@ class page_admin_food_testing extends CPageAdminOnly
 		{
 			$recipes[$recipe->id] = $recipe->toArray();
 
-			if ($recipes[$recipe->id]['timestamp_created'] == '0000-00-00 00:00:00')
+			if ($recipes[$recipe->id]['timestamp_created'] == '1970-01-01 00:00:01')
 			{
 				$recipes[$recipe->id]['timestamp_created'] = $recipes[$recipe->id]['timestamp_updated'];
 			}
@@ -345,7 +345,7 @@ class page_admin_food_testing extends CPageAdminOnly
 		{
 			$surveys[$survey->food_testing_id][$survey->id] = $survey->toArray();
 
-			if ($surveys[$survey->food_testing_id][$survey->id]['timestamp_created'] == '0000-00-00 00:00:00')
+			if ($surveys[$survey->food_testing_id][$survey->id]['timestamp_created'] == '1970-01-01 00:00:01')
 			{
 				$surveys[$survey->food_testing_id][$survey->id]['timestamp_created'] = $surveys[$survey->food_testing_id][$survey->id]['timestamp_updated'];
 			}
