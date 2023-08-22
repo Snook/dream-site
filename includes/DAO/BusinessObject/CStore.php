@@ -1529,7 +1529,7 @@ class CStore extends DAO_Store
 		CSession::INTRO,
 		CSession::ALL_STANDARD,
 		CSession::EVENT
-	),                                $excludeMenuIds = false, $UserObj = false)
+	),$excludeMenuIds = false, $UserObj = false, $excludeWalking = false)
 	{
 		if (empty($UserObj))
 		{
@@ -1579,7 +1579,7 @@ class CStore extends DAO_Store
 
 			foreach ($sessionTypesArray as $sessionType)
 			{
-				$sessionsArray = CSession::getMonthlySessionInfoArray($this, $menu['start_date'], $mid, $sessionType, true, true);
+				$sessionsArray = CSession::getMonthlySessionInfoArray($this, $menu['start_date'], $mid, $sessionType, true, true, false, false, false,false, $excludeWalking);
 
 				if (!array_key_exists($sessionType, $sessionArray['info']['session_type']))
 				{

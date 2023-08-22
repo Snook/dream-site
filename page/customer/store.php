@@ -30,7 +30,7 @@ class page_store extends CPage
 
 			$canOrderIntro = CUser::getCurrentUser()->isEligibleForIntro($StoreObj);
 
-			$calendar = CSession::getSessionsForFullCalendarCustomer($StoreObj, false);
+			$calendar = CSession::getSessionsForFullCalendarCustomer($StoreObj, true);
 			$calendar['menus'] = CMenu::getActiveMenuArray();
 			$calendarJS = (!empty($calendar) ? json_encode($calendar) : "{}");
 
@@ -57,7 +57,12 @@ class page_store extends CPage
 				}
 			}
 
-			$sessionArray = $StoreObj->getCustomerCalendarArray();
+
+			$sessionArray = $StoreObj->getCustomerCalendarArray(array(
+				CSession::INTRO,
+				CSession::ALL_STANDARD,
+				CSession::EVENT
+			),false,false,true);
 
 			$supportsCustomizatoin = ($calendar['info']['has_meal_customization_sessions'] && $StoreObj->supports_meal_customization);
 			$tpl->assign('has_meal_customization_sessions', $supportsCustomizatoin);
