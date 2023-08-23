@@ -72,7 +72,7 @@
 				<li class="category">Reports</li>
 				<li><a href="#" id="st_entree_summary">Entr&eacute;e Summary</a></li>
 				<li><a href="#" id="st_future_orders">Future Orders Report</a></li>
-				<?php if ($this->storeSupportsPlatePoints) { ?>
+				<?php if (false){//$this->storeSupportsPlatePoints) { ?>
 					<li><a href="#" id="st_print_enrollment_forms">PLATEPOINTS Enrollment</a></li>
 				<?php } ?>
 
