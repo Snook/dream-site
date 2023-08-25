@@ -731,6 +731,8 @@ function update_cart(menu_item_id, action)
 				$('.coupon-code-total').text(json.coupon_code_discount_total);
 				$('.cart-total').text(json.grand_total);
 
+				$('.cart-total').text(json.grand_total);
+
 				if (order_type == 'STANDARD' || order_type == 'SPECIAL_EVENT')
 				{
 					updateServingsCountAndCheckoutButton();
