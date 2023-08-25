@@ -317,7 +317,7 @@ function countItems(includeFreezer)
 						else
 						{
 
-							itemsOrdered += Number(item_info['qty_in_cart']) * Number(item_info['item_count_per_item']) ;
+							itemsOrdered += Number(item_info['qty_in_cart']) * Number(item_info['item_count_per_item']);
 						}
 					}
 				}
@@ -333,7 +333,7 @@ function countItems(includeFreezer)
 					}
 					else
 					{
-						totalMealNights += Number(item_info['qty_in_cart']) * Number(item_info['item_count_per_item']) ;
+						totalMealNights += Number(item_info['qty_in_cart']) * Number(item_info['item_count_per_item']);
 					}
 				}
 			}
@@ -390,7 +390,7 @@ function countCoreItems()
 					}
 					else
 					{
-						itemsOrdered += Number(item_info['qty_in_cart']) * Number(item_info['item_count_per_item']) ;
+						itemsOrdered += Number(item_info['qty_in_cart']) * Number(item_info['item_count_per_item']);
 					}
 				}
 			}
@@ -648,46 +648,6 @@ function updateServingsCountAndCheckoutButton()
 			quantityOrdered = "0";
 		}
 
-		//update subtotal
-		let cart_total = 0;
-
-		$.each(menuItemInfo['mid'], function (key, item_info) {
-
-			if (item_info['qty_in_cart'] > 0)
-			{
-				cart_total += Number(item_info['price'] * item_info['qty_in_cart']);
-			}
-
-			if (typeof item_info['sub_item'] !== 'undefined')
-			{
-				$.each(item_info['sub_item'], function (key, sub_item_info) {
-
-					cart_total -= Number(sub_item_info['price'] * sub_item_info['qty_in_cart']);
-
-				});
-			}
-
-		});
-
-		if (coupon != false && coupon.limit_to_mfy_fee != 1 && coupon.limit_to_delivery_fee != 1)
-		{
-			cart_total = cart_total - coupon.coupon_code_discount_total;
-			$('.coupon-code-total').text(formatAsMoney(coupon.coupon_code_discount_total));
-		}
-
-		if (customization != false && typeof customization.cost != 'undefined' )
-		{
-			let cost = parseFloat(customization.cost);
-			cart_total = cart_total + cost;
-		}
-
-
-
-		if (order_type == 'STANDARD' || order_type == 'SPECIAL_EVENT')
-		{
-			$('.cart-total').text(formatAsMoney(cart_total));
-		}
-
 		// update coupon display
 		if (coupon.limit_to_mfy_fee == 1 || coupon.limit_to_delivery_fee == 1)
 		{
@@ -768,8 +728,8 @@ function update_cart(menu_item_id, action)
 					order_type = json.order_type;
 				}
 
-				customization.cost = json.subtotal_meal_customization_fee;
-				coupon.coupon_code_discount_total = json.coupon_code_discount_total;
+				$('.coupon-code-total').text(json.coupon_code_discount_total);
+				$('.cart-total').text(json.grand_total);
 
 				if (order_type == 'STANDARD' || order_type == 'SPECIAL_EVENT')
 				{
@@ -1163,7 +1123,6 @@ $(function () {
 
 	});
 
-
 	$(document).on('click', '.sm-change-menu', function (e) {
 		$('.sm-row-change-menu').toggleFlex();
 	});
@@ -1206,7 +1165,7 @@ $(function () {
 								bounce('main.php?page=item&recipe=' + json.recipe_id + '&ov_menu=' + json.menu_id);
 							},
 							cancel: {
-								label: "Close",
+								label: "Close"
 							}
 						}
 					})
@@ -1549,14 +1508,16 @@ $(function () {
 					{
 						coupon = json.coupon;
 
+						$('.cart-total').text(json.orderInfo.grand_total);
+
 						$('.add-coupon-code').prop('disabled', true);
 						$('.add-coupon-add').addClass('disabled');
 
 						// update coupon title
-						$('.coupon-code-title').text(coupon.coupon_code_short_title);
+						$('.coupon-code-title').text(json.coupon.coupon_code_short_title);
 
 						// update coupon total
-						$('.coupon-code-total').text(formatAsMoney(coupon.coupon_code_discount_total));
+						$('.coupon-code-total').text(formatAsMoney(json.coupon.coupon_code_discount_total));
 
 						// show coupon row
 						$('.coupon-code-row').showFlex();
@@ -1701,6 +1662,8 @@ $(function () {
 			success: function (json) {
 				if (json.processor_success)
 				{
+					$('.cart-total').text(json.orderInfo.grand_total);
+
 					// restore coupon input
 					$('.add-coupon-code').prop('disabled', false);
 					$('.add-coupon-add').removeClass('disabled');
@@ -1715,7 +1678,6 @@ $(function () {
 
 					// hide coupon row
 					$('.coupon-code-row').hideFlex();
-
 
 					if (json.limit_to_recipe_id)
 					{

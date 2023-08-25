@@ -4693,7 +4693,7 @@ class COrders extends DAO_Orders
 
 		$this->subtotal_all_items += $this->subtotal_meal_customization_fee;
 
-		$this->grand_total = $this->subtotal_all_items + $this->subtotal_all_taxes;
+		$this->grand_total =  round($this->subtotal_all_items + $this->subtotal_all_taxes, 2);
 
 		return $this->grand_total;
 	}

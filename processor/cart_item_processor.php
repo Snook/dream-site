@@ -163,7 +163,8 @@ class processor_cart_item_processor extends CPageProcessor
 						'cart_update' => $cart_update,
 						'coupon_code_discount_total' => $cartArrays['order_info']['coupon_code_discount_total'],
 						'subtotal_meal_customization_fee' => $cartArrays['order_info']['subtotal_meal_customization_fee'],
-						'total_items_price' => $cartArrays['cart_info_array']['total_items_price']
+						'total_items_price' => $cartArrays['cart_info_array']['total_items_price'],
+						'grand_total' => $cartArrays["orderObj"]->grand_total
 					));
 				}
 				else if (empty($_POST['qty']))
@@ -175,7 +176,8 @@ class processor_cart_item_processor extends CPageProcessor
 						'order_type' => $orderSessionType,
 						'coupon_code_discount_total' => $cartArrays['order_info']['coupon_code_discount_total'],
 						'subtotal_meal_customization_fee' => $cartArrays['order_info']['subtotal_meal_customization_fee'],
-						'total_items_price' => $cartArrays['cart_info_array']['total_items_price']
+						'total_items_price' => $cartArrays['cart_info_array']['total_items_price'],
+						'grand_total' => $cartArrays["orderObj"]->grand_total
 					));
 				}
 			}
@@ -194,6 +196,7 @@ class processor_cart_item_processor extends CPageProcessor
 				'coupon_code_discount_total' => $cartArrays['order_info']['coupon_code_discount_total'],
 				'subtotal_meal_customization_fee' => $cartArrays['order_info']['subtotal_meal_customization_fee'],
 				'total_items_price' => $cartArrays['cart_info_array']['total_items_price'],
+				'grand_total' => $cartArrays["orderObj"]->grand_total,
 				'processor_message' => 'The item was successfully updated.'
 			));
 		}
