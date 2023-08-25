@@ -37,7 +37,9 @@
 			<div class="col-12">
 				<div class="row text-white text-center">
 					<div class="meal-nights bg-cyan-dark font-size-small col-12 py-2 p-0<?php echo (empty($this->cart_info['item_info'])) ? ' collapse' : ''; ?>">You have dinners for <span class="total-meal-nights font-weight-bold"><?php echo $this->cart_info['cart_info_array']['dinners_total_count']; ?></span> night<span class="total-meal-nights-plural">s</span></div>
-					<div class="meal-select bg-cyan-dark col-12 py-2 p-0 text-uppercase<?php echo (!empty($this->cart_info['item_info'])) ? ' collapse' : ''; ?>"><?php echo $this->additional_ordering_message; ?></div>
+					<?php if(!empty($this->additional_ordering_message)) { ?>
+						<div class="meal-select bg-cyan-dark col-12 py-2 p-0 text-uppercase<?php echo (!empty($this->cart_info['item_info'])) ? ' collapse' : ''; ?>"><?php echo $this->additional_ordering_message; ?></div>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
