@@ -412,7 +412,7 @@ class page_session_menu extends CPage
 		$tpl->assign('allow_customizations', $DAO_orders->opted_to_customize_recipes);
 		$tpl->assign('customization', $customizationDetails);
 
-		$subTotal = ((!empty($DAO_bundle->price)) ? $DAO_bundle->price : $cartInfo['cart_info_array']['total_items_price']) - ((!empty($cartInfo['order_info']['coupon_code_discount_total']) && empty($cartInfo['coupon']['limit_to_mfy_fee']) && empty($cartInfo['coupon']['limit_to_delivery_fee)'])) ? $cartInfo['order_info']['coupon_code_discount_total'] : 0);
+		$subTotal = ((!empty($DAO_bundle->price) && $orderType != COrders::STANDARD) ? $DAO_bundle->price : $cartInfo['cart_info_array']['total_items_price']) - ((!empty($cartInfo['order_info']['coupon_code_discount_total']) && empty($cartInfo['coupon']['limit_to_mfy_fee']) && empty($cartInfo['coupon']['limit_to_delivery_fee)'])) ? $cartInfo['order_info']['coupon_code_discount_total'] : 0);
 		$subTotal += $cartInfo['order_info']['subtotal_meal_customization_fee'];
 		$tpl->assign('initialCartSubtotal', CTemplate::moneyFormat($subTotal));
 
