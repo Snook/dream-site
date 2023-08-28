@@ -51,6 +51,51 @@
 
 		<table style="width: 100%; margin-bottom: 10px;">
 			<tr>
+				<td class="bgcolor_dark catagory_row" colspan="2">Public Bio</td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Store Name:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_store_name_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Owner/Manager Name:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_primary_party_name_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Owner/Manager Title:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_primary_party_title_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Owner/Manager Story:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_primary_party_story_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Owner/Manager #2 Name:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_secondary_party_name_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Owner/Manager #2 Title:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_secondary_party_title_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Owner/Manager #2 Story:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_secondary_party_story_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Meet the Team:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_team_description_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;vertical-align:top;">Store Hours:</td>
+				<td class="bgcolor_light">
+					<?php echo $this->form_store_details['bio_store_hours_html']; ?>
+					<div style="border: 1px solid brown; padding: 4px; display: none;" id="store_description_preview"></div>
+				</td>
+			</tr>
+		</table>
+
+		<table style="width: 100%; margin-bottom: 10px;">
+			<tr>
 				<td class="bgcolor_dark catagory_row" colspan="2">Location Information
 					<?php if (!$isSiteAdmin) { ?>
 						<span style="font-size:9pt; font-weight:lighter">Please contact <a href="mailto:<?php echo IT_EMAIL; ?>">Home Office</a> to request changes to your store location information.</span>
