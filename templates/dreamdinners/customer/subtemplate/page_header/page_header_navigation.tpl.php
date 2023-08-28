@@ -55,15 +55,13 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 							<a class="nav-link" href="/main.php?static=how_it_works">How it works</a>
 						</li>
 						<li class="nav-item d-block d-lg-none d-xl-block">
-							<a class="nav-link" href="/main.php?static=gift">Gift</a>
-						</li>
-						<li class="nav-item d-block d-lg-none d-xl-block">
 							<a class="nav-link" href="/main.php?page=session_menu">Order</a>
 						</li>
 						<li class="nav-item d-block d-lg-none d-xl-block">
-							<?php if (defined('ENABLE_HELP_SEARCH') && ENABLE_HELP_SEARCH == true) { ?>
-								<a class="nav-link help-search-launcher" href="#">Help</a>
-							<?php } ?>
+							<a class="nav-link" href="/main.php?static=share">Share</a>
+						</li>
+						<li class="nav-item d-block d-lg-none d-xl-block">
+							<a class="nav-link" href="/main.php?static=gift">Gift</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link login_sign_in<?php if (CUser::isLoggedIn()) { ?> collapse<?php } ?>" href="/main.php?page=login<?php echo $backNavigation;?>">Sign In</a>
@@ -87,8 +85,9 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item nav-link" href="main.php?page=admin_main">BackOffice Home</a>
 										<a class="dropdown-item nav-link" href="main.php?page=admin_reports">Reports</a>
-										<a class="dropdown-item nav-link" href="main.php?page=admin_session_mgr">Session Calendar</a>
 										<a class="dropdown-item nav-link" href="main.php?page=admin_list_users">Guests</a>
+										<a class="dropdown-item nav-link" href="main.php?page=admin_session_mgr">Session Calendar</a>
+										<a class="dropdown-item nav-link" href="main.php?page=admin_menu_inventory_mgr">Inventory Manager</a>
 										<a class="dropdown-item nav-link" href="main.php?page=admin_menu_editor">Menu Editor</a>
 										<a class="dropdown-item nav-link" href="main.php?page=admin_gift_card_management">Gift Cards</a>
 									<?php } ?>
@@ -125,18 +124,17 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 			</button>
 		</div>
 	</div>
-
-	<a class="btn btn-primary btn-block mb-2" href="/main.php?page=locations">Order</a>
+	<a class="btn btn-primary btn-block mb-2" href="/main.php?page=session_menu">Order</a>
 	<a class="dropdown-item" href="/main.php?page=browse_menu">Menu Preview</a>
-	<a class="dropdown-item" href="/main.php?static=how_it_works">How It works</a>
-	<a class="dropdown-item" href="/main.php?static=gift">Gift</a>
+	<a class="dropdown-item" href="/main.php?static=how_it_works">How It Works</a>
+	<a class="dropdown-item" href="/main.php?page=locations">Store Locations</a>
+	<a class="dropdown-item" href="/main.php?page=recipe_resources">Recipe Resources</a>
+	<a class="dropdown-item" href="/main.php?static=share">Share</a>
 	<a class="dropdown-item" href="/main.php?page=platepoints">PLATEPOINTS</a>
 	<a class="dropdown-item" href="/main.php?static=fundraisers">Fundraisers</a>
 	<a class="dropdown-item" href="/main.php?static=promotions">Promotions</a>
-	<a class="dropdown-item" href="/main.php?page=locations">Store Locations</a>
-	<a class="dropdown-item" href="/main.php?static=about_us">About Us</a>
-	<a class="dropdown-item" href="/main.php?page=recipe_resources">Recipe Resources</a>
 	<a class="dropdown-item" href="/main.php?page=gift_card_order">Gift Cards</a>
+	<a class="dropdown-item" href="/main.php?static=about_us">About Us</a>
 	<?php if (defined('ENABLE_HELP_SEARCH') && ENABLE_HELP_SEARCH == true) { ?>
 		<a class="dropdown-item help-search-launcher" href="#">Help</a>
 	<?php } ?>
@@ -147,8 +145,9 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 		<div class="dropdown-divider"></div>
 		<a class="dropdown-item" href="main.php?page=admin_main">BackOffice Home</a>
 		<a class="dropdown-item" href="main.php?page=admin_reports">Reports</a>
-		<a class="dropdown-item" href="main.php?page=admin_session_mgr">Session Calendar</a>
 		<a class="dropdown-item" href="main.php?page=admin_list_users">Guests</a>
+		<a class="dropdown-item" href="main.php?page=admin_session_mgr">Session Calendar</a>
+		<a class="dropdown-item" href="main.php?page=admin_menu_inventory_mgr">Inventory Manager</a>
 		<a class="dropdown-item" href="main.php?page=admin_menu_editor">Menu Editor</a>
 		<a class="dropdown-item" href="main.php?page=admin_gift_card_management">Gift Cards</a>
 	<?php } ?>

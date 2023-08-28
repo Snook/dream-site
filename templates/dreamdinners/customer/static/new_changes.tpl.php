@@ -27,7 +27,7 @@
 						<a href="/main.php?page=locations" class="btn btn-lg btn-green">View Menu & Order</a>
 					</div>
 					<div class="col-md-6 p-0">
-					<img src="<?php echo IMAGES_PATH; ?>/landing_pages/august23-collage-circles-957x657.webp" alt="Pub Style Chicken and Cashew Chicken Noodles adn Slow Roasted Carolina BBQ Pork Tenderloin" class="img-fluid">
+					<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sept23-header-circles-957x657.webp" alt="Mini Chicken Pot Pies and Chicken Enchiladas and Pulled Pork Banh Mi Sandwiches" class="img-fluid">
 					</div>
 				</div>
 			</div>
