@@ -87,6 +87,9 @@ class CStore extends DAO_Store
 
 	private $custimization_fees = null;
 
+	public $map_link;
+	public $coming_soon;
+
 	function __construct()
 	{
 		parent::__construct();
@@ -94,7 +97,20 @@ class CStore extends DAO_Store
 
 	function fetch()
 	{
-		return parent::fetch();
+		$res = parent::fetch();
+
+		if ($res)
+		{
+			$this->digestStore();
+		}
+
+		return $res;
+	}
+
+	function digestStore()
+	{
+		$this->generateMapLink();
+		$this->isComingSoon();
 	}
 
 	static function setUpFranchiseStore($store_id)
@@ -2627,12 +2643,14 @@ class CStore extends DAO_Store
 	{
 		if ($this->isShowToCustomer() && !$this->isActive())
 		{
-			return true;
+			$this->coming_soon = true;
 		}
 		else
 		{
-			return false;
+			$this->coming_soon = false;
 		}
+
+		return $this->coming_soon;
 	}
 
 	function isActive()
@@ -2702,7 +2720,9 @@ class CStore extends DAO_Store
 		$addressCombined .= ', ' . $this->city . ', ' . $this->state_id . ' ' . $this->postal_code;
 		$addressCombined = urlencode($addressCombined);
 
-		return 'https://maps.google.com/maps?q=' . $addressCombined . '&iwloc=A&hl=en';
+		$this->map_link = 'https://maps.google.com/maps?q=' . $addressCombined . '&iwloc=A&hl=en';
+
+		return $this->map_link;
 	}
 
 	/**
