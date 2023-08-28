@@ -1385,6 +1385,9 @@ class page_admin_store_details extends CPageAdminOnly
 				));
 			}
 
+
+			self::setupStoreBioFormFields($Form);
+
 			// handle form submit
 			if ($Form->value('updateStore'))
 			{
@@ -1697,6 +1700,81 @@ class page_admin_store_details extends CPageAdminOnly
 		}
 
 		$tpl->assign('back', $back);
+	}
+
+	private function setupStoreBioFormFields(&$Form)
+	{
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => false,
+			CForm::name => "bio_store_name",
+			CForm::dd_required => true,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => false,
+			CForm::name => "bio_primary_party_name",
+			CForm::dd_required => true,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => false,
+			CForm::name => "bio_primary_party_title",
+			CForm::dd_required => true,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => false,
+			CForm::name => "bio_primary_party_story",
+			CForm::dd_required => true,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => false,
+			CForm::name => "bio_secondary_party_name",
+			CForm::dd_required => true,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => false,
+			CForm::name => "bio_secondary_party_title",
+			CForm::dd_required => true,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => false,
+			CForm::name => "bio_secondary_party_story",
+			CForm::dd_required => true,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => false,
+			CForm::name => "bio_team_description",
+			CForm::dd_required => true,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => false,
+			CForm::name => "bio_store_hours",
+			CForm::dd_required => true,
+			CForm::size => 40
+		));
 	}
 }
 
