@@ -9,6 +9,9 @@ ALTER TABLE `dreamsite`.`store`
     ADD COLUMN `bio_team_description` TEXT NULL AFTER `bio_secondary_party_story`,
     ADD COLUMN `bio_store_hours` TEXT NULL AFTER `bio_team_description`;
 
+ALTER TABLE `dreamsite`.`store`
+    ADD COLUMN `bio_store_holiday_hours` TEXT NULL AFTER `bio_store_hours`;
+
 
 
 

@@ -2,6 +2,8 @@ function store_details_init()
 {
 	updatePreview(document.getElementById("store_description"));
 
+	handle_store_bio();
+
 	SetGrandOpeningWidget(true);
 
 	if ($('#update_grandopeningdate').length)
@@ -32,7 +34,7 @@ function store_details_init()
 
 	});
 
-	$(document).on('keyup', '#store_description, #address_directions', function (e) {
+	$(document).on('keyup', '#store_description, #address_directions, #bio_primary_party_story, #bio_secondary_party_story, #bio_team_description, #bio_store_hours ', function (e) {
 
 		if ($(this).val() != strip_tags($(this).val(), '<a>'))
 		{
@@ -60,6 +62,7 @@ function store_details_init()
 
 
 	$('#store_description, #address_directions').trigger('keyup');
+
 }
 
 function addManager(guest)
@@ -68,6 +71,14 @@ function addManager(guest)
 	$('#manager_1_name').val($(guest).data('firstname') + ' ' + $(guest).data('lastname'));
 	$('#manager_1_primary_email').val($(guest).data('primary_email'));
 	$('#manager_1_telephone_1').val($(guest).data('telephone_1'));
+}
+
+function handle_store_bio()
+{
+	togglePreview(document.getElementById("bio_primary_party_story"));
+	togglePreview(document.getElementById("bio_secondary_party_story"));
+	togglePreview(document.getElementById("bio_team_description"));
+	togglePreview(document.getElementById("bio_store_hours"));
 }
 
 function handle_order_customization()
@@ -262,6 +273,20 @@ function updatePreview(textArea)
 		{
 			previewDiv.innerHTML = textArea.value;
 		}
+	}
+}
+
+function togglePreview(textArea)
+{
+	let previewDiv = document.getElementById(textArea.name + '_preview');
+	if ( previewDiv.style.display == 'none' )
+	{
+		previewDiv.style.display = 'block';
+		updatePreview(textArea);
+	}
+	else
+	{
+		previewDiv.style.display = 'none';
 	}
 }
 
