@@ -70,7 +70,7 @@
 				<div class="row py-2">
 					<div class="col-6 text-uppercase">Subtotal</div>
 					<div class="col-6 font-weight-bold text-right">$<span class="cart-total"><?php echo $this->initialCartSubtotal; ?></span></div>
-					<div class="col-12 text-muted font-size-small">*Includes taxes and fees, details at checkout</div>
+					<div class="col-12 text-muted font-size-small font-italic">*May include discounts, taxes and fees.</div>
 				</div>
 
 				<div class="row">
