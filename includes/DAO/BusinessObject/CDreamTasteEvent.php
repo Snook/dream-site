@@ -368,7 +368,11 @@ class CDreamTasteEvent extends DAO_Dream_taste_event_properties
 	static function getUsersFuturePastEvents($user_id)
 	{
 		$EventsList = self::eventSessionList($user_id);
-		$sessionArray = CSession::getSessionDetailArray($EventsList, true);
+		$sessionArray = array();
+		if (!empty($EventsList))
+		{
+			$sessionArray = CSession::getSessionDetailArray($EventsList, true);
+		}
 
 		//
 		$manageEvent = false;
@@ -389,7 +393,7 @@ class CDreamTasteEvent extends DAO_Dream_taste_event_properties
 				// the guest is hosting this event, they can see all how are attending
 				$manageEvent = $sessionArray[$manageSessionID];
 			}
-			else
+			else if (!empty($manageSessionID))
 			{
 				// guest isn't the host of the session, so they get a generic invite form
 				$manageInviteOnly = true;
