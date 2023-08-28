@@ -85,9 +85,12 @@ class CStore extends DAO_Store
 	static private $_currentFadminStore = null;
 	static private $_simpleMapsArray = array();
 
-	private $custimization_fees = null;
+	private $customization_fees = null;
 
 	public $map_link;
+	public $address_linear;
+	public $address_with_breaks;
+	public $address_html;
 
 	function __construct()
 	{
@@ -109,6 +112,9 @@ class CStore extends DAO_Store
 	function digestStore()
 	{
 		$this->generateMapLink();
+		$this->generateAddressLinear();
+		$this->generateAddressWithBreaks();
+		$this->generateAddressHTML();
 	}
 
 	static function setUpFranchiseStore($store_id)
@@ -2527,13 +2533,13 @@ class CStore extends DAO_Store
 			return 0;
 		}
 
-		if (is_null($this->custimization_fees))
+		if (is_null($this->customization_fees))
 		{
-			$this->custimization_fees = CStoreFee::fetchCustomizationFees($this);
+			$this->customization_fees = CStoreFee::fetchCustomizationFees($this);
 		}
 
 		$feeAmount = 0;
-		foreach ($this->custimization_fees as $fee)
+		foreach ($this->customization_fees as $fee)
 		{
 			switch ($fee['operator'])
 			{
@@ -2681,38 +2687,30 @@ class CStore extends DAO_Store
 		}
 	}
 
-	function generateLinearAddress()
+	function generateAddressLinear()
 	{
-		$linear_address = $this->address_line1;
+		$this->address_linear = $this->address_line1 . (!empty($this->address_line2) ? " " . $this->address_line2 : "") . ", " . $this->city  . ", " . $this->state_id . " " .  $this->postal_code . (!empty($this->usps_adc) ? "-" . $this->usps_adc : "");
 
-		if (!empty($this->address_line2))
-		{
-			$linear_address .= ' ' . $this->address_line2;
-		}
+		return $this->address_linear;
+	}
 
-		$linear_address .= ', ' . $this->city . ', ' . $this->state_id . ' ' . $this->postal_code;
+	function generateAddressWithBreaks()
+	{
+		$this->address_with_breaks = $this->address_line1 . (!empty($this->address_line2) ? " " . $this->address_line2 : "") . "\n" . $this->city  . ", " . $this->state_id . " " .  $this->postal_code . (!empty($this->usps_adc) ? "-" . $this->usps_adc : "");
 
-		if (!empty($this->usps_adc))
-		{
-			$linear_address .= '-' . $this->usps_adc;
-		}
+		return $this->address_with_breaks;
+	}
 
-		return $linear_address;
+	function generateAddressHTML()
+	{
+		$this->address_html = nl2br($this->generateAddressWithBreaks());
+
+		return $this->address_html;
 	}
 
 	function generateMapLink()
 	{
-		$addressCombined = $this->address_line1;
-
-		if (!empty($this->address_line2))
-		{
-			$addressCombined .= ' ' . $this->address_line2;
-		}
-
-		$addressCombined .= ', ' . $this->city . ', ' . $this->state_id . ' ' . $this->postal_code;
-		$addressCombined = urlencode($addressCombined);
-
-		$this->map_link = 'https://maps.google.com/maps?q=' . $addressCombined . '&iwloc=A&hl=en';
+		$this->map_link = 'https://maps.google.com/maps?q=' . urlencode($this->generateLinearAddress()) . '&iwloc=A&hl=en';
 
 		return $this->map_link;
 	}
