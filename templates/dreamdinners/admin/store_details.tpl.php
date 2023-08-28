@@ -101,6 +101,13 @@
 					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_store_hours_preview"></div>
 				</td>
 			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;vertical-align:top;">Store Holiday Hours:</td>
+				<td class="bgcolor_light">
+					<?php echo $this->form_store_details['bio_store_holiday_hours_html']; ?>
+					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_store_holiday_hours_preview"></div>
+				</td>
+			</tr>
 		</table>
 
 		<table style="width: 100%; margin-bottom: 10px;">
