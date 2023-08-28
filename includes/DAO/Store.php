@@ -121,6 +121,16 @@ class DAO_Store extends DAO
 	public $default_delivered_sessions;		// int(6)  not_null
 	public $large_ship_cost;                 // decimal(12)
 	public $core_pricing_tier;               	// enum
+	public $bio_store_name = 2;				// string
+	public $bio_primary_party_name = 2; 	// string
+	public $bio_primary_party_title = 2;	// string
+	public $bio_primary_party_story = 66;	// text
+	public $bio_secondary_party_name = 2;	// string
+	public $bio_secondary_party_title = 2;	// string
+	public $bio_secondary_party_story = 66;	// text
+	public $bio_team_description = 66;		// text
+	public $bio_store_hours = 66;			// text
+	public $bio_store_holiday_hours = 66;	// text
 	public $timestamp_updated;				// timestamp(19)  not_null unsigned zerofill binary timestamp
 	public $timestamp_created;				// timestamp(19)  not_null unsigned zerofill binary
 	public $created_by;						// int(11)  multiple_key unsigned
