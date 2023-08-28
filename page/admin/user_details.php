@@ -425,7 +425,7 @@ class page_admin_user_details extends CPageAdminOnly
 			}
 
 			// Login as User
-			if ((DD_SERVER_NAME != 'LIVE' && !empty($_GET['login_as_user'])) || (CUser::getCurrentUser()->user_type == 'SITE_ADMIN' && $User->user_type != CUser::SITE_ADMIN && !empty($_GET['login_as_user'])))
+			if ((DD_SERVER_NAME != 'LIVE' && !empty($_GET['login_as_user'])) || (DD_SERVER_NAME == 'LIVE' && CUser::getCurrentUser()->user_type == 'SITE_ADMIN' && $User->user_type != CUser::SITE_ADMIN && !empty($_GET['login_as_user'])))
 			{
 				CBrowserSession::setValue('DDUID', $User->id, false, true, false);
 				CBrowserSession::setValue('FAUID', $AdminUser->id, false, true, false);
