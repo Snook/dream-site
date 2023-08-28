@@ -1702,11 +1702,12 @@ class page_admin_store_details extends CPageAdminOnly
 		$tpl->assign('back', $back);
 	}
 
-	private function setupStoreBioFormFields(&$Form)
+	private function setupStoreBioFormFields(&$Form, $disabledForm = false)
 	{
+
 		$Form->AddElement(array(
 			CForm::type => CForm::Text,
-			CForm::disabled => false,
+			CForm::disabled => $disabledForm,
 			CForm::name => "bio_store_name",
 			CForm::dd_required => true,
 			CForm::size => 40
@@ -1714,7 +1715,7 @@ class page_admin_store_details extends CPageAdminOnly
 
 		$Form->AddElement(array(
 			CForm::type => CForm::Text,
-			CForm::disabled => false,
+			CForm::disabled => $disabledForm,
 			CForm::name => "bio_primary_party_name",
 			CForm::dd_required => true,
 			CForm::size => 40
@@ -1722,15 +1723,15 @@ class page_admin_store_details extends CPageAdminOnly
 
 		$Form->AddElement(array(
 			CForm::type => CForm::Text,
-			CForm::disabled => false,
+			CForm::disabled => $disabledForm,
 			CForm::name => "bio_primary_party_title",
 			CForm::dd_required => true,
 			CForm::size => 40
 		));
 
 		$Form->AddElement(array(
-			CForm::type => CForm::Text,
-			CForm::disabled => false,
+			CForm::type => CForm::TextArea,
+			CForm::disabled => $disabledForm,
 			CForm::name => "bio_primary_party_story",
 			CForm::dd_required => true,
 			CForm::size => 40
@@ -1738,7 +1739,7 @@ class page_admin_store_details extends CPageAdminOnly
 
 		$Form->AddElement(array(
 			CForm::type => CForm::Text,
-			CForm::disabled => false,
+			CForm::disabled => $disabledForm,
 			CForm::name => "bio_secondary_party_name",
 			CForm::dd_required => true,
 			CForm::size => 40
@@ -1746,31 +1747,31 @@ class page_admin_store_details extends CPageAdminOnly
 
 		$Form->AddElement(array(
 			CForm::type => CForm::Text,
-			CForm::disabled => false,
+			CForm::disabled => $disabledForm,
 			CForm::name => "bio_secondary_party_title",
 			CForm::dd_required => true,
 			CForm::size => 40
 		));
 
 		$Form->AddElement(array(
-			CForm::type => CForm::Text,
-			CForm::disabled => false,
+			CForm::type => CForm::TextArea,
+			CForm::disabled => $disabledForm,
 			CForm::name => "bio_secondary_party_story",
 			CForm::dd_required => true,
 			CForm::size => 40
 		));
 
 		$Form->AddElement(array(
-			CForm::type => CForm::Text,
-			CForm::disabled => false,
+			CForm::type => CForm::TextArea,
+			CForm::disabled => $disabledForm,
 			CForm::name => "bio_team_description",
 			CForm::dd_required => true,
 			CForm::size => 40
 		));
 
 		$Form->AddElement(array(
-			CForm::type => CForm::Text,
-			CForm::disabled => false,
+			CForm::type => CForm::TextArea,
+			CForm::disabled => $disabledForm,
 			CForm::name => "bio_store_hours",
 			CForm::dd_required => true,
 			CForm::size => 40
