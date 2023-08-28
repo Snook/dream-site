@@ -77,7 +77,7 @@
 				<div class="row">
 					<div class="col p-4 bg-gray">
 						<h5 class="font-weight-bold text-uppercase">Tell your friends</h5>
-						<p><!--Share Dream Dinners and receive referral rewards for each NEW friend that completes an order.--> Dream Dinners is easier than ever! Share your personal referral link to introduce your friends and family to Dream Dinners. You get 10 Dinner Dollars for every referral and they get a free dinner on us with code SHARE*!</p>
+						<p><!--Share Dream Dinners and receive referral rewards for each NEW friend that completes an order.--> Dream Dinners is easier than ever! Share your personal referral link to introduce your friends and family to Dream Dinners. You get 10 Dinner Dollars for every referral and they get a free dinner* on us!</p>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Your link</span>
