@@ -1776,6 +1776,14 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::dd_required => true,
 			CForm::size => 40
 		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::TextArea,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_store_holiday_hours",
+			CForm::dd_required => true,
+			CForm::size => 40
+		));
 	}
 }
 
