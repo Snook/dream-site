@@ -1,6 +1,6 @@
 <?php $this->setScript('foot', SCRIPT_PATH . '/customer/vendor/clipboard/clipboard.min.js'); ?>
 <?php $this->assign('page_title', 'Share Dream Dinners');?>
-<?php $this->assign('page_description','Dream Dinners helps you get easy homemade meals on the table. '); ?>
+<?php $this->assign('page_description','Real food made from scratch, so your life can feel just a little easier. '); ?>
 <?php $this->assign('page_keywords','refer dream dinners, share dream dinners, local meal prep, local meal prep company, local meal kit, local meal prep service'); ?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
 
@@ -20,20 +20,20 @@
 			<div class="container">
 				<div class="row my-5">
 					<div class="col-md-7 text-left">
-						<h3>Summer New Guest Exclusive:<br><strong>Buy 3 Dinners, Get 1 Free*</strong></h3>
-						<p>Place an order for 3 or more dinners, get a free medium Lemon Chicken Piccata over Linguine as our gift to you. </p>
-						<p>Use this code at checkout: <span class="font-weight-bold font-marker font-size-large">EASIER</span></p>
+						<h3>New Guest Exclusive:<br><strong>Buy 3 Dinners, Get 1 Free*</strong></h3>
+						<p>Place an order for 3 or more dinners, get a free medium Cashew Chicken and Noodles as our gift to you. </p>
+						<p>Use this code at checkout: <span class="font-weight-bold font-marker font-size-large">SHARE</span></p>
 						<p class="my-3"><a href="/main.php?page=locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
 					</div>
 					<div class="col-md-5 mb-6">
 						<div>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/lemon_chicken_piccata_with_fettuccine_458x344.webp" alt="Lemon Chicken Piccata" class="img-fluid mb-3" />
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cashew-chicken-with-noodles-circle-458x344.webp" alt="Cashew Chicken and Noodles" class="img-fluid mb-3" />
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-		<section>
+		<!--<section>
 			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 			<div class="container my-5">
 				<div class="" id="" role="tabpanel" aria-labelledby="">
@@ -83,7 +83,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section>-->
 
 		<!-- How it works -->
 		<section>
@@ -198,7 +198,7 @@
 				<div class="row">
 					<div class="col">
 						<div class="text-center">
-							<h2 class="mt-4 mb-4 font-weight-bold">August Menu Favorites</h2>
+							<h2 class="mt-4 mb-4 font-weight-bold">Meals Made In A Snap</h2>
 						</div>
 					</div>
 				</div>
@@ -206,27 +206,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/blackend-fish-tacos-elevated-400x400.webp" alt="Blackened Fish Tacos " class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-pot-pies-featured-kid-pick-400x400.webp" alt="Mini Chicken Pot Pies" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Blackened Fish Tacos with Honey Lime Crema</h5>
+									<h5 class="card-title">Mini Chicken Pot Pies</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cheesy-chicken-broccoli-no-mess-pan-400x400.webp" alt="Cheesy Chicken and Broccoli Rice Bake" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-enchiladas-featured-pan-400x400.webp" alt="Chicken Enchiladas" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Cheesy Chicken and Broccoli Rice Bake</h5>
+									<h5 class="card-title">Chicken Enchiladas</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cashew-chicken-noodle-under-30-min-400x400.webp" alt="Cashew Chicken with Noodles" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/carne-asada-tacos-featured-under-30-400x400.webp" alt="Carne Asada Steak Tacos" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Cashew Chicken with Noodles</h5>
+									<h5 class="card-title">Carne Asada Steak Tacos</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pubstyle-chicken-kid-pick-400x400.webp" alt="Pub Style Chicken with Mashed Potatoes" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-tikka-masala-featured-instant-pot-400x400.webp" alt="Chicken Tikka Masala" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Pub Style Chicken with Mashed Potatoes</h5>
+									<h5 class="card-title">Chicken Tikka Masala over Jasmine Rice</h5>
 								</div>
 							</div>
 
@@ -286,7 +286,7 @@
 		</section>
 		<div class="container">
 			<div class="row my-5 text-center">
-				<p class="mt-4"><i>Fine Print: The free dinner voucher is for new guests who have never been to Dream Dinners. The voucher has no cash value and is not for sale; it is good for one redemption per a household, and recipient must be at least 18 years old. Not valid combined with any other offers or promotions. Code is only valid at participating locations. Summer program including free dinner and donation expires August 31, 2023.</i></p>
+				<p class="mt-4"><i>Fine Print: The free dinner voucher is for new guests who have never been to Dream Dinners. The voucher has no cash value and is not for sale; it is good for one redemption per a household, and recipient must be at least 18 years old. Not valid combined with any other offers or promotions. Code is only valid at participating locations.</i></p>
 			</div>
 		</div>
 

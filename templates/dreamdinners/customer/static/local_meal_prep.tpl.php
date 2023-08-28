@@ -8,13 +8,12 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
-						<!--<img src="<?php echo IMAGES_PATH; ?>/landing_pages/local-meal-prep-header-747x100.webp" alt="No idea what to cook this week?" class="img-fluid">-->
 						<h1 class="font-weight-bold font-marker mt-2">No idea what to cook this week?</h1>
 						<p class="text-uppercase mb-4">No problem.<br>We planned and prepped your meals for you!</p>
 						<a href="/main.php?page=locations" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/august23-header-collage-957x657.webp" alt="Pub Style Chicken and Italian Pomodoro Burgers and B" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sept23v2-header-circles-957x657.webp" alt="Mini Chicken Pot Pies and Southern Shrimp and Grits adn Chicken Tikka Masala" class="img-fluid">
 					</div>
 
 				</div>
@@ -137,23 +136,6 @@
 			</div>
 			</div>
 		</section>
-		<!--<section>
-			<div class="container">
-				<div class="row my-5">
-					<div class="col-md-6 mb-6 text-left">
-							<h3 class="my-4">OUR GUESTS LOVE US</h3>
-						<p>Hear what our guest, Brittnie has to say about her favorite meal prep company.</p>
-
-						<p><a href="/main.php?page=session_menu" data-gaq_cat="original" data-gaq_action="Order Now" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Order Now</a></p>
-					</div>
-					<div class="col-md-6 text-right">
-						<div class="embed-responsive embed-responsive-16by9">
-						<iframe class="embed-responsive-item" loading="lazy" src="https://www.youtube.com/embed/MrsU9fG2w3I?rel=0&amp;controls=0" allowfullscreen></iframe>
-					</div>
-				</div>
-			  </div>
-			</div>
-		</section>-->
 
 	</main>
 

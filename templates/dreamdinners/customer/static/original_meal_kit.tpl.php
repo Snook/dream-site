@@ -14,7 +14,7 @@
 					</div>
 					<div class="col-md-6 p-0">
 						<figure>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/august23-header-collage-957x657v2.webp" alt="Pub Style Chicken and Grilled Chicken Caesar Sandwiches and Cashew Chicken Noodles" class="img-fluid">
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/Sept23-square-header-collage-957x657.webp" alt="Mini Chicken Pot Pies and Chicken Enchiladas and Thai Peanut Chicken" class="img-fluid">
 						</figure>
 					</div>
 				</div>
@@ -56,27 +56,27 @@
 					<div class="col">
 						<div class="card-group text-center">
 							<div class="card border-0 mx-1">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-turkey-meatloaves-circle-458x344.webp" alt="Mini turkey Meatloaves" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/bacon_mac_n_three_cheese_bake_circle-458x344.webp" alt="Bacon Mac N Three Cheese Bake" class="img-fluid" />
 								<div class="card-body">
-									<p class="card-text">Mini Turkey Meatloaves with Bacon Ranch Green Beans</p>
+									<p class="card-text">Bacon Mac N' Three Cheese Bake</p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cheesy-chicken-and-broccoli-rice-bake-circle-458x344.webp" alt="Cheesy Chicken and Broccoli Rice Bake" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/savannah-chicken-circle-458x344.webp" alt="Savanah Grilled Chicken" class="img-fluid" />
 								<div class="card-body">
-									<p class="card-text">Cheesy Chicken and Broccoli Rice Bake</p>
+									<p class="card-text">Savanah Grilled Chicken with Corn Medley</p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/crunchy-oven-fried-chicken-tenders-family-circle-458x344.webp" alt="Crunchy Oven Fried Chicken Tenders" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pulled-pork-banh-mi-sliders-circle-458x344.webp" alt="Pulled Pork Banh Mi Sandwiches" class="img-fluid" />
 								<div class="card-body">
-									<p class="card-text">Crunchy Oven Fried Chicken Tenders</p>
+									<p class="card-text">Pulled Pork Banh Mi Sandwiches</p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/terracotta-chicken-circle-458x344.webp" alt="TERRACOTTA CHICKEN WITH PITA & HUMMUS" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/southwest-pork-carnitas-wrap-circles-458x344.webp" alt="Southwest Pork Carnitas Wrap" class="img-fluid" />
 								<div class="card-body">
-									<p class="card-text">Terracotta Chicken with Pita & Hummus</p>
+									<p class="card-text">Southwest Pork Carnitas Wrap</p>
 								</div>
 							</div>
 						</div>

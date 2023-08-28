@@ -56,6 +56,7 @@
 			<div class="list-group list-group-flush">
 				<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/main.php?page=locations">Order</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=browse_menu">Menu Preview</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?static=share">Share</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=my_account">My Account</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=locations">Store Locations</a>
 				<?php if (defined('ENABLE_HELP_SEARCH') && ENABLE_HELP_SEARCH == true) { ?>
@@ -90,8 +91,9 @@
 				<div class="list-group list-group-flush">
 					<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="main.php?page=admin_main">BackOffice Home</a>
 					<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=admin_reports">Reports</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=admin_session_mgr">Session Calendar</a>
 					<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=admin_list_users">Guests</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=admin_session_mgr">Session Calendar</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=admin_menu_inventory_mgr">Inventory Manager</a>
 					<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=admin_menu_editor">Menu Editor</a>
 					<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=admin_gift_card_management">Gift Cards</a>
 				</div>
