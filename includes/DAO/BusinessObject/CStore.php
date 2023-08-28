@@ -88,7 +88,6 @@ class CStore extends DAO_Store
 	private $custimization_fees = null;
 
 	public $map_link;
-	public $coming_soon;
 
 	function __construct()
 	{
@@ -110,7 +109,6 @@ class CStore extends DAO_Store
 	function digestStore()
 	{
 		$this->generateMapLink();
-		$this->isComingSoon();
 	}
 
 	static function setUpFranchiseStore($store_id)
