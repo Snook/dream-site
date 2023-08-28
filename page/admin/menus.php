@@ -45,221 +45,224 @@ class page_admin_menus extends CPageAdminOnly
 
 		$Form->DefaultValues['menu_edit'] = $menu_edit;
 		//php 8 $action = CGPC::do_clean($_REQUEST['action'] ?? null, TYPE_STR);
-		$action = CGPC::do_clean((array_key_exists('action',$_REQUEST)?$_REQUEST['action']:null), TYPE_STR);
+		$action = CGPC::do_clean((array_key_exists('action', $_REQUEST) ? $_REQUEST['action'] : null), TYPE_STR);
 		if ($menu_edit && isset($action))
 		{
-			$_REQUEST['item'] = CGPC::do_clean($_REQUEST['item'], TYPE_INT);
-
 			if (isset($_REQUEST['item']) && $_REQUEST['item'])
 			{
-				switch ($action)
+				$_REQUEST['item'] = CGPC::do_clean($_REQUEST['item'], TYPE_INT);
+
+				if (!empty($_REQUEST['item']))
 				{
-					case 'up':
-						$mi = DAO_CFactory::create('menu_item');
-						$menuItemInfo = DAO_CFactory::create('menu_to_menu_item');
-						$mi->entree_id = CGPC::do_clean($_REQUEST['entree_id'], TYPE_INT);
-						$menuItemInfo->menu_id = $menu_edit;
-						$mi->joinAdd($menuItemInfo);
-						$cnt = $mi->find();
-						$mi->fetch();
-						$iter = 0;
+					switch ($action)
+					{
+						case 'up':
+							$mi = DAO_CFactory::create('menu_item');
+							$menuItemInfo = DAO_CFactory::create('menu_to_menu_item');
+							$mi->entree_id = CGPC::do_clean($_REQUEST['entree_id'], TYPE_INT);
+							$menuItemInfo->menu_id = $menu_edit;
+							$mi->joinAdd($menuItemInfo);
+							$cnt = $mi->find();
+							$mi->fetch();
+							$iter = 0;
 
-						if ($mi->menu_order_value > 1)
-						{
-							$miOld = DAO_CFactory::create('menu_to_menu_item');
-							$miOld->menu_id = $menu_edit;
-							$miOld->menu_order_value = $mi->menu_order_value - 1;
-
-							if ($miOld->find())
+							if ($mi->menu_order_value > 1)
 							{
-								while ($miOld->fetch())
+								$miOld = DAO_CFactory::create('menu_to_menu_item');
+								$miOld->menu_id = $menu_edit;
+								$miOld->menu_order_value = $mi->menu_order_value - 1;
+
+								if ($miOld->find())
 								{
-									$miOld->menu_order_value = $mi->menu_order_value;
-									$miOld->update();
+									while ($miOld->fetch())
+									{
+										$miOld->menu_order_value = $mi->menu_order_value;
+										$miOld->update();
+									}
+								}
+
+								while ($iter < $cnt)
+								{
+									$miNew = DAO_CFactory::create('menu_to_menu_item');
+									$miNew->menu_id = $menu_edit;
+									$miNew->menu_order_value = $mi->menu_order_value - 1;
+									$miNew->id = $mi->id;
+									$miNew->update();
+									$mi->fetch();
+									$iter++;
 								}
 							}
-
-							while ($iter < $cnt)
+							else if (!$mi->menu_order_value)
 							{
-								$miNew = DAO_CFactory::create('menu_to_menu_item');
-								$miNew->menu_id = $menu_edit;
-								$miNew->menu_order_value = $mi->menu_order_value - 1;
-								$miNew->id = $mi->id;
-								$miNew->update();
-								$mi->fetch();
-								$iter++;
+								$miOld = DAO_CFactory::create('menu_to_menu_item');
+								$miOld->menu_id = $menu_edit;
+								$num = $miOld->find();
+								$mi->menu_order_value = $num + 1;
+								$mi->update();
 							}
-						}
-						else if (!$mi->menu_order_value)
-						{
-							$miOld = DAO_CFactory::create('menu_to_menu_item');
-							$miOld->menu_id = $menu_edit;
-							$num = $miOld->find();
-							$mi->menu_order_value = $num + 1;
-							$mi->update();
-						}
 
-						CApp::bounce('main.php?page=admin_menus&menu_edit=' . $menu_edit);
-						break;
+							CApp::bounce('main.php?page=admin_menus&menu_edit=' . $menu_edit);
+							break;
 
-					case 'down':
-						$mi = DAO_CFactory::create('menu_item');
-						$menuItemInfo = DAO_CFactory::create('menu_to_menu_item');
-						$mi->entree_id = CGPC::do_clean($_REQUEST['entree_id'], TYPE_INT);
-						$menuItemInfo->menu_id = $menu_edit;
-						$mi->joinAdd($menuItemInfo);
-						$cnt = $mi->find();
-						$mi->fetch();
-						$iter = 0;
+						case 'down':
+							$mi = DAO_CFactory::create('menu_item');
+							$menuItemInfo = DAO_CFactory::create('menu_to_menu_item');
+							$mi->entree_id = CGPC::do_clean($_REQUEST['entree_id'], TYPE_INT);
+							$menuItemInfo->menu_id = $menu_edit;
+							$mi->joinAdd($menuItemInfo);
+							$cnt = $mi->find();
+							$mi->fetch();
+							$iter = 0;
 
-						if ($mi->menu_order_value)
-						{
-							$miOld = DAO_CFactory::create('menu_to_menu_item');
-							$miOld->menu_id = $menu_edit;
-							$miOld->menu_order_value = $mi->menu_order_value + 1;
-
-							if ($miOld->find())
+							if ($mi->menu_order_value)
 							{
-								while ($miOld->fetch())
+								$miOld = DAO_CFactory::create('menu_to_menu_item');
+								$miOld->menu_id = $menu_edit;
+								$miOld->menu_order_value = $mi->menu_order_value + 1;
+
+								if ($miOld->find())
 								{
-									$miOld->menu_order_value = $mi->menu_order_value;
-									$miOld->update();
+									while ($miOld->fetch())
+									{
+										$miOld->menu_order_value = $mi->menu_order_value;
+										$miOld->update();
+									}
+								}
+								while ($iter < $cnt)
+								{
+									$miNew = DAO_CFactory::create('menu_to_menu_item');
+									$miNew->menu_id = $menu_edit;
+									$miNew->menu_order_value = $mi->menu_order_value + 1;
+									$miNew->id = $mi->id;
+									$miNew->update();
+									$mi->fetch();
+									$iter++;
 								}
 							}
-							while ($iter < $cnt)
+							else if (!$mi->menu_order_value)
 							{
-								$miNew = DAO_CFactory::create('menu_to_menu_item');
-								$miNew->menu_id = $menu_edit;
-								$miNew->menu_order_value = $mi->menu_order_value + 1;
-								$miNew->id = $mi->id;
-								$miNew->update();
-								$mi->fetch();
-								$iter++;
-							}
-						}
-						else if (!$mi->menu_order_value)
-						{
-							$miOld = DAO_CFactory::create('menu_to_menu_item');
-							$miOld->menu_id = $menu_edit;
-							$num = $miOld->find();
-							$mi->menu_order_value = $num + 1;
-							$mi->update();
-						}
-
-						CApp::bounce('main.php?page=admin_menus&menu_edit=' . $menu_edit);
-						break;
-
-					case 'remove':
-						$MenuItem = DAO_CFactory::create('menu_item');
-						$MenuItem->entree_id = CGPC::do_clean($_REQUEST['entree_id'], TYPE_INT);
-						if ($MenuItem->find())
-						{
-							while ($MenuItem->fetch())
-							{
-								$mi = DAO_CFactory::create('menu_to_menu_item');
-								$mi->menu_id = $menu_edit;
-								$mi->menu_item_id = $MenuItem->id;
-
-								if ($mi->find(true))
-								{
-									$mi->delete();
-								}
-							}
-						}
-
-						CApp::bounce('main.php?page=admin_menus&menu_edit=' . $menu_edit);
-						break;
-
-					case 'feature':
-						$menuItemInfo = DAO_CFactory::create('menu_item');
-						$menuToMenuItem = DAO_CFactory::create('menu_to_menu_item');
-						$menuToMenuItem->menu_id = $menu_edit;
-						$menuItemInfo->joinAdd($menuToMenuItem);
-						$cnt = $menuItemInfo->find();
-
-						while ($menuItemInfo->fetch())
-						{
-							$mi = DAO_CFactory::create('menu_to_menu_item');
-							$mi->id = $menuItemInfo->id;
-
-							if ($menuItemInfo->entree_id == $_REQUEST['entree_id'])
-							{
-								$mi->featuredItem = 1;
-							}
-							else
-							{
-								$mi->featuredItem = 0;
+								$miOld = DAO_CFactory::create('menu_to_menu_item');
+								$miOld->menu_id = $menu_edit;
+								$num = $miOld->find();
+								$mi->menu_order_value = $num + 1;
+								$mi->update();
 							}
 
-							$mi->update();
-						}
+							CApp::bounce('main.php?page=admin_menus&menu_edit=' . $menu_edit);
+							break;
 
-						CApp::bounce('main.php?page=admin_menus&menu_edit=' . $menu_edit);
-						break;
-
-					case 'additem':
-						$mi = DAO_CFactory::create('menu_to_menu_item');
-						$mi->menu_id = $menu_edit;
-						//$mi->menu_item_id = $_REQUEST['item'];
-						$cnt = $mi->find();
-						$isFound = false;
-						$highest = 0;
-
-						while ($mi->fetch())
-						{
-							if ($mi->menu_item_id == $_REQUEST['item'])
-							{
-								$isFound = true;
-							}
-							if ($mi->menu_order_value > $highest)
-							{
-								$highest = $mi->menu_order_value;
-							}
-						}
-
-						if (!$isFound)
-						{
-							$existing_menu_items = null;
-							// have to find all of the
+						case 'remove':
 							$MenuItem = DAO_CFactory::create('menu_item');
-							$MenuItem->entree_id = CGPC::do_clean($_REQUEST['item'], TYPE_INT);
-
+							$MenuItem->entree_id = CGPC::do_clean($_REQUEST['entree_id'], TYPE_INT);
 							if ($MenuItem->find())
 							{
 								while ($MenuItem->fetch())
 								{
-									$existing_menu_items[$MenuItem->pricing_type] = $MenuItem->toArray();
-									//$mi->featuredItem = 0;
-									//$mi->menu_item_id = $MenuItem->id;
-									//$mi->menu_order_value = $highest + 1;
-									//$mi->insert();
-								}
+									$mi = DAO_CFactory::create('menu_to_menu_item');
+									$mi->menu_id = $menu_edit;
+									$mi->menu_item_id = $MenuItem->id;
 
-								if (isset($existing_menu_items[CMenuItem::FULL]))
-								{
-									$MenuItemIns = DAO_CFactory::create('menu_item');
-									$MenuItemIns->entree_id = CGPC::do_clean($_REQUEST['item'], TYPE_INT);
-
-									foreach ($existing_menu_items as $element)
+									if ($mi->find(true))
 									{
-										if ($element['pricing_type'] != CMenuItem::LEGACY)
-										{
-											$mi->featuredItem = 0;
-											$mi->menu_item_id = $element['id'];
-											$mi->menu_order_value = $highest + 1;
-											$mi->insert();
-										}
+										$mi->delete();
 									}
+								}
+							}
+
+							CApp::bounce('main.php?page=admin_menus&menu_edit=' . $menu_edit);
+							break;
+
+						case 'feature':
+							$menuItemInfo = DAO_CFactory::create('menu_item');
+							$menuToMenuItem = DAO_CFactory::create('menu_to_menu_item');
+							$menuToMenuItem->menu_id = $menu_edit;
+							$menuItemInfo->joinAdd($menuToMenuItem);
+							$cnt = $menuItemInfo->find();
+
+							while ($menuItemInfo->fetch())
+							{
+								$mi = DAO_CFactory::create('menu_to_menu_item');
+								$mi->id = $menuItemInfo->id;
+
+								if ($menuItemInfo->entree_id == $_REQUEST['entree_id'])
+								{
+									$mi->featuredItem = 1;
 								}
 								else
 								{
-									$tpl->setStatusMsg('Sorry, cannot save this menu item to your new menu.  You must first add new FULL and INTRO pricing items to this menu item.');
+									$mi->featuredItem = 0;
+								}
+
+								$mi->update();
+							}
+
+							CApp::bounce('main.php?page=admin_menus&menu_edit=' . $menu_edit);
+							break;
+
+						case 'additem':
+							$mi = DAO_CFactory::create('menu_to_menu_item');
+							$mi->menu_id = $menu_edit;
+							//$mi->menu_item_id = $_REQUEST['item'];
+							$cnt = $mi->find();
+							$isFound = false;
+							$highest = 0;
+
+							while ($mi->fetch())
+							{
+								if ($mi->menu_item_id == $_REQUEST['item'])
+								{
+									$isFound = true;
+								}
+								if ($mi->menu_order_value > $highest)
+								{
+									$highest = $mi->menu_order_value;
 								}
 							}
-						}
 
-						CApp::bounce('main.php?page=admin_menus&menu_edit=' . $menu_edit);
-						break;
+							if (!$isFound)
+							{
+								$existing_menu_items = null;
+								// have to find all of the
+								$MenuItem = DAO_CFactory::create('menu_item');
+								$MenuItem->entree_id = CGPC::do_clean($_REQUEST['item'], TYPE_INT);
+
+								if ($MenuItem->find())
+								{
+									while ($MenuItem->fetch())
+									{
+										$existing_menu_items[$MenuItem->pricing_type] = $MenuItem->toArray();
+										//$mi->featuredItem = 0;
+										//$mi->menu_item_id = $MenuItem->id;
+										//$mi->menu_order_value = $highest + 1;
+										//$mi->insert();
+									}
+
+									if (isset($existing_menu_items[CMenuItem::FULL]))
+									{
+										$MenuItemIns = DAO_CFactory::create('menu_item');
+										$MenuItemIns->entree_id = CGPC::do_clean($_REQUEST['item'], TYPE_INT);
+
+										foreach ($existing_menu_items as $element)
+										{
+											if ($element['pricing_type'] != CMenuItem::LEGACY)
+											{
+												$mi->featuredItem = 0;
+												$mi->menu_item_id = $element['id'];
+												$mi->menu_order_value = $highest + 1;
+												$mi->insert();
+											}
+										}
+									}
+									else
+									{
+										$tpl->setStatusMsg('Sorry, cannot save this menu item to your new menu.  You must first add new FULL and INTRO pricing items to this menu item.');
+									}
+								}
+							}
+
+							CApp::bounce('main.php?page=admin_menus&menu_edit=' . $menu_edit);
+							break;
+					}
 				}
 			}
 		}
