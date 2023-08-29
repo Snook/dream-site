@@ -260,7 +260,14 @@ function createTimeSelection(container,type)
 	let open = $('<select id="store-hours-'+type+'-'+container.data('day')+'" class="store-hour-selector" data-day="'+container.data('day')+'"/>');
 
 	for(let val in time_picker_hours) {
-		$('<option />', {value: val, text: time_picker_hours[val]}).appendTo(open);
+		if(type == 'close' && val == '23:30'){
+			$('<option/>', {value: val, text: time_picker_hours[val], selected: 'true'}).appendTo(open);
+		}
+		else
+		{
+			$('<option />', {value: val, text: time_picker_hours[val]}).appendTo(open);
+		}
+
 	}
 	open.appendTo(container);
 }
