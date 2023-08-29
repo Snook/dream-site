@@ -662,7 +662,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 
 			$targetItem->recipe_id = $fields['recipe_id'];
 			$targetItem->pricing_type = $fields['pricing_type'];
-			$targetItem->sales_mix = str_replace('%', '', $fields[SALES_MIX]) / 100;
+			$targetItem->sales_mix = !empty($fields[SALES_MIX]) ? str_replace('%', '', $fields[SALES_MIX]) / 100 : 0;
 
 			// Determine menu label
 			if (!$doUpdate || !empty($_POST['option_update_menu_label']))
@@ -772,15 +772,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				}
 			}
 
-			if (CImportReciprofity::containerLookup($fields[PACKAGING]))
-			{
-				$targetItem->container_type = CImportReciprofity::containerLookup($fields[PACKAGING]);
-			}
-			else
-			{
-				//echo "container lookup failed: " . $fields[RECIPE_NAME] . " - " . $fields[PACKAGING] . "FULL VERSION -- Setting to None\n";
-				$targetItem->container_type = CMenuItem::NONE;
-			}
+			$targetItem->container_type = CMenuItem::NONE;
 
 			if ($targetItem->menu_item_category_id == 5)
 			{
@@ -1106,7 +1098,14 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				}
 
 				// determine subsort
-				$subsort_full = $fields[MENU_SUBSORT] * 6; // *6 leaves gaps in menu_order_value to accommodate menu adjustments
+				if (!empty($fields[MENU_SUBSORT]))
+				{
+					$subsort_full = $fields[MENU_SUBSORT] * 6; // *6 leaves gaps in menu_order_value to accommodate menu adjustments
+				}
+				else
+				{
+					$subsort_full = 0;
+				}
 
 				if ($targetItem->menu_item_category_id == 1 || strtolower($fields[STATION_NUMBER]) == 'fl') // Core items
 				{

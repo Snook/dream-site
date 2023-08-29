@@ -197,7 +197,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 		return $menuArray;
 	}
 
-	function cookingMethod($method)
+	private static function cookingMethod($method)
 	{
 		// temp until we have reliable entries that could be turned into enum
 		return $method;
