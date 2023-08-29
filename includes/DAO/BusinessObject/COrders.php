@@ -4723,6 +4723,11 @@ class COrders extends DAO_Orders
 	 */
 	function addDiscount($discountAmount)
 	{
+		if(empty($discountAmount))
+		{
+			$discountAmount = 0;
+		}
+
 		//no negative discounts
 		if ($discountAmount < 0)
 		{
