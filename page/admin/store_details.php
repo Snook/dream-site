@@ -1708,7 +1708,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::Text,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_store_name",
-			CForm::dd_required => true,
+			CForm::dd_required => false,
 			CForm::size => 40
 		));
 
@@ -1716,7 +1716,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::Text,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_primary_party_name",
-			CForm::dd_required => true,
+			CForm::dd_required => false,
 			CForm::size => 40
 		));
 
@@ -1724,7 +1724,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::Text,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_primary_party_title",
-			CForm::dd_required => true,
+			CForm::dd_required => false,
 			CForm::size => 40
 		));
 
@@ -1732,7 +1732,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::TextArea,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_primary_party_story",
-			CForm::dd_required => true,
+			CForm::dd_required => false,
 			CForm::size => 40,
 			CForm::css_class => 'previewable'
 		));
@@ -1741,7 +1741,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::Text,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_secondary_party_name",
-			CForm::dd_required => true,
+			CForm::dd_required => false,
 			CForm::size => 40
 		));
 
@@ -1749,7 +1749,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::Text,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_secondary_party_title",
-			CForm::dd_required => true,
+			CForm::dd_required => false,
 			CForm::size => 40
 		));
 
@@ -1757,7 +1757,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::TextArea,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_secondary_party_story",
-			CForm::dd_required => true,
+			CForm::dd_required => false,
 			CForm::size => 40,
 			CForm::css_class => 'previewable'
 		));
@@ -1766,7 +1766,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::TextArea,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_team_description",
-			CForm::dd_required => true,
+			CForm::dd_required => false,
 			CForm::size => 40,
 			CForm::css_class => 'previewable'
 		));
@@ -1775,7 +1775,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::Hidden,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_store_hours",
-			CForm::dd_required => true,
+			CForm::dd_required => false,
 			CForm::size => 40
 		));
 
@@ -1783,7 +1783,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::TextArea,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_store_holiday_hours",
-			CForm::dd_required => true,
+			CForm::dd_required => false,
 			CForm::size => 40,
 			CForm::css_class => 'previewable'
 		));
