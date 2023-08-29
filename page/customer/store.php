@@ -5,11 +5,8 @@ require_once('includes/DAO/BusinessObject/CMenu.php');
 
 class page_store extends CPage
 {
-
 	function runPublic()
 	{
-		$tpl = CApp::instance()->template();
-
 		if (!empty($_GET['id']) && is_numeric($_GET['id']))
 		{
 			list($storeInfo, $ownerInfo, $StoreObj) = CStore::getStoreAndOwnerInfo($_GET['id']);
@@ -65,19 +62,19 @@ class page_store extends CPage
 			),false,false,true);
 
 			$supportsCustomizatoin = ($calendar['info']['has_meal_customization_sessions'] && $StoreObj->supports_meal_customization);
-			$tpl->assign('has_meal_customization_sessions', $supportsCustomizatoin);
-			$tpl->assign('sessionArray', $sessionArray);
-			$tpl->assign('calendar', $calendar);
-			$tpl->assign('calendarJS', $calendarJS);
-			$tpl->assign('canOrderIntro', $canOrderIntro);
-			$tpl->assign('storePromos', $storePromos);
-			$tpl->assign('storeOHEvents', $storeOHEvents);
-			$tpl->assign('store_info', $storeInfo);
-			$tpl->assign('owner_info', $ownerInfo);
+			$this->Template->assign('has_meal_customization_sessions', $supportsCustomizatoin);
+			$this->Template->assign('sessionArray', $sessionArray);
+			$this->Template->assign('calendar', $calendar);
+			$this->Template->assign('calendarJS', $calendarJS);
+			$this->Template->assign('canOrderIntro', $canOrderIntro);
+			$this->Template->assign('storePromos', $storePromos);
+			$this->Template->assign('storeOHEvents', $storeOHEvents);
+			$this->Template->assign('store_info', $storeInfo);
+			$this->Template->assign('owner_info', $ownerInfo);
 		}
 		else
 		{
-			$tpl->setErrorMsg('The requested store is unavailable.');
+			$this->Template->setErrorMsg('The requested store is unavailable.');
 			CApp::bounce('main.php?page=locations');
 		}
 	}

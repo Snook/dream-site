@@ -525,7 +525,8 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::TextArea,
 					CForm::disabled => true,
 					CForm::name => "address_directions",
-					CForm::dd_required => false
+					CForm::dd_required => false,
+					CForm::css_class => 'previewable'
 				));
 
 				$Form->AddElement(array(
@@ -652,7 +653,8 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::type => CForm::TextArea,
 				CForm::disabled => $disabledForm,
 				CForm::name => "store_description",
-				CForm::dd_required => false
+				CForm::dd_required => false,
+				CForm::css_class => 'previewable'
 			));
 
 			$Form->AddElement(array(
@@ -969,7 +971,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => 'allow_preassembled_customization'
 			));
 
-			foreach ( $customizationFees as $fee)
+			foreach ($customizationFees as $fee)
 			{
 				$Form->DefaultValues[$fee['name']] = $fee['cost'];
 				$Form->AddElement(array(
@@ -982,8 +984,6 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::dd_required => false
 				));
 			}
-
-
 
 			$Form->AddElement(array(
 				CForm::type => CForm::Submit,
@@ -1385,6 +1385,8 @@ class page_admin_store_details extends CPageAdminOnly
 				));
 			}
 
+			self::setupStoreBioFormFields($Form, $tpl);
+
 			// handle form submit
 			if ($Form->value('updateStore'))
 			{
@@ -1551,14 +1553,14 @@ class page_admin_store_details extends CPageAdminOnly
 					$store = $storeUpdated;
 					$store->setCurrentSalesTax($Form->value('food_tax'), $Form->value('total_tax'), $Form->value('other1_tax'), $Form->value('other2_tax'), $Form->value('other3_tax'), $Form->value('other4_tax'));
 
-
-					foreach ( $customizationFees as $fee)
+					foreach ($customizationFees as $fee)
 					{
 						$cost = 0;
-						if($Form->value('supports_meal_customization')){
+						if ($Form->value('supports_meal_customization'))
+						{
 							$cost = $Form->value($fee['name']);
 						}
-						$store->setCustomizationFee($store->id,$fee,$cost);
+						$store->setCustomizationFee($store->id, $fee, $cost);
 					}
 
 					//update credit card choices
@@ -1698,6 +1700,117 @@ class page_admin_store_details extends CPageAdminOnly
 
 		$tpl->assign('back', $back);
 	}
-}
 
+	private function setupStoreBioFormFields(&$Form, $tpl, $disabledForm = false)
+	{
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_store_name",
+			CForm::dd_required => true,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_primary_party_name",
+			CForm::dd_required => true,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_primary_party_title",
+			CForm::dd_required => true,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::TextArea,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_primary_party_story",
+			CForm::dd_required => true,
+			CForm::size => 40,
+			CForm::css_class => 'previewable'
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_secondary_party_name",
+			CForm::dd_required => true,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_secondary_party_title",
+			CForm::dd_required => true,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::TextArea,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_secondary_party_story",
+			CForm::dd_required => true,
+			CForm::size => 40,
+			CForm::css_class => 'previewable'
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::TextArea,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_team_description",
+			CForm::dd_required => true,
+			CForm::size => 40,
+			CForm::css_class => 'previewable'
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Hidden,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_store_hours",
+			CForm::dd_required => true,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::TextArea,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_store_holiday_hours",
+			CForm::dd_required => true,
+			CForm::size => 40,
+			CForm::css_class => 'previewable'
+		));
+
+
+		$tpl->assign('time_picker_hours', json_encode(self::hoursRange()));
+
+	}
+
+	private function hoursRange( $lower = 0, $upper = 86400, $step = 1800, $format = '' ) {
+		$times = array();
+
+		if ( empty( $format ) ) {
+			$format = 'g:i a';
+		}
+
+		foreach ( range( $lower, $upper, $step ) as $increment ) {
+			$increment = gmdate( 'H:i', $increment );
+
+			list( $hour, $minutes ) = explode( ':', $increment );
+
+			$date = new DateTime( $hour . ':' . $minutes );
+
+			$times[(string) $increment] = $date->format( $format );
+		}
+
+		return $times;
+	}
+}
 ?>
