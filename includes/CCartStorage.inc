@@ -733,7 +733,7 @@ class CCartStorage
 			$SamplerValue = 1;
 		}
 
-		$customization = str_replace("'","''",$orderObj->order_customization);
+		$customization = $orderObj->order_customization;
 
 		$szInsert = "update dreamcart.cart_contents set state = 'CURRENT', 
 			$storeClause, 
@@ -754,10 +754,18 @@ class CCartStorage
 			is_TODD = $TODD_Value, 
 			total_customized_meal_count = {$orderObj->total_customized_meal_count},
 			subtotal_meal_customization_fee = {$orderObj->subtotal_meal_customization_fee}, 
-			order_customization = '{$customization}' 
+			order_customization = ?
 			where id = $data_ref";
 
-		$result = mysqli_query($this->_db, $szInsert);
+		//$result = mysqli_query($this->_db, $szInsert);
+
+		//Prepared statement to escape special characters
+		$stmt = mysqli_prepare($this->_db, $szInsert);
+		mysqli_stmt_bind_param($stmt, "s", $customization);
+		$result = mysqli_stmt_execute($stmt);
+		mysqli_stmt_close($stmt);
+
+
 		$this->checkResult($result);
 	}
 
@@ -1112,7 +1120,13 @@ class CCartStorage
 		}
 		else
 		{
-			$result = mysqli_query($this->_db, "update dreamcart.cart_contents set $value_name = '$value' where id = $data_ref");
+			//$result = mysqli_query($this->_db, "update dreamcart.cart_contents set $value_name = '$value' where id = $data_ref");
+
+			$query = "update dreamcart.cart_contents set $value_name = ? where id = ?";
+			$stmt = mysqli_prepare($this->_db, $query);
+			mysqli_stmt_bind_param($stmt, "si", $value, $data_ref);
+			$result = mysqli_stmt_execute($stmt);
+			mysqli_stmt_close($stmt);
 		}
 		$this->checkResult($result);
 	}
