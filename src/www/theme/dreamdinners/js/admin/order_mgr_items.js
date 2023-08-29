@@ -334,7 +334,7 @@ function qtyUpdate(input)
 	calculateTotal();
 }
 
-$(document).on('change', '[id^="qty_"]', function (e) {
+$(document).on('change', '[id^="qty_"], [id^="sbi_"]', function (e) {
 	if (e.type != 'keyup')
 	{
 		// trigger qtyUpdate()
