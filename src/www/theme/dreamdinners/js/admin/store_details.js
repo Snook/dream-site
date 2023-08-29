@@ -1,8 +1,9 @@
 function store_details_init()
 {
-	updatePreview(document.getElementById("store_description"));
 
-	handle_store_bio();
+	handle_preview_elements();
+
+	handle_dyanmic_store_hours();
 
 	SetGrandOpeningWidget(true);
 
@@ -34,11 +35,11 @@ function store_details_init()
 
 	});
 
-	$(document).on('keyup', '#store_description, #address_directions, #bio_primary_party_story, #bio_secondary_party_story, #bio_team_description, #bio_store_hours ', function (e) {
+	$(document).on('keyup', '.previewable', function (e) {
 
 		if ($(this).val() != strip_tags($(this).val(), '<a>'))
 		{
-			$(this).val(strip_tags($(this).val(), '<a>'));
+			$(this).val(strip_tags($(this).val(), '<a><b>'));
 		}
 
 		if ($(this).val() != '')
@@ -59,10 +60,6 @@ function store_details_init()
 		}
 
 	});
-
-
-	$('#store_description, #address_directions').trigger('keyup');
-
 }
 
 function addManager(guest)
@@ -73,12 +70,124 @@ function addManager(guest)
 	$('#manager_1_telephone_1').val($(guest).data('telephone_1'));
 }
 
-function handle_store_bio()
+function handle_dyanmic_store_hours()
 {
-	togglePreview(document.getElementById("bio_primary_party_story"));
-	togglePreview(document.getElementById("bio_secondary_party_story"));
-	togglePreview(document.getElementById("bio_team_description"));
-	togglePreview(document.getElementById("bio_store_hours"));
+	$('.store-hours-selector-open').each(function() {
+		createTimeSelection($(this),'open');
+	});
+
+	$('.store-hours-selector-close').each(function() {
+		createTimeSelection($(this),'close');
+	});
+
+	$('.store-closed').each(function() {
+		createClosedCheckbox($(this));
+	});
+
+	$('#preview-hours').on('click',function() {
+		let previewDiv = document.getElementById('bio_store_hours_preview');
+		if ( previewDiv )
+		{
+			previewDiv.style.display = 'block';
+			previewDiv.innerHTML = nl2br(decodeTimeSelection());
+		}
+		$('#bio_store_hours').val(decodeTimeSelection());
+	});
+
+	togglePreview($('#bio_store_hours'));
+
+	if($.trim($('#bio_store_hours').val()) != ''){
+		encodeTimeSelection();
+	}
+
+}
+
+function decodeTimeSelection(){
+	let result = '';
+	$('.store-hour-selection-container').each(function() {
+		let day = $(this).data('day');
+		let is_closed = $('#store-is-closed-'+day).is(':checked');
+		if( is_closed ){
+			result += day + ': Closed\n';
+		}else{
+			let open = $('#store-hours-open-'+day).val();
+			let close =  $('#store-hours-close-'+day).val();
+			result += day + ': ' + millitaryToMeridiem(open) + ' - ' + millitaryToMeridiem(close) +'\n';
+		}
+	});
+
+	return result;
+}
+
+function millitaryToMeridiem(time){
+	time = time.split(":");
+	let hours = time[0];
+	let minutes = time[1];
+	let suffix = (hours >= 12)? 'pm' : 'am';
+	hours = (hours > 12)? hours -12 : hours;
+	hours = (hours == '00')? 12 : hours;
+
+	return hours + ':' + minutes + ' ' +suffix;
+}
+
+function meridiemToMillatary(time){
+	var hours = Number(time.match(/^(\d+)/)[1]);
+	var minutes = Number(time.match(/:(\d+)/)[1]);
+	var AMPM = time.match(/\s(.*)$/)[1];
+	if(AMPM == "PM" && hours<12) hours = hours+12;
+	if(AMPM == "AM" && hours==12) hours = hours-12;
+	var sHours = hours.toString();
+	var sMinutes = minutes.toString();
+	if(hours<10) sHours = "0" + sHours;
+	if(minutes<10) sMinutes = "0" + sMinutes;
+
+	return sHours + ":" + sMinutes;
+}
+
+function encodeTimeSelection(){
+	let currentSelection = $('#bio_store_hours').val();
+	let currentSelections = currentSelection.split(/\r?\n/);
+
+	for(let i = 0; i < currentSelections.length;i ++){
+
+		let data = currentSelections[i].split(': ');
+		let day = data[0]
+		if( data[1] == 'Closed'){
+			$('#store-is-closed-'+day).prop('checked', true);
+		}else{
+			let openClose = data[1].split(' - ');
+			let open = openClose[0];
+			let close = openClose[1];
+			$('#store-hours-open-'+day).val(meridiemToMillatary(open));
+			$('#store-hours-close-'+day).val(meridiemToMillatary(close));
+		}
+		console.log(day);
+	}
+
+}
+
+function createTimeSelection(container,type)
+{
+	let open = $('<select id="store-hours-'+type+'-'+container.data('day')+'" data-day="'+container.data('day')+'"/>');
+
+	for(let val in time_picker_hours) {
+		$('<option />', {value: val, text: time_picker_hours[val]}).appendTo(open);
+	}
+	open.appendTo(container);
+}
+
+function createClosedCheckbox(container)
+{
+	let checkbox = $('<input type="checkbox" id="store-is-closed-'+container.data('day')+'" data-day="'+container.data('day')+'" name="Closed"/> <label for="Closed">Closed</label>');
+
+	checkbox.appendTo(container);
+}
+
+function handle_preview_elements()
+{
+	$('.previewable').each(function() {
+		togglePreview($( this ));
+	});
 }
 
 function handle_order_customization()
@@ -268,17 +377,17 @@ function updatePreview(textArea)
 {
 	if (textArea)
 	{
-		var previewDiv = document.getElementById(textArea.name + '_preview');
+		var previewDiv = document.getElementById(textArea.attr('name') + '_preview');
 		if (textArea && previewDiv)
 		{
-			previewDiv.innerHTML = textArea.value;
+			previewDiv.innerHTML = nl2br(textArea.val());
 		}
 	}
 }
 
 function togglePreview(textArea)
 {
-	let previewDiv = document.getElementById(textArea.name + '_preview');
+	let previewDiv = document.getElementById(textArea.attr('name') + '_preview');
 	if ( previewDiv.style.display == 'none' )
 	{
 		previewDiv.style.display = 'block';
