@@ -946,7 +946,7 @@ class COrders extends DAO_Orders
 		{
 			CLog::Assert(false, "user_id, menu_id and session_id ar required by getStoreOrderInStoreStatus for order " . $this->id);
 
-			return 0;
+			return $inStoreStatusArray;
 		}
 
 		// In Store Flag Intercept Point - fadmin
@@ -4713,6 +4713,11 @@ class COrders extends DAO_Orders
 	 */
 	function addDiscount($discountAmount)
 	{
+		if(empty($discountAmount))
+		{
+			$discountAmount = 0;
+		}
+
 		//no negative discounts
 		if ($discountAmount < 0)
 		{
