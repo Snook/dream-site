@@ -2271,7 +2271,7 @@ function handleMealCustomizationMasterCheckbox(allow_customization){
 		url: 'ddproc.php',
 		type: 'POST',
 		timeout: 20000,
-		dataType: 'json',
+		dataType: "JSON",
 		data: {
 			processor: 'cart_order_customization_preference',
 			op: 'set_customization_applies_to_order',
