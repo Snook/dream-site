@@ -160,7 +160,8 @@
 	 		$this->storeObj = $storeObj;
 	 	}
 
-		 $tpl->assign('storeSupportsPlatePoints', $this->storeObj->supports_plate_points);
+		 //$tpl->assign('storeSupportsPlatePoints', $this->storeObj->supports_plate_points);
+		 $tpl->assign('storeSupportsPlatePoints', false);
 	 	$tpl->assign('storeSupportsDelivery', $this->storeObj->supports_delivery);
 		 $tpl->assign('storeSupportsMembership', $this->storeObj->supports_membership);
 		 $tpl->assign('storeIsDistributionCenter', $this->storeObj->store_type == 'DISTRIBUTION_CENTER');
@@ -214,7 +215,7 @@
 			}
 
 		}
-
+		 $tpl->assign('storeSupportsPlatePoints', false);
 	}
 
 }

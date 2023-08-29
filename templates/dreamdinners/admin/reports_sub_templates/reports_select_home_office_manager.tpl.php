@@ -73,7 +73,9 @@
 					<a href="main.php?page=admin_session_tools_printing">Generic Menu Supporting Documents</a><br/>
 					<a href="main.php?page=admin_reports_customer_menu_item_labels&interface=1">Generic Cooking Instruction Labels</a><br/>
 					<a href="main.php?page=admin_reports_menu_item_nutritional_labels">Nutritional Labels</a><br/>
+					<?php if ($this->storeSupportsPlatePoints) { ?>
 					<a href="main.php?page=admin_user_plate_points&print_blank_form=true" target="_blank">Blank PLATEPOINTS Enrollment Form</a><br/>
+					<?php } ?>
 				</td>
 			</tr>
 		</table>

@@ -164,7 +164,7 @@ define('TIMESTAMPNOW', date('Y-m-d H:i:s', TIMENOW));
 
 define('SLOT_STEALING_CUTOFF_MENU', 124);
 
-define('JAVASCRIPT_CSS_VERSION', 671);
+define('JAVASCRIPT_CSS_VERSION', 672);
 
 define('FADMIN_TIMEOUT', 15); // set minutes to enable timout for everyone but customers, false to disable
 

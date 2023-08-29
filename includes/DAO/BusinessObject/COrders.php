@@ -10670,6 +10670,9 @@ class COrders extends DAO_Orders
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
 
+		$orderCustomization = OrdersCustomization::getInstance($order);
+		$orderInfo['meal_customization_string'] = $orderCustomization->mealCustomizationToStringSelectedOnly(',');
+
 		if ($user->dream_rewards_version > 2 && ($user->dream_reward_status == 1 || $user->dream_reward_status == 3) && $order->dream_rewards_level > 0)
 		{
 			// in PP but order is DR=
