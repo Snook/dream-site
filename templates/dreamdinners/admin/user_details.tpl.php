@@ -94,7 +94,7 @@
 
 				<?php if ($this->canViewPlatePointsHistory == true) { ?>
 					<a class="btn btn-primary btn-block" href="/main.php?page=admin_user_plate_points&amp;id=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">PLATEPOINTS</a>
-				<?php } else if ($this->canJoinToPlatePoints == true ) { ?>
+				<?php } else if (false){//$this->canJoinToPlatePoints == true ) { ?>
 					<?php if (!$this->user['platePointsData']['userIsOnHold'] && !$this->user['membershipData']['enrolled']) { ?>
 						<input type="button" class="btn btn-primary btn-block" value="Join PLATEPOINTS" onclick="enrollInPlatePoints(<?php echo $this->user['id']?>);" />
 						<input type="button" class="btn btn-primary btn-block" value="Print Enrollment Form" onclick="printEnrollmentForm(<?php echo $this->user['id']?>);" />

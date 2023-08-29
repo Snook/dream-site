@@ -57,7 +57,7 @@
 
 						<?php //include $this->loadTemplate('customer/subtemplate/my_account/my_account_platepoints_status.tpl.php'); ?>
 
-					<?php } else if (!CUser::getCurrentUser()->platePointsData['userIsOnHold']) { ?>
+					<?php } else if (false){//!CUser::getCurrentUser()->platePointsData['userIsOnHold']) { ?>
 
 						<div class="row mb-4">
 							<div class="col text-center py-2 bg-image-platepoints">
