@@ -9,6 +9,7 @@
 <?php $this->setOnload('store_details_init();'); ?>
 <?php $this->assign('page_title','Store Details'); ?>
 <?php $this->assign('topnav','store'); ?>
+<?php $this->setScriptVar('time_picker_hours = ' . ($this->time_picker_hours ? $this->time_picker_hours : '{}') . ';'); ?>
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
 <?php $isSiteAdmin = ($this->form_login['user_type'] == 'SITE_ADMIN' || (isset($this->siteadminoverride) == true && $this->siteadminoverride == true)); ?>
@@ -44,7 +45,7 @@
 				<td class="bgcolor_light" style="text-align: right;vertical-align:top;">About Store:</td>
 				<td class="bgcolor_light">
 					<?php echo $this->form_store_details['store_description_html']; ?>
-					<div style="border: 1px solid brown; padding: 4px; display: none;" id="store_description_preview"></div>
+					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="store_description_preview"></div>
 				</td>
 			</tr>
 		</table>
@@ -69,7 +70,7 @@
 				<td class="bgcolor_light" style="text-align: right;">Owner/Manager Story:</td>
 				<td class="bgcolor_light">
 					<?php echo $this->form_store_details['bio_primary_party_story_html']; ?>
-					<div style="border: 1px solid brown; padding: 4px; display: none;" id="bio_primary_party_story_preview"></div>
+					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_primary_party_story_preview"></div>
 				</td>
 			</tr>
 			<tr>
@@ -84,21 +85,20 @@
 				<td class="bgcolor_light" style="text-align: right;">Owner/Manager #2 Story:</td>
 				<td class="bgcolor_light">
 					<?php echo $this->form_store_details['bio_secondary_party_story_html']; ?>
-					<div style="border: 1px solid brown; padding: 4px; display: none;" id="bio_secondary_party_story_preview"></div>
+					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_secondary_party_story_preview"></div>
 				</td>
 			</tr>
 			<tr>
 				<td class="bgcolor_light" style="text-align: right;">Meet the Team:</td>
 				<td class="bgcolor_light">
 					<?php echo $this->form_store_details['bio_team_description_html']; ?>
-					<div style="border: 1px solid brown; padding: 4px; display: none;" id="bio_team_description_preview"></div>
+					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_team_description_preview"></div>
 				</td>
 			</tr>
 			<tr>
 				<td class="bgcolor_light" style="text-align: right;vertical-align:top;">Store Hours:</td>
 				<td class="bgcolor_light">
-					<?php echo $this->form_store_details['bio_store_hours_html']; ?>
-					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_store_hours_preview"></div>
+					<?php include $this->loadTemplate('admin/subtemplate/helpers/store_hour_select.tpl.php'); ?>
 				</td>
 			</tr>
 			<tr>
@@ -203,7 +203,7 @@
 				<td class="bgcolor_light" style="text-align: right;vertical-align:top;">Location directions:</td>
 				<td class="bgcolor_light">
 					<?php echo $this->form_store_details['address_directions_html']; ?>
-					<div style="border: 1px solid brown; padding: 4px; display: none;" id="address_directions_preview"></div>
+					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="address_directions_preview"></div>
 				</td>
 			</tr>
 			<tr>
