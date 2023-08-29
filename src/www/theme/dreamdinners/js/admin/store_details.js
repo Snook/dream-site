@@ -3,7 +3,7 @@ function store_details_init()
 
 	handle_preview_elements();
 
-	handle_dyanmic_store_hours();
+	handle_dynamic_store_hours();
 
 	SetGrandOpeningWidget(true);
 
@@ -70,7 +70,7 @@ function addManager(guest)
 	$('#manager_1_telephone_1').val($(guest).data('telephone_1'));
 }
 
-function handle_dyanmic_store_hours()
+function handle_dynamic_store_hours()
 {
 	$('.store-hours-selector-open').each(function() {
 		createTimeSelection($(this),'open');
@@ -84,14 +84,24 @@ function handle_dyanmic_store_hours()
 		createClosedCheckbox($(this));
 	});
 
-	$('#preview-hours').on('click',function() {
-		let previewDiv = document.getElementById('bio_store_hours_preview');
-		if ( previewDiv )
-		{
-			previewDiv.style.display = 'block';
-			previewDiv.innerHTML = nl2br(decodeTimeSelection());
-		}
-		$('#bio_store_hours').val(decodeTimeSelection());
+	$('#clear-store-hours').on('click',function() {
+		$('#bio_store_hours').val('');
+		$('#bio_store_hours_preview').hide();
+		$('#bio_store_hours_preview')[0].innerHTML = '';
+	});
+
+	$('#set-default-hours').on('click',function() {
+		populateDefaultStoreHours();
+		updateStoreHoursPreview();
+	});
+
+	$('#preview-store-hours').on('click',function() {
+		updateStoreHoursPreview();
+	});
+
+	$('.store-hour-selector').on('change',function() {
+		validateSelectedStoreHours($(this));
+		updateStoreHoursPreview();
 	});
 
 	togglePreview($('#bio_store_hours'));
@@ -99,7 +109,85 @@ function handle_dyanmic_store_hours()
 	if($.trim($('#bio_store_hours').val()) != ''){
 		encodeTimeSelection();
 	}
+}
+function validateSelectedStoreHours(element)
+{
+	let day = element.data('day');
+	let open = $('#store-hours-open-'+day).val();
+	let close = $('#store-hours-close-'+day).val();
 
+	if($('#store-is-closed-'+day).prop('checked') == false && isOpenBeforeClose(open,close))
+	{
+		dd_message({
+			title: 'Warning',
+			message: "The selected closing time is before the selected opening time."
+		});
+		$('#store-hours-open-'+day).addClass('input_in_error');
+		$('#store-hours-close-'+day).addClass('input_in_error');
+
+		return false;
+	}
+	else if($('#store-is-closed-'+day).prop('checked') == false && isOpenSameAsClose(open,close))
+	{
+		dd_message({
+			title: 'Warning',
+			message: "The selected closing time is the same as the selected opening time."
+		});
+		$('#store-hours-open-'+day).addClass('input_in_error');
+		$('#store-hours-close-'+day).addClass('input_in_error');
+
+		return false;
+	}
+	else
+	{
+		$('#store-hours-open-'+day).removeClass('input_in_error');
+		$('#store-hours-close-'+day).removeClass('input_in_error');
+		return true;
+	}
+}
+
+function isOpenBeforeClose(open,close)
+{
+	open = open.replace(":", "");
+	close = close.replace(":", "");
+	open = parseInt(open);
+	close= parseInt(close);
+
+	return (open > close);
+}
+
+function isOpenSameAsClose(open,close)
+{
+	return (open === close);
+}
+
+function populateDefaultStoreHours()
+{
+	$('.store-hour-selection-container').each(function() {
+		let day = $(this).data('day');
+		$('#store-is-closed-'+day).prop('checked', false);
+		if( day == 'Sat' || day == 'Sun'){
+			$('#store-hours-open-'+day).val('09:00');
+			$('#store-hours-close-'+day).val('17:00');
+		}else{
+			$('#store-hours-open-'+day).val('08:00');
+			$('#store-hours-close-'+day).val('19:00');
+		}
+
+		$('#store-hours-open-'+day).removeClass('input_in_error');
+		$('#store-hours-close-'+day).removeClass('input_in_error');
+	});
+}
+
+function updateStoreHoursPreview()
+{
+	let previewDiv = document.getElementById('bio_store_hours_preview');
+	if ( previewDiv )
+	{
+		previewDiv.style.display = 'block';
+		previewDiv.innerHTML = nl2br(decodeTimeSelection());
+	}
+	$('#bio_store_hours').val(decodeTimeSelection());
 }
 
 function decodeTimeSelection(){
@@ -119,6 +207,29 @@ function decodeTimeSelection(){
 	return result;
 }
 
+function encodeTimeSelection(){
+	let currentSelection = $('#bio_store_hours').val();
+	let currentSelections = currentSelection.split(/\r?\n/);
+
+	for(let i = 0; i < currentSelections.length;i ++){
+
+		if($.trim(currentSelections[i]) != '')
+		{
+			let data = currentSelections[i].split(': ');
+			let day = data[0]
+			if( data[1] == 'Closed'){
+				$('#store-is-closed-'+day).prop('checked', true);
+			}else{
+				let openClose = data[1].split(' - ');
+				let open = openClose[0];
+				let close = openClose[1];
+				$('#store-hours-open-'+day).val(meridiemToMillatary(open));
+				$('#store-hours-close-'+day).val(meridiemToMillatary(close));
+			}
+		}
+	}
+}
+
 function millitaryToMeridiem(time){
 	time = time.split(":");
 	let hours = time[0];
@@ -134,8 +245,8 @@ function meridiemToMillatary(time){
 	var hours = Number(time.match(/^(\d+)/)[1]);
 	var minutes = Number(time.match(/:(\d+)/)[1]);
 	var AMPM = time.match(/\s(.*)$/)[1];
-	if(AMPM == "PM" && hours<12) hours = hours+12;
-	if(AMPM == "AM" && hours==12) hours = hours-12;
+	if(AMPM.toUpperCase() == "PM" && hours<12) hours = hours+12;
+	if(AMPM.toUpperCase() == "AM" && hours==12) hours = hours-12;
 	var sHours = hours.toString();
 	var sMinutes = minutes.toString();
 	if(hours<10) sHours = "0" + sHours;
@@ -144,31 +255,9 @@ function meridiemToMillatary(time){
 	return sHours + ":" + sMinutes;
 }
 
-function encodeTimeSelection(){
-	let currentSelection = $('#bio_store_hours').val();
-	let currentSelections = currentSelection.split(/\r?\n/);
-
-	for(let i = 0; i < currentSelections.length;i ++){
-
-		let data = currentSelections[i].split(': ');
-		let day = data[0]
-		if( data[1] == 'Closed'){
-			$('#store-is-closed-'+day).prop('checked', true);
-		}else{
-			let openClose = data[1].split(' - ');
-			let open = openClose[0];
-			let close = openClose[1];
-			$('#store-hours-open-'+day).val(meridiemToMillatary(open));
-			$('#store-hours-close-'+day).val(meridiemToMillatary(close));
-		}
-		console.log(day);
-	}
-
-}
-
 function createTimeSelection(container,type)
 {
-	let open = $('<select id="store-hours-'+type+'-'+container.data('day')+'" data-day="'+container.data('day')+'"/>');
+	let open = $('<select id="store-hours-'+type+'-'+container.data('day')+'" class="store-hour-selector" data-day="'+container.data('day')+'"/>');
 
 	for(let val in time_picker_hours) {
 		$('<option />', {value: val, text: time_picker_hours[val]}).appendTo(open);
@@ -178,7 +267,7 @@ function createTimeSelection(container,type)
 
 function createClosedCheckbox(container)
 {
-	let checkbox = $('<input type="checkbox" id="store-is-closed-'+container.data('day')+'" data-day="'+container.data('day')+'" name="Closed"/> <label for="Closed">Closed</label>');
+	let checkbox = $('<input type="checkbox" id="store-is-closed-'+container.data('day')+'" class="store-hour-selector" data-day="'+container.data('day')+'" name="Closed"/> <label for="Closed">Closed</label>');
 
 	checkbox.appendTo(container);
 }
@@ -193,7 +282,7 @@ function handle_preview_elements()
 function handle_order_customization()
 {
 	$('#supports_meal_customization').on('click', function () {
-			toggleOrderCustomization(this.checked);
+		toggleOrderCustomization(this.checked);
 	});
 }
 
@@ -202,7 +291,6 @@ function toggleOrderCustomization(show){
 		$(".customization_fields").show();
 	}else{
 		$(".customization_fields").hide();
-		//$(".customization_fields").val('0').prop('checked', false);
 	}
 }
 
@@ -388,7 +476,7 @@ function updatePreview(textArea)
 function togglePreview(textArea)
 {
 	let previewDiv = document.getElementById(textArea.attr('name') + '_preview');
-	if ( previewDiv.style.display == 'none' )
+	if ( previewDiv.style.display == 'none' && textArea.val() != '')
 	{
 		previewDiv.style.display = 'block';
 		updatePreview(textArea);

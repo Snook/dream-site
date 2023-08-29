@@ -55,7 +55,7 @@
 				<td class="bgcolor_dark catagory_row" colspan="2">Public Bio</td>
 			</tr>
 			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Store Name:</td>
+				<td class="bgcolor_light" style="text-align: right; width: 210px;">Store Name:</td>
 				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_store_name_html']; ?></td>
 			</tr>
 			<tr>
