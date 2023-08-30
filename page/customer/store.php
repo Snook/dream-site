@@ -33,7 +33,7 @@ class page_store extends CPage
 
 			$storePromos = CStore::getActiveStorePromos($StoreObj);
 
-			$storeOHEvents = false;
+			$storeOHEvents = array();
 
 			// if the user is eligible for Open House, get the next two upcoming Open House
 			if (!CUser::isLoggedIn() || (CUser::isLoggedIn() && CUser::getCurrentUser()->isEligibleForDreamTaste()))
