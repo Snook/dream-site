@@ -625,46 +625,37 @@
 								</tr>
 								</thead>
 								<tbody class="text-white-space-nowrap text-center">
-								<?php if (!empty($this->pricingReferenceArray)) { ?>
-									<?php foreach ($this->pricingReferenceArray AS $DAO_menu_item) { ?>
-										<?php if (!empty($DAO_menu_item->pricing_tiers)) { ?>
-											<tr>
-												<td class="text-left">
-													<?php echo $DAO_menu_item->menu_item_name; ?> (<?php echo $DAO_menu_item->recipe_id; ?>)
-												</td>
-												<td>
-													<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['1'][CMenuItem::HALF])) { ?>
-														<?php echo $DAO_menu_item->pricing_tiers['1'][CMenuItem::HALF]->price; ?>
-													<?php } ?>
-												</td>
-												<td>
-													<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['1'][CMenuItem::FULL])) { ?>
-														<?php echo $DAO_menu_item->pricing_tiers['1'][CMenuItem::FULL]->price; ?>
-													<?php } ?>
-												</td>
-												<td>
-													<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['2'][CMenuItem::HALF])) { ?>
-														<?php echo $DAO_menu_item->pricing_tiers['2'][CMenuItem::HALF]->price; ?>
-													<?php } ?>
-												</td>
-												<td>
-													<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['2'][CMenuItem::FULL])) { ?>
-														<?php echo $DAO_menu_item->pricing_tiers['2'][CMenuItem::FULL]->price; ?>
-													<?php } ?>
-												</td>
-												<td>
-													<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['3'][CMenuItem::HALF])) { ?>
-														<?php echo $DAO_menu_item->pricing_tiers['3'][CMenuItem::HALF]->price; ?>
-													<?php } ?>
-												</td>
-												<td>
-													<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['3'][CMenuItem::FULL])) { ?>
-														<?php echo $DAO_menu_item->pricing_tiers['3'][CMenuItem::FULL]->price; ?>
-													<?php } ?>
-												</td>
+								<?php if (!empty($this->pricingData)) { ?>
+									<?php $current = false;
+									$previous = false;
+									foreach ($this->pricingData as $id => $item) {
+
+										if($current != trim($item['menu_item_name'])){?>
+											<tr id="row_<?php echo $id ?>" data-menu_item_id="<?php echo $item['menu_item_id']; ?>" >
+											<td class="align-left text-left" >
+													<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $item['menu_item_id'] . ' &bull; Recipe ID: ' . $item['recipe_id'] . '"' : ''; ?>>
+															<?php echo $item['menu_item_name']; ?> (<?php echo $item['recipe_id'];?>)
+														</span>
+												<?php if (!empty($item['is_bundle'])) { ?><i class="fas fa-layer-group font-size-small" data-tooltip="<?php echo (!empty($item['admin_notes'])) ? $item['admin_notes'] : 'Meal bundle' ?>"></i><?php } ?>
+											</td>
+
+											<?php $previous = trim($item['menu_item_name']); } ?>
+
+
+										<td class="align-middle">
+											<?php echo CTemplate::moneyFormat($item['price']); ?>
+										</td>
+
+
+										<?php if($previous != trim($item['menu_item_name'])){?>
 											</tr>
-										<?php } ?>
+										<?php }
+										$current = trim($item['menu_item_name']);?>
 									<?php } ?>
+								<?php } else { ?>
+									<tr>
+										<td colspan="11" class="text-center font-weight-bold py-4">There is no reference pricing for this menu</td>
+									</tr>
 								<?php } ?>
 								</tbody>
 							</table>
