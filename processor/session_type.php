@@ -49,7 +49,7 @@ class processor_session_type extends CPage
 				$DAO_store->id = $req_store;
 				$DAO_store->active = 1;
 
-				if ($DAO_store->find())
+				if ($DAO_store->find(true))
 				{
 					$CartObj->storeChangeEvent($req_store);
 					$store_id = $req_store;
@@ -72,6 +72,21 @@ class processor_session_type extends CPage
 					}
 				}
 			}
+
+			if (!empty($store_id))
+			{
+				$DAO_store = DAO_CFactory::create('store');
+				$DAO_store->id = $store_id;
+				$DAO_store->active = 1;
+
+				$DAO_store->find(true);
+			}
+		}
+
+		// store doesn't support intro, and they are requesting intro, send them to standard
+		if ($req_navigation == 'starter' && !$DAO_store->storeSupportsIntroOrders($req_menu))
+		{
+			$req_navigation = 'all_standard';
 		}
 
 		if ($req_navigation)
