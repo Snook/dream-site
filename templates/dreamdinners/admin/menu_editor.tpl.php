@@ -101,6 +101,7 @@
 
 			</div>
 
+			<?php if ($this->storeInfo->storeSupportsIntroOrders($this->DAO_menu->id)) { ?>
 			<div class="form-row">
 
 				<div class="form-group col-6">
@@ -130,6 +131,7 @@
 				</div>
 
 			</div>
+			<?php } ?>
 
 			<div class="form-row">
 				<?php if ($this->DAO_menu->isEnabled_Markup()) { ?>

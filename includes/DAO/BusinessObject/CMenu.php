@@ -95,6 +95,22 @@ class CMenu extends DAO_Menu
 		return $this->isEnabled_Bundle_Fundraiser();
 	}
 
+	function isEnabled_Starter_Pack($DAO_store)
+	{
+		if (!$DAO_store->storeSupportsIntroOrders())
+		{
+			return false;
+		}
+
+		// Stores opting out of starter pack starting with October 2023
+		if ($this->id >= 266 && in_array($DAO_store->id, array(204, 103, 121, 96)))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	static function getLastMenuID()
 	{
 		$DAO_menu = DAO_CFactory::create("menu");
