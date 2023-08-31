@@ -69,55 +69,6 @@ define('NUT_CALCIUM', 63);
 define('NUT_POTASSIUM_K', 64);
 define('NUT_IRON', 65);
 
-function sortOrderCompare($a, $b)
-{
-	if ($a[MENU_SUBSORT] == $b[MENU_SUBSORT])
-	{
-		return 0;
-	}
-
-	return ($a[MENU_SUBSORT] < $b[MENU_SUBSORT]) ? -1 : 1;
-}
-
-function sortOrderCompareInterRecipe($a, $b)
-{
-	if ($a[MENU_SUBSORT] == $b[MENU_SUBSORT])
-	{
-		if ($a['pricing_type'] == CMenuItem::TWO)
-		{
-			return -1;
-		}
-		else if ($a['pricing_type'] == CMenuItem::FULL)
-		{
-			return 1;
-		}
-		else if ($a['pricing_type'] == CMenuItem::FOUR)
-		{
-			if ($b['pricing_type'] == CMenuItem::TWO || $b['pricing_type'] == CMenuItem::HALF)
-			{
-				return 1;
-			}
-			else
-			{
-				return -1;
-			}
-		}
-		else if ($a['pricing_type'] == CMenuItem::HALF)
-		{
-			if ($b['pricing_type'] == CMenuItem::TWO)
-			{
-				return 1;
-			}
-			else if ($b['pricing_type'] == CMenuItem::FOUR || $b['pricing_type'] == CMenuItem::FULL)
-			{
-				return -1;
-			}
-		}
-	}
-
-	return ($a[MENU_SUBSORT] < $b[MENU_SUBSORT]) ? -1 : 1;
-}
-
 class CImportReciprofity extends DAO
 {
 	private static $categoryLookup = array(
@@ -357,7 +308,7 @@ class CImportReciprofity extends DAO
 			return false;
 		}
 
-		usort($rows, sortOrderCompare);
+		usort($rows, "self::sortOrderCompare");
 
 		if ($returnLabels)
 		{
@@ -504,7 +455,7 @@ class CImportReciprofity extends DAO
 		if ($hasLabels)
 		{
 			$labels = array_shift($rows);
-			usort($rows, sortOrderCompareInterRecipe);
+			usort($rows, "self::sortOrderCompareInterRecipe");
 			array_unshift($rows, $labels);
 		}
 
@@ -512,6 +463,53 @@ class CImportReciprofity extends DAO
 		return true;
 	}
 
-}
+	private static function sortOrderCompare($a, $b)
+	{
+		if ($a[MENU_SUBSORT] == $b[MENU_SUBSORT])
+		{
+			return 0;
+		}
 
+		return ($a[MENU_SUBSORT] < $b[MENU_SUBSORT]) ? -1 : 1;
+	}
+
+	private static function sortOrderCompareInterRecipe($a, $b)
+	{
+		if ($a[MENU_SUBSORT] == $b[MENU_SUBSORT])
+		{
+			if ($a['pricing_type'] == CMenuItem::TWO)
+			{
+				return -1;
+			}
+			else if ($a['pricing_type'] == CMenuItem::FULL)
+			{
+				return 1;
+			}
+			else if ($a['pricing_type'] == CMenuItem::FOUR)
+			{
+				if ($b['pricing_type'] == CMenuItem::TWO || $b['pricing_type'] == CMenuItem::HALF)
+				{
+					return 1;
+				}
+				else
+				{
+					return -1;
+				}
+			}
+			else if ($a['pricing_type'] == CMenuItem::HALF)
+			{
+				if ($b['pricing_type'] == CMenuItem::TWO)
+				{
+					return 1;
+				}
+				else if ($b['pricing_type'] == CMenuItem::FOUR || $b['pricing_type'] == CMenuItem::FULL)
+				{
+					return -1;
+				}
+			}
+		}
+
+		return ($a[MENU_SUBSORT] < $b[MENU_SUBSORT]) ? -1 : 1;
+	}
+}
 ?>

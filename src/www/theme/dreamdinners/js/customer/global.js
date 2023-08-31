@@ -574,9 +574,9 @@ function fetchToasts(json)
 
 		$.each(json.dd_toasts, function (key) {
 			// do a short delay so they don't all show up at once.
-			$.doTimeout(time, function () {
+			setTimeout(() => {
 				dd_toast(json.dd_toasts[key]);
-			});
+			}, time);
 			time += 500; // .5 seconds, time between toasts for a response containing multiple toasts
 		});
 	}
@@ -1356,10 +1356,9 @@ if ($.cookie('toastMsg'))
 
 	$.each(messages, function (key, toastArray) {
 
-		// do a short delay so they don't all show up at once.
-		$.doTimeout(time, function () {
+		setTimeout(() => {
 			dd_toast(toastArray);
-		});
+		}, time);
 
 		time += 500; // .5 seconds, time between toasts for a response containing multiple toasts
 
@@ -1739,9 +1738,9 @@ $('#main-sidenav').on('hide.bs.collapse', function () {
 	$('body').removeClass('modal-open');
 	$('.sidenav-modal').removeClass('show');
 
-	$.doTimeout(500, function () {
+	setTimeout(() => {
 		$('.sidenav-modal').remove();
-	});
+	}, 500);
 
 });
 

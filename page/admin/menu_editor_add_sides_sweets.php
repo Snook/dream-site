@@ -6,6 +6,7 @@ require_once 'includes/DAO/BusinessObject/COrders.php';
 require_once 'includes/DAO/Store_menu_item_exclusion.php';
 require_once('DAO/BusinessObject/CMenuItemInventoryHistory.php');
 
+
 class page_admin_menu_editor_add_sides_sweets extends CPageAdminOnly
 {
 	function runSiteAdmin()

@@ -91,10 +91,12 @@
 		<label class="font-weight-bold" for="dream_taste_theme">Session Theme</label>
 		<?php echo $this->form_create_session['dream_taste_theme_html']?>
 	</div>
-	<div class="form-group col-md-6 collapse" id="fundraiser_theme_selection">
-		<label class="font-weight-bold" for="fundraiser_theme">Session Theme</label>
-		<?php echo $this->form_create_session['fundraiser_theme_html']?>
-	</div>
+	<?php if (!empty($this->form_create_session['fundraiser_theme_html'])) { ?>
+		<div class="form-group col-md-6 collapse" id="fundraiser_theme_selection">
+			<label class="font-weight-bold" for="fundraiser_theme">Session Theme</label>
+			<?php echo $this->form_create_session['fundraiser_theme_html']?>
+		</div>
+	<?php } ?>
 	<div class="form-group col-md-6 collapse" id="fundraiser_recipient_selection">
 		<label class="font-weight-bold" for="fundraiser_recipient">Fundraiser</label>
 		<?php echo $this->form_create_session['fundraiser_recipient_html']?>

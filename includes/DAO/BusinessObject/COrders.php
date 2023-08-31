@@ -946,7 +946,7 @@ class COrders extends DAO_Orders
 		{
 			CLog::Assert(false, "user_id, menu_id and session_id ar required by getStoreOrderInStoreStatus for order " . $this->id);
 
-			return 0;
+			return $inStoreStatusArray;
 		}
 
 		// In Store Flag Intercept Point - fadmin
@@ -4713,6 +4713,11 @@ class COrders extends DAO_Orders
 	 */
 	function addDiscount($discountAmount)
 	{
+		if(empty($discountAmount))
+		{
+			$discountAmount = 0;
+		}
+
 		//no negative discounts
 		if ($discountAmount < 0)
 		{
@@ -10654,6 +10659,9 @@ class COrders extends DAO_Orders
 		$orderInfo['customer_primary_email'] = $user->primary_email;
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
+
+		$orderCustomization = OrdersCustomization::getInstance($order);
+		$orderInfo['meal_customization_string'] = $orderCustomization->mealCustomizationToStringSelectedOnly(',');
 
 		if ($user->dream_rewards_version > 2 && ($user->dream_reward_status == 1 || $user->dream_reward_status == 3) && $order->dream_rewards_level > 0)
 		{

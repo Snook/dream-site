@@ -50,7 +50,7 @@ class page_admin_signature_generator extends CPageAdminOnly {
 			header( 'Cache-Control: max-age=10' );
 			header('Pragma: public');
 
-			echo trim(CGPC::do_clean($_POST['signature'],TYPE_STR));
+			echo trim(CGPC::do_clean($_POST['signature'],TYPE_NOCLEAN));
 			exit;
 		}
 

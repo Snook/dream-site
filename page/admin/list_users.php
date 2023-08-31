@@ -508,7 +508,7 @@ class page_admin_list_users extends CPageAdminOnly
 			else //csv
 			{
 				$mb = ($rowcount / 50 + 16);
-				ini_set('memory_limit', $mb . 'M');
+				ini_set('memory_limit', intval($mb) . 'M');
 				ini_set('max_execution_time ', 600);
 
 				$tpl->assign('rows', $User);
@@ -517,7 +517,7 @@ class page_admin_list_users extends CPageAdminOnly
 		else
 		{
 			$mb = ($rowcount / 50 + 36);
-			ini_set('memory_limit', $mb . 'M');
+			ini_set('memory_limit', intval($mb) . 'M');
 			ini_set('max_execution_time ', 600);
 
 			$tpl->assign('rows', $User);

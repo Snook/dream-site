@@ -1,4 +1,4 @@
-<?php $this->setScript('head', SCRIPT_PATH . '/admin/import_bundles.js'); ?>
+<?php $this->setScript('head', SCRIPT_PATH . '/admin/import_bundles.min.js'); ?>
 <?php $this->setOnload('import_bundles_init();'); ?>
 <?php $this->assign('page_title','Import Bundles'); ?>
 <?php $this->assign('topnav','import'); ?>

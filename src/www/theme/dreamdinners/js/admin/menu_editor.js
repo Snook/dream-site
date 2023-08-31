@@ -5,7 +5,7 @@ let gNumOptionalsAdded = 0;
 let notShown = true;
 let dp_processing = false;
 let xmlHttp = null;
-let noOverrideUnderBase = true;
+let noOverrideUnderBase = false;
 
 function resetPage()
 {
@@ -2012,13 +2012,19 @@ $(function () {
 			open: function (event, ui) {
 				$(this).parent().find('.ui-dialog-titlebar-close').hide();
 				$("#wait_for_adding_item_div").remove();
+				$(".modal-backdrop").remove();
 			},
 			buttons: {
 				Cancel: function () {
 					$(this).remove();
+					$(this).parent().find('.ui-dialog-titlebar-close').hide();
+					$("#wait_for_adding_item_div").remove();
+					$(".modal-backdrop").remove();
 				},
 				Okay: function () {
-
+					$(this).parent().find('.ui-dialog-titlebar-close').hide();
+					$("#wait_for_adding_item_div").remove();
+					$(".modal-backdrop").remove();
 					let entreeList = {};
 
 					$('#sel_list').find('[data-rmv_menu_item]').each(function () {
@@ -2196,7 +2202,7 @@ $(function () {
 		displayModalWaitDialog('wait_for_adding_item_div', "Retrieving Sides & Sweets. Please wait ...");
 
 		showPopup({
-			modal: true,
+			modal: false,
 			title: 'Add Sides & Sweets',
 			noOk: true,
 			closeOnEscape: false,
@@ -2210,9 +2216,14 @@ $(function () {
 			buttons: {
 				Cancel: function () {
 					$(this).remove();
+					$(this).parent().find('.ui-dialog-titlebar-close').hide();
+					$("#wait_for_adding_item_div").remove();
+					$(".modal-backdrop").remove();
 				},
 				Okay: function () {
-
+					$(this).parent().find('.ui-dialog-titlebar-close').hide();
+					$("#wait_for_adding_item_div").remove();
+					$(".modal-backdrop").remove();
 					let entreeList = {};
 
 					let errorMissingCategory = false;
