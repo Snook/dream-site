@@ -1,4 +1,4 @@
-<?php $this->setScript('head', SCRIPT_PATH . '/admin/nutritional_summary.js'); ?>
+<?php $this->setScript('head', SCRIPT_PATH . '/admin/nutritional_summary.min.js'); ?>
 <?php $this->setOnload('nutritional_summary_init();'); ?>
 <?php $this->assign('page_title','Nutritional Summary'); ?>
 <?php $this->assign('topnav','reports'); ?>

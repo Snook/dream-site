@@ -272,38 +272,6 @@ function historyPush(config)
 	}
 }
 
-function showPopup(config)
-{
-	var settings = { //defaults
-		type: 'GET',
-		height: 500,
-		width: 600,
-		modal: false,
-		callBack: false,
-		resizable: true
-	};
-
-	$.extend(settings, config);
-
-	$.ajax({
-		url: 'main.php?' + settings.module,
-		type: settings.type,
-		success: function (data, status) {
-			settings.message = data;
-
-			modal_message(settings);
-
-			if (typeof settings.callBack == 'function')
-			{
-				settings.callBack();
-			}
-		},
-		error: function (objAJAXRequest, strError) {
-			response = 'Unexpected error';
-		}
-	});
-}
-
 function create_and_submit_form(config)
 {
 	var settings = { //defaults
