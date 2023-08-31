@@ -1,4 +1,4 @@
-<?php $this->setScript('head', SCRIPT_PATH . '/admin/publish_sessions.js'); ?>
+<?php $this->setScript('head', SCRIPT_PATH . '/admin/publish_sessions.min.js'); ?>
 <?php $this->setScriptVar("calendarName = '" . $this->calendarName . "';"); ?>
 <?php $this->setScriptVar('isSafari = ' . ($this->isSafari() ? 'true' : 'false') . ';'); ?>
 <?php $this->assign('page_title','Publish Multiple Sessions'); ?>

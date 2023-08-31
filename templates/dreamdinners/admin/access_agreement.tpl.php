@@ -1,4 +1,4 @@
-<?php $this->setScript('head', SCRIPT_PATH . '/admin/access_agreement.js'); ?>
+<?php $this->setScript('head', SCRIPT_PATH . '/admin/access_agreement.min.js'); ?>
 <?php $this->setOnload('access_agreement_init();'); ?>
 <?php $this->assign('page_title','Access Agreement'); ?>
 <?php $this->assign('topnav','guests'); ?>

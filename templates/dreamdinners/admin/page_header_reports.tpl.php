@@ -1,6 +1,6 @@
 <?php
  	$this->assign('topnav','reports');
- 	$this->setScript('head', SCRIPT_PATH . '/admin/reports_datefield.js');
+ 	$this->setScript('head', SCRIPT_PATH . '/admin/reports_datefield.min.js');
  	$this->setCSS(CSS_PATH . '/admin/admin-styles-reports.css');
  	include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
