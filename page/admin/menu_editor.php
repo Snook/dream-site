@@ -1199,29 +1199,24 @@ class page_admin_menu_editor extends CPageAdminOnly
 				$storeSpecialsItems[$id] = $id;
 			}
 		}
-		//This Doesn't work...it includes Sides and sweets, etc...just reverting to old working code
-//		$pricingReference = $DAO_menu->findMenuItemDAO(array(
-//			'menu_to_menu_item_store_id' => $store_id,
-//			'exclude_menu_item_is_bundle' => false,
-//			'exclude_menu_item_category_core' => false,
-//			'exclude_menu_item_category_efl' => false,
-//			'exclude_menu_item_category_sides_sweets' => false,
-//			'groupBy' => 'RecipeID'
-//		));
-//
-//		$pricingReferenceArray = array();
-//		while ($pricingReference->fetch())
-//		{
-//			$pricingReferenceArray[$pricingReference->recipe_id] = $pricingReference->cloneObj();
-//		}
 
+		$pricingReference = $DAO_menu->findMenuItemDAO(array(
+			'menu_to_menu_item_store_id' => $store_id,
+			'exclude_menu_item_is_bundle' => false,
+			'exclude_menu_item_category_core' => false,
+			'exclude_menu_item_category_efl' => false,
+			'exclude_menu_item_category_sides_sweets' => true,
+			'groupBy' => 'RecipeID'
+		));
 
-		$pricing = CPricing::buildReferencePricingArray($menu_id,true, true);
-
-		$tpl->assign('pricingData', $pricing);
+		$pricingReferenceArray = array();
+		while ($pricingReference->fetch())
+		{
+			$pricingReferenceArray[$pricingReference->recipe_id] = $pricingReference->cloneObj();
+		}
 
 		$tpl->assign('DAO_menu', $DAO_menu);
-		//$tpl->assign('pricingReferenceArray', $pricingReferenceArray);
+		$tpl->assign('pricingReferenceArray', $pricingReferenceArray);
 		$tpl->assign('markupData', $currentMarkupArray);
 		$tpl->assign('menuInfo', $menuInfo);
 		$tpl->assign('menuInfoJS', json_encode($menuInfo));
