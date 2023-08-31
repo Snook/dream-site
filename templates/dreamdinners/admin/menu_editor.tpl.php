@@ -633,32 +633,32 @@
 														<?php echo $DAO_menu_item->menu_item_name; ?> (<?php echo $DAO_menu_item->recipe_id; ?>)
 													</td>
 													<td>
-														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['1'][CMenuItem::HALF])) { ?>
+														<?php if (!empty($DAO_menu_item->pricing_tiers['1'][CMenuItem::HALF])) { ?>
 															<?php echo $DAO_menu_item->pricing_tiers['1'][CMenuItem::HALF]->price; ?>
 														<?php } ?>
 													</td>
 													<td>
-														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['1'][CMenuItem::FULL])) { ?>
+														<?php if (!empty($DAO_menu_item->pricing_tiers['1'][CMenuItem::FULL])) { ?>
 															<?php echo $DAO_menu_item->pricing_tiers['1'][CMenuItem::FULL]->price; ?>
 														<?php } ?>
 													</td>
 													<td>
-														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['2'][CMenuItem::HALF])) { ?>
+														<?php if (!empty($DAO_menu_item->pricing_tiers['2'][CMenuItem::HALF])) { ?>
 															<?php echo $DAO_menu_item->pricing_tiers['2'][CMenuItem::HALF]->price; ?>
 														<?php } ?>
 													</td>
 													<td>
-														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['2'][CMenuItem::FULL])) { ?>
+														<?php if (!empty($DAO_menu_item->pricing_tiers['2'][CMenuItem::FULL])) { ?>
 															<?php echo $DAO_menu_item->pricing_tiers['2'][CMenuItem::FULL]->price; ?>
 														<?php } ?>
 													</td>
 													<td>
-														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['3'][CMenuItem::HALF])) { ?>
+														<?php if (!empty($DAO_menu_item->pricing_tiers['3'][CMenuItem::HALF])) { ?>
 															<?php echo $DAO_menu_item->pricing_tiers['3'][CMenuItem::HALF]->price; ?>
 														<?php } ?>
 													</td>
 													<td>
-														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['3'][CMenuItem::FULL])) { ?>
+														<?php if (!empty($DAO_menu_item->pricing_tiers['3'][CMenuItem::FULL])) { ?>
 															<?php echo $DAO_menu_item->pricing_tiers['3'][CMenuItem::FULL]->price; ?>
 														<?php } ?>
 													</td>
