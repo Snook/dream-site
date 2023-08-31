@@ -159,6 +159,38 @@ function selectedDefault()
 	calculatePage();
 }
 
+function showPopup(config)
+{
+	var settings = { //defaults
+		type: 'GET',
+		height: 500,
+		width: 600,
+		modal: false,
+		callBack: false,
+		resizable: true
+	};
+
+	$.extend(settings, config);
+
+	$.ajax({
+		url: 'main.php?' + settings.module,
+		type: settings.type,
+		success: function (data, status) {
+			settings.message = data;
+
+			dd_message(settings);
+
+			if (typeof settings.callBack == 'function')
+			{
+				settings.callBack();
+			}
+		},
+		error: function (objAJAXRequest, strError) {
+			response = 'Unexpected error';
+		}
+	});
+}
+
 function getXmlHttpObject()
 {
 	let objXMLHttp = null;
@@ -2012,19 +2044,13 @@ $(function () {
 			open: function (event, ui) {
 				$(this).parent().find('.ui-dialog-titlebar-close').hide();
 				$("#wait_for_adding_item_div").remove();
-				$(".modal-backdrop").remove();
 			},
 			buttons: {
 				Cancel: function () {
 					$(this).remove();
-					$(this).parent().find('.ui-dialog-titlebar-close').hide();
-					$("#wait_for_adding_item_div").remove();
-					$(".modal-backdrop").remove();
 				},
 				Okay: function () {
-					$(this).parent().find('.ui-dialog-titlebar-close').hide();
-					$("#wait_for_adding_item_div").remove();
-					$(".modal-backdrop").remove();
+
 					let entreeList = {};
 
 					$('#sel_list').find('[data-rmv_menu_item]').each(function () {
@@ -2202,7 +2228,7 @@ $(function () {
 		displayModalWaitDialog('wait_for_adding_item_div', "Retrieving Sides & Sweets. Please wait ...");
 
 		showPopup({
-			modal: false,
+			modal: true,
 			title: 'Add Sides & Sweets',
 			noOk: true,
 			closeOnEscape: false,
@@ -2216,14 +2242,9 @@ $(function () {
 			buttons: {
 				Cancel: function () {
 					$(this).remove();
-					$(this).parent().find('.ui-dialog-titlebar-close').hide();
-					$("#wait_for_adding_item_div").remove();
-					$(".modal-backdrop").remove();
 				},
 				Okay: function () {
-					$(this).parent().find('.ui-dialog-titlebar-close').hide();
-					$("#wait_for_adding_item_div").remove();
-					$(".modal-backdrop").remove();
+
 					let entreeList = {};
 
 					let errorMissingCategory = false;
