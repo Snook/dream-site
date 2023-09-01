@@ -1,7 +1,7 @@
 <?php
 $PAGETITLE = $this->page_title;
 $HIDDENPAGENAME = "admin_reports_user_data_v2";
-$this->setScript('head', SCRIPT_PATH . '/admin/reports_user_data.js');
+$this->setScript('head', SCRIPT_PATH . '/admin/reports_user_data.min.js');
 $this->setScriptVar('isFranchiseAccess = ' . (CUser::getCurrentUser()->isFranchiseAccess() ? 'true' : 'false') . ';');
 $this->setOnload('reports_user_data_init();');
 include $this->loadTemplate('admin/page_header_reports.tpl.php');

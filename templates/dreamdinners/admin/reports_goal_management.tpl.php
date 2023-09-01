@@ -1,7 +1,7 @@
 <?php
 $this->setScript('head', SCRIPT_PATH . '/admin/vendor/accounting.js');
-$this->setScript('head', SCRIPT_PATH . '/admin/reports_goal_management.js');
-$this->setScript('head', SCRIPT_PATH . '/admin/reports_expenses.js');
+$this->setScript('head', SCRIPT_PATH . '/admin/reports_goal_management.min.js');
+$this->setScript('head', SCRIPT_PATH . '/admin/reports_expenses.min.js');
 $this->setScript('head', SCRIPT_PATH . '/admin/vendor/jquery.stickyTableHeaders.js');
 $this->setScriptVar('store_id = ' . $this->store_id . ';');
 $this->setScriptVar('month = ' . $this->month . ';');

@@ -1,5 +1,5 @@
 <?php $this->setScript('head', SCRIPT_PATH . '/admin/vendor/jquery.maskedinput.min.js'); ?>
-<?php $this->setScript('head', SCRIPT_PATH . '/admin/franchise_details.js'); ?>
+<?php $this->setScript('head', SCRIPT_PATH . '/admin/franchise_details.min.js'); ?>
 <?php $this->setCSS(CSS_PATH . '/admin/franchise_details.css'); ?>
 <?php $this->assign('page_title','Franchise Details'); ?>
 <?php $this->assign('topnav','store'); ?>

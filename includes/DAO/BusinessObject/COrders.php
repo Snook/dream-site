@@ -3340,7 +3340,7 @@ class COrders extends DAO_Orders
 		}
 
 		//get preferred customer
-		if (isset($this->user_preferred_id) && $this->user_preferred_id != 0)
+		if (isset($this->user_preferred_id) && $this->user_preferred_id != 0 && $this->user_preferred_id !== "null")
 		{
 			$UP = DAO_CFactory::create('user_preferred');
 			$UP->id = $this->user_preferred_id;
@@ -4584,7 +4584,7 @@ class COrders extends DAO_Orders
 			$this->applySessionDiscount($suppressSessionDiscount, $editing);
 		}
 
-		$this->subtotal_food_items_adjusted = $this->subtotal_food_items_adjusted - $this->direct_order_discount + $this->misc_food_subtotal;
+		$this->subtotal_food_items_adjusted = floatval($this->subtotal_food_items_adjusted) - floatval($this->direct_order_discount) + floatval($this->misc_food_subtotal);
 
 		if ($this->subtotal_food_items_adjusted < .005)
 		{

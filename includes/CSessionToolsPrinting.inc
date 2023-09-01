@@ -1392,13 +1392,6 @@ class CSessionToolsPDFDrawer
 		}
 
 
-			// favorite
-			if (!empty($this->data->userInfo) && !empty($menuItemArray['entree']->DAO_food_survey->would_order_again) && $menuItemArray['entree']->DAO_food_survey->would_order_again == 1)
-			{
-				$this->pdf->SetXY($cellLeftMargin + 32, $RatingyPos + .5);
-				$this->pdf->MultiCellTag(76, 3, "<t9rb>FAVORITE</t9rb>", $this->showBorders, 'L');
-			}
-
 		// Description
 		$this->pdf->SetXY($cellLeftMargin, $yPos + 9.5);
 		$this->pdf->MultiCellTag(76, 3, "<h8>" . html_entity_decode(CAppUtil::truncate($menuItemArray['entree']->menu_item_description, 162), ENT_QUOTES, 'WINDOWS-1252') . " (" . number_format($menuItemArray['entree']->nutrition_array['component'][1]['element']['Calories']['value']) . " cal)</h8> ", $this->showBorders, 'L');

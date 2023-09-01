@@ -3062,18 +3062,10 @@ class CUser extends DAO_User
 
 	function setHomeStore($store_id)
 	{
-		$DAO_store = DAO_CFactory::create('store');
-		$DAO_store->id = $store_id;
-
-		if ($DAO_store->find(true))
-		{
-			if ($DAO_store->store_type == CStore::FRANCHISE)
-			{
-				$orgUser = $this->cloneObj();
-				$this->home_store_id = $store_id;
-				$this->update($orgUser);
-			}
-		}
+		$this->query("update user u
+					inner join store st on st.id = $store_id and st.store_type = 'FRANCHISE'
+					set u.home_store_id = $store_id 
+					where u.id = {$this->id}");
 	}
 
 	/**

@@ -483,7 +483,7 @@ class COrdersDigest extends DAO_Orders_digest
 		//$agr = $grand_total - ($taxes + $certs_total + $programs_total + $fundraising_total + $ltd_meal_total + $bag_fee);
 		// Note: although the bag fee is pased in it is currently not considered and adjustment and is ignored
 
-		$agr = $grand_total - ($taxes + $certs_total + $programs_total + $fundraising_total + $ltd_meal_total);
+		$agr = floatVal($grand_total) - (floatVal($taxes) + floatVal($certs_total) + floatVal($programs_total) + floatVal($fundraising_total) + floatVal($ltd_meal_total));
 
 		return $agr;
 	}
@@ -1258,7 +1258,7 @@ class COrdersDigest extends DAO_Orders_digest
 
 		if ($OrderObj->fundraiser_value != $totalFEAmount && !$isCancelled)
 		{
-			$FEdelta = $OrderObj->fundraiser_value - $totalFEAmount;
+			$FEdelta = floatval($OrderObj->fundraiser_value) - floatval($totalFEAmount);
 
 			$FErevenueEvent = DAO_CFactory::create('revenue_event');
 			$FErevenueEvent->event_type = 'FUNDRAISER_DOLLARS';
