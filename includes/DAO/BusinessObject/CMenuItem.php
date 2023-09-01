@@ -532,7 +532,7 @@ class CMenuItem extends DAO_Menu_item
 		}
 
 		$this->base_price = $this->price; // legacy support, ideally 'price' should always be the unmodified base price from the database
-		$this->store_price = $this->getStorePrice(null, true); // store_price should be what the customer pays
+		$this->store_price = $this->getStorePrice(); // store_price should be what the customer pays
 
 		// convert in_bundle json to bundle objects
 		$this->in_bundle = array();
@@ -634,12 +634,10 @@ class CMenuItem extends DAO_Menu_item
 	 * Otherwise markup used is the latest markup
 	 *
 	 */
-	function getStorePrice($DAO_mark_up_multi = null, $clearFirst = false)
+	function getStorePrice($DAO_mark_up_multi = null)
 	{
-		if($clearFirst)
-		{
-			$this->store_price = null;///avoid caching from prefious in a fetch
-		}
+		// Start with base price
+		$this->store_price = $this->price;
 
 		if (isset($this->override_price))
 		{
