@@ -92,7 +92,7 @@
 								</div>
 								<div class="card border-0 py-4 px-4 mx-1 text-center">
 									<div class="card-body text-center">
-										<h4 class="card-title">Parker</h4>
+										<h4 class="card-title">Parker<br />&nbsp;</h4>
 										<img src="<?php echo IMAGES_PATH; ?>/stores/30.webp" alt="Parker" class="img-fluid" />
 									</div>
 									<div class="card-body">
