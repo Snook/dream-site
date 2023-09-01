@@ -4920,6 +4920,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$menuItemInfo->query($query);
 			while ($menuItemInfo->fetch())
 			{
+				//$menuItemInfo->store_price = null;
 				$qty = null;
 
 				if (isset($array[COrders::QUANTITY_PREFIX . $menuItemInfo->id]))

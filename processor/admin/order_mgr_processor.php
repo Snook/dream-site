@@ -3848,10 +3848,9 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 				if (isset($orgPrices[$menuItemInfo->id]))
 				{
 					$menuItemInfo->override_price = $orgPrices[$menuItemInfo->id];
-					if ($menuItemInfo->override_price < $menuItemInfo->price)
-					{
-						$menuItemInfo->price = $menuItemInfo->override_price;
-					}
+
+					$menuItemInfo->price = $menuItemInfo->override_price;
+					$menuItemInfo->store_price = $menuItemInfo->override_price;
 				}
 
 				if ($menuItemInfo->is_bundle && $qty > 0)
