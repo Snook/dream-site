@@ -34,7 +34,7 @@
 			</div>
 			<div class="container">
 			<div class="row my-5 text-center">
-				<p class="mt-4"><i>Fine Print: The free dinner coupon code is for new guests who have never been to Dream Dinners or guests that have not ordered in over a year. The coupon code has no cash value and is not for sale; it is good for one redemption per a household, and recipient must be at least 18 years old. Not valid combined with any other offers or promotions. Code is only valid at participating Colorado store locations.</i></p>
+				<p class="mt-4"><i>*The free dinner coupon code is for new guests who have never been to Dream Dinners or guests that have not ordered in over a year. The coupon code has no cash value and is not for sale; it is good for one redemption per a household, and recipient must be at least 18 years old. Not valid combined with any other offers or promotions. Code is only valid at participating Colorado store locations.</i></p>
 			</div>
 		</div>
 		</section>
@@ -43,6 +43,7 @@
 			<div class="container my-5">
 				<div class="" id="" role="tabpanel" aria-labelledby="">
 					<div class="row my-2">
+						<h2 class="font-weight-bold font-marker font-size-large mt-2">Choose Your Colorado Location</h2>
 						<div class="col">
 							<div class="card-group">
 								<div class="card border-0 py-4 px-4 mx-1 text-center">
