@@ -1,0 +1,1 @@
+INSERT INTO `dreamsite`.`order_minimum` ( `store_id`, `menu_id`, `order_type`, `minimum_type`, `minimum`, `allows_additional_ordering`, `timestamp_updated`, `updated_by`, `timestamp_created`, `created_by`, `is_deleted`) VALUES (73, 265, 'STANDARD', 'ITEM', 0, 1, '2023-04-03 04:02:04', NULL, '2023-03-01 22:24:15', 662598, 0);
