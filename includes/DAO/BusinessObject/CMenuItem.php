@@ -682,6 +682,7 @@ class CMenuItem extends DAO_Menu_item
 	{
 		$menuItemArray = $this->toArray();
 
+		$menuItemArray['DAO_menu_item'] = clone $this;
 		$menuItemArray['menu_item_name_truncated'] = (strlen($this->menu_item_name) > 50 ? substr($this->menu_item_name, 0, 50) . "..." : $this->menu_item_name);
 		$menuItemArray['display_title'] = $this->menu_item_name;
 		$menuItemArray['category_id'] = $this->menu_item_category_id;

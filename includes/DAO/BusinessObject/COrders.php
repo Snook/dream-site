@@ -13221,6 +13221,7 @@ class COrders extends DAO_Orders
 
 			$i = $daoMenuItem->id;
 			$menuItemInfo[$daoMenuItem->category][$i] = array();
+			$menuItemInfo[$daoMenuItem->category][$i]['DAO_menu_item'] = clone $daoMenuItem;
 			$menuItemInfo[$daoMenuItem->category][$i]['id'] = $i;
 			$menuItemInfo[$daoMenuItem->category][$i]['menu_item_name'] = $daoMenuItem->menu_item_name;
 			$menuItemInfo[$daoMenuItem->category][$i]['display_title'] = $daoMenuItem->menu_item_name;
