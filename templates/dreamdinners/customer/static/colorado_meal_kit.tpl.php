@@ -42,7 +42,7 @@
 			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 			<div class="container my-5">
 				<div class="" id="" role="tabpanel" aria-labelledby="">
-					<h2 class="font-weight-bold font-marker font-size-large mt-2">Choose Your Colorado Location</h2>
+					<h2 class="font-weight-bold font-marker font-size-large mt-2 text-center">Choose Your Colorado Location</h2>
 					<div class="row my-2">
 						<div class="col">
 							<div class="card-group">
