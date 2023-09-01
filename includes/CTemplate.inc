@@ -506,7 +506,7 @@ class CTemplate extends Savant2
 			$value = 0;
 		}
 
-		return number_format($value, $decimals, '.', $sep);
+		return number_format(floatval($value), $decimals, '.', $sep);
 	}
 
 	static function divide_and_format($dividend, $divisor, $decimals, $sep = ",")
