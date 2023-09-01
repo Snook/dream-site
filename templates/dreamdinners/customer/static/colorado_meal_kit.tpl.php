@@ -101,6 +101,15 @@
 										<p class="my-3"><a href="/menu/30" class="btn btn-lg btn-green">VIEW MENU</a></p>
 									</div>
 								</div>
+								<div class="card border-0 py-4 px-4 mx-1 text-center">
+									<div class="card-body text-center">
+										<h4 class="card-title"></h4>
+										
+									</div>
+									<div class="card-body">
+										<p class="card-text"></p>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
