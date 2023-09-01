@@ -4882,6 +4882,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$menuItemInfo->query($query);
 			while ($menuItemInfo->fetch())
 			{
+				//$menuItemInfo->store_price = null;
 				$qty = null;
 
 				if (isset($array[COrders::QUANTITY_PREFIX . $menuItemInfo->id]))
@@ -4899,10 +4900,8 @@ class page_admin_order_mgr extends CPageAdminOnly
 				{
 					$menuItemInfo->override_price = $orgPrices[$menuItemInfo->id];
 
-					if ($menuItemInfo->override_price < $menuItemInfo->price)
-					{
-						$menuItemInfo->price = $menuItemInfo->override_price;
-					}
+					$menuItemInfo->price = $menuItemInfo->override_price;
+					$menuItemInfo->store_price = $menuItemInfo->override_price;
 				}
 
 				if ($menuItemInfo->pricing_type == CMenuItem::INTRO)

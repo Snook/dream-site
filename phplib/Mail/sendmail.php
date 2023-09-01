@@ -56,7 +56,7 @@ class Mail_sendmail extends Mail {
      *              defaults.
      * @access public
      */
-    function Mail_sendmail($params)
+    function __construct($params)
     {
         if (isset($params['sendmail_path'])) $this->sendmail_path = $params['sendmail_path'];
         if (isset($params['sendmail_args'])) $this->sendmail_args = $params['sendmail_args'];
@@ -109,12 +109,14 @@ class Mail_sendmail extends Mail {
         list($from, $text_headers) = $headerElements;
 
         if (!isset($from)) {
-            return PEAR::raiseError('No from address given.');
+			$PEAR = new PEAR();
+            return $PEAR->raiseError('No from address given.');
         } elseif (strstr($from, ' ') ||
                   strstr($from, ';') ||
                   strstr($from, '&') ||
                   strstr($from, '`')) {
-            return PEAR::raiseError('From address specified with dangerous characters.');
+			$PEAR = new PEAR();
+			return $PEAR->raiseError('From address specified with dangerous characters.');
         }
 
         $result = 0;
@@ -126,11 +128,13 @@ class Mail_sendmail extends Mail {
             fputs($mail, $body);
             $result = pclose($mail) >> 8 & 0xFF; // need to shift the pclose result to get the exit code
         } else {
-            return PEAR::raiseError('sendmail [' . $this->sendmail_path . '] is not a valid file');
+			$PEAR = new PEAR();
+			return $PEAR->raiseError('sendmail [' . $this->sendmail_path . '] is not a valid file');
         }
 
         if ($result != 0) {
-            return PEAR::raiseError('sendmail returned error code ' . $result);
+			$PEAR = new PEAR();
+			return $PEAR->raiseError('sendmail returned error code ' . $result);
         }
 
         return true;
