@@ -7,8 +7,6 @@ require_once('includes/DAO/BusinessObject/CStore.php');
 
 class processor_admin_helpers extends CPageProcessor
 {
-	private $singleStore = false;
-
 	function runSiteAdmin()
 	{
 		$this->runHelpers();
@@ -21,15 +19,41 @@ class processor_admin_helpers extends CPageProcessor
 
 	function runFranchiseOwner()
 	{
-		$this->currentStore = CApp::forceLocationChoice();
-		$this->singleStore = CBrowserSession::getCurrentFadminStore();
 		$this->runHelpers();
 	}
 
 	function runFranchiseManager()
 	{
-		$this->currentStore = CApp::forceLocationChoice();
-		$this->singleStore = CBrowserSession::getCurrentFadminStore();
+		$this->runHelpers();
+	}
+
+	function runFranchiseStaff()
+	{
+		$this->runHelpers();
+	}
+
+	function runFranchiseLead()
+	{
+		$this->runHelpers();
+	}
+
+	function runEventCoordinator()
+	{
+		$this->runHelpers();
+	}
+
+	function runOpsLead()
+	{
+		$this->runHelpers();
+	}
+
+	function runOpsSupport()
+	{
+		$this->runHelpers();
+	}
+
+	function runDishwasher()
+	{
 		$this->runHelpers();
 	}
 

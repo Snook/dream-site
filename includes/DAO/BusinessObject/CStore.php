@@ -317,47 +317,18 @@ class CStore extends DAO_Store
 			return false;
 		}
 
-		return true;
-		/*
-		 * No menu based conditions enforced at this time
-		 * RCS Aug , 2022
-		 *
 		if ($menu_id)
 		{
-			// manchester does not support intro from March 2022
-			if ($this->id == 200 && $menu_id >= 247)
-			{
-				return false;
-			}
+			$DAO_menu = DAO_CFactory::create('menu');
+			$DAO_menu->id = $menu_id;
 
-			// rochester does not support intro from March 2022
-			if ($this->id == 159 && $menu_id >= 247)
-			{
-				return false;
-			}
-
-			// Mobile does not support intro from April 2022
-			if ($this->id == 291 && $menu_id >= 248)
-			{
-				return false;
-			}
-
-			//does support intro from Aug
-			if (in_array($this->id, array(28,54,96,99,101,119,159,200,244,291)) && $menu_id >= 252)
-			{
-				return true;
-			}
-
-			//does not support intro from June 2022
-			if (in_array($this->id, array(28,54,96,99,101,119,159,181,194,200,244,291,302)) && $menu_id >= 250)
+			if (!$DAO_menu->isEnabled_Starter_Pack($this))
 			{
 				return false;
 			}
 		}
 
 		return true;
-
-		*/
 	}
 
 	static function storeSupportsStoreSpecificDeposit($store_id, $menu_id = 0)
@@ -1549,7 +1520,7 @@ class CStore extends DAO_Store
 		CSession::INTRO,
 		CSession::ALL_STANDARD,
 		CSession::EVENT
-	),                                $excludeMenuIds = false, $UserObj = false)
+	),$excludeMenuIds = false, $UserObj = false, $excludeWalking = false)
 	{
 		if (empty($UserObj))
 		{
@@ -1599,7 +1570,7 @@ class CStore extends DAO_Store
 
 			foreach ($sessionTypesArray as $sessionType)
 			{
-				$sessionsArray = CSession::getMonthlySessionInfoArray($this, $menu['start_date'], $mid, $sessionType, true, true);
+				$sessionsArray = CSession::getMonthlySessionInfoArray($this, $menu['start_date'], $mid, $sessionType, true, true, false, false, false,false, $excludeWalking);
 
 				if (!array_key_exists($sessionType, $sessionArray['info']['session_type']))
 				{

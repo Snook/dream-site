@@ -43,7 +43,7 @@
 					<div class="row mb-4">
 						<div class="col">
 							<p>Hello <?php echo $this->user->firstname ?>,</p>
-							<p>Ready to shop our virtual Sides &amp; Sweets freezer? Choose the items below you would like to add to your order. These items are limited in quantities, available on a first come, first serve basis and may not be here for long. Reserve yours today by filling out the request form below. We will have the available items ready with your order. These items are pre-assembled and are not customizable.</p>
+							<p>Ready to shop our virtual Sides &amp; Sweets freezer? Choose the items below you would like to add to your order. These items are limited in quantities, available on a first come, first serve basis and may not be here for long. Reserve yours today by filling out the request form below. We will have the available items ready with your order. These items are made ahead by our team and cannot be customized.</p>
 						</div>
 					</div>
 

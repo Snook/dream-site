@@ -1,4 +1,4 @@
-<?php $this->setScript('head', SCRIPT_PATH . '/admin/signature_generator.js'); ?>
+<?php $this->setScript('head', SCRIPT_PATH . '/admin/signature_generator.min.js'); ?>
 <?php $this->setScript('head', SCRIPT_PATH . '/admin/vendor/jquery.maskedinput.min.js'); ?>
 <?php $this->setOnload('generate_signature_init();'); ?>
 <?php $this->assign('topnav','store'); ?>

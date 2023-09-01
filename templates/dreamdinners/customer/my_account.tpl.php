@@ -77,7 +77,7 @@
 				<div class="row">
 					<div class="col p-4 bg-gray">
 						<h5 class="font-weight-bold text-uppercase">Tell your friends</h5>
-						<p><!--Share Dream Dinners and receive referral rewards for each NEW friend that completes an order.--> Dream Dinners is easier than ever! Share your personal referral link to introduce your friends and family to Dream Dinners. You get 10 Dinner Dollars for every referral and they get a free dinner on us*!</p>
+						<p><!--Share Dream Dinners and receive referral rewards for each NEW friend that completes an order.--> Dream Dinners is easier than ever! Share your personal referral link to introduce your friends and family to Dream Dinners. You get 10 Dinner Dollars for every referral and they get a free dinner* on us!</p>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Your link</span>
@@ -108,7 +108,7 @@
 							<div class="col-md-8 col-xl-10">
 								<p class="font-weight-bold">Your Referral QR Code</p>
 								<p class="mb-0">Save and print this code to share. Anyone can easily scan and order to help you earn rewards even faster!</p>
-								<p class="p-1 text-muted font-italic font-size-small">*Free dinner available to new guests with code EASIER May 1- August 31, 2023. Rewards and free dinner available at participating store locations.</p>
+								<p class="p-1 text-muted font-italic font-size-small">*Free dinner available to new guests with code SHARE. Rewards and free dinner available at participating store locations.</p>
 							</div>
 						</div>
 

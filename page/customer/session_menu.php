@@ -109,12 +109,15 @@ class page_session_menu extends CPage
 		// setup menu id
 		$cartMenuID = $CartObj->getMenuId();
 
+		$oldestMenuWithOpenSession = min(array_keys($parsedSessionCalendarArray['no_closed_walkin']['menu']));
+
 		// no menu in cart, set the menu to the oldest available menu
-		if (empty($cartMenuID))
+		//If oldest is not having available then set to oldest with available sessions
+		if (empty($cartMenuID) || $oldestMenuWithOpenSession > $cartMenuID)
 		{
 			// if menu hasn't been set, choose the oldest menu in the $parsedSessionCalendarArray
 			// this should be the earliest someone can attend that has available sessions
-			$oldestMenuWithOpenSession = min(array_keys($parsedSessionCalendarArray['no_closed_walkin']['menu']));
+			//$oldestMenuWithOpenSession = min(array_keys($parsedSessionCalendarArray['no_closed_walkin']['menu']));
 
 			// double check that the found menu is an active menu
 			if (array_key_exists($oldestMenuWithOpenSession, $activeMenuArray))

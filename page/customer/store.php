@@ -27,13 +27,13 @@ class page_store extends CPage
 
 			$canOrderIntro = CUser::getCurrentUser()->isEligibleForIntro($StoreObj);
 
-			$calendar = CSession::getSessionsForFullCalendarCustomer($StoreObj, false);
+			$calendar = CSession::getSessionsForFullCalendarCustomer($StoreObj, true);
 			$calendar['menus'] = CMenu::getActiveMenuArray();
 			$calendarJS = (!empty($calendar) ? json_encode($calendar) : "{}");
 
 			$storePromos = CStore::getActiveStorePromos($StoreObj);
 
-			$storeOHEvents = false;
+			$storeOHEvents = array();
 
 			// if the user is eligible for Open House, get the next two upcoming Open House
 			if (!CUser::isLoggedIn() || (CUser::isLoggedIn() && CUser::getCurrentUser()->isEligibleForDreamTaste()))
@@ -54,7 +54,12 @@ class page_store extends CPage
 				}
 			}
 
-			$sessionArray = $StoreObj->getCustomerCalendarArray();
+
+			$sessionArray = $StoreObj->getCustomerCalendarArray(array(
+				CSession::INTRO,
+				CSession::ALL_STANDARD,
+				CSession::EVENT
+			),false,false,true);
 
 			$supportsCustomizatoin = ($calendar['info']['has_meal_customization_sessions'] && $StoreObj->supports_meal_customization);
 			$this->Template->assign('has_meal_customization_sessions', $supportsCustomizatoin);

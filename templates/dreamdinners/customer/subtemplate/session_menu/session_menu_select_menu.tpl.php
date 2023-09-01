@@ -30,7 +30,7 @@
 		</div>
 	</div>
 
-	<?php if (CUser::getCurrentUser()->isEligibleForIntro() && !empty($this->customerCalendarArray['no_closed_walkin']['info']['session_type']['INTRO'])) { ?>
+	<?php if ($this->cart_info["storeObj"]->storeSupportsIntroOrders($this->cart_info["menuObj"]->id) && CUser::getCurrentUser()->isEligibleForIntro() && !empty($this->customerCalendarArray['no_closed_walkin']['info']['session_type']['INTRO'])) { ?>
 		<div class="col-12 col-md mb-2 mb-md-0 bg-gray-300 py-3">
 			<div class="row">
 				<div class="col mb-2 text-center">

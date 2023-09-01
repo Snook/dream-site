@@ -636,6 +636,9 @@ class CMenuItem extends DAO_Menu_item
 	 */
 	function getStorePrice($DAO_mark_up_multi = null)
 	{
+		// Start with base price
+		$this->store_price = $this->price;
+
 		if (isset($this->override_price))
 		{
 			$this->store_price = $this->override_price;

@@ -159,6 +159,38 @@ function selectedDefault()
 	calculatePage();
 }
 
+function showPopup(config)
+{
+	var settings = { //defaults
+		type: 'GET',
+		height: 500,
+		width: 600,
+		modal: false,
+		callBack: false,
+		resizable: true
+	};
+
+	$.extend(settings, config);
+
+	$.ajax({
+		url: 'main.php?' + settings.module,
+		type: settings.type,
+		success: function (data, status) {
+			settings.message = data;
+
+			dd_message(settings);
+
+			if (typeof settings.callBack == 'function')
+			{
+				settings.callBack();
+			}
+		},
+		error: function (objAJAXRequest, strError) {
+			response = 'Unexpected error';
+		}
+	});
+}
+
 function getXmlHttpObject()
 {
 	let objXMLHttp = null;

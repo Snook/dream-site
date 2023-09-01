@@ -1,17 +1,17 @@
 <?php $this->setScript('foot', SCRIPT_PATH . '/customer/vendor/clipboard/clipboard.min.js'); ?>
-<?php $this->assign('page_title', 'Dream Dinners');?>
-<?php $this->assign('page_description','Dream Dinners helps you get easy homemade meals on the table. '); ?>
-<?php $this->assign('page_keywords','dream dinners, local meal prep, local meal prep company, local meal kit, local meal prep service'); ?>
+<?php $this->assign('page_title', 'Dream Dinners Meal Kit Stores in Colorado');?>
+<?php $this->assign('page_description','Real food made from scratch, so your life can feel just a little easier. '); ?>
+<?php $this->assign('page_keywords','meal kit, dinner in a snap, local meal prep, local meal prep delivery, local meal kit, local meal prep service'); ?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
 
 	<main role="main">
 		<section>
 			<div class="container">
-				<!--<img src="<?php echo IMAGES_PATH; ?>/landing_pages/family-dinner-generational-cheers-1400x500.webp" alt="Family celebrating over a meal" class="img-fluid" />-->
+				<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-tenders-in-a-snap-1920x837.webp" alt="Dinner in a Snap" class="img-fluid" />
 				<div class="row my-5">
 					<div class="col mb-4 text-center">
-						<h1 class="font-weight-bold font-marker font-size-extra-large mt-2">It was great to meet you!</h1>
-						<h3>Let us help you check easy, homemade meals off your to-do list.</h3>
+						<h1 class="font-weight-bold font-marker font-size-extra-large mt-2">Your Colorado Meal Kit Solution</h1>
+						<h3>Real food made from scratch, so your life can feel just a little easier.</h3>
 					</div>
 				</div>
 			</div>
@@ -20,14 +20,103 @@
 			<div class="container">
 				<div class="row my-5">
 					<div class="col-md-7 text-left">
-						<h3><strong>Buy 3 Dinners, Get 1 Free*</strong></h3>
+						<h3>New Guest Exclusive:<br><strong>Buy 3 Dinners, Get 1 Free*</strong></h3>
 						<p>Place an order for 3 or more dinners, get a free medium Cashew Chicken and Noodles as our gift to you. </p>
-						<p>Use this code at checkout: <span class="font-weight-bold font-marker font-size-large">TRYUS</span></p>
+						<p>Use this code at checkout: <span class="font-weight-bold font-marker font-size-large">COLORADO</span></p>
 						<p class="my-3"><a href="/main.php?page=locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
 					</div>
 					<div class="col-md-5 mb-6">
 						<div>
 							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cashew-chicken-with-noodles-circle-458x344.webp" alt="Cashew Chicken and Noodles" class="img-fluid mb-3" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+			<div class="row my-5 text-center">
+				<p class="mt-4"><i>*The free dinner coupon code is for new guests who have never been to Dream Dinners or guests that have not ordered in over a year. The coupon code has no cash value and is not for sale; it is good for one redemption per a household, and recipient must be at least 18 years old. Not valid combined with any other offers or promotions. Code is only valid at participating Colorado store locations.</i></p>
+			</div>
+		</div>
+		</section>
+		<section>
+			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
+			<div class="container my-5">
+				<div class="" id="" role="tabpanel" aria-labelledby="">
+					<h2 class="font-weight-bold font-marker font-size-large mt-2 text-center">Choose Your Colorado Location</h2>
+					<div class="row my-2">
+						<div class="col">
+							<div class="card-group">
+								<div class="card border-0 py-4 px-4 mx-1 text-center">
+									<div class="card-body text-center">
+										<h4 class="card-title">Arvada</h4>
+										<a href="/main.php?page=store&id=63"><img src="<?php echo IMAGES_PATH; ?>/stores/63.webp" alt="Arvada" class="img-fluid" /></a>
+									</div>
+									<div class="card-body">
+										<p class="card-text">12650 W. 64th Ave, Unit I
+											<br />Arvada, CO 80004</p>
+										<p class="my-3"><a href="/menu/63" class="btn btn-lg btn-green">VIEW MENU</a></p>
+									</div>
+								</div>
+								<div class="card border-0 py-4 px-4 mx-1 text-center">
+									<div class="card-body text-center">
+										<h4 class="card-title">Castle Rock</h4>
+										<a href="/main.php?page=store&id=309"><img src="<?php echo IMAGES_PATH; ?>/stores/309.webp" alt="Castle Rock" class="img-fluid" /></a>
+									</div>
+									<div class="card-body">
+										<p class="card-text">333 Perry Street, Suite A
+											<br />Castle Rock, CO 80104</p>
+										<p class="my-3"><a href="/menu/309" class="btn btn-lg btn-green">VIEW MENU</a></p>
+									</div>
+								</div>
+								<div class="card border-0 py-4 px-4 mx-1 text-center">
+									<div class="card-body text-center">
+										<h4 class="card-title">Centennial</h4>
+										<a href="/main.php?page=store&id=61"><img src="<?php echo IMAGES_PATH; ?>/stores/61.webp" alt="Centennial" class="img-fluid" /></a>
+									</div>
+									<div class="card-body">
+										<p class="card-text">7286 S Yosemite St
+											<br />Centennial, CO 80112</p>
+										<p class="my-3"><a href="/menu/61" class="btn btn-lg btn-green">VIEW MENU</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row my-2">
+						<div class="col">
+							<div class="card-group">
+								<div class="card border-0 py-4 px-4 mx-1 text-center">
+									<div class="card-body text-center">
+										<h4 class="card-title">North Colorado Springs</h4>
+										<a href="/main.php?page=store&id=136"><img src="<?php echo IMAGES_PATH; ?>/stores/136.webp" alt="Colorado Springs" class="img-fluid" /></a>
+									</div>
+									<div class="card-body">
+										<p class="card-text">5578 Powers Center Point
+											<br />Colorado Springs, CO 80920</p>
+										<p class="my-3"><a href="/menu/136" class="btn btn-lg btn-green">VIEW MENU</a></p>
+									</div>
+								</div>
+								<div class="card border-0 py-4 px-4 mx-1 text-center">
+									<div class="card-body text-center">
+										<h4 class="card-title">Parker<br />&nbsp;</h4>
+										<a href="/main.php?page=store&id=30"><img src="<?php echo IMAGES_PATH; ?>/stores/30.webp" alt="Parker" class="img-fluid" /></a>
+									</div>
+									<div class="card-body">
+										<p class="card-text">10447 S Parker Road
+											<br />Parker, CO 80134</p>
+										<p class="my-3"><a href="/menu/30" class="btn btn-lg btn-green">VIEW MENU</a></p>
+									</div>
+								</div>
+								<div class="card border-0 py-4 px-4 mx-1 text-center">
+									<div class="card-body text-center">
+										<h4 class="card-title"></h4>
+										
+									</div>
+									<div class="card-body">
+										<p class="card-text"></p>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -233,11 +322,7 @@
 				</div>
 			</div>
 		</section>
-		<div class="container">
-			<div class="row my-5 text-center">
-				<p class="mt-4"><i>Fine Print: The free dinner voucher is for new guests who have never been to Dream Dinners. The voucher has no cash value and is not for sale; it is good for one redemption per a household, and recipient must be at least 18 years old. Not valid combined with any other offers or promotions. Code is only valid at participating locations.</i></p>
-			</div>
-		</div>
+		
 
 	</main>
 

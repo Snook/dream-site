@@ -66,7 +66,7 @@
 				<div class="row my-5">
 					<div class="col-md-6 mb-5">
 						<div>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/slow-roasted-carolina-bbq-pork-tenderloin-circle-458x344.webp" alt="Slow Roasted Carolina BBQ Pork" class="img-fluid" />
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-enchiladas-circle-458x344.webp" alt="Chicken Enchiladas" class="img-fluid" />
 						</div>
 					</div>
 					<div class="col-md-6 text-left">
