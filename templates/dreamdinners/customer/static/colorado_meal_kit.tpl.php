@@ -73,6 +73,12 @@
 										<p class="my-3"><a href="/menu/61" class="btn btn-lg btn-green">VIEW MENU</a></p>
 									</div>
 								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row my-2">
+						<div class="col">
+							<div class="card-group">
 								<div class="card border-0 py-4 px-4 mx-1 text-center">
 									<div class="card-body text-center">
 										<h4 class="card-title">North Colorado Springs</h4>
