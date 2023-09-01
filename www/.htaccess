@@ -326,6 +326,7 @@ RewriteRule ^privacy/?$ /main.php?static=privacy [R=301,NC,QSA]
 RewriteRule ^cookies/?$ /main.php?static=cookies [R=301,NC,QSA]
 RewriteRule ^terms/?$ /main.php?static=terms [R=301,NC,QSA]
 RewriteRule ^walkin/?$ /main.php?static=walkin [R=301,NC,QSA]
+RewriteRule ^colorado/?$ /main.php?static=colorado_meal_kit [R=301,NC,QSA]
 
 ## Redirect variable
 RewriteRule ^ref/(.*)$ /main.php?page=session&oid=$1 [R=301,NC,QSA]
