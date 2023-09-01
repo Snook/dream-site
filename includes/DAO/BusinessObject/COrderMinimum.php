@@ -551,7 +551,11 @@ class COrderMinimum extends DAO_Order_minimum
 	 */
 	public function updateBasedOnUserStoreMenu($UserObj, $storeId = null, $menuId = null)
 	{
-		if (!is_null($UserObj))
+		if($this->getMinimum() == 0)
+		{
+			$this->isMinimumApplicable = false;
+		}
+		else if (!is_null($UserObj))
 		{
 			$this->isMinimumApplicable = !$UserObj->hasMinimumQualifyingOrderDefined($storeId, $menuId);
 			if (!$this->isMinimumApplicable)
