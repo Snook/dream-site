@@ -2582,7 +2582,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 					}
 					else
 					{
-						$pp_credit_adjust_summary = CCustomerReferralCredit::CCustomerReferralCredit($this->originalOrder, 0);
+						$pp_credit_adjust_summary = CCustomerReferralCredit::AdjustPointsForOrderEdit($this->originalOrder, 0);
 						$this->originalOrder->discount_total_customer_referral_credit = 0;
 					}
 
