@@ -146,8 +146,9 @@ class CApp
 
 	function run($page)
 	{
+		$page = str_replace('-', '_', $page);
 
-		// File check: Do this early for efficency and so a malicious processor string can do no harm
+			// File check: Do this early for efficency and so a malicious processor string can do no harm
 		// and send back an error rather than a file not found
 		$this->executableFileCheck($page);
 
