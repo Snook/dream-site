@@ -906,7 +906,7 @@ class CApp
 				$q_params = '?' . $q_params;
 			}
 		}
-		else if (!empty($req_parts))
+		else if (!empty($req_parts) && !empty($req_parts["query"]))
 		{
 			if (strpos($location, '?'))
 			{
