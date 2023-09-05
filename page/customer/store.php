@@ -11,12 +11,10 @@ class page_store extends CPage
 		{
 			$DAO_store = DAO_CFactory::create('store', true);
 			$DAO_store->id = $_GET['id'];
+			$DAO_store->active = 1;
 
 			if ($DAO_store->find_DAO_store(true))
 			{
-				$DAO_store->getPersonnelArray();
-				$DAO_store->getOwnerArray();
-
 				$this->Template->assign('DAO_store', $DAO_store);
 			}
 			else
