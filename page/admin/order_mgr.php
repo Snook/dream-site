@@ -1048,7 +1048,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 									}
 									else
 									{
-										$orgPrices[$item] = $menu_item['override_price'];
+										$orgPrices[$item] = $menu_item['price'];
 									}
 								}
 							}
