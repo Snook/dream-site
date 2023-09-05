@@ -1,5 +1,6 @@
 <?php
 require_once 'includes/api/ApiManager.php';
+require_once 'includes/api/shipping/shipstation/ShipStationEndpointFactory.php';
 require_once 'includes/DAO/BusinessObject/COrdersShipping.php';
 
 /**
@@ -24,22 +25,17 @@ class ShipStationManager extends ApiManager
 	// methods available to handle
 	private $methodsPaths;
 
-	protected function __construct()
+	protected function __construct($storeObj)
 	{
 		parent::__construct("ShipStationApi");
-		if (defined('SHIPSTATION_API_ENDPOINT') && defined('SHIPSTATION_API_KEY') && defined('SHIPSTATION_API_SECRET'))
-		{
-			$this->endpoint = SHIPSTATION_API_ENDPOINT;
-			$this->apiKey = SHIPSTATION_API_KEY;
-			$this->apiSecret = SHIPSTATION_API_SECRET;
 
-			$this->authorization = 'Basic ' . base64_encode($this->apiKey . ':' . $this->apiSecret);
-		}
-		else
-		{
-			//log ERROR - missing config
-			CLog::RecordNew(CLog::ERROR, 'ShipStation API is not configured correctly');
-		}
+		$config = ShipStationEndpointFactory::getEndpoint($storeObj);
+
+		$this->endpoint = $config->SHIPSTATION_API_ENDPOINT;
+		$this->apiKey = $config->SHIPSTATION_API_KEY;
+		$this->apiSecret = $config->SHIPSTATION_API_SECRET;
+
+		$this->authorization = 'Basic ' . base64_encode($this->apiKey . ':' . $this->apiSecret);
 
 		$this->methodsPaths = array(
 			'getOrders' => 'orders',
