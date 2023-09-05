@@ -1,8 +1,10 @@
 <?php $this->setScript('foot', '//maps.googleapis.com/maps/api/js?key=' . GOOGLE_APIKEY); ?>
+<?php $this->setScript('foot', SCRIPT_PATH . '/customer/vendor/fullcalendar/main.js'); ?>
 <?php $this->setScript('foot', SCRIPT_PATH . '/customer/store.min.js'); ?>
+<?php $this->setScriptVar('calendarJS = ' . $this->calendarJS . ';'); ?>
 <?php $this->setPreload(IMAGES_PATH . "/stores/store-landing.jpg", "image"); ?>
-<?php $this->assign('page_title', htmlspecialchars($this->DAO_store->store_name)); ?>
-<?php $this->assign('canonical_url', $this->DAO_store->getPrettyUrl(true)); ?>
+<?php $this->assign('page_title', htmlspecialchars($this->store_info['store_name'])); ?>
+<?php $this->assign('canonical_url', $this->DAO_store->getPrettyUrl(true) . '/meet-the-owner'); ?>
 <?php $this->assign('order_process_navigation_page', 'session_menu'); ?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
 
@@ -12,15 +14,10 @@
 
 			</div>
 			<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center">
-				<h1><?php echo $this->DAO_store->store_name; ?> Meal Prep Store</h1>
+				<h1><?php echo $this->store_info['store_name']; ?> Meet the owner</h1>
 			</div>
 			<div class="col-6 col-sm-3 p-0 order-3 order-sm-3 text-right">
-				<a href="/<?php echo $this->DAO_store->getPrettyUrl(); ?>">
-					Store
-				</a>
-				<a href="/<?php echo $this->DAO_store->getPrettyUrl(); ?>/meet-the-owner">
-					Owner
-				</a>
+
 			</div>
 		</div>
 	</header>
@@ -66,6 +63,26 @@
 					</div>
 				</div>
 			</div>
+			<!--
+			<?php if (empty($this->store_info['coming_soon'])) { ?>
+				<div class="row justify-content-center mt-3">
+					<div class="col-12 col-md-3 font-weight-bold text-center text-md-right align-self-center mb-2">
+						<div>Place your order</div>
+					</div>
+					<?php if (!empty($this->calendar['info']['session_type'][CSession::ALL_STANDARD])) { ?>
+						<?php foreach ($this->sessionArray['sessions'][CSession::ALL_STANDARD] AS $mid => $sessionInfo) { ?>
+							<?php if (!empty($sessionInfo['session_info']['session_count'])) { ?>
+								<div class="col-12 col-md-auto">
+									<a href="/menu/<?php echo $this->store_info['id']; ?>-<?php echo $sessionInfo['menu_info']['menu_name_abbr']; ?>" class="btn btn-primary w-100 mb-2">
+										<i class="dd-icon icon-<?php echo strtolower($sessionInfo['menu_info']['menu_month']); ?> font-size-large align-middle"></i>
+										<span class="px-4"><?php echo $sessionInfo['menu_info']['menu_month']; ?></span>
+									</a>
+								</div>
+							<?php } ?>
+						<?php } ?>
+					<?php } ?>
+				</div>
+			<?php } ?>-->
 
 			<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted" />
 
@@ -73,30 +90,30 @@
 				<div class="col-lg-8">
 					<div class="row mb-3">
 						<div class="col-sm-6 col-lg-4">
-							<img src="/theme/dreamdinners/images/stores/<?php echo $this->DAO_store->id; ?>.webp" alt="Mill Creek" class="img-fluid w-100">
+							<img src="/theme/dreamdinners/images/stores/<?php echo $this->store_info['id']; ?>.webp" alt="Mill Creek" class="img-fluid w-100">
 						</div>
 
 						<div class="col-sm-6 col-lg-4 text-center text-sm-left">
 							<h3 class="text-uppercase font-weight-bold">
-								<?php echo $this->DAO_store->store_name; ?>
+								<?php echo $this->store_info['store_name']; ?>
 							</h3>
 							<div>
 								<p>
-									<?php echo $this->DAO_store->address_line1; ?><br />
-									<?php echo (!empty($this->DAO_store->address_line2)) ? $this->DAO_store->address_line2 . '<br />' : ''; ?>
-									<?php echo $this->DAO_store->city ?>, <?php echo $this->DAO_store->state_id; ?> <?php echo $this->DAO_store->postal_code; ?>
+									<?php echo $this->store_info['address_line1']; ?><br />
+									<?php echo (!empty($this->store_info['address_line2'])) ? $this->store_info['address_line2'] . '<br />' : ''; ?>
+									<?php echo $this->store_info['city'] ?>, <?php echo $this->store_info['state_id']; ?> <?php echo $this->store_info['postal_code']; ?>
 								</p>
-								<div class="d-md-none"><a href="tel:<?php echo $this->DAO_store->telephone_day; ?>"><?php echo $this->DAO_store->telephone_day; ?></a></div>
-								<div class="d-none d-md-block"><?php echo $this->DAO_store->telephone_day; ?></div>
+								<div class="d-md-none"><a href="tel:<?php echo $this->store_info['telephone_day']; ?>"><?php echo $this->store_info['telephone_day']; ?></a></div>
+								<div class="d-none d-md-block"><?php echo $this->store_info['telephone_day']; ?></div>
 							</div>
-							<?php echo (!empty($this->DAO_store->telephone_sms)) ? 'Text us at '.$this->DAO_store->telephone_sms . '<br />' : ''; ?>
-							<?php echo (!empty($this->DAO_store->email_address)) ? CTemplate::recaptcha_mailHideHtml($this->DAO_store->email_address, 'Email Store') . '<br />' : ''; ?>
+							<?php echo (!empty($this->store_info['telephone_sms'])) ? 'Text us at '.$this->store_info['telephone_sms'] . '<br />' : ''; ?>
+							<?php echo (!empty($this->store_info['email_address'])) ? CTemplate::recaptcha_mailHideHtml($this->store_info['email_address'], 'Email Store') . '<br />' : ''; ?>
 
 						</div>
 						<div class="col-lg-4 text-center text-lg-left text-lg-right mt-2 mt-lg-0">
-							<a href="https://instagram.com/<?php echo (!empty($this->DAO_store->social_instagram)) ? $this->DAO_store->social_instagram : 'dreamdinners'; ?>" class="text-decoration-hover-none font-size-large text-green-light mr-3" target="_blank"><i class="fab fa-instagram"></i></a>
-							<a href="https://twitter.com/<?php echo (!empty($this->DAO_store->social_twitter)) ? $this->DAO_store->social_twitter : 'dreamdinners'; ?>" class="text-decoration-hover-none font-size-large text-green-light mr-3" target="_blank"><i class="fab fa-twitter"></i></a>
-							<a href="https://facebook.com/<?php echo (!empty($this->DAO_store->social_facebook)) ? $this->DAO_store->social_facebook : 'dreamdinners'; ?>" class="text-decoration-hover-none font-size-large text-green-light mr-3" target="_blank"><i class="fab fa-facebook-f"></i></a>
+							<a href="https://instagram.com/<?php echo (!empty($this->store_info['social_instagram'])) ? $this->store_info['social_instagram'] : 'dreamdinners'; ?>" class="text-decoration-hover-none font-size-large text-green-light mr-3" target="_blank"><i class="fab fa-instagram"></i></a>
+							<a href="https://twitter.com/<?php echo (!empty($this->store_info['social_twitter'])) ? $this->store_info['social_twitter'] : 'dreamdinners'; ?>" class="text-decoration-hover-none font-size-large text-green-light mr-3" target="_blank"><i class="fab fa-twitter"></i></a>
+							<a href="https://facebook.com/<?php echo (!empty($this->store_info['social_facebook'])) ? $this->store_info['social_facebook'] : 'dreamdinners'; ?>" class="text-decoration-hover-none font-size-large text-green-light mr-3" target="_blank"><i class="fab fa-facebook-f"></i></a>
 							<a href="https://pinterest.com/dreamdinners" class="text-decoration-hover-none font-size-large text-green-light" target="_blank"><i class="fab fa-pinterest"></i></a>
 							<?php if (!empty($this->calendar['info']['session_type']['DELIVERY'])) { ?>
 								<div class="mt-1">
@@ -117,7 +134,7 @@
 									class="border border-width-2-imp border-gray-500"
 									width="100%"
 									height="250"
-									src="//www.google.com/maps/embed/v1/place?key=<?php echo GOOGLE_APIKEY; ?>&q=<?php echo (!empty($this->DAO_store->google_place_id)) ? 'place_id:' . $this->DAO_store->google_place_id : urlencode($this->DAO_store->linear_address); ?>" allowfullscreen>
+									src="//www.google.com/maps/embed/v1/place?key=<?php echo GOOGLE_APIKEY; ?>&q=<?php echo (!empty($this->store_info['google_place_id'])) ? 'place_id:' . $this->store_info['google_place_id'] : urlencode($this->store_info['linear_address']); ?>" allowfullscreen>
 							</iframe>
 						</div>
 					</div>
@@ -172,11 +189,11 @@
 			</div>
 			<!--<div class="row">
 				<div class="col text-center">
-					<a href="/menu/<?php echo $this->DAO_store->id; ?>-apr" class="btn btn-lg btn-primary">View Menu Options</a>
+					<a href="/menu/<?php echo $this->store_info['id']; ?>-apr" class="btn btn-lg btn-primary">View Menu Options</a>
 				</div>
 			</div>-->
 
-			<?php if (empty($this->DAO_store->coming_soon)) { ?>
+			<?php if (empty($this->store_info['coming_soon'])) { ?>
 				<!--order buttons -->
 				<div class="row no-gutters">
 					<div class="card-deck justify-content-center">
@@ -202,7 +219,7 @@
 									<?php } else { ?>
 										<?php foreach ($this->sessionArray['sessions'][CSession::ALL_STANDARD] AS $mid => $sessionInfo) { ?>
 											<?php if (!empty($sessionInfo['session_info']['session_count'])) { ?>
-												<a href="/menu/<?php echo $this->DAO_store->id; ?>-<?php echo $sessionInfo['menu_info']['menu_name_abbr']; ?>" class="btn btn-primary btn-block btn-spinner" id="select_session-standard-<?php echo $mid; ?>" name="session_menu" type="submit" value="<?php echo $mid; ?>">
+												<a href="/menu/<?php echo $this->store_info['id']; ?>-<?php echo $sessionInfo['menu_info']['menu_name_abbr']; ?>" class="btn btn-primary btn-block btn-spinner" id="select_session-standard-<?php echo $mid; ?>" name="session_menu" type="submit" value="<?php echo $mid; ?>">
 													<i class="dd-icon icon-<?php echo strtolower($sessionInfo['menu_info']['menu_month']); ?> float-left font-size-medium-small mt-1"></i>
 													<?php echo $sessionInfo['menu_info']['menu_month']; ?> Menu
 												</a>
@@ -235,7 +252,7 @@
 										<?php } else { ?>
 											<?php foreach ($this->sessionArray['sessions'][CSession::INTRO] AS $mid => $sessionInfo) { ?>
 												<?php if (!empty($sessionInfo['session_info']['session_count'])) { ?>
-													<a href="/menu/<?php echo $this->DAO_store->id; ?>-<?php echo $sessionInfo['menu_info']['menu_name_abbr']; ?>-starter" class="btn btn-primary btn-block btn-spinner" id="select_session-intro-<?php echo $mid; ?>" name="menu" type="submit" value="<?php echo $mid; ?>"<?php echo (defined('ALLOW_TV_OFFER_IF_PREVIOUS') && ALLOW_TV_OFFER_IF_PREVIOUS) ? ' data-toggle="tooltip" title="This button currently enabled for all users for testing purposes."' : ''; ?>>
+													<a href="/menu/<?php echo $this->store_info['id']; ?>-<?php echo $sessionInfo['menu_info']['menu_name_abbr']; ?>-starter" class="btn btn-primary btn-block btn-spinner" id="select_session-intro-<?php echo $mid; ?>" name="menu" type="submit" value="<?php echo $mid; ?>"<?php echo (defined('ALLOW_TV_OFFER_IF_PREVIOUS') && ALLOW_TV_OFFER_IF_PREVIOUS) ? ' data-toggle="tooltip" title="This button currently enabled for all users for testing purposes."' : ''; ?>>
 														<?php echo $sessionInfo['menu_info']['menu_month']; ?> Menu
 													</a>
 												<?php } ?>
@@ -268,7 +285,7 @@
 										<?php } else { ?>
 											<?php foreach ($this->sessionArray['sessions'][CSession::EVENT] AS $mid => $sessionInfo) { ?>
 												<?php if (!empty($sessionInfo['session_info']['session_count'])) { ?>
-													<a href="/menu/<?php echo $this->DAO_store->id; ?>-<?php echo $sessionInfo['menu_info']['menu_name_abbr']; ?>-events" class="btn btn-primary btn-block btn-spinner" id="select_session-event-<?php echo $mid; ?>" name="session_menu" type="submit" value="<?php echo $mid; ?>">
+													<a href="/menu/<?php echo $this->store_info['id']; ?>-<?php echo $sessionInfo['menu_info']['menu_name_abbr']; ?>-events" class="btn btn-primary btn-block btn-spinner" id="select_session-event-<?php echo $mid; ?>" name="session_menu" type="submit" value="<?php echo $mid; ?>">
 														<?php echo $sessionInfo['menu_info']['menu_month']; ?> Menu
 													</a>
 												<?php } ?>
@@ -287,23 +304,23 @@
 
 			<!-- About and directions -->
 			<div class="row mb-3">
-				<?php if (!empty($this->DAO_store->store_description)) { ?>
+				<?php if (!empty($this->store_info['store_description'])) { ?>
 					<div class="col-auto col-md-6 mb-3 mb-md-auto">
 						<h3 class="text-uppercase font-weight-bold text-center text-md-left">
 							About our store
 						</h3>
 						<div class="location-about">
-							<?php echo nl2br($this->DAO_store->store_description); ?>
+							<?php echo nl2br($this->store_info['store_description']); ?>
 						</div>
 					</div>
 				<?php } ?>
-				<?php if (!empty($this->DAO_store->address_directions)) { ?>
+				<?php if (!empty($this->store_info['address_directions'])) { ?>
 					<div class="col-auto col-md-6">
 						<h3 class="text-uppercase font-weight-bold text-center text-md-left">
 							Store directions
 						</h3>
 						<div class="location-about">
-							<?php echo nl2br($this->DAO_store->address_directions); ?>
+							<?php echo nl2br($this->store_info['address_directions']); ?>
 						</div>
 					</div>
 				<?php } ?>
@@ -318,12 +335,12 @@
 						<ul class="nav nav-pills nav-justified mb-4">
 							<?php if ($this->storePromos) { ?>
 								<li class="nav-item">
-									<a class="nav-link text-uppercase font-weight-bold active" id="promos-tab" data-urlpush="false" data-toggle="tab" data-target="#promos" href="/main.php?page=store&amp;id=<?php echo $this->DAO_store->id; ?>&amp;tab=promos" role="tab" aria-controls="promos" aria-selected="true">Store promotions</a>
+									<a class="nav-link text-uppercase font-weight-bold active" id="promos-tab" data-urlpush="false" data-toggle="tab" data-target="#promos" href="/main.php?page=store&amp;id=<?php echo $this->store_info['id']; ?>&amp;tab=promos" role="tab" aria-controls="promos" aria-selected="true">Store promotions</a>
 								</li>
 							<?php } ?>
 							<?php if ($this->storeOHEvents) { ?>
 								<li class="nav-item">
-									<a class="nav-link text-uppercase font-weight-bold <?php if (!$this->storePromos) { ?>active<?php } ?>" id="events-tab" data-urlpush="false" data-toggle="tab" data-target="#events" href="/main.php?page=store&amp;id=<?php echo $this->DAO_store->id; ?>&amp;tab=events" role="tab" aria-controls="events" aria-selected="false">Store events</a>
+									<a class="nav-link text-uppercase font-weight-bold <?php if (!$this->storePromos) { ?>active<?php } ?>" id="events-tab" data-urlpush="false" data-toggle="tab" data-target="#events" href="/main.php?page=store&amp;id=<?php echo $this->store_info['id']; ?>&amp;tab=events" role="tab" aria-controls="events" aria-selected="false">Store events</a>
 								</li>
 							<?php } ?>
 						</ul>
@@ -381,7 +398,7 @@
 
 			<?php } ?>
 
-			<?php if (empty($this->DAO_store->coming_soon)) { ?>
+			<?php if (empty($this->store_info['coming_soon'])) { ?>
 
 				<div class="row">
 					<div class="col text-center">
@@ -421,11 +438,11 @@
 						Dream Dinners is an innovative concept in meal preparation that eliminates the stress of dealing with dinner – We remove menu planning, shopping & prep-work from the equation, leaving more quality time for families.
 						We are looking for amazing team members to help us change more lives and bring Homemade, Made Easy meals into the community.
 					</p>
-					<?php if (!empty($this->DAO_store->job_positions_available)) { ?>
+					<?php if (!empty($this->store_info['job_positions_available'])) { ?>
 						<h4 class="text-uppercase font-weight-bold">Available Positions</h4>
 						<p>Our store is hiring for the following positions</p>
 						<div class="row">
-							<?php foreach ($this->DAO_store->job_positions_available AS $job) { ?>
+							<?php foreach ($this->store_info['job_positions_available'] AS $job) { ?>
 								<div class="col-12 mb-md-3">
 									<div class="card">
 										<div class="card-body bg-gray-light">
@@ -435,9 +452,9 @@
 								</div>
 							<?php } ?>
 						</div>
-						<p class="mt-3">To apply for one of the positions above, please send a resume to <a href="mailto:<?php echo $this->DAO_store->email_address; ?>"><?php echo $this->DAO_store->email_address; ?></a></p>
+						<p class="mt-3">To apply for one of the positions above, please send a resume to <a href="mailto:<?php echo $this->store_info['email_address']; ?>"><?php echo $this->store_info['email_address']; ?></a></p>
 					<?php } else { ?>
-						<p>Join our Dream Dinners team. Feel free to submit your resume to <a href="mailto:<?php echo $this->DAO_store->email_address; ?>"><?php echo $this->DAO_store->email_address; ?></a>.</p>
+						<p>Join our Dream Dinners team. Feel free to submit your resume to <a href="mailto:<?php echo $this->store_info['email_address']; ?>"><?php echo $this->store_info['email_address']; ?></a>.</p>
 					<?php } ?>
 				</div>
 				<div class="col-md-6 bg-green text-white text-center p-5 mx-auto">
