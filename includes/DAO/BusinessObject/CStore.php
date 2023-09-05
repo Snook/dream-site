@@ -91,6 +91,10 @@ class CStore extends DAO_Store
 	public $address_linear;
 	public $address_with_breaks;
 	public $address_html;
+	/**
+	 * @var null
+	 */
+	private $store_short_url;
 
 	function __construct()
 	{
@@ -109,12 +113,54 @@ class CStore extends DAO_Store
 		return $res;
 	}
 
+	/**
+	 * This allows you to enter a string as the store ID in order to look up the stores short url
+	 *
+	 * @param $n
+	 *
+	 * @return bool|int|mixed
+	 * @throws Exception
+	 */
+	function find_DAO_store($n = false)
+	{
+		// you can set the ID as a short url string
+		if (CTemplate::isAlphaNumHyphen($this->id))
+		{
+			$find_DAO_short_url = DAO_CFactory::create('short_url', true);
+			$find_DAO_short_url->page = 'location';
+			$find_DAO_short_url->short_url = $this->id;
+			// look up past short urls
+			$find_DAO_short_url->unsetProperty('is_deleted');
+			$this->joinAddWhereAsOn($find_DAO_short_url, 'INNER', 'find_short_url', false, false); // find on this short url
+
+			// this id was a short url string, so unset it
+			$this->id = null;
+		}
+
+		$this->joinAddWhereAsOn(DAO_CFactory::create('short_url', true)); // stores current not deleted short url
+		$this->joinAddWhereAsOn(DAO_CFactory::create('timezones', true));
+
+		return parent::find($n);
+	}
+
 	function digestStore()
 	{
 		$this->generateMapLink();
 		$this->generateAddressLinear();
 		$this->generateAddressWithBreaks();
 		$this->generateAddressHTML();
+	}
+
+	function getPrettyUrl($full_url = false)
+	{
+		$this->store_short_url = null;
+
+		if(!empty($this->DAO_short_url))
+		{
+			$this->store_short_url = $this->DAO_short_url->getPrettyUrl($full_url);
+		}
+
+		return $this->store_short_url;
 	}
 
 	static function setUpFranchiseStore($store_id)
@@ -1684,6 +1730,41 @@ class CStore extends DAO_Store
 		}
 
 		return $userArray;
+	}
+
+	function getPersonnelArray()
+	{
+		$this->PersonnelArray = array();
+
+		$DAO_user = DAO_CFactory::create('user');
+		$DAO_user_to_store = DAO_CFactory::create('user_to_store');
+		$DAO_user_to_store->store_id = $this->id;
+		$DAO_user->joinAddWhereAsOn($DAO_user_to_store);
+		$DAO_user->oderBy("user.user_type DESC, user.firstname ASC");
+		$DAO_user->find();
+
+		while($DAO_user->fetch())
+		{
+			$this->PersonnelArray[$DAO_user->id] = clone $DAO_user;
+		}
+	}
+
+	function getOwnerArray()
+	{
+		$this->PersonnelArray = array();
+
+		$DAO_user = DAO_CFactory::create('user');
+		$DAO_user->user_type = CUser::FRANCHISE_OWNER;
+		$DAO_user_to_store = DAO_CFactory::create('user_to_store');
+		$DAO_user_to_store->store_id = $this->id;
+		$DAO_user->joinAddWhereAsOn($DAO_user_to_store);
+		$DAO_user->oderBy("user.user_type DESC, user.firstname ASC");
+		$DAO_user->find();
+
+		while($DAO_user->fetch())
+		{
+			$this->PersonnelArray[$DAO_user->id] = clone $DAO_user;
+		}
 	}
 
 	static function getStoreAndOwnerInfo($store_id)

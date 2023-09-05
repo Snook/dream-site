@@ -1207,6 +1207,13 @@ class CTemplate extends Savant2
 		return self::$head_analytics_array;
 	}
 
+	static function isAlphaNumHyphen($value)
+	{
+		$retVal = preg_match('/^[A-Za-z0-9\-]+$/', $value);
+
+		return ($retVal == 0 ? false : true);
+	}
+
 	static function browserIsTarget($target)
 	{
 		if ($target == CTemplate::IE_lessthan_10 && self::isIE())

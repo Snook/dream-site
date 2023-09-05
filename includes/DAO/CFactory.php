@@ -63,6 +63,7 @@ class DAO_CFactory
 		'CRecipe' => 'DAO_Recipe',
 		'CSalesTax' => 'DAO_Sales_tax',
 		'CSession' => 'DAO_Session',
+		'CShortUrl' => 'DAO_Short_url',
 		'CStatesAndProvinces' => 'DAO_State_province',
 		'CStore' => 'DAO_Store',
 		'CStoreCredit' => 'DAO_Store_credit',
