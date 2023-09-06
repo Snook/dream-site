@@ -694,6 +694,29 @@ class CStore extends DAO_Store
 		}
 	}
 
+	static function storeSupportsZeroCoreMinimum($store)
+	{
+		$applicableStoreIds = array(73);
+		$storeId = null;
+
+		if (is_object($store))
+		{
+			$storeId = $store->id;
+		}
+
+		if (is_numeric($store))
+		{
+			$storeId = $store;
+		}
+
+		if( in_array($storeId, $applicableStoreIds))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	static function getSimpleMapsStoreArray()
 	{
 		if (!empty(self::$_simpleMapsArray))

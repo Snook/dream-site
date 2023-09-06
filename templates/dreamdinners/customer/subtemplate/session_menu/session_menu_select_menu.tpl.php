@@ -69,23 +69,11 @@
 		</div>
 	<?php } ?>
 
-	<?php if (CStore::storeSupportsMealCustomization($this->cart_info['storeObj'])) { ?>
+	<?php if (CStore::storeSupportsZeroCoreMinimum($this->cart_info['storeObj'])) { ?>
 		<div class="col-12 col-lg bg-cyan-extra-light py-3">
 			<div class="row">
 				<div class="col mb-2 text-center">
-					<div class="font-weight-bold pb-2">Meal Customization Now Available</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col text-center">
-					<span class="btn btn-primary dropdown-toggle sm-customization-available">
-						Learn more
-					</span>
-				</div>
-			</div>
-			<div class="row mt-2 collapse sm-row-customization-available">
-				<div class="col">
-					Don’t love an ingredient or two? You can personally customize your meals at an assembly session or let us do it by choosing a special customization pick up or home delivery day/time. Pick your meals, then during checkout, let us know if we should leave out onion, garlic, mushroom, olives, bacon, or cilantro. A nominal fee may apply.
+					<div class="font-weight-normal pb-2">Our store is closing at the end of the month, and inventory is limited. We have additional dinners and items from the Sides and Sweets Freezer for sale. If you don't find the dinners you want on this page, click the continue button to view and order additional items.</div>
 				</div>
 			</div>
 		</div>

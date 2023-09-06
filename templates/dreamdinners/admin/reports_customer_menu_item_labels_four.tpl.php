@@ -141,49 +141,36 @@ if ($this->success == true && $this->interface == 0)
 		$title = sprintf($title, $entity['menu_item']);
 
 		$instructions = "";
-		$test_instructions = sprintf("<t1b>%s</t1b>", $entity['instructions']);
-
-		$overrideLineHeight = 3.5;
+		$test_instructions = sprintf("<t2>%s</t2>", $entity['instructions']);
+		$overrideLineHeight = 5.5;
 
 		// $pdf->_Line_Height = 3.45; //$pdf->_Get_Height_Chars(8)+$pdf->linespacing;
 		$lines = $pdf->NbLines($pdf->_Width - 5, $test_instructions);
 
-		$do_not_override = true;
-		if ($entity['menu_item'] == "Down Home Apple Pie")
+		switch ($lines)
 		{
-			$do_not_override = false;
-		}
-
-		if ($lines < 15 && $do_not_override)
-		{
-			if ($lines < 5)
-			{
+			case $lines <= 5:
 				$test_instructions = sprintf("<t2>%s</t2>", $entity['instructions']);
 				//    $pdf->_Line_Height = 5.0;// $pdf->_Get_Height_Chars(13)+$pdf->linespacing;
 				$overrideLineHeight = 5.5;
-			}
-			else if ($lines < 10)
-			{
+				break;
+			case $lines <= 10:
 				$test_instructions = sprintf("<t2>%s</t2>", $entity['instructions']);
 				//   $pdf->_Line_Height = 4.0; //$pdf->_Get_Height_Chars(9)+$pdf->linespacing;
 				$overrideLineHeight = 4.0;
-			}
-			else
-			{
+				break;
+			case $lines <= 14:
 				$test_instructions = sprintf("<t1>%s</t1>", $entity['instructions']);
 				$overrideLineHeight = 4.0; //$pdf->_Get_Height_Chars(8)+$pdf->linespacing;
-
-			}
-		}
-		else if ($lines < 20)
-		{
-			$test_instructions = sprintf("<tx>%s</tx>", $entity['instructions']);
-			$overrideLineHeight = 3.25; //$pdf->_Get_Height_Chars(8)+$pdf->linespacing;
-		}
-		else
-		{
-			$test_instructions = sprintf("<tft>%s</tft>", $entity['instructions']);
-			$overrideLineHeight = 2.5; //$pdf->_Get_Height_Chars(8)+$pdf->linespacing;
+				break;
+			case $lines <= 20:
+				$test_instructions = sprintf("<tx>%s</tx>", $entity['instructions']);
+				$overrideLineHeight = 3.25; //$pdf->_Get_Height_Chars(8)+$pdf->linespacing;
+				break;
+			case $lines >= 20:
+				$test_instructions = sprintf("<tft>%s</tft>", $entity['instructions']);
+				$overrideLineHeight = 2.5; //$pdf->_Get_Height_Chars(8)+$pdf->linespacing;
+				break;
 		}
 
 		$instructions = $test_instructions;

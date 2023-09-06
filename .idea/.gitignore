@@ -7,3 +7,5 @@
 /dataSources/
 /dataSources.local.xml
 /libraries/
+/startup.xml
+/sshConfigs.xml
