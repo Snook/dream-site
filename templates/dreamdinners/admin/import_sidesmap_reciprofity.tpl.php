@@ -1,4 +1,4 @@
-<?php $this->setScript('head', SCRIPT_PATH . '/admin/import_sidesmap.js'); ?>
+<?php $this->setScript('head', SCRIPT_PATH . '/admin/import_sidesmap.min.js'); ?>
 <?php $this->setOnload('import_sidesmap_init();'); ?>
 <?php $this->assign('page_title','Import Menu Sides Map'); ?>
 <?php $this->assign('topnav','import'); ?>
