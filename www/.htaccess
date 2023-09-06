@@ -117,6 +117,20 @@ RewriteRule ^ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^theme/dreamdinners/images/stores/([0-9]+).(jpg|webp|png)?$ /theme/dreamdinners/images/stores/default.$2 [L,E=STATUS:404]
 
+# handle missing store bio images, redirect to default image
+# first two lines prevent infinite loop in the case the default image is not there
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^theme/dreamdinners/images/stores/bio/portrait-([0-9]+)-([0-9]+).(jpg|webp|png)?$ /theme/dreamdinners/images/stores/bio/portrait-default-$2.$3 [L,E=STATUS:404]
+
+# handle missing store bio team images, redirect to default image
+# first two lines prevent infinite loop in the case the default image is not there
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^theme/dreamdinners/images/stores/bio/portrait-([0-9]+)-team.(jpg|webp|png)?$ /theme/dreamdinners/images/stores/bio/portrait-default-team.$3 [L,E=STATUS:404]
+
 # handle missing recipe images, redirect to default image
 # first two lines prevent infinite loop in the case the default image is not there
 RewriteCond %{ENV:REDIRECT_STATUS} 200

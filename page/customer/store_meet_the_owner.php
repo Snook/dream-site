@@ -11,7 +11,7 @@ class page_store_meet_the_owner extends CPage
 		{
 			$DAO_store = DAO_CFactory::create('store', true);
 			$DAO_store->id = $_GET['id'];
-			$DAO_store->active = 1;
+			$DAO_store->show_on_customer_site = 1;
 
 			if ($DAO_store->find_DAO_store(true))
 			{

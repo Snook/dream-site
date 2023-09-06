@@ -42,7 +42,11 @@
 	<!-- Header-->
 	<section>
 		<div class="container mb-5">
-
+			<div class="row">
+				<div class="col">
+					<img src="/theme/dreamdinners/images/stores/bio/portrait-<?php echo $this->DAO_store->id; ?>-1.webp" alt="Mill Creek" class="img-fluid w-100">
+				</div>
+			</div>
 		</div>
 	</section>
 

@@ -92,9 +92,17 @@ class CStore extends DAO_Store
 	public $address_with_breaks;
 	public $address_html;
 	/**
-	 * @var null
+	 * @var array|mixed
 	 */
-	private $store_short_url;
+	private $PersonnelArray;
+	/**
+	 * @var array|mixed
+	 */
+	private $OwnerArray;
+	/**
+	 * @var array
+	 */
+	private $ActivePromoArray;
 
 	function __construct()
 	{
@@ -153,14 +161,14 @@ class CStore extends DAO_Store
 
 	function getPrettyUrl($full_url = false)
 	{
-		$this->store_short_url = null;
+		$store_short_url = null;
 
 		if(!empty($this->DAO_short_url))
 		{
-			$this->store_short_url = $this->DAO_short_url->getPrettyUrl($full_url);
+			$store_short_url = $this->DAO_short_url->getPrettyUrl($full_url);
 		}
 
-		return $this->store_short_url;
+		return $store_short_url;
 	}
 
 	static function setUpFranchiseStore($store_id)
@@ -578,76 +586,45 @@ class CStore extends DAO_Store
 		}
 	}
 
-	static function getActiveStorePromos($Store)
+	function getActivePromoArray()
 	{
-		if (!is_object($Store) && is_numeric($Store))
-		{
-			$StoreObj = DAO_CFactory::create('store');
-			$StoreObj->id = $Store;
-			$StoreObj->find(true);
-		}
-		else
-		{
-			$StoreObj = $Store;
-		}
+		$this->ActivePromoArray = array();
 
-		$Message = DAO_CFactory::create('site_message');
-		// limit to 1 home office managed message and 2 store promotional messages
-		$Message->query("(SELECT
-			sm.id,
-			sm.title,
-			sm.message,
-			sm.message_start,
-			sm.message_end
-			FROM site_message_to_store AS smts
-			INNER JOIN site_message AS sm ON sm.id = smts.site_message_id
-				AND sm.audience = 'STORE'
-				AND sm.message_start <= NOW()
-				AND sm.message_end >= NOW()
-				AND sm.is_active = 1
-				AND sm.is_deleted = 0
-				AND sm.message_type = 'SITE_MESSAGE'
-				AND sm.home_office_managed = 1
-			WHERE smts.store_id = '" . $StoreObj->id . "'
-			AND smts.is_deleted = 0
-			GROUP BY sm.id
-			ORDER BY sm.message_end ASC)
+		$DAO_site_message = DAO_CFactory::create('site_message', true);
+		$DAO_site_message->query("(SELECT
+			site_message.*
+			FROM site_message
+			INNER JOIN site_message_to_store ON site_message.id = site_message_to_store.site_message_id AND site_message_to_store.store_id = '" . $this->id . "' AND site_message_to_store.is_deleted = 0 
+			WHERE site_message.audience = 'STORE'
+			AND site_message.message_start <= NOW()
+			AND site_message.message_end >= NOW()
+			AND site_message.is_active = 1
+			AND site_message.is_deleted = 0
+			AND site_message.message_type = 'SITE_MESSAGE'
+			AND site_message.home_office_managed = 1
+			GROUP BY site_message.id
+			ORDER BY site_message.message_end ASC)
 		UNION (SELECT
-			sm.id,
-			sm.title,
-			sm.message,
-			sm.message_start,
-			sm.message_end
-			FROM site_message_to_store AS smts
-			INNER JOIN site_message AS sm ON sm.id = smts.site_message_id 
-				AND sm.audience = 'STORE'
-				AND sm.message_start <= NOW()
-				AND sm.message_end >= NOW()
-				AND sm.is_active = 1
-				AND sm.is_deleted = 0
-				AND sm.message_type = 'SITE_MESSAGE'
-				AND sm.home_office_managed = 0
-			WHERE smts.store_id = '" . $StoreObj->id . "'
-			AND smts.is_deleted = 0
-			GROUP BY sm.id
-			ORDER BY sm.message_end ASC
+			site_message.*
+			FROM site_message
+			INNER JOIN site_message_to_store ON site_message.id = site_message_to_store.site_message_id AND site_message_to_store.store_id = '" . $this->id . "' AND site_message_to_store.is_deleted = 0 
+			WHERE site_message.audience = 'STORE'
+			AND site_message.message_start <= NOW()
+			AND site_message.message_end >= NOW()
+			AND site_message.is_active = 1
+			AND site_message.is_deleted = 0
+			AND site_message.message_type = 'SITE_MESSAGE'
+			AND site_message.home_office_managed = 0
+			GROUP BY site_message.id
+			ORDER BY site_message.message_end ASC
 			LIMIT 2)");
 
-		$message_array = array();
-
-		while ($Message->fetch())
+		while ($DAO_site_message->fetch())
 		{
-			$message_array[] = clone($Message);
+			$this->ActivePromoArray[] = clone $DAO_site_message;
 		}
 
-		if (!empty($message_array))
-		{
-			return $message_array;
-		}
-		else
-		{
-			return false;
-		}
+		return $this->ActivePromoArray;
 	}
 
 	static function storeInPlatePointsTest($store_id)
@@ -1751,7 +1728,7 @@ class CStore extends DAO_Store
 
 	function getOwnerArray()
 	{
-		$this->PersonnelArray = array();
+		$this->OwnerArray = array();
 
 		$DAO_user = DAO_CFactory::create('user');
 		$DAO_user->user_type = CUser::FRANCHISE_OWNER;
@@ -1763,7 +1740,7 @@ class CStore extends DAO_Store
 
 		while($DAO_user->fetch())
 		{
-			$this->PersonnelArray[$DAO_user->id] = clone $DAO_user;
+			$this->OwnerArray[$DAO_user->id] = clone $DAO_user;
 		}
 	}
 
