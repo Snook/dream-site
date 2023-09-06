@@ -255,7 +255,8 @@ var $wt_DataExtraInfo;//data extra INFO
 	        	}
 
 	        	if ($c == "\t"){
-	        		$c = $s[$i] = "";
+	        		$c = "";
+					//$s[$i] = "";
 	        		$char_width = $aExtraInfo['TAB_WIDTH'] * 1000;
 	        	}
 
