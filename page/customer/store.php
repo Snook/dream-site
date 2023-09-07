@@ -20,12 +20,12 @@ class page_store extends CPage
 			else
 			{
 				$this->Template->setErrorMsg('The requested store is unavailable.');
-				CApp::bounce('main.php?page=locations');
+				CApp::bounce('/locations');
 			}
 		}
 		else
 		{
-			CApp::bounce('main.php?page=locations');
+			CApp::bounce('/locations');
 		}
 	}
 }

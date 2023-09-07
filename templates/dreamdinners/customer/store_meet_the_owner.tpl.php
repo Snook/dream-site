@@ -11,32 +11,7 @@
 				<p class="font-marker">We offer real food, made from scratch, so your life can feel just a little easier.</p>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col text-center">
-				<ul class="nav justify-content-around justify-content-md-between">
-					<li class="nav-item mb-3">
-						<a class="m-auto nav-link text-uppercase font-weight-bold rounded-circle bg-green-light text-white d-flex align-items-center justify-content-center" style="width: 10rem; height: 10rem;" href="/<?php echo $this->DAO_store->getPrettyUrl(); ?>">
-							<span>Location info</span>
-						</a>
-					</li>
-					<li class="nav-item mb-3">
-						<a class="m-auto nav-link text-uppercase font-weight-bold rounded-circle bg-cyan-dark text-white d-flex align-items-center justify-content-center" style="width: 10rem; height: 10rem;" href="/<?php echo $this->DAO_store->getPrettyUrl(); ?>/meet-the-owner">
-							<span>Meet the owner</span>
-						</a>
-					</li>
-					<li class="nav-item mb-3">
-						<a class="m-auto nav-link text-uppercase font-weight-bold rounded-circle bg-orange text-white d-flex align-items-center justify-content-center" style="width: 10rem; height: 10rem;" href="/<?php echo $this->DAO_store->getPrettyUrl(); ?>/calendar">
-							<span>What's New &amp; Store Calendar</span>
-						</a>
-					</li>
-					<li class="nav-item mb-3">
-						<a class="m-auto nav-link text-uppercase font-weight-bold rounded-circle bg-green-dark text-white d-flex align-items-center justify-content-center" style="width: 10rem; height: 10rem;" href="/menu/<?php echo $this->DAO_store->id; ?>">
-							<span>Order Now</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
+		<?php include $this->loadTemplate('customer/subtemplate/store/store_navigation.tpl.php'); ?>
 	</header>
 
 	<!-- Header-->
@@ -45,7 +20,7 @@
 
 			<div class="row">
 
-				<?php if (!empty($this->DAO_store->bio_primary_party_name)) { ?>
+				<?php if (($this->DAO_store->hasBioPrimary())) { ?>
 					<div class="col-md-6">
 						<div class="row">
 							<div class="col-12 mb-3">
@@ -60,7 +35,7 @@
 					</div>
 				<?php } ?>
 
-				<?php if (!empty($this->DAO_store->bio_secondary_party_name)) { ?>
+				<?php if ($this->DAO_store->hasBioSecondary()) { ?>
 					<div class="col-md-6">
 						<div class="row">
 							<div class="col-12 mb-3">
@@ -77,8 +52,11 @@
 
 			</div>
 
-			<?php if (!empty($this->DAO_store->bio_team_description)) { ?>
-				<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted" />
+			<?php if ($this->DAO_store->hasBioTeam()) { ?>
+
+				<?php if ($this->DAO_store->hasBioPrimary() || $this->DAO_store->hasBioSecondary()) { // show hr only if there are owner bios ?>
+					<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted" />
+				<?php } ?>
 
 				<div class="row">
 

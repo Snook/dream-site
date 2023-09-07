@@ -131,8 +131,8 @@ class CStore extends DAO_Store
 	 */
 	function find_DAO_store($n = false)
 	{
-		// you can set the ID as a short url string
-		if (CTemplate::isAlphaNumHyphen($this->id))
+		// you can set the ID as a short url string, if it is not just a number
+		if (!is_numeric($this->id) && CTemplate::isAlphaNumHyphen($this->id))
 		{
 			$find_DAO_short_url = DAO_CFactory::create('short_url', true);
 			$find_DAO_short_url->page = 'location';
@@ -413,6 +413,46 @@ class CStore extends DAO_Store
 
 		//other stores support December and beyond
 		if ($menu_id > 244)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function hasBioPage()
+	{
+		if ($this->hasBioPrimary() || $this->hasBioSecondary() || $this->hasBioTeam())
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function hasBioPrimary()
+	{
+		if (!empty($this->bio_primary_party_name))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function hasBioSecondary()
+	{
+		if (!empty($this->bio_secondary_party_name))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function hasBioTeam()
+	{
+		if (!empty($this->bio_team_description))
 		{
 			return true;
 		}
