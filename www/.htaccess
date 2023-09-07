@@ -129,7 +129,7 @@ RewriteRule ^theme/dreamdinners/images/stores/bio/portrait-([0-9]+)-([0-9]+).(jp
 RewriteCond %{ENV:REDIRECT_STATUS} 200
 RewriteRule ^ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^theme/dreamdinners/images/stores/bio/portrait-([0-9]+)-team.(jpg|webp|png)?$ /theme/dreamdinners/images/stores/bio/portrait-default-team.$2 [L,E=STATUS:404]
+RewriteRule ^theme/dreamdinners/images/stores/bio/portrait-([0-9]+)-team.(jpg|webp|png)?$ /theme/dreamdinners/images/stores/$1.$2 [L,E=STATUS:404]
 
 # handle missing recipe images, redirect to default image
 # first two lines prevent infinite loop in the case the default image is not there

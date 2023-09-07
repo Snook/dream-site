@@ -45,51 +45,57 @@
 
 			<div class="row">
 
-				<div class="col-md-6">
-					<div class="row">
-						<div class="col-12 mb-3">
-							<img src="/theme/dreamdinners/images/stores/bio/portrait-<?php echo $this->DAO_store->id; ?>-1.webp" alt="<?php echo $this->DAO_store->bio_primary_party_name; ?> portrait" class="img-fluid w-100">
-						</div>
-						<div class="col-12">
-							<h5 class="font-weight-medium mb-0"><?php echo $this->DAO_store->bio_primary_party_name; ?></h5>
-							<h6 class="text-muted"><?php echo $this->DAO_store->bio_primary_party_title; ?></h6>
-							<p><?php echo nl2br($this->DAO_store->bio_primary_party_story); ?></p>
+				<?php if (!empty($this->DAO_store->bio_primary_party_name)) { ?>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-12 mb-3">
+								<img src="/theme/dreamdinners/images/stores/bio/portrait-<?php echo $this->DAO_store->id; ?>-1.webp" alt="<?php echo $this->DAO_store->bio_primary_party_name; ?> portrait" class="img-fluid w-100">
+							</div>
+							<div class="col-12">
+								<h5 class="font-weight-medium mb-0"><?php echo $this->DAO_store->bio_primary_party_name; ?></h5>
+								<h6 class="text-muted"><?php echo $this->DAO_store->bio_primary_party_title; ?></h6>
+								<p><?php echo nl2br($this->DAO_store->bio_primary_party_story); ?></p>
+							</div>
 						</div>
 					</div>
-				</div>
+				<?php } ?>
 
-				<div class="col-md-6">
-					<div class="row">
-						<div class="col-12 mb-3">
-							<img src="/theme/dreamdinners/images/stores/bio/portrait-<?php echo $this->DAO_store->id; ?>-2.webp" alt="Mill Creek" class="img-fluid w-100">
-						</div>
-						<div class="col-12">
-							<h5 class="font-weight-medium mb-0"><?php echo $this->DAO_store->bio_secondary_party_name; ?></h5>
-							<h6 class="text-muted"><?php echo $this->DAO_store->bio_secondary_party_title; ?></h6>
-							<p><?php echo nl2br($this->DAO_store->bio_secondary_party_story); ?></p>
+				<?php if (!empty($this->DAO_store->bio_secondary_party_name)) { ?>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-12 mb-3">
+								<img src="/theme/dreamdinners/images/stores/bio/portrait-<?php echo $this->DAO_store->id; ?>-2.webp" alt="Mill Creek" class="img-fluid w-100">
+							</div>
+							<div class="col-12">
+								<h5 class="font-weight-medium mb-0"><?php echo $this->DAO_store->bio_secondary_party_name; ?></h5>
+								<h6 class="text-muted"><?php echo $this->DAO_store->bio_secondary_party_title; ?></h6>
+								<p><?php echo nl2br($this->DAO_store->bio_secondary_party_story); ?></p>
+							</div>
 						</div>
 					</div>
-				</div>
+				<?php } ?>
 
 			</div>
 
-			<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted" />
+			<?php if (!empty($this->DAO_store->bio_team_description)) { ?>
+				<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted" />
 
-			<div class="row">
+				<div class="row">
 
-				<div class="col">
-					<div class="row">
-						<div class="col-6">
-							<img src="/theme/dreamdinners/images/stores/bio/portrait-<?php echo $this->DAO_store->id; ?>-team.webp" alt="<?php echo $this->DAO_store->store_name; ?> team portrait" class="img-fluid w-100">
-						</div>
-						<div class="col-6">
-							<h5 class="font-weight-medium mb-0"><?php echo $this->DAO_store->store_name; ?> team members</h5>
-							<p><?php echo nl2br($this->DAO_store->bio_team_description); ?></p>
+					<div class="col">
+						<div class="row">
+							<div class="col-md-6 mb-3 mb-md-0">
+								<img src="/theme/dreamdinners/images/stores/bio/portrait-<?php echo $this->DAO_store->id; ?>-team.webp" alt="<?php echo $this->DAO_store->store_name; ?> team portrait" class="img-fluid w-100">
+							</div>
+							<div class="col-md-6">
+								<h5 class="font-weight-medium mb-0"><?php echo $this->DAO_store->store_name; ?> team members</h5>
+								<p><?php echo nl2br($this->DAO_store->bio_team_description); ?></p>
+							</div>
 						</div>
 					</div>
-				</div>
 
-			</div>
+				</div>
+			<?php } ?>
 
 		</div>
 	</section>
