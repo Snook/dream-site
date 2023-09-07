@@ -46,7 +46,7 @@
 
 									<div class="row">
 										<div class="col">
-											<a href="/<?php echo $arStore["DAO_store"]->getPrettyUrl(); ?>" class="btn btn-primary btn-block btn-spinner">Store Info &amp; Hours</a>
+											<a href="<?php echo $arStore["DAO_store"]->getPrettyUrl(); ?>" class="btn btn-primary btn-block btn-spinner">Store Info &amp; Hours</a>
 										</div>
 									</div>
 
@@ -65,7 +65,7 @@
 
 									<div class="row mt-4">
 										<div class="col">
-											<a href="/<?php echo $arStore["DAO_store"]->getPrettyUrl(); ?>/calendar" class="btn btn-primary btn-block btn-spinner">View store events</a>
+											<a href="<?php echo $arStore["DAO_store"]->getPrettyUrl(); ?>/calendar" class="btn btn-primary btn-block btn-spinner">View store events</a>
 										</div>
 									</div>
 								</div>
