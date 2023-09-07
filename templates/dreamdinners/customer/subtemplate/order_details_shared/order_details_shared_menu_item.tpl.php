@@ -5,7 +5,7 @@
 	<div class="col-md-10 py-2">
 		<div class="row">
 			<div class="col text-uppercase font-weight-bold">
-				<a href="/main.php?page=item&amp;recipe=<?php echo $itemInfo['recipe_id']; ?>"><?php echo $itemInfo['display_title']; ?></a>
+				<a href="/?page=item&amp;recipe=<?php echo $itemInfo['recipe_id']; ?>"><?php echo $itemInfo['display_title']; ?></a>
 			</div>
 		</div>
 		<div class="row mb-2 mb-md-4">

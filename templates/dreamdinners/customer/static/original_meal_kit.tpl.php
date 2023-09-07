@@ -10,7 +10,7 @@
 					<div class="col-md-6 text-left p-5 my-5">
 						<h1 class="font-weight-bold mt-2">Parent’s Choice, Kid Approved</h1>
 						<p class="text-uppercase mb-4">As life gets busier, choose dinners your family will love. Our tried and true freezer meals are prepped and ready to cook at home. No chopping, shopping or messy clean-up.</p>
-						<a href="/main.php?page=locations" class="btn btn-lg btn-green">Find a Location</a>
+						<a href="/?page=locations" class="btn btn-lg btn-green">Find a Location</a>
 					</div>
 					<div class="col-md-6 p-0">
 						<figure>
@@ -85,7 +85,7 @@
 			</section>
 				<div class="row my-4">
 					<div class="col text-center">
-						<a href="/main.php?page=locations" class="btn btn-lg btn-primary">Get Cooking</a>
+						<a href="/?page=locations" class="btn btn-lg btn-primary">Get Cooking</a>
 					</div>
 				</div>
 			</div>
@@ -144,7 +144,7 @@
 							<h3 class="my-4">OUR GUESTS LOVE US</h3>
 						<p>Hear what our guest Ashley and her daughters have to say about how Dream Dinners has made dinnertime easier at her house.</p>
 
-						<p><a href="/main.php?page=locations" data-gaq_cat="original" data-gaq_action="Order Now" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Order Now</a></p>
+						<p><a href="/?page=locations" data-gaq_cat="original" data-gaq_action="Order Now" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Order Now</a></p>
 					</div>
 					<div class="col-md-6 text-right">
 						<div class="embed-responsive embed-responsive-16by9">

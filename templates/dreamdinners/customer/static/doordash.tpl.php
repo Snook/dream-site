@@ -11,7 +11,7 @@
 					<div class="col-md-5 text-center mx-auto py-2" style="background: rgba(255, 255, 255, 0.8)">
 						<h1 class="my-4 font-weight-bold">Thanks for ordering Dream Dinners on DoorDash.</h1>
 						<h3 class="mb-5">Are you ready to have more delicious, prepped dinners for days you want to cook at home? Order now to get more variety, value pricing, and exclusive access to extras in our Sides & Sweets Freezer.</h3>
-						<a href="/main.php?page=locations" class="btn btn-primary mb-4 start-intro-offer">Find a Location</a>
+						<a href="/?page=locations" class="btn btn-primary mb-4 start-intro-offer">Find a Location</a>
 					</div>
 				</div>
 			</div>
@@ -61,7 +61,7 @@
 
 				<div class="row my-4">
 					<div class="col text-center mb-5">
-						<a href="/main.php?page=session_menu" class="btn btn-lg btn-primary">Get Cooking</a>
+						<a href="/?page=session_menu" class="btn btn-lg btn-primary">Get Cooking</a>
 					</div>
 				</div>
 			</div>
@@ -134,7 +134,7 @@
 
 				<div class="row my-4">
 					<div class="col text-center">
-						<a href="/main.php?static=how_it_works" class="btn btn-primary">Learn More</a>
+						<a href="/?static=how_it_works" class="btn btn-primary">Learn More</a>
 					</div>
 				</div>
 			</div>
@@ -184,7 +184,7 @@
 					</div>
 					<div class="row my-4 pb-4">
 						<div class="col text-center text-white">
-							<p><a href="/main.php?page=locations" class="btn btn-cyan text-white">Find a Location</a></p>
+							<p><a href="/?page=locations" class="btn btn-cyan text-white">Find a Location</a></p>
 							<p><em>*Availability varies by location. Check your local stores calendar to find available ordering options.</em></p>
 						</div>
 					</div>
@@ -200,7 +200,7 @@
 							<h3 class="my-4">OUR GUESTS LOVE US</h3>
 						<p>Hear how our guest Kellie uses our prepared dinners to make dinnertime easier for her family.</p>
 
-						<p><a href="/main.php?page=session_menu" data-gaq_cat="original" data-gaq_action="Order Now" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Order Now</a></p>
+						<p><a href="/?page=session_menu" data-gaq_cat="original" data-gaq_action="Order Now" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Order Now</a></p>
 					</div>
 					<div class="col-md-6 text-right">
 						<div class="embed-responsive embed-responsive-16by9">

@@ -13,7 +13,7 @@
 		<div class="row">
 			<div class="col-6 col-sm-3 p-0 order-2 order-sm-1">
 				<?php if (!CUser::isLoggedIn()) { ?>
-					<a class="btn btn-primary" href="/main.php?page=login">Already a guest? Sign in</a>
+					<a class="btn btn-primary" href="/?page=login">Already a guest? Sign in</a>
 				<?php } ?>
 			</div>
 			<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center">
@@ -321,7 +321,7 @@
 									</div>
 								<?php } ?>
 							</div>
-							<p class="font-size-small font-italic">We will work to process all verified requests within 45 days pursuant to the CCPA. If we need an extension for up to an additional 45 days in order to process your request, we will provide you with an explanation for the delay. Please view our <a href="/main.php?static=privacy">Privacy Policy</a> for additional information.</p>
+							<p class="font-size-small font-italic">We will work to process all verified requests within 45 days pursuant to the CCPA. If we need an extension for up to an additional 45 days in order to process your request, we will provide you with an explanation for the delay. Please view our <a href="/?static=privacy">Privacy Policy</a> for additional information.</p>
 						</div>
 					<?php }?>
 

@@ -5,7 +5,7 @@
 <header class="container my-5">
 	<div class="row">
 		<div class="col-6 col-sm-3 p-0 order-2 order-sm-1">
-			<a href="/main.php?page=my_account" class="btn btn-primary"><span class="pr-2">&#10094;</span> My Account</a>
+			<a href="/?page=my_account" class="btn btn-primary"><span class="pr-2">&#10094;</span> My Account</a>
 		</div>
 		<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center">
 			<h1>My Surveys</h1>

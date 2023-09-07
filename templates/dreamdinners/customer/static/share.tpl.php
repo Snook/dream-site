@@ -23,7 +23,7 @@
 						<h3>New Guest Exclusive:<br><strong>Buy 3 Dinners, Get 1 Free*</strong></h3>
 						<p>Place an order for 3 or more dinners, get a free medium Cashew Chicken and Noodles as our gift to you. </p>
 						<p>Use this code at checkout: <span class="font-weight-bold font-marker font-size-large">SHARE</span></p>
-						<p class="my-3"><a href="/main.php?page=locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
+						<p class="my-3"><a href="/?page=locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
 					</div>
 					<div class="col-md-5 mb-6">
 						<div>
@@ -61,7 +61,7 @@
 										<h4 class="card-title">Give a Dinner, Earn Rewards</h4>
 										<p class="card-text">Share your personal referral link to introduce your friends and family to Dream Dinners. You get 10 Dinner Dollars for every referral and they get a free dinner on us.</p>
 										<?php if (!CUser::isLoggedIn()) { ?>
-											<p class="card-text"><a href="main.php?page=my_account">Log in to My Account</a> to get your referral link.</p>
+											<p class="card-text"><a href="/?page=my_account">Log in to My Account</a> to get your referral link.</p>
 										<?php } else { ?>
 											<div class="input-group mb-3">
 												<div class="input-group-prepend">
@@ -185,7 +185,7 @@
 				</div>
 				<div class="row my-2">
 					<div class="col text-center">
-						<a href="/main.php?page=locations" class="btn btn-lg btn-primary">Get started</a>
+						<a href="/?page=locations" class="btn btn-lg btn-primary">Get started</a>
 					</div>
 				</div>
 			</div>
@@ -236,7 +236,7 @@
 				<div>
 					<div class="col">
 						<div class="text-center">
-							<a href="/main.php?page=locations" class="btn btn-lg btn-primary">See Your Local Menu Options</a>
+							<a href="/?page=locations" class="btn btn-lg btn-primary">See Your Local Menu Options</a>
 						</div>
 					</div>
 				</div>

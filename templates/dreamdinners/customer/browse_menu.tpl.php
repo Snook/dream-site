@@ -7,7 +7,7 @@
 		<div class="row">
 			<div class="col text-center">
 				<h1>Menu Preview</h1>
-				<p>Preview 12 of our 17 menu items for each month below. If you are hungry to view pricing and see the entire menu, <a href="/main.php?page=locations">get started by entering your zip code</a> to find a location or see if we can ship to you.</p>
+				<p>Preview 12 of our 17 menu items for each month below. If you are hungry to view pricing and see the entire menu, <a href="/?page=locations">get started by entering your zip code</a> to find a location or see if we can ship to you.</p>
 
 			</div>
 		</div>
@@ -19,7 +19,7 @@
 			<nav class="row mb-4">
 				<div class="col-sm-8 mx-auto nav nav-pills nav-fill pr-0" id="dishDetails" role="tablist">
 					<?php $count = 0; foreach ($this->activeMenus AS $menu) { $count++; ?>
-						<a class="nav-item nav-link col-<?php echo floor(12 / count($this->activeMenus)); ?> text-uppercase font-weight-bold<?php if ($count == 1) { echo ' active'; } ?><?php echo (!empty($menu['menu_tab_css'])) ? ' ' . $menu['menu_tab_css'] : '' ; ?>" id="m-<?php echo $menu['menu_id']; ?>-tab" data-urlpush="true" data-toggle="tab" data-target="#m-<?php echo $menu['menu_id']; ?>" href="/main.php?page=browse_menu&amp;tab=m-<?php echo $menu['menu_id']; ?>" role="tab" aria-controls="<?php echo $menu['menu_id']; ?>" aria-selected="<?php echo ($count == 1) ? 'true' : 'false'; ?>">
+						<a class="nav-item nav-link col-<?php echo floor(12 / count($this->activeMenus)); ?> text-uppercase font-weight-bold<?php if ($count == 1) { echo ' active'; } ?><?php echo (!empty($menu['menu_tab_css'])) ? ' ' . $menu['menu_tab_css'] : '' ; ?>" id="m-<?php echo $menu['menu_id']; ?>-tab" data-urlpush="true" data-toggle="tab" data-target="#m-<?php echo $menu['menu_id']; ?>" href="/?page=browse_menu&amp;tab=m-<?php echo $menu['menu_id']; ?>" role="tab" aria-controls="<?php echo $menu['menu_id']; ?>" aria-selected="<?php echo ($count == 1) ? 'true' : 'false'; ?>">
 
 							<?php
 							if(strtoupper($menu['menu_month']) == 'DELIVERED'){
@@ -43,7 +43,7 @@
 										<img loading="lazy" class="card-img-top" src="<?php echo IMAGES_PATH; ?>/recipe/default/<?php echo $menu_item['recipe_id']; ?>.webp" alt="<?php echo $menu_item['menu_item_name']; ?>" />
 										<div class="card-body">
 											<h5 class="card-title font-size-small"><?php echo $menu_item['menu_item_name']; ?></h5>
-											<a href="/main.php?page=item&amp;recipe=<?php echo $menu_item['recipe_id']; ?>" class="card-link text-uppercase stretched-link">Dinner details</a>
+											<a href="/?page=item&amp;recipe=<?php echo $menu_item['recipe_id']; ?>" class="card-link text-uppercase stretched-link">Dinner details</a>
 										</div>
 									</div>
 									<?php if (++$count % 2 === 0) { // allows card deck to wrap every two cards on small devices  ?>
@@ -54,7 +54,7 @@
 									<?php } ?>
 									<?php if ($count >= $total || $count >= $LIMIT) { // show get started button after 8 cards  ?>
 										<div class="w-100 d-print-none">
-											<a href="/main.php?page=locations" class="btn btn-primary btn-block btn-spinner col-sm-8 mt-2 mb-4 my-sm-2 mx-auto">View Full Menu & Pricing</a>
+											<a href="/?page=locations" class="btn btn-primary btn-block btn-spinner col-sm-8 mt-2 mb-4 my-sm-2 mx-auto">View Full Menu & Pricing</a>
 										</div>
 									<?php } ?>
 								<?php } ?>

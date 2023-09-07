@@ -7,7 +7,7 @@
 			<div class="row">
 				<div class="col pt-3 pt-lg-0">
 					<h3>
-						<a href="main.php?page=item&recipe=<?php echo $this->menu_item->recipe_id; ?>&amp;ov_menu=<?php echo $this->menu_item->menu_id; ?>"><?php echo $this->menu_item->menu_item_name; ?></a>
+						<a href="/?page=item&recipe=<?php echo $this->menu_item->recipe_id; ?>&amp;ov_menu=<?php echo $this->menu_item->menu_id; ?>"><?php echo $this->menu_item->menu_item_name; ?></a>
 					</h3>
 					<p>
 						<?php if (!empty($this->menu_item->menu_label)) { ?>

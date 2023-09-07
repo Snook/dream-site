@@ -1,7 +1,7 @@
 <header class="container my-5">
 	<div class="row">
 		<div class="col-6 col-sm-3 p-0 order-2 order-sm-1 d-print-none">
-			<a href="/main.php?page=locations" class="btn btn-primary"><span class="pr-2">&#10094;</span> Change Store Location</a>
+			<a href="/?page=locations" class="btn btn-primary"><span class="pr-2">&#10094;</span> Change Store Location</a>
 		</div>
 		<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center col-print-12">
 			<h2><span class="text-green font-weight-semi-bold"><?php echo $this->menu_info['menu_month']; ?></span> menu</h2>
@@ -16,9 +16,9 @@
 		</div>
 		<div class="col-6 col-sm-3 p-0 order-3 order-sm-3 text-right d-print-none">
 			<?php if (empty($this->menu_view)) { ?>
-				<a href="/main.php?page=checkout" class="btn btn-primary disabled continue-btn">Continue <span class="pl-2">&#10095;</span></a>
+				<a href="/?page=checkout" class="btn btn-primary disabled continue-btn">Continue <span class="pl-2">&#10095;</span></a>
 			<?php } else { ?>
-				<a href="/main.php?page=session_menu&amp;view=freezer" class="btn btn-primary disabled continue-btn">Continue <span class="pl-2">&#10095;</span></a>
+				<a href="/?page=session_menu&amp;view=freezer" class="btn btn-primary disabled continue-btn">Continue <span class="pl-2">&#10095;</span></a>
 			<?php } ?>
 		</div>
 	</div>
@@ -111,9 +111,9 @@
 
 						<?php if ($this->order_type == COrders::STANDARD || $this->order_type == COrders::INTRO || $this->order_type == COrders::MADE_FOR_YOU) { ?>
 							<div class="col-12 mt-4">
-								<a class="btn btn-green-dark-extra btn-sm btn-block" href="/main.php?page=print&amp;store=<?php echo $this->cart_info['store_info']['id']; ?>&amp;menu=<?php echo $this->cart_info['menu_info']['id']; ?><?php echo(($this->order_type == COrders::INTRO) ? '&amp;intro=true' : ''); ?>" target="_blank"><i class="dd-icon icon-print mr-2"></i> Print <?php echo $this->menu_info['menu_month']; ?> Menu</a>
-								<a class="btn btn-green-dark-extra btn-sm btn-block" href="/main.php?page=print&amp;store=<?php echo $this->cart_info['store_info']['id']; ?>&amp;menu=<?php echo $this->cart_info['menu_info']['id']; ?>&amp;nutrition=true" target="_blank"><i class="dd-icon icon-print mr-2"></i> Print <?php echo $this->menu_info['menu_month']; ?> Nutrition</a>
-								<a class="btn btn-green-dark-extra btn-sm btn-block" href="/main.php?page=nutritionals&amp;store=<?php echo $this->cart_info['store_info']['id']; ?>&amp;menu=<?php echo $this->cart_info['menu_info']['id']; ?>" target="_blank">View <?php echo $this->menu_info['menu_month']; ?> Menu & Sides Nutrition</a>
+								<a class="btn btn-green-dark-extra btn-sm btn-block" href="/?page=print&amp;store=<?php echo $this->cart_info['store_info']['id']; ?>&amp;menu=<?php echo $this->cart_info['menu_info']['id']; ?><?php echo(($this->order_type == COrders::INTRO) ? '&amp;intro=true' : ''); ?>" target="_blank"><i class="dd-icon icon-print mr-2"></i> Print <?php echo $this->menu_info['menu_month']; ?> Menu</a>
+								<a class="btn btn-green-dark-extra btn-sm btn-block" href="/?page=print&amp;store=<?php echo $this->cart_info['store_info']['id']; ?>&amp;menu=<?php echo $this->cart_info['menu_info']['id']; ?>&amp;nutrition=true" target="_blank"><i class="dd-icon icon-print mr-2"></i> Print <?php echo $this->menu_info['menu_month']; ?> Nutrition</a>
+								<a class="btn btn-green-dark-extra btn-sm btn-block" href="/?page=nutritionals&amp;store=<?php echo $this->cart_info['store_info']['id']; ?>&amp;menu=<?php echo $this->cart_info['menu_info']['id']; ?>" target="_blank">View <?php echo $this->menu_info['menu_month']; ?> Menu & Sides Nutrition</a>
 							</div>
 						<?php } ?>
 					</div>
@@ -125,9 +125,9 @@
 	<div class="row mt-5 d-print-none">
 		<div class="col p-0 text-right">
 			<?php if (empty($this->menu_view)) { ?>
-				<a href="/main.php?page=checkout" class="btn btn-primary disabled continue-btn">Continue <span class="pl-2">&#10095;</span></a>
+				<a href="/?page=checkout" class="btn btn-primary disabled continue-btn">Continue <span class="pl-2">&#10095;</span></a>
 			<?php } else { ?>
-				<a href="/main.php?page=session_menu&amp;view=freezer" class="btn btn-primary disabled continue-btn">Continue <span class="pl-2">&#10095;</span></a>
+				<a href="/?page=session_menu&amp;view=freezer" class="btn btn-primary disabled continue-btn">Continue <span class="pl-2">&#10095;</span></a>
 			<?php } ?>
 		</div>
 	</div>
@@ -139,7 +139,7 @@
 	<?php if ($this->order_type == COrders::STANDARD || $this->order_type == COrders::MADE_FOR_YOU || $this->order_type == COrders::INTRO) { ?>
 		<div class="row mb-4 d-md-none d-print-none">
 			<div class="col">
-				<a class="btn btn-green-dark-extra btn-sm w-100" href="/main.php?page=nutritionals&amp;store=<?php echo $this->cart_info['store_info']['id']; ?>&amp;menu=<?php echo $this->cart_info['menu_info']['id']; ?>" target="_blank"> View <?php echo $this->menu_info['menu_month']; ?> Menu & Sides Nutrition</a>
+				<a class="btn btn-green-dark-extra btn-sm w-100" href="/?page=nutritionals&amp;store=<?php echo $this->cart_info['store_info']['id']; ?>&amp;menu=<?php echo $this->cart_info['menu_info']['id']; ?>" target="_blank"> View <?php echo $this->menu_info['menu_month']; ?> Menu & Sides Nutrition</a>
 			</div>
 		</div>
 	<?php } ?>

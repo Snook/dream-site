@@ -63,7 +63,7 @@
 							<div class="col text-center py-2 bg-image-platepoints">
 								<h3 class="font-weight-bold mb-2 mt-4">Join PlatePoints, Our Rewards Program</h3>
 								<p>Accrue PlatePoints as you meal prep with Dream Dinners. Apply your earned rewards at checkout.</p>
-								<a class="btn btn-secondary mt-3 mb-4" href="/main.php?page=account&amp;pp_enroll=1">Enroll today</a>
+								<a class="btn btn-secondary mt-3 mb-4" href="/?page=account&amp;pp_enroll=1">Enroll today</a>
 								<p><i>*Ability to spend rewards is available at participating locations.</i></p>
 							</div>
 						</div>
@@ -143,14 +143,14 @@
 
 				<div class="row mb-3">
 					<div class="col p-0">
-						<a class="btn btn-primary btn-lg btn-block" href="/main.php?page=session_menu" id="my_account_start">Start order</a>
+						<a class="btn btn-primary btn-lg btn-block" href="/?page=session_menu" id="my_account_start">Start order</a>
 					</div>
 				</div>
 				<?php if (!$this->is_delivered_only) { ?>
 					<div class="row mb-2">
 						<?php foreach ($this->printMenus AS $calendar) { ?>
 							<div class="col-6">
-								<a class="btn btn-green-dark-extra btn-sm btn-block" href="/main.php?page=print&amp;store=<?php echo $this->user->home_store_id; ?>&amp;menu=<?php echo $calendar['id']; ?>" target="_blank"><i class="dd-icon icon-print mr-2"></i> Print <?php echo $calendar['menu_name']; ?> Store Menu</a>
+								<a class="btn btn-green-dark-extra btn-sm btn-block" href="/?page=print&amp;store=<?php echo $this->user->home_store_id; ?>&amp;menu=<?php echo $calendar['id']; ?>" target="_blank"><i class="dd-icon icon-print mr-2"></i> Print <?php echo $calendar['menu_name']; ?> Store Menu</a>
 							</div>
 						<?php } ?>
 					</div>
@@ -202,10 +202,10 @@
 					<?php } ?>
 					<div class="row pb-2">
 						<div class="col-6">
-							<a class="btn btn-primary btn-block" href="/main.php?page=my_meals">Rate My Meals</a>
+							<a class="btn btn-primary btn-block" href="/?page=my_meals">Rate My Meals</a>
 						</div>
 						<div class="col-6">
-							<a class="btn btn-gray-dark btn-block" href="/main.php?page=my_meals&amp;tab=nav-past_orders">Order history</a>
+							<a class="btn btn-gray-dark btn-block" href="/?page=my_meals&amp;tab=nav-past_orders">Order history</a>
 						</div>
 					</div>
 				</div>
@@ -216,7 +216,7 @@
 					<i class="d-none d-lg-block dd-icon icon-mobile font-size-extra-large text-white mb-2"></i>
 					<h5 class="font-weight-bold text-uppercase text-white">OPT INTO DREAM DINNERS EMAIl &amp; TEXT MESSAGING</h5>
 					<p class="text-white">Get important Dream Dinners info in the palm of your hand like a reminder about your next order. Plus exciting offers, announcements and weekly thaw reminders.</p>
-					<a class="btn btn-gray-dark btn-block mb-3" href="/main.php?page=account">Edit Preferences to Opt In</a>
+					<a class="btn btn-gray-dark btn-block mb-3" href="/?page=account">Edit Preferences to Opt In</a>
 				</div>
 			</div>
 			<?php if (!$this->is_delivered_only) { ?>
@@ -232,7 +232,7 @@
 						</div>
 						<div class="row">
 							<div class="col my-2">
-								<a class="btn btn-primary btn-block" href="/main.php?page=my_events">My events</a>
+								<a class="btn btn-primary btn-block" href="/?page=my_events">My events</a>
 							</div>
 						</div>
 					<?php } else { ?>
@@ -343,7 +343,7 @@
 					<div class="row pt-2">
 						<div class="col-lg-12 py-2 py-xl-5 text-center">
 							<h5 class="font-weight-bold text-uppercase">Ways to exercise your rights under the California Consumer Privacy Act</h5>
-							<p>California residents can request details about personal information collected and shared <a href="/main.php?page=account">by submitting a request</a>.</p>
+							<p>California residents can request details about personal information collected and shared <a href="/?page=account">by submitting a request</a>.</p>
 						</div>
 					</div>
 				</div>
@@ -387,7 +387,7 @@
 							<div><?php echo $this->store['telephone_day']; ?></div>
 							<div class="row mt-2">
 								<div class="col">
-									<a class="btn btn-primary btn-sm mb-2" href="/main.php?page=store&amp;id=<?php echo $this->store['id']?>">Store details</a>
+									<a class="btn btn-primary btn-sm mb-2" href="/?page=store&amp;id=<?php echo $this->store['id']?>">Store details</a>
 									<a class="btn btn-primary btn-sm mb-2 text-break" href="mailto:<?php echo $this->store['email_address']; ?>"><?php echo $this->store['email_address']; ?></a>
 								</div>
 							</div>
@@ -398,7 +398,7 @@
 				</div>
 				<div class="row mb-2">
 					<div class="col">
-						<a class="btn btn-primary btn-block" href="/main.php?page=account">Edit Settings</a>
+						<a class="btn btn-primary btn-block" href="/?page=account">Edit Settings</a>
 					</div>
 				</div>
 			</div>

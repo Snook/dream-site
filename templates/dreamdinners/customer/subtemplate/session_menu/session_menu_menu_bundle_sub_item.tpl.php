@@ -10,7 +10,7 @@
 <div class="row mb-1">
 	<div class="col-9 font-size-small">
 		<?php echo $subItemData['menu_item_name']; ?>
-		<a class="card-link text-uppercase d-print-none link-dinner-details" href="/main.php?page=item&amp;recipe=<?php echo $subItemData['recipe_id']; ?>" data-recipe_id="<?php echo $subItemData['recipe_id']; ?>" data-store_id="<?php echo $this->cart_info['storeObj']->id; ?>" data-menu_item_id="<?php echo $subItemData['id']; ?>" data-menu_id="<?php echo $mainItem->menu_id; ?>">
+		<a class="card-link text-uppercase d-print-none link-dinner-details" href="/?page=item&amp;recipe=<?php echo $subItemData['recipe_id']; ?>" data-recipe_id="<?php echo $subItemData['recipe_id']; ?>" data-store_id="<?php echo $this->cart_info['storeObj']->id; ?>" data-menu_item_id="<?php echo $subItemData['id']; ?>" data-menu_id="<?php echo $mainItem->menu_id; ?>">
 			<i class="fas fa-info-circle ml-1"></i>
 		</a>
 

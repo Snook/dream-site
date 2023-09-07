@@ -13,7 +13,7 @@
 		<div class="row">
 			<div class="col-6 col-sm-3 p-0 order-2 order-sm-1">
 				<?php if (!CUser::isLoggedIn()) { ?>
-					<a class="btn btn-primary" href="/main.php?page=login">Already a guest? Sign in</a>
+					<a class="btn btn-primary" href="/?page=login">Already a guest? Sign in</a>
 				<?php } ?>
 			</div>
 			<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center">

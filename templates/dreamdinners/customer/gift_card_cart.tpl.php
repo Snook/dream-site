@@ -5,13 +5,13 @@
 	<header class="container my-5">
 		<div class="row">
 			<div class="col-6 col-sm-3 p-0 order-2 order-sm-1">
-				<a href="/main.php?page=gift_card_order" class="btn btn-primary btn-sm btn-md-lg p-2"><span class="pr-2">&#10094;</span> Gift cards</a>
+				<a href="/?page=gift_card_order" class="btn btn-primary btn-sm btn-md-lg p-2"><span class="pr-2">&#10094;</span> Gift cards</a>
 			</div>
 			<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center">
 				<h1>Gift card cart</h1>
 			</div>
 			<div class="col-6 col-sm-3 p-0 order-3 order-sm-3 text-right">
-				<a href="/main.php?page=checkout_gift_card" class="btn btn-primary btn-sm btn-md-lg p-2 <?php if (empty($this->cart_info['cart_info_array']['has_gift_cards']))  { ?> disabled<?php } ?>">Checkout <span class="pl-2">&#10095;</span></a>
+				<a href="/?page=checkout_gift_card" class="btn btn-primary btn-sm btn-md-lg p-2 <?php if (empty($this->cart_info['cart_info_array']['has_gift_cards']))  { ?> disabled<?php } ?>">Checkout <span class="pl-2">&#10095;</span></a>
 			</div>
 		</div>
 	</header>
@@ -27,7 +27,7 @@
 				<?php } else { ?>
 					<div class="text-center">
 						<h3>Your cart is empty</h3>
-						<a href="/main.php?page=gift_card_order" class="btn btn-primary mt-5">Order gift cards</a>
+						<a href="/?page=gift_card_order" class="btn btn-primary mt-5">Order gift cards</a>
 					</div>
 				<?php } ?>
 			</div>

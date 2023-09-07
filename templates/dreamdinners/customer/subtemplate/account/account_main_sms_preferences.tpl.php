@@ -96,6 +96,6 @@
 			</div>
 		</div>
 
-		<p class="font-italic font-size-small mt-3">*Up to 12 Msgs/Month. To opt out simply turn off a preference or Reply <span class="font-weight-bold">STOP</span> to cancel, <span class="font-weight-bold">HELP</span> for help to 73328. Msg &amp; data rates may apply. <a href="main.php?static=terms">View SMS Terms</a> | <a href="main.php?static=privacy">View SMS Privacy Policy</a></p>
+		<p class="font-italic font-size-small mt-3">*Up to 12 Msgs/Month. To opt out simply turn off a preference or Reply <span class="font-weight-bold">STOP</span> to cancel, <span class="font-weight-bold">HELP</span> for help to 73328. Msg &amp; data rates may apply. <a href="/?static=terms">View SMS Terms</a> | <a href="/?static=privacy">View SMS Privacy Policy</a></p>
 
 	</form>

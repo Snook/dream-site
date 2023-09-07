@@ -11,7 +11,7 @@
 					<div class="col-md-6 text-center mx-auto">
 						<h1 class="my-4 font-weight-bold">Try our Meal Prep Starter Pack</h1>
 						<h3 class="mb-5">Prepping meals at Dream Dinners means spending less time in the kitchen, more time doing what you love</h3>
-						<a href="/main.php?page=locations" class="btn btn-primary mb-4">Find a Location</a>
+						<a href="/?page=locations" class="btn btn-primary mb-4">Find a Location</a>
 					</div>
 				</div>
 			</div>
@@ -66,7 +66,7 @@
 							<div class="card-body">
 								<h5 class="card-title">How It Works</h5>
 								<p class="card-text">In our locations, we do all the shopping, chopping and clean up so that you can prep a month of meals in about an hour, at one of our locations.</p>
-								<a href="/main.php?static=how_it_works" class="btn btn-primary">Learn More</a>
+								<a href="/?static=how_it_works" class="btn btn-primary">Learn More</a>
 							</div>
 						</div>
 						<div class="card border-0 mx-1">
@@ -74,7 +74,7 @@
 							<div class="card-body">
 								<h5 class="card-title">Browse Menu</h5>
 								<p class="card-text">Each month, our full menu features over 16 recipes for your family to enjoy. Our recipes include a variety of protein options and flavor profiles to experience at home.</p>
-								<a href="/main.php?page=browse_menu" class="btn btn-primary">Browse Menus</a>
+								<a href="/?page=browse_menu" class="btn btn-primary">Browse Menus</a>
 							</div>
 						</div>
 						<div class="card border-0 mx-1">
@@ -82,7 +82,7 @@
 							<div class="card-body">
 								<h5 class="card-title">Book Session</h5>
 								<p class="card-text">At one of our locations, you will choose a session time where our helpful team members will walk you through the assembly experience and show you how easy meal prep can be.</p>
-								<a href="/main.php?page=locations" class="btn btn-primary start-intro-offer">Find a Location</a>
+								<a href="/?page=locations" class="btn btn-primary start-intro-offer">Find a Location</a>
 							</div>
 						</div>
 

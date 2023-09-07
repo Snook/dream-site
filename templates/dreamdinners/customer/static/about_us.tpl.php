@@ -36,12 +36,12 @@
 					<div class="col-md-6 bg-image-our-story text-white text-left p-5">
 						<h2 class="text-uppercase font-weight-bold">Our Story</h2>
 						<p>Learn how Dream Dinners has been helping busy families get easy, delicious meals on the table since 2002.</p>
-						<a href="/main.php?static=our_story" class="btn btn-secondary">Learn More</a>
+						<a href="/?static=our_story" class="btn btn-secondary">Learn More</a>
 					</div>
 					<div class="col-md-6 bg-image-our-food text-white text-left p-5">
 						<h2 class="text-uppercase font-weight-bold">Our Food</h2>
 						<p>Providing Fresh Produce with Innovative Partnerships</p>
-						<a href="/main.php?static=our_food" class="btn btn-secondary">Learn More</a>
+						<a href="/?static=our_food" class="btn btn-secondary">Learn More</a>
 					</div>
 
 				</div>
@@ -56,12 +56,12 @@
 						<h3 class="text-center mb-4">Dream Dinners Leadership</h3>
 					</div>
 				</div>
-				
+
 				<div class="row">
 					<div class="col">
 
 						<ul class="nav nav-tabs" id="myTab" role="tablist">
-							
+
 							<li class="nav-item col-3 px-0 px-md-3">
 								<a class="nav-link active p-1 p-md-3" id="tina-tab" data-urlpush="true" data-toggle="tab" href="#tina" role="tab" aria-controls="profile" aria-selected="true">
 									<img src="<?php echo IMAGES_PATH; ?>/about_us/tina-kuna.jpg" class="img-fluid" alt="Tina Kuna" />
@@ -88,9 +88,9 @@
 							</li>
 						</ul>
 
-						
+
 						<div class="tab-content pt-4">
-							
+
 							<div class="tab-pane fade show active" id="tina" role="tabpanel" aria-labelledby="tina-tab">
 								<h4>Tina Kuna, Chief Executive Officer &amp; Co-Founder </h4>
 								<p>A recognized leader in the meal assembly industry, Tina Kuna was instrumental in creating the innovative Dream Dinners business model, which has become the industry standard. In 1996, as a working mother of three, Kuna adopted the assemble-and-freeze method for her family, as taught to her by eventual business partner Stephanie Allen. The partners founded Dream Dinners in 2002, and since that time, the company has flourished under Tina's strategic direction.  A strong advocate of families eating together, Tina co-authored the #1 New York Times bestselling book, The Hour That Matters Most. </p>
@@ -98,7 +98,7 @@
 							</div>
 							<div class="tab-pane fade" id="kevin" role="tabpanel" aria-labelledby="kevin-tab">
 								<h4>Kevin Mayo, Chief Financial Officer &amp; Chief Information Officer</h4>
-								<p>As Chief Financial Officer and Chief Information Officer, Kevin Mayo leads Dream Dinners in all financial facets of its operations, with strategic oversight of corporate accounting, finance, tax, capital planning, banking, and Information Technology.  While creating tactical efficiencies across key Dream Dinners programs, systems, and processes, Kevin leads the financial strategy to achieve Dream Dinners’ near and long-term growth targets. </p> 
+								<p>As Chief Financial Officer and Chief Information Officer, Kevin Mayo leads Dream Dinners in all financial facets of its operations, with strategic oversight of corporate accounting, finance, tax, capital planning, banking, and Information Technology.  While creating tactical efficiencies across key Dream Dinners programs, systems, and processes, Kevin leads the financial strategy to achieve Dream Dinners’ near and long-term growth targets. </p>
 								<p>Before joining the Dream Dinners team in 2018, Kevin held the role of Chief Financial Officer for a biotech startup company in Seattle, gaining valuable experience in a fast-paced, entrepreneurial environment.  He began his career in public accounting at Ernst and Young and previously held both domestic and international financial leadership roles in Kraft Food and Terex. </p>
 							</div>
 							<div class="tab-pane fade" id="laura" role="tabpanel" aria-labelledby="laura-tab">
@@ -110,7 +110,7 @@
 								<h4>Our Dream Dinners Team</h4>
 								<p>Dream Dinners is made up of passionate and caring people committed to helping our stores and communities bring their families around the dinner table. This passion leads to a hardworking, fast paced culture. However, despite all the hard work, we understand and emphasize the importance of time spent with our own families, creating loving memories and healthy lives. Here at Dream Dinners we strive to strike the perfect balance of work and play, creating a fun work environment to nourish both our bodies and souls.</p>
 								<p>Interested in joining the Dream Dinners community?</p>
-								<p>We are always looking for eager, hardworking individuals who are dedicated to helping families build strong relationships around the dinner table. <a href="main.php?static=job_opportunities">Visit our Careers page</a> for more information.</p>
+								<p>We are always looking for eager, hardworking individuals who are dedicated to helping families build strong relationships around the dinner table. <a href="/?static=job_opportunities">Visit our Careers page</a> for more information.</p>
 							</div>
 						</div>
 					</div>

@@ -23,7 +23,7 @@
 						<h3><strong>Buy 3 Dinners, Get 1 Free*</strong></h3>
 						<p>Place an order for 3 or more dinners, get a free medium Cashew Chicken and Noodles as our gift to you. </p>
 						<p>Use this code at checkout: <span class="font-weight-bold font-marker font-size-large">TRYUS</span></p>
-						<p class="my-3"><a href="/main.php?page=locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
+						<p class="my-3"><a href="/?page=locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
 					</div>
 					<div class="col-md-5 mb-6">
 						<div>
@@ -134,7 +134,7 @@
 				</div>
 				<div class="row my-2">
 					<div class="col text-center">
-						<a href="/main.php?page=locations" class="btn btn-lg btn-primary">Get started</a>
+						<a href="/?page=locations" class="btn btn-lg btn-primary">Get started</a>
 					</div>
 				</div>
 			</div>
@@ -185,7 +185,7 @@
 				<div>
 					<div class="col">
 						<div class="text-center">
-							<a href="/main.php?page=locations" class="btn btn-lg btn-primary">See Your Local Menu Options</a>
+							<a href="/?page=locations" class="btn btn-lg btn-primary">See Your Local Menu Options</a>
 						</div>
 					</div>
 				</div>

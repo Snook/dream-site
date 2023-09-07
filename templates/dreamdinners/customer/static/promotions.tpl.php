@@ -24,10 +24,10 @@
 				<!-- <div class="row my-5">
 					<div class="col mb-4">
 						<h2><strong>Refer a Friend Promotion</strong></h2>
-						
+
 						<p>Friends don’t let friends struggle with grocery shopping; share Dream Dinners with your friends this July and you’ll each enjoy $10* off your order.</p>
 
-						<p>Simply give your friends your referral code link that can be found on your <a href="/main.php?page=my_account">My Account dashboard</a>, and tell them to use the <strong>coupon code* FRIENDTEN</strong> at checkout to save $10 on their August order of $89+. Once your friend completes their August order,you will be rewarded with 10 Dinner Dollars in your account.</p>
+						<p>Simply give your friends your referral code link that can be found on your <a href="/?page=my_account">My Account dashboard</a>, and tell them to use the <strong>coupon code* FRIENDTEN</strong> at checkout to save $10 on their August order of $89+. Once your friend completes their August order,you will be rewarded with 10 Dinner Dollars in your account.</p>
 
 						<p>The more friends you refer, the more Dinner Dollars you earn, so it’s a great opportunity to save money this summer on the delicious meal kits that you love!</p>
 
@@ -43,7 +43,7 @@
 						<p>Get important Dream Dinners info in the palm of your hand like a reminder about your next session or Made for You pick up. Plus exciting offers, announcements and weekly thaw reminders.</p>
 						<p>Ready to opt-in? Here's how:</p>
 						<ol>
-						  <li><a href="/main.php?page=login">Log in to your account</a>.</li>
+						  <li><a href="/?page=login">Log in to your account</a>.</li>
 						  <li>Go to "Edit Account" in the navigation.
 					      </li>
 						  <li>Under "Preferences," add a Mobile Number and choose your SMS Preferences.
@@ -60,7 +60,7 @@
 
 				<!--<img src="<?php echo IMAGES_PATH; ?>/events_programs/jellystone-park-1400x575.jpg" alt="Jellystone Park Camp-Resorts" class="img-fluid" />
 
-				
+
 				<div class="row my-5">
                 	<div class="col mb-4">
 						<h2><strong>2021 Dream Dinners & Jellystone Parks Camping Contest</strong></h2>
@@ -75,7 +75,7 @@
 						<p><strong>Drawing:</strong> Winners will be selected via a random number generator on or about October 21, 2021. Prospective winners will be notified within 10 days of selection via Instagram or Facebook (whichever platform their winning submission was posted on).</p>
 						<p><strong>Prize:</strong> Three (3) winners will be selected to win and will each receive a $200 Dream Dinners® e-gift card, good at any Dream Dinners store location or with Dream Dinners Delivered and a $200 Jellystone Parks™ e-gift card, good at any Jellystone Parks U.S. location.</p>
 						<p class="font-italic">Open to legal residents of the 50 United States and the District of Columbia who are 18 years of age or older at time of entry.  Odds of winning depend on number of qualifying entries received.  Limit one entry per person, per day. VOID WHERE PROHIBITED.  Sponsor: Dream Dinners, Inc., PO Box 889, Snohomish, WA 98291.</p>
-						<p class="font-italic"><a href="/main.php?static=terms">View the complete Official Rules</a></p>
+						<p class="font-italic"><a href="/?static=terms">View the complete Official Rules</a></p>
 				  </div>
 				</div>
 
@@ -85,7 +85,7 @@
                 	<div class="col mb-4">
 						<h2><strong>Join Us for an Instagram Contest!</strong></h2>
 						<p>Do your kids love helping out in the kitchen? This April, we're celebrating Kids in the Kitchen with our Instagram photo contest. Enter to win a junior chef kit with an apron and other kitchen tools! Post photos of your family helping out in the kitchen on Instagram throughout the month of April to be entered to win. Tag @DreamDinners and use the hashtag #KidsInTheKitchen.</p>
-					<p><i><a href="/main.php?static=terms">*Click here to view complete contest rules.</a></i></p>
+					<p><i><a href="/?static=terms">*Click here to view complete contest rules.</a></i></p>
 				  </div>
 				</div>
 
@@ -99,12 +99,12 @@
 						<h2><strong>Share Your Dream Dinners Story</strong></h2>
 						<p>Has Dream Dinners made an impact on your family? We want to hear from you!</p>
 							<p>Share your Dream Dinners experience and your dinnertime stories with us. We would love to hear why dinnertime is important in your home, how Dream Dinners has helped in your life, and how you've used Dream Dinners to give back to your friends and family.</p>
-						<p>Visit <a href="main.php?static=share_your_story">DreamDinners.com/ShareYourStory</a> to share your video testimonial with us.</p>
+						<p>Visit <a href="/?static=share_your_story">DreamDinners.com/ShareYourStory</a> to share your video testimonial with us.</p>
 					</div>
 				</div>
-				
+
 				<hr>-->
-				
+
 				<!--
 				<img src="<?php echo IMAGES_PATH; ?>/events_programs/lambandco-1400x500.webp" alt="Lamb & Co" class="img-fluid" />
 				<div class="row my-5">
@@ -116,11 +116,11 @@
 						<div class="mb-4"><?php include $this->loadTemplate('customer/subtemplate/terms_and_conditions/tandc_contests.tpl.php'); ?></div>
 					</div>
 			  	</div>-->
-				<!-- 7Cellars 
+				<!-- 7Cellars
 				<div class="row my-5">
 					<div class="col mb-4">
 						<h2><strong>7Cellars</strong></h2>
-						
+
 						<p>7Cellars is founded by John Elway in partnership with iconic winemaker Rob Mondavi Jr. and Mari Coyle. The Farm Collection offers premium quality wines from the Central Coast of California. The Farm Collection wines are all sustainably farmed, screw cap closure, entry level priced and overdeliver for the value. We proudly support our troops by giving back a portion of our profit to Team Rubicon. Visit 7Cellars to have wine delivered directly to your home.</p>
 
 						<div class="col text-center">
@@ -130,7 +130,7 @@
 						<p>Use Code: <strong>DREAMDINNERS</strong> to get 40% off your wine purchase for a limited time.</p>
 
 						<h3>Looking for the perfect wine to pair with your dinners? Check out their wine pairings.</h3>
-						
+
 						<p>7Cellars, Farm Collection, Chardonnay-100% Chardonnay. Aged 40% in American oak for 9 months. Tasting Notes: Crisp and bright with lemon, pineapple and a slight creamy finish. Because of its light notes it pairs perfectly with shrimp, fish, chicken, salads, quiche, risotto, vegetable samosas, fish and chips and lightly sauced pastas.</p>
 
 						<p>7Cellars, Farm Collection, Pinot Noir-94% Pinot Noir and 6% Syrah. Aged in American oak for 12 months. Tasting Notes: Medium-full bodied with intense cherry, cola, vanilla and dried herbs. Because of its full body flavor profiles it pairs perfectly with BBQ chicken, turkey burgers, pot pies, Baked Penne Chicken Alfredo and Pork Chop Milanese.</p>
@@ -139,7 +139,7 @@
 					</div>
 			  	</div>-->
 
-				
+
 			</div>
 		</section>
 	</main>
