@@ -54,7 +54,7 @@
 
 			<ul>
 				<?php foreach ($this->currentStores['stateArray']['state'] as $state) { ?>
-					<li><a href="/?page=locations&amp;state=<?php echo $state['info']['abbr']; ?>"><?php echo $state['info']['name']; ?></a></li>
+					<li><a href="/locations?state=<?php echo $state['info']['abbr']; ?>"><?php echo $state['info']['name']; ?></a></li>
 					<ul>
 						<?php foreach ($state['stores'] as $store) { ?>
 							<li><a href="/?page=store&amp;id=<?php echo $store->id; ?>"><?php echo $store->store_name; ?></a><?php if ($store->isComingSoon()) {?> <span class="font-italic text-muted">- Coming Soon!</span><?php } ?></li>
@@ -66,7 +66,7 @@
 			<h4>Our Services</h4>
 
 			<ul>
-				<li><a href="/?page=locations">Locations</a> - Find a meal assembly kitchen near you.</li>
+				<li><a href="/locations">Locations</a> - Find a meal assembly kitchen near you.</li>
 				<li><a href="/?static=delivered">Delivered</a> - Dinners shipped to your door.</li>
 				
 			<h4>PlatePoints</h4>

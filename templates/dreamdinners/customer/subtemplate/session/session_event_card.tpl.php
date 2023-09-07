@@ -70,7 +70,7 @@
 	</div>
 	<div class="card-subtitle font-weight-bold text-green my-3"><?php echo CTemplate::dateTimeFormat($session['session_start'], VERBOSE); ?></div>
 	<?php if (!empty($this->cart_info['session_info']) && $this->cart_info['session_info']['id'] == $session['id']) { ?>
-		<a href="/?page=session_menu" class="btn btn-primary btn-block px-5 mb-4">Currently Selected Session</a>
+		<a href="/session-menu" class="btn btn-primary btn-block px-5 mb-4">Currently Selected Session</a>
 	<?php } else { ?>
 		<div class="input-group mb-4">
 			<?php if (!empty($session['session_password'])) { ?>

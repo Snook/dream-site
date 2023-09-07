@@ -28,7 +28,7 @@
 						<!--<img src="<?php echo IMAGES_PATH; ?>/landing_pages/delivered-header-747x100.webp" alt="No idea what to cook this week?" class="img-fluid">
 						<h1 class="font-weight-bold font-marker mt-2">No idea what to cook this week?</h1>
 						<p class="text-uppercase mb-4">No problem. We planned and prepped your meals for you!</p>
-						<a href="/?page=locations" class="btn btn-lg btn-green">Order Now</a>
+						<a href="/locations" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 					<div class="col-md-6 p-0">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/june23-delivered-header-collage-957x657.webp" alt="Nashville Chicken and Coconut Shrimp and Mongolian Beef and Broccoli" class="img-fluid">-->
@@ -49,12 +49,12 @@
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/home_content/dinner-doorstep-600x350.webp" alt="Shipped to doorstep" class="img-fluid">
 						<h3 class="font-weight-bold my-2">Shipped to Your Door</h3>
-						<p class="mb-4">We deliver prepped, family-style dinners to your front porch via FedEX.<br /><a href="/?page=locations" class="btn btn-lg btn-green-dark mt-3">Check Shipping Areas</a></p>
+						<p class="mb-4">We deliver prepped, family-style dinners to your front porch via FedEX.<br /><a href="/locations" class="btn btn-lg btn-green-dark mt-3">Check Shipping Areas</a></p>
 					</div>
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/home_content/family-dinner-summer-600x350.webp" alt="family of four eating dinner at table" class="img-fluid">
 						<h3 class="font-weight-bold my-2">Gift to Friends & Family</h3>
-						<p class="mb-4">Show your love with delicious, easy meals for them to enjoy.<br /><a href="/?page=locations" class="btn btn-lg btn-green-dark mt-3">Check Gifting Areas</a></p>
+						<p class="mb-4">Show your love with delicious, easy meals for them to enjoy.<br /><a href="/locations" class="btn btn-lg btn-green-dark mt-3">Check Gifting Areas</a></p>
 					</div>
 				</div>
 			</div>
@@ -180,7 +180,7 @@
 							<h3 class="my-4">OUR GUESTS LOVE US</h3>
 						<p>Hear how our guest Kellie uses our prepared dinners to make dinnertime easier for her family.</p>
 
-						<p><a href="/?page=session_menu" data-gaq_cat="original" data-gaq_action="Order Now" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Order Now</a></p>
+						<p><a href="/session-menu" data-gaq_cat="original" data-gaq_action="Order Now" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Order Now</a></p>
 					</div>
 					<div class="col-md-6 text-right">
 						<div class="embed-responsive embed-responsive-16by9">

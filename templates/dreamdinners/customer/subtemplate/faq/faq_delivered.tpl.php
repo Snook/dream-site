@@ -8,7 +8,7 @@
 		<div id="collapse-DLVRD-One" class="collapse" aria-labelledby="heading-DLVRD-One" data-parent="#accordion-DLVRD">
 			<div class="card-body">
 				Dream Dinners is currently available for shipping across the majority of the United States. We currently cannot ship to Alaska, Hawaii, or outside the 48 contiguous states, and some states have areas we cannot reach due to time in transit.
-				<p>To see what services are available in your area, <a href="/?page=locations">click here</a>.</p>
+				<p>To see what services are available in your area, <a href="/locations">click here</a>.</p>
 			</div>
 		</div>
 	</div>

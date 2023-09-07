@@ -11,7 +11,7 @@
 					<div class="col-md-6 text-center mx-auto">
 						<h1 class="my-4 font-weight-bold">Try Our Meal Prep Starter Pack</h1>
 						<h3 class="mb-5">Try our ready-to-cook meals with our Meal Prep Starter Pack! Pick up at our store or have us deliver directly to your home.</h3>
-						<a href="/?page=locations" class="btn btn-primary mb-4">Find a Location</a>
+						<a href="/locations" class="btn btn-primary mb-4">Find a Location</a>
 					</div>
 				</div>
 			</div>
@@ -66,7 +66,7 @@
 							<div class="card-body">
 								<h5 class="card-title">Book Session</h5>
 								<p class="card-text">Choose a Home Delivery window for our home delivery service or a Pick Up time to pick up your meals curbside at one of our locations.</p>
-								<a href="/?page=locations" class="btn btn-primary">Find a Location</a>
+								<a href="/locations" class="btn btn-primary">Find a Location</a>
 							</div>
 						</div>
 

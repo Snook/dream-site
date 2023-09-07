@@ -32,14 +32,7 @@
 											<?php if ($arStore["DAO_store"]->isComingSoon()) { ?>
 												<span class="btn btn-default btn-block btn-select-checked">Coming Soon!</span>
 											<?php } else { ?>
-												<button class="btn btn-primary btn-block btn-spinner <?php if (defined('ENABLE_ENHANCED_CUSTOMER_NAV') && ENABLE_ENHANCED_CUSTOMER_NAV) { ?>btn-click-add-cart<?php } ?>" id="select_store-<?php echo $arStore["DAO_store"]->id; ?>" name="select_store" type="submit" value="<?php echo $arStore["DAO_store"]->id; ?>">
-													<?php if (defined('ENABLE_ENHANCED_CUSTOMER_NAV') && ENABLE_ENHANCED_CUSTOMER_NAV) { ?>
-														<?php if (!is_null($this->cart_info) && $this->cart_info['store_info']['id'] == $arStore["DAO_store"]->id || (empty($this->cart_info['store_info']['id']) && CUser::getCurrentUser()->home_store_id == $arStore["DAO_store"]->id)) { ?>
-															<i class="fas fa-shopping-cart float-left text-green-dark-extra pt-1"></i>
-														<?php } ?>
-													<?php } ?>
-													View Menu &amp; Order
-												</button>
+												<a href="/menu/<?php echo $arStore["DAO_store"]->id; ?>" class="btn btn-primary btn-block btn-spinner">View Menu &amp; Order</a>
 											<?php } ?>
 										</div>
 									</div>

@@ -31,6 +31,6 @@
 <?php if(count($this->sessions['sessions']) == 0){ ?>
 	<div class="text-center mt-4 no-session-available" role="alert">
 		Oops, it looks like there aren’t any dates available to complete your order.<br>Please select another menu to order from. <br><br>
-		<a href="/?page=session_menu" class="btn btn-primary">Menu</a>
+		<a href="/session-menu" class="btn btn-primary">Menu</a>
 	</div>
 <?php } ?>

@@ -65,7 +65,7 @@
 				</div>
 				<div class="row mb-5">
 					<div class="col text-right">
-						<a href="/?page=locations">View other locations &gt;</a>
+						<a href="/locations">View other locations &gt;</a>
 					</div>
 				</div>
 				<div class="row mb-5">

@@ -11,7 +11,7 @@
 					<div class="col-md-6 text-center mx-auto py-2" style="background: rgba(255, 255, 255, 0.8)">
 						<h1 class="my-4 font-weight-bold">Save Money by Thinking Outside the Box</h1>
 						<h3 class="mb-5">Dream Dinners, the Original Meal Kit, will save you both time and money. With 17 delicious recipes on the menu each month, the savings will continue to add up.</h3>
-						<a href="/?page=locations" class="btn btn-primary mb-4">Find a Location</a>
+						<a href="/locations" class="btn btn-primary mb-4">Find a Location</a>
 					</div>
 				</div>
 			</div>
@@ -28,7 +28,7 @@
 						<h2 class="my-4"><strong>SEE HOW WE STACK UP</strong></h2>
 						<p>Save with Dream Dinners compared to other meal kits. Try our Meal Prep Starter Pack to save even more on your first order. </p>
 						
-						<p><a href="/?page=locations" data-gaq_cat="meal kit" data-gaq_action="Order Now" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Order Now</a></p>
+						<p><a href="/locations" data-gaq_cat="meal kit" data-gaq_action="Order Now" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Order Now</a></p>
 					  
 					</div>
 				</div>
@@ -98,7 +98,7 @@
 				
 				<div class="row my-4">
 					<div class="col text-center">
-						<a href="/?page=locations" class="btn btn-lg btn-primary">Get Cooking</a>
+						<a href="/locations" class="btn btn-lg btn-primary">Get Cooking</a>
 					</div>
 				</div>
 			</div>
@@ -145,7 +145,7 @@
 				</div>
 				<div class="row my-4 pb-4">
 					<div class="col text-center text-white">					
-						<p><a href="/?page=locations" class="btn btn-cyan text-white">Find a Location</a></p>
+						<p><a href="/locations" class="btn btn-cyan text-white">Find a Location</a></p>
 						<p><em>*Availability varies by location. Check your local stores calendar to find available ordering options.</em></p>
 					</div>
 				</div>

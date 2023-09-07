@@ -11,7 +11,7 @@
 					<div class="col-md-6 text-center mx-auto">
 						<h1 class="my-4 font-weight-bold">Try our Meal Prep Starter Pack</h1>
 						<h3 class="mb-5">Prepping meals at Dream Dinners means spending less time in the kitchen, more time doing what you love</h3>
-						<a href="/?page=locations" class="btn btn-primary mb-4">Find a Location</a>
+						<a href="/locations" class="btn btn-primary mb-4">Find a Location</a>
 					</div>
 				</div>
 			</div>
@@ -82,7 +82,7 @@
 							<div class="card-body">
 								<h5 class="card-title">Book Session</h5>
 								<p class="card-text">At one of our locations, you will choose a session time where our helpful team members will walk you through the assembly experience and show you how easy meal prep can be.</p>
-								<a href="/?page=locations" class="btn btn-primary start-intro-offer">Find a Location</a>
+								<a href="/locations" class="btn btn-primary start-intro-offer">Find a Location</a>
 							</div>
 						</div>
 

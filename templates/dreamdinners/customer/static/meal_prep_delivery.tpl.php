@@ -11,7 +11,7 @@
 					<div class="col-md-6 text-center mx-auto">
 						<h1 class="my-4 font-weight-bold">Dream Dinners To Your Door</h1>
 						<h3 class="mb-5">Dream Dinners just got even easier! With our  Home Delivery Service, our ServSafe certified team will prep and assemble your dinners and now also drop them off at your door. Stay home and stay healthy while we bring a month's worth of prepped meals to your door.</h3>
-						<a href="/?page=locations" class="btn btn-primary mb-4">Find a Location</a>
+						<a href="/locations" class="btn btn-primary mb-4">Find a Location</a>
 					</div>
 				</div>
 			</div>
@@ -69,7 +69,7 @@
 							<div class="card-body">
 								<h5 class="card-title">Choose a Delivery Time</h5>
 								<p class="card-text">When you place your order, you will choose a Home Delivery time that works for your schedule.</p>
-								<a href="/?page=locations" class="btn btn-primary">Find a Location</a>
+								<a href="/locations" class="btn btn-primary">Find a Location</a>
 							</div>
 						</div>
 					</div>

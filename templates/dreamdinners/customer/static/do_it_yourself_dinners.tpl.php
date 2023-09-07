@@ -12,7 +12,7 @@
 						<h1 class="my-4 font-weight-bold">Try Dream Dinners Again</h1>
 						<h3 class="mb-5">Getting dinner on the table is easy with our chef-created, family friendly recipes prepped in our local assembly kitchens.</h3>
 						<!--<h3 class="mb-5">Save $30 on your next order with code*: DISCOVER</h3>-->
-						<a href="/?page=locations" class="btn btn-primary mb-4">Get Started</a>
+						<a href="/locations" class="btn btn-primary mb-4">Get Started</a>
 					</div>
 				</div>
 			</div>
@@ -86,7 +86,7 @@
 				</div>
 				<div class="row my-4 pb-4">
 					<div class="col text-center text-white">					
-						<p><a href="/?page=locations" class="btn btn-cyan text-white">Find a Location</a></p>
+						<p><a href="/locations" class="btn btn-cyan text-white">Find a Location</a></p>
 						<p><em>*Availability varies by location. Check your local stores calendar to find available ordering options.</em></p>
 					</div>
 				</div>

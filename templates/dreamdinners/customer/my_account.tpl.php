@@ -143,7 +143,7 @@
 
 				<div class="row mb-3">
 					<div class="col p-0">
-						<a class="btn btn-primary btn-lg btn-block" href="/?page=session_menu" id="my_account_start">Start order</a>
+						<a class="btn btn-primary btn-lg btn-block" href="/session-menu" id="my_account_start">Start order</a>
 					</div>
 				</div>
 				<?php if (!$this->is_delivered_only) { ?>

@@ -7,7 +7,7 @@
 		<div class="row">
 			<div class="col text-center">
 				<h1>Menu Preview</h1>
-				<p>Preview 12 of our 17 menu items for each month below. If you are hungry to view pricing and see the entire menu, <a href="/?page=locations">get started by entering your zip code</a> to find a location or see if we can ship to you.</p>
+				<p>Preview 12 of our 17 menu items for each month below. If you are hungry to view pricing and see the entire menu, <a href="/locations">get started by entering your zip code</a> to find a location or see if we can ship to you.</p>
 
 			</div>
 		</div>
@@ -54,7 +54,7 @@
 									<?php } ?>
 									<?php if ($count >= $total || $count >= $LIMIT) { // show get started button after 8 cards  ?>
 										<div class="w-100 d-print-none">
-											<a href="/?page=locations" class="btn btn-primary btn-block btn-spinner col-sm-8 mt-2 mb-4 my-sm-2 mx-auto">View Full Menu & Pricing</a>
+											<a href="/locations" class="btn btn-primary btn-block btn-spinner col-sm-8 mt-2 mb-4 my-sm-2 mx-auto">View Full Menu & Pricing</a>
 										</div>
 									<?php } ?>
 								<?php } ?>
