@@ -23,7 +23,7 @@
 <?php $this->setScriptVar('scroll = "' . $this->scroll . '";'); ?>
 <?php $this->assign('no_cache', true); ?>
 <?php $this->assign('page_title', 'Checkout');?>
-<?php $this->assign('logout_navigation_page', '&back=/main.php?page=checkout'); ?>
+<?php $this->assign('logout_navigation_page', '&back=/?page=checkout'); ?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
 <?php include $this->loadTemplate('customer/subtemplate/edit_order.tpl.php'); ?>
 
