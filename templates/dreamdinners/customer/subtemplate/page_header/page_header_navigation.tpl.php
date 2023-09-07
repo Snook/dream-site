@@ -55,7 +55,7 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 							<a class="nav-link" href="/?static=how_it_works">How it works</a>
 						</li>
 						<li class="nav-item d-block d-lg-none d-xl-block">
-							<a class="nav-link" href="/?page=session_menu">Order</a>
+							<a class="nav-link" href="/session-menu">Order</a>
 						</li>
 						<li class="nav-item d-block d-lg-none d-xl-block">
 							<a class="nav-link" href="/?static=share">Share</a>
@@ -124,10 +124,10 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 			</button>
 		</div>
 	</div>
-	<a class="btn btn-primary btn-block mb-2" href="/?page=session_menu">Order</a>
+	<a class="btn btn-primary btn-block mb-2" href="/session-menu">Order</a>
 	<a class="dropdown-item" href="/?page=browse_menu">Menu Preview</a>
 	<a class="dropdown-item" href="/?static=how_it_works">How It Works</a>
-	<a class="dropdown-item" href="/?page=locations">Store Locations</a>
+	<a class="dropdown-item" href="/locations">Store Locations</a>
 	<a class="dropdown-item" href="/?page=recipe_resources">Recipe Resources</a>
 	<a class="dropdown-item" href="/?static=share">Share</a>
 	<a class="dropdown-item" href="/?page=platepoints">PLATEPOINTS</a>

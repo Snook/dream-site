@@ -36,7 +36,7 @@
 								<div class="card-body">
 									<h5 class="card-title">Delivered to their Door</h5>
 									<p class="card-text">Choose home delivery from one of our local stores to have delicious dinners delivered to their home. *Available within 20 miles of most locations.</p>
-									<p><a href="/?page=locations" class="btn btn-primary">Check Your Local Store</a></p>
+									<p><a href="/locations" class="btn btn-primary">Check Your Local Store</a></p>
 								</div>
 							</div>
 							<div class="card border-0 mx-2">
@@ -44,7 +44,7 @@
 								<div class="card-body">
 									<h5 class="card-title">Dinner for a Night</h5>
 									<p class="card-text">Add an extra meal or two to your monthly order to gift. Want to gift them more? Place a home delivery order from one of our assembly kitchens.</p>
-									<p><a href="/?page=locations" class="btn btn-primary">Contact Your Local Store</a></p>
+									<p><a href="/locations" class="btn btn-primary">Contact Your Local Store</a></p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">

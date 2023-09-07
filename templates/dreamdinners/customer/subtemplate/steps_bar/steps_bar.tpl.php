@@ -1,13 +1,13 @@
 <nav class="mt-3 d-print-none">
 	<ul class="pagination pagination-sm step-bar justify-content-center">
 		<li class="page-item order-1 <?php echo ($this->page == 'locations') ? ' current' : ((!empty($this->cart_info['cart_info_array']['has_store'])) ? ' complete' : ' disabled'); ?>">
-			<a class="page-link" href="/?page=locations">
+			<a class="page-link" href="/locations">
 				<div class="step-pill"></div>
 				Location
 			</a>
 		</li>
 		<li class="page-item <?php echo ($this->page == 'session_menu') ? ' current' : ((!empty($this->cart_info['cart_info_array']['has_item'])) ? ' complete' : ' disabled'); ?>">
-			<a class="page-link" href="/?page=session_menu">
+			<a class="page-link" href="/session-menu">
 				<div class="step-pill"></div>
 				Menu
 			</a>

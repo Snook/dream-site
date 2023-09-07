@@ -67,7 +67,7 @@
 
 					<div class="mb-4">
 						<div class="col">
-							<a href="/?page=session_menu" class="btn btn-primary btn-block btn-lg">Get Started</a>
+							<a href="/session-menu" class="btn btn-primary btn-block btn-lg">Get Started</a>
 						</div>
 					</div>
 

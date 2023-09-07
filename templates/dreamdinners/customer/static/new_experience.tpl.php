@@ -24,7 +24,7 @@
 					<div class="col-md-6 text-left p-5 my-5">
 						<h1 class="font-weight-bold mt-2">Now Using Dream Dinners is Even Easier</h1>
 						<p class="text-uppercase mb-4">Try us again with new lower minimums and additional flexibility to meet your dinnertime needs.</p>
-						<a href="/?page=locations" class="btn btn-lg btn-green">View Menu & Order</a>
+						<a href="/locations" class="btn btn-lg btn-green">View Menu & Order</a>
 					</div>
 					<div class="col-md-6 p-0">
 					<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sept23-header-circles-957x657.webp" alt="Mini Chicken Pot Pies and Chicken Enchiladas and Pulled Pork Banh Mi Sandwiches" class="img-fluid">
@@ -113,7 +113,7 @@
 				</div>-->
 					<div class="row my-4">
 						<div class="col text-center">
-							<a href="/?page=locations" class="btn btn-primary btn-orange text-center">Start ordering the way you want</a>
+							<a href="/locations" class="btn btn-primary btn-orange text-center">Start ordering the way you want</a>
 						</div>
 					</div>
 					<div class="row my-5">
@@ -168,7 +168,7 @@
 				</div>
 				<div class="row my-4 pb-4">
 					<div class="col text-center text-white">					
-						<p><a href="/?page=locations" class="btn btn-gray-dark text-white">Find a Location</a></p>
+						<p><a href="/locations" class="btn btn-gray-dark text-white">Find a Location</a></p>
 						<p><i>*Available at participating locations.</i></p>
 						
 					</div>

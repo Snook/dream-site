@@ -10,7 +10,7 @@
 					<div class="col-md-6 text-center mx-auto py-2" style="background: rgba(255, 255, 255, 0.8)">
 						<h1 class="my-4 font-weight-bold">Have you been asking the question “Is there a company that offers meal prep near me?”</h1>
 						<h3 class="mb-5">The answer is Yes! Dream Dinners is your local meal prep company with delicious ready-to-cook meals hand-crafted just for you.</h3>
-						<a href="/?page=locations" class="btn btn-primary mb-4">Find a Location</a>
+						<a href="/locations" class="btn btn-primary mb-4">Find a Location</a>
 					</div>
 				</div>
 			</div>
@@ -78,7 +78,7 @@
 				</div>
 				<div class="row my-4 pb-4">
 					<div class="col text-center text-white">					
-						<p><a href="/?page=locations" class="btn btn-cyan text-white">Find a Location</a></p>
+						<p><a href="/locations" class="btn btn-cyan text-white">Find a Location</a></p>
 						<p><em>*Availability varies by location. Check your local stores calendar to find available ordering options.</em></p>
 					</div>
 				</div>
@@ -131,7 +131,7 @@
 				
 				<div class="row my-4">
 					<div class="col text-center mb-5">
-						<a href="/?page=locations" class="btn btn-lg btn-primary">Get Cooking</a>
+						<a href="/locations" class="btn btn-lg btn-primary">Get Cooking</a>
 					</div>
 				</div>
 			</div>
@@ -144,7 +144,7 @@
 							<h3 class="my-4">OUR GUESTS LOVE US</h3>
 						<p>Hear what our guest, Brittnie has to say about her favorite meal prep company.</p>
 						
-						<p><a href="/?page=locations" data-gaq_cat="original" data-gaq_action="Order Now" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Order Now</a></p>
+						<p><a href="/locations" data-gaq_cat="original" data-gaq_action="Order Now" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Order Now</a></p>
 					</div>
 					<div class="col-md-6 text-right">
 						<div class="embed-responsive embed-responsive-16by9">

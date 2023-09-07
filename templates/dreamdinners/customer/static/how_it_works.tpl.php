@@ -107,7 +107,7 @@
 				</div>
 				<div class="row my-2">
 					<div class="col text-center">
-						<a href="/?page=locations" class="btn btn-lg btn-primary">GET STARTED</a>
+						<a href="/locations" class="btn btn-lg btn-primary">GET STARTED</a>
 					</div>
 				</div>
 			</div>
@@ -132,7 +132,7 @@
 											<li>20 years of experience.</li>
 										  </ul>
 										<!--<p class="card-text">Pick up your dinners at our store or at local community pick up locations.</p>
-										<a href="/?page=locations" class="btn btn-primary">Find a Store</a>-->
+										<a href="/locations" class="btn btn-primary">Find a Store</a>-->
 									</div>
 									<div class="card-body bg-yellow-light">
 										<img src="<?php echo IMAGES_PATH; ?>/how_it_works/assemble-your-meals-458x344.jpg" alt="assemble dinners in store" class="img-fluid" />
@@ -153,7 +153,7 @@
 												<li>No subscription or commitment.</li>
 											</ul>
 										<!--<p class="card-text">Ship meals to your door via FedEx or send them as a thoughtful gift.</p>
-										<a href="/?page=locations" class="btn btn-primary">Check for Shipping</a>-->
+										<a href="/locations" class="btn btn-primary">Check for Shipping</a>-->
 									</div>
 									<div class="card-body bg-cyan-extra-light">
 										<img src="<?php echo IMAGES_PATH; ?>/how_it_works/delivered-458x344.jpg" alt="dinners are delivered" class="img-fluid" />
@@ -165,7 +165,7 @@
 				</div>
 			<div class="row my-5">
 					<div class="col text-center">
-						<a href="/?page=locations" class="btn btn-lg btn-primary">FIND AVAILABILITY IN YOUR AREA</a>
+						<a href="/locations" class="btn btn-lg btn-primary">FIND AVAILABILITY IN YOUR AREA</a>
 					</div>
 				</div>
 			</div>

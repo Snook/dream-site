@@ -9,10 +9,10 @@
 		</div>
 		<div class="mb-2">541-752-3040</div>
 		<div>
-			<a href="/?page=session_menu" id="select_intro_location-119" class="btn btn-primary mb-2">View Meal Prep Starter Pack</a>
+			<a href="/session-menu" id="select_intro_location-119" class="btn btn-primary mb-2">View Meal Prep Starter Pack</a>
 		</div>
 		<div>
-			<a href="/?page=session_menu" id="select_location-119" class="btn btn-primary mb-2">View Menu</a>
+			<a href="/session-menu" id="select_location-119" class="btn btn-primary mb-2">View Menu</a>
 		</div>
 	</div>
 	<div class="col-md-4 mb-4 text-center">
@@ -25,10 +25,10 @@
 		</div>
 		<div class="mb-2">503-974-9344</div>
 		<div>
-			<a href="/?page=session_menu" id="select_intro_location-28" class="btn btn-primary mb-2">View Meal Prep Starter Pack</a>
+			<a href="/session-menu" id="select_intro_location-28" class="btn btn-primary mb-2">View Meal Prep Starter Pack</a>
 		</div>
 		<div>
-			<a href="/?page=session_menu" id="select_location-28" class="btn btn-primary mb-2">View Menu</a>
+			<a href="/session-menu" id="select_location-28" class="btn btn-primary mb-2">View Menu</a>
 		</div>
 	</div>
 	<div class="col-md-4 mb-4 text-center">
@@ -41,10 +41,10 @@
 		</div>
 		<div class="mb-2">503-614-8800</div>
 		<div>
-			<a href="/?page=session_menu" id="select_intro_location-101" class="btn btn-primary mb-2">View Meal Prep Starter Pack</a>
+			<a href="/session-menu" id="select_intro_location-101" class="btn btn-primary mb-2">View Meal Prep Starter Pack</a>
 		</div>
 		<div>
-			<a href="/?page=session_menu" id="select_location-101" class="btn btn-primary mb-2">View Menu</a>
+			<a href="/session-menu" id="select_location-101" class="btn btn-primary mb-2">View Menu</a>
 		</div>
 	</div>
 </div>

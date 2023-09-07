@@ -1,7 +1,7 @@
 <header class="container my-5">
 	<div class="row">
 		<div class="col-6 col-sm-3 p-0 order-2 order-sm-1 d-print-none">
-			<a href="/?page=session_menu" class="btn btn-primary"><span class="pr-2">&#10094;</span> Menu</a>
+			<a href="/session-menu" class="btn btn-primary"><span class="pr-2">&#10094;</span> Menu</a>
 		</div>
 		<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center col-print-12">
 			<h2>Select <span class="d-none d-md-inline">your</span> <span class="font-weight-bold text-green">order</span> date</h2>
@@ -47,7 +47,7 @@
 			<?php if(count($this->sessions['sessions']) == 0){ ?>
 				<div class="text-center mt-4 no-session-available" role="alert">
 					Oops, it looks like there aren’t any dates available to complete your order.<br>Please select another menu to order from. <br><br>
-					<a href="/?page=session_menu" class="btn btn-primary">Menu</a>
+					<a href="/session-menu" class="btn btn-primary">Menu</a>
 				</div>
 			<?php } ?>
 		</div>

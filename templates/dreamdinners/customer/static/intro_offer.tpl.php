@@ -11,7 +11,7 @@
 					<div class="col-md-8 text-center mx-auto">
 						<h1 class="my-4 font-weight-bold">Try our Meal Prep Starter Pack</h1>
 						<h3 class="mb-5">Prepping meals at Dream Dinners means spending less time in the kitchen, more time doing what you love.</h3>
-						<a href="/?page=locations" class="btn btn-primary mb-4">Find a Location</a>
+						<a href="/locations" class="btn btn-primary mb-4">Find a Location</a>
 					</div>
 				</div>
 			</div>
@@ -69,7 +69,7 @@
 				<div class="col-md-5 text-center">
 					<h2><b>ANSWER THE QUESTION "WHAT'S FOR DINNER?"</b></h2>
 					<p>Learn how to meal prep with Dream Dinners. Our Meal Prep Starter Pack will help you get dinner on the table with up to 6 family-style dinners for just $99. That is only $5.50 a serving!</p>
-					<p><a href="/?page=session_menu" data-gaq_cat="Intro Offer" data-gaq_action="View Menu" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">View the Menu</a></p>
+					<p><a href="/session-menu" data-gaq_cat="Intro Offer" data-gaq_action="View Menu" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">View the Menu</a></p>
 				</div>
 			</div>
           </div>

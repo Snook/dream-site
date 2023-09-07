@@ -21,7 +21,7 @@
 							Dream Dinners <?php echo $this->cart_info['store_info']['store_name']; ?>
 						</div>
 					<?php }elseif (empty($this->cart_info['cart_info_array']['direct_invite'])) { ?>
-					<a class="btn btn-primary btn-block" href="/?page=locations">
+					<a class="btn btn-primary btn-block" href="/locations">
 						<i class="fas fa-edit float-left text-green-dark-extra pt-1"></i>
 						Dream Dinners <?php echo $this->cart_info['store_info']['store_name']; ?>
 					</a>
@@ -55,7 +55,7 @@
 				<?php if ($this->read_only_cart) {?>
 					<a  class="btn btn-green-dark btn-block disabled" style="opacity:.85;">
 				<?php }else{?>
-					<a href="/?page=session_menu" class="btn btn-primary btn-block">
+					<a href="/session-menu" class="btn btn-primary btn-block">
 						<i class="fas fa-edit float-left text-green-dark-extra pt-1"></i>
 				<?php } ?>
 

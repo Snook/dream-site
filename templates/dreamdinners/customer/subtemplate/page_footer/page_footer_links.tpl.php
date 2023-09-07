@@ -8,7 +8,7 @@
 						<i class="dd-icon icon-measuring_cup font-size-medium-large text-green"></i>
 						<div>How it Works</div>
 					</a>
-					<a href="/?page=locations" class="col-3 px-0 text-center font-size-small">
+					<a href="/locations" class="col-3 px-0 text-center font-size-small">
 						<i class="dd-icon icon-cart font-size-medium-large text-green mr-1"></i>
 						<div>Order</div>
 					</a>
@@ -35,7 +35,7 @@
 						<i class="dd-icon icon-measuring_cup font-size-medium-large text-green"></i>
 						<div>How it Works</div>
 					</a>
-					<a href="/?page=locations" class="col-2 px-0 text-center font-size-small">
+					<a href="/locations" class="col-2 px-0 text-center font-size-small">
 						<i class="dd-icon icon-cart font-size-medium-large text-green mr-1"></i>
 						<div>Order</div>
 					</a>
@@ -54,11 +54,11 @@
 		<div class="col-md-4 col-lg-3 col-xl-2">
 			<p class="font-weight-bold text-uppercase pl-1">Quick Links</p>
 			<div class="list-group list-group-flush">
-				<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/?page=locations">Order</a>
+				<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/locations">Order</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/?page=browse_menu">Menu Preview</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/?static=share">Share</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/?page=my_account">My Account</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/?page=locations">Store Locations</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/locations">Store Locations</a>
 				<?php if (defined('ENABLE_HELP_SEARCH') && ENABLE_HELP_SEARCH == true) { ?>
 					<a class="list-group-item bg-green-dark text-white py-0 help-search-launcher" href="#">Help</a>
 				<?php } ?>

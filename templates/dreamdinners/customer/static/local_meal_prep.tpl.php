@@ -10,7 +10,7 @@
 					<div class="col-md-6 text-left p-5 my-5">
 						<h1 class="font-weight-bold font-marker mt-2">No idea what to cook this week?</h1>
 						<p class="text-uppercase mb-4">No problem.<br>We planned and prepped your meals for you!</p>
-						<a href="/?page=locations" class="btn btn-lg btn-green">Order Now</a>
+						<a href="/locations" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 					<div class="col-md-6 p-0">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sept23v2-header-circles-957x657.webp" alt="Mini Chicken Pot Pies and Southern Shrimp and Grits adn Chicken Tikka Masala" class="img-fluid">
@@ -38,7 +38,7 @@
                         <li>No Shopping, No Chopping, No Food Waste</li>
 						<li>Available in 2 Sizes: Medium serves 2-3, Large serves 4-6</li>
                       </ul>
-					  <p class="my-3"><a href="/?page=locations" class="btn btn-lg btn-green">Find a Location to See the Menu</a></p>
+					  <p class="my-3"><a href="/locations" class="btn btn-lg btn-green">Find a Location to See the Menu</a></p>
 					</div>
 				</div>
 			  </div>
@@ -86,7 +86,7 @@
 				</div>
 				<div class="row my-4 pb-4">
 					<div class="col text-center text-white">
-						<p><a href="/?page=locations" class="btn btn-gray-dark text-white">Find a Location</a></p>
+						<p><a href="/locations" class="btn btn-gray-dark text-white">Find a Location</a></p>
 						<p><i>*Available at participating locations.</i></p>
 
 					</div>

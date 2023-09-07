@@ -27,7 +27,7 @@
 						<p class="mb-3 text-center">Dream Dinners is made up of passionate and caring people committed to helping our stores and communities bring their families around the dinner table. This passion leads to a hardworking, fast paced culture. However, despite all the hard work, we understand and emphasize the importance of time spent with our own families, creating loving memories and healthy lives. Here at Dream Dinners we strive to strike the perfect balance of work and play, creating a fun work environment to nourish both our bodies and souls.</p>
 						<p class="mb-3 text-center">Interested in joining the Dream Dinners community?</p>
 						<p class="mb-3 text-center">Each of the stores within our franchise organization is responsible for hiring their own staff. Our locations page can help you find the direct contact information for the store that you are interested in.</p>
-						<p class="mb-3 text-center"><a href="/?page=locations" class="btn btn-primary btn-sm">Locations</a></p>
+						<p class="mb-3 text-center"><a href="/locations" class="btn btn-primary btn-sm">Locations</a></p>
 						<p class="mb-3 text-center">We are always looking for eager, hardworking individuals who are dedicated to helping families build strong relationships around the dinner table. We do not currently have any opportunities available at our Home Office in Snohomish, WA. Please check back again.</p>
 					</div>
 				</div>

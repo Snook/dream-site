@@ -23,7 +23,7 @@
 				<div class="row">
 					<div class="col-md-8 mx-auto">
                     <h2 class="font-weight-semi-bold text-uppercase font-size-medium mb-4 text-center">What can we help you with?</h2>
-						<p class="mb-3 text-center">Browse our list of help topics outlined below. If you still have questions and would like to speak with a team member at your local store, click <a href="/?page=locations">Locations</a> to find the direct contact information for the store that you are interested in. Additionally, you can contact our home office from our <a href="/?static=contact_us">Contact Us page</a> for website support or guest services.</p>
+						<p class="mb-3 text-center">Browse our list of help topics outlined below. If you still have questions and would like to speak with a team member at your local store, click <a href="/locations">Locations</a> to find the direct contact information for the store that you are interested in. Additionally, you can contact our home office from our <a href="/?static=contact_us">Contact Us page</a> for website support or guest services.</p>
 
 						<p class="mb-3 text-center"><a href="#health_and_nutrition">Health & Nutrition</a> | <a href="#home_delivery">Local Home Delivery</a> | <a href="#delivered">Shipped to Your Door</a> | <a href="#platepoints">PlatePoints</a> | <a href="#events">Events</a> | <a href="#gift_cards">Gift Cards</a></p>
 

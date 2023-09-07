@@ -15,7 +15,7 @@
 				<div class="col-12 col-sm-9 col-md-8 col-lg-6 col-xl-4 ml-sm-5 p-4 position-absolute" style="bottom: 3rem; background-color: rgba(255,255,255,0.90)">
 					<h1 class="font-marker">Your Local Meal Kit Solution</h1>
 					<p class="text-uppercase">Real food made from scratch, so your life can feel just a little easier.</p>
-					<form action="/?page=locations" method="post">
+					<form action="/locations" method="post">
 						<div class="form-group mx-auto">
 							<div class="input-group">
 								<!--<div class="input-group-prepend">
@@ -38,7 +38,7 @@
 					<img class="img-fluid" src="<?php echo IMAGES_PATH; ?>/home_content/media/family_dinner2.webp?v=<?php echo JAVASCRIPT_CSS_VERSION; ?>">
 					<h1 class="font-marker">Your Local Dinner Solution</h1>
 					<p class="text-uppercase">The quickest, easiest way to get a homemade meal on the table. Find a location near you.</p>
-					<form action="/?page=locations" method="post">
+					<form action="/locations" method="post">
 						<div class="form-group mx-auto">
 							<div class="input-group">
 								<!--<div class="input-group-prepend">
@@ -102,7 +102,7 @@
 				<div>
 					<div class="col">
 						<div class="text-center">
-							<a href="/?page=locations" class="btn btn-lg btn-primary">See Your Local Menu Options</a>
+							<a href="/locations" class="btn btn-lg btn-primary">See Your Local Menu Options</a>
 						</div>
 					</div>
 				</div>
@@ -311,7 +311,7 @@
 				</div>
 				<div class="row my-2">
 					<div class="col text-center">
-						<a href="/?page=locations" class="btn btn-lg btn-primary">Get started</a>
+						<a href="/locations" class="btn btn-lg btn-primary">Get started</a>
 					</div>
 				</div>
 			</div>
@@ -356,7 +356,7 @@
 						</div>
 						<div class="row my-2">
 							<div class="col text-center">
-								<a href="/?page=locations" class="btn btn-primary btn-block">GET COOKING</a>
+								<a href="/locations" class="btn btn-primary btn-block">GET COOKING</a>
 							</div>
 						</div>
 					</div>

@@ -9,10 +9,10 @@
 		</div>
 		<div class="mb-2">913-491-6733</div>
 		<div>
-			<a href="/?page=session_menu" id="select_intro_location-138" class="btn btn-primary mb-2">View Meal Prep Starter Pack</a>
+			<a href="/session-menu" id="select_intro_location-138" class="btn btn-primary mb-2">View Meal Prep Starter Pack</a>
 		</div>
 		<div>
-			<a href="/?page=session_menu" id="select_location-138" class="btn btn-primary mb-2">View Menu</a>
+			<a href="/session-menu" id="select_location-138" class="btn btn-primary mb-2">View Menu</a>
 		</div>
 	</div>
 </div>
