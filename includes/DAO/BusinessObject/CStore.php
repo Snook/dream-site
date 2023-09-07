@@ -132,7 +132,7 @@ class CStore extends DAO_Store
 	function find_DAO_store($n = false)
 	{
 		// you can set the ID as a short url string, if it is not just a number
-		if (!is_numeric($this->id) && CTemplate::isAlphaNumHyphen($this->id))
+		if (!empty($this->id) && !is_numeric($this->id) && CTemplate::isAlphaNumHyphen($this->id))
 		{
 			$find_DAO_short_url = DAO_CFactory::create('short_url', true);
 			$find_DAO_short_url->page = 'location';
@@ -145,7 +145,7 @@ class CStore extends DAO_Store
 			$this->id = null;
 		}
 
-		$this->joinAddWhereAsOn(DAO_CFactory::create('short_url', true)); // stores current not deleted short url
+		$this->joinAddWhereAsOn(DAO_CFactory::create('short_url', true), 'LEFT'); // stores current not deleted short url
 		$this->joinAddWhereAsOn(DAO_CFactory::create('timezones', true));
 
 		return parent::find($n);
@@ -161,11 +161,13 @@ class CStore extends DAO_Store
 
 	function getPrettyUrl($full_url = false)
 	{
-		$store_short_url = null;
-
-		if(!empty($this->DAO_short_url))
+		if(!empty($this->DAO_short_url) && !empty($this->DAO_short_url->short_url))
 		{
 			$store_short_url = $this->DAO_short_url->getPrettyUrl($full_url);
+		}
+		else
+		{
+			$store_short_url = ($full_url ? HTTPS_BASE : '') . "location/" . $this->id;
 		}
 
 		return $store_short_url;

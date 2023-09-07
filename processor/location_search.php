@@ -55,71 +55,64 @@ class processor_location_search extends CPage
 
 			if (true)
 			{
-				$active_only = '';
-				if ($req_compact)
-				{
-					$active_only = "AND s.active = '1'";
-				}
-
 				$Form->DefaultValues['state'] = $Zip->state;
 
-				$store = DAO_CFactory::create('store');
-
-				$store->query("SELECT
-		 				s.*,
-						CONCAT(s.address_line1, IF(s.address_line2 IS NULL OR s.address_line2 = '', '', CONCAT(', ', s.address_line2)), ', ', s.city, ', ', s.state_id, ' ', s.postal_code, IF(s.usps_adc IS NULL OR s.usps_adc = '', '', CONCAT('-', s.usps_adc))) AS linear_address
-		 				FROM store AS s
-		 				WHERE s.address_latitude > '" . ($req_latitude - 5) . "' AND s.address_latitude  < '" . ($req_latitude + 5) . "'
-						AND s.address_longitude > '" . ($req_longitude - 5) . "' AND s.address_longitude < '" . ($req_longitude + 5) . "'
-		 				" . $active_only . "
-						AND s.show_on_customer_site = '1'
-						AND s.store_type <> 'DISTRIBUTION_CENTER'
-		 				AND s.is_deleted = '0'");
+				$DAO_store = DAO_CFactory::create('store', true);
+				if ($req_compact)
+				{
+					$DAO_store->active = 1;
+				}
+				$DAO_store->show_on_customer_site = 1;
+				$DAO_store->whereAdd("store.store_type <> '" . CStore::DISTRIBUTION_CENTER . "'");
+				$DAO_store->whereAdd("store.address_latitude > '" . ($req_latitude - 5) . "' AND store.address_latitude  < '" . ($req_latitude + 5) . "'");
+				$DAO_store->whereAdd("store.address_longitude > '" . ($req_longitude - 5) . "' AND store.address_longitude < '" . ($req_longitude + 5) . "'");
+				$DAO_store->find_DAO_store();
 
 				$rawList = array();
 				$results = array();
 
-				while ($store->fetch())
+				while ($DAO_store->fetch())
 				{
-					$distance = distance($req_latitude, $req_longitude, $store->address_latitude, $store->address_longitude);
+					$distance = distance($req_latitude, $req_longitude, $DAO_store->address_latitude, $DAO_store->address_longitude);
 
 					if ($distance < 50.0)
 					{
-						$rawList[$store->id] = $store->toArray();
-						$rawList[$store->id]['distance'] = $distance;
-						$rawList[$store->id]['map_link'] = $store->generateMapLink();
+						$rawList[$DAO_store->id] = $DAO_store->toArray();
+						$rawList[$DAO_store->id]['DAO_store'] = clone $DAO_store;
+						$rawList[$DAO_store->id]['distance'] = $distance;
+						$rawList[$DAO_store->id]['map_link'] = $DAO_store->generateMapLink();
 						//$rawList[$store->id]['linear_address'] = $store->generateLinearAddress();
-						$rawList[$store->id]['image_name'] = $store->getStoreImageName();
-						$rawList[$store->id]['coming_soon'] = $store->isComingSoon();
+						$rawList[$DAO_store->id]['image_name'] = $DAO_store->getStoreImageName();
+						$rawList[$DAO_store->id]['coming_soon'] = $DAO_store->isComingSoon();
 					}
 				}
 
 				usort($rawList, 'locationCompare');
 
 				$count = 0;
-				foreach ($rawList as $store_id => $store)
+				foreach ($rawList as $store_id => $DAO_store)
 				{
 					if ($count++ > 4)
 					{
 						break;
 					}
 
-					$stateName = CStatesAndProvinces::GetName($store['state_id']);
+					$stateName = CStatesAndProvinces::GetName($DAO_store['state_id']);
 
 					if (!array_key_exists($stateName, $results))
 					{
 						$results[$stateName] = array();
 					}
 
-					$results[$stateName][$store['id']] = $store;
+					$results[$stateName][$DAO_store['id']] = $DAO_store;
 
 					if ($count == 1)
 					{
-						$results[$stateName][$store['id']]['checked'] = true;
+						$results[$stateName][$DAO_store['id']]['checked'] = true;
 					}
 					else
 					{
-						$results[$stateName][$store['id']]['checked'] = false;
+						$results[$stateName][$DAO_store['id']]['checked'] = false;
 					}
 				}
 
@@ -159,67 +152,69 @@ class processor_location_search extends CPage
 
 				$Form->DefaultValues['state'] = $Zip->state;
 
-				$store = DAO_CFactory::create('store');
+				$DAO_store = DAO_CFactory::create('store', true);
+				if ($req_compact)
+				{
+					$DAO_store->active = 1;
+				}
+				$DAO_store->show_on_customer_site = 1;
+				$DAO_store->whereAdd("store.store_type <> '" . CStore::DISTRIBUTION_CENTER . "'");
 
-				$store->query("SELECT
-		 				s.*,
-						CONCAT(s.address_line1, IF(s.address_line2 IS NULL OR s.address_line2 = '', '', CONCAT(', ', s.address_line2)), ', ', s.city, ', ', s.state_id, ' ', s.postal_code, IF(s.usps_adc IS NULL OR s.usps_adc = '', '', CONCAT('-', s.usps_adc))) AS linear_address,
-		 				z.zip,
-		 				z.latitude as store_lat,
-		 				z.longitude as store_lon
-		 				FROM zipcodes AS z
-		 				INNER JOIN store AS s ON s.postal_code = z.zip
-		 				WHERE z.latitude > '" . ($Zip->latitude - 5) . "' AND z.latitude  < '" . ($Zip->latitude + 5) . "'
-						AND z.longitude > '" . ($Zip->longitude - 5) . "' AND z.longitude < '" . ($Zip->longitude + 5) . "'
-		 				" . $active_only . "
-						AND s.show_on_customer_site = '1'
-						AND s.store_type <> 'DISTRIBUTION_CENTER'
-		 				AND s.is_deleted = '0'");
+				$DAO_zipcodes = DAO_CFactory::create('zipcodes', true);
+				$DAO_zipcodes->whereAdd("store.postal_code = zipcodes.zip");
+				$DAO_zipcodes->whereAdd("zipcodes.latitude > '" . ($Zip->latitude - 5) . "' AND zipcodes.latitude  < '" . ($Zip->latitude + 5) . "'");
+				$DAO_zipcodes->whereAdd("zipcodes.longitude > '" . ($Zip->longitude - 5) . "' AND zipcodes.longitude < '" . ($Zip->longitude + 5) . "'");
+				$DAO_store->joinAddWhereAsOn($DAO_zipcodes, array(
+					'joinType' => 'INNER',
+					'useLinks' => false
+				));
+				$DAO_store->find_DAO_store();
 
 				$rawList = array();
 				$results = array();
 
-				while ($store->fetch())
+				while ($DAO_store->fetch())
 				{
-					$distance = distance($Zip->latitude, $Zip->longitude, $store->store_lat, $store->store_lon);
+					$distance = distance($Zip->latitude, $Zip->longitude, $DAO_store->DAO_zipcodes->latitude, $DAO_store->DAO_zipcodes->longitude);
 
 					if ($distance < 50.0)
 					{
-						$rawList[$store->id] = $store->toArray();
-						$rawList[$store->id]['distance'] = $distance;
-						$rawList[$store->id]['map_link'] = $store->generateMapLink();
+						$rawList[$DAO_store->id] = $DAO_store->toArray();
+						$rawList[$DAO_store->id]['DAO_store'] = clone $DAO_store;
+						$rawList[$DAO_store->id]['distance'] = $distance;
+						$rawList[$DAO_store->id]['map_link'] = $DAO_store->generateMapLink();
 						//$rawList[$store->id]['linear_address'] = $store->generateLinearAddress();
-						$rawList[$store->id]['image_name'] = $store->getStoreImageName();
-						$rawList[$store->id]['coming_soon'] = $store->isComingSoon();
+						$rawList[$DAO_store->id]['image_name'] = $DAO_store->getStoreImageName();
+						$rawList[$DAO_store->id]['coming_soon'] = $DAO_store->isComingSoon();
 					}
 				}
 
 				usort($rawList, 'locationCompare');
 
 				$count = 0;
-				foreach ($rawList as $store_id => $store)
+				foreach ($rawList as $store_id => $DAO_store)
 				{
 					if ($count++ > 4)
 					{
 						break;
 					}
 
-					$stateName = CStatesAndProvinces::GetName($store['state_id']);
+					$stateName = CStatesAndProvinces::GetName($DAO_store['state_id']);
 
 					if (!array_key_exists($stateName, $results))
 					{
 						$results[$stateName] = array();
 					}
 
-					$results[$stateName][$store['id']] = $store;
+					$results[$stateName][$DAO_store['id']] = $DAO_store;
 
 					if ($count == 1)
 					{
-						$results[$stateName][$store['id']]['checked'] = true;
+						$results[$stateName][$DAO_store['id']]['checked'] = true;
 					}
 					else
 					{
-						$results[$stateName][$store['id']]['checked'] = false;
+						$results[$stateName][$DAO_store['id']]['checked'] = false;
 					}
 				}
 
@@ -241,12 +236,6 @@ class processor_location_search extends CPage
 		}
 		else if (!empty($req_state) && CStatesAndProvinces::IsValid($req_state))
 		{
-			$active_only = '';
-			if (!empty($req_compact))
-			{
-				$active_only = "AND store.active = '1'";
-			}
-
 			$state_id = substr($req_state, 0, 2); // substr added for security measure
 			$stateName = CStatesAndProvinces::GetName($state_id);
 
@@ -259,30 +248,29 @@ class processor_location_search extends CPage
 				// TODO: error
 			}
 
-			$store = DAO_CFactory::create('store');
-
-			$q = "SELECT
-					s.*,
-					CONCAT(s.address_line1, IF(s.address_line2 IS NULL OR s.address_line2 = '', '', CONCAT(', ', s.address_line2)), ', ', s.city, ', ', s.state_id, ' ', s.postal_code, IF(s.usps_adc IS NULL OR s.usps_adc = '', '', CONCAT('-', s.usps_adc))) AS linear_address
-					FROM store AS s
-					WHERE s.show_on_customer_site = '1'
-					" . $active_only . "
-					AND s.is_deleted = '0'
-					AND s.store_type <> 'DISTRIBUTION_CENTER'
-					AND s.state_id = '" . $state_id . "'
-					ORDER BY s.city, s.store_name";
-
-			$store->query($q);
+			$DAO_store = DAO_CFactory::create('store', true);
+			if ($req_compact)
+			{
+				$DAO_store->active = 1;
+			}
+			$DAO_store->show_on_customer_site = 1;
+			$DAO_store->state_id = $state_id;
+			$DAO_store->whereAdd("store.store_type <> '" . CStore::DISTRIBUTION_CENTER . "'");
+			$DAO_store->whereAdd("store.address_latitude > '" . ($req_latitude - 5) . "' AND store.address_latitude  < '" . ($req_latitude + 5) . "'");
+			$DAO_store->whereAdd("store.address_longitude > '" . ($req_longitude - 5) . "' AND store.address_longitude < '" . ($req_longitude + 5) . "'");
+			$DAO_store->orderBy("store.city, store.store_name");
+			$DAO_store->find_DAO_store();
 
 			$results = array();
 
-			while ($store->fetch())
+			while ($DAO_store->fetch())
 			{
-				$results[$store->id] = $store->toArray();
-				$results[$store->id]['map_link'] = $store->generateMapLink();
+				$results[$DAO_store->id] = $DAO_store->toArray();
+				$results[$DAO_store->id]['DAO_store'] = clone $DAO_store;
+				$results[$DAO_store->id]['map_link'] = $DAO_store->generateMapLink();
 				// $results[$store->id]['linear_address'] = $store->generateLinearAddress();
-				$results[$store->id]['image_name'] = $store->getStoreImageName();
-				$results[$store->id]['coming_soon'] = $store->isComingSoon();
+				$results[$DAO_store->id]['image_name'] = $DAO_store->getStoreImageName();
+				$results[$DAO_store->id]['coming_soon'] = $DAO_store->isComingSoon();
 			}
 
 			$tpl->assign('state_has_delivered', CBox::quickCheckForBoxAvailableInState($state_id));

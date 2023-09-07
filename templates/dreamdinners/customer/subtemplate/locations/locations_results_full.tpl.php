@@ -10,34 +10,34 @@
 						<div class="col-lg-8 mx-auto col-s-12 pl-sm-0">
 							<div class="row bg-gray-100 border p-2">
 								<div class="col-12 col-sm-7 col-md-6">
-									<h3 class="text-uppercase font-weight-bold text-center d-sm-none"><?php echo $arStore['store_name']; ?></h3>
+									<h3 class="text-uppercase font-weight-bold text-center d-sm-none"><?php echo $arStore["DAO_store"]->store_name; ?></h3>
 									<div>
 										<iframe
 												class="border border-width-2-imp border-gray-400"
 												width="100%"
 												height="250"
 												style="background-repeat: no-repeat; background-size: 100%; background-image:url('<?php echo IMAGES_PATH; ?>/stores/0.webp')"
-												src="//www.google.com/maps/embed/v1/place?key=<?php echo GOOGLE_APIKEY; ?>&q=<?php echo (!empty($arStore['google_place_id'])) ? 'place_id:' . $arStore['google_place_id'] : urlencode($arStore['linear_address']); ?>" allowfullscreen>
+												src="//www.google.com/maps/embed/v1/place?key=<?php echo GOOGLE_APIKEY; ?>&q=<?php echo (!empty($arStore["DAO_store"]->google_place_id)) ? 'place_id:' . $arStore["DAO_store"]->google_place_id : urlencode($arStore["DAO_store"]->address_linear); ?>" allowfullscreen>
 										</iframe>
-										<a href="#" class="row text-uppercase" target="map_view" data-linear_address="<?php echo $arStore['linear_address']; ?>">
+										<a href="#" class="row text-uppercase" target="map_view" data-linear_address="<?php echo $arStore["DAO_store"]->address_linear; ?>">
 											<div class="col-1"><i class="fas fa-map-marked-alt"></i></div>
 											<div class="col-11">
-												<?php echo $arStore['address_line1']; ?> <?php echo $arStore['address_line2']; ?><br />
-												<?php echo $arStore['city']; ?>, <?php echo $arStore['state_id']; ?> <?php echo $arStore['postal_code']; ?><br />
+												<?php echo $arStore["DAO_store"]->address_line1; ?> <?php echo $arStore["DAO_store"]->address_line2; ?><br />
+												<?php echo $arStore["DAO_store"]->city; ?>, <?php echo $arStore["DAO_store"]->state_id; ?> <?php echo $arStore["DAO_store"]->postal_code; ?><br />
 											</div>
 										</a>
 									</div>
 								</div>
 								<div class="col-12 col-sm-5 col-md-6 mt-4 mt-sm-0">
-									<h3 class="text-uppercase font-weight-bold d-none d-sm-block mb-4"><?php echo $arStore['store_name']; ?></h3>
+									<h3 class="text-uppercase font-weight-bold d-none d-sm-block mb-4"><?php echo $arStore["DAO_store"]->store_name; ?></h3>
 									<div class="row mb-2">
 										<div class="col">
-										<?php if (!empty($arStore['coming_soon']) && $arStore['coming_soon']) { ?>
+										<?php if (!empty($arStore["DAO_store"]->coming_soon) && $arStore["DAO_store"]->coming_soon) { ?>
 											<span class="btn btn-default btn-block btn-select-checked">Coming Soon!</span>
 										<?php } else { ?>
-											<button class="btn btn-primary btn-block btn-spinner <?php if (defined('ENABLE_ENHANCED_CUSTOMER_NAV') && ENABLE_ENHANCED_CUSTOMER_NAV) { ?>btn-click-add-cart<?php } ?>" id="select_store-<?php echo $arStore['id']; ?>" name="select_store" type="submit" value="<?php echo $arStore['id']; ?>">
+											<button class="btn btn-primary btn-block btn-spinner <?php if (defined('ENABLE_ENHANCED_CUSTOMER_NAV') && ENABLE_ENHANCED_CUSTOMER_NAV) { ?>btn-click-add-cart<?php } ?>" id="select_store-<?php echo $arStore["DAO_store"]->id; ?>" name="select_store" type="submit" value="<?php echo $arStore["DAO_store"]->id; ?>">
 												<?php if (defined('ENABLE_ENHANCED_CUSTOMER_NAV') && ENABLE_ENHANCED_CUSTOMER_NAV) { ?>
-													<?php if (!is_null($this->cart_info) && $this->cart_info['store_info']['id'] == $arStore['id'] || (empty($this->cart_info['store_info']['id']) && CUser::getCurrentUser()->home_store_id == $arStore['id'])) { ?>
+													<?php if (!is_null($this->cart_info) && $this->cart_info['store_info']['id'] == $arStore["DAO_store"]->id || (empty($this->cart_info['store_info']['id']) && CUser::getCurrentUser()->home_store_id == $arStore["DAO_store"]->id)) { ?>
 														<i class="fas fa-shopping-cart float-left text-green-dark-extra pt-1"></i>
 													<?php } ?>
 												<?php } ?>
@@ -49,18 +49,18 @@
 
 									<div class="row">
 										<div class="col">
-											<a href="/main.php?page=store&amp;id=<?php echo $id; ?>" class="btn btn-primary btn-block btn-spinner">Store Info &amp; Hours</a>
+											<a href="/<?php echo $arStore["DAO_store"]->getPrettyUrl(); ?>" class="btn btn-primary btn-block btn-spinner">Store Info &amp; Hours</a>
 										</div>
 									</div>
 
 									<div class="mt-4">
-										<a href="tel:<?php echo $arStore['telephone_day']; ?>" class="text-decoration-none text-body"><?php echo $arStore['telephone_day']; ?></a>
+										<a href="tel:<?php echo $arStore["DAO_store"]->telephone_day; ?>" class="text-decoration-none text-body"><?php echo $arStore["DAO_store"]->telephone_day; ?></a>
 									</div>
 									<div>
-										<?php echo CTemplate::recaptcha_mailHideHtml($arStore['email_address'], 'Email Store'); ?>
+										<?php echo CTemplate::recaptcha_mailHideHtml($arStore["DAO_store"]->email_address, 'Email Store'); ?>
 									</div>
 
-									<?php if ($arStore['supports_delivery']) { ?>
+									<?php if ($arStore["DAO_store"]->supports_delivery) { ?>
 										<div class="mt-1">
 											<i class="dd-icon icon-delivery text-green font-size-medium-large align-bottom"></i> <span class="font-italic">Home Delivery Available!</span>
 										</div>
@@ -68,7 +68,7 @@
 
 									<div class="row mt-4">
 										<div class="col">
-											<a href="/store/<?php echo $id; ?>-events" class="btn btn-primary btn-block btn-spinner">View store events</a>
+											<a href="/<?php echo $arStore["DAO_store"]->getPrettyUrl(); ?>/calendar" class="btn btn-primary btn-block btn-spinner">View store events</a>
 										</div>
 									</div>
 								</div>
