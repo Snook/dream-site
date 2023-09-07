@@ -3,7 +3,7 @@ require_once('DAO/BusinessObject/CStore.php');
 require_once('DAO/BusinessObject/CStatesAndProvinces.php');
 require_once('includes/DAO/BusinessObject/CMenu.php');
 
-class page_store extends CPage
+class page_store_meet_the_owner extends CPage
 {
 	function runPublic()
 	{
@@ -29,4 +29,5 @@ class page_store extends CPage
 		}
 	}
 }
+
 ?>

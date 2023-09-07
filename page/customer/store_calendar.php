@@ -3,7 +3,7 @@ require_once('DAO/BusinessObject/CStore.php');
 require_once('DAO/BusinessObject/CStatesAndProvinces.php');
 require_once('includes/DAO/BusinessObject/CMenu.php');
 
-class page_store extends CPage
+class page_store_calendar extends CPage
 {
 	function runPublic()
 	{
@@ -15,6 +15,8 @@ class page_store extends CPage
 
 			if ($DAO_store->find_DAO_store(true))
 			{
+				$DAO_store->getActivePromoArray();
+
 				$this->Template->assign('DAO_store', $DAO_store);
 			}
 			else

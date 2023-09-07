@@ -117,6 +117,20 @@ RewriteRule ^ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^theme/dreamdinners/images/stores/([0-9]+).(jpg|webp|png)?$ /theme/dreamdinners/images/stores/default.$2 [L,E=STATUS:404]
 
+# handle missing store bio images, redirect to default image
+# first two lines prevent infinite loop in the case the default image is not there
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^theme/dreamdinners/images/stores/bio/portrait-([0-9]+)-([0-9]+).(jpg|webp|png)?$ /theme/dreamdinners/images/stores/bio/portrait-default-$2.$3 [L,E=STATUS:404]
+
+# handle missing store bio team images, redirect to default image
+# first two lines prevent infinite loop in the case the default image is not there
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^theme/dreamdinners/images/stores/bio/portrait-([0-9]+)-team.(jpg|webp|png)?$ /theme/dreamdinners/images/stores/$1.$2 [L,E=STATUS:404]
+
 # handle missing recipe images, redirect to default image
 # first two lines prevent infinite loop in the case the default image is not there
 RewriteCond %{ENV:REDIRECT_STATUS} 200
@@ -166,6 +180,15 @@ RewriteRule ^autodiscover/(.*)$ https://mail.dreamdinners.com/autodiscover/$1 [R
 # Authenticate MS Graph
 RewriteRule ^authms_my_events/?$ /main.php?page=my_events [R=301,NC,QSA]
 
+## Short url specific handling
+RewriteRule ^location/([\w-]+)/([\w-]+)/?$ /main.php?page=store_$2&id=$1 [NC,L,QSA] # /store/mill-creek/meet-the-owner
+RewriteRule ^location/([\w-]+)/?$ /main.php?page=store&id=$1 [NC,L,QSA] # /store/mill-creek
+
+RewriteRule ^locations?/?$ /main.php?page=locations [NC,L,QSA]
+
+## Fall all others into page
+RewriteRule ^([\w-]+)/?$ /main.php?page=$1 [NC,L,QSA] #
+
 # Dream Dinner shortcuts #
 RewriteRule ^share/?$ /main.php?static=share [R=301,NC,QSA]
 RewriteRule ^doordash/?$ /main.php?static=doordash [R=301,NC,QSA]
@@ -179,7 +202,6 @@ RewriteRule ^giftcardwelcome/?$ /main.php?static=giftcards [R=301,NC,QSA]
 RewriteRule ^myreviews/?$ /main.php?page=my_meals [R=301,NC,QSA]
 
 # Optioanl S after location
-RewriteRule ^locations?/?$ /main.php?page=locations [R=301,NC,QSA]
 RewriteRule ^msl/?$ /main.php?page=home [R=301,NC,QSA]
 RewriteRule ^offers/?$ /main.php?page=home [R=301,NC,QSA]
 RewriteRule ^platepoints/?$ /main.php?page=platepoints [R=301,NC,QSA]
@@ -350,6 +372,7 @@ RewriteRule ^menu/([0-9]*)-([0-9a-z]*)-starter$ /ddproc.php?processor=session_ty
 RewriteRule ^menu/([0-9]*)-([0-9a-z]*)-events$ /ddproc.php?processor=session_type&store=$1&menu=$2&type=event [R=301,NC,QSA]
 
 RewriteRule ^stores?/?$ /main.php?page=locations [R=301,NC,QSA]
+
 RewriteRule ^store/([0-9]*)-fundraisers$ /main.php?page=fundraiser&id=$1 [R=301,NC,QSA]
 RewriteRule ^store/([0-9]*)-events$ /main.php?page=store&id=$1#events [R=301,NC,NE,QSA]
 
