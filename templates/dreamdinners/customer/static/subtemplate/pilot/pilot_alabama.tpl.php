@@ -9,10 +9,10 @@
 		</div>
 		<div class="mb-2">251-333-5285</div>
 		<div>
-			<a href="/main.php?page=session_menu" id="select_intro_location-304" class="btn btn-primary mb-2">View Meal Prep Starter Pack</a>
+			<a href="/?page=session_menu" id="select_intro_location-304" class="btn btn-primary mb-2">View Meal Prep Starter Pack</a>
 		</div>
 		<div>
-			<a href="/main.php?page=session_menu" id="select_location-304" class="btn btn-primary mb-2">View Menu</a>
+			<a href="/?page=session_menu" id="select_location-304" class="btn btn-primary mb-2">View Menu</a>
 		</div>
 	</div>
 	<div class="col-md-4 mb-4 text-center">
@@ -25,10 +25,10 @@
 		</div>
 		<div class="mb-2">251-316-3727</div>
 		<div>
-			<a href="/main.php?page=session_menu" id="select_intro_location-291" class="btn btn-primary mb-2">View Meal Prep Starter Pack</a>
+			<a href="/?page=session_menu" id="select_intro_location-291" class="btn btn-primary mb-2">View Meal Prep Starter Pack</a>
 		</div>
 		<div>
-			<a href="/main.php?page=session_menu" id="select_location-291" class="btn btn-primary mb-2">View Menu</a>
+			<a href="/?page=session_menu" id="select_location-291" class="btn btn-primary mb-2">View Menu</a>
 		</div>
 	</div>
 </div>

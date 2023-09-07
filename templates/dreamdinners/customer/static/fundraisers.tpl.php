@@ -63,7 +63,7 @@
 							</div>
 						</div>
 
-						<p><a href="main.php?page=locations">Contact your local Dream Dinners store</a> today and start planning how to meet and exceed your fundraising goals.</p>
+						<p><a href="/?page=locations">Contact your local Dream Dinners store</a> today and start planning how to meet and exceed your fundraising goals.</p>
 					</div>
 				</div>
 			</div>

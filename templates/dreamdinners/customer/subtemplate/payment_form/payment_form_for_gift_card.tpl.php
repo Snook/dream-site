@@ -1,6 +1,6 @@
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-<form id="gift_card_checkout" method="post" action="main.php?page=checkout_gift_card" class="needs-validation" novalidate>
+<form id="gift_card_checkout" method="post" action="/?page=checkout_gift_card" class="needs-validation" novalidate>
 	<?php if (isset($this->form_payment['hidden_html'])) echo $this->form_payment['hidden_html'];?>
 	<input type="hidden" name="run_as_guest" value="true" />
 

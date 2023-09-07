@@ -1,8 +1,8 @@
 <?php $this->assign('og_title', ((is_array($this->view_badge)) ? $this->view_badge['title'] . ' - PLATEPOINTS Badge' : 'PLATEPOINTS')); ?>
-<?php $this->assign('og_url', ((is_array($this->view_badge)) ? HTTPS_BASE . 'main.php?page=platepoints&badge=' . $this->view_badge['level'] : HTTPS_BASE . 'main.php?page=platepoints')); ?>
+<?php $this->assign('og_url', ((is_array($this->view_badge)) ? HTTPS_BASE . '?page=platepoints&badge=' . $this->view_badge['level'] : HTTPS_BASE . '?page=platepoints')); ?>
 <?php $this->assign('og_image', ((is_array($this->view_badge)) ? HTTPS_BASE . RELATIVE_IMAGES_PATH . '/style/platepoints/badge-' . $this->view_badge['image'] . '-119x119.png': '')); ?>
 <?php $this->assign('og_description', false); ?>
-<?php $this->assign('canonical_url', ((is_array($this->view_badge)) ? HTTPS_BASE . 'main.php?page=platepoints&badge=' . $this->view_badge['level'] : HTTPS_BASE . 'main.php?page=platepoints')); ?>
+<?php $this->assign('canonical_url', ((is_array($this->view_badge)) ? HTTPS_BASE . '?page=platepoints&badge=' . $this->view_badge['level'] : HTTPS_BASE . '?page=platepoints')); ?>
 <?php $this->assign('page_title', ((is_array($this->view_badge)) ? $this->view_badge['title'] . ' - PLATEPOINTS Badge' : 'PLATEPOINTS')); ?>
 <?php $this->assign('page_description', false); ?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
@@ -85,7 +85,7 @@
 										<p style="font-size: 1rem;">Refer a friend and receive 10 Dinner Dollars.</p>
 									</div>
 								</div>
-								
+
 							</div>
 						</div>
 					</div>-->
@@ -100,7 +100,7 @@
 					<div class="card-group text-center">
 						<div class="card border-0 bg-cyan-extra-light">
 							<div class="card-body">
-								
+
 							</div>
 						</div>
 						<div class="card border-0 bg-cyan-extra-light">
@@ -120,7 +120,7 @@
 						</div>
 						<div class="card border-0 bg-cyan-extra-light">
 							<div class="card-body">
-								
+
 							</div>
 						</div>
 					</div>
@@ -135,7 +135,7 @@
 					<div class="card-group text-center">
 						<div class="card border-0 bg-cyan-extra-light">
 							<div class="card-body">
-								
+
 							</div>
 						</div>
 						<div class="card border-0 bg-cyan-extra-light">
@@ -155,18 +155,18 @@
 						</div>
 						<div class="card border-0 bg-cyan-extra-light">
 							<div class="card-body">
-								
+
 							</div>
 						</div>
 					</div>
 				</div>
 					<div class="col text-center my-5">
-						<a href="/main.php?page=login" class="btn btn-lg btn-primary">Login & Enroll</a>
+						<a href="/?page=login" class="btn btn-lg btn-primary">Login & Enroll</a>
 					</div>
 			</div>
 		</div>
 
-		
+
 
 		<div class="row">
 			<div class="col">

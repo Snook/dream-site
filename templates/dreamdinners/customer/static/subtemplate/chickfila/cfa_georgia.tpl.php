@@ -9,10 +9,10 @@
 		</div>
 		<div class="mb-2">678-352-9600</div>
 		<div>
-			<a href="/main.php?page=session_menu" id="select_intro_location-122" class="btn btn-primary mb-2">View Meal Prep Starter Pack</a>
+			<a href="/?page=session_menu" id="select_intro_location-122" class="btn btn-primary mb-2">View Meal Prep Starter Pack</a>
 		</div>
 		<div>
-			<a href="/main.php?page=session_menu" id="select_location-122" class="btn btn-primary mb-2">View Menu</a>
+			<a href="/?page=session_menu" id="select_location-122" class="btn btn-primary mb-2">View Menu</a>
 		</div>
 	</div>
 	<div class="col-md-4 mb-4 text-center">
@@ -25,10 +25,10 @@
 		</div>
 		<div class="mb-2">770-887-4141</div>
 		<div>
-			<a href="/main.php?page=session_menu" id="select_intro_location-29" class="btn btn-primary mb-2">View Meal Prep Starter Pack</a>
+			<a href="/?page=session_menu" id="select_intro_location-29" class="btn btn-primary mb-2">View Meal Prep Starter Pack</a>
 		</div>
 		<div>
-			<a href="/main.php?page=session_menu" id="select_location-29" class="btn btn-primary mb-2">View Menu</a>
+			<a href="/?page=session_menu" id="select_location-29" class="btn btn-primary mb-2">View Menu</a>
 		</div>
 	</div>
 </div>

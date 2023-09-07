@@ -1,4 +1,4 @@
-<?php $this->assign('canonical_url', HTTPS_BASE . 'main.php?page=login'); ?>
+<?php $this->assign('canonical_url', HTTPS_BASE . '?page=login'); ?>
 <?php $this->assign('page_title', 'Log in to your Dream Dinners account'); ?>
 <?php $this->assign('page_description', 'Please log in or create an account at Dream Dinners.'); ?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
@@ -13,7 +13,7 @@
 				<?php include $this->loadTemplate('customer/subtemplate/login/login_form.tpl.php'); ?>
 
 				<div class="col-lg-4 col-md-6 mx-auto mt-4">
-					<a class="text-body text-decoration-hover-underline" href="/main.php?page=account_signup">Don't have an account? <span class="sign-up">sign up</span></a>
+					<a class="text-body text-decoration-hover-underline" href="/?page=account_signup">Don't have an account? <span class="sign-up">sign up</span></a>
 				</div>
 
 				</div>

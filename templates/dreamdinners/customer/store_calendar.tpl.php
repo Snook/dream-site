@@ -27,12 +27,12 @@
 						<ul class="nav nav-pills nav-justified mb-4">
 							<?php if ($this->storePromos) { ?>
 								<li class="nav-item">
-									<a class="nav-link text-uppercase font-weight-bold active" id="promos-tab" data-urlpush="false" data-toggle="tab" data-target="#promos" href="/main.php?page=store&amp;id=<?php echo $this->DAO_store->id; ?>&amp;tab=promos" role="tab" aria-controls="promos" aria-selected="true">Store promotions</a>
+									<a class="nav-link text-uppercase font-weight-bold active" id="promos-tab" data-urlpush="false" data-toggle="tab" data-target="#promos" href="/?page=store&amp;id=<?php echo $this->DAO_store->id; ?>&amp;tab=promos" role="tab" aria-controls="promos" aria-selected="true">Store promotions</a>
 								</li>
 							<?php } ?>
 							<?php if ($this->storeOHEvents) { ?>
 								<li class="nav-item">
-									<a class="nav-link text-uppercase font-weight-bold <?php if (!$this->storePromos) { ?>active<?php } ?>" id="events-tab" data-urlpush="false" data-toggle="tab" data-target="#events" href="/main.php?page=store&amp;id=<?php echo $this->DAO_store->id; ?>&amp;tab=events" role="tab" aria-controls="events" aria-selected="false">Store events</a>
+									<a class="nav-link text-uppercase font-weight-bold <?php if (!$this->storePromos) { ?>active<?php } ?>" id="events-tab" data-urlpush="false" data-toggle="tab" data-target="#events" href="/?page=store&amp;id=<?php echo $this->DAO_store->id; ?>&amp;tab=events" role="tab" aria-controls="events" aria-selected="false">Store events</a>
 								</li>
 							<?php } ?>
 						</ul>

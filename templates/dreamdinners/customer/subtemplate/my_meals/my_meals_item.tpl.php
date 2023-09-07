@@ -6,7 +6,7 @@
 			<?php if (!empty($recipe['cooking_instruction_youtube_id'])) { ?>
 				<div class="d-inline-block">
 					<i class="dd-icon icon-video font-size-medium align-middle text-gray-dark"></i>
-					<a href="/main.php?page=item&amp;recipe=<?php echo $recipe['recipe_id']; ?>&amp;tab=video" class="font-size-small text-green text-uppercase text-decoration-underline">Preparation video</a>
+					<a href="/?page=item&amp;recipe=<?php echo $recipe['recipe_id']; ?>&amp;tab=video" class="font-size-small text-green text-uppercase text-decoration-underline">Preparation video</a>
 				</div>
 			<?php } ?>
 		</div>
@@ -14,7 +14,7 @@
 		<div class="col-md-7 pl-md-0">
 			<div class="row mb-2">
 				<div class="col">
-					<a class="font-size-medium-small text-uppercase font-weight-bold text-left my-meal-title mb-3" href="/main.php?page=item&amp;recipe=<?php echo $recipe['recipe_id']; ?>"><?php echo htmlspecialchars($recipe['menu_item_name']); ?></a>
+					<a class="font-size-medium-small text-uppercase font-weight-bold text-left my-meal-title mb-3" href="/?page=item&amp;recipe=<?php echo $recipe['recipe_id']; ?>"><?php echo htmlspecialchars($recipe['menu_item_name']); ?></a>
 				</div>
 			</div>
 			<div class="row ml-1 mb-3 no-gutters">

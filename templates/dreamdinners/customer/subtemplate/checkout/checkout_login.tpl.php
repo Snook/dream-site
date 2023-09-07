@@ -8,7 +8,7 @@
 	<div class="col-10 col-md-12 col-xl-8 offset-1 offset-md-0 offset-xl-2">
 
 		<form id="checkout_login_form" method="POST" action="">
-			<input type="hidden" name="back" value="main.php?page=checkout" />
+			<input type="hidden" name="back" value="/?page=checkout" />
 			<div class="row">
 				<div class="col">
 					<div class="form-group has-danger">
@@ -89,7 +89,7 @@
 </div>
 
 <form id="customer_create" name="customer_create" action="" method="post" class="needs-validation" novalidate>
-	<input type="hidden" name="back" value="main.php?page=checkout" />
+	<input type="hidden" name="back" value="/?page=checkout" />
 	<?php if (isset($this->form_account['hidden_html'])) echo $this->form_account['hidden_html'];?>
 
 	<div class="row">

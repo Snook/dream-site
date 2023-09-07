@@ -76,9 +76,9 @@
 				<div class="row">
 					<div class="col p-0">
 						<?php if ($this->menu_view == 'session_menu') { ?>
-							<a href="/main.php?page=session_menu&amp;view=freezer" class="btn btn-primary btn-block btn-spinner disabled continue-btn">Continue</a>
+							<a href="/?page=session_menu&amp;view=freezer" class="btn btn-primary btn-block btn-spinner disabled continue-btn">Continue</a>
 						<?php } else { ?>
-							<a href="/main.php?page=checkout" class="btn btn-primary btn-block btn-spinner disabled continue-btn">Continue</a>
+							<a href="/?page=checkout" class="btn btn-primary btn-block btn-spinner disabled continue-btn">Continue</a>
 						<?php } ?>
 					</div>
 				</div>

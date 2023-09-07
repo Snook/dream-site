@@ -17,13 +17,13 @@
 		<div class="container">
 
 			<ul>
-				<li><a href="/main.php?page=home">Dream Dinners Home Page</a> - Get prepped meals for your family from our local assembly kitchens. Find how we can serve you. </li>
+				<li><a href="/?page=home">Dream Dinners Home Page</a> - Get prepped meals for your family from our local assembly kitchens. Find how we can serve you. </li>
 			</ul>
 
 			<h4>How It Works</h4>
 
 			<ul>
-				<li><a href="/main.php?static=how_it_works">How It Works</a> - Learn Dream Dinners works.</li>
+				<li><a href="/?static=how_it_works">How It Works</a> - Learn Dream Dinners works.</li>
 			</ul>
 
 			<h4>View Menu</h4>
@@ -31,7 +31,7 @@
 			<nav class="row mb-4">
 				<div class="col nav nav-pills nav-fill pr-0" id="dishDetails" role="tablist">
 					<?php $count = 0;  foreach ($this->activeMenus AS $menu) { $count++; ?>
-						<a class="nav-item nav-link col-<?php echo floor(12 / count($this->activeMenus)); ?> text-uppercase font-weight-bold<?php if ($count == 1) { echo ' active'; } ?>" id="m-<?php echo $menu['id']; ?>-tab" data-urlpush="true" data-toggle="tab" data-target="#m-<?php echo $menu['id']; ?>" href="/main.php?page=browse_menu&amp;tab=m-<?php echo $menu['id']; ?>" role="tab" aria-controls="<?php echo $menu['id']; ?>" aria-selected="<?php echo ($count == 1) ? 'true' : 'false'; ?>"><?php echo $menu['month']; ?></a>
+						<a class="nav-item nav-link col-<?php echo floor(12 / count($this->activeMenus)); ?> text-uppercase font-weight-bold<?php if ($count == 1) { echo ' active'; } ?>" id="m-<?php echo $menu['id']; ?>-tab" data-urlpush="true" data-toggle="tab" data-target="#m-<?php echo $menu['id']; ?>" href="/?page=browse_menu&amp;tab=m-<?php echo $menu['id']; ?>" role="tab" aria-controls="<?php echo $menu['id']; ?>" aria-selected="<?php echo ($count == 1) ? 'true' : 'false'; ?>"><?php echo $menu['month']; ?></a>
 					<?php } ?>
 				</div>
 			</nav>
@@ -42,7 +42,7 @@
 						<ul class="list-group">
 							<?php foreach ($menu['menu_items']['menu_items'] AS $menu_item) {  ?>
 								<li class="list-group-item">
-									<a href="/main.php?page=item&amp;recipe=<?php echo $menu_item['recipe_id']; ?>"><?php echo $menu_item['menu_item_name']; ?></a>
+									<a href="/?page=item&amp;recipe=<?php echo $menu_item['recipe_id']; ?>"><?php echo $menu_item['menu_item_name']; ?></a>
 								</li>
 							<?php } ?>
 						</ul>
@@ -54,10 +54,10 @@
 
 			<ul>
 				<?php foreach ($this->currentStores['stateArray']['state'] as $state) { ?>
-					<li><a href="main.php?page=locations&amp;state=<?php echo $state['info']['abbr']; ?>"><?php echo $state['info']['name']; ?></a></li>
+					<li><a href="/?page=locations&amp;state=<?php echo $state['info']['abbr']; ?>"><?php echo $state['info']['name']; ?></a></li>
 					<ul>
 						<?php foreach ($state['stores'] as $store) { ?>
-							<li><a href="main.php?page=store&amp;id=<?php echo $store->id; ?>"><?php echo $store->store_name; ?></a><?php if ($store->isComingSoon()) {?> <span class="font-italic text-muted">- Coming Soon!</span><?php } ?></li>
+							<li><a href="/?page=store&amp;id=<?php echo $store->id; ?>"><?php echo $store->store_name; ?></a><?php if ($store->isComingSoon()) {?> <span class="font-italic text-muted">- Coming Soon!</span><?php } ?></li>
 						<?php } ?>
 					</ul>
 				<?php } ?>
@@ -66,42 +66,42 @@
 			<h4>Our Services</h4>
 
 			<ul>
-				<li><a href="/main.php?page=locations">Locations</a> - Find a meal assembly kitchen near you.</li>
-				<li><a href="/main.php?static=delivered">Delivered</a> - Dinners shipped to your door.</li>
+				<li><a href="/?page=locations">Locations</a> - Find a meal assembly kitchen near you.</li>
+				<li><a href="/?static=delivered">Delivered</a> - Dinners shipped to your door.</li>
 				
 			<h4>PlatePoints</h4>
 
 			<ul>
-				<li><a href="/main.php?page=platepoints">PlatePoints</a> - Our rewards program.</li>
+				<li><a href="/?page=platepoints">PlatePoints</a> - Our rewards program.</li>
 			</ul>
 
 			<h4>Recipe Resources</h4>
 
 			<ul>
-				<li><a href="/main.php?page=recipe_resources">Cooking Instructions and Nutritionals</a> - Search  for cooking instructions and nutritionals.</li>
+				<li><a href="/?page=recipe_resources">Cooking Instructions and Nutritionals</a> - Search  for cooking instructions and nutritionals.</li>
 			</ul>
 
 			<h4>Gift Cards</h4>
 
 			<ul>
-				<li><a href="/main.php?page=gift_card_order">Gift Cards</a> - Buy gift cards or check a balance.</li>
+				<li><a href="/?page=gift_card_order">Gift Cards</a> - Buy gift cards or check a balance.</li>
 			</ul>
 
 			<h4>About Us</h4>
 
 			<ul>
-				<li><a href="/main.php?static=about_us">About Us</a> - Dream Dinners, we're about families.</li>
-				<li><a href="/main.php?static=job_opportunities">Careers</a> - Contact your local store.</li>
-				<li><a href="/main.php?static=contact_us">Contact Us</a> - Contact our home office.</li>
-				<li><a href="/main.php?static=promotions">Promotions</a> - Current information on our store promotions and offerings.</li>
-				<li><a href="/main.php?static=fundraisers">Fundraisers</a> - Current information on our fundraiser programs.</li>
+				<li><a href="/?static=about_us">About Us</a> - Dream Dinners, we're about families.</li>
+				<li><a href="/?static=job_opportunities">Careers</a> - Contact your local store.</li>
+				<li><a href="/?static=contact_us">Contact Us</a> - Contact our home office.</li>
+				<li><a href="/?static=promotions">Promotions</a> - Current information on our store promotions and offerings.</li>
+				<li><a href="/?static=fundraisers">Fundraisers</a> - Current information on our fundraiser programs.</li>
 			</ul>
 
 			<h4>Customer Service</h4>
 
 			<ul>
-				<li><a href="/main.php?page=account">Create an account</a> - Sign up for a Dream Dinners account.</li>
-				<li><a href="/main.php?page=login">Log In</a> - Log in to your Dream Dinners account.</li>
+				<li><a href="/?page=account">Create an account</a> - Sign up for a Dream Dinners account.</li>
+				<li><a href="/?page=login">Log In</a> - Log in to your Dream Dinners account.</li>
 			</ul>
 
 		</div>

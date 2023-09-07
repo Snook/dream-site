@@ -16,7 +16,7 @@
 				<h1>Buy a gift card</h1>
 			</div>
 			<div class="col-6 col-sm-3 p-0 order-3 order-sm-3 text-right">
-				<a href="/main.php?page=gift_card_cart" class="btn btn-primary btn-sm btn-md-lg p-2 <?php if (empty($this->cart_info['cart_info_array']['has_gift_cards']))  { ?> disabled<?php } ?>">View cart <span class="pl-2">&#10095;</span></a>
+				<a href="/?page=gift_card_cart" class="btn btn-primary btn-sm btn-md-lg p-2 <?php if (empty($this->cart_info['cart_info_array']['has_gift_cards']))  { ?> disabled<?php } ?>">View cart <span class="pl-2">&#10095;</span></a>
 			</div>
 		</div>
 	</header>
@@ -297,7 +297,7 @@
 
 			<div class="row mt-5">
 				<div class="col text-center">
-					<a href="/main.php?static=gift_card_balance" class="btn btn-primary"><i class="fas fa-credit-card mr-2"></i> Check gift card balance</a>
+					<a href="/?static=gift_card_balance" class="btn btn-primary"><i class="fas fa-credit-card mr-2"></i> Check gift card balance</a>
 				</div>
 			</div>
 

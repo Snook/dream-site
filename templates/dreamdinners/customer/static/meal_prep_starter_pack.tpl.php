@@ -11,7 +11,7 @@
 					<div class="col-md-8 text-center mx-auto">
 						<h1 class="my-4 font-weight-bold">Try our Meal Prep Starter Pack</h1>
 						<h3 class="mb-5">Get delicious, easy meals prepared with quality ingredients ready for you to cook at home.</h3>
-						<a href="/main.php?page=locations" class="btn btn-primary mb-4">Find a Location &amp; View Menu</a>
+						<a href="/?page=locations" class="btn btn-primary mb-4">Find a Location &amp; View Menu</a>
 					</div>
 				</div>
 			</div>
@@ -96,7 +96,7 @@
 				<div class="col-md-5 text-center">
 					<h2><b>ANSWER THE QUESTION "WHAT'S FOR DINNER?"</b></h2>
 					<p>Learn how to meal prep with Dream Dinners. Sample our menu with our Meal Prep Starter Pack. Get 4 medium or 2 Large dinners for just $79.</p>
-					<p><a href="/main.php?page=locations" data-gaq_cat="Intro Offer" data-gaq_action="View Menu" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Find a Location &amp; View Menu</a></p>
+					<p><a href="/?page=locations" data-gaq_cat="Intro Offer" data-gaq_action="View Menu" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Find a Location &amp; View Menu</a></p>
 				</div>
 			</div>
           </div>
@@ -139,7 +139,7 @@
 				<div class="row my-4 pb-4">
 					<div class="col text-center text-white">
 
-						<p><a href="/main.php?page=locations" class="btn btn-cyan text-white">Find a Location &amp; View Menu</a></p>
+						<p><a href="/?page=locations" class="btn btn-cyan text-white">Find a Location &amp; View Menu</a></p>
 						<p><i>*Availability varies by location. Check your local store's calendar to find available ordering options.</i></p>
 					</div>
 				</div>
@@ -154,7 +154,7 @@
 					<div class="col-md-6 bg-gray-dark text-white text-right p-5">
 						<h2 class="text-uppercase font-weight-bold">WANT TO LEARN MORE ABOUT MAKING DINNERTIME EASIER?</h2>
 						<p class="text-uppercase mb-4">Get comfy and find out how to simplify meals in your home with Dream Dinners.</p>
-						<a href="/main.php?static=national_virtual_party" class="btn btn-gray-light">Learn More</a>
+						<a href="/?static=national_virtual_party" class="btn btn-gray-light">Learn More</a>
 					</div>
 					<div class="col-md-6 p-0">
 						<img src="<?php echo IMAGES_PATH; ?>/home_content/virtual-party-957x675.jpg" alt="Watching a Virtual Meal Prep Party" class="img-fluid">

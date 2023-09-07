@@ -1,9 +1,9 @@
 <div class="col-md-4 col-12 p-0 mb-xs-1 text-md-right text-center">
-	<a href="/main.php?page=store&amp;id=<?php echo $this->storeInfo['id']; ?>"><img src="<?php echo IMAGES_PATH; ?>/stores/<?php echo $this->storeInfo['id']; ?>.webp" class="img-fluid" alt="<?php echo $this->storeInfo['store_name']; ?> Store Front" /></a>
+	<a href="/?page=store&amp;id=<?php echo $this->storeInfo['id']; ?>"><img src="<?php echo IMAGES_PATH; ?>/stores/<?php echo $this->storeInfo['id']; ?>.webp" class="img-fluid" alt="<?php echo $this->storeInfo['store_name']; ?> Store Front" /></a>
 </div>
 <div class="col-md-4 col-12 p-3 text-md-right text-center">
 	<h3 class="font-weight-bold text-uppercase mb-2">
-		<a href="/main.php?page=store&amp;id=<?php echo $this->storeInfo['id']; ?>"><?php echo $this->storeInfo['store_name']; ?></a>
+		<a href="/?page=store&amp;id=<?php echo $this->storeInfo['id']; ?>"><?php echo $this->storeInfo['store_name']; ?></a>
 	</h3>
 	<div class="font-weight-bold font-size-medium-small text-uppercase">
 		<?php if ($this->can_reschedule && $this->sessionInfo['session_type_subtype'] == CSession::WALK_IN) {
@@ -13,7 +13,7 @@
 		<?php } ?>
 	</div>
 	<?php if ($this->can_reschedule && $this->sessionInfo['session_type_subtype'] != CSession::WALK_IN) { ?>
-		<a class="btn btn-secondary btn-sm d-print-none" href="/main.php?page=session&amp;reschedule=<?php echo $this->orderInfo['id']; ?>">Reschedule</a>
+		<a class="btn btn-secondary btn-sm d-print-none" href="/?page=session&amp;reschedule=<?php echo $this->orderInfo['id']; ?>">Reschedule</a>
 	<?php } ?>
 	<?php if ($this->orderDetailsArray['bookingStatus'] != CBooking::CANCELLED) { ?>
 		<p class="mt-1 mb-1 font-size-small">To edit your order or make additional changes please contact your store.</p>

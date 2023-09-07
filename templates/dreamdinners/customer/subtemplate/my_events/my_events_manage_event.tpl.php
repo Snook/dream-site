@@ -14,7 +14,7 @@
 		<div class="row justify-content-end">
 			<?php if ($this->usersFuturePastEvents['manageEvent']['session_type'] != CSession::STANDARD) { ?>
 				<div class="col-12 col-md-4 offset-md-4 mt-2 mt-md-0">
-					<a class="btn btn-primary btn-block py-4" target="_blank" href="/main.php?page=print&amp;<?php echo strtolower($this->usersFuturePastEvents['manageEvent']['session_type_true']); ?>_event_pdf=<?php echo $this->usersFuturePastEvents['manageEvent']['id']; ?>">
+					<a class="btn btn-primary btn-block py-4" target="_blank" href="/?page=print&amp;<?php echo strtolower($this->usersFuturePastEvents['manageEvent']['session_type_true']); ?>_event_pdf=<?php echo $this->usersFuturePastEvents['manageEvent']['id']; ?>">
 						<i class="dd-icon icon-print font-size-extra-large"></i>
 						<div>Print Invite</div>
 					</a>
@@ -126,4 +126,3 @@
 	</div>
 
 </div>
-

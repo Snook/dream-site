@@ -1,4 +1,4 @@
-<?php $this->assign('canonical_url', HTTPS_BASE . 'main.php?page=account_signup'); ?>
+<?php $this->assign('canonical_url', HTTPS_BASE . '?page=account_signup'); ?>
 <?php $this->setScript('foot', '//maps.googleapis.com/maps/api/js?v=3&amp;key=' . GOOGLE_APIKEY); ?>
 <?php $this->setScript('foot', SCRIPT_PATH . '/customer/locations.min.js'); ?>
 <?php $this->setScript('foot', SCRIPT_PATH . '/customer/account.min.js'); ?>
@@ -13,7 +13,7 @@
 		<div class="row">
 			<div class="col-6 col-sm-3 p-0 order-2 order-sm-1">
 				<?php if (!CUser::isLoggedIn()) { ?>
-					<a class="btn btn-primary" href="/main.php?page=login">Already a guest? Sign in</a>
+					<a class="btn btn-primary" href="/?page=login">Already a guest? Sign in</a>
 				<?php } ?>
 			</div>
 			<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center">
