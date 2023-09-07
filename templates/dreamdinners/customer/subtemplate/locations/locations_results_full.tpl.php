@@ -21,10 +21,7 @@
 										</iframe>
 										<a href="#" class="row text-uppercase" target="map_view" data-linear_address="<?php echo $arStore["DAO_store"]->address_linear; ?>">
 											<div class="col-1"><i class="fas fa-map-marked-alt"></i></div>
-											<div class="col-11">
-												<?php echo $arStore["DAO_store"]->address_line1; ?> <?php echo $arStore["DAO_store"]->address_line2; ?><br />
-												<?php echo $arStore["DAO_store"]->city; ?>, <?php echo $arStore["DAO_store"]->state_id; ?> <?php echo $arStore["DAO_store"]->postal_code; ?><br />
-											</div>
+											<div class="col-11"><?php echo $arStore["DAO_store"]->address_html; ?></div>
 										</a>
 									</div>
 								</div>
