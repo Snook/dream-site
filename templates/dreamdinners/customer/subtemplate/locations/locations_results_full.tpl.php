@@ -29,18 +29,18 @@
 									<h3 class="text-uppercase font-weight-bold d-none d-sm-block mb-4"><?php echo $arStore["DAO_store"]->store_name; ?></h3>
 									<div class="row mb-2">
 										<div class="col">
-										<?php if (!empty($arStore["DAO_store"]->coming_soon) && $arStore["DAO_store"]->coming_soon) { ?>
-											<span class="btn btn-default btn-block btn-select-checked">Coming Soon!</span>
-										<?php } else { ?>
-											<button class="btn btn-primary btn-block btn-spinner <?php if (defined('ENABLE_ENHANCED_CUSTOMER_NAV') && ENABLE_ENHANCED_CUSTOMER_NAV) { ?>btn-click-add-cart<?php } ?>" id="select_store-<?php echo $arStore["DAO_store"]->id; ?>" name="select_store" type="submit" value="<?php echo $arStore["DAO_store"]->id; ?>">
-												<?php if (defined('ENABLE_ENHANCED_CUSTOMER_NAV') && ENABLE_ENHANCED_CUSTOMER_NAV) { ?>
-													<?php if (!is_null($this->cart_info) && $this->cart_info['store_info']['id'] == $arStore["DAO_store"]->id || (empty($this->cart_info['store_info']['id']) && CUser::getCurrentUser()->home_store_id == $arStore["DAO_store"]->id)) { ?>
-														<i class="fas fa-shopping-cart float-left text-green-dark-extra pt-1"></i>
+											<?php if ($arStore["DAO_store"]->isComingSoon()) { ?>
+												<span class="btn btn-default btn-block btn-select-checked">Coming Soon!</span>
+											<?php } else { ?>
+												<button class="btn btn-primary btn-block btn-spinner <?php if (defined('ENABLE_ENHANCED_CUSTOMER_NAV') && ENABLE_ENHANCED_CUSTOMER_NAV) { ?>btn-click-add-cart<?php } ?>" id="select_store-<?php echo $arStore["DAO_store"]->id; ?>" name="select_store" type="submit" value="<?php echo $arStore["DAO_store"]->id; ?>">
+													<?php if (defined('ENABLE_ENHANCED_CUSTOMER_NAV') && ENABLE_ENHANCED_CUSTOMER_NAV) { ?>
+														<?php if (!is_null($this->cart_info) && $this->cart_info['store_info']['id'] == $arStore["DAO_store"]->id || (empty($this->cart_info['store_info']['id']) && CUser::getCurrentUser()->home_store_id == $arStore["DAO_store"]->id)) { ?>
+															<i class="fas fa-shopping-cart float-left text-green-dark-extra pt-1"></i>
+														<?php } ?>
 													<?php } ?>
-												<?php } ?>
-												View Menu &amp; Order
-											</button>
-										<?php } ?>
+													View Menu &amp; Order
+												</button>
+											<?php } ?>
 										</div>
 									</div>
 
@@ -99,11 +99,11 @@
 								No subscription required. Order as you need it.
 							</div>
 							<?php if (empty($this->state_has_delivered)) { ?>
-							<div class="mt-4">
-								<button class="btn btn-primary btn-block btn-spinner" id="select_delivered" data-start-delivered-order="<?php echo $this->delivered->zip; ?>">
-									View Menu &amp; Order
-								</button>
-							</div>
+								<div class="mt-4">
+									<button class="btn btn-primary btn-block btn-spinner" id="select_delivered" data-start-delivered-order="<?php echo $this->delivered->zip; ?>">
+										View Menu &amp; Order
+									</button>
+								</div>
 							<?php } ?>
 							<?php if (!empty($this->state_has_delivered)) { ?>
 								<div class="mt-4">
