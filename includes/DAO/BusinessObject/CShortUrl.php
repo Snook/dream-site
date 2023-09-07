@@ -14,13 +14,12 @@ class CShortUrl extends DAO_Short_url
 				$short_url = 'location/' . $this->short_url;
 		}
 
-		if(!empty($short_url) && !empty($full_url))
+		if(!empty($short_url))
 		{
-			$short_url = HTTPS_BASE . $short_url;
+			$short_url = ($full_url ? HTTPS_BASE : WEB_BASE) . $short_url;
 		}
 
 		return $short_url;
 	}
-
 }
 ?>

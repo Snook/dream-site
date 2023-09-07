@@ -167,7 +167,7 @@ class CStore extends DAO_Store
 		}
 		else
 		{
-			$store_short_url = ($full_url ? HTTPS_BASE : '') . "location/" . $this->id;
+			$store_short_url = ($full_url ? HTTPS_BASE : WEB_BASE) . "location/" . $this->id;
 		}
 
 		return $store_short_url;
