@@ -130,7 +130,7 @@
 		</div>
 		<div id="collapse-HN-Eleven" class="collapse" aria-labelledby="heading-HN-Eleven" data-parent="#accordion-HN">
 			<div class="card-body">
-				Dream Dinners is pleased to provide sodium, net carb and sugar information as part of our nutritional information. In an effort to meet the needs of our guests, many Dream Dinners stores are offering lower-sodium ingredients such as sauces, soups and stocks. Call your local store to find out if these items are available. Find your stores contact information by visiting our <a href="/main.php?page=locations">Locations page</a>.
+				Dream Dinners is pleased to provide sodium, net carb and sugar information as part of our nutritional information. In an effort to meet the needs of our guests, many Dream Dinners stores are offering lower-sodium ingredients such as sauces, soups and stocks. Call your local store to find out if these items are available. Find your stores contact information by visiting our <a href="/?page=locations">Locations page</a>.
 			</div>
 		</div>
 	</div>

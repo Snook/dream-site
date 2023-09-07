@@ -6,7 +6,7 @@ if ($order['session_type_subtype'] == CSession::WALK_IN) {
 ?>
 <div class="row my-1 mb-1">
 	<div class="col-md-12 mb-1 text-left">
-		<a class="btn btn-primary btn-block" href="/main.php?page=order_details&amp;order=<?php echo $order['id']; ?>"><?php echo CTemplate::dateTimeFormat($order['session_start'], $dateType); ?></a>
+		<a class="btn btn-primary btn-block" href="/?page=order_details&amp;order=<?php echo $order['id']; ?>"><?php echo CTemplate::dateTimeFormat($order['session_start'], $dateType); ?></a>
 		<?php if ($order['is_gift']) { ?>
 		<div class="custom-control custom-checkbox">
 			<input class="custom-control-input" id="my_meals_search_all" name="my_meals_search_all" type="checkbox" checked="checked" onclick="return false;">
@@ -46,7 +46,7 @@ if ($order['session_type_subtype'] == CSession::WALK_IN) {
 	</div>
 	<?php if ($order['session_type'] !== CSession::DELIVERED) { ?>
 		<div class="col-4 col-md-4">
-			<a class="btn btn-primary btn-block" href="/main.php?page=my_events&amp;sid=<?php echo $order['session_id']; ?>">
+			<a class="btn btn-primary btn-block" href="/?page=my_events&amp;sid=<?php echo $order['session_id']; ?>">
 				<i class="dd-icon icon-email_1 font-size-extra-large"></i>
 				<div class="font-size-small">Invite <br>Friends</div>
 			</a>
@@ -54,7 +54,7 @@ if ($order['session_type_subtype'] == CSession::WALK_IN) {
 	<?php } ?>
 	<?php if (isset($order['has_freezer_inventory']) && $order['has_freezer_inventory'] && $order['session_type_subtype'] != CSession::WALK_IN) { ?>
 		<div class="col-4 col-md-4">
-			<a class="btn btn-primary btn-block" href="/main.php?page=sides_and_sweets_order_form&amp;id=<?php echo $order['id']; ?>">
+			<a class="btn btn-primary btn-block" href="/?page=sides_and_sweets_order_form&amp;id=<?php echo $order['id']; ?>">
 				<i class="dd-icon icon-pie font-size-extra-large"></i>
 				<div class="font-size-small">Sides &amp; Sweets <br>Order Form</div>
 			</a>

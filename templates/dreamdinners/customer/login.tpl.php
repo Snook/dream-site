@@ -13,7 +13,7 @@
 				<?php include $this->loadTemplate('customer/subtemplate/login/login_form.tpl.php'); ?>
 
 				<div class="col-lg-4 col-md-6 mx-auto mt-4">
-					<a class="text-body text-decoration-hover-underline" href="/main.php?page=account_signup">Don't have an account? <span class="sign-up">sign up</span></a>
+					<a class="text-body text-decoration-hover-underline" href="/?page=account_signup">Don't have an account? <span class="sign-up">sign up</span></a>
 				</div>
 
 				</div>

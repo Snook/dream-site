@@ -2,7 +2,7 @@
 	<div class="col">
 
 		<form id="locations_login_form" method="POST">
-			<input type="hidden" name="back" value="main.php?page=session_menu" />
+			<input type="hidden" name="back" value="/?page=session_menu" />
 			<div class="row">
 				<div class="col-lg-6 pr-lg-1">
 					<div class="form-group has-danger">

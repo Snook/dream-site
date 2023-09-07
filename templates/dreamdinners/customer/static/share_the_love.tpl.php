@@ -31,7 +31,7 @@
 						<h2><b>Give Meal Prep a try this month and give back.</b></h2>
 						<p>Join us in our meal prep kitchen to customize up to 6 family-style dinners with our Meal Prep Starter Pack.</p>
 						<p><b>Plus, for every Meal Prep Starter Pack purchased in February, we will feed a person in need through the Dream Dinners Foundation.</b></p>
-						<a href="/main.php?page=session_menu" class="btn btn-primary btn-block mb-3 start-intro-offer">Find a Location &amp; View Menu</a>
+						<a href="/?page=session_menu" class="btn btn-primary btn-block mb-3 start-intro-offer">Find a Location &amp; View Menu</a>
 					</div>
 				</div>
 			</div>
@@ -45,16 +45,16 @@
 					<div class="col">
 						<div class="card-group text-center">
 							<div class="card border-0 mx-1">
-								<a href="/main.php?page=session_menu" class="start-intro-offer"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/parmesan-herb-crusted-chicken-458x344.jpg" alt="Parmesan Herb Crusted Chicken" class="img-fluid" /></a>
+								<a href="/?page=session_menu" class="start-intro-offer"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/parmesan-herb-crusted-chicken-458x344.jpg" alt="Parmesan Herb Crusted Chicken" class="img-fluid" /></a>
 							</div>
 							<div class="card border-0 mx-1">
-								<a href="/main.php?page=session_menu" class="start-intro-offer"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-shrimp-carbonara-458x344.jpg" alt="Chicken and Shrimp Carbonara" class="img-fluid" /></a>
+								<a href="/?page=session_menu" class="start-intro-offer"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-shrimp-carbonara-458x344.jpg" alt="Chicken and Shrimp Carbonara" class="img-fluid" /></a>
 							</div>
 							<div class="card border-0 mx-1">
-								<a href="/main.php?page=session_menu" class="start-intro-offer"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-turkey-meatloaves-458x344.jpg" alt="MINI TURKEY MEATLOAVES WITH BACON RANCH GREEN BEANS" class="img-fluid" /></a>
+								<a href="/?page=session_menu" class="start-intro-offer"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-turkey-meatloaves-458x344.jpg" alt="MINI TURKEY MEATLOAVES WITH BACON RANCH GREEN BEANS" class="img-fluid" /></a>
 							</div>
 							<div class="card border-0 mx-1">
-								<a href="/main.php?page=session_menu" class="start-intro-offer"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/thai-peanut-chicken-458x344.jpg" alt="THAI PEANUT CHICKEN WITH JASMINE RICE" class="img-fluid" /></a>
+								<a href="/?page=session_menu" class="start-intro-offer"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/thai-peanut-chicken-458x344.jpg" alt="THAI PEANUT CHICKEN WITH JASMINE RICE" class="img-fluid" /></a>
 							</div>
 						</div>
 					</div>

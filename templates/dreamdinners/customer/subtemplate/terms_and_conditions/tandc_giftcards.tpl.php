@@ -15,7 +15,7 @@
 					To report a lost, stolen or damaged Dream Dinners Gift Card, please call 1-360-804-2020.
 				</p>
 				<p>Dream Dinners Gift Cards are available for purchase online or in participating stores in set amounts from $25-$500. Dream Dinners Gift Cards may be reloaded only at participating Dream Dinners locations. Dream Dinners Gift cards do not expire and there are no fees for the use of your Dream Dinners Gift Card.</p>
-				<p><a href="/main.php?static=gift_card_balance">For balance inquiries, click here</a>. The card is required for all inquiries.</p>
+				<p><a href="/?static=gift_card_balance">For balance inquiries, click here</a>. The card is required for all inquiries.</p>
 				<p>For customer service, please call 1-360-804-2020.</p>
 			</div>
 		</div>

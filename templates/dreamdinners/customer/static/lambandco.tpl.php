@@ -11,7 +11,7 @@
 						<h1 class="font-weight-bold mt-2">As seen on HGTV’s Unsellable Houses, Lyndsay and Leslie are busy running a business, filming a tv show and spending time with their families.</h1>
 						<p class="text-uppercase mb-1">Have you wondered how they do it all? They have Dream Dinners to help!</p>
 						<p class="mb-4">Dream Dinners is here to make their life a little less crazy and their summertime a little easier with our ready-to-cook freezer meals, and we want to help you to. Spend less time in the kitchen and more time in the sun having fun!</p>
-						<a href="/main.php?page=locations" class="btn btn-lg btn-green">Find a Location</a>
+						<a href="/?page=locations" class="btn btn-lg btn-green">Find a Location</a>
 					</div>
 					<div class="col-md-6 p-0">
 						<figure>
@@ -84,7 +84,7 @@
 			</section>
 				<div class="row my-4">
 					<div class="col text-center">
-						<a href="/main.php?page=locations" class="btn btn-lg btn-primary">Get Cooking</a>
+						<a href="/?page=locations" class="btn btn-lg btn-primary">Get Cooking</a>
 					</div>
 				</div>
 			</div>
@@ -143,7 +143,7 @@
 							<h3 class="my-4">OUR GUESTS LOVE US</h3>
 						<p>Hear what our guest Ashley and her daughters have to say about how Dream Dinners has made dinnertime easier at her house.</p>
 						
-						<p><a href="/main.php?page=locations" data-gaq_cat="original" data-gaq_action="Order Now" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Order Now</a></p>
+						<p><a href="/?page=locations" data-gaq_cat="original" data-gaq_action="Order Now" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Order Now</a></p>
 					</div>
 					<div class="col-md-6 text-right">
 						<div class="embed-responsive embed-responsive-16by9">

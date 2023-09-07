@@ -1,6 +1,6 @@
 <div class="row mb-2">
 	<div class="col text-right">
-		<a class="btn btn-primary btn-sm" href="main.php?page=item&recipe=<?php echo $this->menu_item->recipe_id; ?>&amp;ov_menu=<?php echo $this->menu_item->menu_id; ?>">Full details</a>
+		<a class="btn btn-primary btn-sm" href="/?page=item&recipe=<?php echo $this->menu_item->recipe_id; ?>&amp;ov_menu=<?php echo $this->menu_item->menu_id; ?>">Full details</a>
 	</div>
 </div>
 <div class="row">

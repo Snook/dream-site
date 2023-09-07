@@ -25,7 +25,7 @@
 		<div id="collapse-DD-Two" class="collapse" aria-labelledby="heading-DD-Two" data-parent="#accordion-DD">
 			<div class="card-body">
 				<p>Dream Dinners meals are priced per menu item, offering guests flexibility with their food budget. Options will include steak, chicken and everything in between.</p>
-				<p>Each of our stores is independently owned and operated as a franchise, so pricing may vary from store to store. To find a location and see menus, click to <a href="/main.php?page=locations">Get Started</a>.</p>
+				<p>Each of our stores is independently owned and operated as a franchise, so pricing may vary from store to store. To find a location and see menus, click to <a href="/?page=locations">Get Started</a>.</p>
 			</div>
 		</div>
 	</div>
@@ -91,7 +91,7 @@
 		<div id="collapse-DD-Seven" class="collapse" aria-labelledby="heading-DD-Seven" data-parent="#accordion-DD">
 			<div class="card-body">
 				<p>Our website allows guests to reschedule their visit up to 6 days prior to their visit date. To reschedule your visit, log into your account using your login name and password, then click on "My Account". Click on the upcoming order you wish to reschedule. If your visit can be rescheduled there will be a "Reschedule" link. Click on the "Reschedule" link, and select your new date and time from the calendar then complete the remainder of the rescheduling process. Your account will show the rescheduled date and time of your session and you will receive an email confirmation of the change as well.</p>
-				<p>Note: Contact your store if you are not able to reschedule your visit online. Contact information for all of our stores is available on our <a href="/main.php?page=locations">Locations page.</a></p>
+				<p>Note: Contact your store if you are not able to reschedule your visit online. Contact information for all of our stores is available on our <a href="/?page=locations">Locations page.</a></p>
 			</div>
 		</div>
 	</div>
@@ -300,7 +300,7 @@
 		<div id="collapse-DD-Twentyfive" class="collapse" aria-labelledby="heading-DD-Twentyfive" data-parent="#accordion-DD">
 			<div class="card-body">
 				<p>We look forward with great anticipation to the day that we have the opportunity to serve you and your community. We are, however, a franchise organization and our stores are owned and operated by individuals who are qualified to purchase and invest in owning their own Dream Dinners business. As such, our desire to expand is directly related to connecting with strategic-partners to join us on our journey to make a difference in the lives of families across the nation. Please continue to watch our website for updates and for new location notifications.</p>
-				<!--<p>If you are interested in starting or owning a Dream Dinners Franchise in your area, <a href="/main.php?static=franchise_info">click here to visit our Franchise Information site</a>.</p>-->
+				<!--<p>If you are interested in starting or owning a Dream Dinners Franchise in your area, <a href="/?static=franchise_info">click here to visit our Franchise Information site</a>.</p>-->
 			</div>
 		</div>
 	</div>

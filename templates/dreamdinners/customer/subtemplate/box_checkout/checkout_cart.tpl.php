@@ -17,12 +17,12 @@
 			<div class="col-xl-6">
 
 				<?php if ($this->delta_boxes) { ?>
-					<a href="/main.php?page=box_select" class="btn btn-red btn-block">
+					<a href="/?page=box_select" class="btn btn-red btn-block">
 						<i class="fas fa-edit float-left text-white pt-1"></i>
 						You now have <?php echo $this->cart_info['cart_info_array']['dinners_total_count']; ?> nights of dinners
 					</a>
 				<?php } else {?>
-					<a href="/main.php?page=box_select" class="btn btn-primary btn-block">
+					<a href="/?page=box_select" class="btn btn-primary btn-block">
 						<i class="fas fa-edit float-left text-green-dark-extra pt-1"></i>
 						You have <?php echo $this->cart_info['cart_info_array']['dinners_total_count']; ?> nights of dinners
 					</a>
@@ -30,12 +30,12 @@
 			</div>
 			<div class="col-xl-6 mt-2 mt-xl-0">
 				<?php if ($this->delta_session) { ?>
-					<a class="btn btn-red btn-block" href="/main.php?page=box_delivery_date">
+					<a class="btn btn-red btn-block" href="/?page=box_delivery_date">
 						<i class="fas fa-edit float-left text-white pt-1"></i>
 						Updated Delivered <?php echo CTemplate::dateTimeFormat($this->cart_info['session_info']['session_start'], VERBOSE_DATE_NO_YEAR_W_COMMA); ?>
 					</a>
 				<?php } else {?>
-					<a class="btn btn-primary  btn-block" href="/main.php?page=box_delivery_date">
+					<a class="btn btn-primary  btn-block" href="/?page=box_delivery_date">
 						<i class="fas fa-edit float-left text-green-dark-extra pt-1"></i>
 						Delivered <?php echo CTemplate::dateTimeFormat($this->cart_info['session_info']['session_start'], VERBOSE_DATE_NO_YEAR_W_COMMA); ?>
 					</a>

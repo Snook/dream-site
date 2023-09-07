@@ -11,7 +11,7 @@
 					<div class="col-md-6 text-center mx-auto">
 						<h1 class="my-4 font-weight-bold">Dream Dinners To Your Door</h1>
 						<h3 class="mb-5">Dream Dinners just got even easier! With our  Home Delivery Service, our ServSafe certified team will prep and assemble your dinners and now also drop them off at your door. Stay home and stay healthy while we bring a month's worth of prepped meals to your door.</h3>
-						<a href="/main.php?page=locations" class="btn btn-primary mb-4">Find a Location</a>
+						<a href="/?page=locations" class="btn btn-primary mb-4">Find a Location</a>
 					</div>
 				</div>
 			</div>
@@ -53,7 +53,7 @@
 							<div class="card-body">
 								<h5 class="card-title">How It Works</h5>
 								<p class="card-text">In our professional kitchen, we do all the shopping, chopping, and prep and then drop off a month of meals at your door.</p>
-								<a href="/main.php?static=how_it_works" class="btn btn-primary">Learn More</a>
+								<a href="/?static=how_it_works" class="btn btn-primary">Learn More</a>
 							</div>
 						</div>
 						<div class="card border-0 mx-1">
@@ -61,7 +61,7 @@
 							<div class="card-body">
 								<h5 class="card-title">Browse Menu</h5>
 								<p class="card-text">Each month, our menu features 17 recipes for your family to enjoy. Our recipes include a variety of protein options and flavor profiles to experience at home.</p>
-								<a href="/main.php?page=browse_menu" class="btn btn-primary">Browse Menus</a>
+								<a href="/?page=browse_menu" class="btn btn-primary">Browse Menus</a>
 							</div>
 						</div>
 						<div class="card border-0 mx-1">
@@ -69,7 +69,7 @@
 							<div class="card-body">
 								<h5 class="card-title">Choose a Delivery Time</h5>
 								<p class="card-text">When you place your order, you will choose a Home Delivery time that works for your schedule.</p>
-								<a href="/main.php?page=locations" class="btn btn-primary">Find a Location</a>
+								<a href="/?page=locations" class="btn btn-primary">Find a Location</a>
 							</div>
 						</div>
 					</div>
@@ -89,7 +89,7 @@
 					<div class="col-md-6 bg-cyan-dark text-white text-right p-5">
 						<h2 class="text-uppercase font-weight-bold">WANT TO LEARN MORE ABOUT MAKING DINNERTIME EASIER?</h2>
 						<p class="text-uppercase mb-4">Get comfy and find out how to simplify meals in your home with Dream Dinners.</p>
-						<a href="/main.php?static=national_virtual_party" class="btn btn-gray-light">Learn More</a>
+						<a href="/?static=national_virtual_party" class="btn btn-gray-light">Learn More</a>
 					</div>
 					<div class="col-md-6 p-0">
 						<img src="<?php echo IMAGES_PATH; ?>/home_content/virtual-party-957x675.jpg" alt="Watching a Virtual Meal Prep Party" class="img-fluid">

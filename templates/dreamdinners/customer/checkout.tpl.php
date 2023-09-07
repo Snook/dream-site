@@ -31,12 +31,12 @@
 		<div class="row">
 			<div class="col-6 col-sm-3 p-0 order-2 order-sm-1">
 				<?php if (!empty($this->cart_info['cart_info_array']['direct_invite'])) { ?>
-					<a href="/main.php?page=session" class="btn btn-primary"><span class="pr-2">&#10094;</span> Change Session</a>
+					<a href="/?page=session" class="btn btn-primary"><span class="pr-2">&#10094;</span> Change Session</a>
 				<?php } else { ?>
 					<?php if ($this->cart_info['cart_info_array']['navigation_type'] == CTemplate::DELIVERED) { ?>
-						<a href="/main.php?page=box_select" class="btn btn-primary"><span class="pr-2">&#10094;</span> Make Changes</a>
+						<a href="/?page=box_select" class="btn btn-primary"><span class="pr-2">&#10094;</span> Make Changes</a>
 					<?php } else { ?>
-					<a href="/main.php?page=session" class="btn btn-primary"><span class="pr-2">&#10094;</span> Back to Calendar</a>
+					<a href="/?page=session" class="btn btn-primary"><span class="pr-2">&#10094;</span> Back to Calendar</a>
 				<?php } ?>
 				<?php } ?>
 			</div>

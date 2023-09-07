@@ -7,8 +7,8 @@
 		</div>
 		<div id="collapse-DLVRD-One" class="collapse" aria-labelledby="heading-DLVRD-One" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				Dream Dinners is currently available for shipping across the majority of the United States. We currently cannot ship to Alaska, Hawaii, or outside the 48 contiguous states, and some states have areas we cannot reach due to time in transit.  
-				<p>To see what services are available in your area, <a href="main.php?page=locations">click here</a>.</p>
+				Dream Dinners is currently available for shipping across the majority of the United States. We currently cannot ship to Alaska, Hawaii, or outside the 48 contiguous states, and some states have areas we cannot reach due to time in transit.
+				<p>To see what services are available in your area, <a href="/?page=locations">click here</a>.</p>
 			</div>
 		</div>
 	</div>
@@ -56,7 +56,7 @@
 		</div>
 		<div id="collapse-DLVRD-Five" class="collapse" aria-labelledby="heading-DLVRD-Five" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				Our menu changes every 4 or 5 weeks on Thursday mornings. Each menu is based on the month, but we do not follow a traditional calendar schedule. Watch your email for new menu launches. 
+				Our menu changes every 4 or 5 weeks on Thursday mornings. Each menu is based on the month, but we do not follow a traditional calendar schedule. Watch your email for new menu launches.
 			</div>
 		</div>
 	</div>
@@ -116,7 +116,7 @@
 		</div>
 		<div id="collapse-DLVRD-Ten" class="collapse" aria-labelledby="heading-DLVRD-Ten" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				Weather, natural disasters and other uncontrollable events can interrupt delivery service with little warning. Please refer to the tracking number provided with your order or contact our support team via the website with any questions or concerns regarding delivery. In addition, you can visit www.fedex.com to sign up for alerts direct from the carrier. 
+				Weather, natural disasters and other uncontrollable events can interrupt delivery service with little warning. Please refer to the tracking number provided with your order or contact our support team via the website with any questions or concerns regarding delivery. In addition, you can visit www.fedex.com to sign up for alerts direct from the carrier.
 			</div>
 		</div>
 	</div>
@@ -175,7 +175,7 @@
 		</div>
 		<div id="collapse-DLVRD-Fourteen" class="collapse" aria-labelledby="heading-DLVRD-Fourteen" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				Cooking instructions are available on our <a href="/main.php?page=recipe_resources">Recipe Resources</a> page. Type the recipe name in the search bar to pull up the recipe details and cooking instructions. Don’t know the recipe name? Click the menu month when you purchased the recipe and search the menu items.
+				Cooking instructions are available on our <a href="/?page=recipe_resources">Recipe Resources</a> page. Type the recipe name in the search bar to pull up the recipe details and cooking instructions. Don’t know the recipe name? Click the menu month when you purchased the recipe and search the menu items.
 			</div>
 		</div>
 	</div>
@@ -187,7 +187,7 @@
 		</div>
 		<div id="collapse-DLVRD-Fifteen" class="collapse" aria-labelledby="heading-DLVRD-Fifteen" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				Nutritional information is available on our <a href="/main.php?page=recipe_resources">Recipe Resources</a> page. Type the recipe name in the search bar to pull up the recipe details. Don’t know the recipe name? Click the menu month when you purchased the recipe and search the menu items.
+				Nutritional information is available on our <a href="/?page=recipe_resources">Recipe Resources</a> page. Type the recipe name in the search bar to pull up the recipe details. Don’t know the recipe name? Click the menu month when you purchased the recipe and search the menu items.
 			</div>
 		</div>
 	</div>
@@ -223,7 +223,7 @@
 		</div>
 		<div id="collapse-DLVRD-Eighteen" class="collapse" aria-labelledby="heading-DLVRD-Eighteen" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				No, you can not use Dinner Dollars on your Delivered purchases at this time. 
+				No, you can not use Dinner Dollars on your Delivered purchases at this time.
 			</div>
 		</div>
 	</div>
@@ -283,10 +283,10 @@
 		</div>
 		<div id="collapse-DLVRD-Twentythree" class="collapse" aria-labelledby="heading-DLVRD-Twentythree" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				No, preferred guests do not receive a discount on their Delivered purchases. 
+				No, preferred guests do not receive a discount on their Delivered purchases.
 			</div>
 		</div>
 	</div>
-	
+
 	</div>
 </div>

@@ -32,7 +32,7 @@
 		<div id="collapse-MPP-Three" class="collapse" aria-labelledby="heading-MPP-Three" data-parent="#accordion-MPP">
 			<div class="card-body">
 				<p>In order to maintain membership, you must place a minimum standard order each menu month for the 6-month term. Additional orders placed during the same menu month do not count towards your required minimum for the membership term, but the discount will apply provided that the standard monthly order is in the system first.</p>
-				<p>If you are unable to place a monthly standard order for 6 consecutive months, your membership may be canceled. <a href="/main.php?static=terms">See terms and conditions.</a></p>
+				<p>If you are unable to place a monthly standard order for 6 consecutive months, your membership may be canceled. <a href="/?static=terms">See terms and conditions.</a></p>
 			</div>
 		</div>
 	</div>
@@ -105,7 +105,7 @@
 		</div>
 		<div id="collapse-MPP-Nine" class="collapse" aria-labelledby="heading-MPP-Nine" data-parent="#accordion-MPP">
 			<div class="card-body">
-				<p>You may cancel your enrollment in Meal Prep+ at any time by contacting your store; however, membership fees are nonrefundable once the first discounted order is placed and completed. <a href="/main.php?static=terms">See terms and conditions.</a></p>
+				<p>You may cancel your enrollment in Meal Prep+ at any time by contacting your store; however, membership fees are nonrefundable once the first discounted order is placed and completed. <a href="/?static=terms">See terms and conditions.</a></p>
 			</div>
 		</div>
 	</div>

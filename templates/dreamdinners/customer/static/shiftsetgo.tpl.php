@@ -13,13 +13,13 @@
 						<h1 class="font-weight-bold mt-2">Dream Dinners + ShiftSetGo</h1>
 						<p class="text-uppercase mb-4">Dream Dinners provides ready-to-cook meals prepared locally with raw ingredients. We have partnered with ShiftSetGo to customize some of our recipes to make dinnertime easier for you. Simply thaw and cook.</p>
 						<p>Get our 6 medium meal bundle for just $180!</p>
-						<p><a href="/main.php?page=locations&select_store=280&select_menu=261" class="btn btn-lg btn-primary">Order San Jose CA</a>&nbsp;&nbsp;
-						<a href="/main.php?page=locations&select_store=244&select_menu=261" class="btn btn-lg btn-primary">Order Mill Creek WA</a>
+						<p><a href="/?page=locations&select_store=280&select_menu=261" class="btn btn-lg btn-primary">Order San Jose CA</a>&nbsp;&nbsp;
+						<a href="/?page=locations&select_store=244&select_menu=261" class="btn btn-lg btn-primary">Order Mill Creek WA</a>
 					</div>
 					<div class="col-md-6 p-0">
 						<figure>
 							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cooking-green-beans-957x657.webp" alt="Easy ready to cook meals at home" class="img-fluid">
-						</figure> 
+						</figure>
 					</div>
 				</div>
 			</div>
@@ -78,8 +78,8 @@
 				</div>
 				<div class="row my-4">
 					<div class="col text-center">
-						<p><a href="/main.php?page=locations&select_store=280&select_menu=261" class="btn btn-lg btn-primary">Order San Jose CA</a>&nbsp;&nbsp;
-						<a href="/main.php?page=locations&select_store=244&select_menu=261" class="btn btn-lg btn-primary">Order Mill Creek WA</a>
+						<p><a href="/?page=locations&select_store=280&select_menu=261" class="btn btn-lg btn-primary">Order San Jose CA</a>&nbsp;&nbsp;
+						<a href="/?page=locations&select_store=244&select_menu=261" class="btn btn-lg btn-primary">Order Mill Creek WA</a>
 						<br/><br/>
 						<p><i>*This bundle has limited availability. Only available at our Mill Creek, WA and San Jose, CA locations. Store assembly sessions for these menu items are not available. Our medium size serves 2-3 per dinner. No additional substitutions, special requests or customization allowed. Images shown are from our regular menu and may include incorrect sides or ingredients.</i></p>
 					</div>
@@ -102,7 +102,7 @@
 					<div class="col">
 						<div class="card-group text-center mb-5">
 							<div class="card border-0">
-								
+
 								<div class="card-body">
 									<h5 class="card-title"></h5>
 									<p class="card-text"></p>
@@ -122,9 +122,9 @@
 									<p class="card-text">Our store can deliver your ready-to-cook meals directly to your home.</p>
 								</div>
 							</div>
-							
+
 							<div class="card border-0">
-							
+
 								<div class="card-body">
 									<h5 class="card-title"></h5>
 									<p class="card-text"></p>
@@ -135,8 +135,8 @@
 				</div>
 				<div class="row my-4">
 					<div class="col text-center">
-						<p><a href="/main.php?page=locations&select_store=280&select_menu=261" class="btn btn-lg btn-primary">Order San Jose CA</a>&nbsp;&nbsp;
-						<a href="/main.php?page=locations&select_store=244&select_menu=261" class="btn btn-lg btn-primary">Order Mill Creek WA</a>
+						<p><a href="/?page=locations&select_store=280&select_menu=261" class="btn btn-lg btn-primary">Order San Jose CA</a>&nbsp;&nbsp;
+						<a href="/?page=locations&select_store=244&select_menu=261" class="btn btn-lg btn-primary">Order Mill Creek WA</a>
 					</div>
 				</div>
 			</div>

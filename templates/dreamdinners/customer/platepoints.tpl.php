@@ -85,7 +85,7 @@
 										<p style="font-size: 1rem;">Refer a friend and receive 10 Dinner Dollars.</p>
 									</div>
 								</div>
-								
+
 							</div>
 						</div>
 					</div>-->
@@ -100,7 +100,7 @@
 					<div class="card-group text-center">
 						<div class="card border-0 bg-cyan-extra-light">
 							<div class="card-body">
-								
+
 							</div>
 						</div>
 						<div class="card border-0 bg-cyan-extra-light">
@@ -120,7 +120,7 @@
 						</div>
 						<div class="card border-0 bg-cyan-extra-light">
 							<div class="card-body">
-								
+
 							</div>
 						</div>
 					</div>
@@ -135,7 +135,7 @@
 					<div class="card-group text-center">
 						<div class="card border-0 bg-cyan-extra-light">
 							<div class="card-body">
-								
+
 							</div>
 						</div>
 						<div class="card border-0 bg-cyan-extra-light">
@@ -155,18 +155,18 @@
 						</div>
 						<div class="card border-0 bg-cyan-extra-light">
 							<div class="card-body">
-								
+
 							</div>
 						</div>
 					</div>
 				</div>
 					<div class="col text-center my-5">
-						<a href="/main.php?page=login" class="btn btn-lg btn-primary">Login & Enroll</a>
+						<a href="/?page=login" class="btn btn-lg btn-primary">Login & Enroll</a>
 					</div>
 			</div>
 		</div>
 
-		
+
 
 		<div class="row">
 			<div class="col">
