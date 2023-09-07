@@ -824,7 +824,7 @@ class CApp
 	 *
 	 * @param $tryInsecure will try to go back to http if currently on a secure page.ie. going from login back to insecure page
 	 */
-	static function bounce($page = 'main.php', $tryInsecure = false)
+	static function bounce($page = '/', $tryInsecure = false)
 	{
 		$serverPrefix = '';
 		$q_params = '';
@@ -892,8 +892,6 @@ class CApp
 			$location = $serverPrefix . $page;
 		}
 
-		$req_parts = parse_url($_SERVER["REQUEST_URI"]);
-
 		// check to see if there are already query parameters in the location, if so use & instead of ?
 		if (!empty($get_params) && !empty($q_params))
 		{
@@ -904,17 +902,6 @@ class CApp
 			else
 			{
 				$q_params = '?' . $q_params;
-			}
-		}
-		else if (!empty($req_parts) && !empty($req_parts["query"]))
-		{
-			if (strpos($location, '?'))
-			{
-				$q_params = '&' . $req_parts["query"];
-			}
-			else
-			{
-				$q_params = '?' . $req_parts["query"];
 			}
 		}
 

@@ -58,7 +58,7 @@
 							class="border border-width-2-imp border-gray-500"
 							width="100%"
 							height="250"
-							src="//www.google.com/maps/embed/v1/place?key=<?php echo GOOGLE_APIKEY; ?>&q=<?php echo (!empty($this->DAO_store->google_place_id)) ? 'place_id:' . $this->DAO_store->google_place_id : urlencode($this->DAO_store->linear_address); ?>" allowfullscreen>
+							src="//www.google.com/maps/embed/v1/place?key=<?php echo GOOGLE_APIKEY; ?>&q=<?php echo (!empty($this->DAO_store->google_place_id)) ? 'place_id:' . $this->DAO_store->google_place_id : urlencode($this->DAO_store->address_linear); ?>" allowfullscreen>
 					</iframe>
 				</div>
 			</div>
