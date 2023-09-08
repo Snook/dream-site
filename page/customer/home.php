@@ -48,7 +48,7 @@ class page_home extends CPage
 				CBrowserSession::setValueAndDuration('RSV2_Share_source', 'user_referral', 86400 * 7);
 			}
 
-			CApp::bounce('main.php?static=share');
+			CApp::bounce('/share');
 		}
 	}
 
