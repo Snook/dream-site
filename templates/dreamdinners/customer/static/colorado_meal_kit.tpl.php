@@ -20,10 +20,10 @@
 			<div class="container">
 				<div class="row my-5">
 					<div class="col-md-7 text-left">
-						<h3>New Guest Exclusive:<br><strong>Buy 3 Dinners, Get 1 Free*</strong></h3>
+						<h3>New Guest Exclusive<br><strong>Buy 3 Dinners, Get 1 Free*</strong></h3>
 						<p>Place an order for 3 or more dinners, get a free medium Cashew Chicken and Noodles as our gift to you. </p>
 						<p>Use this code at checkout: <span class="font-weight-bold font-marker font-size-large">COLORADO</span></p>
-						<p class="my-3"><a href="/main.php?page=locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
+						<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
 					</div>
 					<div class="col-md-5 mb-6">
 						<div>
@@ -32,11 +32,24 @@
 					</div>
 				</div>
 			</div>
+			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
+		</section>
+		<section>
 			<div class="container">
-			<div class="row my-5 text-center">
-				<p class="mt-4"><i>*The free dinner coupon code is for new guests who have never been to Dream Dinners or guests that have not ordered in over a year. The coupon code has no cash value and is not for sale; it is good for one redemption per a household, and recipient must be at least 18 years old. Not valid combined with any other offers or promotions. Code is only valid at participating Colorado store locations.</i></p>
+				<div class="row my-5">
+					<div class="col-md-5 mb-6">
+						<div>
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-chicken-pot-pies-circle-458x344v2.webp" alt="Mini Chicken Pot Pies" class="img-fluid mb-3" />
+						</div>
+					</div>
+					<div class="col-md-7 text-left">
+						<h3>Meal of the Month<br><strong>Mini Chicken Pot Pies</strong></h3>
+						<p>This meal helps fight hunger at home and abroad. For each Mini Chicken Pot Pies sold in September, $1 will be donated to the Dream Dinners foundation to help feed families around the world.</p>
+						<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
+					</div>
+				</div>
 			</div>
-		</div>
+			
 		</section>
 		<section>
 			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
@@ -49,7 +62,7 @@
 								<div class="card border-0 py-4 px-4 mx-1 text-center">
 									<div class="card-body text-center">
 										<h4 class="card-title">Arvada</h4>
-										<a href="/main.php?page=store&id=63"><img src="<?php echo IMAGES_PATH; ?>/stores/63.webp" alt="Arvada" class="img-fluid" /></a>
+										<a href="/?page=store&id=63"><img src="<?php echo IMAGES_PATH; ?>/stores/63.webp" alt="Arvada" class="img-fluid" /></a>
 									</div>
 									<div class="card-body">
 										<p class="card-text">12650 W. 64th Ave, Unit I
@@ -60,7 +73,7 @@
 								<div class="card border-0 py-4 px-4 mx-1 text-center">
 									<div class="card-body text-center">
 										<h4 class="card-title">Castle Rock</h4>
-										<a href="/main.php?page=store&id=309"><img src="<?php echo IMAGES_PATH; ?>/stores/309.webp" alt="Castle Rock" class="img-fluid" /></a>
+										<a href="/?page=store&id=309"><img src="<?php echo IMAGES_PATH; ?>/stores/309.webp" alt="Castle Rock" class="img-fluid" /></a>
 									</div>
 									<div class="card-body">
 										<p class="card-text">333 Perry Street, Suite A
@@ -71,7 +84,7 @@
 								<div class="card border-0 py-4 px-4 mx-1 text-center">
 									<div class="card-body text-center">
 										<h4 class="card-title">Centennial</h4>
-										<a href="/main.php?page=store&id=61"><img src="<?php echo IMAGES_PATH; ?>/stores/61.webp" alt="Centennial" class="img-fluid" /></a>
+										<a href="/?page=store&id=61"><img src="<?php echo IMAGES_PATH; ?>/stores/61.webp" alt="Centennial" class="img-fluid" /></a>
 									</div>
 									<div class="card-body">
 										<p class="card-text">7286 S Yosemite St
@@ -88,7 +101,7 @@
 								<div class="card border-0 py-4 px-4 mx-1 text-center">
 									<div class="card-body text-center">
 										<h4 class="card-title">North Colorado Springs</h4>
-										<a href="/main.php?page=store&id=136"><img src="<?php echo IMAGES_PATH; ?>/stores/136.webp" alt="Colorado Springs" class="img-fluid" /></a>
+										<a href="/?page=store&id=136"><img src="<?php echo IMAGES_PATH; ?>/stores/136.webp" alt="Colorado Springs" class="img-fluid" /></a>
 									</div>
 									<div class="card-body">
 										<p class="card-text">5578 Powers Center Point
@@ -99,7 +112,7 @@
 								<div class="card border-0 py-4 px-4 mx-1 text-center">
 									<div class="card-body text-center">
 										<h4 class="card-title">Parker<br />&nbsp;</h4>
-										<a href="/main.php?page=store&id=30"><img src="<?php echo IMAGES_PATH; ?>/stores/30.webp" alt="Parker" class="img-fluid" /></a>
+										<a href="/?page=store&id=30"><img src="<?php echo IMAGES_PATH; ?>/stores/30.webp" alt="Parker" class="img-fluid" /></a>
 									</div>
 									<div class="card-body">
 										<p class="card-text">10447 S Parker Road
@@ -110,7 +123,7 @@
 								<div class="card border-0 py-4 px-4 mx-1 text-center">
 									<div class="card-body text-center">
 										<h4 class="card-title"></h4>
-										
+
 									</div>
 									<div class="card-body">
 										<p class="card-text"></p>
@@ -223,7 +236,7 @@
 				</div>
 				<div class="row my-2">
 					<div class="col text-center">
-						<a href="/main.php?page=locations" class="btn btn-lg btn-primary">Get started</a>
+						<a href="/locations" class="btn btn-lg btn-primary">Get started</a>
 					</div>
 				</div>
 			</div>
@@ -274,7 +287,7 @@
 				<div>
 					<div class="col">
 						<div class="text-center">
-							<a href="/main.php?page=locations" class="btn btn-lg btn-primary">See Your Local Menu Options</a>
+							<a href="/locations" class="btn btn-lg btn-primary">See Your Local Menu Options</a>
 						</div>
 					</div>
 				</div>
@@ -322,7 +335,11 @@
 				</div>
 			</div>
 		</section>
-		
+		<div class="container">
+			<div class="row my-5 text-center">
+				<p class="mt-4"><i>*The free dinner coupon code is for new guests who have never been to Dream Dinners or guests that have not ordered in over a year. The coupon code has no cash value and is not for sale; it is good for one redemption per a household, and recipient must be at least 18 years old. Not valid combined with any other offers or promotions. Code is only valid at participating Colorado store locations.</i></p>
+			</div>
+		</div>
 
 	</main>
 
