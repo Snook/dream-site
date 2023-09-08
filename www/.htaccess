@@ -184,32 +184,30 @@ RewriteRule ^authms_my_events/?$ /main.php?page=my_events [R=301,NC,QSA]
 RewriteRule ^location/([\w-]+)/([\w-]+)/?$ /main.php?page=store_$2&id=$1 [NC,L,QSA] # /store/mill-creek/meet-the-owner
 RewriteRule ^location/([\w-]+)/?$ /main.php?page=store&id=$1 [NC,L,QSA] # /store/mill-creek
 
-RewriteRule ^locations?/?$ /main.php?page=locations [NC,L,QSA]
+RewriteRule ^locations?/?$ /main.php?page=locations [NC,L,QSA] # this is to redirect to the /locations page if someone removes the store-name parameter from /location/store-name
 
-## Fall all others into page
+## This handles the short/pretty urls
+#RewriteCond %{REQUEST_FILENAME} !-f # Don't rewrite of the request is an existing file
+#RewriteCond %{REQUEST_FILENAME} !-d # Don't rewrite of the request is an existing directory
 RewriteRule ^([\w-]+)/?$ /main.php?page=$1 [NC,L,QSA] #
 
 # Dream Dinner shortcuts #
-RewriteRule ^share/?$ /main.php?static=share [R=301,NC,QSA]
-RewriteRule ^doordash/?$ /main.php?static=doordash [R=301,NC,QSA]
-RewriteRule ^tips/?$ /main.php?static=tips [R=301,NC,QSA]
-RewriteRule ^mealprep\+/?$ /main.php?static=meal_prep_plus [R=301,NC,QSA]
-RewriteRule ^mealprep/?$ /main.php?static=meal_prep_plus [R=301,NC,QSA]
-RewriteRule ^mealprepplus/?$ /main.php?static=meal_prep_plus [R=301,NC,QSA]
-RewriteRule ^franchise/?$ /main.php?static=franchise_info [R=301,NC,QSA]
-RewriteRule ^giftcards/?$ /main.php?static=giftcards [R=301,NC,QSA]
-RewriteRule ^giftcardwelcome/?$ /main.php?static=giftcards [R=301,NC,QSA]
-RewriteRule ^myreviews/?$ /main.php?page=my_meals [R=301,NC,QSA]
+RewriteRule ^mealprep\+/?$ /meal-prep-plus [R=301,NC,QSA]
+RewriteRule ^mealprep/?$ /meal-prep-plus [R=301,NC,QSA]
+RewriteRule ^mealprepplus/?$ /meal-prep-plus [R=301,NC,QSA]
+RewriteRule ^franchise/?$ /franchise-info [R=301,NC,QSA]
+RewriteRule ^giftcards/?$ /giftcards [R=301,NC,QSA]
+RewriteRule ^giftcardwelcome/?$ /giftcards [R=301,NC,QSA]
+RewriteRule ^myreviews/?$ /my-meals [R=301,NC,QSA]
 
 # Optioanl S after location
-RewriteRule ^msl/?$ /main.php?page=home [R=301,NC,QSA]
-RewriteRule ^offers/?$ /main.php?page=home [R=301,NC,QSA]
-RewriteRule ^platepoints/?$ /main.php?page=platepoints [R=301,NC,QSA]
-RewriteRule ^testimonials/?$ /main.php?static=shared_stories [R=301,NC,QSA]
-RewriteRule ^testrecipe/?$ /main.php?page=survey_landing [R=301,NC,QSA]
-RewriteRule ^testrecipes/?$ /main.php?page=survey_landing [R=301,NC,QSA]
-RewriteRule ^mysurveys/?$ /main.php?page=my_surveys [R=301,NC,QSA]
-RewriteRule ^main\.php/main\.php ^/main.php [R=301,NC,QSA]
+RewriteRule ^msl/?$ / [R=301,NC,QSA]
+RewriteRule ^offers/?$ / [R=301,NC,QSA]
+RewriteRule ^platepoints/?$ /platepoints [R=301,NC,QSA]
+RewriteRule ^testimonials/?$ /shared-stories [R=301,NC,QSA]
+RewriteRule ^testrecipe/?$ /survey-landing [R=301,NC,QSA]
+RewriteRule ^testrecipes/?$ /survey-landing [R=301,NC,QSA]
+RewriteRule ^mysurveys/?$ /my-surveys [R=301,NC,QSA]
 RewriteRule ^fadmin/?$ /main.php?page=admin_main [R=301,NC,QSA]
 RewriteRule ^mymeals/?$ /main.php?page=my_meals [R=301,NC,QSA]
 RewriteRule ^promotions/?$ /main.php?static=promotions [R=301,NC,QSA]
