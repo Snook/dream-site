@@ -1801,7 +1801,7 @@ class CCouponCode extends DAO_Coupon_code
 		//TODO: sanity checks
 		$base = $Order->subtotal_menu_items + $Order->subtotal_home_store_markup - $Order->bundle_discount - $Order->family_savings_discount - $Order->promo_code_discount_total - $Order->volume_discount_total;
 		$base = COrders::std_round($base);
-		$discount = floor($base * ($this->discount_var)) / 100;
+		$discount = COrders::std_round(($base * ($this->discount_var)) / 100);
 
 		return $discount;
 	}
