@@ -14,7 +14,6 @@
 		<?php include $this->loadTemplate('customer/subtemplate/store/store_navigation.tpl.php'); ?>
 	</header>
 
-	<!-- Header-->
 	<section>
 		<div class="container mb-5">
 

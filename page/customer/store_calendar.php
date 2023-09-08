@@ -17,7 +17,22 @@ class page_store_calendar extends CPage
 			{
 				$DAO_store->getActivePromoArray();
 
+				$calendar = CSession::getSessionsForFullCalendarCustomer($DAO_store, true);
+				$calendar['menus'] = CMenu::getActiveMenuArray();
+				$calendarJS = (!empty($calendar) ? json_encode($calendar) : "{}");
+
+				$sessionArray = $DAO_store->getCustomerCalendarArray(array(
+					CSession::INTRO,
+					CSession::ALL_STANDARD,
+					CSession::EVENT
+				), false, false, true);
+
 				$this->Template->assign('DAO_store', $DAO_store);
+				$this->Template->assign('has_meal_customization_sessions', ($calendar['info']['has_meal_customization_sessions'] && $DAO_store->supports_meal_customization));
+				$this->Template->assign('sessionArray', $sessionArray);
+				$this->Template->assign('calendar', $calendar);
+				$this->Template->assign('calendarJS', $calendarJS);
+				$this->Template->assign('canOrderIntro', CUser::getCurrentUser()->isEligibleForIntro($DAO_store));
 			}
 			else
 			{
@@ -31,4 +46,5 @@ class page_store_calendar extends CPage
 		}
 	}
 }
+
 ?>
