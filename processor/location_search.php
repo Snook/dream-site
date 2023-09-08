@@ -256,8 +256,6 @@ class processor_location_search extends CPage
 			$DAO_store->show_on_customer_site = 1;
 			$DAO_store->state_id = $state_id;
 			$DAO_store->whereAdd("store.store_type <> '" . CStore::DISTRIBUTION_CENTER . "'");
-			$DAO_store->whereAdd("store.address_latitude > '" . ($req_latitude - 5) . "' AND store.address_latitude  < '" . ($req_latitude + 5) . "'");
-			$DAO_store->whereAdd("store.address_longitude > '" . ($req_longitude - 5) . "' AND store.address_longitude < '" . ($req_longitude + 5) . "'");
 			$DAO_store->orderBy("store.city, store.store_name");
 			$DAO_store->find_DAO_store();
 
