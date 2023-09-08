@@ -43,7 +43,7 @@
 						</div>
 					</div>
 					<div class="col-md-7 text-left">
-						<h3>Meal of the Month: Mini Chicken Pot Pies</h3>
+						<h3>Meal of the Month<br><strong>Mini Chicken Pot Pies</strong></h3>
 						<p>This meal helps fight hunger at home and abroad. For each Mini Chicken Pot Pies sold in September, $1 will be donated to the Dream Dinners foundation to help feed families around the world.</p>
 						<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
 					</div>
