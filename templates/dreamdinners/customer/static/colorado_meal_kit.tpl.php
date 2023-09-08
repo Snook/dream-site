@@ -32,7 +32,7 @@
 					</div>
 				</div>
 			</div>
-			
+			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 		</section>
 		<section>
 			<div class="container">
