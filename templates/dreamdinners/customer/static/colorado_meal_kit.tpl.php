@@ -32,11 +32,24 @@
 					</div>
 				</div>
 			</div>
+			
+		</section>
+		<section>
 			<div class="container">
-			<div class="row my-5 text-center">
-				<p class="mt-4"><i>*The free dinner coupon code is for new guests who have never been to Dream Dinners or guests that have not ordered in over a year. The coupon code has no cash value and is not for sale; it is good for one redemption per a household, and recipient must be at least 18 years old. Not valid combined with any other offers or promotions. Code is only valid at participating Colorado store locations.</i></p>
+				<div class="row my-5">
+					<div class="col-md-5 mb-6">
+						<div>
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-chicken-pot-pies-circle-458x344v2.webp" alt="Mini Chicken Pot Pies" class="img-fluid mb-3" />
+						</div>
+					</div>
+					<div class="col-md-7 text-left">
+						<h3>Meal of the Month: Mini Chicken Pot Pies</h3>
+						<p>This meal helps fight hunger at home and abroad. For each Mini Chicken Pot Pies sold in September, $1 will be donated to the Dream Dinners foundation to help feed families around the world.</p>
+						<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
+					</div>
+				</div>
 			</div>
-		</div>
+			
 		</section>
 		<section>
 			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
@@ -322,7 +335,11 @@
 				</div>
 			</div>
 		</section>
-
+		<div class="container">
+			<div class="row my-5 text-center">
+				<p class="mt-4"><i>*The free dinner coupon code is for new guests who have never been to Dream Dinners or guests that have not ordered in over a year. The coupon code has no cash value and is not for sale; it is good for one redemption per a household, and recipient must be at least 18 years old. Not valid combined with any other offers or promotions. Code is only valid at participating Colorado store locations.</i></p>
+			</div>
+		</div>
 
 	</main>
 
