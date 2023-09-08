@@ -94,15 +94,15 @@ class CStore extends DAO_Store
 	/**
 	 * @var array|mixed
 	 */
-	private $PersonnelArray;
+	public $PersonnelArray;
 	/**
 	 * @var array|mixed
 	 */
-	private $OwnerArray;
+	public $OwnerArray;
 	/**
 	 * @var array
 	 */
-	private $ActivePromoArray;
+	public $ActivePromoArray;
 
 	function __construct()
 	{
@@ -171,6 +171,18 @@ class CStore extends DAO_Store
 		}
 
 		return $store_short_url;
+	}
+
+	function getStoreId()
+	{
+		if(!empty($this->DAO_short_url) && !empty($this->DAO_short_url->short_url))
+		{
+			return $this->DAO_short_url->short_url;
+		}
+		else
+		{
+			return $this->id;
+		}
 	}
 
 	static function setUpFranchiseStore($store_id)
