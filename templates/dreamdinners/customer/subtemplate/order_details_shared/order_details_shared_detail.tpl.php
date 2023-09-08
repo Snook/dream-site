@@ -99,7 +99,7 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<a class="btn btn-primary btn-block" href="/?page=my_events&amp;sid=<?php echo $this->sessionInfo['id']; ?>">
+								<a class="btn btn-primary btn-block" href="/my-events?sid=<?php echo $this->sessionInfo['id']; ?>">
 									<i class="dd-icon icon-email_1 font-size-extra-extra-large"></i>
 									<div>Invite Friends</div>
 								</a>
@@ -144,7 +144,7 @@
 						<div class="form-group pl-3">
 							<div class="custom-control custom-checkbox">
 								<input type="checkbox" class="custom-control-input" name="enroll_in_plate_points" id="enroll_in_plate_points">
-								<label for="enroll_in_plate_points" class="custom-control-label">Enroll me in PlatePoints. I agree to the <a href="/?static=terms#platepoints" target="_blank">program terms.</a></label>
+								<label for="enroll_in_plate_points" class="custom-control-label">Enroll me in PlatePoints. I agree to the <a href="/terms#platepoints" target="_blank">program terms.</a></label>
 							</div>
 						</div>
 					</div>
@@ -173,7 +173,7 @@
 				<div class="col-12 col-lg-6 text-center bg-cyan-extra-light">
 					<h3 class="font-weight-bold mb-2 mt-5 text-orange">Rate Your Meals</h3>
 					<p>Did you know rating your meals helps us decide on future menus? If you want to see your favorites back on the menu, make sure you are rating your meals each month. Plus, you can see your ratings and personal notes about meals on the menu! Visit your My Reviews page in your account and rate your meals today. Plus, if your are enrolled in PlatePoints you earn 5 points for every meal you rate.</p>
-					<a class="btn btn-secondary mt-3 mb-5" href="/?page=my_meals">Start Rating My Meals</a>
+					<a class="btn btn-secondary mt-3 mb-5" href="/my-meals">Start Rating My Meals</a>
 				</div>
 			<?php } ?>
 			<?php if (defined('ENABLE_SMS_PREFERENCE_ORDER_DETAILS') && ENABLE_SMS_PREFERENCE_ORDER_DETAILS == true) { ?>

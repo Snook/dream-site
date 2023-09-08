@@ -68,7 +68,7 @@
 							<?php foreach ($recipe['component'] AS $component_id => $component) { $component_count++ ?>
 								<tr>
 									<?php if ($component_count == 1) { ?>
-										<td rowspan="<?php echo count($recipe['component']); ?>" class="font-weight-bold"><a href="/?page=item&amp;recipe=<?php echo $recipe_id; ?>"><?php echo $recipe['info']['recipe_name']; ?></a></td>
+										<td rowspan="<?php echo count($recipe['component']); ?>" class="font-weight-bold"><a href="/item?recipe=<?php echo $recipe_id; ?>"><?php echo $recipe['info']['recipe_name']; ?></a></td>
 										<td rowspan="<?php echo count($recipe['component']); ?>">
 											<ul class="list-group list-group-horizontal list-inline">
 												<?php foreach (CRecipe::getIconSchematic() AS $icon_col => $icon) { ?>

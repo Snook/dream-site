@@ -125,9 +125,10 @@ RewriteRule ^colorado/?$ /colorado-meal-kit [R=301,NC,QSA]
 RewriteRule ^freezer/?$ /sides-and-sweets-order-form?utm_source=stores-salesforce&utm_medium=emails-sms&utm_campaign=sides-sweets-order-form [R=301,NC,QSA]
 
 # Optioanl trailing "S" redirects
+RewriteRule ^location/?$ /locations [R=301,NC,QSA]
 RewriteRule ^stores?/?$ /locations [R=301,NC,QSA]
-RewriteRule ^holidays?/?$ /holidays [R=301,NC,QSA]
-RewriteRule ^gifts?/?$ /gift [R=301,NC,QSA]
+RewriteRule ^holiday/?$ /holidays [R=301,NC,QSA]
+RewriteRule ^gifts/?$ /gift [R=301,NC,QSA]
 RewriteRule ^fundraisercards?/?$ /fundraiser-card-program [R=301,NC,QSA]
 
 # Offsite redirects
@@ -361,8 +362,6 @@ RewriteRule ^location/([\w-]+)/([\w-]+)/?$ /?page=store_$2&id=$1 [NC,L,QSA]
 RewriteRule ^location/([\w-]+)/?$ /?page=store&id=$1 [NC,L,QSA]
 # Handle fundraiser page link
 RewriteRule ^location/([\w-]+)-fundraisers$ /fundraiser?id=$1 [NC,L,QSA]
-# this is to redirect to the /locations page if someone removes the store-name parameter from /location/store-name
-RewriteRule ^locations?/?$ /locations [NC,L,QSA]
 
 ## This handles the short/pretty urls
 RewriteCond %{REQUEST_FILENAME} !-f

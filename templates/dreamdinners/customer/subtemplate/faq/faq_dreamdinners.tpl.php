@@ -300,7 +300,7 @@
 		<div id="collapse-DD-Twentyfive" class="collapse" aria-labelledby="heading-DD-Twentyfive" data-parent="#accordion-DD">
 			<div class="card-body">
 				<p>We look forward with great anticipation to the day that we have the opportunity to serve you and your community. We are, however, a franchise organization and our stores are owned and operated by individuals who are qualified to purchase and invest in owning their own Dream Dinners business. As such, our desire to expand is directly related to connecting with strategic-partners to join us on our journey to make a difference in the lives of families across the nation. Please continue to watch our website for updates and for new location notifications.</p>
-				<!--<p>If you are interested in starting or owning a Dream Dinners Franchise in your area, <a href="/?static=franchise_info">click here to visit our Franchise Information site</a>.</p>-->
+				<!--<p>If you are interested in starting or owning a Dream Dinners Franchise in your area, <a href="/franchise_info">click here to visit our Franchise Information site</a>.</p>-->
 			</div>
 		</div>
 	</div>

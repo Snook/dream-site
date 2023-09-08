@@ -4,7 +4,7 @@
 
 <div class="border-bottom border-green-dark mb-3 mx-5"></div>
 
-<form action="/?page=my_surveys" method="post" class="needs-validation" novalidate>
+<form action="/my-surveys" method="post" class="needs-validation" novalidate>
 
 	<input type="hidden" name="survey_id" value="<?php echo $this->recipe['id']; ?>" />
 

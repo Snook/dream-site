@@ -47,7 +47,7 @@
 						<a href="https://careers-hrpmsi.icims.com/jobs/3062/sales-manager/job" target="_blank" class="text-green text-decoration-underline text-uppercase d-block">Sales Manager</a>
 
 						<p class="mt-4 font-weight-semi-bold">Rochester Hills, MI</p>
-						<a href="/?static=job_opportunities_mngr" class="text-green text-decoration-underline text-uppercase d-block">Assistant Operations Manager</a>
+						<a href="/job-opportunities_mngr" class="text-green text-decoration-underline text-uppercase d-block">Assistant Operations Manager</a>
 
 						<p class="mt-4 font-weight-semi-bold">Clemmons, NC</p>
 						<a href="https://careers-hrpmsi.icims.com/jobs/3060/operations-manager/job" target="_blank" class="text-green text-decoration-underline text-uppercase d-block">Operations Manager</a>

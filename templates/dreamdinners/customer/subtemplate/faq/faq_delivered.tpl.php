@@ -175,7 +175,7 @@
 		</div>
 		<div id="collapse-DLVRD-Fourteen" class="collapse" aria-labelledby="heading-DLVRD-Fourteen" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				Cooking instructions are available on our <a href="/?page=recipe_resources">Recipe Resources</a> page. Type the recipe name in the search bar to pull up the recipe details and cooking instructions. Don’t know the recipe name? Click the menu month when you purchased the recipe and search the menu items.
+				Cooking instructions are available on our <a href="/recipe-resources">Recipe Resources</a> page. Type the recipe name in the search bar to pull up the recipe details and cooking instructions. Don’t know the recipe name? Click the menu month when you purchased the recipe and search the menu items.
 			</div>
 		</div>
 	</div>
@@ -187,7 +187,7 @@
 		</div>
 		<div id="collapse-DLVRD-Fifteen" class="collapse" aria-labelledby="heading-DLVRD-Fifteen" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				Nutritional information is available on our <a href="/?page=recipe_resources">Recipe Resources</a> page. Type the recipe name in the search bar to pull up the recipe details. Don’t know the recipe name? Click the menu month when you purchased the recipe and search the menu items.
+				Nutritional information is available on our <a href="/recipe-resources">Recipe Resources</a> page. Type the recipe name in the search bar to pull up the recipe details. Don’t know the recipe name? Click the menu month when you purchased the recipe and search the menu items.
 			</div>
 		</div>
 	</div>

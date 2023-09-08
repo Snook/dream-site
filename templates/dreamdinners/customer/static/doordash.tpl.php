@@ -134,7 +134,7 @@
 
 				<div class="row my-4">
 					<div class="col text-center">
-						<a href="/?static=how_it_works" class="btn btn-primary">Learn More</a>
+						<a href="/how-it-works" class="btn btn-primary">Learn More</a>
 					</div>
 				</div>
 			</div>

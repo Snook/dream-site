@@ -66,7 +66,7 @@
 							<div class="card-body">
 								<h5 class="card-title">How It Works</h5>
 								<p class="card-text">In our locations, we do all the shopping, chopping and clean up so that you can prep a month of meals in about an hour, at one of our locations.</p>
-								<a href="/?static=how_it_works" class="btn btn-primary">Learn More</a>
+								<a href="/how-it-works" class="btn btn-primary">Learn More</a>
 							</div>
 						</div>
 						<div class="card border-0 mx-1">
@@ -74,7 +74,7 @@
 							<div class="card-body">
 								<h5 class="card-title">Browse Menu</h5>
 								<p class="card-text">Each month, our full menu features over 16 recipes for your family to enjoy. Our recipes include a variety of protein options and flavor profiles to experience at home.</p>
-								<a href="/?page=browse_menu" class="btn btn-primary">Browse Menus</a>
+								<a href="/browse-menu" class="btn btn-primary">Browse Menus</a>
 							</div>
 						</div>
 						<div class="card border-0 mx-1">

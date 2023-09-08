@@ -61,7 +61,7 @@
 										<h4 class="card-title">Give a Dinner, Earn Rewards</h4>
 										<p class="card-text">Share your personal referral link to introduce your friends and family to Dream Dinners. You get 10 Dinner Dollars for every referral and they get a free dinner on us.</p>
 										<?php if (!CUser::isLoggedIn()) { ?>
-											<p class="card-text"><a href="/?page=my_account">Log in to My Account</a> to get your referral link.</p>
+											<p class="card-text"><a href="/my-account">Log in to My Account</a> to get your referral link.</p>
 										<?php } else { ?>
 											<div class="input-group mb-3">
 												<div class="input-group-prepend">

@@ -6,7 +6,7 @@
 	<header class="container my-5">
 		<div class="row">
 			<div class="col-6 col-sm-3 p-0 order-2 order-sm-1">
-				<a href="/?static=pressroom" class="btn btn-primary"><span class="pr-2">&#10094;</span> back</a>
+				<a href="/pressroom" class="btn btn-primary"><span class="pr-2">&#10094;</span> back</a>
 			</div>
 			<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center">
 				<h2>Shared Stories and Comments</h2>
@@ -55,7 +55,7 @@
 			</div>
 			<div class="columntext">
 				"Until I retired from teaching, my father who was 87 at the time tried to have dinner started before I got home... I love that there is no buying ingredients that will probably be thrown out because I can't use them up. The best part is no clean up. We even have our own personal aprons... "
-				<a href="/?static=shared_stories_provost">Read more &gt;</a><br />
+				<a href="/shared_stories_provost">Read more &gt;</a><br />
 				-- Mary Provost
 			</div>
 			<div class="columnimage">

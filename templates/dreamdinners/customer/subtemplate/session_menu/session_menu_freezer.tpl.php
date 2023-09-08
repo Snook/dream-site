@@ -8,7 +8,7 @@
 			<h2>This month's <span class="text-cyan font-weight-semi-bold">Store specials</span></h2>
 		</div>
 		<div class="col-6 col-sm-3 p-0 order-3 order-sm-3 text-right d-print-none">
-			<a href="/?page=checkout" class="btn btn-primary disabled continue-btn">Continue <span class="pl-2">&#10095;</span></a>
+			<a href="/checkout" class="btn btn-primary disabled continue-btn">Continue <span class="pl-2">&#10095;</span></a>
 		</div>
 	</div>
 </header>
@@ -62,7 +62,7 @@
 
 					<?php if ($this->order_type == COrders::STANDARD || $this->order_type == COrders::INTRO) { ?>
 						<div class="col-12 mt-4">
-							<a class="btn btn-green-dark-extra btn-sm btn-block" href="/?page=print&amp;store=<?php echo $this->cart_info['store_info']['id']; ?>&amp;menu=<?php echo $this->cart_info['menu_info']['id']; ?><?php echo (($this->order_type == COrders::INTRO) ? '&amp;intro=true' : ''); ?>" target="_blank"><i class="dd-icon icon-print mr-2"></i> Print <?php echo $this->cart_info['menu_info']['menu_name']; ?> Menu</a>
+							<a class="btn btn-green-dark-extra btn-sm btn-block" href="/print?store=<?php echo $this->cart_info['store_info']['id']; ?>&amp;menu=<?php echo $this->cart_info['menu_info']['id']; ?><?php echo (($this->order_type == COrders::INTRO) ? '&amp;intro=true' : ''); ?>" target="_blank"><i class="dd-icon icon-print mr-2"></i> Print <?php echo $this->cart_info['menu_info']['menu_name']; ?> Menu</a>
 						</div>
 					<?php } ?>
 				</div>
@@ -72,7 +72,7 @@
 
 	<div class="row mt-5 d-print-none">
 		<div class="col p-0 text-right">
-			<a href="/?page=checkout" class="btn btn-primary disabled continue-btn">Continue <span class="pl-2">&#10095;</span></a>
+			<a href="/checkout" class="btn btn-primary disabled continue-btn">Continue <span class="pl-2">&#10095;</span></a>
 		</div>
 	</div>
 

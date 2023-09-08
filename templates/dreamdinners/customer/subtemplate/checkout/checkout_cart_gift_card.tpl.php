@@ -5,7 +5,7 @@
 				<h5 class="font-weight-bold text-uppercase">Cart</h5>
 			</div>
 			<div class="col-6 text-right align-text-top">
-				<a href="/?page=gift_card_cart" class="btn btn-sm btn-secondary">View Cart</a>
+				<a href="/gift-card-cart" class="btn btn-sm btn-secondary">View Cart</a>
 			</div>
 		</div>
 

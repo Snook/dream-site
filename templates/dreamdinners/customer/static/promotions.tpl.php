@@ -27,7 +27,7 @@
 
 						<p>Friends don’t let friends struggle with grocery shopping; share Dream Dinners with your friends this July and you’ll each enjoy $10* off your order.</p>
 
-						<p>Simply give your friends your referral code link that can be found on your <a href="/?page=my_account">My Account dashboard</a>, and tell them to use the <strong>coupon code* FRIENDTEN</strong> at checkout to save $10 on their August order of $89+. Once your friend completes their August order,you will be rewarded with 10 Dinner Dollars in your account.</p>
+						<p>Simply give your friends your referral code link that can be found on your <a href="/my-account">My Account dashboard</a>, and tell them to use the <strong>coupon code* FRIENDTEN</strong> at checkout to save $10 on their August order of $89+. Once your friend completes their August order,you will be rewarded with 10 Dinner Dollars in your account.</p>
 
 						<p>The more friends you refer, the more Dinner Dollars you earn, so it’s a great opportunity to save money this summer on the delicious meal kits that you love!</p>
 
@@ -43,7 +43,7 @@
 						<p>Get important Dream Dinners info in the palm of your hand like a reminder about your next session or Made for You pick up. Plus exciting offers, announcements and weekly thaw reminders.</p>
 						<p>Ready to opt-in? Here's how:</p>
 						<ol>
-						  <li><a href="/?page=login">Log in to your account</a>.</li>
+						  <li><a href="/login">Log in to your account</a>.</li>
 						  <li>Go to "Edit Account" in the navigation.
 					      </li>
 						  <li>Under "Preferences," add a Mobile Number and choose your SMS Preferences.
@@ -75,7 +75,7 @@
 						<p><strong>Drawing:</strong> Winners will be selected via a random number generator on or about October 21, 2021. Prospective winners will be notified within 10 days of selection via Instagram or Facebook (whichever platform their winning submission was posted on).</p>
 						<p><strong>Prize:</strong> Three (3) winners will be selected to win and will each receive a $200 Dream Dinners® e-gift card, good at any Dream Dinners store location or with Dream Dinners Delivered and a $200 Jellystone Parks™ e-gift card, good at any Jellystone Parks U.S. location.</p>
 						<p class="font-italic">Open to legal residents of the 50 United States and the District of Columbia who are 18 years of age or older at time of entry.  Odds of winning depend on number of qualifying entries received.  Limit one entry per person, per day. VOID WHERE PROHIBITED.  Sponsor: Dream Dinners, Inc., PO Box 889, Snohomish, WA 98291.</p>
-						<p class="font-italic"><a href="/?static=terms">View the complete Official Rules</a></p>
+						<p class="font-italic"><a href="/terms">View the complete Official Rules</a></p>
 				  </div>
 				</div>
 
@@ -85,7 +85,7 @@
                 	<div class="col mb-4">
 						<h2><strong>Join Us for an Instagram Contest!</strong></h2>
 						<p>Do your kids love helping out in the kitchen? This April, we're celebrating Kids in the Kitchen with our Instagram photo contest. Enter to win a junior chef kit with an apron and other kitchen tools! Post photos of your family helping out in the kitchen on Instagram throughout the month of April to be entered to win. Tag @DreamDinners and use the hashtag #KidsInTheKitchen.</p>
-					<p><i><a href="/?static=terms">*Click here to view complete contest rules.</a></i></p>
+					<p><i><a href="/terms">*Click here to view complete contest rules.</a></i></p>
 				  </div>
 				</div>
 
@@ -99,7 +99,7 @@
 						<h2><strong>Share Your Dream Dinners Story</strong></h2>
 						<p>Has Dream Dinners made an impact on your family? We want to hear from you!</p>
 							<p>Share your Dream Dinners experience and your dinnertime stories with us. We would love to hear why dinnertime is important in your home, how Dream Dinners has helped in your life, and how you've used Dream Dinners to give back to your friends and family.</p>
-						<p>Visit <a href="/?static=share_your_story">DreamDinners.com/ShareYourStory</a> to share your video testimonial with us.</p>
+						<p>Visit <a href="/share_your_story">DreamDinners.com/ShareYourStory</a> to share your video testimonial with us.</p>
 					</div>
 				</div>
 

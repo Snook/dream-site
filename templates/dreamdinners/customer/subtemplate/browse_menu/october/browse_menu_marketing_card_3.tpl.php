@@ -2,6 +2,6 @@
 	<img class="card-img-top" src="<?php echo IMAGES_PATH; ?>/browse_menu/october/promo-3.webp" alt="SMS Signup">
 	<div class="card-body">
 		<h5 class="card-title font-size-small">Want Session Reminder texts? Log in to your account to opt in today.</h5>
-		<a href="/?page=my_account" class="card-link text-uppercase stretched-link">My Account</a>
+		<a href="/my-account" class="card-link text-uppercase stretched-link">My Account</a>
 	</div>
 </div>

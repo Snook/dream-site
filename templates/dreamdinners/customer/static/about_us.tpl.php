@@ -36,12 +36,12 @@
 					<div class="col-md-6 bg-image-our-story text-white text-left p-5">
 						<h2 class="text-uppercase font-weight-bold">Our Story</h2>
 						<p>Learn how Dream Dinners has been helping busy families get easy, delicious meals on the table since 2002.</p>
-						<a href="/?static=our_story" class="btn btn-secondary">Learn More</a>
+						<a href="/our-story" class="btn btn-secondary">Learn More</a>
 					</div>
 					<div class="col-md-6 bg-image-our-food text-white text-left p-5">
 						<h2 class="text-uppercase font-weight-bold">Our Food</h2>
 						<p>Providing Fresh Produce with Innovative Partnerships</p>
-						<a href="/?static=our_food" class="btn btn-secondary">Learn More</a>
+						<a href="/our-food" class="btn btn-secondary">Learn More</a>
 					</div>
 
 				</div>
@@ -110,7 +110,7 @@
 								<h4>Our Dream Dinners Team</h4>
 								<p>Dream Dinners is made up of passionate and caring people committed to helping our stores and communities bring their families around the dinner table. This passion leads to a hardworking, fast paced culture. However, despite all the hard work, we understand and emphasize the importance of time spent with our own families, creating loving memories and healthy lives. Here at Dream Dinners we strive to strike the perfect balance of work and play, creating a fun work environment to nourish both our bodies and souls.</p>
 								<p>Interested in joining the Dream Dinners community?</p>
-								<p>We are always looking for eager, hardworking individuals who are dedicated to helping families build strong relationships around the dinner table. <a href="/?static=job_opportunities">Visit our Careers page</a> for more information.</p>
+								<p>We are always looking for eager, hardworking individuals who are dedicated to helping families build strong relationships around the dinner table. <a href="/job-opportunities">Visit our Careers page</a> for more information.</p>
 							</div>
 						</div>
 					</div>

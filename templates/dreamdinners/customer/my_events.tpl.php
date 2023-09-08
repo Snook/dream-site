@@ -14,9 +14,9 @@
 		<div class="row">
 			<div class="col-6 col-sm-3 p-0 order-2 order-sm-1">
 				<?php if (!empty($this->usersFuturePastEvents['manageEvent'])) { ?>
-					<a href="/?page=my_events" class="btn btn-primary"><span class="pr-2">&#10094;</span> My Events</a>
+					<a href="/my-events" class="btn btn-primary"><span class="pr-2">&#10094;</span> My Events</a>
 				<?php } else { ?>
-					<a href="/?page=my_account" class="btn btn-primary"><span class="pr-2">&#10094;</span> My Account</a>
+					<a href="/my-account" class="btn btn-primary"><span class="pr-2">&#10094;</span> My Account</a>
 				<?php } ?>
 			</div>
 			<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center">

@@ -158,7 +158,7 @@
 	<div class="row my-4">
 		<div class="col col-lg-8 mx-auto">
 			<h4>Your Contact Information</h4>
-			<p>We will not sell or distribute your information. It will be used solely for the purpose intended. <a href="/?static=privacy" target="_blank">View our Privacy Policy</a> for complete details.</p>
+			<p>We will not sell or distribute your information. It will be used solely for the purpose intended. <a href="/privacy" target="_blank">View our Privacy Policy</a> for complete details.</p>
 		</div>
 	</div>
 

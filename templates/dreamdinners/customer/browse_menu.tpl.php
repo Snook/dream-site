@@ -19,7 +19,7 @@
 			<nav class="row mb-4">
 				<div class="col-sm-8 mx-auto nav nav-pills nav-fill pr-0" id="dishDetails" role="tablist">
 					<?php $count = 0; foreach ($this->activeMenus AS $menu) { $count++; ?>
-						<a class="nav-item nav-link col-<?php echo floor(12 / count($this->activeMenus)); ?> text-uppercase font-weight-bold<?php if ($count == 1) { echo ' active'; } ?><?php echo (!empty($menu['menu_tab_css'])) ? ' ' . $menu['menu_tab_css'] : '' ; ?>" id="m-<?php echo $menu['menu_id']; ?>-tab" data-urlpush="true" data-toggle="tab" data-target="#m-<?php echo $menu['menu_id']; ?>" href="/?page=browse_menu&amp;tab=m-<?php echo $menu['menu_id']; ?>" role="tab" aria-controls="<?php echo $menu['menu_id']; ?>" aria-selected="<?php echo ($count == 1) ? 'true' : 'false'; ?>">
+						<a class="nav-item nav-link col-<?php echo floor(12 / count($this->activeMenus)); ?> text-uppercase font-weight-bold<?php if ($count == 1) { echo ' active'; } ?><?php echo (!empty($menu['menu_tab_css'])) ? ' ' . $menu['menu_tab_css'] : '' ; ?>" id="m-<?php echo $menu['menu_id']; ?>-tab" data-urlpush="true" data-toggle="tab" data-target="#m-<?php echo $menu['menu_id']; ?>" href="/browse-menu&amp;tab=m-<?php echo $menu['menu_id']; ?>" role="tab" aria-controls="<?php echo $menu['menu_id']; ?>" aria-selected="<?php echo ($count == 1) ? 'true' : 'false'; ?>">
 
 							<?php
 							if(strtoupper($menu['menu_month']) == 'DELIVERED'){
@@ -43,7 +43,7 @@
 										<img loading="lazy" class="card-img-top" src="<?php echo IMAGES_PATH; ?>/recipe/default/<?php echo $menu_item['recipe_id']; ?>.webp" alt="<?php echo $menu_item['menu_item_name']; ?>" />
 										<div class="card-body">
 											<h5 class="card-title font-size-small"><?php echo $menu_item['menu_item_name']; ?></h5>
-											<a href="/?page=item&amp;recipe=<?php echo $menu_item['recipe_id']; ?>" class="card-link text-uppercase stretched-link">Dinner details</a>
+											<a href="/item?recipe=<?php echo $menu_item['recipe_id']; ?>" class="card-link text-uppercase stretched-link">Dinner details</a>
 										</div>
 									</div>
 									<?php if (++$count % 2 === 0) { // allows card deck to wrap every two cards on small devices  ?>

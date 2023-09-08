@@ -34,7 +34,7 @@ if (defined('PHP_ERROR_URL'))
 	<header class="container my-5">
 		<div class="row">
 			<div class="col-6 col-sm-3 p-0 order-2 order-sm-1">
-				<a href="/?page=gift_card_cart" class="btn btn-primary btn-sm btn-md-lg p-2"><span class="pr-2">&#10094;</span> View cart</a>
+				<a href="/gift-card-cart" class="btn btn-primary btn-sm btn-md-lg p-2"><span class="pr-2">&#10094;</span> View cart</a>
 			</div>
 			<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center">
 				<h1>Provide payment for your gift cards</h1>

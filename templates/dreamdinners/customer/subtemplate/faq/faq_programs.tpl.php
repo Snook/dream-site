@@ -60,7 +60,7 @@
 		<div id="collapse-PG-Three" class="collapse" aria-labelledby="heading-PG-Three" data-parent="#accordion-PG">
 			<div class="card-body">
 				<p>Share the fun and camaraderie of the Dream Dinners experience with your friends. Groups of 10 to 12 may reserve a private session at no extra charge. You'll have full access to your local store for a full 2 hours just for you and your invitees.</p>
-				<p>A session with family, friends, neighbors or colleagues is a great gathering for baby or wedding showers, housewarming parties, or even team building for your business. Also, for every new person you include in your private session, you are entitled to earn PLATEPOINTS towards future Dream Dinners orders - as many as 500 points for each friend that completes an order. (Click the <a href="/?static=my_events">Invite Friends</a> link to learn more.)</p>
+				<p>A session with family, friends, neighbors or colleagues is a great gathering for baby or wedding showers, housewarming parties, or even team building for your business. Also, for every new person you include in your private session, you are entitled to earn PLATEPOINTS towards future Dream Dinners orders - as many as 500 points for each friend that completes an order. (Click the <a href="/my_events">Invite Friends</a> link to learn more.)</p>
 				<p><b>How?</b></p>
 				<ul>
 					<li>Contact your local store owner to schedule. We recommend you schedule two to three weeks ahead.</li>

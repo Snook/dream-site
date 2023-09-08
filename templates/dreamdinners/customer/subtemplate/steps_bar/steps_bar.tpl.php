@@ -13,7 +13,7 @@
 			</a>
 		</li>
 		<li class="page-item <?php echo ($this->page == 'session') ? ' current' : ((!empty($this->cart_info['cart_info_array']['has_session'])) ? ' complete' : ' disabled'); ?>">
-			<a class="page-link" href="/?page=session">
+			<a class="page-link" href="/session">
 				<div class="step-pill"></div>
 				Calendar
 			</a>

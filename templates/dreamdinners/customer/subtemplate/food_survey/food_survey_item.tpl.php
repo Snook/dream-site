@@ -1,7 +1,7 @@
 <div class="row mb-4">
 
 	<div class="col-md-3">
-		<a href="/?page=item&amp;recipe=<?php echo $mainItem['recipe_id']; ?>">
+		<a href="/item?recipe=<?php echo $mainItem['recipe_id']; ?>">
 			<img src="<?php echo IMAGES_PATH; ?>/recipe/<?php echo (empty($mainItem['menu_image_override'])) ? 'default' : $mainItem['menu_image_override']; ?>/<?php echo $mainItem['recipe_id']; ?>.webp" alt="<?php echo htmlspecialchars($mainItem['display_title']); ?>" />
 			<?php //if ( && $mainItem['out_of_stock']) echo'<span class="out_of_stock"></span>'; else if ($mainItem['limited_qtys'])  echo'<span class="limited_qtys"></span>'; ?>
 		</a>
@@ -9,7 +9,7 @@
 
 	<div class="col-md-9" id="description-<?php echo $mainItem['recipe_id']; ?>">
 
-		<h4><a href="/?page=item&amp;recipe=<?php echo $mainItem['recipe_id']; ?>"><?php echo htmlspecialchars($mainItem['display_title']); ?></a></h4>
+		<h4><a href="/item?recipe=<?php echo $mainItem['recipe_id']; ?>"><?php echo htmlspecialchars($mainItem['display_title']); ?></a></h4>
 
 		<p><?php echo $mainItem['display_description']; ?></p>
 

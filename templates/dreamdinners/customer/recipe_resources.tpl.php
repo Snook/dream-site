@@ -46,18 +46,18 @@
 					<p>Search our recipes for step by step  cooking instructions and nutritional information. Please type in the recipe name you are looking for or keyword to search for it.</p>
 
 					<p>Common keywords:
-						<a href="/?page=recipe_resources&amp;q=chicken">chicken</a>,
-						<a href="/?page=recipe_resources&amp;q=turkey">turkey</a>,
-						<a href="/?page=recipe_resources&amp;q=potatoes">potatoes</a>,
-						<a href="/?page=recipe_resources&amp;q=pork">pork</a>,
-						<a href="/?page=recipe_resources&amp;q=bread">bread</a>,
-						<a href="/?page=recipe_resources&amp;q=tortellini">tortellini</a>,
-						<a href="/?page=recipe_resources&amp;q=pretzel">pretzel</a>,
-						<a href="/?page=recipe_resources&amp;q=shrimp">shrimp</a>,
-						<a href="/?page=recipe_resources&amp;q=salmon">salmon</a>,
-						<a href="/?page=recipe_resources&amp;q=steak">steak</a>
+						<a href="/recipe-resources?q=chicken">chicken</a>,
+						<a href="/recipe-resources?q=turkey">turkey</a>,
+						<a href="/recipe-resources?q=potatoes">potatoes</a>,
+						<a href="/recipe-resources?q=pork">pork</a>,
+						<a href="/recipe-resources?q=bread">bread</a>,
+						<a href="/recipe-resources?q=tortellini">tortellini</a>,
+						<a href="/recipe-resources?q=pretzel">pretzel</a>,
+						<a href="/recipe-resources?q=shrimp">shrimp</a>,
+						<a href="/recipe-resources?q=salmon">salmon</a>,
+						<a href="/recipe-resources?q=steak">steak</a>
 					</p>
-					<p>If you do not find the recipe you are looking for, you can also <a href="/?page=my_meals">login to your account</a> and click My Meals to find information on the dinners you have purchased.</p>
+					<p>If you do not find the recipe you are looking for, you can also <a href="/my-meals">login to your account</a> and click My Meals to find information on the dinners you have purchased.</p>
 				</div>
 			</div>
 
@@ -66,7 +66,7 @@
 				<nav class="row mb-4">
 					<div class="col nav nav-tabs nav-fill pr-0" id="dishDetails" role="tablist">
 						<?php $tabcount = 0; foreach ($this->activeMenus AS $menu) { $tabcount++; ?>
-							<a class="nav-item nav-link col-<?php echo floor(12 / count($this->activeMenus)); ?> text-uppercase font-weight-bold<?php if ($tabcount == 2) { echo ' active'; } ?>" id="m-<?php echo $menu['menu_id']; ?>-tab" data-urlpush="true" data-toggle="tab" data-target="#m-<?php echo $menu['menu_id']; ?>" href="/?page=browse_menu&amp;tab=<?php echo $menu['menu_id']; ?>" role="tab" aria-controls="m-<?php echo $menu['menu_id']; ?>" aria-selected="<?php echo ($tabcount == 2) ? 'true' : 'false'; ?>"><?php echo $menu['menu_month']; ?></a>
+							<a class="nav-item nav-link col-<?php echo floor(12 / count($this->activeMenus)); ?> text-uppercase font-weight-bold<?php if ($tabcount == 2) { echo ' active'; } ?>" id="m-<?php echo $menu['menu_id']; ?>-tab" data-urlpush="true" data-toggle="tab" data-target="#m-<?php echo $menu['menu_id']; ?>" href="/browse-menu&amp;tab=<?php echo $menu['menu_id']; ?>" role="tab" aria-controls="m-<?php echo $menu['menu_id']; ?>" aria-selected="<?php echo ($tabcount == 2) ? 'true' : 'false'; ?>"><?php echo $menu['menu_month']; ?></a>
 						<?php } ?>
 					</div>
 				</nav>
@@ -80,7 +80,7 @@
 										<img class="card-img-top img-fluid" src="<?php echo IMAGES_PATH; ?>/recipe/<?php echo (empty($menu_item['menu_image_override'])) ? 'default' : $menu_item['menu_image_override']; ?>/<?php echo $menu_item['recipe_id']; ?>.webp" alt="<?php echo $menu_item['menu_item_name']; ?>">
 										<div class="card-body">
 											<p class="card-title">
-												<a href="/?page=item&amp;recipe=<?php echo $menu_item['recipe_id']; ?>"><?php echo $menu_item['menu_item_name']; ?></a>
+												<a href="/item?recipe=<?php echo $menu_item['recipe_id']; ?>"><?php echo $menu_item['menu_item_name']; ?></a>
 											</p>
 										</div>
 									</div>
@@ -113,7 +113,7 @@
 							<img class="card-img-top img-fluid" src="<?php echo IMAGES_PATH; ?>/recipe/<?php echo (empty($recipe['menu_image_override'])) ? 'default' : $recipe['menu_image_override']; ?>/<?php echo $recipe['recipe_id']; ?>.webp" alt="<?php echo $recipe['recipe_name']; ?>">
 							<div class="card-body">
 								<p class="card-title">
-									<a href="/?page=item&amp;recipe=<?php echo $recipe['recipe_id']; ?><?php echo (!empty($recipe['cooking_instruction_youtube_id'])) ? '&amp;tab=video' : ''; ?>"><?php echo $recipe['recipe_name']; ?></a>
+									<a href="/item?recipe=<?php echo $recipe['recipe_id']; ?><?php echo (!empty($recipe['cooking_instruction_youtube_id'])) ? '&amp;tab=video' : ''; ?>"><?php echo $recipe['recipe_name']; ?></a>
 								</p>
 							</div>
 						</div>
@@ -132,8 +132,8 @@
 						<div class="col">
 							<nav aria-label="Page navigation">
 								<ul class="pagination">
-									<li class="page-item<?php echo (empty($this->page_prev)) ? ' disabled' : '' ?>"><a class="page-link" href="/?page=recipe_resources&amp;q=<?php echo $this->search_query; ?><?php echo ((!empty($this->page_prev) && $this->page_prev != 1) ? '&amp;p=' . $this->page_prev : ''); ?><?php echo ($this->videos_only) ? '&amp;video=true' : ''; ?>">Previous Page</a></li>
-									<li class="page-item<?php echo ($this->page_next > $this->page_total) ? ' disabled' : '' ?>"><a class="page-link" href="/?page=recipe_resources&amp;q=<?php echo $this->search_query; ?><?php echo (!empty($this->page_next) ? '&amp;p=' . $this->page_next : ''); ?><?php echo ($this->videos_only) ? '&amp;video=true' : ''; ?>">Next Page</a></li>
+									<li class="page-item<?php echo (empty($this->page_prev)) ? ' disabled' : '' ?>"><a class="page-link" href="/recipe-resources?q=<?php echo $this->search_query; ?><?php echo ((!empty($this->page_prev) && $this->page_prev != 1) ? '&amp;p=' . $this->page_prev : ''); ?><?php echo ($this->videos_only) ? '&amp;video=true' : ''; ?>">Previous Page</a></li>
+									<li class="page-item<?php echo ($this->page_next > $this->page_total) ? ' disabled' : '' ?>"><a class="page-link" href="/recipe-resources?q=<?php echo $this->search_query; ?><?php echo (!empty($this->page_next) ? '&amp;p=' . $this->page_next : ''); ?><?php echo ($this->videos_only) ? '&amp;video=true' : ''; ?>">Next Page</a></li>
 								</ul>
 							</nav>
 						</div>

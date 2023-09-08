@@ -10,7 +10,7 @@
 
 	</div>
 	<div class="card-footer">
-		<form action="/?page=gift_card_order" method="post">
+		<form action="/gift-card-order" method="post">
 			<button class="btn btn-primary btn-sm" name="gc_edit_id" value="<?php echo $giftCard['order_id']?>">Edit</button>
             <button class="btn btn-primary btn-sm" name="gc_delete_id" value="<?php echo $giftCard['order_id']?>">Delete</button>
         </form>

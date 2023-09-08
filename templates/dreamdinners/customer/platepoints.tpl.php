@@ -161,7 +161,7 @@
 					</div>
 				</div>
 					<div class="col text-center my-5">
-						<a href="/?page=login" class="btn btn-lg btn-primary">Login & Enroll</a>
+						<a href="/login" class="btn btn-lg btn-primary">Login & Enroll</a>
 					</div>
 			</div>
 		</div>

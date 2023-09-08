@@ -33,7 +33,7 @@
 							<li>Need more? Shop our freezer all month long for extra desserts, meals, or even a side or two.</li>
 							<li>Enjoy exclusive member benefits!</li>
 						</ul>
-						<p>For more information and to sign up for Meal Prep+, <a href="/locations">contact your local store</a>.</p> <p><a href="/?static=terms">View the complete terms and conditions</a> for the program.</p>-->
+						<p>For more information and to sign up for Meal Prep+, <a href="/locations">contact your local store</a>.</p> <p><a href="/terms">View the complete terms and conditions</a> for the program.</p>-->
 					</div>
 				</div>
 			</div>

@@ -10,7 +10,7 @@
 				<div class="rsvp_only_form_complete<?php if (!$this->has_rsvp) { ?> collapse<?php } ?>">
 					<p>We have you registered and can't wait to meet you! Look for event details in your inbox. See you soon.</p>
 
-					<a class="btn btn-primary btn-sm" href="/?page=account">Complete your profile</a>
+					<a class="btn btn-primary btn-sm" href="/account">Complete your profile</a>
 				</div>
 				<form id="rsvp_only_form" name="rsvp_only_form" class="rsvp_only_form_incomplete needs-validation<?php if ($this->has_rsvp) { ?> collapse<?php } ?>" novalidate>
 					<div class="form-row">

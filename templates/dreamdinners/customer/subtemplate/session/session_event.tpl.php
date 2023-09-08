@@ -1,7 +1,7 @@
 <header class="container my-5">
 	<div class="row">
 		<div class="col-6 col-sm-3 p-0 order-2 order-sm-1">
-			<a href="/?page=store&amp;id=<?php echo $this->cart_info['storeObj']->id; ?>" class="btn btn-primary"><span class="pr-2">&#10094;</span> Location</a>
+			<a href="/location/<?php echo $this->cart_info['storeObj']->id; ?>" class="btn btn-primary"><span class="pr-2">&#10094;</span> Location</a>
 		</div>
 		<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center">
 			<h2>Select your <span class="text-green font-weight-semi-bold"><?php echo CTemplate::dateTimeFormat($this->cart_info['menu_info']['menu_name'], FULL_MONTH); ?></span> event</h2>

@@ -37,7 +37,7 @@
 							<?php echo $this->customerActionString .CTemplate::dateTimeFormat($this->cart_info['session_info']['session_start'], VERBOSE_DATE_NO_YEAR_W_COMMA) . " at " . CTemplate::dateTimeFormat($this->cart_info['session_info']['session_start'], SIMPLE_TIME); ?>
 						</div>
 					<?php }elseif (empty($this->cart_info['cart_info_array']['direct_invite'])) {?>
-						<a class="btn btn-primary btn-block" href="/?page=session">
+						<a class="btn btn-primary btn-block" href="/session">
 							<i class="fas fa-edit float-left text-green-dark-extra pt-1"></i>
 							<?php echo $this->customerActionString .CTemplate::dateTimeFormat($this->cart_info['session_info']['session_start'], VERBOSE_DATE_NO_YEAR_W_COMMA) . " at " . CTemplate::dateTimeFormat($this->cart_info['session_info']['session_start'], SIMPLE_TIME); ?>
 						</a>

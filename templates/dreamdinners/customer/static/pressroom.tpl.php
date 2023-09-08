@@ -22,28 +22,28 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-3 mb-4 text-center">
-						<a href="/?static=pressroom_tv" data-gaq_cat="Landing" data-gaq_action="Television Spotlight" data-gaq_label="Press Room"><img src="<?php echo IMAGES_PATH; ?>/press/tv-spotlight-307x160.jpg" alt="Television Spotlight" class="img-fluid" /></a>
+						<a href="/pressroom_tv" data-gaq_cat="Landing" data-gaq_action="Television Spotlight" data-gaq_label="Press Room"><img src="<?php echo IMAGES_PATH; ?>/press/tv-spotlight-307x160.jpg" alt="Television Spotlight" class="img-fluid" /></a>
 						<h3 class="text-green mt-2">Television Spotlight</h3>
 						<p>Watch us on The View, Good Morning America and more.</p>
-						<p><a href="/?static=pressroom_tv" data-gaq_cat="Landing" data-gaq_action="Television Spotlight" data-gaq_label="Press Room" class="btn btn-primary">Read More &gt;</a></p>
+						<p><a href="/pressroom_tv" data-gaq_cat="Landing" data-gaq_action="Television Spotlight" data-gaq_label="Press Room" class="btn btn-primary">Read More &gt;</a></p>
 					</div>
 					<div class="col-md-3 mb-4 text-center">
-						<a href="/?static=pressroom_magazine_articles" data-gaq_cat="Landing" data-gaq_action="Magazine Articles" data-gaq_label="Press Room"><img src="<?php echo IMAGES_PATH; ?>/press/magazine-articles-307x160.jpg" alt="Magazine Articles" class="img-fluid" /></a>
+						<a href="/pressroom_magazine_articles" data-gaq_cat="Landing" data-gaq_action="Magazine Articles" data-gaq_label="Press Room"><img src="<?php echo IMAGES_PATH; ?>/press/magazine-articles-307x160.jpg" alt="Magazine Articles" class="img-fluid" /></a>
 						<h3 class="text-green mt-2">Magazine Articles</h3>
 						<p>Great magazine articles about Dream Dinners in Redbook, &quot;O&quot;, Family Circle and more.</p>
-						<p><a href="/?static=pressroom_magazine_articles" data-gaq_cat="Landing" data-gaq_action="Magazine Articles" data-gaq_label="Press Room" class="btn btn-primary">Read More &gt;</a></p>
+						<p><a href="/pressroom_magazine_articles" data-gaq_cat="Landing" data-gaq_action="Magazine Articles" data-gaq_label="Press Room" class="btn btn-primary">Read More &gt;</a></p>
 					</div>
 					<div class="col-md-3 mb-4 text-center">
-						<a href="/?static=pressroom_online_articles" data-gaq_cat="Landing" data-gaq_action="Online Articles" data-gaq_label="Press Room"><img src="<?php echo IMAGES_PATH; ?>/press/online-articles-307x160.jpg" alt="Online Articles" class="img-fluid" /></a>
+						<a href="/pressroom_online_articles" data-gaq_cat="Landing" data-gaq_action="Online Articles" data-gaq_label="Press Room"><img src="<?php echo IMAGES_PATH; ?>/press/online-articles-307x160.jpg" alt="Online Articles" class="img-fluid" /></a>
 						<h3 class="text-green mt-2">Online Articles</h3>
 						<p>Read articles from the Wall Street Journal, Time Magazine and more.</p>
-						<p><a href="/?static=pressroom_online_articles" data-gaq_cat="Landing" data-gaq_action="Online Articles" data-gaq_label="Press Room" class="btn btn-primary">Read More &gt;</a></p>
+						<p><a href="/pressroom_online_articles" data-gaq_cat="Landing" data-gaq_action="Online Articles" data-gaq_label="Press Room" class="btn btn-primary">Read More &gt;</a></p>
 					</div>
 					<div class="col-md-3 mb-4 text-center">
-						<a href="/?static=pressroom_awards" data-gaq_cat="Landing" data-gaq_action="Awards" data-gaq_label="Press Room"><img src="<?php echo IMAGES_PATH; ?>/press/awards-honors-307x160.jpg" alt="Awards" class="img-fluid" /></a>
+						<a href="/pressroom_awards" data-gaq_cat="Landing" data-gaq_action="Awards" data-gaq_label="Press Room"><img src="<?php echo IMAGES_PATH; ?>/press/awards-honors-307x160.jpg" alt="Awards" class="img-fluid" /></a>
 						<h3 class="text-green mt-2">Awards &amp; Honors</h3>
 						<p>Read articles about our awards and honors over the years.</p>
-						<p><a href="/?static=pressroom_awards" data-gaq_cat="Landing" data-gaq_action="Awards" data-gaq_label="Press Room" class="btn btn-primary">Read More &gt;</a></p>
+						<p><a href="/pressroom_awards" data-gaq_cat="Landing" data-gaq_action="Awards" data-gaq_label="Press Room" class="btn btn-primary">Read More &gt;</a></p>
 					</div>
 				</div>
 			</div>

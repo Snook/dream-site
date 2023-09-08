@@ -154,7 +154,7 @@
 					<div class="col-md-6 bg-gray-dark text-white text-right p-5">
 						<h2 class="text-uppercase font-weight-bold">WANT TO LEARN MORE ABOUT MAKING DINNERTIME EASIER?</h2>
 						<p class="text-uppercase mb-4">Get comfy and find out how to simplify meals in your home with Dream Dinners.</p>
-						<a href="/?static=national_virtual_party" class="btn btn-gray-light">Learn More</a>
+						<a href="/national_virtual_party" class="btn btn-gray-light">Learn More</a>
 					</div>
 					<div class="col-md-6 p-0">
 						<img src="<?php echo IMAGES_PATH; ?>/home_content/virtual-party-957x675.jpg" alt="Watching a Virtual Meal Prep Party" class="img-fluid">

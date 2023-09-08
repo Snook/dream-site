@@ -7,13 +7,13 @@
 			</a>
 		</li>
 		<li class="page-item <?php echo ($this->page == 'box_select') ? ' current' : ((!empty($this->cart_info['cart_info_array']['has_navigation_type'])) ? ' complete' : ' disabled'); ?>">
-			<a class="page-link" href="/?page=box_select">
+			<a class="page-link" href="/box-select">
 				<div class="step-pill"></div>
 				Box Select
 			</a>
 		</li>
 		<li class="page-item <?php echo ($this->page == 'session') ? ' current' : ((!empty($this->cart_info['cart_info_array']['has_session'])) ? ' complete' : ' disabled'); ?>">
-			<a class="page-link" href="/?page=box_delivery_date">
+			<a class="page-link" href="/box-delivery-date">
 				<div class="step-pill"></div>
 				Delivery Date
 			</a>

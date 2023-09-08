@@ -30,7 +30,7 @@
 							<li>Participating carriers: AT&amp;T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Boost Mobile, MetroPCS, Virgin Mobile, Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central, IL (ECIT), Cellular One of Northeast Pennsylvania, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated or CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, and West Central (WCC or 5 Star Wireless).</li>
 							<li>T-Mobile is not liable for delayed or undelivered messages.</li>
 							<li>Dream Dinners will never charge you for the text messages you receive. As always, message and data rates may apply for any messages sent to you from us and to us from you. If you have any questions about your text plan or data plan, it is best to contact your wireless provider.</li>
-							<li>If you have any questions regarding privacy, please read our <a href="/?static=sms_policy">privacy policy</a>. </li>
+							<li>If you have any questions regarding privacy, please read our <a href="/sms_policy">privacy policy</a>. </li>
 						</ol>
 					</div>
 				</div>

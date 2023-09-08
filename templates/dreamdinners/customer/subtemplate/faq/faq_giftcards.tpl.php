@@ -69,7 +69,7 @@
 		</div>
 		<div id="collapse-GC-Six" class="collapse" aria-labelledby="heading-GC-Six" data-parent="#accordion-GC">
 			<div class="card-body">
-				<a href="/?static=gift_card_balance">Click here to check your current balance.</a>
+				<a href="/gift-card-balance">Click here to check your current balance.</a>
 			</div>
 		</div>
 	</div>
@@ -94,7 +94,7 @@
 		</div>
 		<div id="collapse-GC-Eight" class="collapse" aria-labelledby="heading-GC-Eight" data-parent="#accordion-GC">
 			<div class="card-body">
-				Finding out the value of your gift card is easy. <a href="/?static=gift_card_balance">Click here to check your current balance</a> and enter your gift card information.
+				Finding out the value of your gift card is easy. <a href="/gift-card-balance">Click here to check your current balance</a> and enter your gift card information.
 			</div>
 		</div>
 	</div>

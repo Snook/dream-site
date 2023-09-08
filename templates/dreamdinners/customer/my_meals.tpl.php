@@ -28,7 +28,7 @@
 						<div class="input-group mx-auto">
 							<?php if (!empty($this->food_search)) { ?>
 								<div class="input-group-prepend">
-									<a class="btn btn-primary" href="/?page=my_meals"><i class="fas fa-times"></i></a>
+									<a class="btn btn-primary" href="/my-meals"><i class="fas fa-times"></i></a>
 								</div>
 							<?php } ?>
 							<input type="text" class="form-control" id="my_meals_search" type="text" placeholder="Food Search: Chicken, Steak, Tortellini, ..." <?php echo (!empty($this->food_search)) ? 'value="' . $this->food_search . '"' : ''; ?>>
@@ -42,8 +42,8 @@
 
 			<nav class="row mb-4">
 				<div class="col-12 col-sm-8 col-md-6 mx-auto nav nav-pills nav-fill pr-0" id="myMealsDetails" role="tablist">
-					<a class="nav-item nav-link font-weight-bold text-uppercase active" id="nav-last_order-tab" data-urlpush="true" data-toggle="tab" data-target="#nav-last_order" href="/?page=my_meals&amp;tab=last_order" role="tab" aria-controls="nav-last_order" aria-selected="true">Rate items</a>
-					<a class="nav-item nav-link font-weight-bold text-uppercase" id="nav-past_orders-tab" data-urlpush="true" data-toggle="tab" data-target="#nav-past_orders" href="/?page=my_meals&amp;tab=past_orders" role="tab" aria-controls="nav-past_orders" aria-selected="true">Past Orders</a>
+					<a class="nav-item nav-link font-weight-bold text-uppercase active" id="nav-last_order-tab" data-urlpush="true" data-toggle="tab" data-target="#nav-last_order" href="/my-meals?tab=last_order" role="tab" aria-controls="nav-last_order" aria-selected="true">Rate items</a>
+					<a class="nav-item nav-link font-weight-bold text-uppercase" id="nav-past_orders-tab" data-urlpush="true" data-toggle="tab" data-target="#nav-past_orders" href="/my-meals?tab=past_orders" role="tab" aria-controls="nav-past_orders" aria-selected="true">Past Orders</a>
 				</div>
 			</nav>
 
@@ -89,10 +89,10 @@
 										<div class="row">
 											<div class="col-md-6 mx-auto text-center">
 												<?php if ($order['session_start'] > '2014-11-01 00:00:00' && $order['status'] != CBooking::CANCELLED) { ?>
-													<a href="/?page=print&amp;order=<?php echo $order['id']; ?>&amp;freezer=true" class="btn btn-primary" target="_blank">Freezer Sheet</a>
-													<a href="/?page=print&amp;order=<?php echo $order['id']; ?>&amp;nutrition=true" class="btn btn-primary" target="_blank">Nutritionals</a>
+													<a href="/print?order=<?php echo $order['id']; ?>&amp;freezer=true" class="btn btn-primary" target="_blank">Freezer Sheet</a>
+													<a href="/print?order=<?php echo $order['id']; ?>&amp;nutrition=true" class="btn btn-primary" target="_blank">Nutritionals</a>
 													<?php if (array_key_exists($order['menu_id'] + 1, $active_menus)) { ?>
-														<a href="/?page=print&amp;order=<?php echo $order['id']; ?>&amp;core=true" class="btn btn-primary" target="_blank">Next Month's Menu</a>
+														<a href="/print?order=<?php echo $order['id']; ?>&amp;core=true" class="btn btn-primary" target="_blank">Next Month's Menu</a>
 													<?php } ?>
 												<?php } ?>
 											</div>
