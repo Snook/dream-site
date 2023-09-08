@@ -15,7 +15,7 @@
 	<td class="bgcolor_light" id="name_<?=$id?>"><?= $row['name'];?></td>
 	<td class="bgcolor_light" id="link_<?=$id?>"><?= urlencode($row['link']);?></td>
 	<td class="bgcolor_light" style="text-align: center;">
-		<a href="main.php?page=admin_manage_survey&recipe_id=<?=$id?>&action=delete" class="button">delete</a>
+		<a href="?page=admin_manage_survey&recipe_id=<?=$id?>&action=delete" class="button">delete</a>
 		<a href="javascript:edit(<?=$id?>);" class="button">edit</a>
 		<a target="_blank" href="<?=$row['link'];?>" class="button">test link</a>
 	</td>

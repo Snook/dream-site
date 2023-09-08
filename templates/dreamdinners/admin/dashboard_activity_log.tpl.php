@@ -56,7 +56,7 @@
 
 			<div class="row mb-3">
 				<div class="col text-center">
-					<h1><a href="main.php?page=admin_dashboard_activity_log">Store Activity</a></h1>
+					<h1><a href="?page=admin_dashboard_activity_log">Store Activity</a></h1>
 				</div>
 			</div>
 

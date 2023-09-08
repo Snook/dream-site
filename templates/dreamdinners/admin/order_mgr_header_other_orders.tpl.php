@@ -18,7 +18,7 @@
 				$session_type_title = $additionalSessionProps[0]
 				?>
 				<tr>
-					<td id="" style="text-align:left;"><a href="main.php?page=admin_order_mgr&order=<?php echo $otherOrder->id; ?>" target="_blank"><?php echo $otherOrder->id; ?></a></td>
+					<td id="" style="text-align:left;"><a href="?page=admin_order_mgr&order=<?php echo $otherOrder->id; ?>" target="_blank"><?php echo $otherOrder->id; ?></a></td>
 					<td id="" style="text-align:left;text-transform:capitalize;"><span style="text-transform:capitalize;"><?php echo strtolower($otherOrder->status); ?></span></td>
 					<td id="" style="text-align:left;"><?php echo  $session_type_title; ?></td>
 					<td id="" style="text-align:left;"><?php echo  CTemplate::dateTimeFormat($otherOrder->session_start);  ?></td>

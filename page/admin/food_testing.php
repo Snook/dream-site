@@ -93,7 +93,7 @@ class page_admin_food_testing extends CPageAdminOnly
 				{
 					$tpl->setErrorMsg('Server error, no store surveys found.');
 
-					CApp::bounce('main.php?page=admin_food_testing');
+					CApp::bounce('?page=admin_food_testing');
 				}
 			}
 
@@ -172,7 +172,7 @@ class page_admin_food_testing extends CPageAdminOnly
 				{
 					$tpl->setErrorMsg('Server error, no guest surveys found.');
 
-					CApp::bounce('main.php?page=admin_food_testing');
+					CApp::bounce('?page=admin_food_testing');
 				}
 			}
 		}

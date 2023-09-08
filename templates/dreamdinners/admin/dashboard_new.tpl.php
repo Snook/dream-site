@@ -29,10 +29,10 @@ else
 
 	<div style="background-color:#d0d0d0; border:2px; black solid; text-align:center; font-weight:bold; font-size:14pt; margin:0px; padding:5px;">
 		<span style="color:green;">Dashboard (by Calendar Month)</span>
-		<div style="float:right"><a href="/main.php?page=admin_dashboard_menu_based" class="button">to Menu-Month Dashboard</a></div>
+		<div style="float:right"><a href="/?page=admin_dashboard_menu_based" class="button">to Menu-Month Dashboard</a></div>
 	</div>
 
-	<form id="dashboard_form" action="main.php?page=admin_dashboard_new" method="post">
+	<form id="dashboard_form" action="?page=admin_dashboard_new" method="post">
 		<?php echo $this->form_array['hidden_html'];?>
 
 		<?php if (!$this->print_view) { ?>

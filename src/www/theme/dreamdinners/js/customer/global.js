@@ -125,7 +125,7 @@ function bounce(location, target)
 {
 	if (!location)
 	{
-		location = 'main.php';
+		location = '/';
 	}
 
 	if (target)
@@ -174,7 +174,7 @@ function setQueryString(variable, value)
 	var query = window.location.search.substring(1);
 	var vars = query.split("&");
 	var_found = false;
-	new_query = 'main.php?';
+	new_query = '?';
 
 	for (var i = 0; i < vars.length; i++)
 	{
@@ -316,7 +316,7 @@ function setStoreAndBeginOrder(config)
 
 	// Create dynamic form to post and redirect to session_menu
 	create_and_submit_form({
-		action: 'main.php?page=session_menu',
+		action: '?page=session_menu',
 		input: ({
 			store: config.store_id,
 			order_type: config.order_type
@@ -614,11 +614,11 @@ function showTermsAndConditions(jobject)
 {
 	if (jobject && jobject.attr('data-tandc_page') == 'checkout')
 	{
-		tandc_url = 'main.php?static=module/tandc_popup_checkout';
+		tandc_url = '?static=module/tandc_popup_checkout';
 	}
 	else
 	{
-		tandc_url = 'main.php?static=module/tandc_popup';
+		tandc_url = '?static=module/tandc_popup';
 	}
 
 	$.ajax({
@@ -1494,7 +1494,7 @@ $(document).on('click', '.clear-edit-delivered-order', function (e) {
 						success: function (json) {
 
 							// reload page
-							window.location = '/main.php?page=my_meals&tab=nav-past_orders';
+							window.location = '/?page=my_meals&tab=nav-past_orders';
 						},
 						error: function (objAJAXRequest, strError) {
 							console.log('Unexpected error');
@@ -1555,7 +1555,7 @@ $('.telephone:not(.no-tel), [type="tel"]:not(.no-tel)').each(function (index) {
 
 // nutritionals menu dropdown
 $(document).on('change', '#menus_dropdown', function (e) {
-	bounce('main.php?page=nutritionals&menu=' + this.value);
+	bounce('?page=nutritionals&menu=' + this.value);
 });
 
 // platepoints enroll
@@ -1649,7 +1649,7 @@ $(document).on('click', '[data-start-delivered-order]', function (e) {
 	let start_delivered_zip = this.getAttribute('data-start-delivered-order');
 
 	create_and_submit_form({
-		action: 'main.php?page=box_select',
+		action: '?page=box_select',
 		input: ({
 			delivered_zip: start_delivered_zip
 		})

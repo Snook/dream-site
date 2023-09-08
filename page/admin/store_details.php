@@ -32,9 +32,9 @@ class page_admin_store_details extends CPageAdminOnly
 		{
 			if (array_key_exists('id', $_REQUEST) && $_REQUEST['id'] && is_numeric($_REQUEST['id']))
 			{
-				CApp::bounce('/main.php?page=admin_store_details_delivered&id=' . $_REQUEST['id']);
+				CApp::bounce('/?page=admin_store_details_delivered&id=' . $_REQUEST['id']);
 			}
-			CApp::bounce('/main.php?page=admin_store_details_delivered');
+			CApp::bounce('/?page=admin_store_details_delivered');
 		}
 		$tpl = CApp::instance()->template();
 
@@ -80,7 +80,7 @@ class page_admin_store_details extends CPageAdminOnly
 		}
 		else if (!$id)
 		{
-			CApp::bounce('main.php?page=admin_list_stores');
+			CApp::bounce('?page=admin_list_stores');
 		}
 
 		if (!empty($id) && is_numeric($id))
@@ -102,7 +102,7 @@ class page_admin_store_details extends CPageAdminOnly
 					}
 					else
 					{
-						CApp::bounce('main.php?page=admin_list_stores');
+						CApp::bounce('?page=admin_list_stores');
 					}
 				}
 			}
@@ -1671,7 +1671,7 @@ class page_admin_store_details extends CPageAdminOnly
 					$job_array = CStore::setAvailableJobs($id, CGPC::do_clean($_POST['job_position'], TYPE_ARRAY));
 
 					$tpl->setToastMsg(array('message' => 'The store properties have been updated.'));
-					CApp::bounce('main.php?page=admin_store_details&id=' . $id);
+					CApp::bounce('?page=admin_store_details&id=' . $id);
 				}
 			}
 

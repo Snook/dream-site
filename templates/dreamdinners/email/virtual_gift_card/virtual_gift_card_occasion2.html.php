@@ -21,7 +21,7 @@
   <tr>
     <td width="50%" align="left" valign="top"><p><span style="font-family:Arial, Helvetica, sans-serif; font-size: 12px; color: #444444;">Gift Card Number:</span><br />
       <span style="font-family:Arial, Helvetica, sans-serif; font-size: 18px; color: #444444;"><?=$this->account_number?></span><br />
-      <a href="<?=HTTPS_SERVER?>/main.php?page=session_menu"><img src="<?=EMAIL_IMAGES_PATH?>/gift_cards/view-menu-button-olive-150x45.gif" alt="View Menu" width="150" height="45" border="0"></a></p></td>
+      <a href="<?=HTTPS_SERVER?>/?page=session_menu"><img src="<?=EMAIL_IMAGES_PATH?>/gift_cards/view-menu-button-olive-150x45.gif" alt="View Menu" width="150" height="45" border="0"></a></p></td>
     <td width="50%" align="left" valign="top"><span style="font-family:Arial, Helvetica, sans-serif; font-size: 12px; color: #444444;">Gift Card Amount:</span><br />
       <span style="font-family:Arial, Helvetica, sans-serif; font-size: 36px; color: #444444; font-weight:bold;">$<?=$this->card_amount?></span></td>
   </tr>
@@ -53,4 +53,3 @@
 </table>
 </body>
 </html>
-

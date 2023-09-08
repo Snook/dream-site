@@ -25,7 +25,7 @@ $(function () {
 			vid_only = '&video=true';
 		}
 
-		bounce('main.php?page=recipe_resources&q=' + q + vid_only);
+		bounce('?page=recipe_resources&q=' + q + vid_only);
 
 	});
 
@@ -39,7 +39,7 @@ $(function () {
 			vid_only = '&video=true';
 		}
 
-		bounce('main.php?page=recipe_resources&q=' + q + vid_only);
+		bounce('?page=recipe_resources&q=' + q + vid_only);
 
 	});
 

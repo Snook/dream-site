@@ -3411,7 +3411,7 @@ class COrders extends DAO_Orders
 			{
 				CCart2::instance()->emptyCart();
 				CApp::instance()->template()->setStatusMsg('The current cart held items for another user. The cart has been emptied. Please start your order again.');
-				CApp::bounce('main.php?page=session_menu');
+				CApp::bounce('?page=session_menu');
 			}
 
 			//check for preferred customer

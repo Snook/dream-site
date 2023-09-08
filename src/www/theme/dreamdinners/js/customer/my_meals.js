@@ -1,6 +1,6 @@
 function doFoodSearch()
 {
-	bounce('main.php?page=my_meals&search=' + $('#my_meals_search').val());
+	bounce('?page=my_meals&search=' + $('#my_meals_search').val());
 }
 
 function setRatingStar(element_id, star)

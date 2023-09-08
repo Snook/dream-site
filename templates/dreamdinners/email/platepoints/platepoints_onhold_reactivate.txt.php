@@ -8,8 +8,8 @@ Sincerely,
 Dream Dinners
 
 --------------------------------------------------------------------------
-Order: <?=HTTPS_BASE ?>main.php?page=session_menu
-My Account: <?=HTTPS_BASE ?>main.php?page=my_account
-My PLATEPOINTS: <?=HTTPS_BASE ?>main.php?page=my_platepoints
+Order: <?=HTTPS_BASE ?>?page=session_menu
+My Account: <?=HTTPS_BASE ?>?page=my_account
+My PLATEPOINTS: <?=HTTPS_BASE ?>?page=my_platepoints
 
 *Dinner Dollars are awarded after your 3rd standard order and can be applied on qualifying items on your 4th visit and beyond. Dinner Dollars can only be redeemed at participating stores.

@@ -167,11 +167,11 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				{
 					if (!self::$updateExistingMenu)
 					{
-						$tpl->setStatusMsg('<p>Menu imported: <a class="button" href="main.php?page=admin_menu_inspector&menus=' . CGPC::do_clean($_POST['menu'], TYPE_INT) . '" target="_blank">Review</a></p><p>Next Step: <a class="button" href="main.php?page=admin_import_nutritionals_reciprofity">Import Nutritionals</a></p>');
+						$tpl->setStatusMsg('<p>Menu imported: <a class="button" href="?page=admin_menu_inspector&menus=' . CGPC::do_clean($_POST['menu'], TYPE_INT) . '" target="_blank">Review</a></p><p>Next Step: <a class="button" href="?page=admin_import_nutritionals_reciprofity">Import Nutritionals</a></p>');
 					}
 					else
 					{
-						$tpl->setStatusMsg('<p>Menu imported: <a class="button" href="main.php?page=admin_menu_inspector&menus=' . CGPC::do_clean($_POST['menu'], TYPE_INT) . '" target="_blank">Review</a></p><p>Next: <a class="button" href="main.php?page=admin_import_nutritionals_reciprofity">Import Nutritionals</a></p>');
+						$tpl->setStatusMsg('<p>Menu imported: <a class="button" href="?page=admin_menu_inspector&menus=' . CGPC::do_clean($_POST['menu'], TYPE_INT) . '" target="_blank">Review</a></p><p>Next: <a class="button" href="?page=admin_import_nutritionals_reciprofity">Import Nutritionals</a></p>');
 					}
 				}
 

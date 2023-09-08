@@ -7,7 +7,7 @@ During this exclusive pick up event, you will receive three delicious meals to t
 Attendance is by invitation only, and space is limited. RSVP today to reserve your space. 
 
 Learn more about how Dream Dinners works.
-https://dreamdinners.com/main.php?static=how_it_works
+https://dreamdinners.com/?static=how_it_works
 
 <?php echo $this->message; ?>
 

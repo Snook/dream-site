@@ -1135,7 +1135,7 @@ $(function () {
 						message: json.html,
 						buttons: {
 							"Full details": function () {
-								bounce('main.php?page=item&recipe=' + json.recipe_id + '&ov_menu=' + json.menu_id);
+								bounce('?page=item&recipe=' + json.recipe_id + '&ov_menu=' + json.menu_id);
 							},
 							cancel: {
 								label: "Close"
@@ -1292,7 +1292,7 @@ $(function () {
 		$("#do_reschedule").attr("disabled", "true");
 
 		create_and_submit_form({
-			action: "main.php?page=session&reschedule=" + current_order_id,
+			action: "?page=session&reschedule=" + current_order_id,
 			input: ({
 				target: target_id
 			})
@@ -1324,7 +1324,7 @@ $(function () {
 			success: function (json) {
 				if (json.result_code == 1)
 				{
-					bounce('main.php?page=session_menu');
+					bounce('?page=session_menu');
 				}
 				else
 				{
@@ -1827,7 +1827,7 @@ $(function () {
 		// opening cart
 		if ($(this).attr('aria-expanded') == 'true' && location.hash != "#cart")
 		{
-			historyPush({url: 'main.php?page=session_menu#cart'});
+			historyPush({url: '?page=session_menu#cart'});
 		}
 		else // closing cart
 		{

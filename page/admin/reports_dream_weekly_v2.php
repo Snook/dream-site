@@ -29,7 +29,7 @@ class page_admin_reports_dream_weekly_v2 extends CPageAdminOnly {
 			$this->runSiteAdmin();
 		}
 		else
-			CApp::bounce('main.php?page=admin_access_error&topnavname=reports&pagename=reports_dream_weekly_v2');
+			CApp::bounce('?page=admin_access_error&topnavname=reports&pagename=reports_dream_weekly_v2');
 	}
 
 	function runOpsLead()
@@ -41,7 +41,7 @@ class page_admin_reports_dream_weekly_v2 extends CPageAdminOnly {
 			$this->runSiteAdmin();
 		}
 		else
-			CApp::bounce('main.php?page=admin_access_error&topnavname=reports&pagename=reports_dream_weekly_v2');
+			CApp::bounce('?page=admin_access_error&topnavname=reports&pagename=reports_dream_weekly_v2');
 	}
 
 	function runFranchiseOwner() {

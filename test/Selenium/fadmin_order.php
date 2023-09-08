@@ -15,7 +15,7 @@ require_once('../test_support_functions.php');
 
 
 try {
-	
+
 $session = DD_Test_Support::getSessionWithProperties(291);
 
 $out_path = APP_BASE  . "/test/Selenium/results/" . "fadmin_order_results.txt";
@@ -30,7 +30,7 @@ DD_Selenium_Test_Utils::Trace("Fadmin Order Test Initialized: About to begin ...
 
 DD_Selenium_Test_Utils::signOnSiteAdmin($driver);
 
-$driver->get($baseURL . "/main.php?page=admin_start_new_test_order&session_id=" . $session->id . "&user_id=400252");
+$driver->get($baseURL . "/?page=admin_start_new_test_order&session_id=" . $session->id . "&user_id=400252");
 
 DD_Selenium_Test_Utils::selectItems($driver, 36, 48, false);
 

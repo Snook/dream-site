@@ -108,7 +108,7 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 			if (empty($_REQUEST['user']) || !is_numeric($_REQUEST['user']))
 			{
 				$tpl->setErrorMsg("There was a problem with the user ID specified.");
-				CApp::bounce("main.php?page=admin_main");
+				CApp::bounce("?page=admin_main");
 			}
 
 			$this->originalOrder = new COrdersDelivered();
@@ -146,7 +146,7 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 				else
 				{
 					$tpl->setErrorMsg("There was a problem with the order ID specified.");
-					CApp::bounce("main.php?page=admin_main");
+					CApp::bounce("?page=admin_main");
 					// TODO: or we could leave them here with a NEW order
 				}
 			}
@@ -199,7 +199,7 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 			}
 			else
 			{
-				CApp::bounce('main.php?page=admin_main');
+				CApp::bounce('?page=admin_main');
 			}
 		}
 
@@ -1075,9 +1075,9 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 						COrders::sendEditedOrderConfirmationEmail($this->User, $this->originalOrder);
 					}
 
-					$tpl->assign('back', "main.php?page=admin_order_mgr_delivered&order=" . $this->originalOrder->id);
+					$tpl->assign('back', "?page=admin_order_mgr_delivered&order=" . $this->originalOrder->id);
 
-					CApp::bounce("main.php?page=admin_order_mgr_delivered&order=" . $this->originalOrder->id);
+					CApp::bounce("?page=admin_order_mgr_delivered&order=" . $this->originalOrder->id);
 				}
 				catch (Exception $e)
 				{
@@ -1350,9 +1350,9 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 						COrdersDelivered::sendEditedOrderConfirmationEmail($this->User, $this->originalOrder);
 					}
 
-					$tpl->assign('back', "main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+					$tpl->assign('back', "?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 
-					CApp::bounce("main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+					CApp::bounce("?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 				}
 				catch (Exception $e)
 				{

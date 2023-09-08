@@ -23,7 +23,7 @@ function init_action_handlers(){
 	$('.sd_invitation_pdf').on('click', function (e) {
 		e.preventDefault();
 		let selected_session_id = $(this).data('session');
-		bounce('main.php?page=print&dream_taste_event_pdf=' + selected_session_id, '_blank');
+		bounce('?page=print&dream_taste_event_pdf=' + selected_session_id, '_blank');
 
 	});
 
@@ -31,7 +31,7 @@ function init_action_handlers(){
 	$('.sd_fundraiser_invitation_pdf').on('click', function (e) {
 		e.preventDefault();
 		let selected_session_id = $(this).data('session');
-		bounce('main.php?page=print&fundraiser_event_pdf=' + selected_session_id, '_blank');
+		bounce('?page=print&fundraiser_event_pdf=' + selected_session_id, '_blank');
 
 	});
 
@@ -39,7 +39,7 @@ function init_action_handlers(){
 	$('.sd_pick_up_event_invitation_pdf').on('click', function (e) {
 		e.preventDefault();
 		let selected_session_id = $(this).data('session');
-		bounce('main.php?page=print&remote_pickup_private_event_pdf=' + selected_session_id, '_blank');
+		bounce('?page=print&remote_pickup_private_event_pdf=' + selected_session_id, '_blank');
 
 	});
 

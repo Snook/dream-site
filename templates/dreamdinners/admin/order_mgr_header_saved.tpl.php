@@ -416,7 +416,7 @@
 											<div>
 												<div style="float:right">
 													<span id="gd_delete_order-<?php echo $this->orderInfo['id']; ?>" data-user_id="<?php echo $this->orderInfo['user_id']; ?>" data-store_id="<?php echo $this->orderInfo['store_id']; ?>"
-													 data-session_id="<?php echo $this->sessionInfo['id'] ?>" data-order_id="<?php echo $this->orderInfo['id']; ?>" data-bounce="main.php?page=admin_order_mgr&user=<?php echo $this->orderInfo['user_id']; ?>"  class="button">Delete Saved Order</span>
+													 data-session_id="<?php echo $this->sessionInfo['id'] ?>" data-order_id="<?php echo $this->orderInfo['id']; ?>" data-bounce="?page=admin_order_mgr&user=<?php echo $this->orderInfo['user_id']; ?>"  class="button">Delete Saved Order</span>
 												</div>
 											</div>
 										</td>

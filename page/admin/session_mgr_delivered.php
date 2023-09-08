@@ -93,7 +93,7 @@ class page_admin_session_mgr_delivered extends CPageAdminOnly
 
 		$currentMenu = CBrowserSession::instance()->getValue('sm_current_menu');
 
-		CBrowserSession::instance()->setValue('sm_current_page', 'main.php?page=admin_session_mgr');
+		CBrowserSession::instance()->setValue('sm_current_page', '?page=admin_session_mgr');
 
 		$todaysMonth = date("n");
 		$todaysYear = date("Y");
@@ -480,9 +480,9 @@ function populateCallback($Date)
 //				$dayItem['session_type_string'] = 'delivery';
 //				$sessionTypeNote = CCalendar::dayItemTypeNote($dayItem);
 //
-//				$itemList[$count++] = '<a href="main.php?page=admin_edit_session&amp;session=' . $dayItem['id'] . '&amp;back=main.php?page=admin_session_mgr">
+//				$itemList[$count++] = '<a href="?page=admin_edit_session&amp;session=' . $dayItem['id'] . '&amp;back=?page=admin_session_mgr">
 //				<img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign">
-//				</a>' . $sessionTypeNote . '<a href="main.php?page=admin_main_delivered&amp;session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Pick Ups: ' . $dayItem['remainingSlots'] . '">&nbsp;' . $dayItem['remainingSlots'] .'</a>';
+//				</a>' . $sessionTypeNote . '<a href="?page=admin_main_delivered&amp;session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Pick Ups: ' . $dayItem['remainingSlots'] . '">&nbsp;' . $dayItem['remainingSlots'] .'</a>';
 //			}
 
 			if( $dayItem['delivered_supports_shipping']){
@@ -492,9 +492,9 @@ function populateCallback($Date)
 				$dayItem['session_type_title'] = 'Pickup';
 				$sessionTypeNote = CCalendar::dayItemTypeNote($dayItem);
 
-				$itemList[$count++] = '<a href="main.php?page=admin_edit_session_delivered&amp;session=' . $dayItem['id'] . '&amp;back=main.php?page=admin_session_mgr_delivered">
+				$itemList[$count++] = '<a href="?page=admin_edit_session_delivered&amp;session=' . $dayItem['id'] . '&amp;back=?page=admin_session_mgr_delivered">
 				<img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign">
-				</a>' . $sessionTypeNote . '<a href="main.php?page=admin_main_delivered&amp;session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Pick Ups: ' . $dayItem['remainingSlots'] . '">&nbsp;' . $dayItem['remainingSlots'] .'</a>';
+				</a>' . $sessionTypeNote . '<a href="?page=admin_main_delivered&amp;session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Pick Ups: ' . $dayItem['remainingSlots'] . '">&nbsp;' . $dayItem['remainingSlots'] .'</a>';
 			}
 
 
@@ -510,7 +510,7 @@ function populateCallback($Date)
 				$dayItem['session_type_title'] = 'Delivery Blackout';
 				$sessionNoteDelivery = CCalendar::dayItemTypeNote($dayItem);
 
-				$itemList[$count++] = '<a href="main.php?page=admin_edit_session_delivered&amp;session=' . $dayItem['id'] . '&amp;back=main.php?page=admin_session_mgr_delivered">
+				$itemList[$count++] = '<a href="?page=admin_edit_session_delivered&amp;session=' . $dayItem['id'] . '&amp;back=?page=admin_session_mgr_delivered">
 				<img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign">
 				</a>' . $sessionNotePickup.$sessionNoteDelivery;
 			}else if(!$dayItem['delivered_supports_delivery'] ){
@@ -520,7 +520,7 @@ function populateCallback($Date)
 				$dayItem['session_type_title'] = 'Delivery Blackout';
 				$sessionNoteDelivery = CCalendar::dayItemTypeNote($dayItem);
 
-				$itemList[$count++] = '<a href="main.php?page=admin_edit_session_delivered&amp;session=' . $dayItem['id'] . '&amp;back=main.php?page=admin_session_mgr_delivered">
+				$itemList[$count++] = '<a href="?page=admin_edit_session_delivered&amp;session=' . $dayItem['id'] . '&amp;back=?page=admin_session_mgr_delivered">
 				<img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign">
 				</a>' .$sessionNoteDelivery;
 			}else if(!$dayItem['delivered_supports_shipping']){
@@ -530,7 +530,7 @@ function populateCallback($Date)
 				$dayItem['session_type_title'] = 'Pickup Blackout';
 				$sessionNotePickup = CCalendar::dayItemTypeNote($dayItem);
 
-				$itemList[$count++] = '<a href="main.php?page=admin_edit_session_delivered&amp;session=' . $dayItem['id'] . '&amp;back=main.php?page=admin_session_mgr_delivered">
+				$itemList[$count++] = '<a href="?page=admin_edit_session_delivered&amp;session=' . $dayItem['id'] . '&amp;back=?page=admin_session_mgr_delivered">
 				<img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign">
 				</a>' . $sessionNotePickup;
 			}

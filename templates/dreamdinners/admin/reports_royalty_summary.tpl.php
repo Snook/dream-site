@@ -1,27 +1,27 @@
 <table class="report" border="0">
 <tr>
 	<td style="font-weight:bold;font-size:16px;">#<?php echo $array_entity['home_office_id']; ?> - <?php echo $array_entity['store_name']; ?> - <?php echo $array_entity['city']; ?>, <?php echo $array_entity['state_id']; ?>
-	
-	
+
+
 	<?php if (!empty($array_entity['is_transition_month']))  { ?>
-	
+
 	&nbsp;<span style="color:red">(4-4-5 Transition Month &mdash; Includes Sales for June 1st through July 2nd)</span>
-	
+
 	<?php } else if (!empty($array_entity['is_menu_based_month']))  { ?>
-	
+
 	&nbsp;<span style="color:red">(Now based on Menu Month)</span>
 
 	<?php } else { ?>
-	
+
 	&nbsp;(based on Calendar Month )
-	
+
 	<?php } ?>
 	</td>
 	<td style="text-align:right;">
 <?php if (!$this->print_view) { ?>
-	<a href="main.php?page=admin_reports_royalty&amp;store=<?php echo $array_entity['store_id']; ?>&amp;month_popup=<?php echo $this->report_month; ?>&amp;year_field_001=<?php echo $this->report_year; ?>&amp;report_submit=true&amp;print=true"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" class="img_valign"></a>
+	<a href="?page=admin_reports_royalty&amp;store=<?php echo $array_entity['store_id']; ?>&amp;month_popup=<?php echo $this->report_month; ?>&amp;year_field_001=<?php echo $this->report_year; ?>&amp;report_submit=true&amp;print=true"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" class="img_valign"></a>
 <?php
-	$exportAllLink = 'main.php?page=admin_reports_royalty&store=' . $array_entity['store_id'] . '&day=' . $this->report_day . '&month=' . $this->report_month . '&year=' . $this->report_year . '&duration=' . urlencode($this->report_duration) . '&report_type=' . $this->report_type .  '&export=xlsx';
+	$exportAllLink = '?page=admin_reports_royalty&store=' . $array_entity['store_id'] . '&day=' . $this->report_day . '&month=' . $this->report_month . '&year=' . $this->report_year . '&duration=' . urlencode($this->report_duration) . '&report_type=' . $this->report_type .  '&export=xlsx';
 	include $this->loadTemplate('admin/export.tpl.php');
 }
 ?>
@@ -124,7 +124,7 @@
 	<td><?php echo CSessionReports::formatCurrency($array_entity['ltd_menu_item_value']); ?></td>
 </tr>
 <?php } ?>
-<?php if (isset($array_entity['ltd_menu_item_value']) || isset($array_entity['ltd_round_up_value'])) { 
+<?php if (isset($array_entity['ltd_menu_item_value']) || isset($array_entity['ltd_round_up_value'])) {
 	 $menu_item_value = (isset($array_entity['ltd_menu_item_value']) ? $array_entity['ltd_menu_item_value'] : 0);
 	 $round_up_value = (isset($array_entity['ltd_round_up_value']) ? $array_entity['ltd_round_up_value'] : 0);
 	 ?>
@@ -138,7 +138,7 @@
 
 <?php if (!$this->print_view && $this->report_type_to_run == 3) { ?>
 <tr>
-	<td colspan="2"><input type="button" class="button" name="Print Invoice" value="Print Invoice" onclick="bounce('./main.php?page=admin_reports_royalty_invoice&store=<?php echo $this->store; ?>&month=<?php echo $this->report_month; ?>&year=<?php echo $this->report_year; ?>&order_total=<?php echo (isset($this->report_data[0]['total_less_discounts']) ? $this->report_data[0]['total_less_discounts'] : 0); ?>');"></td>
+	<td colspan="2"><input type="button" class="button" name="Print Invoice" value="Print Invoice" onclick="bounce('./?page=admin_reports_royalty_invoice&store=<?php echo $this->store; ?>&month=<?php echo $this->report_month; ?>&year=<?php echo $this->report_year; ?>&order_total=<?php echo (isset($this->report_data[0]['total_less_discounts']) ? $this->report_data[0]['total_less_discounts'] : 0); ?>');"></td>
 </tr>
 <?php } ?>
 

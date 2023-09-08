@@ -826,7 +826,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 
 				if (!self::$testMode)
 				{
-					$tpl->setStatusMsg('<p>Bundles imported: <a class="button" href="main.php?page=admin_manage_bundle" target="_blank">Review</a></p>');
+					$tpl->setStatusMsg('<p>Bundles imported: <a class="button" href="?page=admin_manage_bundle" target="_blank">Review</a></p>');
 				}
 			}
 			catch (exception $e)

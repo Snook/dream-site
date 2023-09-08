@@ -5,7 +5,7 @@
 <?php $this->setOnLoad("PlatePoints_init('".$this->userObj->id."');");?>
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
-	<h2 style="margin-bottom: 10px;">PlatePoints History for <a href="/main.php?page=admin_user_details&amp;id=<?php echo $this->userObj->id; ?>"><?php echo $this->userObj->firstname; ?> <?php echo $this->userObj->lastname; ?></a></h2>
+	<h2 style="margin-bottom: 10px;">PlatePoints History for <a href="/?page=admin_user_details&amp;id=<?php echo $this->userObj->id; ?>"><?php echo $this->userObj->firstname; ?> <?php echo $this->userObj->lastname; ?></a></h2>
 
 
 	<div class="collapse" id="plate_points_head">
@@ -132,7 +132,7 @@
 </div>
 
 <?php if ($this->userObj->membershipData['enrolled']) { ?>
-	<p class="text-center">Guest is currently enrolled in <a href="/main.php?page=admin_user_membership&amp;id=<?php echo $this->userObj->id; ?>">Meal Prep+</a> and ineligible for the PlatePoints program.</p>
+	<p class="text-center">Guest is currently enrolled in <a href="/?page=admin_user_membership&amp;id=<?php echo $this->userObj->id; ?>">Meal Prep+</a> and ineligible for the PlatePoints program.</p>
 <?php } else { ?>
 	<?php if (isset($this->suspend_form['suspend_member_html'])) { ?>
 		<div class="mb-3">

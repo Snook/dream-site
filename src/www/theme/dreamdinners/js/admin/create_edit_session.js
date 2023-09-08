@@ -9,7 +9,7 @@ function addHostess(guest)
 
 $(document).on('change', '#menu', function (e) {
 
-	bounce('main.php?page=admin_create_session&menu=' + $(this).val());
+	bounce('?page=admin_create_session&menu=' + $(this).val());
 
 });
 

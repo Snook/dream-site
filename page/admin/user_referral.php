@@ -252,7 +252,7 @@ class page_admin_user_referral extends CPageAdminOnly {
 		if (!$user_id)
 		{
 			$tpl->setErrorMsg('User not found');
-			CApp::bounce('main.php?page=admin_list_users');
+			CApp::bounce('?page=admin_list_users');
 		}
 		else
 		{
@@ -295,7 +295,7 @@ class page_admin_user_referral extends CPageAdminOnly {
 		}
 		else
 		{
-			$tpl->assign('back', 'main.php?page=admin_user_details&amp;id=' . $user_id);
+			$tpl->assign('back', '?page=admin_user_details&amp;id=' . $user_id);
 		}
 
 		$doubleReferralRewardInEffect = false;

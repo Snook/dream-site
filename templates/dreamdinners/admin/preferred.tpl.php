@@ -16,7 +16,7 @@
 								<input style="width:150px;" type="button" value="Back" class="button" onClick="window.location = '<?=$this->back?>';" />
 							</td>
 							<td colspan="5">
-								You are viewing preferred status for <b><a href="main.php?page=admin_user_details&amp;id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a></b>.
+								You are viewing preferred status for <b><a href="?page=admin_user_details&amp;id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a></b>.
 							</td>
 						</tr>
 						</tbody>
@@ -63,7 +63,7 @@
 					<tbody>
 					<?php foreach ($this->rows as $id => $row) { ?>
 						<tr>
-							<td><a href="main.php?page=admin_user_details&amp;id=<?php echo $row['user_id']; ?>"><?= $row['firstname']?> <?=$row['lastname']?></a></td>
+							<td><a href="?page=admin_user_details&amp;id=<?php echo $row['user_id']; ?>"><?= $row['firstname']?> <?=$row['lastname']?></a></td>
 							<td><?= $row['store_name']?></td>
 							<td><?= $row['preferred_type']?></td>
 							<td><?= $row['preferred_value']?></td>
@@ -71,7 +71,7 @@
 							<td class="text-center"  style="text-transform: capitalize;"><?= $row['preferred_cap_value'] > 0 ? $row['preferred_cap_value'] : ''?> <?= strtolower($row['preferred_cap_type'])?> </td>
 							<td class="text-center"><?= $row['include_sides'] ? 'Yes' : 'No'?></td>
 							<td class="text-center"><?= ($row['all_stores'] ? 'Yes' : "No")?></td>
-							<td><a href="main.php?page=admin_user_details&amp;id=<?php echo $row['created_by']; ?>"><?php echo $row['added_by_firstname']; ?> <?php echo $row['added_by_lastname']; ?></a></td>
+							<td><a href="?page=admin_user_details&amp;id=<?php echo $row['created_by']; ?>"><?php echo $row['added_by_firstname']; ?> <?php echo $row['added_by_lastname']; ?></a></td>
 							<td><button class="button" onclick="submitDeleteRequest(<?=$id?>)">Delete</button></td>
 						</tr>
 					<?php } ?>

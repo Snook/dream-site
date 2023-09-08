@@ -23,10 +23,10 @@ Dream Dinners</p>
 <td align="left"><img src="<?=EMAIL_IMAGES_PATH?>/email/platepoints/platepoints-footer-grey.png" alt="" width="550" height="50"></td>
 </tr>
 <tr>
-  <td align="right" style="padding: 5px"><a href="<?=HTTPS_BASE ?>main.php?page=session_menu">Order</a> | <a href="<?=HTTPS_BASE ?>main.php?page=my_account">My Account</a> | <a href="<?=HTTPS_BASE ?>main.php?page=my_platepoints">My PLATEPOINTS</a></td>
+  <td align="right" style="padding: 5px"><a href="<?=HTTPS_BASE ?>?page=session_menu">Order</a> | <a href="<?=HTTPS_BASE ?>?page=my_account">My Account</a> | <a href="<?=HTTPS_BASE ?>?page=my_platepoints">My PLATEPOINTS</a></td>
   </tr>
 <tr>
-  <td align="left" style="padding: 5px"><i>*Dinner Dollars expire 6 months from the date awarded. <a href="<?=HTTPS_BASE?>main.php?page=my_platepoints">Login to your account</a> to view your credits and program details.</i></td>
+  <td align="left" style="padding: 5px"><i>*Dinner Dollars expire 6 months from the date awarded. <a href="<?=HTTPS_BASE?>?page=my_platepoints">Login to your account</a> to view your credits and program details.</i></td>
 </tr>
 </table>
 </body>

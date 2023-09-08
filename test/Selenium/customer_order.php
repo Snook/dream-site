@@ -13,7 +13,7 @@ require_once('../test_support_functions.php');
 
 
 try {
-	
+
 $out_path = APP_BASE  . "/test/Selenium/results/" . "cust_order_results.txt";
 $dest_fp = fopen($out_path, 'w');
 
@@ -25,7 +25,7 @@ DD_Selenium_Test_Utils::Trace("Customer Order Test Initialized: About to begin .
 
 DD_Selenium_Test_Utils::signOnCustomer($driver);
 
-$driver->get($baseURL . "/main.php?page=start_new_test_order");
+$driver->get($baseURL . "/?page=start_new_test_order");
 
 DD_Selenium_Test_Utils::fill_out_customer_credit_card_form($driver);
 

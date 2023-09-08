@@ -223,7 +223,7 @@ class page_admin_publish_sessions extends CPageAdminOnly
 
 		//	dbg();
 
-		CBrowserSession::instance()->setValue('sm_current_page', 'main.php?page=admin_publish_sessions');
+		CBrowserSession::instance()->setValue('sm_current_page', '?page=admin_publish_sessions');
 
 		$Owner_id = CUser::getCurrentUser()->id;
 		//-----------------------------------------determine the current set

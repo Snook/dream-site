@@ -13,7 +13,7 @@ class page_admin_merchant extends CPageAdminOnly
 		$AdminUser = CUser::getCurrentUser();
 		if ($AdminUser->id != 662598 && $AdminUser->id != 835572)
 		{
-			CApp::bounce('main.php?page=admin_access_error&topnavname=stores&pagename=Edit Merchant Info');
+			CApp::bounce('?page=admin_access_error&topnavname=stores&pagename=Edit Merchant Info');
 		}
 
 		if (array_key_exists('store', $_REQUEST) && $_REQUEST['store'])
@@ -23,7 +23,7 @@ class page_admin_merchant extends CPageAdminOnly
 
 		if (!$store_id)
 		{
-			CApp::bounce('main.php?page=admin_list_stores');
+			CApp::bounce('?page=admin_list_stores');
 		}
 
 		if ($store_id)

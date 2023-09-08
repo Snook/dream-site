@@ -1,6 +1,6 @@
 $(document).on('change', '#orders', function (e) {
 
-	bounce('main.php?page=sides_and_sweets_order_form&id=' + $(this).val());
+	bounce('?page=sides_and_sweets_order_form&id=' + $(this).val());
 
 });
 

@@ -36,83 +36,83 @@
 
 			<?php if (!$this->emergency_mode) {?>
 				<?php if ($this->isPartialAccount) { ?>
-					<input  type="button" class="btn btn-primary btn-block" value="Upgrade Account" onclick="bounce('main.php?page=admin_account&upgrade=true&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input  type="button" class="btn btn-primary btn-block" value="Upgrade Account" onclick="bounce('?page=admin_account&upgrade=true&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } else if ($this->canPlaceOrder == true && !$isDC) { ?>
 					<div class="row my-1">
 						<div class="col-8 pr-1">
-							<input type="button" class="btn btn-primary btn-block" value="Place Order" onclick="bounce('main.php?page=admin_order_mgr&user=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+							<input type="button" class="btn btn-primary btn-block" value="Place Order" onclick="bounce('?page=admin_order_mgr&user=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 						</div>
 						<div class="col-4 pl-0">
-							<input type="button" class="btn btn-primary btn-block" value="<?php echo $this->date['next_M']; ?>" onclick="bounce('main.php?page=admin_order_mgr&user=<?php echo  $this->user['id']?>&month=<?php echo $this->date['next_M_time']; ?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+							<input type="button" class="btn btn-primary btn-block" value="<?php echo $this->date['next_M']; ?>" onclick="bounce('?page=admin_order_mgr&user=<?php echo  $this->user['id']?>&month=<?php echo $this->date['next_M_time']; ?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 						</div>
 					</div>
 				<?php } ?>
 
 				<?php if ($isDC) { ?>
-						<input type="button" style="height: 44px;" class="btn-delivered btn-cyan btn-block " value="Place Delivered Order" onclick="bounce('main.php?page=admin_order_mgr_delivered&user=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+						<input type="button" style="height: 44px;" class="btn-delivered btn-cyan btn-block " value="Place Delivered Order" onclick="bounce('?page=admin_order_mgr_delivered&user=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ( $this->user['numorders'] ) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="Order History" onclick="bounce('main.php?page=admin_order_history&id=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="Order History" onclick="bounce('?page=admin_order_history&id=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canSetPrefStatus == true) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="Preferred Status" onclick="bounce('main.php?page=admin_preferred&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="Preferred Status" onclick="bounce('?page=admin_preferred&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canChangeAccess == true) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="Access Levels" onclick="bounce('main.php?page=admin_access_levels&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="Access Levels" onclick="bounce('?page=admin_access_levels&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canEditInfo == true) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="Edit Guest Info" onclick="bounce('main.php?page=admin_account&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="Edit Guest Info" onclick="bounce('?page=admin_account&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canEmailCustomer == true) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="Email Guest" onclick="bounce('main.php?page=admin_email&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="Email Guest" onclick="bounce('?page=admin_email&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canModifyCreditCards == true) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="Credit Cards" onclick="bounce('main.php?page=admin_credit_cards&user=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="Credit Cards" onclick="bounce('?page=admin_credit_cards&user=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canModifyReferrals) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="Referred By" onclick="bounce('main.php?page=admin_user_referral&user=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="Referred By" onclick="bounce('?page=admin_user_referral&user=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canModifyStoreCredit == true) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="Credit" onclick="bounce('main.php?page=admin_credit&id=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="Credit" onclick="bounce('?page=admin_credit&id=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canViewUserHistory == true) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="User History" onclick="bounce('main.php?page=admin_user_history&id=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="User History" onclick="bounce('?page=admin_user_history&id=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canViewEventLog == true) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="User Event Log" onclick="bounce('main.php?page=admin_user_event_log&id=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="User Event Log" onclick="bounce('?page=admin_user_event_log&id=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canViewPlatePointsHistory == true) { ?>
-					<a class="btn btn-primary btn-block" href="/main.php?page=admin_user_plate_points&amp;id=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">PLATEPOINTS</a>
+					<a class="btn btn-primary btn-block" href="/?page=admin_user_plate_points&amp;id=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">PLATEPOINTS</a>
 				<?php } else if (false){//$this->canJoinToPlatePoints == true ) { ?>
 					<?php if (!$this->user['platePointsData']['userIsOnHold'] && !$this->user['membershipData']['enrolled']) { ?>
 						<input type="button" class="btn btn-primary btn-block" value="Join PLATEPOINTS" onclick="enrollInPlatePoints(<?php echo $this->user['id']?>);" />
 						<input type="button" class="btn btn-primary btn-block" value="Print Enrollment Form" onclick="printEnrollmentForm(<?php echo $this->user['id']?>);" />
 					<?php } else { ?>
-						<a class="btn btn-cyan btn-block" href="/main.php?page=admin_user_plate_points&amp;id=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">PLATEPOINTS</a>
+						<a class="btn btn-cyan btn-block" href="/?page=admin_user_plate_points&amp;id=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">PLATEPOINTS</a>
 					<?php } ?>
 				<?php } ?>
 
 				<?php if ( false ) { //dont show any longer - 7/28/2023 ?>
-					<a class="btn btn-primary btn-block" href="/main.php?page=admin_user_membership&amp;id=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">Meal Prep+</a>
-					<a class="btn btn-primary btn-block" href="/main.php?page=admin_order_mgr_delivered&amp;user=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">Order Delivered</a>
+					<a class="btn btn-primary btn-block" href="/?page=admin_user_membership&amp;id=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">Meal Prep+</a>
+					<a class="btn btn-primary btn-block" href="/?page=admin_order_mgr_delivered&amp;user=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">Order Delivered</a>
 				<?php } ?>
 
 				<?php if ((CBrowserSession::getCurrentFadminStore() == $this->user['home_store_id'] && $this->canUnsetHomeStore) || (CUser::getCurrentUser()->user_type == 'SITE_ADMIN' && $this->canUnsetHomeStore)) {	?>
 					<input type="button" class="btn btn-danger btn-block mt-5" value="Remove Homestore" onclick="unsetHomeStore('<?php echo $this->user['id']?>');" data-tooltip="Disassociate guest's home store." />
 				<?php } ?>
 				<?php if (DD_SERVER_NAME != 'LIVE' || (CUser::getCurrentUser()->user_type == 'SITE_ADMIN' && $this->user['user_type'] != CUser::SITE_ADMIN)) { ?>
-					<input type="button" class="btn btn-danger btn-block" value="Login as Guest" onclick="bounce('main.php?page=admin_user_details&amp;id=<?php echo $this->user['id']?>&amp;login_as_user=true');" data-tooltip="Login as guest." />
+					<input type="button" class="btn btn-danger btn-block" value="Login as Guest" onclick="bounce('?page=admin_user_details&amp;id=<?php echo $this->user['id']?>&amp;login_as_user=true');" data-tooltip="Login as guest." />
 				<?php } ?>
 				<?php if (CUser::getCurrentUser()->user_type == 'SITE_ADMIN' && ($this->user['numorders'] === 0 || $this->candelete == true)) {	?>
 					<input type="button" class="btn btn-danger btn-block" value="Close Account" onclick="deleteUserConfirm('<?php echo $this->user['id']?>');" data-tooltip="Permanently delete the guest sitewide." />
@@ -156,7 +156,7 @@
 						<?php if ($this->emergency_mode) { ?>
 							<td class="guest_details_list_item"><?php echo $this->user['primary_email']; ?></td>
 						<?php } else { ?>
-							<td class="guest_details_list_item"><a href="main.php?page=admin_email&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>"><?php echo $this->user['primary_email']; ?></a></td>
+							<td class="guest_details_list_item"><a href="?page=admin_email&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>"><?php echo $this->user['primary_email']; ?></a></td>
 						<?php } ?>
 					</tr>
 
@@ -165,7 +165,7 @@
 							<td class="guest_details_list_name">Corporate Crate Email</td>
 							<td class="guest_details_list_item">
 								<?php if (!empty($this->user['secondary_email'])) { ?>
-									<a href="main.php?page=admin_email&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>"><?php echo $this->user['secondary_email']; ?></a>
+									<a href="?page=admin_email&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>"><?php echo $this->user['secondary_email']; ?></a>
 								<?php } ?>
 							</td>
 						</tr>
@@ -251,7 +251,7 @@
 				<tr>
 					<td class="guest_details_list_name">Order History</td>
 					<?php if ( $this->user['numorders'] ) { ?>
-						<td class="guest_details_list_item"><a href="main.php?page=admin_order_history&amp;id=<?php echo $this->user['id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>"><?php echo  $this->user['numorders']; ?> total order<?php echo  $this->user['numorders'] != 1 ? 's' : '' ?> (<?php echo  $this->user['numcancelledorders']; ?> cancelled)</a></td>
+						<td class="guest_details_list_item"><a href="?page=admin_order_history&amp;id=<?php echo $this->user['id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>"><?php echo  $this->user['numorders']; ?> total order<?php echo  $this->user['numorders'] != 1 ? 's' : '' ?> (<?php echo  $this->user['numcancelledorders']; ?> cancelled)</a></td>
 					<?php } else { ?>
 						<td class="guest_details_list_item">No orders</td>
 					<?php } ?>
@@ -264,7 +264,7 @@
 						<td class="guest_details_list_name">RSVPs</td>
 						<td class="guest_details_list_item">
 							<?php foreach($this->user['rsvp_history'] as $session_id => $details) { ?>
-								<a href="main.php?page=admin_main&session=<?php echo $session_id;?>">On <?php echo CTemplate::dateTimeFormat($details['rsvp_time'], MONTH_DAY_YEAR); ?> for session on <?php echo CTemplate::dateTimeFormat($details['session_start']); ?></a><br />
+								<a href="?page=admin_main&session=<?php echo $session_id;?>">On <?php echo CTemplate::dateTimeFormat($details['rsvp_time'], MONTH_DAY_YEAR); ?> for session on <?php echo CTemplate::dateTimeFormat($details['session_start']); ?></a><br />
 							<?php  } ?>
 						</td>
 					</tr>
@@ -278,7 +278,7 @@
 					<?php if ($this->emergency_mode) { ?>
 						<td class="guest_details_list_item"><?php echo $this->user['store_name']; ?></td>
 					<?php  } else { ?>
-						<td class="guest_details_list_item"><a target="_blank" href="main.php?page=store&amp;id=<?php echo $this->user['home_store_id']; ?>"><?php echo $this->user['store_name']; ?></a></td>
+						<td class="guest_details_list_item"><a target="_blank" href="?page=store&amp;id=<?php echo $this->user['home_store_id']; ?>"><?php echo $this->user['store_name']; ?></a></td>
 					<?php } ?>
 				</tr>
 				<!--<tr>

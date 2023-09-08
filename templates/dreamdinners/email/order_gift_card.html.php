@@ -15,14 +15,14 @@
 <tr>
 <td>
 <p style="font-family:Arial, Helvetica, sans-serif; font-size: 14px; color: #000000;">Thank you for your order. <strong>This receipt is your &quot;Proof of Purchase&quot;</strong>.</p>
-	
+
 <?php if ($this->charged_amount >= 125 && (date('Y-m-d') >= '2021-12-01' && date('Y-m-d') <= '2021-12-25' )) { ?>
  <p style="font-family:Arial, Helvetica, sans-serif; font-size: 16px; color: #000000;"><strong>Our Gift to You </strong></p>
  <p style="font-family:Arial, Helvetica, sans-serif; font-size: 14px; color: #000000;">Thank you for gifting Dream Dinners this year. We want to give you something special. Use the coupon code below to get $10 off your next standard order between January and March 2022.</p>
  <p style="font-family:Arial, Helvetica, sans-serif; font-size: 14px; color: #000000;"> <strong>Code: Gift22</strong></p>
  <p style="font-family:Arial, Helvetica, sans-serif; font-size: 14px; color: #000000;">Happy Holidays from Dream Dinners.</p>
  <hr>
- <p style="font-family:Arial, Helvetica, sans-serif; font-size: 12px; color: #000000;"><em>*$125 Dream Dinners gift card purchase must be made in one transaction. $10 off coupon code will be sent in your order confirmation email. Only one coupon code can be applied per an 2022 order. Coupon code is valid January – March 2022. Coupon code not eligible with other coupons or offers. Coupon not valid for use in conjunction with a Meal Prep Starter Pack or Special Event session type. No cash redemption permitted. Available for use at participating locations.<em></p> 
+ <p style="font-family:Arial, Helvetica, sans-serif; font-size: 12px; color: #000000;"><em>*$125 Dream Dinners gift card purchase must be made in one transaction. $10 off coupon code will be sent in your order confirmation email. Only one coupon code can be applied per an 2022 order. Coupon code is valid January – March 2022. Coupon code not eligible with other coupons or offers. Coupon not valid for use in conjunction with a Meal Prep Starter Pack or Special Event session type. No cash redemption permitted. Available for use at participating locations.<em></p>
 <?php } ?>
 <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="border: 1px solid #b9bf33; background-color: #F8F7F5;">
         <tr style="background-color:#afbd21;">
@@ -49,7 +49,7 @@
                <strong>Message:</strong> <?=$thisCard['message_text']?><br />
                <?php if ($thisCard['media_type'] == 'VIRTUAL') { ?>
                <strong>Recipient Email Address:</strong> <?=$thisCard['recipient_email']?><br />
-               <strong>Resend eGift Card Email:</strong> &nbsp;<a href="<?=HTTPS_BASE?>main.php?page=resend_egift&oid=<?=$thisCard['confirm_id']?>">Click here to resend</a>
+               <strong>Resend eGift Card Email:</strong> &nbsp;<a href="<?=HTTPS_BASE?>?page=resend_egift&oid=<?=$thisCard['confirm_id']?>">Click here to resend</a>
                <p>&nbsp;</p>
                <?php } else { ?>
                <strong>Recipient Name:</strong> <?=$thisCard['ship_to_name']?><br />
@@ -116,7 +116,7 @@
       <!--end gift cards purchased table-->
       <p style="font-family:Arial, Helvetica, sans-serif; font-size: 12px; color: #000000;">*<em>Gift Card orders that require shipping will take 2-6 business days for processing &amp; shipping</em><em>.<br />
 Note: $2 shipping/service fee added each Traditional Gift Card ordered.</em></p>
-      <p style="font-family:Arial, Helvetica, sans-serif; font-size: 12px; color: #000000;"><strong>Have questions?</strong> To view the complete Gift Card Policies &amp; Terms online or if you have questions regarding your Gift Card or Customer Service options please visit <a href="<?=HTTPS_SERVER?>/main.php?static=terms">DreamDinners.com</a></p>
+      <p style="font-family:Arial, Helvetica, sans-serif; font-size: 12px; color: #000000;"><strong>Have questions?</strong> To view the complete Gift Card Policies &amp; Terms online or if you have questions regarding your Gift Card or Customer Service options please visit <a href="<?=HTTPS_SERVER?>/?static=terms">DreamDinners.com</a></p>
       <p>&nbsp; </p>
 </td>
 </tr>

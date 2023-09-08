@@ -27,7 +27,7 @@ Next Dinner Dollar Expiration:  $<?php echo number_format($this->plate_points['n
 Rate My Meals
 ---------------------
 Did you know that your ratings contribute to the fate of our menu items? Make sure to actively rate your meals, especially if you want to see the ones you love come back!
-Rate your meals now > <?=HTTPS_BASE ?>main.php?page=my_meals
+Rate your meals now > <?=HTTPS_BASE ?>?page=my_meals
 <?php } ?>
 
 ---------------------------
@@ -36,7 +36,7 @@ If you need to reschedule or cancel your order, please contact us 6 days prior t
 
 Policies and Terms
 By participating in the Dream Dinners program, you agree to the Policy and Terms
-https://dreamdinners.com/main.php?static=terms
+https://dreamdinners.com/?static=terms
 
 
 Order Totals

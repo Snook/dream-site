@@ -41,7 +41,7 @@ class page_admin_preferred extends CPageAdminOnly
 		{
 			if (CUser::getCurrentUser()->user_type != CUser::SITE_ADMIN && CUser::getCurrentUser()->user_type != CUser::HOME_OFFICE_MANAGER)
 			{
-				CApp::bounce('main.php?page=admin_list_users');
+				CApp::bounce('?page=admin_list_users');
 			}
 
 			$id = null;
@@ -53,11 +53,11 @@ class page_admin_preferred extends CPageAdminOnly
 		}
 		else if ($id)
 		{
-			$tpl->assign('back', 'main.php?page=admin_user_details&amp;id=' . $id);
+			$tpl->assign('back', '?page=admin_user_details&amp;id=' . $id);
 		}
 		else
 		{
-			$tpl->assign('back', 'main.php?page=admin_list_users');
+			$tpl->assign('back', '?page=admin_list_users');
 		}
 
 		//get customer's name

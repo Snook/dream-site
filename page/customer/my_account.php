@@ -12,7 +12,7 @@ require_once('includes/DAO/BusinessObject/CSession.php');
 class page_my_account extends CPage {
 
 	function runPublic() {
-		CApp::forceLogin('main.php?page=my_account');
+		CApp::forceLogin('?page=my_account');
 	}
 
 	function runCustomer() {

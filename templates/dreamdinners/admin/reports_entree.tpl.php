@@ -117,7 +117,7 @@ if ($this->report_submitted == true)
 		if (isset($this->store))
 		{
 			$sessionTypes = $this->selectedSessionTypeArgs;
-			$exportAllLink = 'main.php?page=admin_reports_entree&store=' . $this->store . '&day=' . $this->report_day . '&month=' . $this->report_month . '&year=' . $this->report_year . '&duration=' . urlencode($this->report_duration) . '&report_type=' . $this->report_type . '&export=xlsx'.$sessionTypes;
+			$exportAllLink = '?page=admin_reports_entree&store=' . $this->store . '&day=' . $this->report_day . '&month=' . $this->report_month . '&year=' . $this->report_year . '&duration=' . urlencode($this->report_duration) . '&report_type=' . $this->report_type . '&export=xlsx'.$sessionTypes;
 			include $this->loadTemplate('admin/export.tpl.php');
 		}
 		echo '</td>';

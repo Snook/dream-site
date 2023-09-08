@@ -40,7 +40,7 @@ class page_session extends CPage
 				{
 					CLog::RecordNew('ERROR', 'A referral link was generated that points to a referral without a session: ' . $_REQUEST['oid'], "", "", true);
 					$tpl->setErrorMsg('The referral is invalid.');
-					CApp::bounce("main.php?page=session_menu");
+					CApp::bounce("?page=session_menu");
 				}
 				CBrowserSession::setValueAndDuration('RSV2_Origination_code', $_REQUEST['oid'], 86400 * 7);
 				CBrowserSession::setValueAndDuration('Inviting_user_id', $referral->referring_user_id, 86400 * 7);
@@ -98,20 +98,20 @@ class page_session extends CPage
 				if (!$StoreObj->find(true))
 				{
 					$tpl->setStatusMsg("Store not found.");
-					CApp::bounce('main.php?page=session_menu');
+					CApp::bounce('?page=session_menu');
 				}
 
 				if (strtotime($session['session_close_scheduling']) <= CTimezones::getAdjustedServerTime($StoreObj))
 				{
 					//updated per brandy 3/7/23 -$tpl->setStatusMsg("We're sorry, the session that you were invited to is closed. The date may have passed or the session may have been closed due to extenuating circumstances. Here you may view other sessions at your friend's Dream Dinners location.");
 					$tpl->setStatusMsg("We're sorry, but the event you were invited to is either sold out or closed. Please contact the store for more information!");
-					CApp::bounce('main.php?page=session_menu');
+					CApp::bounce('?page=session_menu');
 				}
 
 				if ($session['session_publish_state'] != CSession::PUBLISHED)
 				{
 					$tpl->setStatusMsg("We're sorry, the session that you were invited to is currently closed. If you feel you have received this message in error please contact the store at {$StoreObj->telephone_day} or <a href='mailto:{$StoreObj->email_address}'>{$StoreObj->email_address}</a>.");
-					CApp::bounce('main.php?page=session_menu');
+					CApp::bounce('?page=session_menu');
 				}
 
 				if ($session['session_type'] == CSession::STANDARD || $session['session_type'] == CSession::MADE_FOR_YOU)
@@ -128,7 +128,7 @@ class page_session extends CPage
 							else
 							{
 								$tpl->setErrorMsg('Our records indicate that you have previous orders with Dream Dinners. You must be new to Dream Dinners to be eligible for this offer. Please Select a different session type.');
-								CApp::bounce('main.php?page=session_menu');
+								CApp::bounce('?page=session_menu');
 							}
 						}
 
@@ -137,12 +137,12 @@ class page_session extends CPage
 							if ($is_starter_pack_link)
 							{
 								$tpl->setStatusMsg("We're sorry, the session that you were invited to is full. Please select a different session.");
-								CApp::bounce('main.php?page=session');
+								CApp::bounce('?page=session');
 							}
 							else
 							{
 								$tpl->setStatusMsg("We're sorry, the session that you were invited to is full. Here you may view other sessions at your friend's Dream Dinners location.");
-								CApp::bounce('main.php?page=session_menu');
+								CApp::bounce('?page=session_menu');
 							}
 						}
 
@@ -171,7 +171,7 @@ class page_session extends CPage
 						if ($session['remaining_slots'] < 1)
 						{
 							$tpl->setStatusMsg("We're sorry, the session that you were invited to is full. Here you may view other sessions at your friend's Dream Dinners location.");
-							CApp::bounce('main.php?page=session_menu');
+							CApp::bounce('?page=session_menu');
 						}
 
 						if (!empty($session['session_password']))
@@ -208,14 +208,14 @@ class page_session extends CPage
 					if ($session['remaining_slots'] < 1)
 					{
 						$tpl->setStatusMsg("We're sorry, the session that you were invited to is full. Here you may view other sessions at your friend's Dream Dinners location.");
-						CApp::bounce('main.php?page=session_menu');
+						CApp::bounce('?page=session_menu');
 					}
 				}
 			}
 			else
 			{
 				$tpl->setStatusMsg("We're sorry, the session that you were invited to can not be found. Here you may view other sessions at your friend's Dream Dinners location.");
-				CApp::bounce('main.php?page=session_menu');
+				CApp::bounce('?page=session_menu');
 			}
 
 			$CartObj->addMenuId($session['menu_id']);
@@ -233,7 +233,7 @@ class page_session extends CPage
 				$CartObj->addDirectInvite($session['id']);
 			}
 
-			CApp::bounce('main.php?page=session_menu');
+			CApp::bounce('?page=session_menu');
 		}
 		// end process invite by link
 
@@ -247,7 +247,7 @@ class page_session extends CPage
 			}
 			else
 			{
-				$backlink = "main.php?page=my_account";
+				$backlink = "?page=my_account";
 			}
 
 			$order_id = $_REQUEST['reschedule'];
@@ -330,7 +330,7 @@ class page_session extends CPage
 					{
 						// success
 						$tpl->setStatusMsg('Your order has been rescheduled.');
-						CApp::bounce("main.php?page=order_details&order=" . $OrderObj->id);
+						CApp::bounce("?page=order_details&order=" . $OrderObj->id);
 					}
 					else if ($result === 'closed')
 					{
@@ -391,26 +391,26 @@ class page_session extends CPage
 			if (!$storeByCookie)
 			{
 				// no store, send them to pick a store
-				CApp::bounce('main.php?page=locations');
+				CApp::bounce('?page=locations');
 			}
 		}
 		else if (empty($session_type_in_cart))
 		{
 			// no session type, send them to pick a session type
-			//CApp::bounce('main.php?page=session_menu');
+			//CApp::bounce('?page=session_menu');
 			//dont bounce here...this is where they pick the session type
 		}
 		else if (empty($menu_id_in_cart))
 		{
 			// no menu chosen, send them to pick a menu
-			CApp::bounce('main.php?page=session_menu');
+			CApp::bounce('?page=session_menu');
 		}
 
 		/*
 		else if ($session_type_in_cart != CTemplate::EVENT && empty($menu_items_in_cart))
 		{
 			// standard or intro order, send them to put items in their cart
-			CApp::bounce('main.php?page=session_menu');
+			CApp::bounce('?page=session_menu');
 		}
         */
 

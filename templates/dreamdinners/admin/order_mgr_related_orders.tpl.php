@@ -37,16 +37,16 @@
 		<td class="order_history_cell" colspan="8" style="text-align: right;">
 
 			<?php if ($this->current_order != $order['order_id'] ) { ?>
-				<a class="button" href="main.php?page=admin_order_history&amp;id=<?php echo $order['user_id']; ?>&amp;order=<?php echo $order['order_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">View Order</a>
-				<?php if ($order['canEdit']) { ?><a class="button" href="main.php?page=admin_order_mgr&order=<?=$order['order_id'];?>&back=<?=urlencode($_SERVER['REQUEST_URI'])?>">Edit</a><?php } ?>
+				<a class="button" href="?page=admin_order_history&amp;id=<?php echo $order['user_id']; ?>&amp;order=<?php echo $order['order_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">View Order</a>
+				<?php if ($order['canEdit']) { ?><a class="button" href="?page=admin_order_mgr&order=<?=$order['order_id'];?>&back=<?=urlencode($_SERVER['REQUEST_URI'])?>">Edit</a><?php } ?>
 			<?php } ?>
 
 			<?php if (!empty($order['order_admin_notes']) || !empty($order['order_user_notes'])) { ?><a class="button" id="view_notes-<?= $order['order_id'] ?>" data-order_id="<?= $order['order_id'] ?>">Notes</a><?php } ?>
 			<?php if ($order['session_start'] > '2014-11-01 00:00:00' && $order['status'] != CBooking::CANCELLED) { ?>
-				<a href="main.php?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;freezer=true" class="button" target="_blank">Freezer Sheet</a>
-				<a href="main.php?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;nutrition=true" class="button" target="_blank">Nutritionals</a>
+				<a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;freezer=true" class="button" target="_blank">Freezer Sheet</a>
+				<a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;nutrition=true" class="button" target="_blank">Nutritionals</a>
 				<?php if (array_key_exists($order['idmenu'] + 1, $active_menus)) { ?>
-					<a href="main.php?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;core=true" class="button" target="_blank">Next Month's Menu</a>
+					<a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;core=true" class="button" target="_blank">Next Month's Menu</a>
 				<?php } ?>
 			<?php } ?>
 		</td>
@@ -118,16 +118,16 @@
 		<td class="order_history_cell" colspan="7" style="text-align: right;">
 
 			<?php if ($this->current_order != $order['order_id'] ) { ?>
-				<a class="button" href="main.php?page=admin_order_history&amp;id=<?php echo $order['user_id']; ?>&amp;order=<?php echo $order['order_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">View Order</a>
-				<?php if ($order['can_edit']) { ?><a class="button" href="main.php?page=admin_order_mgr&order=<?=$order['order_id'];?>&back=<?=urlencode($_SERVER['REQUEST_URI'])?>">Edit</a><?php } ?>
+				<a class="button" href="?page=admin_order_history&amp;id=<?php echo $order['user_id']; ?>&amp;order=<?php echo $order['order_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">View Order</a>
+				<?php if ($order['can_edit']) { ?><a class="button" href="?page=admin_order_mgr&order=<?=$order['order_id'];?>&back=<?=urlencode($_SERVER['REQUEST_URI'])?>">Edit</a><?php } ?>
 			<?php } ?>
 
 			<?php if (!empty($order['order_admin_notes']) || !empty($order['order_user_notes'])) { ?><a class="button" id="view_notes-<?= $order['order_id'] ?>" data-order_id="<?= $order['order_id'] ?>">Notes</a><?php } ?>
 			<?php if ($order['session_start'] > '2014-11-01 00:00:00' && $order['status'] != CBooking::CANCELLED) { ?>
-				<a href="main.php?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;freezer=true" class="button" target="_blank">Freezer Sheet</a>
-				<a href="main.php?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;nutrition=true" class="button" target="_blank">Nutritionals</a>
+				<a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;freezer=true" class="button" target="_blank">Freezer Sheet</a>
+				<a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;nutrition=true" class="button" target="_blank">Nutritionals</a>
 				<?php if (array_key_exists($order['idmenu'] + 1, $active_menus)) { ?>
-					<a href="main.php?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;core=true" class="button" target="_blank">Next Month's Menu</a>
+					<a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;core=true" class="button" target="_blank">Next Month's Menu</a>
 				<?php } ?>
 			<?php } ?>
 		</td>

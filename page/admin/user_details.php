@@ -334,7 +334,7 @@ class page_admin_user_details extends CPageAdminOnly
 				{
 					$tpl->setStatusMsg('User not found.');
 
-					CApp::bounce('main.php?page=admin_list_users');
+					CApp::bounce('?page=admin_list_users');
 				}
 
 				$userCopy = clone($User);
@@ -342,7 +342,7 @@ class page_admin_user_details extends CPageAdminOnly
 				{
 					$tpl->setStatusMsg('The account has pending orders and cannot be deleted.');
 
-					CApp::bounce('main.php?page=admin_order_history&id=' . $User->id);
+					CApp::bounce('?page=admin_order_history&id=' . $User->id);
 				}
 				else
 				{
@@ -351,7 +351,7 @@ class page_admin_user_details extends CPageAdminOnly
 
 					$tpl->setStatusMsg('The account has been deleted.');
 
-					CApp::bounce('main.php?page=admin_list_users');
+					CApp::bounce('?page=admin_list_users');
 				}
 			}
 
@@ -421,7 +421,7 @@ class page_admin_user_details extends CPageAdminOnly
 			if (!$isFound)
 			{
 				$tpl->setErrorMsg('Guest not found');
-				CApp::bounce('main.php?page=admin_list_users');
+				CApp::bounce('?page=admin_list_users');
 			}
 
 			// Login as User
@@ -447,7 +447,7 @@ class page_admin_user_details extends CPageAdminOnly
 				$User->home_store_id = "null";
 				$User->update();
 				$tpl->setErrorMsg('Guest removed from store');
-				CApp::bounce('main.php?page=admin_list_users');
+				CApp::bounce('?page=admin_list_users');
 			}
 
 			$isObserveOnlyAccount = $User->is_partial_account;
@@ -596,7 +596,7 @@ class page_admin_user_details extends CPageAdminOnly
 			}
 			else
 			{
-				$tpl->assign('back', 'main.php?page=admin_list_users');
+				$tpl->assign('back', '?page=admin_list_users');
 			}
 
 			switch ($AdminUser->user_type)
@@ -844,7 +844,7 @@ class page_admin_user_details extends CPageAdminOnly
 		else
 		{
 			$tpl->setErrorMsg('guest not found');
-			CApp::bounce('main.php?page=admin_list_users');
+			CApp::bounce('?page=admin_list_users');
 		}
 	}
 }

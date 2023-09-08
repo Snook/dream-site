@@ -69,7 +69,7 @@
 		a:hover { color: black; text-decoration: underline; }
 		a.button:hover { background-color: black !important; }
 
-		
+
 		/* Responsive styles taking a desktop-first approach. */
 		@media screen and (max-width: 600px) {
 			.mobile { width: 100% !important; }
@@ -100,7 +100,7 @@
 		</tr>
 		<tr>
 			<td align="center"  style="padding:20px 20px 20px 20px;">
-				<p>See the complete <a href="https://dreamdinners.com/main.php?static=terms">Meal Prep+ terms and conditions here</a>.</p>
+				<p>See the complete <a href="https://dreamdinners.com/?static=terms">Meal Prep+ terms and conditions here</a>.</p>
 				<p align="center">
 					Dream Dinners <?php echo $this->store->store_name; ?><br />
 					<?php echo $this->store->address_line1; ?> <?php echo !empty( $this->store->address_line2 ) ? $this->store->address_line2 : '' ?>
@@ -114,4 +114,3 @@
 </div>
 </body>
 </html>
-

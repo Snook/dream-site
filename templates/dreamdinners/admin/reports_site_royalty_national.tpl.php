@@ -55,7 +55,7 @@ if (isset($this->report_submitted) && $this->report_submitted == TRUE) {
 
 		echo '<table class="report" border="0">';
 		echo '<tr align="right"><td>&nbsp;</td><td>';
-		//$exportAllLink = 'main.php?page=admin_reports_site_royalty_national&day=' . $this->report_day . '&month=' . $this->report_month . '&year=' . $this->report_year . '&duration=' . urlencode($this->report_duration) . '&report_type=' . $this->report_type .  '&export=csv';
+		//$exportAllLink = '?page=admin_reports_site_royalty_national&day=' . $this->report_day . '&month=' . $this->report_month . '&year=' . $this->report_year . '&duration=' . urlencode($this->report_duration) . '&report_type=' . $this->report_type .  '&export=csv';
 		//include $this->loadTemplate('admin/export.tpl.php');
 		echo "</td></tr>";
 		echo '</table>';

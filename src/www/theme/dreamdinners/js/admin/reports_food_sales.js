@@ -124,13 +124,13 @@ function init_store_selection()
 
 function select_session(id)
 {
-	bounce("main.php?page=admin_main&session=" + id, "_blank");
+	bounce("?page=admin_main&session=" + id, "_blank");
 	$("#dd_session_selector").remove();
 }
 
 function select_order(o_id, s_id)
 {
-	bounce("main.php?page=admin_main&session=" + s_id + "&order=" + o_id, "_blank");
+	bounce("?page=admin_main&session=" + s_id + "&order=" + o_id, "_blank");
 	$("#dd_session_selector").remove();
 }
 
@@ -173,7 +173,7 @@ function init_export_purchasers()
 		var omit_menu_id = $('#order_since_menu_id').val();
 
 		create_and_submit_form({
-			action: "main.php?page=admin_reports_food_sales",
+			action: "?page=admin_reports_food_sales",
 			input: ({
 				export: 'xlsx',
 				range_start: current_date_range_start,

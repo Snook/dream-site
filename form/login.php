@@ -229,7 +229,7 @@ class form_login
 		{
 			if ((!CApp::$isStoreView) && $user->isLoggedIn() && (!$user->primary_email) && (@$_GET['page'] != 'account'))
 			{
-				CApp::bounce('main.php?page=account');
+				CApp::bounce('?page=account');
 			}
 		}
 

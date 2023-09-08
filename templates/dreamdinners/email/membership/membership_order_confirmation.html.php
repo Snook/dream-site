@@ -96,7 +96,7 @@
 				<p>Thank you for joining Meal Prep+.</p>
 				<p>As a Meal Prep+ member, you will join an exclusive club of Dream Dinners guests who have fully embraced Dream Dinners as their dinnertime solution. No more last-minute trips to the grocery store or endless drive thru lines, you are prepared for whatever the week brings. </p>
 			<p>By signing up for Meal Prep+, you will receive 10% off all Dream Dinners meals, sides & sweets for the next 6 months. Plus, you have access to shop from the freezer all month long. Need an extra dessert, a few more meals or even just a side or two? You are covered.</p>
-			  <p>On average, our guests save over $100 during their membership period. Now pat yourself on the back for being such a savvy shopper. <a href="https://dreamdinners.com/main.php?static=meal_prep_plus">Click here for additional information</a> on your new Meal Prep+ membership or contact your local Dream Dinners store.</p>
+			  <p>On average, our guests save over $100 during their membership period. Now pat yourself on the back for being such a savvy shopper. <a href="https://dreamdinners.com/?static=meal_prep_plus">Click here for additional information</a> on your new Meal Prep+ membership or contact your local Dream Dinners store.</p>
 		</tr>
 		<tr>
 			<td><hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;"></td>
@@ -115,7 +115,7 @@
 		</tr>
 		<tr>
 			<td align="center" style="padding:20px 20px 20px 20px;">
-				<p>See the complete <a href="https://dreamdinners.com/main.php?static=terms">Meal Prep+ terms and conditions here</a>.</p>
+				<p>See the complete <a href="https://dreamdinners.com/?static=terms">Meal Prep+ terms and conditions here</a>.</p>
 				<p align="center">
 					If you have questions please contact us at <?php echo $this->order_details->storeObj->telephone_day; ?> or via email by replying.<br />
 					Dream Dinners <?php echo $this->order_details->storeObj->store_name; ?><br />

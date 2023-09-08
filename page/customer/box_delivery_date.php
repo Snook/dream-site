@@ -29,14 +29,14 @@ class page_box_delivery_date extends CPage
 		if (!empty($_POST['sid']) && is_numeric($_POST['sid']))
 		{
 			$CartObj->addSessionId($_POST['sid']);
-			CApp::bounce('main.php?page=checkout');
+			CApp::bounce('?page=checkout');
 		}
 
 		$zip = $CartObj->getPostalCode();
 		if (empty($zip) || !is_numeric($zip))
 		{
 			$tpl->setErrorMsg("There was a problem with the destination postal code. Please try again.");
-			CApp::bounce("main.php?page=locations");
+			CApp::bounce("?page=locations");
 		}
 
 		$serviceDaysRetriever = new DAO();
@@ -46,7 +46,7 @@ class page_box_delivery_date extends CPage
 		if (empty($serviceDays))
 		{
 			$tpl->setErrorMsg("There was a problem determining the shipping days required. Please try again.");
-			CApp::bounce("main.php?page=locations");
+			CApp::bounce("?page=locations");
 		}
 
 		$OrderObj = $CartObj->getOrder();

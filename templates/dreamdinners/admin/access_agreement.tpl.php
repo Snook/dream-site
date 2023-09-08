@@ -5,7 +5,7 @@
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
 <?php if (!$this->print_view) { ?>
-<a href="main.php?<?php echo $_SERVER['QUERY_STRING']; ?>&amp;print_view=true" target="_blank" class="button" style="float:right;margin-bottom:4px;">Print</a>
+<a href="?<?php echo $_SERVER['QUERY_STRING']; ?>&amp;print_view=true" target="_blank" class="button" style="float:right;margin-bottom:4px;">Print</a>
 <?php } ?>
 
 <h3>Dream Dinners Non-Disclosure and Non-Interference Agreement</h3>

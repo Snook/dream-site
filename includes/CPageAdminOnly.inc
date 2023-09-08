@@ -66,12 +66,12 @@ abstract class CPageAdminOnly
 
 				if (!$found)
 				{
-					CApp::bounce('main.php?page=admin_location_switch&back=main.php?page=admin_main');
+					CApp::bounce('?page=admin_location_switch&back=?page=admin_main');
 				}
 
 				if (empty($this->CurrentUser->fadmin_nda_agree))
 				{
-					CApp::bounce('main.php?page=admin_access_agreement&back=' . urlencode('main.php?' . $_SERVER['QUERY_STRING']));
+					CApp::bounce('?page=admin_access_agreement&back=' . urlencode('?' . $_SERVER['QUERY_STRING']));
 				}
 			}
 		}
@@ -80,8 +80,8 @@ abstract class CPageAdminOnly
 	function runPublic()
 	{
 		//bump back to the main menu
-		$back = "main.php?" . $_SERVER['QUERY_STRING'];
-		$url = "main.php?page=admin_login&back=" . urlEncode($back);
+		$back = "?" . $_SERVER['QUERY_STRING'];
+		$url = "?page=admin_login&back=" . urlEncode($back);
 		CApp::bounce($url);
 		exit;
 	}
@@ -90,81 +90,81 @@ abstract class CPageAdminOnly
 	{
 		//bump back to the main menu
 		CApp::instance()->template()->setErrorMsg('You do not have permission to access the requested page.');
-		CApp::bounce('main.php?page=home');
+		CApp::bounce('?page=home');
 		exit;
 	}
 
 	function runNewEmployee()
 	{
 		unset(CApp::instance()->template()->back);
-		CApp::bounce('main.php?page=admin_safe_landing');
+		CApp::bounce('?page=admin_safe_landing');
 		exit;
 	}
 
 	function runFranchiseStaff()
 	{
-		CApp::bounce('main.php?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runFranchiseOwner()
 	{
-		CApp::bounce('main.php?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runHomeOfficeManager()
 	{
-		CApp::bounce('main.php?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runHomeOfficeStaff()
 	{
-		CApp::bounce('main.php?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runFranchiseManager()
 	{
-		CApp::bounce('main.php?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runFranchiseLead()
 	{
-		CApp::bounce('main.php?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runManufacturerStaff()
 	{
-		CApp::bounce('main.php?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runEventCoordinator()
 	{
-		CApp::bounce('main.php?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runOpsLead()
 	{
-		CApp::bounce('main.php?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runOpsSupport()
 	{
-		CApp::bounce('main.php?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runDishwasher()
 	{
 		unset(CApp::instance()->template()->back);
-		CApp::bounce('main.php?page=admin_safe_landing');
+		CApp::bounce('?page=admin_safe_landing');
 		exit;
 	}
 

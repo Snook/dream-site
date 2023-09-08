@@ -13,7 +13,7 @@ class page_admin_reports_store_list extends CPageAdminOnly
 
 	function runHomeOfficeStaff()
 	{
-		CApp::bounce('main.php?page=admin_access_error&topnavname=store&pagename=' . urlencode('Browse/Edit Stores'));
+		CApp::bounce('?page=admin_access_error&topnavname=store&pagename=' . urlencode('Browse/Edit Stores'));
 	}
 
 	function runHomeOfficeManager()

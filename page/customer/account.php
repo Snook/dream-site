@@ -111,7 +111,7 @@ class page_account extends CPage
 					}
 					else
 					{
-						$url = "main.php";
+						$url = "/";
 					}
 
 					//header('Location: '.CApp::instance()->template()->httpsServerAddress().$url);

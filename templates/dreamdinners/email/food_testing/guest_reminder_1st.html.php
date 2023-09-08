@@ -13,7 +13,7 @@
 			<p><?php echo $this->firstname; ?>,</p>
 
 			<p>Thank you for testing <?php echo $this->title; ?>, one of our new Dream Dinners recipes. Your opinion and suggestions are very important to us and we haven't heard from you yet.
-				This is just a friendly reminder to complete the survey in your <a href="<?php echo HTTPS_BASE; ?>main.php?page=my_surveys">My Test Recipes</a> section of your DreamDinners.com
+				This is just a friendly reminder to complete the survey in your <a href="<?php echo HTTPS_BASE; ?>?page=my_surveys">My Test Recipes</a> section of your DreamDinners.com
 				account once you prepare the dinner for your family.</p>
 
 			<p>If you have any questions, please email us at <a href="mailto:customerservice@dreamdinners.com">customerservice@dreamdinners.com</a>.</p>
@@ -30,8 +30,8 @@
 		<td align="left"><img src="<?= EMAIL_IMAGES_PATH ?>/email/platepoints/platepoints-footer-grey.png" width="550" height="50"></td>
 	</tr>
 	<tr>
-		<td align="right" style="padding: 5px"><a href="<?= HTTPS_BASE ?>main.php?page=session_menu">Order</a> | <a href="<?= HTTPS_BASE ?>main.php?page=my_account">My
-				Account</a> | <a href="<?= HTTPS_BASE ?>main.php?page=my_platepoints">My PLATEPOINTS</a></td>
+		<td align="right" style="padding: 5px"><a href="<?= HTTPS_BASE ?>?page=session_menu">Order</a> | <a href="<?= HTTPS_BASE ?>?page=my_account">My
+				Account</a> | <a href="<?= HTTPS_BASE ?>?page=my_platepoints">My PLATEPOINTS</a></td>
 	</tr>
 	<tr>
 		<td align="left" style="padding: 5px"><i>*Dinner Dollars can be redeemed on orders above 36 servings, Sides &amp; Sweets freezer items and Made for You service fees at participating

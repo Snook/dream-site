@@ -42,7 +42,7 @@
   </table>-->
 
  <p><strong>Account Email Address:</strong> <?=$this->primary_email?></p>
-<p>Please review our <a href="https://dreamdinners.com/main.php?static=terms">Terms and Conditions</a> to learn more about Dream Dinners.</p>
+<p>Please review our <a href="https://dreamdinners.com/?static=terms">Terms and Conditions</a> to learn more about Dream Dinners.</p>
 
 <p>Dream Dinners has changed so many lives for the better.  We know it can change yours too.<br>
 See you soon!</p>

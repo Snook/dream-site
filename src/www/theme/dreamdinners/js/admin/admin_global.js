@@ -84,11 +84,11 @@ function onNBCreateSingleSession()
 	if (typeof selectedCell != "undefined" && selectedCell != null)
 	{
 		cellName = selectedCell.id;
-		bounce("main.php?page=admin_create_session&selectedCell=" + cellName);
+		bounce("?page=admin_create_session&selectedCell=" + cellName);
 	}
 	else
 	{
-		bounce("main.php?page=admin_create_session" + menus_clause);
+		bounce("?page=admin_create_session" + menus_clause);
 	}
 }
 
@@ -124,7 +124,7 @@ function data_tooltips_init()
 function hostessDreamTasteOrder(session_id, session_text, userid)
 {
 	create_and_submit_form({
-		action: 'main.php?page=admin_order_mgr&user=' + userid,
+		action: '?page=admin_order_mgr&user=' + userid,
 		input: ({
 			'session': session_id,
 			'request': 'savedTasteOrder',
@@ -1028,7 +1028,7 @@ function handle_inline_guest_search()
 												else
 												{
 													// if there is no data-select_function then the button navigates to user_details
-													bounce('main.php?page=admin_user_details&id=' + $(this).data('user_id'));
+													bounce('?page=admin_user_details&id=' + $(this).data('user_id'));
 												}
 											});
 										}
@@ -1865,7 +1865,7 @@ $(function () {
 								label: 'Manage',
 								className: 'btn-success',
 								callback: function () {
-									bounce('/main.php?page=admin_user_plate_points&id=' + user_id + '&back=' + back_path());
+									bounce('/?page=admin_user_plate_points&id=' + user_id + '&back=' + back_path());
 								}
 							},
 							close: {
@@ -1913,7 +1913,7 @@ $(function () {
 						size: 'large',
 						buttons: {
 							"Full details": function () {
-								bounce('main.php?page=item&recipe=' + json.recipe_id + '&ov_menu=' + json.menu_id, target);
+								bounce('?page=item&recipe=' + json.recipe_id + '&ov_menu=' + json.menu_id, target);
 							},
 							cancel: {
 								label: "Close"

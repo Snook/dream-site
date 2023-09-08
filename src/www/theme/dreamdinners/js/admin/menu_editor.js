@@ -173,7 +173,7 @@ function showPopup(config)
 	$.extend(settings, config);
 
 	$.ajax({
-		url: 'main.php?' + settings.module,
+		url: '?' + settings.module,
 		type: settings.type,
 		success: function (data, status) {
 			settings.message = data;
@@ -2138,7 +2138,7 @@ $(function () {
 
 			},
 			close: function () {
-				bounce('main.php?page=admin_menu_editor&tabs=menu.efl');
+				bounce('?page=admin_menu_editor&tabs=menu.efl');
 			}
 		});
 
@@ -2366,7 +2366,7 @@ $(function () {
 
 			},
 			close: function () {
-				bounce('main.php?page=admin_menu_editor&tabs=menu.efl');
+				bounce('?page=admin_menu_editor&tabs=menu.efl');
 			}
 		});
 

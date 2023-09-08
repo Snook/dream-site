@@ -94,7 +94,7 @@ $SHOWYEAR=TRUE;
 function print_all_init()
 {
 	$('#print_all').on('click', function (e) {
-		bounce('main.php?page=admin_reports_royalty&month_popup=' + $('#month_popup').val() + '&year_field_001=' + $('#year_field_001').val() + '&print_all=true');
+		bounce('?page=admin_reports_royalty&month_popup=' + $('#month_popup').val() + '&year_field_001=' + $('#year_field_001').val() + '&print_all=true');
 	});
 
 	}

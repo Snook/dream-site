@@ -8,7 +8,7 @@ Plus, you get our exclusive Campfire Pie recipe. Only available at our Meal Prep
 There are limited spaces available, and this offer is only available for guests of this event. Use the link below to reserve your spot today!
 
 Learn more about how Dream Dinners work here.
-https://dreamdinners.com/main.php?static=how_it_works
+https://dreamdinners.com/?static=how_it_works
 
 <?php echo $this->message; ?>
 

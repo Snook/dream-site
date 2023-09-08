@@ -13,9 +13,9 @@ class page_admin_promotions extends CPageAdminOnly {
 	function runOpsLead() {
 		$this->runFranchiseOwner();
 	}
-	
+
 	function runHomeOfficeStaff() {
-		CApp::bounce('main.php?page=admin_access_error&topnavname=store&pagename=Promotions');
+		CApp::bounce('?page=admin_access_error&topnavname=store&pagename=Promotions');
 	}
 	function runHomeOfficeManager() {
 		$this->runSiteAdmin();
@@ -77,7 +77,7 @@ class page_admin_promotions extends CPageAdminOnly {
 				$tpl->setStatusMsg('The promotion has been deleted');
 			}
 
-			CApp::bounce('main.php?page=admin_promotions');
+			CApp::bounce('?page=admin_promotions');
 		}
 
 

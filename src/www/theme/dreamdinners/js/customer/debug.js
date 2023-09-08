@@ -20,7 +20,7 @@ var BugHerdConfig = {
 (function() {
 
 	$(document).on('click', '.watch_cart', function (e) {
-		var win = window.open('main.php?page=cart_watcher', '_blank');
+		var win = window.open('?page=cart_watcher', '_blank');
 	});
 
 	if (typeof $.feedback == 'function')

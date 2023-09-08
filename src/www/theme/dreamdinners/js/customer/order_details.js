@@ -144,7 +144,7 @@ $(document).on('click','#handle-cancel-delivered-order', function (e) {
 										noOk: true,
 										buttons: {
 											"OK": function () {
-													bounce('main.php?page=my_meals&tab=nav-past_orders');
+													bounce('?page=my_meals&tab=nav-past_orders');
 											}
 										}
 									});
@@ -166,7 +166,7 @@ $(document).on('click','#handle-cancel-delivered-order', function (e) {
 									message: 'Sorry, their was an error processing your order cancellation.',
 									buttons: {
 										"OK": function () {
-											bounce('main.php?page=my_meals&tab=nav-past_orders');
+											bounce('?page=my_meals&tab=nav-past_orders');
 										}
 									}
 								});

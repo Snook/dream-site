@@ -64,7 +64,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 
 		$query = "select $nextOrder od.user_id, od.order_id, u.firstname, u.lastname, u.primary_email, u.telephone_1, u.telephone_1_call_time,  u.telephone_2, od.user_state,  od.order_type, o.order_type as Web_or_Direct, od.session_type, od.original_order_time, od.session_time,
 			o.servings_total_count, o.menu_items_core_total_count, if(isnull(od2.id), 'NO', 'YES') as has_follow_up_order, od2.original_order_time as fu_order_time, od2.order_id as 'follow_up_order_id', o2.servings_total_count as 'follow_up_order_servings',
-				CONCAT('=HYPERLINK(\"" . HTTPS_BASE . "main.php?page=admin_order_history&id=', od.user_id, '\", \"History for ', u.primary_email , '\")') as history_link  
+				CONCAT('=HYPERLINK(\"" . HTTPS_BASE . "?page=admin_order_history&id=', od.user_id, '\", \"History for ', u.primary_email , '\")') as history_link  
 				from orders_digest od
 			join orders o on o.id = od.order_id
 			join user u on u.id = od.user_id

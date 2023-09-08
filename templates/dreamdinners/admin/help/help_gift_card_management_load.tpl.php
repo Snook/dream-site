@@ -22,7 +22,7 @@
 <p>Customer Gift Card Support </p>
 <ul>
   <li>24/7 Automated cardholder balance information: 1-360-804-2020</li>
-  <li>Cardholder account balance information: <a href="main.php?static=giftcards">gift cards</a></li>
+  <li>Cardholder account balance information: <a href="?static=giftcards">gift cards</a></li>
 </ul>
 </td>
   </tr>

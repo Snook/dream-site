@@ -147,7 +147,7 @@ class CBrowserSession extends DAO_Browser_sessions
 		//{
 		//if ( isset($_REQUEST['static']) and $_REQUEST['static'] != 'nocookie' )
 		//{
-		//CApp::bounce('main.php?static=nocookie');
+		//CApp::bounce('?static=nocookie');
 		//}
 		//}
 

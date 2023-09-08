@@ -95,7 +95,7 @@
         </tr>
       </table>
       <!--end gift cards purchased table-->
-      <p style="font-family:Arial, Helvetica, sans-serif; font-size: 12px; color: #000000;"><strong>Have questions?</strong> To view the complete Gift Card Policies &amp; Terms online or if you have questions regarding your Gift Card or Customer Service options please visit <a href="<?=HTTPS_SERVER?>/main.php?static=giftcards" style="color:#c0362c;">DreamDinners.com/giftcards</a>.</p></td>
+      <p style="font-family:Arial, Helvetica, sans-serif; font-size: 12px; color: #000000;"><strong>Have questions?</strong> To view the complete Gift Card Policies &amp; Terms online or if you have questions regarding your Gift Card or Customer Service options please visit <a href="<?=HTTPS_SERVER?>/?static=giftcards" style="color:#c0362c;">DreamDinners.com/giftcards</a>.</p></td>
 </tr>
 </table>
 </body>

@@ -134,7 +134,7 @@ class page_admin_import_base_recipes extends CPageAdminOnly
 				// end assign Manufacturing labels to stores
 
 				$uberObject->query('COMMIT;');
-				$tpl->setStatusMsg('Recipe imported ' . ($count - 1) .' items successfully.<br />Go to <a href="main.php?page=admin_manage_manufacturer_items" class="button">Manage Labels</a> to give store access to new recipe labels.');
+				$tpl->setStatusMsg('Recipe imported ' . ($count - 1) .' items successfully.<br />Go to <a href="?page=admin_manage_manufacturer_items" class="button">Manage Labels</a> to give store access to new recipe labels.');
 			}
 			catch (exception $e)
 			{

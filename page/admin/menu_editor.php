@@ -335,7 +335,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 			if ($menu_id != $_POST['loaded_menu_id'])
 			{
 				$tpl->setErrorMsg('You attempted to finalize a menu that did not load properly. The page has now been reloaded. Please check the menu selector and if it is not correct select the desired menu and be certain is has completely loaded before making and finalizing any edits.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('?page=admin_menu_editor'); //reload the page
 			}
 			CLog::Record("MENU_EDITOR: Page finalized for store: " . $store_id);
 			CLog::RecordDebugTrace("Menu Finalized\r\n" . print_r($_POST, true), "MENU_EDITOR");
@@ -386,13 +386,13 @@ class page_admin_menu_editor extends CPageAdminOnly
 			if (!is_numeric($_POST['markup_6_serving']) || !is_numeric($_POST['markup_4_serving']) || !is_numeric($_POST['markup_3_serving']) || !is_numeric($_POST['markup_2_serving']) || !is_numeric($_POST['markup_sides']))
 			{
 				$tpl->setErrorMsg('Non-numeric markup values are illegal.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('?page=admin_menu_editor'); //reload the page
 			}
 
 			if ($_POST['markup_6_serving'] < 0 || $_POST['markup_4_serving'] < 0 || $_POST['markup_3_serving'] < 0 || $_POST['markup_2_serving'] < 0 || $_POST['markup_sides'] < 0)
 			{
 				$tpl->setErrorMsg('Negative per cent markups are not currently permitted.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('?page=admin_menu_editor'); //reload the page
 			}
 			$_POST['volume_reward'] = 30;
 			// Note: the volume reward is no longer applied. For now just set it to the old default to keep everythign happy.
@@ -400,17 +400,17 @@ class page_admin_menu_editor extends CPageAdminOnly
 			if ($_POST['volume_reward'] < 0)
 			{
 				$tpl->setErrorMsg('Negative volume discounts are not permitted.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('?page=admin_menu_editor'); //reload the page
 			}
 			if ($_POST['volume_reward'] === "")
 			{
 				$tpl->setErrorMsg('Please supply a valid volume discount. Use zero if you want no volume discount applied.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('?page=admin_menu_editor'); //reload the page
 			}
 			if ($_POST['volume_reward'] > 75)
 			{
 				$tpl->setErrorMsg('Volume Discounts greater than $75.00 are not currently permitted.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('?page=admin_menu_editor'); //reload the page
 			}
 
 			$tpl->assign('storeSupportsPlatePoints', $this->storeSupportsPlatePoints);
@@ -418,31 +418,31 @@ class page_admin_menu_editor extends CPageAdminOnly
 			if ($_POST['assembly_fee'] < 0 && OrdersHelper::allow_assembly_fee($menu_id))
 			{
 				$tpl->setErrorMsg('The service fee must be a minimum of $0.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('?page=admin_menu_editor'); //reload the page
 			}
 
 			if ($_POST['assembly_fee'] > 60 && OrdersHelper::allow_assembly_fee($menu_id))
 			{
 				$tpl->setErrorMsg('The service fee must be a maximum of $60.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('?page=admin_menu_editor'); //reload the page
 			}
 
 			if ($_POST['delivery_assembly_fee'] < 0 && OrdersHelper::allow_assembly_fee($menu_id))
 			{
 				$tpl->setErrorMsg('The delivery service fee must be a minimum of $0.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('?page=admin_menu_editor'); //reload the page
 			}
 
 			if ($_POST['delivery_assembly_fee'] > 60 && OrdersHelper::allow_assembly_fee($menu_id))
 			{
 				$tpl->setErrorMsg('The delivery service fee must be a maximum of $60.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('?page=admin_menu_editor'); //reload the page
 			}
 
 			if ($_POST['markup_6_serving'] > 70 || $_POST['markup_4_serving'] > 70 || $_POST['markup_3_serving'] > 70 || $_POST['markup_2_serving'] > 70 || $_POST['markup_sides'] > 70)
 			{
 				$tpl->setErrorMsg('Markups greater than 70% are not currently permitted.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('?page=admin_menu_editor'); //reload the page
 			}
 			if (!$this->storeSupportsPlatePoints)
 			{

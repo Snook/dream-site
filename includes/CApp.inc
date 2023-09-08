@@ -128,7 +128,7 @@ class CApp
 			{
 				if (strpos($locationRequest, "admin_login") === false)
 				{
-					CApp::bounce('main.php?page=admin_reports');
+					CApp::bounce('?page=admin_reports');
 				}
 			}
 		}
@@ -235,7 +235,7 @@ class CApp
 				}
 				else
 				{
-					CApp::bounce('main.php?page=not_found');
+					CApp::bounce('?page=not_found');
 				}
 
 				$pageClass = 'page_' . $page;
@@ -256,7 +256,7 @@ class CApp
 				}
 				else
 				{
-					CApp::bounce('main.php?page=not_found');
+					CApp::bounce('?page=not_found');
 				}
 
 				$pageClass = 'page_' . $page;
@@ -1009,11 +1009,11 @@ class CApp
 
 		if ($rtnPage)
 		{
-			self::bounce('main.php?page=login&back=' . urlencode($rtnPage));
+			self::bounce('?page=login&back=' . urlencode($rtnPage));
 		}
 		else
 		{
-			self::bounce('main.php?page=login&back=main.php?' . urlencode($_SERVER['QUERY_STRING']));
+			self::bounce('?page=login&back=?' . urlencode($_SERVER['QUERY_STRING']));
 		}
 
 		exit();
@@ -1030,11 +1030,11 @@ class CApp
 
 		if ($rtnPage)
 		{
-			self::bounce('main.php?page=admin_location_switch&back=' . urlencode($rtnPage));
+			self::bounce('?page=admin_location_switch&back=' . urlencode($rtnPage));
 		}
 		else
 		{
-			self::bounce('main.php?page=admin_location_switch&back=main.php?' . urlencode($_SERVER['QUERY_STRING']));
+			self::bounce('?page=admin_location_switch&back=?' . urlencode($_SERVER['QUERY_STRING']));
 		}
 
 		exit();

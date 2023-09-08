@@ -27,10 +27,10 @@ if ($this->report_submitted == TRUE) {
 		echo "<td>";
 
 		if (!empty($this->form_session_list['store']))
-			$exportAllLink = 'main.php?page=admin_reports_customer_referrals_revenue&store=' . $this->form_session_list['store'] . '&day=' . $this->report_day .
+			$exportAllLink = '?page=admin_reports_customer_referrals_revenue&store=' . $this->form_session_list['store'] . '&day=' . $this->report_day .
 					'&month=' . $this->report_month . '&year=' . $this->report_year . '&duration=' . urlencode($this->report_duration) . '&export=xlsx&referraltypefilter=' . $this->referraltypefilter;
 		else
-			$exportAllLink = 'main.php?page=admin_reports_customer_referrals_revenue' . '&day=' . $this->report_day . '&month=' . $this->report_month .
+			$exportAllLink = '?page=admin_reports_customer_referrals_revenue' . '&day=' . $this->report_day . '&month=' . $this->report_month .
 				 '&year=' . $this->report_year . '&duration=' . urlencode($this->report_duration) . '&export=xlsx&referraltypefilter=' . $this->referraltypefilter;
 
 		if (!empty($this->form_session_list['groupbyfilter']))
@@ -66,7 +66,7 @@ if ($this->report_submitted == TRUE) {
 
 			foreach( $this->labels as $info ){
 			if ($info == "User ID") {
-				$url = '<a target="_blank" href="main.php?page=admin_user_details&id=' . $array_entity[$info]  .   '">' . $array_entity[$info] . '</a>';
+				$url = '<a target="_blank" href="?page=admin_user_details&id=' . $array_entity[$info]  .   '">' . $array_entity[$info] . '</a>';
 
 
 			 	echo '<td>' . $url . '</td>';

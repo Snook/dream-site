@@ -93,7 +93,7 @@ class page_account_signup extends CPage
 					}
 					else
 					{
-						$url = "main.php";
+						$url = "/";
 					}
 
 					CApp::instance()->bounce($url, true);
@@ -113,7 +113,7 @@ class page_account_signup extends CPage
 	function runCustomer()
 	{
 		CApp::forceSecureConnection();
-		CApp::instance()->bounce('main.php?page=account', true);
+		CApp::instance()->bounce('?page=account', true);
 	}
 }
 

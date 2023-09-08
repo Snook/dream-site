@@ -6,17 +6,17 @@ class page_my_events extends CPage
 
 	function runPublic()
 	{
-		CApp::forceLogin('main.php?page=my_events');
+		CApp::forceLogin('?page=my_events');
 	}
 
 	function runCustomer()
 	{
 	    ini_set('memory_limit','512M');
 
-	    
+
 		$tpl = CApp::instance()->template();
 		$User = CUser::getCurrentUser();
-				
+
 		$tpl->assign('isIE11', CTemplate::isIE11());
 		$tpl->assign('isMobileSafari', CTemplate::isMobileSafari());
 
@@ -29,7 +29,7 @@ class page_my_events extends CPage
 		if (!empty($usersFuturePastEvents['manageEvent']) && $usersFuturePastEvents['manageEvent']['is_past'])
 		{
 			$tpl->setErrorMsg('The session has passed and is no longer available.');
-			CApp::bounce('main.php?page=my_events');
+			CApp::bounce('?page=my_events');
 		}
 
 		$tpl->assign('store', $Store);

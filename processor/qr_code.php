@@ -92,9 +92,9 @@ class processor_qr_code extends CPageProcessor
 			}
 
 			if(!empty($_REQUEST['d']) && is_numeric($_REQUEST['d']) && $_REQUEST['d'] == 1){
-				QRcode::pngWeb('https://dreamdinners.com/main.php?page=store&id=' . $_REQUEST['id'],$size, 'dream-dinners-store-qr.png');
+				QRcode::pngWeb('https://dreamdinners.com/?page=store&id=' . $_REQUEST['id'],$size, 'dream-dinners-store-qr.png');
 			}else{
-				QRcode::pngWeb('https://dreamdinners.com/main.php?page=store&id=' . $_REQUEST['id'],$size);
+				QRcode::pngWeb('https://dreamdinners.com/?page=store&id=' . $_REQUEST['id'],$size);
 			}
 
 		}

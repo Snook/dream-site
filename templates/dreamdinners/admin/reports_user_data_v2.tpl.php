@@ -8,7 +8,7 @@ include $this->loadTemplate('admin/page_header_reports.tpl.php');
 ?>
 
 	<div id="query_form">
-		<form method="post" action="main.php?page=admin_reports_user_data_v2">
+		<form method="post" action="?page=admin_reports_user_data_v2">
 			<table><tr><td width="100%" style="padding-left: 5px;" colspan="3"><b>
 
 							<?php if (isset($this->form['store_html'])) { ?>

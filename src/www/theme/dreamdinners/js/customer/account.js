@@ -170,7 +170,7 @@ function check_email_address(id)
 function Edit(id)
 {
 	create_and_submit_form({
-		action: 'main.php?page=order_mgr',
+		action: '?page=order_mgr',
 		input: ({
 			'order_id': id
 		})

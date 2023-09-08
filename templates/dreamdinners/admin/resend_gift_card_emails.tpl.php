@@ -38,7 +38,7 @@
 
 	function viewGCOrder(id)
 	{
-		var dest = 'main.php?page=admin_gift_card_details&gcOrder=' + id;
+		var dest = '?page=admin_gift_card_details&gcOrder=' + id;
 
 		NewWindowScroll(dest, 'GC_Details', '1000', '460');
 	}
@@ -131,7 +131,7 @@
 			<?php } ?></td>
 
 		<?php if (isset($this->store)) { ?>
-		<td align="right"><?php $exportAllLink = 'main.php?page=admin_list_users&store=' . $this->store . '&letter_select=all&export=xlsx'; ?>
+		<td align="right"><?php $exportAllLink = '?page=admin_list_users&store=' . $this->store . '&letter_select=all&export=xlsx'; ?>
 			<?php include $this->loadTemplate('admin/export.tpl.php'); ?>
 			<?php } ?>
 

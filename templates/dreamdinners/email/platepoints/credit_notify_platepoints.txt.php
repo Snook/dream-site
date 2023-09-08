@@ -10,8 +10,8 @@
 	Dream Dinners
 
 -------------------------------------------------------------------------
-Order: <?=HTTPS_BASE ?>main.php?page=session_menu
-My Account: <?=HTTPS_BASE ?>main.php?page=my_account
-My PLATEPOINTS: <?=HTTPS_BASE ?>main.php?page=my_platepoints
+Order: <?=HTTPS_BASE ?>?page=session_menu
+My Account: <?=HTTPS_BASE ?>?page=my_account
+My PLATEPOINTS: <?=HTTPS_BASE ?>?page=my_platepoints
 
 *Dinner Dollars expire 6 months from the date awarded and can be redeemed at participating locations.

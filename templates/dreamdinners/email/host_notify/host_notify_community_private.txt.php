@@ -4,7 +4,7 @@ You can now share Dream Dinners with your friends and family by inviting them to
 
 Visit the My Events page in your Dream Dinners account to get access to our easy to use sharing tools.
 
-<?=HTTPS_BASE ?>main.php?page=my_events
+<?=HTTPS_BASE ?>?page=my_events
 
 If you have any questions or concerns, please contact your store.
 
@@ -25,4 +25,4 @@ Event Pick Up Address:
 
 
 My Events
-<?=HTTPS_BASE ?>main.php?page=my_events&amp;sid=<?= $this->session_info['id'] ?>
+<?=HTTPS_BASE ?>?page=my_events&amp;sid=<?= $this->session_info['id'] ?>

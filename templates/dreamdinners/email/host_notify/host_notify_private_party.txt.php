@@ -18,4 +18,4 @@ Address:
 
 
 Click the link below to invite your guests.
-<?=HTTPS_BASE ?>main.php?page=my_events&amp;sid=<?= $this->session_info['id'] ?>
+<?=HTTPS_BASE ?>?page=my_events&amp;sid=<?= $this->session_info['id'] ?>

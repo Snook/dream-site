@@ -22,7 +22,7 @@
 <?php } ?>
 <?php } else { ?>
 <tr class="bgcolor_light">
-	<td colspan="4" style="text-align: center; padding: 10px;">No guests found. Search again or <a href="main.php?page=admin_account" class="button">Create Account</a></td>
+	<td colspan="4" style="text-align: center; padding: 10px;">No guests found. Search again or <a href="?page=admin_account" class="button">Create Account</a></td>
 </tr>
 <?php } ?>
 </table>

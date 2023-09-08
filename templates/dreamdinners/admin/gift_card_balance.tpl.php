@@ -73,7 +73,7 @@
 
 	</script>
 
-	<form name="gift_card_balance" onSubmit="return _check_form(this);" action="main.php?page=admin_gift_card_balance" method="post">
+	<form name="gift_card_balance" onSubmit="return _check_form(this);" action="?page=admin_gift_card_balance" method="post">
 		<?php if (isset($this->form_account['hidden_html'])) { echo $this->form_account['hidden_html']; } ?>
 
 		<table width="100%">
@@ -108,7 +108,7 @@
 						</tr>
 						<tr>
 							<td colspan="3"><p><br/>To view the complete Gift Card Policies &amp; Terms online or if you have questions regarding your Gift Card or Customer Service options please
-									visit <a href="main.php?static=giftcards">gift cards</a>. For 24/7 Automated Cardholder Balance information: 1-360-804-2020.</p></td>
+									visit <a href="?static=giftcards">gift cards</a>. For 24/7 Automated Cardholder Balance information: 1-360-804-2020.</p></td>
 						</tr>
 					</table>
 				</td>
@@ -138,7 +138,7 @@
 				<td width="300"  align="left" valign="middle"><?php echo $this->response; ?></td>
 			</tr>
 			<tr>
-				<td colspan="3">To view the complete Gift Card Policies &amp; Terms online or if you have questions regarding your Gift Card or Customer Service options please visit <a href="main.php?static=giftcards">gift cards</a>. For 24/7 Automated Cardholder Balance information: 1-360-804-2020.</td>
+				<td colspan="3">To view the complete Gift Card Policies &amp; Terms online or if you have questions regarding your Gift Card or Customer Service options please visit <a href="?static=giftcards">gift cards</a>. For 24/7 Automated Cardholder Balance information: 1-360-804-2020.</td>
 			</tr>
 		</table>
 		</td>

@@ -8,7 +8,7 @@
 
 		<div class="row my-4">
 			<div class="col-4 offset-4 text-center ">
-				<h1><a href="main.php?page=admin_fundraiser">Fundraising Manager</a></h1>
+				<h1><a href="?page=admin_fundraiser">Fundraising Manager</a></h1>
 			</div>
 			<div class="col-4 text-right">
 			</div>
@@ -103,7 +103,7 @@
 							<tr data-fund_id="<?php echo $id; ?>">
 								<td class="text-center"><input data-enable_fund="<?php echo $id; ?>" type="checkbox" <?php echo (!empty($fundraiser->active)) ? 'checked="checked"' : ''; ?> /></td>
 								<td><?php echo CTemplate::dateTimeFormat($fundraiser->timestamp_created, CONCISE); ?></td>
-								<td data-fund_title="<?php echo $fundraiser->fundraiser_name; ?>"><a href="main.php?page=fundraiser&amp;id=<?php echo $this->store->id; ?>&amp;fid=<?php echo $fundraiser->id; ?>" target="_blank"><?php echo $fundraiser->fundraiser_name; ?></a></td>
+								<td data-fund_title="<?php echo $fundraiser->fundraiser_name; ?>"><a href="?page=fundraiser&amp;id=<?php echo $this->store->id; ?>&amp;fid=<?php echo $fundraiser->id; ?>" target="_blank"><?php echo $fundraiser->fundraiser_name; ?></a></td>
 								<td data-fund_desc="<?php echo $fundraiser->fundraiser_description; ?>"><?php echo $fundraiser->fundraiser_description; ?></td>
 								<td data-fund_value="<?php echo $fundraiser->donation_value; ?>" style="text-align: right;">$<?php echo number_format($fundraiser->donation_value, 2); ?></td>
 								<td class="text-right">$<?php echo number_format($fundraiser->fundraiser_total, 2); ?></td>
