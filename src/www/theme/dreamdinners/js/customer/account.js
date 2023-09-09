@@ -167,16 +167,6 @@ function check_email_address(id)
 	}
 }
 
-function Edit(id)
-{
-	create_and_submit_form({
-		action: '?page=order_mgr',
-		input: ({
-			'order_id': id
-		})
-	});
-}
-
 function home_store_address_search()
 {
 	var address_line1 = '';
