@@ -14,7 +14,7 @@ class DD_Selenium_Test_Utils
 	{
 		include('includes/config.php');
 
-		$driver->get($baseURL . "/?page=signout");
+		$driver->get($baseURL . "/signout");
 		$driver->get($baseURL . "/?page=admin_login");
 
 		$driver->executeScript("$('#password_login').attr('type', 'text');");
@@ -29,7 +29,7 @@ class DD_Selenium_Test_Utils
 	{
 		include('includes/config.php');
 
-		$driver->get($baseURL . "/?page=signout");
+		$driver->get($baseURL . "/signout");
 		$driver->get($baseURL . "/?page=login");
 
 		if ($loginWithFacebook)

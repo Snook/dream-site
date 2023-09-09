@@ -31,7 +31,7 @@ function generate_html_signature()
 	var dd_link = 'https://dreamdinners.com';
 	if ($.isNumeric(element.dd_link) && element.dd_link != 0)
 	{
-		dd_link += '/?page=store&amp;id=' + element.dd_link;
+		dd_link += '/location/id=' + element.dd_link;
 	}
 
 	var sig_string = '<table width="400" cellpadding="0" cellspacing="0" border="0" style="width:300.0pt;border:solid #563518 2.25pt;border-bottom:solid #563518 1.0pt;border-color:#563518;border-style:solid;border-width:3px 3px 0px 3px;"><tr><td width="144" style="width:1.5in;border:none;padding:7.5pt 7.5pt 7.5pt 7.5pt;text-align:center;vertical-align:top;"><div><a href="https://dreamdinners.com"><img src="https://dreamdinners.com/web_resources/campaigns/sig_files/olive_box_white_logo.gif" style="border:0px;width:122px;height:78px;" alt="Dream Dinners" /></a></div><div><a href="' + dd_link + '" style="color:#563518;text-decoration:none;">dreamdinners.com</a></div><div>&nbsp;</div><div>';

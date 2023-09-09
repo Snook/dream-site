@@ -1214,7 +1214,7 @@ class CStore extends DAO_Store
 						'lat' => $Store->address_latitude,
 						'lng' => $Store->address_longitude,
 						'name' => $Store->store_name,
-						'url' => '?page=store&id=' . $Store->id
+						'url' => '/location/' . $Store->id
 					);
 
 					if ($Store->isComingSoon())

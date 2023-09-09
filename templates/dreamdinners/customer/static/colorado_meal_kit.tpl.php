@@ -49,7 +49,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 		</section>
 		<section>
 			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
@@ -62,7 +62,7 @@
 								<div class="card border-0 py-4 px-4 mx-1 text-center">
 									<div class="card-body text-center">
 										<h4 class="card-title">Arvada</h4>
-										<a href="/?page=store&id=63"><img src="<?php echo IMAGES_PATH; ?>/stores/63.webp" alt="Arvada" class="img-fluid" /></a>
+										<a href="/location/63"><img src="<?php echo IMAGES_PATH; ?>/stores/63.webp" alt="Arvada" class="img-fluid" /></a>
 									</div>
 									<div class="card-body">
 										<p class="card-text">12650 W. 64th Ave, Unit I
@@ -73,7 +73,7 @@
 								<div class="card border-0 py-4 px-4 mx-1 text-center">
 									<div class="card-body text-center">
 										<h4 class="card-title">Castle Rock</h4>
-										<a href="/?page=store&id=309"><img src="<?php echo IMAGES_PATH; ?>/stores/309.webp" alt="Castle Rock" class="img-fluid" /></a>
+										<a href="/location/309"><img src="<?php echo IMAGES_PATH; ?>/stores/309.webp" alt="Castle Rock" class="img-fluid" /></a>
 									</div>
 									<div class="card-body">
 										<p class="card-text">333 Perry Street, Suite A
@@ -84,7 +84,7 @@
 								<div class="card border-0 py-4 px-4 mx-1 text-center">
 									<div class="card-body text-center">
 										<h4 class="card-title">Centennial</h4>
-										<a href="/?page=store&id=61"><img src="<?php echo IMAGES_PATH; ?>/stores/61.webp" alt="Centennial" class="img-fluid" /></a>
+										<a href="/location/61"><img src="<?php echo IMAGES_PATH; ?>/stores/61.webp" alt="Centennial" class="img-fluid" /></a>
 									</div>
 									<div class="card-body">
 										<p class="card-text">7286 S Yosemite St
@@ -101,7 +101,7 @@
 								<div class="card border-0 py-4 px-4 mx-1 text-center">
 									<div class="card-body text-center">
 										<h4 class="card-title">North Colorado Springs</h4>
-										<a href="/?page=store&id=136"><img src="<?php echo IMAGES_PATH; ?>/stores/136.webp" alt="Colorado Springs" class="img-fluid" /></a>
+										<a href="/location/136"><img src="<?php echo IMAGES_PATH; ?>/stores/136.webp" alt="Colorado Springs" class="img-fluid" /></a>
 									</div>
 									<div class="card-body">
 										<p class="card-text">5578 Powers Center Point
@@ -112,7 +112,7 @@
 								<div class="card border-0 py-4 px-4 mx-1 text-center">
 									<div class="card-body text-center">
 										<h4 class="card-title">Parker<br />&nbsp;</h4>
-										<a href="/?page=store&id=30"><img src="<?php echo IMAGES_PATH; ?>/stores/30.webp" alt="Parker" class="img-fluid" /></a>
+										<a href="/location/30"><img src="<?php echo IMAGES_PATH; ?>/stores/30.webp" alt="Parker" class="img-fluid" /></a>
 									</div>
 									<div class="card-body">
 										<p class="card-text">10447 S Parker Road

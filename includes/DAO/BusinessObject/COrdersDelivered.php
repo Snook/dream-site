@@ -668,7 +668,7 @@ class COrdersDelivered extends COrders
 			{
 				CCart2::instance()->emptyCart();
 				CApp::instance()->template()->setStatusMsg('The current cart held items for another user. The cart has been emptied. Please start your order again.');
-				//CApp::bounce('?page=session_menu');
+				//CApp::bounce('/session-menu');
 				// TODO: where to bounce to?
 				throw new Exception("need to specify bounce location (CDeliveredOrder->Refresh() - new customer)");
 			}

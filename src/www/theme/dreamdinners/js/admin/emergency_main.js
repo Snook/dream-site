@@ -554,7 +554,7 @@ function handle_agenda_click()
 							$('#sd_invitation_pdf').on('click', function (e)
 							{
 
-								bounce('?page=my_events&taste_event_pdf=' + selected_session_id + '&back=' + back_path(), '_blank');
+								bounce('/my-events?taste_event_pdf=' + selected_session_id + '&back=' + back_path(), '_blank');
 
 							});
 
@@ -562,7 +562,7 @@ function handle_agenda_click()
 							$('#sd_fundraiser_invitation_pdf').on('click', function (e)
 							{
 
-								bounce('?page=rsvp_fundraiser&event_pdf=' + selected_session_id + '&back=' + back_path(), '_blank');
+								bounce('/rsvp-fundraiser?event_pdf=' + selected_session_id + '&back=' + back_path(), '_blank');
 
 							});
 

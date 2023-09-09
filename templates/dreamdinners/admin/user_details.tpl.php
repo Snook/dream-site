@@ -278,7 +278,7 @@
 					<?php if ($this->emergency_mode) { ?>
 						<td class="guest_details_list_item"><?php echo $this->user['store_name']; ?></td>
 					<?php  } else { ?>
-						<td class="guest_details_list_item"><a target="_blank" href="?page=store&amp;id=<?php echo $this->user['home_store_id']; ?>"><?php echo $this->user['store_name']; ?></a></td>
+						<td class="guest_details_list_item"><a target="_blank" href="/location/<?php echo $this->user['home_store_id']; ?>"><?php echo $this->user['store_name']; ?></a></td>
 					<?php } ?>
 				</tr>
 				<!--<tr>
