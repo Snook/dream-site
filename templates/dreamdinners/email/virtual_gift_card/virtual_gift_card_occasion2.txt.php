@@ -19,7 +19,7 @@ Message:
 
 
 Click here to get started:
-> <?=HTTPS_SERVER?>/?page=session_menu
+> <?=HTTPS_SERVER?>/session-menu
 -------------------------------------------------
 Redeem your Dream Dinners gift card:
 

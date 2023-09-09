@@ -16,7 +16,7 @@
 				Help <?php echo $this->session['fundraiser_name']; ?> reach our fundraising goal.
 			</p>
 			<p align="center">Join us to assemble three delicious meals to take home and enjoy with your family for just $60. During this exclusive event, you will enjoy samples, learn more about how easy family dinners can be, and help a deserving cause. $10 from each purchase is automatically donated back to our organization. </p>
-			<p>Attendance is by invitation only, and space is limited. RSVP today to reserve your space. <a href="https://dreamdinners.com/?static=how_it_works">Learn more about how Dream Dinners works here</a>.</p>
+			<p>Attendance is by invitation only, and space is limited. RSVP today to reserve your space. <a href="https://dreamdinners.com/how_it_works">Learn more about how Dream Dinners works here</a>.</p>
 			<p align="center"><?php echo $this->message; ?></p>
 			<p align="center"><a href="<?php echo $this->referral_link; ?>"><img src="<?php echo EMAIL_IMAGES_PATH; ?>/email/event_theme/default/invite-rsvp-button-orange.png" alt="RSVP Button" width="300" height="45" border="0"></a></p>
 		</td>

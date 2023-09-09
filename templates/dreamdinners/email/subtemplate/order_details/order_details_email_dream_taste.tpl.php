@@ -9,7 +9,7 @@
 			<br />
 			<strong> Location:</strong>
 			<?= $this->sessionInfo['store_name'] ?><br />
-			<strong>Order Confirmation:</strong> <a href="<?= HTTPS_BASE ?>?page=<?= $this->details_page ?>&order=<?= $this->orderInfo['id'] ?>"><b>
+			<strong>Order Confirmation:</strong> <a href="<?= HTTPS_BASE ?><?= $this->details_page ?>?order=<?= $this->orderInfo['id'] ?>"><b>
 					<?= $this->orderInfo['order_confirmation'] ?>
 				</b></a><br /><br />
 			<table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -268,7 +268,7 @@
 				If you need to reschedule or cancel your order, please contact us 6 days prior to your session. Cancellations with 6 or more days' notice will receive a full refund. Cancellations with 5 or fewer days' notice will be subject to a 25% restocking fee. During inclement weather, please contact your local store to see if your session has been canceled. In the event the store must close, information will be provided on the store's voicemail and every effort will be made to reschedule your session.</p>
 				<p><b>Allergens</b><br /> In compliance with the "Food Allergen Labeling and Consumer Protection Act of 2004" please note that Dream Dinners' facilities may contain Dairy, Eggs, Crustacean Shellfish, Fish, Tree Nuts, Peanuts, Wheat, Soybeans and Sesame which account for most known allergens. Although Dream Dinners' store staff take appropriate safety measures, guests should be aware that cross contamination can occur among food products in store kitchens and at stations. The standard ingredients are available upon request from your local store; however, ingredient substitutions can be made at the store level due to regional availability. If guests feel that there may be a chance of allergens in any recipe, especially due to pre-made ingredients, they need to call the store to ask for specific nutritional information.</p>
 				<p><b>Policies & Terms</b><br />
-				By participating in the Dream Dinners program, you agree to the <a href="https://dreamdinners.com/?static=terms">Policy and Terms</a>.</p>
+				By participating in the Dream Dinners program, you agree to the <a href="https://dreamdinners.com/terms">Policy and Terms</a>.</p>
 			<hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;"></td>
 	</tr>
 	<tr>

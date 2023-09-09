@@ -12,8 +12,8 @@ Wishing you a healthy and happy year full of family, friends and great food,
     Dream Dinners
 
 -------------------------------------------------------------------------
-Order: <?=HTTPS_BASE ?>?page=session_menu
-My Account: <?=HTTPS_BASE ?>?page=my_account
-My PLATEPOINTS: <?=HTTPS_BASE ?>?page=my_platepoints
+Order: <?=HTTPS_BASE ?>session-menu
+My Account: <?=HTTPS_BASE ?>my-account
+My PLATEPOINTS: <?=HTTPS_BASE ?>my-platepoints
 
 *Dinner Dollars expire 6 months from the date awarded and can be redeemed at participating locations.

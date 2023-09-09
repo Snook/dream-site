@@ -243,7 +243,7 @@ function submit_gift_card_purchase()
 function submit_order()
 {
 	create_and_submit_form({
-		action: '?page=checkout',
+		action: '/checkout',
 		input: ({
 			special_insts: $('#special_insts').val(),
 			customers_terms: $('#customers_terms').val()
@@ -384,7 +384,7 @@ function editSavePlatePointsCredits(force)
 function run_as_guest()
 {
 	create_and_submit_form({
-		action: '?page=checkout',
+		action: '/checkout',
 		input: ({
 			run_as_guest: "true"
 		})
@@ -628,7 +628,7 @@ function can_checkout()
 			}
 
 			$('#customers_terms').attr('required', 'required');
-			$("#to_payment_or_checkout_form").prop("action", '/?page=checkout');
+			$("#to_payment_or_checkout_form").prop("action", '/checkout');
 
 		}
 		else
@@ -639,7 +639,7 @@ function can_checkout()
 			$("#to_payment").attr('disabled', false);
 
 			$('#customers_terms').attr('required', false);
-			$("#to_payment_or_checkout_form").prop("action", '/?page=payment');
+			$("#to_payment_or_checkout_form").prop("action", '/payment');
 
 		}
 
@@ -719,7 +719,7 @@ function remove_food()
 	}
 
 	create_and_submit_form({
-		action: '?page=checkout',
+		action: '/checkout',
 		input: ({
 			remove: "food",
 			run_as_guest: runAsGuest
@@ -756,7 +756,7 @@ function remove_gift_card_purchase(settings)
 	}
 
 	create_and_submit_form({
-		action: '?page=checkout_gift_card',
+		action: '/checkout-gift-card',
 		input: ({
 			remove: "gift_card_purchase",
 			gcoid: settings.item_number,
@@ -2046,7 +2046,7 @@ $(function () {
 										},
 										"Change Address": function () {
 											create_and_submit_form({
-												action: '?page=box_select',
+												action: '/box-select',
 												input: ({
 													delivered_zip: addy.postal_code
 												})

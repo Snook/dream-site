@@ -26,4 +26,4 @@ You receive:
 
 
 Contact your store to begin planning your event today!
-https://dreamdinners.com/?page=locations
+https://dreamdinners.com/locations

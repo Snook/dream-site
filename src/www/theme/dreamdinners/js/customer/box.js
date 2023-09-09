@@ -200,7 +200,7 @@ $(function () {
 		let bundle_id = this.getAttribute('data-view_bundle');
 
 		create_and_submit_form({
-			action: '?page=box_menu',
+			action: '/box-menu',
 			input: ({
 				view_box: box_id,
 				view_bundle: bundle_id
@@ -318,7 +318,7 @@ $(function () {
 
 				if (json.processor_success)
 				{
-					bounce('?page=box_select');
+					bounce('/box-select');
 				}
 				else
 				{
@@ -498,7 +498,7 @@ $(function () {
 		let recipe_id = $(this).data('dinner_details');
 
 		create_and_submit_form({
-			action: '?page=item&recipe=' + recipe_id,
+			action: '/item?recipe=' + recipe_id,
 			input: ({
 				'box_id': box_info.box_id
 			})

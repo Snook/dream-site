@@ -316,7 +316,7 @@ function setStoreAndBeginOrder(config)
 
 	// Create dynamic form to post and redirect to session_menu
 	create_and_submit_form({
-		action: '?page=session_menu',
+		action: '/session-menu',
 		input: ({
 			store: config.store_id,
 			order_type: config.order_type
@@ -1494,7 +1494,7 @@ $(document).on('click', '.clear-edit-delivered-order', function (e) {
 						success: function (json) {
 
 							// reload page
-							window.location = '/?page=my_meals&tab=nav-past_orders';
+							window.location = '/my-meals?tab=nav-past_orders';
 						},
 						error: function (objAJAXRequest, strError) {
 							console.log('Unexpected error');
@@ -1555,7 +1555,7 @@ $('.telephone:not(.no-tel), [type="tel"]:not(.no-tel)').each(function (index) {
 
 // nutritionals menu dropdown
 $(document).on('change', '#menus_dropdown', function (e) {
-	bounce('?page=nutritionals&menu=' + this.value);
+	bounce('/nutritionals?menu=' + this.value);
 });
 
 // platepoints enroll
@@ -1649,7 +1649,7 @@ $(document).on('click', '[data-start-delivered-order]', function (e) {
 	let start_delivered_zip = this.getAttribute('data-start-delivered-order');
 
 	create_and_submit_form({
-		action: '?page=box_select',
+		action: '/box-select',
 		input: ({
 			delivered_zip: start_delivered_zip
 		})

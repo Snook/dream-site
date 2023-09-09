@@ -9,7 +9,7 @@ Ditch dinner reservations and bring the date night home. Settle into a romantic 
 <?php } else if (date('M', strtotime($this->menu_name)) == 'Mar') { ?>
 <p>
 	<b>We make it easy to remember to thaw your Dream Dinners each week.</b><br />
-	Nothing's more frustrating than having a freezer full of delicious meals and finding yourself returning to old patterns of quick fixes and meals out. Let us help you plan for the week ahead with our handy thaw reminder emails. <a href="https://dreamdinners.com/?static=promotions">Sign up here to start receiving your weekly reminder</a>.
+	Nothing's more frustrating than having a freezer full of delicious meals and finding yourself returning to old patterns of quick fixes and meals out. Let us help you plan for the week ahead with our handy thaw reminder emails. <a href="https://dreamdinners.com/promotions">Sign up here to start receiving your weekly reminder</a>.
 </p>
 <?php } else if (date('M', strtotime($this->menu_name)) == 'Apr') { ?>
 <p>
@@ -20,7 +20,7 @@ Ditch dinner reservations and bring the date night home. Settle into a romantic 
 <?php } else if (date('M', strtotime($this->menu_name)) == 'May') { ?>
 <p>
 	<b>Rate your Meals</b><br />
-Earn PLATEPOINTS while keeping track of your family's favorite meals. Since our menu changes monthly you'll have an easy way to help keep track of your dinners. <a href="<?=HTTPS_BASE ?>?page=my_meals">Click here to rate your meals</a></p>
+Earn PLATEPOINTS while keeping track of your family's favorite meals. Since our menu changes monthly you'll have an easy way to help keep track of your dinners. <a href="<?=HTTPS_BASE ?>my-meals">Click here to rate your meals</a></p>
 <?php } else if (date('M', strtotime($this->menu_name)) == 'Jun') { ?>
 <p>
 	<b>On-The-Go-Bingo Summer Giveaway</b><br />
@@ -46,7 +46,7 @@ Earn PLATEPOINTS while keeping track of your family's favorite meals. Since our 
 	<b>Show Your Friends What They're Missing</b><br />
 	With Dream Dinners, are you saving time, prepping less and spending more quality moments with your family? Don't let your friends miss out on bringing home easy, homemade dinners. Invite them to join you at your next session. You will earn PLATEPOINTS too... just for bringing them along.
 </p>
-<p><a href="<?=HTTPS_SERVER?>/?page=my_events&sid=<?=$this->session_id?>">Send them an invite today.</a></p>
+<p><a href="<?=HTTPS_SERVER?>/my-events?sid=<?=$this->session_id?>">Send them an invite today.</a></p>
 <?php } else if (date('M', strtotime($this->menu_name)) == 'Oct') { ?>
 <p>
 	<b>Earn More PLATEPOINTS</b><br />
@@ -58,7 +58,7 @@ Earn PLATEPOINTS while keeping track of your family's favorite meals. Since our 
 	<li>Host a Meal Prep Workshop, 500 points</li>
 	<li>Invite Friends, 500 points</li>
 </ul>
-<p><a href="https://dreamdinners.com/?page=platepoints">Click here to learn more!</a></p>
+<p><a href="https://dreamdinners.com/platepoints">Click here to learn more!</a></p>
 <?php } else if (date('M', strtotime($this->menu_name)) == 'Nov') { ?>
 <p>
 	<b>Want a little more coaching in the kitchen?</b><br />

@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			} else {
 				if (info.event.extendedProps.eventType === 'session') {
 					if (!info.event.extendedProps.session_has_password) {
-						window.location.href = '/?page=session&ref=store&sid=' + info.event.extendedProps.id;
+						window.location.href = '/session?ref=store&sid=' + info.event.extendedProps.id;
 					} else {
 						bootbox.prompt("This event requires an invite code.", function (result) {
 
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
 									},
 									success: function (json) {
 										if (json.result_code == 1) {
-											bounce('?page=session_menu');
+											bounce('/session-menu');
 										} else {
 											bootbox.alert(json.processor_message)
 										}
@@ -361,7 +361,7 @@ function eventClickCalendar(eventType, sessionPassword, id) {
 
 		if (eventType === 'session') {
 			if (!sessionPassword) {
-				window.location.href = '/?page=session&ref=store&sid=' + id;
+				window.location.href = '/session?ref=store&sid=' + id;
 			} else {
 				bootbox.prompt("This event requires an invite code.", function (result) {
 					if (result) {
@@ -383,7 +383,7 @@ function eventClickCalendar(eventType, sessionPassword, id) {
 							success: function (json) {
 
 								if (json.result_code == 1) {
-									bounce('?page=session_menu');
+									bounce('/session-menu');
 								} else {
 									bootbox.alert(json.processor_message)
 								}

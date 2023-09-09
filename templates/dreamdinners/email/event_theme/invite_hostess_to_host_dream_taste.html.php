@@ -45,7 +45,7 @@
   <li>10 Dinner Dollars for hosting a Meal Prep Workshop</li>
   <li>500 PLATEPOINTS for each new friend who places a minimum 36-serving order (That's a lot more Dinner Dollars).</li>
 </ul>
-<p><strong><a href="https://dreamdinners.com/?page=locations">Contact your store</a></strong> to begin planning your event today!</p>
+<p><strong><a href="https://dreamdinners.com/locations">Contact your store</a></strong> to begin planning your event today!</p>
 <p> </p></td>
 </tr>
 </table>

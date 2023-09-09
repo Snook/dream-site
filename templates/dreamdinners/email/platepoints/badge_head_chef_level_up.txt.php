@@ -15,15 +15,15 @@
 
   <?php } // end is not preferred ?>
 
-   Learn more about the perks of PLATEPOINTS at <?=HTTPS_BASE ?>?page=platepoints
+   Learn more about the perks of PLATEPOINTS at <?=HTTPS_BASE ?>platepoints
 
    Sincerely,
     Dream Dinners
 
 -------------------------------------------------------------------------
-Order: <?=HTTPS_BASE ?>?page=session_menu
-My Account: <?=HTTPS_BASE ?>?page=my_account
-My PLATEPOINTS: <?=HTTPS_BASE ?>?page=my_platepoints
+Order: <?=HTTPS_BASE ?>session-menu
+My Account: <?=HTTPS_BASE ?>my-account
+My PLATEPOINTS: <?=HTTPS_BASE ?>my-platepoints
 
 *Valid for one Extended Fast Lane dinner up to a $25 value from our sides and sweets freezer. Voucher is non-transferable. One voucher per person. Voucher expires 6 months from date awarded.
 **Dinner Dollars can be used on standard orders above 36 servings only. Spend them on items in our Sides & Sweets freezer and Made for You service fees at participating locations. When ordering more than 36 servings, Dinner Dollars can be applied toward your lowest priced menu item.

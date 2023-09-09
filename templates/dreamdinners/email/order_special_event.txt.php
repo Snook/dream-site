@@ -8,7 +8,7 @@ Your freshly assembled dinners will be ready for you when you arrive. Please bri
 See you soon!
 
 Click to view the full Terms and Conditions.
-https://dreamdinners.com/?static=terms
+https://dreamdinners.com/terms
 
 
 <?php include $this->loadTemplate('email/subtemplate/order_details/order_details_text_email.tpl.php'); ?>

@@ -15,6 +15,6 @@
 	Dream Dinners
 
 -------------------------------------------------------------------------
-Order: <?=HTTPS_BASE ?>?page=session_menu
-My Account: <?=HTTPS_BASE ?>?page=my_account
-My PLATEPOINTS: <?=HTTPS_BASE ?>?page=my_platepoints
+Order: <?=HTTPS_BASE ?>session-menu
+My Account: <?=HTTPS_BASE ?>my-account
+My PLATEPOINTS: <?=HTTPS_BASE ?>my-platepoints

@@ -13,7 +13,7 @@
 
 
 --------------------------------------------------------------------------
-Order: <?=HTTPS_BASE ?>?page=session_menu
-My Account: <?=HTTPS_BASE ?>?page=my_account
+Order: <?=HTTPS_BASE ?>session-menu
+My Account: <?=HTTPS_BASE ?>my-account
 
 *Dinner Dollars may be redeemed at participating locations. Once you have a standard order for a menu month, you can place unlimited additional orders with no minimum throughout the month. Dinner Dollars are non-transferrable and expire 30 days from the date awarded. Preferred guests and Meal Prep+ members are not eligible for Dinner Dollars. Dinner Dollars cannot be combined with other offers.

@@ -10,7 +10,7 @@ If you feel your membership has been canceled by mistake, please contact us at <
 
 ------------------------------------------
 
-See the complete Meal Prep+ terms and conditions: https://dreamdinners.com/?static=terms
+See the complete Meal Prep+ terms and conditions: https://dreamdinners.com/terms
 
 Dream Dinners <?php echo $this->store->store_name; ?>
 <?php echo $this->store->address_line1; ?> <?php echo !empty( $this->store->address_line2 ) ? $this->store->address_line2 : ''; ?>

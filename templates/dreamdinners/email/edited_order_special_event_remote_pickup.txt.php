@@ -12,7 +12,7 @@ If you need to reschedule or cancel your order, please contact us 6 days prior t
 During inclement weather, please contact your local store to see if your session has been canceled. In the event the store must close, information will be provided on the store's voicemail and every effort will be made to reschedule your session.
 
 Click to view the full Terms and Conditions.
-https://dreamdinners.com/?static=terms
+https://dreamdinners.com/terms
 
 --------------------------------------------------
 

@@ -10449,7 +10449,7 @@ class COrders extends DAO_Orders
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order, null, true, false, false, $isDeliveredOrder);
 		$orderInfo['user'] = $user;
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['customer_primary_email'] = $user->primary_email;
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
@@ -10626,7 +10626,7 @@ class COrders extends DAO_Orders
 
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['customer_primary_email'] = $user->primary_email;
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
@@ -10670,7 +10670,7 @@ class COrders extends DAO_Orders
 
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['customer_primary_email'] = $user->primary_email;
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
@@ -10747,7 +10747,7 @@ class COrders extends DAO_Orders
 
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['customer_primary_email'] = $user->primary_email;
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
@@ -10788,7 +10788,7 @@ class COrders extends DAO_Orders
 
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
 
@@ -10842,7 +10842,7 @@ class COrders extends DAO_Orders
 
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
 
@@ -10870,7 +10870,7 @@ class COrders extends DAO_Orders
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
 		$orderInfo['origSessionInfo'] = array('session_start' => $origSessionTime);
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
 
@@ -10916,7 +10916,7 @@ class COrders extends DAO_Orders
 
 		if ($doEmailCustomer)
 		{
-			$orderInfo['details_page'] = 'order_details';
+			$orderInfo['details_page'] = 'order-details';
 			$contentsText = CMail::mailMerge('order_delayed_declined.txt.php', $orderInfo);
 			$contentsHtml = CMail::mailMerge('order_delayed_declined.html.php', $orderInfo);
 

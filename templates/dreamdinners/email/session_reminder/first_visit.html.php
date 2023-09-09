@@ -15,11 +15,11 @@
   </tr>
   <tr>
     <td width="15%" align="right"><img src="<?=EMAIL_IMAGES_PATH?>/email/icons/phone-icon.gif" alt="" width="70" height="67" /></td>
-    <td width="85%" align="left">Let us know how we can serve you. <a href="<?=HTTPS_BASE?>?page=locations&store_id=<?=$this->store_id?>">Contact us if you need help</a> with order changes, special food accommodations, or need to make other arrangements (our  store gets extra full sometimes).</td>
+    <td width="85%" align="left">Let us know how we can serve you. <a href="<?=HTTPS_BASE?>locations/<?=$this->store_id?>">Contact us if you need help</a> with order changes, special food accommodations, or need to make other arrangements (our  store gets extra full sometimes).</td>
   </tr>
   <tr>
     <td width="15%" align="right"><img src="<?=EMAIL_IMAGES_PATH?>/email/icons/menu-icon.gif" alt="" width="70" height="67" /></td>
-    <td width="85%" align="left">Plan to order in-store for your next session. Save time by <a href="<?=HTTPS_BASE?>?page=session_menu">ordering online or just take a peek at next month's menu</a> before you arrive and you'll be all set to order when you come in. Plus, you earn bonus PLATEPOINTS each time you sign up in-store or online prior to your next session.</td>
+    <td width="85%" align="left">Plan to order in-store for your next session. Save time by <a href="<?=HTTPS_BASE?>session-menu">ordering online or just take a peek at next month's menu</a> before you arrive and you'll be all set to order when you come in. Plus, you earn bonus PLATEPOINTS each time you sign up in-store or online prior to your next session.</td>
   </tr>
 </table>
 <p>We're excited for the difference Dream Dinners will make in your life. Here's to savoring more moments with those you love.<br />

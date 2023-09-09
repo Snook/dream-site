@@ -30,7 +30,7 @@
   <tr>
     <td> <p style="font-family:Arial, Helvetica, sans-serif; font-size: 14px; color: #000000;">*Gift Card orders that require shipping will take 2-6 business days for processing &amp; shipping<br />
 Note: $2 shipping/service fee added to each Traditional Gift Card ordered.</p>
-      <p style="font-family:Arial, Helvetica, sans-serif; font-size: 14px; color: #000000;"><strong>Have questions?</strong> To view the complete Gift Card Policies &amp; Terms online or if you have questions regarding your Gift Card or Customer Service options please visit <a href="https://dreamdinners.com/?static=terms">DreamDinners.com</a></p><p>&nbsp;</p></td>
+      <p style="font-family:Arial, Helvetica, sans-serif; font-size: 14px; color: #000000;"><strong>Have questions?</strong> To view the complete Gift Card Policies &amp; Terms online or if you have questions regarding your Gift Card or Customer Service options please visit <a href="https://dreamdinners.com/terms">DreamDinners.com</a></p><p>&nbsp;</p></td>
   </tr>
       </table>
 </td>

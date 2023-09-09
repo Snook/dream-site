@@ -361,7 +361,7 @@ class CEmail extends CMail
 	{
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['customer_primary_email'] = $user->primary_email;
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 

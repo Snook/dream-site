@@ -2810,7 +2810,7 @@ class COrdersDelivered extends COrders
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order, null, false, false, false, true);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
 		$orderInfo['origSessionInfo'] = array('session_start' => $origSessionTime);
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
 
@@ -3052,7 +3052,7 @@ class COrdersDelivered extends COrders
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['customer_primary_email'] = $user->primary_email;
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
@@ -3077,7 +3077,7 @@ class COrdersDelivered extends COrders
 
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
 

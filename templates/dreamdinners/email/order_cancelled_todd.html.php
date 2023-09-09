@@ -41,7 +41,7 @@
 </table>
 <table border="0" cellpadding="4" cellspacing="0" width="604">
 	<tr>
-		<td colspan="2" align="center" valign="middle">Learn about Dream Dinners: <a href="<?=HTTPS_BASE?>?static=how_it_works">How It Works</a> | <a href="<?=HTTPS_BASE?>?static=shared_stories">Shared Stories &amp; Comments</a></td>
+		<td colspan="2" align="center" valign="middle">Learn about Dream Dinners: <a href="<?=HTTPS_BASE?>how_it_works">How It Works</a> | <a href="<?=HTTPS_BASE?>shared_stories">Shared Stories &amp; Comments</a></td>
 	</tr>
 	<tr>
 		<td colspan="2" align="left" valign="middle"><font color="#666666" face="Arial, Helvetica, sans-serif" size="1">Copyright &copy; Dream Dinners, Inc.&nbsp; All Rights Reserved.</font></td>

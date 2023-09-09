@@ -7,7 +7,7 @@ Join us to assemble three delicious meals to take home and enjoy with your famil
 Attendance is by invitation only, and space is limited. RSVP today to reserve your space.
 
 Learn more about how Dream Dinners works here.
-https://dreamdinners.com/?static=how_it_works
+https://dreamdinners.com/how_it_works
 
 <?php echo $this->message; ?>
 
