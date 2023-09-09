@@ -35,7 +35,7 @@ class page_order_details extends CPage
 		if (!$order_id)
 		{
 			//throw new Exception('invalid order id');
-			CApp::bounce('?page=my_meals&tab=nav-past_orders');
+			CApp::bounce('/my-meals?tab=nav-past_orders');
 		}
 
 		// TODO: this is quick way to figure out if this is a Delivered order - we may want to be more explicit
@@ -58,7 +58,7 @@ class page_order_details extends CPage
 		{
 			//throw new Exception('invalid order');
 			$tpl->setErrorMsg('The requested order was not found.');
-			CApp::bounce('?page=my_meals&tab=past_orders');
+			CApp::bounce('/my-meals?tab=past_orders');
 		}
 
 		CGiftCard::addOrderDrivenGiftCardDetailsToTemplate($tpl, CUser::getCurrentUser()->id, $order_id, false);
@@ -77,7 +77,7 @@ class page_order_details extends CPage
 		{
 			//throw new Exception('trying to view order from another user');
 			$tpl->setErrorMsg('The requested order was not found in your order history.');
-			CApp::bounce('?page=my_meals&tab=past_orders');
+			CApp::bounce('/my-meals?tab=past_orders');
 		}
 
 		$Form = new CForm('customer_order_details');

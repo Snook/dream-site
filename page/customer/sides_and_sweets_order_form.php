@@ -232,7 +232,7 @@ class page_sides_and_sweets_order_form extends CPage
 
 				$tpl->setStatusMsg('Your Sides and Sweets Order Request has been sent to the store, Thank you.');
 
-				CApp::bounce("?page=my_account");
+				CApp::bounce("/my-account");
 			}
 		}
 	}

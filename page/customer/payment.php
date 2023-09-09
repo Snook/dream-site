@@ -338,7 +338,7 @@ class page_payment extends CPage
 		checkout_validation::validateCoupon($Order, $Cart, $tpl);
 
 		// most issues have to do with the menu from here on so bounce all types to the menu
-		$tpl->assign('bounce_to', '?page=session_menu');
+		$tpl->assign('bounce_to', '/session-menu');
 
 		// Not logged in so no account based discounts
 		$Order->clearPreferred();
@@ -351,7 +351,7 @@ class page_payment extends CPage
 		if ($validationResult !== true)
 		{
 			$tpl->setStatusMsg("Your cart does not have all the items needed to proceed to checkout: $validationResult");
-			CApp::bounce('?page=session_menu');
+			CApp::bounce('/session-menu');
 		}
 
 		checkout_validation::validateFood($Order, $Cart, $tpl);
@@ -504,7 +504,7 @@ class page_payment extends CPage
 			if (!CSession::getSessionRSVP($Order->findSession()->id, $User->id))
 			{
 				$tpl->setErrorMsg('Please complete your profile information prior to checkout.');
-				CApp::bounce('?page=account');
+				CApp::bounce('/account');
 			}
 		}
 
@@ -527,7 +527,7 @@ class page_payment extends CPage
 			if (!$sessionIsValid)
 			{
 				$tpl->setStatusMsg('The delivery date you selected is unavailable. Please choose a new delivery date below.');
-				CApp::bounce('?page=box_delivery_date');
+				CApp::bounce('/box-delivery-date');
 			}
 		}
 
@@ -583,7 +583,7 @@ class page_payment extends CPage
 		if ($validationResult !== true)
 		{
 			$tpl->setStatusMsg('Your cart does not have all the items needed to proceed to checkout: ' . $validationResult);
-			CApp::bounce('?page=session_menu');
+			CApp::bounce('/session-menu');
 		}
 
 		checkout_validation::validateFood($Order, $Cart, $tpl);
@@ -599,7 +599,7 @@ class page_payment extends CPage
 		if ($Order->isTODD() && !$Order->isDreamTaste() && !$Order->isFundraiser())
 		{
 			$tpl->setErrorMsg("This order is for attendance of a Taste of Dream Dinners session. Please select a session here.");
-			CApp::bounce('?page=session_menu');
+			CApp::bounce('/session-menu');
 		}
 
 		$Form = new CForm('customer_food_checkout');
@@ -787,7 +787,7 @@ class page_payment extends CPage
 				if (!$Form->validate_CSRF_token())
 				{
 					$tpl->setErrorMsg("The submission was rejected as a possible security issue. If this was a legitimate submission please contact Dream Dinners support. This message can also be caused by a double submission of the same page.");
-					CApp::bounce('?page=payment', true);
+					CApp::bounce('/payment', true);
 				}
 
 				$xssFilter = new InputFilter();
@@ -916,7 +916,7 @@ class page_payment extends CPage
 				case 'closed':
 					$Cart->addSessionId(0, true);
 					$tpl->setErrorMsg('The session you have chosen is now full or closed. Please choose another session.');
-					CApp::bounce('?page=session');
+					CApp::bounce('/session');
 					break;
 				case 'edit_success':
 					try
@@ -932,7 +932,7 @@ class page_payment extends CPage
 					}
 
 					CBrowserSession::setValue('dd_thank_you', 'checkout', false, true, false);
-					CApp::bounce('?page=order_details&status=ec&order=' . $originalOrder->id, true);
+					CApp::bounce('/order-details?status=ec&order=' . $originalOrder->id, true);
 
 					break;
 				case 'success':
@@ -954,7 +954,7 @@ class page_payment extends CPage
 
 					// set a cookie so that analytics only records viewing the thank you page once
 					CBrowserSession::setValue('dd_thank_you', 'checkout', false, true, false);
-					CApp::bounce('?page=order_details&order=' . $Order->id, true);
+					CApp::bounce('/order-details?order=' . $Order->id, true);
 
 					break;
 
@@ -1003,7 +1003,7 @@ class page_payment extends CPage
 
 			// this adds store credits to the payment array als
 			CCart2::instance()->addPayment($paymentArray);
-			CApp::instance()->bounce('?page=order_submit&sc=true');
+			CApp::instance()->bounce('/order-submit?sc=true');
 		}
 
 		if ($Order)

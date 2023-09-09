@@ -31,7 +31,7 @@ class page_box_menu extends CPage
 
 			if (empty($storeId))
 			{
-				CApp::bounce('?page=locations');
+				CApp::bounce('/locations');
 			}
 
 			$boxInfoArray = CBox::getBoxArray($storeId, $_POST['view_box'], true, true, false, false, true);
@@ -44,7 +44,7 @@ class page_box_menu extends CPage
 		}
 		else
 		{
-			CApp::bounce('?page=box_select');
+			CApp::bounce('/box_select');
 		}
 
 		$boxInstance = CBoxInstance::getIncompleteBoxInstance($boxBundleInfo->id, $boxInfo->id);

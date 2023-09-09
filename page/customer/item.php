@@ -38,7 +38,7 @@ class page_item extends CPage
 				if (empty($menuItemArray))
 				{
 					$tpl->setErrorMsg("Sorry we could not find the recipe. The recipe_id was missing or invalid ");
-					CApp::bounce("?page=session_menu");
+					CApp::bounce("/session-menu");
 				}
 
 				$tpl->assign('menuItemArray', $menuItemArray);
@@ -46,13 +46,13 @@ class page_item extends CPage
 			else
 			{
 				$tpl->setErrorMsg("Sorry we could not find the recipe. The recipe_id was missing or invalid ");
-				CApp::bounce("?page=session_menu");
+				CApp::bounce("/session-menu");
 			}
 		}
 		catch (Exception $e)
 		{
 			$tpl->setErrorMsg("Sorry we could not find the recipe. The recipe_id was missing or invalid ");
-			CApp::bounce("?page=session_menu");
+			CApp::bounce("/session-menu");
 		}
 	}
 

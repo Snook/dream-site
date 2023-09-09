@@ -731,7 +731,7 @@ class processor_account extends CPageProcessor
 						{
 							echo json_encode(array(
 								'processor_success' => false,
-								'processor_message' => 'This phone number is in use by another account. If you are unable to remove the number, please <a href="/?static=contact_us">contact Dream Dinners support.</a>'
+								'processor_message' => 'This phone number is in use by another account. If you are unable to remove the number, please <a href="/contact-us">contact Dream Dinners support.</a>'
 							));
 							exit;
 						}

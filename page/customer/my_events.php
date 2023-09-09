@@ -6,7 +6,7 @@ class page_my_events extends CPage
 
 	function runPublic()
 	{
-		CApp::forceLogin('?page=my_events');
+		CApp::forceLogin('/my-events');
 	}
 
 	function runCustomer()
@@ -29,7 +29,7 @@ class page_my_events extends CPage
 		if (!empty($usersFuturePastEvents['manageEvent']) && $usersFuturePastEvents['manageEvent']['is_past'])
 		{
 			$tpl->setErrorMsg('The session has passed and is no longer available.');
-			CApp::bounce('?page=my_events');
+			CApp::bounce('/my-events');
 		}
 
 		$tpl->assign('store', $Store);

@@ -15,13 +15,13 @@ class page_fundraiser extends CPage
 
 			if (empty($DAO_store) || !$DAO_store->isOpen())
 			{
-				CApp::bounce('?page=locations');
+				CApp::bounce('/locations');
 			}
 
 			// in case someone tries to load a DC store, bounce to the parent store.
 			if ($DAO_store->isDistributionCenter())
 			{
-				CApp::bounce('?page=store&id=' . $DAO_store->parent_store_id);
+				CApp::bounce('/store?id=' . $DAO_store->parent_store_id);
 			}
 
 			$DAO_session = DAO_CFactory::create('session');
@@ -79,7 +79,7 @@ class page_fundraiser extends CPage
 		}
 		else
 		{
-			CApp::bounce('?page=locations');
+			CApp::bounce('/locations');
 		}
 	}
 }

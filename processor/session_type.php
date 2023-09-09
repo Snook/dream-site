@@ -174,7 +174,7 @@ class processor_session_type extends CPage
 					}
 					else
 					{
-						CApp::bounce('?page=store&id=' . $store_id);
+						CApp::bounce('/location/' . $store_id);
 					}
 					break;
 				case 'event':
@@ -233,16 +233,16 @@ class processor_session_type extends CPage
 		// no store, send them to pick a store
 		if (empty($store_id))
 		{
-			CApp::bounce('?page=locations');
+			CApp::bounce('/locations');
 		}
 		// store is set to distribution center they shouldn't be here
 		else if ($DAO_store->store_type == CStore::DISTRIBUTION_CENTER)
 		{
-			CApp::bounce('?page=locations');
+			CApp::bounce('/locations');
 		}
 
 		// send them to session menu
-		CApp::bounce('?page=session_menu');
+		CApp::bounce('/session-menu');
 	}
 }
 

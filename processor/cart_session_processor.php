@@ -231,7 +231,7 @@ class processor_cart_session_processor extends CPageProcessor
 				CAppUtil::processorMessageEcho(array(
 					'processor_success' => true,
 					'result_code' => 1,
-					'bounce_to' => '?page=checkout',
+					'bounce_to' => '/checkout',
 					'result_day' => CTemplate::dateTimeFormat($Session->session_start, YEAR_MONTH_DAY),
 					'processor_message' => 'The session was successfully selected.'
 				));

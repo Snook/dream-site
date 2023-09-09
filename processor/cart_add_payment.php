@@ -425,7 +425,7 @@ class processor_cart_add_payment extends CPageProcessor
 
 					if (!empty($_POST['page']) && $_POST['page'] == 'checkout')
 					{
-						$bounce_to = '?page=checkout';
+						$bounce_to = '/checkout';
 					}
 				}
 			}
@@ -457,7 +457,7 @@ class processor_cart_add_payment extends CPageProcessor
 
 			if ($bounce_to)
 			{
-				$results_array['bounce_to'] = '?page=checkout';
+				$results_array['bounce_to'] = '/checkout';
 			}
 
 			if (!empty($editOrderId))

@@ -113,7 +113,7 @@ class page_account_signup extends CPage
 	function runCustomer()
 	{
 		CApp::forceSecureConnection();
-		CApp::instance()->bounce('?page=account', true);
+		CApp::instance()->bounce('/account', true);
 	}
 }
 

@@ -36,7 +36,7 @@ class page_box_select extends CPage
 			if (!$ckzip->find(true))
 			{
 				$tpl->setStatusMsg('Dream Dinners does not currently deliver to ' . $req_post_zip);
-				CApp::bounce('?page=locations');
+				CApp::bounce('/locations');
 			}
 
 			$BoxesSurvived = false;
@@ -60,7 +60,7 @@ class page_box_select extends CPage
 
 		if (empty($storeId))
 		{
-			CApp::bounce('?page=locations');
+			CApp::bounce('/locations');
 		}
 
 		$boxArray = CBox::getBoxArray($storeId, false, true, true, false, false, true);

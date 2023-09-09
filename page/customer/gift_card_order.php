@@ -101,7 +101,7 @@ class page_gift_card_order extends CPage
 
 			if (!empty($gc_orders))
 			{
-				CApp::bounce('?page=gift_card_cart');
+				CApp::bounce('/gift-card-cart');
 			}
 		}
 
@@ -303,12 +303,12 @@ class page_gift_card_order extends CPage
 			if ($isVirtualCard && empty($card_designs['info']['num_virtual']))
 			{
 				$tpl->setErrorMsg('Sorry, there are no virtual cards available at this time.');
-				CApp::bounce('?page=gift_card_order');
+				CApp::bounce('/gift-card-order');
 			}
 			else if (empty($card_designs['info']['num_physical']))
 			{
 				$tpl->setErrorMsg('Sorry, there are no physical cards available at this time.');
-				CApp::bounce('?page=gift_card_order');
+				CApp::bounce('/gift-card-order');
 			}
 
 			$currentAmount = sprintf("%01.2f", $_POST['amount']);
@@ -407,7 +407,7 @@ class page_gift_card_order extends CPage
 						}
 					}
 
-					CApp::bounce('?page=gift_card_cart');
+					CApp::bounce('/gift-card-cart');
 				}
 				else
 				{
@@ -425,7 +425,7 @@ class page_gift_card_order extends CPage
 
 					if ($result !== false)
 					{
-						CApp::bounce('?page=gift_card_cart');
+						CApp::bounce('/gift-card-cart');
 					}
 					else
 					{
