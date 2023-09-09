@@ -1,4 +1,4 @@
-<?php $this->assign('canonical_url', HTTPS_BASE . '?page=account_signup'); ?>
+<?php $this->assign('canonical_url', HTTPS_BASE . 'account-signup'); ?>
 <?php $this->setScript('foot', '//maps.googleapis.com/maps/api/js?v=3&amp;key=' . GOOGLE_APIKEY); ?>
 <?php $this->setScript('foot', SCRIPT_PATH . '/customer/locations.min.js'); ?>
 <?php $this->setScript('foot', SCRIPT_PATH . '/customer/account.min.js'); ?>

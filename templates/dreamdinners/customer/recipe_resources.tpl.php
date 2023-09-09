@@ -1,4 +1,4 @@
-<?php $this->assign('canonical_url', HTTPS_BASE . '?page=recipe_resources'); ?>
+<?php $this->assign('canonical_url', HTTPS_BASE . 'recipe-resources'); ?>
 <?php $this->setScript('foot', SCRIPT_PATH . '/customer/recipe_resources.min.js'); ?>
 <?php $this->assign('page_title', 'Recipe Resources' . ((!empty($this->search_results)) ? ' - Search Results' : '')); ?>
 <?php $this->assign('page_description', 'Cooking instructions, nutritional information and watch step by step instruction on how to cook your Dream Dinners meals in your own kitchen.'); ?>

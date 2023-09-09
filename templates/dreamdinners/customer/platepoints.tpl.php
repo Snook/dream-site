@@ -2,7 +2,7 @@
 <?php $this->assign('og_url', ((is_array($this->view_badge)) ? HTTPS_BASE . '?page=platepoints&badge=' . $this->view_badge['level'] : HTTPS_BASE . '?page=platepoints')); ?>
 <?php $this->assign('og_image', ((is_array($this->view_badge)) ? HTTPS_BASE . RELATIVE_IMAGES_PATH . '/style/platepoints/badge-' . $this->view_badge['image'] . '-119x119.png': '')); ?>
 <?php $this->assign('og_description', false); ?>
-<?php $this->assign('canonical_url', ((is_array($this->view_badge)) ? HTTPS_BASE . '?page=platepoints&badge=' . $this->view_badge['level'] : HTTPS_BASE . '?page=platepoints')); ?>
+<?php $this->assign('canonical_url', ((is_array($this->view_badge)) ? HTTPS_BASE . 'platepoints?badge=' . $this->view_badge['level'] : HTTPS_BASE . 'platepoints')); ?>
 <?php $this->assign('page_title', ((is_array($this->view_badge)) ? $this->view_badge['title'] . ' - PLATEPOINTS Badge' : 'PLATEPOINTS')); ?>
 <?php $this->assign('page_description', false); ?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>

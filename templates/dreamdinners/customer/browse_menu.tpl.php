@@ -1,4 +1,4 @@
-<?php $this->assign('canonical_url', HTTPS_BASE . '?page=browse_menu'); ?>
+<?php $this->assign('canonical_url', HTTPS_BASE . 'browse-menu'); ?>
 <?php $this->assign('page_title', 'Menu Preview'); ?>
 <?php $this->assign('page_description','At Dream Dinners you make homemade meals for your family in our store, then freeze, thaw and cook when you are ready at home. We are your dinnertime solution.'); ?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
