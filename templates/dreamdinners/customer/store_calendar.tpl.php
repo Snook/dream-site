@@ -80,8 +80,8 @@
 											<p class="font-italic text-muted font-size-small">*Our Open House events are only available to new Dream Dinners guests or guests that have not attended a Dream Dinners session in over a year.</p>
 										</div>
 									</div>
-								</div>-->
-							<?php } ?>
+								</div>
+							<?php } ?>-->
 						</div>
 					</div>
 				</div>
