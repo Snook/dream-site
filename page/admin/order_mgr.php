@@ -4857,6 +4857,8 @@ class page_admin_order_mgr extends CPageAdminOnly
 			{
 				$query = "SELECT
 					mmi.override_price AS override_price,
+       				mmi.store_id AS store_id,
+      				r.override_menu_id AS menu_id,
 					mimd.id as markdown_id,
 					mimd.markdown_value,
 					r.ltd_menu_item_value,
