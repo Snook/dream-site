@@ -66,7 +66,7 @@
 			<div class="row mb-3">
 				<?php if (!empty($this->DAO_store->bio_store_hours) || !empty($this->DAO_store->bio_store_holiday_hours)) { ?>
 					<?php if (!empty($this->DAO_store->bio_store_hours)) { ?>
-						<div class="col">
+						<div class="col-12 col-md-6 mb-2 mb-md-0">
 							<h3 class="text-uppercase font-weight-bold text-center text-md-left">
 								Store hours
 							</h3>
@@ -76,7 +76,7 @@
 						</div>
 					<?php } ?>
 					<?php if (!empty($this->DAO_store->bio_store_holiday_hours)) { ?>
-						<div class="col">
+						<div class="col-12 col-md-6 mb-2 mb-md-0">
 							<h3 class="text-uppercase font-weight-bold text-center text-md-left">
 								Holiday hours
 							</h3>
