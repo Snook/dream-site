@@ -343,6 +343,7 @@ RewriteRule ^starter/([0-9]*)$ /session?sid=$1&starter_pack=true [R=301,NE,NC,QS
 RewriteRule ^session/([0-9]*)-([0-9]*)$ /session?sid=$1&jid=$2 [R=301,NC,QSA]
 RewriteRule ^session/([0-9]*)$ /session?sid=$1 [R=301,NC,QSA]
 
+# Legacy link support for /menu/
 RewriteRule ^menu/?$ /session-menu [R=301,NC,QSA]
 RewriteRule ^menu/([a-z]{3})$ /ddproc.php?processor=session_type&menu=$1 [R=301,NC,QSA]
 RewriteRule ^menu/([0-9]*)$ /ddproc.php?processor=session_type&store=$1 [R=301,NC,QSA]
@@ -355,13 +356,27 @@ RewriteRule ^invite/([a-zA-Z0-9]*)$ /session?oid=$1 [R=301,NC,QSA]
 RewriteRule ^invstarter/([a-zA-Z0-9]*)$ /session?oid=$1&starter_pack=true [R=301,NC,QSA]
 RewriteRule ^share/([0-9]*)$ /?share=$1 [R=301,NC,QSA]
 
-## Short url specific handling for store location pages
+## START Short url specific handling for store location pages
+# Handle fundraiser page link OLD
+RewriteRule ^location\/([\w-]+)\-fundraisers\/?$ /?page=fundraiser&id=$1 [NC,L,QSA]
+
+# Handle order links NEW
+RewriteRule ^location\/([\w-]+)\/order\/?$ /ddproc.php?processor=session_type&store=$1 [R=301,NC,QSA]
+RewriteRule ^location\/([\w-]+)\/order\/starter\/?$ /ddproc.php?processor=session_type&store=$1&type=starter [R=301,NC,QSA]
+RewriteRule ^location\/([\w-]+)\/order\/([0-9a-z]*)\/?$ /ddproc.php?processor=session_type&store=$1&menu=$2 [R=301,NC,QSA]
+RewriteRule ^location\/([\w-]+)\/order\/([0-9a-z]*)\/starter\/?$ /ddproc.php?processor=session_type&store=$1&menu=$2&type=starter [R=301,NC,QSA]
+RewriteRule ^location\/([\w-]+)\/order\/([0-9a-z]*)\/events\/?$ /ddproc.php?processor=session_type&store=$1&menu=$2&type=event [R=301,NC,QSA]
+
+# Handle fundraiser page link NEW
+RewriteRule ^location\/([\w-]+)\/fundraisers\/?$ /?page=fundraiser&id=$1 [NC,L,QSA]
+
 # /location/mill-creek/meet-the-owner
-RewriteRule ^location/([\w-]+)/([\w-]+)/?$ /?page=store_$2&id=$1 [NC,L,QSA]
+# /location/mill-creek/calendar
+RewriteRule ^location\/([\w-]+)/([\w-]+)\/?$ /?page=store_$2&id=$1 [NC,L,QSA]
 # /location/mill-creek
-RewriteRule ^location/([\w-]+)/?$ /?page=store&id=$1 [NC,L,QSA]
-# Handle fundraiser page link
-RewriteRule ^location/([\w-]+)-fundraisers$ /fundraiser?id=$1 [NC,L,QSA]
+RewriteRule ^location\/([\w-]+)\/?$ /?page=store&id=$1 [NC,L,QSA]
+
+## END Short url specific handling for store location pages
 
 ## This handles the short/pretty urls
 RewriteCond %{REQUEST_FILENAME} !-f

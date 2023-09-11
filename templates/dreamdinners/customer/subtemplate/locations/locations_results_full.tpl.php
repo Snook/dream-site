@@ -32,7 +32,7 @@
 											<?php if ($arStore["DAO_store"]->isComingSoon()) { ?>
 												<span class="btn btn-default btn-block btn-select-checked">Coming Soon!</span>
 											<?php } else { ?>
-												<a href="/menu/<?php echo $arStore["DAO_store"]->id; ?>" class="btn btn-primary btn-block btn-spinner">View Menu &amp; Order</a>
+												<a href="<?php echo $arStore["DAO_store"]->getPrettyUrl(); ?>/order" class="btn btn-primary btn-block btn-spinner">View Menu &amp; Order</a>
 											<?php } ?>
 										</div>
 									</div>

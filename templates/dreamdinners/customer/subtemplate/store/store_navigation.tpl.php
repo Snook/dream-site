@@ -19,7 +19,7 @@
 				</a>
 			</li>
 			<li class="nav-item mb-3">
-				<a class="m-auto nav-link text-uppercase font-weight-bold rounded-circle bg-green-dark text-white d-flex align-items-center justify-content-center" style="width: 10rem; height: 10rem;" href="/menu/<?php echo $this->DAO_store->id; ?>">
+				<a class="m-auto nav-link text-uppercase font-weight-bold rounded-circle bg-green-dark text-white d-flex align-items-center justify-content-center" style="width: 10rem; height: 10rem;" href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/order">
 					<span>Order Now</span>
 				</a>
 			</li>
