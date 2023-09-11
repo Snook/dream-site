@@ -143,7 +143,11 @@
 					</div>
 				</div>
 			</div>
-
+			<div class="row">
+					<div class="col">
+						<a href="<?php echo $this->DAO_store->getPrettyUrl(); ?>" class="btn btn-primary btn-block">Start your order</a>
+					</div>
+				</div>
 			<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted" />
 
 			<div class="row no-gutters">

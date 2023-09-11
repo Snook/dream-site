@@ -11,7 +11,6 @@
 		<div class="row mb-3">
 			<div class="col text-center">
 				<h1>What's new at <?php echo $this->DAO_store->store_name; ?> Dream Dinners location</h1>
-				<h2 class="font-marker">We offer real food, made from scratch, so your life can feel just a little easier.</h2>
 			</div>
 		</div>
 		<?php include $this->loadTemplate('customer/subtemplate/store/store_navigation.tpl.php'); ?>
@@ -111,7 +110,7 @@
 
 				<div class="row">
 					<div class="col">
-						<a href="/session-menu" class="btn btn-primary btn-block">Start your order</a>
+						<a href="<?php echo $this->DAO_store->getPrettyUrl(); ?>" class="btn btn-primary btn-block">Start your order</a>
 					</div>
 				</div>
 			<?php } ?>
