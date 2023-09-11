@@ -27,7 +27,7 @@
 						<ul class="nav nav-justified mb-4">
 							<?php if (!empty($this->DAO_store->ActivePromoArray)) { ?>
 								<li class="nav-item">
-									<a class="nav-link text-uppercase font-weight-bold active" id="promos-tab" data-urlpush="false" data-toggle="tab" data-target="#promos" href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/calendar?tab=promos" role="tab" aria-controls="promos" aria-selected="true">Store promotions</a>
+									<h3><a class="nav-link text-uppercase font-weight-bold active" id="promos-tab" data-urlpush="false" data-toggle="tab" data-target="#promos" href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/calendar?tab=promos" role="tab" aria-controls="promos" aria-selected="true">Store promotions</a></h3>
 								</li>
 							<?php } ?>
 							<!--<?php if ($this->storeOHEvents) { ?>
