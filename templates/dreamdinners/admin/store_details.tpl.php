@@ -235,10 +235,6 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="bgcolor_light" style="text-align: right; width: 210px;">Vanity URL:</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['short_url_html']; ?></td>
-			</tr>
-			<tr>
 				<td class="bgcolor_light" style="text-align: right;">Store Information Page QR Code:</td>
 				<td class="guest_details_list_item">
 					<div class="input-group">
@@ -714,6 +710,10 @@
 				</tr>
 			<?php } ?>
 			<?php if( $isSiteAdmin == TRUE ) { ?>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right; width: 210px;">Vanity URL (numbers, hyphens and lower case letters allowed)</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['short_url_html']; ?></td>
+				</tr>
 				<tr>
 					<td class="bgcolor_light" style="text-align: right; width: 400px;">Enable Menu Imports - Active/Show on Customer Site always import menus regardless of this setting, enable this to import menus for an inactive store</td>
 					<td class="bgcolor_light"><?php echo $this->form_store_details['ssm_builder_html']; ?></td>
