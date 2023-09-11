@@ -8,9 +8,13 @@ class page_fundraiser extends CPage
 
 	function runPublic()
 	{
-		if (!empty($_GET['id']) && is_numeric($_GET['id']))
+		if (!empty($_GET['id']) && is_numeric($_GET['id']) || CTemplate::isAlphaNumHyphen($_GET['id']))
 		{
-			list($storeInfo, $ownerInfo, $DAO_store) = CStore::getStoreAndOwnerInfo($_GET['id']);
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->id = $_GET['id'];
+			$DAO_store->show_on_customer_site = 1;
+			$DAO_store->find_DAO_store(true);
+
 			$showOrgSpecific = false;
 
 			if (empty($DAO_store) || !$DAO_store->isOpen())
