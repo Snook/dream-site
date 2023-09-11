@@ -23,11 +23,10 @@
 			<?php if (!empty($this->DAO_store->ActivePromoArray)) { ?>
 				<div class="row mb-4">
 					<div class="col">
-						<h3 class="text-uppercase font-weight-bold text-center">Store Promotions</h3>
 						<ul class="nav nav-justified mb-4">
 							<?php if (!empty($this->DAO_store->ActivePromoArray)) { ?>
 								<li class="nav-item">
-									<h3><a class="nav-link text-uppercase font-weight-bold active" id="promos-tab" data-urlpush="false" data-toggle="tab" data-target="#promos" href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/calendar?tab=promos" role="tab" aria-controls="promos" aria-selected="true">Store promotions</a></h3>
+									<h3 class="nav-link text-uppercase font-weight-bold active" id="promos-tab" data-urlpush="false" data-toggle="tab" data-target="#promos" href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/calendar?tab=promos" role="tab" aria-controls="promos" aria-selected="true">Store promotions</h3>
 								</li>
 							<?php } ?>
 							<!--<?php if ($this->storeOHEvents) { ?>
