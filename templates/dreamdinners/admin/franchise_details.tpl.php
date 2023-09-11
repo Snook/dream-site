@@ -101,7 +101,7 @@
 			<li data-tabid="<?php echo $store['id']; ?>" data-tooltip="<?php echo $store['store_name']; ?>" class="tab<?php if ($count == 1) { ?> selected<?php } ?><?php echo (empty($store['active'])) ? ' inactive' : '' ?>"><?php echo $store['state_id']; ?>, <?php echo $store['city']; ?></li>
 		<?php } ?>
 		<?php } ?>
-		<?php if ($this->permission['can_add_store']) { ?><li data-tabid="add_store" data-tooltip="Add New Store" class="tab" data-link="?page=admin_create_store&franchise_id=<?php echo $this->franchise['id']; ?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">+</li><?php } ?>
+		<?php if ($this->permission['can_add_store']) { ?><li data-tabid="add_store" data-tooltip="Add New Store" class="tab" data-link="/?page=admin_create_store&franchise_id=<?php echo $this->franchise['id']; ?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">+</li><?php } ?>
 		</ul>
 	</div>
 
