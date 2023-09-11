@@ -44,6 +44,44 @@
 				<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted" />
 			<?php } ?>
 
+			<?php if (!empty($this->storeOHEvents)) { ?>
+				<div class="row mb-4">
+					<div class="col">
+						<h3 id="events" class="text-uppercase font-weight-bold text-center">Store events</h3>
+
+						<?php if ($this->storeOHEvents) { ?>
+							<div class="row mb-3">
+								<div class="col-lg-4 mb-2">
+									<img src="<?php echo IMAGES_PATH; ?>/landing_pages/open-house-meal-prep-540x360.jpg" alt="Open House Meal Prep" class="img-fluid" />
+								</div>
+								<div class="col-lg-8">
+									<p class="font-weight-bold text-uppercase">Try our meal prep experience at an open house</p>
+									<p>Dream Dinners will change how you meal plan, cook and gather at the table with your family. Join us in our meal prep kitchen to receive three medium family-style, ready-to-cook meals for just $60.</p>
+									<div class="row">
+										<?php foreach ($this->storeOHEvents AS $storeEvent) { ?>
+											<div class="col-lg-6 mb-2">
+												<a href="/session/<?php echo $storeEvent['extendedProps']['id']; ?>" class="btn btn-primary btn-block">
+													<div><?php echo CTemplate::dateTimeFormat($storeEvent['start'], FULL_DAY); ?></div>
+													<div><?php echo CTemplate::dateTimeFormat($storeEvent['start'], FULL_MONTH_DAY_YEAR); ?> at <?php echo CTemplate::dateTimeFormat($storeEvent['start'], TIME_ONLY); ?></div>
+												</a>
+											</div>
+										<?php } ?>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<p class="font-italic text-muted font-size-small">*Our Open House events are only available to new Dream Dinners guests or guests that have not attended a Dream Dinners session in over a year.</p>
+								</div>
+							</div>
+						<?php } ?>
+
+					</div>
+				</div>
+
+				<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted" />
+			<?php } ?>
+
 			<?php if (!$this->DAO_store->isComingSoon()) { ?>
 				<div class="row">
 					<div class="col text-center">
