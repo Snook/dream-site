@@ -676,13 +676,12 @@ class CStore extends DAO_Store
 
 	static function storeSupportsZeroCoreMinimum($store)
 	{
-		$applicableStoreIds = array(73, 76);
+		$applicableStoreIds = array(73, 76, 105);
 		$storeId = null;
 
 		if (is_object($store))
 		{
-			$storeId = $store->id;
-		}
+			$storeId = $store->id;}
 
 		if (is_numeric($store))
 		{
