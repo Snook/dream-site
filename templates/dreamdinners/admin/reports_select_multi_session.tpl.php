@@ -284,21 +284,21 @@ else
 			<td colspan="4"><font size="3" color="#480000"><b>Session Tools</b></font></td>
 		</tr>
 		<tr>
-			<td><a target="_print" href="?page=admin_order_details_view_all_multi&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;back=<?=urlencode($this->form_submit_string)?>">Franchise View <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
-			<td><a target="_print" href="?page=admin_order_details_view_all_multi&amp;customer_print_view=1&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;back=<?=urlencode($this->form_submit_string)?>">Customer View <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
-			<td><a target="_print" href="?page=admin_order_details_view_all_multi&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;issidedish=1&amp;back=<?=urlencode($this->form_submit_string)?>">Side Dish Report <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
-			<td><a target="_print" href="?page=admin_order_details_view_all_multi&amp;customer_print_view=1&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;ispreassembled=1&amp;back=<?=urlencode($this->form_submit_string)?>">Fast Lane Report <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+			<td><a target="_print" href="/?page=admin_order_details_view_all_multi&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;back=<?=urlencode($this->form_submit_string)?>">Franchise View <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+			<td><a target="_print" href="/?page=admin_order_details_view_all_multi&amp;customer_print_view=1&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;back=<?=urlencode($this->form_submit_string)?>">Customer View <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+			<td><a target="_print" href="/?page=admin_order_details_view_all_multi&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;issidedish=1&amp;back=<?=urlencode($this->form_submit_string)?>">Side Dish Report <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+			<td><a target="_print" href="/?page=admin_order_details_view_all_multi&amp;customer_print_view=1&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;ispreassembled=1&amp;back=<?=urlencode($this->form_submit_string)?>">Fast Lane Report <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
 		</tr>
 		<tr>
-			<td><a target="_print" href="?page=admin_reports_dream_rewards_for_session_multi&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;menuid=<?=$this->menu_id?>&amp;back=<?=urlencode($this->form_submit_string)?>">Print Dream Rewards <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
-			<td><a target="_print" href="?page=admin_order_details_view_all_future_multi&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;back=<?=urlencode($this->form_submit_string)?>">Future Orders <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
-			<td><a target="_print" href="?page=admin_reports_goal_tracking&amp;multi_session=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;report_submit=true&amp;print=true">Session Goal Sheet <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
-			<td><a href="?page=admin_reports_goal_tracking&amp;export=xlsx&amp;hideheaders=true&amp;csvfilename=SessionGoalSheetSummary&amp;multi_session=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;report_submit=true">Session Goal Sheet <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/page_excel.png" alt="Excel" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+			<td><a target="_print" href="/?page=admin_reports_dream_rewards_for_session_multi&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;menuid=<?=$this->menu_id?>&amp;back=<?=urlencode($this->form_submit_string)?>">Print Dream Rewards <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+			<td><a target="_print" href="/?page=admin_order_details_view_all_future_multi&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;back=<?=urlencode($this->form_submit_string)?>">Future Orders <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+			<td><a target="_print" href="/?page=admin_reports_goal_tracking&amp;multi_session=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;report_submit=true&amp;print=true">Session Goal Sheet <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+			<td><a href="/?page=admin_reports_goal_tracking&amp;export=xlsx&amp;hideheaders=true&amp;csvfilename=SessionGoalSheetSummary&amp;multi_session=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;report_submit=true">Session Goal Sheet <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/page_excel.png" alt="Excel" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
 		</tr>
 		<?php if ($this->menu_id > 137) { ?>
 		<tr>
 			<td colspan="4">
-				<a target="_print" href="?page=admin_finishing_touch_printable_form&amp;store_id=<?= $this->store_id ?>&amp;menu_id=<?= $this->menu_id ?>&amp;back=<?= urlencode($this->form_submit_string) ?>">Print
+				<a target="_print" href="/?page=admin_finishing_touch_printable_form&amp;store_id=<?= $this->store_id ?>&amp;menu_id=<?= $this->menu_id ?>&amp;back=<?= urlencode($this->form_submit_string) ?>">Print
 					Sides &amp; Sweets Pick Sheet <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;"/></a></td>
 		</tr>
 		<?php } ?>
@@ -344,12 +344,12 @@ if (isset($this->run_report) && isset($this->report_type) && $this->run_report==
 			if ($this->report_type ==2 && $this->session_type_to_run == 2)
 			{
 				$results_display .= "<tr>";
-				$results_display .= '<td><a target="_print" href="?page=admin_order_details_view_all&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Franchise View <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
-				$results_display .= '<td><a target="_print" href="?page=admin_order_details_view_all&amp;customer_print_view=1&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Customer View <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+				$results_display .= '<td><a target="_print" href="/?page=admin_order_details_view_all&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Franchise View <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+				$results_display .= '<td><a target="_print" href="/?page=admin_order_details_view_all&amp;customer_print_view=1&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Customer View <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 
 				if ($this->menu_id >= 77 ) {
-					$results_display .= '<td><a target="_print" href="?page=admin_order_details_view_all&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;issidedish=1&amp;back='.urlencode($this->form_submit_string).'">Side Dish Report <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
-					$results_display .= '<td><a target="_print" href="?page=admin_order_details_view_all&amp;customer_print_view=1&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;ispreassembled=1&amp;back='.urlencode($this->form_submit_string).'">Fast Lane Report <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+					$results_display .= '<td><a target="_print" href="/?page=admin_order_details_view_all&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;issidedish=1&amp;back='.urlencode($this->form_submit_string).'">Side Dish Report <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+					$results_display .= '<td><a target="_print" href="/?page=admin_order_details_view_all&amp;customer_print_view=1&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;ispreassembled=1&amp;back='.urlencode($this->form_submit_string).'">Fast Lane Report <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 				}
 				else
 				{
@@ -362,7 +362,7 @@ if (isset($this->run_report) && isset($this->report_type) && $this->run_report==
 
 				if ($this->menu_id > 137)
 				{
-					$results_display .= '<tr><td colspan="4"><a target="_print" href="?page=admin_finishing_touch_printable_form&amp;store_id=' . $this->store_id . '&amp;menu_id=' . $this->menu_id . '&amp;back=' . urlencode($this->form_submit_string) . '">Print Sides &amp; Sweets Pick Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td></tr>';
+					$results_display .= '<tr><td colspan="4"><a target="_print" href="/?page=admin_finishing_touch_printable_form&amp;store_id=' . $this->store_id . '&amp;menu_id=' . $this->menu_id . '&amp;back=' . urlencode($this->form_submit_string) . '">Print Sides &amp; Sweets Pick Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td></tr>';
 				}
 
 
@@ -370,10 +370,10 @@ if (isset($this->run_report) && isset($this->report_type) && $this->run_report==
 				{
 
 					$results_display .= "<tr>" ;
-					$results_display .= '<td><a target="_print" href="?page=admin_reports_dream_rewards_for_session&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Print Dream Rewards <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
-					$results_display .= '<td><a target="_print" href="?page=admin_order_details_view_all_future&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;back='.urlencode($this->form_submit_string).'">Future Orders <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
-					$results_display .= '<td><a target="_print" href="?page=admin_reports_goal_tracking&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;report_submit=true&amp;print=true">Session Goal Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
-					$results_display .= '<td><a href="?page=admin_reports_goal_tracking&amp;export=xlsx&amp;hideheaders=true&amp;csvfilename=SessionGoalSheet&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;report_submit=true">Session Goal Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/page_excel.png" alt="Excel" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+					$results_display .= '<td><a target="_print" href="/?page=admin_reports_dream_rewards_for_session&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Print Dream Rewards <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+					$results_display .= '<td><a target="_print" href="/?page=admin_order_details_view_all_future&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;back='.urlencode($this->form_submit_string).'">Future Orders <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+					$results_display .= '<td><a target="_print" href="/?page=admin_reports_goal_tracking&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;report_submit=true&amp;print=true">Session Goal Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+					$results_display .= '<td><a href="/?page=admin_reports_goal_tracking&amp;export=xlsx&amp;hideheaders=true&amp;csvfilename=SessionGoalSheet&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;report_submit=true">Session Goal Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/page_excel.png" alt="Excel" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 					$results_display .= "</tr>" . "\n";
 
 					$results_display .= "<tr>";
@@ -396,7 +396,7 @@ if (isset($this->run_report) && isset($this->report_type) && $this->run_report==
 					$results_display .= "</tr>" . "\n";
 
 					$results_display .= "<tr>" ;
-					$results_display .= '<td colspan="4"><a target="_print" href="?page=admin_reports_customer_menu_item_labels&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;interface=1&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Print Generic Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+					$results_display .= '<td colspan="4"><a target="_print" href="/?page=admin_reports_customer_menu_item_labels&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;interface=1&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Print Generic Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 					$results_display .= "</tr>" . "\n";
 				}
 			}
@@ -404,14 +404,14 @@ if (isset($this->run_report) && isset($this->report_type) && $this->run_report==
 			{
 				$results_display .= "<tr>" ;
 
-				$results_display .= '<td><a target="_print" href="?page=admin_order_details_view_all&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($_SERVER['REQUEST_URI']).'">Franchise View <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+				$results_display .= '<td><a target="_print" href="/?page=admin_order_details_view_all&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($_SERVER['REQUEST_URI']).'">Franchise View <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 
-				$results_display .= '<td><a target="_print" href="?page=admin_order_details_view_all&amp;customer_print_view=1&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($_SERVER['REQUEST_URI']).'">Customer View <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>' ;
+				$results_display .= '<td><a target="_print" href="/?page=admin_order_details_view_all&amp;customer_print_view=1&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($_SERVER['REQUEST_URI']).'">Customer View <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>' ;
 
 				if ($this->menu_id >= 77 )
 				{
-					$results_display .= '<td><a target="_print" href="?page=admin_order_details_view_all&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;issidedish=1&amp;back='.urlencode($_SERVER['REQUEST_URI']).'">Side Dish Report <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
-					$results_display .= '<td><a target="_print" href="?page=admin_order_details_view_all&amp;customer_print_view=1&amp;session_id=' .
+					$results_display .= '<td><a target="_print" href="/?page=admin_order_details_view_all&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;issidedish=1&amp;back='.urlencode($_SERVER['REQUEST_URI']).'">Side Dish Report <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+					$results_display .= '<td><a target="_print" href="/?page=admin_order_details_view_all&amp;customer_print_view=1&amp;session_id=' .
 					$this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;ispreassembled=1&amp;back='.urlencode($_SERVER['REQUEST_URI']).'">Fast Lane Report <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>' ;
 				}
 				else
@@ -424,15 +424,15 @@ if (isset($this->run_report) && isset($this->report_type) && $this->run_report==
 
 
 				$results_display .= "<tr>" ;
-				$results_display .= '<td><a target="_print" href="?page=admin_reports_dream_rewards_for_session&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Print Dream Rewards <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
-				$results_display .= '<td><a target="_print" href="?page=admin_order_details_view_all_future&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;back='.urlencode($this->form_submit_string).'">Future Orders <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
-				$results_display .= '<td><a target="_print" href="?page=admin_reports_goal_tracking&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;report_submit=true&amp;print=true">Session Goal Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
-				$results_display .= '<td><a href="?page=admin_reports_goal_tracking&amp;export=xlsx&amp;hideheaders=true&amp;csvfilename=SessionGoalSheet&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;report_submit=true">Session Goal Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/page_excel.png" alt="Excel" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+				$results_display .= '<td><a target="_print" href="/?page=admin_reports_dream_rewards_for_session&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Print Dream Rewards <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+				$results_display .= '<td><a target="_print" href="/?page=admin_order_details_view_all_future&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;back='.urlencode($this->form_submit_string).'">Future Orders <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+				$results_display .= '<td><a target="_print" href="/?page=admin_reports_goal_tracking&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;report_submit=true&amp;print=true">Session Goal Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+				$results_display .= '<td><a href="/?page=admin_reports_goal_tracking&amp;export=xlsx&amp;hideheaders=true&amp;csvfilename=SessionGoalSheet&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;report_submit=true">Session Goal Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/page_excel.png" alt="Excel" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 				$results_display .= "</tr>" . "\n";
 
 				if ($this->menu_id > 137)
 				{
-					$results_display .= '<tr><td colspan="4"><a target="_print" href="?page=admin_finishing_touch_printable_form&amp;store_id=' . $this->store_id . '&amp;menu_id=' . $this->menu_id . '&amp;back=' . urlencode($this->form_submit_string) . '">Print Sides &amp; Sweets Pick Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td></tr>';
+					$results_display .= '<tr><td colspan="4"><a target="_print" href="/?page=admin_finishing_touch_printable_form&amp;store_id=' . $this->store_id . '&amp;menu_id=' . $this->menu_id . '&amp;back=' . urlencode($this->form_submit_string) . '">Print Sides &amp; Sweets Pick Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td></tr>';
 				}
 
 
@@ -459,7 +459,7 @@ if (isset($this->run_report) && isset($this->report_type) && $this->run_report==
 					$results_display .= "</tr>" . "\n";
 
 					$results_display .= "<tr>" ;
-					$results_display .= '<td colspan="4"><a target="_print" href="?page=admin_reports_customer_menu_item_labels&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;interface=1&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Print Generic Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+					$results_display .= '<td colspan="4"><a target="_print" href="/?page=admin_reports_customer_menu_item_labels&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;interface=1&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Print Generic Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 					$results_display .= "</tr>" . "\n";
 
 				}
@@ -521,7 +521,7 @@ if ( $this->print_view == false && isset($this->report_submit) && isset($this->r
 	}
 	else
 	{
-		echo '<a class="fadmin_nav fadmin_subnav" href="?page=admin_reports_select_multi_session&amp;query_submit=1&amp;report_date=' . $this->report_date . '&amp;report_id=1">Summary</a>';
+		echo '<a class="fadmin_nav fadmin_subnav" href="/?page=admin_reports_select_multi_session&amp;query_submit=1&amp;report_date=' . $this->report_date . '&amp;report_id=1">Summary</a>';
 	}
 
 	$varTabId = 2;
@@ -543,7 +543,7 @@ if ( $this->print_view == false && isset($this->report_submit) && isset($this->r
 		}
 		else
 		{
-			echo '<a class="fadmin_nav fadmin_subnav" href="?page=admin_reports_select_multi_session&amp;query_submit=1&amp;report_date=' . $sep[0] . '&amp;report_id=' . $varTabId . '&amp;session_id='. $entity['id'] . '">' . $varcloseString . '</a>';
+			echo '<a class="fadmin_nav fadmin_subnav" href="/?page=admin_reports_select_multi_session&amp;query_submit=1&amp;report_date=' . $sep[0] . '&amp;report_id=' . $varTabId . '&amp;session_id='. $entity['id'] . '">' . $varcloseString . '</a>';
 		}
 		$varTabId++;
 	}
@@ -653,11 +653,11 @@ if (isset($this->run_report) && $this->run_report== true && isset($this->report_
 	{
 		if ($this->session_type_to_run == 1 && $this->report_type == 1)
 		{
-			$results_display .= ' <a target="_printer" href="?page=admin_reports_select_multi_session&amp;query_submit=1&amp;report_date=' . $sep[0] . '&amp;report_id=1&amp;printer=1&amp;session_id='. $entity['id'] . '">Printer-Friendly Version <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+			$results_display .= ' <a target="_printer" href="/?page=admin_reports_select_multi_session&amp;query_submit=1&amp;report_date=' . $sep[0] . '&amp;report_id=1&amp;printer=1&amp;session_id='. $entity['id'] . '">Printer-Friendly Version <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 		}
 		else
 		{
-			$results_display .= ' <a target="_printer" href="?page=admin_reports_select_multi_session&amp;query_submit=1&amp;report_id=' . $this->report_type . '&amp;printer=1&amp;pickSession=2&amp;session_id='. $this->sessionID . '">Printer-Friendly Version <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+			$results_display .= ' <a target="_printer" href="/?page=admin_reports_select_multi_session&amp;query_submit=1&amp;report_id=' . $this->report_type . '&amp;printer=1&amp;pickSession=2&amp;session_id='. $this->sessionID . '">Printer-Friendly Version <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 		}
 
 	}
@@ -1150,7 +1150,7 @@ if (false && isset($this->run_report) && isset($this->report_type) && $this->run
 
 				if ($entity['is_partial_account'])
 				{
-					$additional_info .= '<br />Partial Account (<a href="?page=admin_account&amp;upgrade=true&amp;id='.$customers_id.'&amp;back='.urlencode($_SERVER['REQUEST_URI']). '">Upgrade Account</a>)';
+					$additional_info .= '<br />Partial Account (<a href="/?page=admin_account&amp;upgrade=true&amp;id='.$customers_id.'&amp;back='.urlencode($_SERVER['REQUEST_URI']). '">Upgrade Account</a>)';
 				}
 
 				// PRINT OUT USER INFORMATION
@@ -1160,26 +1160,26 @@ if (false && isset($this->run_report) && isset($this->report_type) && $this->run
 					{
 						if ($this->report_type ==2 && $this->session_type_to_run == 2)
 						{
-							$results_display .= '<td width="190"><a href="?page=admin_user_details&amp;id=' . $customers_id . '&amp;back='.urlencode($this->form_submit_string). '"><b>' . $varFirstName . ' ' . $varLastName . '</b></a>' .  $additional_info . '</td>';
+							$results_display .= '<td width="190"><a href="/?page=admin_user_details&amp;id=' . $customers_id . '&amp;back='.urlencode($this->form_submit_string). '"><b>' . $varFirstName . ' ' . $varLastName . '</b></a>' .  $additional_info . '</td>';
 						}
 						else
 						{
-							$results_display .= '<td width="190"><a href="?page=admin_user_details&amp;id=' . $customers_id . '&amp;back='.urlencode($_SERVER['REQUEST_URI']). '"><b>' . $varFirstName . ' ' . $varLastName . '</b></a>'  . $additional_info . '</td>';
+							$results_display .= '<td width="190"><a href="/?page=admin_user_details&amp;id=' . $customers_id . '&amp;back='.urlencode($_SERVER['REQUEST_URI']). '"><b>' . $varFirstName . ' ' . $varLastName . '</b></a>'  . $additional_info . '</td>';
 						}
 
 						if ($this->print_view == false)
 						{
 							$canEditURL = "";
-							$viewOrderURL = '<a href="?page=admin_order_details&amp;order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><font color="#333366">View Order</font></a><br />';
+							$viewOrderURL = '<a href="/?page=admin_order_details&amp;order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><font color="#333366">View Order</font></a><br />';
 							if (CSessionReports::can_edit_order($this->printdate, $this->store_id))
 							{
 								if ($entity['is_partial_account'])
 								{
-									$canEditURL .= '<a href="?page=admin_order_mgr&amp;order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><font color="#cc0000">Edit Order</font></a><br />';
+									$canEditURL .= '<a href="/?page=admin_order_mgr&amp;order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><font color="#cc0000">Edit Order</font></a><br />';
 								}
 								else
 								{
-									$canEditURL .= '<a href="?page=admin_order_mgr&amp;order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><font color="#cc0000">Edit Order</font></a><br />';
+									$canEditURL .= '<a href="/?page=admin_order_mgr&amp;order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><font color="#cc0000">Edit Order</font></a><br />';
 								}
 							}
 
@@ -1189,7 +1189,7 @@ if (false && isset($this->run_report) && isset($this->report_type) && $this->run
 							}
 							else
 							{
-								$placeOrderULR = '<a href="?page=admin_order_mgr&amp;user=' . $customers_id . '&amp;back='.urlencode($this->form_submit_string).'"><font color="#333366">Place Order</font></a>';
+								$placeOrderULR = '<a href="/?page=admin_order_mgr&amp;user=' . $customers_id . '&amp;back='.urlencode($this->form_submit_string).'"><font color="#333366">Place Order</font></a>';
 							}
 
 							$results_display .= '<td width="100" align="left">';
@@ -1218,8 +1218,8 @@ if (false && isset($this->run_report) && isset($this->report_type) && $this->run
 
 						if (isset($this->payment_failed_balance_due_array[$entity['customer_id']][$entity['order_id']]['balance_due']))
 						{
-							$viewOrderURL = '<a href="?page=admin_order_details&amp;order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><b>$' . $this->payment_failed_balance_due_array[$entity['customer_id']][$entity['order_id']]['balance_due'] . '</b></a>';
-							$viewOrderURLBalanceDue = '<a href="?page=admin_order_details&amp;order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><b>Balance Due:</b></a>';
+							$viewOrderURL = '<a href="/?page=admin_order_details&amp;order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><b>$' . $this->payment_failed_balance_due_array[$entity['customer_id']][$entity['order_id']]['balance_due'] . '</b></a>';
+							$viewOrderURLBalanceDue = '<a href="/?page=admin_order_details&amp;order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><b>Balance Due:</b></a>';
 
 							$results_display .= '<tr><td width="90">' . $viewOrderURLBalanceDue . '</td><td style="color:#FF6A6A;font-weight:bold;text-align:right">' . $viewOrderURL . '</td></tr>';
 						}

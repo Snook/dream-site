@@ -34,7 +34,7 @@
 <?php } else { ?>
 <?php foreach($this->recipes AS $id => $recipe) { ?>
 <tr>
-	<td class="bgcolor_lighter" id="recipe_row-<?php echo $id; ?>"><div id="recipe_row_disc-<?php echo $id; ?>" class="disc_closed"></div><a href="?page=admin_food_testing&amp;recipe=<?php echo $id; ?>"><?php echo $recipe['title']; ?></a></td>
+	<td class="bgcolor_lighter" id="recipe_row-<?php echo $id; ?>"><div id="recipe_row_disc-<?php echo $id; ?>" class="disc_closed"></div><a href="/?page=admin_food_testing&amp;recipe=<?php echo $id; ?>"><?php echo $recipe['title']; ?></a></td>
 	<td class="bgcolor_lighter" style="text-align:center;"><?php echo CTemplate::dateTimeFormat($recipe['timestamp_created'], MONTH_DAY_YEAR); ?></td>
 	<td class="bgcolor_lighter" style="text-align:center;"><?php echo $recipe['total_stores']; ?></td>
 	<td class="bgcolor_lighter" style="text-align:center;"><?php echo $recipe['pending_surveys']; ?></td>
@@ -70,7 +70,7 @@
 		<?php if (!empty($this->surveys[$id])) { ?>
 		<?php foreach($this->surveys[$id] AS $sid => $survey) { ?>
 		<tr>
-			<td class="bgcolor_light"><a href="?page=admin_food_testing_survey&amp;recipe=<?php echo $survey['id']; ?>&amp;store_id=<?php echo $survey['store_id']; ?>"><?php echo $survey['store_name']; ?></a></td>
+			<td class="bgcolor_light"><a href="/?page=admin_food_testing_survey&amp;recipe=<?php echo $survey['id']; ?>&amp;store_id=<?php echo $survey['store_id']; ?>"><?php echo $survey['store_name']; ?></a></td>
 			<td class="bgcolor_light" style="text-align:center;"><?php echo CTemplate::dateTimeFormat($survey['timestamp_created'], MONTH_DAY_YEAR); ?></td>
 			<td class="bgcolor_light" style="text-align:center;"><?php echo $survey['guest_total']; ?></td>
 			<td class="bgcolor_light" style="text-align:center;"><?php echo $survey['guest_pending']; ?></td>

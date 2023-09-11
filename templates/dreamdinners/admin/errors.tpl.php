@@ -32,9 +32,9 @@ include $this->loadTemplate('admin/page_header.tpl.php');
 		<?php foreach ($this->stuff as $error) { ?>
 			<tr class="bgcolor_light">
 				<td style="white-space: nowrap;"><?php echo $error['timestamp_created'] ?></td>
-				<td><a href="?page=admin_user_details&amp;id=<?php echo $error['user_id'] ?>"><?php echo $error['user_id'] ?></a></td>
+				<td><a href="/?page=admin_user_details&amp;id=<?php echo $error['user_id'] ?>"><?php echo $error['user_id'] ?></a></td>
 				<td><?php echo $error['ip_address'] ?></td>
-				<td><a href="?page=admin_errors&amp;log_type=<?php echo $error['log_type'] ?>"><?php echo $error['log_type'] ?></a></td>
+				<td><a href="/?page=admin_errors&amp;log_type=<?php echo $error['log_type'] ?>"><?php echo $error['log_type'] ?></a></td>
 				<td><?php echo $error['event_hint'] ?></td>
 				<td><?php echo $error['description'] ?></td>
 			</tr>

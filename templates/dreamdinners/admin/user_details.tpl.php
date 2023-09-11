@@ -156,7 +156,7 @@
 						<?php if ($this->emergency_mode) { ?>
 							<td class="guest_details_list_item"><?php echo $this->user['primary_email']; ?></td>
 						<?php } else { ?>
-							<td class="guest_details_list_item"><a href="?page=admin_email&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>"><?php echo $this->user['primary_email']; ?></a></td>
+							<td class="guest_details_list_item"><a href="/?page=admin_email&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>"><?php echo $this->user['primary_email']; ?></a></td>
 						<?php } ?>
 					</tr>
 
@@ -165,7 +165,7 @@
 							<td class="guest_details_list_name">Corporate Crate Email</td>
 							<td class="guest_details_list_item">
 								<?php if (!empty($this->user['secondary_email'])) { ?>
-									<a href="?page=admin_email&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>"><?php echo $this->user['secondary_email']; ?></a>
+									<a href="/?page=admin_email&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>"><?php echo $this->user['secondary_email']; ?></a>
 								<?php } ?>
 							</td>
 						</tr>
@@ -251,7 +251,7 @@
 				<tr>
 					<td class="guest_details_list_name">Order History</td>
 					<?php if ( $this->user['numorders'] ) { ?>
-						<td class="guest_details_list_item"><a href="?page=admin_order_history&amp;id=<?php echo $this->user['id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>"><?php echo  $this->user['numorders']; ?> total order<?php echo  $this->user['numorders'] != 1 ? 's' : '' ?> (<?php echo  $this->user['numcancelledorders']; ?> cancelled)</a></td>
+						<td class="guest_details_list_item"><a href="/?page=admin_order_history&amp;id=<?php echo $this->user['id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>"><?php echo  $this->user['numorders']; ?> total order<?php echo  $this->user['numorders'] != 1 ? 's' : '' ?> (<?php echo  $this->user['numcancelledorders']; ?> cancelled)</a></td>
 					<?php } else { ?>
 						<td class="guest_details_list_item">No orders</td>
 					<?php } ?>
@@ -264,7 +264,7 @@
 						<td class="guest_details_list_name">RSVPs</td>
 						<td class="guest_details_list_item">
 							<?php foreach($this->user['rsvp_history'] as $session_id => $details) { ?>
-								<a href="?page=admin_main&session=<?php echo $session_id;?>">On <?php echo CTemplate::dateTimeFormat($details['rsvp_time'], MONTH_DAY_YEAR); ?> for session on <?php echo CTemplate::dateTimeFormat($details['session_start']); ?></a><br />
+								<a href="/?page=admin_main&session=<?php echo $session_id;?>">On <?php echo CTemplate::dateTimeFormat($details['rsvp_time'], MONTH_DAY_YEAR); ?> for session on <?php echo CTemplate::dateTimeFormat($details['session_start']); ?></a><br />
 							<?php  } ?>
 						</td>
 					</tr>

@@ -8,7 +8,7 @@
 
 		<div class="row my-4">
 			<div class="col-4 offset-4 text-center ">
-				<h1><a href="?page=admin_fundraiser">Fundraising Manager</a></h1>
+				<h1><a href="/?page=admin_fundraiser">Fundraising Manager</a></h1>
 			</div>
 			<div class="col-4 text-right">
 			</div>

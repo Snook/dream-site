@@ -19,7 +19,7 @@
 	</td>
 	<td style="text-align:right;">
 <?php if (!$this->print_view) { ?>
-	<a href="?page=admin_reports_royalty&amp;store=<?php echo $array_entity['store_id']; ?>&amp;month_popup=<?php echo $this->report_month; ?>&amp;year_field_001=<?php echo $this->report_year; ?>&amp;report_submit=true&amp;print=true"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" class="img_valign"></a>
+	<a href="/?page=admin_reports_royalty&amp;store=<?php echo $array_entity['store_id']; ?>&amp;month_popup=<?php echo $this->report_month; ?>&amp;year_field_001=<?php echo $this->report_year; ?>&amp;report_submit=true&amp;print=true"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" class="img_valign"></a>
 <?php
 	$exportAllLink = '?page=admin_reports_royalty&store=' . $array_entity['store_id'] . '&day=' . $this->report_day . '&month=' . $this->report_month . '&year=' . $this->report_year . '&duration=' . urlencode($this->report_duration) . '&report_type=' . $this->report_type .  '&export=xlsx';
 	include $this->loadTemplate('admin/export.tpl.php');

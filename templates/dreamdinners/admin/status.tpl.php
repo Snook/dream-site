@@ -27,12 +27,12 @@
 			</thead>
 			<tbody>
 			<tr>
-				<td><a href="?page=admin_menus&amp;menu_edit=<?php echo $menu->id; ?>"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/<?php echo (!empty($menu->is_active)) ? 'accept' : 'delete' ; ?>.png" /></a></td>
+				<td><a href="/?page=admin_menus&amp;menu_edit=<?php echo $menu->id; ?>"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/<?php echo (!empty($menu->is_active)) ? 'accept' : 'delete' ; ?>.png" /></a></td>
 				<td><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/accept.png" /></td>
-				<td><a href="?page=admin_import_menu"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/style/throbber_circle.gif" data-check_status="import_menu" data-menu_id="<?php echo $menu->id; ?>" /></a></td>
-				<td><a href="?page=admin_import_inventory"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/style/throbber_circle.gif" data-check_status="import_inventory" data-menu_id="<?php echo $menu->id; ?>" /></a></td>
-				<td><a href="?page=admin_import_nutritionals"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/style/throbber_circle.gif" data-check_status="import_nutritionals" data-menu_id="<?php echo $menu->id; ?>" /></a></td>
-				<td><a href="?page=admin_import_sidesmap"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/style/throbber_circle.gif" data-check_status="import_sidesmap" data-menu_id="<?php echo $menu->id; ?>" /></a></td>
+				<td><a href="/?page=admin_import_menu"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/style/throbber_circle.gif" data-check_status="import_menu" data-menu_id="<?php echo $menu->id; ?>" /></a></td>
+				<td><a href="/?page=admin_import_inventory"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/style/throbber_circle.gif" data-check_status="import_inventory" data-menu_id="<?php echo $menu->id; ?>" /></a></td>
+				<td><a href="/?page=admin_import_nutritionals"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/style/throbber_circle.gif" data-check_status="import_nutritionals" data-menu_id="<?php echo $menu->id; ?>" /></a></td>
+				<td><a href="/?page=admin_import_sidesmap"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/style/throbber_circle.gif" data-check_status="import_sidesmap" data-menu_id="<?php echo $menu->id; ?>" /></a></td>
 				<td><img src="<?php echo ADMIN_IMAGES_PATH; ?>/style/throbber_circle.gif" data-check_status="bundle_intro" data-menu_id="<?php echo $menu->id; ?>" /></td>
 				<td><img src="<?php echo ADMIN_IMAGES_PATH; ?>/style/throbber_circle.gif" data-check_status="bundle_dreamtaste" data-menu_id="<?php echo $menu->id; ?>" /></td>
 			</tr>

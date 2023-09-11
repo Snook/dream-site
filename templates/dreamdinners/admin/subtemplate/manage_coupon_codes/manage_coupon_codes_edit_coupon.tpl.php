@@ -83,7 +83,7 @@
 				<?php echo $this->CouponForm['program_id_html']; ?>
 				<!--
 				<div class="input-group-append">
-					<a class="btn btn-primary" href="?page=admin_manage_coupon_codes&amp;program_create=true">Create new</a>
+					<a class="btn btn-primary" href="/?page=admin_manage_coupon_codes&amp;program_create=true">Create new</a>
 				</div>
 				-->
 			</div>

@@ -179,7 +179,7 @@ if ($this->report_submitted == TRUE) {
                             <td class="cc_data_cell"  align="right"><?=$aRow['total_save']?></td>
                             <td class="cc_data_cell" align="center"><?=$aRow['num_trans']?></td>
                             <?php if ($this->all_stores) { ?>
-                                <td  class="cc_data_cell" ><a href="?page=admin_reports_coupon&coupon_detail=true&coupon=<?=$aRow['id']?>&day=<?=$this->report_day?>&month=<?=$this->report_month?>
+                                <td  class="cc_data_cell" ><a href="/?page=admin_reports_coupon&coupon_detail=true&coupon=<?=$aRow['id']?>&day=<?=$this->report_day?>&month=<?=$this->report_month?>
 		 			&year=<?=$this->report_year?>&duration=<?=urlencode($this->report_duration)?>&report_type=<?=$this->report_type?>&export=xlsx">export detail</a></td>
                             <?php } ?>
                         </tr>

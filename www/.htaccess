@@ -384,7 +384,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^backoffice\/([\w-]+)/?$ /?page=admin_$1 [NC,L,QSA]
 
 ## Hadnles /backoffice
-RewriteRule ^backoffice\/?$ /?page=admin_main [NC,L,QSA]
+RewriteRule ^backoffice\/?$ /backoffice/main [R=301,NC,QSA]
 
 ## This handles the short/pretty urls for cutstomer website
 RewriteCond %{REQUEST_FILENAME} !-f

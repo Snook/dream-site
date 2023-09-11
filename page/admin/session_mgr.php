@@ -521,11 +521,11 @@ function populateCallback($Date)
 					$breakdown = "<br />($numOrders Orders, {$dayItem['num_rsvps']} RSVPs)";
 				}
 
-				$itemList[$count++] = '<a href="?page=admin_edit_session&amp;session=' . $dayItem['id'] . '&amp;back=?page=admin_session_mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="?page=admin_main&amp;session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . $breakdown . '">' . $time12Hour . '&nbsp;(' . $dayItem['remainingSlots'] . '/' . $IntroSlots . ')</a>'. $customizable;
+				$itemList[$count++] = '<a href="/?page=admin_edit_session&amp;session=' . $dayItem['id'] . '&amp;back=?page=admin_session_mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="/?page=admin_main&amp;session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . $breakdown . '">' . $time12Hour . '&nbsp;(' . $dayItem['remainingSlots'] . '/' . $IntroSlots . ')</a>'. $customizable;
 			}
 			else
 			{
-				$itemList[$count++] = '<a href="?page=admin_edit_session&amp;session=' . $dayItem['id'] . '&amp;back=?page=admin_session_mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="?page=admin_main&amp;session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . '<br />Remaining Starter Pack Slots: ' . $IntroSlots . '">' . $time12Hour . '&nbsp;(' . $dayItem['remainingSlots'] . '/' . $IntroSlots . ')</a>'. $customizable;
+				$itemList[$count++] = '<a href="/?page=admin_edit_session&amp;session=' . $dayItem['id'] . '&amp;back=?page=admin_session_mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="/?page=admin_main&amp;session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . '<br />Remaining Starter Pack Slots: ' . $IntroSlots . '">' . $time12Hour . '&nbsp;(' . $dayItem['remainingSlots'] . '/' . $IntroSlots . ')</a>'. $customizable;
 			}
 		}
 	}

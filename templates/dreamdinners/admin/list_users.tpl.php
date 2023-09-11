@@ -40,9 +40,9 @@
 			<td class="bgcolor_light" style="text-align:right;">Alphabetical Last Name search</td>
 			<td class="bgcolor_light">
 				<?php foreach(range('A', 'Z') as $letter) { ?>
-					<a class="button" href="?page=admin_list_users<?=$storeFilter ?>&amp;letter_select=<?php echo $letter; ?>"><?php echo $letter; ?></a> <?php echo ($letter == 'M') ? '<a class="button" href="?page=admin_list_users' . $storeFilter . '&amp;letter_select=etc">Etc</a><br />' : ''; ?>
+					<a class="button" href="/?page=admin_list_users<?=$storeFilter ?>&amp;letter_select=<?php echo $letter; ?>"><?php echo $letter; ?></a> <?php echo ($letter == 'M') ? '<a class="button" href="/?page=admin_list_users' . $storeFilter . '&amp;letter_select=etc">Etc</a><br />' : ''; ?>
 				<?php } ?>
-				<a class="button" href="?page=admin_list_users<?=$storeFilter ?>&amp;letter_select=all">View All</a>
+				<a class="button" href="/?page=admin_list_users<?=$storeFilter ?>&amp;letter_select=all">View All</a>
 			</td>
 		</tr>
 		<tr>
@@ -97,23 +97,23 @@
 		{
 			?>
 			<tr class="bgcolor_<?php echo ($counter++ % 2 == 0) ? 'light' : 'lighter'; ?>">
-				<td style="white-space:nowrap;"><a href="?page=admin_user_details&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->rows->firstname; ?></a></td>
-				<td style="white-space:nowrap;"><a href="?page=admin_user_details&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->rows->lastname; ?></a></td>
-				<td style="white-space:nowrap;"><a href="?page=admin_email&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->rows->primary_email; ?></a></td>
+				<td style="white-space:nowrap;"><a href="/?page=admin_user_details&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->rows->firstname; ?></a></td>
+				<td style="white-space:nowrap;"><a href="/?page=admin_user_details&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->rows->lastname; ?></a></td>
+				<td style="white-space:nowrap;"><a href="/?page=admin_email&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->rows->primary_email; ?></a></td>
 				<?php if ($this->support_corporate_crate_search) { ?>
-					<td style="white-space:nowrap;"><a href="?page=admin_email&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->rows->secondary_email; ?></a></td>
+					<td style="white-space:nowrap;"><a href="/?page=admin_email&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->rows->secondary_email; ?></a></td>
 				<?php } ?>
 				<td style="white-space:nowrap;text-align:center;"><?php echo $this->telephoneFormat($this->rows->telephone_1); ?></td>
-				<td style="white-space:nowrap;text-align:center;"><a class="button" href="?page=admin_user_details&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">View Acct</a></td>
+				<td style="white-space:nowrap;text-align:center;"><a class="button" href="/?page=admin_user_details&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">View Acct</a></td>
 				<td style="white-space:nowrap;text-align:center;"><a class="button" data-tooltip="<?php echo addToolTip($this->rows->id); ?>"  href="<?php echo $_SERVER['REQUEST_URI']; ?>&amp;edit_last_for=<?php echo $this->rows->id; ?>">Edit Last Order</a></td>
-				<td style="white-space:nowrap;text-align:center;"><a class="button" href="?page=admin_order_history&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Orders</td>
+				<td style="white-space:nowrap;text-align:center;"><a class="button" href="/?page=admin_order_history&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Orders</td>
 				<?php if ($this->canPlaceOrder == true && ($this->rows->is_partial_account === "0" || $this->rows->is_partial_account === 0)) { ?>
-					<td style="white-space:nowrap;text-align:center;"><a class="button" href="?page=admin_order_mgr&amp;user=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->thisMonthStr; ?></a></td>
-					<td style="white-space:nowrap;text-align:center;"><a class="button" href="?page=admin_order_mgr&amp;user=<?php echo $this->rows->id; ?>&amp;month=<?php echo $this->nextMonthTimestamp; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->nextMonthStr; ?></a></td>
+					<td style="white-space:nowrap;text-align:center;"><a class="button" href="/?page=admin_order_mgr&amp;user=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->thisMonthStr; ?></a></td>
+					<td style="white-space:nowrap;text-align:center;"><a class="button" href="/?page=admin_order_mgr&amp;user=<?php echo $this->rows->id; ?>&amp;month=<?php echo $this->nextMonthTimestamp; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->nextMonthStr; ?></a></td>
 				<?php } else { ?>
-					<td style="white-space:nowrap;text-align:center;" colspan="2"><a class="button" href="?page=admin_account&amp;upgrade=true&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Upgrade Account</a></td>
+					<td style="white-space:nowrap;text-align:center;" colspan="2"><a class="button" href="/?page=admin_account&amp;upgrade=true&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Upgrade Account</a></td>
 				<?php } ?>
-				<td style="white-space:nowrap;text-align:right;"><a href="?page=admin_user_details&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->rows->id; ?></a></td>
+				<td style="white-space:nowrap;text-align:right;"><a href="/?page=admin_user_details&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->rows->id; ?></a></td>
 			</tr>
 		<?php } ?>
 		<?php } ?>

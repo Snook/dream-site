@@ -26,7 +26,7 @@
 	<?php if (!empty($this->session_info['session_host'])) { // Meal Prep Workshop host ?>
 		<tr>
 			<td class="label">Host</td>
-			<td colspan="3" class="value"><a href="?page=admin_user_details&amp;id=<?php echo $this->session_info['session_host']; ?>"><?php echo $this->session_info['session_host_firstname']; ?> <?php echo $this->session_info['session_host_lastname']; ?></a></td>
+			<td colspan="3" class="value"><a href="/?page=admin_user_details&amp;id=<?php echo $this->session_info['session_host']; ?>"><?php echo $this->session_info['session_host_firstname']; ?> <?php echo $this->session_info['session_host_lastname']; ?></a></td>
 		</tr>
 	<?php } ?>
 	<?php if ($this->session_info['session_type'] == CSession::DREAM_TASTE && !empty($this->session_info['dream_taste_available_on_customer_site'])) { ?>
@@ -71,7 +71,7 @@
 	<?php if (!empty($this->session_info['session_lead'])) { ?>
 		<tr>
 			<td class="label">Lead</td>
-			<td colspan="3" class="value"><a href="?page=admin_user_details&amp;id=<?php echo $this->session_info['session_lead']; ?>"><?php echo $this->session_info['lead_firstname']; ?> <?php echo $this->session_info['lead_lastname']; ?></a></td>
+			<td colspan="3" class="value"><a href="/?page=admin_user_details&amp;id=<?php echo $this->session_info['session_lead']; ?>"><?php echo $this->session_info['lead_firstname']; ?> <?php echo $this->session_info['lead_lastname']; ?></a></td>
 		</tr>
 	<?php } ?>
 	<?php if (!empty($this->session_info['session_details'])) { ?>
@@ -101,7 +101,7 @@
 	<?php if (!empty($this->session_info['created_by'])) { ?>
 		<tr>
 			<td class="label">Created By</td>
-			<td colspan="3" class="value"><a href="?page=admin_user_details&amp;id=<?php echo $this->session_info['created_by']; ?>"><?php echo $this->session_info['created_by_firstname']; ?> <?php echo $this->session_info['created_by_lastname']; ?></a></td>
+			<td colspan="3" class="value"><a href="/?page=admin_user_details&amp;id=<?php echo $this->session_info['created_by']; ?>"><?php echo $this->session_info['created_by_firstname']; ?> <?php echo $this->session_info['created_by_lastname']; ?></a></td>
 		</tr>
 		<tr>
 			<td class="label">Created</td>
@@ -111,7 +111,7 @@
 	<?php if (!empty($this->session_info['updated_by'])) { ?>
 		<tr>
 			<td class="label">Updated By</td>
-			<td colspan="3" class="value"><a href="?page=admin_user_details&amp;id=<?php echo $this->session_info['updated_by']; ?>"><?php echo $this->session_info['updated_by_firstname']; ?> <?php echo $this->session_info['updated_by_lastname']; ?></a></td>
+			<td colspan="3" class="value"><a href="/?page=admin_user_details&amp;id=<?php echo $this->session_info['updated_by']; ?>"><?php echo $this->session_info['updated_by_firstname']; ?> <?php echo $this->session_info['updated_by_lastname']; ?></a></td>
 		</tr>
 		<tr>
 			<td class="label">Updated</td>

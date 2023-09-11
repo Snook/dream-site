@@ -19,7 +19,7 @@
 	<td class="label">Leads</td>
 	<td colspan="3" class="value">
 	<?php $lead_count = 0; foreach ($this->date_info['session_leads'] AS $user_id => $lead) { ++$lead_count ?>
-		<a href="?page=admin_user_details&amp;id=<?php echo $user_id; ?>"><?php echo $lead['lead_firstname']; ?> <?php echo $lead['lead_lastname']; ?></a><?php echo (count($this->date_info['session_leads']) != $lead_count) ? ',' : ''; ?>
+		<a href="/?page=admin_user_details&amp;id=<?php echo $user_id; ?>"><?php echo $lead['lead_firstname']; ?> <?php echo $lead['lead_lastname']; ?></a><?php echo (count($this->date_info['session_leads']) != $lead_count) ? ',' : ''; ?>
 	<?php } ?>
 	</td>
 </tr>

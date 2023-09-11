@@ -35,7 +35,7 @@
 </tr>
 <?php foreach($this->recipes AS $id => $recipe) { ?>
 <tr>
-	<td class="bgcolor_lighter" id="recipe_row-<?php echo $id; ?>"><div id="recipe_row_disc-<?php echo $id; ?>" class="disc_closed"></div><a href="?page=admin_food_testing_survey&amp;recipe=<?php echo $id; ?>"><?php echo $recipe['title']; ?></a></td>
+	<td class="bgcolor_lighter" id="recipe_row-<?php echo $id; ?>"><div id="recipe_row_disc-<?php echo $id; ?>" class="disc_closed"></div><a href="/?page=admin_food_testing_survey&amp;recipe=<?php echo $id; ?>"><?php echo $recipe['title']; ?></a></td>
 	<td class="bgcolor_lighter" style="text-align:center;"><?php echo CTemplate::dateTimeFormat($recipe['timestamp_created'], MONTH_DAY_YEAR); ?></td>
 	<td class="bgcolor_lighter" style="text-align:center;"><?php echo $recipe['total_guests']; ?></td>
 	<td class="bgcolor_lighter" style="text-align:center;"><?php echo $recipe['pending_count']; ?></td>
@@ -63,7 +63,7 @@
 		<?php if (!empty($this->surveys[$id])) { ?>
 		<?php foreach($this->surveys[$id] AS $sid => $survey) { ?>
 		<tr id="survey_row-<?php echo $survey['id']; ?>">
-			<td class="bgcolor_light"><a href="?page=admin_user_details&amp;id=<?php echo $survey['user_id']; ?>"><?php echo ucfirst($survey['firstname']); ?> <?php echo ucfirst($survey['lastname']); ?></a></td>
+			<td class="bgcolor_light"><a href="/?page=admin_user_details&amp;id=<?php echo $survey['user_id']; ?>"><?php echo ucfirst($survey['firstname']); ?> <?php echo ucfirst($survey['lastname']); ?></a></td>
 			<td class="bgcolor_light" style="text-align:center;" id="size_select_td-<?php echo $survey['id']; ?>"><?php if (!empty($survey['timestamp_received'])) { ?><?php echo CTemplate::dateTimeFormat($survey['timestamp_received'], MONTH_DAY_YEAR); ?><?php } else { ?><select id="size_select-<?php echo $survey['id']; ?>" name="size_select-<?php echo $survey['id']; ?>"><option value="0" selected="selected">Size</option><option value="HALF">3-srv</option><option value="FULL" >6-srv</option></select> <input type="button" class="button" id="size_select_submit-<?php echo $survey['id']; ?>" name="size_select_submit-<?php echo $survey['id']; ?>" value="Guest Received" /><?php } ?></td>
 			<td class="bgcolor_light" style="text-align:center;">
 				<?php if (!empty($survey['timestamp_completed'])) { ?>

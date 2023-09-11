@@ -208,7 +208,7 @@
 												}
 												break;
 											case 'CONSUMED':
-												echo '$' . $entry['amount'] . ' applied to <a href="?page=admin_order_mgr&order=' . $entry['orders'] . '" target="_blank">' . $orderStr . '</a>. ';
+												echo '$' . $entry['amount'] . ' applied to <a href="/?page=admin_order_mgr&order=' . $entry['orders'] . '" target="_blank">' . $orderStr . '</a>. ';
 												echo $expiredStr;
 												break;
 											case 'EXPIRED':
@@ -220,7 +220,7 @@
 								?>
 
 								<li style="list-style-type: none !important;"></li>
-								<li style="list-style-type: none !important;"><a href="?page=admin_user_plate_points&amp;id=<?php echo $this->user['id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']);?>" target="_blank">Full Dinner Dollar/PlatePoint History</a></li>
+								<li style="list-style-type: none !important;"><a href="/?page=admin_user_plate_points&amp;id=<?php echo $this->user['id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']);?>" target="_blank">Full Dinner Dollar/PlatePoint History</a></li>
 							</ul>
 						</div>
 					</div>

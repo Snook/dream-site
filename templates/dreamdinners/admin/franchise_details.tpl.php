@@ -170,10 +170,10 @@
 					<?php if (!empty($store['personnel'])) { ?>
 					<?php foreach ($store['personnel'] as $user_id => $userInfo) { ?>
 					<tr>
-						<td class="bgcolor_light"><a href="?page=admin_access_levels&amp;id=<?php echo $user_id; ?>"><?php echo CUser::userTypeText($userInfo['user_type']); ?></a></td>
-						<td class="bgcolor_light"><a href="?page=admin_user_details&amp;id=<?php echo $user_id; ?>"><?php echo $userInfo['firstname']; ?> <?php echo $userInfo['lastname']; ?></a></td>
-						<td class="bgcolor_light"><a href="?page=admin_email&amp;id=<?php echo $user_id; ?>"><?php echo $userInfo['primary_email']; ?></a></td>
-						<td class="bgcolor_light"><a href="?page=admin_user_details&amp;id=<?php echo $user_id; ?>"><?php echo (!empty($userInfo['last_login'])) ? CTemplate::dateTimeFormat($userInfo['last_login'], MONTH_DAY_YEAR) : 'Never'; ?></a></td>
+						<td class="bgcolor_light"><a href="/?page=admin_access_levels&amp;id=<?php echo $user_id; ?>"><?php echo CUser::userTypeText($userInfo['user_type']); ?></a></td>
+						<td class="bgcolor_light"><a href="/?page=admin_user_details&amp;id=<?php echo $user_id; ?>"><?php echo $userInfo['firstname']; ?> <?php echo $userInfo['lastname']; ?></a></td>
+						<td class="bgcolor_light"><a href="/?page=admin_email&amp;id=<?php echo $user_id; ?>"><?php echo $userInfo['primary_email']; ?></a></td>
+						<td class="bgcolor_light"><a href="/?page=admin_user_details&amp;id=<?php echo $user_id; ?>"><?php echo (!empty($userInfo['last_login'])) ? CTemplate::dateTimeFormat($userInfo['last_login'], MONTH_DAY_YEAR) : 'Never'; ?></a></td>
 						<td class="bgcolor_light" style="text-align:center;"><?php echo (!empty($userInfo['fadmin_nda_agree'])) ? 'Yes' : '<span style="color: red;">No</span>'; ?></td>
 						<td class="bgcolor_light" style="text-align:center;"><a href="/location/<?php echo $store['id']; ?>"><?php echo (!empty($userInfo['display_to_public'])) ? 'Yes' : 'No'; ?></a></td>
 					</tr>

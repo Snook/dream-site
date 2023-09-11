@@ -65,7 +65,7 @@
 
 			<td align="left" style="padding-left: 10px;"><b>Selected Menu:</b> <?= $this->form['menus_html']; ?></td>
 			<td align="left" style="padding-left: 10px;">
-				<a href="?page=admin_menu_editor&tabs=menu.specials" class="btn btn-primary btn-sm" id="inv_mgr">Menu Editor</a>
+				<a href="/?page=admin_menu_editor&tabs=menu.specials" class="btn btn-primary btn-sm" id="inv_mgr">Menu Editor</a>
 			</td>
 		</tr>
 	</table>

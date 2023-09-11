@@ -14,34 +14,34 @@
 <table style="width: 100%;">
 <tr>
 	<td>
-		<a href="?page=admin_list_franchisees&amp;letter_select=A" class="button">A</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=B" class="button">B</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=C" class="button">C</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=D" class="button">D</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=E" class="button">E</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=F" class="button">F</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=G" class="button">G</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=H" class="button">H</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=I" class="button">I</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=J" class="button">J</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=K" class="button">K</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=L" class="button">L</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=M" class="button">M</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=N" class="button">N</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=O" class="button">O</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=P" class="button">P</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=Q" class="button">Q</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=R" class="button">R</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=S" class="button">S</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=T" class="button">T</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=U" class="button">U</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=V" class="button">V</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=W" class="button">W</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=X" class="button">X</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=Y" class="button">Y</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=Z" class="button">Z</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=etc" class="button">ETC</a>
-		<a href="?page=admin_list_franchisees&amp;letter_select=all" class="button">Show	All</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=A" class="button">A</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=B" class="button">B</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=C" class="button">C</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=D" class="button">D</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=E" class="button">E</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=F" class="button">F</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=G" class="button">G</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=H" class="button">H</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=I" class="button">I</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=J" class="button">J</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=K" class="button">K</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=L" class="button">L</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=M" class="button">M</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=N" class="button">N</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=O" class="button">O</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=P" class="button">P</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=Q" class="button">Q</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=R" class="button">R</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=S" class="button">S</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=T" class="button">T</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=U" class="button">U</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=V" class="button">V</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=W" class="button">W</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=X" class="button">X</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=Y" class="button">Y</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=Z" class="button">Z</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=etc" class="button">ETC</a>
+		<a href="/?page=admin_list_franchisees&amp;letter_select=all" class="button">Show	All</a>
 	</td>
 </tr>
 </table>
@@ -64,12 +64,12 @@
 	</tr>
 	<?php foreach( $this->rows as $id => $row ) { ?>
 	<tr>
-		<td class="bgcolor_light"><a href="?page=admin_user_details&amp;id=<?php echo $row['user_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $row['user_id']; ?></a></td>
+		<td class="bgcolor_light"><a href="/?page=admin_user_details&amp;id=<?php echo $row['user_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $row['user_id']; ?></a></td>
 		<td class="bgcolor_light"><?php echo $row['lastname']; ?></td>
 		<td class="bgcolor_light"><?php echo $row['firstname']; ?></td>
-		<td class="bgcolor_light"><a href="?page=admin_email&amp;id=<?php echo $row['user_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $row['primary_email']; ?></a></td>
+		<td class="bgcolor_light"><a href="/?page=admin_email&amp;id=<?php echo $row['user_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $row['primary_email']; ?></a></td>
 		<td class="bgcolor_light"><?php echo (!empty($row['telephone_day'])) ? $row['telephone_day'] : 'None'; ?></td>
-		<td class="bgcolor_light"><a href="?page=admin_franchise_details&amp;id=<?php echo $row['franchise_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $row['franchise_name']; ?></a></td>
+		<td class="bgcolor_light"><a href="/?page=admin_franchise_details&amp;id=<?php echo $row['franchise_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $row['franchise_name']; ?></a></td>
 		<td class="bgcolor_light"><?php if ( $row['active'] ) echo 'yes'; else echo 'no';?></td>
 	</tr>
 	<?php } ?>
