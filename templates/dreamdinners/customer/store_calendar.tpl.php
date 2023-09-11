@@ -11,7 +11,7 @@
 		<div class="row mb-3">
 			<div class="col text-center">
 				<h1>What's new at <?php echo $this->DAO_store->store_name; ?> Dream Dinners location</h1>
-				<p class="font-marker">We offer real food, made from scratch, so your life can feel just a little easier.</p>
+				<h2 class="font-marker">We offer real food, made from scratch, so your life can feel just a little easier.</h2>
 			</div>
 		</div>
 		<?php include $this->loadTemplate('customer/subtemplate/store/store_navigation.tpl.php'); ?>
@@ -23,17 +23,18 @@
 			<?php if (!empty($this->DAO_store->ActivePromoArray)) { ?>
 				<div class="row mb-4">
 					<div class="col">
-						<ul class="nav nav-pills nav-justified mb-4">
+						<h3 class="text-uppercase font-weight-bold text-center">Store Promotions</h3>
+						<ul class="nav nav-justified mb-4">
 							<?php if (!empty($this->DAO_store->ActivePromoArray)) { ?>
 								<li class="nav-item">
 									<a class="nav-link text-uppercase font-weight-bold active" id="promos-tab" data-urlpush="false" data-toggle="tab" data-target="#promos" href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/calendar?tab=promos" role="tab" aria-controls="promos" aria-selected="true">Store promotions</a>
 								</li>
 							<?php } ?>
-							<?php if ($this->storeOHEvents) { ?>
+							<!--<?php if ($this->storeOHEvents) { ?>
 								<li class="nav-item">
 									<a class="nav-link text-uppercase font-weight-bold <?php if (!$this->storePromos) { ?>active<?php } ?>" id="events-tab" data-urlpush="false" data-toggle="tab" data-target="#events" href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/calendar?tab=events" role="tab" aria-controls="events" aria-selected="false">Store events</a>
 								</li>
-							<?php } ?>
+							<?php } ?>-->
 						</ul>
 
 						<div class="tab-content" id="storeDetailsContent">
@@ -53,7 +54,7 @@
 									<?php } ?>
 								</div>
 							<?php } ?>
-							<?php if ($this->storeOHEvents) { ?>
+							<!--<?php if ($this->storeOHEvents) { ?>
 								<div class="tab-pane fade <?php if (!$this->storePromos) { ?>show active<?php } ?>" id="events" role="tabpanel" aria-labelledby="events-tab">
 									<div class="row mb-3">
 										<div class="col-lg-4 mb-2">
@@ -79,7 +80,7 @@
 											<p class="font-italic text-muted font-size-small">*Our Open House events are only available to new Dream Dinners guests or guests that have not attended a Dream Dinners session in over a year.</p>
 										</div>
 									</div>
-								</div>
+								</div>-->
 							<?php } ?>
 						</div>
 					</div>
@@ -95,7 +96,7 @@
 						<h3 class="text-uppercase font-weight-bold text-center">
 							Store Calendar
 						</h3>
-						<p>Our calendar represents dates and times available to reserve your order based on how you would like to get your meals. Options may include Pick Up, Home Delivery,You Assemble at Store, Community Pick Up locations and Events. Many stores have open hours to come in shop out of the freezer not listed here. Contact the store for any questions.</p>
+						<p>Our calendar represents dates and times available to reserve your order based on how you would like to get your meals. Options may include Pick Up, Home Delivery,You Assemble at Store, Community Pick Up locations and Events. Many stores have open hours to come in shop out of the freezer listed on the Location Info page.</p>
 						<?php if ($this->has_meal_customization_sessions){?>
 							<p>Times listed below are available for everyone! If you would like Meal Customization, please select a time marked with a <i class="dd-icon icon-customize text-orange font-size-small"></i> so we can have your dinners customized in time for your pick up or delivery. Customization options available at checkout.</p>
 						<?php } ?>
