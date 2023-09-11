@@ -15,6 +15,8 @@ class page_store extends CPage
 
 			if ($DAO_store->find_DAO_store(true))
 			{
+				$DAO_store->getAvailableJobsArray();
+
 				$this->Template->assign('DAO_store', $DAO_store);
 			}
 			else

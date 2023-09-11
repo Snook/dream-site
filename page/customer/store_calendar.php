@@ -15,6 +15,7 @@ class page_store_calendar extends CPage
 
 			if ($DAO_store->find_DAO_store(true))
 			{
+				$DAO_store->getAvailableJobsArray();
 				$DAO_store->getActivePromoArray();
 
 				$calendar = CSession::getSessionsForFullCalendarCustomer($DAO_store, true);

@@ -103,6 +103,10 @@ class CStore extends DAO_Store
 	 * @var array
 	 */
 	public $ActivePromoArray;
+	/**
+	 * @var array|array[]|mixed
+	 */
+	public $AvailableJobsArray;
 
 	function __construct()
 	{
@@ -243,6 +247,11 @@ class CStore extends DAO_Store
 		}
 
 		return $job_array;
+	}
+
+	static function translateStorePosition($position)
+	{
+		return self::$storeJobPositions[$position]['title'];
 	}
 
 	static function getStoreJobArray($store_id)
@@ -1776,6 +1785,23 @@ class CStore extends DAO_Store
 		{
 			$this->PersonnelArray[$DAO_user->id] = clone $DAO_user;
 		}
+	}
+
+	function getAvailableJobsArray()
+	{
+		$this->AvailableJobsArray = array();
+
+		$DAO_store_job = DAO_CFactory::create('store_job');
+		$DAO_store_job->store_id = $this->id;
+		$DAO_store_job->available = 1;
+		$DAO_store_job->find();
+
+		while ($DAO_store_job->fetch())
+		{
+			$this->AvailableJobsArray[$DAO_store_job->position] = clone $DAO_store_job;
+		}
+
+		return $this->AvailableJobsArray;
 	}
 
 	function getOwnerArray()
