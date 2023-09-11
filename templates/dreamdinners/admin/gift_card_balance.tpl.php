@@ -73,7 +73,7 @@
 
 	</script>
 
-	<form name="gift_card_balance" onSubmit="return _check_form(this);" action="?page=admin_gift_card_balance" method="post">
+	<form name="gift_card_balance" onSubmit="return _check_form(this);" action="/?page=admin_gift_card_balance" method="post">
 		<?php if (isset($this->form_account['hidden_html'])) { echo $this->form_account['hidden_html']; } ?>
 
 		<table width="100%">

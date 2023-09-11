@@ -32,7 +32,7 @@ else
 		<div style="float:right"><a href="/?page=admin_dashboard_menu_based" class="button">to Menu-Month Dashboard</a></div>
 	</div>
 
-	<form id="dashboard_form" action="?page=admin_dashboard_new" method="post">
+	<form id="dashboard_form" action="/?page=admin_dashboard_new" method="post">
 		<?php echo $this->form_array['hidden_html'];?>
 
 		<?php if (!$this->print_view) { ?>

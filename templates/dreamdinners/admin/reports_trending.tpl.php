@@ -37,7 +37,7 @@ return; }
 <div style="float:right"><a href="/?page=admin_reports_trending_menu_based" class="button">Menu-Month Trending Report</a></div>
 </div>
 
-<form id="reports_trending_form" action="?page=admin_reports_trending" method="post">
+<form id="reports_trending_form" action="/?page=admin_reports_trending" method="post">
 <?php echo $this->form_array['hidden_html'];?>
 
 

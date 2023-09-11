@@ -44,7 +44,7 @@ return; }
 	<span style="color:green;">Dashboard (by Menu Month)</span>
 	<div style="float:right"><a href="/?page=admin_dashboard_new" class="button">to Calendar-Month Dashboard</a></div>
 </div>
-<form id="dashboard_form" action="?page=admin_dashboard_menu_based" method="post">
+<form id="dashboard_form" action="/?page=admin_dashboard_menu_based" method="post">
 <?php echo $this->form_array['hidden_html'];?>
 
 <?php if (!$this->print_view) { ?>
