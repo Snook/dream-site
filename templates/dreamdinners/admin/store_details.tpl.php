@@ -235,10 +235,14 @@
 				</td>
 			</tr>
 			<tr>
+				<td class="bgcolor_light" style="text-align: right; width: 210px;">Vanity URL:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['short_url_html']; ?></td>
+			</tr>
+			<tr>
 				<td class="bgcolor_light" style="text-align: right;">Store Information Page QR Code:</td>
 				<td class="guest_details_list_item">
 					<div class="input-group">
-						<input type="text" id="store_page_link" class="form-control" aria-label="Store landing page" value="<?php echo HTTPS_BASE; ?><?php $emailArray = explode('@', $this->store['email_address']); echo strtolower($emailArray[0]); ?>" readonly>
+						<input type="text" id="store_page_link" class="form-control" aria-label="Store landing page" value="<?php echo HTTPS_SERVER; ?><?php echo $this->DAO_store->getPrettyUrl(); ?>" readonly>
 						<div class="input-group-append">
 							<div class="input-group-text btn-clip" data-toggle="tooltip" data-placement="top" title="Copy link to clipboard" data-clipboard-target="#store_page_link" ><i class="fas fa-clipboard-list"></i></div>
 						</div>
@@ -340,9 +344,9 @@
 									<a class="btn btn-primary" data-guestsearch="add_manager" data-select_button_title="Add Manager" data-all_stores_checked="true" data-select_function="addManager" data-tooltip="Select manager" class="button">Select manager</a>
 								</div>
 							</div>
-							<div><input class="form-control" id="manager_1_name" type="text" disabled="disabled" value="<?php echo $this->store['manager_1_firstname']; ?> <?php echo $this->store['manager_1_lastname']; ?>" /></div>
-							<div><input class="form-control" id="manager_1_primary_email" type="text" disabled="disabled" value="<?php echo $this->store['manager_1_primary_email']; ?>" /></div>
-							<div><input class="form-control" id="manager_1_telephone_1" type="text" disabled="disabled" value="<?php echo $this->store['manager_1_telephone_1']; ?>" /></div>
+							<div><input class="form-control" id="manager_1_name" type="text" disabled="disabled" value="<?php echo $this->manager_DAO_user->firstname; ?> <?php echo $this->manager_DAO_user->lastname; ?>" /></div>
+							<div><input class="form-control" id="manager_1_primary_email" type="text" disabled="disabled" value="<?php echo $this->manager_DAO_user->primary_email; ?>" /></div>
+							<div><input class="form-control" id="manager_1_telephone_1" type="text" disabled="disabled" value="<?php echo $this->manager_DAO_user->telephone_1; ?>" /></div>
 						</div>
 					</div>
 

@@ -96,13 +96,20 @@ class processor_qr_code extends CPageProcessor
 				$size = $_REQUEST['s'];
 			}
 
+			if (!empty($_GET['id']) && (is_numeric($_GET['id']) || CTemplate::isAlphaNumHyphen($_GET['id'])))
+			{
+				$DAO_store = DAO_CFactory::create('store', true);
+				$DAO_store->id = $_GET['id'];
+				$DAO_store->find_DAO_store(true);
+			}
+
 			if (!empty($_REQUEST['d']) && is_numeric($_REQUEST['d']) && $_REQUEST['d'] == 1)
 			{
-				QRcode::pngWeb(HTTPS_SERVER . WEB_BASE . 'location/' . $_REQUEST['id'], $size, 'dream-dinners-store-qr.png');
+				QRcode::pngWeb(HTTPS_SERVER . $DAO_store->getPrettyUrl(), $size, 'dream-dinners-store-qr.png');
 			}
 			else
 			{
-				QRcode::pngWeb(HTTPS_SERVER . WEB_BASE . 'location/' . $_REQUEST['id'], $size);
+				QRcode::pngWeb(HTTPS_SERVER . $DAO_store->getPrettyUrl(), $size);
 			}
 		}
 
