@@ -659,6 +659,25 @@ class CMenuItem extends DAO_Menu_item
 
 			$this->store_price = COrders::getItemMarkupMultiSubtotal($DAO_mark_up_multi, $this);
 		}
+		else if (!empty($this->store_id) && !empty($this->menu_id))
+		{
+			if (empty($DAO_mark_up_multi))
+			{
+				if (!empty($this->DAO_mark_up_multi))
+				{
+					$DAO_mark_up_multi = $this->DAO_mark_up_multi;
+				}
+				else
+				{
+					$this->DAO_store = DAO_CFactory::create('store');
+					$this->DAO_store->id = $this->store_id;
+					$this->DAO_store->fetch();
+					$DAO_mark_up_multi = $this->DAO_store->getMarkupMultiObj($this->menu_id);
+				}
+			}
+
+			$this->store_price = COrders::getItemMarkupMultiSubtotal($DAO_mark_up_multi, $this);
+		}
 
 		if (!empty($this->DAO_menu_item_mark_down->id))
 		{
