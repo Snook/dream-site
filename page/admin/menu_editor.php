@@ -82,13 +82,14 @@ class page_admin_menu_editor extends CPageAdminOnly
 		}
 
 		CLog::Record("MENU_EDITOR: Page accessed for store: " . $store_id);
-		$tpl->assign("store_id", $store_id);
-		$storeObj = DAO_CFactory::create('store');
-		$storeObj->id = $store_id;
-		if (!$storeObj->find(true))
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->id = $store_id;
+		if (!$DAO_store->find_DAO_store(true))
 		{
 			throw new Exception('Store not found in Menu Editor');
 		}
+
+		$tpl->assign("DAO_store", $DAO_store);
 
 		ini_set('memory_limit', '128M');
 		// ------------------------------------------ Build menu array and wdiget
@@ -175,9 +176,9 @@ class page_admin_menu_editor extends CPageAdminOnly
 		}
 
 		// continue setting store info
-		$this->storeSupportsPlatePoints = CStore::storeSupportsPlatePoints($storeObj);
+		$this->storeSupportsPlatePoints = CStore::storeSupportsPlatePoints($DAO_store);
 		$tpl->assign('storeSupportsPlatePoints', $this->storeSupportsPlatePoints);
-		$tpl->assign('storeInfo', $storeObj);
+		$tpl->assign('storeInfo', $DAO_store);
 		if (isset($_POST['action']) && ($_POST['action'] === "storeChange"))
 		{
 			// clear the POST paramaters so database values will not be overridden by POST params
@@ -188,13 +189,13 @@ class page_admin_menu_editor extends CPageAdminOnly
 			// clear the POST paramaters so database values will not be overridden by POST params
 			unset($_POST);
 		}
-		$storeObj->clearMarkupMultiObj();
+		$DAO_store->clearMarkupMultiObj();
 		// ----------------------------- build menu array from current state
 		$DAO_menu = DAO_CFactory::create('menu');
 		$DAO_menu->id = $menu_id;
 		$DAO_menu->find(true);
 
-		$menuInfo = COrders::buildNewPricingMenuPlanArrays($storeObj, $DAO_menu->id, 'FeaturedFirst', true, true, false, false);
+		$menuInfo = COrders::buildNewPricingMenuPlanArrays($DAO_store, $DAO_menu->id, 'FeaturedFirst', true, true, false, false);
 
 		// count "sub-entrees" for each item so the display loop can group correctly
 		$qtyMap = array();
@@ -257,8 +258,8 @@ class page_admin_menu_editor extends CPageAdminOnly
 			}
 		}
 
-		$storeObj->clearMarkupMultiObj();
-		$markup = $storeObj->getMarkUpMultiObj($menu_id);
+		$DAO_store->clearMarkupMultiObj();
+		$markup = $DAO_store->getMarkUpMultiObj($menu_id);
 
 		if ($markup->menu_id_start == $menu_id)
 		{
@@ -486,7 +487,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 					// delete any older markups for this menu/store
 					$oldDefaultMarkups = DAO_CFactory::create('mark_up_multi');
 					$oldDefaultMarkups->query("update mark_up_multi set is_deleted = 1 where store_id = $store_id and menu_id_start = $menu_id and is_deleted = 0");
-					$storeObj->setMarkUpMulti($_POST['markup_6_serving'], $_POST['markup_4_serving'], $_POST['markup_3_serving'], $_POST['markup_2_serving'], $_POST['markup_sides'], $_POST['volume_reward'], $menu_id, $posted_default_value, 12.5, $_POST['assembly_fee'], $_POST['delivery_assembly_fee']);
+					$DAO_store->setMarkUpMulti($_POST['markup_6_serving'], $_POST['markup_4_serving'], $_POST['markup_3_serving'], $_POST['markup_2_serving'], $_POST['markup_sides'], $_POST['volume_reward'], $menu_id, $posted_default_value, 12.5, $_POST['assembly_fee'], $_POST['delivery_assembly_fee']);
 					$defaultVolumeReward = $_POST['volume_reward']; // used below
 				}
 			}
@@ -524,7 +525,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 					// delete any older markups for this menu/store
 					$oldDefaultMarkups = DAO_CFactory::create('mark_up_multi');
 					$oldDefaultMarkups->query("update mark_up_multi set is_deleted = 1 where store_id = $store_id and menu_id_start = $menu_id and is_deleted = 0");
-					$storeObj->setMarkUpMulti($_POST['markup_6_serving'], $_POST['markup_4_serving'], $_POST['markup_3_serving'], $_POST['markup_2_serving'], $_POST['markup_sides'], $_POST['volume_reward'], $menu_id, $posted_default_value, 12.5, $_POST['assembly_fee'], $_POST['delivery_assembly_fee']);
+					$DAO_store->setMarkUpMulti($_POST['markup_6_serving'], $_POST['markup_4_serving'], $_POST['markup_3_serving'], $_POST['markup_2_serving'], $_POST['markup_sides'], $_POST['volume_reward'], $menu_id, $posted_default_value, 12.5, $_POST['assembly_fee'], $_POST['delivery_assembly_fee']);
 				}
 			}
 			// Test for existing store menu
@@ -643,7 +644,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 						}
 					}
 				}
-				$menuAddonArray = CMenu::buildMenuAddonArray($storeObj, $menu_id);
+				$menuAddonArray = CMenu::buildMenuAddonArray($DAO_store, $menu_id);
 				// Menu Addons
 				foreach ($menuAddonArray as $id => $item)
 				{
@@ -681,7 +682,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 						}
 					}
 				}
-				$ctsArray = CMenu::buildCTSArray($storeObj, $menu_id);
+				$ctsArray = CMenu::buildCTSArray($DAO_store, $menu_id);
 				// Menu Addons
 				foreach ($ctsArray as $id => $item)
 				{
@@ -790,7 +791,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 				}
 				// This is tricky, the store menu now exists because of the loop above, so this function will return nothing unless we override the store specific
 				// query
-				$menuAddonArray = CMenu::buildMenuAddonArray($storeObj, $menu_id, true);
+				$menuAddonArray = CMenu::buildMenuAddonArray($DAO_store, $menu_id, true);
 				foreach ($menuAddonArray as $id => $item)
 				{
 					if ($item['is_optional'])
@@ -828,7 +829,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 				}
 				// This is tricky, the store menu now exists because of the loop above, so this function will return nothing unless we override the store specific
 				// query
-				$ctsArray = CMenu::buildCTSArray($storeObj, $menu_id);
+				$ctsArray = CMenu::buildCTSArray($DAO_store, $menu_id);
 				foreach ($ctsArray as $id => $item)
 				{
 					if ($item['is_optional'])
@@ -986,11 +987,11 @@ class page_admin_menu_editor extends CPageAdminOnly
 			}
 
 			//recalculate arrays and markup for display
-			$storeObj->clearMarkupMultiObj();
+			$DAO_store->clearMarkupMultiObj();
 
 			unset($menuInfo);
 
-			$menuInfo = COrders::buildNewPricingMenuPlanArrays($storeObj, $menu_id, 'FeaturedFirst', true, true, false, false);
+			$menuInfo = COrders::buildNewPricingMenuPlanArrays($DAO_store, $menu_id, 'FeaturedFirst', true, true, false, false);
 
 			// count "sub-entrees" for each item so the display loop can group correctly
 			$qtyMap2 = array();
@@ -1036,7 +1037,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 				}
 			}
 
-			$markup = $storeObj->getMarkUpMultiObj($menu_id);
+			$markup = $DAO_store->getMarkUpMultiObj($menu_id);
 		}
 
 		$Form->AddElement(array(
@@ -1150,9 +1151,9 @@ class page_admin_menu_editor extends CPageAdminOnly
 			);
 		}
 
-		$menuAddonArray = CMenu::buildMenuAddonArray($storeObj, $menu_id);
+		$menuAddonArray = CMenu::buildMenuAddonArray($DAO_store, $menu_id);
 
-		$ctsArray = CMenu::buildCTSArray($storeObj, $menu_id);
+		$ctsArray = CMenu::buildCTSArray($DAO_store, $menu_id);
 
 		foreach ($ctsArray as $menuItem)
 		{

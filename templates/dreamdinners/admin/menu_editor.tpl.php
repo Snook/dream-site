@@ -5,7 +5,7 @@
 <?php $this->assign('helpLinkSection', 'ME'); ?>
 <?php $this->setScriptVar('limitToInventoryControl = ' . ($this->limitToInventoryControl ? 'true' : 'false') . ';'); ?>
 <?php $this->setScriptVar('storeSupportsPlatePoints = ' . ($this->storeSupportsPlatePoints ? 'true' : 'false') . ';'); ?>
-<?php $this->setScriptVar('storeInfo = ' . json_encode($this->storeInfo->toArray()) . ';'); ?>
+<?php $this->setScriptVar('storeInfo = ' . json_encode($this->DAO_store->toArray()) . ';'); ?>
 <?php $this->setScriptVar('markupData = ' . json_encode($this->markupData) . ';'); ?>
 <?php $this->setScriptVar('menuInfo = ' . $this->menuInfoJS . ';'); ?>
 <?php $this->setScriptVar('isEnabled_Markup = ' . ($this->DAO_menu->isEnabled_Markup() ? 'true' : 'false') . ';'); ?>
@@ -81,7 +81,7 @@
 								Menu link
 							</div>
 						</div>
-						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->store_id; ?>-<?php echo $this->menuInfo['menu_name_abbr']; ?>" readonly>
+						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?><?php echo $this->DAO_store->getPrettyUrl(); ?>/order/<?php echo $this->menuInfo['menu_name_abbr']; ?>" readonly>
 					</div>
 
 				</div>
@@ -94,14 +94,14 @@
 								Store link
 							</div>
 						</div>
-						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->store_id; ?>" readonly>
+						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?><?php echo $this->DAO_store->getPrettyUrl(); ?>/order" readonly>
 					</div>
 
 				</div>
 
 			</div>
 
-			<?php if ($this->storeInfo->storeSupportsIntroOrders($this->DAO_menu->id)) { ?>
+			<?php if ($this->DAO_store->storeSupportsIntroOrders($this->DAO_menu->id)) { ?>
 			<div class="form-row">
 
 				<div class="form-group col-6">
@@ -112,7 +112,7 @@
 								Menu starter
 							</div>
 						</div>
-						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->store_id; ?>-<?php echo $this->menuInfo['menu_name_abbr']; ?>-starter" readonly>
+						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?><?php echo $this->DAO_store->getPrettyUrl(); ?>/order/<?php echo $this->menuInfo['menu_name_abbr']; ?>/starter" readonly>
 					</div>
 
 				</div>
@@ -125,7 +125,7 @@
 								Store starter
 							</div>
 						</div>
-						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->store_id; ?>-starter" readonly>
+						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?><?php echo $this->DAO_store->getPrettyUrl(); ?>/order/starter" readonly>
 					</div>
 
 				</div>
@@ -146,7 +146,7 @@
 						</div>
 					</div>
 
-					<?php if (false && CStore::isCoreTestStore($this->storeInfo->id, $this->menuInfo['menu_id'])) { ?>
+					<?php if (false && CStore::isCoreTestStore($this->DAO_store->id, $this->menuInfo['menu_id'])) { ?>
 						<div class="form-group col-4">
 							<div class="input-group">
 								<div class="input-group-prepend">
@@ -170,7 +170,7 @@
 						</div>
 					</div>
 
-					<?php if (false && CStore::isCoreTestStore($this->storeInfo->id, $this->menuInfo['menu_id'])) { ?>
+					<?php if (false && CStore::isCoreTestStore($this->DAO_store->id, $this->menuInfo['menu_id'])) { ?>
 						<div class="form-group col-4">
 							<div class="input-group">
 								<div class="input-group-prepend">
@@ -309,13 +309,13 @@
 
 												<td class="align-middle text-left">
 													<a href="?page=item&amp;recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" class="link-dinner-details" data-tooltip="Dinner Details"
-													   data-recipe_id="<?php echo $planNode['recipe_id']; ?>" data-store_id="<?php echo $this->storeInfo->id; ?>" data-menu_item_id="<?php echo $planNode['id']; ?>" data-menu_id="<?php echo $this->menuInfo['menu_id']; ?>"
+													   data-recipe_id="<?php echo $planNode['recipe_id']; ?>" data-store_id="<?php echo $this->DAO_store->id; ?>" data-menu_item_id="<?php echo $planNode['id']; ?>" data-menu_id="<?php echo $this->menuInfo['menu_id']; ?>"
 													   target="_blank"><i class="fas fa-file-alt font-size-medium-small mr-1"></i></a>
 													<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $planNode['id'] . ' &bull; Recipe ID: ' . $planNode['recipe_id'] . '"' : ''; ?>>
 														<?php echo $planNode['menu_item_name']; ?> (<?php echo $planNode['recipe_id'];?>)
 													</span>
 													<?php if (!empty($planNode['is_bundle'])) { ?><i class="fas fa-layer-group font-size-small" data-tooltip="<?php echo (!empty($planNode['admin_notes'])) ? $planNode['admin_notes'] : 'Meal bundle' ?>"></i><?php } ?>
-													<?php if (!empty($this->storeInfo->supports_ltd_roundup) && $planNode['ltd_menu_item_value']) { ?><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/menu-icon07.png" class="img_valign" data-tooltip="$1 is added to price to be donated to DDF" /><?php } ?>
+													<?php if (!empty($this->DAO_store->supports_ltd_roundup) && $planNode['ltd_menu_item_value']) { ?><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/menu-icon07.png" class="img_valign" data-tooltip="$1 is added to price to be donated to DDF" /><?php } ?>
 												</td>
 
 												<td class="align-middle text-left">
@@ -328,7 +328,7 @@
 													</td>
 												<?php } ?>
 
-												<td class="align-middle <?php if (!empty($this->storeInfo->supports_ltd_roundup) && $planNode['ltd_menu_item_value']) { ?>text-orange font-weight-bold" data-tooltip="$1 is added to price to be donated to DDF<?php } ?>">
+												<td class="align-middle <?php if (!empty($this->DAO_store->supports_ltd_roundup) && $planNode['ltd_menu_item_value']) { ?>text-orange font-weight-bold" data-tooltip="$1 is added to price to be donated to DDF<?php } ?>">
 													<?php echo CTemplate::moneyFormat($planNode['price']); ?>
 												</td>
 
@@ -352,7 +352,7 @@
 													<?php } ?>
 												</td>
 
-												<td class="align-middle preview-price font-weight-bold text-danger <?php if (!empty($this->storeInfo->supports_ltd_roundup) && $planNode['ltd_menu_item_value']) { ?>text-orange font-weight-bold" data-tooltip="$1 is added to price to be donated to DDF<?php } ?>"></td>
+												<td class="align-middle preview-price font-weight-bold text-danger <?php if (!empty($this->DAO_store->supports_ltd_roundup) && $planNode['ltd_menu_item_value']) { ?>text-orange font-weight-bold" data-tooltip="$1 is added to price to be donated to DDF<?php } ?>"></td>
 
 												<?php if ($lastEntreeID != $planNode['entree_id']) { $lastEntreeID = $planNode['entree_id']; ?>
 													<td rowspan="<?php echo $planNode['sub_entree_count']; ?>" class="align-middle">
@@ -421,7 +421,7 @@
 
 												<td class="align-middle text-left">
 													<a href="?page=item&amp;recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" class="link-dinner-details" data-tooltip="Dinner Details"
-													   data-recipe_id="<?php echo $planNode['recipe_id']; ?>" data-store_id="<?php echo $this->storeInfo->id; ?>" data-menu_item_id="<?php echo $planNode['id']; ?>" data-menu_id="<?php echo $this->menuInfo['menu_id']; ?>"
+													   data-recipe_id="<?php echo $planNode['recipe_id']; ?>" data-store_id="<?php echo $this->DAO_store->id; ?>" data-menu_item_id="<?php echo $planNode['id']; ?>" data-menu_id="<?php echo $this->menuInfo['menu_id']; ?>"
 													   target="_blank"><i class="fas fa-file-alt font-size-medium-small mr-1"></i></a>
 													<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $planNode['id'] . ' &bull; Recipe ID: ' . $planNode['recipe_id'] . '"' : ''; ?>>
 														<?php echo $planNode['menu_item_name']; ?> (<?php echo $planNode['recipe_id'];?>)
@@ -553,7 +553,7 @@
 
 											<td class="align-middle text-left">
 												<a href="?page=item&amp;recipe=<?php echo $ctsItem['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" class="link-dinner-details" data-tooltip="Dinner Details"
-												   data-recipe_id="<?php echo $ctsItem['recipe_id']; ?>" data-store_id="<?php echo $this->storeInfo->id; ?>" data-menu_item_id="<?php echo $ctsItem['id']; ?>" data-menu_id="<?php echo $this->menuInfo['menu_id']; ?>"
+												   data-recipe_id="<?php echo $ctsItem['recipe_id']; ?>" data-store_id="<?php echo $this->DAO_store->id; ?>" data-menu_item_id="<?php echo $ctsItem['id']; ?>" data-menu_id="<?php echo $this->menuInfo['menu_id']; ?>"
 												   target="_blank"><i class="fas fa-file-alt font-size-medium-small mr-1"></i></a>
 												<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $ctsItem['id'] . ' &bull; Recipe ID: ' . $ctsItem['recipe_id'] . '"' : ''; ?>>
 													<?php echo $ctsItem['menu_item_name']; ?> (<?php echo $ctsItem['recipe_id'];?>)
@@ -610,9 +610,9 @@
 								<thead class="text-center bg-white sticky-top ddtemp-z-index-0">
 								<tr>
 									<th class="align-middle text-left"></th>
-									<th class="align-middle <?php echo (($this->storeInfo->core_pricing_tier == 1) ? 'bg-green-light' : '' ); ?>" colspan="2">Tier 1</th>
-									<th class="align-middle <?php echo (($this->storeInfo->core_pricing_tier == 2) ? 'bg-green-light' : '' ); ?>" colspan="2">Tier 2</th>
-									<th class="align-middle <?php echo (($this->storeInfo->core_pricing_tier == 3) ? 'bg-green-light' : '' ); ?>" colspan="2">Tier 3</th>
+									<th class="align-middle <?php echo (($this->DAO_store->core_pricing_tier == 1) ? 'bg-green-light' : '' ); ?>" colspan="2">Tier 1</th>
+									<th class="align-middle <?php echo (($this->DAO_store->core_pricing_tier == 2) ? 'bg-green-light' : '' ); ?>" colspan="2">Tier 2</th>
+									<th class="align-middle <?php echo (($this->DAO_store->core_pricing_tier == 3) ? 'bg-green-light' : '' ); ?>" colspan="2">Tier 3</th>
 								</tr>
 								<tr>
 									<th class="align-middle text-left">Item title <span class="font-weight-normal">(Recipe ID)</span></th>
