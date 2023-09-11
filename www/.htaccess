@@ -378,7 +378,15 @@ RewriteRule ^location\/([\w-]+)\/?$ /?page=store&id=$1 [NC,L,QSA]
 
 ## END Short url specific handling for store location pages
 
-## This handles the short/pretty urls
+## This handles the short/pretty urls for BackOffice
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^backoffice\/([\w-]+)/?$ /?page=admin_$1 [NC,L,QSA]
+
+## Hadnles /backoffice
+RewriteRule ^backoffice\/?$ /?page=admin_main [NC,L,QSA]
+
+## This handles the short/pretty urls for cutstomer website
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^([\w-]+)/?$ /?page=$1 [NC,L,QSA]
