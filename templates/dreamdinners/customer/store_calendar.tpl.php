@@ -10,7 +10,7 @@
 	<header class="container my-5">
 		<div class="row mb-3">
 			<div class="col text-center">
-				<h1>What's new at <?php echo $this->DAO_store->store_name; ?> Dream Dinners location</h1>
+				<h1>What's new at Dream Dinners <?php echo $this->DAO_store->store_name; ?></h1>
 			</div>
 		</div>
 		<?php include $this->loadTemplate('customer/subtemplate/store/store_navigation.tpl.php'); ?>
@@ -83,18 +83,16 @@
 						</div>
 					</div>
 				</div>
-
+				<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted" />
 			<?php } ?>
 
 			<?php if (!$this->DAO_store->isComingSoon()) { ?>
-				<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted" />
-
 				<div class="row">
 					<div class="col text-center">
 						<h3 class="text-uppercase font-weight-bold text-center">
 							Store Calendar
 						</h3>
-						<p>Our calendar represents dates and times available to reserve your order based on how you would like to get your meals. Options may include Pick Up, Home Delivery,You Assemble at Store, Community Pick Up locations and Events. Many stores have open hours to come in shop out of the freezer listed on the Location Info page.</p>
+						<p>Our calendar represents dates and times available to reserve your order based on how you would like to get your meals. Options may include Pick Up, Home Delivery, You Assemble at Store, Community Pick Up locations and Events. Many stores have open hours to come in shop out of the freezer listed on the Location Info page.</p>
 						<?php if ($this->has_meal_customization_sessions){?>
 							<p>Times listed below are available for everyone! If you would like Meal Customization, please select a time marked with a <i class="dd-icon icon-customize text-orange font-size-small"></i> so we can have your dinners customized in time for your pick up or delivery. Customization options available at checkout.</p>
 						<?php } ?>
