@@ -9,7 +9,7 @@
 		<div class="row mb-3">
 			<div class="col text-center">
 				<h1><?php echo $this->DAO_store->store_name; ?> Meal Prep Store</h1>
-				<p class="font-marker">We offer real food, made from scratch, so your life can feel just a little easier.</p>
+				<h3 class="font-marker">We offer real food, made from scratch, so your life can feel a little easier.</h3>
 			</div>
 		</div>
 		<?php include $this->loadTemplate('customer/subtemplate/store/store_navigation.tpl.php'); ?>
