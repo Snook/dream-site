@@ -674,23 +674,22 @@ class CStore extends DAO_Store
 		}
 	}
 
-	static function storeSupportsZeroCoreMinimum($store)
+	function storeIsClosing($DAO_menu)
 	{
 		$applicableStoreIds = array(73, 76, 105);
-		$storeId = null;
 
-		if (is_object($store))
+		if(in_array($this->id, $applicableStoreIds))
 		{
-			$storeId = $store->id;}
+			$DAO_order_minimum = DAO_CFactory::create('order_minimum');
+			$DAO_order_minimum->store_id = $this->id;
+			$DAO_order_minimum->menu_id = $DAO_menu->id;
+			$DAO_order_minimum->order_type = COrderMinimum::STANDARD_ORDER_TYPE;
+			$DAO_order_minimum->minimun = 0;
 
-		if (is_numeric($store))
-		{
-			$storeId = $store;
-		}
-
-		if( in_array($storeId, $applicableStoreIds))
-		{
-			return true;
+			if ($DAO_order_minimum->find())
+			{
+				return true;
+			}
 		}
 
 		return false;
