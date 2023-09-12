@@ -9,6 +9,7 @@
 		<div class="row mb-3">
 			<div class="col text-center">
 				<h1><?php echo $this->DAO_store->store_name; ?> Meal Prep Store</h1>
+				<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-tenders-in-a-snap-1920x837.webp" alt="Dinner in a Snap" class="img-fluid" />
 				<h3 class="font-marker">We offer real food, made from scratch, so your life can feel a little easier.</h3>
 			</div>
 		</div>
