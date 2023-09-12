@@ -167,7 +167,7 @@ RewriteRule ^autodiscover/(.*)$ https://mail.dreamdinners.com/autodiscover/$1 [R
 RewriteRule ^authms_my_events/?$ /main.php?page=my_events [R=301,NC,QSA]
 
 # Dream Dinner shortcuts #
-RewriteRule ^share/?$ /main.php?static=share [R=301,NC,QSA]
+RewriteRule ^share/?$ /main.php?page=share [R=301,NC,QSA]
 RewriteRule ^doordash/?$ /main.php?static=doordash [R=301,NC,QSA]
 RewriteRule ^tips/?$ /main.php?static=tips [R=301,NC,QSA]
 RewriteRule ^mealprep\+/?$ /main.php?static=meal_prep_plus [R=301,NC,QSA]
