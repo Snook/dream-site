@@ -10598,10 +10598,13 @@ class COrders extends DAO_Orders
 
 		$Mail->send(null, $fromEmail, $user->firstname . ' ' . $user->lastname, $user->primary_email, ($delayedTransaction ? $delayedPymentSubject : $normalSubject), $contentsHtml, $contentsText, '', '', $user->id, ($delayedTransaction ? 'order_delayed' : 'order'));
 
-		// Send the store an email if there are special instructions...
-		CEmail::alertStoreInstructions($orderInfo);
+		if (!$delayedTransaction)
+		{
+			// Send the store an email if there are special instructions...
+			CEmail::alertStoreInstructions($orderInfo);
 
-		CEmail::alertStoreShiftSetGoOrdered($user, $order);
+			CEmail::alertStoreShiftSetGoOrdered($user, $order);
+		}
 	}
 
 	static public function sendConfirmationRetryEmail($user, $order, $delayedTransaction = false)
