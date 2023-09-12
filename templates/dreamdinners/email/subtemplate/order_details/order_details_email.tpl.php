@@ -575,12 +575,6 @@
 					</tr>
 				<?php } ?>
 
-				<tr>
-					<td align="right"><br />Order Type:</td>
-					<td align="right"><br /><?php echo $this->orderInfo['order_type']; ?></td>
-					<td> </td>
-				</tr>
-
 			</table>
 		</td>
 	</tr>

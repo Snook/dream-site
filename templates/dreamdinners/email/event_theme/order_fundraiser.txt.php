@@ -2,13 +2,13 @@ Dream Dinners
 RSVP and Order Confirmation
 
 We're thrilled you'll be joining us for a Dream Dinners Fundraiser. Be ready to help a great cause and learn how Dream Dinners can be the solution to your dinnertime challenges.
-Here's what to expect. 
+Here's what to expect.
 
 You will...
--	Experience how to save time and money with our simple cook-at-home meals. 
+-	Experience how to save time and money with our simple cook-at-home meals.
 -	Learn from our helpful team members who can answer any questions you have.
 -	Receive three prepped meals to take home and cook for your family.
--	Find out about a special opportunity for you to help raise even more for your organization! When you sign up to return to Dream Dinners with a standard order,* we will donate an additional $20 to the organization. 
+-	Find out about a special opportunity for you to help raise even more for your organization! When you sign up to return to Dream Dinners with a standard order,* we will donate an additional $20 to the organization.
 
 Below is your RSVP summary and payment information. If you have any questions about this event, please contact your store by using the contact information below.
 
@@ -41,7 +41,6 @@ Promotional Code Discount		$<?=$this->moneyFormat($this->orderInfo['promo_code_d
 Item Subtotal			$<?= $this->moneyFormat($this->orderInfo['subtotal_all_items'])  . "\n" ?>
 Tax Subtotal			$<?= $this->moneyFormat($this->orderInfo['subtotal_all_taxes'])  . "\n" ?>
 Total				$<?= $this->moneyFormat($this->orderInfo['grand_total'])  . "\n" ?>
-Order Type:			<?= $this->orderInfo['order_type']  . "\n" ?>
 Special Instructions/Requests:	<?php if ($this->orderInfo['order_user_notes'] != NULL) {
 	            echo $this->orderInfo['order_user_notes'] . "\n" ;
 	        }

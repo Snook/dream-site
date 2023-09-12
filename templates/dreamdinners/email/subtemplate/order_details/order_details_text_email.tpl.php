@@ -102,8 +102,6 @@ Average Cost Per Serving: <?= $this->moneyFormat($this->orderInfo['average_per_s
 ?>
 Avg Cost Per Serving for Dinners: $<?= $this->moneyFormat( COrders::averageCostPerServing($this->orderInfo, false, $basisAdjustment) ) ?>
 <?php } } ?>
-Order Type:			<?= $this->orderInfo['order_type']  . "\n" ?>
-
 Special Instructions/Requests:	<?php if ($this->orderInfo['order_user_notes'] != NULL) {
 	            echo $this->orderInfo['order_user_notes'] . "\n" ;
 	        }
