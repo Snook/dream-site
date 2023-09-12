@@ -1,6 +1,7 @@
 /node_modules/
 /includes/config/
 /assets/pdf_label/qrcode/qr-store-menu-*.png
+/assets/pdf_label/qrcode/recipe/qr-recipe-*.png
 /www/theme/dreamdinners/images/charts/agr/*
 !/www/theme/dreamdinners/images/charts/agr/agr_placeholder.png
 /www/theme/dreamdinners/images/charts/guests/*

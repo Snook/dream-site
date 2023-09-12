@@ -69,7 +69,7 @@
 		</div>
 	<?php } ?>
 
-	<?php if (CStore::storeSupportsZeroCoreMinimum($this->cart_info['storeObj'])) { ?>
+	<?php if ($this->cart_info['storeObj']->storeIsClosing($this->cart_info['menuObj'])) { ?>
 		<div class="col-12 col-lg bg-cyan-extra-light py-3">
 			<div class="row">
 				<div class="col mb-2 text-center">
