@@ -53,11 +53,11 @@
 			<h4>Stores</h4>
 
 			<ul>
-				<?php foreach ($this->currentStores['stateArray']['state'] as $state) { ?>
-					<li><a href="/locations?state=<?php echo $state['info']['abbr']; ?>"><?php echo $state['info']['name']; ?></a></li>
+				<?php foreach ($this->currentStores AS $state_id => $stores) { ?>
+					<li><a href="/locations?state=<?php echo $state_id; ?>"><?php echo CStatesAndProvinces::GetName($state_id); ?></a></li>
 					<ul>
-						<?php foreach ($state['stores'] as $store) { ?>
-							<li><a href="/location/<?php echo $store->id; ?>"><?php echo $store->store_name; ?></a><?php if ($store->isComingSoon()) {?> <span class="font-italic text-muted">- Coming Soon!</span><?php } ?></li>
+						<?php foreach ($stores as $DAO_store) { ?>
+							<li><a href="<?php echo $DAO_store->getPrettyUrl(); ?>"><?php echo $DAO_store->store_name; ?></a><?php if ($DAO_store->isComingSoon()) {?> <span class="font-italic text-muted">- Coming Soon!</span><?php } ?></li>
 						<?php } ?>
 					</ul>
 				<?php } ?>
