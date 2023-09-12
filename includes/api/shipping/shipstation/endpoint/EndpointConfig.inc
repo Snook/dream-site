@@ -26,7 +26,7 @@ class EndpointConfig implements IEndpointConfig
 		else
 		{
 			//log ERROR - missing config
-			CLog::RecordNew(CLog::ERROR, 'ShipStation API is not configured correctly for ' .$storeObj->id);
+			CLog::RecordNew(CLog::ERROR, 'ShipStation API is not configured correctly for store ID ' .$storeObj->id,"EndpointConfig.inc","29",true);
 		}
 	}
 

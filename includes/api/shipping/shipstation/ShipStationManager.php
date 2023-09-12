@@ -25,17 +25,21 @@ class ShipStationManager extends ApiManager
 	// methods available to handle
 	private $methodsPaths;
 
+	//store config
+	private $storeObj;
+
 	protected function __construct($storeObj)
 	{
 		parent::__construct("ShipStationApi");
 
+		$this->storeObj = $storeObj;
+
 		$config = ShipStationEndpointFactory::getEndpoint($storeObj);
 
-		$this->endpoint = $config->SHIPSTATION_API_ENDPOINT;
-		$this->apiKey = $config->SHIPSTATION_API_KEY;
-		$this->apiSecret = $config->SHIPSTATION_API_SECRET;
-
-		$this->authorization = 'Basic ' . base64_encode($this->apiKey . ':' . $this->apiSecret);
+		$this->endpoint = $config->getEndpoint();
+		$this->apiKey = $config->getApiKey();
+		$this->apiSecret = $config->getApiSecret();
+		$this->authorization = $config->getAuthorization();
 
 		$this->methodsPaths = array(
 			'getOrders' => 'orders',
@@ -70,14 +74,19 @@ class ShipStationManager extends ApiManager
 	 *
 	 * @return  ShipStationManager $shipStationManager
 	 */
-	public static function getInstance()
+	public static function getInstance($storeObj)
 	{
-		if (self::$instance == null)
+		if (self::$instance == null || $storeObj->id != self::$instance->getCurrentStoreForConfig()->id)
 		{
-			self::$instance = new ShipStationManager();
+			self::$instance = new ShipStationManager($storeObj);
 		}
 
 		return self::$instance;
+	}
+
+	public function getCurrentStoreForConfig()
+	{
+		return $this->storeObj;
 	}
 
 	/**
