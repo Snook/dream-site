@@ -1,4 +1,3 @@
-<?php $this->assign('canonical_url', HTTPS_BASE . 'login'); ?>
 <?php $this->assign('page_title', 'Log in to your Dream Dinners account'); ?>
 <?php $this->assign('page_description', 'Please log in or create an account at Dream Dinners.'); ?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>

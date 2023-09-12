@@ -1,10 +1,7 @@
-<?php $this->assign('canonical_url', HTTPS_BASE . 'account-signup'); ?>
 <?php $this->setScript('foot', '//maps.googleapis.com/maps/api/js?v=3&amp;key=' . GOOGLE_APIKEY); ?>
 <?php $this->setScript('foot', SCRIPT_PATH . '/customer/locations.min.js'); ?>
 <?php $this->setScript('foot', SCRIPT_PATH . '/customer/account.min.js'); ?>
 <?php $this->setScriptVar('is_create = ' . ($this->isCreate ? 'true' : 'false') . ';'); ?>
-<?php $this->setScriptVar('sms_special_case = "' . $this->sms_special_case . '";'); ?>
-<?php $this->setScriptVar('scroll = "' . $this->scroll . '";'); ?>
 
 <?php $this->assign('page_title', 'Account');?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
