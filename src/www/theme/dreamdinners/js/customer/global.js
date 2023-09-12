@@ -610,44 +610,6 @@ function modal_message(settings)
 
 }
 
-function showTermsAndConditions(jobject)
-{
-	if (jobject && jobject.attr('data-tandc_page') == 'checkout')
-	{
-		tandc_url = '?static=module/tandc_popup_checkout';
-	}
-	else
-	{
-		tandc_url = '?static=module/tandc_popup';
-	}
-
-	$.ajax({
-		url: tandc_url,
-		type: 'GET',
-		success: function (data, status) {
-			modal_message({
-				title: 'Dream Dinners Terms and Conditions',
-				message: data,
-				height: 500,
-				width: 600,
-				resizable: true,
-				noOk: true,
-				buttons: {
-					"Agree": function () {
-						$('#customers_terms').prop("checked", true).change();
-					},
-					"Decline": function () {
-						$('#customers_terms').prop("checked", false).change();
-					}
-				}
-			});
-		},
-		error: function (objAJAXRequest, strError) {
-			response = 'Unexpected error';
-		}
-	});
-}
-
 function dd_alert(msg)
 {
 	modal_message({
@@ -1307,12 +1269,6 @@ $(document).ajaxSuccess(function (event, xhr, settings) {
 		// not json
 	}
 
-});
-
-// Click handler for terms and conditions
-$(document).on('click', '#tc_popup-cart', function (e) {
-	showTermsAndConditions($(this));
-	e.preventDefault();
 });
 
 // handle setToastMsg

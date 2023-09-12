@@ -37,7 +37,7 @@
 								<div class="col">
 									<div class="collapse multi-collapse" id="multiCollapseAlabama" data-parent="#accordion-PL">
 										<div class="card card-body">
-											<?php include $this->loadTemplate('customer/static/subtemplate/pilot/pilot_alabama.tpl.php'); ?>
+											<?php include $this->loadTemplate('customer/subtemplate/corporate_crate/pilot/pilot_alabama.tpl.php'); ?>
 										</div>
 									</div>
 								</div>
@@ -46,7 +46,7 @@
 								<div class="col">
 									<div class="collapse multi-collapse" id="multiCollapseFlorida" data-parent="#accordion-PL">
 										<div class="card card-body">
-											<?php include $this->loadTemplate('customer/static/subtemplate/pilot/pilot_florida.tpl.php'); ?>
+											<?php include $this->loadTemplate('customer/subtemplate/corporate_crate/pilot/pilot_florida.tpl.php'); ?>
 										</div>
 									</div>
 								</div>
@@ -55,7 +55,7 @@
 								<div class="col">
 									<div class="collapse multi-collapse" id="multiCollapseTexas" data-parent="#accordion-PL">
 										<div class="card card-body">
-											<?php include $this->loadTemplate('customer/static/subtemplate/pilot/pilot_texas.tpl.php'); ?>
+											<?php include $this->loadTemplate('customer/subtemplate/corporate_crate/pilot/pilot_texas.tpl.php'); ?>
 										</div>
 									</div>
 								</div>

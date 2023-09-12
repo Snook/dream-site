@@ -235,7 +235,7 @@ class CApp
 				}
 				else
 				{
-					CApp::bounce('?page=not_found');
+					CApp::bounce('/not-found');
 				}
 
 				$pageClass = 'page_' . $page;
@@ -256,7 +256,7 @@ class CApp
 				}
 				else
 				{
-					CApp::bounce('?page=not_found');
+					CApp::bounce('/not-found');
 				}
 
 				$pageClass = 'page_' . $page;
@@ -498,7 +498,7 @@ class CApp
 				set_error_handler('pageNotFound');
 			}
 
-			$error = $this->_template->display('customer/static/' . $page . '.tpl.php');
+			$error = $this->_template->display('customer/' . $page . '.tpl.php');
 
 			if (!DEBUG)
 			{
@@ -633,7 +633,7 @@ class CApp
 
 	function fileCheck_static($page)
 	{
-		if (!$this->_template->findFile('template', 'customer/static/' . $page . '.tpl.php'))
+		if (!$this->_template->findFile('template', 'customer/' . $page . '.tpl.php'))
 		{
 			return false;
 		}
