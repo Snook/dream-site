@@ -179,7 +179,7 @@ class page_admin_edit_session_delivered extends CPageAdminOnly
 				CSession::deleteSessionRSVP($Session->id);
 
 				$tpl->setStatusMsg('The session was successfully deleted.');
-				CApp::bounce('?page=admin_session_mgr_delivered');
+				CApp::bounce('/?page=admin_session_mgr_delivered');
 
 				return;
 			}

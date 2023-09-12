@@ -123,9 +123,9 @@ class SalesForceMarketingManager extends ApiManager
 		$data = new stdClass();
 
 		//succeed on live site not matter the config
-		$restoreCartUrl = 'https://www.dreamdinners.com/?page=checkout&restore_cart=' . $cartKey;
+		$restoreCartUrl = 'https://www.dreamdinners.com/checkout?restore_cart=' . $cartKey;
 		if (defined('HTTPS_SERVER')){
-			$restoreCartUrl = HTTPS_SERVER . '/?page=checkout&restore_cart=' . $cartKey;
+			$restoreCartUrl = HTTPS_SERVER . '/checkout?restore_cart=' . $cartKey;
 		}
 
 		$data->ContactKey = $contactKey;

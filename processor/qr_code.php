@@ -73,11 +73,11 @@ class processor_qr_code extends CPageProcessor
 
 			if (!empty($_REQUEST['d']) && is_numeric($_REQUEST['d']) && $_REQUEST['d'] == 1)
 			{
-				QRcode::pngWeb(HTTPS_SERVER . WEB_BASE . 'share/' . $_REQUEST['id'], $size, 'share-dream-dinners-qr.png');
+				QRcode::pngWeb(HTTPS_BASE . 'share/' . $_REQUEST['id'], $size, 'share-dream-dinners-qr.png');
 			}
 			else
 			{
-				QRcode::pngWeb(HTTPS_SERVER . WEB_BASE . 'share/' . $_REQUEST['id'], $size);
+				QRcode::pngWeb(HTTPS_BASE . 'share/' . $_REQUEST['id'], $size);
 			}
 		}
 

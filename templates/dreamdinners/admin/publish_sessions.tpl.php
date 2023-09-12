@@ -13,7 +13,7 @@
 <td>
 	You must first visit the <b>Template Manager</b> and create a template before the sessions can be pulished on this page.<br /><br />
 	Please visit or the <a href="/?page=admin_session_template_mgr">Template Manager</a> or view the
-	<a href="javascript:NewWindowScroll('?page=admin_help_system&section=SP','Help','675','575');">Help</a> page.
+	<a href="javascript:NewWindowScroll('/?page=admin_help_system&section=SP','Help','675','575');">Help</a> page.
 </td>
 </tr>
 </table>

@@ -84,7 +84,7 @@ class page_admin_user_membership extends CPageAdminOnly
 		if (!$Store->supports_membership && !$Store->supports_new_memberships)
 		{
 
-			$toURL = "?page=admin_main";
+			$toURL = "/?page=admin_main";
 			if (!empty($_REQUEST['back']))
 			{
 				$toURL = $_REQUEST['back'];

@@ -82,7 +82,7 @@ class page_admin_dashboard_activity_log extends CPageAdminOnly
 	{
 		$tpl = CApp::instance()->template();
 
-		$tpl->assign('back', '?page=admin_main');
+		$tpl->assign('back', '/?page=admin_main');
 
 		if (!empty($_REQUEST['back']))
 		{

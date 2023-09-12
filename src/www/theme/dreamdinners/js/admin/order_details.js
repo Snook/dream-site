@@ -1,7 +1,7 @@
 
 function Reschedule()
 {
-	document.getElementById("actionForm").action = "?page=admin_reschedule";
+	document.getElementById("actionForm").action = "/?page=admin_reschedule";
 	document.getElementById("actionForm").submit();
 }
 
@@ -37,15 +37,15 @@ function sendDreamTasteInviteHostess()
 
 function Edit()
 {
-	bounce('?page=admin_order_mgr&order=' + order_id + '&back=' + back_path());
+	bounce('/?page=admin_order_mgr&order=' + order_id + '&back=' + back_path());
 }
 
 function SessionDetails()
 {
-	bounce('?page=admin_main&session=' + session_id + '&back=' + back_path());
+	bounce('/?page=admin_main&session=' + session_id + '&back=' + back_path());
 }
 
 function GuestDetails()
 {
-	bounce('?page=admin_user_details&id=' + user_id + '&back=' + back_path());
+	bounce('/?page=admin_user_details&id=' + user_id + '&back=' + back_path());
 }

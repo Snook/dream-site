@@ -268,7 +268,7 @@ class CTemplate extends Savant2
 
 	static function getUserDetailsLink($user_id, $addBackLink = true)
 	{
-		$retVal = "?page=admin_user_details&id=" . $user_id;
+		$retVal = "/?page=admin_user_details&id=" . $user_id;
 
 		if ($addBackLink)
 		{

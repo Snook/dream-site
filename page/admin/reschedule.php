@@ -56,10 +56,10 @@
 
 		if (isset($_POST['order_id']) && is_numeric($_POST['order_id']))
 		{
-			CApp::bounce('?page=admin_order_mgr&order=' . $_POST['order_id'] . '&tabs=mgr.sessionsTab');
+			CApp::bounce('/?page=admin_order_mgr&order=' . $_POST['order_id'] . '&tabs=mgr.sessionsTab');
 		}
 
-		CApp::bounce('?page=admin_main');
+		CApp::bounce('/?page=admin_main');
 
 	 }
 

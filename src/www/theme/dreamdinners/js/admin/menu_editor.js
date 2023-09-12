@@ -2138,7 +2138,7 @@ $(function () {
 
 			},
 			close: function () {
-				bounce('?page=admin_menu_editor&tabs=menu.efl');
+				bounce('/?page=admin_menu_editor&tabs=menu.efl');
 			}
 		});
 
@@ -2366,7 +2366,7 @@ $(function () {
 
 			},
 			close: function () {
-				bounce('?page=admin_menu_editor&tabs=menu.efl');
+				bounce('/?page=admin_menu_editor&tabs=menu.efl');
 			}
 		});
 

@@ -693,7 +693,7 @@ class page_admin_reports_goal_management extends CPageAdminOnly
  	function runSiteAdmin()
  	{
 
- 		CApp::bounce("?page=admin_reports_goal_management_v2");
+ 		CApp::bounce("/?page=admin_reports_goal_management_v2");
 
  		$tpl = CApp::instance()->template();
 

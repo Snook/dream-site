@@ -40,7 +40,7 @@ function handle_submit_print()
 
 		});
 
-		bounce('?page=admin_session_tools_printing&do=print&menu=' + menu_id + '&store_id=' + store_id + print_menu, 'print_menus');
+		bounce('/?page=admin_session_tools_printing&do=print&menu=' + menu_id + '&store_id=' + store_id + print_menu, 'print_menus');
 
 	});
 

@@ -93,7 +93,7 @@ class page_admin_session_mgr_delivered extends CPageAdminOnly
 
 		$currentMenu = CBrowserSession::instance()->getValue('sm_current_menu');
 
-		CBrowserSession::instance()->setValue('sm_current_page', '?page=admin_session_mgr');
+		CBrowserSession::instance()->setValue('sm_current_page', '/?page=admin_session_mgr');
 
 		$todaysMonth = date("n");
 		$todaysYear = date("Y");

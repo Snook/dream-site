@@ -36,60 +36,60 @@
 
 			<?php if (!$this->emergency_mode) {?>
 				<?php if ($this->isPartialAccount) { ?>
-					<input  type="button" class="btn btn-primary btn-block" value="Upgrade Account" onclick="bounce('?page=admin_account&upgrade=true&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input  type="button" class="btn btn-primary btn-block" value="Upgrade Account" onclick="bounce('/?page=admin_account&upgrade=true&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } else if ($this->canPlaceOrder == true && !$isDC) { ?>
 					<div class="row my-1">
 						<div class="col-8 pr-1">
-							<input type="button" class="btn btn-primary btn-block" value="Place Order" onclick="bounce('?page=admin_order_mgr&user=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+							<input type="button" class="btn btn-primary btn-block" value="Place Order" onclick="bounce('/?page=admin_order_mgr&user=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 						</div>
 						<div class="col-4 pl-0">
-							<input type="button" class="btn btn-primary btn-block" value="<?php echo $this->date['next_M']; ?>" onclick="bounce('?page=admin_order_mgr&user=<?php echo  $this->user['id']?>&month=<?php echo $this->date['next_M_time']; ?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+							<input type="button" class="btn btn-primary btn-block" value="<?php echo $this->date['next_M']; ?>" onclick="bounce('/?page=admin_order_mgr&user=<?php echo  $this->user['id']?>&month=<?php echo $this->date['next_M_time']; ?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 						</div>
 					</div>
 				<?php } ?>
 
 				<?php if ($isDC) { ?>
-						<input type="button" style="height: 44px;" class="btn-delivered btn-cyan btn-block " value="Place Delivered Order" onclick="bounce('?page=admin_order_mgr_delivered&user=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+						<input type="button" style="height: 44px;" class="btn-delivered btn-cyan btn-block " value="Place Delivered Order" onclick="bounce('/?page=admin_order_mgr_delivered&user=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ( $this->user['numorders'] ) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="Order History" onclick="bounce('?page=admin_order_history&id=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="Order History" onclick="bounce('/?page=admin_order_history&id=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canSetPrefStatus == true) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="Preferred Status" onclick="bounce('?page=admin_preferred&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="Preferred Status" onclick="bounce('/?page=admin_preferred&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canChangeAccess == true) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="Access Levels" onclick="bounce('?page=admin_access_levels&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="Access Levels" onclick="bounce('/?page=admin_access_levels&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canEditInfo == true) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="Edit Guest Info" onclick="bounce('?page=admin_account&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="Edit Guest Info" onclick="bounce('/?page=admin_account&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canEmailCustomer == true) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="Email Guest" onclick="bounce('?page=admin_email&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="Email Guest" onclick="bounce('/?page=admin_email&id=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canModifyCreditCards == true) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="Credit Cards" onclick="bounce('?page=admin_credit_cards&user=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="Credit Cards" onclick="bounce('/?page=admin_credit_cards&user=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canModifyReferrals) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="Referred By" onclick="bounce('?page=admin_user_referral&user=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="Referred By" onclick="bounce('/?page=admin_user_referral&user=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canModifyStoreCredit == true) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="Credit" onclick="bounce('?page=admin_credit&id=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="Credit" onclick="bounce('/?page=admin_credit&id=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canViewUserHistory == true) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="User History" onclick="bounce('?page=admin_user_history&id=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="User History" onclick="bounce('/?page=admin_user_history&id=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canViewEventLog == true) { ?>
-					<input type="button" class="btn btn-primary btn-block" value="User Event Log" onclick="bounce('?page=admin_user_event_log&id=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" class="btn btn-primary btn-block" value="User Event Log" onclick="bounce('/?page=admin_user_event_log&id=<?php echo $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ($this->canViewPlatePointsHistory == true) { ?>
@@ -112,7 +112,7 @@
 					<input type="button" class="btn btn-danger btn-block mt-5" value="Remove Homestore" onclick="unsetHomeStore('<?php echo $this->user['id']?>');" data-tooltip="Disassociate guest's home store." />
 				<?php } ?>
 				<?php if (DD_SERVER_NAME != 'LIVE' || (CUser::getCurrentUser()->user_type == 'SITE_ADMIN' && $this->user['user_type'] != CUser::SITE_ADMIN)) { ?>
-					<input type="button" class="btn btn-danger btn-block" value="Login as Guest" onclick="bounce('?page=admin_user_details&amp;id=<?php echo $this->user['id']?>&amp;login_as_user=true');" data-tooltip="Login as guest." />
+					<input type="button" class="btn btn-danger btn-block" value="Login as Guest" onclick="bounce('/?page=admin_user_details&amp;id=<?php echo $this->user['id']?>&amp;login_as_user=true');" data-tooltip="Login as guest." />
 				<?php } ?>
 				<?php if (CUser::getCurrentUser()->user_type == 'SITE_ADMIN' && ($this->user['numorders'] === 0 || $this->candelete == true)) {	?>
 					<input type="button" class="btn btn-danger btn-block" value="Close Account" onclick="deleteUserConfirm('<?php echo $this->user['id']?>');" data-tooltip="Permanently delete the guest sitewide." />

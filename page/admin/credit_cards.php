@@ -58,7 +58,7 @@ class page_admin_credit_cards extends CPageAdminOnly
 		}
 		else
 		{
-			CApp::bounce('?page=admin_list_users');
+			CApp::bounce('/?page=admin_list_users');
 			$id = null;
 		}
 

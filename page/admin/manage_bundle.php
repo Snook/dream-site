@@ -78,7 +78,7 @@ class page_admin_manage_bundle extends CPageAdminOnly
 			}
 
 			$this->Template->setStatusMsg('Bundle deleted.');
-			CApp::bounce('?page=admin_manage_bundle');
+			CApp::bounce('/?page=admin_manage_bundle');
 		}
 
 		if (!empty($_GET['edit']) && is_numeric($_GET['edit']))
@@ -92,7 +92,7 @@ class page_admin_manage_bundle extends CPageAdminOnly
 			if (!$edit_DAO_bundle->find(true))
 			{
 				$this->Template->setStatusMsg('Bundle not found.');
-				CApp::bounce('?page=admin_manage_bundle');
+				CApp::bounce('/?page=admin_manage_bundle');
 			}
 
 			// check if bundles have orders against them
@@ -278,7 +278,7 @@ class page_admin_manage_bundle extends CPageAdminOnly
 					$transactionObject->query('COMMIT;');
 
 					$this->Template->setStatusMsg('Bundle created, select menu items.');
-					CApp::bounce('?page=admin_manage_bundle&edit=' . $createBundle->id);
+					CApp::bounce('/?page=admin_manage_bundle&edit=' . $createBundle->id);
 				}
 				catch (Exception $e)
 				{

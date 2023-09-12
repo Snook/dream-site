@@ -177,7 +177,7 @@ class processor_admin_helpers extends CPageProcessor
 				CAppUtil::processorMessageEcho(array(
 					'processor_success' => true,
 					'processor_message' => 'Order found.',
-					'bounce_to' => '?page=admin_order_history&id=' . $DAO_orders->user_id . '&order=' . $DAO_orders->id
+					'bounce_to' => '/?page=admin_order_history&id=' . $DAO_orders->user_id . '&order=' . $DAO_orders->id
 				));
 			}
 			else

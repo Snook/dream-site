@@ -101,7 +101,7 @@ function PrintLabels(urlpass)
 
 function PrintLabelsForSummary(urlpass)
 {
-	var baseURL = "?page=admin_reports_customer_menu_item_labels_multi&report_date=<?=$this->report_date?>&store_id=<?=$this->store_id?>&menuid=<?=$this->menu_id?>&back=<?=urlencode($this->form_submit_string)?>";
+	var baseURL = "/?page=admin_reports_customer_menu_item_labels_multi&report_date=<?=$this->report_date?>&store_id=<?=$this->store_id?>&menuid=<?=$this->menu_id?>&back=<?=urlencode($this->form_submit_string)?>";
 	baseURL += urlpass;
 	var item = document.getElementsByName("FastLane");
 	var suppress="&fastlane="+item[0].checked;
@@ -383,7 +383,7 @@ if (isset($this->run_report) && isset($this->report_type) && $this->run_report==
 
 					$results_display .= "<tr>" . "\n";
 
-					$url1 = '?page=admin_reports_customer_menu_item_labels&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string);
+					$url1 = '/?page=admin_reports_customer_menu_item_labels&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string);
 
 					$results_display .= '<td colspan="1"><a onclick="PrintLabels(\'' . $url1 . '\');" href="#">Print Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 					$results_display .= '<td colspan="1"><a onclick="PrintLabels(\'' . $url1 . '&amp;break=1\');" href="#">Print Labels w/ Breaks <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
@@ -446,7 +446,7 @@ if (isset($this->run_report) && isset($this->report_type) && $this->run_report==
 
 					$results_display .= "<tr>" . "\n";
 
-					$url1 = '?page=admin_reports_customer_menu_item_labels&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string);
+					$url1 = '/?page=admin_reports_customer_menu_item_labels&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string);
 
 					$results_display .= '<td colspan="1"><a href="#" onclick="PrintLabels(\'' . $url1 . '\');">Print Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 					$results_display .= '<td colspan="1"><a href="#" onclick="PrintLabels(\'' . $url1 . '&amp;break=1\');">Print Labels w/ Breaks <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
@@ -1251,7 +1251,7 @@ if (false && isset($this->run_report) && isset($this->report_type) && $this->run
 				$results_display .= '</tr>';
 				if (isset($entity['referring_user_email']) && !empty($entity['referring_user_email']))
 				{
-					$results_display .= "<tr><td></td><td colspan='3' style='background-color:#CCDDDD'>Referred By: <b><a href='?page=admin_user_details&amp;id=" . $entity['referring_user_id'] . "' >" . $entity['referring_user_name'] . "</a></b></td></tr>";
+					$results_display .= "<tr><td></td><td colspan='3' style='background-color:#CCDDDD'>Referred By: <b><a href='/?page=admin_user_details&amp;id=" . $entity['referring_user_id'] . "' >" . $entity['referring_user_name'] . "</a></b></td></tr>";
 					$results_display .= "<tr><td></td><td colspan='3' style='background-color:#CCDDDD'>Referral Type: <b>" . CCustomerReferral::$ShortOriginationDescription[$entity['referral_type']] . "</b></td></tr>";
 				}
 				// This is set for guest carryover notes

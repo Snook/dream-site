@@ -182,7 +182,7 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 	    }
 	    else
 	    {
-	        CApp::bounce('?page=admin_access_error&pagename=Financial Performance Report');
+	        CApp::bounce('/?page=admin_access_error&pagename=Financial Performance Report');
 	    }
 
 	}
@@ -200,7 +200,7 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 		}
 		else
 		{
-			CApp::bounce('?page=admin_access_error&pagename=Financial Performance Report');
+			CApp::bounce('/?page=admin_access_error&pagename=Financial Performance Report');
 		}
 
 	}

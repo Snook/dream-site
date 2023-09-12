@@ -30,7 +30,7 @@ class DD_Selenium_Test_Utils
 		include('includes/config.php');
 
 		$driver->get($baseURL . "/signout");
-		$driver->get($baseURL . "/?page=login");
+		$driver->get($baseURL . "/login");
 
 		if ($loginWithFacebook)
 		{

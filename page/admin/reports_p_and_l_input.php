@@ -40,7 +40,7 @@ class page_admin_reports_p_and_l_input extends CPageAdminOnly
 
 		if (!$hasPandLAccess)
 		{
-			CApp::bounce('?page=admin_access_error&pagename=Profit and Loss Input Form');
+			CApp::bounce('/?page=admin_access_error&pagename=Profit and Loss Input Form');
 		}
 
 		$this->runSiteAdmin();
@@ -67,7 +67,7 @@ class page_admin_reports_p_and_l_input extends CPageAdminOnly
 
 		if (!$hasPandLAccess && !$isCorporate)
 		{
-			CApp::bounce('?page=admin_access_error&pagename=Profit and Loss Input Form');
+			CApp::bounce('/?page=admin_access_error&pagename=Profit and Loss Input Form');
 		}
 
 		$this->runSiteAdmin();
@@ -95,7 +95,7 @@ class page_admin_reports_p_and_l_input extends CPageAdminOnly
 
 	    if (!$hasPandLAccess && !$isCorporate)
 	    {
-	        CApp::bounce('?page=admin_access_error&pagename=Profit and Loss Input Form');
+	        CApp::bounce('/?page=admin_access_error&pagename=Profit and Loss Input Form');
 	    }
 
 		$this->runSiteAdmin();

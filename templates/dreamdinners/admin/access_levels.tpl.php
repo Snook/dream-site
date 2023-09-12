@@ -49,7 +49,7 @@ function accessChange()
 <?php if (isset($_REQUEST['back'])) { ?>
 	<input type="button" class="button" value="Back" onclick="window.location = '<?php echo  $_REQUEST['back']?>';">
 <?php } else { ?>
-	<input type="button" class="button" value="Back" onclick="window.location = '?page=admin_user_details&id=<?php echo  $this->id?>';">
+	<input type="button" class="button" value="Back" onclick="window.location = '/?page=admin_user_details&id=<?php echo  $this->id?>';">
 <?php } ?>
 
 Access Level for: <b><?php echo $this->firstname; ?> <?php echo $this->lastname; ?></b>
