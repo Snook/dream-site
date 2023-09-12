@@ -436,7 +436,7 @@ function handle_archive_store()
 			title: 'Archive Store',
 			message: 'Are you sure you want to archive and re-open ' + store_name + ' #' + home_office_id + '?',
 			confirm: function () {
-				bounce('?page=admin_archive_store&store=' + store_id);
+				bounce('/?page=admin_archive_store&store=' + store_id);
 			}
 		});
 
@@ -453,10 +453,10 @@ function handle_delete_store()
 			title: 'Delete Store',
 			message: 'Are you sure you want to <span style="color: red; font-weight: bold;">permanently delete</span> this store from all of Dream Dinners?',
 			confirm: function () {
-				bounce('?page=admin_store_details&id=' + store_id + '&action=deleteStore');
+				bounce('/?page=admin_store_details&id=' + store_id + '&action=deleteStore');
 
 				create_and_submit_form({
-					action: '?page=admin_store_details&id' + store_id,
+					action: '/?page=admin_store_details&id' + store_id,
 					input: ({
 						action: 'deleteStore',
 						id: store_id

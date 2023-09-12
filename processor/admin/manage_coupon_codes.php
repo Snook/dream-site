@@ -191,7 +191,7 @@ class processor_admin_manage_coupon_codes extends CPageProcessor
 					CAppUtil::processorMessageEcho(array(
 						'processor_success' => true,
 						'processor_message' => 'Coupon details added.',
-						'bounce_to' => '?page=admin_manage_coupon_codes'
+						'bounce_to' => '/?page=admin_manage_coupon_codes'
 					));
 				}
 				else
@@ -199,7 +199,7 @@ class processor_admin_manage_coupon_codes extends CPageProcessor
 					CAppUtil::processorMessageEcho(array(
 						'processor_success' => true,
 						'processor_message' => 'Coupon details updated.',
-						'bounce_to' => '?page=admin_manage_coupon_codes'
+						'bounce_to' => '/?page=admin_manage_coupon_codes'
 					));
 				}
 			}

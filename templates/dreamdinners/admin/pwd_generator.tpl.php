@@ -11,7 +11,7 @@ include $this->loadTemplate('admin/page_header.tpl.php');
 <!-- Password Generator content start -->
 <FORM><p>Every time this page is displayed, the server generates high quality random alphanumeric character strings than may be used as secure passwords.</p>
 <?php include $this->loadTemplate('admin/generate_pswd.php'); ?>
-<P><INPUT TYPE="button" VALUE="REGENERATE" onClick="parent.location='?page=admin_pwd_generator'"></P>
+<P><INPUT TYPE="button" VALUE="REGENERATE" onClick="parent.location='/?page=admin_pwd_generator'"></P>
 </FORM>
 <br/>
 <p>*Double click the generated number to select it, then use your keyboard or mouse to copy and paste.</p>

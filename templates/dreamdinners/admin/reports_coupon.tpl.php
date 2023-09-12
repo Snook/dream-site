@@ -144,7 +144,7 @@ if ($this->report_submitted == TRUE) {
                         <A HREF="javascript:void(0)" onclick="externalLink('print');">Printer-Friendly Version&nbsp;</A><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" />&nbsp;</td>
                     <td align="right">
                         <?php
-                        $exportAllLink = '?page=admin_reports_coupon&store=' . $this->store . '&day=' . $this->report_day . '&month=' . $this->report_month .
+                        $exportAllLink = '/?page=admin_reports_coupon&store=' . $this->store . '&day=' . $this->report_day . '&month=' . $this->report_month .
                             '&year=' . $this->report_year . '&duration=' . urlencode($this->report_duration) . '&report_type=' . $this->report_type . '&export=xlsx&coupons=' . $this->export_list;
                         include $this->loadTemplate('admin/export.tpl.php');
                         ?>

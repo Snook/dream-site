@@ -77,7 +77,7 @@
 				<img src="<?php echo ADMIN_IMAGES_PATH; ?>/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" class="img-fluid">
 			</a>
 			<div class="nav-item">
-				<button class="btn btn-sm btn-outline-green" value="Change" onclick="bounce('?page=admin_location_switch&back=' + back_path());">
+				<button class="btn btn-sm btn-outline-green" value="Change" onclick="bounce('/?page=admin_location_switch&back=' + back_path());">
 					<?php echo (!empty(CStore::getFranchiseStore()->store_name)) ? CStore::getFranchiseStore()->store_name : 'Store not set'; ?>
 				</button>
 			</div>
@@ -92,11 +92,11 @@
 						<img class="img-profile rounded-circle w-25" src="<?php echo IMAGES_PATH; ?>/style/platepoints/placeholder_avatar.png">
 					</a>
 					<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-						<a class="dropdown-item" href="/?page=my_account">
+						<a class="dropdown-item" href="/my-account">
 							<i class="fas fa-user fa-sm fa-fw mr-2"></i>
 							My Account
 						</a>
-						<a class="dropdown-item" href="/?page=account">
+						<a class="dropdown-item" href="/account">
 							<i class="fas fa-cogs fa-sm fa-fw mr-2"></i>
 							Edit Account
 						</a>

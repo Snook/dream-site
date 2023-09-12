@@ -128,7 +128,7 @@ class CApp
 			{
 				if (strpos($locationRequest, "admin_login") === false)
 				{
-					CApp::bounce('?page=admin_reports');
+					CApp::bounce('/?page=admin_reports');
 				}
 			}
 		}
@@ -1030,11 +1030,11 @@ class CApp
 
 		if ($rtnPage)
 		{
-			self::bounce('?page=admin_location_switch&back=' . urlencode($rtnPage));
+			self::bounce('/?page=admin_location_switch&back=' . urlencode($rtnPage));
 		}
 		else
 		{
-			self::bounce('?page=admin_location_switch&back=?' . urlencode($_SERVER['QUERY_STRING']));
+			self::bounce('/?page=admin_location_switch&back=?' . urlencode($_SERVER['QUERY_STRING']));
 		}
 
 		exit();

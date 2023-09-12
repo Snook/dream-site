@@ -565,7 +565,7 @@
                             $tempArray = array();
                             $tempArray[] = $orderObj;
                             CGiftCard::sendGCOrderReceiptEmail($tempArray, CGPC::do_clean($_POST, TYPE_ARRAY), $charge_amount);
-                            CApp::bounce('?page=admin_gc_only_order_thankyou&gcOrders=' . $orderObj->id);
+                            CApp::bounce('/?page=admin_gc_only_order_thankyou&gcOrders=' . $orderObj->id);
                         }
          				break;
          				default:

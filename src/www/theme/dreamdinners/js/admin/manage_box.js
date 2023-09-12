@@ -108,7 +108,7 @@ $(function () {
 						return response.json();
 					}).then(json => {
 
-						bounce('?page=admin_manage_box');
+						bounce('/?page=admin_manage_box');
 
 					}).catch((error) => {
 						console.error('Error:', error);
@@ -143,7 +143,7 @@ $(function () {
 					return response.json();
 				}).then(json => {
 
-					bounce('?page=admin_manage_box');
+					bounce('/?page=admin_manage_box');
 
 				}).catch((error) => {
 					console.error('Error:', error);
@@ -179,7 +179,7 @@ $(function () {
 
 				if (json.data.form_name == 'BoxForm' && json.data.bounce)
 				{
-					bounce('?page=admin_manage_box&edit=' + json.data.box_id);
+					bounce('/?page=admin_manage_box&edit=' + json.data.box_id);
 				}
 
 				$('#BoxForm, #Bundle1Form, #Bundle2Form').removeClass('was-validated');

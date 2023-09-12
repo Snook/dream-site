@@ -76,7 +76,7 @@ class page_admin_order_history extends CPageAdminOnly
 				CApp::bounce($_REQUEST['back']);
 			}
 
-			CApp::bounce("?page=admin_main");
+			CApp::bounce("/?page=admin_main");
 		}
 
 		if (isset($_REQUEST['back']))
@@ -85,7 +85,7 @@ class page_admin_order_history extends CPageAdminOnly
 		}
 		else
 		{
-			$tpl->assign('back', '?page=admin_user_details&amp;id=' . $id);
+			$tpl->assign('back', '/?page=admin_user_details&amp;id=' . $id);
 		}
 
 		$User = DAO_CFactory::create('user');
@@ -99,7 +99,7 @@ class page_admin_order_history extends CPageAdminOnly
 				CApp::bounce($_REQUEST['back']);
 			}
 
-			CApp::bounce("?page=admin_main");
+			CApp::bounce("/?page=admin_main");
 		}
 
 		$tpl->assign('user', $User->toArray());

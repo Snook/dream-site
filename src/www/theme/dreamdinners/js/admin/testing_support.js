@@ -1,7 +1,7 @@
 function test_order_init()
 {
 	create_and_submit_form({
-		action: '?page=admin_order_mgr&user=' + params.user_id,
+		action: '/?page=admin_order_mgr&user=' + params.user_id,
 		input: ({
 			'session': params.session_id,
 			'request': 'savedTasteOrder',

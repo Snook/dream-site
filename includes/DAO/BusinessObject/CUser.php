@@ -4660,13 +4660,13 @@ class CUser extends DAO_User
 					{
 						CBrowserSession::setValueAndDuration("ul_has_valid_email", true, 300);
 						CBrowserSession::setValueAndDuration("ul_email", $username, 300);
-						CApp::bounce("?page=new_password");
+						CApp::bounce("/new-password");
 						exit;
 					}
 					else if ($tpl = CApp::instance()->template())
 					{
 						CBrowserSession::setValueAndDuration("ul_has_valid_email", false, 300);
-						CApp::bounce("?page=new_password");
+						CApp::bounce("/new-password");
 						exit;
 					}
 				}

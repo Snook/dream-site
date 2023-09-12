@@ -346,7 +346,7 @@ $(document).on('click', '.coupon-search', function (e) {
 	if (code.length !== 0)
 	{
 		create_and_submit_form({
-			action: '?page=admin_manage_coupon_codes',
+			action: '/?page=admin_manage_coupon_codes',
 			input: ({
 				'search_code': code
 			})

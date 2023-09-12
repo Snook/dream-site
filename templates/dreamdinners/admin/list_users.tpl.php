@@ -71,7 +71,7 @@
 			<?php } ?>
 			<th colspan="9" class="bgcolor_dark catagory_row" style="text-align:right;">
 				<?php if (isset($this->store) && $this->can_export) { ?>
-					<?php $exportAllLink = '?page=admin_list_users&amp;store=' . $this->store .  '&amp;letter_select=all&amp;export=xlsx'; ?>
+					<?php $exportAllLink = '/?page=admin_list_users&amp;store=' . $this->store .  '&amp;letter_select=all&amp;export=xlsx'; ?>
 					<?php include $this->loadTemplate('admin/export.tpl.php'); ?>
 				<?php } ?>
 			</th>

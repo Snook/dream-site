@@ -26,7 +26,7 @@
 							<td class="text-right"><?php echo $DAO_recipe->recipe_id; ?></td>
 							<td>
 								<?php if (!empty($DAO_recipe->menu_name)) { ?>
-									<a href="/?page=item&amp;recipe=<?php echo $DAO_recipe->recipe_id; ?>" target="_blank"><?php echo $DAO_recipe->recipe_name; ?></a>
+									<a href="/item?recipe=<?php echo $DAO_recipe->recipe_id; ?>" target="_blank"><?php echo $DAO_recipe->recipe_name; ?></a>
 								<?php } else { ?>
 									<?php echo $DAO_recipe->recipe_name; ?>
 								<?php } ?>

@@ -25,7 +25,7 @@ DD_Selenium_Test_Utils::Trace("Customer Order Test Initialized: About to begin .
 
 DD_Selenium_Test_Utils::signOnCustomer($driver);
 
-$driver->get($baseURL . "/?page=start_new_test_order");
+$driver->get($baseURL . "/start-new-test-order");
 
 DD_Selenium_Test_Utils::fill_out_customer_credit_card_form($driver);
 

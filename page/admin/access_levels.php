@@ -154,7 +154,7 @@ class page_admin_access_levels extends CPageAdminOnly
 		$store = null;
 		$assignedStoreID = null;
 		$usersStoreArray = array();
-		form_account::$forwardTo = '?page=admin_list_users';
+		form_account::$forwardTo = '/?page=admin_list_users';
 		$prevUserType = null;
 		$id = null;
 		$user_type = null;
@@ -392,7 +392,7 @@ class page_admin_access_levels extends CPageAdminOnly
 			if (!$found)
 			{
 				$tpl->setErrorMsg('That guest could not be found, or you do not have permission to edit that account.');
-				CApp::bounce('?page=admin_list_users');
+				CApp::bounce('/?page=admin_list_users');
 			}
 
 			if (is_null($user_type))

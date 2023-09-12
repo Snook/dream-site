@@ -15,21 +15,21 @@ $navigationArray = array
 	(
 		'access' => array(CUser::HOME_OFFICE_MANAGER, CUser::HOME_OFFICE_STAFF, CUser::FRANCHISE_OWNER, CUser::FRANCHISE_MANAGER, CUser::FRANCHISE_LEAD, CUser::FRANCHISE_STAFF, CUser::GUEST_SERVER, CUser::MANUFACTURER_STAFF, CUser::EVENT_COORDINATOR, CUser::OPS_LEAD),
 		'title' => 'Home',
-		'link' => '?page=admin_emergency_main',
+		'link' => '/?page=admin_emergency_main',
 		'submenu' => array()
 	),
 	'guests' => array
 	(
 		'access' => array(CUser::HOME_OFFICE_MANAGER, CUser::HOME_OFFICE_STAFF, CUser::FRANCHISE_OWNER, CUser::FRANCHISE_MANAGER, CUser::FRANCHISE_LEAD, CUser::FRANCHISE_STAFF, CUser::GUEST_SERVER, CUser::MANUFACTURER_STAFF, CUser::EVENT_COORDINATOR, CUser::OPS_LEAD),
 		'title' => 'Guests',
-		'link' => '?page=admin_list_users',
+		'link' => '/?page=admin_list_users',
 		'submenu' => array
 		(
 			'admin_list_users' => array
 			(
 				'access' => array(CUser::HOME_OFFICE_MANAGER, CUser::HOME_OFFICE_STAFF, CUser::FRANCHISE_OWNER, CUser::FRANCHISE_MANAGER, CUser::FRANCHISE_LEAD, CUser::FRANCHISE_STAFF, CUser::GUEST_SERVER, CUser::MANUFACTURER_STAFF, CUser::EVENT_COORDINATOR, CUser::OPS_LEAD),
 				'title' => 'Guest Search',
-				'link' => '?page=admin_list_users',
+				'link' => '/?page=admin_list_users',
 			)
 		)
 	),
@@ -37,44 +37,44 @@ $navigationArray = array
 	(
 		'access' => array(CUser::HOME_OFFICE_MANAGER, CUser::HOME_OFFICE_STAFF, CUser::FRANCHISE_OWNER, CUser::FRANCHISE_MANAGER, CUser::FRANCHISE_LEAD, CUser::FRANCHISE_STAFF, CUser::GUEST_SERVER, CUser::EVENT_COORDINATOR, CUser::OPS_LEAD, CUser::OPS_SUPPORT),
 		'title' => 'Reports',
-		'link' => '?page=admin_reports',
+		'link' => '/?page=admin_reports',
 		'submenu' => array
 		(
 			'admin_reports' => array
 			(
 				'access' => array(CUser::HOME_OFFICE_MANAGER, CUser::HOME_OFFICE_STAFF, CUser::FRANCHISE_OWNER, CUser::FRANCHISE_MANAGER, CUser::FRANCHISE_LEAD, CUser::FRANCHISE_STAFF, CUser::GUEST_SERVER, CUser::EVENT_COORDINATOR, CUser::OPS_LEAD, CUser::OPS_SUPPORT),
 				'title' => 'Select Report',
-				'link' => '?page=admin_reports',
+				'link' => '/?page=admin_reports',
 			),
 			'admin_reports_entree' => array
 			(
 				'access' => array(CUser::HOME_OFFICE_MANAGER, CUser::HOME_OFFICE_STAFF, CUser::FRANCHISE_OWNER, CUser::FRANCHISE_MANAGER, CUser::FRANCHISE_LEAD, CUser::FRANCHISE_STAFF, CUser::GUEST_SERVER, CUser::EVENT_COORDINATOR, CUser::OPS_LEAD, CUser::OPS_SUPPORT),
 				'title' => 'Entr&eacute;e Report',
-				'link' => '?page=admin_reports_entree',
+				'link' => '/?page=admin_reports_entree',
 			),
 			'admin_dashboard_new' => array
 			(
 				'access' => array(CUser::HOME_OFFICE_MANAGER, CUser::HOME_OFFICE_STAFF, CUser::FRANCHISE_OWNER, CUser::FRANCHISE_MANAGER, CUser::EVENT_COORDINATOR, CUser::OPS_LEAD),
 				'title' => 'Dashboard',
-				'link' => '?page=admin_dashboard_menu_based',
+				'link' => '/?page=admin_dashboard_menu_based',
 			),
 			'admin_reports_trending' => array
 			(
 				'access' => array(CUser::HOME_OFFICE_MANAGER, CUser::HOME_OFFICE_STAFF, CUser::FRANCHISE_OWNER, CUser::FRANCHISE_MANAGER, CUser::OPS_LEAD),
 				'title' => 'Trending',
-				'link' => '?page=admin_reports_trending_menu_based',
+				'link' => '/?page=admin_reports_trending_menu_based',
 			),
 			'admin_reports_goal_management_v2' => array
 			(
 				'access' => array(CUser::HOME_OFFICE_MANAGER, CUser::HOME_OFFICE_STAFF, CUser::FRANCHISE_OWNER, CUser::FRANCHISE_MANAGER, CUser::EVENT_COORDINATOR, CUser::OPS_LEAD),
 			    'title' => 'Goal Management',
-				'link' => '?page=admin_reports_goal_management_v2',
+				'link' => '/?page=admin_reports_goal_management_v2',
 			),
 			'admin_reports_manufacturer_labels' => array
 			(
 				'access' => array(CUser::HOME_OFFICE_MANAGER, CUser::HOME_OFFICE_STAFF, CUser::FRANCHISE_OWNER, CUser::FRANCHISE_MANAGER),
 				'title' => 'Manufacturing Labels',
-				'link' => '?page=admin_reports_manufacturer_labels',
+				'link' => '/?page=admin_reports_manufacturer_labels',
 			)
 		)
 	),
@@ -83,14 +83,14 @@ $navigationArray = array
 	(
 		'access' => array(CUser::HOME_OFFICE_MANAGER, CUser::HOME_OFFICE_STAFF, CUser::FRANCHISE_OWNER, CUser::FRANCHISE_MANAGER, CUser::FRANCHISE_LEAD, CUser::FRANCHISE_STAFF, CUser::GUEST_SERVER, CUser::OPS_LEAD, CUser::EVENT_COORDINATOR),
 		'title' => 'Store/Franchise',
-		'link' => '?page=admin_resources',
+		'link' => '/?page=admin_resources',
 		'submenu' => array
 		(
 			'admin_resources' => array
 			(
 				'access' => array(CUser::HOME_OFFICE_MANAGER, CUser::HOME_OFFICE_STAFF, CUser::FRANCHISE_OWNER, CUser::FRANCHISE_MANAGER, CUser::FRANCHISE_LEAD, CUser::EVENT_COORDINATOR, CUser::OPS_LEAD),
 				'title' => 'Resources',
-				'link' => '?page=admin_resources',
+				'link' => '/?page=admin_resources',
 			),
 			'admin_estore' => array
 			(
@@ -108,7 +108,7 @@ $navigationArray = array
 		<tr>
 			<td colspan="3" style="padding:20px;font-weight:bold;font-size:16px;">
 				<span style="float:right;white-space:nowrap;font-size:14px;">Welcome <span id="fadmin_username"><?php echo CUser::getCurrentUser()->firstname . ' '. CUser::getCurrentUser()->lastname; ?></span></span>
-				<span style="float:left;white-space:nowrap;font-size:16px;"><span id="fadmin_usertype"><?php echo CUser::userTypeText(CUser::getCurrentUser()->user_type); ?></span> &ndash; <?php echo (!empty(CStore::getFranchiseStore()->store_name)) ? CStore::getFranchiseStore()->store_name : 'Store not set'; ?> <input type="button" class="button" value="Change" onclick="bounce('?page=admin_location_switch&back=' + back_path());" /></span>
+				<span style="float:left;white-space:nowrap;font-size:16px;"><span id="fadmin_usertype"><?php echo CUser::userTypeText(CUser::getCurrentUser()->user_type); ?></span> &ndash; <?php echo (!empty(CStore::getFranchiseStore()->store_name)) ? CStore::getFranchiseStore()->store_name : 'Store not set'; ?> <input type="button" class="button" value="Change" onclick="bounce('/?page=admin_location_switch&back=' + back_path());" /></span>
 			</td>
 		</tr>
 		<tr>
@@ -183,7 +183,7 @@ $navigationArray = array
 				<a href="<?php echo $this->back; ?>" class="fadmin_nav fadmin_nav_right">Back</a>
 				<?php } ?>
 				<?php if (isset($this->helpLinkSection)) { ?>
-				<a href="javascript:NewWindowScroll('?page=admin_help_system&section=<?php echo $this->helpLinkSection; ?>','Help','675','575');" class="fadmin_nav fadmin_nav_right"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/help.png" alt="Print" style="vertical-align:middle;margin-bottom:.25;" /> Page Help</a>
+				<a href="javascript:NewWindowScroll('/?page=admin_help_system&section=<?php echo $this->helpLinkSection; ?>','Help','675','575');" class="fadmin_nav fadmin_nav_right"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/help.png" alt="Print" style="vertical-align:middle;margin-bottom:.25;" /> Page Help</a>
 				<?php } ?>
 			</td>
 		</tr>

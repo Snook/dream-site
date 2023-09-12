@@ -13,7 +13,7 @@ class page_admin_password_expired extends CPage {
 
 		if (CUser::isLoggedIn() && CUser::getCurrentUser()->user_type != CUser::CUSTOMER)
 		{
-			CApp::bounce('?page=admin_main');
+			CApp::bounce('/?page=admin_main');
 		}
 	}
 }

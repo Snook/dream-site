@@ -61,7 +61,7 @@ class page_admin_access_agreement extends CPageAdminOnly {
 	{
 		$tpl = CApp::instance()->template();
 
-		$tpl->assign('back', '?page=admin_main');
+		$tpl->assign('back', '/?page=admin_main');
 
 		if (!empty($_REQUEST['back']))
 		{
@@ -116,7 +116,7 @@ class page_admin_access_agreement extends CPageAdminOnly {
 				if ($User->user_type == CUser::NEW_EMPLOYEE || $User->user_typw == CUser::DISHWASHER)
 				{
 					unset(CApp::instance()->template()->back);
-					CApp::bounce("?page=admin_safe_landing");
+					CApp::bounce("/?page=admin_safe_landing");
 				}
 
 				CApp::bounce($tpl->back);

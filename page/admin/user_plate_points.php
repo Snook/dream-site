@@ -407,7 +407,7 @@ class page_admin_user_plate_points extends CPageAdminOnly
 		}
 		else
 		{
-			$tpl->assign('back', '?page=admin_user_details&id=' . $userID);
+			$tpl->assign('back', '/?page=admin_user_details&id=' . $userID);
 		}
 
 		$userObj = DAO_CFactory::create('user');
@@ -427,7 +427,7 @@ class page_admin_user_plate_points extends CPageAdminOnly
 		}
 		else
 		{
-			$tpl->assign('back', '?page=admin_user_details&amp;id=' . $userID);
+			$tpl->assign('back', '/?page=admin_user_details&amp;id=' . $userID);
 		}
 
 		if (isset($_REQUEST['print_enrollment_form']))

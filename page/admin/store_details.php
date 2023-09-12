@@ -74,7 +74,7 @@ class page_admin_store_details extends CPageAdminOnly
 		}
 		else if (!$id)
 		{
-			CApp::bounce('?page=admin_list_stores');
+			CApp::bounce('/?page=admin_list_stores');
 		}
 
 		if (!empty($id) && is_numeric($id))
@@ -96,7 +96,7 @@ class page_admin_store_details extends CPageAdminOnly
 					}
 					else
 					{
-						CApp::bounce('?page=admin_list_stores');
+						CApp::bounce('/?page=admin_list_stores');
 					}
 				}
 			}
@@ -1730,7 +1730,7 @@ class page_admin_store_details extends CPageAdminOnly
 					}
 
 					$this->Template->setToastMsg(array('message' => 'The store properties have been updated.'));
-					CApp::bounce('?page=admin_store_details&id=' . $id);
+					CApp::bounce('/?page=admin_store_details&id=' . $id);
 				}
 			}
 
@@ -1750,7 +1750,7 @@ class page_admin_store_details extends CPageAdminOnly
 			$this->Template->assign('form_store_details', $Form->Render());
 		}
 
-		$back = '?page=admin_list_stores';
+		$back = '/?page=admin_list_stores';
 
 		if (array_key_exists('back', $_GET) && $_GET['back'])
 		{
