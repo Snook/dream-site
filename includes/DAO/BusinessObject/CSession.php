@@ -2234,21 +2234,6 @@ class CSession extends DAO_Session
 			}
 		}
 
-		// add Menu start date events to calendar
-		foreach ($activeMenus as $menu)
-		{
-			$sessionArray['sessions'][] = array(
-				'title' => CTemplate::dateTimeFormat($menu['menu_name'], FULL_MONTH) . ' menu launch',
-				'start' => $menu['global_menu_start_date'],
-				'className' => 'fc-event-menu_start',
-				'extendedProps' => array(
-					'eventType' => 'label',
-					'id' => $menu['id'],
-					'session_count' => ((!isset($menu['session_count'])) ? 0 : $activeMenus[$menu['id']]['session_count'])
-				)
-			);
-		}
-
 		return $sessionArray;
 	}
 
