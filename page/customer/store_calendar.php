@@ -30,7 +30,7 @@ class page_store_calendar extends CPage
 
 				// if the user is eligible for Open House, get the next two upcoming Open House
 				$storeOHEvents = array();
-				if (!CUser::isLoggedIn() || (CUser::isLoggedIn() && CUser::getCurrentUser()->isEligibleForDreamTaste()))
+				if (!CUser::isLoggedIn() || (CUser::isLoggedIn() && CUser::getCurrentUser()->isEligibleForDreamTaste()) || defined('ALLOW_TV_OFFER_IF_PREVIOUS') && ALLOW_TV_OFFER_IF_PREVIOUS)
 				{
 					$count = 0;
 

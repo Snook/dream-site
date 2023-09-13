@@ -364,13 +364,14 @@ RewriteRule ^location\/([\w-]+)\/order\/?$ /ddproc.php?processor=session_type&st
 RewriteRule ^location\/([\w-]+)\/order\/starter\/?$ /ddproc.php?processor=session_type&store=$1&type=starter [R=301,NC,QSA]
 RewriteRule ^location\/([\w-]+)\/order\/([0-9a-z]*)\/?$ /ddproc.php?processor=session_type&store=$1&menu=$2 [R=301,NC,QSA]
 RewriteRule ^location\/([\w-]+)\/order\/([0-9a-z]*)\/starter\/?$ /ddproc.php?processor=session_type&store=$1&menu=$2&type=starter [R=301,NC,QSA]
-RewriteRule ^location\/([\w-]+)\/order\/([0-9a-z]*)\/events\/?$ /ddproc.php?processor=session_type&store=$1&menu=$2&type=event [R=301,NC,QSA]
 
 # Handle fundraiser page link NEW
 RewriteRule ^location\/([\w-]+)\/fundraisers\/?$ /?page=fundraiser&id=$1 [NC,L,QSA]
 
 # /location/mill-creek/meet-the-owner
 # /location/mill-creek/calendar
+RewriteRule ^location\/([\w-]+)\/calendar\/([0-9a-z]*)\/events\/?$ /ddproc.php?processor=session_type&store=$1&menu=$2&type=event [R=301,NC,QSA]
+
 RewriteRule ^location\/([\w-]+)/([\w-]+)\/?$ /?page=store_$2&id=$1 [NC,L,QSA]
 # /location/mill-creek
 RewriteRule ^location\/([\w-]+)\/?$ /?page=store&id=$1 [NC,L,QSA]
