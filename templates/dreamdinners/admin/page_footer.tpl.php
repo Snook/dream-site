@@ -18,7 +18,7 @@
 	</div>
 
 	<div id="copyright" class="copyright" style="text-align:center;">
-		<a href="main.php" onclick="confirmNavigate('main.php', 'You are still logged in as an admin! Are you sure you would like to visit the customer site as an admin user.');event.preventDefault();">Back to Customer Site</a> | &copy; Copyright Dream Dinners Inc. All rights reserved.
+		<a href="/" onclick="confirmNavigate('/', 'You are still logged in as an admin! Are you sure you would like to visit the customer site as an admin user.');event.preventDefault();">Back to Customer Site</a> | &copy; Copyright Dream Dinners Inc. All rights reserved.
 	</div>
 
 <?php } ?>

@@ -1,4 +1,4 @@
-<?php // main.php
+<?php
 
 require_once("includes/CPageAdminOnly.inc");
 require_once("includes/CDashboardReportMenuBased.inc");

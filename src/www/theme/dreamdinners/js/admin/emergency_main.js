@@ -1889,7 +1889,7 @@ function handle_guest_search()
 
 		create_and_submit_form({
 			method: 'get',
-			action: 'main.php',
+			action: '/',
 			input: ({
 				'page': 'admin_list_users',
 				'search_type': $('#gs_search_type').val(),

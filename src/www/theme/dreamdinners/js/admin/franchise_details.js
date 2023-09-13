@@ -25,7 +25,7 @@ function addOwner(guest)
 	dd_toast({message: 'Adding ' + $(guest).data('firstname') + ' ' + $(guest).data('lastname')});
 
 	create_and_submit_form({
-		action: 'main.php' + window.location.search,
+		action: window.location.search,
 		input: ({
 			addOwner: true,
 			user_id: $(guest).data('user_id')
@@ -60,7 +60,7 @@ function handle_owner_links()
 					dd_toast({message: 'Removing Owner'});
 
 					create_and_submit_form({
-						action: 'main.php' + window.location.search,
+						action: window.location.search,
 						input: ({
 							action: 'deleteOwner',
 							owner_id: user_id
