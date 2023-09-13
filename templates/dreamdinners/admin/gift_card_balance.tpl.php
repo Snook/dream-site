@@ -108,7 +108,7 @@
 						</tr>
 						<tr>
 							<td colspan="3"><p><br/>To view the complete Gift Card Policies &amp; Terms online or if you have questions regarding your Gift Card or Customer Service options please
-									visit <a href="?static=giftcards">gift cards</a>. For 24/7 Automated Cardholder Balance information: 1-360-804-2020.</p></td>
+									visit <a href="/giftcards">gift cards</a>. For 24/7 Automated Cardholder Balance information: 1-360-804-2020.</p></td>
 						</tr>
 					</table>
 				</td>
@@ -138,7 +138,7 @@
 				<td width="300"  align="left" valign="middle"><?php echo $this->response; ?></td>
 			</tr>
 			<tr>
-				<td colspan="3">To view the complete Gift Card Policies &amp; Terms online or if you have questions regarding your Gift Card or Customer Service options please visit <a href="?static=giftcards">gift cards</a>. For 24/7 Automated Cardholder Balance information: 1-360-804-2020.</td>
+				<td colspan="3">To view the complete Gift Card Policies &amp; Terms online or if you have questions regarding your Gift Card or Customer Service options please visit <a href="/giftcards">gift cards</a>. For 24/7 Automated Cardholder Balance information: 1-360-804-2020.</td>
 			</tr>
 		</table>
 		</td>
