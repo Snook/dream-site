@@ -2163,6 +2163,7 @@ class CSession extends DAO_Session
 					$sessionArray['sessions'][] = array(
 						'title' => $session['session_type_title_public'],
 						'start' => $session['session_start'],
+						'end' => $session['session_end'],
 						'className' => 'fc-event-session-' . $session['session_type_string'],
 						'extendedProps' => array(
 							'eventType' => 'session',
