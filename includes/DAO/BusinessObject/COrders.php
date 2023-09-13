@@ -11707,6 +11707,11 @@ class COrders extends DAO_Orders
 		$orderArray['points_discount_total_food'] = $foodPortionOfPPCredit;
 		$orderArray['points_discount_total_fee'] = $feePortionOfPPCredit;
 
+		if (empty($orderArray['ltd_round_up_value']))
+		{
+			$orderArray['ltd_round_up_value'] = "0";
+		}
+
 		$coupon = $Order->getCoupon();
 		if ($coupon)
 		{
