@@ -16,7 +16,7 @@
 <tr>
 <td><p>Dear <?= $this->firstname ?>
   , <br /><br />
-  Your Made For You pick up time is almost here! Please come into the store on <b>
+  Your pick up time is almost here! Please come into the store on <b>
 	  <?=$this->dateTimeFormat($this->session_start, NORMAL);?>
 	  </b> to <b>
 	  <?= date("g:i A", strtotime($this->session_end))?>

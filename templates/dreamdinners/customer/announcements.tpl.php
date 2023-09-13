@@ -23,7 +23,7 @@
 				<div class="col">
 				<p>No current announcements.</p>
 					<!--<p>At Dream Dinners, the safety of our guests, our staff and their families are our top priority. Dream Dinners is zoned as a specialty food store meaning we are an essential business and will continue to provide delicious dinners to our guests.</p>
-					<p>Our stores are open for curbside pickup, and at participating locations, home delivery. As local jurisdictions allow, we will also be opening assembly sessions on a store by store basis. We pride ourselves on providing a clean environment for our Made for You pick up sessions and assembly sessions where these are possible. With the concerns around COVID-19 across the US, we want to keep you updated on our ongoing health practices.</p>
+					<p>Our stores are open for curbside pickup, and at participating locations, home delivery. As local jurisdictions allow, we will also be opening assembly sessions on a store by store basis. We pride ourselves on providing a clean environment for our Made for pick up sessions and assembly sessions where these are possible. With the concerns around COVID-19 across the US, we want to keep you updated on our ongoing health practices.</p>
 					<p>At Dream Dinners, we always follow local health guidelines in our professional kitchens including:</p>
 					<ul>
 						<li>Our stores are required to be ServSafe and Health Department Certified.</li>

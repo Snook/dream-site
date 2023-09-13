@@ -532,7 +532,7 @@ class CSession extends DAO_Session
 			case CSession::REMOTE_PICKUP:
 				return array(
 					$this->session_type_title = "Community Pick Up",
-					$this->session_type_title_public = "You Pick Up",
+					$this->session_type_title_public = "Pick Up",
 					$this->session_type_title_short = "CP",
 					$this->session_type_fadmin_acronym = "CP",
 					$this->session_type_string = "remote_pickup"
@@ -541,7 +541,7 @@ class CSession extends DAO_Session
 			case CSession::REMOTE_PICKUP_PRIVATE:
 				return array(
 					$this->session_type_title = "Community Pick Up - Private",
-					$this->session_type_title_public = "You Pick Up",
+					$this->session_type_title_public = "Pick Up",
 					$this->session_type_title_short = "CPP",
 					$this->session_type_fadmin_acronym = "CPP",
 					$this->session_type_string = "remote_pickup_private"
@@ -559,7 +559,7 @@ class CSession extends DAO_Session
 			case CSession::STANDARD:
 				return array(
 					$this->session_type_title = "Assembly session",
-					$this->session_type_title_public = "You assemble at store",
+					$this->session_type_title_public = "Assemble at store",
 					$this->session_type_title_short = "A",
 					$this->session_type_fadmin_acronym = "A",
 					$this->session_type_string = "standard"
@@ -568,7 +568,7 @@ class CSession extends DAO_Session
 			case CSession::SPECIAL_EVENT:
 				return array(
 					$this->session_type_title = "Made For You",
-					$this->session_type_title_public = "You Pick Up at store",
+					$this->session_type_title_public = "Pick Up at store",
 					$this->session_type_title_short = "MFY",
 					$this->session_type_fadmin_acronym = "MFY",
 					$this->session_type_string = "made_for_you"

@@ -40,7 +40,7 @@
 				<div class="row my-5">
 					<div class="col mb-4">
 						<h2><strong>Opt into Dream Dinners Text Messaging Service</strong></h2>
-						<p>Get important Dream Dinners info in the palm of your hand like a reminder about your next session or Made for You pick up. Plus exciting offers, announcements and weekly thaw reminders.</p>
+						<p>Get important Dream Dinners info in the palm of your hand like a reminder about your next session or pick up. Plus exciting offers, announcements and weekly thaw reminders.</p>
 						<p>Ready to opt-in? Here's how:</p>
 						<ol>
 						  <li><a href="/login">Log in to your account</a>.</li>
