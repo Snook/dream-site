@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			$('.fc-header-toolbar .fc-toolbar-title').addClass('d-none d-md-block');
 			$('.fc-list-event').addClass('cursor-pointer');
 			if($('.title-exists').length == 0)
-			$('.fc-list-day .fc-list-day-text').append('<span class="font-weight-normal font-size-small d-none d-md-inline title-exists"> - Select a session below to get started</span>');
+			$('.fc-list-day .fc-list-day-text').append('<span class="font-weight-normal font-size-small d-none d-md-inline title-exists"> - Select a time below to get started</span>');
 		},
 		eventContent: function(arg, createElement){
 			$('#calendar_results').empty();
