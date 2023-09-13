@@ -37,7 +37,7 @@ function create_fundraiser_button()
 					};
 
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -83,7 +83,7 @@ function handle_fundraiser_edit()
 			var fund_id = $(this).data('fund_id_edit');
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -123,7 +123,7 @@ function handle_fundraiser_edit()
 									};
 
 									$.ajax({
-										url: 'ddproc.php',
+										url: '/processor',
 										type: 'POST',
 										timeout: 20000,
 										dataType: 'json',
@@ -179,7 +179,7 @@ function handle_fundraiser_edit()
 			var fund_id = $(this).data('enable_fund');
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',

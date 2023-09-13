@@ -402,8 +402,8 @@ function SavePricing()
 			document.getElementById("dp_error").style.display = "none";
 			document.getElementById("dp_error").innerHTML = "";
 
-			let url = "ddproc.php?processor=admin_defaultPricingProcessor&action=save&store_id=" + storeInfo.id;
-			//	var url = "ddproc.php?processor=admin_defaultPricingProcessor&action=save&data=" + payLoad + "&store_id=<?=$this->store_id?>";
+			let url = "processor?processor=admin_defaultPricingProcessor&action=save&store_id=" + storeInfo.id;
+			//	var url = "processor?processor=admin_defaultPricingProcessor&action=save&data=" + payLoad + "&store_id=<?=$this->store_id?>";
 			xmlHttp.onreadystatechange = SaveDefPricingComplete;
 
 			xmlHttp.open("POST", url, true);
@@ -445,8 +445,8 @@ function RetrievePricing()
 			document.getElementById("dp_error").style.display = "none";
 			document.getElementById("dp_error").innerHTML = "";
 
-			var url = "ddproc.php?processor=admin_defaultPricingProcessor&action=retrieve&store_id=" + storeInfo.id;
-			//	var url = "ddproc.php?processor=admin_defaultPricingProcessor&action=save&data=" + payLoad + "&store_id=<?=$this->store_id?>";
+			var url = "processor?processor=admin_defaultPricingProcessor&action=retrieve&store_id=" + storeInfo.id;
+			//	var url = "processor?processor=admin_defaultPricingProcessor&action=save&data=" + payLoad + "&store_id=<?=$this->store_id?>";
 			xmlHttp.onreadystatechange = RetrieveDefPricingComplete;
 
 			xmlHttp.open("GET", url, true);
@@ -2037,7 +2037,7 @@ $(function () {
 							'Add Items to Menu': function () {
 
 								$.ajax({
-									url: 'ddproc.php',
+									url: '/processor',
 									type: 'POST',
 									timeout: 20000,
 									dataType: 'json',
@@ -2152,7 +2152,7 @@ $(function () {
 		let recipe_id = $(this).data('recipe_id');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -2255,7 +2255,7 @@ $(function () {
 								'Add Sides & Sweets to Menu': function () {
 
 									$.ajax({
-										url: 'ddproc.php',
+										url: '/processor',
 										type: 'POST',
 										timeout: 20000,
 										dataType: 'json',
@@ -2401,7 +2401,7 @@ $(function () {
 		let recipe_id = $(this).data('recipe_id');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',

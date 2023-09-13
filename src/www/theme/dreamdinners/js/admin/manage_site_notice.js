@@ -134,7 +134,7 @@
 		e.preventDefault();
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -165,7 +165,7 @@
 		$('.notice-store-select').addClass('disabled');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -237,7 +237,7 @@
 			var data = JSON.stringify(result);
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -297,7 +297,7 @@
 					else
 					{
 						$.ajax({
-							url: 'ddproc.php',
+							url: '/processor',
 							type: 'POST',
 							timeout: 20000,
 							dataType: 'json',
@@ -445,7 +445,7 @@
 							else
 							{
 								$.ajax({
-									url: 'ddproc.php',
+									url: '/processor',
 									type: 'POST',
 									timeout: 20000,
 									dataType: 'json',
@@ -479,7 +479,7 @@
 				var notice_details = JSON.stringify(notice);
 
 				$.ajax({
-					url: 'ddproc.php',
+					url: '/processor',
 					type: 'POST',
 					timeout: 20000,
 					dataType: 'json',

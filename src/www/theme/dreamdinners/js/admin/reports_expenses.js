@@ -17,7 +17,7 @@ function onSessionClick(session_id, date, time)
 	$("#cost_inputter_status_msg").hide();
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -129,7 +129,7 @@ function initExpensesDialog()
 
 			// update database
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -230,7 +230,7 @@ function initExpensesDialog()
 
 			// update database
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -383,7 +383,7 @@ function SE_dayClickHandler(element)
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -456,5 +456,3 @@ function SE_dayClickHandler(element)
 	});
 
 }
-
-

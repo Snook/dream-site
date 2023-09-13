@@ -212,7 +212,6 @@ if ($this->print_view == false) {
 ?>
 
 <form action="<?=$this->form_submit_string?>" name="frm" method="post" onsubmit="return _check_form(this);" >
-<input type="hidden" name="page" value="admin_reports_select_multi_session" />
 
 <?php
 	if (isset($this->form_session_list['store_html']) )

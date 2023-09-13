@@ -87,7 +87,7 @@
 								<button class="input-group-text btn-clip" data-toggle="tooltip" data-placement="top" title="Copy link to clipboard"  data-clipboard-target="#my_share_pp_link" ><i class="fas fa-clipboard-list"></i></button>
 							</div>
 							<div class="input-group-append">
-								<a class="input-group-text" data-toggle="tooltip" data-placement="top" title="Download QR code" href="<?php echo HTTPS_BASE; ?>ddproc.php?processor=qr_code&amp;op=referral&amp;d=1&amp;s=10&amp;id=<?php echo CUser::getCurrentUser()->id; ?>" ><i class="fas fa-qrcode"></i></a>
+								<a class="input-group-text" data-toggle="tooltip" data-placement="top" title="Download QR code" href="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&amp;op=referral&amp;d=1&amp;s=10&amp;id=<?php echo CUser::getCurrentUser()->id; ?>" ><i class="fas fa-qrcode"></i></a>
 							</div>
 						</div>
 
@@ -101,9 +101,9 @@
 
 						<div class="row pt-2">
 							<div class="col-md-4 col-xl-2 text-center">
-								<a href="<?php echo HTTPS_BASE; ?>ddproc.php?processor=qr_code&amp;op=referral&amp;s=10&amp;id=<?php echo CUser::getCurrentUser()->id; ?>" target="_blank">
-									<img class="img-fluid" src="<?php echo HTTPS_BASE; ?>ddproc.php?processor=qr_code&amp;op=referral&amp;s=5&amp;id=<?php echo CUser::getCurrentUser()->id; ?>"></a>
-								<p class="font-weight-light font-size-small">(<a href="<?php echo HTTPS_BASE; ?>ddproc.php?processor=qr_code&amp;op=referral&amp;d=1&amp;s=10&amp;id=<?php echo CUser::getCurrentUser()->id; ?>">Download</a>)</p>
+								<a href="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&amp;op=referral&amp;s=10&amp;id=<?php echo CUser::getCurrentUser()->id; ?>" target="_blank">
+									<img class="img-fluid" src="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&amp;op=referral&amp;s=5&amp;id=<?php echo CUser::getCurrentUser()->id; ?>"></a>
+								<p class="font-weight-light font-size-small">(<a href="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&amp;op=referral&amp;d=1&amp;s=10&amp;id=<?php echo CUser::getCurrentUser()->id; ?>">Download</a>)</p>
 							</div>
 							<div class="col-md-8 col-xl-10">
 								<p class="font-weight-bold">Your Referral QR Code</p>

@@ -280,17 +280,17 @@ class CCouponCode extends DAO_Coupon_code
 			return 'online_not_supported';
 		}
 
-		if (strpos($_SERVER['REQUEST_URI'], "ddproc.php?processor=couponCodeProcessor") !== false && $this->is_customer_order_supported == "0")
+		if (strpos($_SERVER['REQUEST_URI'], "processor?processor=couponCodeProcessor") !== false && $this->is_customer_order_supported == "0")
 		{
 			return 'online_not_supported';
 		}
 
-		if (strpos($_SERVER['REQUEST_URI'], "ddproc.php?processor=admin_directOrderCouponCodeProcessor") !== false && $this->is_direct_order_supported == "0")
+		if (strpos($_SERVER['REQUEST_URI'], "processor?processor=admin_directOrderCouponCodeProcessor") !== false && $this->is_direct_order_supported == "0")
 		{
 			return 'direct_order_not_supported';
 		}
 
-		if ((strpos($_SERVER['REQUEST_URI'], "ddproc.php?processor=admin_editOrderCouponCodeProcessor") !== false || strpos($_SERVER['REQUEST_URI'], "ddproc.php?processor=admin_editOrderCouponCodeProcessorDelivered") !== false) && $this->is_order_editor_supported == "0")
+		if ((strpos($_SERVER['REQUEST_URI'], "processor?processor=admin_editOrderCouponCodeProcessor") !== false || strpos($_SERVER['REQUEST_URI'], "processor?processor=admin_editOrderCouponCodeProcessorDelivered") !== false) && $this->is_order_editor_supported == "0")
 		{
 			return 'order_edit_not_supported';
 		}
@@ -421,7 +421,7 @@ class CCouponCode extends DAO_Coupon_code
 			}
 
 			// SHORT CIRCUIT EVALUATION EMERGENMCY HACK
-			if (strpos($_SERVER['REQUEST_URI'], "ddproc.php?processor=couponCodeProcessor") !== false)
+			if (strpos($_SERVER['REQUEST_URI'], "processor?processor=couponCodeProcessor") !== false)
 			{
 				return array('online_not_supported');
 			}
@@ -1097,7 +1097,7 @@ class CCouponCode extends DAO_Coupon_code
 		}
 
 		// no coupon codes if customer is ordering a dream rewards discounted order from the front end
-		if ((strpos($_SERVER['REQUEST_URI'], "ddproc.php?processor=couponCodeProcessor") !== false) && $Order->dream_rewards_level > 0)
+		if ((strpos($_SERVER['REQUEST_URI'], "processor?processor=couponCodeProcessor") !== false) && $Order->dream_rewards_level > 0)
 		{
 			$errorArray[] = 'guest_is_ordering_in_DR';
 		}

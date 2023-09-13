@@ -753,7 +753,7 @@ function handle_helpdesk()
 		var request_url = window.location.pathname + window.location.search;
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 60000,
 			dataType: 'json',
@@ -840,7 +840,7 @@ function handle_helpdesk()
 								}
 
 								$.ajax({
-									url: 'ddproc.php',
+									url: '/processor',
 									type: 'POST',
 									timeout: 60000,
 									cache: false,
@@ -901,7 +901,7 @@ function handle_inline_guest_search()
 		delete search_button_parameters['qtip']; // remove unnecessary data from being sent to processor
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 60000,
 			dataType: 'json',
@@ -992,7 +992,7 @@ function handle_inline_guest_search()
 								$('#ilgs_results').slideUp();
 
 								$.ajax({
-									url: 'ddproc.php?processor=admin_guestSearch',
+									url: '/processor?processor=admin_guestSearch',
 									type: 'POST',
 									dataType: 'json',
 									data: {
@@ -1392,7 +1392,7 @@ function alert_timeout()
 	});
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 60000,
 		dataType: 'json',
@@ -1451,7 +1451,7 @@ function alert_timeout()
 							$("#to_login_div").find('#error_message').html('');
 
 							$.ajax({
-								url: 'ddproc.php',
+								url: '/processor',
 								type: 'POST',
 								timeout: 20000,
 								dataType: 'json',
@@ -1796,7 +1796,7 @@ $(function () {
 		$(this_button).addClass('disabled');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1846,7 +1846,7 @@ $(function () {
 		var user_id = $(this).data('user_id_pp_tooltip');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1893,7 +1893,7 @@ $(function () {
 		var target = $(this).prop('target');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1963,7 +1963,7 @@ $(function () {
 						backoffice_change_store.dialog.find('.modal-footer > .backoffice_change_store-confirm').addClass('disabled');
 
 						$.ajax({
-							url: 'ddproc.php',
+							url: '/processor',
 							type: 'POST',
 							dataType: 'json',
 							timeout: 60000,
@@ -2003,7 +2003,7 @@ $(function () {
 			onShow: function (e) {
 				// load the menu items
 				$.ajax({
-					url: 'ddproc.php',
+					url: '/processor',
 					type: 'POST',
 					dataType: 'json',
 					timeout: 60000,

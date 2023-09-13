@@ -294,7 +294,7 @@ function saveSpecialInstructions()
 	var special_instructions = strip_tags($("#order_user_notes").val());
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -353,7 +353,7 @@ function handle_special_instruction_notes()
 			}
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -543,7 +543,7 @@ function setupSiteAdminFunctions()
 				},
 				confirm: function () {
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -786,7 +786,7 @@ function saveItems(saveDiscountsUponCompletion, activateOnSaveDiscountsCompletio
 	currentlySavingOrder = true;
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -873,7 +873,7 @@ function setSessionAndSave(session_id)
 	displayModalWaitDialog('saving_div', "Setting session. Please wait ...");
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 90000,
 		dataType: 'json',
@@ -937,7 +937,7 @@ function Reschedule(org_session_id, transition_type, suppressEmail)
 	intenseLogging("Reschedule() called");
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1184,7 +1184,7 @@ function saveDeliveryAddress(payOnCompletion, token)
 	intenseLogging("saveDeliveryAddress() called");
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 200000,
 		dataType: 'json',
@@ -1334,7 +1334,7 @@ function onRelatedOrdersTabSelected()
 		intenseLogging("Loading related Orders");
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1380,7 +1380,7 @@ function onRelatedOrdersTabDeselected()
 function onNotesTabSelected()
 {
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1625,7 +1625,7 @@ function updateActiveOrder(payOnCompletion, go_to_confirm)
 	var ltdOrderedMealsArray = $("#ltdOrderedMealsArray").val();
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1802,7 +1802,7 @@ function saveDiscounts(payOnCompletion, saveDeliveryAddressUponCompletion)
 	let opted_to_bring_bags = $("#opted_to_bring_bags").is(":checked");
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -2089,7 +2089,7 @@ function send(token, paymentNumber, warnOfOutstandingSavedOrdersOnFullSession, a
 
 		if (typeof payflowErrorURL == 'undefined')
 		{
-			payflowErrorURL = "https://dreamdinners.com/ddproc.php?processor=admin_payflow_callback";
+			payflowErrorURL = "https://dreamdinners.com/processor?processor=admin_payflow_callback";
 		}
 
 		// make PARMLIST
@@ -2160,7 +2160,7 @@ function send(token, paymentNumber, warnOfOutstandingSavedOrdersOnFullSession, a
 
 		if (typeof payflowErrorURL == 'undefined')
 		{
-			payflowErrorURL = "https://dreamdinners.com/ddproc.php?processor=admin_payflow_callback";
+			payflowErrorURL = "https://dreamdinners.com/processor?processor=admin_payflow_callback";
 		}
 
 		// make PARMLIST
@@ -2723,7 +2723,7 @@ function save2PaymentsAndBookOrder(payment2Type, payment1Data, token)
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			async: true,
@@ -2791,7 +2791,7 @@ function save2PaymentsAndBookOrder(payment2Type, payment1Data, token)
 		var amt = $("#payment2_cc_total_amount").val();
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			async: true,
@@ -2882,7 +2882,7 @@ function savePayment2(payment2Type, warnOfOutstandingSavedOrdersOnFullSession, t
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			async: true,
@@ -2947,7 +2947,7 @@ function savePayment2(payment2Type, warnOfOutstandingSavedOrdersOnFullSession, t
 		var amt = $("#payment2_cc_total_amount").val();
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			async: true,
@@ -3100,7 +3100,7 @@ function handleDirectPayment(addOnly, go_to_confirm, token)
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 90000,
 		async: true,
@@ -3264,7 +3264,7 @@ function onAddPaymentAndActivate(addOnly, go_to_confirm, token)
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			async: true,
@@ -3340,7 +3340,7 @@ function onAddPaymentAndActivate(addOnly, go_to_confirm, token)
 		var amt = $("#payment1_cc_total_amount").val();
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			async: true,
@@ -3413,7 +3413,7 @@ function RetrieveCalendar(timestamp)
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'GET',
 		timeout: 20000,
 		dataType: 'json',
@@ -6182,7 +6182,7 @@ function addPaymentToLockedOrder()
 	var amt = $("#payment1_cc_total_amount").val();
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		async: true,
@@ -8491,7 +8491,7 @@ function preferenceChangeListener(pref, setting, user, callback){
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',

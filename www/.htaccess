@@ -383,8 +383,13 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^backoffice\/([\w-]+)/?$ /?page=admin_$1 [NC,L,QSA]
 
-## Hadnles /backoffice
+## Handles /backoffice
 RewriteRule ^backoffice\/?$ /?page=admin_main [NC,L,QSA]
+
+## Handles /processor
+RewriteRule ^processor\/backoffice\/([\w-]+)\/?$ /ddproc.php?processor=admin_$1 [NC,L,QSA]
+RewriteRule ^processor\/([\w-]+)\/?$ /ddproc.php?processor=$1 [NC,L,QSA]
+RewriteRule ^processor\/?$ /ddproc.php [NC,L,QSA]
 
 ## This handles the short/pretty urls for cutstomer website
 RewriteCond %{REQUEST_FILENAME} !-f

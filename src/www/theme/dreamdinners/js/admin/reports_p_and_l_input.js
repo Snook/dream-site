@@ -184,7 +184,7 @@ function init_update_p_and_l_data()
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',

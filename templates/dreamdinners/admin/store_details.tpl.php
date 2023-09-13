@@ -243,7 +243,7 @@
 							<div class="input-group-text btn-clip" data-toggle="tooltip" data-placement="top" title="Copy link to clipboard" data-clipboard-target="#store_page_link" ><i class="fas fa-clipboard-list"></i></div>
 						</div>
 						<div class="input-group-append">
-							<a class="input-group-text" data-toggle="tooltip" data-placement="top" title="Download QR code" href="<?php echo HTTPS_BASE; ?>ddproc.php?processor=qr_code&op=store_info&d=1&s=10&id=<?php echo $this->store['id']; ?>" ><i class="fas fa-qrcode"></i></a>
+							<a class="input-group-text" data-toggle="tooltip" data-placement="top" title="Download QR code" href="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&op=store_info&d=1&s=10&id=<?php echo $this->store['id']; ?>" ><i class="fas fa-qrcode"></i></a>
 						</div>
 					</div>
 				</td>

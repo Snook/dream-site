@@ -134,7 +134,7 @@ function check_email_address(id)
 	if (email_address != '')
 	{
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -261,7 +261,7 @@ $(document).on('click', '.account-request-data:not(.disabled)', function (e) {
 			if (result)
 			{
 				$.ajax({
-					url: 'ddproc.php',
+					url: '/processor',
 					type: 'POST',
 					timeout: 20000,
 					dataType: 'json',
@@ -317,7 +317,7 @@ $(document).on('click', '.account-request-delete:not(.disabled)', function (e) {
 			if (result)
 			{
 				$.ajax({
-					url: 'ddproc.php',
+					url: '/processor',
 					type: 'POST',
 					timeout: 20000,
 					dataType: 'json',
@@ -492,7 +492,7 @@ $(document).on('submit', "#add_mobile_number", function (e) {
 		{
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 100000000,
 				dataType: 'json',
@@ -567,7 +567,7 @@ $(document).on('submit', "#add_mobile_number", function (e) {
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 100000000,
 			dataType: 'json',
@@ -647,7 +647,7 @@ function remove_credit_card_reference(settings)
 	var domObjectToRemove = $('#row-cc_ref-' + settings.item_number).get();
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',

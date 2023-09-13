@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
 								var pwd = result.trim();
 
 								$.ajax({
-									url: 'ddproc.php',
+									url: '/processor',
 									type: 'POST',
 									timeout: 20000,
 									dataType: 'json',
@@ -465,7 +465,7 @@ function eventClickCalendar(eventType, sessionPassword, id)
 					var pwd = result.trim();
 
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',

@@ -62,7 +62,7 @@
 
 		var bid = "&bid=" + booking_id;
 		var state = "&state=" + (obj.checked ? "yes" : "no" );
-		var url = "ddproc.php?processor=admin_no_show_state" + bid + state;
+		var url = "processor?processor=admin_no_show_state" + bid + state;
 		isProcessing = true;
 
 		xmlHttp.onreadystatechange = handleNoShowResult;

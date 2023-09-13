@@ -43,7 +43,7 @@ function saveOrderAdminNotes()
 	$('#order_admin_note_proc_message').html('<img src="' + orderNotesVar.image_path + '/throbber_processing_noborder.gif" alt="Processing" />');
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',

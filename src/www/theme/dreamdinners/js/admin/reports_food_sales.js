@@ -206,7 +206,7 @@ function init_show_purchasers()
 		$("#guest_list_outer").show();
 
 		$.ajax({
-			url: 'ddproc.php?processor=admin_food_sales',
+			url: '/processor?processor=admin_food_sales',
 			type: 'POST',
 			dataType: 'json',
 			data: {
@@ -281,7 +281,7 @@ function init_date_selection()
 		var searchStr = $("#search_string").val();
 
 		$.ajax({
-			url: 'ddproc.php?processor=admin_food_sales',
+			url: '/processor?processor=admin_food_sales',
 			type: 'POST',
 			dataType: 'json',
 			data: {
@@ -335,7 +335,7 @@ function handle_menu_item_info_button()
 		$('#menu_info_outer').html('<img style="margin-left:auto; margin-right:auto;" src="' + PATH.image + '/style/throbber_circle.gif" alt="" /> Processing...');
 
 		$.ajax({
-			url: 'ddproc.php?processor=admin_food_sales',
+			url: '/processor?processor=admin_food_sales',
 			type: 'POST',
 			dataType: 'json',
 			data: {

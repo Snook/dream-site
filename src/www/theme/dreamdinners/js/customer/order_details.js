@@ -11,7 +11,7 @@ $(document).on('click','#enroll_in_plate_points', function (e) {
 $(document).on('click','#handle-plate-points-enroll', function (e) {
 	let user_id = $(this).data('user_id');
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -62,7 +62,7 @@ $(document).on('click','#handle-cancel-delivered-order', function (e) {
 	var spinner;
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -115,7 +115,7 @@ $(document).on('click','#handle-cancel-delivered-order', function (e) {
 
 
 						$.ajax({
-							url: 'ddproc.php',
+							url: '/processor',
 							type: 'POST',
 							timeout: 30000,
 							dataType: 'json',

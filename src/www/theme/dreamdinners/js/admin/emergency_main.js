@@ -93,7 +93,7 @@ function handle_order_details_table()
 			});
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 60000,
 				dataType: 'json',
@@ -111,16 +111,16 @@ function handle_order_details_table()
 
 						if (getQueryVariable('session'))
 						{
-							update_page_url('?page=' + getQueryVariable('page') + '&session=' + getQueryVariable('session') + '&order=' + json.order_id);
+							update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'session=' + getQueryVariable('session') + '&order=' + json.order_id);
 						}
 						else if (getQueryVariable('day'))
 						{
-							update_page_url('?page=' + getQueryVariable('page') + '&day=' + getQueryVariable('day') + '&order=' + json.order_id);
+							update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'day=' + getQueryVariable('day') + '&order=' + json.order_id);
 						}
 
 						// get order history
 						$.ajax({
-							url: 'ddproc.php',
+							url: '/processor',
 							type: 'POST',
 							timeout: 20000,
 							dataType: 'json',
@@ -165,11 +165,11 @@ function handle_order_details_table()
 
 			if (getQueryVariable('session'))
 			{
-				update_page_url('?page=' + getQueryVariable('page') + '&session=' + getQueryVariable('session'));
+				update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'session=' + getQueryVariable('session'));
 			}
 			else if (getQueryVariable('day'))
 			{
-				update_page_url('?page=' + getQueryVariable('page') + '&day=' + getQueryVariable('day'));
+				update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'day=' + getQueryVariable('day'));
 			}
 
 		});
@@ -197,7 +197,7 @@ function handle_platepoints_gifts()
 				{
 
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -319,7 +319,7 @@ function handle_dashboard_update()
 		});
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 60000,
 			dataType: 'json',
@@ -366,7 +366,7 @@ function handle_agenda_month_select()
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			async: doasync,
 			timeout: 20000,
@@ -474,7 +474,7 @@ function handle_agenda_click()
 				selected_session_id = $(this).data('session_id');
 
 				window.booking_query = $.ajax({
-					url: 'ddproc.php',
+					url: '/processor',
 					type: 'POST',
 					timeout: 120000,
 					dataType: 'json',
@@ -498,7 +498,7 @@ function handle_agenda_click()
 
 							// cancel timer
 							$.doTimeout('booked_guests_table_timer');
-							update_page_url('?page=' + getQueryVariable('page') + '&session=' + json.session_info.id);
+							update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'session=' + json.session_info.id);
 
 							selected_menu_id = json.session_info.menu_id;
 							set_selected_date(json.session_info.session_start_dtf_ymd);
@@ -595,7 +595,7 @@ function handle_agenda_click()
 				selected_menu_id = $(this).data('menu_id');
 
 				window.booking_query = $.ajax({
-					url: 'ddproc.php',
+					url: '/processor',
 					type: 'POST',
 					timeout: 120000,
 					dataType: 'json',
@@ -619,7 +619,7 @@ function handle_agenda_click()
 
 							// cancel timer
 							$.doTimeout('booked_guests_table_timer');
-							update_page_url('?page=' + getQueryVariable('page') + '&day=' + selected_date);
+							update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'day=' + selected_date);
 
 							// update session tools
 							update_session_tool_links();
@@ -741,7 +741,7 @@ function resend_dream_taste_notification()
 		confirm: function ()
 		{
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -781,7 +781,7 @@ function handle_booking_no_show()
 			var state = this.checked ? 'yes' : 'no';
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -839,7 +839,7 @@ function handle_food_testing_recipe()
 					'Confirm': function ()
 					{
 						$.ajax({
-							url: 'ddproc.php',
+							url: '/processor',
 							type: 'POST',
 							timeout: 20000,
 							dataType: 'json',
@@ -1025,7 +1025,7 @@ function handle_admin_carryover_notes()
 			}
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -1128,7 +1128,7 @@ function handle_admin_order_notes()
 			}
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -1359,7 +1359,7 @@ function handle_delete_saved_order()
 				confirm: function ()
 				{
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -1494,7 +1494,7 @@ function handle_cancel_order()
 			var bounce_to = $(this).data('bounce');
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -1556,7 +1556,7 @@ function handle_cancel_order()
 								});
 
 								$.ajax({
-									url: 'ddproc.php',
+									url: '/processor',
 									type: 'POST',
 									timeout: 20000,
 									dataType: 'json',
@@ -1746,7 +1746,7 @@ function handle_session_tools()
 				confirm: function ()
 				{
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -2031,7 +2031,7 @@ function handle_preselection()
 function confirm_order_attended(user_id, order_id)
 {
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',

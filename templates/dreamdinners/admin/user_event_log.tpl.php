@@ -5,7 +5,6 @@
 <h1>Event log for <a href="/?page=admin_user_details&amp;id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a></h1>
 
 <form action="" method="GET">
-<input type="hidden" name="page" value="admin_user_event_log">
 <input type="hidden" name="id" value="<?php echo $this->user->id; ?>">
 <select name="log_type" onchange="form.submit();">
 <option value="">All</option>

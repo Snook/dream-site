@@ -232,7 +232,7 @@ $(function () {
 				BOX_PROCESSING = true;
 
 				$.ajax({
-					url: 'ddproc.php',
+					url: '/processor',
 					type: 'POST',
 					timeout: 20000,
 					dataType: 'json',
@@ -303,7 +303,7 @@ $(function () {
 	$(document).on('click', '.box-add:not(.disabled)', function (e) {
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -339,7 +339,7 @@ $(function () {
 		let box_instance_id = $(this).data('box_instance_id');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -400,7 +400,7 @@ $(function () {
 		else
 		{
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -447,7 +447,7 @@ $(function () {
 	$(document).on('click', '.add-coupon-remove', function (e) {
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',

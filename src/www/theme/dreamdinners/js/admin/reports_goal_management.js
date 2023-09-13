@@ -148,7 +148,7 @@ function init_update_p_and_l_data()
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -204,7 +204,7 @@ function init_goal_inputs()
 	{
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -247,7 +247,7 @@ function updateGOGSfields(month, year)
 	var dateStr = month + "-1-" + year;
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -951,7 +951,7 @@ function init_session_lead_dropdowns()
 		var session_id = this.id.substr(3);
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',

@@ -64,7 +64,7 @@ function dashboard_init()
 		else
 		{
 			$.ajax({
-				url: 'ddproc.php?processor=admin_top30',
+				url: '/processor?processor=admin_top30',
 				type: 'POST',
 				dataType: 'json',
 				data: {
@@ -200,7 +200,7 @@ function processMetrics()
 	var sid = $("#store_id").val();
 
 	$.ajax({
-		url: 'ddproc.php?processor=admin_processMetrics',
+		url: '/processor?processor=admin_processMetrics',
 		type: 'POST',
 		dataType: 'json',
 		timeout: 600000,

@@ -224,7 +224,7 @@ $(document).on('submit', '#add_mobile_number', function (e) {
 		{
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 100000000,
 				dataType: 'json',
@@ -291,7 +291,7 @@ $(document).on('submit', '#add_mobile_number', function (e) {
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 100000000,
 			dataType: 'json',

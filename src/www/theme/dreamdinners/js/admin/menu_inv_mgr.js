@@ -312,7 +312,7 @@ function init_save_EFL_inventory()
 
 				displayModalWaitDialog('MIM_progress', "Saving EFL Inventory ...");
 				$.ajax({
-					url: 'ddproc.php',
+					url: '/processor',
 					type: 'POST',
 					timeout: 20000,
 					dataType: 'json',
@@ -385,7 +385,7 @@ function init_save_sides_inventory()
 
 				displayModalWaitDialog('MIM_progress', "Saving Sides Inventory ...");
 				$.ajax({
-					url: 'ddproc.php',
+					url: '/processor',
 					type: 'POST',
 					timeout: 20000,
 					dataType: 'json',
@@ -766,7 +766,7 @@ function init_finalize_preorder()
 					displayModalWaitDialog('MIM_progress', "Finalizing Core Menu Projections ...");
 
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -936,7 +936,7 @@ function init_saving_guest_counts()
 		displayModalWaitDialog('MIM_progress', "Saving  Guest Count Projections ...");
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1036,7 +1036,7 @@ function init_saving_week_inventory()
 				displayModalWaitDialog('MIM_progress', "Saving Week " + thisWeek + " Inventory ...");
 
 				$.ajax({
-					url: 'ddproc.php',
+					url: '/processor',
 					type: 'POST',
 					timeout: 20000,
 					dataType: 'json',
@@ -1182,7 +1182,7 @@ function sumAndStoreOverrideInventory(thisWeek, preflight)
 	displayModalWaitDialog('MIM_progress', "Saving Override Inventory ...");
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1255,7 +1255,7 @@ function init_saving_override_inventory()
 				displayModalWaitDialog('MIM_progress', "Saving Core Inventory ...");
 
 				$.ajax({
-					url: 'ddproc.php',
+					url: '/processor',
 					type: 'POST',
 					timeout: 20000,
 					dataType: 'json',
@@ -1356,7 +1356,7 @@ function init_saving_store_sales_mix()
 		displayModalWaitDialog('MIM_progress', "Saving Store Sales Mix  ...");
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',

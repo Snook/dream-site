@@ -5,7 +5,7 @@
 <h1>Search Franchises</h1>
 
 <form action="" method="get">
-	<input type="hidden" name="page" value="admin_list_franchise" />Search (string or id):
+	Search (string or id):
 	<input type="hidden" name="letter_select" value="<?php echo $this->letter_select; ?>" />
 	<input type="text" name="q" value="<?php echo $this->q; ?>" />
 	<input type="submit" class="button" value="Search" />

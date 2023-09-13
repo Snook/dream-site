@@ -110,7 +110,7 @@ function guest_received_button_handler()
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -152,7 +152,7 @@ function handler_delete_guest()
 				'Confirm': function ()
 				{
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -195,7 +195,7 @@ function close_survey_hander()
 		is_closed = ($(this).is(':checked') ? 'true' : 'false');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -240,7 +240,7 @@ function store_paid_hander()
 		id = this.id.split("-")[1];
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -272,7 +272,7 @@ function store_paid_hander()
 		store_id = $(this).data('store_w9_id');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -354,11 +354,14 @@ function handle_category_toggle()
 
 			$("#recipe_row_disc-" + id).addClass('disc_open');
 
-			historyPush({url: '?page=' + getQueryVariable('page') + '&recipe=' + id});
+			historyPush({url: '?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'recipe=' + id});
 		}
 		else
 		{
-			historyPush({url: '?page=' + getQueryVariable('page')});
+			if (getQueryVariable('page'))
+			{
+				historyPush({url: '?page=' + getQueryVariable('page')});
+			}
 		}
 
 		e.preventDefault();

@@ -60,7 +60,7 @@ function resend_dream_taste_notification(store_id, session_id)
 		modal: true,
 		confirm: function () {
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',

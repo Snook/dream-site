@@ -148,7 +148,7 @@ function handle_ltd_round_up()
 		/*
 
 		 $.ajax({
-		 url: 'ddproc.php',
+		 url: '/processor',
 		 type: 'POST',
 		 timeout: 20000,
 		 dataType: 'json',
@@ -301,7 +301,7 @@ function processCode()
 	var d = new Date();
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -381,7 +381,7 @@ function removeCode()
 	var d = new Date();
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -684,7 +684,7 @@ function getGiftCardBalance()
 	$('#balance_target').hide();
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -731,7 +731,7 @@ function editCashCheckAmountCommit(id, type)
 	new_number = $('#check_payment_number_input_form_' + id).val();
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -809,7 +809,7 @@ function processPayment()
 		$('#payment_proc_mess').html('<img src="' + PATH.image_admin + '/throbber_processing_noborder.gif" alt="Processing" />');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 60000,
 			dataType: 'json',
@@ -907,7 +907,7 @@ function processDelayedPaymentStatus()
 	$('#payment_proc_mess').html('<img src="' + PATH.image_admin + '/throbber_processing_noborder.gif" alt="Processing" />');
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1029,7 +1029,7 @@ function processPointToTransaction()
 	$('#payment_proc_mess').html('<img src="' + PATH.image_admin + '/throbber_processing_noborder.gif" alt="Processing" />');
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',

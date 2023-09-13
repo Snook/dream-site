@@ -70,7 +70,7 @@ function handle_resend_delivered_to_shipstation()
 			var orderId = $(this).data('order_id');
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 60000,
 				dataType: 'json',
@@ -106,7 +106,7 @@ function handle_fetch_tracking_from_shipstation()
 
 			var control = $(this);
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 60000,
 				dataType: 'json',
@@ -144,7 +144,7 @@ function handle_session_rsvp()
 			var rsvp_session_id = $(this).data('session_id');
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 60000,
 				dataType: 'json',
@@ -193,7 +193,7 @@ function handle_session_rsvp()
 									if (_check_form($('#form_add_guest')[0]))
 									{
 										$.ajax({
-											url: 'ddproc.php',
+											url: '/processor',
 											type: 'POST',
 											timeout: 20000,
 											dataType: 'json',
@@ -257,7 +257,7 @@ function handle_session_rsvp()
 				modal: true,
 				confirm: function () {
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -300,7 +300,7 @@ function handle_session_rsvp()
 function handle_session_rsvp_guest_find(guest)
 {
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -366,7 +366,7 @@ function handle_order_details_table()
 			});
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 60000,
 				dataType: 'json',
@@ -383,16 +383,16 @@ function handle_order_details_table()
 
 						if (getQueryVariable('session'))
 						{
-							update_page_url('?page=' + getQueryVariable('page') + '&session=' + getQueryVariable('session') + '&order=' + json.order_id);
+							update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'session=' + getQueryVariable('session') + '&order=' + json.order_id);
 						}
 						else if (getQueryVariable('day'))
 						{
-							update_page_url('?page=' + getQueryVariable('page') + '&day=' + getQueryVariable('day') + '&order=' + json.order_id);
+							update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'day=' + getQueryVariable('day') + '&order=' + json.order_id);
 						}
 
 						// get order history
 						$.ajax({
-							url: 'ddproc.php',
+							url: '/processor',
 							type: 'POST',
 							timeout: 20000,
 							dataType: 'json',
@@ -433,11 +433,11 @@ function handle_order_details_table()
 
 			if (getQueryVariable('session'))
 			{
-				update_page_url('?page=' + getQueryVariable('page') + '&session=' + getQueryVariable('session'));
+				update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'session=' + getQueryVariable('session'));
 			}
 			else if (getQueryVariable('day'))
 			{
-				update_page_url('?page=' + getQueryVariable('page') + '&day=' + getQueryVariable('day'));
+				update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'day=' + getQueryVariable('day'));
 			}
 
 		});
@@ -464,7 +464,7 @@ function handle_platepoints_gifts()
 				confirm: function () {
 
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -603,12 +603,11 @@ function handle_dashboard_update()
 		});
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor/backoffice/fadmin-home',
 			type: 'POST',
 			timeout: 60000,
 			dataType: 'json',
 			data: {
-				processor: 'admin_fadmin_home',
 				op: 'dashboard_details',
 				store_id: STORE_DETAILS.id,
 				dashboard_date: selected_date
@@ -648,13 +647,12 @@ function handle_agenda_month_select()
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor/backoffice/fadmin-home',
 			type: 'POST',
 			async: doasync,
 			timeout: 20000,
 			dataType: 'json',
 			data: {
-				processor: 'admin_fadmin_home',
 				op: 'agenda_details',
 				store_id: STORE_DETAILS.id,
 				agenda_date: selected_agenda_month,
@@ -749,12 +747,11 @@ function handle_agenda_click()
 				selected_session_id = $(this).data('session_id');
 
 				window.booking_query = $.ajax({
-					url: 'ddproc.php',
+					url: '/processor/backoffice/fadmin-home',
 					type: 'POST',
 					timeout: 120000,
 					dataType: 'json',
 					data: {
-						processor: 'admin_fadmin_home',
 						op: 'session_details',
 						store_id: STORE_DETAILS.id,
 						session_id: selected_session_id
@@ -772,7 +769,8 @@ function handle_agenda_click()
 
 							// cancel timer
 							$.doTimeout('booked_guests_table_timer');
-							update_page_url('?page=' + getQueryVariable('page') + '&session=' + json.session_info.id);
+
+							update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'session=' + json.session_info.id);
 
 							var current_menu_id = selected_menu_id;
 							selected_menu_id = json.session_info.menu_id;
@@ -895,12 +893,11 @@ function handle_agenda_click()
 
 				var submitted_date = $(this).data('date');
 				window.booking_query = $.ajax({
-					url: 'ddproc.php',
+					url: '/processor/backoffice/fadmin-home',
 					type: 'POST',
 					timeout: 120000,
 					dataType: 'json',
 					data: {
-						processor: 'admin_fadmin_home',
 						op: 'date_details',
 						store_id: STORE_DETAILS.id,
 						date: submitted_date
@@ -923,7 +920,8 @@ function handle_agenda_click()
 
 							// cancel timer
 							$.doTimeout('booked_guests_table_timer');
-							update_page_url('?page=' + getQueryVariable('page') + '&day=' + selected_date);
+
+							update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'day=' + selected_date);
 
 							// update session tools
 							update_session_tool_links();
@@ -1037,12 +1035,11 @@ function resend_dream_taste_notification()
 		modal: true,
 		confirm: function () {
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor/backoffice/fadmin-home',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
 				data: {
-					processor: 'admin_fadmin_home',
 					op: 'resend_dream_taste_email',
 					store_id: STORE_DETAILS.id,
 					session_id: selected_session_id
@@ -1073,7 +1070,7 @@ function handle_booking_no_show()
 			var state = this.checked ? 'yes' : 'no';
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -1126,12 +1123,11 @@ function handle_food_testing_recipe()
 				buttons: {
 					'Confirm': function () {
 						$.ajax({
-							url: 'ddproc.php',
+							url: '/processor/backoffice/fadmin-home',
 							type: 'POST',
 							timeout: 20000,
 							dataType: 'json',
 							data: {
-								processor: 'admin_fadmin_home',
 								op: 'assign_test_recipe',
 								user_id: user_id,
 								session_id: session_id,
@@ -1293,12 +1289,11 @@ function handle_admin_carryover_notes()
 			}
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor/backoffice/fadmin-home',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
 				data: {
-					processor: 'admin_fadmin_home',
 					op: 'guest_carryover_note',
 					'do': do_op,
 					store_id: STORE_DETAILS.id,
@@ -1396,12 +1391,11 @@ function handle_admin_order_notes()
 			}
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor/backoffice/fadmin-home',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
 				data: {
-					processor: 'admin_fadmin_home',
 					op: 'order_admin_note',
 					'do': do_op,
 					order_id: order_id,
@@ -1616,7 +1610,7 @@ function handle_delete_saved_order_delivered()
 				message: "Are you sure you want to delete this saved order?",
 				confirm: function () {
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -1705,7 +1699,7 @@ function handle_delete_saved_order()
 				message: "Are you sure you want to delete this saved order?",
 				confirm: function () {
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -1835,7 +1829,7 @@ function handle_cancel_order()
 			var bounce_to = $(this).data('bounce');
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -1914,7 +1908,7 @@ function handle_cancel_order()
 								});
 
 								$.ajax({
-									url: 'ddproc.php',
+									url: '/processor',
 									type: 'POST',
 									timeout: 20000,
 									dataType: 'json',
@@ -2022,7 +2016,7 @@ function handle_cancel_order_delivered()
 			var bounce_to = $(this).data('bounce');
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -2101,7 +2095,7 @@ function handle_cancel_order_delivered()
 								});
 
 								$.ajax({
-									url: 'ddproc.php',
+									url: '/processor',
 									type: 'POST',
 									timeout: 20000,
 									dataType: 'json',
@@ -2282,12 +2276,11 @@ function handle_session_tools()
 				modal: true,
 				confirm: function () {
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor/backoffice/fadmin-home',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
 						data: {
-							processor: 'admin_fadmin_home',
 							op: 'session_publish_state',
 							session_id: selected_session_id,
 							open_close_submit: new_state
@@ -2539,7 +2532,7 @@ function handle_preselection()
 function confirm_order_attended(user_id, order_id)
 {
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -2639,7 +2632,7 @@ $(document).on('click keyup', '#os_search_go, #os_search_value', function (e) {
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',

@@ -29,7 +29,6 @@
 			<div class="row mb-2">
 				<div class="col">
 					<form id="store_form" action="" method="post">
-						<input type="hidden" name="page" value="admin_preferred">
 						<input type="hidden" name="id" value="<?= $this->user->id ?>">
 						<div class="input-group">
 							<div class="input-group-prepend">

@@ -678,7 +678,7 @@ function update_cart(menu_item_id, action)
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1117,7 +1117,7 @@ $(function () {
 		var store_id = $(this).data('store_id');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1163,7 +1163,7 @@ $(function () {
 		var view_menu = $(this).data('view_menu');
 
 		create_and_submit_form({
-			action: 'ddproc.php?processor=session_type',
+			action: '/processor?processor=session_type',
 			input: ({
 				type: view_menu
 			})
@@ -1190,7 +1190,7 @@ $(function () {
 		var session_id = $(this).val();
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1311,7 +1311,7 @@ $(function () {
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1364,7 +1364,7 @@ $(function () {
 		var bounce = $(this).data('bounce');
 
 		create_and_submit_form({
-			action: 'ddproc.php?processor=session_type',
+			action: '/processor?processor=session_type',
 			input: ({
 				'type': session_type,
 				'bounce_to': bounce
@@ -1467,7 +1467,7 @@ $(function () {
 		else
 		{
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -1537,7 +1537,7 @@ $(function () {
 		e.preventDefault();
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1565,7 +1565,7 @@ $(function () {
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1584,7 +1584,7 @@ $(function () {
 					confirm: function () {
 
 						$.ajax({
-							url: 'ddproc.php',
+							url: '/processor',
 							type: 'POST',
 							timeout: 20000,
 							dataType: 'json',
@@ -1624,7 +1624,7 @@ $(function () {
 	$(document).on('click', '.add-coupon-remove', function (e) {
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1728,7 +1728,7 @@ $(function () {
 		else
 		{
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',

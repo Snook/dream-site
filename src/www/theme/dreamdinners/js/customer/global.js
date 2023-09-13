@@ -27,7 +27,7 @@ function set_user_pref(pref, setting, user_id, callBack)
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -59,7 +59,7 @@ function get_user_pref(pref, user_id, callBack)
 	if (typeof user_id != 'undefined') // get guest pref
 	{
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1330,7 +1330,7 @@ $(document).on('click', '.clear-cart, .clear-cart-gc', function (e) {
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1349,7 +1349,7 @@ $(document).on('click', '.clear-cart, .clear-cart-gc', function (e) {
 				confirm: function () {
 
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -1417,7 +1417,7 @@ $(document).on('click', '.clear-edit-delivered-order', function (e) {
 
 	$.ajax({
 
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1436,7 +1436,7 @@ $(document).on('click', '.clear-edit-delivered-order', function (e) {
 				confirm: function () {
 
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -1589,7 +1589,7 @@ $(document).on('click', '.start-intro-offer', function (e) {
 	$.cookie('dd_start_intro', true);
 
 	create_and_submit_form({
-		action: 'ddproc.php?processor=session_type',
+		action: '/processor?processor=session_type',
 		input: ({
 			type: 'starter'
 		})
@@ -2014,7 +2014,7 @@ $(document).on('click', '[data-user_pref="text_message_thaw_primary"][type=check
 	// }
 	//
 	// $.ajax({
-	// 	url: 'ddproc.php',
+	// 	url: '/processor',
 	// 	type: 'POST',
 	// 	timeout: 20000,
 	// 	dataType: 'json',

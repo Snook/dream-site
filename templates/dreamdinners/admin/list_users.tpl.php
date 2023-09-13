@@ -11,8 +11,6 @@
 <p>Once you have located a customer, click on their name or ID to view all of their information, email the guest or set their preferred status for your stores.</p>
 
 <form id="list_users_form" action="" method="get">
-	<input type="hidden" name="page" value="admin_list_users" />
-
 	<table style="width:100%;" id="lookupGuestTarget">
 		<tr>
 			<td class="bgcolor_dark catagory_row" colspan="2">Search Guests</td>

@@ -25,7 +25,7 @@ $(document).on('click', '#recipe_id_button', function (e) {
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',

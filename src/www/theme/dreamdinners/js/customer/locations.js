@@ -367,7 +367,7 @@ function retrieve_stores_for_lat_long(settings, doScrolling)
 	$.extend(config, settings);
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -437,7 +437,7 @@ function getStoresForState(state_id, scrollto)
 	$("#store_search_results").slideUp();
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',

@@ -28,7 +28,7 @@ function title_click_handler()
 				src += '&amp;autoplay=1';
 			}
 
-			historyPush({ url: '?page=' + getQueryVariable('page') + '&youtube=' + $(this).data('youtube_id') });
+			historyPush({ url: '?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'youtube=' + $(this).data('youtube_id') });
 
 			$('#media_container-div').html('<iframe id="youtube-player" name="youtube-player" class="youtube-player" src="' + src + '" type="text/html" width="640" height="390" frameborder="0" allowFullScreen></iframe>');
 
@@ -52,7 +52,7 @@ function title_click_handler()
 				src += '&amp;auto_play=true';
 			}
 
-			historyPush({ url: '?page=' + getQueryVariable('page') + '&soundcloud=' + $(this).data('soundcloud_id') });
+			historyPush({ url: '?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'soundcloud=' + $(this).data('soundcloud_id') });
 
 			$('#media_container-div').html('<iframe width="640" height="166" scrolling="no" frameborder="no" src="' + src + '"></iframe>');
 

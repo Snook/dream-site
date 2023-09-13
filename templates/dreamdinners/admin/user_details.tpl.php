@@ -226,7 +226,7 @@
 								<div class="input-group-text btn-clip" data-toggle="tooltip" data-placement="top" title="Copy link to clipboard" data-clipboard-target="#my_share_pp_link" ><i class="fas fa-clipboard-list"></i></div>
 							</div>
 							<div class="input-group-append">
-								<a class="input-group-text" data-toggle="tooltip" data-placement="top" title="Download QR code" href="<?php echo HTTPS_BASE; ?>ddproc.php?processor=qr_code&amp;op=referral&amp;d=1&amp;s=10&amp;id=<?php echo $this->user['id']; ?>" ><i class="fas fa-qrcode"></i></a>
+								<a class="input-group-text" data-toggle="tooltip" data-placement="top" title="Download QR code" href="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&amp;op=referral&amp;d=1&amp;s=10&amp;id=<?php echo $this->user['id']; ?>" ><i class="fas fa-qrcode"></i></a>
 							</div>
 						</div>
 					</td>

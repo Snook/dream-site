@@ -148,7 +148,7 @@ function opt_out_platepoints(user_id)
 function handle_opt_out_platepoints(user_id)
 {
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',

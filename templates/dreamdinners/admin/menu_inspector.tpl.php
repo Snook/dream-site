@@ -3,8 +3,6 @@
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
 	<form name="menu_editor_form" id="menu_editor_form" method="get">
-		<input type="hidden" name="page" value="admin_menu_inspector">
-
 		<table class="ME_menu_editor_table" style="width: 100%;">
 			<tr>
 				<td style="padding-left: 10px;"><b>Selected Menu:</b><?php echo $this->form['menus_html']; ?></td>

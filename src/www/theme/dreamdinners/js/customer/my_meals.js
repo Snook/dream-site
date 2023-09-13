@@ -50,7 +50,7 @@ function restorePagingLocation(currentUser)
 	{
 		$('#order_history').html('');
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 100000000,
 			dataType: 'json',
@@ -102,7 +102,7 @@ $(function () {
 		let rating = $(this).data('rating');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 100000000,
 			dataType: 'json',
@@ -139,7 +139,7 @@ $(function () {
 		let set_favorite = $(this).val();
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 100000000,
 			dataType: 'json',
@@ -224,7 +224,7 @@ $(function () {
 		let comment = $.trim($(comment_element).val());
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -281,7 +281,7 @@ $(function () {
 		localStorage.setItem('customer-history-paging-user', user_id);
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 100000000,
 			dataType: 'json',
@@ -322,7 +322,7 @@ $(function () {
 		localStorage.setItem('customer-history-paging-user', user_id);
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 100000000,
 			dataType: 'json',

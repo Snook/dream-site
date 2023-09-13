@@ -108,7 +108,7 @@ function handle_ltd_round_up()
 			}
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -322,7 +322,7 @@ function editSavePlatePointsCredits(force)
 		$('#plate_points_discount').val(formatAsMoney(val));
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -772,7 +772,7 @@ function remove_dinner_dollars()
 	$('#plate_points_discount').val(formatAsMoney(0));
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -828,7 +828,7 @@ function remove_payment_coupon()
 	var service_fee = Number($('#checkout_total-service_fee').html());
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -902,7 +902,7 @@ function remove_payment_coupon()
 function update_special_instructions()
 {
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -946,7 +946,7 @@ function update_bag_opt_out()
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1017,7 +1017,7 @@ function add_payment_coupon()
 	else
 	{
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1150,7 +1150,7 @@ function get_gift_card_balance()
 	else
 	{
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'GET',
 			timeout: 20000,
 			dataType: 'json',
@@ -1267,7 +1267,7 @@ function do_add_gift_card(transaction_data)
 
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'GET',
 			timeout: 20000,
 			dataType: 'json',
@@ -1303,7 +1303,7 @@ function do_add_gift_card(transaction_data)
 						}
 
 						$.ajax({
-							url: 'ddproc.php',
+							url: '/processor',
 							type: 'POST',
 							timeout: 20000,
 							dataType: 'json',
@@ -1425,7 +1425,7 @@ function getDomObjectToRemove(settings)
 function add_all_store_credit()
 {
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1466,7 +1466,7 @@ function removeAllStoreCredit(settings)
 	var domObjectToRemove = getDomObjectToRemove(settings);
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1506,7 +1506,7 @@ function remove_payment(settings)
 	var domObjectToRemove = getDomObjectToRemove(settings);
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1657,7 +1657,7 @@ function remove_credit_card_reference(settings)
 	var domObjectToRemove = getDomObjectToRemove(settings);
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1725,7 +1725,7 @@ function add_payment_credit_card()
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -2021,7 +2021,7 @@ $(function () {
 		else if (id)
 		{
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -2268,7 +2268,7 @@ function handleMealCustomizationMasterCheckbox(allow_customization){
 	toggleMealCustomizationOptions(allow_customization);
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: "JSON",
@@ -2340,7 +2340,7 @@ function preferenceChangeListener(pref, setting, user_id, callback){
 		meal_customization_preferences[pref].value = setting;
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
