@@ -14326,7 +14326,7 @@ class COrders extends DAO_Orders
 
 			$sessionTS = strtotime($Session->session_start) - 518400; // allow delayed payment 6 days prior
 
-			if ((CApp::$isStoreView || $DR_Ordering) && (strtotime("now") < $sessionTS))
+			if ($DR_Ordering && (strtotime("now") < $sessionTS))
 			{
 				$Form->AddElement(array(
 					CForm::type => CForm::RadioButton,

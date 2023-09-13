@@ -857,8 +857,6 @@ class form_account
 					/// INSERT
 					if (!$User->exists() || $suppressEmail)
 					{
-						//$rslt = $User->insert($szPassword, CUser::CUSTOMER, ( ($adminAdd || CApp::$isStoreView) ? 'YES': 'PENDING'));
-
 						if ($suppressEmail)
 						{
 							$szPassword = CUser::getRandomPwd();
@@ -1552,8 +1550,6 @@ class form_account
 					/// INSERT
 					if (!$User->exists() || $suppressEmail)
 					{
-						//$rslt = $User->insert($szPassword, CUser::CUSTOMER, ( ($adminAdd || CApp::$isStoreView) ? 'YES': 'PENDING'));
-
 						if ($suppressEmail)
 						{
 							$szPassword = CUser::getRandomPwd();

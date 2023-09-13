@@ -60,12 +60,6 @@ class page_admin_gc_only_order_thankyou extends CPageAdminOnly {
 		$IDs = explode("|", CGPC::do_clean($_REQUEST['gcOrders'],TYPE_STR));
         CGiftCard::addOrderDrivenGiftCardDetailsToTemplate($tpl, NULL, false, $IDs, false, false);
 
-		//logout user after order in storeview
-		if ( CApp::$isStoreView ) {
-			$session = CBrowserSession::instance()->ExpireSession();
-		}
-
-
 	}
 
 }

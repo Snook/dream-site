@@ -271,12 +271,6 @@ class page_order_details extends CPage
 		$tpl->assign('order_id', $Order->id);
 		$tpl->assign('order_total', $Order->grand_total);
 		$tpl->assign('store_VR_code', (empty($OrderDetailsArray['storeInfo']['vertical_response_code']) ? false : $OrderDetailsArray['storeInfo']['vertical_response_code']));
-
-		//logout user after order in storeview
-		if (CApp::$isStoreView)
-		{
-			$session = CBrowserSession::instance()->ExpireSession();
-		}
 	}
 }
 

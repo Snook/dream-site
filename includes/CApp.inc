@@ -19,7 +19,6 @@ class CApp
 	/**
 	 * Is it the store view or the web view
 	 */
-	static public $isStoreView = false;
 	static public $adminView = false;
 
 	static private $_instance = null;
@@ -826,20 +825,8 @@ class CApp
 	 */
 	static function bounce($page = '/', $tryInsecure = false)
 	{
-		$serverPrefix = '';
 		$q_params = '';
 		$isAdmin = false;
-
-		//		if ($tryInsecure) {
-		//			//if admin, then require https
-		//			$isAdmin = strstr($page, 'page=admin_');
-		//			if ( !$isAdmin ) {
-		//				$serverPrefix = HTTPS_BASE;
-		//				if ( self::$isStoreView )
-		//					$serverPrefix .= 'storeview/';
-		//			}
-		//		}
-		//
 
 		// maintain email conversion query parameters if being bounced
 		$get_params = $_GET; // copy get params
@@ -885,11 +872,11 @@ class CApp
 		if (CApp::instance() && CApp::instance()->template() && isset(CApp::instance()->template()->back))
 		{
 			$back = CApp::instance()->template()->back;
-			$location = $serverPrefix . $back;
+			$location = $back;
 		}
 		else
 		{
-			$location = $serverPrefix . $page;
+			$location = $page;
 		}
 
 		// check to see if there are already query parameters in the location, if so use & instead of ?

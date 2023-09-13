@@ -1518,7 +1518,6 @@ class CUser extends DAO_User
 
 	// -----------------------------------------Get the users store -------------------------------
 	// The store can be derived from different sources and the search order is:
-	// 1) Check for StoreView
 	// 2) Request variable (POST only)
 	// 3) Cart - but the cart is only checked if no store was found in the first 2 steps
 	//			if the cart holds a store id different from the store found in the first 2 steps then
@@ -1534,14 +1533,7 @@ class CUser extends DAO_User
 		$methodFound = 0;
 		$storeId = null;
 
-		//storeview
-		if (CApp::$isStoreView && CBrowserSession::getCurrentStoreView())
-		{
-			// 1) check storeView
-			$storeId = CBrowserSession::getCurrentStoreView();
-			$methodFound = 1;
-		}
-		else if (isset($_POST['store']) && is_numeric($_POST['store']))
+		if (isset($_POST['store']) && is_numeric($_POST['store']))
 		{
 			// 2) Check Request (Direct access)
 			$storeObj = DAO_CFactory::create('store');

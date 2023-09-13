@@ -1310,21 +1310,6 @@ class CTemplate extends Savant2
 		$this->assign('head_onload', array_unique(self::$head_onload_array));
 	}
 
-	function isStoreView()
-	{
-		return CApp::$isStoreView;
-	}
-
-	function httpServerAddress()
-	{
-		return HTTP_BASE . ($this->isStoreView() ? 'storeview/' : '');
-	}
-
-	function httpsServerAddress()
-	{
-		return HTTPS_BASE . ($this->isStoreView() ? 'storeview/' : '');
-	}
-
 	function isSafari()
 	{
 		$Agent = $_SERVER['HTTP_USER_AGENT'];
