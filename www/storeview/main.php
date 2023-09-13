@@ -26,13 +26,13 @@
 
 	if ( array_key_exists('page',$_REQUEST) !== false ) {
 		if ( ($_REQUEST['page'] != 'storelogin') && (!CBrowserSession::getCurrentStoreView()) ) {
-			header('Location: ' . MAIN_SCRIPT .  '?page=storelogin');
+			header('Location: ' . WEB_BASE .  'storelogin');
 		}
 		$app = new CApp();
 		$app->run($_REQUEST['page']);
 	} else if ( array_key_exists('static',$_REQUEST) !== false ) {
 		if ( ($_REQUEST['static'] != 'storelogin') && (!CBrowserSession::getCurrentStoreView()) ) {
-			header('Location: ' . MAIN_SCRIPT .  '?page=storelogin');
+			header('Location: ' . WEB_BASE .  'storelogin');
 		}
 		$app = new CApp();
 		$app->runStatic($_REQUEST['static']);

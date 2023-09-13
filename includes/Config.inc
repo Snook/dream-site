@@ -173,8 +173,6 @@ define('FPDF_FONTPATH', 'fpdf/font/');
 define('HTTP_BASE', HTTP_SERVER . WEB_BASE);
 define('HTTPS_BASE', HTTPS_SERVER . WEB_BASE);
 
-define('MAIN_SCRIPT', 'main.php');
-
 define('THEME', $domainConfig['theme']);
 
 define('TEMPLATE_PATH', APP_BASE . 'templates/' . THEME);

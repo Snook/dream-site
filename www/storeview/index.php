@@ -1,3 +1,3 @@
 <?php
-header('Location: ' . MAIN_SCRIPT .  '?page=home');
+header('Location: ' . WEB_BASE);
 ?>

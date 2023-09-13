@@ -92,13 +92,13 @@ if (file_exists("../includes/CApp.inc"))
 	// If the site is not disabled, send them to the home page
 	if ($site_disabled == false)
 	{
-		header('Location: ' . MAIN_SCRIPT);
+		header('Location: ' . WEB_BASE);
 	}
 
 	// if the IP is excluded, send them home
 	if (!empty($g_IP_ExclusionList) && in_array($_SERVER['REMOTE_ADDR'], $g_IP_ExclusionList))
 	{
-		header('Location: ' . MAIN_SCRIPT);
+		header('Location: ' . WEB_BASE);
 	}
 }
 ?>
