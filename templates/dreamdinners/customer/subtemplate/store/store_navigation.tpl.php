@@ -16,7 +16,7 @@
 			<?php if ($this->DAO_store->hasBioPage()) { ?>
 				<li>
 					<a class="m-auto nav-link text-uppercase font-weight-bold" href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/meet-the-owner">
-						<i class="dd-icon icon-friend font-size-extra-extra-large text-cyan-dark m-4 d-block"></i>
+						<i class="dd-icon icon-person font-size-extra-extra-large text-cyan-dark m-4 d-block"></i>
 						Meet the owner
 					</a>
 				</li>
