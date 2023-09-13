@@ -173,7 +173,7 @@
 
 				<div class="row">
 					<div class="col">
-						<a href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/order" class="btn btn-primary btn-block">Start your order</a>
+						<a href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/order" rel="nofollow" class="btn btn-primary btn-block">Start your order</a>
 					</div>
 				</div>
 			<?php } ?>
