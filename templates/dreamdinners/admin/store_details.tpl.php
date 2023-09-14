@@ -401,6 +401,24 @@
 
 		<table style="width: 100%; margin-bottom: 10px;">
 			<tr>
+				<td class="bgcolor_dark catagory_row" colspan="2">Shipping Settings</td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right; width: 400px;">Default number of<br />Delivery Sessions:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['default_delivered_sessions_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Delivery Fee - Large</td>
+				<td class="bgcolor_light">$<?php echo $this->form_store_details['large_ship_cost_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Delivery Fee - Medium</td>
+				<td class="bgcolor_light">$<?php echo $this->form_store_details['medium_ship_cost_html']; ?></td>
+			</tr>
+		</table>
+
+		<table style="width: 100%; margin-bottom: 10px;">
+			<tr>
 				<td class="bgcolor_dark catagory_row" colspan="2">Financial Settings</td>
 			</tr>
 			<?php if (!empty($this->store_supports_store_specific_deposit)) { ?>

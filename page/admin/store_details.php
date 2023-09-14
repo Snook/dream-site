@@ -6,7 +6,6 @@ require_once("includes/DAO/Opco.php");
 
 class page_admin_store_details extends CPageAdminOnly
 {
-
 	private $defaultTime = null;
 
 	function runHomeOfficeManager()
@@ -26,18 +25,6 @@ class page_admin_store_details extends CPageAdminOnly
 
 	function runStoreDetails($id = null)
 	{
-
-		$ty = CBrowserSession::getCurrentFadminStoreType();
-		if ($ty === CStore::DISTRIBUTION_CENTER)
-		{
-			if (array_key_exists('id', $_REQUEST) && $_REQUEST['id'] && is_numeric($_REQUEST['id']))
-			{
-				CApp::bounce('/main.php?page=admin_store_details_delivered&id=' . $_REQUEST['id']);
-			}
-			CApp::bounce('/main.php?page=admin_store_details_delivered');
-		}
-		$tpl = CApp::instance()->template();
-
 		$Form = new CForm();
 		$Form->Repost = true;
 		$Form->Bootstrap = true;
@@ -92,7 +79,7 @@ class page_admin_store_details extends CPageAdminOnly
 					$store = DAO_CFactory::create('store');
 					$store->id = $id;
 					$store->delete();
-					$tpl->setStatusMsg('The store has been deleted');
+					$this->Template->setStatusMsg('The store has been deleted');
 
 					// jump to same page without deleteStore action
 
@@ -132,11 +119,11 @@ class page_admin_store_details extends CPageAdminOnly
 				$franchise = DAO_CFactory::create('franchise');
 				$franchise->id = $store->franchise_id;
 				$franchise->find(true);
-				$tpl->assign('franchise_name', $franchise->franchise_name);
+				$this->Template->assign('franchise_name', $franchise->franchise_name);
 			}
 			else
 			{
-				$tpl->assign('franchise_name', null);
+				$this->Template->assign('franchise_name', null);
 			}
 
 			$Form->DefaultValues = array_merge($Form->DefaultValues, $store->toArray());
@@ -193,6 +180,9 @@ class page_admin_store_details extends CPageAdminOnly
 					}
 				}
 			}
+			$Form->DefaultValues['medium_ship_cost'] = $store->medium_ship_cost;
+			$Form->DefaultValues['large_ship_cost'] = $store->large_ship_cost;
+			$Form->DefaultValues['default_delivered_sessions'] = $store->default_delivered_sessions;
 
 			if ($user_type == CUser::SITE_ADMIN)
 			{
@@ -368,6 +358,27 @@ class page_admin_store_details extends CPageAdminOnly
 				));
 
 				$Form->AddElement(array(
+					CForm::type => CForm::Text,
+					CForm::disabled => false,
+					CForm::name => 'medium_ship_cost',
+					CForm::dd_required => false
+				));
+
+				$Form->AddElement(array(
+					CForm::type => CForm::Text,
+					CForm::disabled => false,
+					CForm::name => 'large_ship_cost',
+					CForm::dd_required => false
+				));
+
+				$Form->AddElement(array(
+					CForm::type => CForm::Text,
+					CForm::disabled => false,
+					CForm::name => 'default_delivered_sessions',
+					CForm::dd_required => false
+				));
+
+				$Form->AddElement(array(
 					CForm::type => CForm::CheckBox,
 					CForm::disabled => $disabledForm,
 					CForm::name => 'supports_ltd_roundup'
@@ -437,6 +448,26 @@ class page_admin_store_details extends CPageAdminOnly
 			}
 			else
 			{
+				$Form->AddElement(array(
+					CForm::type => CForm::Text,
+					CForm::disabled => false,
+					CForm::name => 'medium_ship_cost',
+					CForm::dd_required => false
+				));
+
+				$Form->AddElement(array(
+					CForm::type => CForm::Text,
+					CForm::disabled => false,
+					CForm::name => 'large_ship_cost',
+					CForm::dd_required => false
+				));
+				$Form->AddElement(array(
+					CForm::type => CForm::Text,
+					CForm::disabled => false,
+					CForm::name => 'default_delivered_sessions',
+					CForm::dd_required => false
+				));
+
 				$Form->AddElement(array(
 					CForm::type => CForm::Number,
 					CForm::disabled => false,
@@ -686,11 +717,11 @@ class page_admin_store_details extends CPageAdminOnly
 			{
 				$startTS = strtotime($store->grand_opening_date);
 				$label = date("m/d/Y", $startTS);
-				$tpl->assign('initDate', $label);
+				$this->Template->assign('initDate', $label);
 			}
 			else
 			{
-				$tpl->assign('initDate', date("m/d/Y"));
+				$this->Template->assign('initDate', date("m/d/Y"));
 			}
 
 			$Form->AddElement(array(
@@ -959,8 +990,8 @@ class page_admin_store_details extends CPageAdminOnly
 			));
 
 			$customizationFees = CStoreFee::fetchCustomizationFees($store->id);
-			$tpl->assign('customization_fees', $customizationFees);
-			$tpl->assign('store_supports_meal_customization', CStore::storeSupportsMealCustomization($store->id));
+			$this->Template->assign('customization_fees', $customizationFees);
+			$this->Template->assign('store_supports_meal_customization', CStore::storeSupportsMealCustomization($store->id));
 
 			$Form->AddElement(array(
 				CForm::type => CForm::CheckBox,
@@ -969,7 +1000,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => 'allow_preassembled_customization'
 			));
 
-			foreach ( $customizationFees as $fee)
+			foreach ($customizationFees as $fee)
 			{
 				$Form->DefaultValues[$fee['name']] = $fee['cost'];
 				$Form->AddElement(array(
@@ -982,8 +1013,6 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::dd_required => false
 				));
 			}
-
-
 
 			$Form->AddElement(array(
 				CForm::type => CForm::Submit,
@@ -1005,7 +1034,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::dd_required => true
 				));
 
-				$tpl->assign('store_supports_store_specific_deposit', true);
+				$this->Template->assign('store_supports_store_specific_deposit', true);
 			}
 
 			$Form->AddElement(array(
@@ -1400,7 +1429,7 @@ class page_admin_store_details extends CPageAdminOnly
 				{
 					if (empty($_POST['supports_plate_points_signature']))
 					{
-						$tpl->setErrorMsg('Opting in to PLATEPOINTS requires the full name of the person opting the store in.');
+						$this->Template->setErrorMsg('Opting in to PLATEPOINTS requires the full name of the person opting the store in.');
 						$hadError = true;
 					}
 					else
@@ -1471,13 +1500,13 @@ class page_admin_store_details extends CPageAdminOnly
 						$grandAsTS = mktime(0, 0, 0, $dateParts[0], $dateParts[1], $dateParts[2]);
 						$storeUpdated->grand_opening_date = date("Y-m-d", $grandAsTS);
 						$label = date("m/d/Y", $grandAsTS);
-						$tpl->assign('initDate', $label);
+						$this->Template->assign('initDate', $label);
 					}
 
 					if (isset($_POST['default_delayed_payment_deposit']) && $_POST['default_delayed_payment_deposit'] < 20)
 					{
 						$storeUpdated->default_delayed_payment_deposit = 20;
-						$tpl->setStatusMsg("Delayed Payment deposit must be at least $20. The deposit was set to $20.");
+						$this->Template->setStatusMsg("Delayed Payment deposit must be at least $20. The deposit was set to $20.");
 					}
 					else
 					{
@@ -1551,14 +1580,14 @@ class page_admin_store_details extends CPageAdminOnly
 					$store = $storeUpdated;
 					$store->setCurrentSalesTax($Form->value('food_tax'), $Form->value('total_tax'), $Form->value('other1_tax'), $Form->value('other2_tax'), $Form->value('other3_tax'), $Form->value('other4_tax'));
 
-
-					foreach ( $customizationFees as $fee)
+					foreach ($customizationFees as $fee)
 					{
 						$cost = 0;
-						if($Form->value('supports_meal_customization')){
+						if ($Form->value('supports_meal_customization'))
+						{
 							$cost = $Form->value($fee['name']);
 						}
-						$store->setCustomizationFee($store->id,$fee,$cost);
+						$store->setCustomizationFee($store->id, $fee, $cost);
 					}
 
 					//update credit card choices
@@ -1668,7 +1697,7 @@ class page_admin_store_details extends CPageAdminOnly
 					// update job positions
 					$job_array = CStore::setAvailableJobs($id, CGPC::do_clean($_POST['job_position'], TYPE_ARRAY));
 
-					$tpl->setToastMsg(array('message' => 'The store properties have been updated.'));
+					$this->Template->setToastMsg(array('message' => 'The store properties have been updated.'));
 					CApp::bounce('main.php?page=admin_store_details&id=' . $id);
 				}
 			}
@@ -1682,11 +1711,11 @@ class page_admin_store_details extends CPageAdminOnly
 
 			$storeArray['personnel'] = CStore::getStorePersonnel($id);
 
-			$tpl->assign('job_array', $job_array);
-			$tpl->assign('siteadminoverride', $siteadminoverride);
-			$tpl->assign('grand_opening_label', $label);
-			$tpl->assign('store', $storeArray);
-			$tpl->assign('form_store_details', $Form->Render());
+			$this->Template->assign('job_array', $job_array);
+			$this->Template->assign('siteadminoverride', $siteadminoverride);
+			$this->Template->assign('grand_opening_label', $label);
+			$this->Template->assign('store', $storeArray);
+			$this->Template->assign('form_store_details', $Form->Render());
 		}
 
 		$back = '?page=admin_list_stores';
@@ -1696,7 +1725,7 @@ class page_admin_store_details extends CPageAdminOnly
 			$back = $_GET['back'];
 		}
 
-		$tpl->assign('back', $back);
+		$this->Template->assign('back', $back);
 	}
 }
 
