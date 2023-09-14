@@ -568,7 +568,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Memebership Fee tax:</td>
+				<td class="bgcolor_light" style="text-align: right;">Membership Fee tax:</td>
 				<td class="bgcolor_light">
 					<div class="input-group">
 						<?php echo $this->form_store_details['other2_tax_html']; ?>
@@ -771,7 +771,7 @@
 					<td class="bgcolor_light"><?php echo $this->form_store_details['supports_fundraiser_html']; ?></td>
 				</tr>
 				<tr>
-					<td class="bgcolor_light" style="text-align: right;">Supports LTD Round Up</td>
+					<td class="bgcolor_light" style="text-align: right;">Supports DDF Round Up</td>
 					<td class="bgcolor_light"><?php echo $this->form_store_details['supports_ltd_roundup_html']; ?></td>
 				</tr>
 				<tr>

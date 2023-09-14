@@ -11,7 +11,15 @@ define('BACKUP', true);
 define('TEST_DESTINATION', false);
 define('TEST_REPORT_DEST', false);
 
-require_once("../../../includes/Config.inc");
+if (DEV)
+{
+	require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
+}
+else
+{
+	require_once("/DreamReports/includes/Config.inc");
+}
+
 require_once("DAO/BusinessObject/COrders.php");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/BusinessObject/CMenuItem.php");
@@ -167,6 +175,20 @@ function sendReport($data)
 	}
 }
 
+function sendFailureNotice($data)
+{
+	if (TEST_REPORT_DEST)
+	{
+		$sendMail = mail( "ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com", "Nightly Sysco Invoice Routing Failure",
+			$data, 'From: <do-not-reply@dreamdinners.com>' );
+	}
+	else
+	{
+		$sendMail = mail( "ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com", "Nightly Sysco Invoice Routing Failure",
+			$data, 'From: <do-not-reply@dreamdinners.com>' );
+	}
+}
+
 function isRoutingInvoice($fileName)
 {
 	if (strpos($fileName, "SYSCO") === 0)
@@ -291,11 +313,17 @@ $conn_id = ftp_connect($ftp_server);
 // login with username and password
 $login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
 
+if(!$login_result){
+	logstr("Was not able to connect and login to " . $ftp_server);
+	sendFailureNotice("Was not able to connect and login to " . $ftp_server);
+	exit;
+}
+
 	// try to change the directory to
 if (ftp_chdir($conn_id, SRC_DIR)) {
 	logstr("Current directory is now: " . ftp_pwd($conn_id));
 } else {
-	logstr("Couldn't change directory");
+	logstr("Couldn't change directory to:".SRC_DIR);
 }
 
 
