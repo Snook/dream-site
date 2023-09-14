@@ -382,6 +382,7 @@ class page_admin_menus extends CPageAdminOnly
 					$Menu_Edit->update();
 
 					CSession::generateWalkInSessionsForMenu($Menu_Edit->id, true);
+					CSession::generateDeliveredSessionsForMenu($Menu_Edit->id);
 
 					$tpl->setStatusMsg('Your changes have been saved.');
 				}
