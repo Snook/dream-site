@@ -88,7 +88,7 @@ class page_locations extends CPage
 		$tpl->assign('sticky_nav_bottom_disable', true);
 
 		$Form->AddElement(array(
-			CForm::type => CForm::Text,
+			CForm::type => CForm::Search,
 			CForm::name => "zipsearch_zipcode_only",
 			CForm::placeholder => "*Postal Code",
 			CForm::maxlength => 5,
@@ -98,7 +98,7 @@ class page_locations extends CPage
 		));
 
 		$Form->AddElement(array(
-			CForm::type => CForm::Text,
+			CForm::type => CForm::Search,
 			CForm::name => "zipsearch_zipcode",
 			CForm::placeholder => "*Postal Code",
 			CForm::maxlength => 5,
@@ -108,7 +108,7 @@ class page_locations extends CPage
 		));
 
 		$Form->AddElement(array(
-			CForm::type => CForm::Text,
+			CForm::type => CForm::Search,
 			CForm::name => "zipsearch_address",
 			CForm::required => false,
 			CForm::tooltip => true,
@@ -120,7 +120,7 @@ class page_locations extends CPage
 		));
 
 		$Form->AddElement(array(
-			CForm::type => CForm::Text,
+			CForm::type => CForm::Search,
 			CForm::name => "zipsearch_city",
 			CForm::required => true,
 			CForm::placeholder => "*City",
