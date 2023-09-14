@@ -72,6 +72,8 @@ class CTemplate extends Savant2
 		'admin_reports_national_entree_projection',
 		'admin_reports_entree'
 	);
+	public $rows;
+	public $page;
 
 	protected $debugInfoArray = array();
 	protected $emergency_mode = false;
@@ -103,6 +105,8 @@ class CTemplate extends Savant2
 
 	function __construct($template_path = false)
 	{
+		parent::__construct();
+
 		if (defined('DESIGNATE_AS_EMERGENCY_REPORTING_SERVER') && DESIGNATE_AS_EMERGENCY_REPORTING_SERVER)
 		{
 			$this->emergency_mode = true;
