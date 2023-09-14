@@ -367,21 +367,23 @@ class page_admin_store_details extends CPageAdminOnly
 				));
 
 				$Form->AddElement(array(
-					CForm::type => CForm::Text,
+					CForm::type => CForm::Number,
 					CForm::disabled => false,
 					CForm::name => 'medium_ship_cost',
+					CForm::step => '.01',
 					CForm::dd_required => false
 				));
 
 				$Form->AddElement(array(
-					CForm::type => CForm::Text,
+					CForm::type => CForm::Number,
 					CForm::disabled => false,
 					CForm::name => 'large_ship_cost',
+					CForm::step => '.01',
 					CForm::dd_required => false
 				));
 
 				$Form->AddElement(array(
-					CForm::type => CForm::Text,
+					CForm::type => CForm::Number,
 					CForm::disabled => false,
 					CForm::name => 'default_delivered_sessions',
 					CForm::dd_required => false
@@ -458,20 +460,22 @@ class page_admin_store_details extends CPageAdminOnly
 			else
 			{
 				$Form->AddElement(array(
-					CForm::type => CForm::Text,
+					CForm::type => CForm::Number,
 					CForm::disabled => false,
 					CForm::name => 'medium_ship_cost',
+					CForm::step => '.01',
 					CForm::dd_required => false
 				));
 
 				$Form->AddElement(array(
-					CForm::type => CForm::Text,
+					CForm::type => CForm::Number,
 					CForm::disabled => false,
 					CForm::name => 'large_ship_cost',
+					CForm::step => '.01',
 					CForm::dd_required => false
 				));
 				$Form->AddElement(array(
-					CForm::type => CForm::Text,
+					CForm::type => CForm::Number,
 					CForm::disabled => false,
 					CForm::name => 'default_delivered_sessions',
 					CForm::dd_required => false
