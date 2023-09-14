@@ -2,7 +2,7 @@
 	(function() {
 		<?php if (empty($this->page_popup) || $this->page_popup != true) { ?>
 		<?php if ($msg = $this->getErrorMsg()) { CLog::RecordNew(CLog::DEBUG, 'Get Error Message: ' . $msg); ?>
-		dd_message({
+		modal_message({
 			title: 'Error',
 			type: 'error_msg',
 			message: '<?php echo $msg; ?>',
@@ -10,7 +10,7 @@
 		});
 		<?php } ?>
 		<?php if ($msg = $this->getStatusMsg()) { ?>
-		dd_message({
+		modal_message({
 			type: 'status_msg',
 			message: '<?php echo $msg; ?>',
 			div_id: 'dd_StatusMessage'

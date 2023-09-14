@@ -24,26 +24,27 @@
 					<div class="col">
 						<div class="card-group text-center">
 							<div class="card border-0 mx-1">
-								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Back-to-School-Toolkit.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/back-to-school-toolkit-458x344.png" alt="Back to School" class="img-fluid" /></a>
+								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Fall-Toolkit.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/fall-toolkit-458x344.jpg" alt="Halloween and Fall" class="img-fluid" /></a>
 								<div class="card-body">
-								<h5 class="card-title">Back to School Toolkit</h5>
+								<h5 class="card-title">Fall Toolkit</h5>
 									<p class="card-text">Filled with activities, tips and tricks to keep the kiddos entertained.</p>
-									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Back-to-School-Toolkit.pdf" target="_blank" class="btn btn-primary">Download Toolkit</a></p>
+									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Fall-Toolkit.pdf" target="_blank" class="btn btn-primary">Download Toolkit</a></p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Back-to-School-Placemat.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/back-to-school-placemat-458x344.png" alt="Back to School Placemat" class="img-fluid" /></a>								<div class="card-body">
-									<h5 class="card-title">Back to School Placemat</h5>
-									<p class="card-text">Download and print a 11x17 fun activity placemat.</p>
-									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Back-to-School-Placemat.pdf" target="_blank" class="btn btn-primary">Download Placemat</a></p>
-								</div>
-							</div>
-							<div class="card border-0 mx-1">
-								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Back-to-School-Note-Cards.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/back-to-school-note-cards-458x344.png" alt="Back to School notes" class="img-fluid" /></a>
+								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Fall-Placemat.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/fall-placemat-458x344.jpg" alt="Fall Placemat" class="img-fluid" /></a>								
 								<div class="card-body">
-									<h5 class="card-title">Back to School Notes</h5>
-									<p class="card-text">Add one of these sweet notes their lunchbox to brighten their day.</p>
-									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Back-to-School-Note-Cards.pdf" target="_blank" class="btn btn-primary">Download Notes</a></p>
+									<h5 class="card-title">Fall Placemat</h5>
+									<p class="card-text">Download and print a 11x17 fun activity placemat.</p>
+									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Fall-Placemat.pdf" target="_blank" class="btn btn-primary">Download Placemat</a></p>
+								</div>
+							</div>
+							<div class="card border-0 mx-1">
+								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Halloween-Lunch-Box-Jokes.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/fall-lunch-box-jokes-458x344.jpg" alt="Fall Jokes" class="img-fluid" /></a>
+								<div class="card-body">
+									<h5 class="card-title">Fall Lunch Box Jokes</h5>
+									<p class="card-text">Add one of these silly jokes their lunchbox to brighten their day.</p>
+									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Halloween-Lunch-Box-Jokes.pdf" target="_blank" class="btn btn-primary">Download Jokes</a></p>
 								</div>
 							</div>
 							<!--<div class="card border-0 mx-1">

@@ -5,7 +5,7 @@
 // Optional: Message to appear only on maintenance page
 //define('MAINT_PAGE_MESSAGE', 'Our website is currently down for scheduled maintenance, site expected to be up at 9:00 PM PDT.');
 
-// List of IP's who won't get redirect to maintenance page
+// List of IPs who won't get redirect to maintenance page
 //$g_IP_ExclusionList = array('127.0.0.1','50.34.44.26');
 
 
@@ -65,7 +65,7 @@ else
 			break;
 		case 'C-DB1-Reports-2':
 			include ("config/Config.C-DB1-Reports-2.inc");
-			efine('SERVER_ENV', 'TEST');
+			define('SERVER_ENV', 'TEST');
 			break;
 		case 'sandbox.dreamdinners.com':
 			include ("config/Config.sandbox.inc");
