@@ -141,7 +141,7 @@ function bounce(location, target)
 function back_path()
 {
 	// returns encoded string to pass to back=
-	return encodeURIComponent(location.pathname.substring(1) + location.search);
+	return encodeURIComponent(location.pathname + location.search);
 }
 
 function incrementVal(value, incrementBy)
