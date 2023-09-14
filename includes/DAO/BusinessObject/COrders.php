@@ -12274,7 +12274,8 @@ class COrders extends DAO_Orders
 						'other' => $Payment->delayed_payment_transaction_number
 					);
 				}
-				if ($Payment->delayed_payment_transaction_date)
+
+				if (!empty($Payment->delayed_payment_transaction_date))
 				{
 					$PaymentArr['delayed_date'] = array(
 						'title' => 'Delayed Payment Date',

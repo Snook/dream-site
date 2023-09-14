@@ -28,7 +28,6 @@ Promotional Code Discount		$<?=$this->moneyFormat($this->orderInfo['promo_code_d
 Item Subtotal			$<?= $this->moneyFormat($this->orderInfo['subtotal_all_items'])  . "\n" ?>
 Tax Subtotal			$<?= $this->moneyFormat($this->orderInfo['subtotal_all_taxes'])  . "\n" ?>
 Total				$<?= $this->moneyFormat($this->orderInfo['grand_total'])  . "\n" ?>
-Order Type:			<?= $this->orderInfo['order_type']  . "\n" ?>
 Special Instructions/Requests:	<?php if ($this->orderInfo['order_user_notes'] != NULL) {
 	            echo $this->orderInfo['order_user_notes'] . "\n" ;
 	        }

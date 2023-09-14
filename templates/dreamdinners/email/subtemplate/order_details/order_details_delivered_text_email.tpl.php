@@ -73,8 +73,6 @@ Item Subtotal		$<?= $this->moneyFormat($this->orderInfo['subtotal_all_items'])  
 Tax Subtotal		$<?= $this->moneyFormat($this->orderInfo['subtotal_all_taxes'])  . "\n" ?>
 Total				$<?= $this->moneyFormat($this->orderInfo['grand_total'])  . "\n" ?>
 Avg Cost Per Serving for Dinners: $<?= $this->moneyFormat($this->menuInfo['cost_per_serving']) . "\n" ?>
-Order Type:			<?= $this->orderInfo['order_type']  . "\n" ?>
-
 Special Instructions/Requests:	<?php if ($this->orderInfo['order_user_notes'] != NULL) {
 	            echo $this->orderInfo['order_user_notes'] . "\n" ;
 	        }
