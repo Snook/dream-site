@@ -72,8 +72,6 @@ class CTemplate extends Savant2
 		'admin_reports_national_entree_projection',
 		'admin_reports_entree'
 	);
-	public $rows;
-	public $page;
 
 	protected $debugInfoArray = array();
 	protected $emergency_mode = false;
