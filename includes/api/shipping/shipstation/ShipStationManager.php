@@ -69,9 +69,9 @@ class ShipStationManager extends ApiManager
 	 *  getInstance()
 	 * ----------------------------------------------------
 	 *
-	 * Get the ShipStation Manager instance.
+	 * Get the ShipStation Manager instance for the specified store.
 	 *
-	 *
+	 * @param CStore with id populated
 	 * @return  ShipStationManager $shipStationManager
 	 */
 	public static function getInstance($storeObj)
@@ -83,6 +83,24 @@ class ShipStationManager extends ApiManager
 
 		return self::$instance;
 	}
+	/**
+	 * ----------------------------------------------------
+	 *  getInstanceForOrder()
+	 * ----------------------------------------------------
+	 *
+	 * Get the ShipStation Manager instance for the specified order's store.
+	 *
+	 * @param COrdersDelivered with the store id populated
+	 * @return  ShipStationManager $shipStationManager
+	 */
+	public static function getInstanceForOrder($orderObj)
+	{
+		$store = new CStore();
+		$store->id = $orderObj->store_id;
+
+		return self::getInstance($store);
+	}
+
 
 	public function getCurrentStoreForConfig()
 	{
