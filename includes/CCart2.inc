@@ -15,6 +15,7 @@ class CCart2
 {
 
 	static private $_instance = null;
+	private $_cartDAO;
 
 	static public function instance($full_restore = true, $external_key = false, $force_new = false)
 	{
