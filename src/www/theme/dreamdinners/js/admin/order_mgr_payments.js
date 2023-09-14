@@ -138,7 +138,7 @@ function handle_ltd_round_up()
 		/*
 
 		 $.ajax({
-		 url: 'ddproc.php',
+		 url: '/processor',
 		 type: 'POST',
 		 timeout: 20000,
 		 dataType: 'json',
@@ -314,6 +314,7 @@ function handleCouponCodeResult(json)
 		couponDiscountMethod = json.discount_method;
 		couponDiscountVar = json.discount_var;
 		couponlimitedToFT = json.limit_to_finishing_touch;
+		couponIsValidWithReferralCredit = json.valid_with_customer_referral_credit;
 		couponIsValidWithPlatePoints = json.valid_with_plate_points_credits;
 		couponFreeMenuItemRequired = true;
 
@@ -382,7 +383,7 @@ function processCode()
 	var d = new Date();
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -460,7 +461,7 @@ function removeCode()
 	var d = new Date();
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -670,6 +671,65 @@ function stripLeadingZeroes(val)
 
 }
 
+function handleReferralRewardDiscount(val)
+{
+	//todo: evanl - is this relevant to RR?
+	if (!couponIsValidWithPlatePoints)
+	{
+		$('#referral_reward_discount').val( formatAsMoney(0) );
+
+		dd_message({
+			title: 'Alert',
+			message: 'Customer Referral Reward cannot be used with the attached coupon.'
+		});
+
+	}
+
+	if ((isNaN(val) || val <= 0) && val != ".")
+	{
+		$('#referral_reward_discount').val(formatAsMoney(0));
+		calculateTotal();
+		return;
+	}
+
+	needPlatePointsMaxDiscountChangeWarning = false;
+
+	val = formatAsMoney(Math.abs(val)) * 1;
+
+	let maxReferralRewardCredit = $("#referral_reward_available").html() * 1;
+	let maxReferralRewardDeduction = $("#max_referral_reward_deduction").html() * 1;
+	let curReferralRewardDiscount = $("#referral_reward_discount").val() * 1;
+
+	if (maxReferralRewardDeduction < curReferralRewardDiscount)
+	{
+		$("#referral_reward_discount").val(maxReferralRewardDeduction);
+	}
+
+	if (maxReferralRewardCredit > maxReferralRewardDeduction)
+	{
+		$('#tbody_max_referral_reward').show();
+	}
+	else
+	{
+		$('#tbody_max_referral_reward').hide();
+	}
+
+	var cap = maxReferralRewardCredit;
+	if (cap > maxReferralRewardDeduction)
+	{
+		cap = maxReferralRewardDeduction;
+	}
+
+	if (val > cap)
+	{
+		val = cap;
+		$('#referral_reward_discount').val(val);
+
+	}
+
+	calculateTotal();
+}
+
 function handlePlatePointsDiscount(val)
 {
 	if (!couponIsValidWithPlatePoints)
@@ -767,7 +827,7 @@ function getGiftCardBalance()
 	$('#balance_target').hide();
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -812,7 +872,7 @@ function editCashCheckAmountCommit(id, type)
 	new_number = $('#check_payment_number_input_form_' + id).val();
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -888,7 +948,7 @@ function processPayment()
 		$('#payment_proc_mess').html('<img src="' + PATH.image_admin + '/throbber_processing_noborder.gif" alt="Processing" />');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 60000,
 			dataType: 'json',
@@ -984,7 +1044,7 @@ function processDelayedPaymentStatus()
 	$('#payment_proc_mess').html('<img src="' + PATH.image_admin + '/throbber_processing_noborder.gif" alt="Processing" />');
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1104,7 +1164,7 @@ function processPointToTransaction()
 	$('#payment_proc_mess').html('<img src="' + PATH.image_admin + '/throbber_processing_noborder.gif" alt="Processing" />');
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',

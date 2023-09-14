@@ -24,7 +24,7 @@
 
   <p>Sincerely,<br />
     Dream Dinners</p>
-  <p><a href="<?=HTTPS_BASE ?>main.php?page=platepoints">Learn more about the perks of PLATEPOINTS &gt;</a></p>
+  <p><a href="<?=HTTPS_BASE ?>platepoints">Learn more about the perks of PLATEPOINTS &gt;</a></p>
   </td>
 </tr>
 </table>
@@ -33,7 +33,7 @@
 <td align="left"><img src="<?=EMAIL_IMAGES_PATH?>/email/platepoints/platepoints-footer-grey.png" width="550" height="50"></td>
 </tr>
 <tr>
-  <td align="right" style="padding: 5px"><a href="<?=HTTPS_BASE ?>main.php?page=session_menu">Order</a> | <a href="<?=HTTPS_BASE ?>main.php?page=my_account">My Account</a> | <a href="<?=HTTPS_BASE ?>main.php?page=my_platepoints">My PLATEPOINTS</a></td>
+  <td align="right" style="padding: 5px"><a href="<?=HTTPS_BASE ?>session-menu">Order</a> | <a href="<?=HTTPS_BASE ?>my-account">My Account</a> | <a href="<?=HTTPS_BASE ?>my-platepoints">My PLATEPOINTS</a></td>
   </tr>
 <tr>
 		<td align="left" style="padding: 5px"><p><i>*Voucher is non-transferable. One voucher per person. Voucher expires 6 months from date awarded.</i><br>

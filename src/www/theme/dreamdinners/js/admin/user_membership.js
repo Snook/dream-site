@@ -170,7 +170,7 @@ $(document).on('click', '.membership-skip-month', function (e) {
 	var this_el = this;
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -214,7 +214,7 @@ $(document).on('click', '.membership-unskip-month', function (e) {
 	var this_el = this;
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -267,7 +267,7 @@ $(document).on('click', '.membership-cancel', function (e) {
 			if (result)
 			{
 				$.ajax({
-					url: 'ddproc.php',
+					url: '/processor',
 					type: 'POST',
 					timeout: 20000,
 					dataType: 'json',
@@ -323,7 +323,7 @@ $(document).on('click', '.membership-terminate', function (e) {
 			if (result)
 			{
 				$.ajax({
-					url: 'ddproc.php',
+					url: '/processor',
 					type: 'POST',
 					timeout: 20000,
 					dataType: 'json',
@@ -371,7 +371,7 @@ $(document).on('click', '.membership-reinstate', function (e) {
 			if (result)
 			{
 				$.ajax({
-					url: 'ddproc.php',
+					url: '/processor',
 					type: 'POST',
 					timeout: 20000,
 					dataType: 'json',
@@ -423,7 +423,7 @@ $(document).on('click', '.apply-coupon', function (e) {
 	else
 	{
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',

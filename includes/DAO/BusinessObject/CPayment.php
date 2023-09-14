@@ -1341,7 +1341,7 @@ class CPayment extends DAO_Payment
 
 						COrdersDigest::handleDelayedPaymentSuccess($this->order_id, $OrderObj->grand_total);
 
-						COrders::sendDelayedPaymentEmail($CustomerObj, $OrderObj);
+						//COrders::sendDelayedPaymentEmail($CustomerObj, $OrderObj);
 					}
 					catch (exception $e)
 					{

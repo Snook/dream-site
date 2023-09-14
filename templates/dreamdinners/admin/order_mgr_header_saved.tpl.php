@@ -136,6 +136,14 @@
 					<td  align="right" style="display:none">-$&nbsp;</td><td align="right"  style="display:none"><span id="OEH_plate_points_discount_org_fee"><?= $this->moneyFormat($this->orderInfo['points_discount_total_fee']) ?></span></td>
 				</tr>
 
+				<tr id="referralRewardDiscountRow">
+					<td>Referral Reward Discount</td>
+					<td  align="right" style="color:blue;">-$&nbsp;</td>
+					<td align="right"><span id="OEH_referral_reward_order_discount" style="color:blue;"><?= $this->moneyFormat($this->orderInfo['discount_total_customer_referral_credit']) ?></span></td>
+					<td width="5"></td>
+					<td  align="right" style="display:none">-$&nbsp;</td><td align="right"  style="display:none"><span id="OEH_referral_reward_order_discount_orig"><?= $this->moneyFormat($this->orderInfo['discount_total_customer_referral_credit']) ?></span></td>
+				</tr>
+
 
 				<tr id="couponDiscountRow">
 					<td>Coupon Discount<span id="OEH_bonus_credit">&nbsp;</span></td>
@@ -408,7 +416,7 @@
 											<div>
 												<div style="float:right">
 													<span id="gd_delete_order-<?php echo $this->orderInfo['id']; ?>" data-user_id="<?php echo $this->orderInfo['user_id']; ?>" data-store_id="<?php echo $this->orderInfo['store_id']; ?>"
-													 data-session_id="<?php echo $this->sessionInfo['id'] ?>" data-order_id="<?php echo $this->orderInfo['id']; ?>" data-bounce="main.php?page=admin_order_mgr&user=<?php echo $this->orderInfo['user_id']; ?>"  class="button">Delete Saved Order</span>
+													 data-session_id="<?php echo $this->sessionInfo['id'] ?>" data-order_id="<?php echo $this->orderInfo['id']; ?>" data-bounce="/?page=admin_order_mgr&user=<?php echo $this->orderInfo['user_id']; ?>"  class="button">Delete Saved Order</span>
 												</div>
 											</div>
 										</td>

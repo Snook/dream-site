@@ -11,7 +11,9 @@ require_once("DAO/BusinessObject/CGiftCard.php");
 require_once("DAO/BusinessObject/CFundraiser.php");
 require_once('DAO/BusinessObject/CMenuItemInventoryHistory.php');
 require_once('DAO/BusinessObject/COrderMinimum.php');
-require_once('includes/DAO/BusinessObject/CStoreCredit.php');
+require_once('DAO/BusinessObject/CStoreCredit.php');
+require_once('DAO/BusinessObject/CCustomerReferralCredit.php');
+
 require_once("ValidationRules.inc");
 require_once("CAppUtil.inc");
 require_once("OrdersHelper.php");
@@ -37,6 +39,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		'limited_access' => false,
 		'direct_order' => true,
 		'dinner_dollars' => true,
+		'referral_reward' => true,
 		'coupon_code' => true,
 		'preferred' => true,
 		'session' => true,
@@ -113,7 +116,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			if (empty($_REQUEST['user']) || !is_numeric($_REQUEST['user']))
 			{
 				$tpl->setErrorMsg("There was a problem with the user ID specified.");
-				CApp::bounce("main.php?page=admin_main");
+				CApp::bounce("/?page=admin_main");
 			}
 
 			$this->originalOrder = DAO_CFactory::create('orders');
@@ -139,14 +142,14 @@ class page_admin_order_mgr extends CPageAdminOnly
 					if ($e->getCode() == processor_admin_order_mgr_processor::dd_general_exception_code && strpos($e->getMessage(), "no open slots") !== false)
 					{
 						$tpl->setErrorMsg("The session has no open slots for this order. Please return to the Sessions and Menu Page and select a new session.");
-						CApp::bounce("main.php?page=admin_main&session=" . $_POST['session']);
+						CApp::bounce("/?page=admin_main&session=" . $_POST['session']);
 					}
 				}
 
 				// success at this point so refresh the page with the new order id
 
 				$orderID = $processor->getOrderID();
-				CApp::bounce("main.php?page=admin_order_mgr&order=" . $orderID);
+				CApp::bounce("/?page=admin_order_mgr&order=" . $orderID);
 			}
 		}
 		else
@@ -158,7 +161,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			if (!$this->originalOrder->find(true))
 			{
 				$tpl->setErrorMsg("An order with the id " . $this->originalOrder->id . " was not found. Please double check the order number, if the issue persists, please contact support.");
-				CApp::bounce("main.php?page=admin_main");
+				CApp::bounce("/?page=admin_main");
 			}
 
 			$booking = DAO_CFactory::create('booking');
@@ -185,7 +188,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				else
 				{
 					$tpl->setErrorMsg("There was a problem with the order ID specified.");
-					CApp::bounce("main.php?page=admin_main");
+					CApp::bounce("/?page=admin_main");
 					// TODO: or we could leave them here with a NEW order
 				}
 			}
@@ -236,7 +239,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			}
 			else
 			{
-				CApp::bounce('main.php?page=admin_main');
+				CApp::bounce('/?page=admin_main');
 			}
 		}
 
@@ -251,12 +254,12 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 		if ($this->orderState == 'NEW' && $this->daoStore->store_type == CStore::DISTRIBUTION_CENTER)
 		{
-			CApp::bounce('main.php?page=admin_order_mgr_delivered&user=' . $this->originalOrder->user_id);
+			CApp::bounce('/?page=admin_order_mgr_delivered&user=' . $this->originalOrder->user_id);
 		}
 
 		if (!CStore::userHasAccessToStore($this->daoStore->id))
 		{
-			CApp::bounce('main.php?page=admin_main');
+			CApp::bounce('/?page=admin_main');
 		}
 
 		if (CUser::getCurrentUser()->isFranchiseAccess() && $this->orderState != 'NEW')
@@ -267,7 +270,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 				$storeName = $this->daoStore->store_name;
 				$tpl->setErrorMsg("This order (#{$this->originalOrder->id}) was placed at a different store. Please change to the $storeName store to edit it.");
-				CApp::bounce('main.php?page=admin_main');
+				CApp::bounce('/?page=admin_main');
 			}
 		}
 
@@ -330,7 +333,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				unset($_GET['back']);
 				unset($tpl->back);
 
-				CApp::bounce('main.php?page=admin_order_mgr_delivered&order=' . $this->originalOrder->id);
+				CApp::bounce('/?page=admin_order_mgr_delivered&order=' . $this->originalOrder->id);
 			}
 
 			$Form->AddElement(array(
@@ -488,6 +491,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				$bundleInfo = CBundle::getBundleInfo($dreamTasteProperties->bundle_id, $Session->menu_id, $this->daoStore);
 
 				$this->discountEligable['dinner_dollars'] = false;
+				$this->discountEligable['referral_reward'] = false;
 				$this->discountEligable['coupon_code'] = true;
 				$this->discountEligable['preferred'] = false;
 				$this->discountEligable['session'] = false;
@@ -521,6 +525,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				$bundleInfo = CBundle::getBundleInfo($fundraiserProperties->bundle_id, $Session->menu_id, $this->daoStore->id);
 
 				$this->discountEligable['dinner_dollars'] = false;
+				$this->discountEligable['referral_reward'] = false;
 				$this->discountEligable['coupon_code'] = true;
 				$this->discountEligable['preferred'] = false;
 				$this->discountEligable['session'] = false;
@@ -1374,6 +1379,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$tpl->assign('couponDiscountVar', $coupon->discount_var);
 			$tpl->assign('couponlimitedToFT', ($coupon->limit_to_finishing_touch ? true : false));
 			$tpl->assign('couponlimitedToCore', ($coupon->limit_to_core ? true : false));
+			$tpl->assign('couponIsValidWithReferralCredit', ($coupon->valid_with_customer_referral_credit ? true : false));
 			$tpl->assign('couponIsValidWithPlatePoints', ($coupon->valid_with_plate_points_credits ? true : false));
 
 			$tpl->assign('couponFreeMenuItem', (!empty($this->originalOrder->coupon_free_menu_item) ? $this->originalOrder->coupon_free_menu_item : false));
@@ -1986,6 +1992,8 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$tpl->assign('orderIsEligibleForMembershipDiscount', false);
 		}
 
+		$maxAvailableReferralRewardCredit  = $this->handleReferralRewards($tpl,$Form, $this->originalOrder);
+
 		$tpl->assign('userIsPlatePointsGuest', $this->userIsPlatePointsGuest);
 		$tpl->assign('storeSupportsPlatePoints', $this->storeSupportsPlatePoints);
 
@@ -2270,9 +2278,9 @@ class page_admin_order_mgr extends CPageAdminOnly
 						COrders::sendEditedOrderConfirmationEmail($this->User, $this->originalOrder);
 					}
 
-					$tpl->assign('back', "main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+					$tpl->assign('back', "/?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 
-					CApp::bounce("main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+					CApp::bounce("/?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 				}
 				catch (Exception $e)
 				{
@@ -2549,6 +2557,35 @@ class page_admin_order_mgr extends CPageAdminOnly
 						$this->originalOrder->points_discount_total = 0;
 					}
 
+					// Referral Rewards Discount
+					if (isset($_POST['referral_reward_discount']))
+					{
+
+						if (empty($_POST['referral_reward_discount']))
+						{
+							$_POST['referral_reward_discount'] = 0;
+						}
+
+						if ($_POST['referral_reward_discount'] > $maxAvailableReferralRewardCredit)
+						{
+							$_POST['referral_reward_discount'] = $maxAvailableReferralRewardCredit;
+						}
+
+						if ($_POST['referral_reward_discount'] < 0)
+						{
+							$_POST['referral_reward_discount'] = 0;
+						}
+
+						$pp_credit_adjust_summary = CCustomerReferralCredit::AdjustPointsForOrderEdit($this->originalOrder, $_POST['referral_reward_discount']);
+
+						$this->originalOrder->discount_total_customer_referral_credit = $_POST['referral_reward_discount'];
+					}
+					else
+					{
+						$pp_credit_adjust_summary = CCustomerReferralCredit::AdjustPointsForOrderEdit($this->originalOrder, 0);
+						$this->originalOrder->discount_total_customer_referral_credit = 0;
+					}
+
 					self::cleanUpForeignKeys($order_record);
 
 					if ($order_record->promo_code_id === '0' || $order_record->promo_code_id === 0)
@@ -2660,6 +2697,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 							$tpl->assign('couponDiscountVar', $coupon->discount_var);
 							$tpl->assign('couponlimitedToFT', ($coupon->limit_to_finishing_touch ? true : false));
 							$tpl->assign('couponlimitedToCore', ($coupon->limit_to_core ? true : false));
+							$tpl->assign('couponIsValidWithReferralCredit', ($coupon->valid_with_customer_referral_credit ? true : false));
 							$tpl->assign('couponIsValidWithPlatePoints', ($coupon->valid_with_plate_points_credits ? true : false));
 						}
 						else
@@ -2743,9 +2781,9 @@ class page_admin_order_mgr extends CPageAdminOnly
 						COrders::sendEditedOrderConfirmationEmail($this->User, $this->originalOrder);
 					}
 
-					$tpl->assign('back', "main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+					$tpl->assign('back', "/?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 
-					CApp::bounce("main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+					CApp::bounce("/?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 				}
 				catch (Exception $e)
 				{
@@ -5013,6 +5051,58 @@ class page_admin_order_mgr extends CPageAdminOnly
 				CStoreHistory::recordStoreEvent($this->originalOrder->user_id, $this->originalOrder->store_id, $this->originalOrder->id, 200, $orgPayment->id, 'null', 'null', $description);
 			}
 		}
+	}
+
+	function handleReferralRewards($tpl,&$Form,$order)
+	{
+		$maxAvailableReferralRewards = CCustomerReferralCredit::getAvailableCreditForUserAndOrder($order->user_id, $order->id);
+		$maxAllowedReferralRewards = '50.00';
+
+		$tpl->assign('maxReferralRewards', $maxAvailableReferralRewards);
+
+		if(floatval($maxAvailableReferralRewards) <= floatval($maxAllowedReferralRewards))
+		{
+			$tpl->assign('maxReferralRewardsDeduction', $maxAvailableReferralRewards);
+		}
+		else
+		{
+			$tpl->assign('maxReferralRewardsDeduction', $maxAllowedReferralRewards);
+		}
+
+		if ( $maxAvailableReferralRewards > 0 )
+		{
+
+			if ($order->discount_total_customer_referral_credit== 0)
+			{
+				$Form->DefaultValues['referral_reward_discount'] = "";
+			}
+			else
+			{
+				$Form->DefaultValues['referral_reward_discount'] = $order->discount_total_customer_referral_credit;
+			}
+
+			$Form->AddElement(array(
+				CForm::type => CForm::Money,
+				CForm::name => 'referral_reward_discount',
+				CForm::org_value => $order->discount_total_customer_referral_credit,
+				CForm::onKeyUp => 'handleReferralRewardDiscount',
+				CForm::onChange => 'handleReferralRewardDiscount',
+				CForm::autocomplete => false
+			));
+		}
+		else
+		{
+			if ($maxAvailableReferralRewards <= 0)
+			{
+				$tpl->assign('noReferralRewardReason', "The guest does not currently have any Referral Rewards.");
+			}
+			else
+			{
+				$tpl->assign('noReferralRewardReason', "Referral Rewards are not available.");
+			}
+		}
+
+		return $maxAvailableReferralRewards;
 	}
 }
 

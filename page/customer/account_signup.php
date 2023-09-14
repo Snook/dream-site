@@ -62,14 +62,7 @@ class page_account_signup extends CPage
 		$Form->Bootstrap = true;
 		$Form = form_account::_buildForm($Form, true, true, $inviting_user_email);
 
-
-
 		$User = new CUser();
-
-		if ($Form->value('home_store') !== "None Selected" && $_POST['store_id'] != "no_store" && isset($_POST['store_id']) && is_numeric($_POST['store_id']))
-		{
-			$Form->DefaultValues['home_store_id'] = $_POST['store_id'];
-		}
 
 		$SFICurrentValues = CUserData::buildSFIFormElementsNew($Form, $User);
 
@@ -93,7 +86,7 @@ class page_account_signup extends CPage
 					}
 					else
 					{
-						$url = "main.php";
+						$url = "/";
 					}
 
 					CApp::instance()->bounce($url, true);
@@ -104,16 +97,12 @@ class page_account_signup extends CPage
 		//set template vars
 		$tpl->assign('form_account', $Form->Render());
 		$tpl->assign('isCreate', true);
-		$tpl->assign('isCreate', true);
-		$tpl->assign('platePointsEnroll', ((!empty($_GET['pp_enroll']) && CUser::getCurrentUser()->platePointsData['status'] != 'active') ? true : false));
-		$tpl->assign('isAdmin', false);
-		$tpl->assign('hasReferralSource', false);
 	}
 
 	function runCustomer()
 	{
 		CApp::forceSecureConnection();
-		CApp::instance()->bounce('main.php?page=account', true);
+		CApp::instance()->bounce('/account', true);
 	}
 }
 

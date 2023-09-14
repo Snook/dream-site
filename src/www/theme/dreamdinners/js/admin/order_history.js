@@ -37,7 +37,7 @@ function handle_order_details_click()
 
 			if ($(this).data('is_shown') == true)
 			{
-				historyPush({url: 'main.php?page=' + getQueryVariable('page') + '&id=' + getQueryVariable('id')});
+				historyPush({url: '?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'id=' + getQueryVariable('id')});
 				$(this).text('View Order').data('is_shown', false);
 				return;
 			}
@@ -64,7 +64,7 @@ function handle_order_details_click()
 			});
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 60000,
 				dataType: 'json',
@@ -80,7 +80,7 @@ function handle_order_details_click()
 					{
 						$('[data-view_order_details_table="' + json.booking_id + '"]').html(json.order_details_table +json.history_table );
 
-						historyPush({url: 'main.php?page=' + getQueryVariable('page') + '&id=' + getQueryVariable('id') + '&order=' + json.order_id});
+						historyPush({url: '?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'id=' + getQueryVariable('id') + '&order=' + json.order_id});
 					}
 				},
 				error: function (objAJAXRequest, strError)
@@ -97,7 +97,7 @@ function handle_order_details_click()
 
 			$('#order_details_tbody_id_' + $(this).data('booking_id')).hide();
 
-			historyPush({url: 'main.php?page=' + getQueryVariable('page') + '&id=' + getQueryVariable('id')});
+			historyPush({url: '?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'id=' + getQueryVariable('id')});
 
 		});
 
@@ -158,7 +158,7 @@ function handlePaging(){
 		localStorage.setItem('history-paging-user',user_id);
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 100000000,
 			dataType: 'json',
@@ -208,7 +208,7 @@ function handlePaging(){
 		localStorage.setItem('orders-paging-current',current_page);
 		localStorage.setItem('history-paging-user',user_id);
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 100000000,
 			dataType: 'json',
@@ -265,7 +265,7 @@ function restorePagingLocation(currentUser)
 	if (page != null && typeof page !== 'undefined' && user_id != null && typeof user_id !== 'undefined'){
 		$('#order_history').html('');
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 100000000,
 			dataType: 'json',

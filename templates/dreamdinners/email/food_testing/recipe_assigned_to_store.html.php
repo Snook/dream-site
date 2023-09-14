@@ -17,7 +17,7 @@
 <table role="presentation" width="650" border="0" cellspacing="0" cellpadding="8">
 	<tr>
 		<td>
-			<p>A Food Testing recipe has been made available to your store, please visit the <a href="<?php echo HTTPS_BASE; ?>main.php?page=admin_food_testing_survey&recipe=<?php echo $this->survey_id; ?>">Food Testing Manager</a> to retrieve your documents.</p>
+			<p>A Food Testing recipe has been made available to your store, please visit the <a href="<?php echo HTTPS_BASE; ?>?page=admin_food_testing_survey&recipe=<?php echo $this->survey_id; ?>">Food Testing Manager</a> to retrieve your documents.</p>
 			<hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;">
 		</td>
 	</tr>

@@ -12,7 +12,6 @@ class page_locations extends CPage
 
 		$CartObj = CCart2::instance();
 
-		$req_store_id = CGPC::do_clean((!empty($_REQUEST['store_id']) ? $_REQUEST['store_id'] : false), TYPE_INT);
 		$req_post_zip = CGPC::do_clean((!empty($_POST['zip']) ? $_POST['zip'] : false), TYPE_POSTAL_CODE, true);
 		$req_get_zip = CGPC::do_clean((!empty($_GET['zip']) ? $_GET['zip'] : false), TYPE_POSTAL_CODE, true);
 		$req_get_state = CGPC::do_clean((!empty($_GET['state']) ? $_GET['state'] : false), TYPE_STR, true);
@@ -26,7 +25,7 @@ class page_locations extends CPage
 			$CartObj->storeChangeEvent($req_select_store);
 			$CartObj->addMenuId($req_select_menu);
 			$CartObj->addNavigationType(CSession::ALL_STANDARD);
-			CApp::bounce('main.php?page=session_menu');
+			CApp::bounce('/session-menu');
 		}
 
 		if (isset($req_select_store) && is_numeric($req_select_store) && $req_select_store > 0)
@@ -40,11 +39,11 @@ class page_locations extends CPage
 			if (CBrowserSession::getValue('dd_start_intro'))
 			{
 				CBrowserSession::setValue('dd_start_intro');
-				CApp::bounce('main.php?page=session_menu');
+				CApp::bounce('/session-menu');
 			}
 			else
 			{
-				CApp::bounce('main.php?page=session_menu');
+				CApp::bounce('/session-menu');
 			}
 		}
 
@@ -53,19 +52,13 @@ class page_locations extends CPage
 			/// ------------------------------------------------store was selected
 			$CartObj->storeChangeEvent($req_select_dist_ctr);
 			$CartObj->addNavigationType(CTemplate::DELIVERED);
-			CApp::bounce('main.php?page=box_select');
-		}
-
-		// redirect old site query to new store page
-		if ($req_store_id)
-		{
-			CApp::bounce('main.php?page=store&id=' . $req_store_id);
+			CApp::bounce('/box-select');
 		}
 
 		// if zip is in _POST redirect to _GET method
 		if ($req_post_zip)
 		{
-			CApp::bounce('main.php?page=locations&zip=' . $req_post_zip . '#zipsearch_zipcode');
+			CApp::bounce('/locations?zip=' . $req_post_zip . '#zipsearch_zipcode');
 		}
 
 		$tpl = CApp::instance()->template();

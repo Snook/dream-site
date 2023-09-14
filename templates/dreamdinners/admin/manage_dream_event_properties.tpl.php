@@ -93,7 +93,7 @@
 			<td class="bgcolor_medium header_row">Title</td>
 			<td class="bgcolor_medium header_row">Session Type</td>
 			<td class="bgcolor_medium header_row">Path</td>
-			<td class="bgcolor_medium header_row"><a href="main.php?page=admin_manage_dream_event_properties&amp;create" class="button">Create Properties</a></td>
+			<td class="bgcolor_medium header_row"><a href="/?page=admin_manage_dream_event_properties&amp;create" class="button">Create Properties</a></td>
 		</tr>
 		</thead>
 		<?php foreach ($this->dtePropertiesArray AS $id => $dteProperties) { ?>
@@ -106,7 +106,7 @@
 				<td class="bgcolor_light"><?php echo $dteProperties->theme_string; ?></td>
 				<td class="bgcolor_light" style="text-align: center;">
 					<span data-dtep_id="<?php echo $dteProperties->id; ?>" class="view_items button">Details</span>
-					<a href="main.php?page=admin_manage_dream_event_properties&amp;edit=<?php echo $dteProperties->id; ?>" class="button">Edit</a>
+					<a href="/?page=admin_manage_dream_event_properties&amp;edit=<?php echo $dteProperties->id; ?>" class="button">Edit</a>
 				</td>
 			</tr>
 			</tbody>

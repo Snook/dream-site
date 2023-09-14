@@ -27,7 +27,7 @@ function nutritional_summary_init()
 			filter_zero_inventory = 1;
 		}
 
-		bounce('main.php?page=nutritionals&store=' + $('#store').val() + '&menu=' + $('#menus_dropdown').val() + '&show_entree=' + show_entree + '&show_efl=' + show_efl + '&show_ft=' + show_ft + '&filter_zero_inventory=' + filter_zero_inventory + '&print=1', 'print');
+		bounce('?page=nutritionals&store=' + $('#store').val() + '&menu=' + $('#menus_dropdown').val() + '&show_entree=' + show_entree + '&show_efl=' + show_efl + '&show_ft=' + show_ft + '&filter_zero_inventory=' + filter_zero_inventory + '&print=1', 'print');
 
 	});
 }

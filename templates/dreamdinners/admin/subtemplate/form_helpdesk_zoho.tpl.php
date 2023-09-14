@@ -5,9 +5,9 @@
 <input type="hidden" name="xmIwtLD" value="aaiX9X*-DLhfUICwMz7mTIe-o4Q-M6zK" />
 <input type="hidden" name="actionType" value="Q2FzZXM=" />
 <input type="hidden" name="Department" value="0f33ccb4ba7c8de75710439f27d48b29f3148ec5bcd90913" />
-<input type="hidden" name="returnURL" value="<?php echo HTTPS_SERVER; ?>/main.php?<?php echo $_SERVER['QUERY_STRING']; ?>" />
+<input type="hidden" name="returnURL" value="<?php echo HTTPS_SERVER; ?>/?<?php echo $_SERVER['QUERY_STRING']; ?>" />
 <input type="hidden" name="Browser" value="<?php echo $_SERVER["HTTP_USER_AGENT"]; ?>" />
-<input type="hidden" name="Reporting Page" value="main.php?<?php echo $_SERVER['QUERY_STRING']; ?>" />
+<input type="hidden" name="Reporting Page" value="?<?php echo $_SERVER['QUERY_STRING']; ?>" />
 <input type="hidden" name="Store ID" value="<?php echo CBrowserSession::getCurrentStore(); ?>" />
 <input type="hidden" name="User ID" value="<?php echo CUser::getCurrentUser()->id; ?>" />
 

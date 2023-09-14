@@ -200,7 +200,7 @@ $(function () {
 		let bundle_id = this.getAttribute('data-view_bundle');
 
 		create_and_submit_form({
-			action: 'main.php?page=box_menu',
+			action: '/box-menu',
 			input: ({
 				view_box: box_id,
 				view_bundle: bundle_id
@@ -232,7 +232,7 @@ $(function () {
 				BOX_PROCESSING = true;
 
 				$.ajax({
-					url: 'ddproc.php',
+					url: '/processor',
 					type: 'POST',
 					timeout: 20000,
 					dataType: 'json',
@@ -303,7 +303,7 @@ $(function () {
 	$(document).on('click', '.box-add:not(.disabled)', function (e) {
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -318,7 +318,7 @@ $(function () {
 
 				if (json.processor_success)
 				{
-					bounce('main.php?page=box_select');
+					bounce('/box-select');
 				}
 				else
 				{
@@ -339,7 +339,7 @@ $(function () {
 		let box_instance_id = $(this).data('box_instance_id');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -400,7 +400,7 @@ $(function () {
 		else
 		{
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -447,7 +447,7 @@ $(function () {
 	$(document).on('click', '.add-coupon-remove', function (e) {
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -498,7 +498,7 @@ $(function () {
 		let recipe_id = $(this).data('dinner_details');
 
 		create_and_submit_form({
-			action: 'main.php?page=item&recipe=' + recipe_id,
+			action: '/item?recipe=' + recipe_id,
 			input: ({
 				'box_id': box_info.box_id
 			})

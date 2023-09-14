@@ -72,7 +72,7 @@ class form_account
 
 	);
 
-	static $forwardTo = 'main.php?page=my_account'; //switched to auto-confirm
+	static $forwardTo = '?page=my_account'; //switched to auto-confirm
 	static public $originalCustomerReferral = false;
 
 	static function sanitizeAccountFields()
@@ -857,8 +857,6 @@ class form_account
 					/// INSERT
 					if (!$User->exists() || $suppressEmail)
 					{
-						//$rslt = $User->insert($szPassword, CUser::CUSTOMER, ( ($adminAdd || CApp::$isStoreView) ? 'YES': 'PENDING'));
-
 						if ($suppressEmail)
 						{
 							$szPassword = CUser::getRandomPwd();
@@ -1552,8 +1550,6 @@ class form_account
 					/// INSERT
 					if (!$User->exists() || $suppressEmail)
 					{
-						//$rslt = $User->insert($szPassword, CUser::CUSTOMER, ( ($adminAdd || CApp::$isStoreView) ? 'YES': 'PENDING'));
-
 						if ($suppressEmail)
 						{
 							$szPassword = CUser::getRandomPwd();

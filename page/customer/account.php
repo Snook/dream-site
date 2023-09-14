@@ -111,10 +111,9 @@ class page_account extends CPage
 					}
 					else
 					{
-						$url = "main.php";
+						$url = "/";
 					}
 
-					//header('Location: '.CApp::instance()->template()->httpsServerAddress().$url);
 					CApp::instance()->bounce($url, true);
 				}
 			}
@@ -148,14 +147,6 @@ class page_account extends CPage
 		{
 			$User->platePointsData['conversion_data'] = CPointsUserHistory::getDR2ConversionData($User);
 		}
-
-		//TODO: not sure if this makes sense anymore
-		if (CApp::$isStoreView && !$User->primary_email)
-		{
-			CApp::instance()->bounce();
-		}
-
-
 
 		$Addr = $User->getPrimaryAddress();
 		$aProps = $User->toArray();

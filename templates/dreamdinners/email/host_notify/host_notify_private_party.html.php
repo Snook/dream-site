@@ -52,7 +52,7 @@
 							</tr>
 							<tr>
 								<td align="right" valign="top" bgcolor="#b9bf33">Invite Tools:</td>
-								<td align="left" valign="middle"><a href="<?=HTTPS_BASE ?>main.php?page=my_events&amp;sid=<?= $this->session_info['session_id'] ?>">Click here to use our online invitation and sharing tools</a></td>
+								<td align="left" valign="middle"><a href="<?=HTTPS_BASE ?>my-events?sid=<?= $this->session_info['session_id'] ?>">Click here to use our online invitation and sharing tools</a></td>
 							</tr>
 						</table>
 					</td>

@@ -367,7 +367,7 @@ function retrieve_stores_for_lat_long(settings, doScrolling)
 	$.extend(config, settings);
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -402,11 +402,11 @@ function retrieve_stores_for_lat_long(settings, doScrolling)
 			if (getQueryVariable('page') == 'locations')
 			{
 				// Update login form so they come back to last search
-				$('#back_url_top').val('main.php?page=locations&zip=' + szZip);
+				$('#back_url_top').val('/locations?zip=' + szZip);
 
 				// Record history in html5 browser
 				historyPush({
-					url: 'main.php?page=locations&zip=' + szZip,
+					url: '/locations?zip=' + szZip,
 					title: szZip + ' ' + document.title
 				});
 			}
@@ -437,7 +437,7 @@ function getStoresForState(state_id, scrollto)
 	$("#store_search_results").slideUp();
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -463,11 +463,11 @@ function getStoresForState(state_id, scrollto)
 			if (getQueryVariable('page') == 'locations')
 			{
 				// Update login form so they come back to last search
-				$('#back_url_top').val('main.php?page=locations&state=' + state_id);
+				$('#back_url_top').val('/locations?state=' + state_id);
 
 				// Record history in html5 browser
 				historyPush({
-					url: 'main.php?page=locations&state=' + state_id,
+					url: '/locations?state=' + state_id,
 					title: state_id + ' ' + document.title
 				});
 			}

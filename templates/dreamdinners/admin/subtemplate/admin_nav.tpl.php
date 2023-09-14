@@ -39,7 +39,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td rowspan="2" class="fadmin_nav_logo"><a id="awmAnchor-admin_nav-gr0" href="main.php?page=admin_main"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/fadmin_dreamdinners_logo.png" width="131" height="76" border="0" /></a></td>
+			<td rowspan="2" class="fadmin_nav_logo"><a id="awmAnchor-admin_nav-gr0" href="/backoffice"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/fadmin_dreamdinners_logo.png" width="131" height="76" border="0" /></a></td>
 			<td style="height:37px;vertical-align:top;">
 				<?php if (empty($this->hide_navigation)) { // hidden for some pages, ie admin_access_agreement ?>
 					<ul id="menubar">
@@ -77,7 +77,7 @@
 				<?php } ?>
 			</td>
 			<td style="vertical-align:top;width:120px;">
-				<a href="main.php?page=signout&amp;back=main.php%3Fpage%3Dadmin_login" class="fadmin_nav fadmin_nav_right">Log Out</a>
+				<a href="/signout?back=/%3Fpage%3Dadmin_login" class="fadmin_nav fadmin_nav_right">Log Out</a>
 			</td>
 		</tr>
 		<tr>
@@ -110,7 +110,7 @@
 					<a href="<?php echo $this->back; ?>" class="fadmin_nav fadmin_nav_right">Back</a>
 				<?php } ?>
 				<?php if (isset($this->helpLinkSection)) { ?>
-					<a href="javascript:NewWindowScroll('main.php?page=admin_help_system&section=<?php echo $this->helpLinkSection; ?>','Help','675','575');" class="fadmin_nav fadmin_nav_right"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/help.png" alt="Print" style="vertical-align:middle;" /> Page Help</a>
+					<a href="javascript:NewWindowScroll('/?page=admin_help_system&section=<?php echo $this->helpLinkSection; ?>','Help','675','575');" class="fadmin_nav fadmin_nav_right"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/help.png" alt="Print" style="vertical-align:middle;" /> Page Help</a>
 				<?php } ?>
 			</td>
 		</tr>

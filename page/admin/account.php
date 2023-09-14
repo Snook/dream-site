@@ -67,7 +67,7 @@ class page_admin_account extends CPageAdminOnly {
 	{
 		$tpl = CApp::instance()->template();
 
-		form_account::$forwardTo = 'main.php?page=admin_user_details';
+		form_account::$forwardTo = '/?page=admin_user_details';
 
 		$id = null;
 
@@ -97,7 +97,7 @@ class page_admin_account extends CPageAdminOnly {
 			if (!$found)
 			{
 				$tpl->setErrorMsg('That guest could not be found, or you do not have permission to edit that account.');
-				CApp::bounce('main.php?page=admin_list_users');
+				CApp::bounce('/?page=admin_list_users');
 			}
 			else
 			{
@@ -115,7 +115,7 @@ class page_admin_account extends CPageAdminOnly {
 			if ($hasAccessToUser == false)
 			{
 				$tpl->setErrorMsg('That guest could not be found, or you do not have permission to edit that account.');
-				CApp::bounce('main.php?page=admin_list_users');
+				CApp::bounce('/?page=admin_list_users');
 			}
 
 			$tpl->assign('isPartialAccount', $User->is_partial_account ? true : false);
@@ -165,7 +165,7 @@ class page_admin_account extends CPageAdminOnly {
 			$tpl->assign('isCreate', false);
 			$tpl->assign('page_title', 'Edit Account');
 
-			form_account::$forwardTo = 'main.php?page=admin_user_details&id=' . $id;
+			form_account::$forwardTo = '/?page=admin_user_details&id=' . $id;
 
 			if (!empty($_REQUEST['back']))
 			{

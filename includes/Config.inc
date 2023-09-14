@@ -164,7 +164,7 @@ define('TIMESTAMPNOW', date('Y-m-d H:i:s', TIMENOW));
 
 define('SLOT_STEALING_CUTOFF_MENU', 124);
 
-define('JAVASCRIPT_CSS_VERSION', 674);
+define('JAVASCRIPT_CSS_VERSION', 675);
 
 define('FADMIN_TIMEOUT', 15); // set minutes to enable timout for everyone but customers, false to disable
 
@@ -172,8 +172,6 @@ define('FPDF_FONTPATH', 'fpdf/font/');
 
 define('HTTP_BASE', HTTP_SERVER . WEB_BASE);
 define('HTTPS_BASE', HTTPS_SERVER . WEB_BASE);
-
-define('MAIN_SCRIPT', 'main.php');
 
 define('THEME', $domainConfig['theme']);
 

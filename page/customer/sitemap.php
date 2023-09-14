@@ -26,14 +26,20 @@ class page_sitemap extends CPage
 		}
 
 		// fetch current stores
-		$currentStores = DAO_CFactory::create('store');
-		$currentStores->show_on_customer_site = 1;
-		$currentStores->whereAdd("store_type <> '" . CStore::DISTRIBUTION_CENTER . "'");
-		$currentStores->orderBy("state_id ASC, city ASC, store_name ASC");
-		$currentStores->find();
-		$currentStores->fetchAll();
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->show_on_customer_site = 1;
+		$DAO_store->whereAdd("store_type <> '" . CStore::DISTRIBUTION_CENTER . "'");
+		$DAO_store->orderBy("state_id ASC, city ASC, store_name ASC");
+		$DAO_store->find_DAO_store();
 
-		$tpl->assign('currentStores', $currentStores->getFetchResult());
+		$currentStoreArray = array();
+
+		while($DAO_store->fetch())
+		{
+			$currentStoreArray[$DAO_store->state_id][$DAO_store->id] = clone $DAO_store;
+		}
+
+		$tpl->assign('currentStores', $currentStoreArray);
 		$tpl->assign('activeMenus', $activeMenuArray);
 	}
 }

@@ -64,7 +64,7 @@ function dashboard_init()
 		else
 		{
 			$.ajax({
-				url: 'ddproc.php?processor=admin_top30',
+				url: '/processor?processor=admin_top30',
 				type: 'POST',
 				dataType: 'json',
 				data: {
@@ -200,7 +200,7 @@ function processMetrics()
 	var sid = $("#store_id").val();
 
 	$.ajax({
-		url: 'ddproc.php?processor=admin_processMetrics',
+		url: '/processor?processor=admin_processMetrics',
 		type: 'POST',
 		dataType: 'json',
 		timeout: 600000,
@@ -299,11 +299,11 @@ function export_order_list(menubased)
 
 		if (menubased)
 		{
-			$('#dashboard_form')[0].action = "main.php?page=admin_dashboard_menu_based&export=xlsx";
+			$('#dashboard_form')[0].action = "/?page=admin_dashboard_menu_based&export=xlsx";
 		}
 		else
 		{
-			$('#dashboard_form')[0].action = "main.php?page=admin_dashboard_new&export=xlsx";
+			$('#dashboard_form')[0].action = "/?page=admin_dashboard_new&export=xlsx";
 		}
 
 		$('#dashboard_form').submit();
@@ -325,7 +325,7 @@ function print_dashboard()
 	var targ = $('#dashboard_form')[0].target;
 	var act = $('#dashboard_form')[0].action;
 	$('#dashboard_form')[0].target = "_print";
-	$('#dashboard_form')[0].action = "main.php?page=admin_dashboard_menu_based&print=true";
+	$('#dashboard_form')[0].action = "/?page=admin_dashboard_menu_based&print=true";
 
 	$('#dashboard_form').submit();
 

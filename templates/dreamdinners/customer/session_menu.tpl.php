@@ -7,7 +7,6 @@
 <?php $this->setScriptVar('customization = ' . ($this->customization ? $this->customization : "false") . ';'); ?>
 <?php if (!empty($this->number_servings_required)) { $this->setScriptVar('number_servings_required = ' . $this->number_servings_required . ';'); } ?>
 <?php if ($this->bundleRequirementsString) { $this->setScriptVar('bundle_servings_needed = {' . $this->bundleRequirementsString . '};'); } ?>
-<?php $this->assign('canonical_url', HTTPS_BASE . 'main.php?page=session_menu'); ?>
 <?php $this->assign('no_cache', true); ?>
 <?php $this->assign('javascript_required_alert', true); ?>
 <?php $this->assign('page_title', 'Select Menu Items'); ?>

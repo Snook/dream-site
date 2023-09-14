@@ -15,7 +15,6 @@
 		OR
 		<br/><br/>
 		<form name="changeMenus" action="" method="get">
-			<input type="hidden" name="page" value="admin_menus">
 			<b>Edit Menu</b> <?php echo $this->form_menus['menu_edit_html']; ?>
 		</form>
 		<br/>

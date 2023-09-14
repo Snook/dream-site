@@ -1,4 +1,4 @@
-<form id="shared_login_form" action="<?php echo CTemplate::httpsServerAddress() . basename($_SERVER['SCRIPT_NAME']) . '?' . $_SERVER['QUERY_STRING']; ?>" method="POST" class="needs-validation" novalidate>
+<form id="shared_login_form" action="<?php echo HTTPS_BASE . basename($_SERVER['SCRIPT_NAME']) . '?' . $_SERVER['QUERY_STRING']; ?>" method="POST" class="needs-validation" novalidate>
 
 	<div class="row">
 		<div class="col">

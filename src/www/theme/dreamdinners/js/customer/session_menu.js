@@ -619,46 +619,6 @@ function updateServingsCountAndCheckoutButton()
 			quantityOrdered = "0";
 		}
 
-		//update subtotal
-		let cart_total = 0;
-
-		$.each(menuItemInfo['mid'], function (key, item_info) {
-
-			if (item_info['qty_in_cart'] > 0)
-			{
-				cart_total += Number(item_info['price'] * item_info['qty_in_cart']);
-			}
-
-			if (typeof item_info['sub_item'] !== 'undefined')
-			{
-				$.each(item_info['sub_item'], function (key, sub_item_info) {
-
-					cart_total -= Number(sub_item_info['price'] * sub_item_info['qty_in_cart']);
-
-				});
-			}
-
-		});
-
-		if (coupon != false && coupon.limit_to_mfy_fee != 1 && coupon.limit_to_delivery_fee != 1)
-		{
-			cart_total = cart_total - coupon.coupon_code_discount_total;
-			$('.coupon-code-total').text(formatAsMoney(coupon.coupon_code_discount_total));
-		}
-
-		if (customization != false && typeof customization.cost != 'undefined' )
-		{
-			let cost = parseFloat(customization.cost);
-			cart_total = cart_total + cost;
-		}
-
-
-
-		if (order_type == 'STANDARD' || order_type == 'SPECIAL_EVENT')
-		{
-			$('.cart-total').text(formatAsMoney(cart_total));
-		}
-
 		// update coupon display
 		if (coupon.limit_to_mfy_fee == 1 || coupon.limit_to_delivery_fee == 1)
 		{
@@ -718,7 +678,7 @@ function update_cart(menu_item_id, action)
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -739,8 +699,10 @@ function update_cart(menu_item_id, action)
 					order_type = json.order_type;
 				}
 
-				customization.cost = json.subtotal_meal_customization_fee;
-				coupon.coupon_code_discount_total = json.coupon_code_discount_total;
+				$('.coupon-code-total').text(json.coupon_code_discount_total);
+				$('.cart-total').text(json.grand_total);
+
+				$('.cart-total').text(json.grand_total);
 
 				if (order_type == 'STANDARD' || order_type == 'SPECIAL_EVENT')
 				{
@@ -1134,7 +1096,6 @@ $(function () {
 
 	});
 
-
 	$(document).on('click', '.sm-change-menu', function (e) {
 		$('.sm-row-change-menu').toggleFlex();
 	});
@@ -1156,7 +1117,7 @@ $(function () {
 		var store_id = $(this).data('store_id');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1174,7 +1135,7 @@ $(function () {
 						message: json.html,
 						buttons: {
 							"Full details": function () {
-								bounce('main.php?page=item&recipe=' + json.recipe_id + '&ov_menu=' + json.menu_id);
+								bounce('/item?recipe=' + json.recipe_id + '&ov_menu=' + json.menu_id);
 							},
 							cancel: {
 								label: "Close"
@@ -1202,7 +1163,7 @@ $(function () {
 		var view_menu = $(this).data('view_menu');
 
 		create_and_submit_form({
-			action: 'ddproc.php?processor=session_type',
+			action: '/processor?processor=session_type',
 			input: ({
 				type: view_menu
 			})
@@ -1229,7 +1190,7 @@ $(function () {
 		var session_id = $(this).val();
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1331,7 +1292,7 @@ $(function () {
 		$("#do_reschedule").attr("disabled", "true");
 
 		create_and_submit_form({
-			action: "main.php?page=session&reschedule=" + current_order_id,
+			action: "/session?reschedule=" + current_order_id,
 			input: ({
 				target: target_id
 			})
@@ -1350,7 +1311,7 @@ $(function () {
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1363,7 +1324,7 @@ $(function () {
 			success: function (json) {
 				if (json.result_code == 1)
 				{
-					bounce('main.php?page=session_menu');
+					bounce('/session-menu');
 				}
 				else
 				{
@@ -1403,7 +1364,7 @@ $(function () {
 		var bounce = $(this).data('bounce');
 
 		create_and_submit_form({
-			action: 'ddproc.php?processor=session_type',
+			action: '/processor?processor=session_type',
 			input: ({
 				'type': session_type,
 				'bounce_to': bounce
@@ -1506,7 +1467,7 @@ $(function () {
 		else
 		{
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -1520,14 +1481,16 @@ $(function () {
 					{
 						coupon = json.coupon;
 
+						$('.cart-total').text(json.orderInfo.grand_total);
+
 						$('.add-coupon-code').prop('disabled', true);
 						$('.add-coupon-add').addClass('disabled');
 
 						// update coupon title
-						$('.coupon-code-title').text(coupon.coupon_code_short_title);
+						$('.coupon-code-title').text(json.coupon.coupon_code_short_title);
 
 						// update coupon total
-						$('.coupon-code-total').text(formatAsMoney(coupon.coupon_code_discount_total));
+						$('.coupon-code-total').text(formatAsMoney(json.coupon.coupon_code_discount_total));
 
 						// show coupon row
 						$('.coupon-code-row').showFlex();
@@ -1574,7 +1537,7 @@ $(function () {
 		e.preventDefault();
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1602,7 +1565,7 @@ $(function () {
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1621,7 +1584,7 @@ $(function () {
 					confirm: function () {
 
 						$.ajax({
-							url: 'ddproc.php',
+							url: '/processor',
 							type: 'POST',
 							timeout: 20000,
 							dataType: 'json',
@@ -1661,7 +1624,7 @@ $(function () {
 	$(document).on('click', '.add-coupon-remove', function (e) {
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1672,6 +1635,8 @@ $(function () {
 			success: function (json) {
 				if (json.processor_success)
 				{
+					$('.cart-total').text(json.orderInfo.grand_total);
+
 					// restore coupon input
 					$('.add-coupon-code').prop('disabled', false);
 					$('.add-coupon-add').removeClass('disabled');
@@ -1763,7 +1728,7 @@ $(function () {
 		else
 		{
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -1862,7 +1827,7 @@ $(function () {
 		// opening cart
 		if ($(this).attr('aria-expanded') == 'true' && location.hash != "#cart")
 		{
-			historyPush({url: 'main.php?page=session_menu#cart'});
+			historyPush({url: '/session-menu#cart'});
 		}
 		else // closing cart
 		{

@@ -81,7 +81,7 @@ $(function () {
 					formData.set('stores', JSON.stringify(result));
 					formData.set('box_id', box_id);
 
-					fetch('ddproc.php?processor=admin_manage_box', {
+					fetch('/processor?processor=admin_manage_box', {
 						method: 'post',
 						body: formData
 					}).then(response => {
@@ -92,7 +92,7 @@ $(function () {
 						return response.json();
 					}).then(json => {
 
-						bounce('main.php?page=admin_manage_box');
+						bounce('/?page=admin_manage_box');
 
 					}).catch((error) => {
 						console.error('Error:', error);
@@ -116,7 +116,7 @@ $(function () {
 				formData.set('op', 'expire_box');
 				formData.set('box_id', box_id);
 
-				fetch('ddproc.php?processor=admin_manage_box', {
+				fetch('/processor?processor=admin_manage_box', {
 					method: 'post',
 					body: formData
 				}).then(response => {
@@ -127,7 +127,7 @@ $(function () {
 					return response.json();
 				}).then(json => {
 
-					bounce('main.php?page=admin_manage_box');
+					bounce('/?page=admin_manage_box');
 
 				}).catch((error) => {
 					console.error('Error:', error);
@@ -150,7 +150,7 @@ $(function () {
 			addInput.setAttribute('value', this.name);
 			this.appendChild(addInput);
 
-			fetch('ddproc.php?processor=' + this.dataset.processor, {
+			fetch('/processor?processor=' + this.dataset.processor, {
 				method: ((this.dataset.processor_method.length > 0) ? this.dataset.processor_method : 'post'),
 				body: new FormData(this)
 			}).then(response => {
@@ -163,7 +163,7 @@ $(function () {
 
 				if (json.data.form_name == 'BoxForm' && json.data.bounce)
 				{
-					bounce('main.php?page=admin_manage_box&edit=' + json.data.box_id);
+					bounce('/?page=admin_manage_box&edit=' + json.data.box_id);
 				}
 
 				$('#BoxForm, #Bundle1Form, #Bundle2Form').removeClass('was-validated');
@@ -184,7 +184,7 @@ $(function () {
 		formData.set('box_bundle', this.dataset.box_bundle);
 		formData.set('checked', this.checked);
 
-		fetch('ddproc.php?processor=admin_manage_box', {
+		fetch('/processor?processor=admin_manage_box', {
 			method: 'post',
 			body: formData
 		}).then(response => {
@@ -258,7 +258,7 @@ $(function () {
 		formData.set('bundle_menu_item_id', this.dataset.bundle_menu_item_id);
 		formData.set('checked', this.checked);
 
-		fetch('ddproc.php?processor=admin_manage_box', {
+		fetch('/processor?processor=admin_manage_box', {
 			method: 'post',
 			body: formData
 		}).then(response => {

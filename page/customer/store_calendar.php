@@ -1,0 +1,72 @@
+<?php
+require_once('DAO/BusinessObject/CStore.php');
+require_once('DAO/BusinessObject/CStatesAndProvinces.php');
+require_once('includes/DAO/BusinessObject/CMenu.php');
+
+class page_store_calendar extends CPage
+{
+	function runPublic()
+	{
+		if (!empty($_GET['id']) && (is_numeric($_GET['id']) || CTemplate::isAlphaNumHyphen($_GET['id'])))
+		{
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->id = $_GET['id'];
+			$DAO_store->show_on_customer_site = 1;
+
+			if ($DAO_store->find_DAO_store(true))
+			{
+				$DAO_store->getAvailableJobsArray();
+				$DAO_store->getActivePromoArray();
+
+				$calendar = CSession::getSessionsForFullCalendarCustomer($DAO_store, true);
+				$calendar['menus'] = CMenu::getActiveMenuArray();
+				$calendarJS = (!empty($calendar) ? json_encode($calendar) : "{}");
+
+				$sessionArray = $DAO_store->getCustomerCalendarArray(array(
+					CSession::INTRO,
+					CSession::ALL_STANDARD,
+					CSession::EVENT
+				), false, false, true);
+
+				// if the user is eligible for Open House, get the next two upcoming Open House
+				$storeOHEvents = array();
+				if (!CUser::isLoggedIn() || (CUser::isLoggedIn() && CUser::getCurrentUser()->isEligibleForDreamTaste()) || defined('ALLOW_TV_OFFER_IF_PREVIOUS') && ALLOW_TV_OFFER_IF_PREVIOUS)
+				{
+					$count = 0;
+
+					foreach ($calendar['sessions'] AS $session)
+					{
+						if (count($storeOHEvents) < 2 && $session['extendedProps']['session_type_title_short'] == 'OH')
+						{
+							$storeOHEvents[$count++] = $session;
+						}
+
+						if ($count == 2)
+						{
+							continue;
+						}
+					}
+				}
+
+				$this->Template->assign('DAO_store', $DAO_store);
+				$this->Template->assign('has_meal_customization_sessions', ($calendar['info']['has_meal_customization_sessions'] && $DAO_store->supports_meal_customization));
+				$this->Template->assign('sessionArray', $sessionArray);
+				$this->Template->assign('calendar', $calendar);
+				$this->Template->assign('calendarJS', $calendarJS);
+				$this->Template->assign('storeOHEvents', $storeOHEvents);
+				$this->Template->assign('canOrderIntro', CUser::getCurrentUser()->isEligibleForIntro($DAO_store));
+			}
+			else
+			{
+				$this->Template->setErrorMsg('The requested store is unavailable.');
+				CApp::bounce('/locations');
+			}
+		}
+		else
+		{
+			CApp::bounce('/locations');
+		}
+	}
+}
+
+?>

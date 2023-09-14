@@ -17,11 +17,11 @@
 			<table role="presentation" width="100%" border="0" cellspacing="5">
   <tbody>
     <tr>
-      <td><p>There are limited spaces available, and this offer is only available for guests of this event. Use the link below to reserve your spot today! <a href="https://dreamdinners.com/main.php?static=how_it_works" target="_blank">Learn more about Dream Dinners.</a></p></td>
+      <td><p>There are limited spaces available, and this offer is only available for guests of this event. Use the link below to reserve your spot today! <a href="https://dreamdinners.com/how_it_works" target="_blank">Learn more about Dream Dinners.</a></p></td>
     </tr>
   </tbody>
 </table>
-				
+
 		<p align="left"><?php echo $this->message; ?></p>
 			<p align="center"><a href="<?php echo $this->referral_link; ?>"><img src="<?php echo EMAIL_IMAGES_PATH; ?>/email/event_theme/<?php echo $this->session['dream_taste_theme_string']; ?>/invite-rsvp-button-green.png" alt="RSVP" width="300" height="45" border="0"></a></p>
 		</td>

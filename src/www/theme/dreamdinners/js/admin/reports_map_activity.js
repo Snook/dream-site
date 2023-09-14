@@ -43,7 +43,7 @@ function map_activity_timer()
 	$.doTimeout('map_activity_timer', (checkperiod * 1000), function () {
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 60000,
 			dataType: 'json',

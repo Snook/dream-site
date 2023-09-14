@@ -13,7 +13,7 @@
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
 	<h1 id="fadash"><?php echo $this->page_title; ?> -
-		<a id="selected_date_link" href="main.php?page=admin_main"><span id="selected_day"><?php echo CTemplate::dateTimeFormat($this->adjusted_server_time, MONTH_DAY_YEAR); ?></span></a>
+		<a id="selected_date_link" href="/?page=admin_main"><span id="selected_day"><?php echo CTemplate::dateTimeFormat($this->adjusted_server_time, MONTH_DAY_YEAR); ?></span></a>
 		<img src="<?php echo ADMIN_IMAGES_PATH; ?>/style/throbber_circle.gif" class="img_valign img_throbber_circle" data-tooltip="Processing" alt="Processing"/>
 	</h1>
 
@@ -109,7 +109,7 @@
 
 	<div id="guest_search_container" class="container_background">
 
-		<div style="float:right;"><a href="main.php?page=admin_account" class="button">Add Guest</a></div>
+		<div style="float:right;"><a href="/?page=admin_account" class="button">Add Guest</a></div>
 
 		<div class="title">Search &amp; Order Lookup</div>
 

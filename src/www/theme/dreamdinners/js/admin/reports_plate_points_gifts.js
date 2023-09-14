@@ -2,7 +2,7 @@
 function markGiftReceived(level, user_id, gift_id)
 {
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',

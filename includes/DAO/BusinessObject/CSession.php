@@ -534,7 +534,7 @@ class CSession extends DAO_Session
 			case CSession::REMOTE_PICKUP:
 				return array(
 					$this->session_type_title = "Community Pick Up",
-					$this->session_type_title_public = "You Pick Up",
+					$this->session_type_title_public = "Pick Up",
 					$this->session_type_title_short = "CP",
 					$this->session_type_fadmin_acronym = "CP",
 					$this->session_type_string = "remote_pickup"
@@ -543,7 +543,7 @@ class CSession extends DAO_Session
 			case CSession::REMOTE_PICKUP_PRIVATE:
 				return array(
 					$this->session_type_title = "Community Pick Up - Private",
-					$this->session_type_title_public = "You Pick Up",
+					$this->session_type_title_public = "Pick Up",
 					$this->session_type_title_short = "CPP",
 					$this->session_type_fadmin_acronym = "CPP",
 					$this->session_type_string = "remote_pickup_private"
@@ -561,7 +561,7 @@ class CSession extends DAO_Session
 			case CSession::STANDARD:
 				return array(
 					$this->session_type_title = "Assembly session",
-					$this->session_type_title_public = "You assemble at store",
+					$this->session_type_title_public = "Assemble at store",
 					$this->session_type_title_short = "A",
 					$this->session_type_fadmin_acronym = "A",
 					$this->session_type_string = "standard"
@@ -570,7 +570,7 @@ class CSession extends DAO_Session
 			case CSession::SPECIAL_EVENT:
 				return array(
 					$this->session_type_title = "Made For You",
-					$this->session_type_title_public = "You Pick Up at store",
+					$this->session_type_title_public = "Pick Up at store",
 					$this->session_type_title_short = "MFY",
 					$this->session_type_fadmin_acronym = "MFY",
 					$this->session_type_string = "made_for_you"
@@ -2165,6 +2165,7 @@ class CSession extends DAO_Session
 					$sessionArray['sessions'][] = array(
 						'title' => $session['session_type_title_public'],
 						'start' => $session['session_start'],
+						'end' => $session['session_end'],
 						'className' => 'fc-event-session-' . $session['session_type_string'],
 						'extendedProps' => array(
 							'eventType' => 'session',
@@ -2234,21 +2235,6 @@ class CSession extends DAO_Session
 					}
 				}
 			}
-		}
-
-		// add Menu start date events to calendar
-		foreach ($activeMenus as $menu)
-		{
-			$sessionArray['sessions'][] = array(
-				'title' => CTemplate::dateTimeFormat($menu['menu_name'], FULL_MONTH) . ' menu launch',
-				'start' => $menu['global_menu_start_date'],
-				'className' => 'fc-event-menu_start',
-				'extendedProps' => array(
-					'eventType' => 'label',
-					'id' => $menu['id'],
-					'session_count' => ((!isset($menu['session_count'])) ? 0 : $activeMenus[$menu['id']]['session_count'])
-				)
-			);
 		}
 
 		return $sessionArray;

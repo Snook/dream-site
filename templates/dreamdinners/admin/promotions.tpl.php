@@ -19,9 +19,9 @@
 <td align=center>
 <?php if ($this->show_active_menus == true) { ?>
 <a href="#" class="fadmin_nav fadmin_subnav_active">Active</a>
-<a href="main.php?page=admin_promotions&show_active_menus=true" class="fadmin_nav fadmin_subnav">Archived</a>
+<a href="/?page=admin_promotions&show_active_menus=true" class="fadmin_nav fadmin_subnav">Archived</a>
 <?php } else { ?>
-<a href="main.php?page=admin_promotions" class="fadmin_nav fadmin_subnav">Active</a>
+<a href="/?page=admin_promotions" class="fadmin_nav fadmin_subnav">Active</a>
 <a href="#" class="fadmin_nav fadmin_subnav_active">Archived</a>
 <?php }  ?>
 </td>

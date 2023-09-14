@@ -222,7 +222,7 @@ class page_checkout_gift_card extends CPage
 				{
 					// there is nothing to purchase so bounce
 					$tpl->setStatusMsg("There is nothing left in the cart to order.");
-					CApp::bounce("main.php?page=gift_card_order");
+					CApp::bounce("/gift-card-order");
 				}
 			}
 		}
@@ -283,7 +283,7 @@ class page_checkout_gift_card extends CPage
 				{
 					// there is nothing to purchase so bounce
 					$tpl->setStatusMsg("There is nothing left in the cart to order.");
-					CApp::bounce("main.php?page=gift_card_order");
+					CApp::bounce("/gift-card-order");
 				}
 			}
 		}
@@ -306,7 +306,7 @@ class page_checkout_gift_card extends CPage
 
 			if (empty($tpl->bounce_to))
 			{
-				$tpl->bounce_to = "main.php?page=gift_card_cart";
+				$tpl->bounce_to = "/gift-card-cart";
 			}
 
 			CApp::bounce($tpl->bounce_to);
@@ -373,7 +373,7 @@ class page_checkout_gift_card extends CPage
 
 						// set a cookie so that analytics only records viewing the thank you page once
 						CBrowserSession::setValue('dd_thank_you', 'checkout_giftcard', false, true, false);
-						CApp::bounce('main.php?page=order_details_gift_card&orders=' . $gcList->order_confirm_id, true);
+						CApp::bounce('/order-details-gift-card?orders=' . $gcList->order_confirm_id, true);
 					}
 					else
 					{
@@ -385,7 +385,7 @@ class page_checkout_gift_card extends CPage
 				{
 					$tpl->setErrorMsg("There is a problem with the Billing Email Address");
 					$Form->setCSRFToken();
-					//CApp::bounce('main.php?page=checkout_gift_card', true);
+					//CApp::bounce('/checkout-gift-card', true);
 				}
 			}
 			else

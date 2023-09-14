@@ -12,7 +12,7 @@ function check_status()
 		var this_element = $(this);
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -45,7 +45,7 @@ function check_status()
 
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',

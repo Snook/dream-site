@@ -461,6 +461,7 @@ class CCartStorage
 			$uberArray['order']['order_user_notes'] = $row["order_user_notes"];
 			$uberArray['order']['order_admin_notes'] = $row["order_admin_notes"];
 			$uberArray['order']['direct_order_discount'] = $row["direct_order_discount"];
+			$uberArray['order']['discount_total_customer_referral_credit'] = $row["discount_total_customer_referral_credit"];
 			$uberArray['order']['points_discount_total'] = $row["points_discount_total"];
 			$uberArray['order']['misc_food_subtotal'] = $row["misc_food_subtotal"];
 			$uberArray['order']['misc_food_subtotal_desc'] = $row["misc_food_subtotal_desc"];
@@ -629,7 +630,7 @@ class CCartStorage
 		}
 
 		$szInsert = "update dreamcart.cart_contents set state = 'INITIALIZED', store_id = null, session_id = null, menu_id = null, order_user_notes = null,
-		order_admin_notes = null, direct_order_discount = 0, points_discount_total = 0,
+		order_admin_notes = null, direct_order_discount = 0, discount_total_customer_referral_credit = 0, points_discount_total = 0,
 		misc_food_subtotal = 0, misc_food_subtotal_desc = null, misc_nonfood_subtotal = 0,
 		misc_nonfood_subtotal_desc = null, subtotal_service_fee = 0, service_fee_description = null,
 		ltd_round_up_value = null, bundle_id = null, coupon_code_id = null, promo_code_id = 0, volume_discount_id = null, has_added_store_credit = 0,
@@ -683,6 +684,12 @@ class CCartStorage
 		if (!empty($orderObj->coupon_code_id) && is_numeric($orderObj->coupon_code_id))
 		{
 			$coupon_clause = "coupon_code_id = {$orderObj->coupon_code_id}";
+		}
+
+		$customer_referral_credit_clause = "discount_total_customer_referral_credit = 0";
+		if (!empty($orderObj->discount_total_customer_referral_credit) && is_numeric($orderObj->discount_total_customer_referral_credit))
+		{
+			$customer_referral_credit_clause = "discount_total_customer_referral_credit = {$orderObj->discount_total_customer_referral_credit}";
 		}
 
 		$points_clause = "points_discount_total = 0";
@@ -995,6 +1002,7 @@ class CCartStorage
 			$tempOrder->order_user_notes = $row["order_user_notes"];
 			$tempOrder->order_admin_notes = $row["order_admin_notes"];
 			$tempOrder->direct_order_discount = $row["direct_order_discount"];
+			$tempOrder->discount_total_customer_referral_credit = $row["discount_total_customer_referral_credit"];
 			$tempOrder->points_discount_total = $row["points_discount_total"];
 			$tempOrder->misc_food_subtotal = $row["misc_food_subtotal"];
 			$tempOrder->misc_food_subtotal_desc = $row["misc_food_subtotal_desc"];

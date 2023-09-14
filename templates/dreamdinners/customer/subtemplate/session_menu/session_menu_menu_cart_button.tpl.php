@@ -2,9 +2,9 @@
 	<div class="cart-total-div col-10 col-md-12">
 		<div class="row  bg-gray-light">
 			<?php if ($this->menu_view == 'session_menu') { ?>
-				<a href="/main.php?page=session_menu&amp;view=freezer" class="btn btn-primary btn-block btn-spinner disabled continue-btn">Continue</a>
+				<a href="/session-menu?view=freezer" class="btn btn-primary btn-block btn-spinner disabled continue-btn">Continue</a>
 			<?php } else { ?>
-				<a href="/main.php?page=checkout" class="btn btn-primary btn-block btn-spinner disabled continue-btn">Continue</a>
+				<a href="/checkout" class="btn btn-primary btn-block btn-spinner disabled continue-btn">Continue</a>
 			<?php } ?>
 		</div>
 	</div>

@@ -8,20 +8,24 @@ class page_fundraiser extends CPage
 
 	function runPublic()
 	{
-		if (!empty($_GET['id']) && is_numeric($_GET['id']))
+		if (!empty($_GET['id']) && is_numeric($_GET['id']) || CTemplate::isAlphaNumHyphen($_GET['id']))
 		{
-			list($storeInfo, $ownerInfo, $DAO_store) = CStore::getStoreAndOwnerInfo($_GET['id']);
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->id = $_GET['id'];
+			$DAO_store->show_on_customer_site = 1;
+			$DAO_store->find_DAO_store(true);
+
 			$showOrgSpecific = false;
 
 			if (empty($DAO_store) || !$DAO_store->isOpen())
 			{
-				CApp::bounce('main.php?page=locations');
+				CApp::bounce('/locations');
 			}
 
 			// in case someone tries to load a DC store, bounce to the parent store.
 			if ($DAO_store->isDistributionCenter())
 			{
-				CApp::bounce('main.php?page=store&id=' . $DAO_store->parent_store_id);
+				CApp::bounce('/store?id=' . $DAO_store->parent_store_id);
 			}
 
 			$DAO_session = DAO_CFactory::create('session');
@@ -79,7 +83,7 @@ class page_fundraiser extends CPage
 		}
 		else
 		{
-			CApp::bounce('main.php?page=locations');
+			CApp::bounce('/locations');
 		}
 	}
 }

@@ -69,7 +69,7 @@ class page_admin_user_event_log extends CPageAdminOnly
 
 		if (empty($tpl->user))
 		{
-			CApp::bounce('main.php?page=admin_list_users');
+			CApp::bounce('/?page=admin_list_users');
 		}
 	}
 }

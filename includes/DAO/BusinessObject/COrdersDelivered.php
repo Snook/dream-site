@@ -528,7 +528,8 @@ class COrdersDelivered extends COrders
 	{
 		$boxes = $this->getBoxes();
 		//	$menu_id = $this->session->menu_id;
-		$menu_id = current($boxes)['bundle']->menu_id;
+		$menu_id_curr = current($boxes);
+		$menu_id = $menu_id_curr['bundle']->menu_id;
 
 		$parentStoreId = CStore::getParentStoreID($this->session->store_id);
 
@@ -667,7 +668,7 @@ class COrdersDelivered extends COrders
 			{
 				CCart2::instance()->emptyCart();
 				CApp::instance()->template()->setStatusMsg('The current cart held items for another user. The cart has been emptied. Please start your order again.');
-				//CApp::bounce('main.php?page=session_menu');
+				//CApp::bounce('/session-menu');
 				// TODO: where to bounce to?
 				throw new Exception("need to specify bounce location (CDeliveredOrder->Refresh() - new customer)");
 			}
@@ -908,7 +909,7 @@ class COrdersDelivered extends COrders
 			$adminUser = CUser::getCurrentUser()->id;
 			foreach($boxInstanceArray as $box_inst_id)
 			{
-				$box_instances->query("update box_instance set is_deleted = 1, edit_sequence_id = {$order_record->id}, updated_by = $adminUser where id = $box_inst_id");
+				$box_instances->query("update box_instance set is_deleted = 1, updated_by = $adminUser where id = $box_inst_id");
 			}
 
 			// record changes to the master
@@ -1076,6 +1077,11 @@ class COrdersDelivered extends COrders
 		if ($this->points_discount_total > 0)
 		{
 			CPointsCredits::processCredits($this->user_id, $this->points_discount_total, $this->id);
+		}
+
+		if ($this->discount_total_customer_referral_credit > 0)
+		{
+			CCustomerReferralCredit::processCredits($this->user_id, $this->discount_total_customer_referral_credit, $this->id);
 		}
 
 		if ($this->boxes)
@@ -2745,7 +2751,8 @@ class COrdersDelivered extends COrders
 		if ($boxes)
 		{
 
-			$menu_id = current($boxes)['bundle']->menu_id;
+			$menu_id_curr = current($boxes);
+			$menu_id = $menu_id_curr['bundle']->menu_id;
 
 			foreach ($boxes as $box_inst_id => $boxItems)
 			{
@@ -2803,7 +2810,7 @@ class COrdersDelivered extends COrders
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order, null, false, false, false, true);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
 		$orderInfo['origSessionInfo'] = array('session_start' => $origSessionTime);
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
 
@@ -3045,7 +3052,7 @@ class COrdersDelivered extends COrders
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['customer_primary_email'] = $user->primary_email;
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
@@ -3070,7 +3077,7 @@ class COrdersDelivered extends COrders
 
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
 

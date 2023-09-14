@@ -72,6 +72,8 @@ class CTemplate extends Savant2
 		'admin_reports_national_entree_projection',
 		'admin_reports_entree'
 	);
+	public $rows;
+	public $page;
 
 	protected $debugInfoArray = array();
 	protected $emergency_mode = false;
@@ -278,7 +280,7 @@ class CTemplate extends Savant2
 
 	static function getUserDetailsLink($user_id, $addBackLink = true)
 	{
-		$retVal = "main.php?page=admin_user_details&id=" . $user_id;
+		$retVal = "/?page=admin_user_details&id=" . $user_id;
 
 		if ($addBackLink)
 		{
@@ -600,7 +602,7 @@ class CTemplate extends Savant2
 
 		$masked_email_address = strtolower(substr($account, 0, 4) . '...@' . $domain);
 
-		$mail_reveal_link = "main.php?page=mailhide&c=" . $encrypted_string;
+		$mail_reveal_link = "?page=mailhide&c=" . $encrypted_string;
 
 		$mail_reveal_html = '<a href="' . $mail_reveal_link . '" onclick="window.open(\'' . $mail_reveal_link . '\', \'\', \'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=500\'); return false;" data-tooltip="Spam prevention, please click to reveal this e-mail address" title="Spam prevention, please click to reveal this e-mail address">' . ((!empty($link_text)) ? $link_text : $masked_email_address) . '</a>';
 
@@ -1217,6 +1219,13 @@ class CTemplate extends Savant2
 		return self::$head_analytics_array;
 	}
 
+	static function isAlphaNumHyphen($value)
+	{
+		$retVal = preg_match('/^[A-Za-z0-9\-]+$/', $value);
+
+		return ($retVal == 0 ? false : true);
+	}
+
 	static function browserIsTarget($target)
 	{
 		if ($target == CTemplate::IE_lessthan_10 && self::isIE())
@@ -1311,21 +1320,6 @@ class CTemplate extends Savant2
 		self::$head_onload_array[] = trim($javascript);
 
 		$this->assign('head_onload', array_unique(self::$head_onload_array));
-	}
-
-	function isStoreView()
-	{
-		return CApp::$isStoreView;
-	}
-
-	function httpServerAddress()
-	{
-		return HTTP_BASE . ($this->isStoreView() ? 'storeview/' : '');
-	}
-
-	function httpsServerAddress()
-	{
-		return HTTPS_BASE . ($this->isStoreView() ? 'storeview/' : '');
 	}
 
 	function isSafari()

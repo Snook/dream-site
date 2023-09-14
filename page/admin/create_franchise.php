@@ -56,7 +56,7 @@ class page_admin_create_franchise extends CPageAdminOnly
 					$Franchise->franchise_description = $Form->value('franchise_description');
 					$Franchise->insert();
 					$tpl->setStatusMsg('Franchise Created');
-					CApp::bounce('main.php?page=admin_franchise_details&id='.$Franchise->id);
+					CApp::bounce('/?page=admin_franchise_details&id='.$Franchise->id);
 				}
 			}
 		}

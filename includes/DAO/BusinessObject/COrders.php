@@ -3411,7 +3411,7 @@ class COrders extends DAO_Orders
 			{
 				CCart2::instance()->emptyCart();
 				CApp::instance()->template()->setStatusMsg('The current cart held items for another user. The cart has been emptied. Please start your order again.');
-				CApp::bounce('main.php?page=session_menu');
+				CApp::bounce('/session-menu');
 			}
 
 			//check for preferred customer
@@ -4549,7 +4549,17 @@ class COrders extends DAO_Orders
 		// WARNING:  Any discounts added above here must take into consideration the new subtotal_menu_item_mark_down if the discount is based on food cost
 
 		// Note the LTD Meal Donation is reflected in the markup
-		$this->subtotal_food_items_adjusted = $this->subtotal_menu_items - $this->subtotal_menu_item_mark_down + $this->dream_rewards_discount - $this->user_preferred_discount_total + $this->subtotal_home_store_markup - $this->promo_code_discount_total + $this->subtotal_premium_markup - $this->family_savings_discount - $this->volume_discount_total - $this->bundle_discount - $food_portion_of_points_credit - $this->membership_discount;
+		$this->subtotal_food_items_adjusted = $this->subtotal_menu_items -
+			$this->subtotal_menu_item_mark_down +
+			$this->dream_rewards_discount -
+			$this->user_preferred_discount_total +
+			$this->subtotal_home_store_markup -
+			$this->promo_code_discount_total +
+			$this->subtotal_premium_markup -
+			$this->family_savings_discount -
+			$this->volume_discount_total - $this->bundle_discount - $food_portion_of_points_credit -
+			$this->membership_discount -
+			$this->discount_total_customer_referral_credit;
 
 		if (!$hasServiceFeeCoupon && !$hasDeliveryFeeCoupon)
 		{
@@ -4683,7 +4693,7 @@ class COrders extends DAO_Orders
 
 		$this->subtotal_all_items += $this->subtotal_meal_customization_fee;
 
-		$this->grand_total = $this->subtotal_all_items + $this->subtotal_all_taxes;
+		$this->grand_total =  round($this->subtotal_all_items + $this->subtotal_all_taxes, 2);
 
 		return $this->grand_total;
 	}
@@ -8294,10 +8304,15 @@ class COrders extends DAO_Orders
 
 		try
 		{
-			// On the live server we must eat exceptions here as the order has been committed at thgis point.  If an excpetion occurs here and is alloe
+			// On the live server we must eat exceptions here as the order has been committed at this point.  If an exception occurs here and is allow
 			if ($this->points_discount_total > 0)
 			{
 				CPointsCredits::processCredits($this->user_id, $this->points_discount_total, $this->id);
+			}
+
+			if ($this->discount_total_customer_referral_credit > 0)
+			{
+				CCustomerReferralCredit::processCredits($this->user_id, $this->discount_total_customer_referral_credit, $this->id);
 			}
 
 			// Notes: LMH [ PING PROJECT ADDITION 5/10/2007]
@@ -10434,7 +10449,7 @@ class COrders extends DAO_Orders
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order, null, true, false, false, $isDeliveredOrder);
 		$orderInfo['user'] = $user;
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['customer_primary_email'] = $user->primary_email;
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
@@ -10598,10 +10613,13 @@ class COrders extends DAO_Orders
 
 		$Mail->send(null, $fromEmail, $user->firstname . ' ' . $user->lastname, $user->primary_email, ($delayedTransaction ? $delayedPymentSubject : $normalSubject), $contentsHtml, $contentsText, '', '', $user->id, ($delayedTransaction ? 'order_delayed' : 'order'));
 
-		// Send the store an email if there are special instructions...
-		CEmail::alertStoreInstructions($orderInfo);
+		if (!$delayedTransaction)
+		{
+			// Send the store an email if there are special instructions...
+			CEmail::alertStoreInstructions($orderInfo);
 
-		CEmail::alertStoreShiftSetGoOrdered($user, $order);
+			CEmail::alertStoreShiftSetGoOrdered($user, $order);
+		}
 	}
 
 	static public function sendConfirmationRetryEmail($user, $order, $delayedTransaction = false)
@@ -10611,7 +10629,7 @@ class COrders extends DAO_Orders
 
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['customer_primary_email'] = $user->primary_email;
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
@@ -10655,7 +10673,7 @@ class COrders extends DAO_Orders
 
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['customer_primary_email'] = $user->primary_email;
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
@@ -10732,7 +10750,7 @@ class COrders extends DAO_Orders
 
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['customer_primary_email'] = $user->primary_email;
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
@@ -10773,7 +10791,7 @@ class COrders extends DAO_Orders
 
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
 
@@ -10827,7 +10845,7 @@ class COrders extends DAO_Orders
 
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
 
@@ -10855,7 +10873,7 @@ class COrders extends DAO_Orders
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
 		$orderInfo['origSessionInfo'] = array('session_start' => $origSessionTime);
-		$orderInfo['details_page'] = 'order_details';
+		$orderInfo['details_page'] = 'order-details';
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
 
@@ -10901,7 +10919,7 @@ class COrders extends DAO_Orders
 
 		if ($doEmailCustomer)
 		{
-			$orderInfo['details_page'] = 'order_details';
+			$orderInfo['details_page'] = 'order-details';
 			$contentsText = CMail::mailMerge('order_delayed_declined.txt.php', $orderInfo);
 			$contentsHtml = CMail::mailMerge('order_delayed_declined.html.php', $orderInfo);
 
@@ -11688,6 +11706,11 @@ class COrders extends DAO_Orders
 
 		$orderArray['points_discount_total_food'] = $foodPortionOfPPCredit;
 		$orderArray['points_discount_total_fee'] = $feePortionOfPPCredit;
+
+		if (empty($orderArray['ltd_round_up_value']))
+		{
+			$orderArray['ltd_round_up_value'] = "0";
+		}
 
 		$coupon = $Order->getCoupon();
 		if ($coupon)
@@ -14303,7 +14326,7 @@ class COrders extends DAO_Orders
 
 			$sessionTS = strtotime($Session->session_start) - 518400; // allow delayed payment 6 days prior
 
-			if ((CApp::$isStoreView || $DR_Ordering) && (strtotime("now") < $sessionTS))
+			if ($DR_Ordering && (strtotime("now") < $sessionTS))
 			{
 				$Form->AddElement(array(
 					CForm::type => CForm::RadioButton,

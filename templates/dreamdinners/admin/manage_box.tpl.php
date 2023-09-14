@@ -6,7 +6,7 @@
 
 		<div class="row my-4">
 			<div class="col-lg-6 text-center mb-3 order-lg-2">
-				<h1><a href="main.php?page=admin_manage_box">Manage Boxes</a></h1>
+				<h1><a href="/?page=admin_manage_box">Manage Boxes</a></h1>
 			</div>
 			<div class="col-8 col-lg-3 order-lg-1">
 				<?php if (!$this->singleStore && empty($this->editBox) && empty($this->createBox)) { ?>
@@ -19,7 +19,7 @@
 				<?php } ?>
 			</div>
 			<div class="col-4 col-lg-3 text-center text-lg-right order-lg-3">
-				<a  href="main.php?page=admin_manage_box&amp;create=true" class="btn btn-primary btn-sm"><i class="far fa-plus-square"></i> Create New</a>
+				<a  href="/?page=admin_manage_box&amp;create=true" class="btn btn-primary btn-sm"><i class="far fa-plus-square"></i> Create New</a>
 			</div>
 		</div>
 
@@ -63,7 +63,7 @@
 								</div>
 							</div>
 							<div class="col-6 mb-2">
-								<a href="main.php?page=admin_manage_box&amp;edit=<?php echo $box->id; ?>" class="btn btn-primary btn-block">Edit box</a>
+								<a href="/?page=admin_manage_box&amp;edit=<?php echo $box->id; ?>" class="btn btn-primary btn-block">Edit box</a>
 							</div>
 							<div class="col-6 mb-2">
 								<?php if ($box->availability_date_end > CTemplate::formatDateTime()) { ?>

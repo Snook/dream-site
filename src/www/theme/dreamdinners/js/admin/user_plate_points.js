@@ -69,7 +69,7 @@ function PlatePoints_init(currentUser)
 		localStorage.setItem('history-paging-user',user_id);
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 100000000,
 			dataType: 'json',
@@ -111,7 +111,7 @@ function PlatePoints_init(currentUser)
 		localStorage.setItem('history-paging-current',current_page);
 		localStorage.setItem('history-paging-user',user_id);
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 100000000,
 			dataType: 'json',
@@ -159,7 +159,7 @@ function PlatePoints_init(currentUser)
 		localStorage.setItem('dollars-history-paging-user',user_id);
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 100000000,
 			dataType: 'json',
@@ -201,7 +201,7 @@ function PlatePoints_init(currentUser)
 		localStorage.setItem('dollars-history-paging-current',current_page);
 		localStorage.setItem('dollars-history-paging-user',user_id);
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 100000000,
 			dataType: 'json',
@@ -252,7 +252,7 @@ function restorePagingLocation(currentUser)
 	if (page != null && typeof page !== 'undefined' && user_id != null && typeof user_id !== 'undefined'){
 		$('#history').html('');
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 100000000,
 			dataType: 'json',
@@ -283,7 +283,7 @@ function restorePagingLocation(currentUser)
 
 		$('#dinner_dollar_history_table').html('');
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 100000000,
 			dataType: 'json',
@@ -313,7 +313,3 @@ function restorePagingLocation(currentUser)
 		});
 	}
 }
-
-
-
-

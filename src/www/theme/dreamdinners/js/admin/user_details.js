@@ -1,12 +1,12 @@
 function enrollInPlatePoints(user_id)
 {
-	bounce('main.php?page=admin_account&pp_enroll=1&id=' + user_id, false);
+	bounce('/?page=admin_account&pp_enroll=1&id=' + user_id, false);
 }
 
 function viewPlatePoints(user_id)
 {
 	var config = {
-		action: 'main.php?page=admin_user_plate_points',
+		action: '/?page=admin_user_plate_points',
 		input: {
 			user_id: user_id,
 			back: back_path()
@@ -21,7 +21,7 @@ function printEnrollmentForm(user_id)
 {
 	/*
 	var config = {
-			action: 'main.php?page=admin_user_plate_points',
+			action: '/?page=admin_user_plate_points',
 			input: {
 				user_id: user_id,
 				back: back_path(),
@@ -32,7 +32,7 @@ function printEnrollmentForm(user_id)
 	create_and_submit_form(config);
 
 	*/
-	bounce('main.php?page=admin_user_plate_points&user_id=' + user_id + '&print_enrollment_form=true', '_blank');
+	bounce('/?page=admin_user_plate_points&user_id=' + user_id + '&print_enrollment_form=true', '_blank');
 }
 
 function markAccountDataRequestCompleteConfirm(user_id)
@@ -43,7 +43,7 @@ function markAccountDataRequestCompleteConfirm(user_id)
 		modal: true,
 		confirm: function () {
 
-			bounce('main.php?page=admin_user_details&id=' + user_id + '&action=confirmAccountInfoSent');
+			bounce('/?page=admin_user_details&id=' + user_id + '&action=confirmAccountInfoSent');
 
 		}
 	});
@@ -57,7 +57,7 @@ function deleteUserConfirm(user_id)
 		modal: true,
 		confirm: function () {
 
-			bounce('main.php?page=admin_user_details&id=' + user_id + '&action=delete');
+			bounce('/?page=admin_user_details&id=' + user_id + '&action=delete');
 
 		}
 	});
@@ -71,7 +71,7 @@ function unsetHomeStore(user_id)
 		modal: true,
 		confirm: function () {
 
-			bounce('main.php?page=admin_user_details&id=' + user_id + '&action=unsethome');
+			bounce('/?page=admin_user_details&id=' + user_id + '&action=unsethome');
 
 		}
 	});
@@ -224,7 +224,7 @@ $(document).on('submit', '#add_mobile_number', function (e) {
 		{
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 100000000,
 				dataType: 'json',
@@ -291,7 +291,7 @@ $(document).on('submit', '#add_mobile_number', function (e) {
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 100000000,
 			dataType: 'json',

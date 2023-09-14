@@ -8,9 +8,9 @@
 	Details about referral credit currently available to can be found in your account information
 	on our web site.  Click the link the below to view your account.
 
-	<?=HTTPS_BASE?>main.php?page=my_credits
+	<?=HTTPS_BASE?>my-credits
 
 	We look forward to seeing you again soon!
 
 	Sign-up for my next session
-	https://dreamdinners.com/main.php?page=session_menu
+	https://dreamdinners.com/session-menu

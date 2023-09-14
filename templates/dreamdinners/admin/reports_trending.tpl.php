@@ -34,10 +34,10 @@ return; }
 
 <div style="background-color:#d0d0d0; border:2px; black solid; text-align:center; font-weight:bold; font-size:14pt; margin:0px; padding:5px;">
 <span style="color:green;"><?php echo $this->titleString; ?></span>
-<div style="float:right"><a href="/main.php?page=admin_reports_trending_menu_based" class="button">Menu-Month Trending Report</a></div>
+<div style="float:right"><a href="/?page=admin_reports_trending_menu_based" class="button">Menu-Month Trending Report</a></div>
 </div>
 
-<form id="reports_trending_form" action="main.php?page=admin_reports_trending" method="post">
+<form id="reports_trending_form" action="/?page=admin_reports_trending" method="post">
 <?php echo $this->form_array['hidden_html'];?>
 
 

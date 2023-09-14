@@ -25,7 +25,7 @@ function addOwner(guest)
 	dd_toast({message: 'Adding ' + $(guest).data('firstname') + ' ' + $(guest).data('lastname')});
 
 	create_and_submit_form({
-		action: 'main.php' + window.location.search,
+		action: window.location.search,
 		input: ({
 			addOwner: true,
 			user_id: $(guest).data('user_id')
@@ -42,12 +42,12 @@ function handle_owner_links()
 
 		if (manage_action == 'view')
 		{
-			bounce('main.php?page=admin_user_details&id=' + user_id + '&back=' + back_path());
+			bounce('/?page=admin_user_details&id=' + user_id + '&back=' + back_path());
 		}
 
 		if (manage_action == 'edit')
 		{
-			bounce('main.php?page=admin_account&id=' + user_id + '&back=' + back_path());
+			bounce('/?page=admin_account&id=' + user_id + '&back=' + back_path());
 		}
 
 		if (manage_action == 'delete')
@@ -60,7 +60,7 @@ function handle_owner_links()
 					dd_toast({message: 'Removing Owner'});
 
 					create_and_submit_form({
-						action: 'main.php' + window.location.search,
+						action: window.location.search,
 						input: ({
 							action: 'deleteOwner',
 							owner_id: user_id
@@ -86,7 +86,7 @@ function handle_store_links()
 
 		if (manage_action == 'view')
 		{
-			bounce('main.php?page=admin_store_details&id=' + store_id + '&back=' + back_path());
+			bounce('/?page=admin_store_details&id=' + store_id + '&back=' + back_path());
 		}
 
 		if (manage_action == 'archive')
@@ -96,7 +96,7 @@ function handle_store_links()
 				message: 'Are you sure you want to archive and re-open <span style="color: red; font-weight: bold;">' + store_name + '</span>?',
 				confirm: function() {
 
-					bounce('main.php?page=admin_archive_store&store=' + store_id);
+					bounce('/?page=admin_archive_store&store=' + store_id);
 
 				},
 				cancel: function() {
@@ -115,7 +115,7 @@ function handle_store_links()
 					dd_toast({message: 'Deleting Store'});
 
 					create_and_submit_form({
-						action: 'main.php?page=admin_store_details&id=' + store_id,
+						action: '/?page=admin_store_details&id=' + store_id,
 						input: ({
 							action: 'deleteStore',
 							id: store_id,

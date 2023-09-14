@@ -101,7 +101,7 @@ class page_admin_manage_dream_event_properties extends CPageAdminOnly
 				$createProperties->insert();
 
 				$tpl->setStatusMsg('Properties created.');
-				CApp::bounce('main.php?page=admin_manage_dream_event_properties');
+				CApp::bounce('/?page=admin_manage_dream_event_properties');
 			}
 
 			$Form->AddElement(array(
@@ -136,7 +136,7 @@ class page_admin_manage_dream_event_properties extends CPageAdminOnly
 			}
 
 			$tpl->setStatusMsg('Properties deleted.');
-			CApp::bounce('main.php?page=admin_manage_dream_event_properties');
+			CApp::bounce('/?page=admin_manage_dream_event_properties');
 		}
 
 		if (!empty($_GET['edit']) && is_numeric($_GET['edit']))
@@ -146,7 +146,7 @@ class page_admin_manage_dream_event_properties extends CPageAdminOnly
 			if (!$editProperties->find(true))
 			{
 				$tpl->setStatusMsg('Properties not found.');
-				CApp::bounce('main.php?page=admin_manage_dream_event_properties');
+				CApp::bounce('/?page=admin_manage_dream_event_properties');
 			}
 
 			if (!empty($_POST['submit']) && $_POST['submit'] == 'update')

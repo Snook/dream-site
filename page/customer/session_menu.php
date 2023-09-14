@@ -60,7 +60,7 @@ class page_session_menu extends CPage
 			// no store, send them to pick a store
 			if (empty($DAO_store))
 			{
-				CApp::bounce('main.php?page=locations');
+				CApp::bounce('/locations');
 			}
 		}
 
@@ -86,7 +86,7 @@ class page_session_menu extends CPage
 
 		if ($navigationType == CTemplate::DELIVERED)
 		{
-			CApp::bounce('main.php?page=box_select');
+			CApp::bounce('/box-select');
 		}
 
 		// Get the customer calendar array, so we can check if there is any valid sessions for the menu that is in the cart
@@ -131,7 +131,7 @@ class page_session_menu extends CPage
 			else
 			{
 				// shouldn't happen, but couldn't find a valid menu so send them to locations
-				CApp::bounce('main.php?page=locations');
+				CApp::bounce('/locations');
 			}
 		}
 
@@ -163,7 +163,7 @@ class page_session_menu extends CPage
 		{
 			if (empty($cartSessionId))
 			{
-				CApp::bounce('main.php?page=session');
+				CApp::bounce('/session');
 			}
 
 			$orderType = COrders::DREAM_TASTE;
@@ -172,7 +172,7 @@ class page_session_menu extends CPage
 		{
 			if (empty($cartSessionId))
 			{
-				CApp::bounce('main.php?page=session');
+				CApp::bounce('/session');
 			}
 
 			$orderType = COrders::FUNDRAISER;
@@ -187,7 +187,7 @@ class page_session_menu extends CPage
 		{
 			if ($orderType != COrders::STANDARD && $orderType != COrders::MADE_FOR_YOU)
 			{
-				CApp::bounce("main.php?page=checkout");
+				CApp::bounce("/checkout");
 			}
 			else
 			{
@@ -196,7 +196,7 @@ class page_session_menu extends CPage
 
 				if (!$CartObj->getOrder()->hasStandardCoreServingMinimum($CartObj, $minimum))
 				{
-					CApp::bounce("main.php?page=session_menu");
+					CApp::bounce("/session-menu");
 				}
 			}
 		}
@@ -257,19 +257,19 @@ class page_session_menu extends CPage
 				if (strtotime($sessionArray['session_close_scheduling']) <= CTimezones::getAdjustedServerTime($DAO_store))
 				{
 					$tpl->setStatusMsg("We&rsquo;re sorry, the session that you were invited to is closed. The date may have passed or the session may have been closed due to extenuating circumstances. Here you may view other sessions at your friend&rsquo;s Dream Dinners location.");
-					CApp::bounce('main.php?page=locations');
+					CApp::bounce('/locations');
 				}
 
 				if ($sessionArray['available_slots'] - $sessionArray['booked_standard_slots'] <= 0)
 				{
 					$tpl->setStatusMsg("We&rsquo;re sorry, the session that you were invited to is full. Here you may view other sessions at your friend&rsquo;s Dream Dinners location.");
-					CApp::bounce('main.php?page=locations');
+					CApp::bounce('/locations');
 				}
 
 				if ($sessionArray['session_publish_state'] != CSession::PUBLISHED)
 				{
 					$tpl->setStatusMsg("We&rsquo;re sorry, the session that you were invited to is currently closed. If you feel you have received this message in error please contact the store at {$DAO_store->telephone_day} or <a href='mailto:{$DAO_store->email_address}'>{$DAO_store->email_address}</a>.");
-					CApp::bounce('main.php?page=locations');
+					CApp::bounce('/locations');
 				}
 
 				$DAO_bundle = CBundle::getBundleInfo($sessionArray['bundle_id'], $cartMenuID, $DAO_store);
@@ -297,7 +297,7 @@ class page_session_menu extends CPage
 						if (!$canAccessRSVP)
 						{
 							$tpl->setErrorMsg("Sorry but only guests new to Dream Dinners can RSVP for this event. Please contact the store if you have questions.");
-							CApp::bounce('main.php?page=locations');
+							CApp::bounce('/locations');
 						}
 					}
 				}
@@ -311,14 +311,14 @@ class page_session_menu extends CPage
 		{
 			if (empty($cartSessionId) && $navigationType == CTemplate::EVENT)
 			{
-				CApp::bounce('main.php?page=session');
+				CApp::bounce('/session');
 			}
 
 			$menuItemArray = CMenuItem::getFullMenuItemsAndMenuInfo($DAO_store, $cartMenuID, $CartObj->getMenuItems($cartMenuID));
 
 			if ($menu_view == "session_menu_freezer" && empty($menuItemArray['menuItemCategoryInfo']['num_visible'][2]) && empty($menuItemArray['menuItemCategoryInfo']['num_visible'][3]))
 			{
-				CApp::bounce('main.php?page=checkout');
+				CApp::bounce('/checkout');
 			}
 
 			$DAO_bundle = CBundle::getActiveBundleForMenu($cartMenuID, $DAO_store);
@@ -411,10 +411,7 @@ class page_session_menu extends CPage
 		$tpl->assign('sticky_nav_bottom_disable', true);
 		$tpl->assign('allow_customizations', $DAO_orders->opted_to_customize_recipes);
 		$tpl->assign('customization', $customizationDetails);
-
-		$subTotal = ((!empty($DAO_bundle->price)) ? $DAO_bundle->price : $cartInfo['cart_info_array']['total_items_price']) - ((!empty($cartInfo['order_info']['coupon_code_discount_total']) && empty($cartInfo['coupon']['limit_to_mfy_fee']) && empty($cartInfo['coupon']['limit_to_delivery_fee)'])) ? $cartInfo['order_info']['coupon_code_discount_total'] : 0);
-		$subTotal += $cartInfo['order_info']['subtotal_meal_customization_fee'];
-		$tpl->assign('initialCartSubtotal', CTemplate::moneyFormat($subTotal));
+		$tpl->assign('initialCartSubtotal', ((!empty($DAO_bundle->price) && $CartObj->getOrder()->isBundleOrder()) ? $DAO_bundle->price : $DAO_orders->grand_total));
 
 		if (!empty($sessionArray))
 		{

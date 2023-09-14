@@ -52,7 +52,7 @@
 					<?php echo $this->form_payment['shipping_postal_code_html']; ?>
 					<?php if ($this->cart_info['sessionObj']->isDelivered() &&  !$this->isEditDeliveredOrder) { ?>
 						<div class="input-group-append">
-							<a href="main.php?page=locations&amp;zip=<?php echo $this->cart_info['cart_info_array']['postal_code']; ?>" class="btn btn-primary box-change-zip">Change</a>
+							<a href="/locations?zip=<?php echo $this->cart_info['cart_info_array']['postal_code']; ?>" class="btn btn-primary box-change-zip">Change</a>
 						</div>
 					<?php } ?>
 				</div>

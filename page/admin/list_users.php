@@ -168,7 +168,7 @@ class page_admin_list_users extends CPageAdminOnly
 				}
 				else
 				{
-					CApp::bounce("main.php?page=admin_order_mgr&order=" . $LastOrder->id);
+					CApp::bounce("/?page=admin_order_mgr&order=" . $LastOrder->id);
 				}
 			}
 			else

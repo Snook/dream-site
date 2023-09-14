@@ -37,7 +37,7 @@ class page_admin_menus extends CPageAdminOnly
 
 			$this->Template->setStatusMsg('New menu created, <span class="text-danger">verify menu end date!</span>');
 
-			CApp::bounce('main.php?page=admin_menus&menu_edit=' . $newId);
+			CApp::bounce('/?page=admin_menus&menu_edit=' . $newId);
 		}
 
 		$menu_edit = array_key_exists('menu_edit', $_GET) ? CGPC::do_clean($_GET['menu_edit'], TYPE_STR) : null;

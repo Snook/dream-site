@@ -1,10 +1,10 @@
 <?php $this->setScriptVar('itemRecipeID = ' . $this->menuItemArray['entree']->DAO_recipe->id . ';'); ?>
 <?php $this->assign('itemscope', 'Recipe'); ?>
 <?php $this->assign('og_title', $this->menuItemArray['entree']->menu_item_name); ?>
-<?php $this->assign('og_url', HTTPS_BASE . 'main.php?page=item&recipe=' . $this->menuItemArray['entree']->recipe_id); ?>
+<?php $this->assign('og_url', HTTPS_BASE . '?page=item&recipe=' . $this->menuItemArray['entree']->recipe_id); ?>
 <?php $this->assign('og_image', HTTPS_BASE . RELATIVE_IMAGES_PATH . '/recipe/' . $this->menuItemArray['entree']->menuItemImagePath() . '/' . $this->menuItemArray['entree']->recipe_id . '.webp'); ?>
 <?php $this->assign('og_description', trim($this->menuItemArray['entree']->menu_item_description)); ?>
-<?php $this->assign('canonical_url', HTTPS_BASE . 'main.php?page=item&recipe=' . $this->menuItemArray['entree']->recipe_id); ?>
+<?php $this->assign('canonical_url', HTTPS_BASE . 'item?recipe=' . $this->menuItemArray['entree']->recipe_id); ?>
 <?php $this->assign('page_title', $this->menuItemArray['entree']->menu_item_name); ?>
 <?php $this->assign('page_description', trim($this->menuItemArray['entree']->menu_item_description)); ?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
@@ -67,7 +67,7 @@
 
 					<div class="mb-4">
 						<div class="col">
-							<a href="/main.php?page=session_menu" class="btn btn-primary btn-block btn-lg">Get Started</a>
+							<a href="/session-menu" class="btn btn-primary btn-block btn-lg">Get Started</a>
 						</div>
 					</div>
 
@@ -82,8 +82,8 @@
 
 			<nav class="row pt-4">
 				<div class="col nav nav-pills nav-fill pr-0" id="dishDetails" role="tablist">
-					<a class="nav-item nav-link col-6 text-uppercase font-weight-bold active" id="cooking-tab" data-urlpush="true" data-toggle="tab" data-target="#cooking" href="/main.php?page=item&amp;recipe=<?php echo $this->menuItemArray['entree']->recipe_id; ?>&amp;tab=cooking" role="tab" aria-controls="cooking" aria-selected="true">Instructions</a>
-					<a class="nav-item nav-link col-6 text-uppercase font-weight-bold" id="nutrition-tab" data-urlpush="true" data-toggle="tab" data-target="#nutrition" href="/main.php?page=item&amp;recipe=<?php echo $this->menuItemArray['entree']->recipe_id; ?>&amp;tab=nutrition" role="tab" aria-controls="nutrition" aria-selected="true">Nutrition</a>
+					<a class="nav-item nav-link col-6 text-uppercase font-weight-bold active" id="cooking-tab" data-urlpush="true" data-toggle="tab" data-target="#cooking" href="/item?recipe=<?php echo $this->menuItemArray['entree']->recipe_id; ?>&amp;tab=cooking" role="tab" aria-controls="cooking" aria-selected="true">Instructions</a>
+					<a class="nav-item nav-link col-6 text-uppercase font-weight-bold" id="nutrition-tab" data-urlpush="true" data-toggle="tab" data-target="#nutrition" href="/item?recipe=<?php echo $this->menuItemArray['entree']->recipe_id; ?>&amp;tab=nutrition" role="tab" aria-controls="nutrition" aria-selected="true">Nutrition</a>
 				</div>
 			</nav>
 

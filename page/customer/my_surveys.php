@@ -3,7 +3,7 @@ class page_my_surveys extends CPage {
 
 	function runPublic()
 	{
-		CApp::forceLogin('main.php?page=my_surveys');
+		CApp::forceLogin('/my-surveys');
 	}
 
 	function runCustomer()
@@ -135,7 +135,7 @@ class page_my_surveys extends CPage {
 			}
 			else
 			{
-				CApp::bounce('main.php?page=my_surveys');
+				CApp::bounce('/my-surveys');
 			}
 		}
 

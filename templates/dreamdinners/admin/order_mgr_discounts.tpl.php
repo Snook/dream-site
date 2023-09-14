@@ -51,6 +51,72 @@
 			</td>
 		</tr>
 
+		<?php  if (!$this->discountEligable['referral_reward']) { ?>
+		<tr style="margin:0px;">
+			<td style="margin:0px;">
+				<table style="margin: 0px; width: 100%;">
+					<tr>
+						<td class="bgcolor_dark catagory_row" style="width: 200px;">Referral Rewards</td>
+						<td class="bgcolor_light" style="font-style: italic;">Order ineligible for Referral Rewards</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<?php } else if (isset($this->form_direct_order['referral_reward_discount_html'])) { ?>
+			<tr>
+				<td>
+					<table>
+						<tr>
+							<td class="bgcolor_dark catagory_row" style="width:200px;">
+								Referral Rewards
+							</td>
+							<td>
+								<table>
+									<tbody>
+									<tr class="bgcolor_lighter">
+										<td width="45%">Total available including applied</td>
+										<td>$&nbsp; <span id="referral_reward_available"><?php echo $this->maxReferralRewards; ?></span></td>
+									</tr>
+									</tbody>
+									<tbody id="tbody_max_referral_reward">
+									<tr class="bgcolor_lighter">
+										<td width="45%">Total Allowed This Order</td>
+										<td>$&nbsp; <span id="max_referral_reward_deduction"><?php echo $this->maxReferralRewardsDeduction; ?></span></td>
+									</tr>
+									</tbody>
+									<tbody>
+									<tr class="bgcolor_lighter">
+										<td width="45%">&nbsp;Applied amount</td>
+										<td>
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<div class="input-group-text">$</div>
+												</div>
+												<?php echo $this->form_direct_order['referral_reward_discount_html']; ?>
+											</div>
+											<span id="rr_discountable_cost_msg" style="display: none"></span>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		<?php } else { ?>
+			<tr style="margin:0px;">
+				<td style="margin:0px;">
+					<table style="margin: 0px; width: 100%;">
+						<tr>
+							<td class="bgcolor_dark catagory_row" style="width: 200px;">Referral Rewards</td>
+							<td class="bgcolor_light" style="font-style: italic;"><?php echo (!empty($this->noReferralRewardReason)) ? $this->noReferralRewardReason : ''; ?></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		<?php } ?>
+
 		<?php if (!$this->discountEligable['dinner_dollars']) { ?>
 			<tr style="margin:0px;">
 				<td style="margin:0px;">
@@ -62,7 +128,8 @@
 					</table>
 				</td>
 			</tr>
-		<?php } else if (isset($this->form_direct_order['plate_points_discount_html'])) { ?>
+		<?php }
+		else if (isset($this->form_direct_order['plate_points_discount_html'])) { ?>
 			<tr>
 				<td>
 					<table>
@@ -141,7 +208,7 @@
 												}
 												break;
 											case 'CONSUMED':
-												echo '$' . $entry['amount'] . ' applied to <a href="main.php?page=admin_order_mgr&order=' . $entry['orders'] . '" target="_blank">' . $orderStr . '</a>. ';
+												echo '$' . $entry['amount'] . ' applied to <a href="/?page=admin_order_mgr&order=' . $entry['orders'] . '" target="_blank">' . $orderStr . '</a>. ';
 												echo $expiredStr;
 												break;
 											case 'EXPIRED':
@@ -153,7 +220,7 @@
 								?>
 
 								<li style="list-style-type: none !important;"></li>
-								<li style="list-style-type: none !important;"><a href="main.php?page=admin_user_plate_points&amp;id=<?php echo $this->user['id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']);?>" target="_blank">Full Dinner Dollar/PlatePoint History</a></li>
+								<li style="list-style-type: none !important;"><a href="/?page=admin_user_plate_points&amp;id=<?php echo $this->user['id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']);?>" target="_blank">Full Dinner Dollar/PlatePoint History</a></li>
 							</ul>
 						</div>
 					</div>

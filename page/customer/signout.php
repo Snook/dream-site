@@ -24,11 +24,11 @@ class page_signout extends CPage
 		}
 		else if (isset($_REQUEST['remo']) && $_REQUEST['remo'] = "true")
 		{
-			CApp::bounce('main.php?page=admin_login', true);
+			CApp::bounce('/?page=admin_login', true);
 		}
 		else
 		{
-			CApp::bounce('main.php', true);
+			CApp::bounce('/', true);
 		}
 	}
 

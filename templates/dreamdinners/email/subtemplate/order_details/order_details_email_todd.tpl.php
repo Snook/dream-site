@@ -1,7 +1,7 @@
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 	<tr>
 		<td>
-			To view your account information or reschedule an order, go to <a href="<?= HTTPS_BASE ?>main.php?page=my_account">My Account</a>.
+			To view your account information or reschedule an order, go to <a href="<?= HTTPS_BASE ?>my-account">My Account</a>.
 		</td>
 	</tr>
 </table>

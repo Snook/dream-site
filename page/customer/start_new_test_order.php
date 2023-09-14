@@ -110,7 +110,7 @@ class page_start_new_test_order extends CPage
 
 	function runPublic()
 	{
-		CApp::forceLogin('main.php?page=start_new_test_order');
+		CApp::forceLogin('/start-new-test-order');
 	}
 
 	function runCustomer()
@@ -118,7 +118,7 @@ class page_start_new_test_order extends CPage
 
 		$this->setUpCartForTests();
 
-		CApp::bounce("/main.php?page=checkout");
+		CApp::bounce("/checkout");
 	}
 }
 

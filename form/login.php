@@ -227,9 +227,9 @@ class form_login
 		//until they enter one
 		if (!$suppressBounce)
 		{
-			if ((!CApp::$isStoreView) && $user->isLoggedIn() && (!$user->primary_email) && (@$_GET['page'] != 'account'))
+			if ($user->isLoggedIn() && (!$user->primary_email) && (@$_GET['page'] != 'account'))
 			{
-				CApp::bounce('main.php?page=account');
+				CApp::bounce('/account');
 			}
 		}
 

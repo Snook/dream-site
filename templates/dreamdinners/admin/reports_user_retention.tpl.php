@@ -1,5 +1,5 @@
 <?php
-$url = "main.php?page=admin_reports_user_retention";
+$url = "/?page=admin_reports_user_retention";
 ?>
 
 <?php $this->assign('page_title','Inactive Guest Status Reports'); ?>

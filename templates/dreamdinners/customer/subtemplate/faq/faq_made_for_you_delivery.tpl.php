@@ -7,7 +7,7 @@
 		</div>
 		<div id="collapse-MFYD-One" class="collapse" aria-labelledby="heading-MFYD-One" data-parent="#accordion-MFYD">
 			<div class="card-body">
-				Delivery fees will vary based on your local store. You can find the cost of delivery on the checkout page. Some stores may also post their fee on their <a href="main.php?page=locations">store location details page</a> or on the calendar during checkout when you select Home Delivery and view times available. Delivery is available within 20 miles of your selected Dream Dinners store. Orders may be canceled for any distance beyond 20 miles. If the store can accomodate an additional fee may be added after checkout.
+				Delivery fees will vary based on your local store. You can find the cost of delivery on the checkout page. Some stores may also post their fee on their <a href="/locations">store location details page</a> or on the calendar during checkout when you select Home Delivery and view times available. Delivery is available within 20 miles of your selected Dream Dinners store. Orders may be canceled for any distance beyond 20 miles. If the store can accomodate an additional fee may be added after checkout.
 			</div>
 		</div>
 	</div>

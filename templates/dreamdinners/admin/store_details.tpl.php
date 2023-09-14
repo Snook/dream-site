@@ -9,6 +9,7 @@
 <?php $this->setOnload('store_details_init();'); ?>
 <?php $this->assign('page_title','Store Details'); ?>
 <?php $this->assign('topnav','store'); ?>
+<?php $this->setScriptVar('time_picker_hours = ' . ($this->time_picker_hours ? $this->time_picker_hours : '{}') . ';'); ?>
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
 <?php $isSiteAdmin = ($this->form_login['user_type'] == 'SITE_ADMIN' || (isset($this->siteadminoverride) == true && $this->siteadminoverride == true)); ?>
@@ -44,7 +45,67 @@
 				<td class="bgcolor_light" style="text-align: right;vertical-align:top;">About Store:</td>
 				<td class="bgcolor_light">
 					<?php echo $this->form_store_details['store_description_html']; ?>
-					<div style="border: 1px solid brown; padding: 4px; display: none;" id="store_description_preview"></div>
+					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="store_description_preview"></div>
+				</td>
+			</tr>
+		</table>
+
+		<table style="width: 100%; margin-bottom: 10px;">
+			<tr>
+				<td class="bgcolor_dark catagory_row" colspan="2">Public Bio</td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right; width: 210px;">Store Name:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_store_name_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Owner/Manager Name:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_primary_party_name_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Owner/Manager Title:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_primary_party_title_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Owner/Manager Story:</td>
+				<td class="bgcolor_light">
+					<?php echo $this->form_store_details['bio_primary_party_story_html']; ?>
+					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_primary_party_story_preview"></div>
+				</td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Owner/Manager #2 Name:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_secondary_party_name_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Owner/Manager #2 Title:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_secondary_party_title_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Owner/Manager #2 Story:</td>
+				<td class="bgcolor_light">
+					<?php echo $this->form_store_details['bio_secondary_party_story_html']; ?>
+					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_secondary_party_story_preview"></div>
+				</td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Meet the Team:</td>
+				<td class="bgcolor_light">
+					<?php echo $this->form_store_details['bio_team_description_html']; ?>
+					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_team_description_preview"></div>
+				</td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;vertical-align:top;">Store Hours:</td>
+				<td class="bgcolor_light">
+					<?php include $this->loadTemplate('admin/subtemplate/helpers/store_hour_select.tpl.php'); ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;vertical-align:top;">Store Holiday Hours:</td>
+				<td class="bgcolor_light">
+					<?php echo $this->form_store_details['bio_store_holiday_hours_html']; ?>
+					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_store_holiday_hours_preview"></div>
 				</td>
 			</tr>
 		</table>
@@ -64,7 +125,7 @@
 						<?php echo ($isSiteAdmin) ? $this->form_store_details['franchise_id_html'] : $this->franchise_name; ?>
 						<?php if ($isSiteAdmin) { ?>
 							<div class="input-group-append">
-								<a href="main.php?page=admin_franchise_details&amp;id=<?php echo $this->form_store_details['franchise_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" class="button" style="float: right;">View Entity</a>
+								<a href="/?page=admin_franchise_details&amp;id=<?php echo $this->form_store_details['franchise_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" class="button" style="float: right;">View Entity</a>
 							</div>
 						<?php } ?>
 					</div>
@@ -142,7 +203,7 @@
 				<td class="bgcolor_light" style="text-align: right;vertical-align:top;">Location directions:</td>
 				<td class="bgcolor_light">
 					<?php echo $this->form_store_details['address_directions_html']; ?>
-					<div style="border: 1px solid brown; padding: 4px; display: none;" id="address_directions_preview"></div>
+					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="address_directions_preview"></div>
 				</td>
 			</tr>
 			<tr>
@@ -177,12 +238,12 @@
 				<td class="bgcolor_light" style="text-align: right;">Store Information Page QR Code:</td>
 				<td class="guest_details_list_item">
 					<div class="input-group">
-						<input type="text" id="store_page_link" class="form-control" aria-label="Store landing page" value="<?php echo HTTPS_BASE; ?><?php $emailArray = explode('@', $this->store['email_address']); echo strtolower($emailArray[0]); ?>" readonly>
+						<input type="text" id="store_page_link" class="form-control" aria-label="Store landing page" value="<?php echo HTTPS_SERVER; ?><?php echo $this->DAO_store->getPrettyUrl(); ?>" readonly>
 						<div class="input-group-append">
 							<div class="input-group-text btn-clip" data-toggle="tooltip" data-placement="top" title="Copy link to clipboard" data-clipboard-target="#store_page_link" ><i class="fas fa-clipboard-list"></i></div>
 						</div>
 						<div class="input-group-append">
-							<a class="input-group-text" data-toggle="tooltip" data-placement="top" title="Download QR code" href="<?php echo HTTPS_BASE; ?>ddproc.php?processor=qr_code&op=store_info&d=1&s=10&id=<?php echo $this->store['id']; ?>" ><i class="fas fa-qrcode"></i></a>
+							<a class="input-group-text" data-toggle="tooltip" data-placement="top" title="Download QR code" href="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&op=store_info&d=1&s=10&id=<?php echo $this->store['id']; ?>" ><i class="fas fa-qrcode"></i></a>
 						</div>
 					</div>
 				</td>
@@ -279,9 +340,9 @@
 									<a class="btn btn-primary" data-guestsearch="add_manager" data-select_button_title="Add Manager" data-all_stores_checked="true" data-select_function="addManager" data-tooltip="Select manager" class="button">Select manager</a>
 								</div>
 							</div>
-							<div><input class="form-control" id="manager_1_name" type="text" disabled="disabled" value="<?php echo $this->store['manager_1_firstname']; ?> <?php echo $this->store['manager_1_lastname']; ?>" /></div>
-							<div><input class="form-control" id="manager_1_primary_email" type="text" disabled="disabled" value="<?php echo $this->store['manager_1_primary_email']; ?>" /></div>
-							<div><input class="form-control" id="manager_1_telephone_1" type="text" disabled="disabled" value="<?php echo $this->store['manager_1_telephone_1']; ?>" /></div>
+							<div><input class="form-control" id="manager_1_name" type="text" disabled="disabled" value="<?php echo $this->manager_DAO_user->firstname; ?> <?php echo $this->manager_DAO_user->lastname; ?>" /></div>
+							<div><input class="form-control" id="manager_1_primary_email" type="text" disabled="disabled" value="<?php echo $this->manager_DAO_user->primary_email; ?>" /></div>
+							<div><input class="form-control" id="manager_1_telephone_1" type="text" disabled="disabled" value="<?php echo $this->manager_DAO_user->telephone_1; ?>" /></div>
 						</div>
 					</div>
 
@@ -642,12 +703,12 @@
 						<?php if (!empty($this->store['personnel'])) { ?>
 							<?php foreach ($this->store['personnel'] as $user_id => $userInfo) { ?>
 								<tr>
-									<td class="bgcolor_light"><a href="main.php?page=admin_access_levels&amp;id=<?php echo $user_id; ?>"><?php echo CUser::userTypeText($userInfo['user_type']); ?></a></td>
-									<td class="bgcolor_light"><a href="main.php?page=admin_user_details&amp;id=<?php echo $user_id; ?>"><?php echo $userInfo['firstname']; ?> <?php echo $userInfo['lastname']; ?></a></td>
-									<td class="bgcolor_light"><a href="main.php?page=admin_email&amp;id=<?php echo $user_id; ?>"><?php echo $userInfo['primary_email']; ?></a></td>
-									<td class="bgcolor_light"><a href="main.php?page=admin_user_details&amp;id=<?php echo $user_id; ?>"><?php echo (!empty($userInfo['last_login'])) ? CTemplate::dateTimeFormat($userInfo['last_login'], MONTH_DAY_YEAR) : 'Never'; ?></a></td>
+									<td class="bgcolor_light"><a href="/?page=admin_access_levels&amp;id=<?php echo $user_id; ?>"><?php echo CUser::userTypeText($userInfo['user_type']); ?></a></td>
+									<td class="bgcolor_light"><a href="/?page=admin_user_details&amp;id=<?php echo $user_id; ?>"><?php echo $userInfo['firstname']; ?> <?php echo $userInfo['lastname']; ?></a></td>
+									<td class="bgcolor_light"><a href="/?page=admin_email&amp;id=<?php echo $user_id; ?>"><?php echo $userInfo['primary_email']; ?></a></td>
+									<td class="bgcolor_light"><a href="/?page=admin_user_details&amp;id=<?php echo $user_id; ?>"><?php echo (!empty($userInfo['last_login'])) ? CTemplate::dateTimeFormat($userInfo['last_login'], MONTH_DAY_YEAR) : 'Never'; ?></a></td>
 									<td class="bgcolor_light" style="text-align:center;"><?php echo (!empty($userInfo['fadmin_nda_agree'])) ? 'Yes' : '<span style="color: red;">No</span>'; ?></td>
-									<td class="bgcolor_light" style="text-align:center;"><a href="main.php?page=store&amp;id=<?php echo $this->store['id']; ?>"><?php echo (!empty($userInfo['display_to_public'])) ? 'Yes' : 'No'; ?></a></td>
+									<td class="bgcolor_light" style="text-align:center;"><a href="/location/<?php echo $this->store['id']; ?>"><?php echo (!empty($userInfo['display_to_public'])) ? 'Yes' : 'No'; ?></a></td>
 								</tr>
 							<?php } } ?>
 					</table>
@@ -667,6 +728,10 @@
 				</tr>
 			<?php } ?>
 			<?php if( $isSiteAdmin == TRUE ) { ?>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right; width: 210px;">Vanity URL (numbers, hyphens and lower case letters allowed)</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['short_url_html']; ?></td>
+				</tr>
 				<tr>
 					<td class="bgcolor_light" style="text-align: right; width: 400px;">Enable Menu Imports - Active/Show on Customer Site always import menus regardless of this setting, enable this to import menus for an inactive store</td>
 					<td class="bgcolor_light"><?php echo $this->form_store_details['ssm_builder_html']; ?></td>
@@ -744,11 +809,11 @@
 			<?php } ?>
 			<tr>
 				<td class="bgcolor_light" style="text-align: right;">Last update:</td>
-				<td class="bgcolor_light"><?php echo $this->store['timestamp_updated']; ?> by <a href="main.php?page=admin_user_details&amp;id=<?php echo $this->store['updated_by']; ?>"><?php echo $this->store['updated_by']; ?></a></td>
+				<td class="bgcolor_light"><?php echo $this->store['timestamp_updated']; ?> by <a href="/?page=admin_user_details&amp;id=<?php echo $this->store['updated_by']; ?>"><?php echo $this->store['updated_by']; ?></a></td>
 			</tr>
 			<tr>
 				<td class="bgcolor_light" style="text-align: right;">Created on:</td>
-				<td class="bgcolor_light"><?php echo $this->store['timestamp_created']; ?> by <a href="main.php?page=admin_user_details&amp;id=<?php echo $this->store['created_by']; ?>"><?php echo $this->store['created_by']; ?></a></td>
+				<td class="bgcolor_light"><?php echo $this->store['timestamp_created']; ?> by <a href="/?page=admin_user_details&amp;id=<?php echo $this->store['created_by']; ?>"><?php echo $this->store['created_by']; ?></a></td>
 			</tr>
 			<tr>
 				<td colspan="2" class="tbl_section_footer">&nbsp;</td>

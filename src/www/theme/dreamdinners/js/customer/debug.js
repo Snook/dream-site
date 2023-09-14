@@ -20,13 +20,13 @@ var BugHerdConfig = {
 (function() {
 
 	$(document).on('click', '.watch_cart', function (e) {
-		var win = window.open('main.php?page=cart_watcher', '_blank');
+		var win = window.open('/cart-watcher', '_blank');
 	});
 
 	if (typeof $.feedback == 'function')
 	{
 		$.feedback({
-			ajaxURL: 'ddproc.php?processor=feedback',
+			ajaxURL: '/processor?processor=feedback',
 			html2canvasURL: PATH.script + '/vendor/html2canvas/html2canvas.js',
 			onClose: function () {
 				window.location.reload();
@@ -37,7 +37,7 @@ var BugHerdConfig = {
 	$(document).on('click', '.return-fauid', function (e) {
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',

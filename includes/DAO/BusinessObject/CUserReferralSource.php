@@ -337,7 +337,7 @@
 							if ($standardSlotsAvailable > 0)
 							{ // can link them to menu page if session has std slots
 								$canSaveSession = true;
-								$tpl->assign('conversion_link', HTTPS_SERVER . "/main.php?page=session_menu");
+								$tpl->assign('conversion_link', HTTPS_SERVER . "/session-menu");
 							}
 						}
 
@@ -365,16 +365,16 @@
 							if ($is_intro)
 							{
 								//TODO: trigger TV Offer logic?
-								CApp::bounce('main.php?page=session_menu');
+								CApp::bounce('/session-menu');
 							}
 							else
 							{
-								CApp::bounce('main.php?page=session_menu');
+								CApp::bounce('/session-menu');
 							}
 						}
 						else
 						{
-							$altLink = HTTPS_SERVER . "/main.php?page=session_menu";
+							$altLink = HTTPS_SERVER . "/session-menu";
 							$tpl->assign('alt_link', $altLink);
 						}
 					}
@@ -399,23 +399,23 @@
 			{
 				$tpl->setErrorMsg("We&rsquo;re sorry, the session that you were invited to is closed. The date may have passed or the session may have been closed due to extenuating circumstances.
 					Here you may view other sessions at your friend&rsquo;s Dream Dinners location.");
-				CApp::bounce('main.php?page=session_menu');
+				CApp::bounce('/session-menu');
 			}
 			else if ($tpl->problem == "session_full")
 			{
 				$tpl->setErrorMsg("We&rsquo;re sorry, the session that you were invited to is full. Here you may view other sessions at your friend&rsquo;s Dream Dinners location.");
-				CApp::bounce('main.php?page=session_menu');
+				CApp::bounce('/session-menu');
 			}
 			else if ($tpl->problem == "intro_session_full")
 			{
 				$tpl->setErrorMsg("You have clicked a link to our Meal Prep Starter Pack, available to first-time guests, and there are no more of these slots available during this session time.
 					If you want to place a standard order during this same session time you can access the session here. Or, <a href='".$tpl->alt_link."'> Click Here</a> to view other introductory sessions at your friend&rsquo;s Dream Dinners location.");
-				CApp::bounce('main.php?page=session_menu');
+				CApp::bounce('/session-menu');
 			}
 			else if ($tpl->problem == "session_not_found")
 			{
 				$tpl->setErrorMsg("We&rsquo;re sorry, the session that you were invited to can not be found. Here you may view other sessions at your friend&rsquo;s Dream Dinners location.");
-				CApp::bounce('main.php?page=session_menu');
+				CApp::bounce('/session-menu');
 			}
 		}
 

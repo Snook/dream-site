@@ -165,6 +165,7 @@ class CCart2
 		$this->_edit_order_id = null;
 		$this->_OrderObj->order_customization = null;
 		$this->_OrderObj->direct_order_discount = 0;
+		$this->_OrderObj->discount_total_customer_referral_credit = 0;
 		$this->_OrderObj->points_discount_total = 0;
 		$this->_OrderObj->misc_food_subtotal = 0;
 		$this->_OrderObj->misc_nonfood_subtotal = 0;
@@ -1247,6 +1248,11 @@ class CCart2
 	function updateDinnerDollarsDirect($newAmount)
 	{
 		$this->_storage->storeOrderValue($this->_cart_contents_id, "points_discount_total", $newAmount);
+	}
+
+	function updateCustomerReferralCreditDirect($newAmount)
+	{
+		$this->_storage->storeOrderValue($this->_cart_contents_id, "discount_total_customer_referral_credit", $newAmount);
 	}
 
 	function updateLTDAmountDirect($newAmount)

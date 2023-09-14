@@ -15,7 +15,7 @@ $SHOWYEAR = false;
 
 		<div class="row my-4">
 			<div class="col text-center ">
-				<h1><a href="main.php?page=admin_reports_store_credit">Credit Report</a></h1>
+				<h1><a href="/?page=admin_reports_store_credit">Credit Report</a></h1>
 			</div>
 		</div>
 
@@ -47,17 +47,17 @@ $SHOWYEAR = false;
 				<?php foreach ($this->rows as $user_element) { ?>
 					<?php foreach ($user_element as $entity) { ?>
 						<tr>
-							<td <?php if (count($user_element) > 1) { ?>class="font-weight-bold"<?php } ?>><a href="main.php?page=admin_user_details&id=<?php echo $entity['user_id']; ?>"><?php echo $entity['user_id']; ?></a></td>
+							<td <?php if (count($user_element) > 1) { ?>class="font-weight-bold"<?php } ?>><a href="/?page=admin_user_details&id=<?php echo $entity['user_id']; ?>"><?php echo $entity['user_id']; ?></a></td>
 							<td>
 								<div class="mb-2"><?php echo $entity['firstname']; ?> <?php echo $entity['lastname']; ?></div>
-								<div><a href="main.php?page=admin_email&id=<?php echo $entity['user_id']; ?>"><?php echo $entity['primary_email']; ?></a></div>
+								<div><a href="/?page=admin_email&id=<?php echo $entity['user_id']; ?>"><?php echo $entity['primary_email']; ?></a></div>
 								<div><?php echo $entity['telephone']; ?></div>
 							</td>
 							<td><?php echo $entity['credit_type']; ?></td>
 							<td><?php echo $entity['amount']; ?></td>
 							<td><?php echo $entity['expiration_date']; ?></td>
 							<td><?php echo $entity['description']; ?></td>
-							<td><a href="main.php?page=admin_user_details&id=<?php echo $entity['referred_guest_id']; ?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $entity['referred_guest']; ?></a></td>
+							<td><a href="/?page=admin_user_details&id=<?php echo $entity['referred_guest_id']; ?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $entity['referred_guest']; ?></a></td>
 						</tr>
 					<?php } ?>
 				<?php } ?>

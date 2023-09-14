@@ -850,7 +850,7 @@ class page_admin_create_session extends CPageAdminOnly
 
 					if ($rslt)
 					{
-						$tpl->setStatusMsg('<span class="font-weight-bold">The session has been created.</span> <br /><br /><input type="button" class="button" value="Go to Session in BackOffice Home" onclick="bounce(\'main.php?page=admin_main&session=' . $Session->id . '\')" />');
+						$tpl->setStatusMsg('<span class="font-weight-bold">The session has been created.</span> <br /><br /><a class="btn btn-primary btn-sm" href="/?page=admin_main&session=' . $Session->id . '">Go to Session in BackOffice Home</a>');
 
 						if ($Session->session_type == CSession::DREAM_TASTE)
 						{

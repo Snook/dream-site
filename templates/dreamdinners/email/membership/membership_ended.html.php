@@ -98,7 +98,7 @@
 		</tr>
 		<tr>
 			<td align="center"  style="padding:20px 20px 20px 20px;">
-				<p>See the complete <a href="https://dreamdinners.com/main.php?static=terms">Meal Prep+ terms and conditions here</a>.</p>
+				<p>See the complete <a href="https://dreamdinners.com/terms">Meal Prep+ terms and conditions here</a>.</p>
 				<p align="center">
 					Dream Dinners <?php echo $this->store->store_name; ?><br />
 					<?php echo $this->store->address_line1; ?> <?php echo !empty( $this->store->address_line2 ) ? $this->store->address_line2 : '' ?>
@@ -112,4 +112,3 @@
 </div>
 </body>
 </html>
-

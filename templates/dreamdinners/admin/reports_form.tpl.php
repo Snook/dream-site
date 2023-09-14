@@ -69,8 +69,6 @@
 		<hr>
 	<?php } ?>
 
-	<input type="hidden" name="page" value="<?php echo (!empty($HIDDENPAGENAME)? $HIDDENPAGENAME : ''); ?>">
-
 	<?php if (!empty($SHOWDATEHEADER) && $SHOWDATEHEADER == TRUE) { ?>
 		<br />
 		<h2>Select Date Range</h2>

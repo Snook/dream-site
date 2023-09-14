@@ -1,4 +1,4 @@
-<a href="<?php echo HTTPS_BASE; ?>main.php?page=admin_user_details&id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a> would like the following freezer items added to their order on <a href="<?php echo HTTPS_BASE; ?>main.php?page=admin_order_mgr&order=<?php echo $this->order_details['id']; ?>"><?php echo CTemplate::dateTimeFormat($this->order_details['session_start'], VERBOSE); ?></a>
+<a href="<?php echo HTTPS_BASE; ?>?page=admin_user_details&id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a> would like the following freezer items added to their order on <a href="<?php echo HTTPS_BASE; ?>?page=admin_order_mgr&order=<?php echo $this->order_details['id']; ?>"><?php echo CTemplate::dateTimeFormat($this->order_details['session_start'], VERBOSE); ?></a>
 
 Payment method: <?php echo $this->payment; ?>
 Use Dinner Dollars: <?php echo $this->use_dinner_dollars; ?>

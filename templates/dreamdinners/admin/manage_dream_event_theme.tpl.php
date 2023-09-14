@@ -73,7 +73,7 @@
 	<td class="bgcolor_medium header_row">Public Title</td>
 	<td class="bgcolor_medium header_row">Path</td>
 	<td class="bgcolor_medium header_row">Session Type</td>
-	<td class="bgcolor_medium header_row"><a href="main.php?page=admin_manage_dream_event_theme&amp;create" class="button">Create Theme</a></td>
+	<td class="bgcolor_medium header_row"><a href="/?page=admin_manage_dream_event_theme&amp;create" class="button">Create Theme</a></td>
 </tr>
 <?php foreach ($this->bundleThemeArray AS $id => $bundleTheme) { ?>
 <tr>
@@ -82,7 +82,7 @@
 	<td class="bgcolor_light"><?php echo $bundleTheme->title_public; ?></td>
 	<td class="bgcolor_light"><?php echo $bundleTheme->theme_string; ?></td>
 	<td class="bgcolor_light"><?php echo $bundleTheme->session_type; ?></td>
-	<td class="bgcolor_light" style="text-align: center;"><a href="main.php?page=admin_manage_dream_event_theme&amp;edit=<?php echo $bundleTheme->id; ?>" class="button">Edit</a></td>
+	<td class="bgcolor_light" style="text-align: center;"><a href="/?page=admin_manage_dream_event_theme&amp;edit=<?php echo $bundleTheme->id; ?>" class="button">Edit</a></td>
 </tr>
 <?php } ?>
 </table>

@@ -26,7 +26,7 @@
 		<div class="col-xl-6">
 			<div class="row">
 				<div class="col-8 col-sm-6 text-center text-sm-left order-sm-1">
-					<p><a class="font-weight-bold" href="/main.php?page=order_details&amp;order=<?php echo $order['id']; ?>"><?php echo CTemplate::dateTimeFormat($order['session_start'], $showDateStyle); ?></a></p>
+					<p><a class="font-weight-bold" href="/order-details?order=<?php echo $order['id']; ?>"><?php echo CTemplate::dateTimeFormat($order['session_start'], $showDateStyle); ?></a></p>
 				</div>
 				<div class="col-2 col-sm-2 text-center text-sm-right mb-2 order-sm-3">$<?php echo $order['grand_total']; ?></div>
 				<div class="col-sm-4 text-center text-sm-left order-sm-2">
@@ -40,42 +40,42 @@
 				<?php if ($order['future_session']) { ?>
 					<?php if ($order['session_type'] != CSession::DELIVERED && $order['session_type_subtype'] != CSession::WALK_IN) { ?>
 						<div class="col-6 mb-1 col-md-auto">
-							<a class="btn btn-primary btn-sm btn-block" href="/main.php?page=my_events&amp;sid=<?php echo $order['session_id']; ?>">Invite Friends</a>
+							<a class="btn btn-primary btn-sm btn-block" href="/my-events?sid=<?php echo $order['session_id']; ?>">Invite Friends</a>
 						</div>
 					<?php } ?>
 					<?php if (isset($order['reschedulable']) && $order['reschedulable'] && $order['session_type_subtype'] != CSession::WALK_IN) { ?>
 						<div class="col-6 mb-1 col-md-auto">
-							<a class="btn btn-secondary btn-sm btn-block" href="/main.php?page=session&amp;reschedule=<?php echo $order['id']; ?>">Reschedule</a>
+							<a class="btn btn-secondary btn-sm btn-block" href="/session?reschedule=<?php echo $order['id']; ?>">Reschedule</a>
 						</div>
 					<?php } ?>
 					<?php if (isset($order['has_freezer_inventory']) && $order['has_freezer_inventory'] && $order['session_type_subtype'] != CSession::WALK_IN) { ?>
 						<div class="col-6 mb-1 col-md-auto">
-							<a class="btn btn-primary btn-sm btn-block" href="main.php?page=sides_and_sweets_order_form&amp;id=<?php echo $order['id']; ?>">Sides &amp; Sweets Request Form</a>
+							<a class="btn btn-primary btn-sm btn-block" href="/sides-and-sweets-order-form?id=<?php echo $order['id']; ?>">Sides &amp; Sweets Request Form</a>
 						</div>
 					<?php } ?>
 				<?php } ?>
 				<?php if ($order['status'] != CBooking::CANCELLED) { ?>
 					<?php if ($order['can_rate_my_meals'] && $order['session_start'] > '2012-01-01 00:00:00' && !$order['future_session']) { ?>
 						<div class="col-12 mb-1 col-md-auto">
-							<a class="btn btn-primary btn-sm btn-block" href="/main.php?page=my_meals&amp;order=<?php echo $order['id']; ?>">&#9733; Rate Items</a>
+							<a class="btn btn-primary btn-sm btn-block" href="/my-meals?order=<?php echo $order['id']; ?>">&#9733; Rate Items</a>
 						</div>
 					<?php } ?>
 					<?php if ($order['session_start'] > '2014-11-01 00:00:00' && $order['session_type'] != CSession::DELIVERED) { ?>
 						<div class="col-6 mb-1 col-md-auto">
-							<a class="btn btn-primary btn-sm btn-block" href="/main.php?page=print&amp;order=<?php echo $order['id']; ?>&amp;freezer=true" target="_blank">Freezer Sheet</a>
+							<a class="btn btn-primary btn-sm btn-block" href="/print?order=<?php echo $order['id']; ?>&amp;freezer=true" target="_blank">Freezer Sheet</a>
 						</div>
 						<div class="col-6 mb-1 col-md-auto">
-							<a class="btn btn-primary btn-sm btn-block" href="/main.php?page=print&amp;order=<?php echo $order['id']; ?>&amp;nutrition=true" target="_blank">Nutritionals</a>
+							<a class="btn btn-primary btn-sm btn-block" href="/print?order=<?php echo $order['id']; ?>&amp;nutrition=true" target="_blank">Nutritionals</a>
 						</div>
 						<?php if (array_key_exists($order['menu_id'] + 1, $active_menus)) { ?>
 							<div class="col-12 col-md-auto">
-								<a class="btn btn-primary btn-sm btn-block" href="/main.php?page=print&amp;order=<?php echo $order['id']; ?>&amp;core=true" target="_blank"><i class="dd-icon icon-print mr-2"></i>Next Month's Menu</a>
+								<a class="btn btn-primary btn-sm btn-block" href="/print?order=<?php echo $order['id']; ?>&amp;core=true" target="_blank"><i class="dd-icon icon-print mr-2"></i>Next Month's Menu</a>
 							</div>
 						<?php } ?>
 					<?php } ?>
 					<?php if ($order['session_type'] == CSession::DELIVERED ) { ?>
 						<div class="col-6 mb-1 col-md-auto">
-							<a class="btn btn-primary btn-sm btn-block" href="/main.php?page=print&amp;order=<?php echo $order['id']; ?>&amp;nutrition=true" target="_blank">Nutritionals</a>
+							<a class="btn btn-primary btn-sm btn-block" href="/print?order=<?php echo $order['id']; ?>&amp;nutrition=true" target="_blank">Nutritionals</a>
 						</div>
 						<?php if ($order['tracking_number']) { ?>
 							<div class="col-6 mb-1 col-md-auto" style="margin-left: auto;">

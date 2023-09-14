@@ -3,7 +3,7 @@ function process_pending_credit_now(user_id, credit_id, referred_user_id, store_
 {
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -55,7 +55,7 @@ function eo_process_pending_credit_now(user_id, credit_id, referred_user_id, sto
 {
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -127,7 +127,7 @@ function delete_store_credit(credit_id, user_id)
 		modal: true,
 		confirm: function() {
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',

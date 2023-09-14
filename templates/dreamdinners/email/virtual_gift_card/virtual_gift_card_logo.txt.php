@@ -19,7 +19,7 @@ Message:
 
 
 Click here to get started:
-> <?=HTTPS_SERVER?>/main.php?page=session_menu
+> <?=HTTPS_SERVER?>/session-menu
 -------------------------------------------------
 Redeeming your Dream Dinners gift card is easy:
 
@@ -36,6 +36,3 @@ Redeeming your Dream Dinners gift card is easy:
 Not ready to use your Gift Card yet?
 SAVE THIS EMAIL. This email is your "Gift Card".
 If possible, please print this out or write down your Gift Card number for future use.
-
-
-

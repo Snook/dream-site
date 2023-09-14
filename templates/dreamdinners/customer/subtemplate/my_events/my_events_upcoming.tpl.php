@@ -13,14 +13,14 @@
 	<div class="col-12 col-md-7 pr-md-0">
 		<div class="row justify-content-end">
 			<div class="col-12 col-md-4 mt-2 mt-md-0">
-				<a class="btn btn-primary btn-block py-4" href="/main.php?page=my_events&amp;sid=<?php echo $event['id']; ?>">
+				<a class="btn btn-primary btn-block py-4" href="/my-events?sid=<?php echo $event['id']; ?>">
 					<i class="dd-icon icon-email_1 font-size-extra-extra-large"></i>
 					<div>Invite Friends</div>
 				</a>
 			</div>
 			<?php if ($event['session_type'] != CSession::STANDARD && $event['session_type'] != CSession::MADE_FOR_YOU) { ?>
 			<div class="col-12 col-md-4 mt-2 mt-md-0">
-				<a class="btn btn-primary btn-block py-4" target="_blank" href="/main.php?page=print&amp;<?php echo strtolower($event['session_type_true']); ?>_event_pdf=<?php echo $event['id']; ?>">
+				<a class="btn btn-primary btn-block py-4" target="_blank" href="/print?<?php echo strtolower($event['session_type_true']); ?>_event_pdf=<?php echo $event['id']; ?>">
 					<i class="dd-icon icon-print font-size-extra-extra-large"></i>
 					<div>Print Invite</div>
 				</a>
@@ -39,4 +39,3 @@
 		</div>
 	</div>
 </div>
-

@@ -57,7 +57,7 @@
 				<?php } ?>
 
 
-				<td style="width:240px; max-width:240px; text-align:left;"><a href="main.php?page=admin_user_details&id=<?php echo $guest['user_id'];?>" target="_blank"><?php echo $guest['firstname'];?> <?php echo $guest['lastname'];?></a></td>
+				<td style="width:240px; max-width:240px; text-align:left;"><a href="/?page=admin_user_details&id=<?php echo $guest['user_id'];?>" target="_blank"><?php echo $guest['firstname'];?> <?php echo $guest['lastname'];?></a></td>
 				<td style="width:200px; text-align:left;"><?php echo $guest['email'];?></td>
 
 
@@ -121,4 +121,3 @@
 		</tr>
 	</table>
 <?php } ?>
-

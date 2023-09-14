@@ -65,7 +65,7 @@ class page_admin_manage_dream_event_theme extends CPageAdminOnly
 					$createBundle->insert();
 
 					$tpl->setStatusMsg('Theme created.');
-					CApp::bounce('main.php?page=admin_manage_dream_event_theme');
+					CApp::bounce('/?page=admin_manage_dream_event_theme');
 				}
 			}
 
@@ -87,7 +87,7 @@ class page_admin_manage_dream_event_theme extends CPageAdminOnly
 			if (!$editTheme->find(true))
 			{
 				$tpl->setStatusMsg('Theme not found.');
-				CApp::bounce('main.php?page=admin_manage_dream_event_theme');
+				CApp::bounce('/?page=admin_manage_dream_event_theme');
 			}
 
 			if (!empty($_POST['submit']) && $_POST['submit'] == 'update')

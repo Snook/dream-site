@@ -11,7 +11,7 @@ class page_admin_referral_history extends CPageAdminOnly {
 
 
 
-	function runHomeOfficeManager() 
+	function runHomeOfficeManager()
 	{
 		$this->runSiteAdmin();
 	}
@@ -31,15 +31,15 @@ class page_admin_referral_history extends CPageAdminOnly {
 	{
 		$this->runFranchiseOwner();
 	}
-	
+
 	function runOpsLead()
 	{
 		$this->runFranchiseOwner();
 	}
-	
-	
+
+
 //CES: ACCESS_CHANGE
-	 function runFranchiseOwner() 
+	 function runFranchiseOwner()
 	 {
 	 	$this->runSiteAdmin();
 	 }
@@ -50,7 +50,7 @@ class page_admin_referral_history extends CPageAdminOnly {
 			if ( isset($_GET['id']) )
 				$id = CGPC::do_clean($_GET['id'],TYPE_INT);
 			else {
-				CApp::bounce('main.php?page=admin_list_users');
+				CApp::bounce('/?page=admin_list_users');
 				$id = null;
 			}
 

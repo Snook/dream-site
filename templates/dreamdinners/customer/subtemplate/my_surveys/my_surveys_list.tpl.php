@@ -2,6 +2,6 @@
 
 <ul class="list-group">
 	<?php foreach($this->userTestRecipes as $id => $recipe) { ?>
-		<li class="list-group-item"><a href="/main.php?page=my_surveys&amp;survey=<?php echo $recipe['id']; ?>"><?php echo $recipe['title']; ?></a></li>
+		<li class="list-group-item"><a href="/my-surveys?survey=<?php echo $recipe['id']; ?>"><?php echo $recipe['title']; ?></a></li>
 	<?php } ?>
 </ul>

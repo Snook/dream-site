@@ -101,7 +101,7 @@ function handle_store_display_text()
 			}
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -149,7 +149,7 @@ function handle_store_display_checkbox()
 			}
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',

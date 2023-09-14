@@ -683,6 +683,11 @@
 					<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">PLATEPOINTS Dinner Dollars</td>
 					<td align="right">-$<span id="PP_discount"><?= $this->moneyFormat($this->orderInfo['points_discount_total']) ?></span></td>
 				</tr>
+				<?php $hasReferralRewardDiscount = $this->isEmptyFloat($this->orderInfo['discount_total_customer_referral_credit']) ? false : true; ?>
+				<tr id="RRD_row" class="<?= ($hasReferralRewardDiscount ? '' : 'collapse') ?>">
+					<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Referral Reward</td>
+					<td align="right">-$<span id="RR_discount"><?= $this->moneyFormat($this->orderInfo['discount_total_customer_referral_credit']) ?></span></td>
+				</tr>
 				<?php $hasPromo = $this->isEmptyFloat($this->orderInfo['promo_code_discount_total']) ? false : true; ?>
 				<tr id="DOPromo_row" class="<?= ($hasPromo ? '' : 'collapse') ?>">
 					<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Promotion Discount</td>

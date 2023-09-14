@@ -56,7 +56,7 @@ function doCartDebugging()
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',

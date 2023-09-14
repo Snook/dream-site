@@ -16,7 +16,7 @@ require_once 'includes/DAO/BusinessObject/CPayment.php';
 class page_admin_manage_survey extends CPageAdminOnly
 {
 
-	function runHomeOfficeManager() 
+	function runHomeOfficeManager()
 {
 		$this->manageSurvey();
 	}
@@ -71,7 +71,7 @@ class page_admin_manage_survey extends CPageAdminOnly
 
 			$tpl->setStatusMsg("Recipe was successfully deleted.");
 
-			CApp::bounce('main.php?page=admin_manage_survey');
+			CApp::bounce('/?page=admin_manage_survey');
 		}
 
 		$rows = array();

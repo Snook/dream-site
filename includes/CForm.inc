@@ -2192,12 +2192,6 @@ class CForm
 			{
 				$this->DefaultValues[$a[self::name]] = CBrowserSession::getCurrentStore();
 			}
-
-			//store view store takes precendent over everything else
-			if (CApp::$isStoreView && CBrowserSession::getCurrentStoreView())
-			{
-				$this->DefaultValues[$a[self::name]] = CBrowserSession::getCurrentStoreView();
-			}
 		}
 
 		//build store drop down
@@ -2330,18 +2324,6 @@ class CForm
 			$a[self::name] = 'store_per_state';
 		}
 
-		// CES The page logic should have total control over the default value
-		/*
-				//if $default == false, then pull the default store id out of the session
-				if ( (!isset($this->DefaultValues[$a[self::name]])) && CBrowserSession::getCurrentStore() ) {
-					$this->DefaultValues[$a[self::name]] = CBrowserSession::getCurrentStore();
-				}
-
-				//store view store takes precendent over everything else
-				if ( CApp::$isStoreView && CBrowserSession::getCurrentStoreView() ) {
-					$this->DefaultValues[$a[self::name]] = CBrowserSession::getCurrentStoreView();
-				}
-		*/
 		//build store drop down
 		$StoreObj = DAO_CFactory::create('store');
 		if (isset($a[self::franchise_filter]))
@@ -2458,12 +2440,6 @@ class CForm
 			if ((!isset($this->DefaultValues[$a[self::name]])) && CBrowserSession::getCurrentFadminStore())
 			{
 				$this->DefaultValues[$a[self::name]] = CBrowserSession::getCurrentFadminStore();
-			}
-
-			//store view store takes precendent over everything else
-			if (CApp::$isStoreView && CBrowserSession::getCurrentStoreView())
-			{
-				$this->DefaultValues[$a[self::name]] = CBrowserSession::getCurrentStoreView();
 			}
 		}
 

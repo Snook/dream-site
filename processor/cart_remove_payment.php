@@ -147,7 +147,7 @@ class processor_cart_remove_payment extends CPageProcessor
 		$bounce_to = false;
 		if (isset($DAO_coupon_code) && $DAO_coupon_code->limit_to_recipe_id && !empty($_POST['page']) && $_POST['page'] == 'checkout')
 		{
-			$bounce_to = 'main.php?page=checkout';
+			$bounce_to = '/checkout';
 		}
 
 		$menu_item_id = false;
@@ -176,7 +176,7 @@ class processor_cart_remove_payment extends CPageProcessor
 
 		if ($bounce_to)
 		{
-			$results_array['bounce_to'] = 'main.php?page=checkout';
+			$results_array['bounce_to'] = '/checkout';
 		}
 
 		if (!empty($editOrderId))

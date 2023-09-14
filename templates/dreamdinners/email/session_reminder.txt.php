@@ -7,7 +7,7 @@ Thank you for placing your order with Dream Dinners. Your session is scheduled f
 
 Don't forget to:
 - Bring your cooler to easily transport your meals home.
-- Plan to order in-store for your next session. Save time by <?=HTTPS_BASE?>main.php?page=session_menu taking a peek at next month's menu before you arrive and you'll be all set to order when you come in. Plus, you earn bonus PLATEPOINTS each time you sign up in-store.
+- Plan to order in-store for your next session. Save time by <?=HTTPS_BASE?>session-menu taking a peek at next month's menu before you arrive and you'll be all set to order when you come in. Plus, you earn bonus PLATEPOINTS each time you sign up in-store.
 
 We are expecting only one person per order. If you wish to bring a guest, please let us know in advance of the session. This will allow us to ensure that we can accommodate the additional person, as well as meet occupancy guidelines as set out by state laws. It is our goal to offer comfortable sessions for all of our guest. Note: Our stores tailor each session to accommodate your order.
 
@@ -24,5 +24,5 @@ Enjoy!
  Dream Dinners
 
 
-Contact your local store: <?=HTTPS_BASE?>main.php?page=locations&store_id=<?=$this->store_id?>
-View Dream Dinners Policy, Terms and Conditions: <?=HTTPS_BASE?>main.php?static=terms
+Contact your local store: <?=HTTPS_BASE?>locations/<?=$this->store_id?>
+View Dream Dinners Policy, Terms and Conditions: <?=HTTPS_BASE?>terms
