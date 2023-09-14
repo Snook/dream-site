@@ -179,7 +179,7 @@ class CTemplate extends Savant2
 
 				if (empty($g_IP_ExclusionList) || (!empty($g_IP_ExclusionList) && !in_array($_SERVER['REMOTE_ADDR'], $g_IP_ExclusionList)))
 				{
-					CApp::bounce('maint.php');
+					CApp::bounce('/maint.php');
 				}
 			}
 			else
