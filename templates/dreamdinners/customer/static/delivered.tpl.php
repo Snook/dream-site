@@ -1,6 +1,6 @@
-<?php $this->assign('page_title', 'Dream Dinners Delivered');?>
-<?php $this->assign('page_description','GET DELICIOUS EASY MEALS PREPARED WITH QUALITY INGREDIENTS DELIVERED DIRECTLY TO YOUR HOME.'); ?>
-<?php $this->assign('page_keywords','delivered prepared meals, prepared dinners delivered, homemade dinner delivery, homemade meals delivered, delivered prepped meals, dinner preparation'); ?>
+<?php $this->assign('page_title', 'Dream Dinners Shipping');?>
+<?php $this->assign('page_description','GET DELICIOUS EASY MEALS PREPARED WITH QUALITY INGREDIENTS SHIPPED DIRECTLY TO YOUR HOME.'); ?>
+<?php $this->assign('page_keywords','delivered prepared meals, prepared dinners delivered, homemade dinner delivery, homemade meals shipped, shipping prepped meals, dinner preparation'); ?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
 
 
@@ -14,7 +14,7 @@
 				<p>We have paused shipping to your area. As we continue to grow, we hope to be able to serve you and your family again soon.</>
 			</div>
 			<div class="col-6 col-sm-3 p-0 order-3 order-sm-3 text-center">
-				 
+
 			</div>
 		</div>
 	</header>
@@ -60,7 +60,7 @@
 			</div>
 		</section>-->
 
-		<!-- The numbers 
+		<!-- The numbers
 		<section class="bg-cyan-dark">
 			<div class="container my-5 mp-5 bg-cyan-dark">
 				<div class="row">
@@ -97,7 +97,7 @@
 			</div>
 		</section>-->
 
-		<!-- The Dream Dinners Difference 
+		<!-- The Dream Dinners Difference
 		<section>
 			<div class="container my-5">
 				<div class="row">
@@ -109,7 +109,7 @@
 					</div>
 				</div>-->
 
-				<!-- 4 Steps 
+				<!-- 4 Steps
 				<div class="" id="" role="tabpanel" aria-labelledby="">
 					<div class="row my-2">
 					<div class="col">

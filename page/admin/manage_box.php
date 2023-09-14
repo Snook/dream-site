@@ -4,6 +4,7 @@ require_once("includes/DAO/BusinessObject/CBox.php");
 
 class page_admin_manage_box extends CPageAdminOnly
 {
+	public $ManagerForm = null;
 	public $BoxForm = null;
 	public $Bundle1Form = null;
 	public $Bundle2Form = null;
@@ -17,6 +18,11 @@ class page_admin_manage_box extends CPageAdminOnly
 		$this->Template->setScript('foot', SCRIPT_PATH . '/admin/manage_box.min.js');
 		$this->Template->assign('page_title', 'Manage Delivered Boxes');
 		$this->Template->assign('topnav', (($this->CurrentStore->store_type == CStore::DISTRIBUTION_CENTER) ? 'store' : 'tools'));
+
+		$this->ManagerForm = new CForm();
+		$this->ManagerForm->Repost = true;
+		$this->ManagerForm->Bootstrap = true;
+		$this->ManagerForm->ElementID = true;
 
 		$this->BoxForm = new CForm();
 		$this->BoxForm->Repost = true;
@@ -64,11 +70,40 @@ class page_admin_manage_box extends CPageAdminOnly
 
 	function runManageBox()
 	{
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->active = 1;
+		$DAO_store->store_type = CStore::DISTRIBUTION_CENTER;
+		$DAO_store->find();
+
+		$storeDeployOptions = array();
+		$storeMenuOptions = array(
+			'base' => 'Base Boxes'
+		);
+
+		while ($DAO_store->fetch())
+		{
+			$storeMenuOptions[$DAO_store->id] = $DAO_store->store_name;
+
+			$storeDeployOptions[] = array(
+				'text' => $DAO_store->store_name,
+				'value' => $DAO_store->id
+			);
+		}
+
+		$this->Template->assign('storeDeployOptions', json_encode($storeDeployOptions));
+
+		$this->ManagerForm->addElement(array(
+			CForm::type => CForm::DropDown,
+			CForm::name => 'store_filter',
+			CForm::css_class => 'store-select-filter',
+			CForm::options => $storeMenuOptions
+		));
+
 		$editBox = CGPC::do_clean((!empty($_REQUEST['edit']) ? $_REQUEST['edit'] : false), TYPE_INT);
 		$createBox = CGPC::do_clean((!empty($_REQUEST['create']) ? $_REQUEST['create'] : false), TYPE_BOOL);
 
 		// get all active boxes for display else if editing get a single box
-		$box = DAO_CFactory::create('box');
+		$box = DAO_CFactory::create('box', true);
 		if ($editBox)
 		{
 			$box->id = $editBox;
@@ -153,13 +188,15 @@ class page_admin_manage_box extends CPageAdminOnly
 			if ($editBox)
 			{
 				// assign all the default values for the box
-				foreach (DAO_CFactory::create('box')->table() as $key => $value)
+				foreach (DAO_CFactory::create('box', true)->table() as $key => $value)
 				{
 					switch ($key)
 					{
 						case 'availability_date_start':
 						case 'availability_date_end':
 							$this->BoxForm->DefaultValues[$key] = CTemplate::formatDateTime('Y-m-d\TH:i', $editBox->{$key}); // remove seconds to reduce form complexity
+							break;
+						case 'is_deleted':
 							break;
 						default:
 							$this->BoxForm->DefaultValues[$key] = $editBox->{$key};
@@ -168,14 +205,14 @@ class page_admin_manage_box extends CPageAdminOnly
 				}
 
 				// assign box values for items not in the default table
-				$this->BoxForm->DefaultValues['store_id'] = $editBox->store_obj->id;
+				$this->BoxForm->DefaultValues['store_id'] = (!empty($editBox->store_obj->id)) ? $editBox->store_obj->id : null;
 				$this->BoxForm->DefaultValues['menu_id'] = $editBox->menu_id;
 				$this->BoxForm->DefaultValues['has_orders'] = $editBox->number_sold_n;
 
 				// if there is a box_bundle_1 assign all the default values
 				if (!empty($editBox->box_bundle_1))
 				{
-					foreach (DAO_CFactory::create('bundle')->table() as $key => $value)
+					foreach (DAO_CFactory::create('bundle', true)->table() as $key => $value)
 					{
 						$this->Bundle1Form->DefaultValues[$key] = $editBox->box_bundle_1_obj->{$key};
 					}
@@ -184,7 +221,7 @@ class page_admin_manage_box extends CPageAdminOnly
 				// if there is a box_bundle_2 assign all the default values
 				if (!empty($editBox->box_bundle_2))
 				{
-					foreach (DAO_CFactory::create('bundle')->table() as $key => $value)
+					foreach (DAO_CFactory::create('bundle', true)->table() as $key => $value)
 					{
 						$this->Bundle2Form->DefaultValues[$key] = $editBox->box_bundle_2_obj->{$key};
 					}
@@ -195,27 +232,25 @@ class page_admin_manage_box extends CPageAdminOnly
 			{
 				$menu_id = $createBox->menu_id;
 				$store_id = $createBox->store_id;
-				$parent_store_id = $createBox->store_obj->parent_store_id;
+				$parent_store_id = !empty($createBox->store_obj->parent_store_id) ? $createBox->store_obj->parent_store_id : null;
 			}
 			else if ($editBox)
 			{
 				$menu_id = $editBox->menu_id;
 				$store_id = $editBox->store_id;
-				$parent_store_id = $editBox->store_obj->parent_store_id;
+				$parent_store_id = !empty($editBox->store_obj->parent_store_id) ? $editBox->store_obj->parent_store_id : null;
 			}
 
 			// get all the menu items for the current box or for new box
 			if (!empty($menu_id))
 			{
-				$menuItemCategory = DAO_CFactory::create('menu_item_category');
+				$menuItemCategory = DAO_CFactory::create('menu_item_category', true);
 
-				$menuToMenuItem = DAO_CFactory::create('menu_to_menu_item');
+				$menuToMenuItem = DAO_CFactory::create('menu_to_menu_item', true);
 				$menuToMenuItem->store_id = ((empty($store_id)) ? 'NULL' : $parent_store_id);
 				$menuToMenuItem->menu_id = $menu_id;
 
-				$menuItem = DAO_CFactory::create('menu_item');
-				$menuItem->selectAdd();
-				$menuItem->selectAdd("menu_item.*");
+				$menuItem = DAO_CFactory::create('menu_item', true);
 				$menuItem->selectAdd("menu_to_menu_item.override_price");
 				$menuItem->selectAdd("menu_to_menu_item.is_visible");
 				$menuItem->selectAdd("menu_to_menu_item.is_hidden_everywhere");
@@ -279,7 +314,8 @@ class page_admin_manage_box extends CPageAdminOnly
 			}
 			else
 			{
-				$dcStore = DAO_CFactory::create('store');
+				$dcStore = DAO_CFactory::create('store', true);
+				$dcStore->active = 1;
 				$dcStore->store_type = CStore::DISTRIBUTION_CENTER;
 				$dcStore->find();
 
@@ -595,6 +631,7 @@ class page_admin_manage_box extends CPageAdminOnly
 			}
 		}
 
+		$this->Template->assign('ManagerForm', $this->ManagerForm->Render());
 		$this->Template->assign('BoxForm', $this->BoxForm->Render());
 		$this->Template->assign('Bundle1Form', $this->Bundle1Form->Render());
 		$this->Template->assign('Bundle2Form', $this->Bundle2Form->Render());
