@@ -181,9 +181,10 @@ class page_admin_store_details extends CPageAdminOnly
 					}
 				}
 			}
-			$Form->DefaultValues['medium_ship_cost'] = $store->medium_ship_cost;
-			$Form->DefaultValues['large_ship_cost'] = $store->large_ship_cost;
-			$Form->DefaultValues['default_delivered_sessions'] = $store->default_delivered_sessions;
+
+			$Form->DefaultValues['medium_ship_cost'] = $DAO_store->medium_ship_cost;
+			$Form->DefaultValues['large_ship_cost'] = $DAO_store->large_ship_cost;
+			$Form->DefaultValues['default_delivered_sessions'] = $DAO_store->default_delivered_sessions;
 
 			if ($user_type == CUser::SITE_ADMIN)
 			{
