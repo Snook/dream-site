@@ -5030,7 +5030,16 @@ class COrders extends DAO_Orders
 
 				if ($useCurrent || !array_key_exists($mi_obj->id, $toddItems))
 				{
-					$totalPrice += $qty * $mi_obj->store_price;
+
+
+					if($this->type_of_order == COrders::INTRO)
+					{
+						$totalPrice += $qty * ($mi_obj->getStorePrice() - $mi_obj->ltd_menu_item_value);
+					}
+					else{
+						$totalPrice += $qty * $mi_obj->store_price;
+					}
+
 				}
 				else
 				{
@@ -5256,6 +5265,11 @@ class COrders extends DAO_Orders
 			{
 				$doApplyValue = true;
 			}
+		}
+
+		if($this->type_of_order == COrders::INTRO)
+		{
+			$doApplyValue = false;
 		}
 
 		// reset subtotal_ltd_menu_item_value

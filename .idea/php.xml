@@ -18,6 +18,10 @@
   <component name="PhpIncludePathManager">
     <include_path>
       <path value="" />
+      <path value="$PROJECT_DIR$" />
+      <path value="$PROJECT_DIR$/includes" />
+      <path value="$PROJECT_DIR$/includes/jpgraph" />
+      <path value="$PROJECT_DIR$/phplib" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.3.0">
