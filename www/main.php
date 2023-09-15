@@ -50,9 +50,9 @@ else if (strpos(strtolower(urldecode($_SERVER['REQUEST_URI'])), '<script>') !== 
 }
 else
 {
-	CApp::approveDirective($domainConfig['default_page']);
+	CApp::approveDirective(DEFAULT_PAGE);
 
 	$app = new CApp();
-	$app->run($domainConfig['default_page']);
+	$app->run(DEFAULT_PAGE);
 }
 ?>
