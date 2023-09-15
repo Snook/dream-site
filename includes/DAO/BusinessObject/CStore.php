@@ -2777,14 +2777,10 @@ class CStore extends DAO_Store
 	{
 		if ($this->isShowToCustomer() && !$this->isActive())
 		{
-			$this->coming_soon = true;
-		}
-		else
-		{
-			$this->coming_soon = false;
+			return true;
 		}
 
-		return $this->coming_soon;
+		return false;
 	}
 
 	function isActive()
