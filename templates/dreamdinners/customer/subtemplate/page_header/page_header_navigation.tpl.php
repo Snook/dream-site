@@ -92,7 +92,7 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 										<a class="dropdown-item nav-link" href="main.php?page=admin_gift_card_management">Gift Cards</a>
 									<?php } ?>
 
-									<?php if (defined('DEV_BASE_NAME')) { ?>
+									<?php if (defined('DEV_BASE_NAME') && DEV_BASE_NAME) { ?>
 										<div class="dropdown-divider"></div>
 										<div class="dropdown-header">Development Tools</div>
 										<div class="dropdown-item-text text-center"><?php echo DEV_BASE_NAME; ?></div>
@@ -152,7 +152,7 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 		<a class="dropdown-item" href="main.php?page=admin_gift_card_management">Gift Cards</a>
 	<?php } ?>
 
-	<?php if (defined('DEV_BASE_NAME')) { ?>
+	<?php if (defined('DEV_BASE_NAME') && DEV_BASE_NAME) { ?>
 		<div class="dropdown-divider"></div>
 		<div class="dropdown-header">Development Tools</div>
 		<div class="dropdown-item-text text-center"><?php echo DEV_BASE_NAME; ?></div>
