@@ -30,7 +30,7 @@ define('HTTPS_SERVER', 'https://' . HTTPS_DOMAIN);
 const HIGH_CAP_IMAGE_SERVER = 'https://cdn.dreamdinners.com';
 const HIGH_CAP_IMAGE_BASE = '/';
 
-// Paths - Environment specific
+// PATHS - Environment specific
 switch (SERVER_ENV)
 {
 	case 'DEV':

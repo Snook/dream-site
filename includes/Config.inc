@@ -10,65 +10,6 @@ require_once("config/Config.server.inc");
 // List of IPs who won't get redirect to maintenance page
 //$g_IP_ExclusionList = array('127.0.0.1','50.34.44.26');
 
-// if host not listed, dreamdinners.com is used
-$domainToTheme = array(
-	'dreamdinners.com' => array(
-		'theme' => 'dreamdinners',
-		'default_page' => 'home',
-	)
-);
-
-// setup domain parts
-$httpHostInfo = array();
-$domainConfig = $domainToTheme['dreamdinners.com'];
-
-if (!empty($_SERVER['HTTP_HOST']))
-{
-	// check for m., they are requesting mobile site
-	$httpHostInfo['host'] = preg_replace('/^m\./', '', strtolower($_SERVER['HTTP_HOST']), -1, $httpHostInfo['request_mobile']);
-
-	// replace .test with .com for local development for $domainToTheme matching
-	$httpHostInfo['host'] = preg_replace('/\.test$/', '.com', $httpHostInfo['host']);
-
-	// replace test site domains with dreamdinners.com for $domainToTheme matching
-	$httpHostInfo['host'] = preg_replace('/(prod6vm|training)\.dreamvm\.com$/', 'dreamdinners.com', $httpHostInfo['host']);
-
-	// reverse host name, work from top level to subdomains
-	$http_host = array_reverse(explode('.', $httpHostInfo['host']));
-
-	$httpHostInfo['top_level'] = $http_host[0];
-
-	$httpHostInfo['domain'] = '';
-	if (!empty($http_host[1]))
-	{
-
-		$httpHostInfo['domain'] = $http_host[1];
-	}
-
-	$httpHostInfo['subdomain'] = '';
-	if (!empty($http_host[2]))
-	{
-		$httpHostInfo['subdomain'] = $http_host[2];
-	}
-
-	$httpHostInfo['sub_subdomain'] = '';
-	if (!empty($http_host[3]))
-	{
-		$httpHostInfo['sub_subdomain'] = $http_host[3];
-	}
-
-	$httpHostInfo['sub_sub_subdomain'] = '';
-	if (!empty($http_host[4]))
-	{
-		$httpHostInfo['sub_sub_subdomain'] = $http_host[4];
-	}
-
-	if (!empty($domainToTheme[$httpHostInfo['host']]) || (defined('SITE_DISABLED') && SITE_DISABLED != true) )
-	{
-		$domainConfig = $domainToTheme[$httpHostInfo['host']];
-	}
-}
-
 if(isset($_SERVER['HTTP_USER_AGENT']))
 {
 	if (preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]))
@@ -79,6 +20,10 @@ if(isset($_SERVER['HTTP_USER_AGENT']))
 	{
 		define('IS_TOUCH_SCREEN_DEVICE', false);
 	}
+}
+else
+{
+	define('IS_TOUCH_SCREEN_DEVICE', false);
 }
 
 if (!defined('COOKIE_DOMAIN'))
@@ -103,7 +48,8 @@ define('HTTPS_BASE', HTTPS_SERVER . WEB_BASE);
 
 define('MAIN_SCRIPT', 'main.php');
 
-define('THEME', $domainConfig['theme']);
+define('THEME', 'dreamdinners'); // Template theme
+define('DEFAULT_PAGE', 'home'); // Default page= when / is accessed
 
 define('TEMPLATE_PATH', APP_BASE . 'templates/' . THEME);
 define('HO_TEMPLATE_PATH', APP_BASE . 'ho_templates');
