@@ -60,7 +60,7 @@
 										<?php foreach ($this->sessionArray['sessions'][CSession::INTRO] AS $mid => $sessionInfo) { ?>
 											<?php if (!empty($sessionInfo['session_info']['session_count'])) { ?>
 												<div class="col-lg-6 mb-2">
-													<a href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/order/<?php echo $sessionInfo['menu_info']['menu_name_abbr']; ?>/starter" class="btn btn-primary btn-block btn-spinner" <?php echo (defined('ALLOW_TV_OFFER_IF_PREVIOUS') && ALLOW_TV_OFFER_IF_PREVIOUS) ? ' data-toggle="tooltip" title="This button currently enabled for all users for testing purposes."' : ''; ?>>
+													<a href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/calendar/<?php echo $sessionInfo['menu_info']['menu_name_abbr']; ?>/events" class="btn btn-primary btn-block btn-spinner" <?php echo (defined('ALLOW_TV_OFFER_IF_PREVIOUS') && ALLOW_TV_OFFER_IF_PREVIOUS) ? ' data-toggle="tooltip" title="This button currently enabled for all users for testing purposes."' : ''; ?>>
 														<?php echo $sessionInfo['menu_info']['menu_month']; ?>
 													</a>
 												</div>
