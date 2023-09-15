@@ -57,7 +57,7 @@
 								<div class="col-lg-8">
 									<p>Have you been invited to a Dream Dinners Meal Prep Workshop, Fundraiser, Private Party, or Friends Night Out? Find your event to sign up here.</p>
 									<div class="row">
-										<?php foreach ($this->sessionArray['sessions'][CSession::INTRO] AS $mid => $sessionInfo) { ?>
+										<?php foreach ($this->sessionArray['sessions'][CSession::EVENT] AS $mid => $sessionInfo) { ?>
 											<?php if (!empty($sessionInfo['session_info']['session_count'])) { ?>
 												<div class="col-lg-6 mb-2">
 													<a href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/calendar/<?php echo $sessionInfo['menu_info']['menu_name_abbr']; ?>/events" class="btn btn-primary btn-block btn-spinner" <?php echo (defined('ALLOW_TV_OFFER_IF_PREVIOUS') && ALLOW_TV_OFFER_IF_PREVIOUS) ? ' data-toggle="tooltip" title="This button currently enabled for all users for testing purposes."' : ''; ?>>

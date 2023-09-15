@@ -28,32 +28,11 @@ class page_store_calendar extends CPage
 					CSession::EVENT
 				), false, false, true);
 
-				// if the user is eligible for Open House, get the next two upcoming Open House
-				$storeOHEvents = array();
-				if (!CUser::isLoggedIn() || (CUser::isLoggedIn() && CUser::getCurrentUser()->isEligibleForDreamTaste()) || defined('ALLOW_TV_OFFER_IF_PREVIOUS') && ALLOW_TV_OFFER_IF_PREVIOUS)
-				{
-					$count = 0;
-
-					foreach ($calendar['sessions'] AS $session)
-					{
-						if (count($storeOHEvents) < 2 && $session['extendedProps']['session_type_title_short'] == 'OH')
-						{
-							$storeOHEvents[$count++] = $session;
-						}
-
-						if ($count == 2)
-						{
-							continue;
-						}
-					}
-				}
-
 				$this->Template->assign('DAO_store', $DAO_store);
 				$this->Template->assign('has_meal_customization_sessions', ($calendar['info']['has_meal_customization_sessions'] && $DAO_store->supports_meal_customization));
 				$this->Template->assign('sessionArray', $sessionArray);
 				$this->Template->assign('calendar', $calendar);
 				$this->Template->assign('calendarJS', $calendarJS);
-				$this->Template->assign('storeOHEvents', $storeOHEvents);
 				$this->Template->assign('canOrderIntro', CUser::getCurrentUser()->isEligibleForIntro($DAO_store));
 			}
 			else
