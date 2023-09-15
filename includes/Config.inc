@@ -1,17 +1,5 @@
 <?php
-switch (php_uname())
-{
-	case 'PF2LTCZ6-EL10':
-		include ("config/Config.evan.inc");
-		define('SERVER_ENV', 'DEV');
-		break;
-	case 'C-DB1-Reports-2':
-		include ("config/Config.C-DB1-Reports-2.inc");
-		define('SERVER_ENV', 'TEST');
-		break;
-	default:
-		require_once("config/Config.server.inc");
-}
+require_once("config/Config.server.inc");
 
 // Send users to maintenance page
 //define('SITE_DISABLED', true);
@@ -112,6 +100,8 @@ const FPDF_FONTPATH = 'fpdf/font/';
 
 define('HTTP_BASE', HTTP_SERVER . WEB_BASE);
 define('HTTPS_BASE', HTTPS_SERVER . WEB_BASE);
+
+define('MAIN_SCRIPT', 'main.php');
 
 define('THEME', $domainConfig['theme']);
 
