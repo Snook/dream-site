@@ -1,4 +1,6 @@
 <?php
+require_once("config/Config.server.inc");
+
 // Send users to maintenance page
 //define('SITE_DISABLED', true);
 
@@ -7,81 +9,6 @@
 
 // List of IPs who won't get redirect to maintenance page
 //$g_IP_ExclusionList = array('127.0.0.1','50.34.44.26');
-
-
-// detect mobile
-global $is_touch_screen_device;
-$is_touch_screen_device = false;
-
-if(isset($_SERVER['HTTP_USER_AGENT']))
-{
-	$useragent = $_SERVER['HTTP_USER_AGENT'];
-
-	if (preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]))
-	{
-		$is_touch_screen_device = true;
-	}
-}
-
-
-
-if (isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == "161.58.88.173")
-{
-	include ("config/Config.prod1.inc");
-	define('SERVER_ENV', 'LIVE');
-}
-else
-{
-	$machineName = php_uname("n");
-	//echo "|" . $machineName . "|";
-	switch ($machineName)
-	{
-		case 'DREA02VMW01':
-			include ("config/Config.DREA02VMW01.inc");
-			define('SERVER_ENV', 'LIVE');
-			break;
-		case 'chors.dreamdinners.com':
-			include ("config/Config.chors.inc");
-			define('SERVER_ENV', 'LIVE');
-			break;
-		case 'Prod7VMDev1.dreamdinners.local':
-			include ("config/Config.prod1.inc");
-			define('SERVER_ENV', 'LIVE');
-			break;
-		case 'Carls-MVP':
-		case 'Carls-MVP.local':
-		case 'PF1VHAWY-CS10':
-			include ("config/Config.carl.inc");
-			define('SERVER_ENV', 'DEV');
-		break;
-		case 'PF115FU6-RS10':
-		case 'PF1VHAWY-RS10':
-			include ("config/Config.ryans.inc");
-			define('SERVER_ENV', 'DEV');
-		break;
-		case 'PF2LTCZ6-EL10':
-			include ("config/Config.evan.inc");
-			define('SERVER_ENV', 'DEV');
-			break;
-		case 'C-DB1-Reports-2':
-			include ("config/Config.C-DB1-Reports-2.inc");
-			define('SERVER_ENV', 'TEST');
-			break;
-		case 'sandbox.dreamdinners.com':
-			include ("config/Config.sandbox.inc");
-			define('SERVER_ENV', 'TEST');
-			break;
-		case 'branch.dreamdinners.com':
-			include ("config/Config.prod1.inc");
-			define('SERVER_ENV', 'TEST');
-			break;
-		default:
-			// DEFAULT Uses the prod settings
-			include ("config/Config.DREA02VMW01.inc");
-			define('SERVER_ENV', 'LIVE');
-	}
-}
-
 
 // if host not listed, dreamdinners.com is used
 $domainToTheme = array(
@@ -92,7 +19,6 @@ $domainToTheme = array(
 );
 
 // setup domain parts
-global $httpHostInfo;
 $httpHostInfo = array();
 $domainConfig = $domainToTheme['dreamdinners.com'];
 
@@ -143,15 +69,17 @@ if (!empty($_SERVER['HTTP_HOST']))
 	}
 }
 
-if ($is_touch_screen_device)
+if(isset($_SERVER['HTTP_USER_AGENT']))
 {
-	define('IS_TOUCH_SCREEN_DEVICE', true);
+	if (preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]))
+	{
+		define('IS_TOUCH_SCREEN_DEVICE', true);
+	}
+	else
+	{
+		define('IS_TOUCH_SCREEN_DEVICE', false);
+	}
 }
-else
-{
-	define('IS_TOUCH_SCREEN_DEVICE', false);
-}
-
 
 if (!defined('COOKIE_DOMAIN'))
 {
@@ -162,16 +90,18 @@ if (!defined('COOKIE_DOMAIN'))
 define('TIMENOW', time());
 define('TIMESTAMPNOW', date('Y-m-d H:i:s', TIMENOW));
 
-define('SLOT_STEALING_CUTOFF_MENU', 124);
+const SLOT_STEALING_CUTOFF_MENU = 124;
 
-define('JAVASCRIPT_CSS_VERSION', 675);
+const JAVASCRIPT_CSS_VERSION = 675;
 
-define('FADMIN_TIMEOUT', 15); // set minutes to enable timout for everyone but customers, false to disable
+const FADMIN_TIMEOUT = 15; // set minutes to enable timout for everyone but customers, false to disable
 
-define('FPDF_FONTPATH', 'fpdf/font/');
+const FPDF_FONTPATH = 'fpdf/font/';
 
 define('HTTP_BASE', HTTP_SERVER . WEB_BASE);
 define('HTTPS_BASE', HTTPS_SERVER . WEB_BASE);
+
+define('MAIN_SCRIPT', 'main.php');
 
 define('THEME', $domainConfig['theme']);
 
@@ -187,8 +117,8 @@ define('CSS_PATH', WEB_BASE . 'theme/' . THEME . '/css/' . JAVASCRIPT_CSS_VERSIO
 define('SCRIPT_PATH', WEB_BASE . 'theme/' . THEME . '/scripts/' . JAVASCRIPT_CSS_VERSION);
 define('MEDIA_PATH', WEB_BASE . 'media');
 
-define('USE_BUG_REPORT_PAGE', true);
-define('ORDER_EDITING_ENABLED', true);
+const USE_BUG_REPORT_PAGE = true;
+const ORDER_EDITING_ENABLED = true;
 
 // PATH_SEPARATOR =  ; for windows, : for *nix
 $iReturn = ini_set( 'include_path',
@@ -202,7 +132,7 @@ ini_get('include_path'));
 ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_secure', 1);
 
-if (! $iReturn || empty($iReturn))
+if (empty($iReturn))
 {
 	die ("No include_path var in php.ini");
 }
