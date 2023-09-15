@@ -276,6 +276,12 @@ const USE_FRESHDESK_SUPPORT = true;
 const FRESH_DESK_API_KEY = '';
 const FRESH_DESK_API_PASSWORD = '';
 
+$privateKey = <<<EOD
+-----BEGIN RSA PRIVATE KEY----- 
+-----END RSA PRIVATE KEY-----
+EOD;
+define('REMAUTHSTRNEW', $privateKey);
+
 // Blackboard/GeniusSys
 const GENIUS_TOKEN = "";
 const GENIUS_KEY = '';
@@ -317,12 +323,6 @@ const USE_CORPORATE_TEST_ACCOUNT = false;//***** update for live to false
 const FACEBOOK_APPID = false;  // Live appid = '', set to false to disable facebook integration
 const FACEBOOK_SECRET = '';
 const FACEBOOK_NAMESPACE = '';
-
-$privateKey = <<<EOD
------BEGIN RSA PRIVATE KEY----- 
------END RSA PRIVATE KEY-----
-EOD;
-define('REMAUTHSTRNEW', $privateKey);
 
 //Avalara;
 const AVALARA_API_ENDPOINT = 'https://rest.avatax.com/api/v2/';
