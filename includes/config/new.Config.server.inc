@@ -30,15 +30,14 @@ define('HTTPS_SERVER', 'https://' . HTTPS_DOMAIN);
 const HIGH_CAP_IMAGE_SERVER = 'https://cdn.dreamdinners.com';
 const HIGH_CAP_IMAGE_BASE = '/';
 
-// PATHS
-const APP_BASE = '/DreamWeb/dream-site/'; // Server path
-//const APP_BASE = 'C:/Development/DreamWeb/dream-site/'; // Local development
-const WEB_BASE = '/';
-
-// MAIL - Environment specific
+// Paths - Environment specific
 switch (SERVER_ENV)
 {
 	case 'DEV':
+		// PATHS
+		define("APP_BASE", 'C:/Development/DreamWeb/dream-site/'); // Server path
+		define("WEB_BASE", '/');
+
 		define("MAIL_HANDLER", 'sendmail');
 		define("MAIL_ENABLED", true);
 		define("MAIL_TEST_MODE", false);
@@ -50,6 +49,10 @@ switch (SERVER_ENV)
 	case 'TEST':
 	case 'LIVE':
 	default:
+		// PATHS
+		define("APP_BASE", '/DreamWeb/dream-site/'); // Server path
+		define("WEB_BASE", '/');
+
 		define("MAIL_HANDLER", 'sendmail');
 		define("MAIL_ENABLED", true);
 		define("MAIL_TEST_MODE", false);
@@ -182,6 +185,7 @@ switch (SERVER_ENV)
 		define("DISABLE_CRON", true);
 		define("CRON_TEST_MODE", true);
 		define("RECORD_NAVIGATION", true);
+		define("DD_THANK_YOU_DEBUG", false);
 
 		define('DESIGNATE_AS_EMERGENCY_REPORTING_SERVER', false);
 
@@ -196,7 +200,7 @@ switch (SERVER_ENV)
 		define("ENABLE_FRANCHISE_INFO_COLLECTION", true);
 		define("ALLOW_SITE_WIDE_REPORTING", true);
 		define("HOSTED_AS_REPORTING_SERVER", false);
-		define("ENABLE_ANALYTICS", true);
+		define("ENABLE_ANALYTICS", false);
 		define("ENABLE_HELP_SEARCH", true);
 		define("ENABLE_CUSTOMER_INTRO_MFY", true);
 		define("ENABLE_TC_DELAYED_PAYMENT_AGREE", true);
@@ -222,6 +226,7 @@ switch (SERVER_ENV)
 		define("CRON_TEST_MODE", false); // Live = false
 		define("DISABLE_CRON", false); // Live = false
 		define("RECORD_NAVIGATION", true); // Records every GET and POST - filters CHD - VERY useful but has overhead
+		define("DD_THANK_YOU_DEBUG", false);
 
 		define('DESIGNATE_AS_EMERGENCY_REPORTING_SERVER', false);
 
