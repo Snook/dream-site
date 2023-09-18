@@ -251,6 +251,9 @@ class COrdersDelivered extends COrders
 			}
 		}
 
+		$food_portion_of_points_credit = 0;
+		$fee_portion_of_points_credit = 0;
+
 		if ($this->storeAndUserSupportPlatePoints || $this->is_in_plate_points_program || $userIsOnHold)
 		{
 
