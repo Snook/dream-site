@@ -461,7 +461,6 @@ class CCartStorage
 			$uberArray['order']['order_user_notes'] = $row["order_user_notes"];
 			$uberArray['order']['order_admin_notes'] = $row["order_admin_notes"];
 			$uberArray['order']['direct_order_discount'] = $row["direct_order_discount"];
-			$uberArray['order']['discount_total_customer_referral_credit'] = $row["discount_total_customer_referral_credit"];
 			$uberArray['order']['points_discount_total'] = $row["points_discount_total"];
 			$uberArray['order']['misc_food_subtotal'] = $row["misc_food_subtotal"];
 			$uberArray['order']['misc_food_subtotal_desc'] = $row["misc_food_subtotal_desc"];

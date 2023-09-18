@@ -15,10 +15,3 @@ CREATE TABLE `customer_referral_credit` (
 	PRIMARY KEY (`id`),
 	KEY `IDX_user_id` (`user_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
-ALTER TABLE `dreamsite`.`orders`
-	ADD COLUMN `discount_total_customer_referral_credit` decimal(6) NOT NULL DEFAULT 0.00 AFTER `menu_program_id`;
-
-ALTER TABLE `dreamcart`.`cart_contents`
-	ADD COLUMN `discount_total_customer_referral_credit` decimal(6) NOT NULL DEFAULT 0.00 AFTER `direct_order_discount`;
