@@ -30,7 +30,6 @@
 <?php $this->setScriptVar('couponDiscountMethod = \'' . $this->couponDiscountMethod . '\';'); ?>
 <?php $this->setScriptVar('couponDiscountVar = ' . (!empty($this->couponDiscountVar) ? $this->couponDiscountVar : "0") . ';'); ?>
 <?php $this->setScriptVar('couponlimitedToFT = ' . ($this->couponlimitedToFT ? 'true' : 'false') . ';'); ?>
-<?php $this->setScriptVar('couponlimitedToCore = ' . ($this->couponlimitedToCore ? 'true' : 'false') . ';'); ?>
 <?php $this->setScriptVar('couponIsValidWithPlatePoints = ' . ($this->couponIsValidWithPlatePoints ? 'true' : 'false') . ';'); ?>
 <?php $this->setScriptVar('couponFreeMenuItem = ' . ($this->couponFreeMenuItem ? $this->couponFreeMenuItem : 'false') . ';'); ?>
 <?php $this->setScriptVar('coupon = ' . (!empty($this->coupon) ? json_encode($this->coupon) : 'false') . ';'); ?>

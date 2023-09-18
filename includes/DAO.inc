@@ -872,7 +872,7 @@ class DAO extends DB_DataObject
 		{
 			foreach ($this->_joinAdd as $joinAs => $table)
 			{
-				$DAO_table = clone $table;
+				$DAO_table = DAO_CFactory::create($table);
 
 				$hasData = false;
 
@@ -949,7 +949,7 @@ class DAO extends DB_DataObject
 					$joinTableName = $joinAs;
 				}
 
-				$this->_joinAdd[$joinTableName] = clone $obj;
+				$this->_joinAdd[$joinTableName] = $obj->tableName();
 
 				if (!empty($obj->_joinAdd))
 				{
@@ -957,7 +957,7 @@ class DAO extends DB_DataObject
 
 					foreach ($obj->_joinAdd as $thisJoinTableName => $tableName)
 					{
-						foreach ($tableName->table() as $column => $value)
+						foreach (DAO_CFactory::create($tableName)->table() as $column => $value)
 						{
 							parent::selectAdd($thisJoinTableName . '.' . $column . ' AS join__' . $thisJoinTableName . '_' . $column);
 						}

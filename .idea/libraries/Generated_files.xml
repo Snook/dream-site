@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/www/theme/dreamdinners/scripts/customer/box.min.js" />
+        <item url="file://$PROJECT_DIR$/www/theme/dreamdinners/scripts/customer/checkout.min.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/www/theme/dreamdinners/scripts/customer/box.min.js" />
+      <root url="file://$PROJECT_DIR$/www/theme/dreamdinners/scripts/customer/checkout.min.js" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

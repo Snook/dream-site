@@ -96,10 +96,10 @@ class processor_admin_order_history extends CPageProcessor
 		switch ($_POST['op'])
 		{
 			case 'next':
-				$this->next($user_id, $current_page);
+				$this->next($user_id,$current_page);
 				break;
 			case 'prev':
-				$this->prev($user_id, $current_page);
+				$this->prev($user_id,$current_page);
 				break;
 			default:
 				echo json_encode(array(
@@ -110,12 +110,14 @@ class processor_admin_order_history extends CPageProcessor
 		}
 	}
 
-	function next($user_id, $current_page)
-	{
+
+
+	function next($user_id,$current_page){
 		$current_page++;
 
 		$nextPageStart = $current_page * page_admin_order_history::$PAGE_SIZE;
-		$data = page_admin_order_history::fetchOrderHistory($user_id, $nextPageStart, page_admin_order_history::$PAGE_SIZE);
+		$limit = $nextPageStart . ',' . page_admin_order_history::$PAGE_SIZE;
+		$data = page_admin_order_history::fetchOrderHistory($user_id,$limit);
 		$tpl = new CTemplate();
 
 		$tpl->assign('orders', $data);
@@ -133,12 +135,10 @@ class processor_admin_order_history extends CPageProcessor
 		$allowNext = ($data && count($data) > 0);
 		$tpl->assign('pagination_next', $allowNext);
 
-		if (!$data)
-		{
+		if(!$data){
 			$tpl->assign('no_more_rows', true);
 		}
 
-		$tpl->assign('active_menus', CMenu::getActiveMenuArray());
 		$tpl->assign('page_cur', $current_page);
 		$html = $tpl->fetch('admin/subtemplate/order_history/order_history_table.tpl.php');
 
@@ -150,11 +150,11 @@ class processor_admin_order_history extends CPageProcessor
 		exit;
 	}
 
-	function prev($user_id, $current_page)
-	{
+	function prev($user_id,$current_page){
 		$current_page--;
 		$nextPageStart = $current_page * page_admin_order_history::$PAGE_SIZE;
-		$data = page_admin_order_history::fetchOrderHistory($user_id, $nextPageStart, page_admin_order_history::$PAGE_SIZE);
+		$limit = $nextPageStart . ',' . page_admin_order_history::$PAGE_SIZE;
+		$data = page_admin_order_history::fetchOrderHistory($user_id,$limit);
 
 		$tpl = new CTemplate();
 
@@ -168,7 +168,6 @@ class processor_admin_order_history extends CPageProcessor
 		$allowNext = ($data && count($data) > 0);
 		$tpl->assign('pagination_next', $allowNext);
 
-		$tpl->assign('active_menus', CMenu::getActiveMenuArray());
 		$tpl->assign('page_cur', $current_page);
 		$html = $tpl->fetch('admin/subtemplate/order_history/order_history_table.tpl.php');
 

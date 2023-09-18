@@ -119,31 +119,18 @@ class CMenuItem extends DAO_Menu_item
 		parent::__construct();
 	}
 
-	function fetch($optionsArray = false)
+	function fetch()
 	{
 		$res = parent::fetch();
-
-		$defaultOptionsArray = array(
-			'digestMenuItem' => true,
-		);
-
-		if (!empty($optionsArray))
-		{
-			$optionsArray = array_replace_recursive($defaultOptionsArray, $optionsArray);
-		}
-		else
-		{
-			$optionsArray = $defaultOptionsArray;
-		}
 
 		if ($res)
 		{
 			// try not to do anything that adds queries to each fetch
 			// just digest what information is already present
-			if ($optionsArray['digestMenuItem'])
-			{
-				$this->digestMenuItem(); // getStorePrice() within this function adds a query if  $this->DAO_mark_up_multi is not present
-			}
+			$this->digestMenuItem(); // getStorePrice() within this function adds a query if  $this->DAO_mark_up_multi is not present
+			$this->translatePricing();
+			$this->buildIconFlags();
+			$this->isShiftSetGo();
 		}
 
 		return $res;
@@ -497,10 +484,6 @@ class CMenuItem extends DAO_Menu_item
 
 	function digestMenuItem()
 	{
-		$this->translatePricing();
-		$this->buildIconFlags();
-		$this->isShiftSetGo();
-
 		$this->menu_item_name_truncated = (strlen($this->menu_item_name) > 50 ? substr($this->menu_item_name, 0, 50) . "..." : $this->menu_item_name);
 		$this->display_title = $this->menu_item_name; // legacy support
 		$this->display_description = stripslashes($this->menu_item_description); // legacy support
@@ -535,7 +518,6 @@ class CMenuItem extends DAO_Menu_item
 		$this->store_price = $this->getStorePrice(); // store_price should be what the customer pays
 
 		// convert in_bundle json to bundle objects
-		$this->in_bundle = array();
 		if (!empty($this->_in_bundle))
 		{
 			$bundlesArray = explode(',', $this->_in_bundle);
@@ -550,9 +532,12 @@ class CMenuItem extends DAO_Menu_item
 				$this->in_bundle[$bundle['id']]->master_menu_item = $bundle['master_menu_item'];
 			}
 		}
+		else
+		{
+			$this->in_bundle = array();
+		}
 
 		// convert recipe_component_info json to recipe_component objects
-		$this->nutrition_array = array();
 		if (!empty($this->_recipe_component))
 		{
 			$componentArray = explode('|||', $this->_recipe_component);
@@ -595,21 +580,11 @@ class CMenuItem extends DAO_Menu_item
 				}
 			}
 		}
+		else
+		{
+			$this->nutrition_array = array();
+		}
 
-		$this->pricing_tiers = array(
-			'1' => array(
-				CMenuItem::FULL => null,
-				CMenuItem::HALF => null
-			),
-			'2' => array(
-				CMenuItem::FULL => null,
-				CMenuItem::HALF => null
-			),
-			'3' => array(
-				CMenuItem::FULL => null,
-				CMenuItem::HALF => null
-			),
-		);
 		if (!empty($this->_pricing_tiers))
 		{
 			$pricingInfoArray = explode(',', $this->_pricing_tiers);
@@ -626,6 +601,23 @@ class CMenuItem extends DAO_Menu_item
 				$this->pricing_tiers[$pricing['tier']][$pricing['pricing_type']]->pricing_type = $pricing['pricing_type'];
 				$this->pricing_tiers[$pricing['tier']][$pricing['pricing_type']]->price = $pricing['price'];
 			}
+		}
+		else
+		{
+			$this->pricing_tiers = array(
+				'1' => array(
+					CMenuItem::FULL => null,
+					CMenuItem::HALF => null
+				),
+				'2' => array(
+					CMenuItem::FULL => null,
+					CMenuItem::HALF => null
+				),
+				'3' => array(
+					CMenuItem::FULL => null,
+					CMenuItem::HALF => null
+				),
+			);
 		}
 	}
 
@@ -2397,12 +2389,6 @@ class CMenuItem extends DAO_Menu_item
 	{
 		foreach ($itemArray as $item)
 		{
-			// force items to object if they are an array since when we loop through recipeReferenceArray again it expects an object
-			if (is_array($item))
-			{
-				$item = (object) $item;
-			}
-
 			$menuItemInfoByMID['entree'][$item->entree_id][$item->id] = $item->pricing_type;
 			$menuItemInfoByMID['recipe'][$item->recipe_id][$item->id] = $item->pricing_type;
 

@@ -95,22 +95,6 @@ class CMenu extends DAO_Menu
 		return $this->isEnabled_Bundle_Fundraiser();
 	}
 
-	function isEnabled_Starter_Pack($DAO_store)
-	{
-		if (!$DAO_store->storeSupportsIntroOrders())
-		{
-			return false;
-		}
-
-		// Stores opting out of starter pack starting with October 2023
-		if ($this->id >= 266 && in_array($DAO_store->id, array(204, 103, 121, 96)))
-		{
-			return false;
-		}
-
-		return true;
-	}
-
 	static function getLastMenuID()
 	{
 		$DAO_menu = DAO_CFactory::create("menu");
@@ -567,30 +551,16 @@ class CMenu extends DAO_Menu
 			$DAO_menu_item->selectAdd("GROUP_CONCAT(DISTINCT pricing.id, ':' , pricing.menu_id, ':' , pricing.recipe_id, ':' , pricing.pricing_type, ':' , pricing.tier, ':' , pricing.price) as _pricing_tiers");
 		}
 
-		if ($optionsArray['join_food_survey_user_id'] || !empty($optionsArray['join_order_item_order_id']))
+		if ($optionsArray['join_food_survey_user_id'])
 		{
 			$DAO_food_survey_comments = DAO_CFactory::create('food_survey_comments');
+			$DAO_food_survey_comments->user_id = $optionsArray['join_food_survey_user_id'];
 			$DAO_food_survey_comments->is_active = 1;
-			if (!empty($optionsArray['join_order_item_order_id']))
-			{
-				$DAO_food_survey_comments->whereAdd('food_survey_comments.user_id = booking.user_id');
-			}
-			else
-			{
-				$DAO_food_survey_comments->user_id = $optionsArray['join_food_survey_user_id'];
-			}
 			$DAO_food_survey_comments->whereAdd('food_survey_comments.recipe_version = recipe.version');
 
 			$DAO_food_survey = DAO_CFactory::create('food_survey');
+			$DAO_food_survey->user_id = $optionsArray['join_food_survey_user_id'];
 			$DAO_food_survey->is_active = 1;
-			if (!empty($optionsArray['join_order_item_order_id']))
-			{
-				$DAO_food_survey->whereAdd('food_survey.user_id = booking.user_id');
-			}
-			else
-			{
-				$DAO_food_survey->user_id = $optionsArray['join_food_survey_user_id'];
-			}
 			$DAO_food_survey->whereAdd('food_survey.recipe_version = recipe.version');
 
 			// 'favorite' added for old references
@@ -651,17 +621,13 @@ class CMenu extends DAO_Menu
 			$DAO_menu_item->whereAdd("(menu_item_inventory.override_inventory -  menu_item_inventory.number_sold) > 0");
 		}
 
-		if ($optionsArray['groupBy'] == 'EntreeID')
+		if (!isset($optionsArray['groupBy']) || $optionsArray['groupBy'] == 'EntreeID')
 		{
 			$DAO_menu_item->groupBy("menu_item.entree_id");
 		}
 		else if ($optionsArray['groupBy'] == 'RecipeID')
 		{
 			$DAO_menu_item->groupBy("menu_item.recipe_id");
-		}
-		else if (!empty($optionsArray['groupBy']))
-		{
-			$DAO_menu_item->groupBy($optionsArray['groupBy']);
 		}
 		else
 		{

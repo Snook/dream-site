@@ -438,7 +438,7 @@ class COrders extends DAO_Orders
 		while ($bookingObj->fetch())
 		{
 			$sessionData = null;
-			if ($returnSessionDetails && !empty($bookingObj->session_id))
+			if ($returnSessionDetails)
 			{
 				$sessionData = CSession::getSessionDetail($bookingObj->session_id, false);
 			}
@@ -946,7 +946,7 @@ class COrders extends DAO_Orders
 		{
 			CLog::Assert(false, "user_id, menu_id and session_id ar required by getStoreOrderInStoreStatus for order " . $this->id);
 
-			return $inStoreStatusArray;
+			return 0;
 		}
 
 		// In Store Flag Intercept Point - fadmin
@@ -1207,7 +1207,7 @@ class COrders extends DAO_Orders
 			return $this->session;
 		}
 
-		if (!empty($this->session->id))
+		if ($this->session->id)
 		{
 			$Session = DAO_CFactory::create('session');
 			$Session->id = $this->session->id;
@@ -2140,7 +2140,7 @@ class COrders extends DAO_Orders
 			{
 				$ordersArray[$Order->id]['future_session'] = true;
 
-				if ($verify_freezer_inventory)
+				if( $verify_freezer_inventory )
 				{
 
 					$store_id = $Order->store_id;
@@ -2167,6 +2167,7 @@ class COrders extends DAO_Orders
 							break;
 						}
 					}
+
 				}
 
 				if (strtotime($Order->session_start) > $cutoff)
@@ -3340,7 +3341,7 @@ class COrders extends DAO_Orders
 		}
 
 		//get preferred customer
-		if (isset($this->user_preferred_id) && $this->user_preferred_id != 0 && $this->user_preferred_id !== "null")
+		if (isset($this->user_preferred_id) && $this->user_preferred_id != 0)
 		{
 			$UP = DAO_CFactory::create('user_preferred');
 			$UP->id = $this->user_preferred_id;
@@ -3411,7 +3412,7 @@ class COrders extends DAO_Orders
 			{
 				CCart2::instance()->emptyCart();
 				CApp::instance()->template()->setStatusMsg('The current cart held items for another user. The cart has been emptied. Please start your order again.');
-				CApp::bounce('/session-menu');
+				CApp::bounce('main.php?page=session_menu');
 			}
 
 			//check for preferred customer
@@ -4574,7 +4575,7 @@ class COrders extends DAO_Orders
 			$this->applySessionDiscount($suppressSessionDiscount, $editing);
 		}
 
-		$this->subtotal_food_items_adjusted = floatval($this->subtotal_food_items_adjusted) - floatval($this->direct_order_discount) + floatval($this->misc_food_subtotal);
+		$this->subtotal_food_items_adjusted = $this->subtotal_food_items_adjusted - $this->direct_order_discount + $this->misc_food_subtotal;
 
 		if ($this->subtotal_food_items_adjusted < .005)
 		{
@@ -4683,7 +4684,7 @@ class COrders extends DAO_Orders
 
 		$this->subtotal_all_items += $this->subtotal_meal_customization_fee;
 
-		$this->grand_total =  round($this->subtotal_all_items + $this->subtotal_all_taxes, 2);
+		$this->grand_total = $this->subtotal_all_items + $this->subtotal_all_taxes;
 
 		return $this->grand_total;
 	}
@@ -4713,11 +4714,6 @@ class COrders extends DAO_Orders
 	 */
 	function addDiscount($discountAmount)
 	{
-		if(empty($discountAmount))
-		{
-			$discountAmount = 0;
-		}
-
 		//no negative discounts
 		if ($discountAmount < 0)
 		{
@@ -5030,16 +5026,7 @@ class COrders extends DAO_Orders
 
 				if ($useCurrent || !array_key_exists($mi_obj->id, $toddItems))
 				{
-
-
-					if($this->type_of_order == COrders::INTRO)
-					{
-						$totalPrice += $qty * ($mi_obj->getStorePrice() - $mi_obj->ltd_menu_item_value);
-					}
-					else{
-						$totalPrice += $qty * $mi_obj->store_price;
-					}
-
+					$totalPrice += $qty * $mi_obj->price;
 				}
 				else
 				{
@@ -5048,7 +5035,7 @@ class COrders extends DAO_Orders
 						$thisPrice = ($mi_obj->pricing_type == 'HALF' ? $half_price : $full_price);
 						if (self::isPriceGreaterThan($thisPrice, $mi_obj->price))
 						{
-							$thisPrice = $mi_obj->store_price;
+							$thisPrice = $mi_obj->price;
 						}
 
 						$totalPrice += ($thisPrice * $qty);
@@ -5267,11 +5254,6 @@ class COrders extends DAO_Orders
 			}
 		}
 
-		if($this->type_of_order == COrders::INTRO)
-		{
-			$doApplyValue = false;
-		}
-
 		// reset subtotal_ltd_menu_item_value
 		$this->subtotal_ltd_menu_item_value = 0;
 
@@ -5379,7 +5361,7 @@ class COrders extends DAO_Orders
 				{
 					if (isset($mi_obj->override_price))
 					{
-						$thisMarkupAmt = ($mi_obj->override_price * $qty) - ($mi_obj->store_price * $qty);
+						$thisMarkupAmt = ($mi_obj->override_price * $qty) - ($mi_obj->price * $qty);
 						if ($thisMarkupAmt > 0)
 						{
 							$this->subtotal_home_store_markup += $thisMarkupAmt;
@@ -5392,7 +5374,7 @@ class COrders extends DAO_Orders
 						if ($this->family_savings_discount_version == 2)
 						{
 							$mi_obj->store_price = self::std_round(self::getItemMarkupMultiSubtotal($markup, $mi_obj, 1));
-							$thisMarkupAmt = self::getItemMarkupMultiSubtotal($markup, $mi_obj, $qty) - ($mi_obj->store_price * $qty);
+							$thisMarkupAmt = self::getItemMarkupMultiSubtotal($markup, $mi_obj, $qty) - ($mi_obj->price * $qty);
 							if ($thisMarkupAmt > 0)
 							{
 								$this->subtotal_home_store_markup += $thisMarkupAmt;
@@ -5401,7 +5383,7 @@ class COrders extends DAO_Orders
 						else
 						{
 							$mi_obj->store_price = self::std_round(self::getItemMarkupMultiSubtotal($markup, $mi_obj, 1));
-							$thisMarkupAmt = self::getItemMarkupSubtotal($markup, $mi_obj, $qty) - ($mi_obj->store_price * $qty);
+							$thisMarkupAmt = self::getItemMarkupSubtotal($markup, $mi_obj, $qty) - ($mi_obj->price * $qty);
 							if ($thisMarkupAmt > 0)
 							{
 								$this->subtotal_home_store_markup += $thisMarkupAmt;
@@ -5415,9 +5397,9 @@ class COrders extends DAO_Orders
 					{
 						$thisPrice = ($mi_obj->pricing_type == 'HALF' ? $half_price : $full_price);
 
-						if (self::isPriceGreaterThan($thisPrice, $mi_obj->store_price))
+						if (self::isPriceGreaterThan($thisPrice, $mi_obj->price))
 						{
-							$thisMarkupAmt = ($thisPrice - $mi_obj->store_price) * $qty;
+							$thisMarkupAmt = ($thisPrice - $mi_obj->price) * $qty;
 
 							$this->subtotal_home_store_markup += $thisMarkupAmt;
 						}
@@ -10448,7 +10430,7 @@ class COrders extends DAO_Orders
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order, null, true, false, false, $isDeliveredOrder);
 		$orderInfo['user'] = $user;
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order-details';
+		$orderInfo['details_page'] = 'order_details';
 		$orderInfo['customer_primary_email'] = $user->primary_email;
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
@@ -10612,13 +10594,10 @@ class COrders extends DAO_Orders
 
 		$Mail->send(null, $fromEmail, $user->firstname . ' ' . $user->lastname, $user->primary_email, ($delayedTransaction ? $delayedPymentSubject : $normalSubject), $contentsHtml, $contentsText, '', '', $user->id, ($delayedTransaction ? 'order_delayed' : 'order'));
 
-		if (!$delayedTransaction)
-		{
-			// Send the store an email if there are special instructions...
-			CEmail::alertStoreInstructions($orderInfo);
+		// Send the store an email if there are special instructions...
+		CEmail::alertStoreInstructions($orderInfo);
 
-			CEmail::alertStoreShiftSetGoOrdered($user, $order);
-		}
+		CEmail::alertStoreShiftSetGoOrdered($user, $order);
 	}
 
 	static public function sendConfirmationRetryEmail($user, $order, $delayedTransaction = false)
@@ -10628,7 +10607,7 @@ class COrders extends DAO_Orders
 
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order-details';
+		$orderInfo['details_page'] = 'order_details';
 		$orderInfo['customer_primary_email'] = $user->primary_email;
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
@@ -10672,13 +10651,10 @@ class COrders extends DAO_Orders
 
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order-details';
+		$orderInfo['details_page'] = 'order_details';
 		$orderInfo['customer_primary_email'] = $user->primary_email;
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
-
-		$orderCustomization = OrdersCustomization::getInstance($order);
-		$orderInfo['meal_customization_string'] = $orderCustomization->mealCustomizationToStringSelectedOnly(',');
 
 		if ($user->dream_rewards_version > 2 && ($user->dream_reward_status == 1 || $user->dream_reward_status == 3) && $order->dream_rewards_level > 0)
 		{
@@ -10749,7 +10725,7 @@ class COrders extends DAO_Orders
 
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order-details';
+		$orderInfo['details_page'] = 'order_details';
 		$orderInfo['customer_primary_email'] = $user->primary_email;
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
@@ -10790,7 +10766,7 @@ class COrders extends DAO_Orders
 
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order-details';
+		$orderInfo['details_page'] = 'order_details';
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
 
@@ -10844,7 +10820,7 @@ class COrders extends DAO_Orders
 
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
-		$orderInfo['details_page'] = 'order-details';
+		$orderInfo['details_page'] = 'order_details';
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
 
@@ -10872,7 +10848,7 @@ class COrders extends DAO_Orders
 		$orderInfo = COrders::buildOrderDetailArrays($user, $order);
 		$orderInfo['sessionInfo'] = array_merge($orderInfo['sessionInfo'], $orderInfo['storeInfo']);//hack
 		$orderInfo['origSessionInfo'] = array('session_start' => $origSessionTime);
-		$orderInfo['details_page'] = 'order-details';
+		$orderInfo['details_page'] = 'order_details';
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
 
@@ -10918,7 +10894,7 @@ class COrders extends DAO_Orders
 
 		if ($doEmailCustomer)
 		{
-			$orderInfo['details_page'] = 'order-details';
+			$orderInfo['details_page'] = 'order_details';
 			$contentsText = CMail::mailMerge('order_delayed_declined.txt.php', $orderInfo);
 			$contentsHtml = CMail::mailMerge('order_delayed_declined.html.php', $orderInfo);
 
@@ -11706,11 +11682,6 @@ class COrders extends DAO_Orders
 		$orderArray['points_discount_total_food'] = $foodPortionOfPPCredit;
 		$orderArray['points_discount_total_fee'] = $feePortionOfPPCredit;
 
-		if (empty($orderArray['ltd_round_up_value']))
-		{
-			$orderArray['ltd_round_up_value'] = "0";
-		}
-
 		$coupon = $Order->getCoupon();
 		if ($coupon)
 		{
@@ -12273,8 +12244,7 @@ class COrders extends DAO_Orders
 						'other' => $Payment->delayed_payment_transaction_number
 					);
 				}
-
-				if (!empty($Payment->delayed_payment_transaction_date))
+				if ($Payment->delayed_payment_transaction_date)
 				{
 					$PaymentArr['delayed_date'] = array(
 						'title' => 'Delayed Payment Date',
@@ -14326,7 +14296,7 @@ class COrders extends DAO_Orders
 
 			$sessionTS = strtotime($Session->session_start) - 518400; // allow delayed payment 6 days prior
 
-			if ($DR_Ordering && (strtotime("now") < $sessionTS))
+			if ((CApp::$isStoreView || $DR_Ordering) && (strtotime("now") < $sessionTS))
 			{
 				$Form->AddElement(array(
 					CForm::type => CForm::RadioButton,

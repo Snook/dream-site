@@ -7365,7 +7365,7 @@ function calculateTotal()
 				minimumFractionDigits: 2,
 				maximumFractionDigits: 2
 			});
-			if (CouponCodeStr == 'VOLUME' || couponlimitedToCore)
+			if (CouponCodeStr == 'VOLUME')
 			{
 				newDiscountAmount =  formatterUSD.format(coreItemsSubtotal * (couponDiscountVar / 100))
 			}
@@ -7377,7 +7377,7 @@ function calculateTotal()
 		catch(e)
 		{
 			//original way which lead to off-by-one issue compared to server's method of rounding
-			if (CouponCodeStr == 'VOLUME' || couponlimitedToCore )
+			if (CouponCodeStr == 'VOLUME')
 			{
 				newDiscountAmount = Math.floor(coreItemsSubtotal * (couponDiscountVar));
 			}

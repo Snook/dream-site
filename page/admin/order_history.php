@@ -8,7 +8,6 @@ class page_admin_order_history extends CPageAdminOnly
 {
 
 	public static $PAGE_SIZE = 10;
-
 	function runSiteAdmin()
 	{
 		return $this->runFranchiseOwner();
@@ -61,7 +60,7 @@ class page_admin_order_history extends CPageAdminOnly
 		$tpl = CApp::instance()->template();
 
 		$id = false;
-
+		
 		if (isset($_REQUEST['id']) && $_REQUEST['id'])
 		{
 			$id = CGPC::do_clean($_REQUEST['id'], TYPE_INT);
@@ -70,13 +69,13 @@ class page_admin_order_history extends CPageAdminOnly
 		if (!$id)
 		{
 			$tpl->setErrorMsg("The user id is invalid.");
-
+			
 			if (isset($_REQUEST['back']))
 			{
 				CApp::bounce($_REQUEST['back']);
 			}
 
-			CApp::bounce("/?page=admin_main");
+			CApp::bounce("main.php?page=admin_main");
 		}
 
 		if (isset($_REQUEST['back']))
@@ -85,7 +84,7 @@ class page_admin_order_history extends CPageAdminOnly
 		}
 		else
 		{
-			$tpl->assign('back', '/?page=admin_user_details&amp;id=' . $id);
+			$tpl->assign('back', 'main.php?page=admin_user_details&amp;id=' . $id);
 		}
 
 		$User = DAO_CFactory::create('user');
@@ -93,22 +92,23 @@ class page_admin_order_history extends CPageAdminOnly
 		if (!$User->find(true))
 		{
 			$tpl->setErrorMsg("The user could not be found.");
-
+				
 			if (isset($_REQUEST['back']))
 			{
 				CApp::bounce($_REQUEST['back']);
 			}
-
-			CApp::bounce("/?page=admin_main");
+				
+			CApp::bounce("main.php?page=admin_main");
 		}
 
 		$tpl->assign('user', $User->toArray());
 		$tpl->assign('user_id', $User->id);
 
-		$Orders = self::fetchOrderHistory($User->id, 0, self::$PAGE_SIZE);
+
+		$Orders = self::fetchOrderHistory($User->id,self::$PAGE_SIZE);
 
 		//paging control
-		$totalFetchedOrder = count($Orders);
+		$totalFetchedOrder = count($Orders) ;
 		$shouldPage = $totalFetchedOrder > (self::$PAGE_SIZE - 3);
 		$tpl->assign('orders', $Orders);
 		$tpl->assign('pagination', $shouldPage);
@@ -117,17 +117,18 @@ class page_admin_order_history extends CPageAdminOnly
 		$tpl->assign('page_cur', 0);
 
 		$tpl->assign('active_menus', CMenu::getActiveMenuArray());
-
+		
+		
 		if (isset($_REQUEST['send_test_reminder_email']) && $_REQUEST['send_test_reminder_email'] = true)
 		{
-
-			if (isset($_REQUEST['order_id']) && is_numeric($_REQUEST['order_id']))
-			{
-				$order_id = $_REQUEST['order_id'];
-
-				$Booking = DAO_CFactory::create('booking');
-
-				$Booking->query("SELECT
+		    
+		    if (isset($_REQUEST['order_id']) && is_numeric($_REQUEST['order_id']))
+		    {
+		        $order_id = $_REQUEST['order_id'];
+		        
+    		   $Booking =  DAO_CFactory::create('booking');
+    		    
+    		    $Booking->query("SELECT
     			s.id AS session_id,
     			s.session_start,
     			s.session_type,
@@ -152,26 +153,27 @@ class page_admin_order_history extends CPageAdminOnly
     			LEFT JOIN store AS st ON st.id = s.store_id AND st.is_deleted = '0'
     			LEFT JOIN menu AS m ON m.id = s.menu_id AND m.is_deleted = '0'
     			WHERE b.order_id = $order_id AND b.`status` = 'ACTIVE' AND b.is_deleted = '0'");
-			}
-
-			if ($Booking->fetch())
-			{
-				$Booking->send_reminder_email();
-			}
+    		    }
+    		    
+    		    if ($Booking->fetch())
+    		    {
+    		        $Booking->send_reminder_email();
+    		    }
+		    
 		}
+		    
 	}
 
-	public static function fetchOrderHistory($user_id, $limit_start = 0, $limit = 15)
-	{
-		$DAO_orders = DAO_CFactory::create('orders', true);
-		$DAO_orders->user_id = $user_id;
-		$DAO_orders->selectAdd("booking.id AS booking_id,
+	public static function fetchOrderHistory($user_id, $limit = 15){
+		$Order = DAO_CFactory::create('orders');
+		$query = "SELECT
+				booking.id AS booking_id,
 				booking.status,
 				booking.order_id,
 				booking.no_show,
-				booking.reason_for_cancellation,
-				booking.declined_MFY_option,
-				booking.declined_to_reschedule,
+                booking.reason_for_cancellation,
+                booking.declined_MFY_option,
+                booking.declined_to_reschedule,
 				orders.id,
 				orders.order_user_notes,
 				orders.order_admin_notes,
@@ -184,67 +186,70 @@ class page_admin_order_history extends CPageAdminOnly
 				session.id AS session_id,
 				session.session_start,
 				session.menu_id AS idmenu,
-				session.session_type,
-				session.session_type_subtype,
+       			session.session_type,
+       			session.session_type_subtype,
 				session.is_deleted AS session_is_deleted,
 				store.store_name,
-				store.timezone_id");
-		$DAO_booking = DAO_CFactory::create('booking', true);
-		$DAO_booking->whereAdd("booking.status != '" . CBooking::RESCHEDULED . "'");
-		$DAO_session = DAO_CFactory::create('session', true);
-		$DAO_session->unsetProperty('is_deleted');
-		$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('menu', true));
-		$DAO_booking->joinAddWhereAsOn($DAO_session);
-		$DAO_orders->joinAddWhereAsOn($DAO_booking);
-		$DAO_orders->joinAddWhereAsOn(DAO_CFactory::create('store', true));
-		$DAO_orders->limit($limit_start, $limit);
-		$DAO_orders->orderBy("session.session_start DESC");
-
-		$DAO_orders->find();
+				store.timezone_id
+				FROM orders
+				INNER JOIN booking ON booking.order_id = orders.id AND booking.is_deleted = '0'
+				INNER JOIN store ON store.id = orders.store_id AND store.is_deleted = '0'
+				LEFT JOIN session ON booking.session_id = session.id
+				WHERE orders.user_id = '" . $user_id . "'
+				AND orders.is_deleted = 0
+				AND booking.status != 'RESCHEDULED'
+				ORDER BY session.session_start DESC limit ".$limit;
+		$Order->query($query );
 
 		$Orders = array();
 		$totalFetched = 0;
 
-		while ($DAO_orders->fetch())
+		while ($Order->fetch())
 		{
 			$totalFetched++;
 			// dont show saved orders for sessions which have been deleted
-			if ($DAO_orders->DAO_booking->status == CBooking::SAVED && !empty($DAO_orders->session_is_deleted))
+			if ($Order->status == CBooking::SAVED && !empty($Order->session_is_deleted))
 			{
 				continue;
 			}
 
-			$now = CTimezones::getAdjustedServerTimeWithTimeZoneID($DAO_orders->DAO_store->timezone_id);
+			$now = CTimezones::getAdjustedServerTimeWithTimeZoneID($Order->timezone_id);
 
 			$canView = true;
 			$canEdit = true;
-			$sessionTS = strtotime($DAO_orders->DAO_session->session_start);
+			$sessionTS = strtotime($Order->session_start);
 
-			if ($DAO_orders->DAO_booking->status != CBooking::ACTIVE && $DAO_orders->DAO_booking->status != CBooking::SAVED)
+			if ($Order->status != CBooking::ACTIVE && $Order->status != CBooking::SAVED)
 			{
 				$canEdit = false;
 			}
 
-			if ($DAO_orders->DAO_booking->status == CBooking::SAVED)
+			if ($Order->status == CBooking::SAVED)
 			{
 				$canView = false;
 			}
 
 			if ($canEdit)
 			{
-				$canEdit = $DAO_orders->DAO_menu->areSessionsOrdersEditable(false, $DAO_orders->DAO_store->timezone_id);
+
+				$MenuObj = DAO_CFactory::create('menu');
+				$MenuObj->id = $Order->idmenu;
+				$MenuObj->find(true);
+				$canEdit = $MenuObj->areSessionsOrdersEditable(false, $Order->timezone_id);
+
 			}
 
-			if ($DAO_orders->DAO_booking->status != CBooking::RESCHEDULED)
+
+			if ($Order->status != CBooking::RESCHEDULED)
 			{
-				$Orders[$DAO_orders->DAO_booking->id] = $DAO_orders->toArray();
-				$Orders[$DAO_orders->DAO_booking->id]['order_obj'] = $DAO_orders->cloneObj();
+
+				$Orders[$Order->booking_id] = $Order->toArray();
 
 				$statusText = "";
-				if (!empty($DAO_orders->DAO_booking->no_show))
+				if (!empty($Order->no_show))
 				{
 
-					if ($DAO_orders->DAO_booking->status == CBooking::CANCELLED)
+					if ($Order->status == CBooking::CANCELLED)
 					{
 						$statusText = "CANCELLED (No Show)";
 					}
@@ -252,70 +257,73 @@ class page_admin_order_history extends CPageAdminOnly
 					{
 						$statusText = "NO SHOW";
 					}
+
 				}
-				else if (strtotime($DAO_orders->DAO_session->session_start) < $now && $DAO_orders->DAO_booking->status == CBooking::ACTIVE)
+				else if (strtotime($Order->session_start) < $now && $Order->status == CBooking::ACTIVE)
 				{
 					$statusText = "COMPLETED";
 				}
 				else
 				{
-					$statusText = $DAO_orders->DAO_booking->status;
+					$statusText = $Order->status;
 				}
 
-				if ($DAO_orders->DAO_booking->status == CBooking::CANCELLED)
+				if ($Order->status == CBooking::CANCELLED)
 				{
-					if ($DAO_orders->declined_to_reschedule === 0 || $DAO_orders->declined_to_reschedule === "0")
+					if ($Order->declined_to_reschedule === 0 || $Order->declined_to_reschedule === "0")
 					{
-						$Orders[$DAO_orders->DAO_booking->id]['declined_to_reschedule'] = "NO";
+						$Orders[$Order->booking_id]['declined_to_reschedule'] = "NO";
 					}
-					else if (!empty($DAO_orders->DAO_booking->declined_to_reschedule))
+					else if (!empty($Order->declined_to_reschedule))
 					{
-						$Orders[$DAO_orders->DAO_booking->id]['declined_to_reschedule'] = "YES";
+						$Orders[$Order->booking_id]['declined_to_reschedule'] = "YES";
 					}
 					else
 					{
-						$Orders[$DAO_orders->DAO_booking->id]['declined_to_reschedule'] = null;
+						$Orders[$Order->booking_id]['declined_to_reschedule'] = null;
 					}
 
-					if ($DAO_orders->DAO_booking->declined_MFY_option === 0 || $DAO_orders->DAO_booking->declined_MFY_option === "0")
+					if ($Order->declined_MFY_option === 0 || $Order->declined_MFY_option === "0")
 					{
-						$Orders[$DAO_orders->DAO_booking->id]['declined_MFY_option'] = "NO";
+						$Orders[$Order->booking_id]['declined_MFY_option'] = "NO";
 					}
-					else if (!empty($DAO_orders->DAO_booking->declined_MFY_option))
+					else if (!empty($Order->declined_MFY_option))
 					{
-						$Orders[$DAO_orders->DAO_booking->id]['declined_MFY_option'] = "YES";
+						$Orders[$Order->booking_id]['declined_MFY_option'] = "YES";
 					}
 					else
 					{
-						$Orders[$DAO_orders->DAO_booking->id]['declined_MFY_option'] = null;
+						$Orders[$Order->booking_id]['declined_MFY_option'] = null;
 					}
 
-					if (!empty($DAO_orders->DAO_booking->reason_for_cancellation))
+					if (!empty($Order->reason_for_cancellation))
 					{
-						$Orders[$DAO_orders->DAO_booking->id]['reason_for_cancellation'] = CBooking::getBookingCancellationReasonDisplayString($DAO_orders->reason_for_cancellation);
+						$Orders[$Order->booking_id]['reason_for_cancellation'] = CBooking::getBookingCancellationReasonDisplayString($Order->reason_for_cancellation);
 					}
 					else
 					{
-						$Orders[$DAO_orders->DAO_booking->id]['reason_for_cancellation'] = "";
+						$Orders[$Order->booking_id]['reason_for_cancellation'] = "";
 					}
 				}
 
-				$Orders[$DAO_orders->DAO_booking->id]['status_text'] = $statusText;
-				$Orders[$DAO_orders->DAO_booking->id]['canEdit'] = $canEdit;
-				$Orders[$DAO_orders->DAO_booking->id]['canView'] = $canView;
-				$Orders[$DAO_orders->DAO_booking->id]['can_reschedule'] = $DAO_orders->can_reschedule();
-				$Orders[$DAO_orders->DAO_booking->id]['is_future'] = (($DAO_orders->DAO_session->session_start && (strtotime($DAO_orders->DAO_session->session_start) > $now) && $DAO_orders->DAO_booking->status == CBooking::ACTIVE) ? true : false);
+				$Orders[$Order->booking_id]['status_text'] = $statusText;
+				$Orders[$Order->booking_id]['canEdit'] = $canEdit;
+				$Orders[$Order->booking_id]['canView'] = $canView;
+				$Orders[$Order->booking_id]['can_reschedule'] = $Order->can_reschedule();
+				$Orders[$Order->booking_id]['is_future'] = (($Order->session_start && (strtotime($Order->session_start) > $now) && $Order->status == CBooking::ACTIVE) ? true : false);
 
-				if (!empty($Orders[$DAO_orders->DAO_booking->id]['session_type_subtype']) && $Orders[$DAO_orders->DAO_booking->id]['session_type_subtype'] == CSession::DELIVERY)
+				if (!empty($Orders[$Order->booking_id]['session_type_subtype']) && $Orders[$Order->booking_id]['session_type_subtype'] == CSession::DELIVERY)
 				{
-					$Orders[$DAO_orders->DAO_booking->id]['type_of_order'] .= " (DELIVERY)";
+					$Orders[$Order->booking_id]['type_of_order'] .=  " (DELIVERY)";
 				}
+
 			}
 		}
 
 		return $Orders;
 	}
 
+		
 }
 
 ?>

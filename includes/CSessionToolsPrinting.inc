@@ -395,7 +395,7 @@ class CSessionToolsData
 
 		if ($minimum->getMinimumType() == COrderMinimum::ITEM)
 		{
-			return 'Qualifying order is ' . $minimum->getMinimum() . ' meals.';
+			return 'Standard order is ' . $minimum->getMinimum() . ' meals.';
 		}
 
 		if ($minimum->getMinimumType() == COrderMinimum::SERVING)
@@ -448,7 +448,6 @@ class CSessionToolsData
 		$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
 			'menu_to_menu_item_store_id' => $this->store_id,
 			'join_order_item_order_id' => $order_ids,
-			'exclude_menu_item_is_bundle' => true,
 			'exclude_menu_item_category_core' => false,
 			'exclude_menu_item_category_efl' => false,
 			'exclude_menu_item_category_sides_sweets' => false,
@@ -458,8 +457,8 @@ class CSessionToolsData
 		$menuItems = array();
 		while ($DAO_menu_item->fetch())
 		{
-			$order_id_containing_item = explode(',', $DAO_menu_item->order_ids);
-			foreach ($order_id_containing_item as $order_id)
+			$order_id_containing_item = explode(',',$DAO_menu_item->order_ids);
+			foreach($order_id_containing_item as $order_id)
 			{
 				if (empty($menuItems[$order_id][$DAO_menu_item->recipe_id]['entree']) || $DAO_menu_item->id == $DAO_menu_item->entree_id)
 				{
@@ -467,6 +466,7 @@ class CSessionToolsData
 				}
 
 				$menuItems[$order_id][$DAO_menu_item->recipe_id]['menu_item'][$DAO_menu_item->id] = $DAO_menu_item->cloneObj();
+
 			}
 
 			// track all recipes used
@@ -638,7 +638,6 @@ class CSessionToolsPDFDrawer
 {
 	const kHEADER_ROW_HEIGHT = 13;
 	const kKEADER_ROW_Y = 26;
-	const FREEZER_HEADER_ROW_HEIGHT = 27.5;
 
 	private $data = null;
 
@@ -1303,7 +1302,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->Image($stars_image_path, $star_xPos, $yPos + .25, $width, $height);
 	}
 
-	function printMenuToolRow($menuItemArray, $yPos, $count, $globalRating, $includeFooterHr = false)
+	function printMenuToolRow($menuItemArray, $yPos, $count, $globalRating)
 	{
 		$this->showBorders = 0;
 
@@ -1342,55 +1341,50 @@ class CSessionToolsPDFDrawer
 		$this->pdf->SetXY($cellLeftMargin, $yPos);
 		$this->pdf->MultiCellTag(76, 3, $menu_item_title, $this->showBorders, 'L');
 
-
+		// Ratings
 		$RatingyPos = $yPos + 6;
-		if (false)
+		$guestFavorite = $cellLeftMargin;
+		if ($this->data->userInfo && isset($menuItemArray['rating']))
 		{
-			// Ratings - can be removed if ratings will never be used
-			if ($this->data->userInfo && isset($menuItemArray['entree']->DAO_food_survey->rating))
+			if ($menuItemArray['entree']->menu_label != 'Guest Favorite')
 			{
-				$this->printRatingsStars($cellLeftMargin + 50, $RatingyPos - .25, 4, $menuItemArray['entree']->DAO_food_survey->rating);
-			}
-			else if (!empty($globalRating) && $menuItemArray['entree']->menu_label != 'New')
-			{
-				//has rating and the menu label is not new
 				$this->pdf->SetXY($cellLeftMargin, $RatingyPos + .25);
 				$this->pdf->MultiCellTag(76, 3, "<t9lg>" . $menuItemArray['entree']->menu_label . "</t9lg>", $this->showBorders, 'L');
-				$this->printRatingsValue($cellLeftMargin + 50, $RatingyPos, 3, number_format(round($globalRating, 1), 1), false, $menuItemArray, false);
-			}
-		}
-		else
-		{
-			// ICONS
-			$icon_xpos_offset = $cellLeftMargin + 70;
-			$icon_ypos_offset = $RatingyPos + .25;
-			$icon_size = 3.5;
-
-			// The array is in the desired order, reverse the icon sort since we draw from right to left
-			$reverse_icons = array_reverse($menuItemArray['entree']->icons);
-			foreach ($reverse_icons as $icon)
-			{
-				if ($icon['print_meal_detail_enabled'] && $icon['show'])
+				$this->printRatingsStars($cellLeftMargin + 50, $RatingyPos - .25, 4, $menuItemArray['rating']);
+				if (!empty($menuItemArray['entree']->menu_label))
 				{
-					$this->pdf->Image(ASSETS_PATH . '/pdf_label/' . $icon['png_icon'], $icon_xpos_offset, $icon_ypos_offset, $icon_size);
-					$icon_xpos_offset = $icon_xpos_offset - $icon_size;
+					$guestFavorite += 25;
 				}
 			}
-
-			if (!empty($this->data->userInfo) && !empty($menuItemArray['entree']->DAO_food_survey->would_order_again) && $menuItemArray['entree']->DAO_food_survey->would_order_again == 1)
+			else
 			{
-				$stars_image_path = ASSETS_PATH . '/pdf_label/paper_menu/star_rate.png';
-				$this->pdf->Image($stars_image_path, $icon_xpos_offset, $icon_ypos_offset, $icon_size);
+				$this->printRatingsStars($cellLeftMargin + 50, $RatingyPos - .25, 4, $menuItemArray['rating']);
 			}
 		}
-
-
-		if (!empty($menuItemArray['entree']->menu_label))
+		else if (!empty($globalRating) && $menuItemArray['entree']->menu_label != 'New')
+		{
+			//has rating and the menu label is not new
+			$this->pdf->SetXY($cellLeftMargin, $RatingyPos + .25);
+			$this->pdf->MultiCellTag(76, 3, "<t9lg>" . $menuItemArray['entree']->menu_label . "</t9lg>", $this->showBorders, 'L');
+			$this->printRatingsValue($cellLeftMargin + 50, $RatingyPos, 3, number_format(round($globalRating, 1), 1), false, $menuItemArray, false);
+		}
+		else if (!empty($menuItemArray['entree']->menu_label))
 		{
 			$this->pdf->SetXY($cellLeftMargin, $RatingyPos + .25);
 			$this->pdf->MultiCellTag(76, 3, "<t9lg>" . $menuItemArray['entree']->menu_label . "</t9lg>", $this->showBorders, 'L');
 		}
 
+		// favorite
+		if (!empty($this->data->userInfo) && !empty($menuItemArray['entree']->DAO_food_survey->would_order_again) && $menuItemArray['entree']->DAO_food_survey->would_order_again == 1)
+		{
+			$favPos_X = $cellLeftMargin;
+			if (!empty($menuItemArray['entree']->menu_label))
+			{
+				$favPos_X += $this->pdf->GetStringWidth($menuItemArray['entree']->menu_label) - 2;
+			}
+			$this->pdf->SetXY($favPos_X, $RatingyPos + .5);
+			$this->pdf->MultiCellTag(76, 3, "<t9rb>FAVORITE</t9rb>", $this->showBorders, 'L');
+		}
 
 		// Description
 		$this->pdf->SetXY($cellLeftMargin, $yPos + 9.5);
@@ -1416,13 +1410,9 @@ class CSessionToolsPDFDrawer
 			$price_xPos += 11;
 		}
 
-		if($includeFooterHr)
-		{
-			// footer hr
-			$this->pdf->SetFillColor($this->color['light_green']['r'], $this->color['light_green']['g'], $this->color['light_green']['b']);
-			$this->pdf->Rect(5, CSessionToolsPDF::kPAGE_HEIGHT - 24, 205, .5, 'F');
-		}
-
+		// footer hr
+		$this->pdf->SetFillColor($this->color['light_green']['r'], $this->color['light_green']['g'], $this->color['light_green']['b']);
+		$this->pdf->Rect(5, CSessionToolsPDF::kPAGE_HEIGHT - 24, 205, .5, 'F');
 	}
 
 	function printMenuToolRow_RecipeExpert($menuItemArray, $yPos, $count, $row_height)
@@ -1502,14 +1492,15 @@ class CSessionToolsPDFDrawer
 			$this->pdf->SetFillColor(222, 222, 222);
 		}
 
-		$rows = $this->calculateFreezerSheetRowHeight($menuItemArray);
+		//$rows = $this->calculateFreezerSheetRowHeight($menuItemArray);
+		$rows = null;
 		if (is_null($rows))
 		{
 			$rows = self::kHEADER_ROW_HEIGHT;
 		}
 		else
 		{
-			$rows += self::kHEADER_ROW_HEIGHT;
+			$rows += self::kHEADER_ROW_HEIGHT + 18;
 		}
 		// Background
 		$width = CSessionToolsPDF::kPAGE_WIDTH - (CSessionToolsPDF::kLEFT_MARGIN * 2) - 7;
@@ -1594,7 +1585,7 @@ class CSessionToolsPDFDrawer
 		$srv_box_ypos_start = $yPos;
 		$y_offest = $srv_box_ypos_start;
 
-		foreach ($menuItemArray['menu_item'] as $menuItem)
+		foreach($menuItemArray['menu_item'] AS $menuItem)
 		{
 			$item_count = $menuItem->DAO_order_item->item_count;
 
@@ -1654,24 +1645,27 @@ class CSessionToolsPDFDrawer
 
 	function calculateFreezerSheetRowHeight($orderItem)
 	{
-		$total_item_count = 0;
+		$quantityData = (!empty($orderItem['entree']->DAO_order_item->item_count) ? $orderItem['entree']->DAO_order_item->item_count : false);
+
+		$total_item_count = 3;
 		$rows = 0;
 
-		foreach ($orderItem['menu_item'] as $DAO_menu_item)
+		if (!empty($quantityData))
 		{
-			$rows++;
-			$total_item_count += $DAO_menu_item->DAO_order_item->item_count;
+			foreach ($quantityData as $pricing_type => $attrs)
+			{
+				$rows++;
+				$total_item_count += $attrs['item_count'];
+			}
 		}
-
 		if ($total_item_count > 1)
 		{
-			$rows += floor($total_item_count / 6); // break every six checkboxes
+			$rows += floor($total_item_count / 6);
 		}
 
-		// 3 is the minimum height of a row
-		if ($rows <= 3)
+		if ($rows < 3)
 		{
-			$rows = 3;
+			$rows = 5;
 		}
 
 		return $rows;
@@ -1679,9 +1673,12 @@ class CSessionToolsPDFDrawer
 
 	function printMenuToolRow_Nutritional($menuItemArray, $yPos, $count, $row_height)
 	{
+		$backGroundIsDark = true;
+
 		if ($count % 2 == 0)
 		{
 			$this->pdf->SetFillColor(255, 255, 255);
+			$backGroundIsDark = false;
 		}
 		else
 		{
@@ -1832,9 +1829,10 @@ class CSessionToolsPDFDrawer
 		}
 
 		// price 3-serving
-		if (count($menuItemArray['menu_item']) >1)
+		if (!empty($menuItemArray['price_half']))
 		{
 			$this->pdf->Rect(CSessionToolsPDF::kLEFT_MARGIN + 179, $yPos + 5, 3, 3);
+
 			$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN + 183.5, $yPos + 4.5);
 			$this->pdf->MultiCellTag(6, 4, "<t9b>or</t9b>", $this->showBorders, 'C');
 		}
@@ -1924,31 +1922,20 @@ class CSessionToolsPDFDrawer
 		$this->pdf->MultiCellTag(CSessionToolsPDF::lPAGE_WIDTH - (CSessionToolsPDF::kLEFT_MARGIN * 2), 4, "<t9>Flavor Profile Key:     As - Asian     A - American     C - Classic Comfort     I - Italian     M - Mexican</t9>", $this->showBorders, 'C');
 	}
 
-	function printMenuNotes($yPos, $includePrintedOn = false, $includeQRcode = false, $qrData = null)
+	function printMenuNotes($yPos, $includeQRcode = false, $qrData = null)
 	{
-
-		$printedNote = '';
-		if ($includePrintedOn)
-		{
-			$dt = new DateTime("now");
-			$printedNote = "Pricing subject to change. Printed on: {$dt->format('F d, Y')}";
-		}
-
-		$note = "Foods prepared at Dream Dinners may contain allergens introduced during the assembly process. Potential food allergies include: milk, casein, whey, egg, albumin, shellfish, tree nuts, wheat, gluten, peanuts and soy beans. {$this->data->minimumNote} {$printedNote}";
-
 		$textAlign = 'C';
 		if ($includeQRcode)
 		{
 			$textAlign = 'L';
 		}
-		$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN, $yPos + 6);
-		$this->pdf->MultiCellTag(CSessionToolsPDF::kPAGE_WIDTH - 30, 3, "<t7>{$note}</t7>", $this->showBorders, $textAlign);
+		$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN, $yPos);
+		$this->pdf->MultiCellTag(CSessionToolsPDF::kPAGE_WIDTH - 30, 3, "<t8>Foods prepared at Dream Dinners may contain allergens introduced during the assembly process. Potential food allergies include: milk, casein, whey, egg, albumin, shellfish, tree nuts, wheat, gluten, peanuts and soy beans. {$this->data->minimumNote}</t8>", $this->showBorders, $textAlign);
 
 		if ($includeQRcode)
 		{
 			$this->pdf->Image($this->getStoreMenuQrCodePath($qrData->store_id, $qrData->menu_id, false), CSessionToolsPDF::kPAGE_WIDTH - 22, $yPos, 18);
 		}
-
 	}
 
 	function printMenuNotes_Intro($yPos)
@@ -1994,12 +1981,12 @@ class CSessionToolsPDFDrawer
 		$this->pdf->RotatedText("<h8>{$this->data->storeInfo->store_name} - {$addressLine} - {$contactLine}</h8>", 90);
 	}
 
-	function printIconLegend($yPos, $xPos, $addFavoriteStar = false)
+	function printIconLegend($yPos, $xPos)
 	{
 		$x_offset = 0;
 		$count = 0;
 
-		foreach (CRecipe::getIconSchematic() as $icon)
+		foreach (CRecipe::getIconSchematic() AS $icon)
 		{
 			if ($count++ == 7)
 			{
@@ -2018,17 +2005,6 @@ class CSessionToolsPDFDrawer
 				$this->pdf->MultiCellTag($cell_width, 4, $icon['label'], $this->showBorders, 'L');
 				$x_offset += $cell_width;
 			}
-		}
-
-		if($addFavoriteStar)
-		{
-			$this->pdf->Image(ASSETS_PATH . '/pdf_label/paper_menu/star_rate.png', CSessionToolsPDF::kLEFT_MARGIN + $xPos + $x_offset, $yPos, 3.5);
-
-			$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN + $xPos + $x_offset + 3.5, $yPos);
-			$this->pdf->SetFont('helvetica', '', 6);
-			$this->pdf->SetTextColor(0);
-			$cell_width = $this->pdf->GetStringWidth('Personal Favorite') + 6;
-			$this->pdf->MultiCellTag($cell_width, 4, 'Personal Favorite', $this->showBorders, 'L');
 		}
 	}
 
@@ -2392,7 +2368,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->SetDrawColor(0);
 	}
 
-	function printStoreSummary($yPos, $includePrintedOn = false, $align = 'C', $includeStoreName = true)
+	function printStoreSummary($yPos, $includePrintedOn = false, $align = 'C')
 	{
 		$streetAddress = $this->data->storeInfo->address_line1;
 		if (!empty($this->data->storeInfo->address_line2))
@@ -2404,26 +2380,20 @@ class CSessionToolsPDFDrawer
 
 		$contactLine = $this->data->storeInfo->email_address . " - " . $this->data->storeInfo->telephone_day;
 
-		$printedOnPadding = -1;
+		$printedOnPadding = 0;
 		if ($includePrintedOn)
 		{
 			$printedOnPadding = 3;
 		}
 
-		$storeName = $this->data->storeInfo->store_name . ' - ';
-		if(!$includeStoreName)
-		{
-			$storeName = '';
-		}
-
 		$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN, $yPos - $printedOnPadding);
-		$this->pdf->MultiCellTag(CSessionToolsPDF::kPAGE_WIDTH - 16, 4, "<t7>{$storeName}{$addressLine} - {$contactLine}</t7>", $this->showBorders, $align);
+		$this->pdf->MultiCellTag(CSessionToolsPDF::kPAGE_WIDTH - 16, 4, "<t8>{$this->data->storeInfo->store_name} - {$addressLine} - {$contactLine}</t8>", $this->showBorders, $align);
 
 		if ($includePrintedOn)
 		{
 			$dt = new DateTime("now");
 			$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN, $yPos + 2);
-			$this->pdf->MultiCellTag(CSessionToolsPDF::kPAGE_WIDTH - 16, 4, "<t7>Pricing subject to change. Printed on: {$dt->format('F d, Y')}</t7>", $this->showBorders, $align);
+			$this->pdf->MultiCellTag(CSessionToolsPDF::kPAGE_WIDTH - 16, 4, "<t8>Pricing subject to change. Printed on: {$dt->format('F d, Y')}</t8>", $this->showBorders, $align);
 		}
 	}
 
@@ -2455,15 +2425,14 @@ class CSessionToolsPDFDrawer
 					$yPos = 27.5;
 				}
 
-				$this->printMenuToolRow($menuItemArray, $yPos, $count, $globalRating, false);
+				$this->printMenuToolRow($menuItemArray, $yPos, $count, $globalRating);
 				$yPos += self::kHEADER_ROW_HEIGHT + 7.5;
 			}
 		}
 
 		$this->printSessionAndPaymentSummary(CSessionToolsPDF::kPAGE_HEIGHT - 68, CSessionToolsPDF::kLEFT_MARGIN + 100, $count);
-		$this->printIconLegend(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 28, 0, true);
-		$this->printMenuNotes(CSessionToolsPDF::kPAGE_HEIGHT - 21, true, true, $this->data);
-		$this->printStoreSummary(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 15.5, false, 'L', false);
+		$this->printMenuNotes(CSessionToolsPDF::kPAGE_HEIGHT - 21, true, $this->data);
+		$this->printStoreSummary(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 15.5, true, 'L');
 	}
 
 	function printNextMonthsMenuPDF()
@@ -2500,9 +2469,8 @@ class CSessionToolsPDFDrawer
 		}
 
 		$this->printSessionAndPaymentSummary(CSessionToolsPDF::kPAGE_HEIGHT - 68, CSessionToolsPDF::kLEFT_MARGIN + 100, $count);
-		$this->printIconLegend(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 28, 0, true);
-		$this->printMenuNotes(CSessionToolsPDF::kPAGE_HEIGHT - 21, true, true, $this->data);
-		$this->printStoreSummary(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 15.5, false, 'L', false);
+		$this->printMenuNotes(CSessionToolsPDF::kPAGE_HEIGHT - 21, true, $this->data);
+		$this->printStoreSummary(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 15.5, true, 'L');
 	}
 
 	function printFreezerListPDF()
@@ -2513,30 +2481,28 @@ class CSessionToolsPDFDrawer
 		$this->printHeader_Freezer(CSessionToolsPDF::kHORZ_CENTER, 6, $this->data->menu_id);
 		$this->printMenuToolHeaderRow_Freezer();
 
-		$yPos = self::FREEZER_HEADER_ROW_HEIGHT;
-		$menu_item_count = 0;
-		$total_rows = 0;
+		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
 		$count = 0;
 
 		if (!empty($this->data->orderItems[$this->data->userInfo->orderInfo['orderInfo']['id']]))
 		{
+			$total_rows = 3;
 			foreach ($this->data->orderItems[$this->data->userInfo->orderInfo['orderInfo']['id']] as $orderItem)
 			{
 				//dynamically size page based on the number of items or each size
-				$next_rows = $this->calculateFreezerSheetRowHeight($orderItem);
+				//$next_rows = $this->calculateFreezerSheetRowHeight($orderItem);
+				$next_rows = null;
 
 				$total_rows += $next_rows;
-				if (++$menu_item_count > 15 || ($total_rows > 50))
+				if ($count > 1 && ($total_rows > 70))
 				{
-					$yPos = self::FREEZER_HEADER_ROW_HEIGHT;
-					$menu_item_count = 0;
-
 					$this->pdf->AddPage();
 
 					$this->printLogo(CSessionToolsPDF::kLEFT_MARGIN, CSessionToolsPDF::kTOP_MARGIN, 31.8, false, $this->data->menu_id, true);
 					$this->printHeader_Freezer(CSessionToolsPDF::kHORZ_CENTER, 6, $this->data->menu_id);
 					$this->printMenuToolHeaderRow_Freezer();
 
+					$yPos = 27.5;
 					$total_rows = $next_rows;
 				}
 
@@ -2562,18 +2528,18 @@ class CSessionToolsPDFDrawer
 
 		if ($yPos <= 232)
 		{
-			$orderDetails = false;
-			if (!empty($this->data->orderItems[$this->data->userInfo->orderInfo['orderInfo']['id']]))
-			{
-				$orderDetails = $this->data->orderItems[$this->data->userInfo->orderInfo['orderInfo']['id']];
-			}
-
-			$this->printFreezerList_Notes(CSessionToolsPDF::kLEFT_MARGIN + 7, $yPos, $orderDetails);
+			$this->printFreezerList_Notes(CSessionToolsPDF::kLEFT_MARGIN + 7, $yPos);
 		}
 	}
 
-	function printFreezerList_Notes($xPos, $yPos, $orderDetails = false)
+	function calculateRowBasedOnItems()
 	{
+
+	}
+
+	function printFreezerList_Notes($xPos, $yPos)
+	{
+
 		$this->pdf->SetFillColor(255, 255, 255);
 		$width = CSessionToolsPDF::kPAGE_WIDTH - (CSessionToolsPDF::kLEFT_MARGIN * 2) - 7;
 		$this->pdf->Rect(CSessionToolsPDF::kLEFT_MARGIN + 7, $yPos, $width, 30, 'F');
@@ -2587,31 +2553,6 @@ class CSessionToolsPDFDrawer
 		$this->pdf->MultiCellTag(CSessionToolsPDF::kPAGE_WIDTH - 23, 4, "<h8>Quick Thaw Tip: Submerged your meal in cold tap water, changing the water every 30 minutes so it continues to thaw. The meal should thaw in an hour or less. To speed things up, separate the bags of sauce and meat and place them directly in the cold water. Once thawed, cook the meal immediately.</h8>", $this->showBorders, 'L');
 
 		$this->pdf->Rect($xPos, $yPos + 20.5, CSessionToolsPDF::kPAGE_WIDTH - $xPos - 8, CSessionToolsPDF::kPAGE_HEIGHT - $yPos - 45);
-
-		if ($orderDetails)
-		{
-			$personNotePos = $yPos + 25;
-			$personNoteCount = 0;
-			foreach ($orderDetails as $orderItem)
-			{
-				if (!empty($orderItem['entree']->DAO_food_survey_comments->personal_note))
-				{
-					$noteString = "<h9b>" . $orderItem['entree']->menu_item_name . ":</h9b> <h9>" . $orderItem['entree']->DAO_food_survey_comments->personal_note . "</h9>";
-
-					$this->pdf->SetXY($xPos + 2, $personNotePos);
-					$this->pdf->MultiCellTag($width - 2, 4, $noteString, $this->showBorders, 'L');
-
-					$personNotePos += 4 * $this->pdf->NbLines($width - 2, $noteString);
-					$personNoteCount++;
-				}
-			}
-
-			if (!empty($personNoteCount))
-			{
-				$this->pdf->SetXY($xPos, $yPos + 21);
-				$this->pdf->MultiCellTag($width, 4, "<h9>Your Personal Recipe Notes from My Reviews</h9>", $this->showBorders, 'L');
-			}
-		}
 	}
 
 	function printNutritionalPDF()
@@ -2785,9 +2726,8 @@ class CSessionToolsPDFDrawer
 		}
 
 		$this->printSessionAndPaymentSummary(CSessionToolsPDF::kPAGE_HEIGHT - 68, CSessionToolsPDF::kLEFT_MARGIN + 100, $count);
-		$this->printIconLegend(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 28, 0, false);
-		$this->printMenuNotes(CSessionToolsPDF::kPAGE_HEIGHT - 21, true, true, $this->data);
-		$this->printStoreSummary(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 15.5, false, 'L', false);
+		$this->printStoreSummary(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 15.5, true, 'L');
+		$this->printMenuNotes(CSessionToolsPDF::kPAGE_HEIGHT - 21, true, $this->data);
 	}
 
 	function printTextMessageReminders($xPos, $yPos)
