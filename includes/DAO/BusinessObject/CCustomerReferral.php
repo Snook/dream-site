@@ -707,12 +707,16 @@ class CCustomerReferral extends DAO_Customer_referral
 		}
 	}
 
-	function process_customer_referral_credit()
+	function process_referral_award()
 	{
-		$DAO_customer_referral = DAO_CFactory::create('customer_referral', true);
-		$DAO_customer_referral->referred_user_id = $this->referred_user_id;
-		$DAO_customer_referral->referral_status = 4;
-		if ($DAO_customer_referral->find())
+
+		// double check validity
+		//There cannot be an existing award
+
+		$ExReferralTest = DAO_CFactory::create('customer_referral');
+		$ExReferralTest->referred_user_id = $this->referred_user_id;
+		$ExReferralTest->referral_status = 4;
+		if ($ExReferralTest->find())
 		{
 			$this->referral_status = 5;
 			$this->update();
@@ -721,9 +725,9 @@ class CCustomerReferral extends DAO_Customer_referral
 		}
 
 		//check for preferred customer
-		$DAO_user_preferred = DAO_CFactory::create('user_preferred', true);
-		$DAO_user_preferred->user_id = $this->referring_user_id;
-		if ($DAO_user_preferred->findActive($this->home_store_id))
+		$UP = DAO_CFactory::create('user_preferred');
+		$UP->user_id = $this->referring_user_id;
+		if ($UP->findActive($this->home_store_id))
 		{
 			// uh oh, this person has a preferred user discount so is ineligible for referral reward.
 			// update referral record
@@ -740,44 +744,49 @@ class CCustomerReferral extends DAO_Customer_referral
 		{
 			// determine payment amount
 			$reward_amount = 10;
-			$DateTime_expiration_date = new DateTime('+1 year');
+			if ($this->booking_type == 'INTRO' || (!empty($this->bundle_id) && $this->bundle_id > 0))
+			{
+				$reward_amount = 5;
+			}
 
 			// add store credit
-			$DAO_customer_referral_credit = DAO_CFactory::create('customer_referral_credit', true);
-			$DAO_customer_referral_credit->user_id = $this->referring_user_id;
-			$DAO_customer_referral_credit->credit_state = CCustomerReferralCredit::AVAILABLE;
-			$DAO_customer_referral_credit->dollar_value = $reward_amount;
-			$DAO_customer_referral_credit->expiration_date = $DateTime_expiration_date->format('Y-m-d 03:00:00');
-			$DAO_customer_referral_credit->insert();
+			$NewCredit = DAO_CFactory::create('store_credit');
+			$NewCredit->credit_type = 2; // 2 = customer_referral credit
+			$NewCredit->store_id = $this->home_store_id;
+			$NewCredit->is_redeemed = 0;
+			$NewCredit->user_id = $this->referring_user_id;
+			$NewCredit->amount = $reward_amount;
+			$NewCredit->insert();
 
-			$DAO_user = DAO_CFactory::create('user', true);
-			$DAO_user->id = $this->referring_user_id;
-			$DAO_user->find(true);
+			$RewardRecipientUserDAO = DAO_CFactory::create('user');
+			$RewardRecipientUserDAO->id = $this->referring_user_id;
+			$RewardRecipientUserDAO->find(true);
 
 			// update referral record
 			$this->amount_credited = $reward_amount;
 			$this->referral_status = 4;
-			$this->store_credit_id = $DAO_customer_referral_credit->id;
+			$this->store_credit_id = $NewCredit->id;
 			$this->update();
 
 			// update Referral source table
-			$DAO_user_referral_source = DAO_CFactory::create('user_referral_source', true);
-			$DAO_user_referral_source->source = 'CUSTOMER_REFERRAL';
-			$DAO_user_referral_source->user_id = $this->referred_user_id;
-			if ($DAO_user_referral_source->find(true))
+			$DAO_urs = DAO_CFactory::create('user_referral_source');
+			$DAO_urs->source = 'CUSTOMER_REFERRAL';
+			$DAO_urs->user_id = $this->referred_user_id;
+			if ($DAO_urs->find(true))
 			{
-				$DAO_user_referral_source->meta = $DAO_user->primary_email;
-				$DAO_user_referral_source->customer_referral_id = $this->id;
-				$DAO_user_referral_source->update();
+				$DAO_urs->meta = $RewardRecipientUserDAO->primary_email;
+				$DAO_urs->customer_referral_id = $this->id;
+				$DAO_urs->update();
 			}
 			else
 			{
-				$DAO_user_referral_source->meta = $DAO_user->primary_email;
-				$DAO_user_referral_source->customer_referral_id = $this->id;
-				$DAO_user_referral_source->insert();
+				$DAO_urs->meta = $RewardRecipientUserDAO->primary_email;
+				$DAO_urs->customer_referral_id = $this->id;
+				$DAO_urs->insert();
 			}
 
 			// send email
+
 			$data = array(
 				'referrer_name' => $this->inviting_user_name,
 				'session_date' => CTemplate::dateTimeFormat($this->session_start),
@@ -785,7 +794,7 @@ class CCustomerReferral extends DAO_Customer_referral
 				'award_amount' => CTemplate::moneyFormat($reward_amount)
 			);
 
-			$this->send_award_notice_email($data, $DAO_user, $this->store_email);
+			$this->send_award_notice_email($data, $RewardRecipientUserDAO, $this->store_email);
 
 			CLog::Record("REFERRAL DEBUG: " . print_r($this->toArray(), true));
 		}
