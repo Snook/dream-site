@@ -4549,17 +4549,7 @@ class COrders extends DAO_Orders
 		// WARNING:  Any discounts added above here must take into consideration the new subtotal_menu_item_mark_down if the discount is based on food cost
 
 		// Note the LTD Meal Donation is reflected in the markup
-		$this->subtotal_food_items_adjusted = $this->subtotal_menu_items -
-			$this->subtotal_menu_item_mark_down +
-			$this->dream_rewards_discount -
-			$this->user_preferred_discount_total +
-			$this->subtotal_home_store_markup -
-			$this->promo_code_discount_total +
-			$this->subtotal_premium_markup -
-			$this->family_savings_discount -
-			$this->volume_discount_total - $this->bundle_discount - $food_portion_of_points_credit -
-			$this->membership_discount -
-			$this->discount_total_customer_referral_credit;
+		$this->subtotal_food_items_adjusted = $this->subtotal_menu_items - $this->subtotal_menu_item_mark_down + $this->dream_rewards_discount - $this->user_preferred_discount_total + $this->subtotal_home_store_markup - $this->promo_code_discount_total + $this->subtotal_premium_markup - $this->family_savings_discount - $this->volume_discount_total - $this->bundle_discount - $food_portion_of_points_credit - $this->membership_discount;
 
 		if (!$hasServiceFeeCoupon && !$hasDeliveryFeeCoupon)
 		{
