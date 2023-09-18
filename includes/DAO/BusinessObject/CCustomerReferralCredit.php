@@ -37,19 +37,6 @@ class CCustomerReferralCredit extends DAO_Customer_referral_credit
 		return $referralCreditArray;
 	}
 
-	static function getUsersAvailableCreditTotal($user_id)
-	{
-		$referralCreditArray = CCustomerReferralCredit::getUsersAvailableCredits($user_id);
-
-		$creditTotal = 0;
-		foreach ($referralCreditArray as $DAO_customer_referral_credit)
-		{
-			$creditTotal += $DAO_customer_referral_credit->dollar_value;
-		}
-
-		return $creditTotal;
-	}
-
 	static function processCredits($user_id, $amountToProcess, $order_id)
 	{
 		$referralCreditArray = CCustomerReferralCredit::getUsersAvailableCredits($user_id);
