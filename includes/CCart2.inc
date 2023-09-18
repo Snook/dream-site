@@ -438,32 +438,28 @@ class CCart2
 
 		$isDeliveredOrder = false;
 
-		if ($retVal['cart_info_array']['has_session'])
+		$retVal['sessionObj'] = DAO_CFactory::create('session');
+
+		if ((!empty($this->_session_id)))
 		{
-			$SessionObj = DAO_CFactory::create('session');
-			$SessionObj->id = $this->_session_id;
-			$SessionObj->find(true);
+			$retVal['sessionObj']->id = $this->_session_id;
+			$retVal['sessionObj']->find(true);
 
-			$retVal['sessionObj'] = $SessionObj;
-
-			$retVal['session_info'] = $SessionObj->toArray();
+			$retVal['session_info'] = $retVal['sessionObj']->toArray();
 			$retVal['session_info']['session_type_subtype'] = 'NONE';
 
-			if ($SessionObj->session_type_subtype == CSession::DELIVERY)
+			if ($retVal['sessionObj']->isDelivery())
 			{
 				$retVal['session_info']['session_type_subtype'] = CSession::DELIVERY;
 			}
 
-			if ($SessionObj->session_type == CSession::DELIVERED)
+			if ($retVal['sessionObj']->isDelivered())
 			{
 				$isDeliveredOrder = true;
 			}
 		}
 		else
 		{
-			// create empty object
-			$retVal['sessionObj'] = DAO_CFactory::create('session');
-
 			if ($retVal['cart_info_array']['navigation_type'] == CTemplate::DELIVERED)
 			{
 				$isDeliveredOrder = true;

@@ -342,8 +342,8 @@
 				<div class="col-xl-6 mb-2 bg-gray-light">
 					<div class="row pt-2">
 						<div class="col-lg-12 py-2 py-xl-5 text-center">
-							<h5 class="font-weight-bold text-uppercase">Ways to exercise your rights under the California Consumer Privacy Act</h5>
-							<p>California residents can request details about personal information collected and shared <a href="/account">by submitting a request</a>.</p>
+							<h5 class="font-weight-bold text-uppercase">Ways to exercise your rights under the Consumer Privacy Act</h5>
+							<p>California and Colorado residents can request details about personal information collected and shared <a href="/account">by submitting a request</a>.</p>
 						</div>
 					</div>
 				</div>
