@@ -630,7 +630,7 @@ class checkout_validation
 					$tpl->setErrorMsg($validationResult);
 
 					$validationPassed = false;
-					//		CApp::bounce('main.php?page=checkout');
+					//		CApp::bounce('/checkout');
 					//		exit;
 				}
 			}
@@ -683,7 +683,7 @@ class checkout_validation
 		else
 		{
 			$tpl->setErrorMsg('Sorry, the selected order is not editable at this time.');
-			CApp::bounce('main.php?page=order_details&order=' . $orderId);
+			CApp::bounce('/order-details?order=' . $orderId);
 		}
 	}
 
@@ -747,19 +747,19 @@ class checkout_validation
 		if (empty($store_id_in_cart))
 		{
 			// no store, send them to pick a store
-			CApp::bounce('main.php?page=locations');
+			CApp::bounce('/locations');
 		}
 		else if (empty($session_type_in_cart))
 		{
 			// no session type, send them to pick a session type
-			CApp::bounce('main.php?page=session');
+			CApp::bounce('/session');
 		}
 		else if (empty($menu_id_in_cart))
 		{
 			// no menu in cart, send them to pick a session type
 			if ($Cart->getNavigationType() != CTemplate::DELIVERED)
 			{
-				CApp::bounce('main.php?page=session_menu');
+				CApp::bounce('/session_menu');
 			}
 		}
 		else if (empty($session_id_in_cart))
@@ -767,11 +767,11 @@ class checkout_validation
 			// no session chosen, send them to pick a session
 			if ($session_type_in_cart == CTemplate::DELIVERED)
 			{
-				CApp::bounce('main.php?page=box_delivery_date');
+				CApp::bounce('/box-delivery-date');
 			}
 			else
 			{
-				CApp::bounce('main.php?page=session');
+				CApp::bounce('/session');
 			}
 		}
 
@@ -837,11 +837,11 @@ class checkout_validation
 			$tpl->setErrorMsg("One or more items has become unavailable since you added it to your cart. Please review your order and try again. Items adjusted are:<br />" . $itemsOversold);
 			if ($Cart->getNavigationType() == CTemplate::DELIVERED)
 			{
-				CApp::bounce('main.php?page=box_select');
+				CApp::bounce('/box-select');
 			}
 			else
 			{
-				CApp::bounce('main.php?page=session_menu');
+				CApp::bounce('/session-menu');
 			}
 		}
 
@@ -874,11 +874,11 @@ class checkout_validation
 			{
 				if ($Cart->getNavigationType() == CTemplate::DELIVERED)
 				{
-					CApp::bounce('main.php?page=box_select');
+					CApp::bounce('/box-select');
 				}
 				else
 				{
-					CApp::bounce('main.php?page=session_menu');
+					CApp::bounce('/session-menu');
 				}
 			}
 		}
@@ -895,7 +895,7 @@ class checkout_validation
 				// the first 3 tests look at session type so if we get here then
 				// we know there is bundle and there should be so this error is legit
 				$tpl->setStatusMsg('There was a problem with your cart (too many items). Please review your selections and continue checkout.');
-				CApp::bounce('main.php?page=session_menu');
+				CApp::bounce('/session-menu');
 			}
 			else
 			{
@@ -910,21 +910,21 @@ class checkout_validation
 				else
 				{
 					$tpl->setStatusMsg('There was a problem with your cart (too many items). Please review your selections and continue checkout.');
-					CApp::bounce('main.php?page=session_menu');
+					CApp::bounce('/session-menu');
 				}
 			}
 		}
 		else if ($foodState == 'bundleRulesNotMet')
 		{
 			$tpl->setStatusMsg('There was a problem with your cart (the dinner bundle does not have the correct amount of items). Please review your selections and continue checkout.');
-			CApp::bounce('main.php?page=session_menu');
+			CApp::bounce('/session-menu');
 		}
 
 		// not enough food
 		if ($foodState == 'inadequateFoodIntro' || $foodState == 'inadequateFoodStandard')
 		{
 			$tpl->setStatusMsg('Your cart does not have all the items needed to proceed to checkout: Not enough servings.');
-			CApp::bounce('main.php?page=session_menu');
+			CApp::bounce('/session-menu');
 		}
 
 		if ($foodState == 'adequateFood' && ($Order->isNewIntroOffer() || $Order->isDreamTaste()) && CUser::isLoggedIn())
@@ -938,7 +938,7 @@ class checkout_validation
 				$tpl->setErrorMsg('Our records indicate that you have previous orders with Dream Dinners. You must be new to Dream Dinners to be eligible for this offer. You have been redirected to the standard menu.');
 				$Cart->removeBundleId();
 				$Cart->addNavigationType(CTemplate::STANDARD, true);
-				CApp::bounce('main.php?page=session_menu');
+				CApp::bounce('/session-menu');
 			}
 			else if ($Order->isDreamTaste() && !CUser::getCurrentUser()->isEligibleForDreamTaste($Order, $Cart))
 			{
@@ -946,7 +946,7 @@ class checkout_validation
 				$Cart->removeBundleId();
 				$Cart->addSessionId(0, true);
 				$Cart->addNavigationType(CTemplate::STANDARD, true);
-				CApp::bounce('main.php?page=session_menu');
+				CApp::bounce('/session-menu');
 			}
 		}
 
@@ -962,7 +962,7 @@ class checkout_validation
 				{
 					$tpl->setStatusMsg("We're sorry, you currently have an active order for this Fundraiser session.");
 					CCart2::instance()->emptyCart();
-					CApp::bounce('main.php?page=session_menu');
+					CApp::bounce('/session-menu');
 				}
 			}
 		}
@@ -1097,11 +1097,11 @@ class page_checkout extends CPage
 		// most issues have to do with the menu from here on so bounce all types to the menu
 		if ($Cart->getNavigationType() == CTemplate::DELIVERED)
 		{
-			$tpl->assign('bounce_to', 'main.php?page=box_select');
+			$tpl->assign('bounce_to', '/box-select');
 		}
 		else
 		{
-			$tpl->assign('bounce_to', 'main.php?page=session_menu');
+			$tpl->assign('bounce_to', '/session-menu');
 		}
 
 		$Order->clearMealCustomizations();
@@ -1141,16 +1141,16 @@ class page_checkout extends CPage
 			{
 				if ($validationResult == 'No session found in cart')
 				{
-					CApp::bounce('main.php?page=box_delivery_date');
+					CApp::bounce('/box_delivery_date');
 				}
 				else
 				{
-					CApp::bounce('main.php?page=box_select');
+					CApp::bounce('/box-select');
 				}
 			}
 			else
 			{
-				CApp::bounce('main.php?page=session_menu');
+				CApp::bounce('/session-menu');
 			}
 		}
 
@@ -1232,7 +1232,7 @@ class page_checkout extends CPage
 			if (!CSession::getSessionRSVP($Order->findSession()->id, $User->id))
 			{
 				$tpl->setErrorMsg('Please complete your profile information prior to checkout.');
-				CApp::bounce('main.php?page=account');
+				CApp::bounce('/account');
 			}
 		}
 
@@ -1310,7 +1310,7 @@ class page_checkout extends CPage
 
 			$Cart->emptyCart();
 			CApp::instance()->template()->setStatusMsg('Editing an order for another user is not allowed. The cart has been emptied. Please start your order again.');
-			CApp::bounce('main.php?page=session_menu');
+			CApp::bounce('/session-menu');
 		}
 		else if (!$tpl->isEditDeliveredOrder && $Order->user_id != $currentUserId)
 		{
@@ -1352,16 +1352,16 @@ class page_checkout extends CPage
 			{
 				if ($validationResult == 'No session found in cart')
 				{
-					CApp::bounce('main.php?page=box_delivery_date');
+					CApp::bounce('/box-delivery-date');
 				}
 				else
 				{
-					CApp::bounce('main.php?page=box_select');
+					CApp::bounce('/box-select');
 				}
 			}
 			else
 			{
-				CApp::bounce('main.php?page=session_menu');
+				CApp::bounce('/session-menu');
 			}
 		}
 
@@ -1497,7 +1497,7 @@ class page_checkout extends CPage
 				if (!$Form->validate_CSRF_token())
 				{
 					$tpl->setErrorMsg("The submission was rejected as a possible security issue. If this was a legitimate submission please contact Dream Dinners support. This message can also be caused by a double submission of the same page.");
-					CApp::bounce('main.php?page=checkout', true);
+					CApp::bounce('/checkout', true);
 				}
 
 				$xssFilter = new InputFilter();
@@ -1578,7 +1578,7 @@ class page_checkout extends CPage
 					if (!$sessionIsValid)
 					{
 						$tpl->setStatusMsg('The delivery date you selected is unavailable. Please choose a new delivery date below.');
-						CApp::bounce('main.php?page=box_delivery_date');
+						CApp::bounce('/box-delivery-date');
 					}
 				}
 
@@ -1677,11 +1677,11 @@ class page_checkout extends CPage
 					$tpl->setErrorMsg('The session you have chosen is now full or closed. Please choose another session.');
 					if ($Cart->getNavigationType() == CTemplate::DELIVERED)
 					{
-						CApp::bounce('main.php?page=box_delivery_date');
+						CApp::bounce('/box-delivery-date');
 					}
 					else
 					{
-						CApp::bounce('main.php?page=session');
+						CApp::bounce('/session');
 					}
 					break;
 				case 'edit_success':
@@ -1702,7 +1702,7 @@ class page_checkout extends CPage
 						CLog::RecordException($e);
 					}
 
-					CApp::bounce('main.php?page=order_details&status=ec&order=' . $originalOrder->id, true);
+					CApp::bounce('/order-details?status=ec&order=' . $originalOrder->id, true);
 
 					break;
 				case 'success':
@@ -1730,7 +1730,7 @@ class page_checkout extends CPage
 
 					// set a cookie so that analytics only records viewing the thank you page once
 					CBrowserSession::setValue('dd_thank_you', 'checkout', false, true, false);
-					CApp::bounce('main.php?page=order_details&order=' . $Order->id, true);
+					CApp::bounce('/order-details?order=' . $Order->id, true);
 
 					break;
 
@@ -1778,7 +1778,7 @@ class page_checkout extends CPage
 
 			// this adds store credits to the payment array als
 			CCart2::instance()->addPayment($paymentArray);
-			CApp::instance()->bounce('main.php?page=order_submit&sc=true');
+			CApp::instance()->bounce('/order-submit?sc=true');
 		}
 
 		if ($Order)

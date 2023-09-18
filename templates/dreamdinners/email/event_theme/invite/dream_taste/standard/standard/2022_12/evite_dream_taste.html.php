@@ -17,7 +17,7 @@
 			<table role="presentation" width="100%" border="0" cellspacing="5">
   <tbody>
     <tr>
-       <td><p>There are limited spaces available, and this offer is only available for guests of this event. Use the link below to reserve your spot today! <a href="https://dreamdinners.com/main.php?static=how_it_works" target="_blank">Learn more about Dream Dinners.</a></p></td>
+       <td><p>There are limited spaces available, and this offer is only available for guests of this event. Use the link below to reserve your spot today! <a href="https://dreamdinners.com/how_it_works" target="_blank">Learn more about Dream Dinners.</a></p></td>
     </tr>
   </tbody>
 </table>

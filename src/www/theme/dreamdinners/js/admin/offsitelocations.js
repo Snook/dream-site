@@ -79,7 +79,7 @@ $(function () {
 					};
 
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -116,7 +116,7 @@ $(function () {
 		let offsite_id = $(this).data('offsite_id_edit');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -169,7 +169,7 @@ $(function () {
 		let location_id = $(this).data('enable_location');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',

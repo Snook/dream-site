@@ -8,6 +8,7 @@ class processor_qr_code extends CPageProcessor
 	{
 		$this->mainProcessor();
 	}
+
 	function runFranchiseStaff()
 	{
 		$this->mainProcessor();
@@ -65,16 +66,19 @@ class processor_qr_code extends CPageProcessor
 
 			$size = 3;
 
-			if(!empty($_REQUEST['s']) && is_numeric($_REQUEST['s'])){
+			if (!empty($_REQUEST['s']) && is_numeric($_REQUEST['s']))
+			{
 				$size = $_REQUEST['s'];
 			}
 
-			if(!empty($_REQUEST['d']) && is_numeric($_REQUEST['d']) && $_REQUEST['d'] == 1){
-				QRcode::pngWeb('https://dreamdinners.com/share/' . $_REQUEST['id'],$size, 'share-dream-dinners-qr.png');
-			}else{
-				QRcode::pngWeb('https://dreamdinners.com/share/' . $_REQUEST['id'],$size);
+			if (!empty($_REQUEST['d']) && is_numeric($_REQUEST['d']) && $_REQUEST['d'] == 1)
+			{
+				QRcode::pngWeb(HTTPS_BASE . 'share/' . $_REQUEST['id'], $size, 'share-dream-dinners-qr.png');
 			}
-
+			else
+			{
+				QRcode::pngWeb(HTTPS_BASE . 'share/' . $_REQUEST['id'], $size);
+			}
 		}
 
 		if ($_REQUEST['op'] == 'store_info' && !empty($_REQUEST['id']))
@@ -87,16 +91,26 @@ class processor_qr_code extends CPageProcessor
 
 			$size = 3;
 
-			if(!empty($_REQUEST['s']) && is_numeric($_REQUEST['s'])){
+			if (!empty($_REQUEST['s']) && is_numeric($_REQUEST['s']))
+			{
 				$size = $_REQUEST['s'];
 			}
 
-			if(!empty($_REQUEST['d']) && is_numeric($_REQUEST['d']) && $_REQUEST['d'] == 1){
-				QRcode::pngWeb('https://dreamdinners.com/main.php?page=store&id=' . $_REQUEST['id'],$size, 'dream-dinners-store-qr.png');
-			}else{
-				QRcode::pngWeb('https://dreamdinners.com/main.php?page=store&id=' . $_REQUEST['id'],$size);
+			if (!empty($_GET['id']) && (is_numeric($_GET['id']) || CTemplate::isAlphaNumHyphen($_GET['id'])))
+			{
+				$DAO_store = DAO_CFactory::create('store', true);
+				$DAO_store->id = $_GET['id'];
+				$DAO_store->find_DAO_store(true);
 			}
 
+			if (!empty($_REQUEST['d']) && is_numeric($_REQUEST['d']) && $_REQUEST['d'] == 1)
+			{
+				QRcode::pngWeb(HTTPS_SERVER . $DAO_store->getPrettyUrl(), $size, 'dream-dinners-store-qr.png');
+			}
+			else
+			{
+				QRcode::pngWeb(HTTPS_SERVER . $DAO_store->getPrettyUrl(), $size);
+			}
 		}
 
 		if ($_REQUEST['op'] == 'render' && !empty($_REQUEST['data']))
@@ -109,18 +123,21 @@ class processor_qr_code extends CPageProcessor
 
 			$size = 3;
 
-			if(!empty($_REQUEST['s']) && is_numeric($_REQUEST['s'])){
+			if (!empty($_REQUEST['s']) && is_numeric($_REQUEST['s']))
+			{
 				$size = $_REQUEST['s'];
 			}
 
-			if(!empty($_REQUEST['d']) && is_numeric($_REQUEST['d']) && $_REQUEST['d'] == 1){
-				QRcode::pngWeb($_REQUEST['data'],$size, 'dream-dinners-qr.png');
-			}else{
-				QRcode::pngWeb($_REQUEST['data'],$size);
+			if (!empty($_REQUEST['d']) && is_numeric($_REQUEST['d']) && $_REQUEST['d'] == 1)
+			{
+				QRcode::pngWeb($_REQUEST['data'], $size, 'dream-dinners-qr.png');
 			}
-
+			else
+			{
+				QRcode::pngWeb($_REQUEST['data'], $size);
+			}
 		}
-
 	}
 }
+
 ?>

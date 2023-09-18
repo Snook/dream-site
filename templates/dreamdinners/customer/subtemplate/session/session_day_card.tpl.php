@@ -10,7 +10,7 @@
 					<?php foreach ($day['sessions'] AS $id => $session) { ?>
 						<div class="form-group col-6 pl-4" data-filter_session_type="<?php echo $session['session_type'] . (!empty($session['session_type_subtype']) ? '-' . $session['session_type_subtype'] : ''); ?>">
 							<?php if ($session['session_type'] == CSession::STANDARD) { ?>
-								<div class="font-size-small">You assemble at Dream Dinners <?php echo $this->cart_info['store_info']['store_name']; ?></div>
+								<div class="font-size-small">Assemble at Dream Dinners <?php echo $this->cart_info['store_info']['store_name']; ?></div>
 								<?php if (!empty($session['session_title'])) { ?>
 									<div class="font-size-small"><?php echo strip_tags($session['session_title']); ?></div>
 								<?php } ?>
@@ -25,7 +25,7 @@
 									<div class="font-size-small"><?php echo strip_tags($session['session_title']); ?></div>
 								<?php } ?>
 							<?php } else if ($session['session_type'] == CSession::MADE_FOR_YOU && $session['session_type_subtype'] == CSession::REMOTE_PICKUP) { ?>
-								<div class="font-size-small">You pick up at <span class="font-size-small"><?php echo strip_tags($session['session_title']); ?></span> - <span class="font-size-small"><?php echo $session['session_remote_location']->address_line1; ?><?php echo (!empty($session['session_remote_location']->address_line2)) ? ' ' . $session['session_remote_location']->address_line2 : ''; ?> <?php echo $session['session_remote_location']->city; ?>, <?php echo $session['session_remote_location']->state_id; ?></span></div>
+								<div class="font-size-small">Pick up at <span class="font-size-small"><?php echo strip_tags($session['session_title']); ?></span> - <span class="font-size-small"><?php echo $session['session_remote_location']->address_line1; ?><?php echo (!empty($session['session_remote_location']->address_line2)) ? ' ' . $session['session_remote_location']->address_line2 : ''; ?> <?php echo $session['session_remote_location']->city; ?>, <?php echo $session['session_remote_location']->state_id; ?></span></div>
 							<?php } ?>
 							<div class="custom-control custom-radio">
 								<input type="radio" id="sessionRadio-<?php echo $session['id']; ?>" data-day="<?php echo $date; ?>" data-unix_expiry="<?php echo $session['unix_expiry']; ?>" data-is_private="<?php echo (!empty($session['session_password'])) ? 'true' : 'false'; ?>" name="sessionRadio" class="custom-control-input" value="<?php echo $session['id']; ?>"<?php echo (!empty($this->cart_info['session_info']['id']) && $this->cart_info['session_info']['id'] == $session['id']) ? ' checked="checked"' : ''; ?> />

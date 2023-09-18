@@ -10,7 +10,7 @@ class page_admin_performance_override extends CPageAdminOnly {
 		if ($canoverride == true)
 			$this->runSiteAdmin();
 		else
-			CApp::bounce('main.php?page=admin_access_error&topnavname=reports&pagename=Performance Override Form');
+			CApp::bounce('/?page=admin_access_error&topnavname=reports&pagename=Performance Override Form');
 	}
 
 

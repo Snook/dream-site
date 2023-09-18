@@ -35,32 +35,32 @@
 		$this->runFranchiseOwner();
 	}
 
-	function runFranchiseManager() 
+	function runFranchiseManager()
 	{
 		$this->runFranchiseOwner();
 	}
 
-	function runHomeOfficeStaff() 
+	function runHomeOfficeStaff()
 	{
 		$this->runFranchiseOwner();
 	}
 
-    function runHomeOfficeManager() 
+    function runHomeOfficeManager()
     {
 		$this->runFranchiseOwner();
 	}
 
-	 function runFranchiseOwner() 
+	 function runFranchiseOwner()
 	 {
 
 
 		if (isset($_POST['order_id']) && is_numeric($_POST['order_id']))
 		{
-			CApp::bounce('main.php?page=admin_order_mgr&order=' . $_POST['order_id'] . '&tabs=mgr.sessionsTab');
+			CApp::bounce('/?page=admin_order_mgr&order=' . $_POST['order_id'] . '&tabs=mgr.sessionsTab');
 		}
-		
-		CApp::bounce('main.php?page=admin_main');
-		
+
+		CApp::bounce('/?page=admin_main');
+
 	 }
 
 }

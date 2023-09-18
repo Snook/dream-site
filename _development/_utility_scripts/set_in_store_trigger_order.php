@@ -42,7 +42,7 @@ try
 		u.lastname,
 		u.primary_email,
 		u.telephone_1,
-		CONCAT('https://dreamdinners.com/main.php?page=admin_order_history&id=',u.id,'&order=',o.id) as order_history
+		CONCAT('https://dreamdinners.com/?page=admin_order_history&id=',u.id,'&order=',o.id) as order_history
 		from booking as b
 		join orders as o on b.order_id = o.id and o.is_deleted = 0 and o.in_store_order = 0 and (o.menu_items_core_total_count >= 3 OR o.servings_core_total_count >= 36)
 		join `session` as s on b.session_id = s.id and s.is_deleted = 0

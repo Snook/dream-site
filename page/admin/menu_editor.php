@@ -82,13 +82,14 @@ class page_admin_menu_editor extends CPageAdminOnly
 		}
 
 		CLog::Record("MENU_EDITOR: Page accessed for store: " . $store_id);
-		$tpl->assign("store_id", $store_id);
-		$storeObj = DAO_CFactory::create('store');
-		$storeObj->id = $store_id;
-		if (!$storeObj->find(true))
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->id = $store_id;
+		if (!$DAO_store->find_DAO_store(true))
 		{
 			throw new Exception('Store not found in Menu Editor');
 		}
+
+		$tpl->assign("DAO_store", $DAO_store);
 
 		ini_set('memory_limit', '128M');
 		// ------------------------------------------ Build menu array and wdiget
@@ -175,9 +176,9 @@ class page_admin_menu_editor extends CPageAdminOnly
 		}
 
 		// continue setting store info
-		$this->storeSupportsPlatePoints = CStore::storeSupportsPlatePoints($storeObj);
+		$this->storeSupportsPlatePoints = CStore::storeSupportsPlatePoints($DAO_store);
 		$tpl->assign('storeSupportsPlatePoints', $this->storeSupportsPlatePoints);
-		$tpl->assign('storeInfo', $storeObj);
+		$tpl->assign('storeInfo', $DAO_store);
 		if (isset($_POST['action']) && ($_POST['action'] === "storeChange"))
 		{
 			// clear the POST paramaters so database values will not be overridden by POST params
@@ -188,13 +189,13 @@ class page_admin_menu_editor extends CPageAdminOnly
 			// clear the POST paramaters so database values will not be overridden by POST params
 			unset($_POST);
 		}
-		$storeObj->clearMarkupMultiObj();
+		$DAO_store->clearMarkupMultiObj();
 		// ----------------------------- build menu array from current state
 		$DAO_menu = DAO_CFactory::create('menu');
 		$DAO_menu->id = $menu_id;
 		$DAO_menu->find(true);
 
-		$menuInfo = COrders::buildNewPricingMenuPlanArrays($storeObj, $DAO_menu->id, 'FeaturedFirst', true, true, false, false);
+		$menuInfo = COrders::buildNewPricingMenuPlanArrays($DAO_store, $DAO_menu->id, 'FeaturedFirst', true, true, false, false);
 
 		// count "sub-entrees" for each item so the display loop can group correctly
 		$qtyMap = array();
@@ -257,8 +258,8 @@ class page_admin_menu_editor extends CPageAdminOnly
 			}
 		}
 
-		$storeObj->clearMarkupMultiObj();
-		$markup = $storeObj->getMarkUpMultiObj($menu_id);
+		$DAO_store->clearMarkupMultiObj();
+		$markup = $DAO_store->getMarkUpMultiObj($menu_id);
 
 		if ($markup->menu_id_start == $menu_id)
 		{
@@ -335,7 +336,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 			if ($menu_id != $_POST['loaded_menu_id'])
 			{
 				$tpl->setErrorMsg('You attempted to finalize a menu that did not load properly. The page has now been reloaded. Please check the menu selector and if it is not correct select the desired menu and be certain is has completely loaded before making and finalizing any edits.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('/?page=admin_menu_editor'); //reload the page
 			}
 			CLog::Record("MENU_EDITOR: Page finalized for store: " . $store_id);
 			CLog::RecordDebugTrace("Menu Finalized\r\n" . print_r($_POST, true), "MENU_EDITOR");
@@ -386,13 +387,13 @@ class page_admin_menu_editor extends CPageAdminOnly
 			if (!is_numeric($_POST['markup_6_serving']) || !is_numeric($_POST['markup_4_serving']) || !is_numeric($_POST['markup_3_serving']) || !is_numeric($_POST['markup_2_serving']) || !is_numeric($_POST['markup_sides']))
 			{
 				$tpl->setErrorMsg('Non-numeric markup values are illegal.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('/?page=admin_menu_editor'); //reload the page
 			}
 
 			if ($_POST['markup_6_serving'] < 0 || $_POST['markup_4_serving'] < 0 || $_POST['markup_3_serving'] < 0 || $_POST['markup_2_serving'] < 0 || $_POST['markup_sides'] < 0)
 			{
 				$tpl->setErrorMsg('Negative per cent markups are not currently permitted.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('/?page=admin_menu_editor'); //reload the page
 			}
 			$_POST['volume_reward'] = 30;
 			// Note: the volume reward is no longer applied. For now just set it to the old default to keep everythign happy.
@@ -400,17 +401,17 @@ class page_admin_menu_editor extends CPageAdminOnly
 			if ($_POST['volume_reward'] < 0)
 			{
 				$tpl->setErrorMsg('Negative volume discounts are not permitted.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('/?page=admin_menu_editor'); //reload the page
 			}
 			if ($_POST['volume_reward'] === "")
 			{
 				$tpl->setErrorMsg('Please supply a valid volume discount. Use zero if you want no volume discount applied.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('/?page=admin_menu_editor'); //reload the page
 			}
 			if ($_POST['volume_reward'] > 75)
 			{
 				$tpl->setErrorMsg('Volume Discounts greater than $75.00 are not currently permitted.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('/?page=admin_menu_editor'); //reload the page
 			}
 
 			$tpl->assign('storeSupportsPlatePoints', $this->storeSupportsPlatePoints);
@@ -418,31 +419,31 @@ class page_admin_menu_editor extends CPageAdminOnly
 			if ($_POST['assembly_fee'] < 0 && OrdersHelper::allow_assembly_fee($menu_id))
 			{
 				$tpl->setErrorMsg('The service fee must be a minimum of $0.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('/?page=admin_menu_editor'); //reload the page
 			}
 
 			if ($_POST['assembly_fee'] > 60 && OrdersHelper::allow_assembly_fee($menu_id))
 			{
 				$tpl->setErrorMsg('The service fee must be a maximum of $60.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('/?page=admin_menu_editor'); //reload the page
 			}
 
 			if ($_POST['delivery_assembly_fee'] < 0 && OrdersHelper::allow_assembly_fee($menu_id))
 			{
 				$tpl->setErrorMsg('The delivery service fee must be a minimum of $0.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('/?page=admin_menu_editor'); //reload the page
 			}
 
 			if ($_POST['delivery_assembly_fee'] > 60 && OrdersHelper::allow_assembly_fee($menu_id))
 			{
 				$tpl->setErrorMsg('The delivery service fee must be a maximum of $60.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('/?page=admin_menu_editor'); //reload the page
 			}
 
 			if ($_POST['markup_6_serving'] > 70 || $_POST['markup_4_serving'] > 70 || $_POST['markup_3_serving'] > 70 || $_POST['markup_2_serving'] > 70 || $_POST['markup_sides'] > 70)
 			{
 				$tpl->setErrorMsg('Markups greater than 70% are not currently permitted.');
-				CApp::bounce('main.php?page=admin_menu_editor'); //reload the page
+				CApp::bounce('/?page=admin_menu_editor'); //reload the page
 			}
 			if (!$this->storeSupportsPlatePoints)
 			{
@@ -486,7 +487,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 					// delete any older markups for this menu/store
 					$oldDefaultMarkups = DAO_CFactory::create('mark_up_multi');
 					$oldDefaultMarkups->query("update mark_up_multi set is_deleted = 1 where store_id = $store_id and menu_id_start = $menu_id and is_deleted = 0");
-					$storeObj->setMarkUpMulti($_POST['markup_6_serving'], $_POST['markup_4_serving'], $_POST['markup_3_serving'], $_POST['markup_2_serving'], $_POST['markup_sides'], $_POST['volume_reward'], $menu_id, $posted_default_value, 12.5, $_POST['assembly_fee'], $_POST['delivery_assembly_fee']);
+					$DAO_store->setMarkUpMulti($_POST['markup_6_serving'], $_POST['markup_4_serving'], $_POST['markup_3_serving'], $_POST['markup_2_serving'], $_POST['markup_sides'], $_POST['volume_reward'], $menu_id, $posted_default_value, 12.5, $_POST['assembly_fee'], $_POST['delivery_assembly_fee']);
 					$defaultVolumeReward = $_POST['volume_reward']; // used below
 				}
 			}
@@ -524,7 +525,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 					// delete any older markups for this menu/store
 					$oldDefaultMarkups = DAO_CFactory::create('mark_up_multi');
 					$oldDefaultMarkups->query("update mark_up_multi set is_deleted = 1 where store_id = $store_id and menu_id_start = $menu_id and is_deleted = 0");
-					$storeObj->setMarkUpMulti($_POST['markup_6_serving'], $_POST['markup_4_serving'], $_POST['markup_3_serving'], $_POST['markup_2_serving'], $_POST['markup_sides'], $_POST['volume_reward'], $menu_id, $posted_default_value, 12.5, $_POST['assembly_fee'], $_POST['delivery_assembly_fee']);
+					$DAO_store->setMarkUpMulti($_POST['markup_6_serving'], $_POST['markup_4_serving'], $_POST['markup_3_serving'], $_POST['markup_2_serving'], $_POST['markup_sides'], $_POST['volume_reward'], $menu_id, $posted_default_value, 12.5, $_POST['assembly_fee'], $_POST['delivery_assembly_fee']);
 				}
 			}
 			// Test for existing store menu
@@ -643,7 +644,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 						}
 					}
 				}
-				$menuAddonArray = CMenu::buildMenuAddonArray($storeObj, $menu_id);
+				$menuAddonArray = CMenu::buildMenuAddonArray($DAO_store, $menu_id);
 				// Menu Addons
 				foreach ($menuAddonArray as $id => $item)
 				{
@@ -681,7 +682,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 						}
 					}
 				}
-				$ctsArray = CMenu::buildCTSArray($storeObj, $menu_id);
+				$ctsArray = CMenu::buildCTSArray($DAO_store, $menu_id);
 				// Menu Addons
 				foreach ($ctsArray as $id => $item)
 				{
@@ -790,7 +791,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 				}
 				// This is tricky, the store menu now exists because of the loop above, so this function will return nothing unless we override the store specific
 				// query
-				$menuAddonArray = CMenu::buildMenuAddonArray($storeObj, $menu_id, true);
+				$menuAddonArray = CMenu::buildMenuAddonArray($DAO_store, $menu_id, true);
 				foreach ($menuAddonArray as $id => $item)
 				{
 					if ($item['is_optional'])
@@ -828,7 +829,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 				}
 				// This is tricky, the store menu now exists because of the loop above, so this function will return nothing unless we override the store specific
 				// query
-				$ctsArray = CMenu::buildCTSArray($storeObj, $menu_id);
+				$ctsArray = CMenu::buildCTSArray($DAO_store, $menu_id);
 				foreach ($ctsArray as $id => $item)
 				{
 					if ($item['is_optional'])
@@ -986,11 +987,11 @@ class page_admin_menu_editor extends CPageAdminOnly
 			}
 
 			//recalculate arrays and markup for display
-			$storeObj->clearMarkupMultiObj();
+			$DAO_store->clearMarkupMultiObj();
 
 			unset($menuInfo);
 
-			$menuInfo = COrders::buildNewPricingMenuPlanArrays($storeObj, $menu_id, 'FeaturedFirst', true, true, false, false);
+			$menuInfo = COrders::buildNewPricingMenuPlanArrays($DAO_store, $menu_id, 'FeaturedFirst', true, true, false, false);
 
 			// count "sub-entrees" for each item so the display loop can group correctly
 			$qtyMap2 = array();
@@ -1036,7 +1037,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 				}
 			}
 
-			$markup = $storeObj->getMarkUpMultiObj($menu_id);
+			$markup = $DAO_store->getMarkUpMultiObj($menu_id);
 		}
 
 		$Form->AddElement(array(
@@ -1150,9 +1151,9 @@ class page_admin_menu_editor extends CPageAdminOnly
 			);
 		}
 
-		$menuAddonArray = CMenu::buildMenuAddonArray($storeObj, $menu_id);
+		$menuAddonArray = CMenu::buildMenuAddonArray($DAO_store, $menu_id);
 
-		$ctsArray = CMenu::buildCTSArray($storeObj, $menu_id);
+		$ctsArray = CMenu::buildCTSArray($DAO_store, $menu_id);
 
 		foreach ($ctsArray as $menuItem)
 		{

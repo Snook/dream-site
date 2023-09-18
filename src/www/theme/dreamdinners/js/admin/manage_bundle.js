@@ -58,7 +58,7 @@ function handle_edit_bundle()
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -90,7 +90,7 @@ function handle_edit_bundle()
 
 		if (menu_id)
 		{
-			bounce('main.php?page=admin_manage_bundle&create&menu=' + menu_id);
+			bounce('/?page=admin_manage_bundle&create&menu=' + menu_id);
 		}
 
 	});

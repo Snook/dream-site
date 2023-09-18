@@ -2,12 +2,12 @@ You're Invited!
 
 Help <?php echo $this->session['fundraiser_name']; ?> reach our fundraising goal.
 
-Join us to assemble three delicious meals to take home and enjoy with your family for just $60. During this exclusive event, you will enjoy samples, learn more about how easy family dinners can be, and help a deserving cause. $10 from each purchase is automatically donated back to our organization. 
+Join us to assemble three delicious meals to take home and enjoy with your family for just $60. During this exclusive event, you will enjoy samples, learn more about how easy family dinners can be, and help a deserving cause. $10 from each purchase is automatically donated back to our organization.
 
-Attendance is by invitation only, and space is limited. RSVP today to reserve your space. 
+Attendance is by invitation only, and space is limited. RSVP today to reserve your space.
 
 Learn more about how Dream Dinners works here.
-https://dreamdinners.com/main.php?static=how_it_works
+https://dreamdinners.com/how_it_works
 
 <?php echo $this->message; ?>
 
@@ -30,4 +30,3 @@ Thanks,
 --------------------------------
 
 *Fundraising sessions are limited to one fundraising order per household per fundraising organization.
- 

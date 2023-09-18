@@ -167,7 +167,7 @@ var browser=navigator.appName;
 
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -318,7 +318,7 @@ var browser=navigator.appName;
 
     if (typeof payflowErrorURL == 'undefined')
     {
-    	payflowErrorURL = "https://dreamdinners.com/ddproc.php?processor=admin_payflow_callback";
+    	payflowErrorURL = "https://dreamdinners.com/processor?processor=admin_payflow_callback";
     }
 
  	// make PARMLIST

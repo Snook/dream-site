@@ -17,7 +17,7 @@
 			</div>
 			<div class="row mb-5">
 				<div class="col text-center">
-					<a href="/main.php?page=login" class="btn btn-primary">Log in</a>
+					<a href="/login" class="btn btn-primary">Log in</a>
 				</div>
 			</div>
 		<?php } else { ?>

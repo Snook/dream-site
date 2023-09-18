@@ -155,6 +155,14 @@
 					<td  align="right">-$&nbsp;</td><td align="right"><span id="OEH_plate_points_discount_org_fee"><?= $this->moneyFormat($this->orderInfo['points_discount_total_fee']) ?></span></td>
 				</tr>
 
+				<tr id="referralRewardDiscountRow">
+					<td>Referral Reward Discount</td>
+					<td  align="right" style="color:blue;">-$&nbsp;</td>
+					<td align="right"><span id="OEH_referral_reward_order_discount" style="color:blue;"><?= $this->moneyFormat($this->orderInfo['discount_total_customer_referral_credit']) ?></span></td>
+					<td width="5"></td>
+					<td  align="right">-$&nbsp;</td><td align="right"><span id="OEH_referral_reward_order_discount_orig"><?= $this->moneyFormat($this->orderInfo['discount_total_customer_referral_credit']) ?></span></td>
+				</tr>
+
 				<tr id="couponDiscountRow">
 					<td>Coupon Discount<span id="OEH_bonus_credit">&nbsp;</span></td>
 					<td  align="right" style="color:blue;">-$&nbsp;</td>
@@ -443,7 +451,7 @@
 
 									<td style="text-align: right;">
 									<?php if (!$this->discountEligable['limited_access'] && $this->orderState != 'CANCELLED'){ ?>
-									<span id="gd_cancel_order-<?php echo $this->orderInfo['id']; ?>" data-user_id="<?php echo $this->orderInfo['user_id']; ?>" data-store_id="<?php echo $this->orderInfo['store_id']; ?>" data-session_id="<?php echo $this->sessionInfo['id']; ?>" data-order_id="<?php echo $this->orderInfo['id']; ?>" data-bounce="main.php?page=admin_main" class="button">Cancel Order</span>
+									<span id="gd_cancel_order-<?php echo $this->orderInfo['id']; ?>" data-user_id="<?php echo $this->orderInfo['user_id']; ?>" data-store_id="<?php echo $this->orderInfo['store_id']; ?>" data-session_id="<?php echo $this->sessionInfo['id']; ?>" data-order_id="<?php echo $this->orderInfo['id']; ?>" data-bounce="/?page=admin_main" class="button">Cancel Order</span>
 								<?php } ?>
 									<input class="button" type="button" value="Reset to Current" onClick="resetPage();"></td>
 								</tr>

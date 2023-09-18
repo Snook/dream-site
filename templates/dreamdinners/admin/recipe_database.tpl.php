@@ -6,7 +6,7 @@
 
 		<div class="row my-4">
 			<div class="col text-center">
-				<h1><a href="main.php?page=admin_recipe_database">Recipe Database</a></h1>
+				<h1><a href="/?page=admin_recipe_database">Recipe Database</a></h1>
 			</div>
 		</div>
 
@@ -26,7 +26,7 @@
 							<td class="text-right"><?php echo $DAO_recipe->recipe_id; ?></td>
 							<td>
 								<?php if (!empty($DAO_recipe->menu_name)) { ?>
-									<a href="/main.php?page=item&amp;recipe=<?php echo $DAO_recipe->recipe_id; ?>" target="_blank"><?php echo $DAO_recipe->recipe_name; ?></a>
+									<a href="/item?recipe=<?php echo $DAO_recipe->recipe_id; ?>" target="_blank"><?php echo $DAO_recipe->recipe_name; ?></a>
 								<?php } else { ?>
 									<?php echo $DAO_recipe->recipe_name; ?>
 								<?php } ?>

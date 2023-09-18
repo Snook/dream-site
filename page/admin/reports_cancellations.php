@@ -430,7 +430,7 @@
 						    	$tarray['session_type'] = $session_type;
 						    	$tarray['order_type'] = $order_type;
 						    	$tarray['grand_total'] = $total;
-						    	$tarray['order_link'] =  "=HYPERLINK(\"" . HTTPS_BASE . "main.php?page=admin_order_details&order=" . $ID ."\", \"" . $ConfNum . "\")";
+						    	$tarray['order_link'] =  "=HYPERLINK(\"" . HTTPS_BASE . "?page=admin_order_details&order=" . $ID ."\", \"" . $ConfNum . "\")";
 						    	$tarray['cancelled_times'] = $cancelledTime;
 						    	$tarray['notes'] = $thisNote;
                                 $tarray['reason_for_cancellation'] = CBooking::getBookingCancellationReasonDisplayString($thisReason);
@@ -478,7 +478,7 @@
 								array_push($tarray,$convertTimeStamp);
 								array_push($tarray, $order_type);
 								array_push($tarray,$total);
-								array_push($tarray, "=HYPERLINK(\"" . HTTPS_BASE . "main.php?page=admin_order_details&order=" . $ID ."\", \"" . $ConfNum . "\")");
+								array_push($tarray, "=HYPERLINK(\"" . HTTPS_BASE . "?page=admin_order_details&order=" . $ID ."\", \"" . $ConfNum . "\")");
 								array_push($tarray, $cancelledTime);
                                 array_push($tarray, $thisNote);
                                 array_push($tarray, CBooking::getBookingCancellationReasonDisplayString($thisReason));
@@ -508,7 +508,7 @@
 
                  $tarray['reason_for_cancellation'] = CBooking::getBookingCancellationReasonDisplayString($tarray['reason_for_cancellation']);
 
-                 $tarray['order_link'] = "=HYPERLINK(\"" . HTTPS_BASE . "main.php?page=admin_order_details&order=" . $tarray['order_link'] ."\", \"" . $tarray['order_conf'] . "\")";
+                 $tarray['order_link'] = "=HYPERLINK(\"" . HTTPS_BASE . "?page=admin_order_details&order=" . $tarray['order_link'] ."\", \"" . $tarray['order_conf'] . "\")";
 			    $tarray['cancelled_times'] = PHPExcel_Shared_Date::stringToExcel($tarray['cancelled_times']);
 
 			    unset($tarray['order_conf']);

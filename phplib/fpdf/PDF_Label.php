@@ -2173,9 +2173,9 @@ class PDF_Label extends FPDF_MULTICELLTAG
 
 			/*$ecc: This parameter specifies the error correction capability of QR. It has 4 levels L, M, Q and H.
 			$pixel_Size: This specifies the pixel size of QR.
-			$frame_Size: This specifies the size of Qr. It is from level 1-10.*/ //			QRcode::png('https://dreamdinners.com/main.php?page=item&recipe='.$recipeId,$path,QR_ECLEVEL_L,3,4,false,0xFFFFFF,
+			$frame_Size: This specifies the size of Qr. It is from level 1-10.*/ //			QRcode::png('https://dreamdinners.com/item?recipe='.$recipeId,$path,QR_ECLEVEL_L,3,4,false,0xFFFFFF,
 			//				0x959a21);
-			QRcode::png(HTTP_SERVER . '/main.php?page=item&recipe=' . $recipeId . '&utm_source=qr-code&utm_medium=cooking-instructions&utm_campaign=' . $recipeId, $path, QR_ECLEVEL_L, 3, 4, false);
+			QRcode::png(HTTP_SERVER . '/item?recipe=' . $recipeId . '&utm_source=qr-code&utm_medium=cooking-instructions&utm_campaign=' . $recipeId, $path, QR_ECLEVEL_L, 3, 4, false);
 		}
 
 		return $path;
@@ -2190,9 +2190,9 @@ class PDF_Label extends FPDF_MULTICELLTAG
 
 			/*$ecc: This parameter specifies the error correction capability of QR. It has 4 levels L, M, Q and H.
 			$pixel_Size: This specifies the pixel size of QR.
-			$frame_Size: This specifies the size of Qr. It is from level 1-10.*/ //			QRcode::png('https://dreamdinners.com/main.php?page=item&recipe='.$recipeId,$path,QR_ECLEVEL_L,3,4,false,0xFFFFFF,
+			$frame_Size: This specifies the size of Qr. It is from level 1-10.*/ //			QRcode::png('https://dreamdinners.com/item?recipe='.$recipeId,$path,QR_ECLEVEL_L,3,4,false,0xFFFFFF,
 			//				0x959a21);
-			QRcode::png(HTTP_SERVER . '/main.php?page=item&recipe=' . $recipeId . '&tab=nutrition&utm_source=qr-code&utm_medium=nutritionals&utm_campaign=' . $recipeId, $path, QR_ECLEVEL_L, 3, 4, false);
+			QRcode::png(HTTP_SERVER . '/item?recipe=' . $recipeId . '&tab=nutrition&utm_source=qr-code&utm_medium=nutritionals&utm_campaign=' . $recipeId, $path, QR_ECLEVEL_L, 3, 4, false);
 		}
 
 		return $path;

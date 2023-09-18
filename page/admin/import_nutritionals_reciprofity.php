@@ -134,7 +134,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 				}
 				else
 				{
-					$tpl->setStatusMsg('<p>Nutrition imported: <a class="button" href="main.php?page=nutritionals&amp;store=166&amp;menu=' . CGPC::do_clean($_POST['menu'], TYPE_INT) . '&amp;show_entree=1&amp;show_efl=1&amp;show_ft=1&amp;filter_zero_inventory=1" target="_blank">Review</a></p><p>Next Step: <a class="button" href="main.php?page=admin_import_sidesmap_reciprofity">Import Sides Map</a></p>');
+					$tpl->setStatusMsg('<p>Nutrition imported: <a class="button" href="?page=nutritionals&amp;store=166&amp;menu=' . CGPC::do_clean($_POST['menu'], TYPE_INT) . '&amp;show_entree=1&amp;show_efl=1&amp;show_ft=1&amp;filter_zero_inventory=1" target="_blank">Review</a></p><p>Next Step: <a class="button" href="/?page=admin_import_sidesmap_reciprofity">Import Sides Map</a></p>');
 				}
 
 				$uberObject->query('COMMIT;');

@@ -37,7 +37,9 @@
 			<div class="col-12">
 				<div class="row text-white text-center">
 					<div class="meal-nights bg-cyan-dark font-size-small col-12 py-2 p-0<?php echo (empty($this->cart_info['item_info'])) ? ' collapse' : ''; ?>">You have dinners for <span class="total-meal-nights font-weight-bold"><?php echo $this->cart_info['cart_info_array']['dinners_total_count']; ?></span> night<span class="total-meal-nights-plural">s</span></div>
-					<div class="meal-select bg-cyan-dark col-12 py-2 p-0 text-uppercase<?php echo (!empty($this->cart_info['item_info'])) ? ' collapse' : ''; ?>"><?php echo $this->additional_ordering_message; ?></div>
+					<?php if(!empty($this->additional_ordering_message)) { ?>
+						<div class="meal-select bg-cyan-dark col-12 py-2 p-0 text-uppercase<?php echo (!empty($this->cart_info['item_info'])) ? ' collapse' : ''; ?>"><?php echo $this->additional_ordering_message; ?></div>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
@@ -66,16 +68,17 @@
 					</div>
 				</div>
 				<div class="row py-2">
-					<div class="col-6 text-uppercase">Cart subtotal</div>
+					<div class="col-6 text-uppercase">Subtotal</div>
 					<div class="col-6 font-weight-bold text-right">$<span class="cart-total"><?php echo $this->initialCartSubtotal; ?></span></div>
+					<div class="col-12 text-muted font-size-small font-italic">*May include discounts, taxes and fees.</div>
 				</div>
 
 				<div class="row">
 					<div class="col p-0">
 						<?php if ($this->menu_view == 'session_menu') { ?>
-							<a href="/main.php?page=session_menu&amp;view=freezer" class="btn btn-primary btn-block btn-spinner disabled continue-btn">Continue</a>
+							<a href="/session-menu?view=freezer" class="btn btn-primary btn-block btn-spinner disabled continue-btn">Continue</a>
 						<?php } else { ?>
-							<a href="/main.php?page=checkout" class="btn btn-primary btn-block btn-spinner disabled continue-btn">Continue</a>
+							<a href="/checkout" class="btn btn-primary btn-block btn-spinner disabled continue-btn">Continue</a>
 						<?php } ?>
 					</div>
 				</div>

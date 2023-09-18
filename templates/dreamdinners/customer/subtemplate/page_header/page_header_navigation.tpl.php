@@ -6,7 +6,7 @@ if (empty($this->order_process_navigation_page)) {
 $backNavigation = '';
 if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 {
-	$backNavigation = '&back='.urlencode($_SERVER['REQUEST_URI']);
+	$backNavigation = '?back='.urlencode($_SERVER['REQUEST_URI']);
 }
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-white px-sm-5 py-sm-4 mb-5">
@@ -22,17 +22,17 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 			<img src="<?php echo IMAGES_PATH; ?>/style/platepoints/placeholder_avatar.png" alt="Profile picture" class="my-account-img rounded-circle">
 		</button>
 		<div class="dropdown-menu dropdown-menu-right d-lg-none mr-2" aria-labelledby="dropdownMenuButton">
-			<a class="dropdown-item" href="/main.php?page=my_account">My Account</a>
-			<a class="dropdown-item" href="/main.php?page=my_meals">My Reviews</a>
-			<a class="dropdown-item" href="/main.php?page=my_meals&tab=nav-past_orders">My Orders</a>
+			<a class="dropdown-item" href="/my-account">My Account</a>
+			<a class="dropdown-item" href="/my-meals">My Reviews</a>
+			<a class="dropdown-item" href="/my-meals?tab=nav-past_orders">My Orders</a>
 			<?php if (!CUser::hasDeliveredOrdersOnly()) { ?>
-				<a class="dropdown-item" href="/main.php?page=my_events">My Events</a>
+				<a class="dropdown-item" href="/my-events">My Events</a>
 			<?php } ?>
-			<a class="dropdown-item" href="/main.php?page=account">Edit Account</a>
-			<a class="dropdown-item" href="/main.php?page=signout">Sign Out</a>
+			<a class="dropdown-item" href="/account">Edit Account</a>
+			<a class="dropdown-item" href="/signout">Sign Out</a>
 		</div>
 	<?php } else { ?>
-		<a href="/main.php?page=login" class="btn btn-primary btn-sm px-1 d-lg-none">
+		<a href="/login" class="btn btn-primary btn-sm px-1 d-lg-none">
 			Sign in
 		</a>
 	<?php } ?>
@@ -49,50 +49,50 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 				<div class="col">
 					<ul class="navbar navbar-nav">
 						<li class="nav-item">
-							<a class="nav-link" href="/main.php?page=browse_menu">Menu Preview</a>
+							<a class="nav-link" href="/browse-menu">Menu Preview</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="/main.php?static=how_it_works">How it works</a>
+							<a class="nav-link" href="/how-it-works">How it works</a>
 						</li>
 						<li class="nav-item d-block d-lg-none d-xl-block">
-							<a class="nav-link" href="/main.php?page=session_menu">Order</a>
+							<a class="nav-link" href="/session-menu">Order</a>
 						</li>
 						<li class="nav-item d-block d-lg-none d-xl-block">
-							<a class="nav-link" href="/main.php?static=share">Share</a>
+							<a class="nav-link" href="/share">Share</a>
 						</li>
 						<li class="nav-item d-block d-lg-none d-xl-block">
-							<a class="nav-link" href="/main.php?static=gift">Gift</a>
+							<a class="nav-link" href="/gift">Gift</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link login_sign_in<?php if (CUser::isLoggedIn()) { ?> collapse<?php } ?>" href="/main.php?page=login<?php echo $backNavigation;?>">Sign In</a>
+							<a class="nav-link login_sign_in<?php if (CUser::isLoggedIn()) { ?> collapse<?php } ?>" href="/login<?php echo $backNavigation;?>">Sign In</a>
 							<div class="dropdown login_signed_in<?php if (!CUser::isLoggedIn()) { ?> collapse<?php } ?>">
-								<a class="nav-link dropdown-toggle text-white-space-nowrap" href="/main.php?page=my_account" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<a class="nav-link dropdown-toggle text-white-space-nowrap" href="/my-account" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Hi, <span class="login_first_name"><?php echo CUser::getCurrentUser()->firstname; ?></span>
 								</a>
 
 								<div class="dropdown-menu text-center text-md-left px-2" aria-labelledby="dropdownMenuLink">
-									<a class="dropdown-item nav-link" href="/main.php?page=my_account">My account</a>
-									<a class="dropdown-item nav-link" href="/main.php?page=my_meals">My reviews</a>
-									<a class="dropdown-item nav-link" href="/main.php?page=my_meals&amp;tab=nav-past_orders">My orders</a>
+									<a class="dropdown-item nav-link" href="/my-account">My account</a>
+									<a class="dropdown-item nav-link" href="/my-meals">My reviews</a>
+									<a class="dropdown-item nav-link" href="/my-meals?tab=nav-past_orders">My orders</a>
 
 									<?php if (!CUser::hasDeliveredOrdersOnly()) { ?>
-										<a class="dropdown-item nav-link" href="/main.php?page=my_events">My events</a>
+										<a class="dropdown-item nav-link" href="/my-events">My events</a>
 									<?php } ?>
-									<a class="dropdown-item nav-link" href="/main.php?page=account">Edit account</a>
-									<a class="dropdown-item nav-link" href="/main.php?page=signout<?php echo (property_exists($this,'logout_navigation_page') ?  $this->logout_navigation_page:''); ?>">Sign Out</a>
+									<a class="dropdown-item nav-link" href="/account">Edit account</a>
+									<a class="dropdown-item nav-link" href="/signout<?php echo (property_exists($this,'logout_navigation_page') ?  $this->logout_navigation_page:''); ?>">Sign Out</a>
 
 									<?php if (CUser::isUserStaff()) { ?>
 										<div class="dropdown-divider"></div>
-										<a class="dropdown-item nav-link" href="main.php?page=admin_main">BackOffice Home</a>
-										<a class="dropdown-item nav-link" href="main.php?page=admin_reports">Reports</a>
-										<a class="dropdown-item nav-link" href="main.php?page=admin_list_users">Guests</a>
-										<a class="dropdown-item nav-link" href="main.php?page=admin_session_mgr">Session Calendar</a>
-										<a class="dropdown-item nav-link" href="main.php?page=admin_menu_inventory_mgr">Inventory Manager</a>
-										<a class="dropdown-item nav-link" href="main.php?page=admin_menu_editor">Menu Editor</a>
-										<a class="dropdown-item nav-link" href="main.php?page=admin_gift_card_management">Gift Cards</a>
+										<a class="dropdown-item nav-link" href="/?page=admin_main">BackOffice Home</a>
+										<a class="dropdown-item nav-link" href="/?page=admin_reports">Reports</a>
+										<a class="dropdown-item nav-link" href="/?page=admin_list_users">Guests</a>
+										<a class="dropdown-item nav-link" href="/?page=admin_session_mgr">Session Calendar</a>
+										<a class="dropdown-item nav-link" href="/?page=admin_menu_inventory_mgr">Inventory Manager</a>
+										<a class="dropdown-item nav-link" href="/?page=admin_menu_editor">Menu Editor</a>
+										<a class="dropdown-item nav-link" href="/?page=admin_gift_card_management">Gift Cards</a>
 									<?php } ?>
 
-									<?php if (defined('DEV_BASE_NAME')) { ?>
+									<?php if (defined('DEV_BASE_NAME') && DEV_BASE_NAME) { ?>
 										<div class="dropdown-divider"></div>
 										<div class="dropdown-header">Development Tools</div>
 										<div class="dropdown-item-text text-center"><?php echo DEV_BASE_NAME; ?></div>
@@ -106,7 +106,7 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 							</div>
 						</li>
 						<li class="nav-item d-none d-lg-block ml-lg-4">
-							<a class="btn btn-primary btn-lg py-1 px-3 mt-4 mt-md-0 text-white-space-nowrap" href="/main.php?page=<?php echo $this->order_process_navigation_page; ?>">Get started</a>
+							<a class="btn btn-primary btn-lg py-1 px-3 mt-4 mt-md-0 text-white-space-nowrap" href="/<?php echo $this->order_process_navigation_page; ?>">Get started</a>
 						</li>
 					</ul>
 				</div>
@@ -124,35 +124,35 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 			</button>
 		</div>
 	</div>
-	<a class="btn btn-primary btn-block mb-2" href="/main.php?page=session_menu">Order</a>
-	<a class="dropdown-item" href="/main.php?page=browse_menu">Menu Preview</a>
-	<a class="dropdown-item" href="/main.php?static=how_it_works">How It Works</a>
-	<a class="dropdown-item" href="/main.php?page=locations">Store Locations</a>
-	<a class="dropdown-item" href="/main.php?page=recipe_resources">Recipe Resources</a>
-	<a class="dropdown-item" href="/main.php?static=share">Share</a>
-	<a class="dropdown-item" href="/main.php?page=platepoints">PLATEPOINTS</a>
-	<a class="dropdown-item" href="/main.php?static=fundraisers">Fundraisers</a>
-	<a class="dropdown-item" href="/main.php?static=promotions">Promotions</a>
-	<a class="dropdown-item" href="/main.php?page=gift_card_order">Gift Cards</a>
-	<a class="dropdown-item" href="/main.php?static=about_us">About Us</a>
+	<a class="btn btn-primary btn-block mb-2" href="/session-menu">Order</a>
+	<a class="dropdown-item" href="/browse-menu">Menu Preview</a>
+	<a class="dropdown-item" href="/how-it-works">How It Works</a>
+	<a class="dropdown-item" href="/locations">Store Locations</a>
+	<a class="dropdown-item" href="/recipe-resources">Recipe Resources</a>
+	<a class="dropdown-item" href="/share">Share</a>
+	<a class="dropdown-item" href="/platepoints">PLATEPOINTS</a>
+	<a class="dropdown-item" href="/fundraisers">Fundraisers</a>
+	<a class="dropdown-item" href="/promotions">Promotions</a>
+	<a class="dropdown-item" href="/gift-card-order">Gift Cards</a>
+	<a class="dropdown-item" href="/about-us">About Us</a>
 	<?php if (defined('ENABLE_HELP_SEARCH') && ENABLE_HELP_SEARCH == true) { ?>
 		<a class="dropdown-item help-search-launcher" href="#">Help</a>
 	<?php } ?>
 	<?php if (!CUser::isLoggedIn()) { ?>
-		<a class="btn btn-primary btn-block" href="/main.php?page=login">Sign In</a>
+		<a class="btn btn-primary btn-block" href="/login">Sign In</a>
 	<?php } ?>
 	<?php if (CUser::isUserStaff()) { ?>
 		<div class="dropdown-divider"></div>
-		<a class="dropdown-item" href="main.php?page=admin_main">BackOffice Home</a>
-		<a class="dropdown-item" href="main.php?page=admin_reports">Reports</a>
-		<a class="dropdown-item" href="main.php?page=admin_list_users">Guests</a>
-		<a class="dropdown-item" href="main.php?page=admin_session_mgr">Session Calendar</a>
-		<a class="dropdown-item" href="main.php?page=admin_menu_inventory_mgr">Inventory Manager</a>
-		<a class="dropdown-item" href="main.php?page=admin_menu_editor">Menu Editor</a>
-		<a class="dropdown-item" href="main.php?page=admin_gift_card_management">Gift Cards</a>
+		<a class="dropdown-item" href="/?page=admin_main">BackOffice Home</a>
+		<a class="dropdown-item" href="/?page=admin_reports">Reports</a>
+		<a class="dropdown-item" href="/?page=admin_list_users">Guests</a>
+		<a class="dropdown-item" href="/?page=admin_session_mgr">Session Calendar</a>
+		<a class="dropdown-item" href="/?page=admin_menu_inventory_mgr">Inventory Manager</a>
+		<a class="dropdown-item" href="/?page=admin_menu_editor">Menu Editor</a>
+		<a class="dropdown-item" href="/?page=admin_gift_card_management">Gift Cards</a>
 	<?php } ?>
 
-	<?php if (defined('DEV_BASE_NAME')) { ?>
+	<?php if (defined('DEV_BASE_NAME') && DEV_BASE_NAME) { ?>
 		<div class="dropdown-divider"></div>
 		<div class="dropdown-header">Development Tools</div>
 		<div class="dropdown-item-text text-center"><?php echo DEV_BASE_NAME; ?></div>

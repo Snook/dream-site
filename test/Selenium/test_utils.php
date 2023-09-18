@@ -7,18 +7,18 @@ use Exception;
 
 class DD_Selenium_Test_Utils
 {
-	
+
 	public static $throwOnAssertFailure = false;
 
 	static function signOnSiteAdmin($driver)
 	{
 		include('includes/config.php');
 
-		$driver->get($baseURL . "/main.php?page=signout");
-		$driver->get($baseURL . "/main.php?page=admin_login");
-		
+		$driver->get($baseURL . "/signout");
+		$driver->get($baseURL . "/?page=admin_login");
+
 		$driver->executeScript("$('#password_login').attr('type', 'text');");
-		
+
 		$driver->findElement(WebDriverBy::id("primary_email_login"))->sendKeys($loginUsername);
 		$driver->findElement(WebDriverBy::id("password_login"))->sendKeys($loginPassword);
 		$driver->findElement(WebDriverBy::id('submit_login'))->click();
@@ -29,8 +29,8 @@ class DD_Selenium_Test_Utils
 	{
 		include('includes/config.php');
 
-		$driver->get($baseURL . "/main.php?page=signout");
-		$driver->get($baseURL . "/main.php?page=login");
+		$driver->get($baseURL . "/signout");
+		$driver->get($baseURL . "/login");
 
 		if ($loginWithFacebook)
 		{
@@ -102,12 +102,12 @@ class DD_Selenium_Test_Utils
 
 
 	}
-	
+
 	static function getOrderFactsFromClient($driver)
 	{
-		
+
 		$retVal = array();
-		
+
 		$retVal['item_count'] = $driver->findElement(WebDriverBy::id("OEH_item_count"))->getText();
 		$retVal['number_servings'] = $driver->findElement(WebDriverBy::id("OEH_number_servings"))->getText();
 		$retVal['menu_subtotal'] = $driver->findElement(WebDriverBy::id("OEH_menu_subtotal"))->getText();
@@ -125,12 +125,12 @@ class DD_Selenium_Test_Utils
 		$retVal['ltd_round_up'] = $driver->findElement(WebDriverBy::id("OEH_ltd_round_up"))->getText();
 		$retVal['grand_total'] = $driver->findElement(WebDriverBy::id("OEH_grandtotal"))->getText();
 		$retVal['payment_total'] = $driver->findElement(WebDriverBy::id("OEH_paymentsTotal"))->getText();
-		
+
 		//OEH_misc_food_subtotal
 		//OEH_misc_nonfood_subtotal
-		
+
 		return $retVal;
-		
+
 	}
 
 	static function selectItems($driver, $minimum_servings = 36, $maximum_servings = 36, $pickLTD = 'sometimes', $addSides = false)
@@ -145,7 +145,7 @@ class DD_Selenium_Test_Utils
 		{
 			$minimum_servings++;
 		}
-		
+
 		$testServings = $maximum_servings % 3;
 		if ($testServings == 1)
 		{
@@ -155,24 +155,24 @@ class DD_Selenium_Test_Utils
 		{
 			$maximum_servings++;
 		}
-		
+
 		$servingsRange = $maximum_servings - $minimum_servings;
 		if ($servingsRange == 0)
 		{
 			$finalServings = $minimum_servings;
 		}
-		else 
+		else
 		{
 			$testRange = $servingsRange / 3;
 			$testRange = rand(0, $testRange);
 			$testRange *= 3;
 			$finalServings = $maximum_servings + $testRange;
 		}
-		
+
 		$masterArray = array();
-		
+
 		$elements = $driver->findElements(WebDriverBy::cssSelector("[id^=inv_]"));
-		
+
 		foreach($elements as $thisElem)
 		{
 			$id = $thisElem->getAttribute('id');
@@ -184,41 +184,41 @@ class DD_Selenium_Test_Utils
 				$masterArray[$id] = array('id' => $id, 'inv' => $inventory);
 			}
 		}
-		
+
 		shuffle($masterArray);
-		
+
 		$numServingsAdded = 0;
-		
+
 		foreach ($masterArray as $thisItem)
 		{
-			
+
 			$inventory = $thisItem['inv'];
-			
+
 			$elements = $driver->findElements(WebDriverBy::cssSelector("[data-entreeid='" . $thisItem['id'] . "'][data-is_bundle='false']"));
-			
+
 			if (count($elements) > 1)
 			{
 				$priceTypeSelector = rand(0, 100);
 			}
-			else 
+			else
 			{
 				$priceTypeSelector = 20;
 				// always pick full if only full exists
 			}
-			
+
 			if ($priceTypeSelector < 55 && $priceTypeSelector > 43 && $inventory < 10)
 			{
 				$priceTypeSelector = 80;
 				// not enough inventory for both so set to 3 serving
 			}
-			
+
 			foreach($elements as $thisElem)
 			{
 				if (!$thisElem->isDisplayed())
 				{
 					continue;
 				}
-				
+
 				if ($priceTypeSelector > 54)
 				{
 					// get 3 serving version if exists
@@ -239,7 +239,7 @@ class DD_Selenium_Test_Utils
 						break;
 					}
 				}
-				else 
+				else
 				{
 					// get both
 					$thisElem->sendKeys("1");
@@ -247,28 +247,28 @@ class DD_Selenium_Test_Utils
 					{
 						$numServingsAdded += 3;
 					}
-					else 
+					else
 					{
 						$numServingsAdded += 6;
 					}
 				}
 			}
-			
+
 			if ($numServingsAdded >= $finalServings)
 			{
 				break;
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	static function selectTasteItems($driver, $pickLTD = 'sometimes', $addSides = false)
 	{
 		$masterInvArray = array();
-		
+
 		$elements = $driver->findElements(WebDriverBy::cssSelector("[id^=inv_]"));
-		
+
 		foreach($elements as $thisElem)
 		{
 			$id = $thisElem->getAttribute('id');
@@ -280,23 +280,23 @@ class DD_Selenium_Test_Utils
 				$masterInvArray[$id] = array('id' => $id, 'inv' => $inventory);
 			}
 		}
-		
+
 	//	shuffle($masterArray);
-		
+
 		$elements = $driver->findElements(WebDriverBy::cssSelector("[id^=bnd_]"));
-		
+
 		shuffle($elements);
-		
+
 		$numServingsAdded = 0;
-		
+
 		foreach ($elements as $thisItem)
 		{
 			$item_id = $thisItem->getAttribute('data-entreeid');
 			$inventory = $masterInvArray[$item_id]['inv'];
-			
+
 			$qty = 1;
 			$qtySelector = rand(0, 100);
-			
+
 			if ($qtySelector > 80 && $numServingsAdded < 4 && $inventory > 5)
 			{
 				$numServingsAdded += 6;
@@ -308,28 +308,28 @@ class DD_Selenium_Test_Utils
 			}
 			else
 			{
-				continue;	
-			}	
-			
+				continue;
+			}
+
 			$thisItem->sendKeys($qty);
-						
+
 			if ($numServingsAdded >= 9)
 			{
 				break;
 			}
 		}
 	}
-	
+
 	static function selectIntroItems($driver, $pickLTD = 'sometimes', $addSides = false)
 	{
-		
+
 		$element = $driver->findElement(WebDriverBy::cssSelector("#selectedBundle"));
 		$element->click();
-		
+
 		$masterInvArray = array();
-		
+
 		$elements = $driver->findElements(WebDriverBy::cssSelector("[id^=inv_]"));
-		
+
 		foreach($elements as $thisElem)
 		{
 			$id = $thisElem->getAttribute('id');
@@ -341,22 +341,22 @@ class DD_Selenium_Test_Utils
 				$masterInvArray[$id] = array('id' => $id, 'inv' => $inventory);
 			}
 		}
-		
+
 		//	shuffle($masterArray);
-		
+
 		$elements = $driver->findElements(WebDriverBy::cssSelector("[id^=bnd_]:not([id^=bnd_div])"));
-		
+
 		shuffle($elements);
-		
+
 		$numServingsAdded = 0;
-		
+
 		foreach ($elements as $thisItem)
 		{
 			$entree_id = $thisItem->getAttribute('data-entreeid');
 			$pricing_type = $thisItem->getAttribute('data-pricing_type');
-			
+
 			$inventory = $masterInvArray[$entree_id]['inv'];
-			
+
 			if ($pricing_type == 'FULL' &&  $inventory > 5 && $numServingsAdded < 13)
 			{
 				$numServingsAdded += 6;
@@ -365,11 +365,11 @@ class DD_Selenium_Test_Utils
 			{
 				$numServingsAdded += 3;
 			}
-			else 
+			else
 			{
-				continue;	
+				continue;
 			}
-			
+
 			$driver->executeScript("window.scrollTo(0,0)");
 			$elementPosition = $thisItem->getLocation()->getY();
 			$driver->executeScript("window.scrollTo(0,$elementPosition)");
@@ -381,9 +381,9 @@ class DD_Selenium_Test_Utils
 			}
 		}
 		$driver->executeScript("window.scrollTo(0,0)");
-		
+
 	}
-	
+
 
 	static function Assert($bool_expression, $message, $fp = null)
 	{
@@ -393,14 +393,14 @@ class DD_Selenium_Test_Utils
 		}
 
  		self::trace("************* Failure **************** : " . $message . "\r\n\r\n", $fp);
- 		
+
  		if (self::$throwOnAssertFailure)
  		{
  			throw new Exception("Test Failure on Assert:  " . $message);
  		}
- 			
-		
- 		
+
+
+
 		return false;
 	}
 

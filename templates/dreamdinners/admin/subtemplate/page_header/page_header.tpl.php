@@ -73,11 +73,11 @@
 			<button class="btn btn-light mr-3" id="menu-toggle">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<a class="navbar-brand" href="/main.php?page=admin_main">
+			<a class="navbar-brand" href="/?page=admin_main">
 				<img src="<?php echo ADMIN_IMAGES_PATH; ?>/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" class="img-fluid">
 			</a>
 			<div class="nav-item">
-				<button class="btn btn-sm btn-outline-green" value="Change" onclick="bounce('main.php?page=admin_location_switch&back=' + back_path());">
+				<button class="btn btn-sm btn-outline-green" value="Change" onclick="bounce('/?page=admin_location_switch&back=' + back_path());">
 					<?php echo (!empty(CStore::getFranchiseStore()->store_name)) ? CStore::getFranchiseStore()->store_name : 'Store not set'; ?>
 				</button>
 			</div>
@@ -92,16 +92,16 @@
 						<img class="img-profile rounded-circle w-25" src="<?php echo IMAGES_PATH; ?>/style/platepoints/placeholder_avatar.png">
 					</a>
 					<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-						<a class="dropdown-item" href="/main.php?page=my_account">
+						<a class="dropdown-item" href="/my-account">
 							<i class="fas fa-user fa-sm fa-fw mr-2"></i>
 							My Account
 						</a>
-						<a class="dropdown-item" href="/main.php?page=account">
+						<a class="dropdown-item" href="/account">
 							<i class="fas fa-cogs fa-sm fa-fw mr-2"></i>
 							Edit Account
 						</a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="/main.php?page=signout&amp;back=main.php%3Fpage%3Dadmin_login">
+						<a class="dropdown-item" href="/signout?back=/%3Fpage%3Dadmin_login">
 							<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
 							Logout
 						</a>

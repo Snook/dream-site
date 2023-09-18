@@ -2417,7 +2417,7 @@ class CMenuItem extends DAO_Menu_item
 				'remaining_servings' => $item->remaining_servings,
 				'servings_per_item' => $item->servings_per_item,
 				'pricing_type' => $item->pricing_type,
-				'pricing_type_info' => $item->pricing_type_info,
+				'pricing_type_info' => (!empty($item->pricing_type_info) ? $item->pricing_type_info : null),
 				'price' => $item->store_price,
 				'is_bundle' => $item->is_bundle,
 				'number_items_required' => (!empty($item->number_items_required) ? $item->number_items_required : null),

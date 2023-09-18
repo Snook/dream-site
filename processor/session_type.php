@@ -18,7 +18,7 @@ class processor_session_type extends CPage
 
 	function runSessionTypePage()
 	{
-		$req_store = CGPC::do_clean((!empty($_REQUEST['store']) ? $_REQUEST['store'] : false), TYPE_INT);
+		$req_store = CGPC::do_clean((!empty($_REQUEST['store']) ? $_REQUEST['store'] : false), TYPE_STR);
 		$req_menu = CGPC::do_clean((!empty($_REQUEST['menu']) ? $_REQUEST['menu'] : false), TYPE_STR);
 		$req_navigation = CGPC::do_clean((!empty($_REQUEST['type']) ? $_REQUEST['type'] : (($req_menu && $req_store) ? 'all_standard' : false)), TYPE_STR);
 
@@ -43,9 +43,19 @@ class processor_session_type extends CPage
 
 		if ($req_store)
 		{
+			if (!is_numeric($req_store) || CTemplate::isAlphaNumHyphen($req_store))
+			{
+				$DAO_store = DAO_CFactory::create('store', true);
+				$DAO_store->id = $req_store;
+				$DAO_store->active = 1;
+				$DAO_store->find_DAO_store(true);
+
+				$req_store = $DAO_store->id;
+			}
+
 			if ($req_store != $store_id)
 			{
-				$DAO_store = DAO_CFactory::create('store');
+				$DAO_store = DAO_CFactory::create('store', true);
 				$DAO_store->id = $req_store;
 				$DAO_store->active = 1;
 
@@ -75,7 +85,7 @@ class processor_session_type extends CPage
 
 			if (!empty($store_id))
 			{
-				$DAO_store = DAO_CFactory::create('store');
+				$DAO_store = DAO_CFactory::create('store', true);
 				$DAO_store->id = $store_id;
 				$DAO_store->active = 1;
 
@@ -107,7 +117,7 @@ class processor_session_type extends CPage
 
 					if ($bundleID)
 					{
-						$DAO_bundle = DAO_CFactory::create('bundle');
+						$DAO_bundle = DAO_CFactory::create('bundle', true);
 						$DAO_bundle->id = $bundleID;
 						$DAO_bundle->find(true);
 
@@ -122,7 +132,7 @@ class processor_session_type extends CPage
 						if (!empty($store_id))
 						{
 							// this gets all sessions which have been created
-							$DAO_session = DAO_CFactory::create('session');
+							$DAO_session = DAO_CFactory::create('session', true);
 							$DAO_session->store_id = $store_id;
 							$sessionCalendarArray = $DAO_session->getSessionArrayByMenu(array(
 								'menu_id_array' => CMenu::getActiveMenuArray(),
@@ -174,7 +184,7 @@ class processor_session_type extends CPage
 					}
 					else
 					{
-						CApp::bounce('main.php?page=store&id=' . $store_id);
+						CApp::bounce('/location/' . $store_id);
 					}
 					break;
 				case 'event':
@@ -183,7 +193,7 @@ class processor_session_type extends CPage
 					// items in the cart may not be supported by the bundle
 					$bundleID = $CartObj->getBundleID();
 
-					$DAO_bundle = DAO_CFactory::create('bundle');
+					$DAO_bundle = DAO_CFactory::create('bundle', true);
 					$DAO_bundle->id = $bundleID;
 					$DAO_bundle->find(true);
 
@@ -233,16 +243,16 @@ class processor_session_type extends CPage
 		// no store, send them to pick a store
 		if (empty($store_id))
 		{
-			CApp::bounce('main.php?page=locations');
+			CApp::bounce('/locations');
 		}
 		// store is set to distribution center they shouldn't be here
 		else if ($DAO_store->store_type == CStore::DISTRIBUTION_CENTER)
 		{
-			CApp::bounce('main.php?page=locations');
+			CApp::bounce('/locations');
 		}
 
 		// send them to session menu
-		CApp::bounce('main.php?page=session_menu');
+		CApp::bounce('/session-menu');
 	}
 }
 

@@ -194,6 +194,9 @@ class page_admin_order_mgr_thankyou extends CPageAdminOnly
 		$tpl->assign('corporate_crate_client', $corporate_crate_client);
 		$tpl->assign('dr_info', $drData);
 		$tpl->assign('plate_points', $User->getPlatePointsSummary($Order));
+
+		//TODO: evanl add referral rewards summary info
+
 		$tpl->assign('bookingInfo', $orderInfoArray['bookingInfo']);
 		$tpl->assign('orderInfo', $orderInfoArray['orderInfo']);
 		$tpl->assign('bookingStatus', $orderInfoArray['bookingStatus']);

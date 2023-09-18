@@ -233,6 +233,7 @@ class CCouponCode extends DAO_Coupon_code
 			$couponErrorsArray["not_valid_for_stores"] = "This code is not supported by this store.";
 			$couponErrorsArray["not_valid_for_unknown_menu"] = "This promo cannot be used with the the Dinners For Life Menu";
 			$couponErrorsArray["not_valid_with_points_credits"] = "This code cannot be used with Dinner Dollars.";
+			$couponErrorsArray["not_valid_with_referral_credits"] = "This code cannot be used with Referral Reward.";
 			$couponErrorsArray["no_ft_items"] = "This code is only valid for Sides &amp; Sweets sides and no sides are found in the cart.";
 			$couponErrorsArray["no_order"] = "There is an issue with your order, please review your cart.";
 			$couponErrorsArray["menu_item_out_of_stock"] = "The menu item is currently unavailable.";
@@ -279,17 +280,17 @@ class CCouponCode extends DAO_Coupon_code
 			return 'online_not_supported';
 		}
 
-		if (strpos($_SERVER['REQUEST_URI'], "ddproc.php?processor=couponCodeProcessor") !== false && $this->is_customer_order_supported == "0")
+		if (strpos($_SERVER['REQUEST_URI'], "processor?processor=couponCodeProcessor") !== false && $this->is_customer_order_supported == "0")
 		{
 			return 'online_not_supported';
 		}
 
-		if (strpos($_SERVER['REQUEST_URI'], "ddproc.php?processor=admin_directOrderCouponCodeProcessor") !== false && $this->is_direct_order_supported == "0")
+		if (strpos($_SERVER['REQUEST_URI'], "processor?processor=admin_directOrderCouponCodeProcessor") !== false && $this->is_direct_order_supported == "0")
 		{
 			return 'direct_order_not_supported';
 		}
 
-		if ((strpos($_SERVER['REQUEST_URI'], "ddproc.php?processor=admin_editOrderCouponCodeProcessor") !== false || strpos($_SERVER['REQUEST_URI'], "ddproc.php?processor=admin_editOrderCouponCodeProcessorDelivered") !== false) && $this->is_order_editor_supported == "0")
+		if ((strpos($_SERVER['REQUEST_URI'], "processor?processor=admin_editOrderCouponCodeProcessor") !== false || strpos($_SERVER['REQUEST_URI'], "processor?processor=admin_editOrderCouponCodeProcessorDelivered") !== false) && $this->is_order_editor_supported == "0")
 		{
 			return 'order_edit_not_supported';
 		}
@@ -420,7 +421,7 @@ class CCouponCode extends DAO_Coupon_code
 			}
 
 			// SHORT CIRCUIT EVALUATION EMERGENMCY HACK
-			if (strpos($_SERVER['REQUEST_URI'], "ddproc.php?processor=couponCodeProcessor") !== false)
+			if (strpos($_SERVER['REQUEST_URI'], "processor?processor=couponCodeProcessor") !== false)
 			{
 				return array('online_not_supported');
 			}
@@ -746,6 +747,11 @@ class CCouponCode extends DAO_Coupon_code
 		if ($Order->points_discount_total > 0 && !$this->valid_with_plate_points_credits)
 		{
 			$errorArray[] = 'not_valid_with_points_credits';
+		}
+
+		if ($Order->discount_total_customer_referral_credit > 0 && !$this->valid_with_customer_referral_credit)
+		{
+			$errorArray[] = 'not_valid_with_referral_credits';
 		}
 
 		if ($Order->menu_program_id > 1 && $this->valid_for_DFL_menu && $Order->menu_program_id != $this->valid_DFL_menu)
@@ -1091,7 +1097,7 @@ class CCouponCode extends DAO_Coupon_code
 		}
 
 		// no coupon codes if customer is ordering a dream rewards discounted order from the front end
-		if ((strpos($_SERVER['REQUEST_URI'], "ddproc.php?processor=couponCodeProcessor") !== false) && $Order->dream_rewards_level > 0)
+		if ((strpos($_SERVER['REQUEST_URI'], "processor?processor=couponCodeProcessor") !== false) && $Order->dream_rewards_level > 0)
 		{
 			$errorArray[] = 'guest_is_ordering_in_DR';
 		}

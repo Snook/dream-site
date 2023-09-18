@@ -1,6 +1,6 @@
 Dear <?php echo $this->firstname; ?>,
 
-Thank you for testing <?php echo $this->recipe_name; ?>, one of our new Dream Dinners recipes. The opinions of our guests are so important to us, especially when we are developing new recipes for the menu. Please prepare the dinner for your family and give us your honest feedback in your My Test Recipes section of your Dream Dinners account at <?php echo HTTPS_BASE; ?>main.php?page=my_surveys
+Thank you for testing <?php echo $this->recipe_name; ?>, one of our new Dream Dinners recipes. The opinions of our guests are so important to us, especially when we are developing new recipes for the menu. Please prepare the dinner for your family and give us your honest feedback in your My Test Recipes section of your Dream Dinners account at <?php echo HTTPS_BASE; ?>my-surveys
 
 If you have any questions, please email us at customerservice@dreamdinners.com
 

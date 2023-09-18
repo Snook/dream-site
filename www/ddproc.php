@@ -6,12 +6,13 @@ CTemplate::noCache();
 
 if (array_key_exists('processor', $_REQUEST) !== false)
 {
-	CApp::approveDirective($_REQUEST['processor']);
+	$processor = str_replace('-', '_', $_REQUEST['processor']);
+	CApp::approveDirective($processor);
 	$app = new CApp();
-	$app->process($_REQUEST['processor']);
+	$app->process($processor);
 }
 else
 {
-	header('Location: 404.php');
+	header('Location: /not-found');
 }
 ?>

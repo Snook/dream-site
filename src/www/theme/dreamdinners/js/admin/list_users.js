@@ -169,7 +169,7 @@ function processorGuestSearch()
 	var currentStore = $('#currentStore').val();
 
 	$.ajax({
-		url: 'ddproc.php?processor=admin_guestSearch',
+		url: '/processor?processor=admin_guestSearch',
 		type: 'POST',
 		dataType : 'json',
 		data : {

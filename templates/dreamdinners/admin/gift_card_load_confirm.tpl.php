@@ -78,7 +78,7 @@
  <tr><td>
 	To view the complete Gift Card Policies &amp; Terms online or if you
 	have questions regarding your Gift Card or Customer Service options
-	please visit <a href="main.php?static=giftcards">gift cards</a>.
+	please visit <a href="/giftcards">gift cards</a>.
 
 </table>
 

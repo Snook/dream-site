@@ -38,6 +38,7 @@ class CForm
 
 	// Element types
 	const Text = 'text';
+	const Search = 'search';
 	const Password = 'password';
 	const EMail = 'email';
 	const Tel = 'tel';
@@ -123,6 +124,7 @@ class CForm
 	const min = 'min';
 	const max = 'max';
 	const number = 'number';
+	const search = 'search';
 	const email = 'email';
 	const telephone = 'telephone';
 	const date = 'date';
@@ -422,6 +424,10 @@ class CForm
 		else if ($a[self::type] == self::number || array_key_exists(self::number, $a) && $a[self::number])
 		{
 			$szBuildString = "<input type='number' name='";
+		}
+		else if ($a[self::type] == self::search || array_key_exists(self::search, $a) && $a[self::search])
+		{
+			$szBuildString = "<input type='search' name='";
 		}
 		else if ($a[self::type] == self::date || array_key_exists(self::date, $a) && $a[self::date])
 		{
@@ -2186,12 +2192,6 @@ class CForm
 			{
 				$this->DefaultValues[$a[self::name]] = CBrowserSession::getCurrentStore();
 			}
-
-			//store view store takes precendent over everything else
-			if (CApp::$isStoreView && CBrowserSession::getCurrentStoreView())
-			{
-				$this->DefaultValues[$a[self::name]] = CBrowserSession::getCurrentStoreView();
-			}
 		}
 
 		//build store drop down
@@ -2324,18 +2324,6 @@ class CForm
 			$a[self::name] = 'store_per_state';
 		}
 
-		// CES The page logic should have total control over the default value
-		/*
-				//if $default == false, then pull the default store id out of the session
-				if ( (!isset($this->DefaultValues[$a[self::name]])) && CBrowserSession::getCurrentStore() ) {
-					$this->DefaultValues[$a[self::name]] = CBrowserSession::getCurrentStore();
-				}
-
-				//store view store takes precendent over everything else
-				if ( CApp::$isStoreView && CBrowserSession::getCurrentStoreView() ) {
-					$this->DefaultValues[$a[self::name]] = CBrowserSession::getCurrentStoreView();
-				}
-		*/
 		//build store drop down
 		$StoreObj = DAO_CFactory::create('store');
 		if (isset($a[self::franchise_filter]))
@@ -2452,12 +2440,6 @@ class CForm
 			if ((!isset($this->DefaultValues[$a[self::name]])) && CBrowserSession::getCurrentFadminStore())
 			{
 				$this->DefaultValues[$a[self::name]] = CBrowserSession::getCurrentFadminStore();
-			}
-
-			//store view store takes precendent over everything else
-			if (CApp::$isStoreView && CBrowserSession::getCurrentStoreView())
-			{
-				$this->DefaultValues[$a[self::name]] = CBrowserSession::getCurrentStoreView();
 			}
 		}
 
@@ -2854,6 +2836,11 @@ class CForm
 
 			case self::Number:
 				$a['number'] = true;
+				$this->__AddTextElement($a);
+				break;
+
+			case self::Search:
+				$a['search'] = true;
 				$this->__AddTextElement($a);
 				break;
 

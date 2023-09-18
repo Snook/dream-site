@@ -99,7 +99,7 @@ class page_admin_order_mgr_test extends CPageAdminOnly
 			if (empty($_REQUEST['user']) || !is_numeric($_REQUEST['user']))
 			{
 				$tpl->setErrorMsg("There was a problem with the user ID specified.");
-				CApp::bounce("main.php?page=admin_main");
+				CApp::bounce("/?page=admin_main");
 			}
 
 			$this->originalOrder = DAO_CFactory::create('orders');
@@ -138,7 +138,7 @@ class page_admin_order_mgr_test extends CPageAdminOnly
 				else
 				{
 					$tpl->setErrorMsg("There was a problem with the order ID specified.");
-					CApp::bounce("main.php?page=admin_main");
+					CApp::bounce("/?page=admin_main");
 					// TODO: or we could leave them here with a NEW order
 				}
 			}
@@ -189,7 +189,7 @@ class page_admin_order_mgr_test extends CPageAdminOnly
 			}
 			else
 			{
-				CApp::bounce('main.php?page=admin_main');
+				CApp::bounce('/?page=admin_main');
 			}
 		}
 
@@ -201,7 +201,7 @@ class page_admin_order_mgr_test extends CPageAdminOnly
 
 		if (!CStore::userHasAccessToStore($this->daoStore->id))
 		{
-			CApp::bounce('main.php?page=admin_main');
+			CApp::bounce('/?page=admin_main');
 		}
 
 		if (CUser::getCurrentUser()->isFranchiseAccess() && $this->orderState != 'NEW')
@@ -212,7 +212,7 @@ class page_admin_order_mgr_test extends CPageAdminOnly
 
 				$storeName = $this->daoStore->store_name;
 				$tpl->setErrorMsg("This order (#{$this->originalOrder->id}) was placed at a different store. Please change to the $storeName store to edit it.");
-				CApp::bounce('main.php?page=admin_main');
+				CApp::bounce('/?page=admin_main');
 			}
 		}
 
@@ -1040,6 +1040,7 @@ class page_admin_order_mgr_test extends CPageAdminOnly
 			$tpl->assign('couponDiscountMethod', $coupon->discount_method);
 			$tpl->assign('couponDiscountVar', $coupon->discount_var);
 			$tpl->assign('couponlimitedToFT', ($coupon->limit_to_finishing_touch ? true : false));
+			$tpl->assign('couponIsValidWithReferralCredit', ($coupon->valid_with_customer_referral_credit ? true : false));
 			$tpl->assign('couponIsValidWithPlatePoints', ($coupon->valid_with_plate_points_credits ? true : false));
 
 			$tpl->assign('couponFreeMenuItem', (!empty($this->originalOrder->coupon_free_menu_item) ? $this->originalOrder->coupon_free_menu_item : false));
@@ -1526,9 +1527,9 @@ class page_admin_order_mgr_test extends CPageAdminOnly
 					COrders::sendEditedOrderConfirmationEmail($this->User, $this->originalOrder);
 				}
 
-				$tpl->assign('back', "main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+				$tpl->assign('back', "/?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 
-				CApp::bounce("main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+				CApp::bounce("/?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 			}
 			else
 			{
@@ -1834,6 +1835,7 @@ class page_admin_order_mgr_test extends CPageAdminOnly
 							$tpl->assign('couponDiscountMethod', $coupon->discount_method);
 							$tpl->assign('couponDiscountVar', $coupon->discount_var);
 							$tpl->assign('couponlimitedToFT', ($coupon->limit_to_finishing_touch ? true : false));
+							$tpl->assign('couponIsValidWithReferralCredit', ($coupon->valid_with_customer_referral_credit ? true : false));
 							$tpl->assign('couponIsValidWithPlatePoints', ($coupon->valid_with_plate_points_credits ? true : false));
 						}
 						else
@@ -1888,9 +1890,9 @@ class page_admin_order_mgr_test extends CPageAdminOnly
 						COrders::sendEditedOrderConfirmationEmail($this->User, $this->originalOrder);
 					}
 
-					$tpl->assign('back', "main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+					$tpl->assign('back', "/?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 
-					CApp::bounce("main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+					CApp::bounce("/?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 				}
 				catch (Exception $e)
 				{

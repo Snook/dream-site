@@ -143,14 +143,6 @@ class CBrowserSession extends DAO_Browser_sessions
 	 */
 	static public function setValue($key, $value = false, $no_expire = false, $secure = true, $httponly = true)
 	{
-		//if ( !self::getValue("chkcookie") )
-		//{
-		//if ( isset($_REQUEST['static']) and $_REQUEST['static'] != 'nocookie' )
-		//{
-		//CApp::bounce('main.php?static=nocookie');
-		//}
-		//}
-
 		if (defined('DD_SERVER_NAME') && DD_SERVER_NAME != 'LIVE')
 		{
 			if (in_array($key, self::$siteSpecificCookies))
@@ -171,7 +163,7 @@ class CBrowserSession extends DAO_Browser_sessions
 
 		$DAY = (60 * 60 * 24); //seconds in a day
 
-		if (CApp::$isStoreView && !$no_expire)
+		if (!$no_expire)
 		{
 			setcookie($key, $value, time() + 60 * 15, "/", COOKIE_DOMAIN, $secure, $httponly); //expire in 15 minutes
 		}
@@ -292,16 +284,6 @@ class CBrowserSession extends DAO_Browser_sessions
 		return false;
 	}
 
-	// The above method - setCurrentStore - will set the home store id
-	// if it is different from the default_store_id cookie. When in Store View
-	// that id will be the same
-	// CES TODO: (The Idea is setCurrentStore may be doing unneeded work if in storeView,
-	// This function should be customized for storeview)
-	static public function setCurrentStoreInStoreView($id)
-	{
-		self::setCurrentStore($id);
-	}
-
 	static public function getCurrentStore()
 	{
 		$retVal = self::getValue('default_store_id');
@@ -387,17 +369,6 @@ class CBrowserSession extends DAO_Browser_sessions
 	    }
 	}
 
-	//set storeview store id
-	static public function setCurrentStoreView($id)
-	{
-		self::setValue('storeview_store_id', $id, true);
-	}
-
-	static public function getCurrentStoreView()
-	{
-		return self::getValue('storeview_store_id');
-	}
-
 	static public function setFirstName($name)
 	{
 		self::setValue('firstname', $name, true);
@@ -479,11 +450,6 @@ class CBrowserSession extends DAO_Browser_sessions
 			{
 				$sessionDuration = $CookieOneYear;
 			}
-		}
-		else if (CApp::$isStoreView)
-		{
-			// Store view gets a 15 minute cookie
-			$sessionDuration = $CookieFifteenMin;
 		}
 		else if (!empty($User->user_type) && $User->user_type == CUser::CUSTOMER && $keepLoggedIn)
 		{

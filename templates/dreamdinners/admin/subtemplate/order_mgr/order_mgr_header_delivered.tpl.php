@@ -295,7 +295,7 @@
 
 									<td style="text-align: right;">
 									<?php if (!$this->discountEligable['limited_access'] && $this->orderState != 'CANCELLED'){ ?>
-									<span id="gd_cancel_delivered_order-<?php echo $this->orderInfo['id']; ?>" data-user_id="<?php echo $this->orderInfo['user_id']; ?>" data-store_id="<?php echo $this->orderInfo['store_id']; ?>" data-session_id="<?php echo $this->sessionInfo['id']; ?>" data-order_id="<?php echo $this->orderInfo['id']; ?>" data-bounce="main.php?page=admin_main_delivered" class="button">Cancel Order</span>
+									<span id="gd_cancel_delivered_order-<?php echo $this->orderInfo['id']; ?>" data-user_id="<?php echo $this->orderInfo['user_id']; ?>" data-store_id="<?php echo $this->orderInfo['store_id']; ?>" data-session_id="<?php echo $this->sessionInfo['id']; ?>" data-order_id="<?php echo $this->orderInfo['id']; ?>" data-bounce="/?page=admin_main_delivered" class="button">Cancel Order</span>
 								<?php } ?>
 									<input class="button" type="button" value="Reset to Current" onClick="resetPage();"></td>
 								</tr>

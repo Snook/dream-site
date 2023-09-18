@@ -6,7 +6,7 @@
 <table role="presentation" width="650"  border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="350" align="left" style="padding: 5px"><img src="<?=EMAIL_IMAGES_PATH?>/email/style/dream_dinners_grey_325x75.png" alt="Dream Dinners" width="325" height="75"></td>
-<td width="300" align="right" style="padding: 5px"><a href="<?=HTTPS_SERVER?>/main.php?page=my_events&sid=<?=$this->sessionInfo['session_id']?>">Invite Friends</a> | <a href="<?=HTTPS_BASE ?>main.php?page=my_meals">Rate My Meals</a></td>
+<td width="300" align="right" style="padding: 5px"><a href="<?=HTTPS_SERVER?>/my-events?sid=<?=$this->sessionInfo['session_id']?>">Invite Friends</a> | <a href="<?=HTTPS_BASE ?>my-meals">Rate My Meals</a></td>
 </tr>
 <tr bgcolor="#5c6670">
   <td colspan="2" style="padding: 5px"><p align="center"><span style="color:#FFF; font-size:14pt; font-weight:bold;">Advanced Order - Session Balance Due</span></p></td>
@@ -21,7 +21,7 @@
       <p>However, in order to keep your order and your spot reserved, you need to pay for your
 		session in full at this time.  If your session is not paid in full, within 48 hours, your spot
 		and order will be released.</p>
-		<p>To pay now, go to: <a href="<?= HTTPS_BASE?>main.php?page=order_details&order=<?=$this->orderInfo['id']?>">
+		<p>To pay now, go to: <a href="<?= HTTPS_BASE?>order-details?order=<?=$this->orderInfo['id']?>">
 		<b><?= $this->orderInfo['order_confirmation'] ?></b></a></p>
 		<p>Once you've paid, you will be sent a reminder email of your session,
 		3 days prior to your session starting.</p>
@@ -31,8 +31,8 @@
 <hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;"></td>
 </tr>
 <tr>
-  <td><a href="http://blog.dreamdinners.com">Dream Dinners Blog</a> | <a href="<?=HTTPS_BASE?>main.php?page=locations&store_id=<?=$this->store_id?>">Contact your local store</a> |
-<a href="<?=HTTPS_BASE?>main.php?static=terms">View Terms and Conditions</a></td>
+  <td><a href="http://blog.dreamdinners.com">Dream Dinners Blog</a> | <a href="<?=HTTPS_BASE?>locations/<?=$this->store_id?>">Contact your local store</a> |
+<a href="<?=HTTPS_BASE?>terms">View Terms and Conditions</a></td>
 </tr>
 </table>
 </body>

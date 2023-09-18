@@ -38,4 +38,4 @@ Note: $2 shipping/service fee added each Traditional Gift Card ordered.
 
 Have questions? To view the complete Gift Card Policies & Terms online or if you
 have questions regarding your Gift Card or Customer Service options please visit
-<?=HTTPS_SERVER?>/main.php?static=giftcards
+<?= HTTPS_SERVER ?>/giftcards

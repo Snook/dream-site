@@ -2,7 +2,7 @@ Dream Dinners
 Customer Coupon Code Used Alert
 
 -----------------------------
-Name: <?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?> <?php echo HTTPS_SERVER; ?>/main.php?page=admin_user_details&id=<?php echo $this->user->id; ?>
+Name: <?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?> <?php echo HTTPS_SERVER; ?>/?page=admin_user_details&id=<?php echo $this->user->id; ?>
 Email:&nbsp;<?php echo $this->customer_primary_email; ?>
 
 Coupon Used

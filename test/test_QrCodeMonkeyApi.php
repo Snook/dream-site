@@ -24,13 +24,13 @@ $text = "GEEKS FOR GEEKS";
 //QRcode::png($text);
 
 
-//QRcode::png('https://dreamdinners.com/main.php?page=item&recipe=1060',
+//QRcode::png('https://dreamdinners.com/item?recipe=1060',
 //	"C:\\Development\\Sites\\qr.png",
 //	'M');
 
 
 //);
-QRcode::png('https://dreamdinners.com/main.php?page=item&recipe=1060',"C:\\Development\\Sites\\qr.png",
+QRcode::png('https://dreamdinners.com/item?recipe=1060',"C:\\Development\\Sites\\qr.png",
     QR_ECLEVEL_L,
     3,
     4,

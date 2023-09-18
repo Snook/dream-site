@@ -148,7 +148,7 @@ function init_update_p_and_l_data()
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -204,7 +204,7 @@ function init_goal_inputs()
 	{
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -247,7 +247,7 @@ function updateGOGSfields(month, year)
 	var dateStr = month + "-1-" + year;
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -325,7 +325,7 @@ function init_food_cost_inputs()
 	{
 
 		$.ajax({
-			url: 'main.php?page=admin_store_expenses_v2',
+			url: '/?page=admin_store_expenses_v2',
 			type: 'POST',
 			once: false,
 			data : {
@@ -373,7 +373,7 @@ function init_labor_cost_inputs()
 	$("[id^=lc_]").on('click', function ()
 	{
 		$.ajax({
-			url: 'main.php?page=admin_store_expenses_v2',
+			url: '/?page=admin_store_expenses_v2',
 			type: 'POST',
 			once: false,
 			data : {
@@ -951,7 +951,7 @@ function init_session_lead_dropdowns()
 		var session_id = this.id.substr(3);
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',

@@ -1,7 +1,7 @@
 <div>
 	&#8226; <?php echo CTemplate::dateTimeFormat($item['time'], TIME, $this->store, CONCISE); ?>
-	<span data-tooltip="<?php echo CUser::userTypeText($item['user_type']); ?>"><a href="main.php?page=admin_user_details&amp;id=<?php echo $item['user_id']; ?>" target="_blank"><?php echo $item['user']; ?></a></span>
-	<b>Created</b> <a href="main.php?page=admin_main&amp;session=<?php echo $item['session_id']; ?>" target="_blank"><span class="type"><?php echo CCalendar::sessionTypeNote($item['session_data']['session_type_true']); ?></span></a>
+	<span data-tooltip="<?php echo CUser::userTypeText($item['user_type']); ?>"><a href="/?page=admin_user_details&amp;id=<?php echo $item['user_id']; ?>" target="_blank"><?php echo $item['user']; ?></a></span>
+	<b>Created</b> <a href="/?page=admin_main&amp;session=<?php echo $item['session_id']; ?>" target="_blank"><span class="type"><?php echo CCalendar::sessionTypeNote($item['session_data']['session_type_true']); ?></span></a>
 	Session for <?php echo CTemplate::dateTimeFormat($item['session_start'], VERBOSE); ?>
 	<button class="show_edit_notes astext" data-index="<?php echo $index; ?>">&bigtriangledown;</button>
 

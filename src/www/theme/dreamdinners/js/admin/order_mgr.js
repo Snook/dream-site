@@ -15,7 +15,9 @@ var relatedOrdersAreLoaded = false;
 var currentlySavingOrder = false;
 var onTimeShotAtSupplyingZeroPaymentHasOccurred = false;
 var needPlatePointsMaxDiscountChangeWarning = false;
+var needRefferalRewardMaxDiscountChangeWarning = false;
 var lastMaxPPDiscountAmount = -1;
+var lastMaxReferralRewardDiscountAmount = -1;
 let feesTabIsDirty = false;
 
 function admin_order_mgr_init()
@@ -67,7 +69,7 @@ function admin_order_mgr_init()
 	{
 		var query = window.location.search.substring(1);
 		var vars = query.split("&");
-		var newQueryString = "main.php?";
+		var newQueryString = "?";
 
 		var first = true;
 		for (var i = 0; i < vars.length; i++)
@@ -292,7 +294,7 @@ function saveSpecialInstructions()
 	var special_instructions = strip_tags($("#order_user_notes").val());
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -351,7 +353,7 @@ function handle_special_instruction_notes()
 			}
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -541,7 +543,7 @@ function setupSiteAdminFunctions()
 				},
 				confirm: function () {
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -784,7 +786,7 @@ function saveItems(saveDiscountsUponCompletion, activateOnSaveDiscountsCompletio
 	currentlySavingOrder = true;
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -871,7 +873,7 @@ function setSessionAndSave(session_id)
 	displayModalWaitDialog('saving_div', "Setting session. Please wait ...");
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 90000,
 		dataType: 'json',
@@ -891,11 +893,11 @@ function setSessionAndSave(session_id)
 
 				if (json.full_session_warning_required)
 				{
-					bounce("main.php?page=admin_order_mgr&order=" + json.order_id + "&session_full=true");
+					bounce("/?page=admin_order_mgr&order=" + json.order_id + "&session_full=true");
 				}
 				else
 				{
-					bounce("main.php?page=admin_order_mgr&order=" + json.order_id);
+					bounce("/?page=admin_order_mgr&order=" + json.order_id);
 				}
 			}
 			else
@@ -935,7 +937,7 @@ function Reschedule(org_session_id, transition_type, suppressEmail)
 	intenseLogging("Reschedule() called");
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1182,7 +1184,7 @@ function saveDeliveryAddress(payOnCompletion, token)
 	intenseLogging("saveDeliveryAddress() called");
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 200000,
 		dataType: 'json',
@@ -1332,7 +1334,7 @@ function onRelatedOrdersTabSelected()
 		intenseLogging("Loading related Orders");
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1378,7 +1380,7 @@ function onRelatedOrdersTabDeselected()
 function onNotesTabSelected()
 {
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1623,7 +1625,7 @@ function updateActiveOrder(payOnCompletion, go_to_confirm)
 	var ltdOrderedMealsArray = $("#ltdOrderedMealsArray").val();
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1740,6 +1742,12 @@ function saveDiscounts(payOnCompletion, saveDeliveryAddressUponCompletion)
 		plate_points_discount = "0.00";
 	}
 
+	let referral_reward_discount = $("#referral_reward_discount").val();
+	if (isNaN(referral_reward_discount))
+	{
+		referral_reward_discount = "0.00";
+	}
+
 	var SessDiscSetting = $('input[name=SessDisc]:checked', '#editorForm').val();
 
 	if (SessDiscSetting == null || SessDiscSetting == "")
@@ -1794,7 +1802,7 @@ function saveDiscounts(payOnCompletion, saveDeliveryAddressUponCompletion)
 	let opted_to_bring_bags = $("#opted_to_bring_bags").is(":checked");
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1807,6 +1815,7 @@ function saveDiscounts(payOnCompletion, saveDeliveryAddressUponCompletion)
 			direct_order_discount: direct_order_discount,
 			PUDSetting: PUDSetting,
 			plate_points_discount: plate_points_discount,
+			referral_reward_discount: referral_reward_discount,
 			SessDiscSetting: SessDiscSetting,
 			coupon_id: coupon_id,
 			coupon_free_menu_item: coupon_free_menu_item,
@@ -2080,7 +2089,7 @@ function send(token, paymentNumber, warnOfOutstandingSavedOrdersOnFullSession, a
 
 		if (typeof payflowErrorURL == 'undefined')
 		{
-			payflowErrorURL = "https://dreamdinners.com/ddproc.php?processor=admin_payflow_callback";
+			payflowErrorURL = "https://dreamdinners.com/processor?processor=admin_payflow_callback";
 		}
 
 		// make PARMLIST
@@ -2151,7 +2160,7 @@ function send(token, paymentNumber, warnOfOutstandingSavedOrdersOnFullSession, a
 
 		if (typeof payflowErrorURL == 'undefined')
 		{
-			payflowErrorURL = "https://dreamdinners.com/ddproc.php?processor=admin_payflow_callback";
+			payflowErrorURL = "https://dreamdinners.com/processor?processor=admin_payflow_callback";
 		}
 
 		// make PARMLIST
@@ -2714,7 +2723,7 @@ function save2PaymentsAndBookOrder(payment2Type, payment1Data, token)
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			async: true,
@@ -2739,11 +2748,11 @@ function save2PaymentsAndBookOrder(payment2Type, payment1Data, token)
 
 					if (json.warnOfOutstandingSavedOrdersOnFullSession)
 					{
-						bounce("main.php?page=admin_order_mgr_thankyou&order=" + json.order_id + '&full_session=true');
+						bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id + '&full_session=true');
 					}
 					else
 					{
-						bounce("main.php?page=admin_order_mgr_thankyou&order=" + json.order_id);
+						bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id);
 					}
 
 				}
@@ -2782,7 +2791,7 @@ function save2PaymentsAndBookOrder(payment2Type, payment1Data, token)
 		var amt = $("#payment2_cc_total_amount").val();
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			async: true,
@@ -2873,7 +2882,7 @@ function savePayment2(payment2Type, warnOfOutstandingSavedOrdersOnFullSession, t
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			async: true,
@@ -2895,11 +2904,11 @@ function savePayment2(payment2Type, warnOfOutstandingSavedOrdersOnFullSession, t
 
 					if (warnOfOutstandingSavedOrdersOnFullSession)
 					{
-						bounce("main.php?page=admin_order_mgr_thankyou&order=" + json.order_id + '&full_session=true');
+						bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id + '&full_session=true');
 					}
 					else
 					{
-						bounce("main.php?page=admin_order_mgr_thankyou&order=" + json.order_id);
+						bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id);
 					}
 
 				}
@@ -2938,7 +2947,7 @@ function savePayment2(payment2Type, warnOfOutstandingSavedOrdersOnFullSession, t
 		var amt = $("#payment2_cc_total_amount").val();
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			async: true,
@@ -3091,7 +3100,7 @@ function handleDirectPayment(addOnly, go_to_confirm, token)
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 90000,
 		async: true,
@@ -3118,11 +3127,11 @@ function handleDirectPayment(addOnly, go_to_confirm, token)
 
 				if (json.warnOfOutstandingSavedOrdersOnFullSession)
 				{
-					bounce("main.php?page=admin_order_mgr_thankyou&order=" + json.order_id + '&full_session=true');
+					bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id + '&full_session=true');
 				}
 				else
 				{
-					bounce("main.php?page=admin_order_mgr_thankyou&order=" + json.order_id);
+					bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id);
 				}
 			}
 			else
@@ -3255,7 +3264,7 @@ function onAddPaymentAndActivate(addOnly, go_to_confirm, token)
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			async: true,
@@ -3281,11 +3290,11 @@ function onAddPaymentAndActivate(addOnly, go_to_confirm, token)
 
 					if (json.warnOfOutstandingSavedOrdersOnFullSession)
 					{
-						bounce("main.php?page=admin_order_mgr_thankyou&order=" + json.order_id + '&full_session=true');
+						bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id + '&full_session=true');
 					}
 					else
 					{
-						bounce("main.php?page=admin_order_mgr_thankyou&order=" + json.order_id);
+						bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id);
 					}
 				}
 				else
@@ -3331,7 +3340,7 @@ function onAddPaymentAndActivate(addOnly, go_to_confirm, token)
 		var amt = $("#payment1_cc_total_amount").val();
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			async: true,
@@ -3404,7 +3413,7 @@ function RetrieveCalendar(timestamp)
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'GET',
 		timeout: 20000,
 		dataType: 'json',
@@ -4131,6 +4140,18 @@ function HideLineItemsIfZero()
 		$('#platePointsDiscountRow').show();
 	}
 
+	var referralRewardDiscountOrg = Number($('#OEH_referral_reward_order_discount_orig').html());
+	var referralRewardDiscount = Number($('#OEH_referral_reward_order_discount').html());
+
+	if (referralRewardDiscountOrg == 0 && referralRewardDiscount == 0)
+	{
+		$('#referralRewardDiscountRow').hide();
+	}
+	else
+	{
+		$('#referralRewardDiscountRow').show();
+	}
+
 	var platePointsDiscountOrg = Number($('#OEH_plate_points_discount_org_fee').html());
 	var platePointsDiscount = Number($('#OEH_plate_points_order_discount_fee').html());
 
@@ -4248,6 +4269,7 @@ function ShowAllLineItems()
 	$('#nonFoodTaxRow').show();
 	$('#productSubtotalRow').show();
 	$('#platePointsDiscountRow').show();
+	$('#referralRewardDiscountRow').show();
 	$('#preferredUserDiscountRow').show();
 	$('#sessionDiscountRow').show();
 	$('#LTDRoundUpRow').show();
@@ -5862,6 +5884,13 @@ function getAbbreviatedChangeString()
 
 	}
 
+	if (needRefferalRewardMaxDiscountChangeWarning)
+	{
+		htmlStr += "<div style='color:red;'>Warning: The amount discountable by Referral Rewards has changed. You may wish to review and adjust the Referral Rewards discount.</div>";
+
+	}
+
+
 	for (var item in changeList.stdMenuItems)
 	{
 		if (changeList.stdMenuItems.hasOwnProperty(item))
@@ -6153,7 +6182,7 @@ function addPaymentToLockedOrder()
 	var amt = $("#payment1_cc_total_amount").val();
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		async: true,
@@ -7117,7 +7146,69 @@ function calculateTotal()
 			"background-color": "#fff",
 			"color": "#000"
 		});
-		$("#pp_discountable_cost_msg").hide();
+	}
+
+
+	let discountableReferralRewardAmount = total + Number(document.getElementById('subtotal_service_fee').value);
+
+	if (typeof coupon != 'undefined' && coupon.limit_to_mfy_fee == '1' && coupon.discount_method == 'FLAT')
+	{
+
+		let currentServiceFee = $("#subtotal_service_fee").val();
+
+		// adjust the discountablePlatePointsAmount and service to match coupon
+		discountableReferralRewardAmount = formatAsMoney(discountableReferralRewardAmount - currentServiceFee);
+		$("#OEH_subtotal_service_fee").val(currentServiceFee);
+
+		hasServiceFeeWithMFYCoupon = true;
+		if (discountableReferralRewardAmount < 0)
+		{
+			discountableReferralRewardAmount = 0;
+		}
+
+	}
+
+	needRefferalRewardMaxDiscountChangeWarning = false;
+
+	if (discountableReferralRewardAmount != lastMaxReferralRewardDiscountAmount && lastMaxReferralRewardDiscountAmount != -1)
+	{
+		needRefferalRewardMaxDiscountChangeWarning = true;
+	}
+
+	lastMaxReferralRewardDiscountAmount = discountableReferralRewardAmount;
+
+	if (couponlimitedToFT)
+	{
+		let tempCouponVal = Number(document.getElementById('couponValue').value);
+		discountableReferralRewardAmount -= tempCouponVal;
+		if (discountableReferralRewardAmount < 0)
+		{
+			discountableReferralRewardAmount = 0;
+		}
+
+	}
+
+	$("#referral_reward_discount").html(formatAsMoney(discountableReferralRewardAmount))
+
+
+	if (discountableReferralRewardAmount <= 0)
+	{
+		$("#referral_reward_discount").attr("disabled", "disabled");
+		$("#referral_reward_discount").css({
+			"background-color": "#c0c0c0",
+			"color": "#060606"
+		});
+		$("#rr_discountable_cost_msg").show();
+
+	}
+	else if (!discountEligable.limited_access)
+	{
+		$("#referral_reward_discount").removeAttr("disabled");
+		$("#referral_reward_discount").css({
+			"background-color": "#fff",
+			"color": "#000"
+		});
+		$("#rr_discountable_cost_msg").hide();
 
 	}
 
@@ -7131,6 +7222,24 @@ function calculateTotal()
 	}
 
 	if (maxPPCredit > maxPPDeduction)
+	{
+		$('#tbody_max_plate_points_deduction').show();
+	}
+	else
+	{
+		$('#tbody_max_plate_points_deduction').hide();
+	}
+
+	let maxRRCredit = $("#referral_reward_available").html() * 1;
+	let maxRRDeduction = $("#max_referral_reward_deduction").html() * 1;
+	let curRRDiscount = $("#referral_reward_discount").val() * 1;
+
+	if (maxRRDeduction < curRRDiscount)
+	{
+		$("#referral_reward_discount").val(maxRRDeduction);
+	}
+
+	if (maxRRCredit > maxRRDeduction)
 	{
 		$('#tbody_max_plate_points_deduction').show();
 	}
@@ -7311,6 +7420,30 @@ function calculateTotal()
 		// This is now done in the taxesd section
 
 		newGrandTotal = formatAsMoney(newGrandTotal - curPPDiscount);
+	}
+
+	let curReferralRewardDiscount = 0;
+	// ----------------------------------------------  Referral Reward Discount
+	if ($('#referral_reward_discount').length)
+	{
+		curReferralRewardDiscount = $('#referral_reward_discount').val();
+		if (curReferralRewardDiscount * 1 > discountablePlatePointsAmount * 1)
+		{
+			curReferralRewardDiscount = discountablePlatePointsAmount;
+
+			if (curReferralRewardDiscount == 0)
+			{
+				$('#referral_reward_discount').val("");
+			}
+			else
+			{
+				$('#referral_reward_discount').val(formatAsMoney(curReferralRewardDiscount));
+			}
+		}
+
+		$('#OEH_referral_reward_order_discount').html(formatAsMoney(curReferralRewardDiscount));
+
+		newGrandTotal = formatAsMoney(newGrandTotal - curReferralRewardDiscount);
 	}
 
 	// ---------------------------------------------- Direct Order
@@ -8358,7 +8491,7 @@ function preferenceChangeListener(pref, setting, user, callback){
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',

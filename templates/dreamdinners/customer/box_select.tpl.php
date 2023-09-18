@@ -152,7 +152,7 @@
 
 							<div class="row">
 								<div class="col px-0">
-									<a href="main.php?page=checkout" class="btn btn-primary btn-spinner btn-block">Checkout</a>
+									<a href="/checkout" class="btn btn-primary btn-spinner btn-block">Checkout</a>
 								</div>
 							</div>
 

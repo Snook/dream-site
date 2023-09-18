@@ -45,7 +45,7 @@ function saveGuestCarryoverNotes_<?php echo $guest_carryover_note_user_id; ?>()
 	$('#guest_carryover_note_proc_message_<?php echo $guest_carryover_note_user_id; ?>').html('<img src="' + guestNotesVar_<?php echo $guest_carryover_note_user_id; ?>.image_path + '/throbber_processing_noborder.gif" alt="Processing" />');
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',

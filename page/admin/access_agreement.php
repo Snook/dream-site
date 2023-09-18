@@ -61,7 +61,7 @@ class page_admin_access_agreement extends CPageAdminOnly {
 	{
 		$tpl = CApp::instance()->template();
 
-		$tpl->assign('back', 'main.php?page=admin_main');
+		$tpl->assign('back', '/?page=admin_main');
 
 		if (!empty($_REQUEST['back']))
 		{
@@ -93,11 +93,11 @@ class page_admin_access_agreement extends CPageAdminOnly {
 				{
 					$Mail = new CMail();
 
-					$emailHTML = '<a href="' . HTTPS_SERVER . '/main.php?page=admin_user_details&id=' . $User->id . '">' . $User->firstname . ' ' . $User->lastname . '</a> has signed the BackOffice NDA.';
+					$emailHTML = '<a href="' . HTTPS_SERVER . '/?page=admin_user_details&id=' . $User->id . '">' . $User->firstname . ' ' . $User->lastname . '</a> has signed the BackOffice NDA.';
 
 					if ($User->user_type != CUser::SITE_ADMIN && $User->user_type != CUser::HOME_OFFICE_MANAGER && $User->user_type != CUser::HOME_OFFICE_STAFF)
 					{
-						$emailHTML .= ' <a href="' . HTTPS_SERVER . '/main.php?page=admin_store_details&id=' . $Store->id . '">' . $Store->store_name . '</a>.';
+						$emailHTML .= ' <a href="' . HTTPS_SERVER . '/?page=admin_store_details&id=' . $Store->id . '">' . $Store->store_name . '</a>.';
 					}
 
 					$Mail->send(ADMINISTRATOR_EMAIL,
@@ -116,7 +116,7 @@ class page_admin_access_agreement extends CPageAdminOnly {
 				if ($User->user_type == CUser::NEW_EMPLOYEE || $User->user_typw == CUser::DISHWASHER)
 				{
 					unset(CApp::instance()->template()->back);
-					CApp::bounce("main.php?page=admin_safe_landing");
+					CApp::bounce("/?page=admin_safe_landing");
 				}
 
 				CApp::bounce($tpl->back);

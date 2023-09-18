@@ -17,7 +17,7 @@
 		<div class="row my-4">
 			<div class="col text-center">
 				<h1>Dream Dinners Meal Prep+</h1>
-				<h2><a href="/main.php?page=admin_user_details&amp;id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a></h2>
+				<h2><a href="/?page=admin_user_details&amp;id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a></h2>
 			</div>
 		</div>
 
@@ -25,7 +25,7 @@
 
 			<div class="row">
 				<div class="col text-center">
-					<p>Guest is ineligible to purchase a Meal Prep+ Membership. Please put their <a class="text-decoration-underline" href="/main.php?page=admin_user_plate_points&amp;id=<?php echo $this->user->id; ?>">PLATEPOINTS enrollment on hold</a> first.</p>
+					<p>Guest is ineligible to purchase a Meal Prep+ Membership. Please put their <a class="text-decoration-underline" href="/?page=admin_user_plate_points&amp;id=<?php echo $this->user->id; ?>">PLATEPOINTS enrollment on hold</a> first.</p>
 				</div>
 			</div>
 
@@ -33,7 +33,7 @@
 
 			<div class="row">
 				<div class="col text-center">
-					<p>Guest is ineligible to purchase a Meal Prep+ Membership. Please remove their <a class="text-decoration-underline" href="/main.php?page=admin_preferred&amp;id=<?php echo $this->user->id; ?>">Preferred Status</a> first.</p>
+					<p>Guest is ineligible to purchase a Meal Prep+ Membership. Please remove their <a class="text-decoration-underline" href="/?page=admin_preferred&amp;id=<?php echo $this->user->id; ?>">Preferred Status</a> first.</p>
 				</div>
 			</div>
 
@@ -122,7 +122,7 @@
 						<p>This membership enrollment has been applied to the following order(s):</p>
 						<ul>
 							<?php foreach ($this->order_conversion_results AS $order_id => $result) { ?>
-								<div><a href="/main.php?page=admin_order_mgr&amp;order=<?php echo $order_id; ?>"><?php echo $order_id; ?> - <?php echo $result; ?></a></div>
+								<div><a href="/?page=admin_order_mgr&amp;order=<?php echo $order_id; ?>"><?php echo $order_id; ?> - <?php echo $result; ?></a></div>
 							<?php } ?>
 						</ul>
 					</div>
@@ -215,7 +215,7 @@
 															<td>
 																<?php if (!empty($membershipInfo['orders'])) { ?>
 																	<?php foreach ($membershipInfo['orders'] AS $order_id => $order) { ?>
-																		<div><a href="/main.php?page=admin_order_mgr&amp;order=<?php echo $order_id; ?>"><?php echo CTemplate::dateTimeFormat($order['session_start'], VERBOSE); ?></a></div>
+																		<div><a href="/?page=admin_order_mgr&amp;order=<?php echo $order_id; ?>"><?php echo CTemplate::dateTimeFormat($order['session_start'], VERBOSE); ?></a></div>
 																	<?php } ?>
 																<?php } else { ?>
 																	None

@@ -122,11 +122,11 @@ class page_admin_email extends CPageAdminOnly
 		}
 		else if (!empty($user_id))
 		{
-			$tpl->assign('back', 'main.php?page=admin_user_details&id=' . $user_id);
+			$tpl->assign('back', '/?page=admin_user_details&id=' . $user_id);
 		}
 		else
 		{
-			$tpl->assign('back', 'main.php?page=admin_main');
+			$tpl->assign('back', '/?page=admin_main');
 		}
 
 		$tpl->assign('extensions', '.' . implode(' .', CMAIL::allowedExtensions()));

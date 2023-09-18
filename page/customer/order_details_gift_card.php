@@ -35,12 +35,6 @@ class page_order_details_gift_card extends CPage {
 
 		$tpl->assign('orders', implode(',', $gcOrders));
 
-		//logout user after order in storeview
-		if ( CApp::$isStoreView )
-		{
-			$session = CBrowserSession::instance()->ExpireSession();
-		}
-
 		if (empty($gcOrders))
 		{
 			CApp::bounce();

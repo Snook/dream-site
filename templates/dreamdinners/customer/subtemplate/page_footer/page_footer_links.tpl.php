@@ -4,11 +4,11 @@
 			<div class="container-fluid footer-nav border-bottom border-top border-green-dark py-2 mt-5 bg-white d-lg-none d-print-none">
 				<div class="row">
 
-					<a href="/main.php?static=how_it_works" class="col-3 px-0 text-center font-size-small">
+					<a href="/how-it-works" class="col-3 px-0 text-center font-size-small">
 						<i class="dd-icon icon-measuring_cup font-size-medium-large text-green"></i>
 						<div>How it Works</div>
 					</a>
-					<a href="/main.php?page=locations" class="col-3 px-0 text-center font-size-small">
+					<a href="/locations" class="col-3 px-0 text-center font-size-small">
 						<i class="dd-icon icon-cart font-size-medium-large text-green mr-1"></i>
 						<div>Order</div>
 					</a>
@@ -27,15 +27,15 @@
 		<section>
 			<div class="container-fluid footer-nav border-bottom border-top border-green-dark py-2 mt-5 bg-white d-lg-none d-print-none">
 				<div class="row">
-					<a href="/main.php?page=browse_menu" class="col-4 pr-0 text-center font-size-small">
+					<a href="/browse-menu" class="col-4 pr-0 text-center font-size-small">
 						<i class="dd-icon icon-table_setting font-size-medium-large text-green"></i>
 						<div>Menu Preview</div>
 					</a>
-					<a href="/main.php?static=how_it_works" class="col-3 px-0 text-center font-size-small">
+					<a href="/how-it-works" class="col-3 px-0 text-center font-size-small">
 						<i class="dd-icon icon-measuring_cup font-size-medium-large text-green"></i>
 						<div>How it Works</div>
 					</a>
-					<a href="/main.php?page=locations" class="col-2 px-0 text-center font-size-small">
+					<a href="/locations" class="col-2 px-0 text-center font-size-small">
 						<i class="dd-icon icon-cart font-size-medium-large text-green mr-1"></i>
 						<div>Order</div>
 					</a>
@@ -54,34 +54,34 @@
 		<div class="col-md-4 col-lg-3 col-xl-2">
 			<p class="font-weight-bold text-uppercase pl-1">Quick Links</p>
 			<div class="list-group list-group-flush">
-				<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/main.php?page=locations">Order</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=browse_menu">Menu Preview</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?static=share">Share</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=my_account">My Account</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=locations">Store Locations</a>
+				<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/locations">Order</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/browse-menu">Menu Preview</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/share">Share</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/my-account">My Account</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/locations">Store Locations</a>
 				<?php if (defined('ENABLE_HELP_SEARCH') && ENABLE_HELP_SEARCH == true) { ?>
 					<a class="list-group-item bg-green-dark text-white py-0 help-search-launcher" href="#">Help</a>
 				<?php } ?>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=gift_card_order">Gift Cards</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/gift-card-order">Gift Cards</a>
 			</div>
 		</div>
 		<div class="col-md-4 col-lg-3 col-xl-2">
 			<p class="font-weight-bold text-uppercase pl-1 mt-4 mt-md-0">Our Company</p>
 			<div class="list-group list-group-flush">
-				<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/main.php?static=about_us">About Us</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?static=our_food">Our Food</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?static=job_opportunities">Careers</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?static=contact_us">Contact Us</a>
+				<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/about-us">About Us</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/our-food">Our Food</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/job-opportunities">Careers</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/contact-us">Contact Us</a>
 			</div>
 		</div>
 		<div class="col-md-4 col-lg-3 col-xl-2">
 			<p class="font-weight-bold text-uppercase pl-1 mt-4 mt-md-0">Learn More</p>
 			<div class="list-group list-group-flush">
-				<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/main.php?static=how_it_works">How It Works</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=platepoints">PlatePoints</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?static=promotions">Promotions</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?static=fundraisers">Fundraisers</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=recipe_resources">Recipe Resources</a>
+				<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/how-it-works">How It Works</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/platepoints">PlatePoints</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/promotions">Promotions</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/fundraisers">Fundraisers</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/recipe-resources">Recipe Resources</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="https://blog.dreamdinners.com" rel="noopener" target="_blank">Our Blog</a>
 			</div>
 		</div>
@@ -89,13 +89,13 @@
 			<?php if (CUser::isUserStaff()) { ?>
 				<p class="font-weight-bold text-uppercase pl-1 mt-4 mt-lg-0">Administration</p>
 				<div class="list-group list-group-flush">
-					<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="main.php?page=admin_main">BackOffice Home</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=admin_reports">Reports</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=admin_list_users">Guests</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=admin_session_mgr">Session Calendar</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=admin_menu_inventory_mgr">Inventory Manager</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=admin_menu_editor">Menu Editor</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/main.php?page=admin_gift_card_management">Gift Cards</a>
+					<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/?page=admin_main">BackOffice Home</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/?page=admin_reports">Reports</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/?page=admin_list_users">Guests</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/?page=admin_session_mgr">Session Calendar</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/?page=admin_menu_inventory_mgr">Inventory Manager</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/?page=admin_menu_editor">Menu Editor</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/?page=admin_gift_card_management">Gift Cards</a>
 				</div>
 			<?php } ?>
 		</div>
@@ -129,10 +129,10 @@
 			<div class="col">
 				<ul class="list-inline font-size-small text-white text-center m-3">
 					<li class="list-inline-item"><a class="text-white" href="/">&copy; Dream Dinners, Inc.</a></li>
-					<li class="list-inline-item"><a class="text-white d-print-none" href="/main.php?static=terms">Terms</a></li>
-					<li class="list-inline-item"><a class="text-white d-print-none" href="/main.php?static=privacy">Privacy</a></li>
-					<li class="list-inline-item"><a class="text-white d-print-none" href="/main.php?static=cookies">Cookies</a></li>
-					<li class="list-inline-item"><a class="text-white d-print-none" href="/main.php?page=sitemap">Sitemap</a></li>
+					<li class="list-inline-item"><a class="text-white d-print-none" href="/terms">Terms</a></li>
+					<li class="list-inline-item"><a class="text-white d-print-none" href="/privacy">Privacy</a></li>
+					<li class="list-inline-item"><a class="text-white d-print-none" href="/cookies">Cookies</a></li>
+					<li class="list-inline-item"><a class="text-white d-print-none" href="/sitemap">Sitemap</a></li>
 				</ul>
 			</div>
 		</div>

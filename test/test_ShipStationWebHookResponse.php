@@ -6,7 +6,7 @@ require_once 'includes/api/shipping/shipstation/ShipStationOrderBatchWrapper.php
 //$result = ShipStationManager::getInstance()->listWebhooks();
 //echo $result;
 
-//$result = ShipStationManager::getInstance()->subscribeWebhook("https://67.171.15.168:8443/ddproc.php?processor=admin_shipping_wh","ORDER_NOTIFY",'125909','Test Order WebHook');
+//$result = ShipStationManager::getInstance()->subscribeWebhook("https://67.171.15.168:8443/processor?processor=admin_shipping_wh","ORDER_NOTIFY",'125909','Test Order WebHook');
 
 //$result = ShipStationManager::getInstance()->listWebhooks();
 

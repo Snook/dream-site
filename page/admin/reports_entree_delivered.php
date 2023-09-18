@@ -61,7 +61,7 @@ class page_admin_reports_entree_delivered extends CPageAdminOnly
 		$storeTypeGetter->query("select id from store where id = {$this->currentStore} and store_type <> 'DISTRIBUTION_CENTER'");
 		if ($storeTypeGetter->N > 0)
 		{
-			CApp::bounce('main.php?page=admin_reports_entree');
+			CApp::bounce('/?page=admin_reports_entree');
 		}
 
 		$this->runSiteAdmin();

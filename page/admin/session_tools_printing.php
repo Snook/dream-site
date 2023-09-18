@@ -156,7 +156,7 @@ class page_admin_session_tools_printing extends CPageAdminOnly
 			{
 				$tpl->setErrorMsg('Session not found.');
 
-				CApp::bounce('main.php?page=admin_session_tools_printing');
+				CApp::bounce('/?page=admin_session_tools_printing');
 			}
 		}
 
@@ -170,7 +170,7 @@ class page_admin_session_tools_printing extends CPageAdminOnly
 			{
 				$tpl->setErrorMsg('No Sessions found for the requested date.');
 
-				CApp::bounce('main.php?page=admin_session_tools_printing');
+				CApp::bounce('/?page=admin_session_tools_printing');
 			}
 		}
 

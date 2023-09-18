@@ -18,7 +18,7 @@
 		<td align="left"><img src="<?=EMAIL_IMAGES_PATH?>/email/platepoints/platepoints-footer-grey.png" alt="" width="550" height="50"></td>
 	</tr>
 	<tr>
-		<td align="right" style="padding: 5px"><a href="<?=HTTPS_BASE ?>main.php?page=session_menu">Order</a> | <a href="<?=HTTPS_BASE ?>main.php?page=my_account">My Account</a> | <a href="<?=HTTPS_BASE ?>main.php?page=my_platepoints">My PLATEPOINTS</a></td>
+		<td align="right" style="padding: 5px"><a href="<?=HTTPS_BASE ?>session-menu">Order</a> | <a href="<?=HTTPS_BASE ?>my-account">My Account</a> | <a href="<?=HTTPS_BASE ?>my-platepoints">My PLATEPOINTS</a></td>
 	</tr>
 	<tr>
 		<td align="left" style="padding: 5px"><p><i>*Dinner Dollars are awarded after your 3rd standard order and can be applied on qualifying items on your 4th visit and beyond. Dinner Dollars can only be redeemed at participating stores. Dinner Dollars are not available on preferred guest accounts.</i></p></td>

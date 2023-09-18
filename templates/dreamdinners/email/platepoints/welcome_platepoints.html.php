@@ -24,7 +24,7 @@
   <td style="padding: 5px; border-top: #e87722 dotted 3px !important;"></td>
   </tr>
 <tr>
-  <td align="right" style="padding: 5px"><a href="<?=HTTPS_BASE ?>main.php?page=locations">View Menu &nbsp; Order</a> | <a href="<?=HTTPS_BASE ?>main.php?page=my_account">My Account</a></td>
+  <td align="right" style="padding: 5px"><a href="<?=HTTPS_BASE ?>locations">View Menu &nbsp; Order</a> | <a href="<?=HTTPS_BASE ?>my-account">My Account</a></td>
   </tr>
 <tr>
   <td align="left" style="padding: 5px"><p><i>*Dinner Dollars may be redeemed at participating locations. Once you have a standard order for a menu month, you can place unlimited additional orders with no minimum throughout the month. Dinner Dollars are non-transferrable and expire 30 days from the date awarded. Preferred guests and Meal Prep+ members are not eligible for Dinner Dollars. Dinner Dollars cannot be combined with other offers.</i></p></td>

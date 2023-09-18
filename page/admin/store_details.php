@@ -6,9 +6,6 @@ require_once("includes/DAO/Opco.php");
 
 class page_admin_store_details extends CPageAdminOnly
 {
-
-	private $defaultTime = null;
-
 	function runHomeOfficeManager()
 	{
 		$this->runStoreDetails();
@@ -26,17 +23,15 @@ class page_admin_store_details extends CPageAdminOnly
 
 	function runStoreDetails($id = null)
 	{
-
-		$ty = CBrowserSession::getCurrentFadminStoreType();
-		if ($ty === CStore::DISTRIBUTION_CENTER)
+		if (CBrowserSession::getCurrentFadminStoreType() === CStore::DISTRIBUTION_CENTER)
 		{
 			if (array_key_exists('id', $_REQUEST) && $_REQUEST['id'] && is_numeric($_REQUEST['id']))
 			{
-				CApp::bounce('/main.php?page=admin_store_details_delivered&id=' . $_REQUEST['id']);
+				CApp::bounce('/?page=admin_store_details_delivered&id=' . $_REQUEST['id']);
 			}
-			CApp::bounce('/main.php?page=admin_store_details_delivered');
+
+			CApp::bounce('/?page=admin_store_details_delivered');
 		}
-		$tpl = CApp::instance()->template();
 
 		$Form = new CForm();
 		$Form->Repost = true;
@@ -66,7 +61,6 @@ class page_admin_store_details extends CPageAdminOnly
 			}
 		}
 
-		//$this->defaultTime = mktime(0,0,0,01,01,1970);
 		$label = "Date Not Set";
 
 		if (isset($_REQUEST["selectedCell"]) && $_REQUEST["selectedCell"])
@@ -80,7 +74,7 @@ class page_admin_store_details extends CPageAdminOnly
 		}
 		else if (!$id)
 		{
-			CApp::bounce('main.php?page=admin_list_stores');
+			CApp::bounce('/?page=admin_list_stores');
 		}
 
 		if (!empty($id) && is_numeric($id))
@@ -89,10 +83,10 @@ class page_admin_store_details extends CPageAdminOnly
 			{
 				if ($_POST['action'] == 'deleteStore')
 				{
-					$store = DAO_CFactory::create('store');
-					$store->id = $id;
-					$store->delete();
-					$tpl->setStatusMsg('The store has been deleted');
+					$DAO_store = DAO_CFactory::create('store', true);
+					$DAO_store->id = $id;
+					$DAO_store->delete();
+					$this->Template->setStatusMsg('The store has been deleted');
 
 					// jump to same page without deleteStore action
 
@@ -102,45 +96,43 @@ class page_admin_store_details extends CPageAdminOnly
 					}
 					else
 					{
-						CApp::bounce('main.php?page=admin_list_stores');
+						CApp::bounce('/?page=admin_list_stores');
 					}
 				}
 			}
 
-			$store = DAO_CFactory::create('store');
-			$store->query("SELECT
-				s.*,
-				m1.firstname AS manager_1_firstname,
-				m1.lastname AS manager_1_lastname,
-				m1.primary_email AS manager_1_primary_email,
-				m1.telephone_1 AS manager_1_telephone_1
-				FROM store AS s
-				LEFT JOIN `user` AS m1 ON m1.id = s.manager_1_user_id AND m1.is_deleted = '0'
-				WHERE s.id = '" . $id . "' AND s.is_deleted = '0'
-				GROUP BY s.id");
-			$store->fetch();
-			$store_already_opted_into_plate_points = false;
-			$current_retention_program_setting = $store->supports_retention_programs;
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->id = $id;
+			$DAO_store->find_DAO_store(true);
+			$this->Template->assign('DAO_store', $DAO_store);
 
-			if ($store->supports_plate_points)
+			$manager_DAO_user = DAO_CFactory::create('user', true);
+			$manager_DAO_user->id = $DAO_store->manager_1_user_id;
+			$manager_DAO_user->find(true);
+			$this->Template->assign('manager_DAO_user', $manager_DAO_user);
+
+			$store_already_opted_into_plate_points = false;
+			$current_retention_program_setting = $DAO_store->supports_retention_programs;
+
+			if ($DAO_store->supports_plate_points)
 			{
 				$store_already_opted_into_plate_points = true;
 			}
 
-			if ($store->franchise_id)
+			if ($DAO_store->franchise_id)
 			{
-				$franchise = DAO_CFactory::create('franchise');
-				$franchise->id = $store->franchise_id;
+				$franchise = DAO_CFactory::create('franchise', true);
+				$franchise->id = $DAO_store->franchise_id;
 				$franchise->find(true);
-				$tpl->assign('franchise_name', $franchise->franchise_name);
+				$this->Template->assign('franchise_name', $franchise->franchise_name);
 			}
 			else
 			{
-				$tpl->assign('franchise_name', null);
+				$this->Template->assign('franchise_name', null);
 			}
 
-			$Form->DefaultValues = array_merge($Form->DefaultValues, $store->toArray());
-			list($sales_tax_id, $food_tax, $total_tax, $service_tax, $enrollment_tax, $deliverytax, $bagFeeTax) = $store->getCurrentSalesTax();
+			$Form->DefaultValues = array_merge($Form->DefaultValues, $DAO_store->toArray());
+			list($sales_tax_id, $food_tax, $total_tax, $service_tax, $enrollment_tax, $deliverytax, $bagFeeTax) = $DAO_store->getCurrentSalesTax();
 			$Form->DefaultValues['food_tax'] = $food_tax;
 			$Form->DefaultValues['total_tax'] = $total_tax;
 			$Form->DefaultValues['other1_tax'] = $service_tax;
@@ -148,15 +140,21 @@ class page_admin_store_details extends CPageAdminOnly
 			$Form->DefaultValues['other3_tax'] = $deliverytax;
 			$Form->DefaultValues['other4_tax'] = $bagFeeTax;
 
-			if (empty($store->manager_1_user_id))
+			$Form->DefaultValues['short_url'] = $DAO_store->getStoreId();
+
+			if (empty($manager_DAO_user->id))
 			{
 				$Form->DefaultValues['manager_1_user_id'] = '';
+			}
+			else
+			{
+				$Form->DefaultValues['manager_1_user_id'] = $manager_DAO_user->id;
 			}
 
 			//set credit card check default values
 			$Form->DefaultValues['credit_card_discover'] = false;
 			$Form->DefaultValues['credit_card_amex'] = false;
-			$ccTypes = $store->getCreditCardTypes();
+			$ccTypes = $DAO_store->getCreditCardTypes();
 
 			foreach ($ccTypes as $card)
 			{
@@ -171,7 +169,7 @@ class page_admin_store_details extends CPageAdminOnly
 				}
 			}
 
-			$sessionDescs = CStore::getStoreSessionTypeDescriptions($store);
+			$sessionDescs = CStore::getStoreSessionTypeDescriptions($DAO_store);
 			if (!empty($sessionDescs))
 			{
 				foreach ($sessionDescs as $title => $message)
@@ -213,12 +211,19 @@ class page_admin_store_details extends CPageAdminOnly
 				));
 
 				$Form->AddElement(array(
-					CForm::type => CForm::Text,
+					CForm::type => CForm::EMail,
 					CForm::disabled => false,
 					CForm::name => "email_address",
 					CForm::dd_required => true,
 					CForm::email => true,
 					CForm::length => 50
+				));
+
+				$Form->AddElement(array(
+					CForm::type => CForm::Text,
+					CForm::disabled => false,
+					CForm::pattern => "[a-z0-9\-]+", // only numbers, hyphens and lower case letters allowed
+					CForm::name => "short_url"
 				));
 
 				$Form->AddElement(array(
@@ -469,10 +474,17 @@ class page_admin_store_details extends CPageAdminOnly
 				));
 
 				$Form->AddElement(array(
-					CForm::type => CForm::Text,
+					CForm::type => CForm::EMail,
 					CForm::disabled => true,
 					CForm::name => "email_address",
 					CForm::size => 50
+				));
+
+				$Form->AddElement(array(
+					CForm::type => CForm::Text,
+					CForm::disabled => true,
+					CForm::pattern => "[a-z0-9\-]+",  // only numbers, hyphens and lower case letters allowed
+					CForm::name => "short_url"
 				));
 
 				$Form->AddElement(array(
@@ -525,7 +537,8 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::TextArea,
 					CForm::disabled => true,
 					CForm::name => "address_directions",
-					CForm::dd_required => false
+					CForm::dd_required => false,
+					CForm::css_class => 'previewable'
 				));
 
 				$Form->AddElement(array(
@@ -652,7 +665,8 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::type => CForm::TextArea,
 				CForm::disabled => $disabledForm,
 				CForm::name => "store_description",
-				CForm::dd_required => false
+				CForm::dd_required => false,
+				CForm::css_class => 'previewable'
 			));
 
 			$Form->AddElement(array(
@@ -682,15 +696,15 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => 'timezone_id'
 			));
 
-			if ($store->grand_opening_date != null)
+			if ($DAO_store->grand_opening_date != null)
 			{
-				$startTS = strtotime($store->grand_opening_date);
+				$startTS = strtotime($DAO_store->grand_opening_date);
 				$label = date("m/d/Y", $startTS);
-				$tpl->assign('initDate', $label);
+				$this->Template->assign('initDate', $label);
 			}
 			else
 			{
-				$tpl->assign('initDate', date("m/d/Y"));
+				$this->Template->assign('initDate', date("m/d/Y"));
 			}
 
 			$Form->AddElement(array(
@@ -958,9 +972,9 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => 'supports_meal_customization'
 			));
 
-			$customizationFees = CStoreFee::fetchCustomizationFees($store->id);
-			$tpl->assign('customization_fees', $customizationFees);
-			$tpl->assign('store_supports_meal_customization', CStore::storeSupportsMealCustomization($store->id));
+			$customizationFees = CStoreFee::fetchCustomizationFees($DAO_store->id);
+			$this->Template->assign('customization_fees', $customizationFees);
+			$this->Template->assign('store_supports_meal_customization', CStore::storeSupportsMealCustomization($DAO_store->id));
 
 			$Form->AddElement(array(
 				CForm::type => CForm::CheckBox,
@@ -969,7 +983,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => 'allow_preassembled_customization'
 			));
 
-			foreach ( $customizationFees as $fee)
+			foreach ($customizationFees as $fee)
 			{
 				$Form->DefaultValues[$fee['name']] = $fee['cost'];
 				$Form->AddElement(array(
@@ -983,8 +997,6 @@ class page_admin_store_details extends CPageAdminOnly
 				));
 			}
 
-
-
 			$Form->AddElement(array(
 				CForm::type => CForm::Submit,
 				CForm::name => "updateStore",
@@ -993,7 +1005,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::value => "Save"
 			));
 
-			if (CStore::storeSupportsStoreSpecificDeposit($store->id))
+			if (CStore::storeSupportsStoreSpecificDeposit($DAO_store->id))
 			{
 				$Form->AddElement(array(
 					CForm::type => CForm::Number,
@@ -1005,7 +1017,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::dd_required => true
 				));
 
-				$tpl->assign('store_supports_store_specific_deposit', true);
+				$this->Template->assign('store_supports_store_specific_deposit', true);
 			}
 
 			$Form->AddElement(array(
@@ -1021,12 +1033,12 @@ class page_admin_store_details extends CPageAdminOnly
 			$pkgSameAsStore = true;
 			$letterSameAsStore = true;
 
-			if (empty($store->pkg_ship_same_as_store))
+			if (empty($DAO_store->pkg_ship_same_as_store))
 			{
 				$pkgSameAsStore = false;
 			}
 
-			if (empty($store->letter_ship_same_as_store))
+			if (empty($DAO_store->letter_ship_same_as_store))
 			{
 				$letterSameAsStore = false;
 			}
@@ -1035,22 +1047,22 @@ class page_admin_store_details extends CPageAdminOnly
 			{
 				if ($pkgSameAsStore)
 				{
-					$Form->DefaultValues['pkg_ship_address_line1'] = $store->address_line1;
-					$Form->DefaultValues['pkg_ship_address_line2'] = $store->address_line2;
-					$Form->DefaultValues['pkg_ship_city'] = $store->city;
-					$Form->DefaultValues['pkg_ship_state_id'] = $store->state_id;
-					$Form->DefaultValues['pkg_ship_postal_code'] = $store->postal_code;
-					$Form->DefaultValues['pkg_ship_telephone_day'] = $store->telephone_day;
+					$Form->DefaultValues['pkg_ship_address_line1'] = $DAO_store->address_line1;
+					$Form->DefaultValues['pkg_ship_address_line2'] = $DAO_store->address_line2;
+					$Form->DefaultValues['pkg_ship_city'] = $DAO_store->city;
+					$Form->DefaultValues['pkg_ship_state_id'] = $DAO_store->state_id;
+					$Form->DefaultValues['pkg_ship_postal_code'] = $DAO_store->postal_code;
+					$Form->DefaultValues['pkg_ship_telephone_day'] = $DAO_store->telephone_day;
 				}
 
 				if ($letterSameAsStore)
 				{
-					$Form->DefaultValues['letter_ship_address_line1'] = $store->address_line1;
-					$Form->DefaultValues['letter_ship_address_line2'] = $store->address_line2;
-					$Form->DefaultValues['letter_ship_city'] = $store->city;
-					$Form->DefaultValues['letter_ship_state_id'] = $store->state_id;
-					$Form->DefaultValues['letter_ship_postal_code'] = $store->postal_code;
-					$Form->DefaultValues['letter_ship_telephone_day'] = $store->telephone_day;
+					$Form->DefaultValues['letter_ship_address_line1'] = $DAO_store->address_line1;
+					$Form->DefaultValues['letter_ship_address_line2'] = $DAO_store->address_line2;
+					$Form->DefaultValues['letter_ship_city'] = $DAO_store->city;
+					$Form->DefaultValues['letter_ship_state_id'] = $DAO_store->state_id;
+					$Form->DefaultValues['letter_ship_postal_code'] = $DAO_store->postal_code;
+					$Form->DefaultValues['letter_ship_telephone_day'] = $DAO_store->telephone_day;
 				}
 			}
 
@@ -1079,7 +1091,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => "pkg_ship_address_line1",
 				CForm::attribute => array(
 					'data-contact' => 'pkg_ship',
-					'data-store_value' => $store->address_line1
+					'data-store_value' => $DAO_store->address_line1
 				),
 				CForm::placeholder => "*Street Address",
 				CForm::required_msg => "Please enter a street address.",
@@ -1093,7 +1105,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => "pkg_ship_address_line2",
 				CForm::attribute => array(
 					'data-contact' => 'pkg_ship',
-					'data-store_value' => $store->address_line2
+					'data-store_value' => $DAO_store->address_line2
 				),
 				CForm::placeholder => "Suite / Unit",
 				CForm::required_msg => "Please enter a suite number.",
@@ -1107,7 +1119,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => "pkg_ship_city",
 				CForm::attribute => array(
 					'data-contact' => 'pkg_ship',
-					'data-store_value' => $store->city
+					'data-store_value' => $DAO_store->city
 				),
 				CForm::placeholder => "*City",
 				CForm::required_msg => "Please enter a city.",
@@ -1121,7 +1133,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => 'pkg_ship_state_id',
 				CForm::attribute => array(
 					'data-contact' => 'pkg_ship',
-					'data-store_value' => $store->state_id
+					'data-store_value' => $DAO_store->state_id
 				),
 				CForm::required_msg => "Please select state.",
 				CForm::tooltip => true,
@@ -1134,7 +1146,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => "pkg_ship_postal_code",
 				CForm::attribute => array(
 					'data-contact' => 'pkg_ship',
-					'data-store_value' => $store->postal_code
+					'data-store_value' => $DAO_store->postal_code
 				),
 				CForm::placeholder => "*Postal Code",
 				CForm::required_msg => "Please enter a postal code.",
@@ -1159,7 +1171,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => 'pkg_ship_telephone_day',
 				CForm::attribute => array(
 					'data-contact' => 'pkg_ship',
-					'data-store_value' => $store->telephone_day
+					'data-store_value' => $DAO_store->telephone_day
 				),
 				CForm::placeholder => "*Primary Telephone",
 				CForm::required_msg => "Please enter a telephone number.",
@@ -1194,7 +1206,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => "letter_ship_address_line1",
 				CForm::attribute => array(
 					'data-contact' => 'letter_ship',
-					'data-store_value' => $store->address_line1
+					'data-store_value' => $DAO_store->address_line1
 				),
 				CForm::placeholder => "*Street Address",
 				CForm::required_msg => "Please enter a street address.",
@@ -1208,7 +1220,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => "letter_ship_address_line2",
 				CForm::attribute => array(
 					'data-contact' => 'letter_ship',
-					'data-store_value' => $store->address_line2
+					'data-store_value' => $DAO_store->address_line2
 				),
 				CForm::placeholder => "Suite / Unit",
 				CForm::required_msg => "Please enter a suite number.",
@@ -1222,7 +1234,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => "letter_ship_city",
 				CForm::attribute => array(
 					'data-contact' => 'letter_ship',
-					'data-store_value' => $store->city
+					'data-store_value' => $DAO_store->city
 				),
 				CForm::placeholder => "*City",
 				CForm::required_msg => "Please enter a city.",
@@ -1236,7 +1248,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => 'letter_ship_state_id',
 				CForm::attribute => array(
 					'data-contact' => 'letter_ship',
-					'data-store_value' => $store->state_id
+					'data-store_value' => $DAO_store->state_id
 				),
 				CForm::required_msg => "Please select state.",
 				CForm::tooltip => true,
@@ -1249,7 +1261,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => "letter_ship_postal_code",
 				CForm::attribute => array(
 					'data-contact' => 'letter_ship',
-					'data-store_value' => $store->postal_code
+					'data-store_value' => $DAO_store->postal_code
 				),
 				CForm::placeholder => "*Postal Code",
 				CForm::required_msg => "Please enter a postal code.",
@@ -1274,7 +1286,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => 'letter_ship_telephone_day',
 				CForm::attribute => array(
 					'data-contact' => 'letter_ship',
-					'data-store_value' => $store->telephone_day
+					'data-store_value' => $DAO_store->telephone_day
 				),
 				CForm::placeholder => "*Primary Telephone",
 				CForm::required_msg => "Please enter a telephone number.",
@@ -1300,7 +1312,7 @@ class page_admin_store_details extends CPageAdminOnly
 
 			// Trade Area assignment
 			$defaultTradeArea = 0;
-			$tdarea = DAO_CFactory::create('store_trade_area');
+			$tdarea = DAO_CFactory::create('store_trade_area', true);
 			$tdarea->is_active = 1;
 			$tdarea->store_id = $id;
 			$tdarea->find(true);
@@ -1311,7 +1323,7 @@ class page_admin_store_details extends CPageAdminOnly
 			}
 
 			$tradeareaarray = array();
-			$tradeareas = DAO_CFactory::create('trade_area');
+			$tradeareas = DAO_CFactory::create('trade_area', true);
 			$tradeareas->find();
 			$tradeareaarray[] = '-- Select a region --';
 
@@ -1343,7 +1355,7 @@ class page_admin_store_details extends CPageAdminOnly
 			// Coach assignment
 
 			$coachdefault = 0;
-			$coachassign = DAO_CFactory::create('store_coach');
+			$coachassign = DAO_CFactory::create('store_coach', true);
 			$coachassign->is_active = 1;
 			$coachassign->store_id = $id;
 			$coachassign->find(true);
@@ -1355,7 +1367,7 @@ class page_admin_store_details extends CPageAdminOnly
 
 			$sql = 'SELECT coach.id, `user`.`primary_email`,`user`.`firstname`,`user`.`lastname`, administrator FROM `coach` INNER JOIN `user` ON `coach`.`user_id` = `user`.`id` WHERE `coach`.`active` = 1 AND user.is_deleted = 0 ORDER BY lastname';
 			$coacharr = array();
-			$coach = DAO_CFactory::create('coach');
+			$coach = DAO_CFactory::create('coach', true);
 			$coach->query($sql);
 			$coacharr[] = '-- Assign a coach --';
 
@@ -1385,11 +1397,13 @@ class page_admin_store_details extends CPageAdminOnly
 				));
 			}
 
+			self::setupStoreBioFormFields($Form, $this->Template);
+
 			// handle form submit
 			if ($Form->value('updateStore'))
 			{
 				$hadError = false;
-				$storeUpdated = clone($store);
+				$storeUpdated = clone($DAO_store);
 				$storeUpdated->setFrom($Form->values());
 
 				// cleanup
@@ -1400,12 +1414,12 @@ class page_admin_store_details extends CPageAdminOnly
 				{
 					if (empty($_POST['supports_plate_points_signature']))
 					{
-						$tpl->setErrorMsg('Opting in to PLATEPOINTS requires the full name of the person opting the store in.');
+						$this->Template->setErrorMsg('Opting in to PLATEPOINTS requires the full name of the person opting the store in.');
 						$hadError = true;
 					}
 					else
 					{
-						CStoreHistory::recordStoreEvent(CUser::getCurrentUser()->id, $store->id, 'null', 300, 'null', 'null', 'null', CGPC::do_clean($_POST['supports_plate_points_signature'], TYPE_STR));
+						CStoreHistory::recordStoreEvent(CUser::getCurrentUser()->id, $DAO_store->id, 'null', 300, 'null', 'null', 'null', CGPC::do_clean($_POST['supports_plate_points_signature'], TYPE_STR));
 					}
 				}
 
@@ -1413,11 +1427,11 @@ class page_admin_store_details extends CPageAdminOnly
 				{
 					if ($storeUpdated->supports_retention_programs)
 					{
-						CStoreHistory::recordStoreEvent(CUser::getCurrentUser()->id, $store->id, 'null', 301, 'null', 'null', 'null', "Store has opted into retention program");
+						CStoreHistory::recordStoreEvent(CUser::getCurrentUser()->id, $DAO_store->id, 'null', 301, 'null', 'null', 'null', "Store has opted into retention program");
 					}
 					else
 					{
-						CStoreHistory::recordStoreEvent(CUser::getCurrentUser()->id, $store->id, 'null', 302, 'null', 'null', 'null', "Store has opted out of retention program");
+						CStoreHistory::recordStoreEvent(CUser::getCurrentUser()->id, $DAO_store->id, 'null', 302, 'null', 'null', 'null', "Store has opted out of retention program");
 					}
 				}
 
@@ -1430,7 +1444,7 @@ class page_admin_store_details extends CPageAdminOnly
 					$DescsriptionsArray['PICKUP'] = CGPC::do_clean($_POST['pickup_session_desc'], TYPE_STR);
 					$DescsriptionsArray['DELIVERY'] = CGPC::do_clean($_POST['delivery_session_desc'], TYPE_STR);
 					$DescsriptionsArray['REMOTE_PICKUP'] = CGPC::do_clean($_POST['remote_pickup_session_desc'], TYPE_STR);
-					CStore::setStoreSessionTypeDescriptions($store, $DescsriptionsArray);
+					CStore::setStoreSessionTypeDescriptions($DAO_store, $DescsriptionsArray);
 
 					if (empty($_POST['pkg_ship_is_commercial']))
 					{
@@ -1471,13 +1485,13 @@ class page_admin_store_details extends CPageAdminOnly
 						$grandAsTS = mktime(0, 0, 0, $dateParts[0], $dateParts[1], $dateParts[2]);
 						$storeUpdated->grand_opening_date = date("Y-m-d", $grandAsTS);
 						$label = date("m/d/Y", $grandAsTS);
-						$tpl->assign('initDate', $label);
+						$this->Template->assign('initDate', $label);
 					}
 
 					if (isset($_POST['default_delayed_payment_deposit']) && $_POST['default_delayed_payment_deposit'] < 20)
 					{
 						$storeUpdated->default_delayed_payment_deposit = 20;
-						$tpl->setStatusMsg("Delayed Payment deposit must be at least $20. The deposit was set to $20.");
+						$this->Template->setStatusMsg("Delayed Payment deposit must be at least $20. The deposit was set to $20.");
 					}
 					else
 					{
@@ -1494,16 +1508,16 @@ class page_admin_store_details extends CPageAdminOnly
 					}
 
 					// store is changing franchise entity, so remove old owners and assign new
-					if ($storeUpdated->franchise_id != $store->franchise_id)
+					if ($storeUpdated->franchise_id != $DAO_store->franchise_id)
 					{
-						$oldOwners = DAO_CFactory::create('user_to_franchise');
-						$oldOwners->franchise_id = $store->franchise_id;
+						$oldOwners = DAO_CFactory::create('user_to_franchise', true);
+						$oldOwners->franchise_id = $DAO_store->franchise_id;
 						$oldOwners->find();
 						while ($oldOwners->fetch())
 						{
-							$removeOwner = DAO_CFactory::create('user_to_store');
+							$removeOwner = DAO_CFactory::create('user_to_store', true);
 							$removeOwner->user_id = $oldOwners->user_id;
-							$removeOwner->store_id = $store->id;
+							$removeOwner->store_id = $DAO_store->id;
 							$removeOwner->find();
 							while ($removeOwner->fetch())
 							{
@@ -1511,14 +1525,14 @@ class page_admin_store_details extends CPageAdminOnly
 							}
 						}
 
-						$newOwners = DAO_CFactory::create('user_to_franchise');
+						$newOwners = DAO_CFactory::create('user_to_franchise', true);
 						$newOwners->franchise_id = $storeUpdated->franchise_id;
 						$newOwners->find();
 						while ($newOwners->fetch())
 						{
-							$addOwner = DAO_CFactory::create('user_to_store');
+							$addOwner = DAO_CFactory::create('user_to_store', true);
 							$addOwner->user_id = $newOwners->user_id;
-							$addOwner->store_id = $store->id;
+							$addOwner->store_id = $DAO_store->id;
 							$addOwner->display_to_public = 0;
 							$addOwner->insert();
 						}
@@ -1533,9 +1547,9 @@ class page_admin_store_details extends CPageAdminOnly
 						}
 
 						// update merch account
-						$MerchantInfo = DAO_CFactory::create('merchant_accounts');
-						$MerchantInfo->store_id = $store->id;
-						$MerchantInfo->franchise_id = $store->franchise_id;
+						$MerchantInfo = DAO_CFactory::create('merchant_accounts', true);
+						$MerchantInfo->store_id = $DAO_store->id;
+						$MerchantInfo->franchise_id = $DAO_store->franchise_id;
 						$found = $MerchantInfo->find(true);
 						if ($found > 1)
 						{
@@ -1545,28 +1559,28 @@ class page_admin_store_details extends CPageAdminOnly
 						$MerchantInfo->franchise_id = $storeUpdated->franchise_id;
 						$MerchantInfo->update($originalInfo);
 
-						CStoreHistory::recordStoreEvent(CUser::getCurrentUser()->id, $store->id, 'null', 400, 'null', 'null', 'null', 'merchant_accounts.id ' . $MerchantInfo->id . ' franchise_id changed from ' . $store->franchise_id . ' to ' . $storeUpdated->franchise_id);
+						CStoreHistory::recordStoreEvent(CUser::getCurrentUser()->id, $DAO_store->id, 'null', 400, 'null', 'null', 'null', 'merchant_accounts.id ' . $MerchantInfo->id . ' franchise_id changed from ' . $DAO_store->franchise_id . ' to ' . $storeUpdated->franchise_id);
 					}
-					$storeUpdated->update($store);
-					$store = $storeUpdated;
-					$store->setCurrentSalesTax($Form->value('food_tax'), $Form->value('total_tax'), $Form->value('other1_tax'), $Form->value('other2_tax'), $Form->value('other3_tax'), $Form->value('other4_tax'));
+					$storeUpdated->update($DAO_store);
+					$DAO_store = $storeUpdated;
+					$DAO_store->setCurrentSalesTax($Form->value('food_tax'), $Form->value('total_tax'), $Form->value('other1_tax'), $Form->value('other2_tax'), $Form->value('other3_tax'), $Form->value('other4_tax'));
 
-
-					foreach ( $customizationFees as $fee)
+					foreach ($customizationFees as $fee)
 					{
 						$cost = 0;
-						if($Form->value('supports_meal_customization')){
+						if ($Form->value('supports_meal_customization'))
+						{
 							$cost = $Form->value($fee['name']);
 						}
-						$store->setCustomizationFee($store->id,$fee,$cost);
+						$DAO_store->setCustomizationFee($DAO_store->id, $fee, $cost);
 					}
 
 					//update credit card choices
 					if ($Form->value('credit_card_discover') != $Form->DefaultValues['credit_card_discover'])
 					{
-						$ccTypeObj = DAO_CFactory::create('payment_credit_card_type');
+						$ccTypeObj = DAO_CFactory::create('payment_credit_card_type', true);
 						$ccTypeObj->credit_card_type = CPayment::DISCOVERCARD;
-						$ccTypeObj->store_id = $store->id;
+						$ccTypeObj->store_id = $DAO_store->id;
 						if ($Form->value('credit_card_discover'))
 						{
 							$ccTypeObj->is_default_card = 0;
@@ -1583,9 +1597,9 @@ class page_admin_store_details extends CPageAdminOnly
 					}
 					if ($Form->value('credit_card_amex') != $Form->DefaultValues['credit_card_amex'])
 					{
-						$ccTypeObj = DAO_CFactory::create('payment_credit_card_type');
+						$ccTypeObj = DAO_CFactory::create('payment_credit_card_type', true);
 						$ccTypeObj->credit_card_type = CPayment::AMERICANEXPRESS;
-						$ccTypeObj->store_id = $store->id;
+						$ccTypeObj->store_id = $DAO_store->id;
 						if ($Form->value('credit_card_amex'))
 						{
 							$ccTypeObj->is_default_card = 0;
@@ -1606,7 +1620,7 @@ class page_admin_store_details extends CPageAdminOnly
 						$tradeAreaID = $Form->value('regiondropdown');
 						if ($tradeAreaID > 0)
 						{
-							$trade = DAO_CFactory::create('store_trade_area');
+							$trade = DAO_CFactory::create('store_trade_area', true);
 							$trade->store_id = $id;
 							if (!$trade->find(true))
 							{
@@ -1626,7 +1640,7 @@ class page_admin_store_details extends CPageAdminOnly
 						}
 						else if ($tradeAreaID == 0)
 						{
-							$trade = DAO_CFactory::create('store_trade_area');
+							$trade = DAO_CFactory::create('store_trade_area', true);
 							$trade->store_id = $id;
 							if ($trade->find(true))
 							{
@@ -1636,7 +1650,7 @@ class page_admin_store_details extends CPageAdminOnly
 						$currentCoachID = $Form->value('coachdropdown');
 						if ($currentCoachID > 0)
 						{
-							$coachassign = DAO_CFactory::create('store_coach');
+							$coachassign = DAO_CFactory::create('store_coach', true);
 							$coachassign->store_id = $id;
 							if ($coachassign->find(true))
 							{
@@ -1656,7 +1670,7 @@ class page_admin_store_details extends CPageAdminOnly
 						}
 						else if ($currentCoachID == 0)
 						{
-							$coachassign = DAO_CFactory::create('store_coach');
+							$coachassign = DAO_CFactory::create('store_coach', true);
 							$coachassign->store_id = $id;
 							if ($coachassign->find(true))
 							{
@@ -1665,39 +1679,197 @@ class page_admin_store_details extends CPageAdminOnly
 						}
 					}
 
-					// update job positions
-					$job_array = CStore::setAvailableJobs($id, CGPC::do_clean($_POST['job_position'], TYPE_ARRAY));
+					// update Vanity URL
+					if (!empty($_POST['short_url']))
+					{
+						$DAO_short_url = DAO_CFactory::create('short_url', true);
+						$DAO_short_url->store_id = $DAO_store->id;
+						$DAO_short_url->page = 'location';
+						$DAO_short_url->short_url = $_POST['short_url'];
 
-					$tpl->setToastMsg(array('message' => 'The store properties have been updated.'));
-					CApp::bounce('main.php?page=admin_store_details&id=' . $id);
+						if(!$DAO_short_url->find_includeDeleted(true))
+						{
+							// Delete existing
+							$delete_DAO_short_url = DAO_CFactory::create('short_url', true);
+							$delete_DAO_short_url->store_id = $DAO_store->id;
+							$delete_DAO_short_url->find();
+							while ($delete_DAO_short_url->fetch())
+							{
+								$delete_DAO_short_url->delete();
+							}
+
+							// Insert the new one
+							$DAO_short_url->insert();
+						}
+						else
+						{
+							// Delete existing
+							$delete_DAO_short_url = DAO_CFactory::create('short_url', true);
+							$delete_DAO_short_url->store_id = $DAO_store->id;
+							$delete_DAO_short_url->find();
+							while ($delete_DAO_short_url->fetch())
+							{
+								$delete_DAO_short_url->delete();
+							}
+
+							// Undelete existing
+							$DAO_short_url->is_deleted = 0;
+							$DAO_short_url->update();
+						}
+					}
+
+					// update job positions
+					if (!empty($_POST['job_position']))
+					{
+						$job_array = CStore::setAvailableJobs($id, CGPC::do_clean($_POST['job_position'], TYPE_ARRAY));
+					}
+					else
+					{
+						// No jobs available
+						$job_array = CStore::setAvailableJobs($id, false);
+					}
+
+					$this->Template->setToastMsg(array('message' => 'The store properties have been updated.'));
+					CApp::bounce('/?page=admin_store_details&id=' . $id);
 				}
 			}
 
 			// store available job positions
 			$job_array = CStore::getStoreJobArray($id);
 
-			$storeArray = $store->toArray();
-			$storeArray['map'] = $store->generateMapLink();
-			$storeArray['linear_address'] = $store->generateLinearAddress();
+			$storeArray = $DAO_store->toArray();
+			$storeArray['map'] = $DAO_store->generateMapLink();
+			$storeArray['linear_address'] = $DAO_store->generateLinearAddress();
 
 			$storeArray['personnel'] = CStore::getStorePersonnel($id);
 
-			$tpl->assign('job_array', $job_array);
-			$tpl->assign('siteadminoverride', $siteadminoverride);
-			$tpl->assign('grand_opening_label', $label);
-			$tpl->assign('store', $storeArray);
-			$tpl->assign('form_store_details', $Form->Render());
+			$this->Template->assign('job_array', $job_array);
+			$this->Template->assign('siteadminoverride', $siteadminoverride);
+			$this->Template->assign('grand_opening_label', $label);
+			$this->Template->assign('store', $storeArray);
+			$this->Template->assign('form_store_details', $Form->Render());
 		}
 
-		$back = '?page=admin_list_stores';
+		$back = '/?page=admin_list_stores';
 
 		if (array_key_exists('back', $_GET) && $_GET['back'])
 		{
 			$back = $_GET['back'];
 		}
 
-		$tpl->assign('back', $back);
+		$this->Template->assign('back', $back);
+	}
+
+	private function setupStoreBioFormFields(&$Form, $tpl, $disabledForm = false)
+	{
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_store_name",
+			CForm::dd_required => false,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_primary_party_name",
+			CForm::dd_required => false,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_primary_party_title",
+			CForm::dd_required => false,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::TextArea,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_primary_party_story",
+			CForm::dd_required => false,
+			CForm::size => 40,
+			CForm::css_class => 'previewable'
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_secondary_party_name",
+			CForm::dd_required => false,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_secondary_party_title",
+			CForm::dd_required => false,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::TextArea,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_secondary_party_story",
+			CForm::dd_required => false,
+			CForm::size => 40,
+			CForm::css_class => 'previewable'
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::TextArea,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_team_description",
+			CForm::dd_required => false,
+			CForm::size => 40,
+			CForm::css_class => 'previewable'
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Hidden,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_store_hours",
+			CForm::dd_required => false,
+			CForm::size => 40
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::TextArea,
+			CForm::disabled => $disabledForm,
+			CForm::name => "bio_store_holiday_hours",
+			CForm::dd_required => false,
+			CForm::size => 40,
+			CForm::css_class => 'previewable'
+		));
+
+
+		$this->Template->assign('time_picker_hours', json_encode(self::hoursRange()));
+
+	}
+
+	private function hoursRange( $lower = 0, $upper = 86400, $step = 1800, $format = '' ) {
+		$times = array();
+
+		if ( empty( $format ) ) {
+			$format = 'g:i a';
+		}
+
+		foreach ( range( $lower, $upper, $step ) as $increment ) {
+			$increment = gmdate( 'H:i', $increment );
+
+			list( $hour, $minutes ) = explode( ':', $increment );
+
+			$date = new DateTime( $hour . ':' . $minutes );
+
+			$times[(string) $increment] = $date->format( $format );
+		}
+
+		return $times;
 	}
 }
-
 ?>

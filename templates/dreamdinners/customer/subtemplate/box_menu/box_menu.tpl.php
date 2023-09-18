@@ -2,7 +2,7 @@
 <header class="container my-5">
 	<div class="row">
 		<div class="col-6 col-sm-3 p-0 order-2 order-sm-1 d-print-none">
-			<a href="/main.php?page=box_select" class="btn btn-primary"><span class="pr-2">&#10094;</span> Boxes</a>
+			<a href="/box-select" class="btn btn-primary"><span class="pr-2">&#10094;</span> Boxes</a>
 		</div>
 		<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center col-print-12">
 			<h2>Select your <span class="text-green font-weight-semi-bold">box</span> meals</h2>

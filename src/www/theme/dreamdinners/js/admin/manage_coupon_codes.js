@@ -25,7 +25,7 @@ $(document).on('click', '#recipe_id_button', function (e) {
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -346,7 +346,7 @@ $(document).on('click', '.coupon-search', function (e) {
 	if (code.length !== 0)
 	{
 		create_and_submit_form({
-			action: 'main.php?page=admin_manage_coupon_codes',
+			action: '/?page=admin_manage_coupon_codes',
 			input: ({
 				'search_code': code
 			})

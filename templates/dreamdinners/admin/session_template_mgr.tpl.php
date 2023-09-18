@@ -85,7 +85,7 @@
 
 	<br />
 
-	<form id="itemEditor" action="main.php?page=admin_session_template_mgr" method="post" onSubmit="return handleItemSubmit(this);">
+	<form id="itemEditor" action="/?page=admin_session_template_mgr" method="post" onSubmit="return handleItemSubmit(this);">
 		<?php echo $this->form_template_item['hidden_html']; ?>
 
 		<table width="100%" name="edit/create" border="0" cellSpacing="0" cellpadding="3" bgcolor="<?=$this->editingItem ? "#F4ECDC" : "#EFF3E5"; ?>">

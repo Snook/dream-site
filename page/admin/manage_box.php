@@ -100,7 +100,7 @@ class page_admin_manage_box extends CPageAdminOnly
 			else
 			{
 				$this->Template->setErrorMsg('Requested box was not found.');
-				CApp::bounce('main.php?page=admin_manage_box');
+				CApp::bounce('/?page=admin_manage_box');
 			}
 		}
 		else if (empty($createBox))

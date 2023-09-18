@@ -29,32 +29,32 @@ class page_admin_reports_p_and_l_input extends CPageAdminOnly
 	{
 		$this->runSiteAdmin();
 	}
-	
-	
+
+
 	function runEventCoordinator()
 	{
 		$this->currentStore = CApp::forceLocationChoice();
-		
+
 		$hasPandLAccess = CApp::directAccessControlTest(self::LIMITED_P_AND_L_ACCESS_SECTION_ID, CUser::getCurrentUser()->id);
-		
-		
+
+
 		if (!$hasPandLAccess)
 		{
-			CApp::bounce('main.php?page=admin_access_error&pagename=Profit and Loss Input Form');
+			CApp::bounce('/?page=admin_access_error&pagename=Profit and Loss Input Form');
 		}
-		
+
 		$this->runSiteAdmin();
 	}
-	
+
 	function runOpsLead()
 	{
 		$this->currentStore = CApp::forceLocationChoice();
-		
+
 		$isCorporate = false;
 		$storeObj = DAO_CFactory::create('store');
 		$storeObj->query("select is_corporate_owned from store where id = {$this->currentStore}");
 		$storeObj->fetch();
-		
+
 		// Special privileges handling
 		if ($storeObj->is_corporate_owned && CUser::getCurrentUser()->user_type == CUser::OPS_LEAD)
 		{
@@ -64,44 +64,44 @@ class page_admin_reports_p_and_l_input extends CPageAdminOnly
 		{
 			$hasPandLAccess = CApp::directAccessControlTest(self::LIMITED_P_AND_L_ACCESS_SECTION_ID, CUser::getCurrentUser()->id);
 		}
-		
+
 		if (!$hasPandLAccess && !$isCorporate)
 		{
-			CApp::bounce('main.php?page=admin_access_error&pagename=Profit and Loss Input Form');
+			CApp::bounce('/?page=admin_access_error&pagename=Profit and Loss Input Form');
 		}
-		
+
 		$this->runSiteAdmin();
 	}
-	
-	
+
+
 	function runFranchiseManager()
 	{
 		$this->currentStore = CApp::forceLocationChoice();
-		
+
 		$isCorporate = false;
 		$storeObj = DAO_CFactory::create('store');
 		$storeObj->query("select is_corporate_owned from store where id = {$this->currentStore}");
 		$storeObj->fetch();
-		
+
 		// Special privileges handling
 		if ($storeObj->is_corporate_owned && CUser::getCurrentUser()->user_type == CUser::FRANCHISE_MANAGER)
 		{
 			$isCorporate = true;
 		}
-		else 
+		else
 		{
 	   		 $hasPandLAccess = CApp::directAccessControlTest(self::LIMITED_P_AND_L_ACCESS_SECTION_ID, CUser::getCurrentUser()->id);
 		}
-		
+
 	    if (!$hasPandLAccess && !$isCorporate)
 	    {
-	        CApp::bounce('main.php?page=admin_access_error&pagename=Profit and Loss Input Form');
+	        CApp::bounce('/?page=admin_access_error&pagename=Profit and Loss Input Form');
 	    }
 
 		$this->runSiteAdmin();
 	}
-	
-	
+
+
  	function runFranchiseOwner()
  	{
 	 	$this->currentStore = CApp::forceLocationChoice();
@@ -209,7 +209,7 @@ class page_admin_reports_p_and_l_input extends CPageAdminOnly
 
  		$formArray = $Form->render();
  		$tpl->assign('form_session_list', $formArray);
- 			
+
 
         $this->createAndSignFinancialForm($tpl, $this->currentStore, $month, $year);
 	}
@@ -231,7 +231,7 @@ class page_admin_reports_p_and_l_input extends CPageAdminOnly
         {
             $form->DefaultValues = DAO::getCompressedArrayFromDAO($financialsObj, true, true);
         }
-        else 
+        else
         {
         	$form->DefaultValues["cost_of_goods_and_services"] = 0;
         	$form->DefaultValues["employee_wages"] = 0;
@@ -254,10 +254,10 @@ class page_admin_reports_p_and_l_input extends CPageAdminOnly
 
         if (!isset($form->DefaultValues['cost_of_goods_and_services']) || $form->DefaultValues['cost_of_goods_and_services'] == 0)
         {
-            
+
             $menuDate = date("Y-m-d", mktime(0,0,0,$month, 1, $year));
             list($menu_start, $interval) = CMenu::getMenuStartandInterval(false, $menuDate);
-            
+
 
             $weeklyExpenses = DAO_CFactory::create('store_expenses');
             $weeklyExpenses->query("select  sum(store_expenses.total_cost) as total
@@ -304,7 +304,7 @@ class page_admin_reports_p_and_l_input extends CPageAdminOnly
 	        CForm::dd_type => "p&l_widget",
 	        CForm::dd_subtype => "expense",
 	        CForm::css_class => 'gt_input',
-	    	CForm::org_value => $form->DefaultValues['owner_salaries'],	
+	    	CForm::org_value => $form->DefaultValues['owner_salaries'],
 	        CForm::length => 10));
 
 	    $form->AddElement(array(CForm::type=> CForm::Text,
@@ -458,15 +458,15 @@ class page_admin_reports_p_and_l_input extends CPageAdminOnly
 
 	    $menuMonth = $month;
 	    $menuYear = $year;
-	    
+
 	    $rows = false;
         $retVal = array();
-        
+
         $day = 1;
         $duration = "1 MONTH";
         $isTransitionMonth = false;
         $isMenuMonthBased = false;
-        
+
         if ($year == 2017 && $month == 6)
         {
         	//transition month that requires a custom range
@@ -476,9 +476,9 @@ class page_admin_reports_p_and_l_input extends CPageAdminOnly
         else
         {
         	$menuMonthStart = strtotime("2017-07-01");
-        		
+
         	$curMonthTS = mktime(0,0,0,$month,1, $year);
-        		
+
         	if ($curMonthTS >= $menuMonthStart)
         	{
         		// new method using menu month
@@ -488,13 +488,13 @@ class page_admin_reports_p_and_l_input extends CPageAdminOnly
         		$year = date("Y", $start_date);
         		$month = date("n", $start_date);
         		$day = date("j", $start_date);
-        
+
         		$duration = $interval . " DAY";
-        
+
         		$isMenuMonthBased = true;
         	}
         }
-        
+
 	    CDreamReport::getOrderInfoByMonth ($store_id, $day, $month, $year ,$duration, $rows, 1);
 
 		$rows['membership_fees'] = CDreamReport::getMembershipFeeRevenue($store_id, $day, $month, $year ,$duration);
@@ -537,23 +537,23 @@ class page_admin_reports_p_and_l_input extends CPageAdminOnly
 	    $expenseData = $instance->findExpenseDataByMonth ($store_id, $day, $month, $year, $duration);
 	    CDreamReport::calculateFees ($rows, $store_id, $haspermanceoverride, $expenseData, $giftCertValues , $programdiscounts, $rows['fundraising_total'], $rows['ltd_menu_item_value'], $rows['subtotal_delivery_fee'], $rows['subtotal_bag_fee'], $DoorDashFees, $marketingFee, $royaltyFee, $storeInfo->grand_opening_date, $month, $year);
 
-	    
+
 	    if (empty($rows['grand_total'])) {$rows['grand_total'] = 0;}
 	    if (empty($rows['sales_tax'])) {$rows['sales_tax'] = 0;}
 	    if (empty($rows['total_discounts'])) {$rows['total_discounts'] = 0;}
 	    if (empty($rows['mark_up'])) {$rows['mark_up'] = 0;}
-	     
+
         $base_sales =  $rows['grand_total'] - $rows['sales_tax'];
 	    $gross_sales = $base_sales + $rows['total_discounts'] -  $rows['mark_up'];
-	    
+
 	    $salesForceFee = 0;
 	    if (($menuYear == 2018 && $menuMonth >= 9) || $menuYear > 2018 )
 	    {
 	        $salesForceFee = 250;
 	    }
-	    
-	    
-	    
+
+
+
 	    $retVal['salesforce_fee'] = $salesForceFee;
 	    $retVal['marketing_total'] = $marketingFee;
 	    $retVal['royalty'] = $royaltyFee;

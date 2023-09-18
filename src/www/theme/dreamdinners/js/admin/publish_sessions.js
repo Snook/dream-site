@@ -281,12 +281,12 @@ function onClearFillWindow()
 
 function onEditClick(id)
 {
-	window.location = "./main.php?page=admin_edit_session&session=" + id + "&back=main.php?page=admin_publish_sessions";
+	window.location = "./?page=admin_edit_session&session=" + id + "&back=?page=admin_publish_sessions";
 }
 
 function onSessionClick(id)
 {
-	window.location = "./main.php?page=admin_main&session=" + id;
+	window.location = "./?page=admin_main&session=" + id;
 }
 
 function saveItems()

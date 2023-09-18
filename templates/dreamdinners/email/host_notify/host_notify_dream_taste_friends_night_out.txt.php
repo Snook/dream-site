@@ -4,7 +4,7 @@ You can now share Dream Dinners with your friends and family. Below are the deta
 
 Visit the My Events page in your Dream Dinners account to get access to our online invite tool and easy to use sharing features.
 
-<?=HTTPS_BASE ?>main.php?page=my_events
+<?=HTTPS_BASE ?>my-events
 
 If you have any questions or concerns, please contact your store.
 
@@ -27,4 +27,4 @@ Address:
 
 
 My Events
-<?=HTTPS_BASE ?>main.php?page=my_events&amp;sid=<?= $this->session_info['id'] ?>
+<?=HTTPS_BASE ?>my-events?sid=<?= $this->session_info['id'] ?>

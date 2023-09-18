@@ -70,7 +70,7 @@ function handle_resend_delivered_to_shipstation()
 			var orderId = $(this).data('order_id');
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 60000,
 				dataType: 'json',
@@ -106,7 +106,7 @@ function handle_fetch_tracking_from_shipstation()
 
 			var control = $(this);
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 60000,
 				dataType: 'json',
@@ -144,7 +144,7 @@ function handle_session_rsvp()
 			var rsvp_session_id = $(this).data('session_id');
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 60000,
 				dataType: 'json',
@@ -193,7 +193,7 @@ function handle_session_rsvp()
 									if (_check_form($('#form_add_guest')[0]))
 									{
 										$.ajax({
-											url: 'ddproc.php',
+											url: '/processor',
 											type: 'POST',
 											timeout: 20000,
 											dataType: 'json',
@@ -257,7 +257,7 @@ function handle_session_rsvp()
 				modal: true,
 				confirm: function () {
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -300,7 +300,7 @@ function handle_session_rsvp()
 function handle_session_rsvp_guest_find(guest)
 {
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -366,7 +366,7 @@ function handle_order_details_table()
 			});
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 60000,
 				dataType: 'json',
@@ -383,16 +383,16 @@ function handle_order_details_table()
 
 						if (getQueryVariable('session'))
 						{
-							update_page_url('main.php?page=' + getQueryVariable('page') + '&session=' + getQueryVariable('session') + '&order=' + json.order_id);
+							update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'session=' + getQueryVariable('session') + '&order=' + json.order_id);
 						}
 						else if (getQueryVariable('day'))
 						{
-							update_page_url('main.php?page=' + getQueryVariable('page') + '&day=' + getQueryVariable('day') + '&order=' + json.order_id);
+							update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'day=' + getQueryVariable('day') + '&order=' + json.order_id);
 						}
 
 						// get order history
 						$.ajax({
-							url: 'ddproc.php',
+							url: '/processor',
 							type: 'POST',
 							timeout: 20000,
 							dataType: 'json',
@@ -433,11 +433,11 @@ function handle_order_details_table()
 
 			if (getQueryVariable('session'))
 			{
-				update_page_url('main.php?page=' + getQueryVariable('page') + '&session=' + getQueryVariable('session'));
+				update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'session=' + getQueryVariable('session'));
 			}
 			else if (getQueryVariable('day'))
 			{
-				update_page_url('main.php?page=' + getQueryVariable('page') + '&day=' + getQueryVariable('day'));
+				update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'day=' + getQueryVariable('day'));
 			}
 
 		});
@@ -464,7 +464,7 @@ function handle_platepoints_gifts()
 				confirm: function () {
 
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -603,12 +603,11 @@ function handle_dashboard_update()
 		});
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor/backoffice/fadmin-home',
 			type: 'POST',
 			timeout: 60000,
 			dataType: 'json',
 			data: {
-				processor: 'admin_fadmin_home',
 				op: 'dashboard_details',
 				store_id: STORE_DETAILS.id,
 				dashboard_date: selected_date
@@ -648,13 +647,12 @@ function handle_agenda_month_select()
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor/backoffice/fadmin-home',
 			type: 'POST',
 			async: doasync,
 			timeout: 20000,
 			dataType: 'json',
 			data: {
-				processor: 'admin_fadmin_home',
 				op: 'agenda_details',
 				store_id: STORE_DETAILS.id,
 				agenda_date: selected_agenda_month,
@@ -749,12 +747,11 @@ function handle_agenda_click()
 				selected_session_id = $(this).data('session_id');
 
 				window.booking_query = $.ajax({
-					url: 'ddproc.php',
+					url: '/processor/backoffice/fadmin-home',
 					type: 'POST',
 					timeout: 120000,
 					dataType: 'json',
 					data: {
-						processor: 'admin_fadmin_home',
 						op: 'session_details',
 						store_id: STORE_DETAILS.id,
 						session_id: selected_session_id
@@ -772,7 +769,8 @@ function handle_agenda_click()
 
 							// cancel timer
 							$.doTimeout('booked_guests_table_timer');
-							update_page_url('main.php?page=' + getQueryVariable('page') + '&session=' + json.session_info.id);
+
+							update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'session=' + json.session_info.id);
 
 							var current_menu_id = selected_menu_id;
 							selected_menu_id = json.session_info.menu_id;
@@ -852,20 +850,20 @@ function handle_agenda_click()
 							// dream taste buttons
 							$('#sd_invitation_pdf').on('click', function (e) {
 
-								bounce('main.php?page=print&dream_taste_event_pdf=' + selected_session_id, '_blank');
+								bounce('?page=print&dream_taste_event_pdf=' + selected_session_id, '_blank');
 
 							});
 
 							// fundraiser buttons
 							$('#sd_fundraiser_invitation_pdf').on('click', function (e) {
-								bounce('main.php?page=print&fundraiser_event_pdf=' + selected_session_id, '_blank');
+								bounce('?page=print&fundraiser_event_pdf=' + selected_session_id, '_blank');
 
 							});
 
 							// community pickup buttons
 							$('#sd_pick_up_event_invitation_pdf').on('click', function (e) {
 
-								bounce('main.php?page=print&remote_pickup_private_event_pdf=' + selected_session_id, '_blank');
+								bounce('?page=print&remote_pickup_private_event_pdf=' + selected_session_id, '_blank');
 
 							});
 
@@ -895,12 +893,11 @@ function handle_agenda_click()
 
 				var submitted_date = $(this).data('date');
 				window.booking_query = $.ajax({
-					url: 'ddproc.php',
+					url: '/processor/backoffice/fadmin-home',
 					type: 'POST',
 					timeout: 120000,
 					dataType: 'json',
 					data: {
-						processor: 'admin_fadmin_home',
 						op: 'date_details',
 						store_id: STORE_DETAILS.id,
 						date: submitted_date
@@ -923,7 +920,8 @@ function handle_agenda_click()
 
 							// cancel timer
 							$.doTimeout('booked_guests_table_timer');
-							update_page_url('main.php?page=' + getQueryVariable('page') + '&day=' + selected_date);
+
+							update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'day=' + selected_date);
 
 							// update session tools
 							update_session_tool_links();
@@ -1037,12 +1035,11 @@ function resend_dream_taste_notification()
 		modal: true,
 		confirm: function () {
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor/backoffice/fadmin-home',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
 				data: {
-					processor: 'admin_fadmin_home',
 					op: 'resend_dream_taste_email',
 					store_id: STORE_DETAILS.id,
 					session_id: selected_session_id
@@ -1073,7 +1070,7 @@ function handle_booking_no_show()
 			var state = this.checked ? 'yes' : 'no';
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -1126,12 +1123,11 @@ function handle_food_testing_recipe()
 				buttons: {
 					'Confirm': function () {
 						$.ajax({
-							url: 'ddproc.php',
+							url: '/processor/backoffice/fadmin-home',
 							type: 'POST',
 							timeout: 20000,
 							dataType: 'json',
 							data: {
-								processor: 'admin_fadmin_home',
 								op: 'assign_test_recipe',
 								user_id: user_id,
 								session_id: session_id,
@@ -1293,12 +1289,11 @@ function handle_admin_carryover_notes()
 			}
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor/backoffice/fadmin-home',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
 				data: {
-					processor: 'admin_fadmin_home',
 					op: 'guest_carryover_note',
 					'do': do_op,
 					store_id: STORE_DETAILS.id,
@@ -1396,12 +1391,11 @@ function handle_admin_order_notes()
 			}
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor/backoffice/fadmin-home',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
 				data: {
-					processor: 'admin_fadmin_home',
 					op: 'order_admin_note',
 					'do': do_op,
 					order_id: order_id,
@@ -1458,7 +1452,7 @@ function handle_reschedule_button()
 
 			create_and_submit_form({
 				method: 'post',
-				action: 'main.php?page=admin_reschedule',
+				action: '/?page=admin_reschedule',
 				input: ({
 					'session_id': $(this).data('session_id'),
 					'original_session_id': $(this).data('session_id'),
@@ -1616,7 +1610,7 @@ function handle_delete_saved_order_delivered()
 				message: "Are you sure you want to delete this saved order?",
 				confirm: function () {
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -1705,7 +1699,7 @@ function handle_delete_saved_order()
 				message: "Are you sure you want to delete this saved order?",
 				confirm: function () {
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
@@ -1835,7 +1829,7 @@ function handle_cancel_order()
 			var bounce_to = $(this).data('bounce');
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -1914,7 +1908,7 @@ function handle_cancel_order()
 								});
 
 								$.ajax({
-									url: 'ddproc.php',
+									url: '/processor',
 									type: 'POST',
 									timeout: 20000,
 									dataType: 'json',
@@ -2022,7 +2016,7 @@ function handle_cancel_order_delivered()
 			var bounce_to = $(this).data('bounce');
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -2101,7 +2095,7 @@ function handle_cancel_order_delivered()
 								});
 
 								$.ajax({
-									url: 'ddproc.php',
+									url: '/processor',
 									type: 'POST',
 									timeout: 20000,
 									dataType: 'json',
@@ -2226,19 +2220,19 @@ function handle_session_tools()
 	// Dashboard Snapshot
 	$('#ds_goal_tracking').on('click', function (e) {
 
-		bounce('main.php?page=admin_reports_goal_management_v2&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path());
+		bounce('/?page=admin_reports_goal_management_v2&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path());
 
 	});
 
 	$('#ds_trending').on('click', function (e) {
 
-		bounce('main.php?page=admin_reports_trending_menu_based&date=' + selected_date + '&store=' + STORE_DETAILS.id + '&back=' + back_path());
+		bounce('/?page=admin_reports_trending_menu_based&date=' + selected_date + '&store=' + STORE_DETAILS.id + '&back=' + back_path());
 
 	});
 
 	$('#ds_dashboard').on('click', function (e) {
 
-		bounce('main.php?page=admin_dashboard_menu_based&override_month=' + selected_date + '&store=' + STORE_DETAILS.id + '&back=' + back_path());
+		bounce('/?page=admin_dashboard_menu_based&override_month=' + selected_date + '&store=' + STORE_DETAILS.id + '&back=' + back_path());
 
 	});
 
@@ -2247,7 +2241,7 @@ function handle_session_tools()
 
 		if (view_session == true)
 		{
-			bounce('main.php?page=admin_edit_session&session=' + selected_session_id + '&back=' + back_path());
+			bounce('/?page=admin_edit_session&session=' + selected_session_id + '&back=' + back_path());
 		}
 
 	});
@@ -2256,7 +2250,7 @@ function handle_session_tools()
 
 		if (view_session == true)
 		{
-			bounce('main.php?page=admin_email&session=' + selected_session_id + '&back=' + back_path());
+			bounce('/?page=admin_email&session=' + selected_session_id + '&back=' + back_path());
 		}
 
 	});
@@ -2282,12 +2276,11 @@ function handle_session_tools()
 				modal: true,
 				confirm: function () {
 					$.ajax({
-						url: 'ddproc.php',
+						url: '/processor/backoffice/fadmin-home',
 						type: 'POST',
 						timeout: 20000,
 						dataType: 'json',
 						data: {
-							processor: 'admin_fadmin_home',
 							op: 'session_publish_state',
 							session_id: selected_session_id,
 							open_close_submit: new_state
@@ -2322,7 +2315,7 @@ function handle_session_tools()
 
 		if (view_session != true)
 		{
-			bounce('main.php?page=admin_create_session&date=' + selected_date + '&menu=' + selected_menu_id + '&back=' + back_path());
+			bounce('/?page=admin_create_session&date=' + selected_date + '&menu=' + selected_menu_id + '&back=' + back_path());
 		}
 
 	});
@@ -2333,58 +2326,58 @@ function update_session_tool_links()
 {
 	if (view_session == true)
 	{
-		$('#st_customer_receipt').prop('href', 'main.php?page=admin_order_details_view_all&customer_print_view=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_franchise_receipt').prop('href', 'main.php?page=admin_order_details_view_all&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_entree_summary').prop('href', 'main.php?page=admin_reports_select_multi_session&query_submit=1&report_id=2&printer=1&pickSession=2&session_id=' + selected_session_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_side_dish_report').prop('href', 'main.php?page=admin_order_details_view_all&issidedish=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_fast_lane_report').prop('href', 'main.php?page=admin_order_details_view_all&ispreassembled=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_dream_rewards').prop('href', 'main.php?page=admin_reports_dream_rewards_for_session&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_future_orders').prop('href', 'main.php?page=admin_order_details_view_all_future&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_session_goal_sheet_print').prop('href', 'main.php?page=admin_reports_goal_tracking&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&print=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_session_goal_sheet_xls').prop('href', 'main.php?page=admin_reports_goal_tracking&export=xlsx&hideheaders=true&csvfilename=SessionGoalSheet&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&back=' + back_path());
-		$('#st_print_labels').prop('href', 'main.php?page=admin_reports_customer_menu_item_labels&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
-		$('#st_print_labels_w_breaks').prop('href', 'main.php?page=admin_reports_customer_menu_item_labels&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&break=1&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
-		$('#st_print_labels_by_dinner').prop('href', 'main.php?page=admin_reports_customer_menu_item_labels&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&order_by=dinner&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
-		$('#st_print_enrollment_forms').prop('href', 'main.php?page=admin_user_plate_points&session_id=' + selected_session_id + '&print_sessions_forms=true').prop('target', '_blank');
-		$('#st_plate_points_status_and_rewards_report').prop('href', 'main.php?page=admin_reports_points_status_and_rewards&session_id=' + selected_session_id + '&back=' + back_path());
-		$('#st_customer_menu_core').prop('href', 'main.php?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_current').prop('href', 'main.php?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&cur=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_freezer').prop('href', 'main.php?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&freezer=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_nutrition').prop('href', 'main.php?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&nutrition=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_freezer').prop('href', 'main.php?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_freezer_nutrition').prop('href', 'main.php?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&nutrition=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_daily_boxes_shipped').prop('href', 'main.php?page=admin_reports_delivered_daily_boxes&type=shipping&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_daily_boxes_delivered').prop('href', 'main.php?page=admin_reports_delivered_daily_boxes&type=delivering&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_receipt').prop('href', '/?page=admin_order_details_view_all&customer_print_view=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_franchise_receipt').prop('href', '/?page=admin_order_details_view_all&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_entree_summary').prop('href', '/?page=admin_reports_select_multi_session&query_submit=1&report_id=2&printer=1&pickSession=2&session_id=' + selected_session_id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_side_dish_report').prop('href', '/?page=admin_order_details_view_all&issidedish=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_fast_lane_report').prop('href', '/?page=admin_order_details_view_all&ispreassembled=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_dream_rewards').prop('href', '/?page=admin_reports_dream_rewards_for_session&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_future_orders').prop('href', '/?page=admin_order_details_view_all_future&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_session_goal_sheet_print').prop('href', '/?page=admin_reports_goal_tracking&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&print=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_session_goal_sheet_xls').prop('href', '/?page=admin_reports_goal_tracking&export=xlsx&hideheaders=true&csvfilename=SessionGoalSheet&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&back=' + back_path());
+		$('#st_print_labels').prop('href', '/?page=admin_reports_customer_menu_item_labels&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
+		$('#st_print_labels_w_breaks').prop('href', '/?page=admin_reports_customer_menu_item_labels&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&break=1&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
+		$('#st_print_labels_by_dinner').prop('href', '/?page=admin_reports_customer_menu_item_labels&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&order_by=dinner&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
+		$('#st_print_enrollment_forms').prop('href', '/?page=admin_user_plate_points&session_id=' + selected_session_id + '&print_sessions_forms=true').prop('target', '_blank');
+		$('#st_plate_points_status_and_rewards_report').prop('href', '/?page=admin_reports_points_status_and_rewards&session_id=' + selected_session_id + '&back=' + back_path());
+		$('#st_customer_menu_core').prop('href', '/?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_core_current').prop('href', '/?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&cur=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_freezer').prop('href', '/?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&freezer=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_nutrition').prop('href', '/?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&nutrition=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_core_freezer').prop('href', '/?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_core_freezer_nutrition').prop('href', '/?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&nutrition=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_daily_boxes_shipped').prop('href', '/?page=admin_reports_delivered_daily_boxes&type=shipping&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_daily_boxes_delivered').prop('href', '/?page=admin_reports_delivered_daily_boxes&type=delivering&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
 
 	}
 	else
 	{
-		$('#st_customer_receipt').prop('href', 'main.php?page=admin_order_details_view_all_multi&customer_print_view=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_franchise_receipt').prop('href', 'main.php?page=admin_order_details_view_all_multi&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_entree_summary').prop('href', 'main.php?page=admin_reports_select_multi_session&query_submit=1&report_date=' + selected_date + '&report_id=1&printer=1&back=' + back_path()).prop('target', '_blank');
-		$('#st_side_dish_report').prop('href', 'main.php?page=admin_order_details_view_all_multi&issidedish=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_fast_lane_report').prop('href', 'main.php?page=admin_order_details_view_all_multi&ispreassembled=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_dream_rewards').prop('href', 'main.php?page=admin_reports_dream_rewards_for_session_multi&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_future_orders').prop('href', 'main.php?page=admin_order_details_view_all_future_multi&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_session_goal_sheet_print').prop('href', 'main.php?page=admin_reports_goal_tracking&multi_session=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&print=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_session_goal_sheet_xls').prop('href', 'main.php?page=admin_reports_goal_tracking&export=xlsx&hideheaders=true&csvfilename=SessionGoalSheetSummary&multi_session=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&back=' + back_path());
-		$('#st_print_labels').prop('href', 'main.php?page=admin_reports_customer_menu_item_labels_multi&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
-		$('#st_print_labels_w_breaks').prop('href', 'main.php?page=admin_reports_customer_menu_item_labels_multi&labels_per_sheet=4&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&break=1&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
-		$('#st_print_labels_by_dinner').prop('href', 'main.php?page=admin_reports_customer_menu_item_labels_multi&labels_per_sheet=4&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&order_by=dinner&back=' + back_path() + '&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
-		$('#st_print_enrollment_forms').prop('href', 'main.php?page=admin_user_plate_points&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&print_days_forms=true').prop('target', '_blank');
-		$('#st_plate_points_status_and_rewards_report').prop('href', 'main.php?page=admin_reports_points_status_and_rewards&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path());
-		$('#st_customer_menu_core').prop('href', 'main.php?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_current').prop('href', 'main.php?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&cur=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_freezer').prop('href', 'main.php?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&freezer=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_nutrition').prop('href', 'main.php?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&nutrition=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_freezer').prop('href', 'main.php?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_freezer_nutrition').prop('href', 'main.php?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&nutrition=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_daily_boxes_shipped').prop('href', 'main.php?page=admin_reports_delivered_daily_boxes&type=shipping&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_daily_boxes_delivered').prop('href', 'main.php?page=admin_reports_delivered_daily_boxes&type=delivering&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_receipt').prop('href', '/?page=admin_order_details_view_all_multi&customer_print_view=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_franchise_receipt').prop('href', '/?page=admin_order_details_view_all_multi&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_entree_summary').prop('href', '/?page=admin_reports_select_multi_session&query_submit=1&report_date=' + selected_date + '&report_id=1&printer=1&back=' + back_path()).prop('target', '_blank');
+		$('#st_side_dish_report').prop('href', '/?page=admin_order_details_view_all_multi&issidedish=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_fast_lane_report').prop('href', '/?page=admin_order_details_view_all_multi&ispreassembled=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_dream_rewards').prop('href', '/?page=admin_reports_dream_rewards_for_session_multi&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_future_orders').prop('href', '/?page=admin_order_details_view_all_future_multi&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_session_goal_sheet_print').prop('href', '/?page=admin_reports_goal_tracking&multi_session=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&print=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_session_goal_sheet_xls').prop('href', '/?page=admin_reports_goal_tracking&export=xlsx&hideheaders=true&csvfilename=SessionGoalSheetSummary&multi_session=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&back=' + back_path());
+		$('#st_print_labels').prop('href', '/?page=admin_reports_customer_menu_item_labels_multi&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
+		$('#st_print_labels_w_breaks').prop('href', '/?page=admin_reports_customer_menu_item_labels_multi&labels_per_sheet=4&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&break=1&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
+		$('#st_print_labels_by_dinner').prop('href', '/?page=admin_reports_customer_menu_item_labels_multi&labels_per_sheet=4&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&order_by=dinner&back=' + back_path() + '&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
+		$('#st_print_enrollment_forms').prop('href', '/?page=admin_user_plate_points&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&print_days_forms=true').prop('target', '_blank');
+		$('#st_plate_points_status_and_rewards_report').prop('href', '/?page=admin_reports_points_status_and_rewards&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path());
+		$('#st_customer_menu_core').prop('href', '/?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_core_current').prop('href', '/?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&cur=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_freezer').prop('href', '/?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&freezer=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_nutrition').prop('href', '/?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&nutrition=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_core_freezer').prop('href', '/?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_core_freezer_nutrition').prop('href', '/?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&nutrition=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_daily_boxes_shipped').prop('href', '/?page=admin_reports_delivered_daily_boxes&type=shipping&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_daily_boxes_delivered').prop('href', '/?page=admin_reports_delivered_daily_boxes&type=delivering&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
 	}
 
-	$('#st_finishing_touch_pick_sheet').prop('href', 'main.php?page=admin_finishing_touch_printable_form&store_id=' + STORE_DETAILS.id + '&menu_id=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-	$('#st_print_generic_labels').prop('href', 'main.php?page=admin_reports_customer_menu_item_labels&store_id=' + STORE_DETAILS.id + '&interface=1&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+	$('#st_finishing_touch_pick_sheet').prop('href', '/?page=admin_finishing_touch_printable_form&store_id=' + STORE_DETAILS.id + '&menu_id=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+	$('#st_print_generic_labels').prop('href', '/?page=admin_reports_customer_menu_item_labels&store_id=' + STORE_DETAILS.id + '&interface=1&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
 }
 
 function handle_guest_search()
@@ -2393,7 +2386,7 @@ function handle_guest_search()
 
 		create_and_submit_form({
 			method: 'get',
-			action: 'main.php',
+			action: '/',
 			input: ({
 				'page': 'admin_list_users',
 				'search_type': $('#gs_search_type').val(),
@@ -2539,7 +2532,7 @@ function handle_preselection()
 function confirm_order_attended(user_id, order_id)
 {
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -2639,7 +2632,7 @@ $(document).on('click keyup', '#os_search_go, #os_search_value', function (e) {
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',

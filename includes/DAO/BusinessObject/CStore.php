@@ -85,7 +85,28 @@ class CStore extends DAO_Store
 	static private $_currentFadminStore = null;
 	static private $_simpleMapsArray = array();
 
-	private $custimization_fees = null;
+	private $customization_fees = null;
+
+	public $map_link;
+	public $address_linear;
+	public $address_with_breaks;
+	public $address_html;
+	/**
+	 * @var array|mixed
+	 */
+	public $PersonnelArray;
+	/**
+	 * @var array|mixed
+	 */
+	public $OwnerArray;
+	/**
+	 * @var array
+	 */
+	public $ActivePromoArray;
+	/**
+	 * @var array|array[]|mixed
+	 */
+	public $AvailableJobsArray;
 
 	function __construct()
 	{
@@ -94,7 +115,78 @@ class CStore extends DAO_Store
 
 	function fetch()
 	{
-		return parent::fetch();
+		$res = parent::fetch();
+
+		if ($res)
+		{
+			$this->digestStore();
+		}
+
+		return $res;
+	}
+
+	/**
+	 * This allows you to enter a string as the store ID in order to look up the stores short url
+	 *
+	 * @param $n
+	 *
+	 * @return bool|int|mixed
+	 * @throws Exception
+	 */
+	function find_DAO_store($n = false)
+	{
+		// you can set the ID as a short url string, if it is not just a number
+		if (!empty($this->id) && !is_numeric($this->id) && CTemplate::isAlphaNumHyphen($this->id))
+		{
+			$find_DAO_short_url = DAO_CFactory::create('short_url', true);
+			$find_DAO_short_url->page = 'location';
+			$find_DAO_short_url->short_url = $this->id;
+			// look up past short urls
+			$find_DAO_short_url->unsetProperty('is_deleted');
+			$this->joinAddWhereAsOn($find_DAO_short_url, 'INNER', 'find_short_url', false, false); // find on this short url
+
+			// this id was a short url string, so unset it
+			$this->id = null;
+		}
+
+		$this->joinAddWhereAsOn(DAO_CFactory::create('short_url', true), 'LEFT'); // stores current not deleted short url
+		$this->joinAddWhereAsOn(DAO_CFactory::create('timezones', true));
+
+		return parent::find($n);
+	}
+
+	function digestStore()
+	{
+		$this->generateMapLink();
+		$this->generateAddressLinear();
+		$this->generateAddressWithBreaks();
+		$this->generateAddressHTML();
+	}
+
+	function getPrettyUrl($full_url = false)
+	{
+		if(!empty($this->DAO_short_url) && !empty($this->DAO_short_url->short_url))
+		{
+			$store_short_url = $this->DAO_short_url->getPrettyUrl($full_url);
+		}
+		else
+		{
+			$store_short_url = ($full_url ? HTTPS_BASE : WEB_BASE) . "location/" . $this->id;
+		}
+
+		return $store_short_url;
+	}
+
+	function getStoreId()
+	{
+		if(!empty($this->DAO_short_url) && !empty($this->DAO_short_url->short_url))
+		{
+			return $this->DAO_short_url->short_url;
+		}
+		else
+		{
+			return $this->id;
+		}
 	}
 
 	static function setUpFranchiseStore($store_id)
@@ -155,6 +247,11 @@ class CStore extends DAO_Store
 		}
 
 		return $job_array;
+	}
+
+	static function translateStorePosition($position)
+	{
+		return self::$storeJobPositions[$position]['title'];
 	}
 
 	static function getStoreJobArray($store_id)
@@ -346,6 +443,46 @@ class CStore extends DAO_Store
 		return false;
 	}
 
+	function hasBioPage()
+	{
+		if ($this->hasBioPrimary() || $this->hasBioSecondary() || $this->hasBioTeam())
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function hasBioPrimary()
+	{
+		if (!empty($this->bio_primary_party_name))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function hasBioSecondary()
+	{
+		if (!empty($this->bio_secondary_party_name))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function hasBioTeam()
+	{
+		if (!empty($this->bio_team_description))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	static function hasPlatePointsTransitionPeriodExpired($store_id)
 	{
 
@@ -512,76 +649,45 @@ class CStore extends DAO_Store
 		}
 	}
 
-	static function getActiveStorePromos($Store)
+	function getActivePromoArray()
 	{
-		if (!is_object($Store) && is_numeric($Store))
-		{
-			$StoreObj = DAO_CFactory::create('store');
-			$StoreObj->id = $Store;
-			$StoreObj->find(true);
-		}
-		else
-		{
-			$StoreObj = $Store;
-		}
+		$this->ActivePromoArray = array();
 
-		$Message = DAO_CFactory::create('site_message');
-		// limit to 1 home office managed message and 2 store promotional messages
-		$Message->query("(SELECT
-			sm.id,
-			sm.title,
-			sm.message,
-			sm.message_start,
-			sm.message_end
-			FROM site_message_to_store AS smts
-			INNER JOIN site_message AS sm ON sm.id = smts.site_message_id
-				AND sm.audience = 'STORE'
-				AND sm.message_start <= NOW()
-				AND sm.message_end >= NOW()
-				AND sm.is_active = 1
-				AND sm.is_deleted = 0
-				AND sm.message_type = 'SITE_MESSAGE'
-				AND sm.home_office_managed = 1
-			WHERE smts.store_id = '" . $StoreObj->id . "'
-			AND smts.is_deleted = 0
-			GROUP BY sm.id
-			ORDER BY sm.message_end ASC)
+		$DAO_site_message = DAO_CFactory::create('site_message', true);
+		$DAO_site_message->query("(SELECT
+			site_message.*
+			FROM site_message
+			INNER JOIN site_message_to_store ON site_message.id = site_message_to_store.site_message_id AND site_message_to_store.store_id = '" . $this->id . "' AND site_message_to_store.is_deleted = 0 
+			WHERE site_message.audience = 'STORE'
+			AND site_message.message_start <= NOW()
+			AND site_message.message_end >= NOW()
+			AND site_message.is_active = 1
+			AND site_message.is_deleted = 0
+			AND site_message.message_type = 'SITE_MESSAGE'
+			AND site_message.home_office_managed = 1
+			GROUP BY site_message.id
+			ORDER BY site_message.message_end ASC)
 		UNION (SELECT
-			sm.id,
-			sm.title,
-			sm.message,
-			sm.message_start,
-			sm.message_end
-			FROM site_message_to_store AS smts
-			INNER JOIN site_message AS sm ON sm.id = smts.site_message_id 
-				AND sm.audience = 'STORE'
-				AND sm.message_start <= NOW()
-				AND sm.message_end >= NOW()
-				AND sm.is_active = 1
-				AND sm.is_deleted = 0
-				AND sm.message_type = 'SITE_MESSAGE'
-				AND sm.home_office_managed = 0
-			WHERE smts.store_id = '" . $StoreObj->id . "'
-			AND smts.is_deleted = 0
-			GROUP BY sm.id
-			ORDER BY sm.message_end ASC
+			site_message.*
+			FROM site_message
+			INNER JOIN site_message_to_store ON site_message.id = site_message_to_store.site_message_id AND site_message_to_store.store_id = '" . $this->id . "' AND site_message_to_store.is_deleted = 0 
+			WHERE site_message.audience = 'STORE'
+			AND site_message.message_start <= NOW()
+			AND site_message.message_end >= NOW()
+			AND site_message.is_active = 1
+			AND site_message.is_deleted = 0
+			AND site_message.message_type = 'SITE_MESSAGE'
+			AND site_message.home_office_managed = 0
+			GROUP BY site_message.id
+			ORDER BY site_message.message_end ASC
 			LIMIT 2)");
 
-		$message_array = array();
-
-		while ($Message->fetch())
+		while ($DAO_site_message->fetch())
 		{
-			$message_array[] = clone($Message);
+			$this->ActivePromoArray[] = clone $DAO_site_message;
 		}
 
-		if (!empty($message_array))
-		{
-			return $message_array;
-		}
-		else
-		{
-			return false;
-		}
+		return $this->ActivePromoArray;
 	}
 
 	static function storeInPlatePointsTest($store_id)
@@ -1115,7 +1221,7 @@ class CStore extends DAO_Store
 						'lat' => $Store->address_latitude,
 						'lng' => $Store->address_longitude,
 						'name' => $Store->store_name,
-						'url' => 'main.php?page=store&id=' . $Store->id
+						'url' => '/location/' . $Store->id
 					);
 
 					if ($Store->isComingSoon())
@@ -1662,6 +1768,58 @@ class CStore extends DAO_Store
 		}
 
 		return $userArray;
+	}
+
+	function getPersonnelArray()
+	{
+		$this->PersonnelArray = array();
+
+		$DAO_user = DAO_CFactory::create('user');
+		$DAO_user_to_store = DAO_CFactory::create('user_to_store');
+		$DAO_user_to_store->store_id = $this->id;
+		$DAO_user->joinAddWhereAsOn($DAO_user_to_store);
+		$DAO_user->oderBy("user.user_type DESC, user.firstname ASC");
+		$DAO_user->find();
+
+		while($DAO_user->fetch())
+		{
+			$this->PersonnelArray[$DAO_user->id] = clone $DAO_user;
+		}
+	}
+
+	function getAvailableJobsArray()
+	{
+		$this->AvailableJobsArray = array();
+
+		$DAO_store_job = DAO_CFactory::create('store_job');
+		$DAO_store_job->store_id = $this->id;
+		$DAO_store_job->available = 1;
+		$DAO_store_job->find();
+
+		while ($DAO_store_job->fetch())
+		{
+			$this->AvailableJobsArray[$DAO_store_job->position] = clone $DAO_store_job;
+		}
+
+		return $this->AvailableJobsArray;
+	}
+
+	function getOwnerArray()
+	{
+		$this->OwnerArray = array();
+
+		$DAO_user = DAO_CFactory::create('user');
+		$DAO_user->user_type = CUser::FRANCHISE_OWNER;
+		$DAO_user_to_store = DAO_CFactory::create('user_to_store');
+		$DAO_user_to_store->store_id = $this->id;
+		$DAO_user->joinAddWhereAsOn($DAO_user_to_store);
+		$DAO_user->oderBy("user.user_type DESC, user.firstname ASC");
+		$DAO_user->find();
+
+		while($DAO_user->fetch())
+		{
+			$this->OwnerArray[$DAO_user->id] = clone $DAO_user;
+		}
 	}
 
 	static function getStoreAndOwnerInfo($store_id)
@@ -2511,13 +2669,13 @@ class CStore extends DAO_Store
 			return 0;
 		}
 
-		if (is_null($this->custimization_fees))
+		if (is_null($this->customization_fees))
 		{
-			$this->custimization_fees = CStoreFee::fetchCustomizationFees($this);
+			$this->customization_fees = CStoreFee::fetchCustomizationFees($this);
 		}
 
 		$feeAmount = 0;
-		foreach ($this->custimization_fees as $fee)
+		foreach ($this->customization_fees as $fee)
 		{
 			switch ($fee['operator'])
 			{
@@ -2621,10 +2779,8 @@ class CStore extends DAO_Store
 		{
 			return true;
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 
 	function isActive()
@@ -2663,38 +2819,32 @@ class CStore extends DAO_Store
 		}
 	}
 
-	function generateLinearAddress()
+	function generateAddressLinear()
 	{
-		$linear_address = $this->address_line1;
+		$this->address_linear = $this->address_line1 . (!empty($this->address_line2) ? " " . $this->address_line2 : "") . ", " . $this->city  . ", " . $this->state_id . " " .  $this->postal_code . (!empty($this->usps_adc) ? "-" . $this->usps_adc : "");
 
-		if (!empty($this->address_line2))
-		{
-			$linear_address .= ' ' . $this->address_line2;
-		}
+		return $this->address_linear;
+	}
 
-		$linear_address .= ', ' . $this->city . ', ' . $this->state_id . ' ' . $this->postal_code;
+	function generateAddressWithBreaks()
+	{
+		$this->address_with_breaks = $this->address_line1 . (!empty($this->address_line2) ? " " . $this->address_line2 : "") . "\n" . $this->city  . ", " . $this->state_id . " " .  $this->postal_code . (!empty($this->usps_adc) ? "-" . $this->usps_adc : "");
 
-		if (!empty($this->usps_adc))
-		{
-			$linear_address .= '-' . $this->usps_adc;
-		}
+		return $this->address_with_breaks;
+	}
 
-		return $linear_address;
+	function generateAddressHTML()
+	{
+		$this->address_html = nl2br($this->generateAddressWithBreaks());
+
+		return $this->address_html;
 	}
 
 	function generateMapLink()
 	{
-		$addressCombined = $this->address_line1;
+		$this->map_link = 'https://maps.google.com/maps?q=' . urlencode($this->generateLinearAddress()) . '&iwloc=A&hl=en';
 
-		if (!empty($this->address_line2))
-		{
-			$addressCombined .= ' ' . $this->address_line2;
-		}
-
-		$addressCombined .= ', ' . $this->city . ', ' . $this->state_id . ' ' . $this->postal_code;
-		$addressCombined = urlencode($addressCombined);
-
-		return 'https://maps.google.com/maps?q=' . $addressCombined . '&iwloc=A&hl=en';
+		return $this->map_link;
 	}
 
 	/**

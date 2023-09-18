@@ -3,8 +3,6 @@
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
 	<form name="menu_editor_form" id="menu_editor_form" method="get">
-		<input type="hidden" name="page" value="admin_menu_inspector">
-
 		<table class="ME_menu_editor_table" style="width: 100%;">
 			<tr>
 				<td style="padding-left: 10px;"><b>Selected Menu:</b><?php echo $this->form['menus_html']; ?></td>
@@ -33,7 +31,7 @@
 								<img src="<?php echo IMAGES_PATH; ?>/recipe/default/<?php echo $planNode['recipe_id']; ?>.webp" style="width: 105px; height: 78px;"/>
 							</td>
 							<td>
-								<div class="mb-2 font-weight-bold"><a href="main.php?page=item&amp;recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id']; ?>" target="_blank"><?php echo $planNode['title']; ?></a></div>
+								<div class="mb-2 font-weight-bold"><a href="?page=item&amp;recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id']; ?>" target="_blank"><?php echo $planNode['title']; ?></a></div>
 								<div><?php echo $planNode['desc']; ?></div>
 							</td>
 							<td>

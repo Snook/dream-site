@@ -97,100 +97,44 @@ RewriteRule ^ - [E=protossl:s]
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 RewriteRule ^ http%{ENV:protossl}://%1%{REQUEST_URI} [L,R=301]
 
-# handle script/css cache defeat
-RewriteRule ^theme/(.+)/(scripts|css)/[0-9]+/admin/(.+)$ /theme/$1/$2/admin/$3 [L]
-RewriteRule ^theme/(.+)/(scripts|css)/[0-9]+/(.+)$ /theme/$1/$2/$3 [L]
-# handle images referenced in css with cache defeat path
-RewriteRule ^theme/(.+)/css/images/(.+)$ /theme/$1/images/$2 [L]
-
-# handle default browse_menu promo images
-# first two lines prevent infinite loop in the case the default image is not there
-RewriteCond %{ENV:REDIRECT_STATUS} 200
-RewriteRule ^ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^theme/dreamdinners/images/browse_menu/[a-z]+/(.*)?$ /theme/dreamdinners/images/browse_menu/default/$1 [L,E=STATUS:404]
-
-# handle missing store images, redirect to default image
-# first two lines prevent infinite loop in the case the default image is not there
-RewriteCond %{ENV:REDIRECT_STATUS} 200
-RewriteRule ^ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^theme/dreamdinners/images/stores/([0-9]+).(jpg|webp|png)?$ /theme/dreamdinners/images/stores/default.$2 [L,E=STATUS:404]
-
-# handle missing recipe images, redirect to default image
-# first two lines prevent infinite loop in the case the default image is not there
-RewriteCond %{ENV:REDIRECT_STATUS} 200
-RewriteRule ^ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^theme/dreamdinners/images/recipe/default/([0-9]+).(jpg|webp|png)?$ /theme/dreamdinners/images/recipe/default/0.$2 [L,E=STATUS:404]
-
-## REDIRECT FROM OLD IMAGE PATH TO NEW RESPONSIVE SITE
-# handle missing recipe images, redirect to default image
-# first two lines prevent infinite loop in the case the default image is not there
-RewriteCond %{ENV:REDIRECT_STATUS} 200
-RewriteRule ^ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^theme/english/dreamdinners/images/recipe/default/(.*)/([0-9_]+)_(.*).(jpg|webp|png)?$ /theme/dreamdinners/images/recipe/default/$2.$3 [L,E=STATUS:404]
-
-# handle default my account promo image
-# first two lines prevent infinite loop in the case the default image is not there
-RewriteCond %{ENV:REDIRECT_STATUS} 200
-RewriteRule ^ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^theme/dreamdinners/images/my_account/monthly/([a-z]+)/(.*)?$ /theme/dreamdinners/images/my_account/monthly/default/$2 [L,E=STATUS:404]
-
-# handle default taste event images
-# first two lines prevent infinite loop in the case the default image is not there
-RewriteCond %{ENV:REDIRECT_STATUS} 200
-RewriteRule ^ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^theme/dreamdinners/images/event_theme/(dream_taste|fundraiser|standard)/(.*)/(.*)/([0-9_]+)/(.*)?$ /theme/dreamdinners/images/event_theme/$1/$2/$3/default/$5 [L,E=STATUS:404]
-
-# handle default invite a friend email images
-# first two lines prevent infinite loop in the case the default image is not there
-RewriteCond %{ENV:REDIRECT_STATUS} 200
-RewriteRule ^ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^theme/dreamdinners/images/email/event_theme/(dream_taste|fundraiser|standard)/(.*)/(.*)/([0-9_]+)/(.*)?$ /theme/dreamdinners/images/email/event_theme/$1/$2/$3/default/$5 [R=301,L]
-
-# handle master default invite a friend email images
-# first two lines prevent infinite loop in the case the default image is not there
-RewriteCond %{ENV:REDIRECT_STATUS} 200
-RewriteRule ^ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^theme/dreamdinners/images/email/event_theme/(dream_taste|fundraiser|standard)/(.*)/(.*)/default/(.*)?$ /theme/dreamdinners/images/email/event_theme/default/$4 [L,E=STATUS:404]
-
 # Exchange redirect
 RewriteRule ^autodiscover/(.*)$ https://mail.dreamdinners.com/autodiscover/$1 [R=301,NC,QSA]
 
 # Authenticate MS Graph
-RewriteRule ^authms_my_events/?$ /main.php?page=my_events [R=301,NC,QSA]
+RewriteRule ^authms_my_events/?$ /my-events [R=301,NC,QSA]
 
-# Dream Dinner shortcuts #
-RewriteRule ^share/?$ /main.php?page=share [R=301,NC,QSA]
-RewriteRule ^doordash/?$ /main.php?static=doordash [R=301,NC,QSA]
-RewriteRule ^tips/?$ /main.php?static=tips [R=301,NC,QSA]
-RewriteRule ^mealprep\+/?$ /main.php?static=meal_prep_plus [R=301,NC,QSA]
-RewriteRule ^mealprep/?$ /main.php?static=meal_prep_plus [R=301,NC,QSA]
-RewriteRule ^mealprepplus/?$ /main.php?static=meal_prep_plus [R=301,NC,QSA]
-RewriteRule ^franchise/?$ /main.php?static=franchise_info [R=301,NC,QSA]
-RewriteRule ^giftcards/?$ /main.php?static=giftcards [R=301,NC,QSA]
-RewriteRule ^giftcardwelcome/?$ /main.php?static=giftcards [R=301,NC,QSA]
-RewriteRule ^myreviews/?$ /main.php?page=my_meals [R=301,NC,QSA]
+# Dream Dinnera redirects
+RewriteRule ^msl/?$ / [R=301,NC,QSA]
+RewriteRule ^offers/?$ / [R=301,NC,QSA]
+RewriteRule ^mealprep\+/?$ /meal-prep-plus [R=301,NC,QSA]
+RewriteRule ^mealprep/?$ /meal-prep-plus [R=301,NC,QSA]
+RewriteRule ^mealprepplus/?$ /meal-prep-plus [R=301,NC,QSA]
+RewriteRule ^franchise/?$ /franchise-info [R=301,NC,QSA]
+RewriteRule ^giftcardwelcome/?$ /giftcards [R=301,NC,QSA]
+RewriteRule ^myreviews/?$ /my-meals [R=301,NC,QSA]
+RewriteRule ^testimonials/?$ /shared-stories [R=301,NC,QSA]
+RewriteRule ^testrecipe/?$ /survey-landing [R=301,NC,QSA]
+RewriteRule ^testrecipes/?$ /survey-landing [R=301,NC,QSA]
+RewriteRule ^mysurveys/?$ /my-surveys [R=301,NC,QSA]
+RewriteRule ^mymeals/?$ /my-meals [R=301,NC,QSA]
+RewriteRule ^shareyourstory/?$ /share-your-story [R=301,NC,QSA]
+RewriteRule ^virtual/?$ /national-virtual-party [R=301,NC,QSA]
+RewriteRule ^policies/?$ /privacy [R=301,NC,QSA]
+RewriteRule ^colorado/?$ /colorado-meal-kit [R=301,NC,QSA]
+RewriteRule ^freezer/?$ /sides-and-sweets-order-form?utm_source=stores-salesforce&utm_medium=emails-sms&utm_campaign=sides-sweets-order-form [R=301,NC,QSA]
 
-# Optioanl S after location
-RewriteRule ^locations?/?$ /main.php?page=locations [R=301,NC,QSA]
-RewriteRule ^msl/?$ /main.php?page=home [R=301,NC,QSA]
-RewriteRule ^offers/?$ /main.php?page=home [R=301,NC,QSA]
-RewriteRule ^platepoints/?$ /main.php?page=platepoints [R=301,NC,QSA]
-RewriteRule ^testimonials/?$ /main.php?static=shared_stories [R=301,NC,QSA]
-RewriteRule ^testrecipe/?$ /main.php?page=survey_landing [R=301,NC,QSA]
-RewriteRule ^testrecipes/?$ /main.php?page=survey_landing [R=301,NC,QSA]
-RewriteRule ^mysurveys/?$ /main.php?page=my_surveys [R=301,NC,QSA]
-RewriteRule ^main\.php/main\.php ^/main.php [R=301,NC,QSA]
-RewriteRule ^fadmin/?$ /main.php?page=admin_main [R=301,NC,QSA]
-RewriteRule ^mymeals/?$ /main.php?page=my_meals [R=301,NC,QSA]
-RewriteRule ^promotions/?$ /main.php?static=promotions [R=301,NC,QSA]
+# Optioanl trailing "S" redirects
+RewriteRule ^location/?$ /locations [R=301,NC,QSA]
+RewriteRule ^stores?/?$ /locations [R=301,NC,QSA]
+RewriteRule ^holiday/?$ /holidays [R=301,NC,QSA]
+RewriteRule ^gifts/?$ /gift [R=301,NC,QSA]
+RewriteRule ^fundraisercards?/?$ /fundraiser-card-program [R=301,NC,QSA]
+
+# Offsite redirects
+RewriteRule ^30daysofdinner/?$ https://cloud.em-dreamdinners.com/30daysofdinner2020 [R=301,NC,QSA]
+RewriteRule ^unboxedsurvey/?$ https://www.surveymonkey.com/r/unboxedq1 [R=301,NC,QSA]
+
+# Store redirects
 RewriteRule ^ga400hwy20GA/?$ /CummingGA [R=301,NC,QSA]
 RewriteRule ^CloverlyStreetMD/?$ /SilverSpringMD [R=301,NC,QSA]
 RewriteRule ^AugustaBusCtrGA/?$ / [R=301,NC,QSA]
@@ -232,13 +176,13 @@ RewriteRule ^ClearViewDrNV/?$ /CarsonCityNV [R=301,NC,QSA]
 RewriteRule ^GraniteRunPA/?$ /LancasterPA [R=301,NC,QSA]
 RewriteRule ^Circle9Or/?$ /CorvallisOR [R=301,NC,QSA]
 RewriteRule ^119metcalfks/?$ /OverlandParkKS [R=301,NC,QSA]
-RewriteRule ^NathanielPlazaMA/?$ /main.php?page=locations [R=301,NC,QSA]
-RewriteRule ^AugustaBusCtrGA/?$ /main.php?page=locations [R=301,NC,QSA]
-RewriteRule ^tricitycenter/?$ /main.php?page=locations [R=301,NC,QSA]
-RewriteRule ^clearview/?$ /main.php?page=locations [R=301,NC,QSA]
-RewriteRule ^cloverlyst/?$ /main.php?page=locations [R=301,NC,QSA]
-RewriteRule ^anderson/?$ /main.php?page=locations [R=301,NC,QSA]
-RewriteRule ^cloverlystreet/?$ /main.php?page=locations [R=301,NC,QSA]
+RewriteRule ^NathanielPlazaMA/?$ /locations [R=301,NC,QSA]
+RewriteRule ^AugustaBusCtrGA/?$ /locations [R=301,NC,QSA]
+RewriteRule ^tricitycenter/?$ /locations [R=301,NC,QSA]
+RewriteRule ^clearview/?$ /locations [R=301,NC,QSA]
+RewriteRule ^cloverlyst/?$ /locations [R=301,NC,QSA]
+RewriteRule ^anderson/?$ /locations [R=301,NC,QSA]
+RewriteRule ^cloverlystreet/?$ /locations [R=301,NC,QSA]
 RewriteRule ^ga400/?$ /CummingGA [R=301,NC,QSA]
 RewriteRule ^SawgrassFL/?$ /SunriseFL [R=301,NC,QSA]
 RewriteRule ^Sawgrass/?$ /SunriseFL [R=301,NC,QSA]
@@ -306,42 +250,100 @@ RewriteRule ^chicago.com/?$ /locations [R=301,NC,QSA]
 RewriteRule ^alask/?$ /locations [R=301,NC,QSA]
 RewriteRule ^96streetIN/?$ /locations [R=301,NC,QSA]
 RewriteRule ^playbook/?$ /media/Dream-Dinners-Playbook.pdf [R=301,NC,QSA]
-RewriteRule ^shareyourstory/?$ /main.php?static=share_your_story [R=301,NC,QSA]
-RewriteRule ^30daysofdinner/?$ https://cloud.em-dreamdinners.com/30daysofdinner2020 [R=301,NC,QSA]
-RewriteRule ^unboxedsurvey/?$ https://www.surveymonkey.com/r/unboxedq1 [R=301,NC,QSA]
-RewriteRule ^virtual/?$ /main.php?static=national_virtual_party [R=301,NC,QSA]
-RewriteRule ^freezer/?$ /main.php?page=sides_and_sweets_order_form&utm_source=stores-salesforce&utm_medium=emails-sms&utm_campaign=sides-sweets-order-form [R=301,NC,QSA]
-RewriteRule ^shiftsetgo/?$ /main.php?static=shiftsetgo [R=301,NC,QSA]
 RewriteRule ^NRH/?$ /northrichlandhills [R=301,NC,QSA]
 
-# Optioanl S after holiday
-RewriteRule ^holidays?/?$ /main.php?static=holidays [R=301,NC,QSA]
-# Optioanl S after fundraisercard
-RewriteRule ^fundraisercards?/?$ /main.php?static=fundraiser_card_program [R=301,NC,QSA]
-# Optioanl S after gift
-RewriteRule ^gifts?/?$ /main.php?static=gift [R=301,NC,QSA]
+# handle script/css cache defeat
+RewriteRule ^theme/(.+)/(scripts|css)/[0-9]+/admin/(.+)$ /theme/$1/$2/admin/$3 [L]
+RewriteRule ^theme/(.+)/(scripts|css)/[0-9]+/(.+)$ /theme/$1/$2/$3 [L]
+# handle images referenced in css with cache defeat path
+RewriteRule ^theme/(.+)/css/images/(.+)$ /theme/$1/images/$2 [L]
 
-RewriteRule ^policies/?$ /main.php?static=privacy [R=301,NC,QSA]
-RewriteRule ^privacy/?$ /main.php?static=privacy [R=301,NC,QSA]
-RewriteRule ^cookies/?$ /main.php?static=cookies [R=301,NC,QSA]
-RewriteRule ^terms/?$ /main.php?static=terms [R=301,NC,QSA]
-RewriteRule ^walkin/?$ /main.php?static=walkin [R=301,NC,QSA]
-RewriteRule ^colorado/?$ /main.php?static=colorado_meal_kit [R=301,NC,QSA]
+# handle default browse_menu promo images
+# first two lines prevent infinite loop in the case the default image is not there
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^theme/dreamdinners/images/browse_menu/[a-z]+/(.*)?$ /theme/dreamdinners/images/browse_menu/default/$1 [L,E=STATUS:404]
+
+# handle missing store images, redirect to default image
+# first two lines prevent infinite loop in the case the default image is not there
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^theme/dreamdinners/images/stores/([0-9]+).(jpg|webp|png)?$ /theme/dreamdinners/images/stores/default.$2 [L,E=STATUS:404]
+
+# handle missing store bio images, redirect to default image
+# first two lines prevent infinite loop in the case the default image is not there
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^theme/dreamdinners/images/stores/bio/portrait-([0-9]+)-([0-9]+).(jpg|webp|png)?$ /theme/dreamdinners/images/stores/bio/portrait-default-$2.$3 [L,E=STATUS:404]
+
+# handle missing store bio team images, redirect to default image
+# first two lines prevent infinite loop in the case the default image is not there
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^theme/dreamdinners/images/stores/bio/portrait-([0-9]+)-team.(jpg|webp|png)?$ /theme/dreamdinners/images/stores/$1.$2 [L,E=STATUS:404]
+
+# handle missing recipe images, redirect to default image
+# first two lines prevent infinite loop in the case the default image is not there
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^theme/dreamdinners/images/recipe/default/([0-9]+).(jpg|webp|png)?$ /theme/dreamdinners/images/recipe/default/0.$2 [L,E=STATUS:404]
+
+## REDIRECT FROM OLD IMAGE PATH TO NEW RESPONSIVE SITE
+# handle missing recipe images, redirect to default image
+# first two lines prevent infinite loop in the case the default image is not there
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^theme/english/dreamdinners/images/recipe/default/(.*)/([0-9_]+)_(.*).(jpg|webp|png)?$ /theme/dreamdinners/images/recipe/default/$2.$3 [L,E=STATUS:404]
+
+# handle default my account promo image
+# first two lines prevent infinite loop in the case the default image is not there
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^theme/dreamdinners/images/my_account/monthly/([a-z]+)/(.*)?$ /theme/dreamdinners/images/my_account/monthly/default/$2 [L,E=STATUS:404]
+
+# handle default taste event images
+# first two lines prevent infinite loop in the case the default image is not there
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^theme/dreamdinners/images/event_theme/(dream_taste|fundraiser|standard)/(.*)/(.*)/([0-9_]+)/(.*)?$ /theme/dreamdinners/images/event_theme/$1/$2/$3/default/$5 [L,E=STATUS:404]
+
+# handle default invite a friend email images
+# first two lines prevent infinite loop in the case the default image is not there
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^theme/dreamdinners/images/email/event_theme/(dream_taste|fundraiser|standard)/(.*)/(.*)/([0-9_]+)/(.*)?$ /theme/dreamdinners/images/email/event_theme/$1/$2/$3/default/$5 [R=301,L]
+
+# handle master default invite a friend email images
+# first two lines prevent infinite loop in the case the default image is not there
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^theme/dreamdinners/images/email/event_theme/(dream_taste|fundraiser|standard)/(.*)/(.*)/default/(.*)?$ /theme/dreamdinners/images/email/event_theme/default/$4 [L,E=STATUS:404]
 
 ## Redirect variable
-RewriteRule ^ref/(.*)$ /main.php?page=session&oid=$1 [R=301,NC,QSA]
-RewriteRule ^ref2/(.*)$ /main.php?page=session&sid=$1 [R=301,NC,QSA]
-RewriteRule ^pp/(.*)$ /main.php?page=session&&sid=$1 [R=301,NC,QSA]
-RewriteRule ^taste/(.*)$ /main.php?page=session&sid=$1 [R=301,NC,QSA]
-RewriteRule ^event/(.*)$ /main.php?page=session&sid=$1 [R=301,NC,QSA]
-RewriteRule ^fundraiser/(.*)$ /main.php?page=session&sid=$1 [R=301,NC,QSA]
+RewriteRule ^ref/(.*)$ /session?oid=$1 [R=301,NC,QSA]
+RewriteRule ^ref2/(.*)$ /session?sid=$1 [R=301,NC,QSA]
+RewriteRule ^pp/(.*)$ /session?sid=$1 [R=301,NC,QSA]
+RewriteRule ^taste/(.*)$ /session?sid=$1 [R=301,NC,QSA]
+RewriteRule ^event/(.*)$ /session?sid=$1 [R=301,NC,QSA]
+RewriteRule ^fundraiser/(.*)$ /session?sid=$1 [R=301,NC,QSA]
 
 ## Sharing links Responsive
-RewriteRule ^starter/([0-9]*)$ /main.php?page=session&sid=$1&starter_pack=true [R=301,NE,NC,QSA]
-RewriteRule ^session/([0-9]*)-([0-9]*)$ /main.php?page=session&sid=$1&jid=$2 [R=301,NC,QSA]
-RewriteRule ^session/([0-9]*)$ /main.php?page=session&sid=$1 [R=301,NC,QSA]
+RewriteRule ^starter/([0-9]*)$ /session?sid=$1&starter_pack=true [R=301,NE,NC,QSA]
+RewriteRule ^session/([0-9]*)-([0-9]*)$ /session?sid=$1&jid=$2 [R=301,NC,QSA]
+RewriteRule ^session/([0-9]*)$ /session?sid=$1 [R=301,NC,QSA]
 
-RewriteRule ^menu/?$ /main.php?page=session_menu [R=301,NC,QSA]
+# Legacy link support for /menu/
+RewriteRule ^menu/?$ /session-menu [R=301,NC,QSA]
 RewriteRule ^menu/([a-z]{3})$ /ddproc.php?processor=session_type&menu=$1 [R=301,NC,QSA]
 RewriteRule ^menu/([0-9]*)$ /ddproc.php?processor=session_type&store=$1 [R=301,NC,QSA]
 RewriteRule ^menu/([0-9]*)-starter$ /ddproc.php?processor=session_type&store=$1&type=starter [R=301,NC,QSA]
@@ -349,61 +351,47 @@ RewriteRule ^menu/([0-9]*)-([0-9a-z]*)$ /ddproc.php?processor=session_type&store
 RewriteRule ^menu/([0-9]*)-([0-9a-z]*)-starter$ /ddproc.php?processor=session_type&store=$1&menu=$2&type=starter [R=301,NC,QSA]
 RewriteRule ^menu/([0-9]*)-([0-9a-z]*)-events$ /ddproc.php?processor=session_type&store=$1&menu=$2&type=event [R=301,NC,QSA]
 
-RewriteRule ^stores?/?$ /main.php?page=locations [R=301,NC,QSA]
-RewriteRule ^store/([0-9]*)-fundraisers$ /main.php?page=fundraiser&id=$1 [R=301,NC,QSA]
-RewriteRule ^store/([0-9]*)-events$ /main.php?page=store&id=$1#events [R=301,NC,NE,QSA]
+RewriteRule ^invite/([a-zA-Z0-9]*)$ /session?oid=$1 [R=301,NC,QSA]
+RewriteRule ^invstarter/([a-zA-Z0-9]*)$ /session?oid=$1&starter_pack=true [R=301,NC,QSA]
+RewriteRule ^share/([0-9]*)$ /?share=$1 [R=301,NC,QSA]
 
-RewriteRule ^invite/([a-zA-Z0-9]*)$ /main.php?page=session&oid=$1 [R=301,NC,QSA]
-RewriteRule ^invstarter/([a-zA-Z0-9]*)$ /main.php?page=session&oid=$1&starter_pack=true [R=301,NC,QSA]
-RewriteRule ^share/([0-9]*)$ /main.php?share=$1 [R=301,NC,QSA]
+## START Short url specific handling for store location pages
+# Handle fundraiser page link OLD
+RewriteRule ^location\/([\w-]+)\-fundraisers\/?$ /?page=fundraiser&id=$1 [NC,L,QSA]
 
-## 301 Redirect dinnersforlife.com to dreamdinners.com
-RewriteCond %{HTTP_HOST} ^(www\.)?dinnersforlife\.com [NC]
-RewriteRule ^(.*)$ https://dreamdinners.com/ [R=301,L]
+# Handle order links NEW
+RewriteRule ^location\/([\w-]+)\/order\/?$ /ddproc.php?processor=session_type&store=$1 [R=301,NC,QSA]
+RewriteRule ^location\/([\w-]+)\/order\/starter\/?$ /ddproc.php?processor=session_type&store=$1&type=starter [R=301,NC,QSA]
+RewriteRule ^location\/([\w-]+)\/order\/([0-9a-z]*)\/?$ /ddproc.php?processor=session_type&store=$1&menu=$2 [R=301,NC,QSA]
+RewriteRule ^location\/([\w-]+)\/order\/([0-9a-z]*)\/starter\/?$ /ddproc.php?processor=session_type&store=$1&menu=$2&type=starter [R=301,NC,QSA]
 
-## 301 Redirect www.dreamdinners.com to dreamdinners.com
-#RewriteCond %{HTTPS_HOST} ^www.dreamdinners.com [NC]
-#RewriteRule ^(.*)$ https://dreamdinners.com/$1 [L,R=301]
-#RewriteCond %{HTTP_HOST} ^www.dreamdinners.com [NC]
-#RewriteRule ^(.*)$ http://dreamdinners.com/$1 [L,R=301]
+# Handle fundraiser page link NEW
+RewriteRule ^location\/([\w-]+)\/fundraisers\/?$ /?page=fundraiser&id=$1 [NC,L,QSA]
 
-## 301 Redirect DreamSite site to DreamSite2
-# 301 Redirect 1
-RewriteCond %{QUERY_STRING} ^static=index$ [NC]
-RewriteRule ^main\.php$ /main.php?page=home [R=301,NE,NC,L]
+# /location/mill-creek/meet-the-owner
+# /location/mill-creek/calendar
+RewriteRule ^location\/([\w-]+)\/calendar\/([0-9a-z]*)\/events\/?$ /ddproc.php?processor=session_type&store=$1&menu=$2&type=event [R=301,NC,QSA]
 
-# 301 Redirect 2
-RewriteCond %{QUERY_STRING}  ^static=policyandterms$ [NC]
-RewriteRule ^main\.php$ /main.php?static=terms [R=301,NE,NC,L]
+RewriteRule ^location\/([\w-]+)/([\w-]+)\/?$ /?page=store_$2&id=$1 [NC,L,QSA]
+# /location/mill-creek
+RewriteRule ^location\/([\w-]+)\/?$ /?page=store&id=$1 [NC,L,QSA]
 
-# 301 Redirect 3
-RewriteCond %{QUERY_STRING}  ^static=policy_and_terms [NC]
-RewriteRule ^main\.php$ /main.php?static=terms [R=301,NE,NC,L]
+## END Short url specific handling for store location pages
 
-# 301 Redirect 4
-RewriteCond %{QUERY_STRING}  ^static=sms_terms [NC]
-RewriteRule ^main\.php$ /main.php?static=terms [R=301,NE,NC,L]
+## This handles the short/pretty urls for BackOffice
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^backoffice\/([\w-]+)/?$ /?page=admin_$1 [NC,L,QSA]
 
-# 301 Redirect 5
-RewriteCond %{QUERY_STRING}  ^static=sms_policy [NC]
-RewriteRule ^main\.php$ /main.php?static=privacy [R=301,NE,NC,L]
+## Handles /backoffice
+RewriteRule ^backoffice\/?$ /?page=admin_main [NC,L,QSA]
 
-# 301 Redirect 6
-RewriteCond %{QUERY_STRING}  ^static=gc_giftcards$ [NC]
-RewriteRule ^main\.php$ /main.php?static=giftcards [R=301,NE,NC,L]
+## Handles /processor
+RewriteRule ^processor\/backoffice\/([\w-]+)\/?$ /ddproc.php?processor=admin_$1 [NC,L,QSA]
+RewriteRule ^processor\/([\w-]+)\/?$ /ddproc.php?processor=$1 [NC,L,QSA]
+RewriteRule ^processor\/?$ /ddproc.php [NC,L,QSA]
 
-# 301 Redirect 7
-RewriteCond %{QUERY_STRING}  ^static=dd_cookbook$ [NC]
-RewriteRule ^main\.php$ https://www.amazon.com/Dream-Dinners-Dinnertime-Assemble---Freeze/dp/0060784229/ref=sr_1_1?ie=UTF8&qid=1333064657&sr=8-1 [R=301,NE,NC,L]
-
-# 301 Redirect 8
-RewriteCond %{QUERY_STRING}  ^static=intro_offer$ [NC]
-RewriteRule ^main\.php$ /main.php?static=meal_prep_starter_pack [R=301,NE,NC,L]
-
-# 301 Redirect 9
-RewriteCond %{QUERY_STRING}  ^page=location$ [NC]
-RewriteRule ^main\.php$ /main.php?page=locations [R=301,NE,NC,L]
-
-# 301 Redirect 10
-RewriteCond %{QUERY_STRING}  ^page=session_type* [NC]
-RewriteRule ^main\.php$ /main.php?page=session_menu [R=301,NE,NC,L]
+## This handles the short/pretty urls for cutstomer website
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([\w-]+)/?$ /?page=$1 [NC,L,QSA]

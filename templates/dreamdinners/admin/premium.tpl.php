@@ -23,7 +23,6 @@
 
 <p> To create a premium for all all Quick 6 orders, use the form below:</p>
 <form action="" method="get">
-  <input type="hidden" name="page" value="admin_premium">
   <strong>Store:</strong> <?php echo $this->form_premium['store_html']; ?><br />
 </form>
 <form name="kithen_markup" action="" method="post" onSubmit="return _check_form(this);" >

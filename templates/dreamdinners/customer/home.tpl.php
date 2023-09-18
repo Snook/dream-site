@@ -15,7 +15,7 @@
 				<div class="col-12 col-sm-9 col-md-8 col-lg-6 col-xl-4 ml-sm-5 p-4 position-absolute" style="bottom: 3rem; background-color: rgba(255,255,255,0.90)">
 					<h1 class="font-marker">Your Local Meal Kit Solution</h1>
 					<p class="text-uppercase">Real food made from scratch, so your life can feel just a little easier.</p>
-					<form action="/main.php?page=locations" method="post">
+					<form action="/locations" method="post">
 						<div class="form-group mx-auto">
 							<div class="input-group">
 								<!--<div class="input-group-prepend">
@@ -38,7 +38,7 @@
 					<img class="img-fluid" src="<?php echo IMAGES_PATH; ?>/home_content/media/family_dinner2.webp?v=<?php echo JAVASCRIPT_CSS_VERSION; ?>">
 					<h1 class="font-marker">Your Local Dinner Solution</h1>
 					<p class="text-uppercase">The quickest, easiest way to get a homemade meal on the table. Find a location near you.</p>
-					<form action="/main.php?page=locations" method="post">
+					<form action="/locations" method="post">
 						<div class="form-group mx-auto">
 							<div class="input-group">
 								<!--<div class="input-group-prepend">
@@ -102,7 +102,7 @@
 				<div>
 					<div class="col">
 						<div class="text-center">
-							<a href="/main.php?page=locations" class="btn btn-lg btn-primary">See Your Local Menu Options</a>
+							<a href="/locations" class="btn btn-lg btn-primary">See Your Local Menu Options</a>
 						</div>
 					</div>
 				</div>
@@ -120,25 +120,25 @@
 
 						<ul class="nav justify-content-around justify-content-md-between">
 							<li class="nav-item mb-3">
-								<a class="m-auto nav-link text-uppercase text-nowrap font-weight-bold rounded-circle bg-green-light text-white d-flex align-items-center justify-content-center" style="width: 10rem; height: 10rem;" id="convenient-tab" data-urlpush="false" data-toggle="tab" data-target="#convenient" href="/main.php?page=home&amp;tab=convenient" role="tab" aria-controls="convenient" aria-selected="true">
+								<a class="m-auto nav-link text-uppercase text-nowrap font-weight-bold rounded-circle bg-green-light text-white d-flex align-items-center justify-content-center" style="width: 10rem; height: 10rem;" id="convenient-tab" data-urlpush="false" data-toggle="tab" data-target="#convenient" href="/?tab=convenient" role="tab" aria-controls="convenient" aria-selected="true">
 									<!--<i class="dd-icon icon-plate position-absolute text-green-light" style="font-size: 10rem;"></i>-->
 									<span class="position-absolute">Convenience</span>
 								</a>
 							</li>
 							<li class="nav-item mb-3">
-								<a class="m-auto nav-link text-uppercase text-nowrap font-weight-bold rounded-circle bg-cyan-dark text-white d-flex align-items-center justify-content-center" style="width: 10rem; height: 10rem;" id="flexible-tab" data-urlpush="false" data-toggle="tab" data-target="#flexible" href="/main.php?page=home&amp;tab=flexible" role="tab" aria-controls="flexible" aria-selected="false">
+								<a class="m-auto nav-link text-uppercase text-nowrap font-weight-bold rounded-circle bg-cyan-dark text-white d-flex align-items-center justify-content-center" style="width: 10rem; height: 10rem;" id="flexible-tab" data-urlpush="false" data-toggle="tab" data-target="#flexible" href="/?tab=flexible" role="tab" aria-controls="flexible" aria-selected="false">
 									<!--<i class="dd-icon icon-plate position-absolute text-cyan" style="font-size: 10rem;"></i>-->
 									<span class="position-absolute">Flexibility</span>
 								</a>
 							</li>
 							<li class="nav-item mb-3">
-								<a class="m-auto nav-link text-uppercase text-nowrap font-weight-bold rounded-circle bg-orange text-white d-flex align-items-center justify-content-center" style="width: 10rem; height: 10rem;" id="quality-tab" data-urlpush="false" data-toggle="tab" data-target="#quality" href="/main.php?page=home&amp;tab=quality" role="tab" aria-controls="quality" aria-selected="false">
+								<a class="m-auto nav-link text-uppercase text-nowrap font-weight-bold rounded-circle bg-orange text-white d-flex align-items-center justify-content-center" style="width: 10rem; height: 10rem;" id="quality-tab" data-urlpush="false" data-toggle="tab" data-target="#quality" href="/?tab=quality" role="tab" aria-controls="quality" aria-selected="false">
 									<!--<i class="dd-icon icon-plate position-absolute text-cyan-light" style="font-size: 10rem;"></i>-->
 									<span class="position-absolute">Quality</span>
 								</a>
 							</li>
 							<li class="nav-item mb-3">
-								<a class="m-auto nav-link text-uppercase text-nowrap font-weight-bold rounded-circle bg-green-dark text-white d-flex align-items-center justify-content-center" style="width: 10rem; height: 10rem;" id="easy-tab" data-urlpush="false" data-toggle="tab" data-target="#easy" href="/main.php?page=home&amp;tab=easy" role="tab" aria-controls="easy" aria-selected="false">
+								<a class="m-auto nav-link text-uppercase text-nowrap font-weight-bold rounded-circle bg-green-dark text-white d-flex align-items-center justify-content-center" style="width: 10rem; height: 10rem;" id="easy-tab" data-urlpush="false" data-toggle="tab" data-target="#easy" href="/?tab=easy" role="tab" aria-controls="easy" aria-selected="false">
 									<!--<i class="dd-icon icon-plate position-absolute text-orange" style="font-size: 10rem;"></i>-->
 									<span class="position-absolute">Easy</span>
 								</a>
@@ -158,7 +158,7 @@
 									<li>Breakfast, sides and more are always available in our Sides &amp; Sweets Freezer making us a one-stop shop.</li>
 								</ul>
 								<!--<div class="col text-center">
-									<a href="/main.php?static=convenience" class="btn btn-primary btn-block">Learn More</a>
+									<a href="/convenience" class="btn btn-primary btn-block">Learn More</a>
 								</div>-->
 							</div>
 							<!-- end first tab -->
@@ -172,7 +172,7 @@
 									<li>Choose from a mix of flavor profiles and proteins, so each dinner is a new adventure</li>
 								</ul>
 								<!--<div class="col text-center">
-									<a href="/main.php?static=flexibility" class="btn btn-primary btn-block">Learn More</a>
+									<a href="/flexibility" class="btn btn-primary btn-block">Learn More</a>
 								</div>-->
 							</div>
 							<!-- end second tab -->
@@ -186,7 +186,7 @@
 									<li>No extra packaging like coolers and ice packs that you find in other meal kits.*</li>
 								</ul>
 								<!--<div class="col text-center">
-									<a href="/main.php?static=quality" class="btn btn-primary btn-block">Learn More</a>
+									<a href="/quality" class="btn btn-primary btn-block">Learn More</a>
 								</div>-->
 								<p class="font-italic text-center pt-2">*Does not include our shipped product.</p>
 							</div>
@@ -201,7 +201,7 @@
 									<li>Easy-to-follow cooking instructions and no-mess pan meals means you have a solution for whatever the day may bring.</li>
 								</ul>
 								<!--<div class="col text-center">
-									<a href="/main.php?static=ease" class="btn btn-primary btn-block">Learn More</a>
+									<a href="/ease" class="btn btn-primary btn-block">Learn More</a>
 								</div>-->
 							</div>
 							<!-- end fourth tab -->
@@ -311,7 +311,7 @@
 				</div>
 				<div class="row my-2">
 					<div class="col text-center">
-						<a href="/main.php?page=locations" class="btn btn-lg btn-primary">Get started</a>
+						<a href="/locations" class="btn btn-lg btn-primary">Get started</a>
 					</div>
 				</div>
 			</div>
@@ -356,7 +356,7 @@
 						</div>
 						<div class="row my-2">
 							<div class="col text-center">
-								<a href="/main.php?page=locations" class="btn btn-primary btn-block">GET COOKING</a>
+								<a href="/locations" class="btn btn-primary btn-block">GET COOKING</a>
 							</div>
 						</div>
 					</div>

@@ -31,21 +31,21 @@
 			<tr style="background-color: darkcyan">
 				<td rowspan="<?php echo $rowspan;?>" class="value guest">
 
-					<a class="guestname" id="gd_guest-<?php echo $booking['id']; ?>" href="main.php?page=admin_user_details&amp;id=<?php echo $booking['user_id']; ?>&amp;back=main.php%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" data-user_id="<?php echo $booking['user_id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>"><?php echo $booking['firstname']; ?> <?php echo $booking['lastname']; ?></a>
+					<a class="guestname" id="gd_guest-<?php echo $booking['id']; ?>" href="/?page=admin_user_details&amp;id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" data-user_id="<?php echo $booking['user_id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>"><?php echo $booking['firstname']; ?> <?php echo $booking['lastname']; ?></a>
 
 					<div style="float: right;">
 
 						<?php if (!empty($booking['corporate_crate_client']) && !empty($booking['corporate_crate_client']->is_active)) { ?><img alt="<?php echo $booking['corporate_crate_client']->company_name; ?>" src="<?php echo ADMIN_IMAGES_PATH; ?>/corporate/<?php echo $booking['corporate_crate_client']->icon_path; ?>_icon.png" class="float-right ml-1" data-tooltip="<?php echo $booking['corporate_crate_client']->company_name; ?>" /><?php } ?>
 						<?php if ($booking['user_type'] != CUser::CUSTOMER) { ?><img alt="Dream Dinners Staff" src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/dreamdinners.png" class="float-right ml-1" data-tooltip="Dream Dinners Staff" /><?php } ?>
-						<?php if ($booking['user']->membershipData['enrolled']) { ?><a href="main.php?page=admin_user_membership&amp;id=<?php echo $booking['user_id']; ?>&amp;back=main.php%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img alt="Meal Prep+" data-tooltip="Meal Prep+" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/membership/badge-membership-16x16.png" class="float-right ml-1" /></a><?php } ?>
-						<?php if (!empty($booking['preferred_type'])) { ?><a href="main.php?page=admin_preferred&amp;id=<?php echo $booking['user_id']; ?>&amp;back=main.php%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img alt="Preferred Guest" src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/star_grey.png" class="float-right ml-1" data-tooltip="Preferred Guest" /></a><?php } ?>
+						<?php if ($booking['user']->membershipData['enrolled']) { ?><a href="/?page=admin_user_membership&amp;id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img alt="Meal Prep+" data-tooltip="Meal Prep+" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/membership/badge-membership-16x16.png" class="float-right ml-1" /></a><?php } ?>
+						<?php if (!empty($booking['preferred_type'])) { ?><a href="/?page=admin_preferred&amp;id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img alt="Preferred Guest" src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/star_grey.png" class="float-right ml-1" data-tooltip="Preferred Guest" /></a><?php } ?>
 						<?php if (empty($booking['user']->preferences['TC_DELAYED_PAYMENT_AGREE']['value'])) { ?><img alt="Delayed Payment terms" data-delayed_payment_tc="<?php echo $booking['user_id']; ?>" src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/money_dollar.png" style="cursor: pointer; float: right; margin-left: 4px;" data-tooltip="Has not agreed to Delayed Payment terms" /><?php } ?>
 						<?php if (!empty($booking['is_birthday_month'])) { ?><img alt="Happy Birthday" src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/cake.png" class="float-right ml-1" data-tooltip="Birthday this Month" /><?php } ?>
 						<?php if ($booking['user']->platePointsData['status'] == 'active' || $booking['user']->platePointsData['userIsOnHold']) { ?>
 							<?php if ($booking['user']->platePointsData['userIsOnHold']) { ?>
-								<a href="main.php?page=admin_user_plate_points&amp;id=<?php echo $booking['user_id']; ?>&amp;back=main.php%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PLATEPOINTS On Hold" data-tooltip="PLATEPOINTS On Hold" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-hold-16x16.png" class="float-right ml-1" /></a>
+								<a href="/?page=admin_user_plate_points&amp;id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PLATEPOINTS On Hold" data-tooltip="PLATEPOINTS On Hold" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-hold-16x16.png" class="float-right ml-1" /></a>
 							<?php } else { ?>
-								<a href="main.php?page=admin_user_plate_points&amp;id=<?php echo $booking['user_id']; ?>&amp;back=main.php%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PLATEPOINTS <?php echo $booking['user']->platePointsData['current_level']['title'];?>" data-tooltip="PLATEPOINTS <?php echo $booking['user']->platePointsData['current_level']['title'];?>" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-<?php echo $booking['user']->platePointsData['current_level']['image'];?>-16x16.png" class="float-right ml-1" /></a>
+								<a href="/?page=admin_user_plate_points&amp;id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PLATEPOINTS <?php echo $booking['user']->platePointsData['current_level']['title'];?>" data-tooltip="PLATEPOINTS <?php echo $booking['user']->platePointsData['current_level']['title'];?>" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-<?php echo $booking['user']->platePointsData['current_level']['image'];?>-16x16.png" class="float-right ml-1" /></a>
 							<?php } ?>
 						<?php } ?>
 						<div class="clear"></div>
@@ -54,18 +54,18 @@
 					<div id="gd_guest_menu-<?php echo $booking['id']; ?>" class="guest_menu_div">
 						<ul class="guest_menu">
 
-							<li><a href="main.php?page=admin_user_details&amp;id=<?php echo $booking['user_id']; ?>&amp;back=main.php%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">View Guest</a></li>
-							<li><a href="main.php?page=admin_account&amp;id=<?php echo $booking['user_id']; ?>&amp;back=main.php%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Edit Guest</a></li>
-							<li><a href="main.php?page=admin_email&amp;id=<?php echo $booking['user_id']; ?>&amp;back=main.php%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Email Guest</a></li>
+							<li><a href="/?page=admin_user_details&amp;id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">View Guest</a></li>
+							<li><a href="/?page=admin_account&amp;id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Edit Guest</a></li>
+							<li><a href="/?page=admin_email&amp;id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Email Guest</a></li>
 
 							<?php if ($booking['status'] != CBooking::RESCHEDULED) { ?>
 								<li><a data-view_order_details="<?php echo $booking['id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>"
-									   href="main.php?page=admin_order_history&amp;id=<?php echo $booking['user_id']; ?>&amp;order=<?php echo $booking['order_id']; ?>&amp;back=main.php%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">View Order</a></li>
+									   href="/?page=admin_order_history&amp;id=<?php echo $booking['user_id']; ?>&amp;order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">View Order</a></li>
 							<?php } ?>
 							<?php if (!empty($booking['can_edit'])) { ?>
-								<li><a href="main.php?page=admin_order_mgr&amp;order=<?php echo $booking['order_id']; ?>&amp;back=main.php%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Edit Order</a></li>
+								<li><a href="/?page=admin_order_mgr&amp;order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Edit Order</a></li>
 							<?php } else { ?>
-								<li><a href="main.php?page=admin_order_mgr&amp;order=<?php echo $booking['order_id']; ?>&amp;back=main.php%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">GONE</a></li>
+								<li><a href="/?page=admin_order_mgr&amp;order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">GONE</a></li>
 
 							<?php } ?>
 							<?php if (!empty($booking['can_reschedule'])) { ?>
@@ -73,16 +73,16 @@
 							<?php } else { ?>
 								<li data-tooltip="Can not reschedule" style="text-decoration: line-through;">Reschedule</li>
 							<?php } ?>
-							<li><a href="main.php?page=admin_order_details_view_all&amp;customer_print_view=1&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" target="_blank">Order Summary</a></li>
+							<li><a href="/?page=admin_order_details_view_all&amp;customer_print_view=1&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" target="_blank">Order Summary</a></li>
 							<?php if ($booking['status'] != CBooking::SAVED) { ?>
-								<li><a href="main.php?page=print&amp;order=<?php echo $booking['order_id']; ?>&amp;nutrition=true" target="_blank">Nutritionals</a></li>
+								<li><a href="?page=print&amp;order=<?php echo $booking['order_id']; ?>&amp;nutrition=true" target="_blank">Nutritionals</a></li>
 								<li>
-									<a href="main.php?page=admin_reports_customer_menu_item_labels&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" target="_blank">Labels</a>
+									<a href="/?page=admin_reports_customer_menu_item_labels&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" target="_blank">Labels</a>
 								</li>
 							<?php } ?>
 
-							<li><a href="main.php?page=admin_order_mgr_delivered&amp;user=<?php echo $booking['user_id']; ?>&amp;back=main.php%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Place <?php echo $this->date['this_M']; ?> Order</a></li>
-							<li><a href="main.php?page=admin_order_history&amp;id=<?php echo $booking['user_id']; ?>&amp;back=main.php%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Order History</a></li>
+							<li><a href="/?page=admin_order_mgr_delivered&amp;user=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Place <?php echo $this->date['this_M']; ?> Order</a></li>
+							<li><a href="/?page=admin_order_history&amp;id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Order History</a></li>
 							<li><a href="" class="handle-resend-shipstation" data-order_id="<?php echo $booking['order_id']; ?>">Update ShipStation</a></li>
 						</ul>
 						<div class="clear"></div>
@@ -100,9 +100,9 @@
 				<td class="title">Balance Due</td>
 				<td class="value small_value">
 					<?php if (!empty($booking['can_edit'])) { ?>
-					<a href="main.php?page=admin_order_mgr&amp;order=<?php echo $booking['order_id']; ?>&amp;back=main.php%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">
+					<a href="/?page=admin_order_mgr&amp;order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">
 						<?php } else { ?>
-						<a href="main.php?page=admin_order_mgr&amp;order=<?php echo $booking['order_id']; ?>&amp;back=main.php%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">
+						<a href="/?page=admin_order_mgr&amp;order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">
 							<?php } ?>
 							<span class="<?php echo $booking['balance_due_css']; ?>" <?php if ($booking['balance_due'] != '0.00') { ?>
 								data-tooltip="Balance due to <?php echo ($booking['balance_due'] > 0) ? 'store' : 'guest'; ?>"<?php } ?>><?php echo $booking['balance_due_text']; ?>
@@ -164,7 +164,7 @@
 					Order Summary
 					<div style="float: right;">
 						<?php if (!empty($booking['can_edit'])) { ?>
-							<a href="main.php?page=admin_order_mgr&amp;order=<?php echo $booking['order_id']; ?>&amp;back=main.php%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" class="button">Edit Order</a>
+							<a href="/?page=admin_order_mgr&amp;order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" class="button">Edit Order</a>
 
 							<?php if ($booking['status'] == CBooking::SAVED) { ?>
 								<span id="gd_delete_order-<?php echo $booking['id']; ?>" data-user_id="<?php echo $booking['user_id']; ?>" data-store_id="<?php echo $booking['store_id']; ?>" data-session_id="<?php echo $booking['session_id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>" class="button">Delete Order</span>
@@ -173,7 +173,7 @@
 							<?php } ?>
 
 						<?php } else { ?>
-							<a href="main.php?page=admin_order_mgr&amp;order=<?php echo $booking['order_id']; ?>&amp;back=main.php%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" class="button">Edit Payments</a>
+							<a href="/?page=admin_order_mgr&amp;order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" class="button">Edit Payments</a>
 
 							<span data-tooltip="Cancel order period has expired" class="button disabled">Cancel Order</span>
 						<?php } ?>
@@ -184,7 +184,7 @@
 						<?php } ?>
 						<a class="button handle-resend-shipstation" data-order_id="<?php echo $booking['order_id']; ?>">Update ShipStation</a>
 						<a class="button handle-fetch-tracking-number" data-order_id="<?php echo $booking['order_id']; ?>">Load Tracking Number</a>
-						<a href="main.php?page=admin_order_details_view_all&amp;customer_print_view=1&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" class="button" target="_blank">Print</a>
+						<a href="/?page=admin_order_details_view_all&amp;customer_print_view=1&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" class="button" target="_blank">Print</a>
 						<span class="button close_order_details_table" data-booking_id="<?php echo $booking['id']; ?>">Close Details</span>
 					</div>
 				</td>
@@ -220,5 +220,3 @@
 		</tbody>
 	<?php } ?>
 </table>
-
-

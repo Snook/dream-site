@@ -21,7 +21,7 @@
 				<?php echo $this->form['menus_dropdown_html']; ?>
 			</div>
 			<div class="col text-right">
-				<a href="/main.php?<?php echo $_SERVER['QUERY_STRING']; ?>&export=csv" class="btn btn-sm btn-primary">Download</a>
+				<a href="/?<?php echo $_SERVER['QUERY_STRING']; ?>&export=csv" class="btn btn-sm btn-primary">Download</a>
 			</div>
 		</div>
 
@@ -68,7 +68,7 @@
 							<?php foreach ($recipe['component'] AS $component_id => $component) { $component_count++ ?>
 								<tr>
 									<?php if ($component_count == 1) { ?>
-										<td rowspan="<?php echo count($recipe['component']); ?>" class="font-weight-bold"><a href="/main.php?page=item&amp;recipe=<?php echo $recipe_id; ?>"><?php echo $recipe['info']['recipe_name']; ?></a></td>
+										<td rowspan="<?php echo count($recipe['component']); ?>" class="font-weight-bold"><a href="/item?recipe=<?php echo $recipe_id; ?>"><?php echo $recipe['info']['recipe_name']; ?></a></td>
 										<td rowspan="<?php echo count($recipe['component']); ?>">
 											<ul class="list-group list-group-horizontal list-inline">
 												<?php foreach (CRecipe::getIconSchematic() AS $icon_col => $icon) { ?>

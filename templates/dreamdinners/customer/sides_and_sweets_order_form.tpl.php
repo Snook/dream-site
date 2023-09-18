@@ -1,4 +1,3 @@
-<?php $this->assign('canonical_url', HTTPS_BASE); ?>
 <?php $this->assign('page_title', 'Sides and Sweets Order Request Form'); ?>
 <?php $this->assign('logo_only', $this->haveOrders); ?>
 <?php $this->assign('page_description', 'Dream Dinners brings easy, prepped dinners to families in the communities we serve. Our delicious meals are prepared with quality ingredients in our local assembly kitchens.'); ?>

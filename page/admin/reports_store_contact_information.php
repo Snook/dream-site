@@ -198,7 +198,7 @@ class page_admin_reports_store_contact_information extends CPageAdminOnly {
 				{
 					$tpl->setErrorMsg('Server error, no store information found.');
 
-					CApp::bounce('main.php?page=admin_store_contact_information');
+					CApp::bounce('/?page=admin_store_contact_information');
 				}
 			}
 			else

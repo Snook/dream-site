@@ -4,7 +4,7 @@ Thank you for your order. This receipt is your "Proof of Purchase".
 
 <?php if ($this->charged_amount >= 125 && (date('Y-m-d') >= '2021-12-01' && date('Y-m-d') <= '2021-12-25' )) { ?>
 
-Our Gift to You 
+Our Gift to You
 
 Thank you for gifting Dream Dinners this year. We want to give you something special. Use the coupon code below to get $10 off your next standard order between January and March 2022.
 
@@ -32,7 +32,7 @@ From:<?=$thisCard['from_name']?>
 Message: <?=$thisCard['message_text']?>
 <?php if ($thisCard['media_type'] == 'VIRTUAL') { ?>
 Recipient Email Address: <?=$thisCard['recipient_email']?>
-Resend eGift Card Email: <?=HTTPS_BASE?>main.php?page=resend_egift&oid=<?=$thisCard['confirm_id']?>
+Resend eGift Card Email: <?=HTTPS_BASE?>?page=resend_egift&oid=<?=$thisCard['confirm_id']?>
 <?php } else { ?>
 Recipient Name: <?=$thisCard['ship_to_name']?>
 Recipient Address:
@@ -58,4 +58,4 @@ Note: $2 shipping/service fee added each Traditional Gift Card ordered.
 
 Have questions? To view the complete Gift Card Policies & Terms online or
 if you have questions regarding your Gift Card or Customer Service options
-please visit <?=HTTPS_SERVER?>/main.php?static=giftcards
+please visit <?= HTTPS_SERVER ?>/giftcards

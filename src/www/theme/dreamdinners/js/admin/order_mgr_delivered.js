@@ -270,7 +270,7 @@ $(document).on('click', '.add_box', function (e) {
 	let box_label = $(this).data("box_label");
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -341,7 +341,7 @@ $(document).on('click', '.box-delete', function (e) {
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -485,7 +485,7 @@ function saveSpecialInstructions()
 	var special_instructions = strip_tags($("#order_user_notes").val());
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -544,7 +544,7 @@ function handle_special_instruction_notes()
 			}
 
 			$.ajax({
-				url: 'ddproc.php',
+				url: '/processor',
 				type: 'POST',
 				timeout: 20000,
 				dataType: 'json',
@@ -768,7 +768,7 @@ function saveItems(saveDiscountsUponCompletion, activateOnSaveDiscountsCompletio
 	currentlySavingOrder = true;
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -838,7 +838,7 @@ function saveDeliveryAddress(payOnCompletion, token)
 	intenseLogging("saveDeliveryAddress() called");
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 200000,
 		dataType: 'json',
@@ -921,7 +921,7 @@ function setShipToAddressAndSaveOrder()
 	// I.E., this is part of initializing a new order
 	// A SAVED order will have been created when this call completes.
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 200000,
 		dataType: 'json',
@@ -938,7 +938,7 @@ function setShipToAddressAndSaveOrder()
 			if (json.processor_success)
 			{
 				intenseLogging("setShipToAddressAndSaveOrder() successful");
-				bounce("main.php?page=admin_order_mgr_delivered&order=" + json.order_id + "&atabs=mgr.sessionsTab");
+				bounce("/?page=admin_order_mgr_delivered&order=" + json.order_id + "&atabs=mgr.sessionsTab");
 			}
 			else
 			{
@@ -972,7 +972,7 @@ function Reschedule(org_session_id)
 	intenseLogging("Reschedule() called");
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1146,7 +1146,7 @@ function onPaymentTabDeselected()
 function onNotesTabSelected()
 {
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1378,7 +1378,7 @@ function saveDiscounts(payOnCompletion)
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		dataType: 'json',
@@ -1847,7 +1847,7 @@ function save2PaymentsAndBookOrder(payment2Type, payment1Data, token)
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			async: true,
@@ -1872,11 +1872,11 @@ function save2PaymentsAndBookOrder(payment2Type, payment1Data, token)
 
 					if (json.warnOfOutstandingSavedOrdersOnFullSession)
 					{
-						bounce("main.php?page=admin_order_mgr_thankyou&order=" + json.order_id + '&full_session=true');
+						bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id + '&full_session=true');
 					}
 					else
 					{
-						bounce("main.php?page=admin_order_mgr_thankyou&order=" + json.order_id);
+						bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id);
 					}
 
 				}
@@ -1915,7 +1915,7 @@ function save2PaymentsAndBookOrder(payment2Type, payment1Data, token)
 		var amt = $("#payment2_cc_total_amount").val();
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			async: true,
@@ -2006,7 +2006,7 @@ function savePayment2(payment2Type, warnOfOutstandingSavedOrdersOnFullSession, t
 		}
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			async: true,
@@ -2028,11 +2028,11 @@ function savePayment2(payment2Type, warnOfOutstandingSavedOrdersOnFullSession, t
 
 					if (warnOfOutstandingSavedOrdersOnFullSession)
 					{
-						bounce("main.php?page=admin_order_mgr_thankyou&order=" + json.order_id + '&full_session=true');
+						bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id + '&full_session=true');
 					}
 					else
 					{
-						bounce("main.php?page=admin_order_mgr_thankyou&order=" + json.order_id);
+						bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id);
 					}
 
 				}
@@ -2071,7 +2071,7 @@ function savePayment2(payment2Type, warnOfOutstandingSavedOrdersOnFullSession, t
 		var amt = $("#payment2_cc_total_amount").val();
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			async: true,
@@ -2224,7 +2224,7 @@ function handleDirectPayment(addOnly, go_to_confirm, token)
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 90000,
 		async: true,
@@ -2251,11 +2251,11 @@ function handleDirectPayment(addOnly, go_to_confirm, token)
 
 				if (json.warnOfOutstandingSavedOrdersOnFullSession)
 				{
-					bounce("main.php?page=admin_order_mgr_thankyou&order=" + json.order_id + '&full_session=true');
+					bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id + '&full_session=true');
 				}
 				else
 				{
-					bounce("main.php?page=admin_order_mgr_thankyou&order=" + json.order_id);
+					bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id);
 				}
 			}
 			else
@@ -2322,7 +2322,7 @@ function RetrieveCalendar(timestamp)
 	}
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'GET',
 		timeout: 20000,
 		dataType: 'json',
@@ -3634,7 +3634,7 @@ function addPaymentToLockedOrder()
 	var amt = $("#payment1_cc_total_amount").val();
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 20000,
 		async: true,
@@ -4120,7 +4120,7 @@ function calculateTotal()
 	if (orderState != "NEW" && newFoodTotal > 0)
 	{
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			async: false,
@@ -4529,7 +4529,7 @@ $(document).on('change', '#address_book_select', function (e) {
 	if (id)
 	{
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',

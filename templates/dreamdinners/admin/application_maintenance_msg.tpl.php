@@ -9,6 +9,6 @@
 		<?php } ?>
 	</div>
 <?php } ?>
-<?php if (defined('DEV_BASE_NAME')) { ?>
+<?php if (defined('DEV_BASE_NAME') && DEV_BASE_NAME) { ?>
 	<div class="dev_branch_message"><?php echo DEV_BASE_NAME; ?> branch!</div>
 <?php } ?>

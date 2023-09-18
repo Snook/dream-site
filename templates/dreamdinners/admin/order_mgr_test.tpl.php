@@ -106,7 +106,7 @@
 						<tr>
 							<td style="text-align: right;">Customer Name:&nbsp;</td>
 							<td style="font-weight: bold;">
-								<a href="main.php?page=admin_user_details&amp;id=<?php echo $this->user['id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']);?>">
+								<a href="/?page=admin_user_details&amp;id=<?php echo $this->user['id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']);?>">
 									<?php echo $this->user_obj->firstname; ?> <?php echo $this->user_obj->lastname; ?>
 								</a>
 								<?php if (!empty($this->plate_points) && $this->plate_points['status'] == 'active') { ?>
@@ -125,7 +125,7 @@
 									<?php if ($this->orderState == 'NEW') { ?>
 										<span style="color: red;">Please select</span>
 									<?php } else { ?>
-										<a href="main.php?page=admin_main&amp;session=<?php echo $this->sessionInfo['id']; ?>"><?php echo $this->dateTimeFormat($this->sessionInfo['session_start'], VERBOSE); ?></a>
+										<a href="/?page=admin_main&amp;session=<?php echo $this->sessionInfo['id']; ?>"><?php echo $this->dateTimeFormat($this->sessionInfo['session_start'], VERBOSE); ?></a>
 									<?php } ?>
 								</div>
 								<?php if ($this->orderState != 'NEW') { ?>

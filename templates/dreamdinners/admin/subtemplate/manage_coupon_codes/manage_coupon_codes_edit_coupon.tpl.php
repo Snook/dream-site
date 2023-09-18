@@ -83,7 +83,7 @@
 				<?php echo $this->CouponForm['program_id_html']; ?>
 				<!--
 				<div class="input-group-append">
-					<a class="btn btn-primary" href="main.php?page=admin_manage_coupon_codes&amp;program_create=true">Create new</a>
+					<a class="btn btn-primary" href="/?page=admin_manage_coupon_codes&amp;program_create=true">Create new</a>
 				</div>
 				-->
 			</div>
@@ -349,6 +349,15 @@
 		<div class="col-12">
 			<h4 class="pb-0">Programs</h4>
 			<p class="font-size-small">Choose the types of programs this coupon can be used in combination with</p>
+		</div>
+
+		<div class="form-group col-md-6">
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<label class="input-group-text font-size-small" for="valid_with_customer_referral_credit">Referral Reward</label>
+				</div>
+				<?php echo $this->CouponForm['valid_with_customer_referral_credit_html']; ?>
+			</div>
 		</div>
 
 		<div class="form-group col-md-6">

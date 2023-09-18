@@ -19,7 +19,6 @@ class CApp
 	/**
 	 * Is it the store view or the web view
 	 */
-	static public $isStoreView = false;
 	static public $adminView = false;
 
 	static private $_instance = null;
@@ -128,7 +127,7 @@ class CApp
 			{
 				if (strpos($locationRequest, "admin_login") === false)
 				{
-					CApp::bounce('main.php?page=admin_reports');
+					CApp::bounce('/?page=admin_reports');
 				}
 			}
 		}
@@ -146,10 +145,13 @@ class CApp
 
 	function run($page)
 	{
+		$page = str_replace('-', '_', $page);
 
-		// File check: Do this early for efficency and so a malicious processor string can do no harm
-		// and send back an error rather than a file not found
-		$this->executableFileCheck($page);
+		// Check to see if there is a page class file, otherwise fall to static page
+		if (!$this->fileCheck_page($page))
+		{
+			return self::runStatic($page);
+		}
 
 		//if admin, then require https
 		$isAdmin = substr($page, 0, 6) == 'admin_';
@@ -232,7 +234,7 @@ class CApp
 				}
 				else
 				{
-					CApp::bounce('main.php?page=not_found');
+					CApp::bounce('/not-found');
 				}
 
 				$pageClass = 'page_' . $page;
@@ -253,7 +255,7 @@ class CApp
 				}
 				else
 				{
-					CApp::bounce('main.php?page=not_found');
+					CApp::bounce('/not-found');
 				}
 
 				$pageClass = 'page_' . $page;
@@ -453,6 +455,84 @@ class CApp
 		}
 	}
 
+	function runStatic($page)
+	{
+		$page = str_replace('-', '_', $page);
+
+		if (RECORD_NAVIGATION)
+		{
+			CLog::RecordNavigation($page, "STATIC");
+		}
+
+		try
+		{
+			header("x-frame-options: DENY");
+
+			require_once 'CTemplate.inc';
+			$this->_template = new CTemplate();
+
+			// Static file doesn't exist
+			// Check to see if store shortcut
+			if (!$this->fileCheck_static($page))
+			{
+				$DAO_store = DAO_CFactory::create('store', true);
+				$DAO_store->id = str_replace('_', '-', $page); // revert underscore to dash
+
+				if ($DAO_store->find_DAO_store(true))
+				{
+					CApp::bounce($DAO_store->getPrettyUrl());
+				}
+			}
+
+			//handle authentication and get the current user info
+			$LoginForm = form_login::BuildAndProcessForm();
+
+			$this->_template->assign('page', $page);
+
+			//render the template
+			$this->_template->assign('form_login', $LoginForm->Render());
+
+			if (!DEBUG)
+			{
+				set_error_handler('pageNotFound');
+			}
+
+			$error = $this->_template->display('customer/' . $page . '.tpl.php');
+
+			if (!DEBUG)
+			{
+				restore_error_handler();
+			}
+
+			if (!empty($error))
+			{
+				if (DEBUG)
+				{
+					echo '<PRE>';
+					var_dump($error->text);
+					echo '</PRE>';
+				}
+
+				$this->_template->setDebugMsg("<PRE>" . $error->text . "</PRE>");
+
+				pageNotFound(E_ERROR, 'not found', '', '');
+			}
+		}
+		catch (exception $e)
+		{
+			if (!DEBUG)
+			{
+				exceptionHandler($e);
+			}
+			else
+			{
+				throw $e;
+			}
+		}
+
+		return true;
+	}
+
 	function isFrameCompatibilityRequired($processor)
 	{
 
@@ -495,7 +575,7 @@ class CApp
 		return false;
 	}
 
-	function executableFileCheck($exeName, $isProcess = false)
+	function fileCheck_page($exeName, $isProcess = false)
 	{
 		$valid = true;
 
@@ -547,7 +627,22 @@ class CApp
 			}
 		}
 
-		if (!$valid)
+		return $valid;
+	}
+
+	function fileCheck_static($page)
+	{
+		if (!$this->_template->findFile('template', 'customer/' . $page . '.tpl.php'))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	function executableFileCheck($exeName, $isProcess = false)
+	{
+		if (!$this->fileCheck_page($exeName, $isProcess))
 		{
 			header("HTTP/1.1 403 Forbidden");
 			echo "Forbidden";
@@ -720,67 +815,6 @@ class CApp
 		}
 	}
 
-	function runStatic($page)
-	{
-		if (RECORD_NAVIGATION)
-		{
-			CLog::RecordNavigation($page, "STATIC");
-		}
-
-		try
-		{
-			header("x-frame-options: DENY");
-
-			require_once 'CTemplate.inc';
-			$this->_template = new CTemplate();
-
-			//handle authentication and get the current user info
-			$LoginForm = form_login::BuildAndProcessForm();
-
-			$this->_template->assign('page', $page);
-
-			//render the template
-			$this->_template->assign('form_login', $LoginForm->Render());
-
-			if (!DEBUG)
-			{
-				set_error_handler('pageNotFound');
-			}
-
-			$error = $this->_template->display('customer/static/' . $page . '.tpl.php');
-
-			if (!DEBUG)
-			{
-				restore_error_handler();
-			}
-
-			if (!empty($error))
-			{
-				if (DEBUG)
-				{
-					echo '<PRE>';
-					var_dump($error->text);
-					echo '</PRE>';
-				}
-
-				$this->_template->setDebugMsg("<PRE>" . $error->text . "</PRE>");
-
-				pageNotFound(E_ERROR, 'not found', '', '');
-			}
-		}
-		catch (exception $e)
-		{
-			if (!DEBUG)
-			{
-				exceptionHandler($e);
-			}
-			else
-			{
-				throw $e;
-			}
-		}
-	}
-
 	/**
 	 * Forward
 	 *
@@ -789,22 +823,10 @@ class CApp
 	 *
 	 * @param $tryInsecure will try to go back to http if currently on a secure page.ie. going from login back to insecure page
 	 */
-	static function bounce($page = 'main.php', $tryInsecure = false)
+	static function bounce($page = '/', $tryInsecure = false)
 	{
-		$serverPrefix = '';
 		$q_params = '';
 		$isAdmin = false;
-
-		//		if ($tryInsecure) {
-		//			//if admin, then require https
-		//			$isAdmin = strstr($page, 'page=admin_');
-		//			if ( !$isAdmin ) {
-		//				$serverPrefix = HTTPS_BASE;
-		//				if ( self::$isStoreView )
-		//					$serverPrefix .= 'storeview/';
-		//			}
-		//		}
-		//
 
 		// maintain email conversion query parameters if being bounced
 		$get_params = $_GET; // copy get params
@@ -850,15 +872,15 @@ class CApp
 		if (CApp::instance() && CApp::instance()->template() && isset(CApp::instance()->template()->back))
 		{
 			$back = CApp::instance()->template()->back;
-			$location = $serverPrefix . $back;
+			$location = $back;
 		}
 		else
 		{
-			$location = $serverPrefix . $page;
+			$location = $page;
 		}
 
 		// check to see if there are already query parameters in the location, if so use & instead of ?
-		if (!empty($get_params))
+		if (!empty($get_params) && !empty($q_params))
 		{
 			if (strpos($location, '?'))
 			{
@@ -974,11 +996,11 @@ class CApp
 
 		if ($rtnPage)
 		{
-			self::bounce('main.php?page=login&back=' . urlencode($rtnPage));
+			self::bounce('?page=login&back=' . urlencode($rtnPage));
 		}
 		else
 		{
-			self::bounce('main.php?page=login&back=main.php?' . urlencode($_SERVER['QUERY_STRING']));
+			self::bounce('?page=login&back=?' . urlencode($_SERVER['QUERY_STRING']));
 		}
 
 		exit();
@@ -995,11 +1017,11 @@ class CApp
 
 		if ($rtnPage)
 		{
-			self::bounce('main.php?page=admin_location_switch&back=' . urlencode($rtnPage));
+			self::bounce('/?page=admin_location_switch&back=' . urlencode($rtnPage));
 		}
 		else
 		{
-			self::bounce('main.php?page=admin_location_switch&back=main.php?' . urlencode($_SERVER['QUERY_STRING']));
+			self::bounce('/?page=admin_location_switch&back=?' . urlencode($_SERVER['QUERY_STRING']));
 		}
 
 		exit();

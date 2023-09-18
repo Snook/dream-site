@@ -75,6 +75,7 @@ class DAO_Edited_orders extends DAO
 	public $volume_discount_total;           // real(8)
 	public $volume_discount_id;              // int(5)  multiple_key unsigned
 	public $inviting_user_id;                // int(10)  multiple_key unsigned
+	public $discount_total_customer_referral_credit;           // real(8)
 	public $points_discount_total;           // real(8)
 	public $type_of_order;                 // string(8)  enum
 	public $bundle_id;                     // int

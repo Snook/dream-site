@@ -84,11 +84,11 @@ function onNBCreateSingleSession()
 	if (typeof selectedCell != "undefined" && selectedCell != null)
 	{
 		cellName = selectedCell.id;
-		bounce("main.php?page=admin_create_session&selectedCell=" + cellName);
+		bounce("/?page=admin_create_session&selectedCell=" + cellName);
 	}
 	else
 	{
-		bounce("main.php?page=admin_create_session" + menus_clause);
+		bounce("/?page=admin_create_session" + menus_clause);
 	}
 }
 
@@ -124,7 +124,7 @@ function data_tooltips_init()
 function hostessDreamTasteOrder(session_id, session_text, userid)
 {
 	create_and_submit_form({
-		action: 'main.php?page=admin_order_mgr&user=' + userid,
+		action: '/?page=admin_order_mgr&user=' + userid,
 		input: ({
 			'session': session_id,
 			'request': 'savedTasteOrder',
@@ -753,7 +753,7 @@ function handle_helpdesk()
 		var request_url = window.location.pathname + window.location.search;
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 60000,
 			dataType: 'json',
@@ -840,7 +840,7 @@ function handle_helpdesk()
 								}
 
 								$.ajax({
-									url: 'ddproc.php',
+									url: '/processor',
 									type: 'POST',
 									timeout: 60000,
 									cache: false,
@@ -901,7 +901,7 @@ function handle_inline_guest_search()
 		delete search_button_parameters['qtip']; // remove unnecessary data from being sent to processor
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 60000,
 			dataType: 'json',
@@ -992,7 +992,7 @@ function handle_inline_guest_search()
 								$('#ilgs_results').slideUp();
 
 								$.ajax({
-									url: 'ddproc.php?processor=admin_guestSearch',
+									url: '/processor?processor=admin_guestSearch',
 									type: 'POST',
 									dataType: 'json',
 									data: {
@@ -1028,7 +1028,7 @@ function handle_inline_guest_search()
 												else
 												{
 													// if there is no data-select_function then the button navigates to user_details
-													bounce('main.php?page=admin_user_details&id=' + $(this).data('user_id'));
+													bounce('/?page=admin_user_details&id=' + $(this).data('user_id'));
 												}
 											});
 										}
@@ -1392,7 +1392,7 @@ function alert_timeout()
 	});
 
 	$.ajax({
-		url: 'ddproc.php',
+		url: '/processor',
 		type: 'POST',
 		timeout: 60000,
 		dataType: 'json',
@@ -1451,7 +1451,7 @@ function alert_timeout()
 							$("#to_login_div").find('#error_message').html('');
 
 							$.ajax({
-								url: 'ddproc.php',
+								url: '/processor',
 								type: 'POST',
 								timeout: 20000,
 								dataType: 'json',
@@ -1796,7 +1796,7 @@ $(function () {
 		$(this_button).addClass('disabled');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1846,7 +1846,7 @@ $(function () {
 		var user_id = $(this).data('user_id_pp_tooltip');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1865,7 +1865,7 @@ $(function () {
 								label: 'Manage',
 								className: 'btn-success',
 								callback: function () {
-									bounce('/main.php?page=admin_user_plate_points&id=' + user_id + '&back=' + back_path());
+									bounce('/?page=admin_user_plate_points&id=' + user_id + '&back=' + back_path());
 								}
 							},
 							close: {
@@ -1893,7 +1893,7 @@ $(function () {
 		var target = $(this).prop('target');
 
 		$.ajax({
-			url: 'ddproc.php',
+			url: '/processor',
 			type: 'POST',
 			timeout: 20000,
 			dataType: 'json',
@@ -1913,7 +1913,7 @@ $(function () {
 						size: 'large',
 						buttons: {
 							"Full details": function () {
-								bounce('main.php?page=item&recipe=' + json.recipe_id + '&ov_menu=' + json.menu_id, target);
+								bounce('?page=item&recipe=' + json.recipe_id + '&ov_menu=' + json.menu_id, target);
 							},
 							cancel: {
 								label: "Close"
@@ -1963,7 +1963,7 @@ $(function () {
 						backoffice_change_store.dialog.find('.modal-footer > .backoffice_change_store-confirm').addClass('disabled');
 
 						$.ajax({
-							url: 'ddproc.php',
+							url: '/processor',
 							type: 'POST',
 							dataType: 'json',
 							timeout: 60000,
@@ -2003,7 +2003,7 @@ $(function () {
 			onShow: function (e) {
 				// load the menu items
 				$.ajax({
-					url: 'ddproc.php',
+					url: '/processor',
 					type: 'POST',
 					dataType: 'json',
 					timeout: 60000,

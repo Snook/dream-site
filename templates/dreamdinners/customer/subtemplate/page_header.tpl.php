@@ -16,13 +16,13 @@
 	<meta name="keywords" content="<?php echo (!empty($this->page_keywords)) ? $this->page_keywords : 'meal kit, freezer dinners, make ahead meals, prepared dinners, meal prep, family dinner, meal assembly, prepared meals, whats for dinner, family meals, make your own meals'; ?>" />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="<?php echo (!empty($this->og_title)) ? $this->og_title  . ' - Dream Dinners' : (!empty($this->page_title) ? $this->page_title . ' - Dream Dinners' : 'Dream Dinners - The Original Meal Kit Company'); ?>" />
-	<meta property="og:url" content="<?php echo (!empty($this->og_url)) ? $this->og_url : ((!empty($this->canonical_url)) ? $this->canonical_url : basename($_SERVER['SCRIPT_NAME']) . ((!empty($_SERVER['QUERY_STRING'])) ? '?' . $_SERVER['QUERY_STRING'] : '') ); ?>" />
+	<meta property="og:url" content="<?php echo (!empty($this->og_url)) ? $this->og_url : ((!empty($this->canonical_url)) ? $this->canonical_url : HTTPS_BASE . str_replace('_', '-', $this->page)); ?>" />
 	<meta property="og:image" content="<?php echo (!empty($this->og_image)) ? $this->og_image : IMAGES_PATH . '/style/share_dreamdinners.png'; ?>" />
 	<meta property="og:description" content="<?php echo (!empty($this->og_description)) ? $this->og_description : 'Dream Dinners provides everything you need to serve homemade dinners for your family.'; ?>" />
 	<meta itemprop="name" content="<?php echo (!empty($this->og_title)) ? $this->og_title  . ' - Dream Dinners' : (!empty($this->page_title) ? $this->page_title . ' - Dream Dinners' : 'Dream Dinners - Easy Family Dinners'); ?>" />
 	<meta itemprop="description" content="<?php echo (!empty($this->og_description)) ? $this->og_description : 'Dream Dinners provides everything you need to serve homemade dinners for your family.'; ?>" />
 	<meta itemprop="image" content="<?php echo (!empty($this->og_image)) ? $this->og_image : IMAGES_PATH . '/style/share_dreamdinners.png'; ?>" />
-	<?php echo (!empty($this->canonical_url)) ? '<link rel="canonical" href="' . $this->canonical_url . '" />' . "\n" : ''; ?>
+	<link rel="canonical" href="<?php echo (!empty($this->canonical_url)) ?  $this->canonical_url : HTTPS_BASE . str_replace('_', '-', $this->page); ?>" />
 	<link rel="alternate" type="application/rss+xml" title="Dream Dinners Blog" href="http://blog.dreamdinners.com/feed/" />
 	<link rel="icon" href="<?php echo IMAGES_PATH; ?>/style/favicon/favicon.ico" type="image/x-icon" />
 	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="<?php echo IMAGES_PATH; ?>/style/favicon/apple-touch-icon-57x57.png" />

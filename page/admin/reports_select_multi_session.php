@@ -117,11 +117,11 @@ class page_admin_reports_select_multi_session extends CPageAdminOnly
 
 		if (empty($printerFriendly) && !empty($session_id))
 		{
-			CApp::bounce('main.php?page=admin_main&session=' . $session_id);
+			CApp::bounce('/?page=admin_main&session=' . $session_id);
 		}
 		else if (empty($printerFriendly) && !empty($report_date))
 		{
-			CApp::bounce('main.php?page=admin_main&day=' . $report_date);
+			CApp::bounce('/?page=admin_main&day=' . $report_date);
 		}
 
 		if ( isset ($_REQUEST["pickSession"]))
@@ -213,7 +213,7 @@ class page_admin_reports_select_multi_session extends CPageAdminOnly
 				$sessionArray = $SessionReport->getEntreeCounts($store, $dateValues[2], $dateValues[1], $dateValues[0]);
 				if (isset($sessionArray) && count($sessionArray) > 0)
 				{
-					$form_submit_str = "main.php?page=admin_reports_select_multi_session";
+					$form_submit_str = "/?page=admin_reports_select_multi_session";
 				}
 			}
 			else
@@ -223,7 +223,7 @@ class page_admin_reports_select_multi_session extends CPageAdminOnly
 
 				if (isset($sessionArray) && count($sessionArray) > 0)
 				{
-					$form_submit_str = "main.php?page=admin_reports_select_multi_session&amp;query_submit=2&amp;report_id=2&amp;popup=1&amp;session_id=" . $session_id;
+					$form_submit_str = "/?page=admin_reports_select_multi_session&amp;query_submit=2&amp;report_id=2&amp;popup=1&amp;session_id=" . $session_id;
 				}
 			}
 			if (isset($sessionArray) && count($sessionArray) > 0)
