@@ -1381,7 +1381,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$tpl->assign('couponDiscountVar', $coupon->discount_var);
 			$tpl->assign('couponlimitedToFT', ($coupon->limit_to_finishing_touch ? true : false));
 			$tpl->assign('couponlimitedToCore', ($coupon->limit_to_core ? true : false));
-			$tpl->assign('couponIsValidWithReferralCredit', ($coupon->valid_with_customer_referral_credit ? true : false));
 			$tpl->assign('couponIsValidWithPlatePoints', ($coupon->valid_with_plate_points_credits ? true : false));
 
 			$tpl->assign('couponFreeMenuItem', (!empty($this->originalOrder->coupon_free_menu_item) ? $this->originalOrder->coupon_free_menu_item : false));
@@ -2674,7 +2673,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 							$tpl->assign('couponDiscountVar', $coupon->discount_var);
 							$tpl->assign('couponlimitedToFT', ($coupon->limit_to_finishing_touch ? true : false));
 							$tpl->assign('couponlimitedToCore', ($coupon->limit_to_core ? true : false));
-							$tpl->assign('couponIsValidWithReferralCredit', ($coupon->valid_with_customer_referral_credit ? true : false));
 							$tpl->assign('couponIsValidWithPlatePoints', ($coupon->valid_with_plate_points_credits ? true : false));
 						}
 						else

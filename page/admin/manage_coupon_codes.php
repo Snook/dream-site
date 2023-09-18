@@ -603,15 +603,6 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 
 		$this->CouponForm->addElement(array(
 			CForm::type => CForm::DropDown,
-			CForm::name => 'valid_with_customer_referral_credit',
-			CForm::options => array(
-				0 => 'No',
-				1 => 'Yes'
-			)
-		));
-
-		$this->CouponForm->addElement(array(
-			CForm::type => CForm::DropDown,
 			CForm::name => 'valid_with_plate_points_credits',
 			CForm::options => array(
 				0 => 'No',

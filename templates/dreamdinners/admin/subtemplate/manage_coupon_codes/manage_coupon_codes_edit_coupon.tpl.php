@@ -354,15 +354,6 @@
 		<div class="form-group col-md-6">
 			<div class="input-group">
 				<div class="input-group-prepend">
-					<label class="input-group-text font-size-small" for="valid_with_customer_referral_credit">Referral Credit</label>
-				</div>
-				<?php echo $this->CouponForm['valid_with_customer_referral_credit_html']; ?>
-			</div>
-		</div>
-
-		<div class="form-group col-md-6">
-			<div class="input-group">
-				<div class="input-group-prepend">
 					<label class="input-group-text font-size-small" for="valid_with_plate_points_credits">Dinner Dollars</label>
 				</div>
 				<?php echo $this->CouponForm['valid_with_plate_points_credits_html']; ?>

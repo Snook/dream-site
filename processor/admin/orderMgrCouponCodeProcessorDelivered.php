@@ -205,7 +205,6 @@ class processor_admin_orderMgrCouponCodeProcessorDelivered extends CPageProcesso
 			'entree_servings' => $entreeServings,
 			'discount_var' => (isset($codeDAO) ? $codeDAO->discount_var : ""),
 			'limit_to_finishing_touch' => (isset($codeDAO) && $codeDAO->limit_to_finishing_touch ? true : false),
-			'valid_with_customer_referral_credit' => (isset($codeDAO) && $codeDAO->valid_with_customer_referral_credit ? true : false),
 			'valid_with_plate_points_credits' => (isset($codeDAO) && $codeDAO->valid_with_plate_points_credits ? true : false),
 			'coupon_obj' => (isset($codeDAO) ? DAO::getCompressedArrayFromDAO($codeDAO) : null)
 		));

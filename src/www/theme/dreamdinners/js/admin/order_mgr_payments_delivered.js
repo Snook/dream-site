@@ -241,7 +241,6 @@ function handleCouponCodeResult(json)
 		couponDiscountMethod = json.discount_method;
 		couponDiscountVar = json.discount_var;
 		couponlimitedToFT = json.limit_to_finishing_touch;
-		couponIsValidWithReferralCredit = json.valid_with_customer_referral_credit;
 		couponIsValidWithPlatePoints = json.valid_with_plate_points_credits;
 		couponFreeMenuItemRequired = true;
 

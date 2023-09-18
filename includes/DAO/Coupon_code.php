@@ -67,7 +67,6 @@ class DAO_Coupon_code extends DAO
 	public $menu_item_id;                    // int(8)  multiple_key unsigned
 	public $recipe_id;                    // int(8)  multiple_key unsigned
 	public $recipe_id_pricing_type;	// enum
-	public $valid_with_customer_referral_credit;    //
 	public $valid_with_plate_points_credits;	//
 	public $updated_by;                      // int(10)  multiple_key unsigned
 	public $created_by;                      // int(10)  multiple_key unsigned
