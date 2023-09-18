@@ -1207,31 +1207,31 @@ class CStore extends DAO_Store
 			)
 		);
 
-		$Store = DAO_CFactory::create('store');
-		$Store->active = 1;
-		$Store->find();
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->active = 1;
+		$DAO_store->find();
 
-		while ($Store->fetch())
+		while ($DAO_store->fetch())
 		{
-			if ($Store->isActive() || $Store->isComingSoon())
+			if ($DAO_store->isActive() || $DAO_store->isComingSoon())
 			{
-				if ($Store->store_type != CStore::DISTRIBUTION_CENTER)
+				if ($DAO_store->store_type != CStore::DISTRIBUTION_CENTER)
 				{
-					$simpleMapsArray['locations'][$Store->id] = array(
-						'lat' => $Store->address_latitude,
-						'lng' => $Store->address_longitude,
-						'name' => $Store->store_name,
-						'url' => '/location/' . $Store->id
+					$simpleMapsArray['locations'][$DAO_store->id] = array(
+						'lat' => $DAO_store->address_latitude,
+						'lng' => $DAO_store->address_longitude,
+						'name' => $DAO_store->store_name,
+						'url' => '/location/' . $DAO_store->id
 					);
 
-					if ($Store->isComingSoon())
+					if ($DAO_store->isComingSoon())
 					{
-						$simpleMapsArray['locations'][$Store->id]['name'] .= ' - Coming Soon!';
-						$simpleMapsArray['locations'][$Store->id]['color'] = '#5c6670';
+						$simpleMapsArray['locations'][$DAO_store->id]['name'] .= ' - Coming Soon!';
+						$simpleMapsArray['locations'][$DAO_store->id]['color'] = '#5c6670';
 					}
 
-					$simpleMapsArray['state_specific'][$Store->state_id] = array(
-						'name' => CStatesAndProvinces::GetName($Store->state_id),
+					$simpleMapsArray['state_specific'][$DAO_store->state_id] = array(
+						'name' => CStatesAndProvinces::GetName($DAO_store->state_id),
 						'color' => '#b9bf33',
 						'hover_color' => '#959a21'
 					);
@@ -1240,22 +1240,28 @@ class CStore extends DAO_Store
 		}
 
 		// get distribution center eligible states
-		$zipCodes = DAO_CFactory::create('zipcodes');
-		$zipCodes->query("select distinct zip.state from zipcodes as zip JOIN store AS st ON zip.distribution_center = st.id AND st.active AND st.show_on_customer_site AND st.store_type = '" . CStore::DISTRIBUTION_CENTER . "' AND st.is_deleted = 0;");
+		$DAO_zipcodes = DAO_CFactory::create('zipcodes', true);
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->active = 1;
+		$DAO_store->show_on_customer_site = 1;
+		$DAO_store->store_type = CStore::DISTRIBUTION_CENTER;
+		$DAO_zipcodes->joinAddWhereAsOn($DAO_store);
+		$DAO_zipcodes->groupBy("zipcodes.state");
+		$DAO_zipcodes->find();
 
-		while ($zipCodes->fetch())
+		while ($DAO_zipcodes->fetch())
 		{
 			// state has assembly and delivery
-			if (!empty($simpleMapsArray['state_specific'][$zipCodes->state]))
+			if (!empty($simpleMapsArray['state_specific'][$DAO_zipcodes->state]))
 			{
-				$simpleMapsArray['state_specific'][$zipCodes->state]['color'] = '#959a21';
-				$simpleMapsArray['state_specific'][$zipCodes->state]['hover_color'] = '#5b5e18';
+				$simpleMapsArray['state_specific'][$DAO_zipcodes->state]['color'] = '#959a21';
+				$simpleMapsArray['state_specific'][$DAO_zipcodes->state]['hover_color'] = '#5b5e18';
 			}
 			// state has delivery only
 			else
 			{
-				$simpleMapsArray['state_specific'][$zipCodes->state] = array(
-					'name' => CStatesAndProvinces::GetName($zipCodes->state),
+				$simpleMapsArray['state_specific'][$DAO_zipcodes->state] = array(
+					'name' => CStatesAndProvinces::GetName($DAO_zipcodes->state),
 					'color' => '#45cfd1',
 					'hover_color' => '#2db5b7'
 				);

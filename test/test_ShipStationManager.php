@@ -50,9 +50,10 @@ require_once 'includes/api/shipping/shipstation/ShipStationShipmentWrapper.php';
 
 $order = new COrdersDelivered();
 $order->id = 3653728;
+$storeObj = new CStore();
+$storeObj->id = 310;
 
-
-$shipmentWrapper = ShipStationManager::getInstance()->getShipments(new ShipStationShipmentWrapper($order));
+$shipmentWrapper = ShipStationManager::getInstance($storeObj)->getShipments(new ShipStationShipmentWrapper($order));
 //echo $shipmentWrapper->getLatestTrackingNumber();
 //$shipmentWrapper->getTrackingNumbers();
 $result = $shipmentWrapper->storeShippingData();

@@ -5323,10 +5323,10 @@ class CUser extends DAO_User
 			{
 				$order = new COrdersDelivered();
 				$order->id = $dao->id;
-				$result = ShipStationManager::getInstance()->addUpdateOrder(new ShipStationOrderWrapper($order));
+				$result = ShipStationManager::getInstanceForOrder($order)->addUpdateOrder(new ShipStationOrderWrapper($order));
 				if ($result == false)
 				{
-					$error = ShipStationManager::getInstance()->getLastError();
+					$error = ShipStationManager::getInstanceForOrder($order)->getLastError();
 					if (!is_null($error))
 					{
 						$result->addFailureMessage($error->message);

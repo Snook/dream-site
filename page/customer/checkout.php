@@ -1612,7 +1612,7 @@ class page_checkout extends CPage
 						//Edited only Delivery Time and/or Address
 
 						//Send Updates to SS
-						ShipStationManager::getInstance()->addUpdateOrder(new ShipStationOrderWrapper($originalOrder));
+						ShipStationManager::getInstanceForOrder($originalOrder)->addUpdateOrder(new ShipStationOrderWrapper($originalOrder));
 
 						//Boxes, Session have not changed so no update necessary
 						$Order = $originalOrder;
