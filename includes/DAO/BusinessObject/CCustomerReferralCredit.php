@@ -31,7 +31,7 @@ class CCustomerReferralCredit extends DAO_Customer_referral_credit
 
 		while ($DAO_customer_referral_credit->fetch())
 		{
-			$referralCreditArray[$DAO_customer_referral_credit->id] = $DAO_customer_referral_credit->cloneObj(false);
+			$referralCreditArray[$DAO_customer_referral_credit->id] = $DAO_customer_referral_credit->cloneObj();
 		}
 
 		return $referralCreditArray;
@@ -53,17 +53,18 @@ class CCustomerReferralCredit extends DAO_Customer_referral_credit
 				{
 					// completely consume this credit
 					$remainingToProcess -= $thisCreditAmount;
-					$DAO_customer_referral_credit->order_id = $order_id;
-					$DAO_customer_referral_credit->consume();
+					$creditUpdater = DAO_CFactory::create('customer_referral_credit', true);
+					$creditUpdater->order_id = $order_id;
+					$creditUpdater->consume();
 				}
 				else if ($remainingToProcess < $thisCreditAmount)
 				{
 					$remainder = $thisCreditAmount - $remainingToProcess;
-
-					$DAO_customer_referral_credit->order_id = $order_id;
-					$DAO_customer_referral_credit->original_amount = $thisCreditAmount;
-					$DAO_customer_referral_credit->dollar_value = $remainingToProcess;
-					$DAO_customer_referral_credit->consume();
+					$creditUpdater2 = DAO_CFactory::create('customer_referral_credit', true);
+					$creditUpdater2->order_id = $order_id;
+					$creditUpdater2->original_amount = $thisCreditAmount;
+					$creditUpdater2->dollar_value = $remainingToProcess;
+					$creditUpdater2->consume();
 
 					$remainder_inserter = DAO_CFactory::create('customer_referral_credit', true);
 					$remainder_inserter->dollar_value = $remainder;
