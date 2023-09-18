@@ -5033,19 +5033,22 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 	function handleReferralRewards($tpl,&$Form,$order)
 	{
+		$Form->DefaultValues['referral_reward_discount'] = "";
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Money,
+			CForm::name => 'referral_reward_discount',
+			CForm::org_value => $order->points_discount_total,
+			CForm::onKeyUp => 'handlePlatePointsDiscount',
+			CForm::onChange => 'handlePlatePointsDiscount',
+			CForm::autocomplete => false
+		));
+
+
 		$maxAvailableReferralRewards = CCustomerReferralCredit::getAvailableCreditForUserAndOrder($order->user_id, $order->id);
-		$maxAllowedReferralRewards = '50.00';
 
 		$tpl->assign('maxReferralRewards', $maxAvailableReferralRewards);
-
-		if(floatval($maxAvailableReferralRewards) <= floatval($maxAllowedReferralRewards))
-		{
-			$tpl->assign('maxReferralRewardsDeduction', $maxAvailableReferralRewards);
-		}
-		else
-		{
-			$tpl->assign('maxReferralRewardsDeduction', $maxAllowedReferralRewards);
-		}
+		$tpl->assign('maxReferralRewardsDeduction', 0);
 
 		if ( $maxAvailableReferralRewards > 0 )
 		{
@@ -5062,9 +5065,9 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$Form->AddElement(array(
 				CForm::type => CForm::Money,
 				CForm::name => 'referral_reward_discount',
-				CForm::org_value => $order->discount_total_customer_referral_credit,
-				CForm::onKeyUp => 'handleReferralRewardDiscount',
-				CForm::onChange => 'handleReferralRewardDiscount',
+				CForm::org_value => $order->points_discount_total,
+				CForm::onKeyUp => 'handlePlatePointsDiscount',
+				CForm::onChange => 'handlePlatePointsDiscount',
 				CForm::autocomplete => false
 			));
 		}
