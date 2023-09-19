@@ -2,11 +2,12 @@
 require_once("../includes/Config.inc");
 require_once("DAO.inc");
 require_once('includes/DAO/BusinessObject/COrders.php');
+require_once('includes/DAO/BusinessObject/COrdersDelivered.php');
 
 /*
  *  Test order confirmation email
  */
-$DAO_orders = DAO_CFactory::create('orders', true);
+$DAO_orders = new COrdersDelivered();
 $DAO_orders->id = 3816265;
 $DAO_orders->find(true);
 
