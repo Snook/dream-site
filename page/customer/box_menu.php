@@ -36,11 +36,11 @@ class page_box_menu extends CPage
 
 			$boxInfoArray = CBox::getBoxArray($storeId, $_POST['view_box'], true, true, false, false, true);
 
-			$recipeIDtoInventoryMap = CBox::addDeliveredInventoryToMenuArray($boxInfoArray, $storeId, false);
-
 			$boxInfo = $boxInfoArray['box'][$_POST['view_box']];
 
 			$boxBundleInfo = $boxInfo->bundle[$_POST['view_bundle']];
+
+			$recipeIDtoInventoryMap = CBox::addDeliveredInventoryToMenuArray($boxInfoArray, $storeId, false);
 		}
 		else
 		{

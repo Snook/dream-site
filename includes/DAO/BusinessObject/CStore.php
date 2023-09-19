@@ -215,10 +215,11 @@ class CStore extends DAO_Store
 		}
 		else
 		{
-			$storeObj = new DAO();
-			$storeObj->query("select parent_store_id from store where id = $store");
-			$storeObj->fetch();
-			$store_id = $storeObj->parent_store_id;
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->id = $store;
+			$DAO_store->find_DAO_store(true);
+
+			$store_id = $DAO_store->parent_store_id;
 		}
 
 		return $store_id;
@@ -226,12 +227,12 @@ class CStore extends DAO_Store
 
 	static function active_Distribution_Centers()
 	{
-		$DAO_store = DAO_CFactory::create('store');
+		$DAO_store = DAO_CFactory::create('store', true);
 		$DAO_store->store_type = CStore::DISTRIBUTION_CENTER;
 		$DAO_store->active = 1;
 		$DAO_store->show_on_customer_site = 1;
 
-		return $DAO_store->find();
+		return $DAO_store->find_DAO_store();
 	}
 
 	static function getAvailableStoreJobArray($store_id)
@@ -256,17 +257,17 @@ class CStore extends DAO_Store
 
 	static function getStoreJobArray($store_id)
 	{
-		$store_job = DAO_CFactory::create('store_job');
-		$store_job->store_id = $store_id;
-		$store_job->find();
+		$DAO_store_job = DAO_CFactory::create('store_job', true);
+		$DAO_store_job->store_id = $store_id;
+		$DAO_store_job->find();
 
 		$job_array = self::$storeJobPositions;
 
-		while ($store_job->fetch())
+		while ($DAO_store_job->fetch())
 		{
-			$job = $store_job->toArray();
+			$job = $DAO_store_job->toArray();
 
-			$job_array[$store_job->position] = array_merge($job_array[$job['position']], $job);
+			$job_array[$DAO_store_job->position] = array_merge($job_array[$job['position']], $job);
 		}
 
 		return $job_array;
@@ -280,7 +281,7 @@ class CStore extends DAO_Store
 		// no jobs passed in, deactivate all in database
 		if (empty($active_job_array))
 		{
-			$store_job = DAO_CFactory::create('store_job');
+			$store_job = DAO_CFactory::create('store_job', true);
 			$store_job->store_id = $store_id;
 			$store_job->find();
 
@@ -297,7 +298,7 @@ class CStore extends DAO_Store
 		// all jobs being passed in are set to available
 		foreach ($active_job_array as $job_id => $job)
 		{
-			$store_job = DAO_CFactory::create('store_job');
+			$store_job = DAO_CFactory::create('store_job', true);
 			$store_job->store_id = $store_id;
 			$store_job->position = $job_id;
 
@@ -322,7 +323,7 @@ class CStore extends DAO_Store
 				// the job is not in the new array but was previously set to available, so now we de-available it
 				if (!key_exists($job_id, $active_job_array))
 				{
-					$store_job = DAO_CFactory::create('store_job');
+					$store_job = DAO_CFactory::create('store_job', true);
 					$store_job->store_id = $store_id;
 					$store_job->position = $job_id;
 					$store_job->available = 1;
@@ -396,7 +397,7 @@ class CStore extends DAO_Store
 
 		if ($menu_id)
 		{
-			$DAO_menu = DAO_CFactory::create('menu');
+			$DAO_menu = DAO_CFactory::create('menu', true);
 			$DAO_menu->id = $menu_id;
 
 			if (!$DAO_menu->isEnabled_Starter_Pack($this))
@@ -607,9 +608,9 @@ class CStore extends DAO_Store
 	{
 		if (!is_object($Store) && is_numeric($Store))
 		{
-			$StoreObj = DAO_CFactory::create('store');
+			$StoreObj = DAO_CFactory::create('store', true);
 			$StoreObj->id = $Store;
-			$StoreObj->find(true);
+			$StoreObj->find_DAO_store(true);
 		}
 		else
 		{

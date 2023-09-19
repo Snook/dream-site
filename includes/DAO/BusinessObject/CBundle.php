@@ -346,13 +346,9 @@ class CBundle extends DAO_Bundle
 
 		$this->info['menuInfo'] = $menuItemArray['menuInfo'];
 		$this->info['menuItemInfo'] = $menuItemArray['menuItemInfo'];
-		$this->info['JSMenuInfoByMID'] = $menuItemArray['JSMenuInfoByMID'];
+		$this->info['menuItemInfoByMID'] = $menuItemArray["menuItemInfoByMID"];
 
-		return array(
-			$menuItemArray['menuInfo'],
-			$menuItemArray['menuItemInfo'],
-			$menuItemArray['JSMenuInfoByMID']
-		);
+		return $menuItemArray;
 	}
 
 	// called by inventory manager to mark items as part of the bundle
