@@ -397,8 +397,11 @@ class CBox extends DAO_Box
 
 		$recipeList = implode(",", array_keys($inventoryArray));
 
-		$ItemInvObj = new DAO();
-		$ItemInvObj->query("select recipe_id, override_inventory, number_sold from menu_item_inventory where store_id = $parent_store_id and menu_id = {$inArray['info']['menu_id']} and recipe_id in (" . $recipeList . ") and is_deleted = 0");
+		$ItemInvObj = DAO_CFactory::create('menu_item_inventory', true);
+		$ItemInvObj->menu_id = $inArray['info']['menu_id'];
+		$ItemInvObj->store_id = $parent_store_id;
+		$ItemInvObj->whereAdd("menu_item_inventory.recipe_id in (" . $recipeList . ")");
+		$ItemInvObj->find();
 
 		while ($ItemInvObj->fetch())
 		{

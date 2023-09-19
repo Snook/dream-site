@@ -33,7 +33,7 @@ class CBoxInstance extends DAO_Box_instance
 		$boxObj = DAO_CFactory::create('box_instance');
 		$boxObj->bundle_id = $bundle_id;
 		$boxObj->box_id = $box_id;
-		$boxObj->cart_contents_id = $CartObj->_cartDAO->cart_contents_id;
+		$boxObj->cart_contents_id = $CartObj->getCartDAO()->cart_contents_id;
 		$boxObj->is_complete = 0;
 		$boxObj->is_in_edit_mode = 1;
 
@@ -58,7 +58,7 @@ class CBoxInstance extends DAO_Box_instance
 		if (!$ignoreCart)
 		{
 			$CartObj = CCart2::instance();
-			$boxObj->cart_contents_id = $CartObj->_cartDAO->cart_contents_id;
+			$boxObj->cart_contents_id = $CartObj->getCartDAO()->cart_contents_id;
 		}
 
 		$boxObj->bundle_id = $bundle_id;

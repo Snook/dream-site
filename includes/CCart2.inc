@@ -108,6 +108,11 @@ class CCart2
 		$this->restoreContents();
 	}
 
+	function getCartDAO()
+	{
+		return $this->_cartDAO;
+	}
+
 	function getDebugInfo()
 	{
 		// returns the current database settings; assumes cart is not fully constructed
