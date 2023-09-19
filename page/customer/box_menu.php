@@ -106,7 +106,7 @@ class page_box_menu extends CPage
 		$this->Template->assign('box_instance', $boxInstance);
 		$this->Template->assign('cart_info', CUser::getCartIfExists());
 
-		$this->Template->setScriptVar('let menuItemInfo = ' . json_encode($boxBundleInfo->info['JSMenuInfoByMID']) . ';');
+		$this->Template->setScriptVar('let menuItemInfo = ' . json_encode($boxBundleInfo->info['menuItemInfoByMID']) . ';');
 		$this->Template->setScriptVar('let box_info = ' . json_encode($boxInfoJS, JSON_FORCE_OBJECT) . ';');
 	}
 }
