@@ -44,7 +44,7 @@ class page_box_menu extends CPage
 		}
 		else
 		{
-			CApp::bounce('/box_select');
+			CApp::bounce('/box-select');
 		}
 
 		$boxInstance = CBoxInstance::getIncompleteBoxInstance($boxBundleInfo->id, $boxInfo->id);

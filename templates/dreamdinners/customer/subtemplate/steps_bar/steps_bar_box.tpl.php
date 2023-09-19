@@ -6,7 +6,7 @@
 				Location
 			</a>
 		</li>
-		<li class="page-item <?php echo ($this->page == 'box_select') ? ' current' : ((!empty($this->cart_info['cart_info_array']['has_navigation_type'])) ? ' complete' : ' disabled'); ?>">
+		<li class="page-item <?php echo ($this->page == 'box-select') ? ' current' : ((!empty($this->cart_info['cart_info_array']['has_navigation_type'])) ? ' complete' : ' disabled'); ?>">
 			<a class="page-link" href="/box-select">
 				<div class="step-pill"></div>
 				Box Select
