@@ -337,11 +337,11 @@ class CBrowserSession extends DAO_Browser_sessions
 	{
 		if (self::$currentFadminStoreObj == null)
 		{
-			$Store = DAO_CFactory::create('store');
-			$Store->id = self::getCurrentFadminStoreID();
-			$Store->find(true);
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->id = self::getCurrentFadminStoreID();
+			$DAO_store->find_DAO_store(true);
 
-			self::$currentFadminStoreObj = $Store;
+			self::$currentFadminStoreObj = $DAO_store;
 		}
 
 		return self::$currentFadminStoreObj;
@@ -352,19 +352,19 @@ class CBrowserSession extends DAO_Browser_sessions
 
 	    if (is_numeric($store_id))
 	    {
-			$StoreObj = DAO_CFactory::create('store');
-			$StoreObj->id = $store_id;
-			$StoreObj->find(true);
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->id = $store_id;
+			$DAO_store->find_DAO_store(true);
 
 			if (CUser::getCurrentUser()->isFranchiseAccess())
 			{
-				CStore::setUpFranchiseStore($StoreObj->id);
+				CStore::setUpFranchiseStore($DAO_store->id);
 			}
 
-			self::setCurrentStore($StoreObj->id);
+			self::setCurrentStore($DAO_store->id);
 
 			$copy = clone(self::instance());
-			self::instance()->current_store_id = $StoreObj->id;
+			self::instance()->current_store_id = $DAO_store->id;
 			self::instance()->update($copy);
 	    }
 	}
