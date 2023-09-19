@@ -282,24 +282,31 @@ class CBundle extends DAO_Bundle
 
 	function getDeliveredBundleMenuItems($factorCartIntoInventory, $defaultStoreId = null)
 	{
-		$StoreObj = null;
+		$init_DAO_store = null;
 		$CartObj = CCart2::instance();
 
 		if ($factorCartIntoInventory)
 		{
-			$factorCartIntoInventory = $CartObj;
+			$factorCartIntoInventory = $CartObj->getMenuItems();
 
-			$StoreObj = $CartObj->getOrder()->getStore();
+			$init_DAO_store = $CartObj->getOrder()->getStore();
 		}
 
-		if ((empty($StoreObj) || $StoreObj->store_type != CStore::DISTRIBUTION_CENTER) && !empty($defaultStoreId))
+		if ((empty($init_DAO_store) || !$init_DAO_store->isDistributionCenter()) && !empty($defaultStoreId))
 		{
-			$StoreObj->id = $defaultStoreId;
-			$StoreObj = DAO_CFactory::create('store');
-			$StoreObj->find(true);
+			$init_DAO_store = DAO_CFactory::create('store', true);
+			$init_DAO_store->id = $defaultStoreId;
+			$init_DAO_store->find_DAO_store(true);
 		}
 
-		list($menuInfo, $menuItemInfo, $JSMenuInfoByMID) = CMenuItem::getDeliveredBundleMenuItemsAndMenuInfo($StoreObj, $this->menu_id, $factorCartIntoInventory, $this->id, false, true);
+		if ($init_DAO_store->isDistributionCenter())
+		{
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->id = $init_DAO_store->parent_store_id;
+			$DAO_store->find_DAO_store(true);
+		}
+
+		$menuItemArray = CMenuItem::getFullMenuItemsAndMenuInfo($DAO_store, $this->menu_id, $factorCartIntoInventory, $this->id, false, 'INNER');
 
 		$this->info = array(
 			'total_remaining_servings' => 0,
@@ -308,26 +315,26 @@ class CBundle extends DAO_Bundle
 		);
 
 		$this->menu_item = array(
-			'items' => $menuItemInfo
+			'items' => $menuItemArray['menuItemInfo']
 		);
 
-		foreach ($menuItemInfo as $entree)
+		foreach ($menuItemArray['menuItemInfo'] as $entree)
 		{
-			foreach ($entree as $menu_item)
+			foreach ($entree as $DAO_menu_item)
 			{
-				$this->info['total_remaining_servings'] += $menu_item['remaining_servings'];
+				$this->info['total_remaining_servings'] += $DAO_menu_item->getRemainingServings();
 
-				if (empty($menu_item['out_of_stock']))
+				if (!$DAO_menu_item->isOutOfStock())
 				{
 					$this->info['total_in_stock_menu_items'] += 1;
 				}
 
-				$this->info['all_recipes'][$menu_item['recipe_id']] = array(
-					'recipe_id' => $menu_item['recipe_id'],
-					'menu_id' => $menuInfo['menu_id'],
-					'menu_item_id' => $menu_item['id'],
-					'menu_item_name' => $menu_item['menu_item_name'],
-					'menu_item_description' => $menu_item['menu_item_description']
+				$this->info['all_recipes'][$DAO_menu_item->recipe_id] = array(
+					'recipe_id' => $DAO_menu_item->recipe_id,
+					'menu_id' => $menuItemArray['menuInfo']['menu_id'],
+					'menu_item_id' => $DAO_menu_item->id,
+					'menu_item_name' => $DAO_menu_item->menu_item_name,
+					'menu_item_description' => $DAO_menu_item->menu_item_description
 				);
 			}
 		}
@@ -337,14 +344,14 @@ class CBundle extends DAO_Bundle
 			$this->info['out_of_stock'] = true;
 		}
 
-		$this->info['menuInfo'] = $menuInfo;
-		$this->info['menuItemInfo'] = $menuItemInfo;
-		$this->info['JSMenuInfoByMID'] = $JSMenuInfoByMID;
+		$this->info['menuInfo'] = $menuItemArray['menuInfo'];
+		$this->info['menuItemInfo'] = $menuItemArray['menuItemInfo'];
+		$this->info['JSMenuInfoByMID'] = $menuItemArray['JSMenuInfoByMID'];
 
 		return array(
-			$menuInfo,
-			$menuItemInfo,
-			$JSMenuInfoByMID
+			$menuItemArray['menuInfo'],
+			$menuItemArray['menuItemInfo'],
+			$menuItemArray['JSMenuInfoByMID']
 		);
 	}
 

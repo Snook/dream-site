@@ -387,9 +387,9 @@ class CBox extends DAO_Box
 			{
 				foreach ($bundleObj->menu_item['items'] as $entree_id => $entrees)
 				{
-					foreach ($entrees as $id => $item_data)
+					foreach ($entrees as $id => $DAO_menu_item)
 					{
-						$inventoryArray[$item_data['recipe_id']] = 0;
+						$inventoryArray[$DAO_menu_item->recipe_id] = 0;
 					}
 				}
 			}

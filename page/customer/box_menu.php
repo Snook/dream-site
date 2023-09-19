@@ -22,7 +22,7 @@ class page_box_menu extends CPage
 		$this->runBoxItemsPage($tpl);
 	}
 
-	function runBoxItemsPage($tpl)
+	function runBoxItemsPage()
 	{
 		if (!empty($_POST['view_box']) && is_numeric($_POST['view_box']) && !empty($_POST['view_bundle']) && is_numeric($_POST['view_bundle']))
 		{
@@ -101,13 +101,13 @@ class page_box_menu extends CPage
 			}
 		}
 
-		$tpl->assign('box_info', $boxInfo);
-		$tpl->assign('box_bundle_info', $boxBundleInfo);
-		$tpl->assign('box_instance', $boxInstance);
-		$tpl->assign('cart_info', CUser::getCartIfExists());
+		$this->Template->assign('box_info', $boxInfo);
+		$this->Template->assign('box_bundle_info', $boxBundleInfo);
+		$this->Template->assign('box_instance', $boxInstance);
+		$this->Template->assign('cart_info', CUser::getCartIfExists());
 
-		$tpl->setScriptVar('let menuItemInfo = ' . json_encode($boxBundleInfo->info['JSMenuInfoByMID']) . ';');
-		$tpl->setScriptVar('let box_info = ' . json_encode($boxInfoJS, JSON_FORCE_OBJECT) . ';');
+		$this->Template->setScriptVar('let menuItemInfo = ' . json_encode($boxBundleInfo->info['JSMenuInfoByMID']) . ';');
+		$this->Template->setScriptVar('let box_info = ' . json_encode($boxInfoJS, JSON_FORCE_OBJECT) . ';');
 	}
 }
 ?>

@@ -501,18 +501,9 @@ class CMenuItem extends DAO_Menu_item
 		$this->ltd_menu_item_supported = (!empty($this->DAO_store->supports_ltd_roundup) && !empty($this->ltd_menu_item_value));
 
 		$this->remaining_servings = $this->getRemainingServings();
-		$this->this_type_out_of_stock = !$this->hasAvailableInventory();
-
-		if ($this->isMenuItem_SidesSweets())
-		{
-			$this->out_of_stock = ($this->getRemainingServings() < 1);
-			$this->limited_qtys = ($this->getRemainingServings() < 5);
-		}
-		else
-		{
-			$this->out_of_stock = ($this->getRemainingServings() < 3);
-			$this->limited_qtys = ($this->getRemainingServings() < 18);
-		}
+		$this->out_of_stock = $this->isOutOfStock();
+		$this->this_type_out_of_stock = $this->isOutOfStock_ThisType();
+		$this->limited_qtys = $this->isLimitedQuantities();
 
 		$this->base_price = $this->price; // legacy support, ideally 'price' should always be the unmodified base price from the database
 		$this->store_price = $this->getStorePrice(); // store_price should be what the customer pays
@@ -1506,307 +1497,6 @@ class CMenuItem extends DAO_Menu_item
 		return $menuItemInfo;
 	}
 
-	static function getDeliveredBundleMenuItemsAndMenuInfo($storeObj, $menu_id, $cartObj, $bundle_id, $inItemList = false, $overrideIsVisible = false)
-	{
-		$storeQuery = " AND mmi.store_id IS NULL";
-		$parentStoreQuery = " minv.store_id IS NULL";
-
-		if (!empty($storeObj))
-		{
-			$storeQuery = " AND mmi.store_id = " . $storeObj->parent_store_id . " ";
-			$parentStoreQuery = " minv.store_id = " . $storeObj->parent_store_id . "";
-		}
-
-		$menuInfo = array();
-		$flattenListOfBoxItems = array();
-		if (!empty($cartObj))
-		{
-			$boxes = $cartObj->getOrder()->getBoxes();
-
-			if (!empty($boxes))
-			{
-				foreach ($boxes as $thisBox)
-				{
-					$box_price = $thisBox['bundle']->price;
-					$box_prediscount_price = 0;
-
-					if (!empty($thisBox['box_instance']->is_complete))
-					{
-						foreach ($thisBox['items'] as $item)
-						{
-							if (!isset($flattenListOfBoxItems[$item[1]->id]))
-							{
-								$flattenListOfBoxItems[$item[1]->id] = $item[1]->servings_per_item * $item[0];
-							}
-							else
-							{
-								$flattenListOfBoxItems[$item[1]->id] += ($item[1]->servings_per_item * $item[0]);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		//fetch the menu for the month
-		$daoMenu = DAO_CFactory::create('menu');
-		$daoMenu->id = $menu_id;
-		$cnt = $daoMenu->find(true);
-		if ($cnt == 0)
-		{
-			throw new exception('error: menu not found');
-		}
-
-		// INVENTORY TOUCH POINT 32
-		// get entrees
-		$is_visible_query = " and mmi.is_visible = 1 ";
-		if ($overrideIsVisible)
-		{
-			$is_visible_query = "";
-		}
-
-		$daoMenuItem = DAO_CFactory::create('menu_item');
-		$select = "select menu_item_category.category_type as 'category', menu_item.*,
-					minv.initial_inventory,
-					minv.override_inventory,
-					minv.number_sold,
-					ifnull(recipe.ltd_menu_item_value, recipe2.ltd_menu_item_value) as ltd_menu_item_value
-							from bundle_to_menu_item ";
-
-		$joins = "INNER JOIN  menu_item ON menu_item.id = bundle_to_menu_item.menu_item_id
-				INNER JOIN menu_to_menu_item mmi on mmi.menu_item_id = menu_item.id and mmi.menu_id = $menu_id " . $storeQuery . " " . $is_visible_query . " and mmi.is_hidden_everywhere = 0
-				LEFT JOIN menu_item_category on menu_item.menu_item_category_id = menu_item_category.id
-				LEFT JOIN recipe on recipe.recipe_id = menu_item.recipe_id and recipe.override_menu_id = $menu_id and recipe.is_deleted = '0'
-				LEFT JOIN recipe recipe2 on recipe2.recipe_id = menu_item.recipe_id and recipe2.override_menu_id is null and recipe2.is_deleted = '0'
-				LEFT JOIN menu_item_inventory minv on " . $parentStoreQuery . " and minv.menu_id = $menu_id and minv.recipe_id = menu_item.recipe_id and minv.is_deleted = 0 ";
-
-		$where = " where bundle_to_menu_item.bundle_id = $bundle_id AND bundle_to_menu_item.current_offering = '1' AND bundle_to_menu_item.is_deleted = 0 AND menu_item.is_deleted = 0 ";
-
-		if ($inItemList)
-		{
-			$where .= "and menu_item.id in ($inItemList) ";
-		}
-
-		$order_by = "order by bundle_to_menu_item.ordering, mmi.menu_order_value ";
-
-		$daoMenuItem->query($select . $joins . $where . $order_by);
-
-		$menuItemInfo = array();
-		$bundleParents = array();
-
-		while ($daoMenuItem->fetch())
-		{
-
-			$i = $daoMenuItem->id;
-			//	$menuItemInfo[$daoMenuItem->entree_id] = array();
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['id'] = $i;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['display_title'] = $daoMenuItem->menu_item_name;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['display_description'] = utf8_encode(stripslashes($daoMenuItem->menu_item_description));
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['menu_item_name'] = $daoMenuItem->menu_item_name;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['menu_item_description'] = $daoMenuItem->menu_item_description;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['base_price'] = $daoMenuItem->price;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['is_side_dish'] = $daoMenuItem->is_side_dish;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['is_kids_choice'] = $daoMenuItem->is_kids_choice;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['is_store_special'] = $daoMenuItem->is_store_special;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['is_menu_addon'] = $daoMenuItem->is_menu_addon;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['is_chef_touched'] = $daoMenuItem->is_chef_touched;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['is_freezer_menu'] = (($daoMenuItem->menu_item_category_id > 4 || $daoMenuItem->is_store_special) ? true : false);
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['is_bundle'] = $daoMenuItem->is_bundle;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['servings_per_container_display'] = $daoMenuItem->servings_per_container_display;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['parent_item'] = 0;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['recipe_id'] = isset($daoMenuItem->recipe_id) ? $daoMenuItem->recipe_id : 0;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['station_number'] = isset($daoMenuItem->station_number) ? $daoMenuItem->station_number : 0;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['number_items_required'] = 0;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['is_preassembled'] = $daoMenuItem->is_preassembled;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['pricing_type'] = $daoMenuItem->pricing_type;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['pricing_type_info'] = $daoMenuItem->pricing_type_info;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['servings_per_item'] = $daoMenuItem->servings_per_item;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['entree_id'] = $daoMenuItem->entree_id;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['menu_image_override'] = $daoMenuItem->menu_image_override;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['menu_label'] = $daoMenuItem->menu_label;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['category_id'] = $daoMenuItem->menu_item_category_id;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['is_users_favorite'] = (!empty($daoMenuItem->favorite) && $daoMenuItem->favorite == 1 ? true : false);
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['markdown_id'] = !empty($daoMenuItem->markdown_id) ? $daoMenuItem->markdown_id : false;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['markdown_value'] = !empty($daoMenuItem->markdown_value) ? $daoMenuItem->markdown_value : 0;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['ltd_menu_item_value'] = $daoMenuItem->ltd_menu_item_value;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['ltd_menu_item_show'] = $daoMenuItem->ltd_menu_item_value;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['ltd_menu_item_supported'] = (!empty($storeObj->supports_ltd_roundup) && !empty($daoMenuItem->ltd_menu_item_value));
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['icons'] = $daoMenuItem->icons;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['cross_program_grouping_id'] = $daoMenuItem->cross_program_grouping_id;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['menu_program_id'] = $daoMenuItem->menu_program_id;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['excluded'] = isset($daoMenuItem->excluded) ? true : false;
-
-			/// --------------------  inventory
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['initial_inventory'] = isset($daoMenuItem->initial_inventory) ? $daoMenuItem->initial_inventory : 9999;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['override_inventory'] = isset($daoMenuItem->override_inventory) ? $daoMenuItem->override_inventory : 9999;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['number_sold'] = isset($daoMenuItem->number_sold) ? $daoMenuItem->number_sold : 0;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['remaining_servings'] = $menuItemInfo[$daoMenuItem->entree_id][$i]['override_inventory'] - $menuItemInfo[$daoMenuItem->entree_id][$i]['number_sold'];
-
-			// subtract cart inventory
-			if (!empty($flattenListOfBoxItems))
-			{
-				$menuItemInfo[$daoMenuItem->entree_id][$i]['remaining_servings'] -= array_key_exists($i, $flattenListOfBoxItems) ? $flattenListOfBoxItems[$i] : 0;
-			}
-
-			if ($menuItemInfo[$daoMenuItem->entree_id][$i]['remaining_servings'] < $menuItemInfo[$daoMenuItem->entree_id][$i]['servings_per_item'])
-			{
-				$menuItemInfo[$daoMenuItem->entree_id][$i]['this_type_out_of_stock'] = true;
-			}
-			else
-			{
-				$menuItemInfo[$daoMenuItem->entree_id][$i]['this_type_out_of_stock'] = false;
-			}
-
-			if ($daoMenuItem->is_chef_touched)
-			{
-				if ($menuItemInfo[$daoMenuItem->entree_id][$i]['remaining_servings'] < 1)
-				{
-					$menuItemInfo[$daoMenuItem->entree_id][$i]['out_of_stock'] = true;
-				}
-				else
-				{
-					$menuItemInfo[$daoMenuItem->entree_id][$i]['out_of_stock'] = false;
-				}
-
-				if ($menuItemInfo[$daoMenuItem->entree_id][$i]['remaining_servings'] < 5)
-				{
-					$menuItemInfo[$daoMenuItem->entree_id][$i]['limited_qtys'] = true;
-				}
-				else
-				{
-					$menuItemInfo[$daoMenuItem->entree_id][$i]['limited_qtys'] = false;
-				}
-			}
-			else
-			{
-				if ($menuItemInfo[$daoMenuItem->entree_id][$i]['remaining_servings'] < $menuItemInfo[$daoMenuItem->entree_id][$i]['servings_per_item'])
-				{
-					$menuItemInfo[$daoMenuItem->entree_id][$i]['out_of_stock'] = true;
-				}
-				else
-				{
-					$menuItemInfo[$daoMenuItem->entree_id][$i]['out_of_stock'] = false;
-				}
-
-				if ($menuItemInfo[$daoMenuItem->entree_id][$i]['remaining_servings'] < 18)
-				{
-					$menuItemInfo[$daoMenuItem->entree_id][$i]['limited_qtys'] = true;
-				}
-				else
-				{
-					$menuItemInfo[$daoMenuItem->entree_id][$i]['limited_qtys'] = false;
-				}
-			}
-
-			if (!empty($flattenListOfBoxItems))
-			{
-				$menuItemInfo[$daoMenuItem->entree_id][$i]['qty_in_cart'] = array_key_exists($i, $flattenListOfBoxItems) ? $flattenListOfBoxItems[$i] : 0;
-			}
-			else
-			{
-				$menuItemInfo[$daoMenuItem->entree_id][$i]['qty_in_cart'] = 0;
-			}
-
-			// is_visible will only be set if we are obtaining a store specific menu
-			// if not set it should default to true
-			if (isset($daoMenuItem->is_visible))
-			{
-				$menuItemInfo[$daoMenuItem->entree_id][$i]['is_visible'] = $daoMenuItem->is_visible ? true : false;
-			}
-			else
-			{
-				$menuItemInfo[$daoMenuItem->entree_id][$i]['is_visible'] = true;
-			}
-
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['is_price_controllable'] = $daoMenuItem->is_price_controllable;
-			$menuItemInfo[$daoMenuItem->entree_id][$i]['is_visibility_controllable'] = $daoMenuItem->is_visibility_controllable;
-		}
-
-		// Note: this should not be necessary if the database is built correctly
-		// consider removing after July 2012 after the 3 serving is naturally ordered before 6 serving
-		$tempArray = array();
-		foreach ($menuItemInfo as $entree_id => $subArray)
-		{
-			$halfVersion = false;
-			$fullVersion = false;
-
-			$tempSubArray = array();
-
-			foreach ($subArray as $id => $item)
-			{
-				if (($item['pricing_type'] == 'HALF'))
-				{
-					$halfVersion = $id;
-				}
-
-				if (($item['pricing_type'] == 'FULL'))
-				{
-					$fullVersion = $id;
-				}
-			}
-
-			if ($halfVersion)
-			{
-				$tempSubArray[$halfVersion] = $menuItemInfo[$entree_id][$halfVersion];
-			}
-
-			if ($fullVersion)
-			{
-				$tempSubArray[$fullVersion] = $menuItemInfo[$entree_id][$fullVersion];
-			}
-
-			$tempArray[$entree_id] = $tempSubArray;
-		}
-
-		unset($menuItemInfo);
-		$menuItemInfo = $tempArray;
-
-		$beginTime = null;
-		$endTime = null;
-		$daoMenu->getValidMenuRange($beginTime, $endTime);
-		$menuInfo['begin_day'] = date("M jS", $beginTime);
-		$menuInfo['end_day'] = date("M jS", $endTime);
-		$menuInfo['store_id'] = ((!empty($storeObj->id)) ? $storeObj->id : null);
-		$menuInfo['menu_id'] = $daoMenu->id;
-		$menuInfo['menu_name'] = $daoMenu->menu_name;
-		$menuInfo['menu_month'] = strftime('%B', strtotime($daoMenu->menu_start));
-		$menuInfo['volume_discount_amount'] = 0.00;
-
-		/* info for javascript to use */
-		$menuItemInfoByMID = array();
-		foreach ($menuItemInfo as $entree_id => $menuItem)
-		{
-			foreach ($menuItem as $mid => $item)
-			{
-				$menuItemInfoByMID['entree'][$item['entree_id']][$item['id']] = $item['pricing_type'];
-				$menuItemInfoByMID['recipe'][$item['recipe_id']][$item['id']] = $item['pricing_type'];
-
-				$menuItemInfoByMID['mid'][$item['id']] = array(
-					'menu_item_id' => $item['id'],
-					'entree_id' => $item['entree_id'],
-					'menu_item_name' => $item['menu_item_name'],
-					'recipe_id' => $item['recipe_id'],
-					'parent_item' => $item['parent_item'],
-					'category_id' => $item['category_id'],
-					'qty_in_cart' => $item['qty_in_cart'],
-					'remaining_servings' => $item['remaining_servings'],
-					'servings_per_item' => $item['servings_per_item'],
-					'pricing_type' => $item['pricing_type'],
-					'pricing_type_info' => $item['pricing_type_info'],
-					'is_bundle' => $item['is_bundle'],
-					'number_items_required' => $item['number_items_required'],
-					'item_contributes_to_minimum_order' => ($item['category_id'] < 5 and $item['is_store_special'] == 0)
-				);
-			}
-		}
-
-		return array(
-			$menuInfo,
-			$menuItemInfo,
-			$menuItemInfoByMID
-		);
-	}
-
 	static function getMenuItemChangeHistory($store_id, $startingDate, $daysBack = 1)
 	{
 		$retVal = array();
@@ -1892,7 +1582,7 @@ class CMenuItem extends DAO_Menu_item
 		return $retVal;
 	}
 
-	static function getFullMenuItemsAndMenuInfo($DAO_store, $menu_id, $currentItemsInCart, $bundle_id = false, $inItemList = false)
+	static function getFullMenuItemsAndMenuInfo($DAO_store, $menu_id, $currentItemsInCart, $bundle_id = false, $inItemList = false, $join_bundle_to_menu_item = 'LEFT')
 	{
 		$retrieveFavorites = false;
 		if (CUser::isLoggedIn())
@@ -1924,7 +1614,7 @@ class CMenuItem extends DAO_Menu_item
 			'exclude_menu_item_category_sides_sweets' => false,
 			'join_food_survey_user_id' => $retrieveFavorites,
 			'join_bundle_to_menu_item_bundle_id' => $bundle_id,
-			'join_bundle_to_menu_item' => 'LEFT',
+			'join_bundle_to_menu_item' => $join_bundle_to_menu_item,
 			'menu_item_id_list' => $inItemList
 		));
 
@@ -2242,6 +1932,35 @@ class CMenuItem extends DAO_Menu_item
 		}
 
 		return false;
+	}
+
+	function isLimitedQuantities()
+	{
+		if ($this->isMenuItem_SidesSweets())
+		{
+			return ($this->getRemainingServings() < 5);
+		}
+		else
+		{
+			return ($this->getRemainingServings() < 18);
+		}
+	}
+
+	function isOutOfStock()
+	{
+		if ($this->isMenuItem_SidesSweets())
+		{
+			return ($this->getRemainingServings() < 1);
+		}
+		else
+		{
+			return ($this->getRemainingServings() < 3);
+		}
+	}
+
+	function isOutOfStock_ThisType()
+	{
+		return !$this->hasAvailableInventory();
 	}
 
 	function isBundle()
