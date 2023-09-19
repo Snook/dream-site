@@ -92,11 +92,11 @@ class page_box_menu extends CPage
 		{
 			foreach ($boxBundleInfo->menu_item['items'] AS $item)
 			{
-				foreach ($item AS $mid => $menuItem)
+				foreach ($item AS $mid => $DAO_menu_item)
 				{
 					$boxInfoJS['custom_box']['items'][$mid] += 1;
 					$boxInfoJS['custom_box']['info']['number_items'] += 1;
-					$boxInfoJS['custom_box']['info']['number_servings'] += $menuItem['servings_per_item'];
+					$boxInfoJS['custom_box']['info']['number_servings'] += $DAO_menu_item->servings_per_item;
 				}
 			}
 		}
