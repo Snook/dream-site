@@ -94,7 +94,15 @@ class page_box_menu extends CPage
 			{
 				foreach ($item AS $mid => $DAO_menu_item)
 				{
-					$boxInfoJS['custom_box']['items'][$mid] += 1;
+					if (!key_exists($mid, $boxInfoJS['custom_box']['items']))
+					{
+						$boxInfoJS['custom_box']['items'][$mid] = 1;
+					}
+					else
+					{
+						$boxInfoJS['custom_box']['items'][$mid] += 1;
+					}
+
 					$boxInfoJS['custom_box']['info']['number_items'] += 1;
 					$boxInfoJS['custom_box']['info']['number_servings'] += $DAO_menu_item->servings_per_item;
 				}
