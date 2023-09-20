@@ -1,5 +1,6 @@
 <?php
 require_once 'includes/api/ApiManager.php';
+require_once 'includes/api/tax/avalara/MockAvalaraTaxManager.php';
 
 class AvalaraTaxManager extends ApiManager
 {
@@ -55,9 +56,22 @@ class AvalaraTaxManager extends ApiManager
 	 */
 	public static function getInstance()
 	{
+		$isMock = false;
+		if(defined('AVALARA_API_ENDPOINT_USE_MOCK'))
+		{
+			$isMock = AVALARA_API_ENDPOINT_USE_MOCK;
+		}
 		if (self::$instance == null)
 		{
-			self::$instance = new AvalaraTaxManager();
+			if($isMock)
+			{
+				self::$instance = new MockAvalaraTaxManager();
+			}
+			else
+			{
+				self::$instance = new AvalaraTaxManager();
+			}
+
 		}
 
 		return self::$instance;
