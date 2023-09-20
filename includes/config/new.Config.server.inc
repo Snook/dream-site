@@ -207,6 +207,8 @@ switch (SERVER_ENV)
 		define("USE_GLOBAL_SIDES_MENU", false);
 		define("SHOW_SIDES_CATEGORY_ON_MENU", true);
 
+		define("AVALARA_API_ENDPOINT_USE_MOCK", true);
+
 		$gEnabledTracingCategories = array(
 			"CART" => true,
 			"TR_TRACING" => true,

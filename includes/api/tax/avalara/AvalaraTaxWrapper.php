@@ -48,6 +48,16 @@ class AvalaraTaxWrapper extends CacheableRequestWrapper
 		$this->populateRateRequestData();
 	}
 
+	public function getTaxAddress()
+	{
+		return $this->hydratedOrderObj->orderAddress;
+	}
+
+	public function getOrderTotal()
+	{
+		return $this->hydratedOrderObj->grand_total;
+	}
+
 	/**
 	 * @param string $typeConstant [AVALARA_CREATE_TYPE_TRANSIENT, AVALARA_CREATE_TYPE_PERMANENT]
 	 */
