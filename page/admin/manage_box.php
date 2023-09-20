@@ -214,7 +214,10 @@ class page_admin_manage_box extends CPageAdminOnly
 				{
 					foreach (DAO_CFactory::create('bundle', true)->table() as $key => $value)
 					{
-						$this->Bundle1Form->DefaultValues[$key] = $editBox->box_bundle_1_obj->{$key};
+						if (isset($editBox->box_bundle_1_obj->{$key}))
+						{
+							$this->Bundle1Form->DefaultValues[$key] = $editBox->box_bundle_1_obj->{$key};
+						}
 					}
 				}
 
@@ -223,7 +226,10 @@ class page_admin_manage_box extends CPageAdminOnly
 				{
 					foreach (DAO_CFactory::create('bundle', true)->table() as $key => $value)
 					{
-						$this->Bundle2Form->DefaultValues[$key] = $editBox->box_bundle_2_obj->{$key};
+						if (isset($editBox->box_bundle_2_obj->{$key}))
+						{
+							$this->Bundle2Form->DefaultValues[$key] = $editBox->box_bundle_2_obj->{$key};
+						}
 					}
 				}
 			}
