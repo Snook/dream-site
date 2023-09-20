@@ -2140,7 +2140,7 @@ class COrders extends DAO_Orders
 			{
 				$ordersArray[$Order->id]['future_session'] = true;
 
-				if( $verify_freezer_inventory )
+				if ($verify_freezer_inventory)
 				{
 
 					$store_id = $Order->store_id;
@@ -2167,7 +2167,6 @@ class COrders extends DAO_Orders
 							break;
 						}
 					}
-
 				}
 
 				if (strtotime($Order->session_start) > $cutoff)
@@ -10180,6 +10179,33 @@ class COrders extends DAO_Orders
 		}
 
 		return $totalItemQty;
+	}
+
+	function getAvgCostPerServing()
+	{
+		return $this->getFoodTotal() / $this->getServingsCoreTotalCount();
+	}
+
+	function getServingsCoreTotalCount()
+	{
+		if (!empty($this->servings_core_total_count))
+		{
+			return $this->servings_core_total_count;
+		}
+
+		return 0;
+	}
+
+	function getFoodTotal()
+	{
+		if (isset($this->bundle_id) && $this->bundle_id > 0)
+		{
+			return $this->subtotal_menu_items + $this->subtotal_home_store_markup - $this->subtotal_menu_item_mark_down - $this->bundle_discount;
+		}
+		else
+		{
+			return $this->subtotal_menu_items + $this->subtotal_home_store_markup - $this->subtotal_menu_item_mark_down;
+		}
 	}
 
 	function getAvgCostPerServingData()
