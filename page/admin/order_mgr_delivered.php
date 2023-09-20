@@ -2886,10 +2886,14 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 		$inventoryArray = array(); // recipe_id -> remaining_inventory
 		foreach ($inArray['bundle_items'] as $items)
 		{
-			foreach ($items as $item)
+			if(!is_null($items))
 			{
-				$inventoryArray[$item['recipe_id']] = 0;
+				foreach ($items as $item)
+				{
+					$inventoryArray[$item['recipe_id']] = 0;
+				}
 			}
+
 		}
 
 		$menu_id = false;

@@ -213,6 +213,13 @@ switch (SERVER_ENV)
 
 		define("AVALARA_API_ENDPOINT_USE_MOCK", true);
 
+		//If this value exists then order will not be sent to shipstation at all
+		define('SHIPSTATION_DONT_SEND' , 'IF_DEFINED_WONT_SEND');
+		//If these const are defined...orders will be marked as tests in ShipStations if above is removed
+		//define('SHIPSTATION_TEST_ORDER_PREFIX' , 'TEST_IGNORE_');
+		//define('SHIPSTATION_TEST_ORDER_TAG' , 107045);
+		//define('SHIPSTATION_TEST_ORDER_WHAREHOUSEID' , 62604);
+
 		$gEnabledTracingCategories = array(
 			"CART" => true,
 			"TR_TRACING" => true,
@@ -336,8 +343,17 @@ const AVALARA_API_ENDPOINT = 'https://rest.avatax.com/api/v2/';
 const AVALARA_API_ACCOUNT_ID = '';//sandbox
 const AVALARA_API_LICENSE_KEY = '';//sandbox
 
-//ShipStation
-const SHIPSTATION_API_ENDPOINT = 'https://ssapi.shipstation.com/';
-const SHIPSTATION_API_KEY = '';
-const SHIPSTATION_API_SECRET = '';
+//ShipStation Endpoints per Distribution Center
+const SHIPSTATION_API_ENDPOINT_313 = 'https://ssapi.shipstation.com/';
+const SHIPSTATION_API_KEY_313 = '';
+const SHIPSTATION_API_SECRET_313 = '';
+
+const SHIPSTATION_API_ENDPOINT_314 = 'https://ssapi.shipstation.com/';
+const SHIPSTATION_API_KEY_314 = '';
+const SHIPSTATION_API_SECRET_314 = '';
+
+const SHIPSTATION_API_ENDPOINT_315 = 'https://ssapi.shipstation.com/';
+const SHIPSTATION_API_KEY_315 = '';
+const SHIPSTATION_API_SECRET_315 = '';
+
 ?>
