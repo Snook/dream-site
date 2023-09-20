@@ -42,7 +42,7 @@
 			<div class="row bg-white mx-0 pt-2">
 				<?php if (!$mainItem->is_bundle && !$mainItem->is_shiftsetgo) { ?>
 					<div class="col-6">
-						<a class="card-link text-uppercase d-print-none link-dinner-details" href="/item?recipe=<?php echo $mainItem->recipe_id; ?>" data-recipe_id="<?php echo $mainItem->recipe_id; ?>" data-store_id="<?php echo $this->cart_info['storeObj']->id; ?>" data-menu_item_id="<?php echo $mainItem->id; ?>" data-menu_id="<?php echo $mainItem->menu_id; ?>">Dinner details</a>
+						<a class="card-link text-uppercase d-print-none link-dinner-details" href="/item?recipe=<?php echo $mainItem->recipe_id; ?>" data-recipe_id="<?php echo $mainItem->recipe_id; ?>" data-store_id="<?php echo $this->cart_info['storeObj']->id; ?>" data-menu_item_id="<?php echo $mainItem->id; ?>" data-menu_id="<?php echo $mainItem->menu_id; ?>" data-size="large" data-detailed="false">Dinner details</a>
 					</div>
 				<?php } ?>
 				<div class="col-6 text-right">
