@@ -26,7 +26,7 @@
 					<li>Rewards will only be earned on in-store orders placed with a Dream Dinners franchise staff member.</li>
 					<li>Rewards will only be earned on purchases of minimum size or greater. Dream Dinners Menu Sampler purchases or purchase less than 36 servings are ineligible.</li>
 					<li>Rewards will not be earned on sales tax, reward redemption's, prior purchases, online purchases or gift cards.</li>
-					<li>Enrollees are responsible for updating account information at <a href="https://dreamdinners.com/">dreamdinners.com </a> or through direct contact with any participating Dream Dinners Store.</li>
+					<li>Enrollees are responsible for updating account information at <a href="/">dreamdinners.com</a> or through direct contact with any participating Dream Dinners Store.</li>
 					<li>Enrollment in the Dream Rewards Program is void if prohibited by law in the jurisdiction in which the prospective participant resides.</li>
 					<li>Only the Dream Dinners Dream Rewards enrollee that has an account with Dream Dinners may earn rewards.</li>
 					<li>Dream Dinners Dream Rewards have no cash value.</li>
@@ -83,7 +83,7 @@
 					<li>Members of corporate programs or group discount programs are not eligible.</li>
 					<li>In the event you choose to make purchases at different Dream Dinners locations your rewards status will move with you, only if the new location is an active participant in the Dream Rewards program and the new store location agrees to honor your present reward status.</li>
 					<li>Transfer of your Dream Rewards status' to a different store location is not automatic and must be arranged with the management staff at the new location.</li>
-					<li>Enrollees are responsible for updating account information at <a href="https://dreamdinners.com/">dreamdinners.com</a> or through direct contact with any participating Dream Dinners Store.</li>
+					<li>Enrollees are responsible for updating account information at <a href="/">dreamdinners.com</a> or through direct contact with any participating Dream Dinners Store.</li>
 					<li>Enrollment in the Dream Rewards Program is void if prohibited by law in the jurisdiction in which the prospective participant resides.</li>
 				</ol>
 			</div>

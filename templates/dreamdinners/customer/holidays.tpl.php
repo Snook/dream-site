@@ -24,18 +24,18 @@
 					<div class="col">
 						<div class="card-group text-center">
 							<div class="card border-0 mx-1">
-								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Summer-ToolKit.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/summer-toolkit-458x344.png" alt="Summer Toolkit" class="img-fluid" /></a>
+								<a href="/web_resources/media/Dream-Dinners-Summer-ToolKit.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/summer-toolkit-458x344.png" alt="Summer Toolkit" class="img-fluid" /></a>
 								<div class="card-body">
 								<h5 class="card-title">Summer Toolkit</h5>
 									<p class="card-text">Filled with activities, tips and tricks to keep the kiddos entertained.</p>
-									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Summer-ToolKit.pdf" target="_blank" class="btn btn-primary">Download Toolkit</a></p>
+									<p><a href="/web_resources/media/Dream-Dinners-Summer-ToolKit.pdf" target="_blank" class="btn btn-primary">Download Toolkit</a></p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Summer-Placemat.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/summer-placemat-458x344.png" alt="Summer Placemat" class="img-fluid" /></a>								<div class="card-body">
+								<a href="/web_resources/media/Dream-Dinners-Summer-Placemat.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/summer-placemat-458x344.png" alt="Summer Placemat" class="img-fluid" /></a>								<div class="card-body">
 									<h5 class="card-title">Summer Themed Placemat</h5>
 									<p class="card-text">Download and print a 11x17 fun activity placemat.</p>
-									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Summer-Placemat.pdf" target="_blank" class="btn btn-primary">Download Placemat</a></p>
+									<p><a href="/web_resources/media/Dream-Dinners-Summer-Placemat.pdf" target="_blank" class="btn btn-primary">Download Placemat</a></p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">

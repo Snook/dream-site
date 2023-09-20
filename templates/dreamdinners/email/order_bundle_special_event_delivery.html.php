@@ -17,7 +17,7 @@
 		<td><p>Thank you for placing a Home Delivery order with Dream Dinners. We look forward to prepping delicious meals for your family.</p>
 	<p>Your freshly assembled dinners will be <strong>delivered to your home during your delivery window</strong>. During this window, please be home* and ready to accept your dinners and place them in the freezer. </p>
 	<p>We look forward to connecting with you soon!</p>
-	<p><i>*Delivery fees are non-refundable once charged to your order. If the driver arrives and no one is available to accept the delivery, the driver will leave your order at your front door and take a photo before they leave. If the driver cannot leave your order for any reason, they may have to return your order back to the store. This will incur an additional return delivery fee and a possible restocking fee for your order. <a href="https://dreamdinners.com/terms">View the full terms and conditions</a>.</i></p>
+	<p><i>*Delivery fees are non-refundable once charged to your order. If the driver arrives and no one is available to accept the delivery, the driver will leave your order at your front door and take a photo before they leave. If the driver cannot leave your order for any reason, they may have to return your order back to the store. This will incur an additional return delivery fee and a possible restocking fee for your order. <a href="<?php echo HTTPS_SERVER; ?>/terms">View the full terms and conditions</a>.</i></p>
 			<hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;"></td>
 	</tr>
 </table>

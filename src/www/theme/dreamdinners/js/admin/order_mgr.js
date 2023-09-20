@@ -2080,7 +2080,7 @@ function send(token, paymentNumber, warnOfOutstandingSavedOrdersOnFullSession, a
 
 		if (typeof payflowErrorURL == 'undefined')
 		{
-			payflowErrorURL = "https://dreamdinners.com/processor?processor=admin_payflow_callback";
+			payflowErrorURL = PATH.https_server + "/processor?processor=admin_payflow_callback";
 		}
 
 		// make PARMLIST
@@ -2151,7 +2151,7 @@ function send(token, paymentNumber, warnOfOutstandingSavedOrdersOnFullSession, a
 
 		if (typeof payflowErrorURL == 'undefined')
 		{
-			payflowErrorURL = "https://dreamdinners.com/processor?processor=admin_payflow_callback";
+			payflowErrorURL = PATH.https_server + "/processor?processor=admin_payflow_callback";
 		}
 
 		// make PARMLIST

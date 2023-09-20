@@ -12,7 +12,7 @@ If you need to reschedule or cancel your order, please contact us 6 days prior t
 
 
 Click to view the full Terms and Conditions.
-https://dreamdinners.com/terms
+<?php echo HTTPS_SERVER; ?>/terms
 
 -------------------------------------------
 

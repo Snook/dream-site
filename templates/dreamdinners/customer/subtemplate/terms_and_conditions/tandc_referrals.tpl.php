@@ -31,7 +31,7 @@
 					<li>Referral credits may not be transferred to another individual or used for purchase of any products other than Dream Dinners menu items.</li>
 					<li>Referral credit of $10 per order will only be earned on purchases of a minimum size or greater. Excludes guests of Meal Prep Workshops.</li>
 					<li>Referral rewards of any kind, whether store credit or other rewards that may periodically available, will not be earned on sales tax, reward redemption's, prior purchases or gift cards.</li>
-					<li>Guests invited to attend Dream Dinners through referral programs are responsible for updating account information at <a href="https://dreamdinners.com/">dreamdinners.com </a>or through direct contact with any participating Dream Dinners store.</li>
+					<li>Guests invited to attend Dream Dinners through referral programs are responsible for updating account information at <a href="/">dreamdinners.com</a> or through direct contact with any participating Dream Dinners store.</li>
 					<li>Participation in the Dream Dinners Referral Program is void if prohibited by law in the jurisdiction in which the prospective participant resides.</li>
 					<li>Only the Dream Dinners' guest that has an account with Dream Dinners may earn referral credits or other rewards.</li>
 					<li>Dream Dinners referral credits have no cash value.</li>

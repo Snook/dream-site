@@ -23,7 +23,7 @@ Click here to get started:
 -------------------------------------------------
 Redeeming your Dream Dinners gift card is easy:
 
-1. Visit https://dreamdinners.com and click "Get Started".
+1. Visit <?php echo HTTPS_SERVER; ?> and click "Get Started".
 2. Enter your zip code to find a store location near you or see if we can ship to you.
 3. Next, choose the menu month you want to order from under Standard Order. If you are new to Dream Dinners you can sample our menu by selecting our Meal Prep Workshop. If we are shipping to you, select the box that fits your family size.
 4. Choose your menu items.

@@ -19,11 +19,11 @@
     <tr>
       <td><img src="<?php echo EMAIL_IMAGES_PATH; ?>/email/event_theme/<?php echo $this->session['dream_taste_theme_string']; ?>/no-bake-mini-cheesecake-trio-200x133.jpg" alt="No-Bake Mini Cheesecake Trio" /></td>
       <td><p>Plus, you get our exclusive no-bake mini cheesecake kit. Only available at our Meal Prep Workshops, these fun single-serving desserts are a great way to treat yourself after a long day.</p>
-        <p>There are limited spaces available, and this offer is only available for guests of this event. Use the link below to reserve your spot today! <a href="https://dreamdinners.com/how_it_works" target="_blank">Learn more about how Dream Dinners work here.</a></p></td>
+        <p>There are limited spaces available, and this offer is only available for guests of this event. Use the link below to reserve your spot today! <a href="<?php echo HTTPS_SERVER; ?>/how-it-works" target="_blank">Learn more about how Dream Dinners work here.</a></p></td>
     </tr>
   </tbody>
 </table>
-				
+
 		<p align="left"><?php echo $this->message; ?></p>
 			<p align="center"><a href="<?php echo $this->referral_link; ?>"><img src="<?php echo EMAIL_IMAGES_PATH; ?>/email/event_theme/<?php echo $this->session['dream_taste_theme_string']; ?>/invite-rsvp-button-green.png" alt="RSVP" width="300" height="45" border="0"></a></p>
 		</td>

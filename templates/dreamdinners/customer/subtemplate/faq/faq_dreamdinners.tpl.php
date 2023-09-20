@@ -213,7 +213,7 @@
 		</div>
 		<div id="collapse-DD-Eighteen" class="collapse" aria-labelledby="heading-DD-Eighteen" data-parent="#accordion-DD">
 			<div class="card-body">
-				Yes! Please send your friends to <a href="https://dreamdinners.com">DreamDinners.com</a>, and have them click on the Meal Prep Starter Pack button on our home page.
+				Yes! Please send your friends to <a href="/">dreamdinners.com</a>, and have them click on the Meal Prep Starter Pack button on our home page.
 			</div>
 		</div>
 	</div>-->

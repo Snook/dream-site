@@ -38,20 +38,20 @@
 						<p><strong>Instructions:</strong> Combine apples, lemon juice, sugar, flour (1/4 cup), and cinnamon in a small bowl; stir to combine, then set aside. To create topping mixture, combine remaining flour (1/8 cup), butter, brown sugar, and salt in another small bowl, breaking down the butter into pebble-size pieces.Preheat grill, outdoor fire, or oven to approximately 350°F. Spray a cast-iron skillet with nonstick spray, then evenly spread the apple mixture on the bottom of the skillet. Drizzle with caramel sauce. Tear biscuits in half and place evenly over apple and caramel mixture. Sprinkle topping mixture over biscuits and filling. Cook cobbler for 25-30 minutes. If cooking on a grill, leave over indirect heat and close the grill lid. If over a fire, cover the skillet with foil for 20 minutes and finish cooking uncovered for the last 5-10 minutes. Enjoy!</p>
 
 						<br>
-						
+
 						<!-- Recipe 3 -->
 						<h3>Fruit of the Forest Campfire Cobbler</h3>
                       	<p><strong>Ingredients:</strong> Frozen apple slices (1 cup), frozen mixed berries (2 cups), lemon juice (2 tsp), sugar (1/2 cup plus 1 Tbsp, divided), flour (1/4 cup plus 1/8 cup, divided), cinnamon (1/4 tsp), butter (2 tbsp), kosher salt (1/4 tsp), frozen biscuit dough balls (x3).</p>
 						<p><strong>Instructions:</strong> Combine fruit, lemon juice, sugar (1/2 cup), flour (1/4 cup), and cinnamon in a small bowl; stir to combine, then set aside. To create topping mixture, combine butter, remaining sugar (1 Tbsp), remaining flour (1/8 cup), and salt in another small bowl, breaking down the butter into pebble-size pieces.Preheat grill, outdoor fire, or oven to approximately 350°F. Spray a cast-iron skillet  with nonstick spray, then evenly spread the fruit mixture on the bottom of the skillet. Tear biscuits in half and place evenly over fruit mixture. Sprinkle topping mixture over biscuits and filling. Cook cobbler for 25-30 minutes. If cooking on a grill, leave over indirect heat and close the grill lid. If over a fire, cover the skillet with foil for 20 minutes and finish cooking uncovered for the last 5-10 minutes. Enjoy!</p>
 					</div>
-				
+
 					<div class="col-md-4 mb-5 text-center">
 							<div>
-								<p><a href="https://dreamdinners.com/web_resources/media/MPW-Campfire-Cobbler-Trio.pdf" target="_blank" class="btn btn-primary btn-lg">Campfire Cobbler Trio</a></p>
+								<p><a href="/web_resources/media/MPW-Campfire-Cobbler-Trio.pdf" target="_blank" class="btn btn-primary btn-lg">Campfire Cobbler Trio</a></p>
 							</div>
-						
+
 							<!--<div>
-								<p><a href="https://dreamdinners.com/web_resources/media/MPW-Mini-No-Bake-Cheesecake-Trio.pdf" target="_blank" class="btn btn-primary">Mini No-Bake Cheesecake Trio</a></p>
+								<p><a href="/web_resources/media/MPW-Mini-No-Bake-Cheesecake-Trio.pdf" target="_blank" class="btn btn-primary">Mini No-Bake Cheesecake Trio</a></p>
 							</div> -->
 					</div>
 				</div>

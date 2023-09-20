@@ -6,7 +6,7 @@ You're invited to my Meal Prep Workshop. Learn my secret to making easy homemade
 There are limited spaces available, and this offer is only available for guests of this event. Use the link below to reserve your spot today!
 
 Learn more about Dream Dinners.
-https://dreamdinners.com/how_it_works
+<?php echo HTTPS_SERVER; ?>/how-it-works
 
 <?php echo $this->message; ?>
 

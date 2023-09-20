@@ -20,7 +20,7 @@
       <p>If you have any questions or concerns regarding this order please contact us. The details of your order are listed below.</p>
       <p>Thank you</p>
 <hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;">
-	<p><i>*Delivery fees are non-refundable once charged to your order. If the driver arrives and no one is available to accept the delivery, the driver will leave your order at your front door and take a photo before they leave. If the driver cannot leave your order for any reason, they may have to return your order back to the store. This will incur an additional return delivery fee and a possible restocking fee for your order. <a href="https://dreamdinners.com/terms">View the full Terms and Conditions</a>.</i></p>
+	<p><i>*Delivery fees are non-refundable once charged to your order. If the driver arrives and no one is available to accept the delivery, the driver will leave your order at your front door and take a photo before they leave. If the driver cannot leave your order for any reason, they may have to return your order back to the store. This will incur an additional return delivery fee and a possible restocking fee for your order. <a href="<?php echo HTTPS_SERVER; ?>/terms">View the full Terms and Conditions</a>.</i></p>
 <hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;"></td>
 </tr>
 </table>

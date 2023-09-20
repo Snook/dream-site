@@ -70,7 +70,7 @@
 				</div>
 				<div class="row mb-5">
 					<div class="col">
-						<p class="font-italic">*<span class="font-weight-bold">Use your Pilot or Allstate corporate email address to place your first order in order to access all our corporate offerings.</span> After your initial order is complete, you can log in to your account on DreamDinners.com and change your email address if you would prefer to receive future communication at another email address.</p>
+						<p class="font-italic">*<span class="font-weight-bold">Use your Pilot or Allstate corporate email address to place your first order in order to access all our corporate offerings.</span> After your initial order is complete, you can log in to your account on dreamdinners.com and change your email address if you would prefer to receive future communication at another email address.</p>
 					</div>
 				</div>
 			</div>

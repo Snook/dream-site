@@ -14,7 +14,7 @@
 				<ul>
 					<li>Double points when you sign up for your next qualifying order before or during your current month's visit</li>
 					<li>Invite Friends - get 10 Dinner Dollars for each new friend you refer to Dream Dinners that completes an order</li>
-					<li>Rate your dinners in My Meals on DreamDinners.com - earn 5 PlatePoints per qualifying meal you rate</li>
+					<li>Rate your dinners in My Meals on dreamdinners.com - earn 5 PlatePoints per qualifying meal you rate</li>
 				</ul>
 				<p><strong>Q: What happens if I don't place my order before or during a visit?</strong><br />
 					A: You still earn PlatePoints! You will earn 1 PlatePoint for every dollar you spend on your order, but you will not earn bonus points. </p>
@@ -104,7 +104,7 @@
 			        </ul>
 				  </li>
 			  </ul>
-				
+
 				<p><strong>Q: How can I find out what Chef Milestone Badge I have?</strong><br />
 					A: The easiest way to find your Chef Milestone Badge is to log in to your account. Your Chef Milestone Badge will appear on your account dashboard on the left hand side with your PlatePoints total and number of available Dinner Dollars. </p>
 				<p><strong>Q: How will I know when I am due for a gift? &nbsp;</strong><br />
@@ -154,7 +154,7 @@
 		<div id="collapse-PP-Six" class="collapse" aria-labelledby="heading-PP-Six" data-parent="#accordion-PP">
 			<div class="card-body">
 				<strong>Q: I am a preferred  guest, can I participate?</strong><br />
-				A: No. Preferred guests cannot participate in the PlatePoints program. 
+				A: No. Preferred guests cannot participate in the PlatePoints program.
 			</div>
 		</div>
 	</div>
