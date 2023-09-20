@@ -315,7 +315,6 @@ const YAHOO_CLIENTID = '';
 const YAHOO_SECRET = '';
 
 // ECommerce
-const PFP_WIN = false;
 const PFP_TEST_MODE = false;//***** update for live to false
 const USE_CORPORATE_TEST_ACCOUNT = false;//***** update for live to false
 
