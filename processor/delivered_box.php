@@ -190,22 +190,22 @@ class processor_delivered_box extends CPageProcessor
 					$post_bundle_id = $_POST['bundle_id'];
 				}
 
-				$BoxObj = DAO_CFactory::create('box');
-				$BoxObj->id = $post_box_id;
-				$BoxObj->find(true);
+				$DAO_box = DAO_CFactory::create('box', true);
+				$DAO_box->id = $post_box_id;
+				$DAO_box->find(true);
 
-				$BundleObj = DAO_CFactory::create('bundle');
-				$BundleObj->id = $post_bundle_id;
-				$BundleObj->find(true);
+				$DAO_bundle = DAO_CFactory::create('bundle', true);
+				$DAO_bundle->id = $post_bundle_id;
+				$DAO_bundle->find(true);
 
-				$items = CBundle::getDeliveredBundleByID($BundleObj->id, true);
+				$items = CBundle::getDeliveredBundleByID($DAO_bundle->id, true);
 
 				// add fixed box
 				if (empty($_POST['box_instance_id']))
 				{
 					$CartObj = CCart2::instance(true);
 
-					$boxInstanceID = CBoxInstance::getNewEmptyBoxForBundle($BundleObj->id, $post_box_id, false, false, true);
+					$boxInstanceID = CBoxInstance::getNewEmptyBoxForBundle($DAO_bundle->id, $post_box_id, false, false, true);
 
 					foreach ($items['bundle'] as $mid => $item)
 					{
@@ -213,12 +213,13 @@ class processor_delivered_box extends CPageProcessor
 					}
 
 					$data = array(
-						'bundle_obj' => $BundleObj,
-						'bundle_id' => $BundleObj->id,
+						'bundle_obj' => $DAO_bundle,
+						'bundle_id' => $DAO_bundle->id,
 						'items' => $itemArray
 					);
 
 					$CartObj->addDeliveredBox($boxInstanceID, $data);
+					$CartObj->addMenuId($DAO_bundle->menu_id);
 
 					CAppUtil::processorMessageEcho(array(
 						'processor_success' => true,
@@ -287,23 +288,23 @@ class processor_delivered_box extends CPageProcessor
 			{
 				$CartObj = CCart2::instance(true);
 
-				$BoxObj = DAO_CFactory::create('box');
-				$BoxObj->id = $_POST['box_id'];
-				$BoxObj->find(true);
+				$DAO_box = DAO_CFactory::create('box');
+				$DAO_box->id = $_POST['box_id'];
+				$DAO_box->find(true);
 
-				$BundleObj = DAO_CFactory::create('bundle');
-				$BundleObj->id = $_POST['bundle_id'];
-				$BundleObj->find(true);
+				$DAO_bundle = DAO_CFactory::create('bundle');
+				$DAO_bundle->id = $_POST['bundle_id'];
+				$DAO_bundle->find(true);
 
-				$CartObj->addMenuId($BundleObj->menu_id);
+				$CartObj->addMenuId($DAO_bundle->menu_id);
 
-				$items = CBundle::getDeliveredBundleByID($BundleObj->id);
+				$items = CBundle::getDeliveredBundleByID($DAO_bundle->id);
 
 				$boxInstanceID = false;
 				$boxAddNew = false;
 				if (empty($_POST['box_instance_id']))
 				{
-					$boxInstanceID = CBoxInstance::getNewEmptyBoxForBundle($BundleObj->id, $BoxObj->id, false, true);
+					$boxInstanceID = CBoxInstance::getNewEmptyBoxForBundle($DAO_bundle->id, $DAO_box->id, false, true);
 					$boxAddNew = true;
 				}
 				else if (is_numeric($_POST['box_instance_id']))
@@ -320,7 +321,7 @@ class processor_delivered_box extends CPageProcessor
 						if ($boxAddNew)
 						{
 							$data = array(
-								'bundle_id' => $BundleObj->id,
+								'bundle_id' => $DAO_bundle->id,
 								'items' => array()
 							);
 							$CartObj->addDeliveredBox($boxInstanceID, $data);
