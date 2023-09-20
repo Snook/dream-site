@@ -1108,56 +1108,6 @@ $(function () {
 		$('.sm-row-customization-available').toggleFlex();
 	});
 
-	$(document).on('click', '.link-dinner-details', function (e) {
-
-		e.preventDefault();
-
-		var menu_id = $(this).data('menu_id');
-		var menu_item_id = $(this).data('menu_item_id');
-		var store_id = $(this).data('store_id');
-
-		$.ajax({
-			url: '/processor',
-			type: 'POST',
-			timeout: 20000,
-			dataType: 'json',
-			data: {
-				processor: 'menu_item',
-				op: 'find_item',
-				menu_id: menu_id,
-				menu_item_id: menu_item_id,
-				store_id: store_id
-			},
-			success: function (json) {
-				if (json.processor_success)
-				{
-					bootbox.dialog({
-						message: json.html,
-						buttons: {
-							"Full details": function () {
-								bounce('/item?recipe=' + json.recipe_id + '&ov_menu=' + json.menu_id);
-							},
-							cancel: {
-								label: "Close"
-							}
-						}
-					})
-				}
-				else
-				{
-					modal_message({
-						title: 'Error',
-						message: json.processor_message
-					});
-				}
-			},
-			error: function (objAJAXRequest, strError) {
-				response = 'Unexpected error';
-			}
-		});
-
-	});
-
 	// handle private party intro
 	$(document).on('click', '.pp-view-intro, .pp-view-standard', function (e) {
 		var view_menu = $(this).data('view_menu');

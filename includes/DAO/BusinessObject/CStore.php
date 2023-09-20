@@ -225,6 +225,18 @@ class CStore extends DAO_Store
 		return $store_id;
 	}
 
+	function getParentStoreID_else_getStoreID()
+	{
+		if (!empty($this->parent_store_id))
+		{
+			return $this->parent_store_id;
+		}
+		else
+		{
+			return $this->id;
+		}
+	}
+
 	static function active_Distribution_Centers()
 	{
 		$DAO_store = DAO_CFactory::create('store', true);

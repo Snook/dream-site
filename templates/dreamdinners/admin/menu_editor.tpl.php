@@ -418,7 +418,7 @@
 												</td>
 
 												<td class="align-middle text-left">
-													<a href="main.php?page=item&amp;recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" class="link-dinner-details" data-tooltip="Dinner Details"
+													<a href="/item?recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" class="link-dinner-details" data-tooltip="Dinner Details"
 													   data-recipe_id="<?php echo $planNode['recipe_id']; ?>" data-store_id="<?php echo $this->storeInfo->id; ?>" data-menu_item_id="<?php echo $planNode['id']; ?>" data-menu_id="<?php echo $this->menuInfo['menu_id']; ?>" data-size="large" data-detailed="true"
 													   target="_blank"><i class="fas fa-file-alt font-size-medium-small mr-1"></i></a>
 													<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $planNode['id'] . ' &bull; Recipe ID: ' . $planNode['recipe_id'] . '"' : ''; ?>>
@@ -550,7 +550,7 @@
 											</td>
 
 											<td class="align-middle text-left">
-												<a href="main.php?page=item&amp;recipe=<?php echo $ctsItem['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" class="link-dinner-details" data-tooltip="Dinner Details"
+												<a href="/item?recipe=<?php echo $ctsItem['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" class="link-dinner-details" data-tooltip="Dinner Details"
 												   data-recipe_id="<?php echo $ctsItem['recipe_id']; ?>" data-store_id="<?php echo $this->storeInfo->id; ?>" data-menu_item_id="<?php echo $ctsItem['id']; ?>" data-menu_id="<?php echo $this->menuInfo['menu_id']; ?>" data-size="large" data-detailed="true"
 												   target="_blank"><i class="fas fa-file-alt font-size-medium-small mr-1"></i></a>
 												<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $ctsItem['id'] . ' &bull; Recipe ID: ' . $ctsItem['recipe_id'] . '"' : ''; ?>>
