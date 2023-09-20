@@ -944,7 +944,7 @@ class COrders extends DAO_Orders
 		// required info needed to calculate
 		if (!is_object($userObj) || empty($userObj->id) || empty($menu_id) || empty($session_id))
 		{
-			CLog::Assert(false, "user_id, menu_id and session_id ar required by getStoreOrderInStoreStatus for order " . $this->id);
+			CLog::Assert(false, "user_id, menu_id and session_id are required by getStoreOrderInStoreStatus for order " . $this->id);
 
 			return 0;
 		}

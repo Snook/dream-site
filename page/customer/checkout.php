@@ -759,7 +759,7 @@ class checkout_validation
 			// no menu in cart, send them to pick a session type
 			if ($Cart->getNavigationType() != CTemplate::DELIVERED)
 			{
-				CApp::bounce('/session_menu');
+				CApp::bounce('/session-menu');
 			}
 		}
 		else if (empty($session_id_in_cart))
