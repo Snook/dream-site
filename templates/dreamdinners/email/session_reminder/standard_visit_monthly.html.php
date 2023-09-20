@@ -9,7 +9,7 @@ Ditch dinner reservations and bring the date night home. Settle into a romantic 
 <?php } else if (date('M', strtotime($this->menu_name)) == 'Mar') { ?>
 <p>
 	<b>We make it easy to remember to thaw your Dream Dinners each week.</b><br />
-	Nothing's more frustrating than having a freezer full of delicious meals and finding yourself returning to old patterns of quick fixes and meals out. Let us help you plan for the week ahead with our handy thaw reminder emails. <a href="https://dreamdinners.com/promotions">Sign up here to start receiving your weekly reminder</a>.
+	Nothing's more frustrating than having a freezer full of delicious meals and finding yourself returning to old patterns of quick fixes and meals out. Let us help you plan for the week ahead with our handy thaw reminder emails. <a href="<?php echo HTTPS_SERVER; ?>/promotions">Sign up here to start receiving your weekly reminder</a>.
 </p>
 <?php } else if (date('M', strtotime($this->menu_name)) == 'Apr') { ?>
 <p>
@@ -58,7 +58,7 @@ Earn PLATEPOINTS while keeping track of your family's favorite meals. Since our 
 	<li>Host a Meal Prep Workshop, 500 points</li>
 	<li>Invite Friends, 500 points</li>
 </ul>
-<p><a href="https://dreamdinners.com/platepoints">Click here to learn more!</a></p>
+<p><a href="<?php echo HTTPS_SERVER; ?>/platepoints">Click here to learn more!</a></p>
 <?php } else if (date('M', strtotime($this->menu_name)) == 'Nov') { ?>
 <p>
 	<b>Want a little more coaching in the kitchen?</b><br />

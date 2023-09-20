@@ -99,7 +99,7 @@
 						<h2><strong>Share Your Dream Dinners Story</strong></h2>
 						<p>Has Dream Dinners made an impact on your family? We want to hear from you!</p>
 							<p>Share your Dream Dinners experience and your dinnertime stories with us. We would love to hear why dinnertime is important in your home, how Dream Dinners has helped in your life, and how you've used Dream Dinners to give back to your friends and family.</p>
-						<p>Visit <a href="/share_your_story">DreamDinners.com/ShareYourStory</a> to share your video testimonial with us.</p>
+						<p>Visit <a href="/share_your_story"><?php echo HTTPS_SERVER; ?>/ShareYourStory</a> to share your video testimonial with us.</p>
 					</div>
 				</div>
 

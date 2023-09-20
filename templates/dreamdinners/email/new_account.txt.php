@@ -14,4 +14,4 @@ See you soon!
 -----------------------------
 
 Please review our Terms and Conditions to learn more about Dream Dinners.
-https://dreamdinners.com/terms
+<?php echo HTTPS_SERVER; ?>/terms

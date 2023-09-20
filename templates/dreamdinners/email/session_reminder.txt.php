@@ -17,7 +17,7 @@ If you need to reschedule or cancel your order, please contact us 6 days prior t
 
 ---------------------------------------------------
 
-We look forward to seeing you soon. If you'd like to review your order, you can log in now.  https://dreamdinners.com
+We look forward to seeing you soon. If you'd like to review your order, you can log in now.  <?php echo HTTPS_SERVER; ?>
 
 
 Enjoy!

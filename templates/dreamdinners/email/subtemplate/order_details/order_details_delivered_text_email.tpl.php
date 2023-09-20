@@ -36,7 +36,7 @@ If you need to reschedule or cancel your order, please contact us 6 days prior t
 
 Policies and Terms
 By participating in the Dream Dinners program, you agree to the Policy and Terms
-https://dreamdinners.com/terms
+<?php echo HTTPS_SERVER; ?>/terms
 
 
 Order Totals

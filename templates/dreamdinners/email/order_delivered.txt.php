@@ -15,7 +15,7 @@ Reschedule and Cancellation Policy
 If you need to reschedule or cancel your order, please contact us 6 days prior to your session. Cancellations with 6 or more days' notice will receive a full refund. Cancellations with 5 or fewer days' notice will be subject to a 25% restocking fee.
 
 Terms & Conditions
-By submitting this order and attending your session you are acknowledging agreement to abide by the Terms and Conditions posted on our website. https://dreamdinners.com/terms
+By submitting this order and attending your session you are acknowledging agreement to abide by the Terms and Conditions posted on our website. <?php echo HTTPS_SERVER; ?>/terms
 
 ---------------------------------------------------
 

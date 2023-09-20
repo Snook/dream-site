@@ -19,7 +19,7 @@ Membership End Date: <?php echo $this->user->membershipData['completion_month'];
 
 ------------------------------------------
 
-See the complete Meal Prep+ terms and conditions: https://dreamdinners.com/terms
+See the complete Meal Prep+ terms and conditions: <?php echo HTTPS_SERVER; ?>/terms
 
 If you have questions please contact us at <?php echo $this->order_details->storeObj->telephone_day ?> or via email by replying.
 

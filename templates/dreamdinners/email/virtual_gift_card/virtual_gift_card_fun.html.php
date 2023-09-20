@@ -33,7 +33,7 @@
 <table role="presentation" width="500" border="0" align="center" cellpadding="8" cellspacing="0">
   <tr>
     <td><p style="font-family:Arial, Helvetica, sans-serif; font-size: 14px; color: #444444;"><strong>Redeem your Dream Dinners gift card:</strong></p>
-      <p style="font-family:Arial, Helvetica, sans-serif; font-size: 14px; color: #444444;">1. Visit <a href="https://dreamdinners.com/" style="color:#444444;">dreamdinners.com</a> and click "Get Started".<br />
+      <p style="font-family:Arial, Helvetica, sans-serif; font-size: 14px; color: #444444;">1. Visit <a href="<?php echo HTTPS_SERVER; ?>" style="color:#444444;">dreamdinners.com</a> and click "Get Started".<br />
 2. Enter your zip code to find a store location near you or see if we can ship to you.<br />
 3. Next, choose the menu month you want to order from under Standard Order. If you are new to Dream Dinners you can sample our menu by selecting our Meal Prep Workshop. If we are shipping to you, select the box that fits your family size.<br />
 4. Choose your menu items.<br />

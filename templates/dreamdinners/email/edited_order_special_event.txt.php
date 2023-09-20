@@ -6,7 +6,7 @@ Your order was updated on <?php echo CTemplate::dateTimeFormat($this->orderInfo[
 
 
 Click to view the full Terms and Conditions.
-https://dreamdinners.com/terms
+<?php echo HTTPS_SERVER; ?>/terms
 
 --------------------------------------------------
 Reschedule and Cancellation Policy

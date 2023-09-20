@@ -13,4 +13,4 @@
 	We look forward to seeing you again soon!
 
 	Sign-up for my next session
-	https://dreamdinners.com/session-menu
+	<?php echo HTTPS_SERVER; ?>/session-menu
