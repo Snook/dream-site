@@ -1,12 +1,5 @@
 <?php
-require_once('includes/CCart2.inc');
-require_once("includes/CPageProcessor.inc");
 require_once("CTemplate.inc");
-require_once('payment/PayPalProcess.php');
-require_once('includes/class.inputfilter_clean.php');
-require_once('includes/DAO/BusinessObject/CStore.php');
-require_once('includes/DAO/BusinessObject/CFundraiser.php');
-require_once('page/admin/fundraiser.php');
 
 class processor_admin_manage_box extends CPageProcessor
 {
