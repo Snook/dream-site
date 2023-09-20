@@ -29,11 +29,11 @@ class page_box_select extends CPage
 		{
 			$req_post_zip = CGPC::do_clean((!empty($_POST['delivered_zip']) ? $_POST['delivered_zip'] : false), TYPE_POSTAL_CODE, true);
 
-			$ckzip = DAO_CFactory::create('zipcodes');
-			$ckzip->zip = $req_post_zip;
-			$ckzip->whereAdd("zipcodes.distribution_center IS NOT NULL");
+			$DAO_zipcodes = DAO_CFactory::create('zipcodes');
+			$DAO_zipcodes->zip = $req_post_zip;
+			$DAO_zipcodes->whereAdd("zipcodes.distribution_center IS NOT NULL");
 
-			if (!$ckzip->find(true))
+			if (!$DAO_zipcodes->find(true))
 			{
 				$tpl->setStatusMsg('Dream Dinners does not currently deliver to ' . $req_post_zip);
 				CApp::bounce('/locations');
@@ -43,17 +43,17 @@ class page_box_select extends CPage
 			if (!$CartObj->isShippingAddressPostalCodeEmptyOrEqualTo($req_post_zip))
 			{
 				$CartObj->clearShippingAddress();
-				if (COrdersDelivered::cartInventoryCheck($CartObj, $ckzip->distribution_center))
+				if (COrdersDelivered::cartInventoryCheck($CartObj, $DAO_zipcodes->distribution_center))
 				{
 					$BoxesSurvived = true;
 					$CartObj->clearDeliveredBoxes();
 				}
 			}
 
-			$CartObj->storeChangeEvent($ckzip->distribution_center, $BoxesSurvived);
+			$CartObj->storeChangeEvent($DAO_zipcodes->distribution_center, $BoxesSurvived);
 			// Note: this call, if the DCs are different. will clear _delivered_boxes variable but not erase the stored Box array
 			$CartObj->addNavigationType(CTemplate::DELIVERED);
-			$CartObj->changeEventPostalCode($ckzip->zip);
+			$CartObj->changeEventPostalCode($DAO_zipcodes->zip);
 		}
 
 		$storeId = $CartObj->getStoreId();
