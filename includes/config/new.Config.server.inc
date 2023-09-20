@@ -187,13 +187,17 @@ switch (SERVER_ENV)
 		define("RECORD_NAVIGATION", true);
 		define("DD_THANK_YOU_DEBUG", false);
 
+		// ECommerce
+		define("PFP_TEST_MODE", true);
+		define("USE_CORPORATE_TEST_ACCOUNT", true);
+
 		define('DESIGNATE_AS_EMERGENCY_REPORTING_SERVER', false);
 
 		define("DEVELOPMENT_MODE", true); // In development mode Failed Assertions throw and exception
-		define("ALLOW_TV_OFFER_IF_PREVIOUS", true);  //***** update for live to false
+		define("ALLOW_TV_OFFER_IF_PREVIOUS", true);
 		define("DEBIT_GIFT_CARD_TESTMODE", true);
 
-		define('DEV_BASE_NAME', DD_SERVER_NAME); //
+		define('DEV_BASE_NAME', DD_SERVER_NAME);
 
 		// Site Behavior
 		define("ENABLE_SITE_ADMIN_TIMEOUT", false);
@@ -230,6 +234,10 @@ switch (SERVER_ENV)
 		define("RECORD_NAVIGATION", true); // Records every GET and POST - filters CHD - VERY useful but has overhead
 		define("DD_THANK_YOU_DEBUG", false);
 
+		// ECommerce
+		define("PFP_TEST_MODE", false);// Live = false
+		define("USE_CORPORATE_TEST_ACCOUNT", false);// Live = false
+
 		define('DESIGNATE_AS_EMERGENCY_REPORTING_SERVER', false);
 
 		define("DEVELOPMENT_MODE", false); // Live = false
@@ -249,6 +257,8 @@ switch (SERVER_ENV)
 		define("ENABLE_TC_DELAYED_PAYMENT_AGREE", true); // Live = true
 		define("USE_GLOBAL_SIDES_MENU", false); // Live = false
 		define("SHOW_SIDES_CATEGORY_ON_MENU", true);
+
+		define("AVALARA_API_ENDPOINT_USE_MOCK", false);
 
 		$gEnabledTracingCategories = array(
 			"CART" => false,
@@ -315,10 +325,6 @@ const MICROSOFT_APIKEY = '';
 // yahoo
 const YAHOO_CLIENTID = '';
 const YAHOO_SECRET = '';
-
-// ECommerce
-const PFP_TEST_MODE = false;//***** update for live to false
-const USE_CORPORATE_TEST_ACCOUNT = false;//***** update for live to false
 
 // FaceBook
 const FACEBOOK_APPID = false;  // Live appid = '', set to false to disable facebook integration
