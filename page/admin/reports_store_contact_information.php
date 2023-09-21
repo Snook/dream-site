@@ -222,6 +222,7 @@ class page_admin_reports_store_contact_information extends CPageAdminOnly {
 						a.postal_code
 						FROM user_to_franchise AS utf
 						INNER JOIN `user` AS u ON u.id = utf.user_id AND u.is_deleted = '0'
+						INNER JOIN franchise AS f ON f.id = utf.franchise_id AND f.active = " . (!isset($_GET["active"]) || !empty($_GET["active"]) ? 1 : 0) . " AND f.is_deleted = '0'
 						LEFT JOIN address AS a ON a.user_id = u.id AND a.is_deleted = '0' AND a.location_type = 'BILLING' 
 						WHERE utf.is_deleted = '0'
 						GROUP BY utf.user_id
@@ -259,7 +260,7 @@ class page_admin_reports_store_contact_information extends CPageAdminOnly {
 						COUNT(s.id) AS total_stores,
 						GROUP_CONCAT(s.home_office_id) AS home_office_ids
 						FROM user_to_franchise AS utf
-						INNER JOIN franchise AS f ON f.id = utf.franchise_id AND f.is_deleted = '0'
+						INNER JOIN franchise AS f ON f.id = utf.franchise_id AND f.active = " . (!isset($_GET["active"]) || !empty($_GET["active"]) ? 1 : 0) . " AND f.is_deleted = '0'
 						INNER JOIN `user` AS u ON u.id = utf.user_id AND u.is_deleted = '0'
 						LEFT JOIN store AS s ON s.franchise_id = f.id AND s.is_deleted = '0'
 						WHERE utf.is_deleted = '0'
@@ -267,8 +268,11 @@ class page_admin_reports_store_contact_information extends CPageAdminOnly {
 
 					while($franchiseInfo->fetch())
 					{
-						$owners[$franchiseInfo->user_id]['franchise_' . $franchiseInfo->franchise_id . '_franchise_name'] = $franchiseInfo->franchise_name;
-						$owners[$franchiseInfo->user_id]['franchise_' . $franchiseInfo->franchise_id . '_home_office_ids'] = $franchiseInfo->home_office_ids;
+						if (!empty($franchiseInfo->total_stores))
+						{
+							$owners[$franchiseInfo->user_id]['franchise_' . $franchiseInfo->franchise_id . '_franchise_name'] = $franchiseInfo->franchise_name;
+							$owners[$franchiseInfo->user_id]['franchise_' . $franchiseInfo->franchise_id . '_home_office_ids'] = $franchiseInfo->home_office_ids;
+						}
 					}
 
 					// setup section headers for store info
