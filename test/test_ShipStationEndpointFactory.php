@@ -4,7 +4,7 @@ require_once 'includes/api/shipping/shipstation/ShipStationEndpointFactory.php';
 require_once("DAO/BusinessObject/CStore.php");
 ///Good Config
 $storeObj = new CStore();
-$storeObj->id = 310;
+$storeObj->id = 315;
 $config = ShipStationEndpointFactory::getEndpoint($storeObj);
 
 echo $config->getEndpoint();

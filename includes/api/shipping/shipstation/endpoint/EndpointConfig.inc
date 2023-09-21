@@ -14,13 +14,9 @@ class EndpointConfig implements IEndpointConfig
 
 		if(defined('SHIPSTATION_API_ENDPOINT_'.$storeObj->id) && defined('SHIPSTATION_API_KEY_'.$storeObj->id) && defined('SHIPSTATION_API_SECRET_'.$storeObj->id))
 		{
-			$endpoint_c = constant('SHIPSTATION_API_ENDPOINT_'.$storeObj->id) ;
-			$key_c = constant('SHIPSTATION_API_KEY_'.$storeObj->id) ;
-			$secret_c = constant('SHIPSTATION_API_SECRET_'.$storeObj->id) ;
-
-			$this->setEndpoint($endpoint_c);
-			$this->setApiKey($key_c);
-			$this->setApiSecret($secret_c) ;
+			$this->setEndpoint(constant('SHIPSTATION_API_ENDPOINT_'.$storeObj->id));
+			$this->setApiKey(constant('SHIPSTATION_API_KEY_'.$storeObj->id));
+			$this->setApiSecret(constant('SHIPSTATION_API_SECRET_'.$storeObj->id)) ;
 			$this->setAuthorization('Basic ' . base64_encode($this->getApiKey() . ':' . $this->getApiSecret()));
 		}
 		else
