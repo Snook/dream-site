@@ -26,18 +26,19 @@ class TransientDataStore
 	/**
 	 * @param $data_class enum (SHIPPING_RATE_CACHE,TAX_RATE_CACHE,SHIPPING_TRACKING_CACHE,SHIPPING_SHIP_NOTIFICATION_DONE,SHIPPING_SHIP_NOTIFICATION_NEW)
 	 * @param $data_reference
+	 * @param $limit number of rows to fetch
 	 *
 	 * @return associative array (successful=>boolean, error_message=>string, data_class=string, data_id=long, data=blob,
 	 * expires=timestamp)
 	 */
-	public static function retrieveData($data_class, $data_reference = null)
+	public static function retrieveData($data_class, $data_reference = null, $limit = 1)
 	{
 		$db = self::connect();
 		$result = array();
 
 		$dataRefSearch = is_null($data_reference) ? '' : "and data_reference = '{$data_reference}'";
 
-		$sql = "select id, data_reference, data_class, data, expires, timestamp_created from transient_data_store where data_class = '{$data_class}' " . $dataRefSearch ." limit 1";
+		$sql = "select id, data_reference, data_class, data, expires, timestamp_created from transient_data_store where data_class = '{$data_class}' " . $dataRefSearch ." limit ".$limit;
 		$dbresult = mysqli_query($db, $sql);
 
 		if (!$dbresult)
