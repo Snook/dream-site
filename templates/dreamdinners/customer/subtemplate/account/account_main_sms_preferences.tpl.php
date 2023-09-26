@@ -22,7 +22,7 @@
 				<div class="col-12 pt-2">
 					<span id="current_mobile_target">Current Mobile number: <?php echo CTemplate::telephoneFormat($this->user->preferences[CUser::TEXT_MESSAGE_TARGET_NUMBER]['value'] );?></span>
 				</div>
-				<div  class="col-12 font-size-small p-2">Your account is currently pending. Please reset your account by clicking the button above. This will send you an opt-out message. You can then opt-in by providing your mobile number and selecting your preferences.</div>
+				<div  class="col-12 font-size-small p-2">Your account is currently pending. Please reset your account by clicking the button above. This will send you an opt-out message. You can then opt in by providing your mobile number and selecting your preferences.</div>
 
 			<?php } else { ?>
 				<div class="col-12">

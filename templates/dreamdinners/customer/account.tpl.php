@@ -211,7 +211,7 @@
 
 					<div class="form-group col-md-6 col-xl-4 bg-green-dark text-white p-3">
 
-						<h2 class="font-weight-bold font-size-medium-small text-uppercase text-left">Print Outs for your Store Orders						</h2>
+						<h2 class="font-weight-bold font-size-medium-small text-uppercase text-left">Print-Outs for your Store Orders						</h2>
 						<p class="font-size-small">Please select from the list below, what items you would like to have printed out for you at your session.</p>
 
 						<div class="ml-4">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"<?php if (empty($this->itemscope) || $this->itemscope !== false) { ?> itemscope itemtype="http://schema.org/<?php echo (!empty($this->itemscope)) ? $this->itemscope : 'Article';?>"<?php } ?> prefix="fb: http://www.facebook.com/2008/fbml">
+<html lang="en"<?php if (empty($this->itemscope) || $this->itemscope !== false) { ?> itemscope itemtype="https://schema.org/<?php echo (!empty($this->itemscope)) ? $this->itemscope : 'Article';?>"<?php } ?> prefix="fb: https://www.facebook.com/2008/fbml">
 <head>
 	<title lang="en-us"><?php echo (!empty($this->page_title)) ? $this->page_title . ' - Dream Dinners' : 'Dream Dinners - The Original Meal Kit - Easy, Homemade Meals'; ?></title>
 	<?php if (!empty($this->no_cache))  { //always refresh order pages ?>
@@ -23,7 +23,7 @@
 	<meta itemprop="description" content="<?php echo (!empty($this->og_description)) ? $this->og_description : 'Dream Dinners provides everything you need to serve homemade dinners for your family.'; ?>" />
 	<meta itemprop="image" content="<?php echo (!empty($this->og_image)) ? $this->og_image : IMAGES_PATH . '/style/share_dreamdinners.png'; ?>" />
 	<link rel="canonical" href="<?php echo (!empty($this->canonical_url)) ?  $this->canonical_url : HTTPS_BASE . str_replace('_', '-', $this->page); ?>" />
-	<link rel="alternate" type="application/rss+xml" title="Dream Dinners Blog" href="http://blog.dreamdinners.com/feed/" />
+	<link rel="alternate" type="application/rss+xml" title="Dream Dinners Blog" href="https://blog.dreamdinners.com/feed/" />
 	<link rel="icon" href="<?php echo IMAGES_PATH; ?>/style/favicon/favicon.ico" type="image/x-icon" />
 	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="<?php echo IMAGES_PATH; ?>/style/favicon/apple-touch-icon-57x57.png" />
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo IMAGES_PATH; ?>/style/favicon/apple-touch-icon-114x114.png" />
