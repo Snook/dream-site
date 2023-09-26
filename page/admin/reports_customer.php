@@ -1662,6 +1662,57 @@ class page_admin_reports_customer extends CPageAdminOnly
 			}
 			else
 			{
+				if ($sectionSwitches['order_type'])
+				{
+
+					if ($sessionSubTypes == CSession::DELIVERY)
+					{
+						$sessionTypes = 'DELIVERY';
+					}
+
+					if ($sessionSubTypes == CSession::WALK_IN)
+					{
+						$sessionTypes = CSession::WALK_IN;
+					}
+
+					if ($sessionTypes == 'SPECIAL_EVENT')
+					{
+						if ($tarray['order_type'] == 'INTRO')
+						{
+							$tarray['order_type'] = 'MFY - STARTER PACK';
+						}
+						else
+						{
+							$tarray['order_type'] = 'MFY';
+						}
+					}
+					if ($sessionTypes == 'DELIVERY')
+					{
+						if ($tarray['order_type'] == 'INTRO')
+						{
+							$tarray['order_type'] = 'DELIVERY - STARTER PACK';
+						}
+						else
+						{
+							$tarray['order_type'] = 'DELIVERY';
+						}
+					}
+					if ($sessionTypes == CSession::WALK_IN)
+					{
+						if ($tarray['order_type'] == COrders::INTRO)
+						{
+							$tarray['order_type'] = 'WALK-IN - STARTER PACK';
+						}
+						else
+						{
+							$tarray['order_type'] = 'WALK-IN';
+						}
+					}
+					else if ($tarray['order_type'] == 'INTRO')
+					{
+						$tarray['order_type'] = 'STARTER PACK';
+					}
+				}
 
 			}
 
