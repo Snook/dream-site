@@ -37,7 +37,9 @@ define('TIMESTAMPNOW', date('Y-m-d H:i:s', TIMENOW));
 
 const SLOT_STEALING_CUTOFF_MENU = 124;
 
-const JAVASCRIPT_CSS_VERSION = 675;
+$_config_ini = parse_ini_file(__DIR__ .'/config/config.ini');
+
+define("JAVASCRIPT_CSS_VERSION", $_config_ini['version']);
 
 const FADMIN_TIMEOUT = 15; // set minutes to enable timout for everyone but customers, false to disable
 
@@ -59,8 +61,8 @@ define('RELATIVE_IMAGES_PATH', 'theme/' . THEME . '/images');
 define('IMAGES_PATH', HIGH_CAP_IMAGE_BASE . RELATIVE_IMAGES_PATH);
 define('ADMIN_IMAGES_PATH', HIGH_CAP_IMAGE_BASE . 'theme/' . THEME . '/images/admin');
 define('EMAIL_IMAGES_PATH', HTTPS_BASE . 'theme/' . THEME . '/images');
-define('CSS_PATH', WEB_BASE . 'theme/' . THEME . '/css/' . JAVASCRIPT_CSS_VERSION);
-define('SCRIPT_PATH', WEB_BASE . 'theme/' . THEME . '/scripts/' . JAVASCRIPT_CSS_VERSION);
+define('CSS_PATH', WEB_BASE . 'theme/' . THEME . '/css');
+define('SCRIPT_PATH', WEB_BASE . 'theme/' . THEME . '/scripts');
 define('MEDIA_PATH', WEB_BASE . 'media');
 
 const USE_BUG_REPORT_PAGE = true;

@@ -96,7 +96,7 @@ class page_admin_franchise_details extends CPageAdminOnly
 			if ($_POST['action'] == 'deleteStore' && isset($_POST['store_id']) && $_POST['store_id'])
 			{
 				$store = DAO_CFactory::create('store');
-				$store->id = CGPC::do_clean($_REQUEST['store_id'],TYPE_INT);
+				$store->id = CGPC::do_clean($_REQUEST['store_id'], TYPE_INT);
 				$store->delete();
 
 				$tpl->setStatusMsg('The store has been deleted');
@@ -113,9 +113,9 @@ class page_admin_franchise_details extends CPageAdminOnly
 			$franchise->find(true);
 
 			$franchiseUpdated = clone($franchise);
-			$franchiseUpdated->franchise_name = CGPC::do_clean($_REQUEST['franchise_name'],TYPE_STR);
-			$franchiseUpdated->franchise_description = CGPC::do_clean($_REQUEST['franchise_description'],TYPE_STR);
-			$franchiseUpdated->active = CGPC::do_clean($_REQUEST['active'],TYPE_INT);
+			$franchiseUpdated->franchise_name = CGPC::do_clean($_REQUEST['franchise_name'], TYPE_STR);
+			$franchiseUpdated->franchise_description = CGPC::do_clean($_REQUEST['franchise_description'], TYPE_STR);
+			$franchiseUpdated->active = CGPC::do_clean($_REQUEST['active'], TYPE_INT);
 			$franchiseUpdated->update($franchise);
 
 			$tpl->assign('franchise', $franchiseUpdated->toArray());
@@ -183,6 +183,7 @@ class page_admin_franchise_details extends CPageAdminOnly
 		$store->orderBy('active DESC, state_id ASC');
 		$store->find();
 
+		$storesArray = array();
 		while ($store->fetch())
 		{
 			$storesArray[$store->id] = $store->toArray();
