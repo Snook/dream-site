@@ -2173,47 +2173,45 @@ class CStore extends DAO_Store
 	 */
 	function getMarkUpMultiObj($menuId)
 	{
-		if (!$this->id)
+		if (!empty($this->id))
 		{
-			throw new Exception('store id not set for mark up lookup');
-		}
-
-		if (!$this->_markupMultiFetched)
-		{
-			$MarkUp = DAO_CFactory::create('mark_up_multi');
-			$MarkUp->store_id = $this->id;
-			$num = $MarkUp->findActive($menuId);
-			if ($num)
+			if (!$this->_markupMultiFetched)
 			{
-				$MarkUp->fetch();
-
-				//				$DAO_order_minimum = DAO_CFactory::create('order_minimum');
-				//				$DAO_order_minimum->menu_id = $menuId;
-				//				$DAO_order_minimum->store_id = $this->id;
-				//				$DAO_order_minimum->find(true);
-
-				$DAO_order_minimum = COrderMinimum::fetchInstance(COrderMinimum::STANDARD_ORDER_TYPE, $this->id, $menuId);
-
-				if ($DAO_order_minimum->isZeroDollarAssembly())
+				$MarkUp = DAO_CFactory::create('mark_up_multi');
+				$MarkUp->store_id = $this->id;
+				$num = $MarkUp->findActive($menuId);
+				if ($num)
 				{
-					$MarkUp->setZeroDollarAssembly();
+					$MarkUp->fetch();
+
+					//				$DAO_order_minimum = DAO_CFactory::create('order_minimum');
+					//				$DAO_order_minimum->menu_id = $menuId;
+					//				$DAO_order_minimum->store_id = $this->id;
+					//				$DAO_order_minimum->find(true);
+
+					$DAO_order_minimum = COrderMinimum::fetchInstance(COrderMinimum::STANDARD_ORDER_TYPE, $this->id, $menuId);
+
+					if ($DAO_order_minimum->isZeroDollarAssembly())
+					{
+						$MarkUp->setZeroDollarAssembly();
+					}
+
+					$this->_markupMultiObj = $MarkUp;
 				}
 
-				$this->_markupMultiObj = $MarkUp;
+				$this->_markupMultiFetched = true;
 			}
 
-			$this->_markupMultiFetched = true;
-		}
+			//we could possibly get more than one if someone places an order simultaneously while the owner
+			//sets a new mark up value, so we'll just use the most recent one
+			//			if ( $rslt && ($rslt > 1) ) {
+			//				throw new exception('store has more than one current mark up');
+			//			}
 
-		//we could possibly get more than one if someone places an order simultaneously while the owner
-		//sets a new mark up value, so we'll just use the most recent one
-		//			if ( $rslt && ($rslt > 1) ) {
-		//				throw new exception('store has more than one current mark up');
-		//			}
-
-		if (isset($this->_markupMultiObj))
-		{
-			return $this->_markupMultiObj;
+			if (isset($this->_markupMultiObj))
+			{
+				return $this->_markupMultiObj;
+			}
 		}
 
 		return null;

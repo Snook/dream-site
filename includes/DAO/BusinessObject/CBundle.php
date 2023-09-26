@@ -29,6 +29,7 @@ class CBundle extends DAO_Bundle
 	public $menu_item_array = null;
 
 	public $store_id = null;
+	public $info;
 
 	function __construct()
 	{
@@ -292,16 +293,16 @@ class CBundle extends DAO_Bundle
 			$init_DAO_store = $CartObj->getOrder()->getStore();
 		}
 
+		$DAO_store = DAO_CFactory::create('store', true);
+
 		if ((empty($init_DAO_store) || !$init_DAO_store->isDistributionCenter()) && !empty($defaultStoreId))
 		{
-			$init_DAO_store = DAO_CFactory::create('store', true);
 			$init_DAO_store->id = $defaultStoreId;
 			$init_DAO_store->find_DAO_store(true);
 		}
 
-		if ($init_DAO_store->isDistributionCenter())
+		if (!empty($init_DAO_store) && $init_DAO_store->isDistributionCenter())
 		{
-			$DAO_store = DAO_CFactory::create('store', true);
 			$DAO_store->id = $init_DAO_store->parent_store_id;
 			$DAO_store->find_DAO_store(true);
 		}
@@ -442,6 +443,8 @@ class CBundle extends DAO_Bundle
 		$menu_item->joinAdd($bundle_to_menu_item, array('useWhereAsOn' => true));
 		$menu_item->orderBy("bundle_to_menu_item.ordering");
 		$menu_item->find();
+
+		$menuItemInfo = array();
 
 		while ($menu_item->fetch())
 		{
@@ -663,11 +666,10 @@ class CBundle extends DAO_Bundle
 			}
 
 			// Special Inventory handling for Sides & Sweets
+			$menuItemInfo['bundle'][$i]['remaining_servings'] = $menuItemInfo['bundle'][$i]['override_inventory'] - $menuItemInfo['bundle'][$i]['number_sold'];
+
 			if ($daoMenuItem->menu_item_category_id == 9)
 			{
-
-				$menuItemInfo['bundle'][$i]['remaining_servings'] = $menuItemInfo['bundle'][$i]['override_inventory'] - $menuItemInfo['bundle'][$i]['number_sold'];
-
 				if ($menuItemInfo['bundle'][$i]['remaining_servings'] < 1)
 				{
 					$menuItemInfo['bundle'][$i]['this_type_out_of_stock'] = true;
@@ -690,8 +692,6 @@ class CBundle extends DAO_Bundle
 			}
 			else
 			{
-				$menuItemInfo['bundle'][$i]['remaining_servings'] = $menuItemInfo['bundle'][$i]['override_inventory'] - $menuItemInfo['bundle'][$i]['number_sold'];
-
 				if ($menuItemInfo['bundle'][$i]['remaining_servings'] < $menuItemInfo['bundle'][$i]['servings_per_item'])
 				{
 					$menuItemInfo['bundle'][$i]['this_type_out_of_stock'] = true;
@@ -741,9 +741,9 @@ class CBundle extends DAO_Bundle
 	}
 
 	/**
-	 * @param        $recipe_id         required, but will only be used if the menu item name is not passed or
-	 *                                  if the menu item name does not contain 'shiftsetgo'
-	 * @param string $menu_item_name    optional menu item name, function will return tru if it contains 'shiftsetgo' case-insensitive
+	 * @param        $recipe_id       //  required, but will only be used if the menu item name is not passed or
+	 *                                //  if the menu item name does not contain 'shiftsetgo'
+	 * @param string $menu_item_name  //  optional menu item name, function will return tru if it contains 'shiftsetgo' case-insensitive
 	 *
 	 * @return bool
 	 */
@@ -766,7 +766,7 @@ class CBundle extends DAO_Bundle
 	}
 
 	/**
-	 * @param        $asArray if true will return an array, otherwise will return comma seperated string
+	 * @param        $asArray  // if true will return an array, otherwise will return comma seperated string
 	 *
 	 * @return mixed array or string depending on requested, string is nothing is passed
 	 */

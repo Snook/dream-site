@@ -113,6 +113,7 @@ class CMenuItem extends DAO_Menu_item
 
 	public $DAO_food_survey;
 	public $DAO_food_survey_comments;
+	public $menu_id;
 
 	function __construct()
 	{
@@ -306,8 +307,9 @@ class CMenuItem extends DAO_Menu_item
 	}
 
 	/**
-	 * @param $pricingType a CMenuItem::PricingType
+	 * Input a CMenuItem::PricingType and return an equivalent serving count
 	 *
+	 * @param $pricingType
 	 * @return int numeric serving size, will return 0 if no match
 	 */
 	static public function translatePricingTypeToNumeric($pricingType)
@@ -328,8 +330,9 @@ class CMenuItem extends DAO_Menu_item
 	}
 
 	/**
-	 * @param $pricingType a CMenuItem::PricingType
+	 * Input a CMenuItem::PricingType and return an equivalent serving range
 	 *
+	 * @param $pricingType
 	 * @return string serving range, will return 0 if no match
 	 */
 	static public function translatePricingTypeToServes($pricingType)
@@ -900,7 +903,7 @@ class CMenuItem extends DAO_Menu_item
 		$QObj->query("SELECT RELEASE_LOCK('lock_for_$item_id')");
 	}
 
-	function waitForFreeMenuItemLock($item_id)
+	static function waitForFreeMenuItemLock($item_id)
 	{
 		sleep(10);
 		$locked = true;
@@ -1608,7 +1611,7 @@ class CMenuItem extends DAO_Menu_item
 		}
 
 		$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
-			'menu_to_menu_item_store_id' => $DAO_store->id,
+			'menu_to_menu_item_store_id' => (!empty($DAO_store)) ? $DAO_store->id : 'NULL',
 			'exclude_menu_item_category_core' => false,
 			'exclude_menu_item_category_efl' => false,
 			'exclude_menu_item_category_sides_sweets' => false,
@@ -1628,6 +1631,7 @@ class CMenuItem extends DAO_Menu_item
 		);
 
 		$markup = $DAO_store->getMarkUpMultiObj($DAO_menu->id);
+
 		$bundleParents = array();
 		$sideStationBundleInfo = array();
 
