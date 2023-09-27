@@ -17,8 +17,8 @@
 		<div class="row mb-4">
 			<div class="col">
 				<div class="list-group list-group-horizontal mb-2">
-					<a class="list-group-item list-group-item-action" href="?page=print&amp;menu=<?php echo $this->current_menu_id; ?>&amp;store=<?php echo $this->store_id; ?>" target="Print_Menu">Print Menu <?php echo $this->current_menu_name; ?></a>
-					<a class="list-group-item list-group-item-action" href="?page=print&amp;menu=<?php echo $this->next_menu_id; ?>&amp;store=<?php echo $this->store_id; ?>"  target="Print_Menu">Print Menu <?php echo $this->next_menu_name; ?></a>
+					<a class="list-group-item list-group-item-action" href="/?page=print&amp;menu=<?php echo $this->current_menu_id; ?>&amp;store=<?php echo $this->store_id; ?>" target="Print_Menu">Print Menu <?php echo $this->current_menu_name; ?></a>
+					<a class="list-group-item list-group-item-action" href="/?page=print&amp;menu=<?php echo $this->next_menu_id; ?>&amp;store=<?php echo $this->store_id; ?>"  target="Print_Menu">Print Menu <?php echo $this->next_menu_name; ?></a>
 				</div>
 				<div class="list-group">
 					<a class="list-group-item list-group-item-action" href="https://www.bargreen.com/" target="_blank">Bargreen Ellingson - For ordering additional smallwares</a>

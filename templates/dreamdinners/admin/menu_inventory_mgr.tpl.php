@@ -251,7 +251,7 @@
 											<!-- Title -->
 											<td nowrap align="left" class="ME_zebra_even" style="padding: 2px;">
 												<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $planNode['id'] . ' &bull; Recipe ID: ' . $planNode['recipe_id'] . '"' : ''; ?> id="rname_<?= $planNode['recipe_id'] ?>"><?= $planNode['display_title'] ?> (<?php echo $planNode['recipe_id'];?>)</span>
-												<a href="?page=item&amp;recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" data-tooltip="Item Page" target="_blank">&gt;</a>
+												<a href="/?page=item&amp;recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" data-tooltip="Item Page" target="_blank">&gt;</a>
 												<?php if (!empty($this->storeInfo->supports_ltd_roundup) && $planNode['ltd_menu_item_value']) { ?><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/menu-icon07.png" class="img_valign" data-tooltip="$1 is added to price to be donated to DDF" /><?php } ?>
 											</td>
 
@@ -401,7 +401,7 @@
 
 								<td nowrap align="left" class="ME_zebra_even" style="padding: 2px;">
 									<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $planNode['id'] . ' &bull; Recipe ID: ' . $planNode['recipe_id'] . '"' : ''; ?>><?= $planNode['display_title'] ?> (<?php echo $planNode['recipe_id'];?>)</span>
-									<a href="?page=item&amp;recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" data-tooltip="Item Page" target="_blank">&gt;</a>
+									<a href="/?page=item&amp;recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" data-tooltip="Item Page" target="_blank">&gt;</a>
 								</td>
 							<?php } ?>
 
@@ -524,7 +524,7 @@
 										(<?= $ctsItem['subcategory_label'] ?>)&nbsp;
 
 										<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $ctsItem['id'] . ' &bull; Recipe ID: ' . $ctsItem['recipe_id'] . '"' : ''; ?>><?= $ctsItem['display_title'] ?> (<?php echo $ctsItem['recipe_id'];?>)</span>
-										<a href="?page=item&amp;recipe=<?php echo $ctsItem['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" data-tooltip="Item Page" target="_blank">&gt;</a>
+										<a href="/?page=item&amp;recipe=<?php echo $ctsItem['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" data-tooltip="Item Page" target="_blank">&gt;</a>
 
 										<div id="rec_id_<?= $ctsItem['id'] ?>" style="display:none"><?= $ctsItem['recipe_id'] ?></div>
 									</td>
@@ -582,7 +582,7 @@
 										(<?= $ctsItem['subcategory_label'] ?>)&nbsp;
 
 										<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $ctsItem['id'] . ' &bull; Recipe ID: ' . $ctsItem['recipe_id'] . '"' : ''; ?>><?= $ctsItem['display_title'] ?> (<?php echo $ctsItem['recipe_id'];?>)</span>
-										<a href="?page=item&amp;recipe=<?php echo $ctsItem['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" data-tooltip="Item Page" target="_blank">&gt;</a>
+										<a href="/?page=item&amp;recipe=<?php echo $ctsItem['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" data-tooltip="Item Page" target="_blank">&gt;</a>
 
 										<div id="rec_id_<?= $ctsItem['id'] ?>" style="display:none"><?= $ctsItem['recipe_id'] ?></div>
 									</td>

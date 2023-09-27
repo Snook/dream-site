@@ -56,11 +56,11 @@
 				</td>
 				<td colspan="5" style="text-align:right">
 					<?php if ($order['session_start'] > '2014-11-01 00:00:00' && $order['status'] != CBooking::CANCELLED && $order['status'] != CBooking::SAVED) { ?>
-						<?php if( !$is_delivered ){ ?><a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;freezer=true" class="button" target="_blank">Freezer Sheet</a><?php } ?>
-						<a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;nutrition=true" class="button" target="_blank">Nutritionals</a>
+						<?php if( !$is_delivered ){ ?><a href="/?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;freezer=true" class="button" target="_blank">Freezer Sheet</a><?php } ?>
+						<a href="/?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;nutrition=true" class="button" target="_blank">Nutritionals</a>
 
 						<?php if (array_key_exists($order['idmenu'] + 1, $this->active_menus)) { ?>
-							<a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;core=true" class="button" target="_blank">Next Month's Menu</a>
+							<a href="/?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;core=true" class="button" target="_blank">Next Month's Menu</a>
 						<?php } ?>
 					<?php } ?>
 
