@@ -60,7 +60,7 @@ class page_admin_order_history extends CPageAdminOnly
 		$tpl = CApp::instance()->template();
 
 		$id = false;
-		
+
 		if (isset($_REQUEST['id']) && $_REQUEST['id'])
 		{
 			$id = CGPC::do_clean($_REQUEST['id'], TYPE_INT);
@@ -69,13 +69,13 @@ class page_admin_order_history extends CPageAdminOnly
 		if (!$id)
 		{
 			$tpl->setErrorMsg("The user id is invalid.");
-			
+
 			if (isset($_REQUEST['back']))
 			{
 				CApp::bounce($_REQUEST['back']);
 			}
 
-			CApp::bounce("main.php?page=admin_main");
+			CApp::bounce("/?page=admin_main");
 		}
 
 		if (isset($_REQUEST['back']))
@@ -84,7 +84,7 @@ class page_admin_order_history extends CPageAdminOnly
 		}
 		else
 		{
-			$tpl->assign('back', 'main.php?page=admin_user_details&amp;id=' . $id);
+			$tpl->assign('back', '/?page=admin_user_details&amp;id=' . $id);
 		}
 
 		$User = DAO_CFactory::create('user');
@@ -92,13 +92,13 @@ class page_admin_order_history extends CPageAdminOnly
 		if (!$User->find(true))
 		{
 			$tpl->setErrorMsg("The user could not be found.");
-				
+
 			if (isset($_REQUEST['back']))
 			{
 				CApp::bounce($_REQUEST['back']);
 			}
-				
-			CApp::bounce("main.php?page=admin_main");
+
+			CApp::bounce("/?page=admin_main");
 		}
 
 		$tpl->assign('user', $User->toArray());
@@ -117,17 +117,17 @@ class page_admin_order_history extends CPageAdminOnly
 		$tpl->assign('page_cur', 0);
 
 		$tpl->assign('active_menus', CMenu::getActiveMenuArray());
-		
-		
+
+
 		if (isset($_REQUEST['send_test_reminder_email']) && $_REQUEST['send_test_reminder_email'] = true)
 		{
-		    
+
 		    if (isset($_REQUEST['order_id']) && is_numeric($_REQUEST['order_id']))
 		    {
 		        $order_id = $_REQUEST['order_id'];
-		        
+
     		   $Booking =  DAO_CFactory::create('booking');
-    		    
+
     		    $Booking->query("SELECT
     			s.id AS session_id,
     			s.session_start,
@@ -154,14 +154,14 @@ class page_admin_order_history extends CPageAdminOnly
     			LEFT JOIN menu AS m ON m.id = s.menu_id AND m.is_deleted = '0'
     			WHERE b.order_id = $order_id AND b.`status` = 'ACTIVE' AND b.is_deleted = '0'");
     		    }
-    		    
+
     		    if ($Booking->fetch())
     		    {
     		        $Booking->send_reminder_email();
     		    }
-		    
+
 		}
-		    
+
 	}
 
 	public static function fetchOrderHistory($user_id, $limit = 15){
@@ -323,7 +323,7 @@ class page_admin_order_history extends CPageAdminOnly
 		return $Orders;
 	}
 
-		
+
 }
 
 ?>

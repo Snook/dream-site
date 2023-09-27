@@ -17,10 +17,10 @@
 
 		<div class="row my-4">
 			<div class="col-4 offset-4 text-center ">
-				<h1><a href="main.php?page=admin_menu_editor">Menu Editor</a></h1>
+				<h1><a href="/?page=admin_menu_editor">Menu Editor</a></h1>
 			</div>
 			<div class="col-4 text-right">
-				<a href="main.php?page=admin_menu_inventory_mgr&tabs=menu.specials" class="btn btn-primary btn-sm" id="inv-nav-button">Inventory Manager</a>
+				<a href="/?page=admin_menu_inventory_mgr&tabs=menu.specials" class="btn btn-primary btn-sm" id="inv-nav-button">Inventory Manager</a>
 			</div>
 		</div>
 
@@ -306,7 +306,7 @@
 												</td>
 
 												<td class="align-middle text-left">
-													<a href="main.php?page=item&amp;recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" class="link-dinner-details" data-tooltip="Dinner Details"
+													<a href="/item?recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" class="link-dinner-details" data-tooltip="Dinner Details"
 													   data-recipe_id="<?php echo $planNode['recipe_id']; ?>" data-store_id="<?php echo $this->storeInfo->id; ?>" data-menu_item_id="<?php echo $planNode['id']; ?>" data-menu_id="<?php echo $this->menuInfo['menu_id']; ?>"
 													   target="_blank"><i class="fas fa-file-alt font-size-medium-small mr-1"></i></a>
 													<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $planNode['id'] . ' &bull; Recipe ID: ' . $planNode['recipe_id'] . '"' : ''; ?>>
@@ -418,7 +418,7 @@
 												</td>
 
 												<td class="align-middle text-left">
-													<a href="main.php?page=item&amp;recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" class="link-dinner-details" data-tooltip="Dinner Details"
+													<a href="/item?recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" class="link-dinner-details" data-tooltip="Dinner Details"
 													   data-recipe_id="<?php echo $planNode['recipe_id']; ?>" data-store_id="<?php echo $this->storeInfo->id; ?>" data-menu_item_id="<?php echo $planNode['id']; ?>" data-menu_id="<?php echo $this->menuInfo['menu_id']; ?>"
 													   target="_blank"><i class="fas fa-file-alt font-size-medium-small mr-1"></i></a>
 													<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $planNode['id'] . ' &bull; Recipe ID: ' . $planNode['recipe_id'] . '"' : ''; ?>>
@@ -550,7 +550,7 @@
 											</td>
 
 											<td class="align-middle text-left">
-												<a href="main.php?page=item&amp;recipe=<?php echo $ctsItem['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" class="link-dinner-details" data-tooltip="Dinner Details"
+												<a href="/item?recipe=<?php echo $ctsItem['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id'];?>" class="link-dinner-details" data-tooltip="Dinner Details"
 												   data-recipe_id="<?php echo $ctsItem['recipe_id']; ?>" data-store_id="<?php echo $this->storeInfo->id; ?>" data-menu_item_id="<?php echo $ctsItem['id']; ?>" data-menu_id="<?php echo $this->menuInfo['menu_id']; ?>"
 												   target="_blank"><i class="fas fa-file-alt font-size-medium-small mr-1"></i></a>
 												<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $ctsItem['id'] . ' &bull; Recipe ID: ' . $ctsItem['recipe_id'] . '"' : ''; ?>>

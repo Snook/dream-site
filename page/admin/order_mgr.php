@@ -113,7 +113,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			if (empty($_REQUEST['user']) || !is_numeric($_REQUEST['user']))
 			{
 				$tpl->setErrorMsg("There was a problem with the user ID specified.");
-				CApp::bounce("main.php?page=admin_main");
+				CApp::bounce("/?page=admin_main");
 			}
 
 			$this->originalOrder = DAO_CFactory::create('orders');
@@ -139,14 +139,14 @@ class page_admin_order_mgr extends CPageAdminOnly
 					if ($e->getCode() == processor_admin_order_mgr_processor::dd_general_exception_code && strpos($e->getMessage(), "no open slots") !== false)
 					{
 						$tpl->setErrorMsg("The session has no open slots for this order. Please return to the Sessions and Menu Page and select a new session.");
-						CApp::bounce("main.php?page=admin_main&session=" . $_POST['session']);
+						CApp::bounce("/?page=admin_main&session=" . $_POST['session']);
 					}
 				}
 
 				// success at this point so refresh the page with the new order id
 
 				$orderID = $processor->getOrderID();
-				CApp::bounce("main.php?page=admin_order_mgr&order=" . $orderID);
+				CApp::bounce("/?page=admin_order_mgr&order=" . $orderID);
 			}
 		}
 		else
@@ -158,7 +158,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			if (!$this->originalOrder->find(true))
 			{
 				$tpl->setErrorMsg("An order with the id " . $this->originalOrder->id . " was not found. Please double check the order number, if the issue persists, please contact support.");
-				CApp::bounce("main.php?page=admin_main");
+				CApp::bounce("/?page=admin_main");
 			}
 
 			$booking = DAO_CFactory::create('booking');
@@ -185,7 +185,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				else
 				{
 					$tpl->setErrorMsg("There was a problem with the order ID specified.");
-					CApp::bounce("main.php?page=admin_main");
+					CApp::bounce("/?page=admin_main");
 					// TODO: or we could leave them here with a NEW order
 				}
 			}
@@ -244,7 +244,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			}
 			else
 			{
-				CApp::bounce('main.php?page=admin_main');
+				CApp::bounce('/?page=admin_main');
 			}
 		}
 
@@ -259,12 +259,12 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 		if ($this->orderState == 'NEW' && $this->daoStore->store_type == CStore::DISTRIBUTION_CENTER)
 		{
-			CApp::bounce('main.php?page=admin_order_mgr_delivered&user=' . $this->originalOrder->user_id);
+			CApp::bounce('/?page=admin_order_mgr_delivered&user=' . $this->originalOrder->user_id);
 		}
 
 		if (!CStore::userHasAccessToStore($this->daoStore->id))
 		{
-			CApp::bounce('main.php?page=admin_main');
+			CApp::bounce('/?page=admin_main');
 		}
 
 		if (CUser::getCurrentUser()->isFranchiseAccess() && $this->orderState != 'NEW')
@@ -275,7 +275,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 				$storeName = $this->daoStore->store_name;
 				$tpl->setErrorMsg("This order (#{$this->originalOrder->id}) was placed at a different store. Please change to the $storeName store to edit it.");
-				CApp::bounce('main.php?page=admin_main');
+				CApp::bounce('/?page=admin_main');
 			}
 		}
 
@@ -331,7 +331,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				unset($_GET['back']);
 				unset($tpl->back);
 
-				CApp::bounce('main.php?page=admin_order_mgr_delivered&order=' . $this->originalOrder->id);
+				CApp::bounce('/?page=admin_order_mgr_delivered&order=' . $this->originalOrder->id);
 			}
 
 			$Form->AddElement(array(
@@ -2272,9 +2272,9 @@ class page_admin_order_mgr extends CPageAdminOnly
 						COrders::sendEditedOrderConfirmationEmail($this->User, $this->originalOrder);
 					}
 
-					$tpl->assign('back', "main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+					$tpl->assign('back', "/?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 
-					CApp::bounce("main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+					CApp::bounce("/?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 				}
 				catch (Exception $e)
 				{
@@ -2746,9 +2746,9 @@ class page_admin_order_mgr extends CPageAdminOnly
 						COrders::sendEditedOrderConfirmationEmail($this->User, $this->originalOrder);
 					}
 
-					$tpl->assign('back', "main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+					$tpl->assign('back', "/?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 
-					CApp::bounce("main.php?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
+					CApp::bounce("/?page=admin_order_mgr_thankyou&order=" . $this->originalOrder->id);
 				}
 				catch (Exception $e)
 				{
