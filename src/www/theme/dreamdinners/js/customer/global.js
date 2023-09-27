@@ -331,7 +331,7 @@ function showMap(address)
 		height: 580,
 		modal: false,
 		resizable: true,
-		message: '<iframe width="100%" height="97%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="//maps.google.com/maps?q=Dream%20Dinners%20' + encodeURIComponent(address) + '&amp;hnear=Dream%20Dinners%20' + encodeURIComponent(address) + '&amp;f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;&amp;ie=UTF8&amp;hq=&amp;t=m3&amp;spn=0.02878,0.054932&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>'
+		message: '<iframe width="100%" height="97%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="//maps.google.com/maps?q=Dream%20Dinners%20' + encodeURIComponent(address) + '&amp;hnear=Dream%20Dinners%20' + encodeURIComponent(address) + '&amp;f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;ie=UTF8&amp;hq=&amp;t=m3&amp;spn=0.02878,0.054932&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>'
 	});
 }
 

@@ -160,7 +160,7 @@ if( !function_exists('translateOrderQuantityType')){
 								</li-->
 								<li>
 									<p style="font-size: inherit;display:inline;"><a href="/?page=admin_reports_customer_menu_item_labels&amp;labels_per_sheet=4&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>&amp;suppressFastlane=true" target="_blank">Labels</a> &bull;
-										<a href="/?page=admin_reports_customer_menu_item_labels&amp;labels_per_sheet=4&amp;&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>&amp;suppressFastlane=false" target="_blank">w/ FL</a>
+										<a href="/?page=admin_reports_customer_menu_item_labels&amp;labels_per_sheet=4&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>&amp;suppressFastlane=false" target="_blank">w/ FL</a>
 									</p>
 								</li>
 								<li><a href="/?page=admin_session_tools_printing&amp;do=print&amp;user_id=<?php echo $booking['user_id']; ?>&amp;session=<?php echo $booking['session_id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;core=true&amp;freezer=true&amp;nutrition=true" target="_blank">Collated Docs</a></li>
