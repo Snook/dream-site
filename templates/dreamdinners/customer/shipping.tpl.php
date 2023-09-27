@@ -1,40 +1,52 @@
-<?php $this->assign('page_title', 'Dream Dinners Shipping');?>
-<?php $this->assign('page_description','GET DELICIOUS EASY MEALS PREPARED WITH QUALITY INGREDIENTS SHIPPED DIRECTLY TO YOUR HOME.'); ?>
-<?php $this->assign('page_keywords','delivered prepared meals, prepared dinners delivered, homemade dinner delivery, homemade meals shipped, shipping prepped meals, dinner preparation'); ?>
+<?php $this->assign('page_title', 'Shipping at Dream Dinners');?>
+<?php $this->assign('page_description','Real food made from scratch shipped to your door.'); ?>
+<?php $this->assign('page_keywords','shipped prepared meals, prepared dinners shipped, shipping homemade meals, homemade meals shippeded, shipped prepped meals, dinner preparation'); ?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
 
 
-	<header class="container my-5">
+	<!--<header class="container my-5">
 		<div class="row">
 			<div class="col-6 col-sm-3 p-0 order-2 order-sm-1">
 
 			</div>
 			<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center">
-				<h1>Shipping to Your Door</h1>
-				<p>We have paused shipping to your area. As we continue to grow, we hope to be able to serve you and your family again soon.</>
+				
 			</div>
 			<div class="col-6 col-sm-3 p-0 order-3 order-sm-3 text-center">
-
+				 
 			</div>
 		</div>
-	</header>
+	</header>-->
 
-<!--	<main role="main">
-
+  <main role="main">
 		<section>
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
-						<!--<img src="<?php echo IMAGES_PATH; ?>/landing_pages/delivered-header-747x100.webp" alt="No idea what to cook this week?" class="img-fluid">
-						<h1 class="font-weight-bold font-marker mt-2">No idea what to cook this week?</h1>
-						<p class="text-uppercase mb-4">No problem. We planned and prepped your meals for you!</p>
-						<a href="/locations" class="btn btn-lg btn-green">Order Now</a>
+						<h1 class="font-weight-bold font-marker mt-2">Get Dream Dinners Shipped to Your Door</h1>
+						<p class="text-uppercase mb-4">Real food made from scratch, so your life can feel a little easier.</p>
+						<p>Get four family-style, homemade meals prepped and ready to cook. Most of our meals cook in less than 30 minutes. Order when you want, no subscription necessary. Find out if we ship to you and order today!</p>
+						<form action="/locations" method="post">
+						<div class="form-group mx-auto">
+							<div class="input-group">
+								<!--<div class="input-group-prepend">
+									<div class="input-group-text">
+									Find a location near you
+									</div>
+								</div>-->
+								<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
+								<div class="input-group-append">
+									<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
+								</div>
+							</div>
+						</div>
+					</form>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/june23-delivered-header-collage-957x657.webp" alt="Nashville Chicken and Coconut Shrimp and Mongolian Beef and Broccoli" class="img-fluid">-->
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/oct23-header-collage-957x657.webp" alt="Cattlemans Pie and Build Your Own Calzones and Chicken Egg Roll Bowl" class="img-fluid">
 						<!--<figure>
 							<img src="<?php echo IMAGES_PATH; ?>/home_content/homepage-header-collage-circles-957x657.webp" alt="Mini chicken pot pies, Pub style chicken and Cod fish N chips" class="img-fluid">
-						</figure>
+						</figure>-->
 					</div>
 
 				</div>
@@ -58,9 +70,9 @@
 					</div>
 				</div>
 			</div>
-		</section>-->
+		</section>
 
-		<!-- The numbers
+		<!-- steps -->
 		<section class="bg-cyan-dark">
 			<div class="container my-5 mp-5 bg-cyan-dark">
 				<div class="row">
@@ -95,9 +107,8 @@
 					</div>
 				</div>
 			</div>
-		</section>-->
+		</section>
 
-		<!-- The Dream Dinners Difference
 		<section>
 			<div class="container my-5">
 				<div class="row">
@@ -107,9 +118,9 @@
 							<div class="border-bottom border-green-dark mb-3 mx-5"></div>
 						</div>
 					</div>
-				</div>-->
+				</div>
 
-				<!-- 4 Steps
+				<!-- 4 Steps -->
 				<div class="" id="" role="tabpanel" aria-labelledby="">
 					<div class="row my-2">
 					<div class="col">
@@ -119,8 +130,8 @@
 							</div>
 							<div class="card border-0 mx-1 text-left">
 								<div class="card-body">
-									<h5 class="card-title">Affordable and Convenient</h5>
-									<p class="card-text">Starting at $7.45/serving, Dream Dinners is more affordable than other meal kits. Our meals are fully prepped and ready to cook for more convenience and options.</p>
+									<h5 class="card-title">Convenient</h5>
+									<p class="card-text">Our meals are fully prepped and ready to cook for more convenience and options.</p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1 text-center">
@@ -144,8 +155,8 @@
 							</div>
 							<div class="card border-0 mx-1 text-left">
 								<div class="card-body">
-									<h5 class="card-title">21 Years’ Experience</h5>
-									<p class="card-text">We aren't a fad. Dream Dinners has been around for 20 years with tried and true recipes our customers love. Unlike other meal kits, when you choose Dream Dinners, you choose tradition.</p>
+									<h5 class="card-title">Over 20 Years’ Experience</h5>
+									<p class="card-text">We aren't a fad. Dream Dinners has been around for 22 years with tried and true recipes our customers love. Unlike other meal kits, when you choose Dream Dinners, you choose tradition.</p>
 								</div>
 							</div>
 
@@ -169,10 +180,10 @@
 					</div>
 				</div>
 			</div>
-		</section>-->
+		</section>
 
 
-<!-- <div class="border-bottom border-green-dark mb-3 mx-5"></div>
+<div class="border-bottom border-green-dark mb-3 mx-5"></div>
 		<section>
 			<div class="container">
 				<div class="row my-5">
@@ -190,6 +201,6 @@
 			  </div>
 			</div>
 		</section>
-	</main>-->
+	</main>
 
 <?php include $this->loadTemplate('customer/subtemplate/page_footer.tpl.php'); ?>

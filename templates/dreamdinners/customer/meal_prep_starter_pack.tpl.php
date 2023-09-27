@@ -66,7 +66,7 @@
 				<div class="row my-5">
 					<div class="col-md-6 mb-5">
 						<div>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-enchiladas-circle-458x344.webp" alt="Chicken Enchiladas" class="img-fluid" />
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-egg-roll-bowl-circle-458x344.webp" alt="Chicken Egg Roll Bowl" class="img-fluid" />
 						</div>
 					</div>
 					<div class="col-md-6 text-left">
@@ -146,21 +146,6 @@
 			</div>
 		</div>
 	</section>
-
-	<!-- Virtual Section -->
-		<!--<section>
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-6 bg-gray-dark text-white text-right p-5">
-						<h2 class="text-uppercase font-weight-bold">WANT TO LEARN MORE ABOUT MAKING DINNERTIME EASIER?</h2>
-						<p class="text-uppercase mb-4">Get comfy and find out how to simplify meals in your home with Dream Dinners.</p>
-						<a href="/national_virtual_party" class="btn btn-gray-light">Learn More</a>
-					</div>
-					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/home_content/virtual-party-957x675.jpg" alt="Watching a Virtual Meal Prep Party" class="img-fluid">
-				</div>
-			</div>
-		</section>-->
 	</main>
 
 <?php include $this->loadTemplate('customer/subtemplate/page_footer.tpl.php'); ?>

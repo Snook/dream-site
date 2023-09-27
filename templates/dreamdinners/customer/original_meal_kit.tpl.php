@@ -14,7 +14,7 @@
 					</div>
 					<div class="col-md-6 p-0">
 						<figure>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/Sept23-square-header-collage-957x657.webp" alt="Mini Chicken Pot Pies and Chicken Enchiladas and Thai Peanut Chicken" class="img-fluid">
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/oct23-header-collagev2-957x657.webp" alt="Chicken Egg Roll Bowl and Cattlemans Pie and Build Your Own Calzones" class="img-fluid">
 						</figure>
 					</div>
 				</div>
@@ -34,7 +34,7 @@
 						<br>&nbsp;
                       <ul>
                         <li>Chef-created, family-friendly recipes without having to plan and grocery shop.</li>
-                        <li> Ready-to-cook frozen dinners leaving you prepared and ready to enjoy summer.</li>
+                        <li>Ready-to-cook frozen dinners leaving you prepared and ready to enjoy summer.</li>
                         <li>Easy to follow instructions making both cooking and clean up simple and stress-free.</li>
                       </ul>
 					</div>
@@ -56,27 +56,27 @@
 					<div class="col">
 						<div class="card-group text-center">
 							<div class="card border-0 mx-1">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/bacon_mac_n_three_cheese_bake_circle-458x344.webp" alt="Bacon Mac N Three Cheese Bake" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/fully-loaded-chicken-potato-soup-circle-458x344.webp" alt="Fully Loaded Chicken and Potato Soup" class="img-fluid" />
 								<div class="card-body">
-									<p class="card-text">Bacon Mac N' Three Cheese Bake</p>
+									<p class="card-text">Fully Loaded Chicken and Potato Soup</p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/savannah-chicken-circle-458x344.webp" alt="Savanah Grilled Chicken" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/philly-cheesesteak-circle-458x344.webp" alt="Philly Cheesesteaks" class="img-fluid" />
 								<div class="card-body">
-									<p class="card-text">Savanah Grilled Chicken with Corn Medley</p>
+									<p class="card-text">Philly Cheesesteaks</p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pulled-pork-banh-mi-sliders-circle-458x344.webp" alt="Pulled Pork Banh Mi Sandwiches" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-parmesan-circle-458x344.webp" alt="Chicken Parmesan" class="img-fluid" />
 								<div class="card-body">
-									<p class="card-text">Pulled Pork Banh Mi Sandwiches</p>
+									<p class="card-text">Chicken Parmesan</p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/southwest-pork-carnitas-wrap-circles-458x344.webp" alt="Southwest Pork Carnitas Wrap" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cornflake-chicken-tenders-circle-458x344.webp" alt="Cornflake Crusted Chicken Tenders" class="img-fluid" />
 								<div class="card-body">
-									<p class="card-text">Southwest Pork Carnitas Wrap</p>
+									<p class="card-text">Cornflake Crusted Chicken Tenders with Dipping Sauce</p>
 								</div>
 							</div>
 						</div>

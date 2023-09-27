@@ -27,7 +27,7 @@
 						<a href="/locations" class="btn btn-lg btn-green">View Menu & Order</a>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sept23-header-circles-957x657.webp" alt="Mini Chicken Pot Pies and Chicken Enchiladas and Pulled Pork Banh Mi Sandwiches" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/oct23-header-collage-circles-957x657.webp" alt="Cattlemans Pie and Cranberry Buttermilk Chicken and Hearty Braised Beef" class="img-fluid">
 					</div>
 				</div>
 			</div>
