@@ -48,8 +48,6 @@ const FPDF_FONTPATH = 'fpdf/font/';
 define('HTTP_BASE', HTTP_SERVER . WEB_BASE);
 define('HTTPS_BASE', HTTPS_SERVER . WEB_BASE);
 
-define('MAIN_SCRIPT', 'main.php');
-
 define('THEME', 'dreamdinners'); // Template theme
 define('DEFAULT_PAGE', 'home'); // Default page= when / is accessed
 

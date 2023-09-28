@@ -335,7 +335,7 @@ else
 	<?php $this->assign('page_title', 'Generic Labels'); ?>
 	<?php $this->assign('topnav', 'reports'); ?>
 	<?php $this->setOnLoad("init_label_reporting();"); ?>
-	<?php $this->setScript('head', SCRIPT_PATH . '/admin/reports_customer_menu_item_labels.js'); ?>
+	<?php $this->setScript('head', SCRIPT_PATH . '/admin/reports_customer_menu_item_labels.min.js'); ?>
 	<?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
 	<form method='post' onsubmit="submitIt(this); return true;">

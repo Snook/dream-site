@@ -112,7 +112,7 @@ class CTemplate extends Savant2
 
 	function __construct($template_path = false)
 	{
-		parent::__construct();
+		$page = str_replace('-', '_', $_REQUEST['page']);
 
 		if (!empty($_REQUEST['page']))
 		{
@@ -141,7 +141,7 @@ class CTemplate extends Savant2
 		$this->setPath('template', $template_path);
 
 		$this->assign('page_is_bootstrap', false);
-		if (!empty($_REQUEST['page']) && in_array($_REQUEST['page'], self::$bootstrapPages))
+		if (!empty($page) && in_array($page, self::$bootstrapPages))
 		{
 			$this->assign('page_is_bootstrap', true);
 		}

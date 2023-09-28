@@ -78,30 +78,30 @@
 					</div>
 
 					<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted" />
-
-					<div class="row">
-						<div class="col text-center">
-							<h3 class="text-uppercase font-weight-bold text-center">Store calendar</h3>
-							<p>Our calendar represents dates and times available to reserve your order based on how you would like to get your meals. Options may include Pick Up, Home Delivery, Assemble at Store, Community Pick Up locations and Events. Many stores have open hours to come in shop out of the freezer listed on the Location Info page.</p>
-							<?php if ($this->has_meal_customization_sessions){?>
-								<p>Times listed below are available for everyone! If you would like Meal Customization, please select a time marked with a <i class="dd-icon icon-customize text-orange font-size-small"></i> so we can have your dinners customized in time for your pick up or delivery. Customization options available at checkout.</p>
-							<?php } ?>
-						</div>
-						<div class="col-12 text-center">
-							<h2 id="calendar_month" class="d-block d-md-none"></h2>
-						</div>
-						<div class="col-12">
-							<div id="calendar" data-fullcalendar="calendar"></div>
-						</div>
-						<div id="calendar_results" class="col"></div>
-					</div>
-
-					<div class="row">
-						<div class="col">
-							<a href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/order" rel="nofollow" class="btn btn-primary btn-block">Start your order</a>
-						</div>
-					</div>
 				<?php } ?>
+
+				<div class="row">
+					<div class="col text-center">
+						<h3 class="text-uppercase font-weight-bold text-center">Store calendar</h3>
+						<p>Our calendar represents dates and times available to reserve your order based on how you would like to get your meals. Options may include Pick Up, Home Delivery, Assemble at Store, Community Pick Up locations and Events. Many stores have open hours to come in shop out of the freezer listed on the Location Info page.</p>
+						<?php if ($this->has_meal_customization_sessions){?>
+							<p>Times listed below are available for everyone! If you would like Meal Customization, please select a time marked with a <i class="dd-icon icon-customize text-orange font-size-small"></i> so we can have your dinners customized in time for your pick up or delivery. Customization options available at checkout.</p>
+						<?php } ?>
+					</div>
+					<div class="col-12 text-center">
+						<h2 id="calendar_month" class="d-block d-md-none"></h2>
+					</div>
+					<div class="col-12">
+						<div id="calendar" data-fullcalendar="calendar"></div>
+					</div>
+					<div id="calendar_results" class="col"></div>
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<a href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/order" rel="nofollow" class="btn btn-primary btn-block">Start your order</a>
+					</div>
+				</div>
 			<?php } ?>
 
 		</div>
