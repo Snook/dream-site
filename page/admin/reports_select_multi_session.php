@@ -117,11 +117,11 @@ class page_admin_reports_select_multi_session extends CPageAdminOnly
 
 		if (empty($printerFriendly) && !empty($session_id))
 		{
-			CApp::bounce('/?page=admin_main&session=' . $session_id);
+			CApp::bounce('/backoffice?session=' . $session_id);
 		}
 		else if (empty($printerFriendly) && !empty($report_date))
 		{
-			CApp::bounce('/?page=admin_main&day=' . $report_date);
+			CApp::bounce('/backoffice?day=' . $report_date);
 		}
 
 		if ( isset ($_REQUEST["pickSession"]))

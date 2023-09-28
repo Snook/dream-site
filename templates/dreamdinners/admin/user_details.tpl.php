@@ -264,7 +264,7 @@
 						<td class="guest_details_list_name">RSVPs</td>
 						<td class="guest_details_list_item">
 							<?php foreach($this->user['rsvp_history'] as $session_id => $details) { ?>
-								<a href="/?page=admin_main&session=<?php echo $session_id;?>">On <?php echo CTemplate::dateTimeFormat($details['rsvp_time'], MONTH_DAY_YEAR); ?> for session on <?php echo CTemplate::dateTimeFormat($details['session_start']); ?></a><br />
+								<a href="/backoffice?session=<?php echo $session_id;?>">On <?php echo CTemplate::dateTimeFormat($details['rsvp_time'], MONTH_DAY_YEAR); ?> for session on <?php echo CTemplate::dateTimeFormat($details['session_start']); ?></a><br />
 							<?php  } ?>
 						</td>
 					</tr>

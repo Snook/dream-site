@@ -99,7 +99,7 @@ class page_admin_main extends CPageAdminOnly
 
 		if (empty($_REQUEST['day']) && empty($_REQUEST['session']))
 		{
-			//CApp::bounce('/?page=admin_main&day=' . date('Y-m-d', $request_date));
+			//CApp::bounce('/backoffice?day=' . date('Y-m-d', $request_date));
 		}
 		else if (!empty($_REQUEST['day']))
 		{

@@ -139,7 +139,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 					if ($e->getCode() == processor_admin_order_mgr_processor::dd_general_exception_code && strpos($e->getMessage(), "no open slots") !== false)
 					{
 						$tpl->setErrorMsg("The session has no open slots for this order. Please return to the Sessions and Menu Page and select a new session.");
-						CApp::bounce("/?page=admin_main&session=" . $_POST['session']);
+						CApp::bounce("/backoffice?session=" . $_POST['session']);
 					}
 				}
 

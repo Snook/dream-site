@@ -101,7 +101,7 @@
 							Edit Account
 						</a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="/signout?back=/%3Fpage%3Dadmin_login">
+						<a class="dropdown-item" href="/signout?back=/backoffice/login">
 							<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
 							Logout
 						</a>
