@@ -1,58 +1,21 @@
 .btn, .btn.btn-primary, .button, .button:focus {
-  cursor: pointer;
-  color: #c3c861 !important;
-  line-height: normal;
-  padding: 4px 6px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  font-family: verdana;
-  font-weight: bold;
-  font-size: 10px !important;
-  text-decoration: none !important;
-  background-color: #225824;
-  background-image: -moz-linear-gradient(#327967, #1d5042);
-  background-image: -webkit-linear-gradient(#327967, #1d5042);
-  background-image: linear-gradient(#327967, #1d5042);
-  background-repeat: repeat-x;
-  border: 1px solid #1d5042;
-  display: inline-block;
+  font-size: 0.675rem;
+  background-color: $primary;
+  border: 1px solid $green-dark-extra;
 }
 
-.btn-delivered, .btn-delivered.btn-primary-delivered, .button-delivered, .button-delivered:focus {
-  cursor: pointer;
-  line-height: normal;
-  padding: 4px 6px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  font-family: verdana;
-  font-weight: bold;
-  font-size: 10px !important;
+a.button {
+  color: $white !important;
   text-decoration: none !important;
-  background-color: #45cfd1;
-  background-image: -moz-linear-gradient(#45cfd1, #2a8686);
-  background-image: -webkit-linear-gradient(#45cfd1, #2a8686);
-  background-image: linear-gradient(#45cfd1, #2a8686);
-  background-repeat: repeat-x;
-  border: 1px solid #1d5042;
-  display: inline-block;
 }
 
 .btn.btn-danger, .red {
   background-color: #580304;
-  background-image: -moz-linear-gradient(#792028, #580304);
-  background-image: -webkit-linear-gradient(#792028, #580304);
-  background-image: linear-gradient(#792028, #580304);
   border: 1px solid #580304;
-
 }
 
 .btn:hover, .button:hover {
-  color: #fff;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  background-color: #38883b;
-  background-image: none;
+  background-color: $green;
   text-decoration: none;
 }
 
@@ -60,14 +23,12 @@
   cursor: auto !important;
   color: #c5c5c5 !important;
   background-color: #5e5e5e;
-  background-image: none;
   border: 1px solid #494949 !important;
 }
 
 .btn.selected, .button.selected {
   color: #000 !important;
   background-color: #ffed8c;
-  background-image: none;
   border: 1px solid #494949 !important;
 }
 

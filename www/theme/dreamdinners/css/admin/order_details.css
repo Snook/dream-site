@@ -5,18 +5,6 @@
 	padding: 6px;
 	color: #225824;
 	background-color: #A8B355;
-	background-image: linear-gradient(bottom, #A8A94C 50%, #B1BB5A 100%);
-	background-image: -o-linear-gradient(bottom, #A8A94C 50%, #B1BB5A 100%);
-	background-image: -moz-linear-gradient(bottom, #A8A94C 50%, #B1BB5A 100%);
-	background-image: -webkit-linear-gradient(bottom, #A8A94C 50%, #B1BB5A 100%);
-	background-image: -ms-linear-gradient(bottom, #A8A94C 50%, #B1BB5A 100%);
-	background-image: -webkit-gradient(
-			linear,
-			left bottom,
-			left top,
-			color-stop(0.5, #A8A94C),
-			color-stop(1, #B1BB5A)
-	);
 	}
 #orders_history tr td:nth-child(n+3) {
 	text-align: right;
