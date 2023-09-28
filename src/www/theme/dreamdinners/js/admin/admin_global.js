@@ -78,17 +78,17 @@ function onNBCreateSingleSession()
 	if (menus_elem)
 	{
 		var menu_id = document.getElementById("menus").value;
-		menus_clause = "&menu=" + menu_id;
+		menus_clause = "?menu=" + menu_id;
 	}
 
 	if (typeof selectedCell != "undefined" && selectedCell != null)
 	{
 		cellName = selectedCell.id;
-		bounce("/?page=admin_create_session&selectedCell=" + cellName);
+		bounce("/backoffice/create-session?selectedCell=" + cellName);
 	}
 	else
 	{
-		bounce("/?page=admin_create_session" + menus_clause);
+		bounce("/backoffice/create-session" + menus_clause);
 	}
 }
 
