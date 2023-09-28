@@ -49,7 +49,7 @@
 				<?php } ?>
 
 				<?php if ($isDC) { ?>
-						<input type="button" style="height: 44px;" class="btn-delivered btn-cyan btn-block " value="Place Delivered Order" onclick="bounce('/?page=admin_order_mgr_delivered&user=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+						<input type="button" style="height: 44px;" class="btn btn-cyan btn-block " value="Place Delivered Order" onclick="bounce('/?page=admin_order_mgr_delivered&user=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ( $this->user['numorders'] ) { ?>
