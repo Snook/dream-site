@@ -1,3 +1,5 @@
+<?php $this->setScript('head', SCRIPT_PATH . '/admin/create_edit_session.min.js'); ?>
+
 <?php //include $this->loadTemplate('admin/subtemplate/page_header/page_header.tpl.php'); ?>
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
