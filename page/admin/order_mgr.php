@@ -4617,6 +4617,9 @@ class page_admin_order_mgr extends CPageAdminOnly
 					$order->order_customization = $customizations->orderCustomizationToJson();
 
 				}
+				else if($args['manual_customization_fee'] == 'true'){
+					$order->setShouldRecalculateMealCustomizationFee(false);
+				}
 				$order->opted_to_customize_recipes = 1;
 				$order->total_customized_meal_count = $order::getNumberOfCustomizableMealsFromItems($order, $order->getStore()->allow_preassembled_customization);
 			}
