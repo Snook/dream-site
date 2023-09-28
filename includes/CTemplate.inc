@@ -77,6 +77,7 @@ class CTemplate extends Savant2
 	protected $emergency_mode = false;
 
 	public $page;
+	public $is_admin = false;
 	public $head_css;
 	public $head_script;
 	public $head_onload;
@@ -112,6 +113,20 @@ class CTemplate extends Savant2
 	function __construct($template_path = false)
 	{
 		parent::__construct();
+
+		if (!empty($_REQUEST['page']))
+		{
+			$this->page = str_replace('-', '_', $_REQUEST['page']);
+		}
+		else if (!empty($_REQUEST['static']))
+		{
+			$this->page = str_replace('-', '_', $_REQUEST['static']);
+		}
+
+		if (substr($this->page, 0, 6) == 'admin_')
+		{
+			$this->is_admin = true;
+		}
 
 		if (defined('DESIGNATE_AS_EMERGENCY_REPORTING_SERVER') && DESIGNATE_AS_EMERGENCY_REPORTING_SERVER)
 		{
@@ -940,17 +955,11 @@ class CTemplate extends Savant2
 	// Required css for all pages
 	function initSetCSS()
 	{
-		$isAdmin = false;
-		if (isset($_REQUEST['page']) && substr($_REQUEST['page'], 0, 6) == 'admin_')
-		{
-			$isAdmin = true;
-		}
-
 		// Following included in front and back end
 		self::setCSS('//use.fontawesome.com/releases/v5.9.0/css/all.css');
 
 		// Following included in front end
-		if (!$isAdmin)
+		if (!$this->is_admin)
 		{
 			self::setCSS(CSS_PATH . '/customer/dreamdinners.min.css');
 		}
@@ -963,7 +972,7 @@ class CTemplate extends Savant2
 		{
 			if (DD_SERVER_NAME == 'HO_REPORTING')
 			{
-				if ($isAdmin)
+				if ($this->is_admin)
 				{
 					self::setCSS(CSS_PATH . '/admin/ho_reporting_style.css');
 				}
@@ -975,7 +984,7 @@ class CTemplate extends Savant2
 
 			if (DEBUG)
 			{
-				if ($isAdmin)
+				if ($this->is_admin)
 				{
 					self::setCSS(CSS_PATH . '/admin/dev_style.css');
 				}
@@ -988,14 +997,8 @@ class CTemplate extends Savant2
 	// Required scripts for all pages
 	function initSetScript()
 	{
-		$isAdmin = false;
-		if (isset($_REQUEST['page']) && substr($_REQUEST['page'], 0, 6) == 'admin_')
-		{
-			$isAdmin = true;
-		}
-
 		// Following included in front end
-		if (!$isAdmin)
+		if (!$this->is_admin)
 		{
 			// vendor scripts
 			self::setScript('foot', SCRIPT_PATH . '/customer/vendor.min.js');
@@ -1054,12 +1057,6 @@ class CTemplate extends Savant2
 	// Required scripts for all pages
 	function initOnload()
 	{
-		$isAdmin = false;
-		if (isset($_REQUEST['page']) && substr($_REQUEST['page'], 0, 6) == 'admin_')
-		{
-			$isAdmin = true;
-		}
-
 		if (DEBUG || (defined('DD_SERVER_NAME') && (DD_SERVER_NAME != 'LIVE')))
 		{
 			if ($msg = self::getDebugMsg())
@@ -1069,7 +1066,7 @@ class CTemplate extends Savant2
 		}
 
 		// Following included in front end
-		if ($isAdmin)
+		if ($this->is_admin)
 		{
 			self::$head_onload_array[] = 'admin_global_init();';
 		}
