@@ -3451,6 +3451,10 @@ class CUser extends DAO_User
 
 	function getMembershipStatus($focusOrder = false, $generateStatusDisplayStrings = true, $getSpecificMembership = false, $history_type = false, $setAsCurrent = true, $addPaymentData = false)
 	{
+		if (empty($this->id))
+		{
+			return null;
+		}
 		// status field values
 		// current - has one or more memberships in good stead
 		// lapsed - has only a lapsed membership
