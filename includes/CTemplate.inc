@@ -103,6 +103,8 @@ class CTemplate extends Savant2
 
 	function __construct($template_path = false)
 	{
+		$page = str_replace('-', '_', $_REQUEST['page']);
+
 		if (defined('DESIGNATE_AS_EMERGENCY_REPORTING_SERVER') && DESIGNATE_AS_EMERGENCY_REPORTING_SERVER)
 		{
 			$this->emergency_mode = true;
@@ -116,7 +118,7 @@ class CTemplate extends Savant2
 		$this->setPath('template', $template_path);
 
 		$this->assign('page_is_bootstrap', false);
-		if (!empty($_REQUEST['page']) && in_array($_REQUEST['page'], self::$bootstrapPages))
+		if (!empty($page) && in_array($page, self::$bootstrapPages))
 		{
 			$this->assign('page_is_bootstrap', true);
 		}
@@ -930,8 +932,10 @@ class CTemplate extends Savant2
 	// Required css for all pages
 	function initSetCSS()
 	{
+		$page = str_replace('-', '_', $_REQUEST['page']);
+
 		$isAdmin = false;
-		if (isset($_REQUEST['page']) && substr($_REQUEST['page'], 0, 6) == 'admin_')
+		if (isset($page) && substr($page, 0, 6) == 'admin_')
 		{
 			$isAdmin = true;
 		}
@@ -978,8 +982,10 @@ class CTemplate extends Savant2
 	// Required scripts for all pages
 	function initSetScript()
 	{
+		$page = str_replace('-', '_', $_REQUEST['page']);
+
 		$isAdmin = false;
-		if (isset($_REQUEST['page']) && substr($_REQUEST['page'], 0, 6) == 'admin_')
+		if (isset($page) && substr($page, 0, 6) == 'admin_')
 		{
 			$isAdmin = true;
 		}
@@ -1044,8 +1050,10 @@ class CTemplate extends Savant2
 	// Required scripts for all pages
 	function initOnload()
 	{
+		$page = str_replace('-', '_', $_REQUEST['page']);
+
 		$isAdmin = false;
-		if (isset($_REQUEST['page']) && substr($_REQUEST['page'], 0, 6) == 'admin_')
+		if (isset($page) && substr($page, 0, 6) == 'admin_')
 		{
 			$isAdmin = true;
 		}
