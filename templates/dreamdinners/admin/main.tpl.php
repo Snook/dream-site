@@ -110,7 +110,9 @@
 				<div id="dashboard_snapshot_container" class="container_background" data-fadmin_perm="FRANCHISE_MANAGER,FRANCHISE_OWNER,HOME_OFFICE_MANAGER,SITE_ADMIN">
 
 					<div style="float:right;">
-						<span id="ds_dashboard" class="button">Dashboard</span><span id="ds_trending" class="button">Trending</span><span id="ds_goal_tracking" class="button">Goal Setting</span>
+						<span id="ds_dashboard" class="button">Dashboard</span>
+						<span id="ds_trending" class="button">Trending</span>
+						<span id="ds_goal_tracking" class="button">Goal Setting</span>
 					</div>
 
 					<div class="title">
