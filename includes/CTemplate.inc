@@ -88,10 +88,6 @@ class CTemplate extends Savant2
 	public $page_is_bootstrap;
 	public $rows;
 
-	const IE_lessthan_10 = "IE_lessthan_10";
-	const IE_lessthan_9 = "IE_lessthan_9";
-	const IE_lessthan_8 = "IE_lessthan_8";
-
 	// navigation types
 	const STANDARD = 'STANDARD';
 	const INTRO = 'INTRO';
@@ -1221,38 +1217,11 @@ class CTemplate extends Savant2
 		return ($retVal == 0 ? false : true);
 	}
 
-	static function browserIsTarget($target)
+	function setCSS($stylesheet)
 	{
-		if ($target == CTemplate::IE_lessthan_10 && self::isIE())
-		{
-			$retVal = preg_match('/MSIE [1-9]/', $_SERVER['HTTP_USER_AGENT']);
+		self::$head_css_array[] = trim($stylesheet) . ((strpos($stylesheet, '?')) ? '&amp;' : '?') . 'ddv=' . JAVASCRIPT_CSS_VERSION;
 
-			return ($retVal == 0 ? false : true);
-		}
-		else if ($target == CTemplate::IE_lessthan_9 && self::isIE())
-		{
-			$retVal = preg_match('/MSIE [1-8]/', $_SERVER['HTTP_USER_AGENT']);
-
-			return ($retVal == 0 ? false : true);
-		}
-		else if ($target == CTemplate::IE_lessthan_8 && self::isIE())
-		{
-			$retVal = preg_match('/MSIE [1-7]/', $_SERVER['HTTP_USER_AGENT']);
-
-			return ($retVal == 0 ? false : true);
-		}
-
-		return false;
-	}
-
-	function setCSS($stylesheet, $target = false)
-	{
-		if (!$target || (self::browserIsTarget($target)))
-		{
-			self::$head_css_array[] = trim($stylesheet) . ((strpos($stylesheet, '?')) ? '&amp;' : '?') . 'ddv=' . JAVASCRIPT_CSS_VERSION;
-
-			$this->assign('head_css', array_unique(self::$head_css_array));
-		}
+		$this->assign('head_css', array_unique(self::$head_css_array));
 	}
 
 	function setScript($position, $javascript, $async = false, $defer = false, $crossorigin = false, $preconnect = false)
