@@ -41,14 +41,14 @@
 					<?php if( $is_delivered ){ ?>
 						Delivery Date:
 						<?php if (CStore::userHasAccessToStore($order['store_id']) && empty($order['session_is_deleted'])) { ?>
-							<a href="/?page=admin_main&amp;session=<?php echo $order['session_id']; ?>&amp;order=<?php echo $order['order_id']; ?>"><?php echo $this->dateTimeFormat($order['session_start'], MONTH_DAY_YEAR); ?></a>
+							<a href="/backoffice?session=<?php echo $order['session_id']; ?>&amp;order=<?php echo $order['order_id']; ?>"><?php echo $this->dateTimeFormat($order['session_start'], MONTH_DAY_YEAR); ?></a>
 						<?php } else { ?>
 							<span<?php if (!empty($order['session_is_deleted'])) { ?> style="text-decoration: line-through;" data-tooltip="Session Deleted"<?php } ?>><?php echo $this->dateTimeFormat($order['session_start'], MONTH_DAY_YEAR); ?></span>
 						<?php } ?>
 					<?php } else { ?>
 						Session Date:
 						<?php if (CStore::userHasAccessToStore($order['store_id']) && empty($order['session_is_deleted'])) { ?>
-							<a href="/?page=admin_main&amp;session=<?php echo $order['session_id']; ?>&amp;order=<?php echo $order['order_id']; ?>"><?php echo $this->sessionTypeDateTimeFormat($order['session_start'], $order['session_type_subtype'], NORMAL)?></a>
+							<a href="/backoffice?session=<?php echo $order['session_id']; ?>&amp;order=<?php echo $order['order_id']; ?>"><?php echo $this->sessionTypeDateTimeFormat($order['session_start'], $order['session_type_subtype'], NORMAL)?></a>
 						<?php } else { ?>
 							<span<?php if (!empty($order['session_is_deleted'])) { ?> style="text-decoration: line-through;" data-tooltip="Session Deleted"<?php } ?>><?php echo $this->sessionTypeDateTimeFormat($order['session_start'], $order['session_type_subtype'], NORMAL)?></span>
 						<?php } ?>
@@ -56,11 +56,11 @@
 				</td>
 				<td colspan="5" style="text-align:right">
 					<?php if ($order['session_start'] > '2014-11-01 00:00:00' && $order['status'] != CBooking::CANCELLED && $order['status'] != CBooking::SAVED) { ?>
-						<?php if( !$is_delivered ){ ?><a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;freezer=true" class="button" target="_blank">Freezer Sheet</a><?php } ?>
-						<a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;nutrition=true" class="button" target="_blank">Nutritionals</a>
+						<?php if( !$is_delivered ){ ?><a href="/?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;freezer=true" class="button" target="_blank">Freezer Sheet</a><?php } ?>
+						<a href="/?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;nutrition=true" class="button" target="_blank">Nutritionals</a>
 
 						<?php if (array_key_exists($order['idmenu'] + 1, $this->active_menus)) { ?>
-							<a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;core=true" class="button" target="_blank">Next Month's Menu</a>
+							<a href="/?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;core=true" class="button" target="_blank">Next Month's Menu</a>
 						<?php } ?>
 					<?php } ?>
 

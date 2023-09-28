@@ -5,6 +5,6 @@
 	<?php } ?>
 	<b><?php echo $item['action']; ?></b>
 	<?php echo $item['menu_name']; ?>
-	<a href="?page=item&amp;recipe=<?php echo $item['recipe_id']; ?>&amp;ov_menu=<?php echo $item['menu_id']; ?>" target="_blank"><?php echo $item['menu_item_name']; ?></a>
+	<a href="/?page=item&amp;recipe=<?php echo $item['recipe_id']; ?>&amp;ov_menu=<?php echo $item['menu_id']; ?>" target="_blank"><?php echo $item['menu_item_name']; ?></a>
 	<span class="text-white-space-nowrap">Recipe #<?php echo $item['recipe_id']; ?> - <?php echo (($item['menu_item_category_id'] != 9) ? $item['pricing_type_info']['pricing_type_name_short_w_qty'] : 'S&amp;S') ; ?></span>
 </div>

@@ -440,7 +440,7 @@ class CUser extends DAO_User
 					self::OPS_LEAD
 				),
 				'title' => 'Guests',
-				'link' => '/backoffice/list_users',
+				'link' => '/backoffice/list-users',
 				'submenu' => array(
 					'admin_list_users' => array(
 						'access' => array(
@@ -456,7 +456,7 @@ class CUser extends DAO_User
 							self::OPS_LEAD
 						),
 						'title' => 'Guest Search',
-						'link' => '/backoffice/list_users',
+						'link' => '/backoffice/list-users',
 					),
 					'admin_account' => array(
 						'access' => array(
@@ -490,7 +490,7 @@ class CUser extends DAO_User
 					self::OPS_LEAD
 				),
 				'title' => 'Calendar',
-				'link' => '/backoffice/session_mgr_delivered'
+				'link' => '/backoffice/session-mgr-delivered'
 			),
 
 			'reports' => array(
@@ -539,7 +539,7 @@ class CUser extends DAO_User
 							self::OPS_SUPPORT
 						),
 						'title' => 'Entr&eacute;e Report',
-						'link' => '/backoffice/reports_entree',
+						'link' => '/backoffice/reports-entree',
 					),
 					'admin_dashboard_new' => array(
 						'access' => array(
@@ -551,7 +551,7 @@ class CUser extends DAO_User
 							self::OPS_LEAD
 						),
 						'title' => 'Dashboard',
-						'link' => '/backoffice/dashboard_menu_based',
+						'link' => '/backoffice/dashboard-menu-based',
 					),
 					'admin_reports_trending' => array(
 						'access' => array(
@@ -563,7 +563,7 @@ class CUser extends DAO_User
 							self::OPS_LEAD
 						),
 						'title' => 'Trending',
-						'link' => '/backoffice/reports_trending_menu_based',
+						'link' => '/backoffice/reports-trending-menu-based',
 					),
 					'admin_reports_manufacturer_labels' => array(
 						'access' => array(
@@ -574,7 +574,7 @@ class CUser extends DAO_User
 							self::OPS_LEAD
 						),
 						'title' => 'Manufacturing Labels',
-						'link' => '/backoffice/reports_manufacturer_labels',
+						'link' => '/backoffice/reports-manufacturer-labels',
 					)
 				)
 			),
@@ -600,7 +600,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_MANAGER
 						),
 						'title' => 'Store Information',
-						'link' => '/backoffice/store_details_delivered',
+						'link' => '/backoffice/store-details-delivered',
 					),
 					'admin_resources' => array(
 						'access' => array(
@@ -646,12 +646,12 @@ class CUser extends DAO_User
 					'admin_create_franchise' => array(
 						'access' => array(self::SITE_ADMIN),
 						'title' => 'Create Franchise',
-						'link' => '/backoffice/create_franchise',
+						'link' => '/backoffice/create-franchise',
 					),
 					'admin_create_store' => array(
 						'access' => array(self::SITE_ADMIN),
 						'title' => 'Create Store',
-						'link' => '/backoffice/create_store',
+						'link' => '/backoffice/create-store',
 					),
 					'admin_list_franchisees' => array(
 						'access' => array(
@@ -659,7 +659,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_STAFF
 						),
 						'title' => 'Search Franchisees',
-						'link' => '/backoffice/list_franchisees',
+						'link' => '/backoffice/list-franchisees',
 					),
 					'admin_list_franchise' => array(
 						'access' => array(
@@ -667,7 +667,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_STAFF
 						),
 						'title' => 'Search Franchises',
-						'link' => '/backoffice/list_franchise',
+						'link' => '/backoffice/list-franchise',
 					),
 					'admin_list_stores' => array(
 						'access' => array(
@@ -675,7 +675,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_STAFF
 						),
 						'title' => 'Search Stores',
-						'link' => '/backoffice/list_stores',
+						'link' => '/backoffice/list-stores',
 					),
 					'admin_manage_box' => array(
 						'access' => array(
@@ -684,7 +684,7 @@ class CUser extends DAO_User
 							self::OPS_LEAD
 						),
 						'title' => 'Manage Boxes',
-						'link' => '/backoffice/manage_box',
+						'link' => '/backoffice/manage-box',
 					)
 				)
 			),
@@ -702,27 +702,27 @@ class CUser extends DAO_User
 					self::OPS_LEAD
 				),
 				'title' => 'Gift Cards',
-				'link' => '/backoffice/gift_card_management',
+				'link' => '/backoffice/gift-card-management',
 				'submenu' => array(
 					'admin_gift_card_management_load' => array(
 						'access' => true,
 						'title' => 'Load Gift Card',
-						'link' => '/backoffice/gift_card_load',
+						'link' => '/backoffice/gift-card-load',
 					),
 					'admin_gift_card_management_order' => array(
 						'access' => true,
 						'title' => 'Order New Gift Card',
-						'link' => '/backoffice/gift_card_order',
+						'link' => '/backoffice/gift-card-order',
 					),
 					'admin_gift_card_management_balance' => array(
 						'access' => true,
 						'title' => 'Gift Card Balance',
-						'link' => '/backoffice/gift_card_balance',
+						'link' => '/backoffice/gift-card-balance',
 					),
 					'admin_resend_gift_card_emails' => array(
 						'access' => true,
 						'title' => 'Resend Gift Card Emails',
-						'link' => '/backoffice/resend_gift_card_emails',
+						'link' => '/backoffice/resend-gift-card-emails',
 					),
 				)
 			),
@@ -742,22 +742,22 @@ class CUser extends DAO_User
 					'admin_manage_survey' => array(
 						'access' => true,
 						'title' => 'Manage Survey',
-						'link' => '/backoffice/manage_survey',
+						'link' => '/backoffice/manage-survey',
 					),
 					'admin_access_page_override' => array(
 						'access' => true,
 						'title' => 'Page Overrides',
-						'link' => '/backoffice/access_page_override',
+						'link' => '/backoffice/access-page-override',
 					),
 					'admin_report_access_levels' => array(
 						'access' => array(self::HOME_OFFICE_MANAGER),
 						'title' => 'Home Office Access Levels',
-						'link' => '/backoffice/report_access_levels',
+						'link' => '/backoffice/report-access-levels',
 					),
 					'admin_manage_bundle' => array(
 						'access' => array(self::SITE_ADMIN),
 						'title' => 'Manage Bundles',
-						'link' => '/backoffice/manage_bundle',
+						'link' => '/backoffice/manage-bundle',
 					),
 					'admin_manage_dream_event_theme' => array(
 						'access' => array(
@@ -765,7 +765,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_MANAGER
 						),
 						'title' => 'Manage Meal Prep Workshop Themes',
-						'link' => '/backoffice/manage_dream_event_theme',
+						'link' => '/backoffice/manage-dream-event-theme',
 					),
 					'admin_manage_dream_event_properties' => array(
 						'access' => array(
@@ -773,7 +773,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_MANAGER
 						),
 						'title' => 'Manage Meal Prep Workshop Properties',
-						'link' => '/backoffice/manage_dream_event_properties',
+						'link' => '/backoffice/manage-dream-event-properties',
 					),
 					'admin_manage_coupon_codes' => array(
 						'access' => array(
@@ -781,7 +781,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_MANAGER
 						),
 						'title' => 'Manage Coupon Codes',
-						'link' => '/backoffice/manage_coupon_codes',
+						'link' => '/backoffice/manage-coupon-codes',
 					),
 					'admin_manage_delivered_shipping' => array(
 						'access' => array(
@@ -817,12 +817,12 @@ class CUser extends DAO_User
 					'admin_import_menu' => array(
 						'access' => array(self::SITE_ADMIN),
 						'title' => 'Import Menu',
-						'link' => '/backoffice/import_menu_reciprofity',
+						'link' => '/backoffice/import-menu-reciprofity',
 					),
 					'admin_import_nutritionals' => array(
 						'access' => array(self::SITE_ADMIN),
 						'title' => 'Import Nutritionals',
-						'link' => '/backoffice/import_nutritionals_reciprofity',
+						'link' => '/backoffice/import-nutritionals-reciprofity',
 					),
 					'admin_import_bundles' => array(
 						'access' => array(
@@ -830,12 +830,12 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_MANAGER
 						),
 						'title' => 'Import Bundles',
-						'link' => '/backoffice/import_bundles_reciprofity',
+						'link' => '/backoffice/import-bundles-reciprofity',
 					),
 					'admin_import_sidesmap' => array(
 						'access' => array(self::SITE_ADMIN),
 						'title' => 'Import Sides Map',
-						'link' => '/backoffice/import_sidesmap_reciprofity',
+						'link' => '/backoffice/import-sidesmap-reciprofity',
 					),
 					'admin_menu_inspector' => array(
 						'access' => array(
@@ -843,7 +843,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_MANAGER
 						),
 						'title' => 'Menu Inspector',
-						'link' => '/backoffice/menu_inspector',
+						'link' => '/backoffice/menu-inspector',
 					),
 					'admin_recipe_database' => array(
 						'access' => array(
@@ -851,7 +851,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_MANAGER
 						),
 						'title' => 'Recipe Database',
-						'link' => '/backoffice/recipe_database',
+						'link' => '/backoffice/recipe-database',
 					)
 				)
 			)
@@ -895,7 +895,7 @@ class CUser extends DAO_User
 					self::OPS_LEAD
 				),
 				'title' => 'Guests',
-				'link' => '/backoffice/list_users',
+				'link' => '/backoffice/list-users',
 				'submenu' => array(
 					'admin_list_users' => array(
 						'access' => array(
@@ -911,7 +911,7 @@ class CUser extends DAO_User
 							self::OPS_LEAD
 						),
 						'title' => 'Guest Search',
-						'link' => '/backoffice/list_users',
+						'link' => '/backoffice/list-users',
 					),
 					'admin_account' => array(
 						'access' => array(
@@ -945,7 +945,7 @@ class CUser extends DAO_User
 					self::OPS_LEAD
 				),
 				'title' => 'Sessions',
-				'link' => '/backoffice/session_mgr',
+				'link' => '/backoffice/session-mgr',
 				'submenu' => array(
 					'admin_session_mgr' => array(
 						'access' => array(
@@ -960,7 +960,7 @@ class CUser extends DAO_User
 							self::OPS_LEAD
 						),
 						'title' => 'Session Calendar',
-						'link' => '/backoffice/session_mgr',
+						'link' => '/backoffice/session-mgr',
 					),
 					'admin_create_session' => array(
 						'access' => array(
@@ -984,7 +984,7 @@ class CUser extends DAO_User
 							self::OPS_LEAD
 						),
 						'title' => 'Template Manager',
-						'link' => '/backoffice/session_template_mgr',
+						'link' => '/backoffice/session-template-mgr',
 					),
 					'admin_publish_sessions' => array(
 						'access' => array(
@@ -996,7 +996,7 @@ class CUser extends DAO_User
 							self::OPS_LEAD
 						),
 						'title' => 'Publish Multiple Sessions',
-						'link' => '/backoffice/publish_sessions',
+						'link' => '/backoffice/publish-sessions',
 					),
 				)
 			),
@@ -1047,7 +1047,7 @@ class CUser extends DAO_User
 							self::OPS_SUPPORT
 						),
 						'title' => 'Entr&eacute;e Report',
-						'link' => '/backoffice/reports_entree',
+						'link' => '/backoffice/reports-entree',
 					),
 					'admin_dashboard_new' => array(
 						'access' => array(
@@ -1059,7 +1059,7 @@ class CUser extends DAO_User
 							self::OPS_LEAD
 						),
 						'title' => 'Dashboard',
-						'link' => '/backoffice/dashboard_menu_based',
+						'link' => '/backoffice/dashboard-menu-based',
 					),
 					'admin_reports_trending' => array(
 						'access' => array(
@@ -1071,7 +1071,7 @@ class CUser extends DAO_User
 							self::OPS_LEAD
 						),
 						'title' => 'Trending',
-						'link' => '/backoffice/reports_trending_menu_based',
+						'link' => '/backoffice/reports-trending-menu-based',
 					),
 					'admin_reports_goal_management_v2' => array(
 						'access' => array(
@@ -1083,7 +1083,7 @@ class CUser extends DAO_User
 							self::OPS_LEAD
 						),
 						'title' => 'Goal Management',
-						'link' => '/backoffice/reports_goal_management_v2',
+						'link' => '/backoffice/reports-goal-management-v2',
 					),
 					'admin_fundraiser' => array(
 						'access' => array(
@@ -1107,7 +1107,7 @@ class CUser extends DAO_User
 							self::OPS_LEAD
 						),
 						'title' => 'Manufacturing Labels',
-						'link' => '/backoffice/reports_manufacturer_labels',
+						'link' => '/backoffice/reports-manufacturer-labels',
 					)
 				)
 			),
@@ -1140,7 +1140,7 @@ class CUser extends DAO_User
 							self::OPS_SUPPORT
 						),
 						'title' => 'Activity Log',
-						'link' => '/backoffice/dashboard_activity_log',
+						'link' => '/backoffice/dashboard-activity-log',
 					),
 					'admin_store_details' => array(
 						'access' => array(
@@ -1148,7 +1148,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_MANAGER
 						),
 						'title' => 'Store Information',
-						'link' => '/backoffice/store_details',
+						'link' => '/backoffice/store-details',
 					),
 					'admin_resources' => array(
 						'access' => array(
@@ -1188,7 +1188,7 @@ class CUser extends DAO_User
 							self::OPS_LEAD
 						),
 						'title' => 'Menu Editor',
-						'link' => '/backoffice/menu_editor',
+						'link' => '/backoffice/menu-editor',
 					),
 					'admin_menu_inventory_mgr' => array(
 						'access' => (CStore::storeSupportsReciProfity($store_id, 100000) ? array(
@@ -1200,7 +1200,7 @@ class CUser extends DAO_User
 							self::OPS_LEAD
 						) : array()),
 						'title' => 'Inventory Manager',
-						'link' => '/backoffice/menu_inventory_mgr',
+						'link' => '/backoffice/menu-inventory-mgr',
 					),
 					'admin_estore' => array(
 						'access' => array(
@@ -1218,12 +1218,12 @@ class CUser extends DAO_User
 					'admin_create_franchise' => array(
 						'access' => array(self::SITE_ADMIN),
 						'title' => 'Create Franchise',
-						'link' => '/backoffice/create_franchise',
+						'link' => '/backoffice/create-franchise',
 					),
 					'admin_create_store' => array(
 						'access' => array(self::SITE_ADMIN),
 						'title' => 'Create Store',
-						'link' => '/backoffice/create_store',
+						'link' => '/backoffice/create-store',
 					),
 					'admin_list_franchisees' => array(
 						'access' => array(
@@ -1231,7 +1231,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_STAFF
 						),
 						'title' => 'Search Franchisees',
-						'link' => '/backoffice/list_franchisees',
+						'link' => '/backoffice/list-franchisees',
 					),
 					'admin_list_franchise' => array(
 						'access' => array(
@@ -1239,7 +1239,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_STAFF
 						),
 						'title' => 'Search Franchises',
-						'link' => '/backoffice/list_franchise',
+						'link' => '/backoffice/list-franchise',
 					),
 					'admin_list_stores' => array(
 						'access' => array(
@@ -1247,7 +1247,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_STAFF
 						),
 						'title' => 'Search Stores',
-						'link' => '/backoffice/list_stores',
+						'link' => '/backoffice/list-stores',
 					),
 					'admin_manage_site_notice' => array(
 						'access' => array(
@@ -1257,7 +1257,7 @@ class CUser extends DAO_User
 							self::FRANCHISE_MANAGER
 						),
 						'title' => 'Manage Site Promotions',
-						'link' => '/backoffice/manage_site_notice',
+						'link' => '/backoffice/manage-site-notice',
 					),
 					'admin_offsitelocations' => array(
 						'access' => array(
@@ -1288,27 +1288,27 @@ class CUser extends DAO_User
 					self::OPS_LEAD
 				),
 				'title' => 'Gift Cards',
-				'link' => '/backoffice/gift_card_management',
+				'link' => '/backoffice/gift-card-management',
 				'submenu' => array(
 					'admin_gift_card_management_load' => array(
 						'access' => true,
 						'title' => 'Load Gift Card',
-						'link' => '/backoffice/gift_card_load',
+						'link' => '/backoffice/gift-card-load',
 					),
 					'admin_gift_card_management_order' => array(
 						'access' => true,
 						'title' => 'Order New Gift Card',
-						'link' => '/backoffice/gift_card_order',
+						'link' => '/backoffice/gift-card-order',
 					),
 					'admin_gift_card_management_balance' => array(
 						'access' => true,
 						'title' => 'Gift Card Balance',
-						'link' => '/backoffice/gift_card_balance',
+						'link' => '/backoffice/gift-card-balance',
 					),
 					'admin_resend_gift_card_emails' => array(
 						'access' => true,
 						'title' => 'Resend Gift Card Emails',
-						'link' => '/backoffice/resend_gift_card_emails',
+						'link' => '/backoffice/resend-gift-card-emails',
 					),
 				)
 			),
@@ -1328,22 +1328,22 @@ class CUser extends DAO_User
 					'admin_manage_survey' => array(
 						'access' => true,
 						'title' => 'Manage Survey',
-						'link' => '/backoffice/manage_survey',
+						'link' => '/backoffice/manage-survey',
 					),
 					'admin_access_page_override' => array(
 						'access' => true,
 						'title' => 'Page Overrides',
-						'link' => '/backoffice/access_page_override',
+						'link' => '/backoffice/access-page-override',
 					),
 					'admin_report_access_levels' => array(
 						'access' => array(self::HOME_OFFICE_MANAGER),
 						'title' => 'Home Office Access Levels',
-						'link' => '/backoffice/report_access_levels',
+						'link' => '/backoffice/report-access-levels',
 					),
 					'admin_manage_bundle' => array(
 						'access' => array(self::SITE_ADMIN),
 						'title' => 'Manage Bundles',
-						'link' => '/backoffice/manage_bundle',
+						'link' => '/backoffice/manage-bundle',
 					),
 					'admin_manage_dream_event_theme' => array(
 						'access' => array(
@@ -1351,7 +1351,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_MANAGER
 						),
 						'title' => 'Manage Meal Prep Workshop Themes',
-						'link' => '/backoffice/manage_dream_event_theme',
+						'link' => '/backoffice/manage-dream-event-theme',
 					),
 					'admin_manage_dream_event_properties' => array(
 						'access' => array(
@@ -1359,7 +1359,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_MANAGER
 						),
 						'title' => 'Manage Meal Prep Workshop Properties',
-						'link' => '/backoffice/manage_dream_event_properties',
+						'link' => '/backoffice/manage-dream-event-properties',
 					),
 					'admin_manage_coupon_codes' => array(
 						'access' => array(
@@ -1367,7 +1367,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_MANAGER
 						),
 						'title' => 'Manage Coupon Codes',
-						'link' => '/backoffice/manage_coupon_codes',
+						'link' => '/backoffice/manage-coupon-codes',
 					),
 					'admin_manage_box' => array(
 						'access' => array(
@@ -1375,14 +1375,14 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_MANAGER
 						),
 						'title' => 'Manage Boxes',
-						'link' => '/backoffice/manage_box',
+						'link' => '/backoffice/manage-box',
 					),
 					'admin_sanity_check' => array(
 						'access' => array(
 							self::SITE_ADMIN
 						),
 						'title' => 'Sanity Check',
-						'link' => '/backoffice/sanity_check',
+						'link' => '/backoffice/sanity-check',
 					)
 				)
 			),
@@ -1428,7 +1428,7 @@ class CUser extends DAO_User
 					'admin_import_sidesmap_reciprofity' => array(
 						'access' => array(self::SITE_ADMIN),
 						'title' => 'Import Sides Map',
-						'link' => '/backoffice/import_sidesmap_reciprofity',
+						'link' => '/backoffice/import-sidesmap-reciprofity',
 					),
 					'admin_menu_inspector' => array(
 						'access' => array(
@@ -1436,7 +1436,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_MANAGER
 						),
 						'title' => 'Menu Inspector',
-						'link' => '/backoffice/menu_inspector',
+						'link' => '/backoffice/menu-inspector',
 					),
 					'admin_recipe_database' => array(
 						'access' => array(
@@ -1444,7 +1444,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_MANAGER
 						),
 						'title' => 'Recipe Database',
-						'link' => '/backoffice/recipe_database',
+						'link' => '/backoffice/recipe-database',
 					)
 				)
 			)
@@ -3451,6 +3451,10 @@ class CUser extends DAO_User
 
 	function getMembershipStatus($focusOrder = false, $generateStatusDisplayStrings = true, $getSpecificMembership = false, $history_type = false, $setAsCurrent = true, $addPaymentData = false)
 	{
+		if (empty($this->id))
+		{
+			return null;
+		}
 		// status field values
 		// current - has one or more memberships in good stead
 		// lapsed - has only a lapsed membership

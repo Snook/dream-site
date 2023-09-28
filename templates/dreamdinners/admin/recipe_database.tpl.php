@@ -6,7 +6,7 @@
 
 		<div class="row my-4">
 			<div class="col text-center">
-				<h1><a href="/?page=admin_recipe_database">Recipe Database</a></h1>
+				<h1><a href="/backoffice/recipe-database">Recipe Database</a></h1>
 			</div>
 		</div>
 

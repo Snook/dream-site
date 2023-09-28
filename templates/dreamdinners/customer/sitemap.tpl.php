@@ -17,13 +17,18 @@
 		<div class="container">
 
 			<ul>
-				<li><a href="/">Dream Dinners Home Page</a> - Get prepped meals for your family from our local assembly kitchens. Find how we can serve you. </li>
+				<li><a href="/">Dream Dinners Home Page</a> - REAL FOOD MADE FROM SCRATCH, SO YOUR LIFE CAN FEEL A LITTLE EASIER. Get prepped meals for your family from our local assembly kitchens. Find how we can serve you. </li>
 			</ul>
 
 			<h4>How It Works</h4>
 
 			<ul>
 				<li><a href="/how-it-works">How It Works</a> - Learn Dream Dinners works.</li>
+			</ul>
+			<h4>Share</h4>
+
+			<ul>
+				<li><a href="/share">Share</a> - Share Dream Dinners with friends and family to earn rewards.</li>
 			</ul>
 
 			<h4>View Menu</h4>
@@ -66,8 +71,8 @@
 			<h4>Our Services</h4>
 
 			<ul>
-				<li><a href="/locations">Locations</a> - Find a meal assembly kitchen near you.</li>
-				<li><a href="/delivered">Delivered</a> - Dinners shipped to your door.</li>
+				<li><a href="/locations">Locations</a> - Find a meal prep location near you.</li>
+				<li><a href="/delivered">Shipping</a> - Dinners shipped to your door.</li>
 
 			<h4>PlatePoints</h4>
 

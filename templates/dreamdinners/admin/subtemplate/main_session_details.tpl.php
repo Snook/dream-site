@@ -50,7 +50,7 @@
 		<tr>
 			<td class="label">Fundraiser</td>
 			<td colspan="3" class="value">
-				<a href="?page=fundraiser&amp;id=<?php echo $this->session_info['store_id']; ?>&amp;fid=<?php echo $this->session_info['fundraiser_id']; ?>" target="_blank"><?php echo $this->session_info['fundraiser_name']; ?></a>
+				<a href="/?page=fundraiser&amp;id=<?php echo $this->session_info['store_id']; ?>&amp;fid=<?php echo $this->session_info['fundraiser_id']; ?>" target="_blank"><?php echo $this->session_info['fundraiser_name']; ?></a>
 			</td>
 		</tr>
 		<tr>

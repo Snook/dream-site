@@ -153,9 +153,9 @@
 									<?php if ($this->orderState == 'NEW') { ?>
 										<span style="color: red;">Please select</span>
 									<?php } elseif ($this->sessionInfo['session_type_title'] == 'Walk-In')  { ?>
-									<a href="/?page=admin_main&amp;session=<?php echo $this->sessionInfo['id']; ?>"><?php echo $this->dateTimeFormat($this->sessionInfo['session_start'], VERBOSE_DATE); ?></a>
+									<a href="/backoffice?session=<?php echo $this->sessionInfo['id']; ?>"><?php echo $this->dateTimeFormat($this->sessionInfo['session_start'], VERBOSE_DATE); ?></a>
 									<?php } else { ?>
-										<a href="/?page=admin_main&amp;session=<?php echo $this->sessionInfo['id']; ?>"><?php echo $this->dateTimeFormat($this->sessionInfo['session_start'], VERBOSE); ?></a>
+										<a href="/backoffice?session=<?php echo $this->sessionInfo['id']; ?>"><?php echo $this->dateTimeFormat($this->sessionInfo['session_start'], VERBOSE); ?></a>
 									<?php } ?>
 								</div>
 								<?php if ($this->orderState != 'NEW') { ?>

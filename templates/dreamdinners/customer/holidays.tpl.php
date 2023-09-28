@@ -39,11 +39,11 @@
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<a href="/main.php?page=gift_card_order" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/gift-cards-458x344.png" alt="Dream Dinner Gift Cards" class="img-fluid" /></a>
+								<a href="/gift-card-order" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/gift-cards-458x344.png" alt="Dream Dinner Gift Cards" class="img-fluid" /></a>
 								<div class="card-body">
 									<h5 class="card-title">Dream Dinners Gift Cards</h5>
 									<p class="card-text">Looking for the perfect gift?<br/>Bring joy with ready to cook meals this summer.</p>
-									<p><a href="/main.php?page=gift_card_order" class="btn btn-primary">Buy a Gift Card</a></p>
+									<p><a href="/gift-card-order" class="btn btn-primary">Buy a Gift Card</a></p>
 								</div>
 							</div>
 						</div>

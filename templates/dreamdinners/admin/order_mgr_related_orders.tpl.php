@@ -43,10 +43,10 @@
 
 			<?php if (!empty($order['order_admin_notes']) || !empty($order['order_user_notes'])) { ?><a class="button" id="view_notes-<?= $order['order_id'] ?>" data-order_id="<?= $order['order_id'] ?>">Notes</a><?php } ?>
 			<?php if ($order['session_start'] > '2014-11-01 00:00:00' && $order['status'] != CBooking::CANCELLED) { ?>
-				<a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;freezer=true" class="button" target="_blank">Freezer Sheet</a>
-				<a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;nutrition=true" class="button" target="_blank">Nutritionals</a>
+				<a href="/?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;freezer=true" class="button" target="_blank">Freezer Sheet</a>
+				<a href="/?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;nutrition=true" class="button" target="_blank">Nutritionals</a>
 				<?php if (array_key_exists($order['idmenu'] + 1, $active_menus)) { ?>
-					<a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;core=true" class="button" target="_blank">Next Month's Menu</a>
+					<a href="/?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;core=true" class="button" target="_blank">Next Month's Menu</a>
 				<?php } ?>
 			<?php } ?>
 		</td>
@@ -124,10 +124,10 @@
 
 			<?php if (!empty($order['order_admin_notes']) || !empty($order['order_user_notes'])) { ?><a class="button" id="view_notes-<?= $order['order_id'] ?>" data-order_id="<?= $order['order_id'] ?>">Notes</a><?php } ?>
 			<?php if ($order['session_start'] > '2014-11-01 00:00:00' && $order['status'] != CBooking::CANCELLED) { ?>
-				<a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;freezer=true" class="button" target="_blank">Freezer Sheet</a>
-				<a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;nutrition=true" class="button" target="_blank">Nutritionals</a>
+				<a href="/?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;freezer=true" class="button" target="_blank">Freezer Sheet</a>
+				<a href="/?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;nutrition=true" class="button" target="_blank">Nutritionals</a>
 				<?php if (array_key_exists($order['idmenu'] + 1, $active_menus)) { ?>
-					<a href="?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;core=true" class="button" target="_blank">Next Month's Menu</a>
+					<a href="/?page=print&amp;order=<?php echo $order['order_id']; ?>&amp;core=true" class="button" target="_blank">Next Month's Menu</a>
 				<?php } ?>
 			<?php } ?>
 		</td>

@@ -14,7 +14,7 @@
 				</video>
 				<div class="col-12 col-sm-9 col-md-8 col-lg-6 col-xl-4 ml-sm-5 p-4 position-absolute" style="bottom: 3rem; background-color: rgba(255,255,255,0.90)">
 					<h1 class="font-marker">Your Local Meal Kit Solution</h1>
-					<p class="text-uppercase">Real food made from scratch, so your life can feel just a little easier.</p>
+					<p class="text-uppercase">Real food made from scratch, so your life can feel a little easier.</p>
 					<form action="/locations" method="post">
 						<div class="form-group mx-auto">
 							<div class="input-group">
@@ -36,8 +36,8 @@
 			<header class="d-sm-none row mx-1">
 				<div class="col">
 					<img class="img-fluid" src="<?php echo IMAGES_PATH; ?>/home_content/media/family_dinner2.webp?v=<?php echo JAVASCRIPT_CSS_VERSION; ?>">
-					<h1 class="font-marker">Your Local Dinner Solution</h1>
-					<p class="text-uppercase">The quickest, easiest way to get a homemade meal on the table. Find a location near you.</p>
+					<h1 class="font-marker">Your Local Meal Kit Solution</h1>
+					<p class="text-uppercase">Real food made from scratch, so your life can feel a little easier.</p>
 					<form action="/locations" method="post">
 						<div class="form-group mx-auto">
 							<div class="input-group">
@@ -72,27 +72,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-pot-pies-featured-kid-pick-400x400.webp" alt="Mini Chicken Pot Pies" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/calzone-kid-pick-400x400.webp" alt="Build Your Own Calzone" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Mini Chicken Pot Pies</h5>
+									<h5 class="card-title">Build Your Own Calzone</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-enchiladas-featured-pan-400x400.webp" alt="Chicken Enchiladas" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-parmesan-pan-400x400.webp" alt="Chicken Parmesan" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Enchiladas</h5>
+									<h5 class="card-title">Chicken Parmesan</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/carne-asada-tacos-featured-under-30-400x400.webp" alt="Carne Asada Steak Tacos" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-egg-roll-bowl-30-min-400x400.webp" alt="Chicken Egg Roll Bowl" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Carne Asada Steak Tacos</h5>
+									<h5 class="card-title">Chicken Egg Roll Bowl</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-tikka-masala-featured-instant-pot-400x400.webp" alt="Chicken Tikka Masala" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cornflake-chicken-air-fryer-400x400.webp" alt="Cornflake Crusted Chicken Tenders with Dipping Sauce" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Tikka Masala over Jasmine Rice</h5>
+									<h5 class="card-title">Cornflake Crusted Chicken Tenders with Dipping Sauce</h5>
 								</div>
 							</div>
 

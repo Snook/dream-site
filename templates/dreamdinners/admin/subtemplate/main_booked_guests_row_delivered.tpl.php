@@ -75,7 +75,7 @@
 							<?php } ?>
 							<li><a href="/?page=admin_order_details_view_all&amp;customer_print_view=1&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" target="_blank">Order Summary</a></li>
 							<?php if ($booking['status'] != CBooking::SAVED) { ?>
-								<li><a href="?page=print&amp;order=<?php echo $booking['order_id']; ?>&amp;nutrition=true" target="_blank">Nutritionals</a></li>
+								<li><a href="/?page=print&amp;order=<?php echo $booking['order_id']; ?>&amp;nutrition=true" target="_blank">Nutritionals</a></li>
 								<li>
 									<a href="/?page=admin_reports_customer_menu_item_labels&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" target="_blank">Labels</a>
 								</li>

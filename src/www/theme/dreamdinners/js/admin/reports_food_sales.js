@@ -124,13 +124,13 @@ function init_store_selection()
 
 function select_session(id)
 {
-	bounce("/?page=admin_main&session=" + id, "_blank");
+	bounce("/backoffice?session=" + id, "_blank");
 	$("#dd_session_selector").remove();
 }
 
 function select_order(o_id, s_id)
 {
-	bounce("/?page=admin_main&session=" + s_id + "&order=" + o_id, "_blank");
+	bounce("/backoffice?session=" + s_id + "&order=" + o_id, "_blank");
 	$("#dd_session_selector").remove();
 }
 

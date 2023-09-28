@@ -13,7 +13,7 @@
 						<a href="/locations" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sept23v2-header-circles-957x657.webp" alt="Mini Chicken Pot Pies and Southern Shrimp and Grits adn Chicken Tikka Masala" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/oct23-header-collage-957x657.webp" alt="Chicken Egg Roll Bowl and Cattlemans Pie and Chicken Avignon" class="img-fluid">
 					</div>
 
 				</div>

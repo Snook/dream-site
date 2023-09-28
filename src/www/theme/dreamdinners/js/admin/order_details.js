@@ -42,7 +42,7 @@ function Edit()
 
 function SessionDetails()
 {
-	bounce('/?page=admin_main&session=' + session_id + '&back=' + back_path());
+	bounce('/backoffice?session=' + session_id + '&back=' + back_path());
 }
 
 function GuestDetails()

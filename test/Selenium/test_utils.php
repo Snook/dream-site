@@ -15,7 +15,7 @@ class DD_Selenium_Test_Utils
 		include('includes/config.php');
 
 		$driver->get($baseURL . "/signout");
-		$driver->get($baseURL . "/?page=admin_login");
+		$driver->get($baseURL . "/backoffice/login");
 
 		$driver->executeScript("$('#password_login').attr('type', 'text');");
 

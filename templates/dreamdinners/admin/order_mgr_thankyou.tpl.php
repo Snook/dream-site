@@ -11,7 +11,7 @@
 		<tr>
 			<td>
 				<a href="/?page=admin_main" class="button">Admin Home</a>
-				<a href="/?page=admin_main&amp;session=<?php echo $this->sessionInfo['id']; ?>" class="button">View This Session</a>
+				<a href="/backoffice?session=<?php echo $this->sessionInfo['id']; ?>" class="button">View This Session</a>
 				<a href="/?page=admin_order_mgr&amp;order=<?php echo $this->orderInfo['id']; ?>" class="button">Edit This Order</a>
 				<a href="/?page=admin_user_details&amp;id=<?php echo $this->orderInfo['user_id']; ?>" class="button">Guest Details</a>
 				<a href="/?page=admin_order_history&amp;id=<?php echo $this->orderInfo['user_id']; ?>" class="button">Guest Order History</a>

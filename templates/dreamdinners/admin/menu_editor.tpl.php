@@ -17,10 +17,10 @@
 
 		<div class="row my-4">
 			<div class="col-4 offset-4 text-center ">
-				<h1><a href="main.php?page=admin_menu_editor">Menu Editor</a></h1>
+				<h1><a href="/?page=admin_menu_editor">Menu Editor</a></h1>
 			</div>
 			<div class="col-4 text-right">
-				<a href="main.php?page=admin_menu_inventory_mgr&tabs=menu.specials" class="btn btn-primary btn-sm" id="inv-nav-button">Inventory Manager</a>
+				<a href="/?page=admin_menu_inventory_mgr&tabs=menu.specials" class="btn btn-primary btn-sm" id="inv-nav-button">Inventory Manager</a>
 			</div>
 		</div>
 

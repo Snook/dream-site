@@ -31,7 +31,7 @@
 								<img src="<?php echo IMAGES_PATH; ?>/recipe/default/<?php echo $planNode['recipe_id']; ?>.webp" style="width: 105px; height: 78px;"/>
 							</td>
 							<td>
-								<div class="mb-2 font-weight-bold"><a href="?page=item&amp;recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id']; ?>" target="_blank"><?php echo $planNode['title']; ?></a></div>
+								<div class="mb-2 font-weight-bold"><a href="/?page=item&amp;recipe=<?php echo $planNode['recipe_id']; ?>&amp;ov_menu=<?php echo $this->menuInfo['menu_id']; ?>" target="_blank"><?php echo $planNode['title']; ?></a></div>
 								<div><?php echo $planNode['desc']; ?></div>
 							</td>
 							<td>

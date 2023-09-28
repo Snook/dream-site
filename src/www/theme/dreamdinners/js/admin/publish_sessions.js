@@ -286,7 +286,7 @@ function onEditClick(id)
 
 function onSessionClick(id)
 {
-	window.location = "./?page=admin_main&session=" + id;
+	window.location = "./backoffice?session=" + id;
 }
 
 function saveItems()

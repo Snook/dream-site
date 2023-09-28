@@ -125,7 +125,7 @@
 									<?php if ($this->orderState == 'NEW') { ?>
 										<span style="color: red;">Please select</span>
 									<?php } else { ?>
-										<a href="/?page=admin_main&amp;session=<?php echo $this->sessionInfo['id']; ?>"><?php echo $this->dateTimeFormat($this->sessionInfo['session_start'], VERBOSE); ?></a>
+										<a href="/backoffice?session=<?php echo $this->sessionInfo['id']; ?>"><?php echo $this->dateTimeFormat($this->sessionInfo['session_start'], VERBOSE); ?></a>
 									<?php } ?>
 								</div>
 								<?php if ($this->orderState != 'NEW') { ?>
