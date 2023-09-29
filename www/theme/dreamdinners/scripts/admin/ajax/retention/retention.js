@@ -18,7 +18,7 @@ function deleteResultProcess ( followupID, rid )
 			alert( "Sorry, a browser incompatibility error occurred while trying to save your data." );
 			return;
 		}
-		var url = "processor?processor=admin_retentionProcessor";
+		var url = "/processor?processor=admin_retentionProcessor";
 		var post_str = "action=deleteResult&rfid=" + followupID + "&rid=" + rid ;
 		xmlHttp.onreadystatechange = deleteResultReturnInternal;
 		xmlHttp.open('POST', url, true);
@@ -36,7 +36,7 @@ function deleteFollowupProcess ( followupID , rid)
 			alert( "Sorry, a browser incompatibility error occurred while trying to save your data." );
 			return;
 		}
-		var url = "processor?processor=admin_retentionProcessor";
+		var url = "/processor?processor=admin_retentionProcessor";
 		var post_str = "action=deleteFollowUp&rfid=" + followupID + "&rid=" + rid ;
 		xmlHttp.onreadystatechange = deleteFollowupResultInternal;
 		xmlHttp.open('POST', url, true);
@@ -76,7 +76,7 @@ function addData ( follow_idx, type, report_id,  action, rid, uid,  fType, fDate
 		alert( "Sorry, a browser incompatibility error occurred while trying to save your data." );
 		return;
 	}
-	var url = "processor?processor=admin_retentionProcessor";
+	var url = "/processor?processor=admin_retentionProcessor";
 
 	var post_str = "";
 
