@@ -85,11 +85,11 @@ class processor_admin_session_rsvp extends CPageProcessor
 			$session_id = $_REQUEST['session_id'];
 			$user_id = $_REQUEST['user_id'];
 
-			$DAO_session = DAO_CFactory::create('session');
+			$DAO_session = DAO_CFactory::create('session', true);
 			$DAO_session->id = $session_id;
-			$DAO_session->find(true);
+			$DAO_session->find_DAO_session(true);
 
-			$DAO_user = DAO_CFactory::create('user');
+			$DAO_user = DAO_CFactory::create('user', true);
 			$DAO_user->id = $user_id;
 			$DAO_user->find(true);
 
@@ -131,7 +131,7 @@ class processor_admin_session_rsvp extends CPageProcessor
 			$authenticateResult = $User->Authenticate($_POST['primary_email_login'], $_POST['password_login'], false, false, false, true);
 
 			// get the session details from the submitted session id
-			$DAO_session = DAO_CFactory::create('session');
+			$DAO_session = DAO_CFactory::create('session', true);
 			$DAO_session->id = $_POST['rsvp_dream_taste'];
 
 			//TODO: evan-l-> ask Ryan why this losses the session id
