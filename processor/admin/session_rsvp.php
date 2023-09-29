@@ -87,7 +87,7 @@ class processor_admin_session_rsvp extends CPageProcessor
 
 			$DAO_session = DAO_CFactory::create('session');
 			$DAO_session->id = $session_id;
-			$DAO_session->find_DAO_session(true);
+			$DAO_session->find(true);
 
 			$DAO_user = DAO_CFactory::create('user');
 			$DAO_user->id = $user_id;
