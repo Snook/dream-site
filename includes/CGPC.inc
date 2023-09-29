@@ -124,10 +124,10 @@ class CGPC
 					$data = ($data = intval($data)) < 0 ? 0 : $data;
 					break;
 				case TYPE_NUM:
-					$data = intval($data);
+					$data = floatval($data);
 					break;
 				case TYPE_UNUM:
-					$data = intval($data);
+					$data = floatval($data);
 					$data = ($data < 0) ? 0 : $data;
 					break;
 				case TYPE_BINARY:
