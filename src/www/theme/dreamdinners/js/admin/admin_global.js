@@ -11,8 +11,6 @@ function admin_global_init()
 	menu_bar_init();
 	// Auto load [page_name]_init() functions
 
-	handle_inline_guest_search();
-
 	handle_helpdesk();
 
 	handle_tabbed_content();
@@ -41,8 +39,6 @@ function admin_global_init()
 
 		// load any data-tooltips that may have been returned in ajax content
 		data_tooltips_init();
-
-		handle_inline_guest_search();
 
 	});
 
@@ -888,178 +884,6 @@ function handle_helpdesk()
 	});
 }
 
-function handle_inline_guest_search()
-{
-	$(document).on('click', '[data-guestsearch]', function (e) {
-
-		if ($('#ilgs_container').length)
-		{
-			return;
-		}
-
-		var search_button_parameters = $(this).data();
-		delete search_button_parameters['qtip']; // remove unnecessary data from being sent to processor
-
-		$.ajax({
-			url: '/processor',
-			type: 'POST',
-			timeout: 60000,
-			dataType: 'json',
-			data: {
-				processor: 'admin_guestSearch',
-				op: 'get_search_form',
-				data: search_button_parameters
-			},
-			success: function (json) {
-				if (json.processor_success)
-				{
-					var dialog_contents = json.search_form;
-
-					dd_message({
-						title: 'Guest Search',
-						message: dialog_contents,
-						modal: false,
-						div_id: 'ilgs_container',
-						height: 300,
-						width: 600,
-						closeOnEscape: false,
-						noOk: true,
-						close: function () {
-							$('#ilgs_container').remove();
-						},
-						open: function (event, ui) {
-							$('#ilgs_search_value').focus();
-
-							var manualSearchTypeChange = false;
-
-							$(document).on('change', '#ilgs_search_type', function (e) {
-
-								manualSearchTypeChange = true;
-
-								$('#ilgs_search_value').unmask();
-
-								if ($('#ilgs_search_type') == 'phone')
-								{
-									$('#ilgs_search_value').mask('999-999-9999');
-								}
-								else
-								{
-									$('.telephone');
-								}
-							});
-
-							$(document).on('keyup', '#ilgs_search_value', function (e) {
-
-								if (e.which == 13)
-								{
-									$('#ilgs_search_go').trigger('click');
-								}
-								// user manually changed search type, don't automatically change it
-								if (manualSearchTypeChange == true)
-								{
-									return;
-								}
-								var value = $('#ilgs_search_value').val();
-								// not numeric entry, start with last name
-								if (!$.isNumeric(value))
-								{
-									$('#ilgs_search_type').val('lastname');
-								}
-								// numeric entry, probably guest id
-								if ($.isNumeric(value))
-								{
-									$('#ilgs_search_type').val('id');
-								}
-								// has @ symbol, probably email
-								if (value.indexOf("@") != -1)
-								{
-									$('#ilgs_search_type').val('email');
-								}
-								// has space, probably first and last name
-								if (value.indexOf(" ") != -1)
-								{
-									$('#ilgs_search_type').val('firstlast');
-								}
-							});
-
-							$(document).on('click', '#ilgs_search_go', function (e) {
-
-								var searchtype = $('#ilgs_search_type').val();
-								var searchvalue = $('#ilgs_search_value').val();
-								var store_filter = $('#ilgs_search_all').prop("checked") ? 1 : 0;
-								var currentStore = $('#currentStore').val();
-
-								$('#ilgs_results').slideUp();
-
-								$.ajax({
-									url: '/processor?processor=admin_guestSearch',
-									type: 'POST',
-									dataType: 'json',
-									data: {
-										search_type: searchtype,
-										q: searchvalue,
-										results_type: 'inline_search',
-										store: (currentStore ? currentStore : 'none'),
-										filter: store_filter,
-										select_button_title: search_button_parameters.select_button_title
-									},
-									success: function (json) {
-										if (json.result_code == 1)
-										{
-											$('#ilgs_results').html(json.data).slideDown();
-
-											$(document).on('click', '[data-ilgs_result]', function (e) {
-
-												if (typeof window[search_button_parameters.select_function] === 'function')
-												{
-													// this will merge in all data- from the data-guestsearch button for use when the data-select_function function is called
-													$.extend(this.dataset, search_button_parameters);
-
-													// call data-select_function and pass 'this' as variable
-													window[search_button_parameters.select_function](this);
-
-													// remove the search container
-													$('#ilgs_container').remove();
-												}
-												else if (typeof search_button_parameters.select_function !== undefined && search_button_parameters.select_function !== false)
-												{
-													dd_console_log(search_button_parameters.select_function + '() specified in data-select_function, but not defined in javascript.');
-												}
-												else
-												{
-													// if there is no data-select_function then the button navigates to user_details
-													bounce('/?page=admin_user_details&id=' + $(this).data('user_id'));
-												}
-											});
-										}
-										else
-										{
-											dd_message({
-												title: 'Error',
-												message: json.processor_message
-											});
-										}
-									},
-									error: function (objAJAXRequest, strError) {
-										dd_message({
-											title: 'Error',
-											message: strError
-										});
-									}
-								});
-							});
-						}
-					});
-				}
-			},
-			error: function (objAJAXRequest, strError) {
-				response = 'Unexpected error';
-				handle_dashboard_update();
-			}
-		});
-	});
-}
-
 function menu_bar_init()
 {
 	if ($.fn.make_dropdown)
@@ -1705,6 +1529,175 @@ function NewWindowScroll(mypage, myname, w, h)
 }
 
 $(function () {
+
+	$(document).on('click', '[data-guestsearch]', function (e) {
+
+		if ($('#ilgs_container').length)
+		{
+			return;
+		}
+
+		var search_button_parameters = $(this).data();
+		delete search_button_parameters['qtip']; // remove unnecessary data from being sent to processor
+
+		$.ajax({
+			url: '/processor',
+			type: 'POST',
+			timeout: 60000,
+			dataType: 'json',
+			data: {
+				processor: 'admin_guestSearch',
+				op: 'get_search_form',
+				data: search_button_parameters
+			},
+			success: function (json) {
+				if (json.processor_success)
+				{
+					var dialog_contents = json.search_form;
+
+					dd_message({
+						title: 'Guest Search',
+						message: dialog_contents,
+						modal: false,
+						div_id: 'ilgs_container',
+						height: 300,
+						width: 600,
+						closeOnEscape: false,
+						noOk: true,
+						close: function () {
+							$('#ilgs_container').remove();
+						},
+						open: function (event, ui) {
+							$('#ilgs_search_value').focus();
+
+							var manualSearchTypeChange = false;
+
+							$(document).on('change', '#ilgs_search_type', function (e) {
+
+								manualSearchTypeChange = true;
+
+								$('#ilgs_search_value').unmask();
+
+								if ($('#ilgs_search_type') == 'phone')
+								{
+									$('#ilgs_search_value').mask('999-999-9999');
+								}
+								else
+								{
+									$('.telephone');
+								}
+							});
+
+							$(document).on('keyup', '#ilgs_search_value', function (e) {
+
+								if (e.which == 13)
+								{
+									$('#ilgs_search_go').trigger('click');
+								}
+								// user manually changed search type, don't automatically change it
+								if (manualSearchTypeChange == true)
+								{
+									return;
+								}
+								var value = $('#ilgs_search_value').val();
+								// not numeric entry, start with last name
+								if (!$.isNumeric(value))
+								{
+									$('#ilgs_search_type').val('lastname');
+								}
+								// numeric entry, probably guest id
+								if ($.isNumeric(value))
+								{
+									$('#ilgs_search_type').val('id');
+								}
+								// has @ symbol, probably email
+								if (value.indexOf("@") != -1)
+								{
+									$('#ilgs_search_type').val('email');
+								}
+								// has space, probably first and last name
+								if (value.indexOf(" ") != -1)
+								{
+									$('#ilgs_search_type').val('firstlast');
+								}
+							});
+
+							$(document).on('click', '#ilgs_search_go', function (e) {
+
+								var searchtype = $('#ilgs_search_type').val();
+								var searchvalue = $('#ilgs_search_value').val();
+								var store_filter = $('#ilgs_search_all').prop("checked") ? 1 : 0;
+								var currentStore = $('#currentStore').val();
+
+								$('#ilgs_results').slideUp();
+
+								$.ajax({
+									url: '/processor?processor=admin_guestSearch',
+									type: 'POST',
+									dataType: 'json',
+									data: {
+										search_type: searchtype,
+										q: searchvalue,
+										results_type: 'inline_search',
+										store: (currentStore ? currentStore : 'none'),
+										filter: store_filter,
+										select_button_title: search_button_parameters.select_button_title
+									},
+									success: function (json) {
+										if (json.result_code == 1)
+										{
+											$('#ilgs_results').html(json.data).slideDown();
+
+											$(document).on('click', '[data-ilgs_result]', function (e) {
+
+												if (typeof window[search_button_parameters.select_function] === 'function')
+												{
+													// this will merge in all data- from the data-guestsearch button for use when the data-select_function function is called
+													$.extend(this.dataset, search_button_parameters);
+
+													// call data-select_function and pass 'this' as variable
+													window[search_button_parameters.select_function](this);
+
+													// remove the search container
+													$('#ilgs_container').remove();
+												}
+												else if (typeof search_button_parameters.select_function !== undefined && search_button_parameters.select_function !== false)
+												{
+													dd_console_log(search_button_parameters.select_function + '() specified in data-select_function, but not defined in javascript.');
+												}
+												else
+												{
+													// if there is no data-select_function then the button navigates to user_details
+													bounce('/?page=admin_user_details&id=' + $(this).data('user_id'));
+												}
+											});
+										}
+										else
+										{
+											dd_message({
+												title: 'Error',
+												message: json.processor_message
+											});
+										}
+									},
+									error: function (objAJAXRequest, strError) {
+										dd_message({
+											title: 'Error',
+											message: strError
+										});
+									}
+								});
+							});
+						}
+					});
+				}
+			},
+			error: function (objAJAXRequest, strError) {
+				response = 'Unexpected error';
+				handle_dashboard_update();
+			}
+		});
+	});
 
 	$(document).on('click', '#menu-toggle', function (e) {
 		e.preventDefault();
