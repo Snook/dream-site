@@ -85,25 +85,30 @@ class CSession extends DAO_Session
 
 	function find_DAO_session($n = false)
 	{
-		$this->joinAddWhereAsOn(DAO_CFactory::create('menu'));
-		$this->joinAddWhereAsOn(DAO_CFactory::create('store'));
+		if ($this->_query["data_select"] === "*")
+		{
+			throw new Exception("When creating this object, second parameter in DAO_CFactory::create() needs to be 'true'");
+		}
 
-		$DAO_session_discount = DAO_CFactory::create('session_discount');
+		$this->joinAddWhereAsOn(DAO_CFactory::create('menu', true));
+		$this->joinAddWhereAsOn(DAO_CFactory::create('store', true));
+
+		$DAO_session_discount = DAO_CFactory::create('session_discount', true);
 		$DAO_session_discount->unsetProperty('is_deleted'); // make sure to join deleted rows to account for edited sessions
 		$this->joinAddWhereAsOn($DAO_session_discount, 'LEFT');
 
-		$DAO_session_properties = DAO_CFactory::create('session_properties');
+		$DAO_session_properties = DAO_CFactory::create('session_properties', true);
 
-		$DAO_dream_taste_event_properties = DAO_CFactory::create('dream_taste_event_properties');
-		$DAO_dream_taste_event_properties->joinAddWhereAsOn(DAO_CFactory::create('dream_taste_event_theme'), 'LEFT');
+		$DAO_dream_taste_event_properties = DAO_CFactory::create('dream_taste_event_properties', true);
+		$DAO_dream_taste_event_properties->joinAddWhereAsOn(DAO_CFactory::create('dream_taste_event_theme', true), 'LEFT');
 		$DAO_session_properties->joinAddWhereAsOn($DAO_dream_taste_event_properties, 'LEFT');
 
-		$DAO_store_to_fundraiser = DAO_CFactory::create('store_to_fundraiser');
-		$DAO_fundraiser = DAO_CFactory::create('fundraiser');
+		$DAO_store_to_fundraiser = DAO_CFactory::create('store_to_fundraiser', true);
+		$DAO_fundraiser = DAO_CFactory::create('fundraiser', true);
 		$DAO_store_to_fundraiser->joinAddWhereAsOn($DAO_fundraiser, 'LEFT');
 		$DAO_session_properties->joinAddWhereAsOn($DAO_store_to_fundraiser, 'LEFT');
 
-		$DAO_session_properties->joinAddWhereAsOn(DAO_CFactory::create('store_pickup_location'), 'LEFT');
+		$DAO_session_properties->joinAddWhereAsOn(DAO_CFactory::create('store_pickup_location', true), 'LEFT');
 
 		$this->joinAddWhereAsOn($DAO_session_properties, 'LEFT');
 
