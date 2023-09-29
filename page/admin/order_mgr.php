@@ -161,7 +161,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				CApp::bounce("/?page=admin_main");
 			}
 
-			$booking = DAO_CFactory::create('booking');
+			$booking = DAO_CFactory::create('booking', true);
 			$booking->selectAdd();
 			$booking->selectAdd("booking.*");
 			$booking->order_id = $this->originalOrder->id;

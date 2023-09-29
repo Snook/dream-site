@@ -35,11 +35,16 @@ class CBooking extends DAO_Booking
 
 	function find_DAO_booking($n = false)
 	{
-		$DAO_session = DAO_CFactory::create('session');
-		$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('menu'));
-		$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('store'));
+		if ($this->_query["data_select"] === "*")
+		{
+			throw new Exception("When creating this object, second parameter in DAO_CFactory::create() needs to be 'true'");
+		}
+
+		$DAO_session = DAO_CFactory::create('session', true);
+		$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('menu', true));
+		$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('store', true));
 		$this->joinAddWhereAsOn($DAO_session);
-		$this->joinAddWhereAsOn(DAO_CFactory::create('user'));
+		$this->joinAddWhereAsOn(DAO_CFactory::create('user', true));
 
 		return parent::find($n);
 	}

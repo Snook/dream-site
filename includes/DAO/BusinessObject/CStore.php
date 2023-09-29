@@ -135,6 +135,11 @@ class CStore extends DAO_Store
 	 */
 	function find_DAO_store($n = false)
 	{
+		if ($this->_query["data_select"] === "*")
+		{
+			throw new Exception("When creating this object, second parameter in DAO_CFactory::create() needs to be 'true'");
+		}
+
 		// you can set the ID as a short url string, if it is not just a number
 		if (!empty($this->id) && !is_numeric($this->id) && CTemplate::isAlphaNumHyphen($this->id))
 		{
