@@ -415,7 +415,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 
 			$tpl->assign('storeSupportsPlatePoints', $this->storeSupportsPlatePoints);
 
-			if ($_POST['assembly_fee'] < 0 && OrdersHelper::allow_assembly_fee($menu_id))
+			if (!empty($_POST['assembly_fee']) && $_POST['assembly_fee'] < 0 && OrdersHelper::allow_assembly_fee($menu_id))
 			{
 				$tpl->setErrorMsg('The service fee must be a minimum of $0.');
 				CApp::bounce('/?page=admin_menu_editor'); //reload the page
@@ -542,76 +542,89 @@ class page_admin_menu_editor extends CPageAdminOnly
 							{
 								continue;
 							}
-							$mmi = DAO_CFactory::create('menu_to_menu_item');
-							$mmi->menu_item_id = $item['id'];
-							$mmi->menu_id = $menu_id;
-							$mmi->store_id = $store_id;
-							if ($mmi->find(true))
+
+							$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
+							$DAO_menu_to_menu_item->menu_item_id = $item['id'];
+							$DAO_menu_to_menu_item->menu_id = $menu_id;
+							$DAO_menu_to_menu_item->store_id = $store_id;
+							if ($DAO_menu_to_menu_item->find(true))
 							{
-								$oldItem = clone($mmi);
+								$old_DAO_menu_to_menu_item = clone($DAO_menu_to_menu_item);
 								//override_price
 								$priceName = "ovr_" . $item['id'];
 								if ($item['is_price_controllable'] && isset($_POST[$priceName]) && !empty($_POST[$priceName]))
 								{
 									// TODO : validate price
-									$mmi->override_price = CGPC::do_clean($_POST[$priceName], TYPE_NUM);
+									$DAO_menu_to_menu_item->override_price = CGPC::do_clean($_POST[$priceName], TYPE_NUM);
 								}
 								else
 								{
 									if ($item['pricing_type'] == CMenuItem::INTRO)
 									{
-										$mmi->override_price = 12.5;
+										$DAO_menu_to_menu_item->override_price = 12.5;
 									}
 									else
 									{
-										$mmi->override_price = 'null';
+										$DAO_menu_to_menu_item->override_price = 'null';
 									}
 								}
+
 								$pickSheetVisName = "pic_" . $item['id'];
-								if (isset($_POST[$pickSheetVisName]) && !empty($_POST[$pickSheetVisName]))
+								if (!empty($_POST[$pickSheetVisName]))
 								{
-									$mmi->show_on_pick_sheet = 1;
+									$DAO_menu_to_menu_item->show_on_pick_sheet = 1;
 								}
 								else
 								{
-									$mmi->show_on_pick_sheet = 0;
+									$DAO_menu_to_menu_item->show_on_pick_sheet = 0;
 								}
+
 								//visibility
 								$visName = "vis_" . $item['id'];
-								if (($item['is_visibility_controllable'] && isset($_POST[$visName]) && !empty($_POST[$visName])) || $item['sell_in_store_only'])
+								if (($item['is_visibility_controllable'] && !empty($_POST[$visName])) || $item['sell_in_store_only'])
 								{
-									$mmi->is_visible = 0;
+									$DAO_menu_to_menu_item->is_visible = 0;
 								}
 								else
 								{
-									$mmi->is_visible = 1;
+									$DAO_menu_to_menu_item->is_visible = 1;
 								}
-								$mmi->update($oldItem);
+								$DAO_menu_to_menu_item->update($old_DAO_menu_to_menu_item);
 							}
 
 							if (isset($_POST['upd_mkdn_' . $item['id']]))
 							{
-
 								$tArr = explode("|", CGPC::do_clean($_POST['upd_mkdn_' . $item['id']], TYPE_STR));
 								$markdownID = $tArr[0];
 								$markdownValue = $tArr[1];
+
+								// Markdown not enabled for this menu, no mark down record
+								if (!$DAO_menu->isEnabled_MarkDown())
+								{
+									$markdownValue = 0;
+								}
 
 								if ($item['markdown_id'])
 								{
 									// A markdown already exists for this item so update if different
 									if ($markdownID == $item['markdown_id'] && $item['markdown_value'] != $markdownValue)
 									{
-										$markDownObj = DAO_CFactory::create('menu_item_mark_down');
-										$markDownObj->query("update menu_item_mark_down set is_deleted = 1 where menu_item_id = {$item['id']} and store_id = $store_id");
+										$delete_DAO_menu_item_mark_down = DAO_CFactory::create('menu_item_mark_down');
+										$delete_DAO_menu_item_mark_down->store_id = $store_id;
+										$delete_DAO_menu_item_mark_down->menu_item_id = $item['id'];
+										if ($delete_DAO_menu_item_mark_down->find(true))
+										{
+											$delete_DAO_menu_item_mark_down->delete();
+										}
 
 										if ($markdownValue != 0)
 										{
 
-											$newMDObj = DAO_CFactory::create('menu_item_mark_down');
-											$newMDObj->menu_item_id = $item['id'];
-											$newMDObj->store_id = $store_id;
-											$newMDObj->markdown_value = $markdownValue;
-											$newMDObj->insert();
+											$DAO_menu_item_mark_down = DAO_CFactory::create('menu_item_mark_down');
+											$DAO_menu_item_mark_down->menu_item_id = $item['id'];
+											$DAO_menu_item_mark_down->store_id = $store_id;
+											$DAO_menu_item_mark_down->markdown_value = $markdownValue;
+											$DAO_menu_item_mark_down->insert();
 										}
 									}
 									else
@@ -625,20 +638,24 @@ class page_admin_menu_editor extends CPageAdminOnly
 
 									if ($markdownValue != 0)
 									{
-										$newMDObj = DAO_CFactory::create('menu_item_mark_down');
-										$newMDObj->menu_item_id = $item['id'];
-										$newMDObj->store_id = $store_id;
-										$newMDObj->markdown_value = $markdownValue;
-										$newMDObj->insert();
+										$DAO_menu_item_mark_down = DAO_CFactory::create('menu_item_mark_down');
+										$DAO_menu_item_mark_down->menu_item_id = $item['id'];
+										$DAO_menu_item_mark_down->store_id = $store_id;
+										$DAO_menu_item_mark_down->markdown_value = $markdownValue;
+										$DAO_menu_item_mark_down->insert();
 									}
 								}
 							}
-							else
+							else if (!empty($item['markdown_id']) && !$DAO_menu->isEnabled_MarkDown())
 							{
-
-								// Note: the current UI logic does not remove the markdown but instead sets it to zero.
-								// So the above code that handles updates will delete the current markdown and not insert a new one.
-
+								// Markdown not enabled, delete record
+								$delete_DAO_menu_item_mark_down = DAO_CFactory::create('menu_item_mark_down');
+								$delete_DAO_menu_item_mark_down->store_id = $store_id;
+								$delete_DAO_menu_item_mark_down->menu_item_id = $item['id'];
+								if ($delete_DAO_menu_item_mark_down->find(true))
+								{
+									$delete_DAO_menu_item_mark_down->delete();
+								}
 							}
 						}
 					}
@@ -651,7 +668,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 					{
 						continue;
 					}
-					$mmi = false;
+					$DAO_menu_to_menu_item = false;
 					$priceName = "ovr_" . $item['id'];
 					if ($item['is_price_controllable'] && isset($_POST[$priceName]))
 					{
@@ -659,25 +676,25 @@ class page_admin_menu_editor extends CPageAdminOnly
 						{
 							$_POST[$priceName] = 'null';
 						}
-						$mmi = DAO_CFactory::create('menu_to_menu_item');
-						$mmi->menu_item_id = $item['id'];
-						$mmi->menu_id = $menu_id;
-						$mmi->store_id = $store_id;
-						if ($mmi->find(true))
+						$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
+						$DAO_menu_to_menu_item->menu_item_id = $item['id'];
+						$DAO_menu_to_menu_item->menu_id = $menu_id;
+						$DAO_menu_to_menu_item->store_id = $store_id;
+						if ($DAO_menu_to_menu_item->find(true))
 						{
-							$oldItem = clone($mmi);
-							$mmi->override_price = CGPC::do_clean($_POST[$priceName], TYPE_NUM);
+							$old_DAO_menu_to_menu_item = clone($DAO_menu_to_menu_item);
+							$DAO_menu_to_menu_item->override_price = CGPC::do_clean($_POST[$priceName], TYPE_NUM);
 							//visibility
 							$visName = "vis_" . $item['id'];
 							if ($item['is_visibility_controllable'] && isset($_POST[$visName]) && !empty($_POST[$visName]))
 							{
-								$mmi->is_visible = 0;
+								$DAO_menu_to_menu_item->is_visible = 0;
 							}
 							else
 							{
-								$mmi->is_visible = 1;
+								$DAO_menu_to_menu_item->is_visible = 1;
 							}
-							$mmi->update($oldItem);
+							$DAO_menu_to_menu_item->update($old_DAO_menu_to_menu_item);
 						}
 					}
 				}
@@ -689,49 +706,49 @@ class page_admin_menu_editor extends CPageAdminOnly
 					{
 						continue;
 					}
-					$mmi = false;
+					$DAO_menu_to_menu_item = false;
 					$priceName = "ovr_" . $item['id'];
 					if ($item['is_price_controllable'] && isset($_POST[$priceName]))
 					{
-						$mmi = DAO_CFactory::create('menu_to_menu_item');
-						$mmi->menu_item_id = $item['id'];
-						$mmi->menu_id = $menu_id;
-						$mmi->store_id = $store_id;
-						if ($mmi->find(true))
+						$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
+						$DAO_menu_to_menu_item->menu_item_id = $item['id'];
+						$DAO_menu_to_menu_item->menu_id = $menu_id;
+						$DAO_menu_to_menu_item->store_id = $store_id;
+						if ($DAO_menu_to_menu_item->find(true))
 						{
-							$oldItem = clone($mmi);
-							$mmi->override_price = ((CGPC::do_clean($_POST[$priceName], TYPE_NUM) == '') ? 'null' : CGPC::do_clean($_POST[$priceName], TYPE_NUM));
+							$old_DAO_menu_to_menu_item = clone($DAO_menu_to_menu_item);
+							$DAO_menu_to_menu_item->override_price = ((CGPC::do_clean($_POST[$priceName], TYPE_NUM) == '') ? 'null' : CGPC::do_clean($_POST[$priceName], TYPE_NUM));
 							//visibility
 							$visName = "vis_" . $item['id'];
 							if ($item['is_visibility_controllable'] && isset($_POST[$visName]) && !empty($_POST[$visName]))
 							{
-								$mmi->is_visible = 1;
+								$DAO_menu_to_menu_item->is_visible = 1;
 							}
 							else
 							{
-								$mmi->is_visible = 0;
+								$DAO_menu_to_menu_item->is_visible = 0;
 							}
 
 							$formName = "form_" . $item['id'];
 							if ($item['is_visibility_controllable'] && isset($_POST[$formName]) && !empty($_POST[$formName]))
 							{
-								$mmi->show_on_order_form = 1;
+								$DAO_menu_to_menu_item->show_on_order_form = 1;
 							}
 							else
 							{
-								$mmi->show_on_order_form = 0;
+								$DAO_menu_to_menu_item->show_on_order_form = 0;
 							}
 							//visibility
 							$visName = "hid_" . $item['id'];
 							if (isset($_POST[$visName]) && !empty($_POST[$visName]))
 							{
-								$mmi->is_hidden_everywhere = 1;
+								$DAO_menu_to_menu_item->is_hidden_everywhere = 1;
 							}
 							else
 							{
-								$mmi->is_hidden_everywhere = 0;
+								$DAO_menu_to_menu_item->is_hidden_everywhere = 0;
 							}
-							$mmi->update($oldItem);
+							$DAO_menu_to_menu_item->update($old_DAO_menu_to_menu_item);
 						}
 					}
 				}
@@ -751,41 +768,41 @@ class page_admin_menu_editor extends CPageAdminOnly
 						{
 							continue;
 						}
-						$mmi = DAO_CFactory::create('menu_to_menu_item');
-						$mmi->menu_item_id = $item['id'];
-						$mmi->menu_id = $menu_id;
-						$mmi->store_id = $store_id;
-						$mmi->menu_order_value = ++$pos_counter;
-						$mmi->featuredItem = 0;
+						$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
+						$DAO_menu_to_menu_item->menu_item_id = $item['id'];
+						$DAO_menu_to_menu_item->menu_id = $menu_id;
+						$DAO_menu_to_menu_item->store_id = $store_id;
+						$DAO_menu_to_menu_item->menu_order_value = ++$pos_counter;
+						$DAO_menu_to_menu_item->featuredItem = 0;
 						//override_price
 						$priceName = "ovr_" . $item['id'];
 						if ($item['is_price_controllable'] && isset($_POST[$priceName]) && !empty($_POST[$priceName]))
 						{
 							// TODO : validate price
-							$mmi->override_price = ((CGPC::do_clean($_POST[$priceName], TYPE_NUM) == '') ? 'null' : CGPC::do_clean($_POST[$priceName], TYPE_NUM));
+							$DAO_menu_to_menu_item->override_price = ((CGPC::do_clean($_POST[$priceName], TYPE_NUM) == '') ? 'null' : CGPC::do_clean($_POST[$priceName], TYPE_NUM));
 						}
 						else
 						{
 							if ($item['pricing_type'] == CMenuItem::INTRO)
 							{
-								$mmi->override_price = 12.5;
+								$DAO_menu_to_menu_item->override_price = 12.5;
 							}
 							else
 							{
-								$mmi->override_price = 'null';
+								$DAO_menu_to_menu_item->override_price = 'null';
 							}
 						}
 						//visibility
 						$visName = "vis_" . $item['id'];
 						if ($item['is_visibility_controllable'] && isset($_POST[$visName]) && !empty($_POST[$visName]))
 						{
-							$mmi->is_visible = 0;
+							$DAO_menu_to_menu_item->is_visible = 0;
 						}
 						else
 						{
-							$mmi->is_visible = 1;
+							$DAO_menu_to_menu_item->is_visible = 1;
 						}
-						$mmi->insert();
+						$DAO_menu_to_menu_item->insert();
 					}
 				}
 				// This is tricky, the store menu now exists because of the loop above, so this function will return nothing unless we override the store specific
@@ -797,34 +814,34 @@ class page_admin_menu_editor extends CPageAdminOnly
 					{
 						continue;
 					}
-					$mmi = DAO_CFactory::create('menu_to_menu_item');
-					$mmi->menu_item_id = $item['id'];
-					$mmi->menu_id = $menu_id;
-					$mmi->store_id = $store_id;
-					$mmi->menu_order_value = ++$pos_counter;
-					$mmi->featuredItem = 0;
+					$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
+					$DAO_menu_to_menu_item->menu_item_id = $item['id'];
+					$DAO_menu_to_menu_item->menu_id = $menu_id;
+					$DAO_menu_to_menu_item->store_id = $store_id;
+					$DAO_menu_to_menu_item->menu_order_value = ++$pos_counter;
+					$DAO_menu_to_menu_item->featuredItem = 0;
 					//override_price
 					$priceName = "ovr_" . $item['id'];
-					if ($item['is_price_controllable'] && isset($_POST[$priceName]) && !empty($_POST[$priceName]))
+					if ($item['is_price_controllable'] && !empty($_POST[$priceName]))
 					{
 						// TODO : validate price
-						$mmi->override_price = CGPC::do_clean($_POST[$priceName], TYPE_NUM);
+						$DAO_menu_to_menu_item->override_price = CGPC::do_clean($_POST[$priceName], TYPE_NUM);
 					}
 					else
 					{
-						$mmi->override_price = 'null';
+						$DAO_menu_to_menu_item->override_price = 'null';
 					}
 					//visibility
 					$visName = "vis_" . $item['id'];
-					if ($item['is_visibility_controllable'] && isset($_POST[$visName]) && !empty($_POST[$visName]))
+					if ($item['is_visibility_controllable'] && !empty($_POST[$visName]))
 					{
-						$mmi->is_visible = 0;
+						$DAO_menu_to_menu_item->is_visible = 0;
 					}
 					else
 					{
-						$mmi->is_visible = 1;
+						$DAO_menu_to_menu_item->is_visible = 1;
 					}
-					$mmi->insert();
+					$DAO_menu_to_menu_item->insert();
 				}
 				// This is tricky, the store menu now exists because of the loop above, so this function will return nothing unless we override the store specific
 				// query
@@ -835,44 +852,44 @@ class page_admin_menu_editor extends CPageAdminOnly
 					{
 						continue;
 					}
-					$mmi = DAO_CFactory::create('menu_to_menu_item');
-					$mmi->menu_item_id = $item['id'];
-					$mmi->menu_id = $menu_id;
-					$mmi->store_id = $store_id;
-					$mmi->menu_order_value = ++$pos_counter;
-					$mmi->featuredItem = 0;
+					$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
+					$DAO_menu_to_menu_item->menu_item_id = $item['id'];
+					$DAO_menu_to_menu_item->menu_id = $menu_id;
+					$DAO_menu_to_menu_item->store_id = $store_id;
+					$DAO_menu_to_menu_item->menu_order_value = ++$pos_counter;
+					$DAO_menu_to_menu_item->featuredItem = 0;
 					//override_price
 					$priceName = "ovr_" . $item['id'];
-					if ($item['is_price_controllable'] && isset($_POST[$priceName]) && !empty($_POST[$priceName]))
+					if ($item['is_price_controllable'] && !empty($_POST[$priceName]))
 					{
 						// TODO : validate price
-						$mmi->override_price = CGPC::do_clean($_POST[$priceName], TYPE_NUM);
+						$DAO_menu_to_menu_item->override_price = CGPC::do_clean($_POST[$priceName], TYPE_NUM);
 					}
 					else
 					{
-						$mmi->override_price = 'null';
+						$DAO_menu_to_menu_item->override_price = 'null';
 					}
 					//visibility
 					$visName = "vis_" . $item['id'];
-					if ($item['is_visibility_controllable'] && isset($_POST[$visName]) && !empty($_POST[$visName]))
+					if ($item['is_visibility_controllable'] && !empty($_POST[$visName]))
 					{
-						$mmi->is_visible = 1;
+						$DAO_menu_to_menu_item->is_visible = 1;
 					}
 					else
 					{
-						$mmi->is_visible = 0;
+						$DAO_menu_to_menu_item->is_visible = 0;
 					}
 					//visibility
 					$visName = "hid_" . $item['id'];
-					if ($item['is_visibility_controllable'] && isset($_POST[$visName]) && !empty($_POST[$visName]))
+					if ($item['is_visibility_controllable'] && !empty($_POST[$visName]))
 					{
-						$mmi->is_hidden_everywhere = 1;
+						$DAO_menu_to_menu_item->is_hidden_everywhere = 1;
 					}
 					else
 					{
-						$mmi->is_hidden_everywhere = 0;
+						$DAO_menu_to_menu_item->is_hidden_everywhere = 0;
 					}
-					$mmi->insert();
+					$DAO_menu_to_menu_item->insert();
 				}
 			}
 
@@ -895,10 +912,10 @@ class page_admin_menu_editor extends CPageAdminOnly
 					if ($mmiTest->N > 0)
 					{ // update
 						$mmiTest->fetch();
-						$oldItem = clone($mmiTest);
+						$old_DAO_menu_to_menu_item = clone($mmiTest);
 						//override_price
 						$priceName = "ovr_" . $itemId;
-						if ($mmiTest->is_price_controllable && isset($_POST[$priceName]) && !empty($_POST[$priceName]))
+						if ($mmiTest->is_price_controllable && !empty($_POST[$priceName]))
 						{
 							// TODO : validate price
 							$mmiTest->override_price = CGPC::do_clean($_POST[$priceName], TYPE_NUM);
@@ -909,7 +926,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 						}
 						//visibility
 						$visName = "vis_" . $itemId;
-						if ($mmiTest->is_visibility_controllable && isset($_POST[$visName]) && !empty($_POST[$visName]))
+						if ($mmiTest->is_visibility_controllable && !empty($_POST[$visName]))
 						{
 							$mmiTest->is_visible = 0;
 						}
@@ -917,7 +934,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 						{
 							$mmiTest->is_visible = 1;
 						}
-						$mmiTest->update($oldItem);
+						$mmiTest->update($old_DAO_menu_to_menu_item);
 					}
 					else // add
 					{
@@ -933,7 +950,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 						$mi->find(true);
 						//override_price
 						$priceName = "ovr_" . $itemId;
-						if ($mi->is_price_controllable && isset($_POST[$priceName]) && !empty($_POST[$priceName]))
+						if ($mi->is_price_controllable && !empty($_POST[$priceName]))
 						{
 							// TODO : validate price
 							$mmiTest->override_price = CGPC::do_clean($_POST[$priceName], TYPE_NUM);
@@ -944,7 +961,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 						}
 						//visibility
 						$visName = "vis_" . $itemId;
-						if ($mi->is_visibility_controllable && isset($_POST[$visName]) && !empty($_POST[$visName]))
+						if ($mi->is_visibility_controllable && !empty($_POST[$visName]))
 						{
 							$mmiTest->is_visible = 0;
 						}

@@ -9,8 +9,8 @@
 		<div class="row mb-3">
 			<div class="col text-center">
 				<h1><?php echo $this->DAO_store->store_name; ?> Meal Prep Store</h1>
-				<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-tenders-in-a-snap-1920x837.webp" alt="Dinner in a Snap" class="img-fluid" />
-				<h3 class="font-marker">We offer real food, made from scratch, so your life can feel a little easier.</h3>
+				<img src="<?php echo IMAGES_PATH; ?>/landing_pages/in-a-snap-chicken-tenders-1920x600.webp" alt="Dinner in a Snap" class="img-fluid" />
+				<h3 class="font-marker mt-2">We offer real food, made from scratch, so your life can feel a little easier.</h3>
 			</div>
 		</div>
 		<?php include $this->loadTemplate('customer/subtemplate/store/store_navigation.tpl.php'); ?>
@@ -31,7 +31,7 @@
 					<?php echo (!empty($this->DAO_store->email_address)) ? CTemplate::recaptcha_mailHideHtml($this->DAO_store->email_address, 'Email Store') . '<br />' : ''; ?>
 
 					<a href="https://instagram.com/<?php echo (!empty($this->DAO_store->social_instagram)) ? $this->DAO_store->social_instagram : 'dreamdinners'; ?>" class="text-decoration-hover-none font-size-large text-green-light mr-3" target="_blank"><i class="fab fa-instagram"></i></a>
-					<a href="https://twitter.com/<?php echo (!empty($this->DAO_store->social_twitter)) ? $this->DAO_store->social_twitter : 'dreamdinners'; ?>" class="text-decoration-hover-none font-size-large text-green-light mr-3" target="_blank"><i class="fab fa-twitter"></i></a>
+					<!--<a href="https://twitter.com/<?php echo (!empty($this->DAO_store->social_twitter)) ? $this->DAO_store->social_twitter : 'dreamdinners'; ?>" class="text-decoration-hover-none font-size-large text-green-light mr-3" target="_blank"><i class="fab fa-twitter"></i></a>-->
 					<a href="https://facebook.com/<?php echo (!empty($this->DAO_store->social_facebook)) ? $this->DAO_store->social_facebook : 'dreamdinners'; ?>" class="text-decoration-hover-none font-size-large text-green-light mr-3" target="_blank"><i class="fab fa-facebook-f"></i></a>
 					<a href="https://pinterest.com/dreamdinners" class="text-decoration-hover-none font-size-large text-green-light" target="_blank"><i class="fab fa-pinterest"></i></a>
 
@@ -113,34 +113,33 @@
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center mb-2">
 						<div class="card border-0 pr-4">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-pot-pies-featured-kid-pick-400x400.webp" alt="Mini Chicken Pot Pies" class="img-fluid">
-							<div class="card-body">
-								<h5 class="card-title my-0">Mini Chicken Pot Pies</h5>
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/calzone-kid-pick-400x400.webp" alt="Build Your Own Calzone" class="img-fluid">
+								<div class="card-body">
+									<h5 class="card-title">Build Your Own Calzone</h5>
+								</div>
 							</div>
-						</div>
-						<div class="card border-0 pr-2">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-enchiladas-featured-pan-400x400.webp" alt="Chicken Enchiladas" class="img-fluid">
-							<div class="card-body">
-								<h5 class="card-title my-0">Chicken Enchiladas</h5>
+							<div class="card border-0 pr-2">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-parmesan-pan-400x400.webp" alt="Chicken Parmesan" class="img-fluid">
+								<div class="card-body">
+									<h5 class="card-title">Chicken Parmesan</h5>
+								</div>
 							</div>
-						</div>
-
 					</div>
 				</div>
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center">
 						<div class="card border-0 pr-4">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/carne-asada-tacos-featured-under-30-400x400.webp" alt="Carne Asada Steak Tacos" class="img-fluid">
-							<div class="card-body">
-								<h5 class="card-title my-0">Carne Asada Steak Tacos</h5>
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-egg-roll-bowl-30-min-400x400.webp" alt="Chicken Egg Roll Bowl" class="img-fluid">
+								<div class="card-body">
+									<h5 class="card-title">Chicken Egg Roll Bowl</h5>
+								</div>
 							</div>
-						</div>
-						<div class="card border-0">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-tikka-masala-featured-instant-pot-400x400.webp" alt="Chicken Tikka Masala" class="img-fluid">
-							<div class="card-body">
-								<h5 class="card-title my-0">Chicken Tikka Masala over Jasmine Rice</h5>
+							<div class="card border-0">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cornflake-chicken-air-fryer-400x400.webp" alt="Cornflake Crusted Chicken Tenders with Dipping Sauce" class="img-fluid">
+								<div class="card-body">
+									<h5 class="card-title">Cornflake Crusted Chicken Tenders with Dipping Sauce</h5>
+								</div>
 							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -192,7 +191,5 @@
 
 		</div>
 	</section>
-
-<?php include $this->loadTemplate('customer/subtemplate/store/store_footer.tpl.php'); ?>
 
 <?php include $this->loadTemplate('customer/subtemplate/page_footer.tpl.php'); ?>

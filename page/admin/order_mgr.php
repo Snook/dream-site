@@ -161,7 +161,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				CApp::bounce("/?page=admin_main");
 			}
 
-			$booking = DAO_CFactory::create('booking');
+			$booking = DAO_CFactory::create('booking', true);
 			$booking->selectAdd();
 			$booking->selectAdd("booking.*");
 			$booking->order_id = $this->originalOrder->id;
@@ -4905,6 +4905,8 @@ class page_admin_order_mgr extends CPageAdminOnly
 				if (isset($orgPrices[$menuItemInfo->id]) && empty($menuItemInfo->markdown_id))
 				{
 					$menuItemInfo->override_price = $orgPrices[$menuItemInfo->id];
+					$menuItemInfo->store_price = $orgPrices[$menuItemInfo->id];
+
 
 					if ($menuItemInfo->override_price < $menuItemInfo->price)
 					{
@@ -4954,6 +4956,9 @@ class page_admin_order_mgr extends CPageAdminOnly
 						{
 							$subItemInfo->parentItemId = $menuItemInfo->id;
 							$subItemInfo->bundleItemCount = $subqty;
+							if(isset($orgPrices[$subItemInfo->id])){
+								$subItemInfo->store_price = $orgPrices[$subItemInfo->id];
+							}
 							$OrderObj->addMenuItem(clone($subItemInfo), $subqty);
 						}
 					}

@@ -22,7 +22,7 @@
 <p> Welcome to the Quick 6 Premium settings section. </p>
 
 <p> To create a premium for all all Quick 6 orders, use the form below:</p>
-<form action="" method="get">
+<form action="/backoffice/premium" method="get">
   <strong>Store:</strong> <?php echo $this->form_premium['store_html']; ?><br />
 </form>
 <form name="kithen_markup" action="" method="post" onSubmit="return _check_form(this);" >

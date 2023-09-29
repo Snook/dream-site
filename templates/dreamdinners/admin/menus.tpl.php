@@ -6,7 +6,7 @@
 	<h1>Menu Setup</h1>
 
 	<div id="menu_choose">
-		<form name="createMenu" action="" method="get" onsubmit="return confirm('Are you sure you wish to create this menu? Food data must be imported immediately following menu creation.');">
+		<form name="createMenu" action="/backoffice/menus" method="get" onsubmit="return confirm('Are you sure you wish to create this menu? Food data must be imported immediately following menu creation.');">
 			<b>Create Menu</b> Next Menu to be created will be: <b><?php echo $this->form_menus['next_menu_html']; ?></b>
 			<input type="hidden" name="create" value="1">
 			<input type="submit" class="button" value="Create Menu">
@@ -14,7 +14,7 @@
 		<br/>
 		OR
 		<br/><br/>
-		<form name="changeMenus" action="" method="get">
+		<form name="changeMenus" action="/backoffice/menus" method="get">
 			<b>Edit Menu</b> <?php echo $this->form_menus['menu_edit_html']; ?>
 		</form>
 		<br/>

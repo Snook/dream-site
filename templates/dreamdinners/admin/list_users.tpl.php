@@ -10,7 +10,7 @@
 <p>This area is designed for you to view guests who have signed up at your store. Below you can select to view all guests starting with the desired letter you choose, or you can enter the Guest's ID into the Guest's ID search box.</p>
 <p>Once you have located a customer, click on their name or ID to view all of their information, email the guest or set their preferred status for your stores.</p>
 
-<form id="list_users_form" action="" method="get">
+<form id="list_users_form" action="/backoffice/list-users" method="get">
 	<table style="width:100%;" id="lookupGuestTarget">
 		<tr>
 			<td class="bgcolor_dark catagory_row" colspan="2">Search Guests</td>

@@ -32,7 +32,7 @@ class CGPC
 	public static function gpc_vars($unsetGlobals = false)
 	{
 
-		foreach ($_GET AS $k => $v)
+		foreach ($_GET as $k => $v)
 		{
 			self::$GPC['g'][$k] = $v;
 
@@ -42,7 +42,7 @@ class CGPC
 			}
 		}
 
-		foreach ($_POST AS $k => $v)
+		foreach ($_POST as $k => $v)
 		{
 			self::$GPC['p'][$k] = $v;
 
@@ -52,7 +52,7 @@ class CGPC
 			}
 		}
 
-		foreach ($_REQUEST AS $k => $v)
+		foreach ($_REQUEST as $k => $v)
 		{
 			self::$GPC['r'][$k] = $v;
 
@@ -66,9 +66,9 @@ class CGPC
 	/**
 	 * Makes a single GPC variable safe to use and returns it
 	 *
-	 * @param    array    The source array containing the data to be cleaned
-	 * @param    string    The name of the variable in which we are interested
-	 * @param    integer    The type of the variable in which we are interested
+	 * @param array    The source array containing the data to be cleaned
+	 * @param string    The name of the variable in which we are interested
+	 * @param integer    The type of the variable in which we are interested
 	 *
 	 * @return    mixed
 	 */
@@ -124,10 +124,10 @@ class CGPC
 					$data = ($data = intval($data)) < 0 ? 0 : $data;
 					break;
 				case TYPE_NUM:
-					$data = strval($data) + 0;
+					$data = floatval($data);
 					break;
 				case TYPE_UNUM:
-					$data = strval($data) + 0;
+					$data = floatval($data);
 					$data = ($data < 0) ? 0 : $data;
 					break;
 				case TYPE_BINARY:
@@ -136,14 +136,14 @@ class CGPC
 				case TYPE_STR:
 					$data = trim(strval($data));
 					$data = strip_tags($data);
-                    $_db = mysqli_connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD);
-                    mysqli_select_db($_db, DB_DATABASE);
-                    $data = CGPC::safeSQL($data, $_db);
+					$_db = mysqli_connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD);
+					mysqli_select_db($_db, DB_DATABASE);
+					$data = CGPC::safeSQL($data, $_db);
 					break;
-                case TYPE_STR_SIMPLE:
-                    $data = trim(strval($data));
-                    $data = strip_tags($data);
-                    break;
+				case TYPE_STR_SIMPLE:
+					$data = trim(strval($data));
+					$data = strip_tags($data);
+					break;
 				case TYPE_EMAIL:
 					$data = trim(strval($data));
 					$data = filter_var($data, FILTER_SANITIZE_EMAIL);
@@ -172,62 +172,62 @@ class CGPC
 					}
 					break;
 				case TYPE_NOHTMLCOND:
-				{
-					$data = trim(strval($data));
-					if (strcspn($data, '<>"') < strlen($data) || (strpos($data, '&') !== false && !preg_match('/&(#[0-9]+|amp|lt|gt|quot);/si', $data)))
 					{
-						// data is not htmlspecialchars because it still has characters or entities it shouldn't
-						$data = htmlspecialchars($data);
+						$data = trim(strval($data));
+						if (strcspn($data, '<>"') < strlen($data) || (strpos($data, '&') !== false && !preg_match('/&(#[0-9]+|amp|lt|gt|quot);/si', $data)))
+						{
+							// data is not htmlspecialchars because it still has characters or entities it shouldn't
+							$data = htmlspecialchars($data);
+						}
 					}
-				}
 					break;
 				case TYPE_FILE:
-				{
-					// perhaps redundant :p
-					if (is_array($data))
 					{
-						if (is_array($data['name']))
+						// perhaps redundant :p
+						if (is_array($data))
 						{
-							$files = count($data['name']);
-							for ($index = 0; $index < $files; $index++)
+							if (is_array($data['name']))
 							{
-								$data['name']["$index"] = trim(strval($data['name']["$index"]));
-								$data['type']["$index"] = trim(strval($data['type']["$index"]));
-								$data['tmp_name']["$index"] = trim(strval($data['tmp_name']["$index"]));
-								$data['error']["$index"] = intval($data['error']["$index"]);
-								$data['size']["$index"] = intval($data['size']["$index"]);
+								$files = count($data['name']);
+								for ($index = 0; $index < $files; $index++)
+								{
+									$data['name']["$index"] = trim(strval($data['name']["$index"]));
+									$data['type']["$index"] = trim(strval($data['type']["$index"]));
+									$data['tmp_name']["$index"] = trim(strval($data['tmp_name']["$index"]));
+									$data['error']["$index"] = intval($data['error']["$index"]);
+									$data['size']["$index"] = intval($data['size']["$index"]);
+								}
+							}
+							else
+							{
+								$data['name'] = trim(strval($data['name']));
+								$data['type'] = trim(strval($data['type']));
+								$data['tmp_name'] = trim(strval($data['tmp_name']));
+								$data['error'] = intval($data['error']);
+								$data['size'] = intval($data['size']);
 							}
 						}
 						else
 						{
-							$data['name'] = trim(strval($data['name']));
-							$data['type'] = trim(strval($data['type']));
-							$data['tmp_name'] = trim(strval($data['tmp_name']));
-							$data['error'] = intval($data['error']);
-							$data['size'] = intval($data['size']);
+							$data = array(
+								'name' => '',
+								'type' => '',
+								'tmp_name' => '',
+								'error' => 0,
+								'size' => 4,
+								// UPLOAD_ERR_NO_FILE
+							);
 						}
 					}
-					else
-					{
-						$data = array(
-							'name' => '',
-							'type' => '',
-							'tmp_name' => '',
-							'error' => 0,
-							'size' => 4,
-							// UPLOAD_ERR_NO_FILE
-						);
-					}
-				}
 					break;
 				case TYPE_UNIXTIME:
-				{
-					// TODO
-				}
+					{
+						// TODO
+					}
 					break;
 				case TYPE_NOCLEAN:
-				{
-				}
+					{
+					}
 					break;
 				default:
 					// trigger_error
@@ -247,82 +247,82 @@ class CGPC
 		return $data;
 	}
 
-//following functions taken from class.inputfilter_clean.php for cleaning $_POST, $_GET, $_REQUEST variables from pages
-    static function safeSQL($source, &$connection)
-    {
-        if (is_array($source))
-        {
-            foreach ($source as $key => $value)
-            {
-                if (is_string($value))
-                {
-                    $source[$key] = $source->quoteSmart(CGPC::decode($value), $connection);
-                }
-            }
+	//following functions taken from class.inputfilter_clean.php for cleaning $_POST, $_GET, $_REQUEST variables from pages
+	static function safeSQL($source, &$connection)
+	{
+		if (is_array($source))
+		{
+			foreach ($source as $key => $value)
+			{
+				if (is_string($value))
+				{
+					$source[$key] = $source->quoteSmart(CGPC::decode($value), $connection);
+				}
+			}
 
-            return $source;
-        }
-        else if (is_string($source))
-        {
-            if (is_string($source))
-            {
-                return CGPC::quoteSmart(CGPC::decode($source), $connection);
-            }
-        }
-        else
-        {
-            return $source;
-        }
-    }
+			return $source;
+		}
+		else if (is_string($source))
+		{
+			if (is_string($source))
+			{
+				return CGPC::quoteSmart(CGPC::decode($source), $connection);
+			}
+		}
+		else
+		{
+			return $source;
+		}
+	}
 
-    static function quoteSmart($source, &$connection)
-    {
-        if (function_exists("get_magic_quotes_gpc") && get_magic_quotes_gpc())
-        {
-            $source = stripslashes($source);
-        }
-        $source = CGPC::escapeString($source, $connection);
+	static function quoteSmart($source, &$connection)
+	{
+		if (function_exists("get_magic_quotes_gpc") && get_magic_quotes_gpc())
+		{
+			$source = stripslashes($source);
+		}
+		$source = CGPC::escapeString($source, $connection);
 
-        return $source;
-    }
+		return $source;
+	}
 
-	static  function escapeString($string, $connection)
-    {
-    	$string = mysqli_real_escape_string($connection, $string);
-        return $string;
-    }
+	static function escapeString($string, $connection)
+	{
+		$string = mysqli_real_escape_string($connection, $string);
 
-    static function decode($source)
-    {
-        $source = html_entity_decode($source, ENT_QUOTES, "ISO-8859-1");
+		return $string;
+	}
 
-        /*
-        $source = @preg_replace('/&#(\d+);/me', "chr(\\1)", $source);
-        $source = @preg_replace('/&#x([a-f0-9]+);/mei', "chr(0x\\1)", $source);
-        */
+	static function decode($source)
+	{
+		$source = html_entity_decode($source, ENT_QUOTES, "ISO-8859-1");
 
-        // Convert decimal
-        $source = preg_replace_callback('/&#(\d+);/m', function ($m)
-        {
-            return utf8_encode(chr($m[1]));
-        }, $source);
+		/*
+		$source = @preg_replace('/&#(\d+);/me', "chr(\\1)", $source);
+		$source = @preg_replace('/&#x([a-f0-9]+);/mei', "chr(0x\\1)", $source);
+		*/
 
-        // Convert hex
-        $source = preg_replace_callback('/&#x([a-f0-9]+);/mi', function ($m)
-        {
-            return utf8_encode(chr('0x' . $m[1]));
-        }, $source);
+		// Convert decimal
+		$source = preg_replace_callback('/&#(\d+);/m', function ($m) {
+			return utf8_encode(chr($m[1]));
+		}, $source);
 
-        return $source;
-    }
+		// Convert hex
+		$source = preg_replace_callback('/&#x([a-f0-9]+);/mi', function ($m) {
+			return utf8_encode(chr('0x' . $m[1]));
+		}, $source);
+
+		return $source;
+	}
 }
 
 function connect()
 {
 
-    $_db = mysqli_connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD);
-    mysqli_select_db($_db, DB_DATABASE);
+	$_db = mysqli_connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD);
+	mysqli_select_db($_db, DB_DATABASE);
 
-    return $_db;
+	return $_db;
 }
+
 ?>
