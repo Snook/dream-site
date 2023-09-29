@@ -4,7 +4,7 @@
 
 <h1>Search Franchisees</h1>
 
-<form action="" method="get">
+<form action="/backoffice/list-franchisees" method="get">
 	Search (string or id):
 	<input type="hidden" name="letter_select" value="<?php echo $this->letter_select; ?>" />
 	<input type="text" name="q" value="<?php echo $this->q; ?>" />

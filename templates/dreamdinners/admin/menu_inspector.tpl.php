@@ -2,7 +2,7 @@
 <?php $this->assign('topnav', 'import'); ?>
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
-	<form name="menu_editor_form" id="menu_editor_form" method="get">
+	<form name="menu_editor_form" id="menu_editor_form" action="/backoffice/menu-inspector" method="get">
 		<table class="ME_menu_editor_table" style="width: 100%;">
 			<tr>
 				<td style="padding-left: 10px;"><b>Selected Menu:</b><?php echo $this->form['menus_html']; ?></td>

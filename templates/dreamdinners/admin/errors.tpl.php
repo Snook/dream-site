@@ -4,7 +4,7 @@ $this->assign('topnav', 'tools');
 include $this->loadTemplate('admin/page_header.tpl.php');
 ?>
 
-	<form action="" method="GET">
+	<form action="/backoffice/errors" method="GET">
 		<select name="log_type" onchange="form.submit();">
 			<option value="">All</option>
 			<option value="WARNING" <?php if ( isset($_REQUEST['log_type']) && $_REQUEST['log_type'] == 'WARNING' ) echo 'SELECTED';?>>warnings</option>
