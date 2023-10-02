@@ -538,6 +538,84 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 						);
 					}
 
+					// create RSVP only  - New Guests
+					$theme_string = "dream_taste/open_house/rsvp_only/new/" . $date_str_no_leading_underscore;
+
+					$oh_theme = DAO_CFactory::create('dream_taste_event_theme');
+					$oh_theme->title = "Open House";
+					$oh_theme->title_public = "Open House RSVP Only - New Guests";
+					$oh_theme->sort = '51';
+					$oh_theme->sub_theme = 'open_house';
+					$oh_theme->sub_sub_theme = 'rsvp_only';
+					$oh_theme->theme_string = $theme_string;
+					$oh_theme->session_type = "DREAM_TASTE";
+					$oh_theme->fadmin_acronym = "OHRA";
+
+					if (self::$testMode)
+					{
+						self::$changelog[] = array(
+							'event' => "Will create Curbside Open House RSVP Only - New Guests Meal Prep Workshop Theme and Properties"
+						);
+					}
+					else
+					{
+
+						$oh_theme->insert();
+
+						$oh_props->dream_taste_event_theme = $oh_theme->id;
+						$oh_props->menu_used_with_theme = 0;
+						$oh_props->available_on_customer_site = 1;
+						$oh_props->host_required = 0;
+						$oh_props->fundraiser_value = 0;
+						$oh_props->password_required = 2; // 2 = optional
+						$oh_props->can_rsvp_only = 1;
+						$oh_props->can_rsvp_upgrade = 0;
+						$oh_props->existing_guests_can_attend = 0;
+						$oh_props->insert();
+						self::$changelog[] = array(
+							'event' => "Created Curbside Open House RSVP Only - New Guests Meal Prep Workshop Theme and Properties"
+						);
+					}
+
+					// create RSVP only  - All Guests
+					$theme_string = "dream_taste/open_house/rsvp_only/all/" . $date_str_no_leading_underscore;
+
+					$oh_theme = DAO_CFactory::create('dream_taste_event_theme');
+					$oh_theme->title = "Open House";
+					$oh_theme->title_public = "Open House RSVP Only - All Guests";
+					$oh_theme->sort = '52';
+					$oh_theme->sub_theme = 'open_house';
+					$oh_theme->sub_sub_theme = 'rsvp_only';
+					$oh_theme->theme_string = $theme_string;
+					$oh_theme->session_type = "DREAM_TASTE";
+					$oh_theme->fadmin_acronym = "OHRA";
+
+					if (self::$testMode)
+					{
+						self::$changelog[] = array(
+							'event' => "Will create Curbside Open House RSVP Only - All Guests Meal Prep Workshop Theme and Properties"
+						);
+					}
+					else
+					{
+
+						$oh_theme->insert();
+
+						$oh_props->dream_taste_event_theme = $oh_theme->id;
+						$oh_props->menu_used_with_theme = 0;
+						$oh_props->available_on_customer_site = 1;
+						$oh_props->host_required = 0;
+						$oh_props->fundraiser_value = 0;
+						$oh_props->password_required = 2; // 2 = optional
+						$oh_props->can_rsvp_only = 1;
+						$oh_props->can_rsvp_upgrade = 0;
+						$oh_props->existing_guests_can_attend = 1;
+						$oh_props->insert();
+						self::$changelog[] = array(
+							'event' => "Created Curbside Open House RSVP Only - All Guests Meal Prep Workshop Theme and Properties"
+						);
+					}
+
 					// create holiday theme
 					if ($date_str_m == '11' || $date_str_m == '12')
 					{
