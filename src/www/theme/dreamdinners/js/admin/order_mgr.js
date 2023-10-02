@@ -7484,6 +7484,27 @@ function calculateTotal()
 			}
 		}
 
+		if (coupon.limit_to_finishing_touch == '1')
+		{
+			let base  = sideDishSubTotal;
+
+			if (coupon.discount_method == 'FLAT')
+			{
+				if (base > coupon.discount_var)
+				{
+					couponDiscountVal = formatAsMoney(base - coupon.discount_var);
+				}
+				else
+				{
+					couponDiscountVal = formatAsMoney(base);
+				}
+			}
+			else if (coupon.discount_method == 'PERCENT')
+			{
+				couponDiscountVal = formatAsMoney(base * (coupon.discount_var / 100));
+			}
+		}
+
 		if (coupon.limit_to_recipe_id == '1')
 		{
 			let prc_str = $('#prc_' + coupon.menu_item_id).text();
