@@ -10,12 +10,6 @@
 // helpers for old style
 .button {
   @extend .btn, .btn-primary, .btn-sm;
-  font-size: 0.675rem;
-  text-transform: none;
-}
-
-.btn {
-  font-size: 0.675rem;
   text-transform: none;
 }
 

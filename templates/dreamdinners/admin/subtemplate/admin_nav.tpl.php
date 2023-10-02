@@ -35,7 +35,7 @@
 		<tr>
 			<td colspan="3" style="padding:20px;font-weight:bold;font-size:16px;">
 				<span style="float:right;white-space:nowrap;font-size:14px;">Welcome <span id="fadmin_username"><?php echo CUser::getCurrentUser()->firstname . ' '. CUser::getCurrentUser()->lastname; ?></span></span>
-				<span style="float:left;white-space:nowrap;font-size:16px;"><span id="fadmin_usertype"><?php echo CUser::userTypeText(CUser::getCurrentUser()->user_type); ?></span> &ndash; <?php echo (!empty(CStore::getFranchiseStore()->store_name)) ? CStore::getFranchiseStore()->store_name : 'Store not set'; ?> <span class="btn btn-primary btn-sm backoffice_change_store">Change</span></span>
+				<span style="float:left;white-space:nowrap;font-size:16px;"><span id="fadmin_usertype"><?php echo CUser::userTypeText(CUser::getCurrentUser()->user_type); ?></span> &ndash; <?php echo (!empty(CStore::getFranchiseStore()->store_name)) ? CStore::getFranchiseStore()->store_name : 'Store not set'; ?> <span class="btn btn-primary backoffice_change_store">Change</span></span>
 			</td>
 		</tr>
 		<tr>

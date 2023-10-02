@@ -131,7 +131,7 @@
 
 			<div id="guest_search_container" class="container_background">
 
-				<div style="float:right;"><a href="/?page=admin_account" class="btn btn-primary btn-sm">Add Guest</a></div>
+				<div style="float:right;"><a href="/?page=admin_account" class="button">Add Guest</a></div>
 
 				<div class="title">Search &amp; Order Lookup</div>
 

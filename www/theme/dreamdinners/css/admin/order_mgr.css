@@ -184,6 +184,18 @@
 	padding: 6px;
 	color: #225824;
 	background-color: #a8b355;
+	background-image: linear-gradient(bottom, #a8a94c 50%, #b1bb5a 100%);
+	background-image: -o-linear-gradient(bottom, #a8a94c 50%, #b1bb5a 100%);
+	background-image: -moz-linear-gradient(bottom, #a8a94c 50%, #b1bb5a 100%);
+	background-image: -webkit-linear-gradient(bottom, #a8a94c 50%, #b1bb5a 100%);
+	background-image: -ms-linear-gradient(bottom, #a8a94c 50%, #b1bb5a 100%);
+	background-image: -webkit-gradient(
+			linear,
+			left bottom,
+			left top,
+			color-stop(0.5, #a8a94c),
+			color-stop(1, #b1bb5a)
+	);
 	}
 
 #orders_history tr td:nth-child(n+3) {
