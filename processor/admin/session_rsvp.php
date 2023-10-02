@@ -182,7 +182,7 @@ class processor_admin_session_rsvp extends CPageProcessor
 					if (ValidationRules::validateEmail($_POST['primary_email_login']))
 					{
 						$DAO_user = new CUser();
-						$DAO_user->is_partial_account = 1;
+						$DAO_user->is_partial_account = 0;
 						$DAO_user->primary_email = $_POST['primary_email_login'];
 						$DAO_user->firstname = $_POST['firstname'];
 						$DAO_user->lastname = $_POST['lastname'];
