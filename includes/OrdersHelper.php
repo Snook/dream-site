@@ -67,11 +67,14 @@ class OrdersHelper
 
 	public function hasOtherMenuMonthOrders($order_id)
 	{
-		$others = $this->fetchOtherMenuMonthOrders($order_id, false);
-
-		if (count($others) > 0)
+		if(!empty($order_id))
 		{
-			return true;
+			$others = $this->fetchOtherMenuMonthOrders($order_id, false);
+
+			if (count($others) > 0)
+			{
+				return true;
+			}
 		}
 
 		return false;

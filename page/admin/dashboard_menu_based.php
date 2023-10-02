@@ -509,7 +509,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 
 			if ($showReportTypeSelector)
 			{
-				$tpl->assign('store_data', CStore::getStoreTreeAsNestedList($ownerID, true, $currentMonthMenuID));
+				$tpl->assign('store_data', CStore::getStoreTreeAsNestedList($ownerID, true, false));
 			}
 
 			$Form->AddElement(array(
