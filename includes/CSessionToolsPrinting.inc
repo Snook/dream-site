@@ -1828,17 +1828,22 @@ class CSessionToolsPDFDrawer
 			$this->pdf->MultiCellTag(15, 4, "<t9rb>New!</t9rb>", $this->showBorders, 'R');
 		}
 
-		// price 3-serving
-		if (!empty($menuItemArray['price_half']))
+		foreach ($menuItemArray['menu_item'] as $menuItem)
 		{
-			$this->pdf->Rect(CSessionToolsPDF::kLEFT_MARGIN + 179, $yPos + 5, 3, 3);
+			if ($menuItem->isInBundle($this->data->bundleInfo) && $menuItem->pricing_type == CMenuItem::HALF)
+			{
+				$this->pdf->Rect(CSessionToolsPDF::kLEFT_MARGIN + 179, $yPos + 5, 3, 3);
 
-			$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN + 183.5, $yPos + 4.5);
-			$this->pdf->MultiCellTag(6, 4, "<t9b>or</t9b>", $this->showBorders, 'C');
+				$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN + 183.5, $yPos + 4.5);
+				$this->pdf->MultiCellTag(6, 4, "<t9b>or</t9b>", $this->showBorders, 'C');
+			}
+
+			if ($menuItem->isInBundle($this->data->bundleInfo) && $menuItem->pricing_type == CMenuItem::FULL)
+			{
+				$this->pdf->Rect(CSessionToolsPDF::kLEFT_MARGIN + 191, $yPos + 5, 3, 3);
+			}
 		}
 
-		// price 6-serving
-		$this->pdf->Rect(CSessionToolsPDF::kLEFT_MARGIN + 191, $yPos + 5, 3, 3);
 	}
 
 	function printMenuToolRow_DreamTaste($menuItemArray, $yPos, $count, $globalRating)

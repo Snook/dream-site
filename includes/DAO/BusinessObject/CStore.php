@@ -194,6 +194,22 @@ class CStore extends DAO_Store
 		}
 	}
 
+	function getVanityUrlArray()
+	{
+		$urlArray = array();
+
+		$DAO_short_url = DAO_CFactory::create('short_url');
+		$DAO_short_url->store_id = $this->id;
+		$DAO_short_url->find_includeDeleted();
+
+		while($DAO_short_url->fetch())
+		{
+			$urlArray[$DAO_short_url->id] = clone($DAO_short_url);
+		}
+
+		return $urlArray;
+	}
+
 	static function setUpFranchiseStore($store_id)
 	{
 
