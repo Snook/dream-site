@@ -651,7 +651,7 @@ function cookieCheck()
 		overrideCookieCheck = true;
 	}
 
-	$.cookie('chkcookie', true, {domain: COOKIE.domain});
+	$.cookie('chkcookie', true, {domain: COOKIE.domain, path: '/'});
 
 	if (!$.cookie('chkcookie') && !overrideCookieCheck)
 	{
