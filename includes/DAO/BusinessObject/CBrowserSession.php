@@ -84,7 +84,7 @@ class CBrowserSession extends DAO_Browser_sessions
 
 		if ($value === false)
 		{
-			setcookie($key, false, time() - 60000);
+			setcookie($key, false, time() - 60000, "/");
 		}
 	}
 
@@ -115,7 +115,7 @@ class CBrowserSession extends DAO_Browser_sessions
 
 		if ($value === false)
 		{
-			setcookie($key, false, time() - 60000);
+			setcookie($key, false, time() - 60000, "/");
 		}
 	}
 
@@ -178,7 +178,7 @@ class CBrowserSession extends DAO_Browser_sessions
 
 		if ($value === false)
 		{
-			setcookie($key, false, time() - 60000);
+			setcookie($key, false, time() - 60000, "/");
 		}
 	}
 
