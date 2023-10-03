@@ -246,6 +246,15 @@
 							<a class="input-group-text" data-toggle="tooltip" data-placement="top" title="Download QR code" href="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&op=store_info&d=1&s=10&id=<?php echo $this->store['id']; ?>" ><i class="fas fa-qrcode"></i></a>
 						</div>
 					</div>
+					<?php if (!empty($this->shortURLArray)) { ?>
+						<ul class="list-group list-group-horizontal">
+							<?php foreach ($this->shortURLArray AS $DAO_short_url) { ?>
+								<?php if (!empty($DAO_short_url->is_deleted)) { ?>
+									<li class="list-group-item list-group-item-gray-900 p-1"><?php echo $DAO_short_url->short_url; ?></li>
+								<?php } ?>
+							<?php } ?>
+						</ul>
+					<?php } ?>
 				</td>
 			</tr>
 
@@ -613,16 +622,16 @@
 				<td class="bgcolor_light" style="text-align: right;">Customization Fee<br><span style="font-size:smaller;">(Flat Rate based on number of core meals)</span></td>
 				<td class="bgcolor_light"><table>
 						<?php foreach ( $this->customization_fees as $key => $fee){ ?>
-						<tr>
-							<td><?php echo $fee['description']; ?>:</td>
-							<td><div class="input-group">
-									<div class="input-group-prepend">
-										<span class="input-group-text">$</span>
+							<tr>
+								<td><?php echo $fee['description']; ?>:</td>
+								<td><div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text">$</span>
+										</div>
+										<?php echo $this->form_store_details[$fee['name'].'_html']; ?>
 									</div>
-									<?php echo $this->form_store_details[$fee['name'].'_html']; ?>
-								</div>
-							</td>
-						</tr>
+								</td>
+							</tr>
 						<?php } ?>
 					</table>
 				</td>
@@ -712,7 +721,18 @@
 			<?php if( $isSiteAdmin == TRUE ) { ?>
 				<tr>
 					<td class="bgcolor_light" style="text-align: right; width: 210px;">Vanity URL (numbers, hyphens and lower case letters allowed)</td>
-					<td class="bgcolor_light"><?php echo $this->form_store_details['short_url_html']; ?></td>
+					<td class="bgcolor_light">
+						<div><?php echo $this->form_store_details['short_url_html']; ?></div>
+						<?php if (!empty($this->shortURLArray)) { ?>
+							<ul class="list-group list-group-horizontal">
+								<?php foreach ($this->shortURLArray AS $DAO_short_url) { ?>
+									<?php if (!empty($DAO_short_url->is_deleted)) { ?>
+										<li class="list-group-item list-group-item-gray-900 p-1"><?php echo $DAO_short_url->short_url; ?></li>
+									<?php } ?>
+								<?php } ?>
+							</ul>
+						<?php } ?>
+					</td>
 				</tr>
 				<tr>
 					<td class="bgcolor_light" style="text-align: right; width: 400px;">Enable Menu Imports - Active/Show on Customer Site always import menus regardless of this setting, enable this to import menus for an inactive store</td>
