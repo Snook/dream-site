@@ -105,6 +105,7 @@ class page_admin_store_details extends CPageAdminOnly
 			$DAO_store->id = $id;
 			$DAO_store->find_DAO_store(true);
 			$this->Template->assign('DAO_store', $DAO_store);
+			$this->Template->assign('shortURLArray', $DAO_store->getVanityUrlArray());
 
 			$manager_DAO_user = DAO_CFactory::create('user', true);
 			$manager_DAO_user->id = $DAO_store->manager_1_user_id;

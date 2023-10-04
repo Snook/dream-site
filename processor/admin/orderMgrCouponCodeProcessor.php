@@ -87,7 +87,7 @@ class processor_admin_orderMgrCouponCodeProcessor extends CPageProcessor
 			}
 		}
 
-		list($Order, $SessionObj) = self::buildOrderFromArray($daoStore, $values, null);
+		list($Order, $SessionObj) = self::buildOrderFromArray($daoStore, $values, $User);
 
 		$menu_id = $SessionObj->menu_id;
 

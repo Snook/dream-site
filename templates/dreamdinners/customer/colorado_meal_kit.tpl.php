@@ -39,12 +39,12 @@
 				<div class="row my-5">
 					<div class="col-md-5 mb-6">
 						<div>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-chicken-pot-pies-circle-458x344v2.webp" alt="Mini Chicken Pot Pies" class="img-fluid mb-3" />
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cranberry-buttermilk-chicken-circle-458x344.webp" alt="Cranberry Buttermilk Chicken" class="img-fluid mb-3" />
 						</div>
 					</div>
 					<div class="col-md-7 text-left">
-						<h3>Meal of the Month<br><strong>Mini Chicken Pot Pies</strong></h3>
-						<p>This meal helps fight hunger at home and abroad. For each Mini Chicken Pot Pies sold in September, $1 will be donated to the Dream Dinners foundation to help feed families around the world.</p>
+						<h3>Meal of the Month<br><strong>Cranberry Buttermilk Chicken with Almond Green Beans</strong></h3>
+						<p>This meal helps fight hunger at home and abroad. For each Cranberry Buttermilk Chicken with Almond Green Beans sold in October, $1 will be donated to the Dream Dinners Foundation to support Breast Cancer Research.</p>
 						<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
 					</div>
 				</div>
@@ -257,32 +257,33 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-pot-pies-featured-kid-pick-400x400.webp" alt="Mini Chicken Pot Pies" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/calzone-kid-pick-400x400.webp" alt="Build Your Own Calzone" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Mini Chicken Pot Pies</h5>
+									<h5 class="card-title">Build Your Own Calzone</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-enchiladas-featured-pan-400x400.webp" alt="Chicken Enchiladas" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-parmesan-pan-400x400.webp" alt="Chicken Parmesan" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Enchiladas</h5>
+									<h5 class="card-title">Chicken Parmesan</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/carne-asada-tacos-featured-under-30-400x400.webp" alt="Carne Asada Steak Tacos" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-egg-roll-bowl-30-min-400x400.webp" alt="Chicken Egg Roll Bowl" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Carne Asada Steak Tacos</h5>
+									<h5 class="card-title">Chicken Egg Roll Bowl</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-tikka-masala-featured-instant-pot-400x400.webp" alt="Chicken Tikka Masala" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cornflake-chicken-air-fryer-400x400.webp" alt="Cornflake Crusted Chicken Tenders with Dipping Sauce" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Tikka Masala over Jasmine Rice</h5>
+									<h5 class="card-title">Cornflake Crusted Chicken Tenders with Dipping Sauce</h5>
 								</div>
 							</div>
 
 						</div>
 					</div>
+				</div>
 				</div>
 				<div>
 					<div class="col">

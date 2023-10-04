@@ -1000,11 +1000,13 @@ function fadmin_is_idle(idle)
 		$.cookie('DreamSite_Timer', true, {
 			expires: date,
 			domain: COOKIE.domain,
+			path: '/',
 			secure: true
 		});
 		$.cookie(COOKIE.dd_sc_name, $.cookie(COOKIE.dd_sc_name), {
 			expires: sdate,
 			domain: COOKIE.domain,
+			path: '/',
 			secure: true
 		});
 	}
@@ -1212,7 +1214,8 @@ function alert_timeout()
 
 	$.cookie(COOKIE.dd_sc_name, false, {
 		expires: date,
-		domain: COOKIE.domain
+		domain: COOKIE.domain,
+		path: '/'
 	});
 
 	$.ajax({
@@ -1325,6 +1328,7 @@ function alert_timeout()
 											$.cookie('DreamSite_Timer', true, {
 												expires: 1,
 												domain: COOKIE.domain,
+												path: '/',
 												secure: true
 											});
 

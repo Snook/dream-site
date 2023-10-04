@@ -575,24 +575,24 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 					{
 						case CMenuItem::FULL:
 							$DAO_pricing->tier = 1;
-							$DAO_pricing->price = $fields[PRICE_TIER_1_LG];
+							$DAO_pricing->price = trim($fields[PRICE_TIER_1_LG]);
 							$DAO_pricing->insert();
 							$DAO_pricing->tier = 2;
-							$DAO_pricing->price = $fields[PRICE_TIER_2_LG];
+							$DAO_pricing->price = trim($fields[PRICE_TIER_2_LG]);
 							$DAO_pricing->insert();
 							$DAO_pricing->tier = 3;
-							$DAO_pricing->price = $fields[PRICE_TIER_3_LG];
+							$DAO_pricing->price = trim($fields[PRICE_TIER_3_LG]);
 							$DAO_pricing->insert();
 							break;
 						case CMenuItem::HALF:
 							$DAO_pricing->tier = 1;
-							$DAO_pricing->price = $fields[PRICE_TIER_1_MD];
+							$DAO_pricing->price = trim($fields[PRICE_TIER_1_MD]);
 							$DAO_pricing->insert();
 							$DAO_pricing->tier = 2;
-							$DAO_pricing->price = $fields[PRICE_TIER_2_MD];
+							$DAO_pricing->price = trim($fields[PRICE_TIER_2_MD]);
 							$DAO_pricing->insert();
 							$DAO_pricing->tier = 3;
-							$DAO_pricing->price = $fields[PRICE_TIER_3_MD];
+							$DAO_pricing->price = trim($fields[PRICE_TIER_3_MD]);
 							$DAO_pricing->insert();
 							break;
 					}
@@ -610,14 +610,14 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 								{
 									if (!empty($_POST['import_price_tier_1_lg']))
 									{
-										$DAO_pricing->price = $fields[PRICE_TIER_1_LG];
+										$DAO_pricing->price = trim($fields[PRICE_TIER_1_LG]);
 									}
 								}
 								else if ($fields['pricing_type'] == CMenuItem::HALF)
 								{
 									if (!empty($_POST['import_price_tier_1_md']))
 									{
-										$DAO_pricing->price = $fields[PRICE_TIER_1_MD];
+										$DAO_pricing->price = trim($fields[PRICE_TIER_1_MD]);
 									}
 								}
 								break;
@@ -626,14 +626,14 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 								{
 									if (!empty($_POST['import_price_tier_2_lg']))
 									{
-										$DAO_pricing->price = $fields[PRICE_TIER_2_LG];
+										$DAO_pricing->price = trim($fields[PRICE_TIER_2_LG]);
 									}
 								}
 								else if ($fields['pricing_type'] == CMenuItem::HALF)
 								{
 									if (!empty($_POST['import_price_tier_2_md']))
 									{
-										$DAO_pricing->price = $fields[PRICE_TIER_2_MD];
+										$DAO_pricing->price = trim($fields[PRICE_TIER_2_MD]);
 									}
 								}
 								break;
@@ -642,14 +642,14 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 								{
 									if (!empty($_POST['import_price_tier_3_lg']))
 									{
-										$DAO_pricing->price = $fields[PRICE_TIER_3_LG];
+										$DAO_pricing->price = trim($fields[PRICE_TIER_3_LG]);
 									}
 								}
 								else if ($fields['pricing_type'] == CMenuItem::HALF)
 								{
 									if (!empty($_POST['import_price_tier_3_md']))
 									{
-										$DAO_pricing->price = $fields[PRICE_TIER_3_MD];
+										$DAO_pricing->price = trim($fields[PRICE_TIER_3_MD]);
 									}
 								}
 								break;
