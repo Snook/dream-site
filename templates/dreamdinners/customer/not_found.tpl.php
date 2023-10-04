@@ -19,7 +19,7 @@
 
 		<div class="row">
 			<div class="col">
-				<p class="alert alert-red">We are sorry, the page you were looking for could not be found.</p>
+				<p class="alert alert-red"><i class="fas fa-exclamation-triangle"></i> We are sorry, the page you were looking for could not be found.</p>
 			</div>
 		</div>
 
