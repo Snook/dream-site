@@ -512,6 +512,7 @@ class CMenuItem extends DAO_Menu_item
 		$this->store_price = $this->getStorePrice(); // store_price should be what the customer pays
 
 		// convert in_bundle json to bundle objects
+		$this->in_bundle = array();
 		if (!empty($this->_in_bundle))
 		{
 			$bundlesArray = explode(',', $this->_in_bundle);
@@ -526,12 +527,9 @@ class CMenuItem extends DAO_Menu_item
 				$this->in_bundle[$bundle['id']]->master_menu_item = $bundle['master_menu_item'];
 			}
 		}
-		else
-		{
-			$this->in_bundle = array();
-		}
 
 		// convert recipe_component_info json to recipe_component objects
+		$this->nutrition_array = array();
 		if (!empty($this->_recipe_component))
 		{
 			$componentArray = explode('|||', $this->_recipe_component);
@@ -574,11 +572,21 @@ class CMenuItem extends DAO_Menu_item
 				}
 			}
 		}
-		else
-		{
-			$this->nutrition_array = array();
-		}
 
+		$this->pricing_tiers = array(
+			'1' => array(
+				CMenuItem::FULL => null,
+				CMenuItem::HALF => null
+			),
+			'2' => array(
+				CMenuItem::FULL => null,
+				CMenuItem::HALF => null
+			),
+			'3' => array(
+				CMenuItem::FULL => null,
+				CMenuItem::HALF => null
+			),
+		);
 		if (!empty($this->_pricing_tiers))
 		{
 			$pricingInfoArray = explode(',', $this->_pricing_tiers);
@@ -595,23 +603,6 @@ class CMenuItem extends DAO_Menu_item
 				$this->pricing_tiers[$pricing['tier']][$pricing['pricing_type']]->pricing_type = $pricing['pricing_type'];
 				$this->pricing_tiers[$pricing['tier']][$pricing['pricing_type']]->price = $pricing['price'];
 			}
-		}
-		else
-		{
-			$this->pricing_tiers = array(
-				'1' => array(
-					CMenuItem::FULL => null,
-					CMenuItem::HALF => null
-				),
-				'2' => array(
-					CMenuItem::FULL => null,
-					CMenuItem::HALF => null
-				),
-				'3' => array(
-					CMenuItem::FULL => null,
-					CMenuItem::HALF => null
-				),
-			);
 		}
 	}
 

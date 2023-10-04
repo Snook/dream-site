@@ -2114,7 +2114,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 			}
 			else if (!empty($menuItemArray['instructions_crock_pot']))
 			{
-				$alternate_instruction_type = 'crock-pot/instant pot';
+				$alternate_instruction_type = 'crock-pot or instant pot';
 			}
 			else if (!empty($menuItemArray['instructions_grill']))
 			{
