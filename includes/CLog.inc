@@ -3,7 +3,6 @@ require_once('DB.php');
 require_once('DB/common.php');
 require_once('includes/DAO/BusinessObject/CUser.php');
 
-
 /* ------------------------------------------------------------------------
  *	Class: CLog
  *
@@ -24,7 +23,8 @@ require_once('includes/DAO/BusinessObject/CUser.php');
  *  touch
  * ------------------------------------------------------------------------ */
 
-class CLog {
+class CLog
+{
 	// public
 
 	var $_buffer = '';
@@ -52,41 +52,41 @@ class CLog {
 	const USER_RETENTION_NEW = 'USER_RETENTION_NEW';
 	const USER_RETENTION_UPDATE = 'USER_RETENTION_UPDATE';
 	const USER_RETENTION_REMOVE = 'USER_RETENTION_REMOVE';
-    const DASHBOARDCACHING = 'DASHBOARDCACHING';
-    const EXPIRE_STORE_CREDIT = 'EXPIRE_STORE_CREDIT';
-    const WARN_EXPIRE_STORE_CREDIT = 'WARN_EXPIRE_STORE_CREDIT';
-    const CONFIRM_PLATEPOINTS_ORDERS = 'CONFIRM_PLATEPOINTS_ORDERS';
-    const EXPIRE_PLATEPOINTS_CREDITS = 'EXPIRE_PLATEPOINTS_CREDITS';
-    const WARN_EXPIRE_PLATEPOINTS_CREDITS = 'WARN_EXPIRE_PLATEPOINTS_CREDITS';
-    const BIRTHDAY_REWARDS = 'BIRTHDAY_REWARDS';
-    const TWO_DAY_TASTE_REMINDERS = 'TWO_DAY_TASTE_REMINDERS';
-    const DELAYED_PAYMENTS = 'DELAYED_PAYMENTS';
-    const EVITE_REMINDERS = 'EVITE_REMINDERS';
-    const SESSION_REMINDERS = 'SESSION_REMINDERS';
-    const PUSH_GIFT_CARD_REPORT = 'PUSH_GIFT_CARD_REPORT';
-    const REFERRAL_REWARDS = 'REFERRAL_REWARDS';
-    const THIRD_ORDER_TASTE_REMINDERS = 'THIRD_ORDER_TASTE_REMINDERS';
-    const FOOD_TESTING_REMINDER_EMAIL = 'FOOD_TESTING_REMINDER_EMAIL';
-    const CACHE_STORE_CLASSES = 'CACHE_STORE_CLASSES';
-    const DELETE_OLD_SAVED_ORDERS = 'DELETE_OLD_SAVED_ORDERS';
-    const EMAIL_LATE_COA_FILERS = 'EMAIL_LATE_COA_FILERS';
-    const CACHE_WEEKLY_METRICS = 'CACHE_WEEKLY_METRICS';
-    const CLEAR_STALE_CARTS = 'CLEAR_STALE_CARTS';
+	const DASHBOARDCACHING = 'DASHBOARDCACHING';
+	const EXPIRE_STORE_CREDIT = 'EXPIRE_STORE_CREDIT';
+	const WARN_EXPIRE_STORE_CREDIT = 'WARN_EXPIRE_STORE_CREDIT';
+	const CONFIRM_PLATEPOINTS_ORDERS = 'CONFIRM_PLATEPOINTS_ORDERS';
+	const EXPIRE_PLATEPOINTS_CREDITS = 'EXPIRE_PLATEPOINTS_CREDITS';
+	const WARN_EXPIRE_PLATEPOINTS_CREDITS = 'WARN_EXPIRE_PLATEPOINTS_CREDITS';
+	const BIRTHDAY_REWARDS = 'BIRTHDAY_REWARDS';
+	const TWO_DAY_TASTE_REMINDERS = 'TWO_DAY_TASTE_REMINDERS';
+	const DELAYED_PAYMENTS = 'DELAYED_PAYMENTS';
+	const EVITE_REMINDERS = 'EVITE_REMINDERS';
+	const SESSION_REMINDERS = 'SESSION_REMINDERS';
+	const PUSH_GIFT_CARD_REPORT = 'PUSH_GIFT_CARD_REPORT';
+	const REFERRAL_REWARDS = 'REFERRAL_REWARDS';
+	const THIRD_ORDER_TASTE_REMINDERS = 'THIRD_ORDER_TASTE_REMINDERS';
+	const FOOD_TESTING_REMINDER_EMAIL = 'FOOD_TESTING_REMINDER_EMAIL';
+	const CACHE_STORE_CLASSES = 'CACHE_STORE_CLASSES';
+	const DELETE_OLD_SAVED_ORDERS = 'DELETE_OLD_SAVED_ORDERS';
+	const EMAIL_LATE_COA_FILERS = 'EMAIL_LATE_COA_FILERS';
+	const CACHE_WEEKLY_METRICS = 'CACHE_WEEKLY_METRICS';
+	const CLEAR_STALE_CARTS = 'CLEAR_STALE_CARTS';
 	const MARK_CART_ABANDONED = 'MARK_CART_ABANDONED';
-    const CACHE_GLOBAL_RECIPE_RATING = 'CACHE_GLOBAL_RECIPE_RATING';
-    const UPDATE_MEMBERSHIP_STATUS = 'UPDATE_MEMBERSHIP_STATUS';
+	const CACHE_GLOBAL_RECIPE_RATING = 'CACHE_GLOBAL_RECIPE_RATING';
+	const UPDATE_MEMBERSHIP_STATUS = 'UPDATE_MEMBERSHIP_STATUS';
 	const ALERT_LOW_INVENTORY = 'ALERT_LOW_INVENTORY';
 
 	// $ProcessingStatusType
-	const SUCCESS 		= 'SUCCESS';
-	const FAILURE 		= 'FAILURE';
+	const SUCCESS = 'SUCCESS';
+	const FAILURE = 'FAILURE';
 	const PARTIAL_FAILURE = 'PARTIAL FAILURE';
 
 	//******************************
 
 	public static function instance()
 	{
-		if (self::$_instance == null )
+		if (self::$_instance == null)
 		{
 			self::$_instance = new CLog();
 		}
@@ -96,7 +96,7 @@ class CLog {
 
 	public static function getEventLogTable()
 	{
-		if(date('Y') != '2011')
+		if (date('Y') != '2011')
 		{
 			return "event_log_" . date('Y');
 		}
@@ -125,12 +125,13 @@ class CLog {
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1;");
 	}
 
-	private function __construct() {
+	private function __construct()
+	{
 	}
 
 	function connect()
 	{
-		if ( !self::$_db )
+		if (!self::$_db)
 		{
 			self::$_db = mysqli_connect(DB_LOG_SERVER, DB_LOG_SERVER_USERNAME, DB_LOG_SERVER_PASSWORD);
 			mysqli_select_db(self::$_db, DB_LOG_DATABASE);
@@ -141,24 +142,24 @@ class CLog {
 
 	/******************************************************************
 	 *
-	 * Class:	CLog
-	 * Method:	Record
+	 * Class:    CLog
+	 * Method:    Record
 	 *
-	 * In:		string - 	$szDescription
+	 * In:        string -    $szDescription
 	 *
-	 * Desc:	The normal method of logging an event:
-	 * 		CLog::Record('E_LOGIN::There was an error logging in.');
+	 * Desc:    The normal method of logging an event:
+	 *        CLog::Record('E_LOGIN::There was an error logging in.');
 	 *
-	 * Note:	Prefix the $szDescription with D_, N_, W_, E_, or S_followed
-	 *		by a category (make em up as we go, dont need to match others)
-	 *		and then :: followed by the descripton.  It sucks having to enter
-	 *		in 4 parameters everytime you want to log something ;)
+	 * Note:    Prefix the $szDescription with D_, N_, W_, E_, or S_followed
+	 *        by a category (make em up as we go, dont need to match others)
+	 *        and then :: followed by the descripton.  It sucks having to enter
+	 *        in 4 parameters everytime you want to log something ;)
 	 *
-	 *		 enum('DEBUG', 'NOTICE', 'WARNING', 'ERROR', 'SECURITY')
+	 *         enum('DEBUG', 'NOTICE', 'WARNING', 'ERROR', 'SECURITY')
 	 *
 	 ********************************************************************/
 
-	static function Record($szDescription, $szOptionalFile = "", $szOptionalLine= "", $szOptionalFunction = "")
+	static function Record($szDescription, $szOptionalFile = "", $szOptionalLine = "", $szOptionalFunction = "")
 	{
 
 		$log = self::$_instance;
@@ -168,10 +169,10 @@ class CLog {
 
 		// Break it up if it's in the right format
 
-		if ((substr($szDescription, 1, 1) == "_") && substr_count ($szDescription, "::"))
+		if ((substr($szDescription, 1, 1) == "_") && substr_count($szDescription, "::"))
 		{
 			list ($Type, $temp) = preg_split("/_/", $szDescription);
-			$szDesc = $szDescription.$szOptionalFile.$szOptionalLine.$szOptionalFunction;
+			$szDesc = $szDescription . $szOptionalFile . $szOptionalLine . $szOptionalFunction;
 		}
 		else
 		{
@@ -180,15 +181,15 @@ class CLog {
 
 		$user = CUser::getCurrentUser();
 		$user_id = @$user->id;
-		if ( !$user_id )
+		if (!$user_id)
 		{
 			$user_id = 0;
 		}
 		$aErrorTypes = array(
-			'D' =>'DEBUG',
-			'N' =>'NOTICE',
-			'W' =>'WARNING',
-			'E'=> 'ERROR',
+			'D' => 'DEBUG',
+			'N' => 'NOTICE',
+			'W' => 'WARNING',
+			'E' => 'ERROR',
 			'S' => 'SECURITY'
 		);
 
@@ -199,14 +200,14 @@ class CLog {
 		$utils = new DB_Common();
 
 		$szInsert = "INSERT into " . DB_LOG_DATABASE . "." . CLog::getEventLogTable() . " (user_id, ip_address, timestamp_created, admin_notify, event_hint, description, log_type, is_dfl_access )
-						VALUES ($user_id, '".(isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:'')."', now(), ".($errorType == 'ERROR'?"1":"0").", ".$utils->quoteSmart($szHint).", ".$utils->quoteSmart($szDesc).", '{$aErrorTypes[$Type]}', 0)";
+						VALUES ($user_id, '" . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '') . "', now(), " . ($errorType == 'ERROR' ? "1" : "0") . ", " . $utils->quoteSmart($szHint) . ", " . $utils->quoteSmart($szDesc) . ", '{$aErrorTypes[$Type]}', 0)";
 
 		if (!self::$_db)
 		{
 			echo 'logging not available';
 			// exit;
 		}
-		if(!mysqli_query(self::$_db, $szInsert))
+		if (!mysqli_query(self::$_db, $szInsert))
 		{
 			// Insert failed so try creating new years event_log table
 			CLog::createEventLogTable();
@@ -224,68 +225,67 @@ class CLog {
 
 		$utils = new DB_Common();
 
-		$szInsert = "INSERT into ".DB_LOG_DATABASE.".cron_log (timestamp_created, records_processed, cron_type,  processing_comments, processing_status )";
+		$szInsert = "INSERT into " . DB_LOG_DATABASE . ".cron_log (timestamp_created, records_processed, cron_type,  processing_comments, processing_status )";
 
-		$szInsert .= " VALUES (now(), $RecordsProcessed" . "," . $utils->quoteSmart($CronLogType) . "," .  $utils->quoteSmart($Processing_Comments) .  ","  . $utils->quoteSmart($ProcessingStatusType) . ")";
+		$szInsert .= " VALUES (now(), $RecordsProcessed" . "," . $utils->quoteSmart($CronLogType) . "," . $utils->quoteSmart($Processing_Comments) . "," . $utils->quoteSmart($ProcessingStatusType) . ")";
 
-		if ( !self::$_db)
+		if (!self::$_db)
 		{
 			echo 'logging not available';
 		}
 		mysqli_query(self::$_db, $szInsert);
-
 	}
 
 	static function RecordException($ex)
 	{
-		self::Record("E_EXCEPTION:: ".$ex->getMessage().$ex->getFile().': '.$ex->getLine().': '.$ex->getCode(), $ex->getLine(), $ex->getCode());
+		self::Record("E_EXCEPTION:: " . $ex->getMessage() . $ex->getFile() . ': ' . $ex->getLine() . ': ' . $ex->getCode(), $ex->getLine(), $ex->getCode());
 	}
 
 	/******************************************************************
 	 *
-	 * Class:	CLog
-	 * Method:	RecordNew
+	 * Class:    CLog
+	 * Method:    RecordNew
 	 *
-	 * In:		string - 	$szDescription
+	 * In:        string -    $szDescription
 	 *
-	 * Desc:	Revised version of the old Record function to do the following:
-	 * 			Record more specific error types, so we can do better filtering.
-	 * 			Notify admin via email for serious stuff.
+	 * Desc:    Revised version of the old Record function to do the following:
+	 *            Record more specific error types, so we can do better filtering.
+	 *            Notify admin via email for serious stuff.
 	 *
-	 *		 enum('DEBUG', 'NOTICE', 'WARNING', 'ERROR', 'SECURITY', 'LOGIN', 'PHP')
+	 *         enum('DEBUG', 'NOTICE', 'WARNING', 'ERROR', 'SECURITY', 'LOGIN', 'PHP')
 	 *
 	 ********************************************************************/
 
-	static function RecordNew($type, $szDescription, $szOptionalFile = "", $szOptionalLine= "", $notifyAdmin = false)
+	static function RecordNew($type, $szDescription, $szOptionalFile = "", $szOptionalLine = "", $notifyAdmin = false)
 	{
 
 		$log = self::$_instance;
 
 		$szDesc = '';
-		if ( $szDescription )
+		if ($szDescription)
 		{
 			$szDesc = $szDescription;
 		}
-		if ( $szOptionalFile )
+		if ($szOptionalFile)
 		{
-			$szDesc .= '::'.$szOptionalFile;
+			$szDesc .= '::' . $szOptionalFile;
 		}
-		if ( $szOptionalLine )
+		if ($szOptionalLine)
 		{
-			$szDesc .= '::'.$szOptionalLine;
+			$szDesc .= '::' . $szOptionalLine;
 		}
 
 		$user = CUser::getCurrentUser();
 		if (!empty($user->id) && is_numeric($user->id))
 		{
-		      $user_id = $user->id;
+			$user_id = $user->id;
 		}
 		else
 		{
 			$user_id = 0;
 		}
 
-		switch($type)
+		switch ($type)
 		{
 			case self::STRICT:
 			case self::NOTICE:
@@ -307,31 +307,31 @@ class CLog {
 		$utils = new DB_Common();
 
 		$szInsert = "INSERT into " . DB_LOG_DATABASE . "." . CLog::getEventLogTable() . " (user_id, ip_address, timestamp_created, admin_notify, description, log_type, is_dfl_access )
-						VALUES ($user_id, '".(isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:'')."', now(), ".($notifyAdmin?"1":"0").", ".$utils->quoteSmart($szDesc).", '$type', 0);";
+						VALUES ($user_id, '" . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '') . "', now(), " . ($notifyAdmin ? "1" : "0") . ", " . $utils->quoteSmart($szDesc) . ", '$type', 0);";
 
-		if ( !self::$_db)
+		if (!self::$_db)
 		{
 			echo 'logging not available';
 			// exit;
 		}
-		if(!mysqli_query(self::$_db, $szInsert))
+		if (!mysqli_query(self::$_db, $szInsert))
 		{
 			// Insert failed so try creating new years event_log table
 			CLog::createEventLogTable();
 			mysqli_query(self::$_db, $szInsert);
 		}
 
-		if ( $notifyAdmin )
+		if ($notifyAdmin)
 		{
 			$time = date("M j Y g:i a");
 
 			if (defined('DD_SERVER_NAME') && DD_SERVER_NAME == 'LIVE')
 			{
-			    $entry = "!!DREAMDINNERS SERVER ALERT!!\n\n";
+				$entry = "!!DREAMDINNERS SERVER ALERT!!\n\n";
 			}
 			else
 			{
-			    $entry = "TEST SERVER - " . DD_SERVER_NAME . "\n\n!!DREAMDINNERS SERVER ALERT!!\n\n";
+				$entry = "TEST SERVER - " . DD_SERVER_NAME . "\n\n!!DREAMDINNERS SERVER ALERT!!\n\n";
 			}
 
 			$entry .= "An event was logged under the following conditions:\n\n";
@@ -339,92 +339,108 @@ class CLog {
 			$entry .= "time=$time\n\n";
 			$meAsArray = $user->toArray();
 			$entry .= "USER:\n\n";
-			foreach($meAsArray as $k => $v)
+			foreach ($meAsArray as $k => $v)
 			{
 				$entry .= $k . "=" . $v . "\n";
 			}
 
 			$entry .= "\n_SERVER:\n";
-			foreach($_SERVER as $k => $v)
+			foreach ($_SERVER as $k => $v)
 			{
 				$entry .= $k . "=" . $v . "\n";
 			}
 
 			// sensitive values we should suppress
-			$exclusionArray	= array('ccNumber', 'ccSecurityCode', 'gift_card_number', 'gift_card_security_code', 'credit_card_number', 'credit_card_cvv',
-									'credit_card_exp_month','credit_card_exp_year',
-									'payment1_cc_security_code', 'payment2_cc_security_code', 'payment1_ccNumber', 'payment2_ccNumber', 'default_payment1_ccNumber',
-									'default_payment2_ccNumber', 'default_payment1_cc_security_code', 'default_payment2_cc_security_code','password_login');
+			$exclusionArray = array(
+				'ccNumber',
+				'ccSecurityCode',
+				'gift_card_number',
+				'gift_card_security_code',
+				'credit_card_number',
+				'credit_card_cvv',
+				'credit_card_exp_month',
+				'credit_card_exp_year',
+				'payment1_cc_security_code',
+				'payment2_cc_security_code',
+				'payment1_ccNumber',
+				'payment2_ccNumber',
+				'default_payment1_ccNumber',
+				'default_payment2_ccNumber',
+				'default_payment1_cc_security_code',
+				'default_payment2_cc_security_code',
+				'password_login'
+			);
 
 			$reqCopy = $_REQUEST;
 
 			if (isset($reqCopy['payment_data']['number']))
-			    $reqCopy['payment_data']['number'] = "redacted";
+			{
+				$reqCopy['payment_data']['number'] = "redacted";
+			}
 
 			$entry .= "\n_REQUEST:\n";
-			foreach($reqCopy as $k => $v)
+			foreach ($reqCopy as $k => $v)
 			{
 				if (!in_array($k, $exclusionArray))
 				{
-				    if (is_array($v))
-				    {
-				        foreach($k as $k2 => $v2)
-				        {
-				             $entry .= $k . " : " . $k2  . "=" . $v2 . "\n";
-				        }
-				    }
-				    else
-				    {
-					   $entry .= $k . "=" . $v . "\n";
-				    }
+					if (is_array($v))
+					{
+						foreach ($k as $k2 => $v2)
+						{
+							$entry .= $k . " : " . $k2 . "=" . $v2 . "\n";
+						}
+					}
+					else
+					{
+						$entry .= $k . "=" . $v . "\n";
+					}
 				}
 			}
-/*
-			$stackTraceMsg = "";
-			try
-			{
-				throw new Exception('for stack trace');
-			}
-			catch (Exception $e)
-			{
-				$stackTraceMsg = $e->getTraceAsString();
-			}
+			/*
+						$stackTraceMsg = "";
+						try
+						{
+							throw new Exception('for stack trace');
+						}
+						catch (Exception $e)
+						{
+							$stackTraceMsg = $e->getTraceAsString();
+						}
 
-			$entry .= "\nSTACK:\n";
-			$entry .= $stackTraceMsg;
-*/
+						$entry .= "\nSTACK:\n";
+						$entry .= $stackTraceMsg;
+			*/
 			if (MAIL_ENABLED)
 			{
-		       $from = 'From: <do-not-reply@dreamdinners.com>';
-			   $sendMail = @mail( "elaine.sanchez@dreamdinners.com, ryan.snook@dreamdinners.com, josh.thayer@dreamdinners.com, evan.lee@dreamdinners.com, brandy.latta@dreamdinners.com", "!!!DREAMDINNERS SERVER ALERT!!!", $entry, $from );
+				$from = 'From: <do-not-reply@dreamdinners.com>';
+				$sendMail = @mail("ryan.snook@dreamdinners.com, josh.thayer@dreamdinners.com, evan.lee@dreamdinners.com, brandy.latta@dreamdinners.com", "!!!DREAMDINNERS SERVER ALERT!!!", $entry, $from);
 			}
 		}
-
 	}
 
-//CES: ACCESS_CHANGE
+	//CES: ACCESS_CHANGE
 
 	static function NotifyFadmin($store_id, $subject, $msg)
 	{
-	    if (MAIL_ENABLED)
-	    {
-	        if (DD_SERVER_NAME == 'LIVE')
-	        {
+		if (MAIL_ENABLED)
+		{
+			if (DD_SERVER_NAME == 'LIVE')
+			{
 
-        		$StoreObj = DAO_CFactory::create('store');
-        		$StoreObj->id = $store_id;
-        		if ($StoreObj->find(true) && !empty($StoreObj->email_address))
-        		{
-        			$from = 'From: <do-not-reply@dreamdinners.com>';
-        			$sendMail = mail( $StoreObj->email_address, $subject, $msg, $from );
-        		}
-	        }
-	        else
-	        {
-	            $from = 'From: <do-not-reply@dreamdinners.com>';
-	            $sendMail = mail( 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com', $subject . " from Test Server", $msg, $from );
-	        }
-	    }
+				$StoreObj = DAO_CFactory::create('store');
+				$StoreObj->id = $store_id;
+				if ($StoreObj->find(true) && !empty($StoreObj->email_address))
+				{
+					$from = 'From: <do-not-reply@dreamdinners.com>';
+					$sendMail = mail($StoreObj->email_address, $subject, $msg, $from);
+				}
+			}
+			else
+			{
+				$from = 'From: <do-not-reply@dreamdinners.com>';
+				$sendMail = mail('ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com', $subject . " from Test Server", $msg, $from);
+			}
+		}
 	}
 
 	static function RecordEmail($recipient_id, $recipient_email, $sender_id, $sender_email, $subject)
@@ -432,10 +448,13 @@ class CLog {
 		CLog::instance()->connect();
 		$utils = new DB_Common();
 
-		if (empty($recipient_id)) $recipient_id = '0';
+		if (empty($recipient_id))
+		{
+			$recipient_id = '0';
+		}
 
-		$szInsert = "INSERT into ".DB_LOG_DATABASE.".email_log (subject, recipient_user_id, recipient_email_address, sender_user_id, sender_email_address, timestamp_created )
-							VALUES (".$utils->quoteSmart($subject).", ".$utils->quoteSmart($recipient_id).", '".$recipient_email."',".$utils->quoteSmart($sender_id).",'".$sender_email."',now())";
+		$szInsert = "INSERT into " . DB_LOG_DATABASE . ".email_log (subject, recipient_user_id, recipient_email_address, sender_user_id, sender_email_address, timestamp_created )
+							VALUES (" . $utils->quoteSmart($subject) . ", " . $utils->quoteSmart($recipient_id) . ", '" . $recipient_email . "'," . $utils->quoteSmart($sender_id) . ",'" . $sender_email . "',now())";
 
 		if (!self::$_db)
 		{
@@ -445,68 +464,98 @@ class CLog {
 		mysqli_query(self::$_db, $szInsert);
 	}
 
-
 	static function RecordDebugTrace($message, $category = "NONE", $level = 1, $type = "DEBUG", $recordStack = false)
 	{
-	    global $gEnabledTracingCategories;
+		global $gEnabledTracingCategories;
 
 		if (!empty($gEnabledTracingCategories) && in_array($category, $gEnabledTracingCategories) && $gEnabledTracingCategories[$category])
-	    {
-    	    CLog::instance()->connect();
-    	    $utils = new DB_Common();
+		{
+			CLog::instance()->connect();
+			$utils = new DB_Common();
 
+			$user = CUser::getCurrentUser();
+			$user_id = @$user->id;
+			if (!$user_id)
+			{
+				$user_id = 0;
+			}
 
-    	    $user = CUser::getCurrentUser();
-    	    $user_id = @$user->id;
-    	    if ( !$user_id )
-    	    {
-    	        $user_id = 0;
-    	    }
+			if ($recordStack)
+			{
+				$stackTraceMsg = "";
+				try
+				{
+					throw new Exception('for stack trace');
+				}
+				catch (Exception $e)
+				{
+					$stackTraceMsg = $e->getTraceAsString();
+				}
+				$message .= "\nSTACK:\n";
+				$message .= $stackTraceMsg;
+			}
 
+			$szInsert = "INSERT into " . DB_LOG_DATABASE . ".debug_log" . " (user_id, ip_address, timestamp_created, description, category, log_type, request_uri )
+    						VALUES ($user_id, '" . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '') . "', now(),
+    						    " . $utils->quoteSmart($message) . ", '$category', '$type', '" . (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '') . "')";
 
-    	    if ($recordStack)
-    	    {
-    	        $stackTraceMsg = "";
-    	        try
-    	        {
-    	            throw new Exception('for stack trace');
-    	        }
-    	        catch (Exception $e)
-    	        {
-    	            $stackTraceMsg = $e->getTraceAsString();
-    	        }
-    	        $message .= "\nSTACK:\n";
-    	        $message .= $stackTraceMsg;
-    	    }
+			if (!self::$_db)
+			{
+				echo 'logging not available';
 
+				return;
+			}
 
-    		$szInsert = "INSERT into " . DB_LOG_DATABASE . ".debug_log" . " (user_id, ip_address, timestamp_created, description, category, log_type, request_uri )
-    						VALUES ($user_id, '".(isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:'')."', now(),
-    						    ".$utils->quoteSmart($message).", '$category', '$type', '" . (isset($_SERVER['REQUEST_URI'])?$_SERVER['REQUEST_URI']:'')  .  "')";
-
-    	    if (!self::$_db)
-    	    {
-    	        echo 'logging not available';
-    	        return;
-    	    }
-
-    	    mysqli_query(self::$_db, $szInsert);
-	    }
-
+			mysqli_query(self::$_db, $szInsert);
+		}
 	}
 
 	// sensitive values we should suppress
-	static  $exclusionArray	= array('ccNumber', 'ccSecurityCode', 'gift_card_number', 'gift_card_security_code','credit_card_number', 'credit_card_cvv',
-								   'credit_card_exp_month','credit_card_exp_year','email_body','billing_address','billing_postal_code','ccMonth','ccYear','ccNameOnCard','debit_gift_card_number',
-								   'payment1_cc_security_code', 'payment2_cc_security_code', 'payment1_ccNumber', 'payment2_ccNumber', 'default_payment1_ccNumber','payment1_gc_payment_number','payment1_ccNameOnCard',
-								   'default_payment2_ccNumber', 'default_payment1_cc_security_code', 'default_payment2_cc_security_code', 'login_password', 'password', 'password_confirm','password_login',
-									'payment1_ccMonth', 'payment1_ccYear', 'billing_address_1','billing_postal_code_1','payment2_ccNameOnCard', 'payment2_ccMonth', 'payment2_ccYear',
-									'billing_address_2','billing_postal_code_2','cc_security_code');
-
+	static $exclusionArray = array(
+		'ccNumber',
+		'ccSecurityCode',
+		'gift_card_number',
+		'gift_card_security_code',
+		'credit_card_number',
+		'credit_card_cvv',
+		'credit_card_exp_month',
+		'credit_card_exp_year',
+		'email_body',
+		'billing_address',
+		'billing_postal_code',
+		'ccMonth',
+		'ccYear',
+		'ccNameOnCard',
+		'debit_gift_card_number',
+		'payment1_cc_security_code',
+		'payment2_cc_security_code',
+		'payment1_ccNumber',
+		'payment2_ccNumber',
+		'default_payment1_ccNumber',
+		'payment1_gc_payment_number',
+		'payment1_ccNameOnCard',
+		'default_payment2_ccNumber',
+		'default_payment1_cc_security_code',
+		'default_payment2_cc_security_code',
+		'login_password',
+		'password',
+		'password_confirm',
+		'password_login',
+		'payment1_ccMonth',
+		'payment1_ccYear',
+		'billing_address_1',
+		'billing_postal_code_1',
+		'payment2_ccNameOnCard',
+		'payment2_ccMonth',
+		'payment2_ccYear',
+		'billing_address_2',
+		'billing_postal_code_2',
+		'cc_security_code'
+	);
 
 	static function sanitizeArrayForLog(&$parm_array)
 	{
-		foreach($parm_array as $k => $v)
+		foreach ($parm_array as $k => $v)
 		{
 			if (is_array($v))
 			{
@@ -522,33 +571,33 @@ class CLog {
 	static function RecordNavigation($destination, $route)
 	{
 		if ($destination == 'debug_cart' || $destination == 'cart_watcher')
-	    {
-	        return;
-	    }
+		{
+			return;
+		}
 
-	    CLog::instance()->connect();
-        $utils = new DB_Common();
+		CLog::instance()->connect();
+		$utils = new DB_Common();
 
-        $user_id = false;
-        $user = CUser::getCurrentUser();
-        if (!empty($user->id))
-        {
-            $user_id = $user->id;
-        }
-        if ( !$user_id )
-        {
-            $user_id = 0;
-        }
+		$user_id = false;
+		$user = CUser::getCurrentUser();
+		if (!empty($user->id))
+		{
+			$user_id = $user->id;
+		}
+		if (!$user_id)
+		{
+			$user_id = 0;
+		}
 
-        $destination = mysqli_real_escape_string(self::$_db, $destination);
-        $type = $_SERVER['REQUEST_METHOD'];
-        $remoteAddr = (isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:'');
-        $cartKey = (isset($_COOKIE[DD_SERVER_NAME . '_cart'])?$_COOKIE[DD_SERVER_NAME . '_cart']:'');
+		$destination = mysqli_real_escape_string(self::$_db, $destination);
+		$type = $_SERVER['REQUEST_METHOD'];
+		$remoteAddr = (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '');
+		$cartKey = (isset($_COOKIE[DD_SERVER_NAME . '_cart']) ? $_COOKIE[DD_SERVER_NAME . '_cart'] : '');
 
-        if ($route == "BOUNCE")
-        {
+		if ($route == "BOUNCE")
+		{
 
-            $szInsert = "INSERT into " . DB_LOG_DATABASE . ".nav_log
+			$szInsert = "INSERT into " . DB_LOG_DATABASE . ".nav_log
             (user_id,
             ip_address,
             resource_name,
@@ -563,19 +612,19 @@ class CLog {
             '$cartKey',
             '$route',
             now())";
-        }
-        else if (DD_SERVER_NAME != 'HO_REPORTING')
-        {
-            $CartObj = CCart2::tempAccess();   // avoid using _instance
-            $debugInfo = $CartObj->getDebugInfo();
-            $cartContents = (!empty($debugInfo) ? $utils->quoteSmart(print_r($debugInfo, true)) : "");
+		}
+		else if (DD_SERVER_NAME != 'HO_REPORTING')
+		{
+			$CartObj = CCart2::tempAccess();   // avoid using _instance
+			$debugInfo = $CartObj->getDebugInfo();
+			$cartContents = (!empty($debugInfo) ? $utils->quoteSmart(print_r($debugInfo, true)) : "");
 
-            $postCopy = $_POST;
+			$postCopy = $_POST;
 
-            // Note: self::sanitizeArrayForLog does recursively process arrays
+			// Note: self::sanitizeArrayForLog does recursively process arrays
 			// However "number" is so generic we handle it here instead of include it
 			//in the exclusion array
-            if (isset($postCopy['payment_data']['number']))
+			if (isset($postCopy['payment_data']['number']))
 			{
 				$postCopy['payment_data']['number'] = "redacted";
 			}
@@ -584,15 +633,15 @@ class CLog {
 				$postCopy['add_payment_data']['number'] = "redacted";
 			}
 
-            self::sanitizeArrayForLog($postCopy);
+			self::sanitizeArrayForLog($postCopy);
 
-            $content = (!empty($_GET) ? "GET\r\n" . print_r($_GET, true) . "\r\n\r\n" : "");
-            $content .= (!empty($postCopy) ? "POST\r\n" . print_r($postCopy, true) : "");
-            $content = $utils->quoteSmart($content);
+			$content = (!empty($_GET) ? "GET\r\n" . print_r($_GET, true) . "\r\n\r\n" : "");
+			$content .= (!empty($postCopy) ? "POST\r\n" . print_r($postCopy, true) : "");
+			$content = $utils->quoteSmart($content);
 
-            $cookies = (!empty($_COOKIE) ?  $utils->quoteSmart(print_r($_COOKIE, true)) : "null");
+			$cookies = (!empty($_COOKIE) ? $utils->quoteSmart(print_r($_COOKIE, true)) : "null");
 
-            $szInsert = "INSERT into " . DB_LOG_DATABASE . ".nav_log 
+			$szInsert = "INSERT into " . DB_LOG_DATABASE . ".nav_log 
                 (user_id,
                  ip_address,
                  resource_name,
@@ -613,16 +662,16 @@ class CLog {
                     $cookies,
                     now(),
                     $cartContents)";
-        }
+		}
 
-        if (!self::$_db)
-        {
-            echo 'logging not available';
-            return;
-        }
+		if (!self::$_db)
+		{
+			echo 'logging not available';
 
-        mysqli_query(self::$_db, $szInsert);
+			return;
+		}
 
+		mysqli_query(self::$_db, $szInsert);
 	}
 
 	static function RecordTemp($szDescription, $email = false)
@@ -640,17 +689,17 @@ class CLog {
 
 	/******************************************************************
 	 *
-	 * Class:	CLog
-	 * Method:	RecordIntense
+	 * Class:    CLog
+	 * Method:    RecordIntense
 	 *
-	 * In:		string - 	$szDescription
-	 * 			string - 	&email - a single email address or comma separated list of email addresses
+	 * In:        string -    $szDescription
+	 *            string -    &email - a single email address or comma separated list of email addresses
 	 *
 	 *
-	 * Desc:	Revised version of the old Record function to do the following:
-	 * 			Record an event of type DEBUG and email the passed in address a more detailed
-	 * 			record of the event. Details that are emailed are the current USER array, the $_SERVER array,
-	 * 			the $_REQUEST array (cc card # and security code are filtered) and the call stack.
+	 * Desc:    Revised version of the old Record function to do the following:
+	 *            Record an event of type DEBUG and email the passed in address a more detailed
+	 *            record of the event. Details that are emailed are the current USER array, the $_SERVER array,
+	 *            the $_REQUEST array (cc card # and security code are filtered) and the call stack.
 	 *
 	 *
 	 ********************************************************************/
@@ -660,14 +709,14 @@ class CLog {
 		$log = self::$_instance;
 
 		$szDesc = '';
-		if ( $szDescription )
+		if ($szDescription)
 		{
 			$szDesc = $szDescription;
 		}
 
 		$user = CUser::getCurrentUser();
 		$user_id = @$user->id;
-		if ( !$user_id )
+		if (!$user_id)
 		{
 			$user_id = 0;
 		}
@@ -676,14 +725,14 @@ class CLog {
 		$utils = new DB_Common();
 
 		$szInsert = "INSERT into " . DB_LOG_DATABASE . "." . CLog::getEventLogTable() . " (user_id, ip_address, timestamp_created, admin_notify, description, log_type, is_dfl_access )
-						VALUES ($user_id, '".(isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:'')."', now(), 0, ".$utils->quoteSmart($szDesc).", 'DEBUG', 0);";
+						VALUES ($user_id, '" . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '') . "', now(), 0, " . $utils->quoteSmart($szDesc) . ", 'DEBUG', 0);";
 
-		if ( !self::$_db)
+		if (!self::$_db)
 		{
 			echo 'logging not available';
 			// exit;
 		}
-		if(!mysqli_query(self::$_db, $szInsert))
+		if (!mysqli_query(self::$_db, $szInsert))
 		{
 			// Insert failed so try creating new years event_log table
 			CLog::createEventLogTable();
@@ -692,14 +741,13 @@ class CLog {
 
 		$time = date("M j Y g:i a");
 
-
 		if (defined('DD_SERVER_NAME') && DD_SERVER_NAME == 'LIVE')
 		{
-		     $entry = "!!INTENSE DEBUG MESSAGE!!\n\n";
+			$entry = "!!INTENSE DEBUG MESSAGE!!\n\n";
 		}
 		else
 		{
-		    $entry = "TEST SERVER - " . DD_SERVER_NAME . "\n\n !!INTENSE DEBUG MESSAGE!!\n\n";
+			$entry = "TEST SERVER - " . DD_SERVER_NAME . "\n\n !!INTENSE DEBUG MESSAGE!!\n\n";
 		}
 
 		$entry .= "An event was logged under the following conditions:\n\n";
@@ -707,55 +755,67 @@ class CLog {
 		$entry .= "time=$time\n\n";
 		$meAsArray = $user->toArray();
 		$entry .= "USER:\n\n";
-		foreach($meAsArray as $k => $v)
+		foreach ($meAsArray as $k => $v)
 		{
 			$entry .= $k . "=" . $v . "\n";
 		}
 
 		$entry .= "\n_SERVER:\n";
-		foreach($_SERVER as $k => $v)
+		foreach ($_SERVER as $k => $v)
 		{
 			$entry .= $k . "=" . $v . "\n";
 		}
 
 		// sensitive values we should suppress
-		$exclusionArray	= array('ccNumber', 'ccSecurityCode', 'gift_card_number', 'gift_card_security_code','credit_card_number', 'credit_card_cvv',
-                                 'credit_card_exp_month','credit_card_exp_year',
-								'payment1_cc_security_code', 'payment2_cc_security_code', 'payment1_ccNumber', 'payment2_ccNumber', 'default_payment1_ccNumber',
-								'default_payment2_ccNumber', 'default_payment1_cc_security_code', 'default_payment2_cc_security_code');
-
-
-
+		$exclusionArray = array(
+			'ccNumber',
+			'ccSecurityCode',
+			'gift_card_number',
+			'gift_card_security_code',
+			'credit_card_number',
+			'credit_card_cvv',
+			'credit_card_exp_month',
+			'credit_card_exp_year',
+			'payment1_cc_security_code',
+			'payment2_cc_security_code',
+			'payment1_ccNumber',
+			'payment2_ccNumber',
+			'default_payment1_ccNumber',
+			'default_payment2_ccNumber',
+			'default_payment1_cc_security_code',
+			'default_payment2_cc_security_code'
+		);
 
 		$reqCopy = $_REQUEST;
 
 		if (isset($reqCopy['payment_data']['number']))
-		    $reqCopy['payment_data']['number'] = "redacted";
+		{
+			$reqCopy['payment_data']['number'] = "redacted";
+		}
 
 		$entry .= "\n_REQUEST:\n";
-		foreach($reqCopy as $k => $v)
+		foreach ($reqCopy as $k => $v)
 		{
 			if (!in_array($k, $exclusionArray))
 			{
-			    if (is_array($v))
-			    {
-			        $entry .= $k ."\n";
+				if (is_array($v))
+				{
+					$entry .= $k . "\n";
 
-			        foreach($v as $k2 => $v2)
-			        {
-			             $entry .= "\t" . $k2 . "=" . $v2 . "\n";
-			        }
-			    }
-			    else
-			    {
-				    $entry .= $k . "=" . $v . "\n";
-			    }
+					foreach ($v as $k2 => $v2)
+					{
+						$entry .= "\t" . $k2 . "=" . $v2 . "\n";
+					}
+				}
+				else
+				{
+					$entry .= $k . "=" . $v . "\n";
+				}
 			}
 		}
 
-
 		$entry .= "\n\n_COOKIE:\n";
-		foreach($_COOKIE as $k => $v)
+		foreach ($_COOKIE as $k => $v)
 		{
 			$entry .= $k . "=" . $v . "\n";
 		}
@@ -774,12 +834,10 @@ class CLog {
 
 		if ($email && MAIL_ENABLED)
 		{
-	   	 	$from = 'From: <do-not-reply@dreamdinners.com>';
-			$sendMail = @mail( $email, "!!!INTENSE DEBUG MESSAGE!!!", $entry, $from );
+			$from = 'From: <do-not-reply@dreamdinners.com>';
+			$sendMail = @mail($email, "!!!INTENSE DEBUG MESSAGE!!!", $entry, $from);
 		}
-
 	}
-
 
 	static function Assert($boolExpression, $szDescription)
 	{
@@ -788,20 +846,19 @@ class CLog {
 			return; // assert passes so do nothing
 		}
 
-
 		// assertion failed so record the info
 
 		$log = self::$_instance;
 
 		$szDesc = '';
-		if ( $szDescription )
+		if ($szDescription)
 		{
 			$szDesc = $szDescription;
 		}
 
 		$user = CUser::getCurrentUser();
 		$user_id = @$user->id;
-		if ( !$user_id )
+		if (!$user_id)
 		{
 			$user_id = 0;
 		}
@@ -810,14 +867,14 @@ class CLog {
 		$utils = new DB_Common();
 
 		$szInsert = "INSERT into " . DB_LOG_DATABASE . "." . CLog::getEventLogTable() . " (user_id, ip_address, timestamp_created, admin_notify, description, log_type, is_dfl_access )
-						VALUES ($user_id, '".(isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:'')."', now(), 0, ".$utils->quoteSmart($szDesc).", 'ASSERTION_FAILED', 0);";
+						VALUES ($user_id, '" . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '') . "', now(), 0, " . $utils->quoteSmart($szDesc) . ", 'ASSERTION_FAILED', 0);";
 
-		if ( !self::$_db)
+		if (!self::$_db)
 		{
 			echo 'logging not available';
 			// exit;
 		}
-		if(!mysqli_query(self::$_db, $szInsert))
+		if (!mysqli_query(self::$_db, $szInsert))
 		{
 			// Insert failed so try creating new years event_log table
 			CLog::createEventLogTable();
@@ -826,17 +883,17 @@ class CLog {
 
 		if (defined('DEVELOPMENT_MODE') && DEVELOPMENT_MODE)
 		{
-			throw new exception('ASSERTION FAILED: ' . $szDesc );
+			throw new exception('ASSERTION FAILED: ' . $szDesc);
 		}
 	}
 
-	static function RecordReport($szReportName, $szReportParams )
+	static function RecordReport($szReportName, $szReportParams)
 	{
 
 
 		$user = CUser::getCurrentUser();
 		$user_id = @$user->id;
-		if ( !$user_id )
+		if (!$user_id)
 		{
 			$user_id = 0;
 		}
@@ -850,14 +907,14 @@ class CLog {
 		$utils = new DB_Common();
 
 		$szInsert = "INSERT into " . DB_LOG_DATABASE . "." . CLog::getEventLogTable() . " (user_id, ip_address, timestamp_created, admin_notify, event_hint, description, log_type, is_dfl_access )
-		VALUES ($user_id, '".(isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:'')."', now(), 0, null, ".$utils->quoteSmart($szDesc).", 'REPORT',0)";
+		VALUES ($user_id, '" . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '') . "', now(), 0, null, " . $utils->quoteSmart($szDesc) . ", 'REPORT',0)";
 
 		if (!self::$_db)
 		{
 			echo 'logging not available';
 			// exit;
 		}
-		if(!mysqli_query(self::$_db, $szInsert))
+		if (!mysqli_query(self::$_db, $szInsert))
 		{
 			// Insert failed so try creating new years event_log table
 			CLog::createEventLogTable();
@@ -867,7 +924,6 @@ class CLog {
 		//exit;
 	}
 
-
-
 }
+
 ?>
