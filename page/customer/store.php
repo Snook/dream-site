@@ -21,7 +21,7 @@ class page_store extends CPage
 			}
 			else
 			{
-				$this->Template->setErrorMsg('The requested store is unavailable.');
+				$this->Template->setStatusMsg('Sorry, it appears the location you are looking for has permanently closed. Please enter your zip code below to another location near you or see if our shipping service is available.');
 				CApp::bounce('/locations');
 			}
 		}
