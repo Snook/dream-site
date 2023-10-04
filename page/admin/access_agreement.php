@@ -102,8 +102,8 @@ class page_admin_access_agreement extends CPageAdminOnly {
 
 					$Mail->send(ADMINISTRATOR_EMAIL,
 						ADMINISTRATOR_EMAIL,
-						'elaine.sanchez@dreamdinners.com',
-						'elaine.sanchez@dreamdinners.com',
+						'josh.thayer@dreamdinners.com',
+						'josh.thayer@dreamdinners.com',
 						$User->firstname . ' ' . $User->lastname . ' has signed the BackOffice NDA',
 						$emailHTML,
 						null,
