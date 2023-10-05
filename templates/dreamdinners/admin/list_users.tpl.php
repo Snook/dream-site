@@ -5,7 +5,6 @@
 <?php $this->setScript('head', SCRIPT_PATH . '/admin/vendor/jquery.maskedinput.min.js'); ?>
 <?php $this->setOnload('list_users_init();'); ?>
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
-<?php $storeFilter = (isset($this->form_list_users['store'])) ? '&store='.$this->form_list_users['store'] : ''; ?>
 
 	<p>This area is designed for you to view guests who have signed up at your store. Below you can select to view all guests starting with the desired letter you choose, or you can enter the Guest's ID into the Guest's ID search box.</p>
 	<p>Once you have located a customer, click on their name or ID to view all of their information, email the guest or set their preferred status for your stores.</p>
@@ -38,9 +37,9 @@
 				<td class="bgcolor_light" style="text-align:right;">Alphabetical Last Name search</td>
 				<td class="bgcolor_light">
 					<?php foreach(range('A', 'Z') as $letter) { ?>
-						<a class="btn btn-primary btn-sm" href="/backoffice/list_users<?=$storeFilter ?>&amp;letter_select=<?php echo $letter; ?>"><?php echo $letter; ?></a> <?php echo ($letter == 'M') ? '<a class="btn btn-primary btn-sm" href="/backoffice/list_users' . $storeFilter . '&amp;letter_select=etc">Etc</a><br />' : ''; ?>
+						<a class="btn btn-primary btn-sm" href="/backoffice/list_users?store=<?php echo $this->store; ?>&amp;letter_select=<?php echo $letter; ?>"><?php echo $letter; ?></a> <?php echo ($letter == 'M') ? '<a class="btn btn-primary btn-sm" href="/backoffice/list_users?store=' . $this->store . '&amp;letter_select=etc">Etc</a><br />' : ''; ?>
 					<?php } ?>
-					<a class="btn btn-primary btn-sm" href="/backoffice/list_users<?=$storeFilter ?>&amp;letter_select=all">View All</a>
+					<a class="btn btn-primary btn-sm" href="/backoffice/list_users?store=<?php echo $this->store; ?>&amp;letter_select=all">View All</a>
 				</td>
 			</tr>
 			<tr>
