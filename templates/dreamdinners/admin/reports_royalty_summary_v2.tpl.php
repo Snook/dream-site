@@ -62,7 +62,7 @@
 	<?php } ?>
 <?php if (!empty($array_entity['salesforce_fee'])) { ?>
 <tr>
-	<td style="font-weight:bold;">SalesForce Fee:</td>
+	<td style="font-weight:bold;">Technology Fee:</td>
 	<td><?php echo CSessionReports::formatCurrency($array_entity['salesforce_fee']); ?></td>
 </tr>
 <?php } ?>

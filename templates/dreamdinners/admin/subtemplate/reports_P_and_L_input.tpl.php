@@ -169,7 +169,7 @@
 
 <tr>
     <td class="bgcolor_light" style="vertical-align: top; text-align: right; padding-right:5px;">
-        <span>SalesForce Fee</span>
+        <span>Technology Fee</span>
     </td>
     <td colspan="3" class="bgcolor_light">
            $<span id="p_and_l_salesforce_fee"><?php echo CTemplate::number_format($this->storeInfo['salesforce_fee']); ?></span>

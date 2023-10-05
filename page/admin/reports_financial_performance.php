@@ -326,11 +326,11 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 		    $hadLessThan3Error = false;
 
 		    $labels = array ("COGS (Food + Pkg - Discounts)", "Employee Wages", "Manager Salaries & Bonuses", "Owner Salaries", "Employee Hours", "Manager Hours", "Owner Hours",
-		        "Payroll Taxes", "Bank Card Merchant Fees", "Kitchen and Office Supplies", "National Marketing Fee", "Salesforce Fee", "Royalty Fee", "Local Marketing and Advertising", "Rent Expense", "Repairs and Maintenance",
+		        "Payroll Taxes", "Bank Card Merchant Fees", "Kitchen and Office Supplies", "National Marketing Fee", "Technology Fee", "Royalty Fee", "Local Marketing and Advertising", "Rent Expense", "Repairs and Maintenance",
 		        "Utilities", "All Other Expenses", "Net Income", "Loan Payments (Principal Only)");
 
 		    $gExpensesArray = array ("COGS (Food + Pkg - Discounts)", "Employee Wages", "Manager Salaries & Bonuses", "Owner Salaries", "Employee Hours", "Manager Hours", "Owner Hours",
-		        "Payroll Taxes", "Bank Card Merchant Fees", "Kitchen and Office Supplies", "National Marketing Fee", "Salesforce Fee", "Royalty Fee", "Local Marketing and Advertising", "Rent Expense", "Repairs and Maintenance",
+		        "Payroll Taxes", "Bank Card Merchant Fees", "Kitchen and Office Supplies", "National Marketing Fee", "Technology Fee", "Royalty Fee", "Local Marketing and Advertising", "Rent Expense", "Repairs and Maintenance",
 		        "Utilities", "All Other Expenses", "Loan Payments (Principal Only)");
 
 
@@ -379,7 +379,7 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 
 		        if (!isset($rows['salesforce_fee']))
 		        {
-		            $rows['salesforce_fee'] = array("Salesforce Fee", $salesForceFee);
+		            $rows['salesforce_fee'] = array("Technology Fee", $salesForceFee);
 		        }
 		        else
 		        {
@@ -535,7 +535,7 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 		            "bank_card_merchant_fees" => "Bank Card Merchant Fees",
 		            "kitchen_and_office_supplies" => "Kitchen and Office Supplies",
 		        	"national_marketing_fee" => "National Marketing Fee",
-		            "salesforce_fee" => "Salesforce Fee",
+		            "salesforce_fee" => "Technology Fee",
 		        	"royalty_fee" => "Royalty Fee",
 		            "total_marketing_and_advertising_expense" => "Local Marketing and Advertising",
 		            "rent_expense" => "Rent Expense",

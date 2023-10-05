@@ -67,7 +67,7 @@
 		<?php if (!empty($this->rows['salesforce_fee'])) {?>
 		<table style="width: 100%;">
 		<tr>
-			<td width="37%" >SalesForce Fee</td>
+			<td width="37%" >Technology Fee</td>
 			<td width="63%"><?= CSessionReports::formatCurrency($this->rows['salesforce_fee']) ?></td>
 		</tr>
 		</table>
