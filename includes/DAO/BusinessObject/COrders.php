@@ -3341,7 +3341,7 @@ class COrders extends DAO_Orders
 		}
 
 		//get preferred customer
-		if (isset($this->user_preferred_id) && $this->user_preferred_id != 0)
+		if (isset($this->user_preferred_id) && $this->user_preferred_id != 0 && $this->user_preferred_id != "null")
 		{
 			$UP = DAO_CFactory::create('user_preferred');
 			$UP->id = $this->user_preferred_id;
