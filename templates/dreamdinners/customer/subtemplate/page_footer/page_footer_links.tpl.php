@@ -8,7 +8,7 @@
 						<i class="dd-icon icon-measuring_cup font-size-medium-large text-green"></i>
 						<div>How it Works</div>
 					</a>
-					<a href="/locations" class="col-3 px-0 text-center font-size-small">
+					<a href="/session-menu" class="col-3 px-0 text-center font-size-small">
 						<i class="dd-icon icon-cart font-size-medium-large text-green mr-1"></i>
 						<div>Order</div>
 					</a>
@@ -35,7 +35,7 @@
 						<i class="dd-icon icon-measuring_cup font-size-medium-large text-green"></i>
 						<div>How it Works</div>
 					</a>
-					<a href="/locations" class="col-2 px-0 text-center font-size-small">
+					<a href="/session-menu" class="col-2 px-0 text-center font-size-small">
 						<i class="dd-icon icon-cart font-size-medium-large text-green mr-1"></i>
 						<div>Order</div>
 					</a>
