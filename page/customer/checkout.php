@@ -733,7 +733,7 @@ class checkout_validation
 
 		if ($result['status'] != 'all_good' && DEBUG)
 		{
-			$tpl->setDebugMsg($result . "<br />" . print_r($result['problem_list'], true));
+			$tpl->setDebugMsg($result['status'] . "<br />" . print_r($result['problem_list'], true));
 		}
 
 		/*
