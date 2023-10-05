@@ -8,7 +8,7 @@
 
 		<div class="row my-4">
 			<div class="col-lg-6 text-center mb-3 order-lg-2">
-				<h1><a href="/?page=admin_manage_coupon_codes">Manage Coupons</a></h1>
+				<h1><a href="/backoffice/manage_coupon_codes">Manage Coupons</a></h1>
 			</div>
 			<div class="col-8 col-lg-3 order-lg-1">
 				<div class="input-group mb-2">
@@ -19,7 +19,7 @@
 				</div>
 			</div>
 			<div class="col-4 col-lg-3 text-center text-lg-right order-lg-3">
-				<a href="/?page=admin_manage_coupon_codes&amp;create=true" class="btn btn-primary btn-sm"><i class="far fa-plus-square"></i> Create New</a>
+				<a href="/backoffice/manage_coupon_codes?create=true" class="btn btn-primary btn-sm"><i class="far fa-plus-square"></i> Create New</a>
 			</div>
 		</div>
 
@@ -61,7 +61,7 @@
 								<td><?php echo $coupon->coupon_code_short_title; ?></td>
 								<td style="text-align: right;"><?php echo ($coupon->discount_method == 'FLAT') ? '$' : ''; ?><?php echo ($coupon->discount_method == 'FREE_MEAL') ? 'Meal' : $coupon->discount_var; ?><?php echo ($coupon->discount_method == 'PERCENT') ? '%' : ''; ?></td>
 								<td><?php echo CTemplate::dateTimeFormat($coupon->valid_timespan_end); ?></td>
-								<td><a href="/?page=admin_manage_coupon_codes&amp;edit=<?php echo $coupon->id; ?>" class="btn btn-primary">edit</a></td>
+								<td><a href="/backoffice/manage_coupon_codes?edit=<?php echo $coupon->id; ?>" class="btn btn-primary">edit</a></td>
 							</tr>
 						<?php } ?>
 						</tbody>
@@ -111,7 +111,7 @@
 								<td><?php echo $coupon->coupon_code_short_title; ?></td>
 								<td><?php echo ($coupon->discount_method == 'FLAT') ? '$' : ''; ?><?php echo ($coupon->discount_method == 'FREE_MEAL') ? 'Meal' : $coupon->discount_var; ?><?php echo ($coupon->discount_method == 'PERCENT') ? '%' : ''; ?></td>
 								<td><?php echo CTemplate::dateTimeFormat($coupon->valid_timespan_end); ?></td>
-								<td><a href="/?page=admin_manage_coupon_codes&amp;edit=<?php echo $coupon->id; ?>" class="btn btn-primary">edit</a></td>
+								<td><a href="/backoffice/manage_coupon_codes?edit=<?php echo $coupon->id; ?>" class="btn btn-primary">edit</a></td>
 							</tr>
 						<?php } ?>
 						</tbody>

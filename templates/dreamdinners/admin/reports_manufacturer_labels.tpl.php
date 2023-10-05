@@ -30,7 +30,7 @@
 <tbody>
 <?php foreach ($this->recipes AS $recipe_id => $recipe) { ?>
 <tr>
-	<td class="bgcolor_light" style="text-align:right;"><a href="/?page=item&amp;recipe=<?php echo $recipe['info']['recipe_id']; ?>" target="_blank"><?php echo $recipe['info']['recipe_id']; ?></a></td>
+	<td class="bgcolor_light" style="text-align:right;"><a href="/item?recipe=<?php echo $recipe['info']['recipe_id']; ?>" target="_blank"><?php echo $recipe['info']['recipe_id']; ?></a></td>
 	<td class="bgcolor_light"><a href="<?php echo IMAGES_PATH; ?>/recipe/default/<?php echo $recipe['info']['recipe_id']; ?>.webp" data-tooltip="Click to open large image" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/recipe/default/<?php echo $recipe['info']['recipe_id']; ?>.webp" style="margin: 2px 0px 0px 2px; width: 22px; height: 22px;" /></a></td>
 	<td class="bgcolor_light"><?php echo $recipe['info']['recipe_name']; ?></td>
 	<td class="bgcolor_light" style="text-align:center;"><?php if (!empty($recipe['MEDIUM'])) { ?><input type="number" data-recipe_id-medium="<?php echo $recipe_id; ?>" id="medium-<?php echo $recipe_id; ?>" name="medium-<?php echo $recipe_id; ?>" placeholder="Qty" style="width:40px;margin-right:10px;" min="0" size="2"> <?php if (!empty($recipe['MEDIUM']['upc'])) { ?><?php echo $recipe['MEDIUM']['upc']; ?><?php } else { ?>000000000000<?php } ?><?php } ?></td>

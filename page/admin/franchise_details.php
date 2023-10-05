@@ -47,7 +47,7 @@ class page_admin_franchise_details extends CPageAdminOnly
 		{
 			$tpl->setErrorMsg('No franchise id specified.');
 
-			CApp::bounce('/?page=admin_list_franchise');
+			CApp::bounce('/backoffice/list_franchise');
 		}
 
 		$franchise = DAO_CFactory::create('franchise');
@@ -90,7 +90,7 @@ class page_admin_franchise_details extends CPageAdminOnly
 				$franchise->delete();
 
 				$tpl->setStatusMsg('The franchise has been deleted');
-				CApp::bounce('/?page=admin_list_franchisees');
+				CApp::bounce('/backoffice/list_franchisees');
 			}
 
 			if ($_POST['action'] == 'deleteStore' && isset($_POST['store_id']) && $_POST['store_id'])
@@ -101,7 +101,7 @@ class page_admin_franchise_details extends CPageAdminOnly
 
 				$tpl->setStatusMsg('The store has been deleted');
 				//jump to same page without deleteStore action
-				CApp::bounce('/?page=admin_franchise_details&id=' . $id . '&back=' . $_REQUEST['back']);
+				CApp::bounce('/backoffice/franchise-details?id=' . $id . '&back=' . $_REQUEST['back']);
 			}
 		}
 

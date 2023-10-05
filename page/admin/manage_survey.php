@@ -71,7 +71,7 @@ class page_admin_manage_survey extends CPageAdminOnly
 
 			$tpl->setStatusMsg("Recipe was successfully deleted.");
 
-			CApp::bounce('/?page=admin_manage_survey');
+			CApp::bounce('/backoffice/manage_survey');
 		}
 
 		$rows = array();

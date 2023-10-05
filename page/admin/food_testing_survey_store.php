@@ -22,12 +22,12 @@ class page_admin_food_testing_survey_store extends CPageAdminOnly
 	{
 		return $this->foodTestingSurvey();
 	}
-	
+
 	function runHomeOfficeManager()
 	{
 		return $this->foodTestingSurvey();
 	}
-	
+
 
 	function foodTestingSurvey()
 	{
@@ -58,7 +58,7 @@ class page_admin_food_testing_survey_store extends CPageAdminOnly
 
 				$tpl->setErrorMsg('Survey complete thank you.');
 
-				CApp::bounce('/?page=admin_food_testing_survey&recipe=' . CGPC::do_clean($_POST['survey_id'],TYPE_INT));
+				CApp::bounce('/backoffice/food-testing-survey?recipe=' . CGPC::do_clean($_POST['survey_id'],TYPE_INT));
 			}
 		}
 
@@ -83,14 +83,14 @@ class page_admin_food_testing_survey_store extends CPageAdminOnly
 				{
 					$tpl->setErrorMsg('Survey already completed.');
 
-					CApp::bounce('/?page=admin_food_testing_survey');
+					CApp::bounce('/backoffice/food-testing-survey');
 				}
 			}
 			else
 			{
 				$tpl->setErrorMsg('Survey not found.');
 
-				CApp::bounce('/?page=admin_food_testing_survey');
+				CApp::bounce('/backoffice/food-testing-survey');
 			}
 		}
 	}

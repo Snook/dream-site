@@ -14,7 +14,7 @@ class page_admin_dev_utils extends CPageAdminOnly
 		}
 		else
 		{
-			CApp::bounce('/?page=admin_home');
+			CApp::bounce('/backoffice/home');
 		}
 	}
 

@@ -36,7 +36,7 @@ class page_admin_emergency_main extends CPageAdminOnly
 	function runManufacturerStaff()
 	{
 		// they only have one option to do in the fadmin, so for now just send them there
-		CApp::bounce('/?page=admin_reports_manufacturer_labels');
+		CApp::bounce('/backoffice/reports_manufacturer_labels');
 	}
 
 	function runFranchiseStaff()
@@ -100,7 +100,7 @@ class page_admin_emergency_main extends CPageAdminOnly
 
 		if (!defined('DESIGNATE_AS_EMERGENCY_REPORTING_SERVER') || !DESIGNATE_AS_EMERGENCY_REPORTING_SERVER)
 		{
-			CApp::bounce('/?page=admin_main');
+			CApp::bounce('/backoffice/main');
 		}
 
 

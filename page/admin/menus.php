@@ -38,7 +38,7 @@ class page_admin_menus extends CPageAdminOnly
 
 			$tpl->setStatusMsg('New menu created, <span class="text-danger">verify menu end date!</span>');
 
-			CApp::bounce('/?page=admin_menus&menu_edit=' . $newId);
+			CApp::bounce('/backoffice/menus?menu_edit=' . $newId);
 		}
 
 		$menu_edit = array_key_exists('menu_edit', $_GET) ? CGPC::do_clean($_GET['menu_edit'], TYPE_STR) : null;
@@ -101,7 +101,7 @@ class page_admin_menus extends CPageAdminOnly
 								$mi->update();
 							}
 
-							CApp::bounce('/?page=admin_menus&menu_edit=' . $menu_edit);
+							CApp::bounce('/backoffice/menus?menu_edit=' . $menu_edit);
 							break;
 
 						case 'down':
@@ -148,7 +148,7 @@ class page_admin_menus extends CPageAdminOnly
 								$mi->update();
 							}
 
-							CApp::bounce('/?page=admin_menus&menu_edit=' . $menu_edit);
+							CApp::bounce('/backoffice/menus?menu_edit=' . $menu_edit);
 							break;
 
 						case 'remove':
@@ -169,7 +169,7 @@ class page_admin_menus extends CPageAdminOnly
 								}
 							}
 
-							CApp::bounce('/?page=admin_menus&menu_edit=' . $menu_edit);
+							CApp::bounce('/backoffice/menus?menu_edit=' . $menu_edit);
 							break;
 
 						case 'feature':
@@ -196,7 +196,7 @@ class page_admin_menus extends CPageAdminOnly
 								$mi->update();
 							}
 
-							CApp::bounce('/?page=admin_menus&menu_edit=' . $menu_edit);
+							CApp::bounce('/backoffice/menus?menu_edit=' . $menu_edit);
 							break;
 
 						case 'additem':
@@ -260,7 +260,7 @@ class page_admin_menus extends CPageAdminOnly
 								}
 							}
 
-							CApp::bounce('/?page=admin_menus&menu_edit=' . $menu_edit);
+							CApp::bounce('/backoffice/menus?menu_edit=' . $menu_edit);
 							break;
 					}
 				}

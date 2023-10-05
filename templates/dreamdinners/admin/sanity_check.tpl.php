@@ -37,21 +37,21 @@
 			<div class="col">
 				<h1 id="fadash">BackOffice</h1>
 				<div class="list-group">
-					<a class="list-group-item list-group-item-action" href="/?page=admin_main" target="_blank">View Home</a>
-					<a class="list-group-item list-group-item-action" href="/?page=admin_order_history&id=<?=$this->current_user_id; ?>" target="_blank">View Orders</a>
-					<a class="list-group-item list-group-item-action" href="/?page=admin_order_mgr&user=<?=$this->current_user_id; ?>" target="_blank">Add Order</a>
-					<a class="list-group-item list-group-item-action" href="/?page=admin_user_details&id=<?=$this->current_user_id; ?>" target="_blank">View Account</a>
-					<a class="list-group-item list-group-item-action" href="/?page=admin_account&id=<?=$this->current_user_id; ?>" target="_blank">Edit Account</a>
-					<a class="list-group-item list-group-item-action" href="/?page=admin_store_details&id=244" target="_blank">View Store Information - Mill Creek</a>
-					<a class="list-group-item list-group-item-action" href="/?page=admin_session_mgr" target="_blank">View <?=$this->current_menu_name; ?> Session Calendar</a>
-					<a class="list-group-item list-group-item-action" href="/?page=admin_create_session&menu=<?=$this->current_menu_id; ?>" target="_blank">Create Session</a>
-					<a class="list-group-item list-group-item-action" href="/?page=admin_session_template_mgr" target="_blank">View Session Template Manager</a>
-					<a class="list-group-item list-group-item-action" href="/?page=admin_finishing_touch_printable_form&store_id=244&menu_id=<?=$this->current_menu_id; ?>" target="_blank">Print <?=$this->current_menu_name; ?> Sides & Sweets</a>
-					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/?page=admin_reports_entree" data-params='<?=$this->params_entree_report; ?>'>Run Entree Report for <?=$this->current_menu_name; ?> Menu</a>
-					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/?page=admin_reports_growth_scorecard" data-params='<?=$this->params_growth_scoreboard; ?>'>Growth Scoreboard <?=$this->current_menu_name; ?></a>
-					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/?page=admin_reports_customer_menu_item_labels&interface=1" data-params='<?=$this->params_cooking_instructions; ?>'> <?=$this->current_menu_name; ?> All Core Cooking Instructions PDF</a>
-					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/?page=admin_reports_menu_item_nutritional_labels" data-params='<?=$this->params_nutritional_labels; ?>'> <?=$this->current_menu_name; ?> All Core Nutritional Labels PDF</a>
-					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/?page=admin_reports_customer_menu_item_labels&interface=1" data-params='<?=$this->params_cooking_instructions; ?>'> <?=$this->current_menu_name; ?> All Core Cooking Instructions PDF</a>
+					<a class="list-group-item list-group-item-action" href="/backoffice/main" target="_blank">View Home</a>
+					<a class="list-group-item list-group-item-action" href="/backoffice/order-history?id=<?=$this->current_user_id; ?>" target="_blank">View Orders</a>
+					<a class="list-group-item list-group-item-action" href="/backoffice/order-mgr?user=<?=$this->current_user_id; ?>" target="_blank">Add Order</a>
+					<a class="list-group-item list-group-item-action" href="/backoffice/user_details?id=<?=$this->current_user_id; ?>" target="_blank">View Account</a>
+					<a class="list-group-item list-group-item-action" href="/backoffice/account?id=<?=$this->current_user_id; ?>" target="_blank">Edit Account</a>
+					<a class="list-group-item list-group-item-action" href="/backoffice/store_details?id=244" target="_blank">View Store Information - Mill Creek</a>
+					<a class="list-group-item list-group-item-action" href="/backoffice/session_mgr" target="_blank">View <?=$this->current_menu_name; ?> Session Calendar</a>
+					<a class="list-group-item list-group-item-action" href="/backoffice/create-session?menu=<?=$this->current_menu_id; ?>" target="_blank">Create Session</a>
+					<a class="list-group-item list-group-item-action" href="/backoffice/session_template_mgr" target="_blank">View Session Template Manager</a>
+					<a class="list-group-item list-group-item-action" href="/backoffice/finishing-touch-printable-form?store_id=244&menu_id=<?=$this->current_menu_id; ?>" target="_blank">Print <?=$this->current_menu_name; ?> Sides & Sweets</a>
+					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/backoffice/reports_entree" data-params='<?=$this->params_entree_report; ?>'>Run Entree Report for <?=$this->current_menu_name; ?> Menu</a>
+					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/backoffice/reports_growth_scorecard" data-params='<?=$this->params_growth_scoreboard; ?>'>Growth Scoreboard <?=$this->current_menu_name; ?></a>
+					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/backoffice/reports_customer_menu_item_labels?interface=1" data-params='<?=$this->params_cooking_instructions; ?>'> <?=$this->current_menu_name; ?> All Core Cooking Instructions PDF</a>
+					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/backoffice/reports_menu_item_nutritional_labels" data-params='<?=$this->params_nutritional_labels; ?>'> <?=$this->current_menu_name; ?> All Core Nutritional Labels PDF</a>
+					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/backoffice/reports_customer_menu_item_labels?interface=1" data-params='<?=$this->params_cooking_instructions; ?>'> <?=$this->current_menu_name; ?> All Core Cooking Instructions PDF</a>
 
 
 				</div>

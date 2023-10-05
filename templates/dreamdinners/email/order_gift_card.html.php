@@ -49,7 +49,7 @@
                <strong>Message:</strong> <?=$thisCard['message_text']?><br />
                <?php if ($thisCard['media_type'] == 'VIRTUAL') { ?>
                <strong>Recipient Email Address:</strong> <?=$thisCard['recipient_email']?><br />
-               <strong>Resend eGift Card Email:</strong> &nbsp;<a href="<?=HTTPS_BASE?>?page=resend_egift&oid=<?=$thisCard['confirm_id']?>">Click here to resend</a>
+               <strong>Resend eGift Card Email:</strong> &nbsp;<a href="<?=HTTPS_BASE?>/resend_egift?oid=<?=$thisCard['confirm_id']?>">Click here to resend</a>
                <p>&nbsp;</p>
                <?php } else { ?>
                <strong>Recipient Name:</strong> <?=$thisCard['ship_to_name']?><br />

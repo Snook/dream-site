@@ -2040,7 +2040,7 @@ $(function () {
 			closeOnEscape: false,
 			height: 720,
 			div_id: 'add_menu_item_popup_div',
-			module: 'page=admin_menu_editor_add_item&menu_id=' + menuInfo.menu_id,
+			module: '/backoffice/menu-editor-add-item?menu_id=' + menuInfo.menu_id,
 			open: function (event, ui) {
 				$(this).parent().find('.ui-dialog-titlebar-close').hide();
 				$("#wait_for_adding_item_div").remove();
@@ -2138,7 +2138,7 @@ $(function () {
 
 			},
 			close: function () {
-				bounce('/?page=admin_menu_editor&tabs=menu.efl');
+				bounce('/backoffice/menu_editor?tabs=menu.efl');
 			}
 		});
 
@@ -2234,7 +2234,7 @@ $(function () {
 			closeOnEscape: false,
 			height: 720,
 			div_id: 'add_menu_item_popup_div',
-			module: 'page=admin_menu_editor_add_sides_sweets&menu_id=' + menuInfo.menu_id,
+			module: '/backoffice/menu-editor-add-sides-sweets?menu_id=' + menuInfo.menu_id,
 			open: function (event, ui) {
 				$(this).parent().find('.ui-dialog-titlebar-close').hide();
 				$("#wait_for_adding_item_div").remove();
@@ -2366,7 +2366,7 @@ $(function () {
 
 			},
 			close: function () {
-				bounce('/?page=admin_menu_editor&tabs=menu.efl');
+				bounce('/backoffice/menu_editor?tabs=menu.efl');
 			}
 		});
 

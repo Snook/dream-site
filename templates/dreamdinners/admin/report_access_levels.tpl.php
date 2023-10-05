@@ -14,8 +14,8 @@
 </tr>
 <?php foreach ($this->users as $user_id => $user) { ?>
 <tr>
-	<td class="bgcolor_lighter"><a href="/?page=admin_user_details&id=<?php echo $user['id']; ?>"><?php echo $user['id']; ?></a></td>
-	<td class="bgcolor_light"><a href="/?page=admin_access_levels&amp;id=<?php echo $user['id']; ?>"><?php echo CUser::userTypeText($user['user_type']); ?></a></td>
+	<td class="bgcolor_lighter"><a href="/backoffice/user_details?id=<?php echo $user['id']; ?>"><?php echo $user['id']; ?></a></td>
+	<td class="bgcolor_light"><a href="/backoffice/access-levels?id=<?php echo $user['id']; ?>"><?php echo CUser::userTypeText($user['user_type']); ?></a></td>
 	<td class="bgcolor_lighter"><?php echo $user['lastname']; ?></td>
 	<td class="bgcolor_light"><?php echo $user['firstname']; ?></td>
 	<td class="bgcolor_lighter"><?php echo $user['primary_email']; ?></td>

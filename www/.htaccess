@@ -393,3 +393,10 @@ RewriteRule ^processor\/?$ /ddproc.php [NC,L,QSA]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^([\w-]+)/?$ /?page=$1 [NC,L,QSA]
+
+# Redirect ugly url to clean url
+#RewriteCond %{THE_REQUEST} ^(GET|HEAD|POST)\ /(main\.php)?\?page=admin_([^&\ ]+)&?([^\ ]*)
+#RewriteRule ^ /backoffice/%3?%4 [L,R=301]
+
+#RewriteCond %{THE_REQUEST} ^(GET|HEAD|POST)\ /(main\.php)?\?page=([^&\ ]+)&?([^\ ]*)
+#RewriteRule ^ /%3?%4 [L,R=301]

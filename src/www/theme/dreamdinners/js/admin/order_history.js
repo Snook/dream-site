@@ -37,7 +37,7 @@ function handle_order_details_click()
 
 			if ($(this).data('is_shown') == true)
 			{
-				historyPush({url: '?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'id=' + getQueryVariable('id')});
+				historyPush({url: '?id=' + getQueryVariable('id')});
 				$(this).text('View Order').data('is_shown', false);
 				return;
 			}
@@ -80,7 +80,7 @@ function handle_order_details_click()
 					{
 						$('[data-view_order_details_table="' + json.booking_id + '"]').html(json.order_details_table +json.history_table );
 
-						historyPush({url: '?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'id=' + getQueryVariable('id') + '&order=' + json.order_id});
+						historyPush({url: '?id=' + getQueryVariable('id') + '&order=' + json.order_id});
 					}
 				},
 				error: function (objAJAXRequest, strError)
@@ -97,7 +97,7 @@ function handle_order_details_click()
 
 			$('#order_details_tbody_id_' + $(this).data('booking_id')).hide();
 
-			historyPush({url: '?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'id=' + getQueryVariable('id')});
+			historyPush({url: '?id=' + getQueryVariable('id')});
 
 		});
 

@@ -59,7 +59,7 @@ class page_admin_menu_inventory_mgr extends CPageAdminOnly
 
 		if (CBrowserSession::getCurrentFadminStoreType() === CStore::DISTRIBUTION_CENTER)
 		{
-			CApp::bounce('/?page=admin_main');
+			CApp::bounce('/backoffice/main');
 		}
 
 		// ------------------------------ figure out active store and create store widget if necessary
@@ -776,7 +776,7 @@ class page_admin_menu_inventory_mgr extends CPageAdminOnly
 
 		if (!CStore::storeSupportsReciProfity($store_id, $menu_id))
 		{
-			CApp::bounce("/?page=admin_menu_editor&rd_menu=$menu_id");
+			CApp::bounce("/backoffice/menu_editor?rd_menu=$menu_id");
 		}
 
 		if ($this->canOverrideMenu && isset($_GET['om']))
@@ -911,7 +911,7 @@ class page_admin_menu_inventory_mgr extends CPageAdminOnly
 			if ($menu_id != $_POST['loaded_menu_id'])
 			{
 				$tpl->setErrorMsg('You attempted to finalize a menu that did not load properly. The page has now been reloaded. Please check the menu selector and if it is not correct select the desired menu and be certain is has completely loaded before making and finalizing any edits.');
-				CApp::bounce('/?page=admin_menu_editor'); //reload the page
+				CApp::bounce('/backoffice/menu_editor'); //reload the page
 			}
 			CLog::Record("MENU_INVENTORY_MGR: Page finalized for store: " . $store_id);
 			CLog::RecordDebugTrace("Menu Inventory Finalized\r\n" . print_r($_POST, true), "MENU_EDITOR");

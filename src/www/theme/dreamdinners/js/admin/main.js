@@ -383,11 +383,11 @@ function handle_order_details_table()
 
 						if (getQueryVariable('session'))
 						{
-							update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'session=' + getQueryVariable('session') + '&order=' + json.order_id);
+							update_page_url('?session=' + getQueryVariable('session') + '&order=' + json.order_id);
 						}
 						else if (getQueryVariable('day'))
 						{
-							update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'day=' + getQueryVariable('day') + '&order=' + json.order_id);
+							update_page_url('?day=' + getQueryVariable('day') + '&order=' + json.order_id);
 						}
 
 						// get order history
@@ -433,11 +433,11 @@ function handle_order_details_table()
 
 			if (getQueryVariable('session'))
 			{
-				update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'session=' + getQueryVariable('session'));
+				update_page_url('?session=' + getQueryVariable('session'));
 			}
 			else if (getQueryVariable('day'))
 			{
-				update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'day=' + getQueryVariable('day'));
+				update_page_url('?day=' + getQueryVariable('day'));
 			}
 
 		});
@@ -770,7 +770,7 @@ function handle_agenda_click()
 							// cancel timer
 							$.doTimeout('booked_guests_table_timer');
 
-							update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'session=' + json.session_info.id);
+							update_page_url('?session=' + json.session_info.id);
 
 							var current_menu_id = selected_menu_id;
 							selected_menu_id = json.session_info.menu_id;
@@ -850,20 +850,20 @@ function handle_agenda_click()
 							// dream taste buttons
 							$('#sd_invitation_pdf').on('click', function (e) {
 
-								bounce('?page=print&dream_taste_event_pdf=' + selected_session_id, '_blank');
+								bounce('/print?dream_taste_event_pdf=' + selected_session_id, '_blank');
 
 							});
 
 							// fundraiser buttons
 							$('#sd_fundraiser_invitation_pdf').on('click', function (e) {
-								bounce('?page=print&fundraiser_event_pdf=' + selected_session_id, '_blank');
+								bounce('/print?fundraiser_event_pdf=' + selected_session_id, '_blank');
 
 							});
 
 							// community pickup buttons
 							$('#sd_pick_up_event_invitation_pdf').on('click', function (e) {
 
-								bounce('?page=print&remote_pickup_private_event_pdf=' + selected_session_id, '_blank');
+								bounce('/print?remote_pickup_private_event_pdf=' + selected_session_id, '_blank');
 
 							});
 
@@ -921,7 +921,7 @@ function handle_agenda_click()
 							// cancel timer
 							$.doTimeout('booked_guests_table_timer');
 
-							update_page_url('?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'day=' + selected_date);
+							update_page_url('?day=' + selected_date);
 
 							// update session tools
 							update_session_tool_links();
@@ -1452,7 +1452,7 @@ function handle_reschedule_button()
 
 			create_and_submit_form({
 				method: 'post',
-				action: '/?page=admin_reschedule',
+				action: '/backoffice/reschedule',
 				input: ({
 					'session_id': $(this).data('session_id'),
 					'original_session_id': $(this).data('session_id'),
@@ -2220,19 +2220,19 @@ function handle_session_tools()
 	// Dashboard Snapshot
 	$('#ds_goal_tracking').on('click', function (e) {
 
-		bounce('/?page=admin_reports_goal_management_v2&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path());
+		bounce('/backoffice/reports_goal_management_v2&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path());
 
 	});
 
 	$('#ds_trending').on('click', function (e) {
 
-		bounce('/?page=admin_reports_trending_menu_based&date=' + selected_date + '&store=' + STORE_DETAILS.id + '&back=' + back_path());
+		bounce('/backoffice/reports_trending_menu_based?date=' + selected_date + '&store=' + STORE_DETAILS.id + '&back=' + back_path());
 
 	});
 
 	$('#ds_dashboard').on('click', function (e) {
 
-		bounce('/?page=admin_dashboard_menu_based&override_month=' + selected_date + '&store=' + STORE_DETAILS.id + '&back=' + back_path());
+		bounce('/backoffice/dashboard-menu-based?override_month=' + selected_date + '&store=' + STORE_DETAILS.id + '&back=' + back_path());
 
 	});
 
@@ -2241,7 +2241,7 @@ function handle_session_tools()
 
 		if (view_session == true)
 		{
-			bounce('/?page=admin_edit_session&session=' + selected_session_id + '&back=' + back_path());
+			bounce('/backoffice/edit-session?session=' + selected_session_id + '&back=' + back_path());
 		}
 
 	});
@@ -2250,7 +2250,7 @@ function handle_session_tools()
 
 		if (view_session == true)
 		{
-			bounce('/?page=admin_email&session=' + selected_session_id + '&back=' + back_path());
+			bounce('/backoffice/email?session=' + selected_session_id + '&back=' + back_path());
 		}
 
 	});
@@ -2315,7 +2315,7 @@ function handle_session_tools()
 
 		if (view_session != true)
 		{
-			bounce('/?page=admin_create_session&date=' + selected_date + '&menu=' + selected_menu_id + '&back=' + back_path());
+			bounce('/backoffice/create-session?date=' + selected_date + '&menu=' + selected_menu_id + '&back=' + back_path());
 		}
 
 	});
@@ -2326,58 +2326,58 @@ function update_session_tool_links()
 {
 	if (view_session == true)
 	{
-		$('#st_customer_receipt').prop('href', '/?page=admin_order_details_view_all&customer_print_view=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_franchise_receipt').prop('href', '/?page=admin_order_details_view_all&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_entree_summary').prop('href', '/?page=admin_reports_select_multi_session&query_submit=1&report_id=2&printer=1&pickSession=2&session_id=' + selected_session_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_side_dish_report').prop('href', '/?page=admin_order_details_view_all&issidedish=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_fast_lane_report').prop('href', '/?page=admin_order_details_view_all&ispreassembled=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_dream_rewards').prop('href', '/?page=admin_reports_dream_rewards_for_session&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_future_orders').prop('href', '/?page=admin_order_details_view_all_future&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_session_goal_sheet_print').prop('href', '/?page=admin_reports_goal_tracking&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&print=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_session_goal_sheet_xls').prop('href', '/?page=admin_reports_goal_tracking&export=xlsx&hideheaders=true&csvfilename=SessionGoalSheet&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&back=' + back_path());
-		$('#st_print_labels').prop('href', '/?page=admin_reports_customer_menu_item_labels&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
-		$('#st_print_labels_w_breaks').prop('href', '/?page=admin_reports_customer_menu_item_labels&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&break=1&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
-		$('#st_print_labels_by_dinner').prop('href', '/?page=admin_reports_customer_menu_item_labels&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&order_by=dinner&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
-		$('#st_print_enrollment_forms').prop('href', '/?page=admin_user_plate_points&session_id=' + selected_session_id + '&print_sessions_forms=true').prop('target', '_blank');
-		$('#st_plate_points_status_and_rewards_report').prop('href', '/?page=admin_reports_points_status_and_rewards&session_id=' + selected_session_id + '&back=' + back_path());
-		$('#st_customer_menu_core').prop('href', '/?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_current').prop('href', '/?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&cur=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_freezer').prop('href', '/?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&freezer=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_nutrition').prop('href', '/?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&nutrition=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_freezer').prop('href', '/?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_freezer_nutrition').prop('href', '/?page=admin_session_tools_printing&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&nutrition=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_daily_boxes_shipped').prop('href', '/?page=admin_reports_delivered_daily_boxes&type=shipping&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_daily_boxes_delivered').prop('href', '/?page=admin_reports_delivered_daily_boxes&type=delivering&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_receipt').prop('href', '/backoffice/order-details-view-all?customer_print_view=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_franchise_receipt').prop('href', '/backoffice/order-details-view-all?session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_entree_summary').prop('href', '/backoffice/reports_select_multi_session?query_submit=1&report_id=2&printer=1&pickSession=2&session_id=' + selected_session_id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_side_dish_report').prop('href', '/backoffice/order-details-view-all?issidedish=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_fast_lane_report').prop('href', '/backoffice/order-details-view-all?ispreassembled=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_dream_rewards').prop('href', '/backoffice/reports_dream_rewards_for_session?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_future_orders').prop('href', '/backoffice/order-details-view-all_future?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_session_goal_sheet_print').prop('href', '/backoffice/reports_goal_tracking?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&print=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_session_goal_sheet_xls').prop('href', '/backoffice/reports_goal_tracking?export=xlsx&hideheaders=true&csvfilename=SessionGoalSheet&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&back=' + back_path());
+		$('#st_print_labels').prop('href', '/backoffice/reports_customer_menu_item_labels?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
+		$('#st_print_labels_w_breaks').prop('href', '/backoffice/reports_customer_menu_item_labels?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&break=1&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
+		$('#st_print_labels_by_dinner').prop('href', '/backoffice/reports_customer_menu_item_labels?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&order_by=dinner&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
+		$('#st_print_enrollment_forms').prop('href', '/backoffice/user_plate_points?session_id=' + selected_session_id + '&print_sessions_forms=true').prop('target', '_blank');
+		$('#st_plate_points_status_and_rewards_report').prop('href', '/backoffice/reports_points_status_and_rewards?session_id=' + selected_session_id + '&back=' + back_path());
+		$('#st_customer_menu_core').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_core_current').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&cur=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_freezer').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&freezer=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_nutrition').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&nutrition=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_core_freezer').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_core_freezer_nutrition').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&nutrition=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_daily_boxes_shipped').prop('href', '/backoffice/reports_delivered_daily_boxes?type=shipping&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_daily_boxes_delivered').prop('href', '/backoffice/reports_delivered_daily_boxes?type=delivering&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
 
 	}
 	else
 	{
-		$('#st_customer_receipt').prop('href', '/?page=admin_order_details_view_all_multi&customer_print_view=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_franchise_receipt').prop('href', '/?page=admin_order_details_view_all_multi&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_entree_summary').prop('href', '/?page=admin_reports_select_multi_session&query_submit=1&report_date=' + selected_date + '&report_id=1&printer=1&back=' + back_path()).prop('target', '_blank');
-		$('#st_side_dish_report').prop('href', '/?page=admin_order_details_view_all_multi&issidedish=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_fast_lane_report').prop('href', '/?page=admin_order_details_view_all_multi&ispreassembled=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_dream_rewards').prop('href', '/?page=admin_reports_dream_rewards_for_session_multi&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_future_orders').prop('href', '/?page=admin_order_details_view_all_future_multi&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_session_goal_sheet_print').prop('href', '/?page=admin_reports_goal_tracking&multi_session=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&print=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_session_goal_sheet_xls').prop('href', '/?page=admin_reports_goal_tracking&export=xlsx&hideheaders=true&csvfilename=SessionGoalSheetSummary&multi_session=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&back=' + back_path());
-		$('#st_print_labels').prop('href', '/?page=admin_reports_customer_menu_item_labels_multi&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
-		$('#st_print_labels_w_breaks').prop('href', '/?page=admin_reports_customer_menu_item_labels_multi&labels_per_sheet=4&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&break=1&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
-		$('#st_print_labels_by_dinner').prop('href', '/?page=admin_reports_customer_menu_item_labels_multi&labels_per_sheet=4&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&order_by=dinner&back=' + back_path() + '&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
-		$('#st_print_enrollment_forms').prop('href', '/?page=admin_user_plate_points&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&print_days_forms=true').prop('target', '_blank');
-		$('#st_plate_points_status_and_rewards_report').prop('href', '/?page=admin_reports_points_status_and_rewards&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path());
-		$('#st_customer_menu_core').prop('href', '/?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_current').prop('href', '/?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&cur=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_freezer').prop('href', '/?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&freezer=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_nutrition').prop('href', '/?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&nutrition=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_freezer').prop('href', '/?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_freezer_nutrition').prop('href', '/?page=admin_session_tools_printing&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&nutrition=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_daily_boxes_shipped').prop('href', '/?page=admin_reports_delivered_daily_boxes&type=shipping&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_daily_boxes_delivered').prop('href', '/?page=admin_reports_delivered_daily_boxes&type=delivering&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_receipt').prop('href', '/backoffice/order-details-view-all_multi?customer_print_view=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_franchise_receipt').prop('href', '/backoffice/order-details-view-all_multi?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_entree_summary').prop('href', '/backoffice/reports_select_multi_session?query_submit=1&report_date=' + selected_date + '&report_id=1&printer=1&back=' + back_path()).prop('target', '_blank');
+		$('#st_side_dish_report').prop('href', '/backoffice/order-details-view-all_multi?issidedish=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_fast_lane_report').prop('href', '/backoffice/order-details-view-all_multi?ispreassembled=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_dream_rewards').prop('href', '/backoffice/reports_dream_rewards_for_session_multi?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_future_orders').prop('href', '/backoffice/order-details-view-all_future_multi?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_session_goal_sheet_print').prop('href', '/backoffice/reports_goal_tracking?multi_session=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&print=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_session_goal_sheet_xls').prop('href', '/backoffice/reports_goal_tracking?export=xlsx&hideheaders=true&csvfilename=SessionGoalSheetSummary&multi_session=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&back=' + back_path());
+		$('#st_print_labels').prop('href', '/backoffice/reports_customer_menu_item_labels_multi?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
+		$('#st_print_labels_w_breaks').prop('href', '/backoffice/reports_customer_menu_item_labels_multi?labels_per_sheet=4&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&break=1&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
+		$('#st_print_labels_by_dinner').prop('href', '/backoffice/reports_customer_menu_item_labels_multi?labels_per_sheet=4&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&order_by=dinner&back=' + back_path() + '&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
+		$('#st_print_enrollment_forms').prop('href', '/backoffice/user_plate_points?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&print_days_forms=true').prop('target', '_blank');
+		$('#st_plate_points_status_and_rewards_report').prop('href', '/backoffice/reports_points_status_and_rewards?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path());
+		$('#st_customer_menu_core').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_core_current').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&cur=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_freezer').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&freezer=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_nutrition').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&nutrition=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_core_freezer').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_menu_core_freezer_nutrition').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&nutrition=true&back=' + back_path()).prop('target', '_blank');
+		$('#st_daily_boxes_shipped').prop('href', '/backoffice/reports_delivered_daily_boxes?type=shipping&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_daily_boxes_delivered').prop('href', '/backoffice/reports_delivered_daily_boxes?type=delivering&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
 	}
 
-	$('#st_finishing_touch_pick_sheet').prop('href', '/?page=admin_finishing_touch_printable_form&store_id=' + STORE_DETAILS.id + '&menu_id=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-	$('#st_print_generic_labels').prop('href', '/?page=admin_reports_customer_menu_item_labels&store_id=' + STORE_DETAILS.id + '&interface=1&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+	$('#st_finishing_touch_pick_sheet').prop('href', '/backoffice/finishing-touch-printable-form?store_id=' + STORE_DETAILS.id + '&menu_id=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+	$('#st_print_generic_labels').prop('href', '/backoffice/reports_customer_menu_item_labels?store_id=' + STORE_DETAILS.id + '&interface=1&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
 }
 
 function handle_guest_search()

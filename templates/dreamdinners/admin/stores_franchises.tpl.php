@@ -6,23 +6,23 @@ include $this->loadTemplate('admin/page_header.tpl.php');
       Welcome to the Stores and Franchises section.<span class="header"><br />
       <br />
       Available Tools:<br />
-	  <a href="/?page=admin_list_franchisees">Browse/Edit Franchisees</a>
+	  <a href="/backoffice/list_franchisees">Browse/Edit Franchisees</a>
 	  <br />
-	  <a href="/?page=admin_create_franchise">Create a New Franchise</a>
+	  <a href="/backoffice/create-franchise">Create a New Franchise</a>
 	  <br />
-	    <a href="/?page=admin_list_franchise">Browse/Edit Store Franchise</a>
+	    <a href="/backoffice/list_franchise">Browse/Edit Store Franchise</a>
 	  <br />
-	  <a href="/?page=admin_list_stores">Browse/Edit Stores</a>
+	  <a href="/backoffice/list_stores">Browse/Edit Stores</a>
 	   <br />
-	  <a href="/?page=admin_create_store">Create a New Store</a>
+	  <a href="/backoffice/create-store">Create a New Store</a>
 	   <br />
-	   	  <a href="/?page=admin_promotions">Promotions</a>
+	   	  <a href="/backoffice/promotions">Promotions</a>
 	   <br />
-	   	  <a href="/?page=admin_resources">Resources</a>
+	   	  <a href="/backoffice/resources">Resources</a>
 	   <br />
-	   	  <a href="/?page=admin_coupons">Coupons</a>
+	   	  <a href="/backoffice/coupons">Coupons</a>
 	   <br />
-	   	  <a href="/?page=admin_menu_editor">Menu Editor</a>
+	   	  <a href="/backoffice/menu_editor">Menu Editor</a>
 	   <br />
 
 

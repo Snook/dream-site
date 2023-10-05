@@ -807,7 +807,7 @@
                     }
 
                     $sessionTime = date("l g:i A", strtotime($sessionData['start']));
-                    $sesionTimeAndLink = "=HYPERLINK(\"" . HTTPS_BASE . "?page=admin_main&session=" . $sessionData['id'] . "\", \"$sessionTime\")";
+                    $sesionTimeAndLink = "=HYPERLINK(\"" . HTTPS_BASE . "backoffice/main?session=" . $sessionData['id'] . "\", \"$sessionTime\")";
 
 
                     $rows[] = array( date("n/j/Y", strtotime($sessionData['start'])),

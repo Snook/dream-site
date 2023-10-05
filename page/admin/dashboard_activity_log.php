@@ -82,7 +82,7 @@ class page_admin_dashboard_activity_log extends CPageAdminOnly
 	{
 		$tpl = CApp::instance()->template();
 
-		$tpl->assign('back', '/?page=admin_main');
+		$tpl->assign('back', '/backoffice/main');
 
 		if (!empty($_REQUEST['back']))
 		{
@@ -210,7 +210,7 @@ class page_admin_dashboard_activity_log extends CPageAdminOnly
 
 	static function formatUserLink($item)
 	{
-		return ' <span data-tooltip="' . CUser::userTypeText($item['user_type']) . '"><a href="/?page=admin_user_details&amp;id=' . $item['user_id'] . '" target="_blank">' . $item['user'] . '</a></span>';
+		return ' <span data-tooltip="' . CUser::userTypeText($item['user_type']) . '"><a href="/backoffice/user_details?id=' . $item['user_id'] . '" target="_blank">' . $item['user'] . '</a></span>';
 	}
 }
 

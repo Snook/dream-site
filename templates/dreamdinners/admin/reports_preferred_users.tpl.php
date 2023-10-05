@@ -15,7 +15,7 @@ $SHOWYEAR = false;
 
 		<div class="row my-4">
 			<div class="col text-center">
-				<h1><a href="/?page=admin_reports_preferred_users">Preferred Users Report</a></h1>
+				<h1><a href="/backoffice/reports_preferred_users">Preferred Users Report</a></h1>
 			</div>
 		</div>
 
@@ -46,10 +46,10 @@ $SHOWYEAR = false;
 				<tbody>
 				<?php foreach ($this->rows as $entity) { ?>
 					<tr>
-						<td><a href="/?page=admin_preferred&id=<?php echo $entity['id']; ?>"><?php echo $entity['id']; ?></a></td>
+						<td><a href="/backoffice/preferred?id=<?php echo $entity['id']; ?>"><?php echo $entity['id']; ?></a></td>
 						<td>
 							<div class="mb-2"><?php echo $entity['firstname']; ?> <?php echo $entity['lastname']; ?></div>
-							<div><a href="/?page=admin_email&id=<?php echo $entity['id']; ?>"><?php echo $entity['primary_email']; ?></a></div>
+							<div><a href="/backoffice/email?id=<?php echo $entity['id']; ?>"><?php echo $entity['primary_email']; ?></a></div>
 						</td>
 						<td><?php echo CUser::userTypeText($entity['user_type']); ?></td>
 						<?php if (CUser::getCurrentUser()->user_type == CUser::SITE_ADMIN || CUser::getCurrentUser()->user_type == CUser::HOME_OFFICE_STAFF || CUser::getCurrentUser()->user_type == CUser::HOME_OFFICE_MANAGER ) { ?>

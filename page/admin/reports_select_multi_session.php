@@ -213,7 +213,7 @@ class page_admin_reports_select_multi_session extends CPageAdminOnly
 				$sessionArray = $SessionReport->getEntreeCounts($store, $dateValues[2], $dateValues[1], $dateValues[0]);
 				if (isset($sessionArray) && count($sessionArray) > 0)
 				{
-					$form_submit_str = "/?page=admin_reports_select_multi_session";
+					$form_submit_str = "/backoffice/reports_select_multi_session";
 				}
 			}
 			else
@@ -223,7 +223,7 @@ class page_admin_reports_select_multi_session extends CPageAdminOnly
 
 				if (isset($sessionArray) && count($sessionArray) > 0)
 				{
-					$form_submit_str = "/?page=admin_reports_select_multi_session&amp;query_submit=2&amp;report_id=2&amp;popup=1&amp;session_id=" . $session_id;
+					$form_submit_str = "/backoffice/reports_select_multi_session?query_submit=2&amp;report_id=2&amp;popup=1&amp;session_id=" . $session_id;
 				}
 			}
 			if (isset($sessionArray) && count($sessionArray) > 0)

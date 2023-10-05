@@ -64,7 +64,6 @@ class processor_cart_modify_plate_points_credits extends CPageProcessor
 
 		$platePointsStatus = CPointsUserHistory::getPlatePointsStatus($Order->store_id, CUser::getCurrentUser());
 
-
 		$Order->points_discount_total = $amountRequested;
 		$Order->refresh(CUser::getCurrentUser());
 		$Order->recalculate(false, false, false, $platePointsStatus['userIsOnHold']);

@@ -430,7 +430,7 @@
 						    	$tarray['session_type'] = $session_type;
 						    	$tarray['order_type'] = $order_type;
 						    	$tarray['grand_total'] = $total;
-						    	$tarray['order_link'] =  "=HYPERLINK(\"" . HTTPS_BASE . "?page=admin_order_details&order=" . $ID ."\", \"" . 'Link to Order' . "\")";
+						    	$tarray['order_link'] =  "=HYPERLINK(\"" . HTTPS_BASE . "backoffice/order-details?order=" . $ID ."\", \"" . 'Link to Order' . "\")";
 						    	$tarray['saved_times'] = $savedTime;
 						    	$tarray['notes'] = $thisNote;
 
@@ -468,7 +468,7 @@
 								array_push($tarray,$convertTimeStamp);
 								array_push($tarray,$order_type);
 								array_push($tarray,$total);
-								array_push($tarray, "=HYPERLINK(\"" . HTTPS_BASE . "?page=admin_order_mgr&order=" . $ID ."\", \"" . 'Link to Order'. "\")");
+								array_push($tarray, "=HYPERLINK(\"" . HTTPS_BASE . "backoffice/order-mgr?order=" . $ID ."\", \"" . 'Link to Order'. "\")");
 								array_push($tarray, $savedTime);
 								array_push($tarray, $thisNote);
 
@@ -492,7 +492,7 @@
                     $tarray['order_type'] = 'STARTER PACK';
                 }
 
-                 $tarray['order_link'] = "=HYPERLINK(\"" . HTTPS_BASE . "?page=admin_order_mgr&order=" . $tarray['order_link'] ."\", \"" . 'Link to Order' . "\")";
+                 $tarray['order_link'] = "=HYPERLINK(\"" . HTTPS_BASE . "backoffice/order-mgr?order=" . $tarray['order_link'] ."\", \"" . 'Link to Order' . "\")";
 			    $tarray['saved_times'] = PHPExcel_Shared_Date::stringToExcel($tarray['saved_times']);
 
 

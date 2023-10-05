@@ -325,7 +325,7 @@ function init_food_cost_inputs()
 	{
 
 		$.ajax({
-			url: '/?page=admin_store_expenses_v2',
+			url: '/backoffice/store_expenses_v2',
 			type: 'POST',
 			once: false,
 			data : {
@@ -373,7 +373,7 @@ function init_labor_cost_inputs()
 	$("[id^=lc_]").on('click', function ()
 	{
 		$.ajax({
-			url: '/?page=admin_store_expenses_v2',
+			url: '/backoffice/store_expenses_v2',
 			type: 'POST',
 			once: false,
 			data : {

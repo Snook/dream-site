@@ -127,7 +127,7 @@
 							<label class="custom-control-label" for="location-<?php echo $id; ?>"></label>
 						</div>
 					</td>
-					<td><?php if (!empty($offsitelocation->contact_user_id)) { ?><a href="/?page=admin_user_details&amp;id=<?php echo $offsitelocation->contact_user_id; ?>"><?php echo $offsitelocation->firstname; ?> <?php echo $offsitelocation->lastname; ?></a><?php } else { ?>None<?php } ?></td>
+					<td><?php if (!empty($offsitelocation->contact_user_id)) { ?><a href="/backoffice/user_details?id=<?php echo $offsitelocation->contact_user_id; ?>"><?php echo $offsitelocation->firstname; ?> <?php echo $offsitelocation->lastname; ?></a><?php } else { ?>None<?php } ?></td>
 					<td><?php echo $offsitelocation->location_title; ?></td>
 					<td data-offsite_title="<?php echo $offsitelocation->address_line1; ?>"><?php echo $offsitelocation->address_line1; ?></td>
 					<td data-offsite_desc="<?php echo $offsitelocation->city; ?>"><?php echo $offsitelocation->city; ?></td>

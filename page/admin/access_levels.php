@@ -154,7 +154,7 @@ class page_admin_access_levels extends CPageAdminOnly
 		$store = null;
 		$assignedStoreID = null;
 		$usersStoreArray = array();
-		form_account::$forwardTo = '/?page=admin_list_users';
+		form_account::$forwardTo = '/backoffice/list_users';
 		$prevUserType = null;
 		$id = null;
 		$user_type = null;
@@ -230,7 +230,7 @@ class page_admin_access_levels extends CPageAdminOnly
 
 							$Mail = new CMail();
 
-							$Mail->send(ADMINISTRATOR_EMAIL, ADMINISTRATOR_EMAIL, ADMINISTRATOR_EMAIL, ADMINISTRATOR_EMAIL, $Customer->firstname . ' ' . $Customer->lastname . ' has lost BackOffice access', '<a href="' . HTTPS_SERVER . '/?page=admin_user_details&id=' . $Customer->id . '">' . $Customer->firstname . ' ' . $Customer->lastname . '</a> has been set to Customer status and no longer has access to the BackOffice. BackOffice NDA has been reset to "unaccepted".', null, '', '', null, 'admin_generic');
+							$Mail->send(ADMINISTRATOR_EMAIL, ADMINISTRATOR_EMAIL, ADMINISTRATOR_EMAIL, ADMINISTRATOR_EMAIL, $Customer->firstname . ' ' . $Customer->lastname . ' has lost BackOffice access', '<a href="' . HTTPS_SERVER . '/backoffice/user_details?id=' . $Customer->id . '">' . $Customer->firstname . ' ' . $Customer->lastname . '</a> has been set to Customer status and no longer has access to the BackOffice. BackOffice NDA has been reset to "unaccepted".', null, '', '', null, 'admin_generic');
 						}
 					}
 
@@ -392,7 +392,7 @@ class page_admin_access_levels extends CPageAdminOnly
 			if (!$found)
 			{
 				$tpl->setErrorMsg('That guest could not be found, or you do not have permission to edit that account.');
-				CApp::bounce('/?page=admin_list_users');
+				CApp::bounce('/backoffice/list_users');
 			}
 
 			if (is_null($user_type))

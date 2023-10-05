@@ -59,7 +59,7 @@ if ($this->report_submitted == TRUE) {
 
 		echo '<td colspan="2" align="right">';
 		if (isset($this->store)) {
-		 	$exportAllLink = '/?page=admin_reports_misc_items&store=' . $this->store . '&day=' . $this->report_day . '&month=' . $this->report_month . '&year=' . $this->report_year . '&duration=' . urlencode($this->report_duration) . '&report_type=' . $this->report_type . '&export=xlsx';
+		 	$exportAllLink = '/backoffice/reports_misc_items?store=' . $this->store . '&day=' . $this->report_day . '&month=' . $this->report_month . '&year=' . $this->report_year . '&duration=' . urlencode($this->report_duration) . '&report_type=' . $this->report_type . '&export=xlsx';
 			include $this->loadTemplate('admin/export.tpl.php');
 		}
 		echo '</td>';

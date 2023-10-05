@@ -427,7 +427,7 @@ class page_admin_gift_card_load extends CPageAdminOnly
 									self::sendLoadConfirmationEmail($_POST);
 								}
 
-								CApp::bounce("/?page=admin_gift_card_load_confirm&dd_trans_id=" . $DDTransactionRowID);
+								CApp::bounce("/backoffice/gift-card-load-confirm?dd_trans_id=" . $DDTransactionRowID);
 							}
 							break;
 						default:

@@ -173,7 +173,7 @@ function init_export_purchasers()
 		var omit_menu_id = $('#order_since_menu_id').val();
 
 		create_and_submit_form({
-			action: "/?page=admin_reports_food_sales",
+			action: "/backoffice/reports_food_sales",
 			input: ({
 				export: 'xlsx',
 				range_start: current_date_range_start,

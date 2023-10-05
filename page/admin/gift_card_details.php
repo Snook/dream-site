@@ -134,7 +134,7 @@ class page_admin_gift_card_details extends CPageAdminOnly {
 
 		if (isset($_POST['action']) && $_POST['action'] == 'modify_email' && isset($_POST['order_id']) && $this->canModify)
 		{
-			CApp::bounce('/?page=admin_modify_egift_email&gcOrder=' .CGPC::do_clean($_POST['order_id'],TYPE_INT) . "&back=" . urlencode($_SERVER['REQUEST_URI']));
+			CApp::bounce('/backoffice/modify_egift_email?gcOrder=' .CGPC::do_clean($_POST['order_id'],TYPE_INT) . "&back=" . urlencode($_SERVER['REQUEST_URI']));
 
 		}
 
