@@ -38,8 +38,8 @@ return; }
     <td> <label for="month" >Month</label>:<?php echo $this->form_array['month_html']; ?></td>
 
     <td> <label for="year" >Year</label><?php echo $this->form_array['year_html']; ?></td>
-    <td><input type="submit" class="button" name="run_report" value="Run Report" /></td>
-   <td><input type="button" class="button" style="cursor:pointer;" value="Export" onclick="export_report();" /></td>
+    <td><input type="submit" class="btn btn-primary btn-sm" name="run_report" value="Run Report" /></td>
+   <td><input type="button" class="btn btn-primary btn-sm" style="cursor:pointer;" value="Export" onclick="export_report();" /></td>
 
 </tr>
 </table>

@@ -330,7 +330,7 @@ function changeMenu()
 	<?= $this->form_list['menus_html'] ?>
 
 		<?php	if (isset($this->form_list['menu_items_html'])) { ?>
-	<div style="float:right">	<input type="submit" value="Generate All" class="button" name="report_all" /> This will generate 1 page for every <br /> menu item<i> (Note: This could take a while.)</i></div>
+	<div style="float:right">	<input type="submit" value="Generate All" class="btn btn-primary btn-sm" name="report_all" /> This will generate 1 page for every <br /> menu item<i> (Note: This could take a while.)</i></div>
 		<?php	} ?>
 
 		</td>
@@ -375,7 +375,7 @@ function changeMenu()
 		<tr>
 		<td>&nbsp;</td>
 		<td >
-			<button onclick="print_labels('report_std'); return false;" class="button">Print Core Item Nutrition Labels</button>
+			<button onclick="print_labels('report_std'); return false;" class="btn btn-primary btn-sm">Print Core Item Nutrition Labels</button>
 			<br/>
 		The labels will appear in a new window. To print	labels for several menu items close the new window each time, exposing the selection form, and repeat the process.
 		</td>
@@ -404,7 +404,7 @@ function changeMenu()
 	<?= $this->form_list['ft_menus_html'] ?>
 
 		<?php	if (isset($this->form_list['ft_menu_items_html'])) { ?>
-			<div style="float:right"><input type="submit" value="Generate All" class="button" name="ft_report_all"/> This will generate 1 page for every <br/> Sides &amp; Sweets item<i> (Note: This
+			<div style="float:right"><input type="submit" value="Generate All" class="btn btn-primary btn-sm" name="ft_report_all"/> This will generate 1 page for every <br/> Sides &amp; Sweets item<i> (Note: This
 					could take a while.)</i></div>
 		<?php	} ?>
 
@@ -450,7 +450,7 @@ function changeMenu()
 		<tr>
 		<td>&nbsp;</td>
 		<td >
-			<button onclick="print_labels('report_ft'); return false;" class="button">Print Sides &amp; Sweets Item Nutrition Labels</button>
+			<button onclick="print_labels('report_ft'); return false;" class="btn btn-primary btn-sm">Print Sides &amp; Sweets Item Nutrition Labels</button>
 			<br/>
 			The labels will appear in a new window. To print	labels for several menu items close the new window each time, exposing the selection form, and repeat the process.
 		</td>

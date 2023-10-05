@@ -97,7 +97,7 @@
 
 		</td>
 		<td>
-		<div style=""><input class="button" type="submit" name="submit_report" value="Run Report" style="height:70px;" /> </div>
+		<div style=""><input class="btn btn-primary btn-sm" type="submit" name="submit_report" value="Run Report" style="height:70px;" /> </div>
 
 		</td>
 		</tr>

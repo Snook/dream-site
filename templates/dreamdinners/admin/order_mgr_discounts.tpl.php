@@ -31,8 +31,8 @@
 										<tr>
 											<td class="" style="vertical-align: top; text-align: left;">
 												<div id="gd_admin_note-two-<?php echo $this->orderInfo['id']; ?>" class="guest_note multi-populate-admin-note" data-user-id="<?php echo $this->user_obj->id; ?>" data-booking_id="<?php echo $this->orderInfo['id']; ?>" data-order_id="<?php echo $this->orderInfo['id']; ?>"><?php echo $this->orderInfo['order_admin_notes']; ?></div>
-												<span id="gd_admin_note_button-two-<?php echo $this->orderInfo['id']; ?>" data-uid='two' data-button_name="Edit Note"  data-booking_id="<?php echo $this->orderInfo['id']; ?>" data-order_id="<?php echo $this->orderInfo['id']; ?>" data-user_id="<?php echo $this->user_obj->id; ?>" data-edit_mode="false" data-tooltip="Staff notes for this order. Not visible to guests." class="button">Edit Note</span>
-												<span id="gd_admin_note_cancel_button-two-<?php echo $this->orderInfo['id']; ?>" data-booking_id="<?php echo $this->orderInfo['id']; ?>" class="button" style="display: none;">Cancel Edit</span>
+												<span id="gd_admin_note_button-two-<?php echo $this->orderInfo['id']; ?>" data-uid='two' data-button_name="Edit Note"  data-booking_id="<?php echo $this->orderInfo['id']; ?>" data-order_id="<?php echo $this->orderInfo['id']; ?>" data-user_id="<?php echo $this->user_obj->id; ?>" data-edit_mode="false" data-tooltip="Staff notes for this order. Not visible to guests." class="btn btn-primary btn-sm">Edit Note</span>
+												<span id="gd_admin_note_cancel_button-two-<?php echo $this->orderInfo['id']; ?>" data-booking_id="<?php echo $this->orderInfo['id']; ?>" class="btn btn-primary btn-sm" style="display: none;">Cancel Edit</span>
 											</td>
 										</tr>
 									</table>
@@ -191,9 +191,9 @@
 						<tr>
 							<td class="bgcolor_dark catagory_row" style="width: 200px;">Coupon Code</td>
 							<td class="bgcolor_light" valign="middle"><?php echo $this->form_direct_order['coupon_code_html']; ?>&nbsp;
-								<input type="button" class="button" onclick="processCode();" value="Submit Code" id="couponCodeSubmitter" name="couponCodeSubmitter" />
+								<input type="button" class="btn btn-primary btn-sm" onclick="processCode();" value="Submit Code" id="couponCodeSubmitter" name="couponCodeSubmitter" />
 								<span id="proc_mess" style="display: none;"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/throbber_processing_noborder.gif" alt="Processing" /></span>
-								<input type="button" class="button" onclick="removeCode();" value="Delete Coupon" id="couponDeleter" name="couponDeleter" style="display: none;" />
+								<input type="button" class="btn btn-primary btn-sm" onclick="removeCode();" value="Delete Coupon" id="couponDeleter" name="couponDeleter" style="display: none;" />
 								<input type="hidden" value="<?php echo isset($this->couponVal) ? $this->couponVal : ''; ?>" name="couponValue" id="couponValue">
 								<input type="hidden" value="<?php echo isset($this->coupon['discount_method']) ? $this->coupon['discount_method'] : ''; ?>" name="coupon_type" id="coupon_type">
 								<input type="hidden" value="<?php echo isset($this->coupon['id']) ? $this->coupon['id'] : ''; ?>" name="coupon_id" id="coupon_id">

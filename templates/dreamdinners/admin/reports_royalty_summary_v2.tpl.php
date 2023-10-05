@@ -105,7 +105,7 @@
 
 <?php if (!$this->print_view && $this->report_type_to_run == 3) { ?>
 <tr>
-	<td colspan="2"><input type="button" class="button" name="Print Invoice" value="Print Invoice" onclick="bounce('./backoffice/reports_royalty_invoice?store=<?php echo $this->store; ?>&month=<?php echo $this->report_month; ?>&year=<?php echo $this->report_year; ?>&order_total=<?php echo (isset($this->report_data[0]['total_less_discounts']) ? $this->report_data[0]['total_less_discounts'] : 0); ?>');"></td>
+	<td colspan="2"><input type="button" class="btn btn-primary btn-sm" name="Print Invoice" value="Print Invoice" onclick="bounce('./backoffice/reports_royalty_invoice?store=<?php echo $this->store; ?>&month=<?php echo $this->report_month; ?>&year=<?php echo $this->report_year; ?>&order_total=<?php echo (isset($this->report_data[0]['total_less_discounts']) ? $this->report_data[0]['total_less_discounts'] : 0); ?>');"></td>
 </tr>
 <?php } ?>
 

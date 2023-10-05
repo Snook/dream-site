@@ -59,14 +59,14 @@ return; }
 	<?php echo $this->form_array['use_cal_month_html']; ?><label for="use_cal_month" >Use Calendar Month</label></td>
 </tr>
 <tr>
-<td colspan="6" style="text-align:right"><button class="button" onclick="export_trending_report();">Export Report</button></td>
+<td colspan="6" style="text-align:right"><button class="btn btn-primary btn-sm" onclick="export_trending_report();">Export Report</button></td>
 </tr>
 </table>
 <?php } else { ?>
     <tr>
     <td colspan="6" style="text-align:right">
         <?php echo $this->form_array['use_cal_month_html']; ?><label for="use_cal_month" >Use Calendar Month</label>
-        <button class="button" onclick="export_trending_report();">Export Report</button></td>
+        <button class="btn btn-primary btn-sm" onclick="export_trending_report();">Export Report</button></td>
     </tr>
 <?php } ?>
 

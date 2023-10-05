@@ -62,7 +62,7 @@
 		</div>
 		<div class="form-row">
 			<div class="form-group col-md-12">
-				<span id="saveDeliveryAddress"><input id="saveDeliveryAddress" type="button" class="button"  onclick="setShipToAddressAndSaveOrder(this); return false;" value="Set As Ship To Address" style="width:200px;" /></span>
+				<span id="saveDeliveryAddress"><input id="saveDeliveryAddress" type="button" class="btn btn-primary btn-sm"  onclick="setShipToAddressAndSaveOrder(this); return false;" value="Set As Ship To Address" style="width:200px;" /></span>
 				<?php if ($this->orderState  == "NEW") { ?>
 					<span>Please provide at least the Postal Code and set as ship to address to Save this order.</span>
 				<?php } else if ($this->orderState  == "SAVED") { ?>

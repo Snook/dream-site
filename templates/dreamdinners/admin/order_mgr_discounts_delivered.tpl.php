@@ -116,9 +116,9 @@
 						<tr>
 							<td class="bgcolor_dark catagory_row" style="width: 200px;">Coupon Code</td>
 							<td class="bgcolor_light" valign="middle"><?php echo $this->form_direct_order['coupon_code_html']; ?>&nbsp;
-								<input type="button" class="button" onclick="processCode();" value="Submit Code" id="couponCodeSubmitter" name="couponCodeSubmitter" />
+								<input type="button" class="btn btn-primary btn-sm" onclick="processCode();" value="Submit Code" id="couponCodeSubmitter" name="couponCodeSubmitter" />
 								<span id="proc_mess" style="display: none;"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/throbber_processing_noborder.gif" alt="Processing" /></span>
-								<input type="button" class="button" onclick="removeCode();" value="Delete Coupon" id="couponDeleter" name="couponDeleter" style="display: none;" />
+								<input type="button" class="btn btn-primary btn-sm" onclick="removeCode();" value="Delete Coupon" id="couponDeleter" name="couponDeleter" style="display: none;" />
 								<input type="hidden" value="<?php echo isset($this->couponVal) ? $this->couponVal : ''; ?>" name="couponValue" id="couponValue">
 								<input type="hidden" value="<?php echo isset($this->coupon['discount_method']) ? $this->coupon['discount_method'] : ''; ?>" name="coupon_type" id="coupon_type">
 								<input type="hidden" value="<?php echo isset($this->coupon['id']) ? $this->coupon['id'] : ''; ?>" name="coupon_id" id="coupon_id">
@@ -157,5 +157,3 @@
 		</tbody>
 	</table>
 </div>
-
-

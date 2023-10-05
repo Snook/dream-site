@@ -354,7 +354,7 @@ else
 							<?= $this->form_list['menus_html'] ?>
 
 							<?php if (isset($this->form_list['menu_items_html'])) { ?>
-								<div style="float:right"><input type="submit" class="button" value="Generate All" name="report_all" /> This will generate 1 page for every
+								<div style="float:right"><input type="submit" class="btn btn-primary btn-sm" value="Generate All" name="report_all" /> This will generate 1 page for every
 									<br /> menu item<i> (Note: This could take a while.)</i></div>
 							<?php } ?>
 
@@ -437,7 +437,7 @@ else
 							<?= $this->form_list['ft_menus_html'] ?>
 
 							<?php if (isset($this->form_list['ft_menu_items_html'])) { ?>
-								<div style="float:right"><input type="submit" class="button" value="Generate All" name="ft_report_all" /> This will generate 1 page for every
+								<div style="float:right"><input type="submit" class="btn btn-primary btn-sm" value="Generate All" name="ft_report_all" /> This will generate 1 page for every
 									<br /> Sides &amp; Sweets item<i> (Note: This could take a while.)</i></div>
 							<?php } ?>
 

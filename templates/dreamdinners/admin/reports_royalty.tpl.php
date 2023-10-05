@@ -100,7 +100,7 @@ function print_all_init()
 	}
 </script>
 
-<input type="button" class="button" id="print_all" value="Print All Active Store Reports for Selected Month" />
+<input type="button" class="btn btn-primary btn-sm" id="print_all" value="Print All Active Store Reports for Selected Month" />
 
 <?php } ?>
 

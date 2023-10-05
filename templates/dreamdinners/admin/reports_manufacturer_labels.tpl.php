@@ -22,7 +22,7 @@
 <table id="recipe_list" style="width:100%;">
 <thead>
 <tr>
-	<th class="bgcolor_dark catagory_row" colspan="3"><span style="float:left;"><input name="filter" id="filter" placeholder="Filter Recipe ID, Name or UPC" data-tooltip="Filter Recipe ID, Name or UPC" size="30" type="text"><input id="clear_filter" type="button" class="button" value="Clear" /></span></th>
+	<th class="bgcolor_dark catagory_row" colspan="3"><span style="float:left;"><input name="filter" id="filter" placeholder="Filter Recipe ID, Name or UPC" data-tooltip="Filter Recipe ID, Name or UPC" size="30" type="text"><input id="clear_filter" type="button" class="btn btn-primary btn-sm" value="Clear" /></span></th>
 	<th class="bgcolor_dark catagory_row">Medium</th>
 	<th class="bgcolor_dark catagory_row">Large</th>
 <tr>
@@ -41,8 +41,8 @@
 <tfoot>
 <tr>
 	<th class="bgcolor_dark catagory_row" colspan="3">&nbsp;</th>
-	<th class="bgcolor_dark catagory_row"><input id="clear_medium" type="button" class="button" value="Clear Medium" /></th>
-	<th class="bgcolor_dark catagory_row"><input id="clear_large" type="button" class="button" value="Clear Large" /></th>
+	<th class="bgcolor_dark catagory_row"><input id="clear_medium" type="button" class="btn btn-primary btn-sm" value="Clear Medium" /></th>
+	<th class="bgcolor_dark catagory_row"><input id="clear_large" type="button" class="btn btn-primary btn-sm" value="Clear Large" /></th>
 <tr>
 </tfoot>
 </table>
@@ -60,7 +60,7 @@
 <br />
 
 <h4>Nutritional Labels</h4>
-<input type="submit" class="button" id="generate_nutritional_labels" name="generate_nutritional_labels" value="Generate Nutritional Labels" disabled="disabled" />
+<input type="submit" class="btn btn-primary btn-sm" id="generate_nutritional_labels" name="generate_nutritional_labels" value="Generate Nutritional Labels" disabled="disabled" />
 
 <br />
 <br />
@@ -68,7 +68,7 @@
 <h4>Cooking Instructions</h4>
 <span style="display:inline-block;float:left;font-weight:bold;padding:4px;">Use by:</span>
 <script type="text/javascript">DateInput('use_by_date', true, 'MM/DD/YYYY', '<?php echo date('m/d/Y', strtotime("+2 month")); ?>');</script>
-<input type="submit" class="button" id="generate_cooking_instructions" name="generate_cooking_instructions" value="Generate Cooking Instructions" disabled="disabled" />
+<input type="submit" class="btn btn-primary btn-sm" id="generate_cooking_instructions" name="generate_cooking_instructions" value="Generate Cooking Instructions" disabled="disabled" />
 
 </form>
 

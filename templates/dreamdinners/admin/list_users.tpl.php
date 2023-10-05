@@ -30,7 +30,7 @@
 					<input type="hidden" name="letter_select" value="<?php echo $this->letter_select; ?>" />
 					<input type="text" id="q" name="q" <?php echo (!empty($this->phone_mask_css)) ? 'class="telephone"' : '';?> value="<?php echo $this->q; ?>" />
 					<input type="checkbox" name="all_stores" <?php if (isset($this->all_stores)) echo 'checked="checked"';?> />All Stores
-					<input type="submit" class="button" value="Search" /><br />
+					<input type="submit" class="btn btn-primary btn-sm" value="Search" /><br />
 					<div id="search_help" style="margin-left:4px;display:none;color:#009933;"></div>
 				</td>
 			</tr>
@@ -38,13 +38,13 @@
 				<td class="bgcolor_light" style="text-align:right;">Alphabetical Last Name search</td>
 				<td class="bgcolor_light">
 					<?php foreach(range('A', 'Z') as $letter) { ?>
-						<a class="button" href="/backoffice/list_users<?=$storeFilter ?>&amp;letter_select=<?php echo $letter; ?>"><?php echo $letter; ?></a> <?php echo ($letter == 'M') ? '<a class="button" href="/backoffice/list_users' . $storeFilter . '&amp;letter_select=etc">Etc</a><br />' : ''; ?>
+						<a class="btn btn-primary btn-sm" href="/backoffice/list_users<?=$storeFilter ?>&amp;letter_select=<?php echo $letter; ?>"><?php echo $letter; ?></a> <?php echo ($letter == 'M') ? '<a class="btn btn-primary btn-sm" href="/backoffice/list_users' . $storeFilter . '&amp;letter_select=etc">Etc</a><br />' : ''; ?>
 					<?php } ?>
-					<a class="button" href="/backoffice/list_users<?=$storeFilter ?>&amp;letter_select=all">View All</a>
+					<a class="btn btn-primary btn-sm" href="/backoffice/list_users<?=$storeFilter ?>&amp;letter_select=all">View All</a>
 				</td>
 			</tr>
 			<tr>
-				<td class="bgcolor_light" style="padding:6px;white-space:nowrap;text-align:right;vertical-align:top;font-weight:bold;"><input type="button" class="button" style="cursor:pointer;" value="Swipe Credit Card" onclick="document.getElementById('search_type').value='lastname'; prepareForCCSwipe();" /></td>
+				<td class="bgcolor_light" style="padding:6px;white-space:nowrap;text-align:right;vertical-align:top;font-weight:bold;"><input type="button" class="btn btn-primary btn-sm" style="cursor:pointer;" value="Swipe Credit Card" onclick="document.getElementById('search_type').value='lastname'; prepareForCCSwipe();" /></td>
 				<td class="bgcolor_light">
 					<div id="scanArea" style="display:none;border:#93C89F 2px solid;padding:8px;text-align:left;">
 						<span>Please swipe the credit card.</span><br />
@@ -102,14 +102,14 @@
 						<td style="white-space:nowrap;"><a href="/backoffice/email?id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->rows->secondary_email; ?></a></td>
 					<?php } ?>
 					<td style="white-space:nowrap;text-align:center;"><?php echo $this->telephoneFormat($this->rows->telephone_1); ?></td>
-					<td style="white-space:nowrap;text-align:center;"><a href="/backoffice/user_details?id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" class="button" >View Acct</a></td>
-					<td style="white-space:nowrap;text-align:center;"><a href="/backoffice/list-users?edit_last_for=<?php echo $this->rows->id; ?>" class="button" data-tooltip="<?php echo addToolTip($this->rows->id); ?>">Edit Last Order</a></td>
-					<td style="white-space:nowrap;text-align:center;"><a href="/backoffice/order-history?id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" class="button">Orders</td>
+					<td style="white-space:nowrap;text-align:center;"><a href="/backoffice/user_details?id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" class="btn btn-primary btn-sm" >View Acct</a></td>
+					<td style="white-space:nowrap;text-align:center;"><a href="/backoffice/list-users?edit_last_for=<?php echo $this->rows->id; ?>" class="btn btn-primary btn-sm" data-tooltip="<?php echo addToolTip($this->rows->id); ?>">Edit Last Order</a></td>
+					<td style="white-space:nowrap;text-align:center;"><a href="/backoffice/order-history?id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" class="btn btn-primary btn-sm">Orders</td>
 					<?php if ($this->canPlaceOrder == true && ($this->rows->is_partial_account === "0" || $this->rows->is_partial_account === 0)) { ?>
-						<td style="white-space:nowrap;text-align:center;"><a class="button" href="/backoffice/order-mgr?user=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->thisMonthStr; ?></a></td>
-						<td style="white-space:nowrap;text-align:center;"><a class="button" href="/backoffice/order-mgr?user=<?php echo $this->rows->id; ?>&amp;month=<?php echo $this->nextMonthTimestamp; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->nextMonthStr; ?></a></td>
+						<td style="white-space:nowrap;text-align:center;"><a class="btn btn-primary btn-sm" href="/backoffice/order-mgr?user=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->thisMonthStr; ?></a></td>
+						<td style="white-space:nowrap;text-align:center;"><a class="btn btn-primary btn-sm" href="/backoffice/order-mgr?user=<?php echo $this->rows->id; ?>&amp;month=<?php echo $this->nextMonthTimestamp; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->nextMonthStr; ?></a></td>
 					<?php } else { ?>
-						<td style="white-space:nowrap;text-align:center;" colspan="2"><a class="button" href="/backoffice/account?upgrade=true&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Upgrade Account</a></td>
+						<td style="white-space:nowrap;text-align:center;" colspan="2"><a class="btn btn-primary btn-sm" href="/backoffice/account?upgrade=true&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Upgrade Account</a></td>
 					<?php } ?>
 					<td style="white-space:nowrap;text-align:right;"><a href="/backoffice/user_details?id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->rows->id; ?></a></td>
 				</tr>

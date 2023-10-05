@@ -650,7 +650,7 @@ class page_admin_user_plate_points extends CPageAdminOnly
 			$Form->AddElement(array(
 				CForm::type => CForm::Submit,
 				CForm::name => "add_points",
-				CForm::css_class => "button",
+				CForm::css_class => "btn btn-primary btn-sm",
 				CForm::value => "Add Points"
 			));
 
@@ -658,7 +658,7 @@ class page_admin_user_plate_points extends CPageAdminOnly
 			$ConvertForm->AddElement(array(
 				CForm::type => CForm::Submit,
 				CForm::name => "convert_points",
-				CForm::css_class => "button",
+				CForm::css_class => "btn btn-primary btn-sm",
 				CForm::value => "Convert Points"
 			));
 
@@ -679,7 +679,7 @@ class page_admin_user_plate_points extends CPageAdminOnly
 			$SuspendForm->AddElement(array(
 				CForm::type => CForm::Button,
 				CForm::name => "suspend_member",
-				CForm::css_class => "button",
+				CForm::css_class => "btn btn-primary btn-sm",
 				CForm::value => "Place Status on Hold"
 			));
 		}
@@ -688,7 +688,7 @@ class page_admin_user_plate_points extends CPageAdminOnly
 			$SuspendForm->AddElement(array(
 				CForm::type => CForm::Button,
 				CForm::name => "reactivate_member",
-				CForm::css_class => "button",
+				CForm::css_class => "btn btn-primary btn-sm",
 				CForm::value => "Reinstate"
 			));
 

@@ -396,7 +396,7 @@ function create_survey_button_handler()
 
 		dd_message({
 			title: 'Choose Report',
-			message: '<div><span id="export_all_store_open" class="button">Open Store Surveys</span> <span id="export_all_guest_open" class="button">Open Guest Surveys</span></div><div><span id="export_all_store_closed" class="button">Closed Store Surveys</span> <span id="export_all_guest_closed" class="button">Closed Guest Surveys</span></div>',
+			message: '<div><span id="export_all_store_open" class="btn btn-primary btn-sm">Open Store Surveys</span> <span id="export_all_guest_open" class="btn btn-primary btn-sm">Open Guest Surveys</span></div><div><span id="export_all_store_closed" class="btn btn-primary btn-sm">Closed Store Surveys</span> <span id="export_all_guest_closed" class="btn btn-primary btn-sm">Closed Guest Surveys</span></div>',
 			noOk: true,
 			width: '320',
 			open: function () {

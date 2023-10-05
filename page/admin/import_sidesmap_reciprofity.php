@@ -62,7 +62,7 @@ class page_admin_import_sidesmap_reciprofity extends CPageAdminOnly
 
 				$uberObject->query('COMMIT;');
 
-				$tpl->setStatusMsg('<p>Sides Map imported.</p><p>Next Step: <a class="button" href="/backoffice/import-bundles-reciprofity">Import Bundles</a></p>');
+				$tpl->setStatusMsg('<p>Sides Map imported.</p><p>Next Step: <a class="btn btn-primary btn-sm" href="/backoffice/import-bundles-reciprofity">Import Bundles</a></p>');
 
 				$commit = true;
 			}

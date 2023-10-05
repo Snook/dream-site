@@ -305,21 +305,21 @@ class page_admin_publish_sessions extends CPageAdminOnly
 
 		$SetForm->AddElement(array(
 			CForm::type => CForm::Submit,
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::name => 'save_window',
 			CForm::value => 'Save'
 		));
 
 		$SetForm->AddElement(array(
 			CForm::type => CForm::Submit,
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::name => 'publish window',
 			CForm::value => 'Publish'
 		));
 
 		$SetForm->AddElement(array(
 			CForm::type => CForm::Submit,
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::name => 'fill_window',
 			CForm::value => 'Fill from template'
 		));

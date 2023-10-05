@@ -81,7 +81,7 @@
 	<td class="bgcolor_light"><textarea style="width:400px;height:130px;" id="question-selling_features_notes" name="selling_features_notes"></textarea></td>
 </tr>
 <tr>
-	<td colspan="2"><input id="submit_my_survey" type="submit" class="button" value="Submit Survey" disabled="disabled" /> <span id="submit_my_survey_note">*Please complete all questions, thank you.</span></td>
+	<td colspan="2"><input id="submit_my_survey" type="submit" class="btn btn-primary btn-sm" value="Submit Survey" disabled="disabled" /> <span id="submit_my_survey_note">*Please complete all questions, thank you.</span></td>
 </tr>
 </table>
 

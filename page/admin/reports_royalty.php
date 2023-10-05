@@ -101,7 +101,7 @@ class page_admin_reports_royalty extends CPageAdminOnly
 		$Form->AddElement(array(
 			CForm::type => CForm::Submit,
 			CForm::name => 'report_submit',
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::value => 'Run Report'
 		));
 		$Form->AddElement(array(

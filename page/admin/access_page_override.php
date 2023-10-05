@@ -90,13 +90,13 @@ class page_admin_access_page_override extends CPageAdminOnly {
 		}
 
 		$form->AddElement(array (CForm::type => CForm::Submit,
-					CForm::css_class => 'button',
+					CForm::css_class => 'btn btn-primary btn-sm',
 					CForm::name => 'user_submit',
 					CForm::value => 'Add'));
 
 
 		$form->AddElement(array (CForm::type => CForm::Submit,
-					CForm::css_class => 'button',
+					CForm::css_class => 'btn btn-primary btn-sm',
 					CForm::name => 'remove_access',
 					CForm::value => 'Remove Access'));
 

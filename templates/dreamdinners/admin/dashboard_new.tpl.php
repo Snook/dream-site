@@ -29,7 +29,7 @@ else
 
 	<div style="background-color:#d0d0d0; border:2px; black solid; text-align:center; font-weight:bold; font-size:14pt; margin:0px; padding:5px;">
 		<span style="color:green;">Dashboard (by Calendar Month)</span>
-		<div style="float:right"><a href="/backoffice/dashboard-menu-based" class="button">to Menu-Month Dashboard</a></div>
+		<div style="float:right"><a href="/backoffice/dashboard-menu-based" class="btn btn-primary btn-sm">to Menu-Month Dashboard</a></div>
 	</div>
 
 	<form id="dashboard_form" action="/backoffice/dashboard-new" method="post">
@@ -43,9 +43,9 @@ else
 						<td colspan="4" style="text-align:center"><h2><?php echo $this->titleString; ?></h2></td><td style="text-align:right">
 							<?php if (!$this->showReportTypeSelector) { ?>
 								<?php  if ($this->showCurrentMonth) { ?>
-									<button onclick="toggleMonth('previous');" class="button">Show previous month</button>
+									<button onclick="toggleMonth('previous');" class="btn btn-primary btn-sm">Show previous month</button>
 								<?php } else { ?>
-									<button onclick="toggleMonth('current');" class="button">Show current month</button>
+									<button onclick="toggleMonth('current');" class="btn btn-primary btn-sm">Show current month</button>
 								<?php } ?>
 							<?php } ?>
 							or Pick a Month: <?php echo $this->form_array['override_month_html']; ?>
@@ -57,9 +57,9 @@ else
 						<td colspan="3"><?php echo $this->form_array['report_type_html']['dt_single_store']; ?><label for="report_typedt_single_store" >Select Store</label>:
 							<?php echo $this->form_array['store_html']; ?></td>
 						<?php  if ($this->showCurrentMonth) { ?>
-							<td><button onclick="toggleMonth('previous');" class="button">Show previous month</button></td>
+							<td><button onclick="toggleMonth('previous');" class="btn btn-primary btn-sm">Show previous month</button></td>
 						<?php } else { ?>
-							<td><button onclick="toggleMonth('current');" class="button">Show current month</button></td>
+							<td><button onclick="toggleMonth('current');" class="btn btn-primary btn-sm">Show current month</button></td>
 						<?php } ?>
 
 					</tr>

@@ -2013,7 +2013,7 @@ $(function () {
 
 					}
 
-					let new_button = '<button class="button" id="mkdn_' + itemID + '" data-org_val="0" data-markdown_id="new" data-markdown_value="' + newDiscount + '" >' + formatAsMoney(newDiscount) + '%</button>';
+					let new_button = '<button class="btn btn-primary btn-sm" id="mkdn_' + itemID + '" data-org_val="0" data-markdown_id="new" data-markdown_value="' + newDiscount + '" >' + formatAsMoney(newDiscount) + '%</button>';
 					$('#add-mkdn_' + itemID).replaceWith(new_button);
 					calculatePage();
 

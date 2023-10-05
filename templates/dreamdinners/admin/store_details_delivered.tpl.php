@@ -20,9 +20,9 @@
 		<br /><br />
 
 		<?php if( $isSiteAdmin ) { ?>
-			<div align="right"><a class="button" id="archive_store" data-home_office_id="<?php echo $this->store['home_office_id']; ?>" data-store_id="<?php echo $this->store['id']; ?>"
+			<div align="right"><a class="btn btn-primary btn-sm" id="archive_store" data-home_office_id="<?php echo $this->store['home_office_id']; ?>" data-store_id="<?php echo $this->store['id']; ?>"
 								  data-store_name="<?php echo $this->store['store_name']; ?>">Archive and Re-Open Store</a>
-				<a id="delete_store" data-store_id="<?php echo $this->store['id']; ?>" class="button">Delete Store</a></div>
+				<a id="delete_store" data-store_id="<?php echo $this->store['id']; ?>" class="btn btn-primary btn-sm">Delete Store</a></div>
 		<?php } ?>
 
 		<?php if ($isSiteAdmin) { ?>
@@ -59,7 +59,7 @@
 			<tr>
 				<td class="bgcolor_light" style="text-align: right; width: 210px;">Entity/Owner:</td>
 				<td class="bgcolor_light">
-					<?php if ($isSiteAdmin) { ?><a href="/backoffice/franchise-details?id=<?php echo $this->form_store_details['franchise_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" class="button" style="float: right;">View Entity</a><?php } ?>
+					<?php if ($isSiteAdmin) { ?><a href="/backoffice/franchise-details?id=<?php echo $this->form_store_details['franchise_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" class="btn btn-primary btn-sm" style="float: right;">View Entity</a><?php } ?>
 					<?php echo ($isSiteAdmin) ? $this->form_store_details['franchise_id_html'] : $this->franchise_name; ?>
 				</td>
 			</tr>
@@ -190,7 +190,7 @@
 
 						<h4>Operating Manager Contact Information</h4>
 
-						<div><?php echo $this->form_store_details['manager_1_user_id_html']; ?><span data-guestsearch="add_manager" data-select_button_title="Add Manager" data-all_stores_checked="true" data-select_function="addManager" data-tooltip="Add Manager" class="button">Add Manager</span></div>
+						<div><?php echo $this->form_store_details['manager_1_user_id_html']; ?><span data-guestsearch="add_manager" data-select_button_title="Add Manager" data-all_stores_checked="true" data-select_function="addManager" data-tooltip="Add Manager" class="btn btn-primary btn-sm">Add Manager</span></div>
 						<div><input id="manager_1_name" type="text" disabled="disabled" value="<?php echo $this->store['manager_1_firstname']; ?> <?php echo $this->store['manager_1_lastname']; ?>" /></div>
 						<div><input id="manager_1_primary_email" type="text" disabled="disabled" value="<?php echo $this->store['manager_1_primary_email']; ?>" /></div>
 						<div><input id="manager_1_telephone_1" type="text" disabled="disabled" value="<?php echo $this->store['manager_1_telephone_1']; ?>" /></div>

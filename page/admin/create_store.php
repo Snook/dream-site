@@ -113,7 +113,7 @@ class page_admin_create_store extends CPageAdminOnly {
 
 		$Form->AddElement(array(CForm::type=> CForm::Submit,
 								CForm::name => "createStore",
-								CForm::css_class => 'button',
+								CForm::css_class => 'btn btn-primary btn-sm',
 								CForm::value => "Save"));
 
 		$Form->AddElement(array(CForm::type=> CForm::Text,

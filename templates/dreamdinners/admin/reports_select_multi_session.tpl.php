@@ -626,8 +626,8 @@ if (isset($this->run_report) && $this->run_report== true && isset($this->report_
                 $hasSessionFilter = true;
             }
 
-            $delayedOutput .= '<tr class=\'rsms_session_filter\' style=\'display:none;\'><td><span class="button" onclick="filterBySession()" >Filter by Selected Sessions</span> &nbsp;&nbsp;';
-			$delayedOutput .= '<span class="button" onclick="printSeperatedSession()" >Print Selected Sessions Separately</span></td></tr>';
+            $delayedOutput .= '<tr class=\'rsms_session_filter\' style=\'display:none;\'><td><span class="btn btn-primary btn-sm" onclick="filterBySession()" >Filter by Selected Sessions</span> &nbsp;&nbsp;';
+			$delayedOutput .= '<span class="btn btn-primary btn-sm" onclick="printSeperatedSession()" >Print Selected Sessions Separately</span></td></tr>';
 
 
 

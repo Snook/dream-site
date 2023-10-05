@@ -10,7 +10,7 @@
 
 		</tr>
 		<tr id="instore_update_row" style="display: none">
-			<td colspan="2"><button class="button">Update</button></td>
+			<td colspan="2"><button class="btn btn-primary btn-sm">Update</button></td>
 		</tr>
 	</table>
 </div>
@@ -26,7 +26,7 @@
    </tr>
 
 		<tr id="plate_points_status_update_row" style="display: none">
-			<td colspan="2"><button class="button">Update</button></td>
+			<td colspan="2"><button class="btn btn-primary btn-sm">Update</button></td>
 		</tr>
 	</table>
 </div>

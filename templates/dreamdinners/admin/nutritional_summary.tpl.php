@@ -20,7 +20,7 @@
 <input id="show_efl" type="checkbox" value="1"> Show Extended Fast Lane<br />
 <input id="show_ft" type="checkbox" value="1" checked="checked"> Show Sides & Sweets<br />
 <input id="filter_zero_inventory" type="checkbox" value="1" checked="checked"> Filter out items with zero inventory<br /><br />
-<input id="print_nutrition_summary" type="button" class="button" value="Print Summary" />
+<input id="print_nutrition_summary" type="button" class="btn btn-primary btn-sm" value="Print Summary" />
 <?php } ?>
 
 

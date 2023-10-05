@@ -38,7 +38,7 @@
 		<?php } ?>
 			<div id="recipient_list_end" class="clear"></div>
 		</div>
-		<span data-guestsearch="add_recipient" data-select_button_title="Add Recipient" data-all_stores_checked="false" data-select_function="addRecipient" class="button">Add Recipient</span>
+		<span data-guestsearch="add_recipient" data-select_button_title="Add Recipient" data-all_stores_checked="false" data-select_function="addRecipient" class="btn btn-primary btn-sm">Add Recipient</span>
 		<div class="clear"></div>
 	</td>
 </tr>

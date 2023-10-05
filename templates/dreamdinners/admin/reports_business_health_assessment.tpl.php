@@ -58,7 +58,7 @@ return; }
 <tr><td colspan="2"  style="vertical-align:top;"><?php echo $this->form_array['report_type_html']['dt_month']; ?><label for="report_typedt_month" >Month</label>&nbsp;<?php echo $this->form_array['month_popup_html']; ?></tr>
 
 
-<tr><td></td><td><input type="submit" class="button" name="run_report" value="Run Report" /></td></tr>
+<tr><td></td><td><input type="submit" class="btn btn-primary btn-sm" name="run_report" value="Run Report" /></td></tr>
 
 </table>
 

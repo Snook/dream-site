@@ -8,7 +8,7 @@
 <?php $counter = 0; foreach( $this->rows as $thisRow) { ?>
 <tr class="bgcolor_<?php echo ($counter++ % 2 == 0) ? 'light' : 'lighter'; ?>">
 	<td style="white-space:nowrap; padding-left:15px;">
-		<button class="button"
+		<button class="btn btn-primary btn-sm"
 			data-ilgs_result="<?php echo $counter; ?>"
 			data-user_id="<?php echo $thisRow['id']; ?>"
 			data-firstname="<?php echo $thisRow['firstname']; ?>"
@@ -22,7 +22,7 @@
 <?php } ?>
 <?php } else { ?>
 <tr class="bgcolor_light">
-	<td colspan="4" style="text-align: center; padding: 10px;">No guests found. Search again or <a href="/backoffice/account" class="button">Create Account</a></td>
+	<td colspan="4" style="text-align: center; padding: 10px;">No guests found. Search again or <a href="/backoffice/account" class="btn btn-primary btn-sm">Create Account</a></td>
 </tr>
 <?php } ?>
 </table>

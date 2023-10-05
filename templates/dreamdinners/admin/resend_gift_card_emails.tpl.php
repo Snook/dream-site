@@ -96,7 +96,7 @@
 			<td>
 				<?= $this->form_list_users['search_type_html'] ?>
 				<input type="text" id="q" name="q" value="<?php if (!empty($this->q)) { echo $this->q; } ?>">
-				<input type="submit" value="search" class="button">
+				<input type="submit" value="search" class="btn btn-primary btn-sm">
 			</td>
 		</tr>
 		<tr>

@@ -45,7 +45,7 @@
 								<option value="<?php echo $menu['global_menu_start_date'] ?>" data-menu_month="<?php echo $menu['year_month']; ?>" data-menu_id="<?php echo $menu['id']; ?>" <?php echo ($menu['year_month'] == $this->selected_agenda_month) ? 'selected="selected"' : ''; ?>><?php echo $menu['month_year'] ?></option>
 							<?php } ?>
 						</select>
-						<span id="go_to_today" class="button" style="float: none;" data-tooltip="Jump to Today">Today</span>
+						<span id="go_to_today" class="btn btn-primary btn-sm" style="float: none;" data-tooltip="Jump to Today">Today</span>
 					</div>
 
 					<div class="clear"></div>
@@ -110,9 +110,9 @@
 				<div id="dashboard_snapshot_container" class="container_background" data-fadmin_perm="FRANCHISE_MANAGER,FRANCHISE_OWNER,HOME_OFFICE_MANAGER,SITE_ADMIN">
 
 					<div style="float:right;">
-						<span id="ds_dashboard" class="button">Dashboard</span>
-						<span id="ds_trending" class="button">Trending</span>
-						<span id="ds_goal_tracking" class="button">Goal Setting</span>
+						<span id="ds_dashboard" class="btn btn-primary btn-sm">Dashboard</span>
+						<span id="ds_trending" class="btn btn-primary btn-sm">Trending</span>
+						<span id="ds_goal_tracking" class="btn btn-primary btn-sm">Goal Setting</span>
 					</div>
 
 					<div class="title">
@@ -131,7 +131,7 @@
 
 			<div id="guest_search_container" class="container_background">
 
-				<div style="float:right;"><a href="/backoffice/account" class="button">Add Guest</a></div>
+				<div style="float:right;"><a href="/backoffice/account" class="btn btn-primary btn-sm">Add Guest</a></div>
 
 				<div class="title">Search &amp; Order Lookup</div>
 
@@ -151,7 +151,7 @@
 					<input id="gs_search_value" placeholder="Name, Email or ID" data-tooltip="Name, Email or ID" type="text"/>
 					<input id="gs_search_all" type="checkbox" value="1" data-tooltip="Search All Stores"/>
 
-					<span id="gs_search_go" class="button">Search Guests</span>
+					<span id="gs_search_go" class="btn btn-primary btn-sm">Search Guests</span>
 
 					<div class="clear"></div>
 
@@ -166,7 +166,7 @@
 
 					<input id="os_search_value" placeholder="Order Confirmation or ID" data-tooltip="Order Confirmation or ID" type="text"/>
 
-					<span id="os_search_go" class="button">Order Details</span>
+					<span id="os_search_go" class="btn btn-primary btn-sm">Order Details</span>
 
 					<div class="clear"></div>
 
@@ -177,10 +177,10 @@
 			<div id="session_details_container" class="container_background">
 
 				<div style="float:right;">
-					<span id="sd_edit_session" class="button" data-fadmin_perm="FRANCHISE_LEAD,FRANCHISE_MANAGER,FRANCHISE_OWNER,HOME_OFFICE_STAFF,HOME_OFFICE_MANAGER,SITE_ADMIN,OPS_LEAD">Edit Session</span>
-					<span id="sd_publish_state" class="button" data-fadmin_perm="FRANCHISE_LEAD,FRANCHISE_MANAGER,FRANCHISE_OWNER,HOME_OFFICE_STAFF,HOME_OFFICE_MANAGER,SITE_ADMIN">Close Session</span>
-					<span id="sd_email_session" class="button">Email</span>
-					<span id="sd_session_meta" class="button">View Meta</span>
+					<span id="sd_edit_session" class="btn btn-primary btn-sm" data-fadmin_perm="FRANCHISE_LEAD,FRANCHISE_MANAGER,FRANCHISE_OWNER,HOME_OFFICE_STAFF,HOME_OFFICE_MANAGER,SITE_ADMIN,OPS_LEAD">Edit Session</span>
+					<span id="sd_publish_state" class="btn btn-primary btn-sm" data-fadmin_perm="FRANCHISE_LEAD,FRANCHISE_MANAGER,FRANCHISE_OWNER,HOME_OFFICE_STAFF,HOME_OFFICE_MANAGER,SITE_ADMIN">Close Session</span>
+					<span id="sd_email_session" class="btn btn-primary btn-sm">Email</span>
+					<span id="sd_session_meta" class="btn btn-primary btn-sm">View Meta</span>
 				</div>
 
 				<div class="title">Session Details</div>
@@ -193,7 +193,7 @@
 
 			<div id="day_details_container" class="container_background">
 
-				<div style="float:right;"><span id="dd_create_session" class="button">Create Session</span></div>
+				<div style="float:right;"><span id="dd_create_session" class="btn btn-primary btn-sm">Create Session</span></div>
 
 				<div class="title">Day Details</div>
 

@@ -38,8 +38,8 @@
 </tr>
 <tr>
 	<td class="bgcolor_light" colspan="2" style="text-align: right;">
-		<input type="submit" class="button" value="Update Franchise Info" name="updateFranchise" />
-		<?php if ($this->permission['can_delete_franchise']) { ?><a href="javascript:deleteFranchiseConfirm();" class="button">Delete</a><?php } ?>
+		<input type="submit" class="btn btn-primary btn-sm" value="Update Franchise Info" name="updateFranchise" />
+		<?php if ($this->permission['can_delete_franchise']) { ?><a href="javascript:deleteFranchiseConfirm();" class="btn btn-primary btn-sm">Delete</a><?php } ?>
 	</td>
 </tr>
 </table>
@@ -67,9 +67,9 @@
 		<div data-tabid="<?php echo $owner['user_id']; ?>" style="background-color: #F1E8D8;">
 
 			<div style="float: right;">
-				<span class="button" data-manage_user_id="<?php echo $owner['user_id']; ?>" data-manage_action="view" data-tooltip="View Owner Details">Owner Details</span>
-				<span class="button" data-manage_user_id="<?php echo $owner['user_id']; ?>" data-manage_action="edit" data-tooltip="Edit Owner Details">Edit Owner</span>
-				<?php if ($this->permission['can_remove_owner']) { ?><span class="button" data-manage_user_id="<?php echo $owner['user_id']; ?>" data-manage_action="delete" data-tooltip="Remove Owner">Remove Owner</span><?php } ?>
+				<span class="btn btn-primary btn-sm" data-manage_user_id="<?php echo $owner['user_id']; ?>" data-manage_action="view" data-tooltip="View Owner Details">Owner Details</span>
+				<span class="btn btn-primary btn-sm" data-manage_user_id="<?php echo $owner['user_id']; ?>" data-manage_action="edit" data-tooltip="Edit Owner Details">Edit Owner</span>
+				<?php if ($this->permission['can_remove_owner']) { ?><span class="btn btn-primary btn-sm" data-manage_user_id="<?php echo $owner['user_id']; ?>" data-manage_action="delete" data-tooltip="Remove Owner">Remove Owner</span><?php } ?>
 			</div>
 			<div><?php echo $owner['firstname']; ?> <?php echo $owner['lastname']; ?></div>
 			<div><?php echo $owner['address_line1']; ?><?php echo (!empty($owner['address_line2'])) ? ', ' . $owner['address_line2'] : ''; ?>, <?php echo $owner['city']; ?>, <?php echo $owner['state_id']; ?> <?php echo $owner['postal_code']; ?></div>
@@ -116,9 +116,9 @@
 					<div style="float: left;">Store Details</div>
 
 					<div style="float: right;">
-						<span class="button" data-manage_store_id="<?php echo $store['id']; ?>" data-manage_action="view" data-store_name="<?php echo $store['store_name']; ?>" data-tooltip="View <?php echo $store['store_name']; ?>">Store Details</span>
-						<?php if( $this->user_type == CUser::SITE_ADMIN) { ?><span class="button" data-manage_store_id="<?php echo $store['id']; ?>" data-manage_action="archive" data-store_name="<?php echo $store['store_name']; ?>" data-tooltip="Archive and Re-Open <?php echo $store['store_name']; ?>">Archive and Re-Open</span><?php } ?>
-						<?php if( $this->user_type == CUser::SITE_ADMIN) { ?><span class="button" data-manage_store_id="<?php echo $store['id']; ?>" data-manage_action="delete" data-store_name="<?php echo $store['store_name']; ?>" data-tooltip="Delete <?php echo $store['store_name']; ?>">Delete Store</span><?php } ?>
+						<span class="btn btn-primary btn-sm" data-manage_store_id="<?php echo $store['id']; ?>" data-manage_action="view" data-store_name="<?php echo $store['store_name']; ?>" data-tooltip="View <?php echo $store['store_name']; ?>">Store Details</span>
+						<?php if( $this->user_type == CUser::SITE_ADMIN) { ?><span class="btn btn-primary btn-sm" data-manage_store_id="<?php echo $store['id']; ?>" data-manage_action="archive" data-store_name="<?php echo $store['store_name']; ?>" data-tooltip="Archive and Re-Open <?php echo $store['store_name']; ?>">Archive and Re-Open</span><?php } ?>
+						<?php if( $this->user_type == CUser::SITE_ADMIN) { ?><span class="btn btn-primary btn-sm" data-manage_store_id="<?php echo $store['id']; ?>" data-manage_action="delete" data-store_name="<?php echo $store['store_name']; ?>" data-tooltip="Delete <?php echo $store['store_name']; ?>">Delete Store</span><?php } ?>
 					</div>
 
 					<div class="clear"></div>

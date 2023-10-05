@@ -22,9 +22,9 @@
 		<br /><br />
 
 		<?php if( $isSiteAdmin ) { ?>
-			<div align="right"><a class="button" id="archive_store" data-home_office_id="<?php echo $this->store['home_office_id']; ?>" data-store_id="<?php echo $this->store['id']; ?>"
+			<div align="right"><a class="btn btn-primary btn-sm" id="archive_store" data-home_office_id="<?php echo $this->store['home_office_id']; ?>" data-store_id="<?php echo $this->store['id']; ?>"
 								  data-store_name="<?php echo $this->store['store_name']; ?>">Archive and Re-Open Store</a>
-				<a id="delete_store" data-store_id="<?php echo $this->store['id']; ?>" class="button">Delete Store</a></div>
+				<a id="delete_store" data-store_id="<?php echo $this->store['id']; ?>" class="btn btn-primary btn-sm">Delete Store</a></div>
 		<?php } ?>
 
 		<table style="width: 100%; margin-bottom: 10px;">
@@ -125,7 +125,7 @@
 						<?php echo ($isSiteAdmin) ? $this->form_store_details['franchise_id_html'] : $this->franchise_name; ?>
 						<?php if ($isSiteAdmin) { ?>
 							<div class="input-group-append">
-								<a href="/backoffice/franchise-details?id=<?php echo $this->form_store_details['franchise_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" class="button" style="float: right;">View Entity</a>
+								<a href="/backoffice/franchise-details?id=<?php echo $this->form_store_details['franchise_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" class="btn btn-primary btn-sm" style="float: right;">View Entity</a>
 							</div>
 						<?php } ?>
 					</div>
@@ -193,7 +193,7 @@
 			</tr>
 			<tr>
 				<td class="bgcolor_light" style="text-align: right;">Map link:</td>
-				<td class="bgcolor_light"><a href="<?php echo $this->store['map']; ?>" id="map_link" class="button" target="_blank">Click To Test</a></td>
+				<td class="bgcolor_light"><a href="<?php echo $this->store['map']; ?>" id="map_link" class="btn btn-primary btn-sm" target="_blank">Click To Test</a></td>
 			</tr>
 			<tr>
 				<td class="bgcolor_light" style="text-align: right;vertical-align:top;">Google Place ID:</td>
@@ -346,7 +346,7 @@
 								</div>
 								<?php echo $this->form_store_details['manager_1_user_id_html']; ?>
 								<div class="input-group-append">
-									<a class="btn btn-primary" data-guestsearch="add_manager" data-select_button_title="Add Manager" data-all_stores_checked="true" data-select_function="addManager" data-tooltip="Select manager" class="button">Select manager</a>
+									<a class="btn btn-primary" data-guestsearch="add_manager" data-select_button_title="Add Manager" data-all_stores_checked="true" data-select_function="addManager" data-tooltip="Select manager" class="btn btn-primary btn-sm">Select manager</a>
 								</div>
 							</div>
 							<div><input class="form-control" id="manager_1_name" type="text" disabled="disabled" value="<?php echo $this->manager_DAO_user->firstname; ?> <?php echo $this->manager_DAO_user->lastname; ?>" /></div>

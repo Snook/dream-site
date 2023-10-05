@@ -6,7 +6,7 @@ include $this->loadTemplate('admin/page_header.tpl.php');
 <br />
 
 <div style="text-align: center">
-<input id="helpdesk_button" type="button" class="button" value="Contact Dream Dinners Support"><br />
+<input id="helpdesk_button" type="button" class="btn btn-primary btn-sm" value="Contact Dream Dinners Support"><br />
 </div>
 <br />
 

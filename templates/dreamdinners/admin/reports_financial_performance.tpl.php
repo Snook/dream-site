@@ -71,7 +71,7 @@ To Month<br />
 <div style="clear:both"></div>
 
 <div style="margin-top:20px; padding:1px; background-color:#DED6CB; width:960px; display:none;" id="result_div">
-	<input type="button" class="button" style="cursor:pointer; float:right;" value="Export" onclick="export_report();" />
+	<input type="button" class="btn btn-primary btn-sm" style="cursor:pointer; float:right;" value="Export" onclick="export_report();" />
 <iframe style="width:956px; height:504px; padding:0px;" id="result_frame" name="result_frame">
 </iframe>
 </div>

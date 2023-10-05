@@ -301,7 +301,7 @@
 										Unanswered
 									<?php } ?>
 								</span>
-								<span data-delayed_payment_tc="<?php echo $this->user['id']; ?>" class="button">Change</span>
+								<span data-delayed_payment_tc="<?php echo $this->user['id']; ?>" class="btn btn-primary btn-sm">Change</span>
 							</td>
 						</tr>
 					<?php } ?>

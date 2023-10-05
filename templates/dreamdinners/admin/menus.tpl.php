@@ -11,7 +11,7 @@
 			<b>Create Menu</b>&nbsp;&nbsp;Next Menu to be created will
 							  be:&nbsp;&nbsp;<b><?php echo $this->form_menus['next_menu_html']; ?></b>
 			<input type="hidden" name="create" value="1">
-			<input type="submit" class="button" value="Create Menu">
+			<input type="submit" class="btn btn-primary btn-sm" value="Create Menu">
 		</form>
 		<br/>
 		OR
@@ -62,7 +62,7 @@
 				-->
 				<tr>
 					<td></td>
-					<td><input type="submit" name="save_changes" class="button" value="Save Changes"></td>
+					<td><input type="submit" name="save_changes" class="btn btn-primary btn-sm" value="Save Changes"></td>
 				</tr>
 			</table>
 		</form>

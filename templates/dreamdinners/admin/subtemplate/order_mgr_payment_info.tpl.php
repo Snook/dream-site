@@ -103,7 +103,7 @@
 							if($payment_delayed_payment_status == 'PENDING')
 							{
 								echo '<tr>
-										<td colspan="2" style="text-align:right;"><span id="payment_proc_mess"><input type="button" class="button" name="process_payment" value="Process delayed payment now" onclick="processPayment();"></span></td>
+										<td colspan="2" style="text-align:right;"><span id="payment_proc_mess"><input type="button" class="btn btn-primary btn-sm" name="process_payment" value="Process delayed payment now" onclick="processPayment();"></span></td>
 									</tr>';
 							}
 							else

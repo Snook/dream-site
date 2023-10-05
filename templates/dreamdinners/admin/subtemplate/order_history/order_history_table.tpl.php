@@ -56,40 +56,40 @@
 				</td>
 				<td colspan="5" style="text-align:right">
 					<?php if ($order['session_start'] > '2014-11-01 00:00:00' && $order['status'] != CBooking::CANCELLED && $order['status'] != CBooking::SAVED) { ?>
-						<?php if( !$is_delivered ){ ?><a href="/print?order=<?php echo $order['order_id']; ?>&amp;freezer=true" class="button" target="_blank">Freezer Sheet</a><?php } ?>
-						<a href="/print?order=<?php echo $order['order_id']; ?>&amp;nutrition=true" class="button" target="_blank">Nutritionals</a>
+						<?php if( !$is_delivered ){ ?><a href="/print?order=<?php echo $order['order_id']; ?>&amp;freezer=true" class="btn btn-primary btn-sm" target="_blank">Freezer Sheet</a><?php } ?>
+						<a href="/print?order=<?php echo $order['order_id']; ?>&amp;nutrition=true" class="btn btn-primary btn-sm" target="_blank">Nutritionals</a>
 
 						<?php if (array_key_exists($order['idmenu'] + 1, $this->active_menus)) { ?>
-							<a href="/print?order=<?php echo $order['order_id']; ?>&amp;core=true" class="button" target="_blank">Next Month's Menu</a>
+							<a href="/print?order=<?php echo $order['order_id']; ?>&amp;core=true" class="btn btn-primary btn-sm" target="_blank">Next Month's Menu</a>
 						<?php } ?>
 					<?php } ?>
 
 					<?php if (CStore::userHasAccessToStore($order['store_id'])) { ?>
 
 						<?php if (!empty($order['can_reschedule']) && $order['status'] == CBooking::ACTIVE && !$this->emergency_mode) { ?>
-							<a id="gd_reschedule-<?php echo $order['order_id']; ?>" data-store_id="<?php echo $order['store_id']; ?>" data-session_id="<?php echo $order['session_id']; ?>" data-order_id="<?php echo $order['order_id']; ?>" data-menu_id="<?php echo $order['idmenu']; ?>" class="button">Reschedule</a>
+							<a id="gd_reschedule-<?php echo $order['order_id']; ?>" data-store_id="<?php echo $order['store_id']; ?>" data-session_id="<?php echo $order['session_id']; ?>" data-order_id="<?php echo $order['order_id']; ?>" data-menu_id="<?php echo $order['idmenu']; ?>" class="btn btn-primary btn-sm">Reschedule</a>
 						<?php } ?>
 
 						<?php if ($order['canEdit'] && !$this->emergency_mode) { ?>
-							<a class="button" href="/backoffice/order-mgr?order=<?php echo $order['order_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Edit</a>
+							<a class="btn btn-primary btn-sm" href="/backoffice/order-mgr?order=<?php echo $order['order_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Edit</a>
 							<?php if ($order['status'] != CBooking::SAVED) {
 								$cancelPrefix = ($is_delivered ? "gd_cancel_delivered_order-" : "gd_cancel_order-"); ?>
-								<span id="<?php echo $cancelPrefix; ?><?php echo $order['id']; ?>" data-user_id="<?php echo $this->user["id"]; ?>" data-store_id="<?php echo $order['store_id']; ?>" data-session_id="<?php echo $order['session_id']; ?>" data-order_id="<?php echo $order['order_id']; ?>" data-menu_id="<?php echo $order['idmenu']; ?>" class="button">Cancel Order</span>
+								<span id="<?php echo $cancelPrefix; ?><?php echo $order['id']; ?>" data-user_id="<?php echo $this->user["id"]; ?>" data-store_id="<?php echo $order['store_id']; ?>" data-session_id="<?php echo $order['session_id']; ?>" data-order_id="<?php echo $order['order_id']; ?>" data-menu_id="<?php echo $order['idmenu']; ?>" class="btn btn-primary btn-sm">Cancel Order</span>
 							<?php } else { ?>
-								<span id="gd_delete_order-<?php echo $order['id']; ?>" data-user_id="<?php echo $this->user['id']; ?>" data-store_id="<?php echo $order['store_id']; ?>" data-session_id="<?php echo $order['session_id']; ?>" data-order_id="<?php echo $order['order_id']; ?>" data-menu_id="<?php echo $order['idmenu']; ?>" class="button">Delete Order</span>
+								<span id="gd_delete_order-<?php echo $order['id']; ?>" data-user_id="<?php echo $this->user['id']; ?>" data-store_id="<?php echo $order['store_id']; ?>" data-session_id="<?php echo $order['session_id']; ?>" data-order_id="<?php echo $order['order_id']; ?>" data-menu_id="<?php echo $order['idmenu']; ?>" class="btn btn-primary btn-sm">Delete Order</span>
 							<?php } } else if (!$this->emergency_mode) { ?>
-							<a class="button" href="/backoffice/order-mgr?order=<?php echo $order['order_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Edit Payments</a>
+							<a class="btn btn-primary btn-sm" href="/backoffice/order-mgr?order=<?php echo $order['order_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Edit Payments</a>
 						<?php  } ?>
 
 						<span data-view_order_details="<?php echo $order['order_id']; ?>" data-booking_id="<?php echo $order['booking_id']; ?>" class="button <?php if (!CStore::userHasAccessToStore($order['store_id'])) { ?>disabled<?php } ?>">View Order</span>
 
-						<a href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=<?php echo $order['session_id']; ?>&amp;booking_id=<?php echo $order['booking_id']; ?>&amp;menuid=<?php echo $order['idmenu']; ?>" target="_blank"  class="button">Print</a>
+						<a href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=<?php echo $order['session_id']; ?>&amp;booking_id=<?php echo $order['booking_id']; ?>&amp;menuid=<?php echo $order['idmenu']; ?>" target="_blank"  class="btn btn-primary btn-sm">Print</a>
 
 					<?php } // end userHasAccessToStore ?>
 
 
 					<?php if (DD_SERVER_NAME != 'LIVE') { ?>
-						<a href="<?php echo $_SERVER['REQUEST_URI']?>&send_test_reminder_email=true&order_id=<?php echo $order['order_id']; ?>"  class="button">Send Test Reminder Email</a>
+						<a href="<?php echo $_SERVER['REQUEST_URI']?>&send_test_reminder_email=true&order_id=<?php echo $order['order_id']; ?>"  class="btn btn-primary btn-sm">Send Test Reminder Email</a>
 					<?php  } ?>
 
 

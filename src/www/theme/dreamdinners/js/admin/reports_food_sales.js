@@ -150,8 +150,8 @@ function init_session_popups()
 
 		for (i = 0; i < session_starts.length; i++)
 		{
-			html += "<div><button class='button' onclick='select_session(" + session_ids[i] + ");'>Go to " + session_starts[i] + "</button>";
-			html += "<button class='button' onclick='select_order(" + order_ids[i] + ", " + session_ids[i] + ");'>Order " + order_ids[i] + "</button></div>";
+			html += "<div><button class='btn btn-primary btn-sm' onclick='select_session(" + session_ids[i] + ");'>Go to " + session_starts[i] + "</button>";
+			html += "<button class='btn btn-primary btn-sm' onclick='select_order(" + order_ids[i] + ", " + session_ids[i] + ");'>Order " + order_ids[i] + "</button></div>";
 		}
 
 		html += "</div>";

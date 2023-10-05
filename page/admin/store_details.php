@@ -1002,7 +1002,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::type => CForm::Submit,
 				CForm::name => "updateStore",
 				CForm::disabled => $disabledForm,
-				CForm::css_class => 'button',
+				CForm::css_class => 'btn btn-primary btn-sm',
 				CForm::value => "Save"
 			));
 

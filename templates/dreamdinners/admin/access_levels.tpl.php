@@ -47,9 +47,9 @@ function accessChange()
 	<strong>Store:</strong> <?php echo $this->form['store_html']; ?><br /><br />
 <?php } ?>
 <?php if (isset($_REQUEST['back'])) { ?>
-	<input type="button" class="button" value="Back" onclick="window.location = '<?php echo  $_REQUEST['back']?>';">
+	<input type="button" class="btn btn-primary btn-sm" value="Back" onclick="window.location = '<?php echo  $_REQUEST['back']?>';">
 <?php } else { ?>
-	<input type="button" class="button" value="Back" onclick="window.location = '/backoffice/user_details?id=<?php echo  $this->id?>';">
+	<input type="button" class="btn btn-primary btn-sm" value="Back" onclick="window.location = '/backoffice/user_details?id=<?php echo  $this->id?>';">
 <?php } ?>
 
 Access Level for: <b><?php echo $this->firstname; ?> <?php echo $this->lastname; ?></b>
@@ -208,9 +208,9 @@ Access Level for: <b><?php echo $this->firstname; ?> <?php echo $this->lastname;
 <?php } ?>
 <?php if (!$this->isAdmin) { ?>
 		<?php if (!$this->store_is_linked && count($this->users_stores) > 0) { ?>
-			<button onclick="addStore(<?php echo $this->currentStoreID; ?>)" name="addCurrentStore" value="" class="button">Add Access to this Store</button>
+			<button onclick="addStore(<?php echo $this->currentStoreID; ?>)" name="addCurrentStore" value="" class="btn btn-primary btn-sm">Add Access to this Store</button>
 		<?php } else if (count($this->users_stores) > 0) {	?>
-			<button onclick="deleteStore(<?php echo $this->currentStoreID; ?>)" name="deleteCurrentStore" value="" class="button">Remove Access to this Store</button>
+			<button onclick="deleteStore(<?php echo $this->currentStoreID; ?>)" name="deleteCurrentStore" value="" class="btn btn-primary btn-sm">Remove Access to this Store</button>
 		<?php } ?>
 	</td>
 </tr>
@@ -218,7 +218,7 @@ Access Level for: <b><?php echo $this->firstname; ?> <?php echo $this->lastname;
 </tbody>
 <tbody>
 <tr>
-	<td class="bgcolor_light" style="text-align: center;" colspan="2"><input type="submit" class="button" id="submit_account" name="submit_account" value="Save Access Level Changes" /></td>
+	<td class="bgcolor_light" style="text-align: center;" colspan="2"><input type="submit" class="btn btn-primary btn-sm" id="submit_account" name="submit_account" value="Save Access Level Changes" /></td>
 </tr>
 </tbody>
 </table>

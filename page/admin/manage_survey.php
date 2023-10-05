@@ -103,13 +103,13 @@ class page_admin_manage_survey extends CPageAdminOnly
 		$Form->AddElement(array(
 			CForm::type => CForm::Submit,
 			CForm::name => "add_submit",
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::value => 'Add'
 		));
 		$Form->AddElement(array(
 			CForm::type => CForm::Submit,
 			CForm::name => "edit_submit",
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::value => 'Edit'
 		));
 		$Form->AddElement(array(

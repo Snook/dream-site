@@ -220,9 +220,9 @@
 				<?php } ?>
 
 				<div id="update_console">
-					<span id="addPaymentAndActivate"><input id="addPaymentAndActivateButton" type="button" class="button" disabled="disabled" onclick="addPaymentAndActivate(this); return false;" value="Add Payment and Book Order" style="width:200px;" /></span>
-					<span id="saveOrderSpan" style="float:left;"><input class="button" id="saveOrderButton" onclick="saveAll(); return false;" value="Save Order" />You have unsaved changes.</span>
-					<span id="finalizeOrderSpan"><input class="button" name="submit_button" id ="submit_button" type="button" value="Finalize All Changes" onclick="submitPage();" /><span id="finalize_msg">You have unsaved changes</span></span>
+					<span id="addPaymentAndActivate"><input id="addPaymentAndActivateButton" type="button" class="btn btn-primary btn-sm" disabled="disabled" onclick="addPaymentAndActivate(this); return false;" value="Add Payment and Book Order" style="width:200px;" /></span>
+					<span id="saveOrderSpan" style="float:left;"><input class="btn btn-primary btn-sm" id="saveOrderButton" onclick="saveAll(); return false;" value="Save Order" />You have unsaved changes.</span>
+					<span id="finalizeOrderSpan"><input class="btn btn-primary btn-sm" name="submit_button" id ="submit_button" type="button" value="Finalize All Changes" onclick="submitPage();" /><span id="finalize_msg">You have unsaved changes</span></span>
 					<?php if ($this->orderState == 'NEW') { ?>
 						<span id="om_instructions">Select a session to save a new order.</span>
 					<?php } ?>

@@ -401,7 +401,7 @@ class page_admin_credit extends CPageAdminOnly
 		$Form->AddElement(array(
 			CForm::type => CForm::Submit,
 			CForm::name => "submit_credit",
-			CForm::css_class => "button",
+			CForm::css_class => "btn btn-primary btn-sm",
 			CForm::value => "Submit New Store Credit"
 		));
 

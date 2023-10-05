@@ -54,9 +54,9 @@ return; }
 <tr><td  style="vertical-align:top;"><label>Month</label>&nbsp;<?php echo $this->form_array['month_popup_html']; ?></tr>
 
 
-<tr><td></td><td><input type="submit" class="button" name="run_report" value="Export Report" /></td></tr>
+<tr><td></td><td><input type="submit" class="btn btn-primary btn-sm" name="run_report" value="Export Report" /></td></tr>
 		<?php if (!$this->showStoreSelector) { ?>
-			<tr><td></td><td><input type="submit" class="button" name="run_web" value="Web Report" /></td></tr>
+			<tr><td></td><td><input type="submit" class="btn btn-primary btn-sm" name="run_web" value="Web Report" /></td></tr>
 		<?php } ?>
 
 </table>

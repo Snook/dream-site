@@ -247,7 +247,7 @@ function init_export_sales()
 		$header = $(this);
 		$content = $("#export_by_dates");
 		$header.html(function () {
-			return "<span class='button'>Export By Date</span>";
+			return "<span class='btn btn-primary btn-sm'>Export By Date</span>";
 		});
 		$content.slideToggle(500, function () {
 		});

@@ -8,40 +8,40 @@
 	Search (string or id):
 	<input type="hidden" name="letter_select" value="<?php echo $this->letter_select; ?>" />
 	<input type="text" name="q" value="<?php echo $this->q; ?>" />
-	<input type="submit" class="button" value="Search" />
+	<input type="submit" class="btn btn-primary btn-sm" value="Search" />
 </form>
 
 <table style="width: 100%;">
 <tr>
 	<td>
-		<a href="/backoffice/list_franchise?letter_select=A" class="button">A</a>
-		<a href="/backoffice/list_franchise?letter_select=B" class="button">B</a>
-		<a href="/backoffice/list_franchise?letter_select=C" class="button">C</a>
-		<a href="/backoffice/list_franchise?letter_select=D" class="button">D</a>
-		<a href="/backoffice/list_franchise?letter_select=E" class="button">E</a>
-		<a href="/backoffice/list_franchise?letter_select=F" class="button">F</a>
-		<a href="/backoffice/list_franchise?letter_select=G" class="button">G</a>
-		<a href="/backoffice/list_franchise?letter_select=H" class="button">H</a>
-		<a href="/backoffice/list_franchise?letter_select=I" class="button">I</a>
-		<a href="/backoffice/list_franchise?letter_select=J" class="button">J</a>
-		<a href="/backoffice/list_franchise?letter_select=K" class="button">K</a>
-		<a href="/backoffice/list_franchise?letter_select=L" class="button">L</a>
-		<a href="/backoffice/list_franchise?letter_select=M" class="button">M</a>
-		<a href="/backoffice/list_franchise?letter_select=N" class="button">N</a>
-		<a href="/backoffice/list_franchise?letter_select=O" class="button">O</a>
-		<a href="/backoffice/list_franchise?letter_select=P" class="button">P</a>
-		<a href="/backoffice/list_franchise?letter_select=Q" class="button">Q</a>
-		<a href="/backoffice/list_franchise?letter_select=R" class="button">R</a>
-		<a href="/backoffice/list_franchise?letter_select=S" class="button">S</a>
-		<a href="/backoffice/list_franchise?letter_select=T" class="button">T</a>
-		<a href="/backoffice/list_franchise?letter_select=U" class="button">U</a>
-		<a href="/backoffice/list_franchise?letter_select=V" class="button">V</a>
-		<a href="/backoffice/list_franchise?letter_select=W" class="button">W</a>
-		<a href="/backoffice/list_franchise?letter_select=X" class="button">X</a>
-		<a href="/backoffice/list_franchise?letter_select=Y" class="button">Y</a>
-		<a href="/backoffice/list_franchise?letter_select=Z" class="button">Z</a>
-		<a href="/backoffice/list_franchise?letter_select=etc" class="button">ETC</a>
-		<a href="/backoffice/list_franchise?letter_select=all" class="button">Show	All</a>
+		<a href="/backoffice/list_franchise?letter_select=A" class="btn btn-primary btn-sm">A</a>
+		<a href="/backoffice/list_franchise?letter_select=B" class="btn btn-primary btn-sm">B</a>
+		<a href="/backoffice/list_franchise?letter_select=C" class="btn btn-primary btn-sm">C</a>
+		<a href="/backoffice/list_franchise?letter_select=D" class="btn btn-primary btn-sm">D</a>
+		<a href="/backoffice/list_franchise?letter_select=E" class="btn btn-primary btn-sm">E</a>
+		<a href="/backoffice/list_franchise?letter_select=F" class="btn btn-primary btn-sm">F</a>
+		<a href="/backoffice/list_franchise?letter_select=G" class="btn btn-primary btn-sm">G</a>
+		<a href="/backoffice/list_franchise?letter_select=H" class="btn btn-primary btn-sm">H</a>
+		<a href="/backoffice/list_franchise?letter_select=I" class="btn btn-primary btn-sm">I</a>
+		<a href="/backoffice/list_franchise?letter_select=J" class="btn btn-primary btn-sm">J</a>
+		<a href="/backoffice/list_franchise?letter_select=K" class="btn btn-primary btn-sm">K</a>
+		<a href="/backoffice/list_franchise?letter_select=L" class="btn btn-primary btn-sm">L</a>
+		<a href="/backoffice/list_franchise?letter_select=M" class="btn btn-primary btn-sm">M</a>
+		<a href="/backoffice/list_franchise?letter_select=N" class="btn btn-primary btn-sm">N</a>
+		<a href="/backoffice/list_franchise?letter_select=O" class="btn btn-primary btn-sm">O</a>
+		<a href="/backoffice/list_franchise?letter_select=P" class="btn btn-primary btn-sm">P</a>
+		<a href="/backoffice/list_franchise?letter_select=Q" class="btn btn-primary btn-sm">Q</a>
+		<a href="/backoffice/list_franchise?letter_select=R" class="btn btn-primary btn-sm">R</a>
+		<a href="/backoffice/list_franchise?letter_select=S" class="btn btn-primary btn-sm">S</a>
+		<a href="/backoffice/list_franchise?letter_select=T" class="btn btn-primary btn-sm">T</a>
+		<a href="/backoffice/list_franchise?letter_select=U" class="btn btn-primary btn-sm">U</a>
+		<a href="/backoffice/list_franchise?letter_select=V" class="btn btn-primary btn-sm">V</a>
+		<a href="/backoffice/list_franchise?letter_select=W" class="btn btn-primary btn-sm">W</a>
+		<a href="/backoffice/list_franchise?letter_select=X" class="btn btn-primary btn-sm">X</a>
+		<a href="/backoffice/list_franchise?letter_select=Y" class="btn btn-primary btn-sm">Y</a>
+		<a href="/backoffice/list_franchise?letter_select=Z" class="btn btn-primary btn-sm">Z</a>
+		<a href="/backoffice/list_franchise?letter_select=etc" class="btn btn-primary btn-sm">ETC</a>
+		<a href="/backoffice/list_franchise?letter_select=all" class="btn btn-primary btn-sm">Show	All</a>
 	</td>
 </tr>
 </table>

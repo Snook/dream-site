@@ -15,9 +15,9 @@
 	<td class="bgcolor_light" id="name_<?=$id?>"><?= $row['name'];?></td>
 	<td class="bgcolor_light" id="link_<?=$id?>"><?= urlencode($row['link']);?></td>
 	<td class="bgcolor_light" style="text-align: center;">
-		<a href="/backoffice/manage_survey?recipe_id=<?=$id?>&action=delete" class="button">delete</a>
-		<a href="javascript:edit(<?=$id?>);" class="button">edit</a>
-		<a target="_blank" href="<?=$row['link'];?>" class="button">test link</a>
+		<a href="/backoffice/manage_survey?recipe_id=<?=$id?>&action=delete" class="btn btn-primary btn-sm">delete</a>
+		<a href="javascript:edit(<?=$id?>);" class="btn btn-primary btn-sm">edit</a>
+		<a target="_blank" href="<?=$row['link'];?>" class="btn btn-primary btn-sm">test link</a>
 	</td>
  </tr>
   <?php } } else { ?>
@@ -52,7 +52,7 @@
 </tr>
 <tr style="display:none;" id="tr_Edit" class="form_field_cell">
 	<td width="30" >&nbsp;</td>
-	<td width="500" colspan="2" align="right" ><span onclick="cancel_edit();" class="button">Cancel</span>&nbsp;<?=$this->form['edit_submit_html']; ?></td>
+	<td width="500" colspan="2" align="right" ><span onclick="cancel_edit();" class="btn btn-primary btn-sm">Cancel</span>&nbsp;<?=$this->form['edit_submit_html']; ?></td>
 </tr>
 </table>
 

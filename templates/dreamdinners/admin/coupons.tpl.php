@@ -13,8 +13,8 @@
 			<tr align="right">
 				<td>
 					<?php if (!$this->read_only) { ?>
-						<input name="submit_changes" id="submit_changes" type="submit" class="button" value="Finalize All Changes" />
-						<input type="button" class="button" value="Reset to Current" onclick="resetPage('<?php echo $_SERVER['REQUEST_URI']; ?>');" />
+						<input name="submit_changes" id="submit_changes" type="submit" class="btn btn-primary btn-sm" value="Finalize All Changes" />
+						<input type="button" class="btn btn-primary btn-sm" value="Reset to Current" onclick="resetPage('<?php echo $_SERVER['REQUEST_URI']; ?>');" />
 					<?php } ?>
 				</td>
 			</tr>
@@ -132,8 +132,8 @@
 			<tr align="right">
 				<td>
 					<?php if (!$this->read_only) { ?>
-						<input name="submit_changes" id="submit_changes_2" type="submit" class="button" value="Finalize All Changes" />
-						<input type="button" class="button" value="Reset to Current" onclick="resetPage('<?php echo $_SERVER['REQUEST_URI']; ?>');" />
+						<input name="submit_changes" id="submit_changes_2" type="submit" class="btn btn-primary btn-sm" value="Finalize All Changes" />
+						<input type="button" class="btn btn-primary btn-sm" value="Reset to Current" onclick="resetPage('<?php echo $_SERVER['REQUEST_URI']; ?>');" />
 						<span id="saved_message_2" style="color:red; font-weight:bold; display:none">Your changes have not yet been saved.</span>
 					<?php } ?>
 				</td>

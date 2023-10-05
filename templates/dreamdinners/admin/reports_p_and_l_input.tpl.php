@@ -28,7 +28,7 @@ include $this->loadTemplate('admin/page_header.tpl.php');  ?>
     <div id="report_header">
     	<?php echo $this->form_session_list['month_popup_html'] . "&nbsp";
     	 echo $this->form_session_list['year_field_001_html'] . "&nbsp";?>
-    	 <button type="button" class="button" id="report_submit" onclick="_report_submitClick();" >Run Report</button>
+    	 <button type="button" class="btn btn-primary btn-sm" id="report_submit" onclick="_report_submitClick();" >Run Report</button>
 
     	</div>
 

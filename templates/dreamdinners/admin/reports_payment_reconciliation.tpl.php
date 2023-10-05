@@ -25,7 +25,7 @@ if (!empty($this->store_name))
 	<?php echo  $this->form_session_list['hidden_html'];?>
 
 	<?php if (isset($this->store_data))	 { ?>
-	<div style="width:100%; text-align:right"><input class="button" type="submit" name="submit_report" value="Run Report" /> </div>
+	<div style="width:100%; text-align:right"><input class="btn btn-primary btn-sm" type="submit" name="submit_report" value="Run Report" /> </div>
 	<?php  }  ?>
 
 
@@ -146,7 +146,7 @@ if (!empty($this->store_name))
 <?php if (isset($this->store_data))	 {
 include $this->loadTemplate('admin/subtemplate/store_tree.tpl.php');
  } else { ?>
-		<div style="width:150px; padding-top:15px; text-align:right; float:left;"><input class="button" type="submit" name="submit_report" value="Run Report" /> </div>
+		<div style="width:150px; padding-top:15px; text-align:right; float:left;"><input class="btn btn-primary btn-sm" type="submit" name="submit_report" value="Run Report" /> </div>
 <?php } ?>
 
 <?php include $this->loadTemplate('admin/page_footer.tpl.php'); ?>

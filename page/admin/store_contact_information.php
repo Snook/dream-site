@@ -727,7 +727,7 @@ class page_admin_store_contact_information extends CPageAdminOnly {
 		*/
 		$Form->AddElement(array(CForm::type=> CForm::Submit,
 			CForm::name => "submit",
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::value => "Update Contact Information"));
 
 		$tpl->assign('form_store_details', $Form->Render());

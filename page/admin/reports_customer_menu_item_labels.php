@@ -415,7 +415,7 @@ class page_admin_reports_customer_menu_item_labels extends CPageAdminOnly
 				$Form->AddElement(array(
 					CForm::type => CForm::Submit,
 					CForm::name => 'report_submit',
-					CForm::css_class => 'button',
+					CForm::css_class => 'btn btn-primary btn-sm',
 					CForm::value => 'Print Labels'
 				));
 			}
@@ -441,7 +441,7 @@ class page_admin_reports_customer_menu_item_labels extends CPageAdminOnly
 				$Form->AddElement(array(
 					CForm::type => CForm::Submit,
 					CForm::name => 'ft_report_submit',
-					CForm::css_class => 'button',
+					CForm::css_class => 'btn btn-primary btn-sm',
 					CForm::value => 'Print Labels'
 				));
 				$Form->DefaultValues['ft_labels_per_sheet'] = 4;

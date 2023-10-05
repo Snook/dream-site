@@ -26,7 +26,7 @@ Please note: The Excel document will return additional information such as phone
     <div style="float:left;">
         <?php
          echo $this->form_session_list['report_submit_html'];
-	     echo '<input type="button" class="button" style="cursor:pointer;" value="Export" onclick="export_report();" //>'; ?>
+	     echo '<input type="button" class="btn btn-primary btn-sm" style="cursor:pointer;" value="Export" onclick="export_report();" //>'; ?>
     </div>
     <div style="clear:both;"></div>
     <hr />

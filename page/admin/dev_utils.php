@@ -28,14 +28,14 @@ class page_admin_dev_utils extends CPageAdminOnly
 		$Form->AddElement(array(
 			CForm::type => CForm::Submit,
 			CForm::value => 'Submit',
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::name => 'submit_function'
 		));
 
 		$Form->AddElement(array(
 			CForm::type => CForm::Submit,
 			CForm::value => 'Submit',
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::name => 'submit_bal_function'
 		));
 

@@ -20,7 +20,7 @@
 
 		<input type="file" id="bundles" name="bundles" <?php echo (empty($this->menu_count)) ? 'disabled="disabled"' : ''; ?> /><br /><br />
 
-		<input id="submit_menu_import" name="submit_menu_import" type="submit" class="button" value="Import Bundles" disabled="disabled" />
+		<input id="submit_menu_import" name="submit_menu_import" type="submit" class="btn btn-primary btn-sm" value="Import Bundles" disabled="disabled" />
 				<input id="testmode" name="testmode" type="checkbox" />&nbsp;<label for="testmode">Dry Run Only (returns what will happen during actual import)</label>
 		<img id="processing_image" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/throbber_circle.gif" class="img_valign" style="display: none;" alt="Processing" />
 	</form>

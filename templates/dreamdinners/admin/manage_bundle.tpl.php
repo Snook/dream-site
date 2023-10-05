@@ -131,7 +131,7 @@
 					<th># of Items</th>
 					<th>Servings Req</th>
 					<th>Price</th>
-					<th><a href="/backoffice/manage_bundle?create" class="button">Create Bundle</a></th>
+					<th><a href="/backoffice/manage_bundle?create" class="btn btn-primary btn-sm">Create Bundle</a></th>
 				</tr>
 				</thead>
 				<tbody>

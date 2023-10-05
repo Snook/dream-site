@@ -28,7 +28,7 @@ class page_admin_create_franchise extends CPageAdminOnly
 
 		$Form->AddElement(array(CForm::type=> CForm::Submit,
 			CForm::name => "Submit",
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::value => "Save"));
 
 		$Form->AddElement(array(CForm::type=> CForm::CheckBox,

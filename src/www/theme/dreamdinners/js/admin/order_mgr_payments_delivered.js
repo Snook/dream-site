@@ -787,7 +787,7 @@ function showButtonProcessDelayedPaymentNow(message)
 	if (PendingDPOriginalStatus == 'PENDING')
 	{
 		$('#payment_proc_mess').show();
-		$('#payment_proc_mess').html('<input type="button" class="button" name="process_payment" value="Process delayed payment now" onclick="processPayment();">');
+		$('#payment_proc_mess').html('<input type="button" class="btn btn-primary btn-sm" name="process_payment" value="Process delayed payment now" onclick="processPayment();">');
 	}
 	else if (message)
 	{
@@ -883,7 +883,7 @@ function setDelayedPaymentStatusTo()
 	else
 	{
 		$('#payment_proc_mess').show();
-		$('#payment_proc_mess').html('<input type="button" class="button" name="set_delayed_payment_status" value="Set delayed payment status to ' + $('#change_delayed_payment_status').val().toLowerCase() + '" onClick="processDelayedPaymentStatus();">');
+		$('#payment_proc_mess').html('<input type="button" class="btn btn-primary btn-sm" name="set_delayed_payment_status" value="Set delayed payment status to ' + $('#change_delayed_payment_status').val().toLowerCase() + '" onClick="processDelayedPaymentStatus();">');
 	}
 }
 
@@ -1018,7 +1018,7 @@ function pointToTransaction()
 	else
 	{
 		$('#payment_proc_mess').show();
-		$('#payment_proc_mess').html('<input type="button" class="button" name="point_to_payment" value="Point payment to selected Credit Card Number" onClick="processPointToTransaction();">');
+		$('#payment_proc_mess').html('<input type="button" class="btn btn-primary btn-sm" name="point_to_payment" value="Point payment to selected Credit Card Number" onClick="processPointToTransaction();">');
 	}
 }
 

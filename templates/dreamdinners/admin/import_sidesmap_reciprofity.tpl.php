@@ -19,7 +19,7 @@
 
 		<input type="file" id="base_menu_sidesmap" name="base_menu_sidesmap" <?php echo (empty($this->menu_count)) ? 'disabled="disabled"' : ''; ?> /><br /><br />
 
-		<input id="submit_menu_import" name="submit_menu_import" type="submit" class="button" value="Import Sides Map" disabled="disabled" /> <img id="processing_image" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/throbber_circle.gif" class="img_valign" style="display: none;" alt="Processing" />
+		<input id="submit_menu_import" name="submit_menu_import" type="submit" class="btn btn-primary btn-sm" value="Import Sides Map" disabled="disabled" /> <img id="processing_image" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/throbber_circle.gif" class="img_valign" style="display: none;" alt="Processing" />
 	</form>
 
 <?php include $this->loadTemplate('admin/page_footer.tpl.php'); ?>

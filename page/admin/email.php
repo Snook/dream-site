@@ -434,7 +434,7 @@ class page_admin_email extends CPageAdminOnly
 		$Form->AddElement(array(
 			CForm::type => CForm::Submit,
 			CForm::value => 'Send',
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::name => 'email_send'
 		));
 
@@ -442,7 +442,7 @@ class page_admin_email extends CPageAdminOnly
 			CForm::type => CForm::Button,
 			CForm::value => 'Cancel',
 			CForm::onClick => 'javascript:emailCancel();',
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::name => 'email_cancel'
 		));
 

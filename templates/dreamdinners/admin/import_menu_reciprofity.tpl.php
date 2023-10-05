@@ -159,7 +159,7 @@
 
 		<?php } else { ?>
 
-			<p>Menu imported, view the <a href="/backoffice/menu_inspector?menus=<?php echo $this->menu_id; ?>" class="button">Menu Inspector</a> to verify.</p>
+			<p>Menu imported, view the <a href="/backoffice/menu_inspector?menus=<?php echo $this->menu_id; ?>" class="btn btn-primary btn-sm">Menu Inspector</a> to verify.</p>
 
 			<table style="width: 100%;">
 				<thead>

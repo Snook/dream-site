@@ -37,7 +37,7 @@
 			</tr>
 		</table>
 	</form>
-	<a href="<?php echo $this->back;?>" value="Back" class="button">Back</a>
+	<a href="<?php echo $this->back;?>" value="Back" class="btn btn-primary btn-sm">Back</a>
 	</p>
 </center>
 <?php include $this->loadTemplate('admin/page_footer.tpl.php'); ?>

@@ -28,7 +28,7 @@
 		<tfoot>
 		<tr>
 			<td></td>
-			<td><span class="button" id="coupon_program_save">Save Program</span></td>
+			<td><span class="btn btn-primary btn-sm" id="coupon_program_save">Save Program</span></td>
 		</tr>
 		</tfoot>
 	</table>

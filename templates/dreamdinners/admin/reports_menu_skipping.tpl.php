@@ -35,8 +35,8 @@ return; }
     <td> <label for="month" >Month Back</label>:<?php echo $this->form_array['months_back_html']; ?></td>
     <td> <label for="month" >Number Months Skipped</label>:<?php echo $this->form_array['months_skipped_html']; ?></td>
 
-    <td><input type="submit" class="button" name="run_report" value="Run Web Report" /></td>
-    <td><input type="button" class="button" style="cursor:pointer;" value="Export" onclick="export_report();" /></td>
+    <td><input type="submit" class="btn btn-primary btn-sm" name="run_report" value="Run Web Report" /></td>
+    <td><input type="button" class="btn btn-primary btn-sm" style="cursor:pointer;" value="Export" onclick="export_report();" /></td>
 
 </tr>
 </table>

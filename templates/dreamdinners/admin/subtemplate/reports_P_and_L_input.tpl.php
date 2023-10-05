@@ -265,7 +265,7 @@
     <td class="bgcolor_light" style="vertical-align: top; text-align: right; padding-right:5px;">
     </td>
     <td colspan="3" class="bgcolor_light">
-          <button id="update_p_and_l" class="button" type="button">Save</button>
+          <button id="update_p_and_l" class="btn btn-primary btn-sm" type="button">Save</button>
     </td>
 </tr>
 

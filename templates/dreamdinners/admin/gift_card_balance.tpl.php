@@ -99,7 +99,7 @@
 							<td width="200" align="right"><label id="gift_card_number_lbl" for="gift_card_number" message="Please enter a gift card number.">Gift Card Number:</label></td>
 							<td width="150"><?php echo $this->form_account['gift_card_number_html']; ?></td>
 							<td width="170">
-								<a href="javascript:codes='';i=0;document.getElementById('gift_card_number').value = ''; document.getElementById('gift_card_number').focus();" class="button">Activate
+								<a href="javascript:codes='';i=0;document.getElementById('gift_card_number').value = ''; document.getElementById('gift_card_number').focus();" class="btn btn-primary btn-sm">Activate
 									card swipe</a></td>
 						</tr>
 						<tr id="submit">

@@ -11,8 +11,8 @@ function createSectionHeader($tpl, $categoryName)
 		{
 			return "</tbody><tr>
 				<th class='bg-green'>Core Items</th>
-				<th colspan='3'><button class='button' id='selectMediumStarterPackEntrees'>Select Default</button></th>
-				<th colspan='2'><button class='button'id='selectLargeStarterPackEntrees'>Select Default</button></th>
+				<th colspan='3'><button class='btn btn-primary btn-sm' id='selectMediumStarterPackEntrees'>Select Default</button></th>
+				<th colspan='2'><button class='btn btn-primary btn-sm' id='selectLargeStarterPackEntrees'>Select Default</button></th>
 			</tr><tbody>";
 		}
 		else

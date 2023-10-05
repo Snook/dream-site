@@ -92,7 +92,7 @@ class page_admin_gift_card_balance extends CPageAdminOnly
 
 		$Form->AddElement(array(
 			CForm::type => CForm::Submit,
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::name => 'balance_submit',
 			CForm::value => 'Check Balance'
 		));

@@ -108,7 +108,7 @@
 								<td data-fund_value="<?php echo $fundraiser->donation_value; ?>" style="text-align: right;">$<?php echo number_format($fundraiser->donation_value, 2); ?></td>
 								<td class="text-right">$<?php echo number_format($fundraiser->fundraiser_total, 2); ?></td>
 								<td class="text-right"><?php echo $fundraiser->total_orders; ?></td>
-								<td class="text-center"><span class="button" data-fund_id_edit="<?php echo $id; ?>">Edit</span></td>
+								<td class="text-center"><span class="btn btn-primary btn-sm" data-fund_id_edit="<?php echo $id; ?>">Edit</span></td>
 							</tr>
 						<?php } ?>
 					<?php } else { ?>
@@ -139,7 +139,7 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><input name="fund_submit" type="submit" value="Add Fundraiser" class="button" /></td>
+				<td><input name="fund_submit" type="submit" value="Add Fundraiser" class="btn btn-primary btn-sm" /></td>
 			</tr>
 		</table>
 	</template>

@@ -88,9 +88,9 @@ function saveGuestCarryoverNotes_<?php echo $guest_carryover_note_user_id; ?>()
 //]]>
 </script>
 <div style="width:98%;">
-	<div id="guest_carryover_notes_read_<?php echo $guest_carryover_note_user_id; ?>"><?php if (!$this->emergency_mode) {?><input type="button" value="Edit" class="button" onclick="editGuestCarryoverNotes_<?php echo $guest_carryover_note_user_id; ?>()" style="float:right;margin-left:4px;margin-bottom:4px;" /><?php } ?>
+	<div id="guest_carryover_notes_read_<?php echo $guest_carryover_note_user_id; ?>"><?php if (!$this->emergency_mode) {?><input type="button" value="Edit" class="btn btn-primary btn-sm" onclick="editGuestCarryoverNotes_<?php echo $guest_carryover_note_user_id; ?>()" style="float:right;margin-left:4px;margin-bottom:4px;" /><?php } ?>
 		<span id="guest_carryover_note_<?php echo $guest_carryover_note_user_id; ?>" <?php if ($guest_carryover_notes_set && !empty($guestNote->hide_carryover_notes)) { ?>style="display:none;"<?php } ?>><?php echo $guest_carryover_notes; ?></span>
-		<?php if ($guest_carryover_notes_set && !empty($guestNote->hide_carryover_notes)) { ?><span id="show_guest_carryover_note_<?php echo $guest_carryover_note_user_id; ?>"><input type="button" value="View Note" class="button" onclick="showGuestCarryoverNotes_<?php echo $guest_carryover_note_user_id; ?>()" /></span><?php } ?>
+		<?php if ($guest_carryover_notes_set && !empty($guestNote->hide_carryover_notes)) { ?><span id="show_guest_carryover_note_<?php echo $guest_carryover_note_user_id; ?>"><input type="button" value="View Note" class="btn btn-primary btn-sm" onclick="showGuestCarryoverNotes_<?php echo $guest_carryover_note_user_id; ?>()" /></span><?php } ?>
 	</div>
 	<div id="guest_carryover_notes_edit_<?php echo $guest_carryover_note_user_id; ?>" style="display:none;">
 		<textarea id="guest_carryover_notes_<?php echo $guest_carryover_note_user_id; ?>" name="guest_carryover_notes" rows="5" cols="70" style="width:100%;height:100px;"><?php echo $guest_carryover_notes_edit; ?></textarea>
@@ -98,8 +98,8 @@ function saveGuestCarryoverNotes_<?php echo $guest_carryover_note_user_id; ?>()
 		<tr>
 			<td><span id="guest_carryover_note_proc_message_<?php echo $guest_carryover_note_user_id; ?>" style="display:none;"></span></td>
 			<td style="text-align:right;">
-				<input type="button" value="Save" class="button" onclick="saveGuestCarryoverNotes_<?php echo $guest_carryover_note_user_id; ?>()" />
-				<input type="button" value="Cancel" class="button" onclick="cancelGuestCarryoverNotes_<?php echo $guest_carryover_note_user_id; ?>()" />
+				<input type="button" value="Save" class="btn btn-primary btn-sm" onclick="saveGuestCarryoverNotes_<?php echo $guest_carryover_note_user_id; ?>()" />
+				<input type="button" value="Cancel" class="btn btn-primary btn-sm" onclick="cancelGuestCarryoverNotes_<?php echo $guest_carryover_note_user_id; ?>()" />
 			</td>
 		</tr>
 		</table>

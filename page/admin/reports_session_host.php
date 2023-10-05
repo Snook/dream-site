@@ -110,7 +110,7 @@ class page_admin_reports_session_host extends CPageAdminOnly
 		$Form->AddElement(array(
 			CForm::type => CForm::Submit,
 			CForm::name => 'report_submit',
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::value => 'Run Web Report'
 		));
 

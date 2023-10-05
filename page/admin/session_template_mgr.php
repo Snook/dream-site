@@ -700,7 +700,7 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 		$ItemForm->AddElement(array(
 			CForm::type => CForm::Submit,
 			CForm::addOnClick => true,
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::name => 'item_submit',
 			CForm::value => 'Create'
 		));
@@ -708,7 +708,7 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 		$ItemForm->AddElement(array(
 			CForm::type => CForm::Submit,
 			CForm::addOnClick => true,
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::name => 'item_update',
 			CForm::value => 'Save'
 		));
@@ -716,7 +716,7 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 		$ItemForm->AddElement(array(
 			CForm::type => CForm::Submit,
 			CForm::addOnClick => true,
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::name => 'item_delete',
 			CForm::value => 'Delete'
 		));
@@ -724,7 +724,7 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 		$ItemForm->AddElement(array(
 			CForm::type => CForm::Submit,
 			CForm::addOnClick => true,
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::name => 'item_update_cancel',
 			CForm::value => 'Cancel'
 		));
@@ -815,7 +815,7 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 
 		$SetForm->AddElement(array(
 			CForm::type => CForm::Submit,
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::name => 'set_submit',
 			CForm::value => 'Save as'
 		));
@@ -823,13 +823,13 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 		$SetForm->AddElement(array(
 			CForm::type => CForm::Submit,
 			CForm::name => 'delete_set_submit',
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::value => 'Delete'
 		));
 
 		$SetForm->AddElement(array(
 			CForm::type => CForm::Submit,
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::name => 'clear_set_submit',
 			CForm::value => 'Clear'
 		));

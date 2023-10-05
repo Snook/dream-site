@@ -1,7 +1,7 @@
 <table style="width: 100%; margin-bottom: 10px;">
 	<tr>
 		<td class="bgcolor_light"></td>
-		<td class="bgcolor_light"><input type="button" id="set-default-hours" class="button" value="Use Default Hours">&nbsp;<input type="button" id="clear-store-hours" class="button" value="Clear Hours"></td>
+		<td class="bgcolor_light"><input type="button" id="set-default-hours" class="btn btn-primary btn-sm" value="Use Default Hours">&nbsp;<input type="button" id="clear-store-hours" class="btn btn-primary btn-sm" value="Clear Hours"></td>
 	</tr>
 	<?php
 		foreach (array('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun') as $day) { ?>
@@ -18,7 +18,7 @@
 		<?php } ?>
 	<tr>
 		<td class="bgcolor_light"></td>
-		<td class="bgcolor_light"><input type="button" id="preview-store-hours" class="button" value="Update Preview"></td>
+		<td class="bgcolor_light"><input type="button" id="preview-store-hours" class="btn btn-primary btn-sm" value="Update Preview"></td>
 	</tr>
 	<tr>
 		<td class="bgcolor_light" colspan="2">

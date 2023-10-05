@@ -52,7 +52,7 @@ include $this->loadTemplate('admin/page_header_reports.tpl.php');
 
 <div style="float:right;">
     <?php  echo $this->query_form['report_submit_html'];  ?>&nbsp;&nbsp;
-	<input type="button" class="button" style="cursor:pointer;" value="Export" onclick="export_report();" />
+	<input type="button" class="btn btn-primary btn-sm" style="cursor:pointer;" value="Export" onclick="export_report();" />
 </div>
 
 <div style="margin-top:20px; padding:1px; background-color:#DED6CB; width:960px; display:none;" id="result_div">

@@ -36,7 +36,7 @@
 
 <div style="float:left;width:400px;">
 <div id="sig_preview"></div>
-<div style="margin-top:20px;"><input type="button" class="button" onclick="download_signature()" value="Download Signature" /></div>
+<div style="margin-top:20px;"><input type="button" class="btn btn-primary btn-sm" onclick="download_signature()" value="Download Signature" /></div>
 </div>
 
 <div class="clear"></div>

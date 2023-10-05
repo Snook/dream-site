@@ -62,7 +62,7 @@
 <p>Import file:</p>
 
 <form method="post" enctype="multipart/form-data">
-<input type="file" name="base_recipe_import" /><br /><br /><input type="submit" class="button" value="Import Recipes" />
+<input type="file" name="base_recipe_import" /><br /><br /><input type="submit" class="btn btn-primary btn-sm" value="Import Recipes" />
 </form>
 
 <?php include $this->loadTemplate('admin/page_footer.tpl.php'); ?>

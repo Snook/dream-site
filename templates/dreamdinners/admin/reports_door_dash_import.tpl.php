@@ -44,7 +44,7 @@ include $this->loadTemplate('admin/page_header_reports.tpl.php'); ?>
 			 <br />
 					<h4>Import file:</h4>
 				<input type="file" id="door_dash_input_file" name="door_dash_input_file" /><br /><br />
-				<input id="submit_door_dash_input" name="submit_door_dash_input" type="submit" class="button" value="Import Door Dash Report"/>
+				<input id="submit_door_dash_input" name="submit_door_dash_input" type="submit" class="btn btn-primary btn-sm" value="Import Door Dash Report"/>
 				<img id="processing_image" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/throbber_circle.gif" class="img_valign" style="display: none;" alt="Processing" />
 			</div>
 

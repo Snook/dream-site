@@ -72,7 +72,7 @@ class page_admin_manage_dream_event_theme extends CPageAdminOnly
 			$Form->AddElement(array(
 				CForm::type => CForm::Button,
 				CForm::name => 'submit',
-				CForm::css_class => 'button',
+				CForm::css_class => 'btn btn-primary btn-sm',
 				CForm::value => 'create',
 				CForm::text => 'Create Theme'
 			));
@@ -125,7 +125,7 @@ class page_admin_manage_dream_event_theme extends CPageAdminOnly
 			$Form->AddElement(array(
 				CForm::type => CForm::Button,
 				CForm::name => 'submit',
-				CForm::css_class => 'button',
+				CForm::css_class => 'btn btn-primary btn-sm',
 				CForm::value => 'update',
 				CForm::text => 'Update Bundle'
 			));
@@ -133,7 +133,7 @@ class page_admin_manage_dream_event_theme extends CPageAdminOnly
 			$Form->AddElement(array(
 				CForm::type => CForm::Button,
 				CForm::name => 'delete',
-				CForm::css_class => 'button',
+				CForm::css_class => 'btn btn-primary btn-sm',
 				CForm::value => 'delete',
 				CForm::text => 'Delete Bundle'
 			));

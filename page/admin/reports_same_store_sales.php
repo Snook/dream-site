@@ -263,14 +263,14 @@ class page_admin_reports_same_store_sales extends CPageAdminOnly
 		
 		$Form->AddElement(array(
 			CForm::type => CForm::Submit,
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::name => 'report_submit',
 			CForm::value => 'Run Web Report'
 		));
 		
 		$Form->AddElement(array(
 			CForm::type => CForm::Submit,
-			CForm::css_class => 'button',
+			CForm::css_class => 'btn btn-primary btn-sm',
 			CForm::name => 'report_export',
 			CForm::value => 'Export Excel Report'
 		));

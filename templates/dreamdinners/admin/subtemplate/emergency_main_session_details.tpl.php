@@ -33,8 +33,8 @@
 		<tr>
 			<td class="label">Operations</td>
 			<td colspan="3" class="value">
-				<span id="sd_invitation_pdf" class="button">Invitation PDF</span>
-				<?php if (!empty($this->session_info['session_host'])) { // Meal Prep Workshop host ?><span id="sd_resend_hostess_email" class="button">Resend Host Notification</span><?php } ?>
+				<span id="sd_invitation_pdf" class="btn btn-primary btn-sm">Invitation PDF</span>
+				<?php if (!empty($this->session_info['session_host'])) { // Meal Prep Workshop host ?><span id="sd_resend_hostess_email" class="btn btn-primary btn-sm">Resend Host Notification</span><?php } ?>
 			</td>
 		</tr>
 	<?php } ?>
@@ -48,7 +48,7 @@
 		<tr>
 			<td class="label">Operations</td>
 			<td colspan="3" class="value">
-				<span id="sd_fundraiser_invitation_pdf" class="button">Invitation PDF</span>
+				<span id="sd_fundraiser_invitation_pdf" class="btn btn-primary btn-sm">Invitation PDF</span>
 			</td>
 		</tr>
 	<?php } ?>

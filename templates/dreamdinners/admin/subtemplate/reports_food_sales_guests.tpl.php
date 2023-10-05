@@ -1,7 +1,7 @@
 <div>
 	<table><tr>
 			<td style="text-align:center; white-space: nowrap; overflow: hidden;"><h3 style="width:800px;"><?php echo $this->title; ?></h3></td>
-			<td><span id="export_purchasers" class="button" style="float:right; margin-right:5px;">export</span></td></tr></table>
+			<td><span id="export_purchasers" class="btn btn-primary btn-sm" style="float:right; margin-right:5px;">export</span></td></tr></table>
 </div>
 
 

@@ -466,17 +466,17 @@ include $this->loadTemplate('admin/page_header.tpl.php');
 						<div id="phys_div" style="width:50%; float:left; text-align:center; padding-top:10px; padding-bottom:5px;">
 							<img id="physical_card_img" onclick="mediaClick(this);" src="<?php echo ADMIN_IMAGES_PATH ?>/gift_card/gc_traditional.gif"/><br/>
 							<strong>Traditional Card</strong><br/>(Via standard mail in 2-6 business days )<br/>
-							<button id="physical_card" class="button" onClick="mediaClick(this); return false;">Select</button>
+							<button id="physical_card" class="btn btn-primary btn-sm" onClick="mediaClick(this); return false;">Select</button>
 						</div>
 
 						<div id="virt_div" style="text-align:center; padding-top:10px; padding-bottom:5px;">
 							<img id="virtual_card_img" onclick="mediaClick(this);" src="<?php echo ADMIN_IMAGES_PATH ?>/gift_card/gc_electronic.gif"/><br/>
 							<strong>Virtual eGift Card</strong><br/>(Sent instantly via email)<br/>
-							<button id="virtual_card" class="button" onClick="mediaClick(this); return false;">Select</button>
+							<button id="virtual_card" class="btn btn-primary btn-sm" onClick="mediaClick(this); return false;">Select</button>
 						</div>
 					</div>
 					<div id="media_type_div_collapsed" style="display:none; width:100%;">
-						<span style="font-weight:bold">Selected Card Type:</span> <span id="selected_media_desc"></span>&nbsp;<a href="javascript:modifyMedia();" class="button">Modify</a><br/><br/>
+						<span style="font-weight:bold">Selected Card Type:</span> <span id="selected_media_desc"></span>&nbsp;<a href="javascript:modifyMedia();" class="btn btn-primary btn-sm">Modify</a><br/><br/>
 					</div>
 
 					<br/>
@@ -504,7 +504,7 @@ include $this->loadTemplate('admin/page_header.tpl.php');
 											<img id="di_<?php echo $id ?>" onclick="designClick(this);" src="<?php echo ADMIN_IMAGES_PATH ?>/gift_card/<?php echo $design_data['image_path'] ?>"/>
 
 											<br/> <label for="cd_<?php echo $id ?>"><?php echo $design_data['title'] ?></label><br/>
-											<button id="cd_<?php echo $id ?>" class="button" onClick="designClick(this); return false;">Select</button>
+											<button id="cd_<?php echo $id ?>" class="btn btn-primary btn-sm" onClick="designClick(this); return false;">Select</button>
 
 
 										</td>
@@ -544,7 +544,7 @@ include $this->loadTemplate('admin/page_header.tpl.php');
 											<img id="di_<?php echo $id ?>" onclick="designClick(this);" src="<?php echo ADMIN_IMAGES_PATH ?>/gift_card/<?php echo $design_data['image_path_virtual'] ?>"/>
 
 											<br/><label for="cd_<?php echo $id ?>"><?php echo $design_data['title'] ?></label><br/>
-											<button id="cd_<?php echo $id ?>" class="button" onClick="designClick(this); return false;">Select</button>
+											<button id="cd_<?php echo $id ?>" class="btn btn-primary btn-sm" onClick="designClick(this); return false;">Select</button>
 
 
 										</td>
@@ -564,7 +564,7 @@ include $this->loadTemplate('admin/page_header.tpl.php');
 					</div>
 
 					<div id="design_type_div_collapsed" style="display:none; width:100%;">
-						<span style="font-weight:bold">Selected Card Design:</span> <span id="selected_design_desc"></span>&nbsp;<a href="javascript:modifyDesign();" class="button">Modify</a>
+						<span style="font-weight:bold">Selected Card Design:</span> <span id="selected_design_desc"></span>&nbsp;<a href="javascript:modifyDesign();" class="btn btn-primary btn-sm">Modify</a>
 						<br/><img id="selectedDesignImg" style="height: 40px;"/>
 						<span id="selected_design_desc"></span>
 

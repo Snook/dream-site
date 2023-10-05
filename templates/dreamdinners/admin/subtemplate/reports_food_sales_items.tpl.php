@@ -18,8 +18,8 @@
 			{ ?>
 				<tr class="bgcolor_<?php echo ($counter++ % 2 == 0) ? 'light' : 'lighter'; ?>">
 					<td style="width:80px; text-align:center;">
-						<span class="button" style="font-size:69% !important;font-weight:normal !important;" id="rid_<?php echo $item['recipe_id'];?>">List</span>
-						<span class="button"style="font-size:69% !important;font-weight:normal !important;" data-entree_id="<?php echo $item['entree_id'];?>"  data-menu_id="<?php echo $item['menu_id'];?>"  id="rmid_<?php echo $item['recipe_id'];?>">Details</span>
+						<span class="btn btn-primary btn-sm" style="font-size:69% !important;font-weight:normal !important;" id="rid_<?php echo $item['recipe_id'];?>">List</span>
+						<span class="btn btn-primary btn-sm"style="font-size:69% !important;font-weight:normal !important;" data-entree_id="<?php echo $item['entree_id'];?>"  data-menu_id="<?php echo $item['menu_id'];?>"  id="rmid_<?php echo $item['recipe_id'];?>">Details</span>
 					</td>
 					<td style="width:50px; text-align:center;"><?php echo $item['recipe_id'];?></td>
 					<td style="width:300px; text-align:left;"><?php echo $item['name'];?></td>

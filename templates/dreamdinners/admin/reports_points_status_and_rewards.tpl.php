@@ -104,7 +104,7 @@ else
 		<?php } else if ($data['current_level']['rewards']['gift_id'] != "none") { ?>
 
 	<?php if (!$this->print_view) { ?>
-		<button class="button" onclick="markGiftReceived('<?php echo $data['current_level']['level']?>', <?php echo $id;?>, '<?php echo $data['current_level']['rewards']['gift_id']?>');">Confirm Receipt of Gift</button>
+		<button class="btn btn-primary btn-sm" onclick="markGiftReceived('<?php echo $data['current_level']['level']?>', <?php echo $id;?>, '<?php echo $data['current_level']['rewards']['gift_id']?>');">Confirm Receipt of Gift</button>
 	<?php } ?>
 
 		The guest is due to receive: <?php echo $data['gift_display_str'];?>

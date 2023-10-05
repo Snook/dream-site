@@ -43,10 +43,10 @@ $this->assign('topnav','reports');
 		<?php if (isset($this->store_data))	 { ?>
 			<div id="store_selector_open">
 				<?php include $this->loadTemplate('admin/subtemplate/store_tree.tpl.php'); ?>
-				<span id="set_selected_stores" class="button" style="margin:10px;">Set Store Selection</span>
+				<span id="set_selected_stores" class="btn btn-primary btn-sm" style="margin:10px;">Set Store Selection</span>
 			</div>
 			<div id="store_selector_closed" style="display:none">
-				<span id="unset_selected_stores" class="button" style="margin:10px;">Choose New Stores</span>
+				<span id="unset_selected_stores" class="btn btn-primary btn-sm" style="margin:10px;">Choose New Stores</span>
 			</div>
 
 
@@ -75,7 +75,7 @@ $this->assign('topnav','reports');
 			</div>
 
 			<div>
-				<span id="set_date_range" class="button">Set Date Range and Return Items</span>
+				<span id="set_date_range" class="btn btn-primary btn-sm">Set Date Range and Return Items</span>
 				<br /><span class="note">Note: Date Range is applied to Session Date.</span>
 			</div>
 		</div>

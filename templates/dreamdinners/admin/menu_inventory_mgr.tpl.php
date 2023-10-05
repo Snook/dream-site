@@ -72,7 +72,7 @@
 	<div class="row" >
 		<div class="col-12" style="padding-left: 80%;">
 			<fieldset>
-				<legend class="expand_export"><span class="button">Export By Date</span></legend>
+				<legend class="expand_export"><span class="btn btn-primary btn-sm">Export By Date</span></legend>
 				<div id="export_by_dates" style="display:none;">
 					Select a range of dates:
 					<?php
@@ -86,7 +86,7 @@
 						echo "<script>DateInput('range_day_start', true, 'YYYY-MM-DD')</script>";
 						echo "<script>DateInput('range_day_end', true, 'YYYY-MM-DD')</script>";
 					}
-					?><span id="export_by_range" class="button">Export</span>
+					?><span id="export_by_range" class="btn btn-primary btn-sm">Export</span>
 				</div>
 			</fieldset>
 
@@ -116,8 +116,8 @@
 
 							<td><?php echo $this->form['intro_guest_count_goal_html'];?></td><td style="font-weight:normal; margin-right:20px;">Starter Pack Guests</td><td>&nbsp;&nbsp;&nbsp;</td>
 
-							<td><span id="save_guest_counts" class="button">Save Projected Guest Counts</span><span style="font-weight:bold; font-size: 18pt;">&#9312;</span>&nbsp;&nbsp;
-								<span id="calc_inv" class="button">Calculate Projected Inventory</span><span style="font-weight:bold; font-size: 18pt;">&#9314;</span>
+							<td><span id="save_guest_counts" class="btn btn-primary btn-sm">Save Projected Guest Counts</span><span style="font-weight:bold; font-size: 18pt;">&#9312;</span>&nbsp;&nbsp;
+								<span id="calc_inv" class="btn btn-primary btn-sm">Calculate Projected Inventory</span><span style="font-weight:bold; font-size: 18pt;">&#9314;</span>
 								<span id="show_actuals" class="button ">View Servings Sold</span>
 								<span id="reset_to_current" class="button float-right">Reset to Current Stored Values</span>
 							</td>
@@ -136,7 +136,7 @@
 								<thead>
 								<tr scope="row" class="header_top">
 									<th colspan="2" scope="col" class="ME_header_zebra_even IM_header"><span id="reset_sales_mix" class="button mb-1">Reset to National Sales Mix</span>
-										<span id="save_sales_mix" class="button">Save Sales Mix</span><span style="font-weight:bold; font-size: 18pt;">&#9313;</span></th>
+										<span id="save_sales_mix" class="btn btn-primary btn-sm">Save Sales Mix</span><span style="font-weight:bold; font-size: 18pt;">&#9313;</span></th>
 									<th scope="col" class="ME_header_zebra_odd IM_header"><span class="warning_text" id="page_error_display"></span>
 										<div class="float-left">
 											<div class="font-size-extra-small">
@@ -153,8 +153,8 @@
 											</div>
 										</div>
 									</th>
-									<th scope="col" colspan="3" class="ME_header_zebra_even IM_header thick_left_border"><h3>Preorder</h3><span style="margin-bottom:2px;" class="button" id="finalize_preorder" >Finalize</span><span style="font-weight:bold; font-size: 18pt;">&#9315;</span><br />
-										<span id="export_menu_sales" class="button" data-menu_start="<?php echo $this->menu_start; ?>" data-menu_interval="<?php echo $this->menu_interval; ?>">Export</span><span style="font-weight:bold; font-size: 18pt;">&#9316;</span></th>
+									<th scope="col" colspan="3" class="ME_header_zebra_even IM_header thick_left_border"><h3>Preorder</h3><span style="margin-bottom:2px;" class="btn btn-primary btn-sm" id="finalize_preorder" >Finalize</span><span style="font-weight:bold; font-size: 18pt;">&#9315;</span><br />
+										<span id="export_menu_sales" class="btn btn-primary btn-sm" data-menu_start="<?php echo $this->menu_start; ?>" data-menu_interval="<?php echo $this->menu_interval; ?>">Export</span><span style="font-weight:bold; font-size: 18pt;">&#9316;</span></th>
 									<?php
 									$evenColumn = false;
 									$colClass = 'ME_header_zebra_even';
@@ -172,9 +172,9 @@
 										$evenColumn = !$evenColumn;
 										?>
 										<th scope="col" colspan="3" class="<?php echo  $colClass ; ?> IM_header thick_left_border"><h3>Week <?php echo  $weekNum; ?></h3>
-											<span style="margin-bottom:2px;" class="button" id="finalize_week_<?php echo  $weekNum; ?>">Finalize</span><span style="font-weight:bold; font-size: 12pt;">&#9317;</span><br /><span
+											<span style="margin-bottom:2px;" class="btn btn-primary btn-sm" id="finalize_week_<?php echo  $weekNum; ?>">Finalize</span><span style="font-weight:bold; font-size: 12pt;">&#9317;</span><br /><span
 													data-week_start="<?php echo $weekData['week_start']; ?>"
-													id="export_week_<?php echo  $weekNum; ?>_sales" class="button">Export</span></th>
+													id="export_week_<?php echo  $weekNum; ?>_sales" class="btn btn-primary btn-sm">Export</span></th>
 									<?php } ?>
 									<th scope="col" colspan="2" class="ME_header_zebra_odd IM_header thick_left_border"><h3>Available to Promise</h3></th>
 
@@ -485,7 +485,7 @@
 			<?php if (!defined('USE_GLOBAL_SIDES_MENU') || !USE_GLOBAL_SIDES_MENU) { ?>
 				<div data-tabid="sides">
 
-					<span style="margin-bottom:2px; float:right;" class="button" id="save_sides_inv" >Save Sides Inventory</span>
+					<span style="margin-bottom:2px; float:right;" class="btn btn-primary btn-sm" id="save_sides_inv" >Save Sides Inventory</span>
 
 					<div class="clear"></div>
 
@@ -557,7 +557,7 @@
 			<?php } else { ?>
 				<div data-tabid="sides">
 
-					<span style="margin-bottom:2px; float:right;" class="button" id="save_sides_inv" >Save Sides Inventory</span>
+					<span style="margin-bottom:2px; float:right;" class="btn btn-primary btn-sm" id="save_sides_inv" >Save Sides Inventory</span>
 
 					<div class="clear"></div>
 
@@ -626,8 +626,8 @@
 						<td>
 						</td>
 						<td><span id="saved_message_2" style="color:red; font-weight:bold; display:none">Your changes have not yet been saved. Finalize all changes to see updated values.</span><br />
-							<input name="submit_changes" id="submit_changes" type="button" value="Finalize All Changes" class="button" onclick="confirm_and_check_form()" />
-							<input type="button" value="Reset to Current" onclick="resetPage();" class="button" />
+							<input name="submit_changes" id="submit_changes" type="button" value="Finalize All Changes" class="btn btn-primary btn-sm" onclick="confirm_and_check_form()" />
+							<input type="button" value="Reset to Current" onclick="resetPage();" class="btn btn-primary btn-sm" />
 						</td>
 					</tr>
 				</table>

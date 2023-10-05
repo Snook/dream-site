@@ -74,7 +74,7 @@ with this feature.</p>
 		<td class="bgcolor_light" style="text-align:center;">Eligible for Reference</td>
 		<?php } ?>
 
-	<td class="bgcolor_light" style="text-align:center;"><button onclick="javascript:return removeCard('<?= $number?>','<?= $data['cc_number']?>');" class="button">Remove</button></td>
+	<td class="bgcolor_light" style="text-align:center;"><button onclick="javascript:return removeCard('<?= $number?>','<?= $data['cc_number']?>');" class="btn btn-primary btn-sm">Remove</button></td>
 </tr>
 <?php } }?>
 

@@ -5,7 +5,7 @@
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
 <?php if (!$this->print_view) { ?>
-<a href="?<?php echo $_SERVER['QUERY_STRING']; ?>&amp;print_view=true" target="_blank" class="button" style="float:right;margin-bottom:4px;">Print</a>
+<a href="?<?php echo $_SERVER['QUERY_STRING']; ?>&amp;print_view=true" target="_blank" class="btn btn-primary btn-sm" style="float:right;margin-bottom:4px;">Print</a>
 <?php } ?>
 
 <h3>Dream Dinners Non-Disclosure and Non-Interference Agreement</h3>
@@ -77,10 +77,10 @@
 	<p>I, <span style="font-weight:bold;"><?php echo strtoupper(CUser::getCurrentUser()->firstname); ?> <?php echo strtoupper(CUser::getCurrentUser()->lastname); ?></span>, HAVE READ AND FULLY UNDERSTAND THIS AGREEMENT. THIS AGREEMENT MAY ONLY BE MODIFIED BY A SUBSEQUENT WRITTEN AGREEMENT EXECUTED BY ME AND THE COMPANY.</p>
 	<?php if ($this->read_only) { ?>
 	<input type="checkbox" data-tooltip="Check to agree to the terms of the agreement" disabled="disabled" />
-	<input type="submit" value="I Agree" disabled="disabled" class="button" /> <span style="color: red;">*Viewing page in read only mode.</span>
+	<input type="submit" value="I Agree" disabled="disabled" class="btn btn-primary btn-sm" /> <span style="color: red;">*Viewing page in read only mode.</span>
 	<?php } else { ?>
 	<input type="checkbox" id="agree_to_nda" name="agree_to_nda" data-tooltip="Check to agree to the terms of the agreement" data-dd_required="true" />
-	<input type="submit" id="agree_to_nda_submit" name="agree_to_nda_submit" value="I Agree" disabled="disabled" class="button" /> <span id="read_all_notice">*Please read entire agreement, thank you.</span>
+	<input type="submit" id="agree_to_nda_submit" name="agree_to_nda_submit" value="I Agree" disabled="disabled" class="btn btn-primary btn-sm" /> <span id="read_all_notice">*Please read entire agreement, thank you.</span>
 	<?php } ?>
 	</form>
 </div>

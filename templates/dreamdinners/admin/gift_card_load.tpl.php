@@ -39,7 +39,7 @@ if (defined('PHP_ERROR_URL'))
 					<tr>
 						<td style="text-align: right;"><label id="gift_card_number_lbl" for="gift_card_number" message="Please enter a gift card number.">*Gift Card Number:</label></td>
 						<td width="150"><?php echo $this->form_account['gift_card_number_html']; ?></td>
-						<td width="170"><a href="javascript:codes='';i=0;document.getElementById('gift_card_number').value = ''; document.getElementById('gift_card_number').focus();" class="button">Activate card swipe</a></td>
+						<td width="170"><a href="javascript:codes='';i=0;document.getElementById('gift_card_number').value = ''; document.getElementById('gift_card_number').focus();" class="btn btn-primary btn-sm">Activate card swipe</a></td>
 					</tr>
 					<tr id="gift_card_amount">
 						<td style="text-align: right;"><label id="amount_lbl" for="amount" message="Please enter an amount.">*Amount to Load:</label></td>
@@ -105,7 +105,7 @@ if (defined('PHP_ERROR_URL'))
 					</tr>
 					<tr id="submit">
 						<td style="text-align: right;"></td>
-						<td colspan="2"><input onclick="_submit_click(this); return false;" id="procCardLoadBtn" type="submit" value="Process Card Load" class="button" /></td>
+						<td colspan="2"><input onclick="_submit_click(this); return false;" id="procCardLoadBtn" type="submit" value="Process Card Load" class="btn btn-primary btn-sm" /></td>
 					</tr>
 				</table>
 			</div>

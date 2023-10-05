@@ -886,12 +886,12 @@ class page_admin_create_session extends CPageAdminOnly
 									{
 										$bundleProperties = CBundle::getBundleInfo($tasteThemeInfo['bundle_id'], $tasteThemeInfo['menu_id'], $Store);
 
-										$tpl->setStatusMsg('<br /><input type="button" class="button" value="Upgrade Host\'s RSVP for $' . $bundleProperties->price . '" onclick="hostessDreamTasteOrder(' . $Session->id . ', \'' . CTemplate::dateTimeFormat($Session->session_start) . '\', ' . $PP_User->id . ')" />');
+										$tpl->setStatusMsg('<br /><input type="btn btn-primary btn-sm" class="btn btn-primary btn-sm" value="Upgrade Host\'s RSVP for $' . $bundleProperties->price . '" onclick="hostessDreamTasteOrder(' . $Session->id . ', \'' . CTemplate::dateTimeFormat($Session->session_start) . '\', ' . $PP_User->id . ')" />');
 									}
 								}
 								else
 								{
-									$tpl->setStatusMsg('<br /><input type="button" class="button" value="Continue to place Hostess\' order" onclick="hostessDreamTasteOrder(' . $Session->id . ', \'' . CTemplate::dateTimeFormat($Session->session_start) . '\', ' . $PP_User->id . ')" />');
+									$tpl->setStatusMsg('<br /><input type="btn btn-primary btn-sm" class="btn btn-primary btn-sm" value="Continue to place Hostess\' order" onclick="hostessDreamTasteOrder(' . $Session->id . ', \'' . CTemplate::dateTimeFormat($Session->session_start) . '\', ' . $PP_User->id . ')" />');
 								}
 							}
 

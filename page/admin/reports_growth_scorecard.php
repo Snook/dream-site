@@ -388,7 +388,7 @@
 
 		$Form->AddElement(array(
 		    CForm::type => CForm::Submit,
-		    CForm::css_class => 'button',
+		    CForm::css_class => 'btn btn-primary btn-sm',
 		    CForm::name => 'report_submit',
 		    CForm::value => 'Run Web Report'
 		));
@@ -398,14 +398,14 @@
 		{
     		$Form->AddElement(array(
     		    CForm::type => CForm::Submit,
-    		    CForm::css_class => 'button',
+    		    CForm::css_class => 'btn btn-primary btn-sm',
     		    CForm::name => 'weekly_summary_report_submit',
     		    CForm::value => 'Export Weekly Rollup Report'
     		));
 
     		$Form->AddElement(array(
     		    CForm::type => CForm::Submit,
-    		    CForm::css_class => 'button',
+    		    CForm::css_class => 'btn btn-primary btn-sm',
     		    CForm::name => 'monthly_summary_report_submit',
     		    CForm::value => 'Export Monthly Rollup Report'
     		));

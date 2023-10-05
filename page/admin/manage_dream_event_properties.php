@@ -107,7 +107,7 @@ class page_admin_manage_dream_event_properties extends CPageAdminOnly
 			$Form->AddElement(array(
 				CForm::type => CForm::Button,
 				CForm::name => 'submit',
-				CForm::css_class => 'button',
+				CForm::css_class => 'btn btn-primary btn-sm',
 				CForm::value => 'create',
 				CForm::text => 'Create Properties'
 			));
@@ -115,7 +115,7 @@ class page_admin_manage_dream_event_properties extends CPageAdminOnly
 			$Form->AddElement(array(
 				CForm::type => CForm::Button,
 				CForm::name => 'delete',
-				CForm::css_class => 'button',
+				CForm::css_class => 'btn btn-primary btn-sm',
 				CForm::value => 'delete',
 				CForm::text => 'Delete Properties'
 			));
@@ -203,7 +203,7 @@ class page_admin_manage_dream_event_properties extends CPageAdminOnly
 			$Form->AddElement(array(
 				CForm::type => CForm::Button,
 				CForm::name => 'submit',
-				CForm::css_class => 'button',
+				CForm::css_class => 'btn btn-primary btn-sm',
 				CForm::value => 'update',
 				CForm::text => 'Update Properties'
 			));
@@ -211,7 +211,7 @@ class page_admin_manage_dream_event_properties extends CPageAdminOnly
 			$Form->AddElement(array(
 				CForm::type => CForm::Button,
 				CForm::name => 'delete',
-				CForm::css_class => 'button',
+				CForm::css_class => 'btn btn-primary btn-sm',
 				CForm::value => 'delete',
 				CForm::text => 'Delete Properties'
 			));

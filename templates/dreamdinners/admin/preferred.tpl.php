@@ -13,7 +13,7 @@
 						<tbody>
 						<tr>
 							<td width="160">
-								<input style="width:150px;" type="button" value="Back" class="button" onClick="window.location = '<?=$this->back?>';" />
+								<input style="width:150px;" type="button" value="Back" class="btn btn-primary btn-sm" onClick="window.location = '<?=$this->back?>';" />
 							</td>
 							<td colspan="5">
 								You are viewing preferred status for <b><a href="/backoffice/user_details?id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a></b>.
@@ -71,7 +71,7 @@
 							<td class="text-center"><?= $row['include_sides'] ? 'Yes' : 'No'?></td>
 							<td class="text-center"><?= ($row['all_stores'] ? 'Yes' : "No")?></td>
 							<td><a href="/backoffice/user_details?id=<?php echo $row['created_by']; ?>"><?php echo $row['added_by_firstname']; ?> <?php echo $row['added_by_lastname']; ?></a></td>
-							<td><button class="button" onclick="submitDeleteRequest(<?=$id?>)">Delete</button></td>
+							<td><button class="btn btn-primary btn-sm" onclick="submitDeleteRequest(<?=$id?>)">Delete</button></td>
 						</tr>
 					<?php } ?>
 				<?php } else { ?>
@@ -225,7 +225,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="bgcolor_light" colspan="2" style="text-align:right;border: 0px solid #dee2e6 !important;"><input type="submit" id="submit_preferred" name="submit_preferred" value="Save" class="button" /></td>
+								<td class="bgcolor_light" colspan="2" style="text-align:right;border: 0px solid #dee2e6 !important;"><input type="submit" id="submit_preferred" name="submit_preferred" value="Save" class="btn btn-primary btn-sm" /></td>
 							</tr>
 							</tbody>
 						</table>

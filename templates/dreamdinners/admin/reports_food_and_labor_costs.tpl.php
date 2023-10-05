@@ -52,7 +52,7 @@ include $this->loadTemplate('admin/page_header_reports.tpl.php'); ?>
     		<h4>Import file:</h4>
 <p>Warning: Imported data is always appended so it is possible to create duplicates if data for the same date range was previously imported.</p>
 		<input type="file" id="labor_input_file" name="labor_input_file" /><br /><br />
-		<input id="submit_labor_input" name="submit_labor_input" type="submit" class="button" value="Import Labor Report"/>
+		<input id="submit_labor_input" name="submit_labor_input" type="submit" class="btn btn-primary btn-sm" value="Import Labor Report"/>
 		<img id="processing_image" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/throbber_circle.gif" class="img_valign" style="display: none;" alt="Processing" />
 
     </div>

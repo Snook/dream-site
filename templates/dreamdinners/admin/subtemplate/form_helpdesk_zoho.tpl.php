@@ -72,8 +72,8 @@
 <tr>
 	<td colspan="2" style="text-align: center;">
 		<div>
-			<input type="submit" name="save" value="Submit" class="button" />
-			<input type="reset" name="reset" value="Reset" class="button" />
+			<input type="submit" name="save" value="Submit" class="btn btn-primary btn-sm" />
+			<input type="reset" name="reset" value="Reset" class="btn btn-primary btn-sm" />
 		</div>
 		<div>Submitting will refresh the page</div>
 	</td>

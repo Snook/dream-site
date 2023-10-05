@@ -42,7 +42,7 @@ return; }
 
 <div style="background-color:#d0d0d0; border:2px; black solid; text-align:center; font-weight:bold; font-size:14pt; margin:0px; padding:5px;">
 	<span style="color:green;">Dashboard (by Menu Month)</span>
-	<div style="float:right"><a href="/backoffice/dashboard-new" class="button">to Calendar-Month Dashboard</a></div>
+	<div style="float:right"><a href="/backoffice/dashboard-new" class="btn btn-primary btn-sm">to Calendar-Month Dashboard</a></div>
 </div>
 <form id="dashboard_form" action="/backoffice/dashboard-menu-based" method="post">
 <?php echo $this->form_array['hidden_html'];?>
@@ -58,9 +58,9 @@ return; }
 	<td style="text-align:right;">
 
 	<?php  if ($this->showCurrentMonth) { ?>
-	<button onclick="toggleMonth('previous');" class="button">Show previous month</button>
+	<button onclick="toggleMonth('previous');" class="btn btn-primary btn-sm">Show previous month</button>
 	<?php } else { ?>
-	<button onclick="toggleMonth('current');" class="button">Show current month</button>
+	<button onclick="toggleMonth('current');" class="btn btn-primary btn-sm">Show current month</button>
 <?php } ?>
 or Pick a Month: <?php echo $this->form_array['override_month_html']; ?>
 	</td>
@@ -99,7 +99,7 @@ or Pick a Month: <?php echo $this->form_array['override_month_html']; ?>
 <?php if (!empty($this->store_data)) { ?>
 <tr>
 	<td style="text-align:left; vertical-align:top;"><b>Step 3 - Run Report</b></td>
-	<td style="vertical-align:top; "><button type="button" onclick="runMultiStoreReport();" class="button">Run Report</button><br />
+	<td style="vertical-align:top; "><button type="button" onclick="runMultiStoreReport();" class="btn btn-primary btn-sm">Run Report</button><br />
 </td>
 </tr>
 <?php  } ?>
@@ -117,7 +117,7 @@ or Pick a Month: <?php echo $this->form_array['override_month_html']; ?>
 <tr id="custom_store_select_minimized" style="display:<?php echo ($this->didReturnCustomRollup ? "table-row" : "none")?>;">
 <td colspan="2">
 <div style="border:thin solid black; width:640px; min-width:380px;  margin-left:10px; margin-top:10px; text-align:center; background-color:#BEB7AE; float:left;">
-		<h2 style="margin-left:10px; margin-top:10px;">Select Store(s)</h2><button type="button" class="button" onclick="$('#custom_store_select').show(); $('#custom_store_select_minimized').hide();">Re-select</button>
+		<h2 style="margin-left:10px; margin-top:10px;">Select Store(s)</h2><button type="button" class="btn btn-primary btn-sm" onclick="$('#custom_store_select').show(); $('#custom_store_select_minimized').hide();">Re-select</button>
 </div>
 </td>
 </tr>

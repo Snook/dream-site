@@ -134,7 +134,7 @@ if ($this->report_submitted == TRUE) {
     if (isset($this->report_data) && count($this->report_data) > 0)
     { ?>
         <div id="report_area">
-            <button class="button" onclick="showform();">Run New Coupon Report</button>
+            <button class="btn btn-primary btn-sm" onclick="showform();">Run New Coupon Report</button>
 
             <table class='report' width='100%' border='0' cellpadding='0' cellspacing='0' >
                 <tr>

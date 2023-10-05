@@ -133,8 +133,8 @@
 				<?php } ?>
 				<tr>
 					<td class="title" style="vertical-align: top;">
-						<span id="gd_guest_account_note_button-<?php echo $booking['id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" data-user_id="<?php echo $booking['user_id']; ?>" data-edit_mode="false" data-tooltip="Guest's account notes" class="button">Account Notes</span>
-						<span id="gd_guest_account_note_cancel_button-<?php echo $booking['id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" class="button" style="display: none;">Cancel Edit</span>
+						<span id="gd_guest_account_note_button-<?php echo $booking['id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" data-user_id="<?php echo $booking['user_id']; ?>" data-edit_mode="false" data-tooltip="Guest's account notes" class="btn btn-primary btn-sm">Account Notes</span>
+						<span id="gd_guest_account_note_cancel_button-<?php echo $booking['id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" class="btn btn-primary btn-sm" style="display: none;">Cancel Edit</span>
 					</td>
 					<td colspan="5" class="value">
 						<div id="gd_guest_account_note-<?php echo $booking['id']; ?>" class="guest_note" data-user-id="<?php echo $booking['user_id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>"><?php if (!empty($booking['user']->preferences[CUser::USER_ACCOUNT_NOTE]['value'])) { echo nl2br(htmlentities($booking['user']->preferences[CUser::USER_ACCOUNT_NOTE]['value'])); } ?></div></td>
@@ -142,16 +142,16 @@
 				</tr>
 				<tr>
 					<td class="title" style="vertical-align: top;">
-						<span id="gd_guest_note_button-<?php echo $booking['id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" data-user_id="<?php echo $booking['user_id']; ?>" data-hide_carryover_notes="<?php echo $booking['hide_carryover_notes']; ?>" data-edit_mode="false" data-tooltip="Admin carryover notes" class="button">Admin Carryover</span>
-						<span id="gd_guest_note_cancel_button-<?php echo $booking['id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" data-hide_carryover_notes="<?php echo $booking['hide_carryover_notes']; ?>" class="button" style="display: none;">Cancel Edit</span>
+						<span id="gd_guest_note_button-<?php echo $booking['id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" data-user_id="<?php echo $booking['user_id']; ?>" data-hide_carryover_notes="<?php echo $booking['hide_carryover_notes']; ?>" data-edit_mode="false" data-tooltip="Admin carryover notes" class="btn btn-primary btn-sm">Admin Carryover</span>
+						<span id="gd_guest_note_cancel_button-<?php echo $booking['id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" data-hide_carryover_notes="<?php echo $booking['hide_carryover_notes']; ?>" class="btn btn-primary btn-sm" style="display: none;">Cancel Edit</span>
 					</td>
-					<td colspan="5" class="value"><div <?php if (!empty($booking['hide_carryover_notes'])) { ?>style="display: none;"<?php } ?> id="gd_guest_note-<?php echo $booking['id']; ?>" class="guest_note" data-user-id="<?php echo $booking['user_id']; ?>" data-booking_id="<?php echo $booking['id']; ?>"><?php echo (!empty($booking['user_data']['16'])) ? nl2br(htmlspecialchars($booking['user_data']['16'])) : ''; ?></div><div class="button" id="gd_show_guest_note-<?php echo $booking['id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" <?php if (empty($booking['user_data']['16']) || empty($booking['hide_carryover_notes'])) { ?>style="display: none;"<?php } ?>>View Note</div></td>
+					<td colspan="5" class="value"><div <?php if (!empty($booking['hide_carryover_notes'])) { ?>style="display: none;"<?php } ?> id="gd_guest_note-<?php echo $booking['id']; ?>" class="guest_note" data-user-id="<?php echo $booking['user_id']; ?>" data-booking_id="<?php echo $booking['id']; ?>"><?php echo (!empty($booking['user_data']['16'])) ? nl2br(htmlspecialchars($booking['user_data']['16'])) : ''; ?></div><div class="btn btn-primary btn-sm" id="gd_show_guest_note-<?php echo $booking['id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" <?php if (empty($booking['user_data']['16']) || empty($booking['hide_carryover_notes'])) { ?>style="display: none;"<?php } ?>>View Note</div></td>
 				</tr>
 			<?php } ?>
 			<tr>
 				<td class="title" style="vertical-align: top;">
-					<span id="gd_admin_note_button-<?php echo $booking['id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>" data-user_id="<?php echo $booking['user_id']; ?>" data-edit_mode="false" data-tooltip="Staff notes for this order" class="button">Admin Order Note</span>
-					<span id="gd_admin_note_cancel_button-<?php echo $booking['id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" class="button" style="display: none;">Cancel Edit</span>
+					<span id="gd_admin_note_button-<?php echo $booking['id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>" data-user_id="<?php echo $booking['user_id']; ?>" data-edit_mode="false" data-tooltip="Staff notes for this order" class="btn btn-primary btn-sm">Admin Order Note</span>
+					<span id="gd_admin_note_cancel_button-<?php echo $booking['id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" class="btn btn-primary btn-sm" style="display: none;">Cancel Edit</span>
 				</td>
 				<td colspan="5" class="value">
 					<div id="gd_admin_note-<?php echo $booking['id']; ?>" class="guest_note" data-user-id="<?php echo $booking['user_id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>"><?php echo $booking['order_admin_notes']; ?></div></td>
@@ -164,27 +164,27 @@
 					Order Summary
 					<div style="float: right;">
 						<?php if (!empty($booking['can_edit'])) { ?>
-							<a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" class="button">Edit Order</a>
+							<a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" class="btn btn-primary btn-sm">Edit Order</a>
 
 							<?php if ($booking['status'] == CBooking::SAVED) { ?>
-								<span id="gd_delete_order-<?php echo $booking['id']; ?>" data-user_id="<?php echo $booking['user_id']; ?>" data-store_id="<?php echo $booking['store_id']; ?>" data-session_id="<?php echo $booking['session_id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>" class="button">Delete Order</span>
+								<span id="gd_delete_order-<?php echo $booking['id']; ?>" data-user_id="<?php echo $booking['user_id']; ?>" data-store_id="<?php echo $booking['store_id']; ?>" data-session_id="<?php echo $booking['session_id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>" class="btn btn-primary btn-sm">Delete Order</span>
 							<?php } else { ?>
-								<span id="gd_cancel_delivered_order-<?php echo $booking['id']; ?>" data-user_id="<?php echo $booking['user_id']; ?>" data-store_id="<?php echo $booking['store_id']; ?>" data-session_id="<?php echo $booking['session_id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>" data-menu_id="<?php echo $booking['menu_id']; ?>" class="button">Cancel Order</span>
+								<span id="gd_cancel_delivered_order-<?php echo $booking['id']; ?>" data-user_id="<?php echo $booking['user_id']; ?>" data-store_id="<?php echo $booking['store_id']; ?>" data-session_id="<?php echo $booking['session_id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>" data-menu_id="<?php echo $booking['menu_id']; ?>" class="btn btn-primary btn-sm">Cancel Order</span>
 							<?php } ?>
 
 						<?php } else { ?>
-							<a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" class="button">Edit Payments</a>
+							<a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" class="btn btn-primary btn-sm">Edit Payments</a>
 
 							<span data-tooltip="Cancel order period has expired" class="button disabled">Cancel Order</span>
 						<?php } ?>
 						<?php if (!empty($booking['can_reschedule'])) { ?>
-							<a id="gd_reschedule-<?php echo $booking['id']; ?>" data-store_id="<?php echo $booking['store_id']; ?>" data-session_id="<?php echo $booking['session_id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>" data-menu_id="<?php echo $booking['menu_id']; ?>" class="button">Reschedule</a>
+							<a id="gd_reschedule-<?php echo $booking['id']; ?>" data-store_id="<?php echo $booking['store_id']; ?>" data-session_id="<?php echo $booking['session_id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>" data-menu_id="<?php echo $booking['menu_id']; ?>" class="btn btn-primary btn-sm">Reschedule</a>
 						<?php } else { ?>
 							<span data-tooltip="Can not reschedule" class="button disabled">Reschedule</span>
 						<?php } ?>
 						<a class="button handle-resend-shipstation" data-order_id="<?php echo $booking['order_id']; ?>">Update ShipStation</a>
 						<a class="button handle-fetch-tracking-number" data-order_id="<?php echo $booking['order_id']; ?>">Load Tracking Number</a>
-						<a href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" class="button" target="_blank">Print</a>
+						<a href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" class="btn btn-primary btn-sm" target="_blank">Print</a>
 						<span class="button close_order_details_table" data-booking_id="<?php echo $booking['id']; ?>">Close Details</span>
 					</div>
 				</td>

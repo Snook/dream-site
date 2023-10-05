@@ -86,7 +86,7 @@ function saveOrderAdminNotes()
 //]]>
 </script>
 <div style="width:98%">
-	<div id="order_admin_notes_read"><input type="button" class="button" value="Edit" onclick="javascript:editOrderAdminNotes();" style="float:right;margin-left:4px;margin-bottom:4px;" />
+	<div id="order_admin_notes_read"><input type="button" class="btn btn-primary btn-sm" value="Edit" onclick="javascript:editOrderAdminNotes();" style="float:right;margin-left:4px;margin-bottom:4px;" />
 		<span id="order_admin_note"><?php echo $order_admin_notes; ?></span>
 	</div>
 	<div id="order_admin_notes_edit" style="display:none;">
@@ -95,8 +95,8 @@ function saveOrderAdminNotes()
 		<tr>
 			<td><span id="order_admin_note_proc_message" style="display:none;"></span></td>
 			<td style="text-align:right;">
-				<input type="button" class="button" value="Save" onclick="javascript:saveOrderAdminNotes();" />
-				<input type="button" class="button" value="Cancel" onclick="javascript:cancelOrderAdminNotes();" />
+				<input type="button" class="btn btn-primary btn-sm" value="Save" onclick="javascript:saveOrderAdminNotes();" />
+				<input type="button" class="btn btn-primary btn-sm" value="Cancel" onclick="javascript:cancelOrderAdminNotes();" />
 			</td>
 		</tr>
 		</table>
