@@ -12,7 +12,7 @@ function deleteFranchiseConfirm()
 		message: 'Are you sure you want to delete this franchise?',
 		confirm: function() {
 
-			bounce('page=admin_franchise_details&id=' + franchise_id + '&action=deleteFranchise');
+			bounce('/backoffice/franchise-details?id=' + franchise_id + '&action=deleteFranchise');
 
 		},
 		cancel: function() {
@@ -42,12 +42,12 @@ function handle_owner_links()
 
 		if (manage_action == 'view')
 		{
-			bounce('/?page=admin_user_details&id=' + user_id + '&back=' + back_path());
+			bounce('/backoffice/user_details?id=' + user_id + '&back=' + back_path());
 		}
 
 		if (manage_action == 'edit')
 		{
-			bounce('/?page=admin_account&id=' + user_id + '&back=' + back_path());
+			bounce('/backoffice/account?id=' + user_id + '&back=' + back_path());
 		}
 
 		if (manage_action == 'delete')
@@ -86,7 +86,7 @@ function handle_store_links()
 
 		if (manage_action == 'view')
 		{
-			bounce('/?page=admin_store_details&id=' + store_id + '&back=' + back_path());
+			bounce('/backoffice/store_details?id=' + store_id + '&back=' + back_path());
 		}
 
 		if (manage_action == 'archive')
@@ -96,7 +96,7 @@ function handle_store_links()
 				message: 'Are you sure you want to archive and re-open <span style="color: red; font-weight: bold;">' + store_name + '</span>?',
 				confirm: function() {
 
-					bounce('/?page=admin_archive_store&store=' + store_id);
+					bounce('/backoffice/archive-store?store=' + store_id);
 
 				},
 				cancel: function() {
@@ -115,7 +115,7 @@ function handle_store_links()
 					dd_toast({message: 'Deleting Store'});
 
 					create_and_submit_form({
-						action: '/?page=admin_store_details&id=' + store_id,
+						action: '/backoffice/store_details?id=' + store_id,
 						input: ({
 							action: 'deleteStore',
 							id: store_id,

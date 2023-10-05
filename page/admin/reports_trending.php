@@ -42,7 +42,7 @@ class page_admin_reports_trending extends CPageAdminOnly
 
 	function runFranchiseStaff()
 	{
-		CApp::bounce('/?page=admin_access_error');
+		CApp::bounce('/backoffice/access-error');
 	}
 
 	function runEventCoordinator()
@@ -53,7 +53,7 @@ class page_admin_reports_trending extends CPageAdminOnly
 
 	function runFranchiseLead()
 	{
-		CApp::bounce('/?page=admin_access_error');
+		CApp::bounce('/backoffice/access-error');
 	}
 
 	function runFranchiseManager()
@@ -79,7 +79,7 @@ class page_admin_reports_trending extends CPageAdminOnly
 
 	function runHomeOfficeStaff()
 	{
-		CApp::bounce('/?page=admin_access_error');
+		CApp::bounce('/backoffice/access-error');
 	}
 
 	function runHomeOfficeManager()

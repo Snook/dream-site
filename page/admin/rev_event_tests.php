@@ -628,7 +628,7 @@ class page_admin_rev_event_tests extends CPageAdminOnly
 
 				$vartemp = array_slice($vartemp, 0, 46);
 
-			//	$vartemp['session_id'] = "=HYPERLINK(\"" . HTTPS_BASE . "?page=admin_main&session=" . $vartemp['session_id'] . "\", \"Details\")";
+			//	$vartemp['session_id'] = "=HYPERLINK(\"" . HTTPS_BASE . "backoffice/main?session=" . $vartemp['session_id'] . "\", \"Details\")";
 
 				if (isset($vartemp['intro_discount']) && ($vartemp['intro_discount'] === "" || is_null($vartemp['intro_discount'])))
 				{

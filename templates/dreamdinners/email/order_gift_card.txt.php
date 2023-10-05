@@ -32,7 +32,7 @@ From:<?=$thisCard['from_name']?>
 Message: <?=$thisCard['message_text']?>
 <?php if ($thisCard['media_type'] == 'VIRTUAL') { ?>
 Recipient Email Address: <?=$thisCard['recipient_email']?>
-Resend eGift Card Email: <?=HTTPS_BASE?>?page=resend_egift&oid=<?=$thisCard['confirm_id']?>
+Resend eGift Card Email: <?=HTTPS_BASE?>/resend_egift?oid=<?=$thisCard['confirm_id']?>
 <?php } else { ?>
 Recipient Name: <?=$thisCard['ship_to_name']?>
 Recipient Address:

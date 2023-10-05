@@ -13,7 +13,7 @@ function food_testing_init()
 
 		id = this.id.split("-")[1];
 
-		bounce('/?page=admin_food_testing&export=xlsx&export_store=' + id);
+		bounce('/backoffice/food-testing?export=xlsx&export_store=' + id);
 	});
 
 	$('[id^="export_guest_report-"]').on('click', function ()
@@ -21,7 +21,7 @@ function food_testing_init()
 
 		id = this.id.split("-")[1];
 
-		bounce('/?page=admin_food_testing&export=xlsx&export_guest=' + id);
+		bounce('/backoffice/food-testing?export=xlsx&export_guest=' + id);
 	});
 }
 
@@ -38,7 +38,7 @@ function food_testing_survey_init()
 
 		id = this.id.split("-")[1];
 
-		bounce('/?page=admin_food_testing_survey_store&recipe=' + id);
+		bounce('/backoffice/food-testing-survey-store?recipe=' + id);
 
 	});
 }
@@ -326,7 +326,7 @@ function download_file_handler()
 
 		id = $(this).data('file_id');
 
-		bounce('/?page=admin_food_testing_survey&recipe_files=' + id);
+		bounce('/backoffice/food-testing-survey?recipe_files=' + id);
 
 	});
 }
@@ -354,7 +354,7 @@ function handle_category_toggle()
 
 			$("#recipe_row_disc-" + id).addClass('disc_open');
 
-			historyPush({url: '?' + (getQueryVariable('page') ? 'page=' + getQueryVariable('page') + '&' : '') + 'recipe=' + id});
+			historyPush({url: '?recipe=' + id});
 		}
 		else
 		{
@@ -403,25 +403,25 @@ function create_survey_button_handler()
 
 				$('#export_all_store_open').on('click', function () {
 
-					bounce('/?page=admin_food_testing&export=xlsx&export_store=all');
+					bounce('/backoffice/food-testing?export=xlsx&export_store=all');
 
 				});
 
 				$('#export_all_store_closed').on('click', function () {
 
-					bounce('/?page=admin_food_testing&export=xlsx&export_store=all&export_closed=true');
+					bounce('/backoffice/food-testing?export=xlsx&export_store=all&export_closed=true');
 
 				});
 
 				$('#export_all_guest_open').on('click', function () {
 
-					bounce('/?page=admin_food_testing&export=xlsx&export_guest=all');
+					bounce('/backoffice/food-testing?export=xlsx&export_guest=all');
 
 				});
 
 				$('#export_all_guest_closed').on('click', function () {
 
-					bounce('/?page=admin_food_testing&export=xlsx&export_guest=all&export_closed=true');
+					bounce('/backoffice/food-testing?export=xlsx&export_guest=all&export_closed=true');
 
 				});
 

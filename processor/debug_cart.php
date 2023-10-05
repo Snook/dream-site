@@ -111,7 +111,7 @@ class processor_debug_cart extends CPageProcessor
 				CAppUtil::processorMessageEcho(array(
 					'processor_success' => true,
 					'processor_message' => 'The session is full. Please contact your host or store.',
-					'bounce' => '/?page=admin_user_details&id=' . $_POST['dduid']
+					'bounce' => '/backoffice/user_details?id=' . $_POST['dduid']
 				));
 			}
 			else

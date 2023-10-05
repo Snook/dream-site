@@ -1410,12 +1410,12 @@ class CUser extends DAO_User
 					'admin_import_menu_reciprofity' => array(
 						'access' => array(self::SITE_ADMIN),
 						'title' => 'Import Menu',
-						'link' => '/backoffice/import_menu_reciprofity',
+						'link' => '/backoffice/import-menu-reciprofity',
 					),
 					'admin_import_nutritionals_reciprofity' => array(
 						'access' => array(self::SITE_ADMIN),
 						'title' => 'Import Nutritionals',
-						'link' => '/backoffice/import_nutritionals_reciprofity',
+						'link' => '/backoffice/import-nutritionals-reciprofity',
 					),
 					'admin_import_bundles_reciprofity' => array(
 						'access' => array(
@@ -1423,7 +1423,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_MANAGER
 						),
 						'title' => 'Import Bundles',
-						'link' => '/backoffice/import_bundles_reciprofity',
+						'link' => '/backoffice/import-bundles-reciprofity',
 					),
 					'admin_import_sidesmap_reciprofity' => array(
 						'access' => array(self::SITE_ADMIN),

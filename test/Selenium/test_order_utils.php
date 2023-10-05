@@ -14,7 +14,7 @@ class DD_Selenium_Test_Order_Utils
 
 		include('includes/config.php');
 
-		$driver->get($baseURL . "/?page=admin_start_new_test_order&session_id=" . $session_id . "&user_id=" . $user_id);
+		$driver->get($baseURL . "/backoffice/start_new_test_order?session_id=" . $session_id . "&user_id=" . $user_id);
 		DD_Selenium_Test_Utils::selectItems($driver, 36, 48, false);
 		$driver->executeScript("window.scrollTo(0,0)");
 		$driver->findElement(WebDriverBy::id('payments_tab_li'))->click();
@@ -62,7 +62,7 @@ class DD_Selenium_Test_Order_Utils
 
 		$details = DD_Test_Support::getRandomAccountDetails();
 
-		$driver->get($baseURL . "/?page=admin_gift_card_load");
+		$driver->get($baseURL . "/backoffice/gift-card-load");
 
 		$driver->findElement(WebDriverBy::id("gift_card_number"))->sendKeys("71000210014526");
 		$driver->findElement(WebDriverBy::id("amount"))->sendKeys("25");

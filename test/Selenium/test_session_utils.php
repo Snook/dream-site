@@ -17,7 +17,7 @@ class DD_Selenium_Test_Session_Utils
 			return false;
 		}
 
-		$driver->get($baseURL . "/?page=admin_create_session&selectedCell=" . $date . "&menu=" . $menu);
+		$driver->get($baseURL . "/backoffice/create-session?selectedCell=" . $date . "&menu=" . $menu);
 
 		$select = new WebDriverSelect($driver->findElement(WebDriverBy::id('time_hour')));
 		$select->selectByValue($recursion_depth);

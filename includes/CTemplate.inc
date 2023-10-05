@@ -270,7 +270,7 @@ class CTemplate extends Savant2
 
 	static function getUserDetailsLink($user_id, $addBackLink = true)
 	{
-		$retVal = "/?page=admin_user_details&id=" . $user_id;
+		$retVal = "/backoffice/user_details?id=" . $user_id;
 
 		if ($addBackLink)
 		{
@@ -441,7 +441,7 @@ class CTemplate extends Savant2
 		}
 	}
 
-	function assignBackBtn($defaultUrl = '?page=home')
+	function assignBackBtn($defaultUrl = '/')
 	{
 		if (array_key_exists('back', $_REQUEST) && $_REQUEST['back'])
 		{
@@ -592,7 +592,7 @@ class CTemplate extends Savant2
 
 		$masked_email_address = strtolower(substr($account, 0, 4) . '...@' . $domain);
 
-		$mail_reveal_link = "?page=mailhide&c=" . $encrypted_string;
+		$mail_reveal_link = "/mailhide?c=" . $encrypted_string;
 
 		$mail_reveal_html = '<a href="' . $mail_reveal_link . '" onclick="window.open(\'' . $mail_reveal_link . '\', \'\', \'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=500\'); return false;" data-tooltip="Spam prevention, please click to reveal this e-mail address" title="Spam prevention, please click to reveal this e-mail address">' . ((!empty($link_text)) ? $link_text : $masked_email_address) . '</a>';
 

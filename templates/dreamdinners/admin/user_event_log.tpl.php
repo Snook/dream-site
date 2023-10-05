@@ -2,7 +2,7 @@
 <?php $this->assign('topnav', 'tools'); ?>
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
-<h1>Event log for <a href="/?page=admin_user_details&amp;id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a></h1>
+<h1>Event log for <a href="/backoffice/user_details?id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a></h1>
 
 <form action="/backoffice/user-event-log" method="GET">
 <input type="hidden" name="id" value="<?php echo $this->user->id; ?>">
@@ -30,7 +30,7 @@
 <?php foreach ($this->events as $event) { ?>
 <tr>
 	<td class="bgcolor_light" style="white-space: nowrap;"><?php echo CTemplate::dateTimeFormat($event['timestamp_created'], CONCISE)?></td>
-	<td class="bgcolor_lighter"><a href="/?page=admin_user_event_log&amp;id=<?php echo $this->user->id; ?>&amp;log_type=<?php echo $event['log_type'] ?>"><?php echo $event['log_type'] ?></a></td>
+	<td class="bgcolor_lighter"><a href="/backoffice/user_event_log?id=<?php echo $this->user->id; ?>&amp;log_type=<?php echo $event['log_type'] ?>"><?php echo $event['log_type'] ?></a></td>
 	<td class="bgcolor_lighter"><?php echo $event['description'] ?></td>
 </tr>
 <?php } ?>

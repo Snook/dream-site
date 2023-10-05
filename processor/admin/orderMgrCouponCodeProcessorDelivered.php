@@ -240,7 +240,7 @@ class processor_admin_orderMgrCouponCodeProcessorDelivered extends CPageProcesso
 			{
 				CLog::RecordIntense("Session not found", "ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com");
 				$tpl = @CApp::instance()->template()->setErrorMsg("Could not find the session. Please start the order process again. Dream Dinners support has been notified that an issue has occurred.");
-				CApp::bounce("/?page=admin_list_users");
+				CApp::bounce("/backoffice/list_users");
 			}
 
 			self::$session_init = true;

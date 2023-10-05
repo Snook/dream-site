@@ -88,7 +88,7 @@ for ($row = 4; $row <= $highestRow; ++$row)
 
 	DD_Selenium_Test_Utils::Trace("Testing $thispageName \r\n", $dest_fp);
 
-	$url = $baseURL . "/?page=admin_" . $thispageName . $theParms;
+	$url = $baseURL . "/backoffice/" . $thispageName . $theParms;
 
 	if ($directives == "dismiss_print")
 	{

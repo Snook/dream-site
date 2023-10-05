@@ -1,6 +1,6 @@
 <div>
 	&#8226; <?php echo CTemplate::dateTimeFormat($item['time'], TIME, $this->store, CONCISE); ?>
-	<span data-tooltip="<?php echo CUser::userTypeText($item['user_type']); ?>"><a href="/?page=admin_user_details&amp;id=<?php echo $item['user_id']; ?>" target="_blank"><?php echo $item['user']; ?></a></span>
+	<span data-tooltip="<?php echo CUser::userTypeText($item['user_type']); ?>"><a href="/backoffice/user_details?id=<?php echo $item['user_id']; ?>" target="_blank"><?php echo $item['user']; ?></a></span>
 	<b><?php echo $item['type']; ?></b>
 	<?php echo (($item['order_type'] == 'WEB') ? 'Customer' : 'BackOffice'); ?>
 
@@ -14,7 +14,7 @@
 	<?php if (!empty($item['session_data'])) { // session data not available for initial order after it's been rescheduled ?>
 		<span class="type"><?php echo CCalendar::sessionTypeNote($item['session_data']['session_type_true']); ?></span>
 	<?php } ?>
-	Order <a href="/?page=admin_order_mgr&amp;order=<?php echo $item['order_id']; ?>" target="_blank"> <?php echo $item['order_id']; ?></a>
+	Order <a href="/backoffice/order-mgr?order=<?php echo $item['order_id']; ?>" target="_blank"> <?php echo $item['order_id']; ?></a>
 	with <?php echo $item['item_count']; ?> items
 	<?php if (!empty($item['total_efl_item_count'])) { // show efl item count so store's know items are needed to be pulled from freezer ?>
 		<span class="badge badge-yellow badge-pill"><?php echo $item['total_efl_item_count']; ?> EFL item<?php echo (($item['total_efl_item_count'] > 1) ? 's' : ''); ?></span>

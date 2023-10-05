@@ -26,7 +26,7 @@
 	<?php if (!empty($this->session_info['session_host'])) { ?>
 		<tr>
 			<td class="label">Host</td>
-			<td colspan="3" class="value"><a href="/?page=admin_user_details&amp;id=<?php echo $this->session_info['session_host']; ?>"><?php echo $this->session_info['session_host_firstname']; ?> <?php echo $this->session_info['session_host_lastname']; ?></a></td>
+			<td colspan="3" class="value"><a href="/backoffice/user_details?id=<?php echo $this->session_info['session_host']; ?>"><?php echo $this->session_info['session_host_firstname']; ?> <?php echo $this->session_info['session_host_lastname']; ?></a></td>
 		</tr>
 	<?php } ?>
 	<?php if ($this->session_info['session_type'] == CSession::DREAM_TASTE && !empty($this->session_info['dream_taste_available_on_customer_site'])) { ?>
@@ -50,13 +50,13 @@
 		<tr>
 			<td class="label">Fundraiser</td>
 			<td colspan="3" class="value">
-				<a href="/?page=fundraiser&amp;id=<?php echo $this->session_info['store_id']; ?>&amp;fid=<?php echo $this->session_info['fundraiser_id']; ?>" target="_blank"><?php echo $this->session_info['fundraiser_name']; ?></a>
+				<a href="/fundraiser?id=<?php echo $this->session_info['store_id']; ?>&amp;fid=<?php echo $this->session_info['fundraiser_id']; ?>" target="_blank"><?php echo $this->session_info['fundraiser_name']; ?></a>
 			</td>
 		</tr>
 		<tr>
 			<td class="label">Fundraiser page</td>
 			<td colspan="3" class="value">
-				<input type="text" value="<?php echo HTTP_BASE; ?>?page=fundraiser&amp;id=<?php echo $this->session_info['store_id']; ?>&amp;fid=<?php echo $this->session_info['fundraiser_id']; ?>" class="form-control form-control-sm" />
+				<input type="text" value="<?php echo HTTPS_BASE; ?>fundraiser?amp;id=<?php echo $this->session_info['store_id']; ?>&amp;fid=<?php echo $this->session_info['fundraiser_id']; ?>" class="form-control form-control-sm" />
 			</td>
 		</tr>
 		<tr>
@@ -91,7 +91,7 @@
 	<?php if (!empty($this->session_info['session_lead'])) { ?>
 		<tr>
 			<td class="label">Lead</td>
-			<td colspan="3" class="value"><a href="/?page=admin_user_details&amp;id=<?php echo $this->session_info['session_lead']; ?>"><?php echo $this->session_info['lead_firstname']; ?> <?php echo $this->session_info['lead_lastname']; ?></a></td>
+			<td colspan="3" class="value"><a href="/backoffice/user_details?id=<?php echo $this->session_info['session_lead']; ?>"><?php echo $this->session_info['lead_firstname']; ?> <?php echo $this->session_info['lead_lastname']; ?></a></td>
 		</tr>
 	<?php } ?>
 	<?php if (!empty($this->session_info['session_details'])) { ?>
@@ -130,7 +130,7 @@
 			<tr>
 				<td class="label">Contact</td>
 				<td colspan="3" class="value">
-					<a href="/?page=admin_user_details&amp;id=<?php echo $this->session_info['session_remote_location']->contact_user->id; ?>"><?php echo $this->session_info['session_remote_location']->contact_user->firstname; ?> <?php echo $this->session_info['session_remote_location']->contact_user->lastname; ?></a>
+					<a href="/backoffice/user_details?id=<?php echo $this->session_info['session_remote_location']->contact_user->id; ?>"><?php echo $this->session_info['session_remote_location']->contact_user->firstname; ?> <?php echo $this->session_info['session_remote_location']->contact_user->lastname; ?></a>
 				</td>
 			</tr>
 		<?php } ?>
@@ -148,7 +148,7 @@
 	<?php if (!empty($this->session_info['created_by'])) { ?>
 		<tr>
 			<td class="label">Created By</td>
-			<td colspan="3" class="value"><a href="/?page=admin_user_details&amp;id=<?php echo $this->session_info['created_by']; ?>"><?php echo $this->session_info['created_by_firstname']; ?> <?php echo $this->session_info['created_by_lastname']; ?></a></td>
+			<td colspan="3" class="value"><a href="/backoffice/user_details?id=<?php echo $this->session_info['created_by']; ?>"><?php echo $this->session_info['created_by_firstname']; ?> <?php echo $this->session_info['created_by_lastname']; ?></a></td>
 		</tr>
 		<tr>
 			<td class="label">Created</td>
@@ -158,7 +158,7 @@
 	<?php if (!empty($this->session_info['updated_by'])) { ?>
 		<tr>
 			<td class="label">Updated By</td>
-			<td colspan="3" class="value"><a href="/?page=admin_user_details&amp;id=<?php echo $this->session_info['updated_by']; ?>"><?php echo $this->session_info['updated_by_firstname']; ?> <?php echo $this->session_info['updated_by_lastname']; ?></a></td>
+			<td colspan="3" class="value"><a href="/backoffice/user_details?id=<?php echo $this->session_info['updated_by']; ?>"><?php echo $this->session_info['updated_by_firstname']; ?> <?php echo $this->session_info['updated_by_lastname']; ?></a></td>
 		</tr>
 		<tr>
 			<td class="label">Updated</td>

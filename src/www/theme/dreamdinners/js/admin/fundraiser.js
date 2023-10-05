@@ -51,7 +51,7 @@ function create_fundraiser_button()
 						{
 							if (json.processor_success)
 							{
-								bounce('/?page=admin_fundraiser');
+								bounce('/backoffice/fundraiser');
 
 								$(this_form).remove();
 							}

@@ -281,7 +281,7 @@ function onClearFillWindow()
 
 function onEditClick(id)
 {
-	window.location = "./?page=admin_edit_session&session=" + id + "&back=?page=admin_publish_sessions";
+	window.location = "./backoffice/edit-session?session=" + id + "&back=/backoffice/publish_sessions";
 }
 
 function onSessionClick(id)

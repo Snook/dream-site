@@ -59,7 +59,7 @@
 			<tr>
 				<td class="bgcolor_light" style="text-align: right; width: 210px;">Entity/Owner:</td>
 				<td class="bgcolor_light">
-					<?php if ($isSiteAdmin) { ?><a href="/?page=admin_franchise_details&amp;id=<?php echo $this->form_store_details['franchise_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" class="button" style="float: right;">View Entity</a><?php } ?>
+					<?php if ($isSiteAdmin) { ?><a href="/backoffice/franchise-details?id=<?php echo $this->form_store_details['franchise_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" class="button" style="float: right;">View Entity</a><?php } ?>
 					<?php echo ($isSiteAdmin) ? $this->form_store_details['franchise_id_html'] : $this->franchise_name; ?>
 				</td>
 			</tr>
@@ -283,10 +283,10 @@
 						<?php if (!empty($this->store['personnel'])) { ?>
 							<?php foreach ($this->store['personnel'] as $user_id => $userInfo) { ?>
 								<tr>
-									<td class="bgcolor_light"><a href="/?page=admin_access_levels&amp;id=<?php echo $user_id; ?>"><?php echo CUser::userTypeText($userInfo['user_type']); ?></a></td>
-									<td class="bgcolor_light"><a href="/?page=admin_user_details&amp;id=<?php echo $user_id; ?>"><?php echo $userInfo['firstname']; ?> <?php echo $userInfo['lastname']; ?></a></td>
-									<td class="bgcolor_light"><a href="/?page=admin_email&amp;id=<?php echo $user_id; ?>"><?php echo $userInfo['primary_email']; ?></a></td>
-									<td class="bgcolor_light"><a href="/?page=admin_user_details&amp;id=<?php echo $user_id; ?>"><?php echo (!empty($userInfo['last_login'])) ? CTemplate::dateTimeFormat($userInfo['last_login'], MONTH_DAY_YEAR) : 'Never'; ?></a></td>
+									<td class="bgcolor_light"><a href="/backoffice/access-levels?id=<?php echo $user_id; ?>"><?php echo CUser::userTypeText($userInfo['user_type']); ?></a></td>
+									<td class="bgcolor_light"><a href="/backoffice/user_details?id=<?php echo $user_id; ?>"><?php echo $userInfo['firstname']; ?> <?php echo $userInfo['lastname']; ?></a></td>
+									<td class="bgcolor_light"><a href="/backoffice/email?id=<?php echo $user_id; ?>"><?php echo $userInfo['primary_email']; ?></a></td>
+									<td class="bgcolor_light"><a href="/backoffice/user_details?id=<?php echo $user_id; ?>"><?php echo (!empty($userInfo['last_login'])) ? CTemplate::dateTimeFormat($userInfo['last_login'], MONTH_DAY_YEAR) : 'Never'; ?></a></td>
 									<td class="bgcolor_light" style="text-align:center;"><?php echo (!empty($userInfo['fadmin_nda_agree'])) ? 'Yes' : '<span style="color: red;">No</span>'; ?></td>
 									<td class="bgcolor_light" style="text-align:center;"><a href="/location/<?php echo $this->store['id']; ?>"><?php echo (!empty($userInfo['display_to_public'])) ? 'Yes' : 'No'; ?></a></td>
 								</tr>
@@ -343,11 +343,11 @@
 			<?php } ?>
 			<tr>
 				<td class="bgcolor_light" style="text-align: right;">Last update:</td>
-				<td class="bgcolor_light"><?php echo $this->store['timestamp_updated']; ?> by <a href="/?page=admin_user_details&amp;id=<?php echo $this->store['updated_by']; ?>"><?php echo $this->store['updated_by']; ?></a></td>
+				<td class="bgcolor_light"><?php echo $this->store['timestamp_updated']; ?> by <a href="/backoffice/user_details?id=<?php echo $this->store['updated_by']; ?>"><?php echo $this->store['updated_by']; ?></a></td>
 			</tr>
 			<tr>
 				<td class="bgcolor_light" style="text-align: right;">Created on:</td>
-				<td class="bgcolor_light"><?php echo $this->store['timestamp_created']; ?> by <a href="/?page=admin_user_details&amp;id=<?php echo $this->store['created_by']; ?>"><?php echo $this->store['created_by']; ?></a></td>
+				<td class="bgcolor_light"><?php echo $this->store['timestamp_created']; ?> by <a href="/backoffice/user_details?id=<?php echo $this->store['created_by']; ?>"><?php echo $this->store['created_by']; ?></a></td>
 			</tr>
 			<tr>
 				<td colspan="2" class="tbl_section_footer">&nbsp;</td>

@@ -202,7 +202,7 @@ class page_admin_create_store extends CPageAdminOnly {
 					}
 					else
 					{
-						CApp::bounce('/?page=admin_list_stores');
+						CApp::bounce('/backoffice/list_stores');
 					}
 				}
 				else
@@ -214,7 +214,7 @@ class page_admin_create_store extends CPageAdminOnly {
 
 		$tpl->assign('form_create_store', $Form->Render());
 
-		$back = '/?page=admin_list_stores';
+		$back = '/backoffice/list_stores';
 
 		if ( array_key_exists('back', $_GET) && $_GET['back'] )
 		{

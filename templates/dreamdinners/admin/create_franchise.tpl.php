@@ -10,7 +10,7 @@
 
 	<p>A franchise is an entity that can consist of multiple owners and multiple stores.<br />Enter in LLC, or owner name if no LLC, for this franchise such as <span class='standout'>Dream Food, LLC</span> or <span class='standout'>Betty White</span></p>
 
-	<p>If the LLC or Owner already owns another store, assign the new store to the <a href="/?page=admin_list_franchise">existing Franchise</a>.</p>
+	<p>If the LLC or Owner already owns another store, assign the new store to the <a href="/backoffice/list_franchise">existing Franchise</a>.</p>
 
 	<p><label id="franchise_name_lbl" for="franchise_name" data-message="Please enter a entity name.">Entity name:</label><?php echo $this->form_create_franchise['franchise_name_html']; ?></p>
 

@@ -72,7 +72,7 @@ class form_account
 
 	);
 
-	static $forwardTo = '?page=my_account'; //switched to auto-confirm
+	static $forwardTo = '/my_account'; //switched to auto-confirm
 	static public $originalCustomerReferral = false;
 
 	static function sanitizeAccountFields()

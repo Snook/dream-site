@@ -2,7 +2,7 @@
 <?php $this->assign('topnav','guests'); ?>
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
-<h3>User History for <a href="/?page=admin_user_details&amp;id=<?php echo $this->user_info->id ?>"><?php echo $this->user_info->firstname ?> <?php echo $this->user_info->lastname ?></a></h3>
+<h3>User History for <a href="/backoffice/user_details?id=<?php echo $this->user_info->id ?>"><?php echo $this->user_info->firstname ?> <?php echo $this->user_info->lastname ?></a></h3>
 
 <table style="width:100%;margin-top:20px;">
 <tr>

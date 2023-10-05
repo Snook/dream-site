@@ -111,14 +111,14 @@ function init_export_sales()
 				width: 400,
 				height: 300,
 				confirm: function () {
-					let url = "/?page=admin_menu_inventory_mgr&op=export_month_sales_projection&store=" + gStore_ID + "&menu_id=" + menu_id;
+					let url = "/backoffice/menu_inventory_mgr?op=export_month_sales_projection&store=" + gStore_ID + "&menu_id=" + menu_id;
 					window.location = url;
 				}
 			});
 		}
 		else
 		{
-			let url = "/?page=admin_menu_inventory_mgr&op=export_month_sales_projection&store=" + gStore_ID + "&menu_id=" + menu_id;
+			let url = "/backoffice/menu_inventory_mgr?op=export_month_sales_projection&store=" + gStore_ID + "&menu_id=" + menu_id;
 			window.location = url;
 		}
 	});
@@ -165,7 +165,7 @@ function init_export_sales()
 				confirm: function () {
 
 					let weekStart = $(this).data("week_start");
-					let url = "/?page=admin_menu_inventory_mgr&op=export_weekly_sales&store=" + gStore_ID + "&weekStart=" + weekStart + "&menu_id=" + menu_id;
+					let url = "/backoffice/menu_inventory_mgr?op=export_weekly_sales&store=" + gStore_ID + "&weekStart=" + weekStart + "&menu_id=" + menu_id;
 					window.location = url;
 
 				}
@@ -174,7 +174,7 @@ function init_export_sales()
 		else
 		{
 			let weekStart = $(this).data("week_start");
-			let url = "/?page=admin_menu_inventory_mgr&op=export_weekly_sales&store=" + gStore_ID + "&weekStart=" + weekStart + "&menu_id=" + menu_id;
+			let url = "/backoffice/menu_inventory_mgr?op=export_weekly_sales&store=" + gStore_ID + "&weekStart=" + weekStart + "&menu_id=" + menu_id;
 			window.location = url;
 		}
 	});
@@ -222,7 +222,7 @@ function init_export_sales()
 
 					let start = $("[name='range_day_start']").val();
 					let end = $("[name='range_day_end']").val();
-					let url = "/?page=admin_menu_inventory_mgr&op=export_sales_by_range&store=" + gStore_ID + "&start=" + start + "&end=" + end + "&menu_id=" + menu_id;
+					let url = "/backoffice/menu_inventory_mgr?op=export_sales_by_range&store=" + gStore_ID + "&start=" + start + "&end=" + end + "&menu_id=" + menu_id;
 					window.location = url;
 
 				}
@@ -232,14 +232,14 @@ function init_export_sales()
 		{
 			let start = $("[name='range_day_start']").val();
 			let end = $("[name='range_day_end']").val();
-			let url = "/?page=admin_menu_inventory_mgr&op=export_sales_by_range&store=" + gStore_ID + "&start=" + start + "&end=" + end + "&menu_id=" + menu_id;
+			let url = "/backoffice/menu_inventory_mgr?op=export_sales_by_range&store=" + gStore_ID + "&start=" + start + "&end=" + end + "&menu_id=" + menu_id;
 			window.location = url;
 		}
 	});
 
 	$("#export_EFL_sales").on('click', function () {
 
-		let url = "/?page=admin_menu_inventory_mgr&op=export_EFL_sales&store=" + gStore_ID + "&menu_id=" + menu_id;
+		let url = "/backoffice/menu_inventory_mgr?op=export_EFL_sales&store=" + gStore_ID + "&menu_id=" + menu_id;
 		window.location = url;
 	});
 

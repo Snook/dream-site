@@ -66,12 +66,12 @@ abstract class CPageAdminOnly
 
 				if (!$found)
 				{
-					CApp::bounce('/?page=admin_location_switch&back=?page=admin_main');
+					CApp::bounce('/backoffice/location_switch?back=/backoffice/main');
 				}
 
 				if (empty($this->CurrentUser->fadmin_nda_agree))
 				{
-					CApp::bounce('/?page=admin_access_agreement&back=' . urlencode('?' . $_SERVER['QUERY_STRING']));
+					CApp::bounce('/backoffice/access-agreement?back=' . urlencode('?' . $_SERVER['QUERY_STRING']));
 				}
 			}
 		}
@@ -90,81 +90,81 @@ abstract class CPageAdminOnly
 	{
 		//bump back to the main menu
 		CApp::instance()->template()->setErrorMsg('You do not have permission to access the requested page.');
-		CApp::bounce('?page=home');
+		CApp::bounce('/');
 		exit;
 	}
 
 	function runNewEmployee()
 	{
 		unset(CApp::instance()->template()->back);
-		CApp::bounce('/?page=admin_safe_landing');
+		CApp::bounce('/backoffice/safe_landing');
 		exit;
 	}
 
 	function runFranchiseStaff()
 	{
-		CApp::bounce('/?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('/backoffice/access-error?pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runFranchiseOwner()
 	{
-		CApp::bounce('/?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('/backoffice/access-error?pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runHomeOfficeManager()
 	{
-		CApp::bounce('/?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('/backoffice/access-error?pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runHomeOfficeStaff()
 	{
-		CApp::bounce('/?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('/backoffice/access-error?pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runFranchiseManager()
 	{
-		CApp::bounce('/?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('/backoffice/access-error?pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runFranchiseLead()
 	{
-		CApp::bounce('/?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('/backoffice/access-error?pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runManufacturerStaff()
 	{
-		CApp::bounce('/?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('/backoffice/access-error?pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runEventCoordinator()
 	{
-		CApp::bounce('/?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('/backoffice/access-error?pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runOpsLead()
 	{
-		CApp::bounce('/?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('/backoffice/access-error?pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runOpsSupport()
 	{
-		CApp::bounce('/?page=admin_access_error&pagename=' . $this->cleanPageName($_GET['page']));
+		CApp::bounce('/backoffice/access-error?pagename=' . $this->cleanPageName($_GET['page']));
 		exit;
 	}
 
 	function runDishwasher()
 	{
 		unset(CApp::instance()->template()->back);
-		CApp::bounce('/?page=admin_safe_landing');
+		CApp::bounce('/backoffice/safe_landing');
 		exit;
 	}
 

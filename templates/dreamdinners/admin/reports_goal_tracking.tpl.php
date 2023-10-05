@@ -3,7 +3,7 @@ $this->assign('page_title','Session Goal Sheet');
 if (!$this->print_view) {
 	include $this->loadTemplate('admin/page_header_reports.tpl.php');
 	?>
-	<form action="/?page=admin_reports_goal_tracking&export=xslx&hideheaders=true&csvfilename=<?=$this->filename;?>" name="frm" method="post">
+	<form action="/backoffice/reports_goal_tracking?export=xslx&hideheaders=true&csvfilename=<?=$this->filename;?>" name="frm" method="post">
 		<?php
 		if (isset($this->form_session_list['store_html']) )
 		{

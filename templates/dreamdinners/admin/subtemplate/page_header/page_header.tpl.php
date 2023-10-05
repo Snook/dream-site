@@ -73,11 +73,11 @@
 			<button class="btn btn-light mr-3" id="menu-toggle">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<a class="navbar-brand" href="/?page=admin_main">
+			<a class="navbar-brand" href="/backoffice/main">
 				<img src="<?php echo ADMIN_IMAGES_PATH; ?>/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" class="img-fluid">
 			</a>
 			<div class="nav-item">
-				<button class="btn btn-sm btn-outline-green" value="Change" onclick="bounce('/?page=admin_location_switch&back=' + back_path());">
+				<button class="btn btn-sm btn-outline-green" value="Change" onclick="bounce('/backoffice/location_switch?back=' + back_path());">
 					<?php echo (!empty(CStore::getFranchiseStore()->store_name)) ? CStore::getFranchiseStore()->store_name : 'Store not set'; ?>
 				</button>
 			</div>

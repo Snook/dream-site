@@ -89,13 +89,13 @@
 			<?php if (CUser::isUserStaff()) { ?>
 				<p class="font-weight-bold text-uppercase pl-1 mt-4 mt-lg-0">Administration</p>
 				<div class="list-group list-group-flush">
-					<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/?page=admin_main">BackOffice Home</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/?page=admin_reports">Reports</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/?page=admin_list_users">Guests</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/?page=admin_session_mgr">Session Calendar</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/?page=admin_menu_inventory_mgr">Inventory Manager</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/?page=admin_menu_editor">Menu Editor</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/?page=admin_gift_card_management">Gift Cards</a>
+					<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/backoffice/main">BackOffice Home</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/reports">Reports</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/list_users">Guests</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/session_mgr">Session Calendar</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/menu_inventory_mgr">Inventory Manager</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/menu_editor">Menu Editor</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/gift-card-management">Gift Cards</a>
 				</div>
 			<?php } ?>
 		</div>

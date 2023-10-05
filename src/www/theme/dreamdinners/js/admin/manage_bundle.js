@@ -90,7 +90,7 @@ function handle_edit_bundle()
 
 		if (menu_id)
 		{
-			bounce('/?page=admin_manage_bundle&create&menu=' + menu_id);
+			bounce('/backoffice/manage_bundle?create&menu=' + menu_id);
 		}
 
 	});

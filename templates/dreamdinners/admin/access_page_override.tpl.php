@@ -30,7 +30,7 @@
 <tr>
 	<td class="bgcolor_light"><?php echo $element['access_id']; ?></td>
 	<td class="bgcolor_lighter"><?php echo $element['page_name']; ?></td>
-	<td class="bgcolor_light"><a href="/?page=admin_user_details&amp;id=<?php echo $element['id']; ?>"><?php echo $element['id']; ?></a></td>
+	<td class="bgcolor_light"><a href="/backoffice/user_details?id=<?php echo $element['id']; ?>"><?php echo $element['id']; ?></a></td>
 	<td class="bgcolor_lighter"><?php echo $element['lastname']; ?></td>
 	<td class="bgcolor_light"><?php echo $element['firstname']; ?></td>
 	<td class="bgcolor_lighter"><input type="checkbox" name="ch_<?php echo $element['access_id']; ?>" /></td>

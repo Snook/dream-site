@@ -938,7 +938,7 @@ function setShipToAddressAndSaveOrder()
 			if (json.processor_success)
 			{
 				intenseLogging("setShipToAddressAndSaveOrder() successful");
-				bounce("/?page=admin_order_mgr_delivered&order=" + json.order_id + "&atabs=mgr.sessionsTab");
+				bounce("/backoffice/order-mgr-delivered?order=" + json.order_id + "&atabs=mgr.sessionsTab");
 			}
 			else
 			{
@@ -1872,11 +1872,11 @@ function save2PaymentsAndBookOrder(payment2Type, payment1Data, token)
 
 					if (json.warnOfOutstandingSavedOrdersOnFullSession)
 					{
-						bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id + '&full_session=true');
+						bounce("/backoffice/order-mgr-thankyou?order=" + json.order_id + '&full_session=true');
 					}
 					else
 					{
-						bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id);
+						bounce("/backoffice/order-mgr-thankyou?order=" + json.order_id);
 					}
 
 				}
@@ -2028,11 +2028,11 @@ function savePayment2(payment2Type, warnOfOutstandingSavedOrdersOnFullSession, t
 
 					if (warnOfOutstandingSavedOrdersOnFullSession)
 					{
-						bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id + '&full_session=true');
+						bounce("/backoffice/order-mgr-thankyou?order=" + json.order_id + '&full_session=true');
 					}
 					else
 					{
-						bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id);
+						bounce("/backoffice/order-mgr-thankyou?order=" + json.order_id);
 					}
 
 				}
@@ -2251,11 +2251,11 @@ function handleDirectPayment(addOnly, go_to_confirm, token)
 
 				if (json.warnOfOutstandingSavedOrdersOnFullSession)
 				{
-					bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id + '&full_session=true');
+					bounce("/backoffice/order-mgr-thankyou?order=" + json.order_id + '&full_session=true');
 				}
 				else
 				{
-					bounce("/?page=admin_order_mgr_thankyou&order=" + json.order_id);
+					bounce("/backoffice/order-mgr-thankyou?order=" + json.order_id);
 				}
 			}
 			else

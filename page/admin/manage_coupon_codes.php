@@ -41,7 +41,7 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 
 			if ($couponSearch->find(true))
 			{
-				CApp::bounce('/?page=admin_manage_coupon_codes&edit=' . $couponSearch->id);
+				CApp::bounce('/backoffice/manage_coupon_codes?edit=' . $couponSearch->id);
 			}
 			else
 			{
@@ -241,7 +241,7 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 				}
 			}
 
-			CApp::bounce('/?page=admin_manage_coupon_codes');
+			CApp::bounce('/backoffice/manage_coupon_codes');
 		}
 
 		$programArray = CCouponCode::getCouponProgramArray();

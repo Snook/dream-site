@@ -18,7 +18,7 @@ else
 function openPrintWindow()
 {
 	var settings = 'height=500,width=900,status=no,toolbar=no,scrollbars=1,resizable=1';
-	window.open('/?page=admin_gc_only_order_thankyou&gcOrders=<?php echo $_REQUEST['gcOrders']?>&print=true','_print',settings);
+	window.open('/backoffice/gc-only-order-thankyou?gcOrders=<?php echo $_REQUEST['gcOrders']?>&print=true','_print',settings);
 }
 </script>
 

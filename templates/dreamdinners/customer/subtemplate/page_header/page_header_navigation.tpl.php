@@ -83,13 +83,13 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 
 									<?php if (CUser::isUserStaff()) { ?>
 										<div class="dropdown-divider"></div>
-										<a class="dropdown-item nav-link" href="/?page=admin_main">BackOffice Home</a>
-										<a class="dropdown-item nav-link" href="/?page=admin_reports">Reports</a>
-										<a class="dropdown-item nav-link" href="/?page=admin_list_users">Guests</a>
-										<a class="dropdown-item nav-link" href="/?page=admin_session_mgr">Session Calendar</a>
-										<a class="dropdown-item nav-link" href="/?page=admin_menu_inventory_mgr">Inventory Manager</a>
-										<a class="dropdown-item nav-link" href="/?page=admin_menu_editor">Menu Editor</a>
-										<a class="dropdown-item nav-link" href="/?page=admin_gift_card_management">Gift Cards</a>
+										<a class="dropdown-item nav-link" href="/backoffice/main">BackOffice Home</a>
+										<a class="dropdown-item nav-link" href="/backoffice/reports">Reports</a>
+										<a class="dropdown-item nav-link" href="/backoffice/list_users">Guests</a>
+										<a class="dropdown-item nav-link" href="/backoffice/session_mgr">Session Calendar</a>
+										<a class="dropdown-item nav-link" href="/backoffice/menu_inventory_mgr">Inventory Manager</a>
+										<a class="dropdown-item nav-link" href="/backoffice/menu_editor">Menu Editor</a>
+										<a class="dropdown-item nav-link" href="/backoffice/gift-card-management">Gift Cards</a>
 									<?php } ?>
 
 									<?php if (defined('DEV_BASE_NAME') && DEV_BASE_NAME) { ?>
@@ -143,13 +143,13 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 	<?php } ?>
 	<?php if (CUser::isUserStaff()) { ?>
 		<div class="dropdown-divider"></div>
-		<a class="dropdown-item" href="/?page=admin_main">BackOffice Home</a>
-		<a class="dropdown-item" href="/?page=admin_reports">Reports</a>
-		<a class="dropdown-item" href="/?page=admin_list_users">Guests</a>
-		<a class="dropdown-item" href="/?page=admin_session_mgr">Session Calendar</a>
-		<a class="dropdown-item" href="/?page=admin_menu_inventory_mgr">Inventory Manager</a>
-		<a class="dropdown-item" href="/?page=admin_menu_editor">Menu Editor</a>
-		<a class="dropdown-item" href="/?page=admin_gift_card_management">Gift Cards</a>
+		<a class="dropdown-item" href="/backoffice/main">BackOffice Home</a>
+		<a class="dropdown-item" href="/backoffice/reports">Reports</a>
+		<a class="dropdown-item" href="/backoffice/list_users">Guests</a>
+		<a class="dropdown-item" href="/backoffice/session_mgr">Session Calendar</a>
+		<a class="dropdown-item" href="/backoffice/menu_inventory_mgr">Inventory Manager</a>
+		<a class="dropdown-item" href="/backoffice/menu_editor">Menu Editor</a>
+		<a class="dropdown-item" href="/backoffice/gift-card-management">Gift Cards</a>
 	<?php } ?>
 
 	<?php if (defined('DEV_BASE_NAME') && DEV_BASE_NAME) { ?>

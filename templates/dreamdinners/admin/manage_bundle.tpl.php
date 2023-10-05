@@ -9,7 +9,7 @@
 
 		<div class="row my-4">
 			<div class="col text-center">
-				<h1><a href="/?page=admin_manage_bundle">Manage Bundles</a></h1>
+				<h1><a href="/backoffice/manage_bundle">Manage Bundles</a></h1>
 			</div>
 		</div>
 
@@ -131,7 +131,7 @@
 					<th># of Items</th>
 					<th>Servings Req</th>
 					<th>Price</th>
-					<th><a href="/?page=admin_manage_bundle&amp;create" class="button">Create Bundle</a></th>
+					<th><a href="/backoffice/manage_bundle?create" class="button">Create Bundle</a></th>
 				</tr>
 				</thead>
 				<tbody>
@@ -145,7 +145,7 @@
 						<td class="text-right">$<?php echo $bundle->price; ?></td>
 						<td class="text-right">
 							<span data-bundle_id="<?php echo $bundle->id; ?>" class="view_items button">Items</span>
-							<a href="/?page=admin_manage_bundle&amp;edit=<?php echo $bundle->id; ?>" data-bundle_id="<?php echo $bundle->id; ?>" class="edit_bundle button">Edit</a>
+							<a href="/backoffice/manage_bundle?edit=<?php echo $bundle->id; ?>" data-bundle_id="<?php echo $bundle->id; ?>" class="edit_bundle button">Edit</a>
 						</td>
 					</tr>
 					<tr data-bundle_menu_items="<?php echo $bundle->id; ?>" class="collapse">

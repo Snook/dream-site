@@ -7,7 +7,7 @@
 
 		<div class="row my-4">
 			<div class="col-lg-6 text-center mb-3 order-lg-2">
-				<h1><a href="/?page=admin_import_menu_reciprofity">Import Menu Items</a></h1>
+				<h1><a href="/backoffice/import-menu-reciprofity">Import Menu Items</a></h1>
 			</div>
 			<div class="col-8 col-lg-3 order-lg-1">
 
@@ -159,7 +159,7 @@
 
 		<?php } else { ?>
 
-			<p>Menu imported, view the <a href="/?page=admin_menu_inspector&menus=<?php echo $this->menu_id; ?>" class="button">Menu Inspector</a> to verify.</p>
+			<p>Menu imported, view the <a href="/backoffice/menu_inspector?menus=<?php echo $this->menu_id; ?>" class="button">Menu Inspector</a> to verify.</p>
 
 			<table style="width: 100%;">
 				<thead>

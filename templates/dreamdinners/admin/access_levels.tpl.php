@@ -49,7 +49,7 @@ function accessChange()
 <?php if (isset($_REQUEST['back'])) { ?>
 	<input type="button" class="button" value="Back" onclick="window.location = '<?php echo  $_REQUEST['back']?>';">
 <?php } else { ?>
-	<input type="button" class="button" value="Back" onclick="window.location = '/?page=admin_user_details&id=<?php echo  $this->id?>';">
+	<input type="button" class="button" value="Back" onclick="window.location = '/backoffice/user_details?id=<?php echo  $this->id?>';">
 <?php } ?>
 
 Access Level for: <b><?php echo $this->firstname; ?> <?php echo $this->lastname; ?></b>
@@ -102,7 +102,7 @@ Access Level for: <b><?php echo $this->firstname; ?> <?php echo $this->lastname;
 </tr>
 <?php foreach ($this->users_stores as $store_id => $thisStore) { ?>
 <tr>
-	<td class="bgcolor_light"><?php if ($this->isAdmin || (!empty($this->currentStoreID) && $this->currentStoreID  == $store_id)) { ?><a href="/?page=admin_store_details&amp;id=<?php echo $thisStore['id']; ?>"><?php echo $thisStore['name']; ?></a><?php } else { ?><?php echo $thisStore['name']; ?><?php } ?></td>
+	<td class="bgcolor_light"><?php if ($this->isAdmin || (!empty($this->currentStoreID) && $this->currentStoreID  == $store_id)) { ?><a href="/backoffice/store_details?id=<?php echo $thisStore['id']; ?>"><?php echo $thisStore['name']; ?></a><?php } else { ?><?php echo $thisStore['name']; ?><?php } ?></td>
 <?php if ($this->isAdmin || (!empty($this->currentStoreID) && $this->currentStoreID  == $store_id)) { ?>
 	<td class="bgcolor_light" style="text-align: center;"><input type="checkbox" data-show_on_customer="<?php echo $thisStore['uts_id']; ?>" <?php echo ($thisStore['display'] ? 'checked="checked"' : ''); ?> /></td>
 	<td class="bgcolor_light"><input type="text" style="width: 300px;" data-display_text="<?php echo $thisStore['uts_id']; ?>" value="<?php echo htmlentities($thisStore['text']); ?>"
@@ -142,8 +142,8 @@ Access Level for: <b><?php echo $this->firstname; ?> <?php echo $this->lastname;
 	<?php if (!empty($this->users_franchises)) { ?>
 	<?php foreach ($this->users_franchises as $id => $thisFranchise) { ?>
 		<tr>
-			<td class="bgcolor_light"><?php if ($this->isAdmin) { ?><a href="/?page=admin_franchise_details&amp;id=<?php echo $thisFranchise['id']; ?>"><?php echo $thisFranchise['id']; ?></a><?php } else { ?><?php echo $thisFranchise['id']; ?><?php } ?></td>
-			<td class="bgcolor_light"><?php if ($this->isAdmin) { ?><a href="/?page=admin_franchise_details&amp;id=<?php echo $thisFranchise['id']; ?>"><?php echo $thisFranchise['franchise_name']; ?></a><?php } else { ?><?php echo $thisFranchise['franchise_name']; ?><?php } ?></td>
+			<td class="bgcolor_light"><?php if ($this->isAdmin) { ?><a href="/backoffice/franchise-details?id=<?php echo $thisFranchise['id']; ?>"><?php echo $thisFranchise['id']; ?></a><?php } else { ?><?php echo $thisFranchise['id']; ?><?php } ?></td>
+			<td class="bgcolor_light"><?php if ($this->isAdmin) { ?><a href="/backoffice/franchise-details?id=<?php echo $thisFranchise['id']; ?>"><?php echo $thisFranchise['franchise_name']; ?></a><?php } else { ?><?php echo $thisFranchise['franchise_name']; ?><?php } ?></td>
 			<td class="bgcolor_light" style="text-align: center;"><?php echo (!empty($thisFranchise['active'])) ? '<span style="color:green;">Yes</span>' : '<span style="color:red;">No</span>'; ?></td>
 			<td class="bgcolor_light" style="text-align: center;"><?php echo CTemplate::dateTimeFormat($thisFranchise['timestamp_created'], MONTH_DAY_YEAR); ?></td>
 			<td class="bgcolor_light" style="text-align: center;"><?php echo CTemplate::dateTimeFormat($thisFranchise['timestamp_updated'], MONTH_DAY_YEAR); ?></td>

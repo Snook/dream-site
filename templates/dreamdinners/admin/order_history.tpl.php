@@ -8,7 +8,7 @@
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
 <div>
-	<h1>Order History for <a href="/?page=admin_user_details&amp;id=<?php echo $this->user['id']; ?>"><?php echo $this->user['firstname']; ?> <?php echo $this->user['lastname']; ?></a></h1>
+	<h1>Order History for <a href="/backoffice/user_details?id=<?php echo $this->user['id']; ?>"><?php echo $this->user['firstname']; ?> <?php echo $this->user['lastname']; ?></a></h1>
 	<div id="order_history">
 		<?php include $this->loadTemplate('admin/subtemplate/order_history/order_history_table.tpl.php'); ?>
 	</div>
