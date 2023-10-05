@@ -191,7 +191,10 @@ function setQueryString(variable, value)
 			new_query += '&';
 		}
 
-		new_query += pair[0] + '=' + pair[1];
+		if(pair[0] != "")
+		{
+			new_query += pair[0] + '=' + pair[1];
+		}
 	}
 
 	if (!var_found)
