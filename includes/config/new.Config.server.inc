@@ -40,7 +40,7 @@ switch (SERVER_ENV)
 
 		define("MAIL_HANDLER", 'sendmail');
 		define("MAIL_ENABLED", true);
-		define("MAIL_TEST_MODE", false);
+		define("MAIL_TEST_MODE", true);
 		$mail_params = array(
 			"sendmail_path" => 'C:\Development\sendmail\sendmail.exe',
 			"sendmail_args" => '-t'
@@ -82,15 +82,15 @@ switch (DATA_SOURCE)
 	case 'LOCAL':
 		// Main site database
 		define('DB_SERVER', 'localhost');
+		define('DB_DATABASE', 'dreamsite');
 		define('DB_SERVER_USERNAME', '');
 		define('DB_SERVER_PASSWORD', '');
-		define('DB_DATABASE', 'dreamsite');
 
 		// Logging database
 		define('DB_LOG_SERVER', 'localhost');
+		define('DB_LOG_DATABASE', 'dreamlog');
 		define('DB_LOG_SERVER_USERNAME', '');
 		define('DB_LOG_SERVER_PASSWORD', '');
-		define('DB_LOG_DATABASE', 'dreamlog');
 
 		// Cart database
 		define('DB_CART_SERVER', 'localhost');
@@ -101,15 +101,15 @@ switch (DATA_SOURCE)
 	case 'SANDBOX':
 		// Main site database
 		define('DB_SERVER', 'localhost');
+		define('DB_DATABASE', 'dreamsite');
 		define('DB_SERVER_USERNAME', '');
 		define('DB_SERVER_PASSWORD', '');
-		define('DB_DATABASE', 'dreamsite');
 
 		// Logging database
 		define('DB_LOG_SERVER', 'localhost');
+		define('DB_LOG_DATABASE', 'dreamlog');
 		define('DB_LOG_SERVER_USERNAME', '');
 		define('DB_LOG_SERVER_PASSWORD', '');
-		define('DB_LOG_DATABASE', 'dreamlog');
 
 		// Cart database
 		define('DB_CART_SERVER', 'localhost');
@@ -119,15 +119,15 @@ switch (DATA_SOURCE)
 	case 'BRANCH':
 		// Main site database
 		define('DB_SERVER', 'localhost');
+		define('DB_DATABASE', 'dreamsite');
 		define('DB_SERVER_USERNAME', '');
 		define('DB_SERVER_PASSWORD', '');
-		define('DB_DATABASE', 'dreamsite');
 
 		// Logging database
 		define('DB_LOG_SERVER', 'localhost');
+		define('DB_LOG_DATABASE', 'dreamlog');
 		define('DB_LOG_SERVER_USERNAME', '');
 		define('DB_LOG_SERVER_PASSWORD', '');
-		define('DB_LOG_DATABASE', 'dreamlog');
 
 		// Cart database
 		define('DB_CART_SERVER', 'localhost');
@@ -138,15 +138,15 @@ switch (DATA_SOURCE)
 	case 'CHORS':
 		// Main site database
 		define('DB_SERVER', 'localhost');
+		define('DB_DATABASE', 'dreamsite');
 		define('DB_SERVER_USERNAME', '');
 		define('DB_SERVER_PASSWORD', '');
-		define('DB_DATABASE', 'dreamsite');
 
 		// Logging database
 		define('DB_LOG_SERVER', 'localhost');
+		define('DB_LOG_DATABASE', 'dreamlog');
 		define('DB_LOG_SERVER_USERNAME', '');
 		define('DB_LOG_SERVER_PASSWORD', '');
-		define('DB_LOG_DATABASE', 'dreamlog');
 
 		// Cart database
 		define('DB_CART_SERVER', 'localhost');
@@ -158,15 +158,15 @@ switch (DATA_SOURCE)
 	default:
 		// Main site database
 		define('DB_SERVER', 'localhost');
+		define('DB_DATABASE', 'dreamsite');
 		define('DB_SERVER_USERNAME', '');
 		define('DB_SERVER_PASSWORD', '');
-		define('DB_DATABASE', 'dreamsite');
 
 		// Logging database
 		define('DB_LOG_SERVER', 'localhost');
+		define('DB_LOG_DATABASE', 'dreamlog');
 		define('DB_LOG_SERVER_USERNAME', '');
 		define('DB_LOG_SERVER_PASSWORD', '');
-		define('DB_LOG_DATABASE', 'dreamlog');
 
 		// Cart database
 		define('DB_CART_SERVER', 'localhost');
@@ -186,6 +186,8 @@ switch (SERVER_ENV)
 		define("CRON_TEST_MODE", true);
 		define("RECORD_NAVIGATION", true);
 		define("DD_THANK_YOU_DEBUG", false);
+
+		define('STORE_NOTIFICATION_ALERT_TEST_EMAIL', 'evan.lee@dreamdinners.com,ryan.snook@dreamdinners.com,brandy.latta@dreamdinners.com');
 
 		// ECommerce
 		define("PFP_TEST_MODE", true);
@@ -211,14 +213,21 @@ switch (SERVER_ENV)
 		define("USE_GLOBAL_SIDES_MENU", false);
 		define("SHOW_SIDES_CATEGORY_ON_MENU", true);
 
+		// Avalara
 		define("AVALARA_API_ENDPOINT_USE_MOCK", true);
 
+		// Salesforce
+		define("ENABLE_SMS_PREFERENCE", false);
+		define("ENABLE_SMS_PREFERENCE_ORDER_DETAILS", false);
+		define("ENABLE_EMAIL_PREFERENCE", false);
+
+		// Shipstation
 		//If this value exists then order will not be sent to shipstation at all
 		define('SHIPSTATION_DONT_SEND' , 'IF_DEFINED_WONT_SEND');
 		//If these const are defined...orders will be marked as tests in ShipStations if above is removed
-		//define('SHIPSTATION_TEST_ORDER_PREFIX' , 'TEST_IGNORE_');
-		//define('SHIPSTATION_TEST_ORDER_TAG' , 107045);
-		//define('SHIPSTATION_TEST_ORDER_WHAREHOUSEID' , 62604);
+		define('SHIPSTATION_TEST_ORDER_PREFIX' , 'TEST_IGNORE_');
+		define('SHIPSTATION_TEST_ORDER_TAG' , 107045);
+		define('SHIPSTATION_TEST_ORDER_WHAREHOUSEID' , 62604);
 
 		$gEnabledTracingCategories = array(
 			"CART" => true,
@@ -265,7 +274,21 @@ switch (SERVER_ENV)
 		define("USE_GLOBAL_SIDES_MENU", false); // Live = false
 		define("SHOW_SIDES_CATEGORY_ON_MENU", true);
 
+		// Avalara
 		define("AVALARA_API_ENDPOINT_USE_MOCK", false);
+
+		// Salesforce
+		define("ENABLE_SMS_PREFERENCE", true);
+		define("ENABLE_SMS_PREFERENCE_ORDER_DETAILS", true);
+		define("ENABLE_EMAIL_PREFERENCE", true);
+
+		// Shipstation
+		//If this value exists then order will not be sent to shipstation at all
+		//define('SHIPSTATION_DONT_SEND' , 'IF_DEFINED_WONT_SEND');
+		//If these const are defined...orders will be marked as tests in ShipStations if above is removed
+		//define('SHIPSTATION_TEST_ORDER_PREFIX' , 'TEST_IGNORE_');
+		//define('SHIPSTATION_TEST_ORDER_TAG' , 107045);
+		//define('SHIPSTATION_TEST_ORDER_WHAREHOUSEID' , 62604);
 
 		$gEnabledTracingCategories = array(
 			"CART" => false,
@@ -314,9 +337,6 @@ const SALESFORCE_INTEGRATION_USER = '';
 const SALESFORCE_INTEGRATION_PASSWORD = '';
 const SFMC_MAIN_KEYWORD = '';
 const SFMC_MAIN_KEYWORD_2_STEP = '';
-const ENABLE_SMS_PREFERENCE = true;
-const ENABLE_SMS_PREFERENCE_ORDER_DETAILS = true;
-const ENABLE_EMAIL_PREFERENCE = true;
 
 // Google
 const GOOGLE_ANALYTICS_ID = '';
