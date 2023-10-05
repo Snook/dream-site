@@ -12,6 +12,7 @@ var lang = {
 		}
 	}
 };
+
 function set_user_pref(pref, setting, user_id, callBack)
 {
 	pref = pref.toUpperCase();
@@ -191,7 +192,7 @@ function setQueryString(variable, value)
 			new_query += '&';
 		}
 
-		if(pair[0] != "")
+		if (pair[0] != "")
 		{
 			new_query += pair[0] + '=' + pair[1];
 		}
@@ -386,7 +387,10 @@ function address_location(settings, callBack)
 			//the entered address was a postal code or it was less than 5 characters, will send it as a postal code anyways, but will return an invalid zip code
 			if (address.length <= 5)
 			{
-				geoparams = {'latLng': latlng, 'componentRestrictions': {'postalCode': address}};
+				geoparams = {
+					'latLng': latlng,
+					'componentRestrictions': {'postalCode': address}
+				};
 			}
 		}
 
@@ -405,11 +409,11 @@ function address_location(settings, callBack)
 			var lng = parseFloat(geolocation.coords.longitude);
 			var latlng = new google.maps.LatLng(lat, lng);
 
-
 			geoparams = {'latLng': latlng};
 		}
 		//the entered address was not a postal code
-		else if(address != undefined && address.length > 5){
+		else if (address != undefined && address.length > 5)
+		{
 			geoparams = {'address': address};
 		}
 
@@ -470,7 +474,6 @@ function address_location(settings, callBack)
 		}
 		else
 		{
-
 
 			callBack('gl_error', 'Geolocation not supported.');
 		}
@@ -654,7 +657,10 @@ function cookieCheck()
 		overrideCookieCheck = true;
 	}
 
-	$.cookie('chkcookie', true, {domain: COOKIE.domain, path: '/'});
+	$.cookie('chkcookie', true, {
+		domain: COOKIE.domain,
+		path: '/'
+	});
 
 	if (!$.cookie('chkcookie') && !overrideCookieCheck)
 	{
@@ -956,7 +962,7 @@ function strip_tags(input, allowed)
 			dataObj.group = '_main';
 		}
 
-		this.data({'checkdiff' : dataObj}).val(dataObj.value).on('change keyup', function (e) {
+		this.data({'checkdiff': dataObj}).val(dataObj.value).on('change keyup', function (e) {
 
 			let diffData = {};
 			let dataObj = $(this).data().checkdiff;
@@ -1008,7 +1014,6 @@ function strip_tags(input, allowed)
 		return this;
 
 	};
-
 
 	$.fn.validateForm = function () {
 
@@ -1291,7 +1296,10 @@ if ($.cookie('toastMsg'))
 
 	});
 
-	$.removeCookie('toastMsg', {domain: COOKIE.domain, path: '/'});
+	$.removeCookie('toastMsg', {
+		domain: COOKIE.domain,
+		path: '/'
+	});
 }
 
 // load bootstrap tooltips
@@ -1390,21 +1398,26 @@ $(document).on('click', '.clear-cart, .clear-cart-gc', function (e) {
 	});
 });
 
-
 //Freshworks help widget - responsive view control
-$(document).ready(function() {
-	if(window.innerWidth <= 1000)
+$(document).ready(function () {
+	if (typeof FreshworksWidget !== 'undefined')
 	{
-		FreshworksWidget('hide', 'launcher');
+		if (window.innerWidth <= 1000)
+		{
+			FreshworksWidget('hide', 'launcher');
+		}
 	}
 });
 
-window.onresize = function() {
-	if(typeof FreshworksWidget !== 'undefined'){
-		if(window.innerWidth <= 1000)
+window.onresize = function () {
+	if (typeof FreshworksWidget !== 'undefined')
+	{
+		if (window.innerWidth <= 1000)
 		{
 			FreshworksWidget('hide', 'launcher');
-		}else{
+		}
+		else
+		{
 			FreshworksWidget('show', 'launcher');
 		}
 	}
@@ -1414,7 +1427,6 @@ $(document).on('click', '.help-search-launcher', function (event) {
 	event.preventDefault();
 	FreshworksWidget('open');
 });
-
 
 $(document).on('click', '.clear-edit-delivered-order', function (e) {
 
@@ -1735,7 +1747,8 @@ $(document).on('click', '[data-user_pref][type=checkbox]', function (e) {
 		value = $(this).data('user_pref_value_uncheck');
 	}
 
-	if( typeof preferenceChangeListener === "function"){
+	if (typeof preferenceChangeListener === "function")
+	{
 		preferenceChangeListener($(this).data('user_pref'), value, user_id, function (json) {
 
 			if (!json.processor_success)
@@ -1750,7 +1763,9 @@ $(document).on('click', '[data-user_pref][type=checkbox]', function (e) {
 			}
 
 		});
-	}else{
+	}
+	else
+	{
 		set_user_pref($(this).data('user_pref'), value, user_id, function (json) {
 
 			if (!json.processor_success)
@@ -1766,8 +1781,6 @@ $(document).on('click', '[data-user_pref][type=checkbox]', function (e) {
 
 		});
 	}
-
-
 
 });
 
@@ -1804,11 +1817,11 @@ $(document).on('change', '[data-user_pref]select', function (e) {
 
 });
 
-
 // handle input
 $(document).on('focus', '[data-user_pref]input[type=text]', function (e) {
 
-	if($(this).attr('type') == 'checkbox' ){
+	if ($(this).attr('type') == 'checkbox')
+	{
 		return;
 	}
 
@@ -1842,7 +1855,8 @@ $(document).on('focus', '[data-user_pref]input[type=text]', function (e) {
 
 		var save_button = $('<span />').addClass('btn btn-sm btn-primary mr-2 mt-2').text('Save').on('click', function (e) {
 
-			if( typeof preferenceChangeListener === "function"){
+			if (typeof preferenceChangeListener === "function")
+			{
 				preferenceChangeListener($(pref_elem).data('user_pref'), $(pref_elem).val(), user_id, function (json) {
 
 					if (!json.processor_success)
@@ -1863,7 +1877,9 @@ $(document).on('focus', '[data-user_pref]input[type=text]', function (e) {
 					});
 
 				});
-			}else{
+			}
+			else
+			{
 				set_user_pref($(pref_elem).data('user_pref'), $(pref_elem).val(), user_id, function (json) {
 
 					if (!json.processor_success)
@@ -1885,7 +1901,6 @@ $(document).on('focus', '[data-user_pref]input[type=text]', function (e) {
 
 				});
 			}
-
 
 		});
 
@@ -1942,7 +1957,8 @@ $(document).on('focus', '[data-user_pref]textarea', function (e) {
 
 		var save_button = $('<span />').addClass('btn btn-sm btn-primary mr-2 mt-2').text('Save').on('click', function (e) {
 
-			if( typeof preferenceChangeListener === "function"){
+			if (typeof preferenceChangeListener === "function")
+			{
 				preferenceChangeListener($(pref_elem).data('user_pref'), $(pref_elem).val(), user_id, function (json) {
 					if (!json.processor_success)
 					{
@@ -1962,7 +1978,9 @@ $(document).on('focus', '[data-user_pref]textarea', function (e) {
 
 					});
 				});
-			}else{
+			}
+			else
+			{
 				set_user_pref($(pref_elem).data('user_pref'), $(pref_elem).val(), user_id, function (json) {
 					if (!json.processor_success)
 					{
@@ -1983,7 +2001,6 @@ $(document).on('focus', '[data-user_pref]textarea', function (e) {
 					});
 				});
 			}
-
 
 		});
 
@@ -2039,7 +2056,7 @@ $(document).on('click', '[data-user_pref="text_message_thaw_primary"][type=check
 
 });
 
-$(function() {
+$(function () {
 	// clipboard
 	if (typeof ClipboardJS !== 'undefined')
 	{
