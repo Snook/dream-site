@@ -213,6 +213,7 @@ switch (SERVER_ENV)
 		define("USE_GLOBAL_SIDES_MENU", false);
 		define("SHOW_SIDES_CATEGORY_ON_MENU", true);
 
+		// Avalara
 		define("AVALARA_API_ENDPOINT_USE_MOCK", true);
 
 		// Salesforce
@@ -220,12 +221,13 @@ switch (SERVER_ENV)
 		define("ENABLE_SMS_PREFERENCE_ORDER_DETAILS", false);
 		define("ENABLE_EMAIL_PREFERENCE", false);
 
+		// Shipstation
 		//If this value exists then order will not be sent to shipstation at all
 		define('SHIPSTATION_DONT_SEND' , 'IF_DEFINED_WONT_SEND');
 		//If these const are defined...orders will be marked as tests in ShipStations if above is removed
-		//define('SHIPSTATION_TEST_ORDER_PREFIX' , 'TEST_IGNORE_');
-		//define('SHIPSTATION_TEST_ORDER_TAG' , 107045);
-		//define('SHIPSTATION_TEST_ORDER_WHAREHOUSEID' , 62604);
+		define('SHIPSTATION_TEST_ORDER_PREFIX' , 'TEST_IGNORE_');
+		define('SHIPSTATION_TEST_ORDER_TAG' , 107045);
+		define('SHIPSTATION_TEST_ORDER_WHAREHOUSEID' , 62604);
 
 		$gEnabledTracingCategories = array(
 			"CART" => true,
@@ -272,12 +274,21 @@ switch (SERVER_ENV)
 		define("USE_GLOBAL_SIDES_MENU", false); // Live = false
 		define("SHOW_SIDES_CATEGORY_ON_MENU", true);
 
+		// Avalara
+		define("AVALARA_API_ENDPOINT_USE_MOCK", false);
+
 		// Salesforce
 		define("ENABLE_SMS_PREFERENCE", true);
 		define("ENABLE_SMS_PREFERENCE_ORDER_DETAILS", true);
 		define("ENABLE_EMAIL_PREFERENCE", true);
 
-		define("AVALARA_API_ENDPOINT_USE_MOCK", false);
+		// Shipstation
+		//If this value exists then order will not be sent to shipstation at all
+		//define('SHIPSTATION_DONT_SEND' , 'IF_DEFINED_WONT_SEND');
+		//If these const are defined...orders will be marked as tests in ShipStations if above is removed
+		//define('SHIPSTATION_TEST_ORDER_PREFIX' , 'TEST_IGNORE_');
+		//define('SHIPSTATION_TEST_ORDER_TAG' , 107045);
+		//define('SHIPSTATION_TEST_ORDER_WHAREHOUSEID' , 62604);
 
 		$gEnabledTracingCategories = array(
 			"CART" => false,
