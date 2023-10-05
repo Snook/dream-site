@@ -67,8 +67,6 @@ class page_admin_account extends CPageAdminOnly {
 	{
 		$tpl = CApp::instance()->template();
 
-		form_account::$forwardTo = '/backoffice/user_details';
-
 		$id = null;
 
 		if (!empty($_GET['id']))
@@ -164,13 +162,6 @@ class page_admin_account extends CPageAdminOnly {
 
 			$tpl->assign('isCreate', false);
 			$tpl->assign('page_title', 'Edit Account');
-
-			form_account::$forwardTo = '/backoffice/user_details?id=' . $id;
-
-			if (!empty($_REQUEST['back']))
-			{
-				form_account::$forwardTo = $_REQUEST['back'];
-			}
 		}
 		else
 		{
@@ -258,20 +249,27 @@ class page_admin_account extends CPageAdminOnly {
 		// set this here, never to require this of a fadmin
 		$_POST['customers_terms'] = 1;
 
-		if ($User->is_partial_account)
+		if (!empty($_POST["submit_account"]))
 		{
-			if (!isset($_POST['convertToFull']))
+			if ($User->is_partial_account)
 			{
-				form_account::_saveFormPartial($Form, $User, $fadminStoreID);
+				if (!isset($_POST['convertToFull']))
+				{
+					form_account::_saveFormPartial($Form, $User, $fadminStoreID);
+				}
+				else
+				{
+					form_account::_saveForm($Form, $User, true, true, $suppress_email, $SFICurrentValues, $fadminStoreID, true, false);
+				}
+
+				CApp::bounce('/backoffice/user_details?id=' . $User->id);
 			}
 			else
 			{
-				form_account::_saveForm($Form, $User, true, false, $suppress_email, $SFICurrentValues, $fadminStoreID, true, false);
+				form_account::_saveForm($Form, $User, true, true, $suppress_email, $SFICurrentValues, $fadminStoreID, false, false);
+
+				CApp::bounce('/backoffice/user_details?id=' . $User->id);
 			}
-		}
-		else
-		{
-			form_account::_saveForm($Form, $User, true, false, $suppress_email, $SFICurrentValues, $fadminStoreID, false, false);
 		}
 
 		//set template vars
