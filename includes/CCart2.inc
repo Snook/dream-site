@@ -325,6 +325,9 @@ class CCart2
 			}
 			else
 			{
+				$retVal['num_efl'] = 0;
+				$retVal['num_sides'] = 0;
+
 				foreach ($items_in_cart as $menu_item)
 				{
 					// don't count a bundle master_item as a dinner
