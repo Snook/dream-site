@@ -222,6 +222,7 @@ class page_admin_franchise_details extends CPageAdminOnly
 			GROUP BY utf.id
 			$sortClause");
 
+		$ownerArray = array();
 		while($owner->fetch())
 		{
 			$ownerArray[$owner->user_id] = $owner->toArray();
