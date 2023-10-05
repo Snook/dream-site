@@ -252,11 +252,11 @@ function determineEntreeId($tpl, $categoryName, $planNode, $menuItemId)
 											<td>
 												<div class="input-group">
 													<div class="input-group-prepend">
-														<span class="btn btn-primary btn-dec_qty" data-menu_item_id="<?php echo $thisItem['id']; ?>" data-entree_id="<?php echo $thisItem['entree_id']; ?>" data-servings_per_item="<?php echo $thisItem['servings_per_item']; ?>" data-box_type="bnd_"><i class="fas fa-minus-square font-size-medium-small"></i></span>
+														<span class="btn btn-primary btn-sm btn-dec_qty" data-menu_item_id="<?php echo $thisItem['id']; ?>" data-entree_id="<?php echo $thisItem['entree_id']; ?>" data-servings_per_item="<?php echo $thisItem['servings_per_item']; ?>" data-box_type="bnd_"><i class="fas fa-minus-square font-size-medium-small"></i></span>
 													</div>
 													<?php echo $this->form_direct_order['bnd_' . $thisItem['id'] . '_html']; ?>
 													<div class="input-group-append">
-														<span class="btn btn-primary btn-inc_qty" data-menu_item_id="<?php echo $thisItem['id']; ?>" data-entree_id="<?php echo $thisItem['entree_id']; ?>" data-servings_per_item="<?php echo $thisItem['servings_per_item']; ?>" data-box_type="bnd_"><i class="fas fa-plus-square font-size-medium-small"></i></span>
+														<span class="btn btn-primary btn-sm btn-inc_qty" data-menu_item_id="<?php echo $thisItem['id']; ?>" data-entree_id="<?php echo $thisItem['entree_id']; ?>" data-servings_per_item="<?php echo $thisItem['servings_per_item']; ?>" data-box_type="bnd_"><i class="fas fa-plus-square font-size-medium-small"></i></span>
 													</div>
 												</div>
 											</td>
@@ -267,11 +267,11 @@ function determineEntreeId($tpl, $categoryName, $planNode, $menuItemId)
 											<td>
 												<div class="input-group">
 													<div class="input-group-prepend">
-														<span class="btn btn-primary btn-dec_qty" data-menu_item_id="<?php echo $thisItem['id']; ?>" data-entree_id="<?php echo $thisItem['entree_id']; ?>" data-servings_per_item="<?php echo $thisItem['servings_per_item']; ?>" data-box_type="qty_"><i class="fas fa-minus-square font-size-medium-small"></i></span>
+														<span class="btn btn-primary btn-sm btn-dec_qty" data-menu_item_id="<?php echo $thisItem['id']; ?>" data-entree_id="<?php echo $thisItem['entree_id']; ?>" data-servings_per_item="<?php echo $thisItem['servings_per_item']; ?>" data-box_type="qty_"><i class="fas fa-minus-square font-size-medium-small"></i></span>
 													</div>
 													<?php echo $this->form_direct_order['qty_' . $thisItem['id'] . '_html']; ?>
 													<div class="input-group-append">
-														<span class="btn btn-primary btn-inc_qty" data-menu_item_id="<?php echo $thisItem['id']; ?>" data-entree_id="<?php echo $thisItem['entree_id']; ?>" data-servings_per_item="<?php echo $thisItem['servings_per_item']; ?>" data-box_type="qty_"><i class="fas fa-plus-square font-size-medium-small"></i></span>
+														<span class="btn btn-primary btn-sm btn-inc_qty" data-menu_item_id="<?php echo $thisItem['id']; ?>" data-entree_id="<?php echo $thisItem['entree_id']; ?>" data-servings_per_item="<?php echo $thisItem['servings_per_item']; ?>" data-box_type="qty_"><i class="fas fa-plus-square font-size-medium-small"></i></span>
 													</div>
 												</div>
 											</td>
@@ -406,11 +406,11 @@ function determineEntreeId($tpl, $categoryName, $planNode, $menuItemId)
 					<td>
 						<div class="input-group">
 							<div class="input-group-prepend">
-								<span class="btn btn-primary btn-dec_qty" data-menu_item_id="<?php echo $thisItem['id']; ?>" data-entree_id="<?php echo $thisItem['entree_id']; ?>" data-servings_per_item="<?php echo $thisItem['servings_per_item']; ?>" data-box_type="qty_"><i class="fas fa-minus-square font-size-medium-small"></i></span>
+								<span class="btn btn-primary btn-sm btn-dec_qty" data-menu_item_id="<?php echo $thisItem['id']; ?>" data-entree_id="<?php echo $thisItem['entree_id']; ?>" data-servings_per_item="<?php echo $thisItem['servings_per_item']; ?>" data-box_type="qty_"><i class="fas fa-minus-square font-size-medium-small"></i></span>
 							</div>
 							<?php echo $this->form_direct_order['qty_' . $thisItem['id'] . '_html']; ?>
 							<div class="input-group-append">
-								<span class="btn btn-primary btn-inc_qty" data-menu_item_id="<?php echo $thisItem['id']; ?>" data-entree_id="<?php echo $thisItem['entree_id']; ?>" data-servings_per_item="<?php echo $thisItem['servings_per_item']; ?>" data-box_type="qty_"><i class="fas fa-plus-square font-size-medium-small"></i></span>
+								<span class="btn btn-primary btn-sm btn-inc_qty" data-menu_item_id="<?php echo $thisItem['id']; ?>" data-entree_id="<?php echo $thisItem['entree_id']; ?>" data-servings_per_item="<?php echo $thisItem['servings_per_item']; ?>" data-box_type="qty_"><i class="fas fa-plus-square font-size-medium-small"></i></span>
 							</div>
 						</div>
 					</td>
