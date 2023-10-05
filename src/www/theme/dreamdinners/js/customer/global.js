@@ -1288,7 +1288,7 @@ if ($.cookie('toastMsg'))
 
 	});
 
-	$.removeCookie('toastMsg', {domain: COOKIE.domain});
+	$.removeCookie('toastMsg', {domain: COOKIE.domain, path: '/'});
 }
 
 // load bootstrap tooltips

@@ -293,13 +293,13 @@ var _etmc = _etmc || []; // salesforce
 			imgtag.width = '1';
 			imgtag.src = '//click.s10.exacttarget.com/conversion.aspx?xml=<system><system_name>tracking</system_name><action>conversion</action><member_id>' + ANALYTICS.smfcArray.mid + '</member_id><job_id>' + ANALYTICS.smfcArray.j + '</job_id><sub_id>' + ANALYTICS.smfcArray.sfmc_sub + '</sub_id><list>' + ANALYTICS.smfcArray.l + '</list><original_link_id>' + ANALYTICS.smfcArray.u + '</original_link_id><BatchID>' + ANALYTICS.smfcArray.jb + '</BatchID><conversion_link_id>2</conversion_link_id><link_alias>' + ANALYTICS.page_title + '</link_alias><display_order>3</display_order><email></email><data_set><data amt="' + ANALYTICS.total + '" unit="Dollars" accumulate="true" /><data amt="1" unit="' + ANALYTICS.order_type + '" accumulate="true" /></data_set></system>';
 
-			$.removeCookie('smfc', {domain: COOKIE.domain});
+			$.removeCookie('smfc', {domain: COOKIE.domain, path: '/'});
 		}
 
 		// end
 		if (ANALYTICS.dd_thank_you)
 		{
-			$.removeCookie('dd_thank_you', {domain: COOKIE.domain});
+			$.removeCookie('dd_thank_you', {domain: COOKIE.domain, path: '/'});
 		}
 	}
 
