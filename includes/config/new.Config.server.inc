@@ -35,7 +35,7 @@ switch (SERVER_ENV)
 {
 	case 'DEV':
 		// PATHS
-		define("APP_BASE", 'C:/Development/DreamWeb/dream-site/'); // Server path
+		define("APP_BASE", 'C:/Development/DreamWeb/dream-site/'); // Server path, requires trailing slash
 		define("WEB_BASE", '/');
 
 		define("MAIL_HANDLER", 'sendmail');
@@ -50,7 +50,7 @@ switch (SERVER_ENV)
 	case 'LIVE':
 	default:
 		// PATHS
-		define("APP_BASE", '/DreamWeb/dream-site/'); // Server path
+		define("APP_BASE", '/DreamWeb/dream-site/'); // Server path, requires trailing slash
 		define("WEB_BASE", '/');
 
 		define("MAIL_HANDLER", 'sendmail');
