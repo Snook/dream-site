@@ -78,7 +78,7 @@
 				</select>
 			</div>
 			<div class="form-group col-4">
-				<input class="form-control" type="text" size="30" maxlength="255" id="postal_code" name="postal_code" placeholder="Zip Code" required />
+				<input class="form-control" type="number" size="30" maxlength="255" id="postal_code" name="postal_code" placeholder="Zip Code" required />
 			</div>
 
 			<div class="form-group col-6">
@@ -103,7 +103,7 @@
 
 	</div>
 
-	<table class="table table-sm table-striped">
+	<table class="table table-sm table-striped ddtemp-table-border-collapse bg-white">
 		<thead class="text-center">
 		<tr>
 			<th>Enable</th>
