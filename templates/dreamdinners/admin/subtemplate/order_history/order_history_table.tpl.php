@@ -3,8 +3,8 @@
 		<div class="col">
 			<nav aria-label="Page navigation" style="float:right;">
 				<ul class="pagination">
-					<li class="page-item" style="padding:5px;"><a class="button orders-page-prev<?php echo ($this->pagination_prev) ? '' : ' disabled' ?>" href="#"  data-current="<?php echo $this->page_cur?>" data-user="<?php echo $this->user_id;?>">&#60;&#60; Previous Page</a></li>
-					<li class="page-item" style="padding:5px;"><a class="button orders-page-next<?php echo ($this->pagination_next) ? '' : ' disabled' ?>" href="#"  data-current="<?php echo $this->page_cur?>" data-user="<?php echo $this->user_id;?>">Next Page &#62;&#62;</a></li>
+					<li class="page-item" style="padding:5px;"><a class="btn btn-primary btn-sm orders-page-prev<?php echo ($this->pagination_prev) ? '' : ' disabled' ?>" href="#"  data-current="<?php echo $this->page_cur?>" data-user="<?php echo $this->user_id;?>">&#60;&#60; Previous Page</a></li>
+					<li class="page-item" style="padding:5px;"><a class="btn btn-primary btn-sm orders-page-next<?php echo ($this->pagination_next) ? '' : ' disabled' ?>" href="#"  data-current="<?php echo $this->page_cur?>" data-user="<?php echo $this->user_id;?>">Next Page &#62;&#62;</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -81,7 +81,7 @@
 							<a class="btn btn-primary btn-sm" href="/backoffice/order-mgr?order=<?php echo $order['order_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Edit Payments</a>
 						<?php  } ?>
 
-						<span data-view_order_details="<?php echo $order['order_id']; ?>" data-booking_id="<?php echo $order['booking_id']; ?>" class="button <?php if (!CStore::userHasAccessToStore($order['store_id'])) { ?>disabled<?php } ?>">View Order</span>
+						<span data-view_order_details="<?php echo $order['order_id']; ?>" data-booking_id="<?php echo $order['booking_id']; ?>" class="btn btn-primary btn-sm <?php if (!CStore::userHasAccessToStore($order['store_id'])) { ?>disabled<?php } ?>">View Order</span>
 
 						<a href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=<?php echo $order['session_id']; ?>&amp;booking_id=<?php echo $order['booking_id']; ?>&amp;menuid=<?php echo $order['idmenu']; ?>" target="_blank"  class="btn btn-primary btn-sm">Print</a>
 
@@ -164,8 +164,8 @@
 		<div class="col">
 			<nav aria-label="Page navigation" style="float:right;">
 				<ul class="pagination">
-					<li class="page-item" style="padding:5px;"><a class="button orders-page-prev<?php echo ($this->pagination_prev) ? '' : ' disabled' ?>" href="#"  data-current="<?php echo $this->page_cur?>" data-user="<?php echo $this->user_id;?>">&#60;&#60; Previous Page</a></li>
-					<li class="page-item" style="padding:5px;"><a class="button orders-page-next<?php echo ($this->pagination_next) ? '' : ' disabled' ?>" href="#"  data-current="<?php echo $this->page_cur?>" data-user="<?php echo $this->user_id;?>">Next Page &#62;&#62;</a></li>
+					<li class="page-item" style="padding:5px;"><a class="btn btn-primary btn-sm orders-page-prev<?php echo ($this->pagination_prev) ? '' : ' disabled' ?>" href="#"  data-current="<?php echo $this->page_cur?>" data-user="<?php echo $this->user_id;?>">&#60;&#60; Previous Page</a></li>
+					<li class="page-item" style="padding:5px;"><a class="btn btn-primary btn-sm orders-page-next<?php echo ($this->pagination_next) ? '' : ' disabled' ?>" href="#"  data-current="<?php echo $this->page_cur?>" data-user="<?php echo $this->user_id;?>">Next Page &#62;&#62;</a></li>
 				</ul>
 			</nav>
 		</div>

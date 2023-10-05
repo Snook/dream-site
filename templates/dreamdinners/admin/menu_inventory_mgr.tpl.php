@@ -118,8 +118,8 @@
 
 							<td><span id="save_guest_counts" class="btn btn-primary btn-sm">Save Projected Guest Counts</span><span style="font-weight:bold; font-size: 18pt;">&#9312;</span>&nbsp;&nbsp;
 								<span id="calc_inv" class="btn btn-primary btn-sm">Calculate Projected Inventory</span><span style="font-weight:bold; font-size: 18pt;">&#9314;</span>
-								<span id="show_actuals" class="button ">View Servings Sold</span>
-								<span id="reset_to_current" class="button float-right">Reset to Current Stored Values</span>
+								<span id="show_actuals" class="btn btn-primary btn-sm">View Servings Sold</span>
+								<span id="reset_to_current" class="btn btn-primary btn-sm float-right">Reset to Current Stored Values</span>
 							</td>
 
 						</tr>
@@ -135,7 +135,7 @@
 							<table id="itemsTbl" class="table  table-sm sticky" style="width: 100%;">
 								<thead>
 								<tr scope="row" class="header_top">
-									<th colspan="2" scope="col" class="ME_header_zebra_even IM_header"><span id="reset_sales_mix" class="button mb-1">Reset to National Sales Mix</span>
+									<th colspan="2" scope="col" class="ME_header_zebra_even IM_header"><span id="reset_sales_mix" class="btn btn-primary btn-sm mb-1">Reset to National Sales Mix</span>
 										<span id="save_sales_mix" class="btn btn-primary btn-sm">Save Sales Mix</span><span style="font-weight:bold; font-size: 18pt;">&#9313;</span></th>
 									<th scope="col" class="ME_header_zebra_odd IM_header"><span class="warning_text" id="page_error_display"></span>
 										<div class="float-left">
@@ -363,8 +363,8 @@
 			</div>
 
 			<div data-tabid="efl">
-				<span id="export_EFL_sales" class="button float-right m-1">Export EFL Sales</span><span style="font-weight:bold; font-size: 18pt;"></span>
-				<span class="button float-right m-1" id="save_efl_inv" >Save EFL Inventory</span>
+				<span id="export_EFL_sales" class="btn btn-primary btn-sm float-right m-1">Export EFL Sales</span><span style="font-weight:bold; font-size: 18pt;"></span>
+				<span class="btn btn-primary btn-sm float-right m-1" id="save_efl_inv" >Save EFL Inventory</span>
 
 
 				<table id="EFLitemsTbl" style="width: 100%;">

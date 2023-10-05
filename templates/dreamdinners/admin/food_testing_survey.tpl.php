@@ -79,7 +79,7 @@
 				<?php if (empty($survey['timestamp_completed'])) { ?>
 					<span id="delete_guest-<?php echo $survey['id']; ?>" data-survey_submission_id="<?php echo $survey['id']; ?>" class="btn btn-primary btn-sm">Delete</span>
 				<?php } else { ?>
-					<span class="button disabled" data-tooltip="Unable to delete once survey has been completed.">Delete</span>
+					<span class="btn btn-primary btn-sm disabled" data-tooltip="Unable to delete once survey has been completed.">Delete</span>
 				<?php } ?>
 			</td>
 			<?php } ?>

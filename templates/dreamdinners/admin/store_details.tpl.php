@@ -184,7 +184,7 @@
 								</div>
 								<?php echo $this->form_store_details['address_longitude_html']; ?>
 								<div class="input-group-append">
-									<input type="button" class="button gllpSearchButton" value="Fill by Address">
+									<input type="button" class="btn btn-primary btn-sm gllpSearchButton" value="Fill by Address">
 								</div>
 							</div>
 						</fieldset>

@@ -33,8 +33,8 @@
 		<tr>
 			<td class="label">Operations</td>
 			<td colspan="3" class="value">
-				<span id="sd_invitation_pdf" data-session="<?php echo $this->session_info['id']; ?>" class="button sd_invitation_pdf">Invitation PDF</span>
-				<?php if (!empty($this->session_info['session_host'])) { // Meal Prep Workshop host ?><span id="sd_resend_hostess_email" data-store="<?php echo $this->session_info['store_id']; ?>" data-session="<?php echo $this->session_info['id']; ?>" class="button sd_resend_hostess_email">Resend Host Notification</span><?php } ?>
+				<span id="sd_invitation_pdf" data-session="<?php echo $this->session_info['id']; ?>" class="btn btn-primary btn-sm sd_invitation_pdf">Invitation PDF</span>
+				<?php if (!empty($this->session_info['session_host'])) { // Meal Prep Workshop host ?><span id="sd_resend_hostess_email" data-store="<?php echo $this->session_info['store_id']; ?>" data-session="<?php echo $this->session_info['id']; ?>" class="btn btn-primary btn-sm sd_resend_hostess_email">Resend Host Notification</span><?php } ?>
 			</td>
 		</tr>
 	<?php } ?>
@@ -42,7 +42,7 @@
 		<tr>
 			<td class="label">Operations</td>
 			<td colspan="3" class="value">
-				<span id="sd_pick_up_event_invitation_pdf" data-session="<?php echo $this->session_info['id']; ?>" class="button sd_pick_up_event_invitation_pdf">Invitation PDF</span>
+				<span id="sd_pick_up_event_invitation_pdf" data-session="<?php echo $this->session_info['id']; ?>" class="btn btn-primary btn-sm sd_pick_up_event_invitation_pdf">Invitation PDF</span>
 			</td>
 		</tr>
 	<?php } ?>
@@ -62,7 +62,7 @@
 		<tr>
 			<td class="label">Operations</td>
 			<td colspan="3" class="value">
-				<span id="sd_fundraiser_invitation_pdf" data-session="<?php echo $this->session_info['id']; ?>" class="button sd_fundraiser_invitation_pdf">Invitation PDF</span>
+				<span id="sd_fundraiser_invitation_pdf" data-session="<?php echo $this->session_info['id']; ?>" class="btn btn-primary btn-sm sd_fundraiser_invitation_pdf">Invitation PDF</span>
 			</td>
 		</tr>
 	<?php } ?>

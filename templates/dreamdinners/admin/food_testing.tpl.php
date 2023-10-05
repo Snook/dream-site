@@ -40,8 +40,8 @@
 	<td class="bgcolor_lighter" style="text-align:center;"><?php echo $recipe['pending_surveys']; ?></td>
 	<td class="bgcolor_lighter" style="text-align:center;"><?php echo $recipe['response_count']; ?></td>
 	<td class="bgcolor_lighter" style="text-align:center;">
-		<input type="button" id="add_stores-<?php echo $id; ?>" name="add_stores-<?php echo $id; ?>" value="Add Stores" class="button<?php if (!empty($recipe['is_closed'])) { ?> disabled<?php } ?>" />
-		<input type="button" id="add_files-<?php echo $id; ?>" value="<?php if ($recipe['file_name']) { ?>Update<?php } else { ?>Add<?php } ?> File" class="button<?php if (!empty($recipe['is_closed'])) { ?> disabled<?php } ?>" />
+		<input type="button" id="add_stores-<?php echo $id; ?>" name="add_stores-<?php echo $id; ?>" value="Add Stores" class="btn btn-primary btn-sm<?php if (!empty($recipe['is_closed'])) { ?> disabled<?php } ?>" />
+		<input type="button" id="add_files-<?php echo $id; ?>" value="<?php if ($recipe['file_name']) { ?>Update<?php } else { ?>Add<?php } ?> File" class="btn btn-primary btn-sm<?php if (!empty($recipe['is_closed'])) { ?> disabled<?php } ?>" />
 		<?php if ($recipe['file_name']) { ?><input type="button" id="download_files-<?php echo $id; ?>" data-file_id="<?php echo $recipe['file_id']; ?>" name="download_files-<?php echo $id; ?>" value="V" data-tooltip="<?php echo $recipe['file_name']; ?>" class="btn btn-primary btn-sm" style="margin-left:-7px;width: 20px;" /><?php } ?>
 	</td>
 	<td class="bgcolor_lighter" style="text-align:center;">

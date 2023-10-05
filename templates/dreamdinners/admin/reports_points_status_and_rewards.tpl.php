@@ -135,7 +135,7 @@ else
 
         <div data-pp_gift_reward_div="<?php echo $data['user_id'] . "_" . $thisReward['gift_id']; ?>" data-is_due="<?php echo ($thisReward['rewardDue'] ? 'true' : 'false') ?>" style="bottom: 8px; width: 96%; text-align: left; margin-top: 2px;">
 
-            <span class="button red" data-pp_gift_reward="<?php echo $data['user_id']; ?>"  data-user_id="<?php echo $data['user_id']; ?>"
+            <span class="btn btn-primary btn-sm red" data-pp_gift_reward="<?php echo $data['user_id']; ?>"  data-user_id="<?php echo $data['user_id']; ?>"
                   data-gift_id="<?php echo $thisReward['gift_id']; ?>" data-level="<?php echo $data['current_level']['level']; ?>"
                   data-order_sequence_number="<?php echo $thisReward['orderBasedRewardOrderNumber']; ?>"  data-order_id="<?php echo $data['order_id']; ?>">
                 <?php echo $thisReward['display_str']; ?>

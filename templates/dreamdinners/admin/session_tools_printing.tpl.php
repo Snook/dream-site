@@ -59,7 +59,7 @@
 <!--		</tr>-->
 		<tr>
 			<td colspan="2">
-				<span id="submit_menus" class="button disabled">Print</span>
+				<span id="submit_menus" class="btn btn-primary btn-sm disabled">Print</span>
 			</td>
 		</tr>
 	</table>

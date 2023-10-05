@@ -345,15 +345,15 @@ if( !function_exists('translateOrderQuantityType')){
 						<?php } else { ?>
 							<a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" class="btn btn-primary btn-sm">Edit Payments</a>
 
-							<span data-tooltip="Cancel order period has expired" class="button disabled">Cancel Order</span>
+							<span data-tooltip="Cancel order period has expired" class="btn btn-primary btn-sm disabled">Cancel Order</span>
 						<?php } ?>
 						<?php if (!empty($booking['can_reschedule'])) { ?>
 							<a id="gd_reschedule-<?php echo $booking['id']; ?>" data-store_id="<?php echo $booking['store_id']; ?>" data-session_id="<?php echo $booking['session_id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>" data-menu_id="<?php echo $booking['menu_id']; ?>" class="btn btn-primary btn-sm">Reschedule</a>
 						<?php } else { ?>
-							<span data-tooltip="Can not reschedule" class="button disabled">Reschedule</span>
+							<span data-tooltip="Can not reschedule" class="btn btn-primary btn-sm disabled">Reschedule</span>
 						<?php } ?>
 						<a href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" class="btn btn-primary btn-sm" target="_blank">Print</a>
-						<span class="button close_order_details_table" data-booking_id="<?php echo $booking['id']; ?>">Close Details</span>
+						<span class="btn btn-primary btn-sm close_order_details_table" data-booking_id="<?php echo $booking['id']; ?>">Close Details</span>
 					</div>
 				</td>
 			</tr>
@@ -380,7 +380,7 @@ if( !function_exists('translateOrderQuantityType')){
 			<td colspan="4" class="title">RSVP Only Guests</td>
 			<td colspan="3" class="title">
 				<span>Add RSVP:</span>
-				<span id="add_rsvp_button-<?php echo $this->session_info['id']; ?>" class="button add_session_rsvp_guest_create" data-session_id="<?php echo $this->session_info['id']; ?>">Create Guest</span>
+				<span id="add_rsvp_button-<?php echo $this->session_info['id']; ?>" class="btn btn-primary btn-sm add_session_rsvp_guest_create" data-session_id="<?php echo $this->session_info['id']; ?>">Create Guest</span>
 				<span data-guestsearch="add_session_rsvp" data-select_button_title="Add RSVP" data-all_stores_checked="false" data-session_id="<?php echo $this->session_info['id']; ?>" data-select_function="handle_session_rsvp_guest_find" class="btn btn-primary btn-sm">Lookup Guest</span>
 			</td>
 		</tr>
@@ -399,7 +399,7 @@ if( !function_exists('translateOrderQuantityType')){
 							<input type="button" class="btn btn-primary btn-sm" value="Upgrade Order" onclick="hostessDreamTasteOrder(<?php echo $this->session_info['id']; ?>, '<?php echo CTemplate::dateTimeFormat($this->session_info['session_start']); ?>', <?php echo $session_rsvp->user->id; ?>);" />
 						<?php } ?>
 						<a class="btn btn-primary btn-sm" href="/backoffice/user_details?id=<?php echo $session_rsvp->user->id; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $this->session_info['id']; ?>">View Guest</a></li>
-						<span class="button cancel_session_rsvp" data-user_id="<?php echo $session_rsvp->user->id; ?>" data-session_id="<?php echo $this->session_info['id']; ?>">Cancel RSVP</span>
+						<span class="btn btn-primary btn-sm cancel_session_rsvp" data-user_id="<?php echo $session_rsvp->user->id; ?>" data-session_id="<?php echo $this->session_info['id']; ?>">Cancel RSVP</span>
 					</td>
 				</tr>
 			<?php } ?>

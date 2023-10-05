@@ -175,17 +175,17 @@
 						<?php } else { ?>
 							<a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" class="btn btn-primary btn-sm">Edit Payments</a>
 
-							<span data-tooltip="Cancel order period has expired" class="button disabled">Cancel Order</span>
+							<span data-tooltip="Cancel order period has expired" class="btn btn-primary btn-sm disabled">Cancel Order</span>
 						<?php } ?>
 						<?php if (!empty($booking['can_reschedule'])) { ?>
 							<a id="gd_reschedule-<?php echo $booking['id']; ?>" data-store_id="<?php echo $booking['store_id']; ?>" data-session_id="<?php echo $booking['session_id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>" data-menu_id="<?php echo $booking['menu_id']; ?>" class="btn btn-primary btn-sm">Reschedule</a>
 						<?php } else { ?>
-							<span data-tooltip="Can not reschedule" class="button disabled">Reschedule</span>
+							<span data-tooltip="Can not reschedule" class="btn btn-primary btn-sm disabled">Reschedule</span>
 						<?php } ?>
-						<a class="button handle-resend-shipstation" data-order_id="<?php echo $booking['order_id']; ?>">Update ShipStation</a>
-						<a class="button handle-fetch-tracking-number" data-order_id="<?php echo $booking['order_id']; ?>">Load Tracking Number</a>
+						<a class="btn btn-primary btn-sm handle-resend-shipstation" data-order_id="<?php echo $booking['order_id']; ?>">Update ShipStation</a>
+						<a class="btn btn-primary btn-sm handle-fetch-tracking-number" data-order_id="<?php echo $booking['order_id']; ?>">Load Tracking Number</a>
 						<a href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" class="btn btn-primary btn-sm" target="_blank">Print</a>
-						<span class="button close_order_details_table" data-booking_id="<?php echo $booking['id']; ?>">Close Details</span>
+						<span class="btn btn-primary btn-sm close_order_details_table" data-booking_id="<?php echo $booking['id']; ?>">Close Details</span>
 					</div>
 				</td>
 			</tr>

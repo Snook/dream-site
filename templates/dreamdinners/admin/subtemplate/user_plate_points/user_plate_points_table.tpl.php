@@ -3,8 +3,8 @@
 		<div class="col">
 			<nav aria-label="Page navigation" style="float:right;">
 				<ul class="pagination">
-					<li class="page-item" style="padding:5px;"><a class="button points-page-prev <?php echo ($this->pagination_prev) ? ' ' : 'disabled' ?>" href="#"  data-current="<?php echo $this->page_cur?>" data-user="<?php echo $this->user_id;?>">&#60;&#60; Previous Page</a></li>
-					<li class="page-item" style="padding:5px;"><a class="button points-page-next <?php echo ($this->pagination_next) ? ' ' : 'disabled' ?>" href="#"  data-current="<?php echo $this->page_cur?>" data-user="<?php echo $this->user_id;?>">Next Page &#62;&#62;</a></li>
+					<li class="page-item" style="padding:5px;"><a class="btn btn-primary btn-sm points-page-prev <?php echo ($this->pagination_prev) ? ' ' : 'disabled' ?>" href="#"  data-current="<?php echo $this->page_cur?>" data-user="<?php echo $this->user_id;?>">&#60;&#60; Previous Page</a></li>
+					<li class="page-item" style="padding:5px;"><a class="btn btn-primary btn-sm points-page-next <?php echo ($this->pagination_next) ? ' ' : 'disabled' ?>" href="#"  data-current="<?php echo $this->page_cur?>" data-user="<?php echo $this->user_id;?>">Next Page &#62;&#62;</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -57,8 +57,8 @@
 		<div class="col" >
 			<nav aria-label="Page navigation" style="float:right;">
 				<ul class="pagination">
-					<li class="page-item" style="padding:5px;"><a class="button points-page-prev <?php echo ($this->pagination_prev) ? ' ' : 'disabled' ?>" href="#"  data-current="<?php echo $this->page_cur?>" data-user="<?php echo $this->user_id;?>">&#60;&#60; Previous Page</a></li>
-					<li class="page-item" style="padding:5px;"><a class="button points-page-next <?php echo ($this->pagination_next) ? ' ' : 'disabled' ?>" href="#"  data-current="<?php echo $this->page_cur?>" data-user="<?php echo $this->user_id;?>">Next Page &#62;&#62;</a></li>
+					<li class="page-item" style="padding:5px;"><a class="btn btn-primary btn-sm points-page-prev <?php echo ($this->pagination_prev) ? ' ' : 'disabled' ?>" href="#"  data-current="<?php echo $this->page_cur?>" data-user="<?php echo $this->user_id;?>">&#60;&#60; Previous Page</a></li>
+					<li class="page-item" style="padding:5px;"><a class="btn btn-primary btn-sm points-page-next <?php echo ($this->pagination_next) ? ' ' : 'disabled' ?>" href="#"  data-current="<?php echo $this->page_cur?>" data-user="<?php echo $this->user_id;?>">Next Page &#62;&#62;</a></li>
 				</ul>
 			</nav>
 		</div>

@@ -106,13 +106,13 @@ Access Level for: <b><?php echo $this->firstname; ?> <?php echo $this->lastname;
 <?php if ($this->isAdmin || (!empty($this->currentStoreID) && $this->currentStoreID  == $store_id)) { ?>
 	<td class="bgcolor_light" style="text-align: center;"><input type="checkbox" data-show_on_customer="<?php echo $thisStore['uts_id']; ?>" <?php echo ($thisStore['display'] ? 'checked="checked"' : ''); ?> /></td>
 	<td class="bgcolor_light"><input type="text" style="width: 300px;" data-display_text="<?php echo $thisStore['uts_id']; ?>" value="<?php echo htmlentities($thisStore['text']); ?>"
-	maxlength="100" placeholder="<?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?>" /> <input type="button" data-display_text_save="<?php echo $thisStore['uts_id']; ?>" class="button disabled" value="Save" /></td>
+	maxlength="100" placeholder="<?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?>" /> <input type="button" data-display_text_save="<?php echo $thisStore['uts_id']; ?>" class="btn btn-primary btn-sm disabled" value="Save" /></td>
 <?php } else { ?>
 	<td class="bgcolor_light" style="text-align: center;"><?php echo ($thisStore['display'] ? 'Yes' : 'No'); ?></td>
 	<td class="bgcolor_light"><?php echo (!empty($thisStore['text'])) ? htmlentities($thisStore['text']) : $this->user->firstname . ' ' . $this->user->lastname; ?></td>
 	<?php } ?>
 	<?php if ($this->isAdmin) {?>
-	<td class="bgcolor_light" style="text-align:center;"><input type="button" class="button<?php if ($this->user->user_type == CUser::FRANCHISE_OWNER) { ?> disabled<?php } ?>" value="Delete"
+	<td class="bgcolor_light" style="text-align:center;"><input type="button" class="btn btn-primary btn-sm<?php if ($this->user->user_type == CUser::FRANCHISE_OWNER) { ?> disabled<?php } ?>" value="Delete"
 	               <?php if ($this->user->user_type != CUser::FRANCHISE_OWNER) { ?>onclick="deleteStore('<?php echo $store_id; ?>');"<?php } else { ?>data-tooltip="Franchise owners must be managed in franchise admin"<?php } ?> /></td>
 	<?php } ?>
 </tr>

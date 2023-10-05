@@ -84,15 +84,15 @@
 <div class="container">
 	<div class="header">
 		<?php echo $logo; ?><br /><br />
-        <div class="button dest_button" data-content_link="calendar">Calendar</div>
-		<div class="button dest_button" data-content_link="fadmin">BackOffice</div>
-		<div class="button dest_button" data-content_link="support">Support</div>
-	    <div class="button dest_button" data-content_link="real_talk">Real Talk</div>
-		<div class="button dest_button" data-content_link="monthly_packet">Monthly Packet</div>
-	    <div class="button dest_button" data-content_link="flash_news">Flash News</div>
-	    <div class="button dest_button" data-content_link="weekly_news">Weekly News</div>
-	    <div class="button dest_button" data-content_link="marketing">Marketing Resources</div>
-	    <div class="button dest_button" data-content_link="sales">Sales Resources</div>
+        <div class="btn btn-primary btn-sm dest_button" data-content_link="calendar">Calendar</div>
+		<div class="btn btn-primary btn-sm dest_button" data-content_link="fadmin">BackOffice</div>
+		<div class="btn btn-primary btn-sm dest_button" data-content_link="support">Support</div>
+	    <div class="btn btn-primary btn-sm dest_button" data-content_link="real_talk">Real Talk</div>
+		<div class="btn btn-primary btn-sm dest_button" data-content_link="monthly_packet">Monthly Packet</div>
+	    <div class="btn btn-primary btn-sm dest_button" data-content_link="flash_news">Flash News</div>
+	    <div class="btn btn-primary btn-sm dest_button" data-content_link="weekly_news">Weekly News</div>
+	    <div class="btn btn-primary btn-sm dest_button" data-content_link="marketing">Marketing Resources</div>
+	    <div class="btn btn-primary btn-sm dest_button" data-content_link="sales">Sales Resources</div>
 
 	   </div>
 </div>

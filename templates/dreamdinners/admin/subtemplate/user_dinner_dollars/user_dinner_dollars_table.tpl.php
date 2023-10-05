@@ -3,8 +3,8 @@
 		<div class="col">
 			<nav aria-label="Page navigation" style="float:right;">
 				<ul class="pagination">
-					<li class="page-item" style="padding:5px;"><a class="button dollars-page-prev <?php echo ($this->dinner_dollar_pagination_prev) ? ' ' : 'disabled' ?>" href="#"  data-current="<?php echo $this->dinner_dollar_page_cur?>" data-user="<?php echo $this->user_id;?>">&#60;&#60; Previous Page</a></li>
-					<li class="page-item" style="padding:5px;"><a class="button dollars-page-next <?php echo ($this->dinner_dollar_pagination_next) ? ' ' : 'disabled' ?>" href="#"  data-current="<?php echo $this->dinner_dollar_page_cur?>" data-user="<?php echo $this->user_id;?>">Next Page &#62;&#62;</a></li>
+					<li class="page-item" style="padding:5px;"><a class="btn btn-primary btn-sm dollars-page-prev <?php echo ($this->dinner_dollar_pagination_prev) ? ' ' : 'disabled' ?>" href="#"  data-current="<?php echo $this->dinner_dollar_page_cur?>" data-user="<?php echo $this->user_id;?>">&#60;&#60; Previous Page</a></li>
+					<li class="page-item" style="padding:5px;"><a class="btn btn-primary btn-sm dollars-page-next <?php echo ($this->dinner_dollar_pagination_next) ? ' ' : 'disabled' ?>" href="#"  data-current="<?php echo $this->dinner_dollar_page_cur?>" data-user="<?php echo $this->user_id;?>">Next Page &#62;&#62;</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -59,12 +59,10 @@ if ($this->dinner_dollar_no_more_rows) { ?>
 		<div class="col">
 			<nav aria-label="Page navigation" style="float:right;">
 				<ul class="pagination">
-					<li class="page-item" style="padding:5px;"><a class="button dollars-page-prev <?php echo ($this->dinner_dollar_pagination_prev) ? ' ' : 'disabled' ?>" href="#"  data-current="<?php echo $this->dinner_dollar_page_cur?>" data-user="<?php echo $this->user_id;?>">&#60;&#60; Previous Page</a></li>
-					<li class="page-item" style="padding:5px;"><a class="button dollars-page-next <?php echo ($this->dinner_dollar_pagination_next) ? ' ' : 'disabled' ?>" href="#"  data-current="<?php echo $this->dinner_dollar_page_cur?>" data-user="<?php echo $this->user_id;?>">Next Page &#62;&#62;</a></li>
+					<li class="page-item" style="padding:5px;"><a class="btn btn-primary btn-sm dollars-page-prev <?php echo ($this->dinner_dollar_pagination_prev) ? ' ' : 'disabled' ?>" href="#"  data-current="<?php echo $this->dinner_dollar_page_cur?>" data-user="<?php echo $this->user_id;?>">&#60;&#60; Previous Page</a></li>
+					<li class="page-item" style="padding:5px;"><a class="btn btn-primary btn-sm dollars-page-next <?php echo ($this->dinner_dollar_pagination_next) ? ' ' : 'disabled' ?>" href="#"  data-current="<?php echo $this->dinner_dollar_page_cur?>" data-user="<?php echo $this->user_id;?>">Next Page &#62;&#62;</a></li>
 				</ul>
 			</nav>
 		</div>
 	</div>
 <?php } ?>
-
-

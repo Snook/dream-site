@@ -186,7 +186,7 @@
 					Order Summary
 					<div style="float: right;">
 						<a href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" class="btn btn-primary btn-sm" target="_blank">Print</a>
-						<span class="button close_order_details_table" data-booking_id="<?php echo $booking['id']; ?>">Close Details</span>
+						<span class="btn btn-primary btn-sm close_order_details_table" data-booking_id="<?php echo $booking['id']; ?>">Close Details</span>
 					</div>
 				</td>
 			</tr>

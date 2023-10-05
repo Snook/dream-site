@@ -74,7 +74,7 @@
 							<?php echo $this->form['submit_html']; ?>
 							<?php echo array_key_exists('delete_html',$this->form )? $this->form['delete_html']:''; ?>
 						<?php } else { ?>
-							<span class="button disabled">Orders have been placed against his bundle, editing is now disabled.</span>
+							<span class="btn btn-primary btn-sm disabled">Orders have been placed against his bundle, editing is now disabled.</span>
 						<?php } ?>
 					</div>
 				</div>
