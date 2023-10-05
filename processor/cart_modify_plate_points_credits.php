@@ -37,9 +37,11 @@ class processor_cart_modify_plate_points_credits extends CPageProcessor
 		}
 
 		$CartObj = CCart2::instance();
-		$Order = $CartObj->getOrder();
+		$DAO_orders = $CartObj->getOrder();
+		$DAO_store = $DAO_orders->getStoreObj();
+		$DAO_user = $DAO_orders->getUser();
 
-		$coupon = $Order->getCoupon();
+		$coupon = $DAO_orders->getCoupon();
 
 		if (!empty($coupon) && !$coupon->valid_with_plate_points_credits && $amountRequested > 0)
 		{
@@ -48,8 +50,8 @@ class processor_cart_modify_plate_points_credits extends CPageProcessor
 		}
 
 
-		$maxAvailableCredit = CPointsCredits::getAvailableCreditForUser($Order->user_id);
-		$maxDeduction = $Order->getPointsDiscountableAmount();
+		$maxAvailableCredit = CPointsCredits::getAvailableCreditForUser($DAO_orders->user_id);
+		$maxDeduction = $DAO_orders->getPointsDiscountableAmount();
 
 
 		if ($amountRequested > $maxAvailableCredit)
@@ -62,19 +64,19 @@ class processor_cart_modify_plate_points_credits extends CPageProcessor
 			$amountRequested = $maxDeduction;
 		}
 
-		$platePointsStatus = CPointsUserHistory::getPlatePointsStatus($Order->store_id, CUser::getCurrentUser());
+		$platePointsStatus = CPointsUserHistory::getPlatePointsStatus($DAO_store, $DAO_user);
 
 
-		$Order->points_discount_total = $amountRequested;
-		$Order->refresh(CUser::getCurrentUser());
-		$Order->recalculate(false, false, false, $platePointsStatus['userIsOnHold']);
-		$CartObj->addOrder($Order);
+		$DAO_orders->points_discount_total = $amountRequested;
+		$DAO_orders->refresh($DAO_user);
+		$DAO_orders->recalculate(false, false, false, $platePointsStatus['userIsOnHold']);
+		$CartObj->addOrder($DAO_orders);
 
 		$results_array = array(
 					'processor_success' => true,
 					'result_code' => 1,
 					'processor_message' => 'Modification to PLATEPOINTS Dinner Dollars is successful.',
-					'orderInfo' => $Order->toArray());
+					'orderInfo' => $DAO_orders->toArray());
 
 		echo json_encode($results_array);
 		exit;
