@@ -1043,7 +1043,7 @@ class form_account
 							{
 								if ($adminAdd)
 								{
-									CApp::instance()->bounce(self::$forwardTo . '&id=' . $User->id, true);
+									CApp::instance()->bounce(self::$forwardTo . '?id=' . $User->id, true);
 								}
 								else
 								{
@@ -1279,7 +1279,7 @@ class form_account
 						{
 							if ($adminAdd)
 							{
-								CApp::instance()->bounce(self::$forwardTo . '&id=' . $User->id, true);
+								CApp::instance()->bounce(self::$forwardTo . '?id=' . $User->id, true);
 							}
 							else
 							{
@@ -1737,7 +1737,7 @@ class form_account
 							{
 								if ($adminAdd)
 								{
-									CApp::instance()->bounce(self::$forwardTo . '&id=' . $User->id, true);
+									CApp::instance()->bounce(self::$forwardTo . '?id=' . $User->id, true);
 								}
 								else
 								{
