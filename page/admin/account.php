@@ -67,6 +67,8 @@ class page_admin_account extends CPageAdminOnly {
 	{
 		$tpl = CApp::instance()->template();
 
+		form_account::$forwardTo = '/backoffice/user_details';
+
 		$id = null;
 
 		if (!empty($_GET['id']))
@@ -162,6 +164,13 @@ class page_admin_account extends CPageAdminOnly {
 
 			$tpl->assign('isCreate', false);
 			$tpl->assign('page_title', 'Edit Account');
+
+			form_account::$forwardTo = '/backoffice/user_details?id=' . $id;
+
+			if (!empty($_REQUEST['back']))
+			{
+				form_account::$forwardTo = $_REQUEST['back'];
+			}
 		}
 		else
 		{
