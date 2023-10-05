@@ -421,19 +421,19 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CApp::bounce('/backoffice/menu_editor'); //reload the page
 			}
 
-			if ($_POST['assembly_fee'] > 60 && OrdersHelper::allow_assembly_fee($menu_id))
+			if (!empty($_POST['assembly_fee']) && $_POST['assembly_fee'] > 60 && OrdersHelper::allow_assembly_fee($menu_id))
 			{
 				$tpl->setErrorMsg('The service fee must be a maximum of $60.');
 				CApp::bounce('/backoffice/menu_editor'); //reload the page
 			}
 
-			if ($_POST['delivery_assembly_fee'] < 0 && OrdersHelper::allow_assembly_fee($menu_id))
+			if (!empty($_POST['delivery_assembly_fee']) && $_POST['delivery_assembly_fee'] < 0 && OrdersHelper::allow_assembly_fee($menu_id))
 			{
 				$tpl->setErrorMsg('The delivery service fee must be a minimum of $0.');
 				CApp::bounce('/backoffice/menu_editor'); //reload the page
 			}
 
-			if ($_POST['delivery_assembly_fee'] > 60 && OrdersHelper::allow_assembly_fee($menu_id))
+			if (!empty($_POST['delivery_assembly_fee']) && $_POST['delivery_assembly_fee'] > 60 && OrdersHelper::allow_assembly_fee($menu_id))
 			{
 				$tpl->setErrorMsg('The delivery service fee must be a maximum of $60.');
 				CApp::bounce('/backoffice/menu_editor'); //reload the page
