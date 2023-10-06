@@ -1,7 +1,7 @@
 <?php foreach ($this->itemArray as $DAO_menu_item) { ?>
 	<div class="col-<?php echo (count($this->itemArray) == '2') ? '6' : '12'; ?> p-1">
 		<button class="btn btn-primary btn-block btn-ripple py-3 <?php if ((!empty($this->box_info->box_type) && $this->box_info->box_type == CBox::DELIVERED_FIXED) || $DAO_menu_item->isOutOfStock()) { ?>disabled<?php } else { ?>box-item-update<?php } ?>" data-box_update_action="add" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>">
-			<?php if (!$DAO_menu_item->isMenuItem_SidesSweets()) { ?>
+			<?php if (!$DAO_menu_item->isMenuItem_SidesSweets() && count($this->itemArray) >= '2') { ?>
 				<span class="float-left"><?php echo $DAO_menu_item->pricing_type_info['pricing_type_name_short']; ?></span>
 			<?php } ?>
 			<?php if ($DAO_menu_item->isOutOfStock()) { ?>
