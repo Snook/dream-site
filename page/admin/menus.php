@@ -6,7 +6,6 @@ class page_admin_menus extends CPageAdminOnly
 
 	function runSiteAdmin()
 	{
-		$tpl = CApp::instance()->template();
 		$Form = new CForm();
 		$Form->Repost = true;
 
@@ -36,7 +35,7 @@ class page_admin_menus extends CPageAdminOnly
 
 			COrderMinimum::carryForwardMinimums($LastMenu->id, $newId);
 
-			$tpl->setStatusMsg('New menu created, <span class="text-danger">verify menu end date!</span>');
+			$this->Template->setStatusMsg('New menu created, <span class="text-danger">verify menu end date!</span>');
 
 			CApp::bounce('/backoffice/menus?menu_edit=' . $newId);
 		}
@@ -44,228 +43,6 @@ class page_admin_menus extends CPageAdminOnly
 		$menu_edit = array_key_exists('menu_edit', $_GET) ? CGPC::do_clean($_GET['menu_edit'], TYPE_STR) : null;
 
 		$Form->DefaultValues['menu_edit'] = $menu_edit;
-		//php 8 $action = CGPC::do_clean($_REQUEST['action'] ?? null, TYPE_STR);
-		$action = CGPC::do_clean((array_key_exists('action', $_REQUEST) ? $_REQUEST['action'] : null), TYPE_STR);
-		if ($menu_edit && isset($action))
-		{
-			if (isset($_REQUEST['item']) && $_REQUEST['item'])
-			{
-				$_REQUEST['item'] = CGPC::do_clean($_REQUEST['item'], TYPE_INT);
-
-				if (!empty($_REQUEST['item']))
-				{
-					switch ($action)
-					{
-						case 'up':
-							$mi = DAO_CFactory::create('menu_item');
-							$menuItemInfo = DAO_CFactory::create('menu_to_menu_item');
-							$mi->entree_id = CGPC::do_clean($_REQUEST['entree_id'], TYPE_INT);
-							$menuItemInfo->menu_id = $menu_edit;
-							$mi->joinAdd($menuItemInfo);
-							$cnt = $mi->find();
-							$mi->fetch();
-							$iter = 0;
-
-							if ($mi->menu_order_value > 1)
-							{
-								$miOld = DAO_CFactory::create('menu_to_menu_item');
-								$miOld->menu_id = $menu_edit;
-								$miOld->menu_order_value = $mi->menu_order_value - 1;
-
-								if ($miOld->find())
-								{
-									while ($miOld->fetch())
-									{
-										$miOld->menu_order_value = $mi->menu_order_value;
-										$miOld->update();
-									}
-								}
-
-								while ($iter < $cnt)
-								{
-									$miNew = DAO_CFactory::create('menu_to_menu_item');
-									$miNew->menu_id = $menu_edit;
-									$miNew->menu_order_value = $mi->menu_order_value - 1;
-									$miNew->id = $mi->id;
-									$miNew->update();
-									$mi->fetch();
-									$iter++;
-								}
-							}
-							else if (!$mi->menu_order_value)
-							{
-								$miOld = DAO_CFactory::create('menu_to_menu_item');
-								$miOld->menu_id = $menu_edit;
-								$num = $miOld->find();
-								$mi->menu_order_value = $num + 1;
-								$mi->update();
-							}
-
-							CApp::bounce('/backoffice/menus?menu_edit=' . $menu_edit);
-							break;
-
-						case 'down':
-							$mi = DAO_CFactory::create('menu_item');
-							$menuItemInfo = DAO_CFactory::create('menu_to_menu_item');
-							$mi->entree_id = CGPC::do_clean($_REQUEST['entree_id'], TYPE_INT);
-							$menuItemInfo->menu_id = $menu_edit;
-							$mi->joinAdd($menuItemInfo);
-							$cnt = $mi->find();
-							$mi->fetch();
-							$iter = 0;
-
-							if ($mi->menu_order_value)
-							{
-								$miOld = DAO_CFactory::create('menu_to_menu_item');
-								$miOld->menu_id = $menu_edit;
-								$miOld->menu_order_value = $mi->menu_order_value + 1;
-
-								if ($miOld->find())
-								{
-									while ($miOld->fetch())
-									{
-										$miOld->menu_order_value = $mi->menu_order_value;
-										$miOld->update();
-									}
-								}
-								while ($iter < $cnt)
-								{
-									$miNew = DAO_CFactory::create('menu_to_menu_item');
-									$miNew->menu_id = $menu_edit;
-									$miNew->menu_order_value = $mi->menu_order_value + 1;
-									$miNew->id = $mi->id;
-									$miNew->update();
-									$mi->fetch();
-									$iter++;
-								}
-							}
-							else if (!$mi->menu_order_value)
-							{
-								$miOld = DAO_CFactory::create('menu_to_menu_item');
-								$miOld->menu_id = $menu_edit;
-								$num = $miOld->find();
-								$mi->menu_order_value = $num + 1;
-								$mi->update();
-							}
-
-							CApp::bounce('/backoffice/menus?menu_edit=' . $menu_edit);
-							break;
-
-						case 'remove':
-							$MenuItem = DAO_CFactory::create('menu_item');
-							$MenuItem->entree_id = CGPC::do_clean($_REQUEST['entree_id'], TYPE_INT);
-							if ($MenuItem->find())
-							{
-								while ($MenuItem->fetch())
-								{
-									$mi = DAO_CFactory::create('menu_to_menu_item');
-									$mi->menu_id = $menu_edit;
-									$mi->menu_item_id = $MenuItem->id;
-
-									if ($mi->find(true))
-									{
-										$mi->delete();
-									}
-								}
-							}
-
-							CApp::bounce('/backoffice/menus?menu_edit=' . $menu_edit);
-							break;
-
-						case 'feature':
-							$menuItemInfo = DAO_CFactory::create('menu_item');
-							$menuToMenuItem = DAO_CFactory::create('menu_to_menu_item');
-							$menuToMenuItem->menu_id = $menu_edit;
-							$menuItemInfo->joinAdd($menuToMenuItem);
-							$cnt = $menuItemInfo->find();
-
-							while ($menuItemInfo->fetch())
-							{
-								$mi = DAO_CFactory::create('menu_to_menu_item');
-								$mi->id = $menuItemInfo->id;
-
-								if ($menuItemInfo->entree_id == $_REQUEST['entree_id'])
-								{
-									$mi->featuredItem = 1;
-								}
-								else
-								{
-									$mi->featuredItem = 0;
-								}
-
-								$mi->update();
-							}
-
-							CApp::bounce('/backoffice/menus?menu_edit=' . $menu_edit);
-							break;
-
-						case 'additem':
-							$mi = DAO_CFactory::create('menu_to_menu_item');
-							$mi->menu_id = $menu_edit;
-							//$mi->menu_item_id = $_REQUEST['item'];
-							$cnt = $mi->find();
-							$isFound = false;
-							$highest = 0;
-
-							while ($mi->fetch())
-							{
-								if ($mi->menu_item_id == $_REQUEST['item'])
-								{
-									$isFound = true;
-								}
-								if ($mi->menu_order_value > $highest)
-								{
-									$highest = $mi->menu_order_value;
-								}
-							}
-
-							if (!$isFound)
-							{
-								$existing_menu_items = null;
-								// have to find all of the
-								$MenuItem = DAO_CFactory::create('menu_item');
-								$MenuItem->entree_id = CGPC::do_clean($_REQUEST['item'], TYPE_INT);
-
-								if ($MenuItem->find())
-								{
-									while ($MenuItem->fetch())
-									{
-										$existing_menu_items[$MenuItem->pricing_type] = $MenuItem->toArray();
-										//$mi->featuredItem = 0;
-										//$mi->menu_item_id = $MenuItem->id;
-										//$mi->menu_order_value = $highest + 1;
-										//$mi->insert();
-									}
-
-									if (isset($existing_menu_items[CMenuItem::FULL]))
-									{
-										$MenuItemIns = DAO_CFactory::create('menu_item');
-										$MenuItemIns->entree_id = CGPC::do_clean($_REQUEST['item'], TYPE_INT);
-
-										foreach ($existing_menu_items as $element)
-										{
-											if ($element['pricing_type'] != CMenuItem::LEGACY)
-											{
-												$mi->featuredItem = 0;
-												$mi->menu_item_id = $element['id'];
-												$mi->menu_order_value = $highest + 1;
-												$mi->insert();
-											}
-										}
-									}
-									else
-									{
-										$tpl->setStatusMsg('Sorry, cannot save this menu item to your new menu.  You must first add new FULL and INTRO pricing items to this menu item.');
-									}
-								}
-							}
-
-							CApp::bounce('/backoffice/menus?menu_edit=' . $menu_edit);
-							break;
-					}
-				}
-			}
-		}
 
 		//build menu drop down
 		$Menu = DAO_CFactory::create('menu');
@@ -315,7 +92,7 @@ class page_admin_menus extends CPageAdminOnly
 				$Form->DefaultValues['is_active'] = $Menu_Edit->is_active;
 				$Form->DefaultValues['id'] = $Menu_Edit->id;
 
-				$tpl->assign('global_menu_end_date', $Menu_Edit->global_menu_end_date);
+				$this->Template->assign('global_menu_end_date', $Menu_Edit->global_menu_end_date);
 
 				$Form->AddElement(array(
 					CForm::type => CForm::TextArea,
@@ -358,10 +135,10 @@ class page_admin_menus extends CPageAdminOnly
 				if (count($items) > 0)
 				{
 					$curplanupdate = true;
-					$tpl->assign('update_current_menu_plan', $curplanupdate);
+					$this->Template->assign('update_current_menu_plan', $curplanupdate);
 				}
 
-				$tpl->assign('menuItems', $items);
+				$this->Template->assign('menuItems', $items);
 				$Form->DefaultValues['item'] = 0;
 				$Form->AddElement(array(
 					CForm::type => CForm::MenuItemDropDown,
@@ -373,7 +150,7 @@ class page_admin_menus extends CPageAdminOnly
 				//update description fields
 				if ($_POST && isset($_POST['save_changes']))
 				{
-					$tpl->assign('global_menu_end_date', CGPC::do_clean($_POST['global_menu_end_date'], TYPE_STR));
+					$this->Template->assign('global_menu_end_date', CGPC::do_clean($_POST['global_menu_end_date'], TYPE_STR));
 
 					$Menu_Edit->global_menu_end_date = CGPC::do_clean($_POST['global_menu_end_date'], TYPE_STR);
 					$Menu_Edit->admin_notes = $Form->value('admin_notes');
@@ -382,13 +159,14 @@ class page_admin_menus extends CPageAdminOnly
 					$Menu_Edit->update();
 
 					CSession::generateWalkInSessionsForMenu($Menu_Edit->id, true);
+					CSession::generateDeliveredSessionsForMenu($Menu_Edit->id);
 
-					$tpl->setStatusMsg('Your changes have been saved.');
+					$this->Template->setStatusMsg('Your changes have been saved.');
 				}
 			}
 			else
 			{
-				$tpl->setErrorMsg('menu error');
+				$this->Template->setErrorMsg('menu error');
 			}
 
 			// DavidB: Fetch prior month's menu end date if available
@@ -409,11 +187,11 @@ class page_admin_menus extends CPageAdminOnly
 			if (!empty($dtMenuPrev))
 			{
 				$ts = strtotime($dtMenuPrev) + 86400;
-				$tpl->assign('sz_previous_menu_end', date('Y-m-d', $ts));
+				$this->Template->assign('sz_previous_menu_end', date('Y-m-d', $ts));
 			}
 			else
 			{
-				$tpl->assign('sz_previous_menu_end', '** Warning: Prior month has no end date set **');
+				$this->Template->assign('sz_previous_menu_end', '** Warning: Prior month has no end date set **');
 			}
 
 			// ------------------------------------------------------
@@ -431,18 +209,18 @@ class page_admin_menus extends CPageAdminOnly
 				$iDayCount = date('t', mktime(0, 0, 0, $szMonth, $szDay, $szYear));
 
 				// and give that to the form...
-				$tpl->assign('end_date', date('Y-m-d', mktime(0, 0, 0, $szMonth, $iDayCount, $szYear)));
+				$this->Template->assign('end_date', date('Y-m-d', mktime(0, 0, 0, $szMonth, $iDayCount, $szYear)));
 			}
 			else
 			{
 				// we already have a valid end date so use it...
-				$tpl->assign('end_date', $Menu_Edit->global_menu_end_date);
+				$this->Template->assign('end_date', $Menu_Edit->global_menu_end_date);
 			}
 			// ------------------------------------------------------
 		}
 
 		$formArray = $Form->render();
-		$tpl->assign('form_menus', $formArray);
+		$this->Template->assign('form_menus', $formArray);
 	}
 }
 
