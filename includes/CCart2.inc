@@ -1742,6 +1742,16 @@ class CCart2
 		}
 	}
 
+	function clearStore($directStore = false)
+	{
+		$this->_storage->storeOrderValue($this->_cart_contents_id, "store_id", null);
+
+		if (!$directStore)
+		{
+			$this->store_id = null;
+		}
+	}
+
 	function addPostalCode($postal_code, $directStore = false)
 	{
 		$this->_storage->storeOrderValue($this->_cart_contents_id, "postal_code", $postal_code);
