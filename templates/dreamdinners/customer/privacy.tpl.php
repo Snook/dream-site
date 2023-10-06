@@ -16,7 +16,7 @@
 		</div>
 	</div>
 </header>
-
+<?php /*
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-8 mx-auto">
@@ -25,7 +25,7 @@
 		</div>
 	</div>
 </div>
-
+*/ ?>
 
 <?php include $this->loadTemplate('customer/subtemplate/page_footer.tpl.php'); ?>
 
