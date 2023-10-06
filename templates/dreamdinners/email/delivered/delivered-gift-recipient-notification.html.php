@@ -9,7 +9,7 @@
 </table>
 <table role="presentation" width="500" align="center">
 	<tr>
-		<td><img src="<?=EMAIL_IMAGES_PATH?>/delivered/delivered-box-doorstep-500x300.jpg" width="500" height="300" alt="Dream Dinners Delivered"></td>
+		<td><img src="<?=EMAIL_IMAGES_PATH?>/delivered/delivered-box-doorstep-500x300.jpg" width="500" height="300" alt="Dream Dinners"></td>
 	</tr>
 </table>
 <table role="presentation" width="500" border="0" align="center" cellpadding="10" cellspacing="0">
@@ -21,7 +21,7 @@
 			<p style="font-family:Arial, Helvetica, sans-serif; font-size: 16px; color: #444444;"><b>Shipping To:</b> <?php echo $this->orderObj->orderAddress->firstname; ?> <?php echo $this->orderObj->orderAddress->lastname; ?>, <?php echo $this->orderObj->orderAddress->address_line1; ?> <?php echo (!empty($this->orderObj->orderAddress->address_line2) ? $this->orderObj->orderAddress->address_line2 : ''); ?>
 				<?php echo $this->orderObj->orderAddress->city; ?>, <?php echo $this->orderObj->orderAddress->state_id; ?> <?php echo $this->orderObj->orderAddress->postal_code; ?></p>
 			<hr>
-			<p style="font-family:Arial, Helvetica, sans-serif; font-size: 16px; color: #444444;">If you have any questions, please contact us via email at <a href="mailto:support@dreamdinners.com">support@dreamdinners.com</a> or call us Monday-Friday 9am-5pm PT at 360-804-2020. Use the following order confirmation number to help you <?php echo $this->orderObj->order_confirmation; ?>.</p>
+			<p style="font-family:Arial, Helvetica, sans-serif; font-size: 16px; color: #444444;">If you have questions please contact Dream Dinners <?=$this->sessionInfo['store_name']?> at <?= $this->sessionInfo['telephone_day'] ?> or via email by replying.</p>
 		</td>
 	</tr>
 </table>

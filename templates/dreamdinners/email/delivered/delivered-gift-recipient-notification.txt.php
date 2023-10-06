@@ -11,4 +11,4 @@ Shipping To: <?php echo $this->orderObj->orderAddress->firstname; ?> <?php echo 
 
 ---------------------------
 
-If you have any questions, please contact us via email at support@dreamdinners.com or call us Monday-Friday 9am-5pm PT at 360-804-2020. Use the following order confirmation number to help you <?php echo $this->orderObj->order_confirmation; ?>.
+If you have any questions, please contact <?=$this->sessionInfo['store_name'] . "\n";?> at <?=$this->sessionInfo['telephone_day'] . "\n";?>.
