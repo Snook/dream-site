@@ -3340,7 +3340,7 @@ class COrders extends DAO_Orders
 		}
 
 		//get preferred customer
-		if (isset($this->user_preferred_id) && $this->user_preferred_id != 0)
+		if (isset($this->user_preferred_id) && $this->user_preferred_id != 0 && $this->user_preferred_id != "null")
 		{
 			$UP = DAO_CFactory::create('user_preferred');
 			$UP->id = $this->user_preferred_id;
@@ -5015,12 +5015,12 @@ class COrders extends DAO_Orders
 			foreach ($this->items as $item)
 			{
 
-				list($qty, $mi_obj) = $item;
+				list($qty, $DAO_menu_item) = $item;
 
-				if (isset($mi_obj->parentItemId) && isset($this->items[$mi_obj->parentItemId]))
+				if (isset($DAO_menu_item->parentItemId) && isset($this->items[$DAO_menu_item->parentItemId]))
 				{
 					//this item has a parent which determines price and servings so decrement quantity and possibly skip this item
-					$qty -= $mi_obj->bundleItemCount;
+					$qty -= $DAO_menu_item->bundleItemCount;
 
 					if ($qty <= 0)
 					{
@@ -5028,18 +5028,18 @@ class COrders extends DAO_Orders
 					}
 				}
 
-				if ($useCurrent || !array_key_exists($mi_obj->id, $toddItems))
+				if ($useCurrent || !array_key_exists($DAO_menu_item->id, $toddItems))
 				{
-					$totalPrice += $qty * $mi_obj->price;
+					$totalPrice += $qty * $DAO_menu_item->store_price;
 				}
 				else
 				{
 					if ($pricing_method == 'OVERRIDE')
 					{
-						$thisPrice = ($mi_obj->pricing_type == 'HALF' ? $half_price : $full_price);
-						if (self::isPriceGreaterThan($thisPrice, $mi_obj->price))
+						$thisPrice = ($DAO_menu_item->pricing_type == 'HALF' ? $half_price : $full_price);
+						if (self::isPriceGreaterThan($thisPrice, $DAO_menu_item->price))
 						{
-							$thisPrice = $mi_obj->price;
+							$thisPrice = $DAO_menu_item->price;
 						}
 
 						$totalPrice += ($thisPrice * $qty);
@@ -5050,43 +5050,43 @@ class COrders extends DAO_Orders
 					}
 				}
 
-				$totalQty += $qty * $mi_obj->item_count_per_item;
+				$totalQty += $qty * $DAO_menu_item->item_count_per_item;
 
-				if ($mi_obj->menu_item_category_id == 1 || ($mi_obj->menu_item_category_id == 4 && empty($mi_obj->is_store_special)))
+				if ($DAO_menu_item->menu_item_category_id == 1 || ($DAO_menu_item->menu_item_category_id == 4 && empty($DAO_menu_item->is_store_special)))
 				{
-					$totalQtyCore += $qty * $mi_obj->item_count_per_item;
+					$totalQtyCore += $qty * $DAO_menu_item->item_count_per_item;
 				}
 
-				if ($mi_obj->is_chef_touched)
+				if ($DAO_menu_item->is_chef_touched)
 				{
 					$servingThisItem = 0;
 				}
-				else if (isset($mi_obj->servings_per_item))
+				else if (isset($DAO_menu_item->servings_per_item))
 				{
-					$servingThisItem = $qty * $mi_obj->servings_per_item;
+					$servingThisItem = $qty * $DAO_menu_item->servings_per_item;
 				}
 				else
 				{
-					$servingThisItem = $qty * CMenuItem::translatePricingTypeToNumeric($mi_obj->pricing_type);
+					$servingThisItem = $qty * CMenuItem::translatePricingTypeToNumeric($DAO_menu_item->pricing_type);
 				}
 
-				if ((isset($mi_obj->is_side_dish) && $mi_obj->is_side_dish) || $mi_obj->menu_item_category_id == 9)
+				if ((isset($DAO_menu_item->is_side_dish) && $DAO_menu_item->is_side_dish) || $DAO_menu_item->menu_item_category_id == 9)
 				{
 					$this->pcal_sidedish_total_count += $qty;
 				}
-				else if (isset($mi_obj->is_preassembled) && $mi_obj->is_preassembled)
+				else if (isset($DAO_menu_item->is_preassembled) && $DAO_menu_item->is_preassembled)
 				{
 					$this->pcal_preassembled_total_count += $qty;
 					$servingsCount += $servingThisItem;
 
-					if (!$mi_obj->is_store_special)
+					if (!$DAO_menu_item->is_store_special)
 					{
 						$coreServingsCount += $servingThisItem;
 					}
 				}
 				else
 				{
-					if (!$mi_obj->is_store_special)
+					if (!$DAO_menu_item->is_store_special)
 					{
 						// all store specials should be pre-assembled but ... just in case
 						$coreServingsCount += $servingThisItem;
@@ -5104,8 +5104,8 @@ class COrders extends DAO_Orders
 		{
 			foreach ($this->products as $item)
 			{
-				list($qty, $mi_obj) = $item;
-				$product_total += $qty * $mi_obj->price;
+				list($qty, $DAO_menu_item) = $item;
+				$product_total += $qty * $DAO_menu_item->price;
 				$product_qty += $qty;
 			}
 		}
@@ -5348,12 +5348,12 @@ class COrders extends DAO_Orders
 		{
 			foreach ($this->items as &$item)
 			{
-				list($qty, $mi_obj) = $item;
+				list($qty, $DAO_menu_item) = $item;
 
-				if (isset($mi_obj->parentItemId) && isset($this->items[$mi_obj->parentItemId]))
+				if (isset($DAO_menu_item->parentItemId) && isset($this->items[$DAO_menu_item->parentItemId]))
 				{
 					//this item has a parent which determines price and servings so decrement quantity and possibly skip this item
-					$qty -= $mi_obj->bundleItemCount;
+					$qty -= $DAO_menu_item->bundleItemCount;
 
 					if ($qty <= 0)
 					{
@@ -5361,24 +5361,24 @@ class COrders extends DAO_Orders
 					}
 				}
 
-				if ($useCurrent || !array_key_exists($mi_obj->id, $toddItems))
+				if ($useCurrent || !array_key_exists($DAO_menu_item->id, $toddItems))
 				{
-					if (isset($mi_obj->override_price))
+					if (isset($DAO_menu_item->override_price))
 					{
-						$thisMarkupAmt = ($mi_obj->override_price * $qty) - ($mi_obj->price * $qty);
+						$thisMarkupAmt = ($DAO_menu_item->override_price * $qty) - ($DAO_menu_item->store_price * $qty);
 						if ($thisMarkupAmt > 0)
 						{
 							$this->subtotal_home_store_markup += $thisMarkupAmt;
 						}
 
-						$mi_obj->store_price = $mi_obj->override_price;
+						$DAO_menu_item->store_price = $DAO_menu_item->override_price;
 					}
 					else
 					{
 						if ($this->family_savings_discount_version == 2)
 						{
-							$mi_obj->store_price = self::std_round(self::getItemMarkupMultiSubtotal($markup, $mi_obj, 1));
-							$thisMarkupAmt = self::getItemMarkupMultiSubtotal($markup, $mi_obj, $qty) - ($mi_obj->price * $qty);
+							$DAO_menu_item->store_price = self::std_round(self::getItemMarkupMultiSubtotal($markup, $DAO_menu_item, 1));
+							$thisMarkupAmt = self::getItemMarkupMultiSubtotal($markup, $DAO_menu_item, $qty) - ($DAO_menu_item->price * $qty);
 							if ($thisMarkupAmt > 0)
 							{
 								$this->subtotal_home_store_markup += $thisMarkupAmt;
@@ -5386,8 +5386,8 @@ class COrders extends DAO_Orders
 						}
 						else
 						{
-							$mi_obj->store_price = self::std_round(self::getItemMarkupMultiSubtotal($markup, $mi_obj, 1));
-							$thisMarkupAmt = self::getItemMarkupSubtotal($markup, $mi_obj, $qty) - ($mi_obj->price * $qty);
+							$DAO_menu_item->store_price = self::std_round(self::getItemMarkupMultiSubtotal($markup, $DAO_menu_item, 1));
+							$thisMarkupAmt = self::getItemMarkupSubtotal($markup, $DAO_menu_item, $qty) - ($DAO_menu_item->price * $qty);
 							if ($thisMarkupAmt > 0)
 							{
 								$this->subtotal_home_store_markup += $thisMarkupAmt;
@@ -5399,11 +5399,11 @@ class COrders extends DAO_Orders
 				{
 					if ($pricing_method == 'OVERRIDE')
 					{
-						$thisPrice = ($mi_obj->pricing_type == 'HALF' ? $half_price : $full_price);
+						$thisPrice = ($DAO_menu_item->pricing_type == 'HALF' ? $half_price : $full_price);
 
-						if (self::isPriceGreaterThan($thisPrice, $mi_obj->price))
+						if (self::isPriceGreaterThan($thisPrice, $DAO_menu_item->price))
 						{
-							$thisMarkupAmt = ($thisPrice - $mi_obj->price) * $qty;
+							$thisMarkupAmt = ($thisPrice - $DAO_menu_item->price) * $qty;
 
 							$this->subtotal_home_store_markup += $thisMarkupAmt;
 						}
@@ -6447,12 +6447,12 @@ class COrders extends DAO_Orders
 									$orderItem->sub_total = $menu_item->override_price * $qty;
 								}
 
-								$orderItem->pre_mark_up_sub_total = $menu_item->price * $qty;
+								$orderItem->pre_mark_up_sub_total = $menu_item->store_price * $qty;
 							}
 							else
 							{
 								$orderItem->sub_total = self::getItemMarkupMultiSubtotal($this->mark_up, $menu_item, $qty);
-								$orderItem->pre_mark_up_sub_total = $menu_item->price * $qty;
+								$orderItem->pre_mark_up_sub_total = $menu_item->store_price * $qty;
 							}
 
 							$normalPrice = $orderItem->sub_total / $qty;
@@ -6722,12 +6722,12 @@ class COrders extends DAO_Orders
 							}
 
 							$orderItem->sub_total = $menu_item->override_price * $qty;
-							$orderItem->pre_mark_up_sub_total = $menu_item->price * $qty;
+							$orderItem->pre_mark_up_sub_total = $menu_item->store_price * $qty;
 						}
 						else
 						{
 							$orderItem->sub_total = self::getItemMarkupMultiSubtotal($this->mark_up, $menu_item, $qty);
-							$orderItem->pre_mark_up_sub_total = $menu_item->price * $qty;
+							$orderItem->pre_mark_up_sub_total = $menu_item->store_price * $qty;
 						}
 
 						$normalPrice = $orderItem->sub_total / $qty;

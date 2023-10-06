@@ -225,7 +225,7 @@ class CSession extends DAO_Session
 		$endDate->modify("+ 1 days");
 
 		$stores = new DAO();
-		$stores->query("select id from store where store_type = 'FRANCHISE' and active = 1 and is_deleted = 0");
+		$stores->query("select id from store where store_type = 'FRANCHISE' and  ( active = 1 OR ssm_builder = 1 ) and is_deleted = 0");
 
 		while ($stores->fetch())
 		{
