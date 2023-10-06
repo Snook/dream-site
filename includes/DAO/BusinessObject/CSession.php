@@ -155,7 +155,7 @@ class CSession extends DAO_Session
 		);
 
 		$stores = new DAO();
-		$stores->query("select id, default_delivered_sessions from store where store_type = 'DISTRIBUTION_CENTER' and active = 1 and is_deleted = 0");
+		$stores->query("select id, default_delivered_sessions from store where store_type = 'DISTRIBUTION_CENTER' and ( active = 1 OR ssm_builder = 1 ) and is_deleted = 0");
 		$defaultMaximum = 25;//overridden below if value fetched from store/DC > 0
 
 		while ($stores->fetch())
@@ -223,7 +223,7 @@ class CSession extends DAO_Session
 		$endDate->modify("+ 1 days");
 
 		$stores = new DAO();
-		$stores->query("select id from store where store_type = 'FRANCHISE' and active = 1 and is_deleted = 0");
+		$stores->query("select id from store where store_type = 'FRANCHISE' and  ( active = 1 OR ssm_builder = 1 ) and is_deleted = 0");
 
 		while ($stores->fetch())
 		{
