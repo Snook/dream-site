@@ -129,7 +129,7 @@
 											<li>Chef-created, family friendly recipes prepped in our local assembly kitchens.</li>
 											<li>Ready-to-cook frozen dinners leaving you prepared for dinner.</li>
 											<li>Easy to follow instructions making both cooking and clean up simple and stress-free.</li>
-											<li>20 years of experience.</li>
+											<li>Over 20 years of experience.</li>
 										  </ul>
 										<!--<p class="card-text">Pick up your dinners at our store or at local community pick up locations.</p>
 										<a href="/locations" class="btn btn-primary">Find a Store</a>-->
@@ -145,9 +145,9 @@
 								<div class="card border-0 py-4 px-4 mx-1 text-left bg-cyan-extra-light">
 									<div class="card-body bg-cyan-extra-light">
 										<h5 class="card-title">Dinners Shipped to Your Home</h5>
-										<p class="card-text">In some areas, we can ship Dream Dinners directly to your home. Each box includes 3 family-style dinners. Choose the box size that works best for your family: A Medium Box serves 2-3 people per a dinner, while a Large Box serves 4-6.</p>
+										<p class="card-text">In some areas, we can ship Dream Dinners directly to your home. Each box includes 4 family-style dinners. Each dinner serves 2-3 people. If you have a larger family order multiples of the same meal.</p>
 											<ul>
-												<li>Meals are packaged to stay cold with insulated coolers, ice packs and a temperature tag to track box temperature during shipping.</li>
+												<li>Meals are packaged frozen with dry ice to stay cold and a temperature tag to track box temperature during shipping.</li>
 												<li>Meals arrive prepped, so proteins are marinated, vegetables are chopped, and sauces are assembled.</li>
 												<li>Most dinners cook in under 30 minutes and use simple, easy-to-follow cooking instructions.</li>
 												<li>No subscription or commitment.</li>
