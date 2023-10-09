@@ -109,10 +109,19 @@ class page_session_menu extends CPage
 		// setup menu id
 		$cartMenuID = $CartObj->getMenuId();
 
-		$oldestMenuWithOpenSession = min(array_keys($parsedSessionCalendarArray['no_closed_walkin']['menu']));
+		$oldestMenuWithOpenSession = false;
+		if(!empty($parsedSessionCalendarArray['no_closed_walkin']['menu']))
+		{
+			$oldestMenuWithOpenSession = min(array_keys($parsedSessionCalendarArray['no_closed_walkin']['menu']));
+		}
 
-		// no menu in cart, set the menu to the oldest available menu
-		//If oldest is not having available then set to oldest with available sessions
+		// no available menu with customer accessible sessions
+		if ($oldestMenuWithOpenSession === false)
+		{
+			$tpl->setStatusMsg($DAO_store->store_name . " has no available menus at this time.");
+			CApp::bounce('/locations');
+		}
+
 		if (empty($cartMenuID) || $oldestMenuWithOpenSession > $cartMenuID)
 		{
 			// if menu hasn't been set, choose the oldest menu in the $parsedSessionCalendarArray

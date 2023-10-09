@@ -464,6 +464,27 @@ class CStore extends DAO_Store
 		return false;
 	}
 
+	function hasAvailableCustomerMenu()
+	{
+		// check if there is at least one customer accessible session
+		$DAO_session_calendar = DAO_CFactory::create('session', true);
+		$DAO_session_calendar->store_id = $this->id;
+		$sessionCalendarArray = $DAO_session_calendar->getSessionArrayByMenu(array(
+			'menu_id_array' => CMenu::getActiveMenuArray(),
+			'exclude_walk_in' => true,
+			'published_only' => true,
+			'active_only' => true,
+			'limit' => 1
+		));
+
+		if (!empty($sessionCalendarArray))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	function hasBioPage()
 	{
 		if ($this->hasBioPrimary() || $this->hasBioSecondary() || $this->hasBioTeam())

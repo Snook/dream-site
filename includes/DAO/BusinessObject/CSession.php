@@ -1678,11 +1678,13 @@ class CSession extends DAO_Session
 	{
 		$defaultOptionsArray = array(
 			'menu_id_array' => false,
-			'exclude_walk_in' => false,
+			'published_only' => false,
+			'exclude_closed' => false,
 			// group by 'EntreeID'
 			'groupBy' => 'session_id',
 			// order by 'FeaturedFirst', 'NameAZ'
-			'orderBy' => 'session_start'
+			'orderBy' => 'session_start',
+			'limit' => false
 		);
 
 		if (!empty($optionsArray))
@@ -1714,11 +1716,13 @@ class CSession extends DAO_Session
 		$defaultOptionsArray = array(
 			'menu_id_array' => false,
 			'exclude_walk_in' => false,
+			'published_only' => false,
 			'active_only' => false,
 			// group by 'EntreeID'
 			'groupBy' => 'session_id',
 			// order by 'FeaturedFirst', 'NameAZ'
-			'orderBy' => 'session_start'
+			'orderBy' => 'session_start',
+			'limit' => false
 		);
 
 		if (!empty($optionsArray))
@@ -1787,6 +1791,11 @@ class CSession extends DAO_Session
 			$this->whereAdd("session.session_type_subtype != '" . CSession::WALK_IN . "' OR session.session_type_subtype IS NULL");
 		}
 
+		if ($optionsArray['published_only'])
+		{
+			$this->whereAdd("session.session_publish_state = '" . CSession::PUBLISHED . "'");
+		}
+
 		if ($optionsArray['active_only'])
 		{
 			$this->whereAdd("menu.is_active = 1");
@@ -1800,6 +1809,11 @@ class CSession extends DAO_Session
 		if ($optionsArray['orderBy'] == 'session_start')
 		{
 			$this->orderBy("session.menu_id ASC, session.session_start ASC");
+		}
+
+		if ($optionsArray['limit'] !== false)
+		{
+			$this->limit($optionsArray['limit']);
 		}
 
 		return $this->find();

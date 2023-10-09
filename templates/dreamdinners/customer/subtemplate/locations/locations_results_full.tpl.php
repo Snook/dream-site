@@ -30,16 +30,18 @@
 									<div class="row mb-2">
 										<div class="col">
 											<?php if ($arStore["DAO_store"]->isComingSoon()) { ?>
-												<span class="btn btn-default btn-block btn-select-checked">Coming Soon!</span>
+												<span class="btn btn-default w-100 btn-select-checked">Coming Soon!</span>
+											<?php } else if (!$arStore["DAO_store"]->hasAvailableCustomerMenu()) { ?>
+												<span class="btn btn-primary w-100 disabled">Menu not available</span>
 											<?php } else { ?>
-												<a href="<?php echo $arStore["DAO_store"]->getPrettyUrl(); ?>/order" rel="nofollow" class="btn btn-primary btn-block btn-spinner">View Menu &amp; Order</a>
+												<a href="<?php echo $arStore["DAO_store"]->getPrettyUrl(); ?>/order" rel="nofollow" class="btn btn-primary w-100 btn-spinner">View Menu &amp; Order</a>
 											<?php } ?>
 										</div>
 									</div>
 
 									<div class="row">
 										<div class="col">
-											<a href="<?php echo $arStore["DAO_store"]->getPrettyUrl(); ?>" class="btn btn-primary btn-block btn-spinner">Store Info &amp; Hours</a>
+											<a href="<?php echo $arStore["DAO_store"]->getPrettyUrl(); ?>" class="btn btn-primary w-100 btn-spinner">Store Info &amp; Hours</a>
 										</div>
 									</div>
 
@@ -58,7 +60,7 @@
 
 									<div class="row mt-4">
 										<div class="col">
-											<a href="<?php echo $arStore["DAO_store"]->getPrettyUrl(); ?>/calendar" class="btn btn-primary btn-block btn-spinner">View store events</a>
+											<a href="<?php echo $arStore["DAO_store"]->getPrettyUrl(); ?>/calendar" class="btn btn-primary w-100 btn-spinner">View store events</a>
 										</div>
 									</div>
 								</div>
@@ -93,7 +95,7 @@
 							</div>
 							<?php if (empty($this->state_has_delivered)) { ?>
 								<div class="mt-4">
-									<button class="btn btn-primary btn-block btn-spinner" id="select_delivered" data-start-delivered-order="<?php echo $this->delivered->zip; ?>">
+									<button class="btn btn-primary w-100 btn-spinner" id="select_delivered" data-start-delivered-order="<?php echo $this->delivered->zip; ?>">
 										View Menu &amp; Order
 									</button>
 								</div>
@@ -185,7 +187,7 @@
 			</div>
 			<div class="row mt-4">
 				<div class="col col-lg-6 mx-auto">
-					<input type="submit" value="Submit" class="btn btn-primary btn-block" />
+					<input type="submit" value="Submit" class="btn btn-primary w-100" />
 				</div>
 			</div>
 		</div>
