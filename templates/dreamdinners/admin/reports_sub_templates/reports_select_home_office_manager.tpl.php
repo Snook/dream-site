@@ -123,8 +123,9 @@
 					<a href="/backoffice/reports_cornerstone_movement_contest">Cornerstone Movement Contest Report</a><br/>
 					<a href="/backoffice/performance_override">Performance Override Form</a><br/>
 					<a href="/backoffice/reports_site_royalty_national">Royalty Report by Store</a><br/>
-					<a href="/backoffice/reports_store_contact_information?format=store&amp;export=xlsx">Store Contact Information by Store</a><br/>
-					<a href="/backoffice/reports_store_contact_information?format=owner&amp;export=xlsx">Store Contact Information by Owner</a><br/>
+					<a href="/backoffice/reports_store_contact_information?format=store&amp;export=xlsx">Store Contact Information - Active</a><br/>
+					<a href="/backoffice/reports_store_contact_information?format=owner&amp;active=1&amp;export=xlsx">Entity Contact Information - Active</a><br/>
+					<a href="/?page=admin_reports_store_contact_information&amp;format=owner&amp;active=0&amp;export=xlsx">Entity Contact Information - Inactive</a><br/>
 					<a href="/backoffice/reports_my_meals">My Meals Ratings</a><br/>
 					<a href="/backoffice/reports_my_meals_comments">My Meals Comments</a><br/>
 					<a href="/backoffice/food-testing">Food Testing Manager</a><br/>

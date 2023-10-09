@@ -140,15 +140,17 @@ class CSession extends DAO_Session
 			"Wednesday"
 		);
 
-		$stores = new DAO();
-		$stores->query("select id, default_delivered_sessions from store where store_type = 'DISTRIBUTION_CENTER' and ( active = 1 OR ssm_builder = 1 ) and is_deleted = 0");
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->active = 1;
+		$DAO_store->store_type = CStore::DISTRIBUTION_CENTER;
+		$DAO_store->find();
 		$defaultMaximum = 25;//overridden below if value fetched from store/DC > 0
 
-		while ($stores->fetch())
+		while ($DAO_store->fetch())
 		{
-			if (!empty($stores->default_delivered_sessions) && $stores->default_delivered_sessions > 0)
+			if (!empty($DAO_store->default_delivered_sessions) && $DAO_store->default_delivered_sessions > 0)
 			{
-				$defaultMaximum = $stores->default_delivered_sessions;
+				$defaultMaximum = $DAO_store->default_delivered_sessions;
 			}
 			$cursorDate = clone($startDate);
 			while ($cursorDate != $endDate)
@@ -173,25 +175,25 @@ class CSession extends DAO_Session
 				if ($carrier_blackout->N > 0)
 				{
 					//create blackout session
-					self::addUpdateDeliveredSession($cursorDate, $stores->id, $menu_id, false, false, 0, 'Carrier Blackout');
+					self::addUpdateDeliveredSession($cursorDate, $DAO_store->id, $menu_id, false, false, 0, 'Carrier Blackout');
 					$cursorDate->modify("+ 1 day");
 					continue;
 				}
 
 				// Test 3:  Store Blackout date
 				$carrier_blackout = new DAO();
-				$query = "select * from shipping_blackout where date = '" . $cursorDate->format("Y-m-d H:i:s") . "' and entity_type = 'STORE' and entity_id = " . $stores->id . " and is_deleted = 0";
+				$query = "select * from shipping_blackout where date = '" . $cursorDate->format("Y-m-d H:i:s") . "' and entity_type = 'STORE' and entity_id = " . $DAO_store->id . " and is_deleted = 0";
 				$carrier_blackout->query($query);
 				if ($carrier_blackout->N > 0)
 				{
 					//create blackout session
-					self::addUpdateDeliveredSession($cursorDate, $stores->id, $menu_id, false, false, 0, 'Store Shipping Blackout');
+					self::addUpdateDeliveredSession($cursorDate, $DAO_store->id, $menu_id, false, false, 0, 'Store Shipping Blackout');
 					$cursorDate->modify("+ 1 day");
 					continue;
 				}
 
 				// Test 4:  Is there already a session
-				self::addUpdateDeliveredSession($cursorDate, $stores->id, $menu_id, $canDeliverThisDay, $canShipThisDay, $defaultMaximum);
+				self::addUpdateDeliveredSession($cursorDate, $DAO_store->id, $menu_id, $canDeliverThisDay, $canShipThisDay, $defaultMaximum);
 
 				$cursorDate->modify("+ 1 day");
 			}

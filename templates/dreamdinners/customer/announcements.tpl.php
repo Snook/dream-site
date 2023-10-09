@@ -27,7 +27,7 @@
 					<p>At Dream Dinners, we always follow local health guidelines in our professional kitchens including:</p>
 					<ul>
 						<li>Our stores are required to be ServSafe and Health Department Certified.</li>
-						<li>Every staff member is required to have up to date food handler's cards based on local jurisdiction.</li>
+						<li>Every staff member is required to have up-to-date food handler's cards based on local jurisdiction.</li>
 						<li>Staff members are not allowed to come to work if they are sick.</li>
 					</ul>
 					<p>As local jurisdictions allow us to reopen assembly sessions, we will continue with the following guest guidelines:</p>

@@ -39,14 +39,14 @@ class page_admin_reports_royalty extends CPageAdminOnly
 		$this->currentStore = CApp::forceLocationChoice();
 		$this->runSiteAdmin();
 	}
-	
-	
+
+
 	function runOpsLead()
 	{
 		$this->currentStore = CApp::forceLocationChoice();
 		$this->runSiteAdmin();
 	}
-	
+
 
 	function runSiteAdmin()
 	{
@@ -81,13 +81,15 @@ class page_admin_reports_royalty extends CPageAdminOnly
 
 		$supports_LTD = false;
 		$storeObj = DAO_CFactory::create('store');
-		$storeObj->query("select supports_ltd_roundup from store where id = $store");
+		$storeObj->query("select id, supports_ltd_roundup, store_type from store where id = $store");
 		$storeObj->fetch();
 		if ($storeObj->supports_ltd_roundup)
 		{
 			$supports_LTD = true;
 		}
-			
+
+		$tpl->assign('isDC', ($storeObj->store_type == CStore::DISTRIBUTION_CENTER));
+
 		$day = 0;
 		$month = 0;
 		$year = 0;
@@ -171,7 +173,7 @@ class page_admin_reports_royalty extends CPageAdminOnly
 
 			if ($report_type_to_run == 4)
 			{
-				
+
 				if ($supports_LTD)
 				{
 					$labels = array(
@@ -190,7 +192,7 @@ class page_admin_reports_royalty extends CPageAdminOnly
 						"Summary Date"
 					);
 				}
-				else 
+				else
 				{
 					$labels = array(
 						"Gross Income",
@@ -204,7 +206,7 @@ class page_admin_reports_royalty extends CPageAdminOnly
 						"Summary Date"
 					);
 				}
-				
+
 				for ($var = 1; $var <= count($month_array); $var++)
 				{
 					$arr = self::createRoyaltyArray($store, "01", $var, $year, $duration);
@@ -249,23 +251,23 @@ class page_admin_reports_royalty extends CPageAdminOnly
 			else
 			{
 				$arr = self::createRoyaltyArray($store, $day, $month, $year, $duration);
-				
+
 				if ($supports_LTD)
 				{
 					$rows[0] = array(
-								$arr['grand_total'],
-								$arr['discounts'],
-								$arr['adjustments'],
-								$arr['fundraising_total'],
-								$arr['ltd_round_up_value'],
-								$arr['total_less_discounts'],
-								$arr['marketing_total'],
-								$arr['royalty'],
-								$arr['total_fees'],
-								$arr['ltd_round_up_value'],
-								$arr['ltd_menu_item_value'],
-								$arr['ltd_round_up_value'] + $arr['ltd_menu_item_value'],
-								$month_array[$month] . ' ' . $year
+						$arr['grand_total'],
+						$arr['discounts'],
+						$arr['adjustments'],
+						$arr['fundraising_total'],
+						$arr['ltd_round_up_value'],
+						$arr['total_less_discounts'],
+						$arr['marketing_total'],
+						$arr['royalty'],
+						$arr['total_fees'],
+						$arr['ltd_round_up_value'],
+						$arr['ltd_menu_item_value'],
+						$arr['ltd_round_up_value'] + $arr['ltd_menu_item_value'],
+						$month_array[$month] . ' ' . $year
 					);
 					$labels = array(
 						"Gross Income",
@@ -289,7 +291,7 @@ class page_admin_reports_royalty extends CPageAdminOnly
 						$arr['grand_total'],
 						$arr['discounts'],
 						$arr['adjustments'],
-						$arr['fundraising_total'],				
+						$arr['fundraising_total'],
 						$arr['total_less_discounts'],
 						$arr['marketing_total'],
 						$arr['royalty'],
@@ -333,6 +335,8 @@ class page_admin_reports_royalty extends CPageAdminOnly
 				$tpl->assign('print_view', true);
 			}
 
+
+
 			if ($report_type_to_run == 3)
 			{
 				$day = "01";
@@ -341,7 +345,7 @@ class page_admin_reports_royalty extends CPageAdminOnly
 				{
 					$storeCount = 0;
 					$activeStoreObj = DAO_CFactory::create("store");
-					$activeStoreObj->query("SELECT id FROM `store` WHERE active = '1' AND is_deleted = '0' ORDER BY home_office_id + 0 ASC");
+					$activeStoreObj->query("SELECT id, store_type FROM `store` WHERE active = '1' AND is_deleted = '0' ORDER BY home_office_id + 0 ASC");
 
 					while ($activeStoreObj->fetch())
 					{
@@ -410,24 +414,41 @@ class page_admin_reports_royalty extends CPageAdminOnly
 		$isTransitionMonth = false;
 		$isMenuMonthBased = false;
 		$needsSalesForceFee = false;
-		
-		if (($year == 2018 && $month >= 9) || $year > 2018 )
+
+		$storeobj = DAO_CFactory::create("store");
+		$storeobj->id = $store;
+		$storeobj->selectAdd();
+		$storeobj->selectAdd('store_name');
+		$storeobj->selectAdd('id AS store_id');
+		$storeobj->selectAdd('home_office_id');
+		$storeobj->selectAdd('store_type');
+		$storeobj->selectAdd('city');
+		$storeobj->selectAdd('state_id');
+		$storeobj->selectAdd('grand_opening_date');
+		$storeobj->selectAdd('supports_ltd_roundup');
+		$storeobj->find(true);
+
+		$storeIsDC = $storeobj->store_type == CStore::DISTRIBUTION_CENTER;
+
+
+		if ((($year == 2018 && $month >= 9) || $year > 2018) && !$storeIsDC )
 		{
-		    $needsSalesForceFee = true;
+			$needsSalesForceFee = true;
 		}
-		
+
+
 		if ($year == 2017 && $month == 6)
 		{
 			//transition month that requires a custom range
 			$duration = "32 DAY";
 			$isTransitionMonth = true;
 		}
-		else 
+		else
 		{
 			$menuMonthStart = strtotime("2017-07-01");
-			
+
 			$curMonthTS = mktime(0,0,0,$month,1, $year);
-			
+
 			if ($curMonthTS >= $menuMonthStart)
 			{
 				// new method using menu month
@@ -437,12 +458,12 @@ class page_admin_reports_royalty extends CPageAdminOnly
 				$year = date("Y", $start_date);
 				$month = date("n", $start_date);
 				$day = date("j", $start_date);
-				
+
 				$duration = $interval . " DAY";
 				$isMenuMonthBased = true;
 			}
 		}
-					
+
 		CDreamReport::getOrderInfoByMonth($store, $day, $month, $year, $duration, $rows, 1);
 		$ProductOrderMemebershipFeeRevenue = CDreamReport::getMembershipFeeRevenue($store, $day, $month, $year, $duration);
 		$DoorDashRevenue = CRoyaltyReport::getDoorDashRevenueByTimeSpan($year . "-" . $month . "-" . $day, $duration, $store);
@@ -469,27 +490,15 @@ class page_admin_reports_royalty extends CPageAdminOnly
 			{
 				$rows['ltd_menu_item_value'] = 0;
 			}
-            if (empty($rows['subtotal_delivery_fee']))
-            {
-                $rows['subtotal_delivery_fee'] = 0;
-            }
+			if (empty($rows['subtotal_delivery_fee']))
+			{
+				$rows['subtotal_delivery_fee'] = 0;
+			}
 			if (empty($rows['subtotal_bag_fee']))
 			{
 				$rows['subtotal_bag_fee'] = 0;
 			}
 
-
-            $storeobj = DAO_CFactory::create("store");
-			$storeobj->id = $store;
-			$storeobj->selectAdd();
-			$storeobj->selectAdd('store_name');
-			$storeobj->selectAdd('id AS store_id');
-			$storeobj->selectAdd('home_office_id');
-			$storeobj->selectAdd('city');
-			$storeobj->selectAdd('state_id');
-			$storeobj->selectAdd('grand_opening_date');
-			$storeobj->selectAdd('supports_ltd_roundup');
-			$storeobj->find(true);
 
 			$performance = CRoyaltyReport::findPerformanceExceptions($year . "-" . $month . "-" . $day, $duration, $store);
 			$haspermanceoverride = false;
@@ -512,18 +521,23 @@ class page_admin_reports_royalty extends CPageAdminOnly
 			$expenseData = $instance->findExpenseDataByMonth($store, $day, $month, $year, $duration);
 			CDreamReport::calculateFees($rows, $store, $haspermanceoverride, $expenseData, $giftCertValues, $programdiscounts, $rows['fundraising_total'], $rows['ltd_menu_item_value'], $rows['subtotal_delivery_fee'], $rows['subtotal_bag_fee'],
 				$DoorDashFees, $marketingFee, $royaltyFee, $storeobj->grand_opening_date, $month, $year);
+
+			if($storeIsDC)
+			{
+				$marketingFee = 0;
+			}
 			$rows['marketing_total'] = $marketingFee;
 			$rows['royalty'] = $royaltyFee;
-			
+
 			$salesForceFee = 0;
 			if ($needsSalesForceFee)
 			{
-			    $salesForceFee =  CRoyaltyReport::$SALESFORCE_MARKETING_FEE;
+				$salesForceFee =  CRoyaltyReport::$SALESFORCE_MARKETING_FEE;
 			}
-			    
+
 			$rows['salesforce_fee'] = $salesForceFee;
 			$rows['total_fees'] = $royaltyFee + $marketingFee + $salesForceFee;
-			
+
 			$rows['grand_total_less_taxes'] = $rows['grand_total'] - $rows['sales_tax'];
 			$rows['store_name'] = $storeobj->store_name;
 			$rows['store_id'] = $storeobj->store_id;
@@ -540,12 +554,12 @@ class page_admin_reports_royalty extends CPageAdminOnly
 			{
 				$rows['used_performance_override'] = true;
 			}
-			
+
 			if ($isTransitionMonth)
 			{
 				$rows['is_transition_month'] = true;
 			}
-			
+
 			if ($isMenuMonthBased)
 			{
 				$rows['is_menu_based_month'] = true;

@@ -1,5 +1,6 @@
 <?php
 require_once 'includes/api/ApiManager.php';
+require_once 'includes/api/shipping/shipstation/ShipStationEndpointFactory.php';
 require_once 'includes/DAO/BusinessObject/COrdersShipping.php';
 
 /**
@@ -24,22 +25,21 @@ class ShipStationManager extends ApiManager
 	// methods available to handle
 	private $methodsPaths;
 
-	protected function __construct()
+	//store config
+	private $storeObj;
+
+	protected function __construct($storeObj)
 	{
 		parent::__construct("ShipStationApi");
-		if (defined('SHIPSTATION_API_ENDPOINT') && defined('SHIPSTATION_API_KEY') && defined('SHIPSTATION_API_SECRET'))
-		{
-			$this->endpoint = SHIPSTATION_API_ENDPOINT;
-			$this->apiKey = SHIPSTATION_API_KEY;
-			$this->apiSecret = SHIPSTATION_API_SECRET;
 
-			$this->authorization = 'Basic ' . base64_encode($this->apiKey . ':' . $this->apiSecret);
-		}
-		else
-		{
-			//log ERROR - missing config
-			CLog::RecordNew(CLog::ERROR, 'ShipStation API is not configured correctly');
-		}
+		$this->storeObj = $storeObj;
+
+		$config = ShipStationEndpointFactory::getEndpoint($storeObj);
+
+		$this->endpoint = $config->getEndpoint();
+		$this->apiKey = $config->getApiKey();
+		$this->apiSecret = $config->getApiSecret();
+		$this->authorization = $config->getAuthorization();
 
 		$this->methodsPaths = array(
 			'getOrders' => 'orders',
@@ -69,19 +69,42 @@ class ShipStationManager extends ApiManager
 	 *  getInstance()
 	 * ----------------------------------------------------
 	 *
-	 * Get the ShipStation Manager instance.
+	 * Get the ShipStation Manager instance for the specified store.
 	 *
-	 *
+	 * @param CStore with id populated
 	 * @return  ShipStationManager $shipStationManager
 	 */
-	public static function getInstance()
+	public static function getInstance($storeObj)
 	{
-		if (self::$instance == null)
+		if (self::$instance == null || $storeObj->id != self::$instance->getCurrentStoreForConfig()->id)
 		{
-			self::$instance = new ShipStationManager();
+			self::$instance = new ShipStationManager($storeObj);
 		}
 
 		return self::$instance;
+	}
+	/**
+	 * ----------------------------------------------------
+	 *  getInstanceForOrder()
+	 * ----------------------------------------------------
+	 *
+	 * Get the ShipStation Manager instance for the specified order's store.
+	 *
+	 * @param COrdersDelivered with the store id populated
+	 * @return  ShipStationManager $shipStationManager
+	 */
+	public static function getInstanceForOrder($orderObj)
+	{
+		$store = new CStore();
+		$store->id = $orderObj->store_id;
+
+		return self::getInstance($store);
+	}
+
+
+	public function getCurrentStoreForConfig()
+	{
+		return $this->storeObj;
 	}
 
 	/**

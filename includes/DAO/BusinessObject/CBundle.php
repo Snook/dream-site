@@ -29,6 +29,7 @@ class CBundle extends DAO_Bundle
 	public $menu_item_array = null;
 
 	public $store_id = null;
+	public $info;
 
 	function __construct()
 	{
@@ -282,24 +283,31 @@ class CBundle extends DAO_Bundle
 
 	function getDeliveredBundleMenuItems($factorCartIntoInventory, $defaultStoreId = null)
 	{
-		$StoreObj = null;
+		$init_DAO_store = null;
 		$CartObj = CCart2::instance();
 
 		if ($factorCartIntoInventory)
 		{
-			$factorCartIntoInventory = $CartObj;
+			$factorCartIntoInventory = $CartObj->getMenuItems();
 
-			$StoreObj = $CartObj->getOrder()->getStore();
+			$init_DAO_store = $CartObj->getOrder()->getStore();
 		}
 
-		if ((empty($StoreObj) || $StoreObj->store_type != CStore::DISTRIBUTION_CENTER) && !empty($defaultStoreId))
+		$DAO_store = DAO_CFactory::create('store', true);
+
+		if ((empty($init_DAO_store) || !$init_DAO_store->isDistributionCenter()) && !empty($defaultStoreId))
 		{
-			$StoreObj->id = $defaultStoreId;
-			$StoreObj = DAO_CFactory::create('store');
-			$StoreObj->find(true);
+			$init_DAO_store->id = $defaultStoreId;
+			$init_DAO_store->find_DAO_store(true);
 		}
 
-		list($menuInfo, $menuItemInfo, $JSMenuInfoByMID) = CMenuItem::getDeliveredBundleMenuItemsAndMenuInfo($StoreObj, $this->menu_id, $factorCartIntoInventory, $this->id, false, true);
+		if (!empty($init_DAO_store) && $init_DAO_store->isDistributionCenter())
+		{
+			$DAO_store->id = $init_DAO_store->parent_store_id;
+			$DAO_store->find_DAO_store(true);
+		}
+
+		$menuItemArray = CMenuItem::getFullMenuItemsAndMenuInfo($DAO_store, $this->menu_id, $factorCartIntoInventory, $this->id, false, 'INNER');
 
 		$this->info = array(
 			'total_remaining_servings' => 0,
@@ -308,26 +316,26 @@ class CBundle extends DAO_Bundle
 		);
 
 		$this->menu_item = array(
-			'items' => $menuItemInfo
+			'items' => $menuItemArray['menuItemInfo']
 		);
 
-		foreach ($menuItemInfo as $entree)
+		foreach ($menuItemArray['menuItemInfo'] as $entree)
 		{
-			foreach ($entree as $menu_item)
+			foreach ($entree as $DAO_menu_item)
 			{
-				$this->info['total_remaining_servings'] += $menu_item['remaining_servings'];
+				$this->info['total_remaining_servings'] += $DAO_menu_item->getRemainingServings();
 
-				if (empty($menu_item['out_of_stock']))
+				if (!$DAO_menu_item->isOutOfStock())
 				{
 					$this->info['total_in_stock_menu_items'] += 1;
 				}
 
-				$this->info['all_recipes'][$menu_item['recipe_id']] = array(
-					'recipe_id' => $menu_item['recipe_id'],
-					'menu_id' => $menuInfo['menu_id'],
-					'menu_item_id' => $menu_item['id'],
-					'menu_item_name' => $menu_item['menu_item_name'],
-					'menu_item_description' => $menu_item['menu_item_description']
+				$this->info['all_recipes'][$DAO_menu_item->recipe_id] = array(
+					'recipe_id' => $DAO_menu_item->recipe_id,
+					'menu_id' => $menuItemArray['menuInfo']['menu_id'],
+					'menu_item_id' => $DAO_menu_item->id,
+					'menu_item_name' => $DAO_menu_item->menu_item_name,
+					'menu_item_description' => $DAO_menu_item->menu_item_description
 				);
 			}
 		}
@@ -337,15 +345,11 @@ class CBundle extends DAO_Bundle
 			$this->info['out_of_stock'] = true;
 		}
 
-		$this->info['menuInfo'] = $menuInfo;
-		$this->info['menuItemInfo'] = $menuItemInfo;
-		$this->info['JSMenuInfoByMID'] = $JSMenuInfoByMID;
+		$this->info['menuInfo'] = $menuItemArray['menuInfo'];
+		$this->info['menuItemInfo'] = $menuItemArray['menuItemInfo'];
+		$this->info['menuItemInfoByMID'] = $menuItemArray["menuItemInfoByMID"];
 
-		return array(
-			$menuInfo,
-			$menuItemInfo,
-			$JSMenuInfoByMID
-		);
+		return $menuItemArray;
 	}
 
 	// called by inventory manager to mark items as part of the bundle
@@ -439,6 +443,8 @@ class CBundle extends DAO_Bundle
 		$menu_item->joinAdd($bundle_to_menu_item, array('useWhereAsOn' => true));
 		$menu_item->orderBy("bundle_to_menu_item.ordering");
 		$menu_item->find();
+
+		$menuItemInfo = array();
 
 		while ($menu_item->fetch())
 		{
@@ -660,11 +666,10 @@ class CBundle extends DAO_Bundle
 			}
 
 			// Special Inventory handling for Sides & Sweets
+			$menuItemInfo['bundle'][$i]['remaining_servings'] = $menuItemInfo['bundle'][$i]['override_inventory'] - $menuItemInfo['bundle'][$i]['number_sold'];
+
 			if ($daoMenuItem->menu_item_category_id == 9)
 			{
-
-				$menuItemInfo['bundle'][$i]['remaining_servings'] = $menuItemInfo['bundle'][$i]['override_inventory'] - $menuItemInfo['bundle'][$i]['number_sold'];
-
 				if ($menuItemInfo['bundle'][$i]['remaining_servings'] < 1)
 				{
 					$menuItemInfo['bundle'][$i]['this_type_out_of_stock'] = true;
@@ -687,8 +692,6 @@ class CBundle extends DAO_Bundle
 			}
 			else
 			{
-				$menuItemInfo['bundle'][$i]['remaining_servings'] = $menuItemInfo['bundle'][$i]['override_inventory'] - $menuItemInfo['bundle'][$i]['number_sold'];
-
 				if ($menuItemInfo['bundle'][$i]['remaining_servings'] < $menuItemInfo['bundle'][$i]['servings_per_item'])
 				{
 					$menuItemInfo['bundle'][$i]['this_type_out_of_stock'] = true;
@@ -738,9 +741,9 @@ class CBundle extends DAO_Bundle
 	}
 
 	/**
-	 * @param        $recipe_id         required, but will only be used if the menu item name is not passed or
-	 *                                  if the menu item name does not contain 'shiftsetgo'
-	 * @param string $menu_item_name    optional menu item name, function will return tru if it contains 'shiftsetgo' case-insensitive
+	 * @param        $recipe_id       //  required, but will only be used if the menu item name is not passed or
+	 *                                //  if the menu item name does not contain 'shiftsetgo'
+	 * @param string $menu_item_name  //  optional menu item name, function will return tru if it contains 'shiftsetgo' case-insensitive
 	 *
 	 * @return bool
 	 */
@@ -763,7 +766,7 @@ class CBundle extends DAO_Bundle
 	}
 
 	/**
-	 * @param        $asArray if true will return an array, otherwise will return comma seperated string
+	 * @param        $asArray  // if true will return an array, otherwise will return comma seperated string
 	 *
 	 * @return mixed array or string depending on requested, string is nothing is passed
 	 */

@@ -250,12 +250,6 @@ RewriteRule ^solanacenter/?$ /DelMar-SolanaBeachCA [R=301,NC,QSA]
 RewriteRule ^SolanaBeachCA/?$ /DelMar-SolanaBeachCA [R=301,NC,QSA]
 RewriteRule ^carlsbadforumca/?$ /Carlsbad-EncinitasCA [R=301,NC,QSA]
 
-# handle script/css cache defeat
-RewriteRule ^theme/(.+)/(scripts|css)/[0-9]+/admin/(.+)$ /theme/$1/$2/admin/$3 [L]
-RewriteRule ^theme/(.+)/(scripts|css)/[0-9]+/(.+)$ /theme/$1/$2/$3 [L]
-# handle images referenced in css with cache defeat path
-RewriteRule ^theme/(.+)/css/images/(.+)$ /theme/$1/images/$2 [L]
-
 # handle default browse_menu promo images
 # first two lines prevent infinite loop in the case the default image is not there
 RewriteCond %{ENV:REDIRECT_STATUS} 200

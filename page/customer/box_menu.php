@@ -22,7 +22,7 @@ class page_box_menu extends CPage
 		$this->runBoxItemsPage($tpl);
 	}
 
-	function runBoxItemsPage($tpl)
+	function runBoxItemsPage()
 	{
 		if (!empty($_POST['view_box']) && is_numeric($_POST['view_box']) && !empty($_POST['view_bundle']) && is_numeric($_POST['view_bundle']))
 		{
@@ -36,15 +36,15 @@ class page_box_menu extends CPage
 
 			$boxInfoArray = CBox::getBoxArray($storeId, $_POST['view_box'], true, true, false, false, true);
 
-			$recipeIDtoInventoryMap = CBox::addDeliveredInventoryToMenuArray($boxInfoArray, $storeId, false);
-
 			$boxInfo = $boxInfoArray['box'][$_POST['view_box']];
 
 			$boxBundleInfo = $boxInfo->bundle[$_POST['view_bundle']];
+
+			$recipeIDtoInventoryMap = CBox::addDeliveredInventoryToMenuArray($boxInfoArray, $storeId, false);
 		}
 		else
 		{
-			CApp::bounce('/box_select');
+			CApp::bounce('/box-select');
 		}
 
 		$boxInstance = CBoxInstance::getIncompleteBoxInstance($boxBundleInfo->id, $boxInfo->id);
@@ -92,22 +92,30 @@ class page_box_menu extends CPage
 		{
 			foreach ($boxBundleInfo->menu_item['items'] AS $item)
 			{
-				foreach ($item AS $mid => $menuItem)
+				foreach ($item AS $mid => $DAO_menu_item)
 				{
-					$boxInfoJS['custom_box']['items'][$mid] += 1;
+					if (!key_exists($mid, $boxInfoJS['custom_box']['items']))
+					{
+						$boxInfoJS['custom_box']['items'][$mid] = 1;
+					}
+					else
+					{
+						$boxInfoJS['custom_box']['items'][$mid] += 1;
+					}
+
 					$boxInfoJS['custom_box']['info']['number_items'] += 1;
-					$boxInfoJS['custom_box']['info']['number_servings'] += $menuItem['servings_per_item'];
+					$boxInfoJS['custom_box']['info']['number_servings'] += $DAO_menu_item->servings_per_item;
 				}
 			}
 		}
 
-		$tpl->assign('box_info', $boxInfo);
-		$tpl->assign('box_bundle_info', $boxBundleInfo);
-		$tpl->assign('box_instance', $boxInstance);
-		$tpl->assign('cart_info', CUser::getCartIfExists());
+		$this->Template->assign('box_info', $boxInfo);
+		$this->Template->assign('box_bundle_info', $boxBundleInfo);
+		$this->Template->assign('box_instance', $boxInstance);
+		$this->Template->assign('cart_info', CUser::getCartIfExists());
 
-		$tpl->setScriptVar('let menuItemInfo = ' . json_encode($boxBundleInfo->info['JSMenuInfoByMID']) . ';');
-		$tpl->setScriptVar('let box_info = ' . json_encode($boxInfoJS, JSON_FORCE_OBJECT) . ';');
+		$this->Template->setScriptVar('let menuItemInfo = ' . json_encode($boxBundleInfo->info['menuItemInfoByMID']) . ';');
+		$this->Template->setScriptVar('let box_info = ' . json_encode($boxInfoJS, JSON_FORCE_OBJECT) . ';');
 	}
 }
 ?>

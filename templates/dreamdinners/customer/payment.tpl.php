@@ -9,8 +9,8 @@
 <?php $this->setScriptVar('session_id = ' . $this->session_id . ';'); ?>
 <?php $this->setScriptVar('allowGuest = ' . ($this->allowGuest ? "true" : "false") . ';'); ?>
 <?php $this->setScriptVar('coupon = ' . ($this->coupon ? $this->coupon : "false") . ';'); ?>
-<?php $this->setScriptVar('avgCostPerServingEntreeServings = ' . $this->avgCostPerServingEntreeServings . ';'); ?>
-<?php $this->setScriptVar('avgCostPerServingEntreeCost = ' . $this->avgCostPerServingEntreeCost . ';'); ?>
+<?php $this->setScriptVar('avgCostPerServingEntreeServings = ' . $this->cart_info["orderObj"]->getServingsCoreTotalCount() . ';'); ?>
+<?php $this->setScriptVar('avgCostPerServingEntreeCost = ' . $this->cart_info["orderObj"]->getFoodTotal() . ';'); ?>
 <?php $this->setScriptVar('precheck_enroll_in_platepoints = ' . (!empty( $this->precheck_enroll_in_platepoints) ?  $this->precheck_enroll_in_platepoints : 0) . ';'); ?>
 <?php $this->setScriptVar('ltd_round_up_value = ' . ((isset($this->orderInfo['ltd_round_up_value']) && $this->orderInfo['ltd_round_up_value'] != '') ? $this->orderInfo['ltd_round_up_value'] : 'null') . ';'); ?>
 <?php $this->setScriptVar('is_discounts_page = false;'); ?>

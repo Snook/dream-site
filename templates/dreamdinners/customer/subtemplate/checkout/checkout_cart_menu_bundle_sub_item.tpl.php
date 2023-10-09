@@ -1,1 +1,1 @@
-<div class="title"><?php echo $itemData['qty']; ?> <span data-tooltip="<?php echo $itemData['display_title']; ?>" style="cursor:help;"><?php echo CAppUtil::truncate($itemData['display_title'], 50); ?></span></div>
+<div class="title"><?php echo $DAO_menu_item['qty']; ?> <span data-tooltip="<?php echo $DAO_menu_item['display_title']; ?>" style="cursor:help;"><?php echo CAppUtil::truncate($DAO_menu_item['display_title'], 50); ?></span></div>

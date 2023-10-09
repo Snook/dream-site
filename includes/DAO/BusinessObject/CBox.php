@@ -310,59 +310,62 @@ class CBox extends DAO_Box
 	 */
 	static function getBoxArray($storeID = false, $getByID = false, $getBundleItems = true, $factorCartIntoInventory = false, $boxTypeArray = false, $getByMenuID = false, $is_visible_to_customer = false)
 	{
-		$box = DAO_CFactory::create('box');
-		$box->store_id = 'NULL';
+		$DAO_box = DAO_CFactory::create('box', true);
+		$DAO_box->store_id = 'NULL';
 
 		if ($is_visible_to_customer)
 		{
-			$box->is_visible_to_customer = 1;
+			$DAO_box->is_visible_to_customer = 1;
 		}
 
 		if (!empty($storeID))
 		{
-			$box->store_id = $storeID;
+			$DAO_box->store_id = $storeID;
 		}
 
 		if (!empty($getByID))
 		{
-			$box->id = $getByID;
+			$DAO_box->id = $getByID;
 		}
 
 		if (!empty($getByMenuID))
 		{
-			$box->menu_id = $getByMenuID;
+			$DAO_box->menu_id = $getByMenuID;
 		}
 		else
 		{
 			$today = date('Y-m-d H:i:s');
-			$box->whereAdd("box.availability_date_start < '" . $today . "' AND box.availability_date_end >= '" . $today . "'");
+			$DAO_box->whereAdd("box.availability_date_start < '" . $today . "' AND box.availability_date_end >= '" . $today . "'");
 		}
 
 		if (!empty($boxTypeArray))
 		{
-			$box->whereAdd("box.box_type IN ('" . implode("','", $boxTypeArray) . "')");
+			$DAO_box->whereAdd("box.box_type IN ('" . implode("','", $boxTypeArray) . "')");
 		}
 
-		$box->orderBy("box.sort DESC, box.availability_date_end, box.id");
-		$box->find();
+		$DAO_box->orderBy("box.sort DESC, box.availability_date_end, box.id");
+		$DAO_box->find();
 
 		$boxArray = array(
 			'info' => array(
+				'menu_id' => null,
 				'all_recipes' => array()
 			),
 			'box' => array()
 		);
 
-		while ($box->fetch())
+		while ($DAO_box->fetch())
 		{
-			$boxArray['box'][$box->id] = $box->cloneObj(true);
+			$boxArray['box'][$DAO_box->id] = $DAO_box->cloneObj(true);
 
-			$boxArray['box'][$box->id]->expandBundles($getBundleItems, $factorCartIntoInventory);
+			$boxArray['box'][$DAO_box->id]->expandBundles($getBundleItems, $factorCartIntoInventory);
+
+			$boxArray['info']['menu_id'] = $DAO_box->menu_id;
 
 			// roll up info
-			if (is_array($boxArray['info']['all_recipes']) && is_array($boxArray['box'][$box->id]->info['all_recipes']))
+			if (is_array($boxArray['info']['all_recipes']) && is_array($boxArray['box'][$DAO_box->id]->info['all_recipes']))
 			{
-				$boxArray['info']['all_recipes'] = array_replace($boxArray['info']['all_recipes'], $boxArray['box'][$box->id]->info['all_recipes']);
+				$boxArray['info']['all_recipes'] = array_replace($boxArray['info']['all_recipes'], $boxArray['box'][$DAO_box->id]->info['all_recipes']);
 			}
 		}
 
@@ -374,11 +377,11 @@ class CBox extends DAO_Box
 		return false;
 	}
 
-	static function addDeliveredInventoryToMenuArray(&$inArray, $store, $orderIsACTIVE)
+	static function addDeliveredInventoryToMenuArray(&$inArray, $store_id, $orderIsACTIVE)
 	{
 		// note: unless order is active the initial inventory has not been reduced by the current items
 
-		$parent_store_id = CStore::getParentStoreID($store);
+		$parent_store_id = CStore::getParentStoreID($store_id);
 		// form unique list of recipes
 		$inventoryArray = array(); // recipe_id -> remaining_inventory
 		foreach ($inArray['box'] as $box_id => $box_data)
@@ -387,9 +390,9 @@ class CBox extends DAO_Box
 			{
 				foreach ($bundleObj->menu_item['items'] as $entree_id => $entrees)
 				{
-					foreach ($entrees as $id => $item_data)
+					foreach ($entrees as $id => $DAO_menu_item)
 					{
-						$inventoryArray[$item_data['recipe_id']] = 0;
+						$inventoryArray[$DAO_menu_item->recipe_id] = 0;
 					}
 				}
 			}
@@ -397,20 +400,23 @@ class CBox extends DAO_Box
 
 		$recipeList = implode(",", array_keys($inventoryArray));
 
-		$ItemInvObj = new DAO();
-		$ItemInvObj->query("select recipe_id, override_inventory, number_sold from menu_item_inventory where store_id = $parent_store_id and menu_id = {$inArray['info']['menu_id']} and recipe_id in (" . $recipeList . ") and is_deleted = 0");
+		$DAO_menu_item_inventory = DAO_CFactory::create('menu_item_inventory', true);
+		$DAO_menu_item_inventory->menu_id = $inArray['info']['menu_id'];
+		$DAO_menu_item_inventory->store_id = $parent_store_id;
+		$DAO_menu_item_inventory->whereAdd("menu_item_inventory.recipe_id in (" . $recipeList . ")");
+		$DAO_menu_item_inventory->find();
 
-		while ($ItemInvObj->fetch())
+		while ($DAO_menu_item_inventory->fetch())
 		{
 			if ($orderIsACTIVE)
 			{
-				$inventoryArray[$ItemInvObj->recipe_id] = $ItemInvObj->override_inventory - $ItemInvObj->number_sold;
+				$inventoryArray[$DAO_menu_item_inventory->recipe_id] = $DAO_menu_item_inventory->override_inventory - $DAO_menu_item_inventory->number_sold;
 			}
 			else
 			{
 				//if order is not active then it's items are not yet permanently removed from  - subtract that as well
 				$thisOrdersUsage = 0;
-				$inventoryArray[$ItemInvObj->recipe_id] = $ItemInvObj->override_inventory - ($ItemInvObj->number_sold + 0);
+				$inventoryArray[$DAO_menu_item_inventory->recipe_id] = $DAO_menu_item_inventory->override_inventory - ($DAO_menu_item_inventory->number_sold + 0);
 			}
 		}
 

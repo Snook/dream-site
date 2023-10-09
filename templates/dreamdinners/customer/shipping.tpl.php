@@ -61,7 +61,7 @@
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/home_content/dinner-doorstep-600x350.webp" alt="Shipped to doorstep" class="img-fluid">
 						<h3 class="font-weight-bold my-2">Shipped to Your Door</h3>
-						<p class="mb-4">We deliver prepped, family-style dinners to your front porch via FedEX.<br /><a href="/locations" class="btn btn-lg btn-green-dark mt-3">Check Shipping Areas</a></p>
+						<p class="mb-4">We deliver prepped, family-style dinners to your front porch via FedEX or UPS.<br /><a href="/locations" class="btn btn-lg btn-green-dark mt-3">Check Shipping Areas</a></p>
 					</div>
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/home_content/family-dinner-summer-600x350.webp" alt="family of four eating dinner at table" class="img-fluid">

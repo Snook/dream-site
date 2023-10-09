@@ -5,12 +5,11 @@ require_once("includes/DAO/BusinessObject/CCouponCode.php");
 require_once("includes/DAO/BusinessObject/CPointsUserHistory.php");
 require_once("includes/DAO/BusinessObject/CDreamTasteEvent.php");
 require_once("includes/DAO/BusinessObject/CBundle.php");
+require_once("includes/DAO/BusinessObject/COrders.php");
 require_once("CTemplate.inc");
 
 class processor_admin_orderMgrCouponCodeProcessor extends CPageProcessor
 {
-	private $currentStore = null;
-
 	static $session = null;
 	static $session_init = false;
 

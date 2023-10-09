@@ -759,7 +759,7 @@ class checkout_validation
 			// no menu in cart, send them to pick a session type
 			if ($Cart->getNavigationType() != CTemplate::DELIVERED)
 			{
-				CApp::bounce('/session_menu');
+				CApp::bounce('/session-menu');
 			}
 		}
 		else if (empty($session_id_in_cart))
@@ -1612,7 +1612,7 @@ class page_checkout extends CPage
 						//Edited only Delivery Time and/or Address
 
 						//Send Updates to SS
-						ShipStationManager::getInstance()->addUpdateOrder(new ShipStationOrderWrapper($originalOrder));
+						ShipStationManager::getInstanceForOrder($originalOrder)->addUpdateOrder(new ShipStationOrderWrapper($originalOrder));
 
 						//Boxes, Session have not changed so no update necessary
 						$Order = $originalOrder;

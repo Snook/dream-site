@@ -944,7 +944,7 @@ class COrders extends DAO_Orders
 		// required info needed to calculate
 		if (!is_object($userObj) || empty($userObj->id) || empty($menu_id) || empty($session_id))
 		{
-			CLog::Assert(false, "user_id, menu_id and session_id ar required by getStoreOrderInStoreStatus for order " . $this->id);
+			CLog::Assert(false, "user_id, menu_id and session_id are required by getStoreOrderInStoreStatus for order " . $this->id);
 
 			return 0;
 		}
@@ -10184,6 +10184,33 @@ class COrders extends DAO_Orders
 		}
 
 		return $totalItemQty;
+	}
+
+	function getAvgCostPerServing()
+	{
+		return $this->getFoodTotal() / $this->getServingsCoreTotalCount();
+	}
+
+	function getServingsCoreTotalCount()
+	{
+		if (!empty($this->servings_core_total_count))
+		{
+			return $this->servings_core_total_count;
+		}
+
+		return 0;
+	}
+
+	function getFoodTotal()
+	{
+		if (isset($this->bundle_id) && $this->bundle_id > 0)
+		{
+			return $this->subtotal_menu_items + $this->subtotal_home_store_markup - $this->subtotal_menu_item_mark_down - $this->bundle_discount;
+		}
+		else
+		{
+			return $this->subtotal_menu_items + $this->subtotal_home_store_markup - $this->subtotal_menu_item_mark_down;
+		}
 	}
 
 	function getAvgCostPerServingData()

@@ -23,16 +23,6 @@ class page_admin_store_details extends CPageAdminOnly
 
 	function runStoreDetails($id = null)
 	{
-		if (CBrowserSession::getCurrentFadminStoreType() === CStore::DISTRIBUTION_CENTER)
-		{
-			if (array_key_exists('id', $_REQUEST) && $_REQUEST['id'] && is_numeric($_REQUEST['id']))
-			{
-				CApp::bounce('/backoffice/store_details_delivered?id=' . $_REQUEST['id']);
-			}
-
-			CApp::bounce('/backoffice/store_details_delivered');
-		}
-
 		$Form = new CForm();
 		$Form->Repost = true;
 		$Form->Bootstrap = true;
@@ -192,6 +182,10 @@ class page_admin_store_details extends CPageAdminOnly
 					}
 				}
 			}
+
+			$Form->DefaultValues['medium_ship_cost'] = $DAO_store->medium_ship_cost;
+			$Form->DefaultValues['large_ship_cost'] = $DAO_store->large_ship_cost;
+			$Form->DefaultValues['default_delivered_sessions'] = $DAO_store->default_delivered_sessions;
 
 			if ($user_type == CUser::SITE_ADMIN)
 			{
@@ -374,6 +368,29 @@ class page_admin_store_details extends CPageAdminOnly
 				));
 
 				$Form->AddElement(array(
+					CForm::type => CForm::Number,
+					CForm::disabled => false,
+					CForm::name => 'medium_ship_cost',
+					CForm::step => '.01',
+					CForm::dd_required => false
+				));
+
+				$Form->AddElement(array(
+					CForm::type => CForm::Number,
+					CForm::disabled => false,
+					CForm::name => 'large_ship_cost',
+					CForm::step => '.01',
+					CForm::dd_required => false
+				));
+
+				$Form->AddElement(array(
+					CForm::type => CForm::Number,
+					CForm::disabled => false,
+					CForm::name => 'default_delivered_sessions',
+					CForm::dd_required => false
+				));
+
+				$Form->AddElement(array(
 					CForm::type => CForm::CheckBox,
 					CForm::disabled => $disabledForm,
 					CForm::name => 'supports_ltd_roundup'
@@ -443,6 +460,28 @@ class page_admin_store_details extends CPageAdminOnly
 			}
 			else
 			{
+				$Form->AddElement(array(
+					CForm::type => CForm::Number,
+					CForm::disabled => false,
+					CForm::name => 'medium_ship_cost',
+					CForm::step => '.01',
+					CForm::dd_required => false
+				));
+
+				$Form->AddElement(array(
+					CForm::type => CForm::Number,
+					CForm::disabled => false,
+					CForm::name => 'large_ship_cost',
+					CForm::step => '.01',
+					CForm::dd_required => false
+				));
+				$Form->AddElement(array(
+					CForm::type => CForm::Number,
+					CForm::disabled => false,
+					CForm::name => 'default_delivered_sessions',
+					CForm::dd_required => false
+				));
+
 				$Form->AddElement(array(
 					CForm::type => CForm::Number,
 					CForm::disabled => false,
@@ -1565,7 +1604,6 @@ class page_admin_store_details extends CPageAdminOnly
 					$storeUpdated->update($DAO_store);
 					$DAO_store = $storeUpdated;
 					$DAO_store->setCurrentSalesTax($Form->value('food_tax'), $Form->value('total_tax'), $Form->value('other1_tax'), $Form->value('other2_tax'), $Form->value('other3_tax'), $Form->value('other4_tax'));
-
 					foreach ($customizationFees as $fee)
 					{
 						$cost = 0;

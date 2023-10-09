@@ -236,23 +236,36 @@ class CStore extends DAO_Store
 		}
 		else
 		{
-			$storeObj = new DAO();
-			$storeObj->query("select parent_store_id from store where id = $store");
-			$storeObj->fetch();
-			$store_id = $storeObj->parent_store_id;
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->id = $store;
+			$DAO_store->find_DAO_store(true);
+
+			$store_id = $DAO_store->parent_store_id;
 		}
 
 		return $store_id;
 	}
 
+	function getParentStoreID_else_getStoreID()
+	{
+		if (!empty($this->parent_store_id))
+		{
+			return $this->parent_store_id;
+		}
+		else
+		{
+			return $this->id;
+		}
+	}
+
 	static function active_Distribution_Centers()
 	{
-		$DAO_store = DAO_CFactory::create('store');
+		$DAO_store = DAO_CFactory::create('store', true);
 		$DAO_store->store_type = CStore::DISTRIBUTION_CENTER;
 		$DAO_store->active = 1;
 		$DAO_store->show_on_customer_site = 1;
 
-		return $DAO_store->find();
+		return $DAO_store->find_DAO_store();
 	}
 
 	static function getAvailableStoreJobArray($store_id)
@@ -277,17 +290,17 @@ class CStore extends DAO_Store
 
 	static function getStoreJobArray($store_id)
 	{
-		$store_job = DAO_CFactory::create('store_job');
-		$store_job->store_id = $store_id;
-		$store_job->find();
+		$DAO_store_job = DAO_CFactory::create('store_job', true);
+		$DAO_store_job->store_id = $store_id;
+		$DAO_store_job->find();
 
 		$job_array = self::$storeJobPositions;
 
-		while ($store_job->fetch())
+		while ($DAO_store_job->fetch())
 		{
-			$job = $store_job->toArray();
+			$job = $DAO_store_job->toArray();
 
-			$job_array[$store_job->position] = array_merge($job_array[$job['position']], $job);
+			$job_array[$DAO_store_job->position] = array_merge($job_array[$job['position']], $job);
 		}
 
 		return $job_array;
@@ -301,7 +314,7 @@ class CStore extends DAO_Store
 		// no jobs passed in, deactivate all in database
 		if (empty($active_job_array))
 		{
-			$store_job = DAO_CFactory::create('store_job');
+			$store_job = DAO_CFactory::create('store_job', true);
 			$store_job->store_id = $store_id;
 			$store_job->find();
 
@@ -318,7 +331,7 @@ class CStore extends DAO_Store
 		// all jobs being passed in are set to available
 		foreach ($active_job_array as $job_id => $job)
 		{
-			$store_job = DAO_CFactory::create('store_job');
+			$store_job = DAO_CFactory::create('store_job', true);
 			$store_job->store_id = $store_id;
 			$store_job->position = $job_id;
 
@@ -343,7 +356,7 @@ class CStore extends DAO_Store
 				// the job is not in the new array but was previously set to available, so now we de-available it
 				if (!key_exists($job_id, $active_job_array))
 				{
-					$store_job = DAO_CFactory::create('store_job');
+					$store_job = DAO_CFactory::create('store_job', true);
 					$store_job->store_id = $store_id;
 					$store_job->position = $job_id;
 					$store_job->available = 1;
@@ -417,7 +430,7 @@ class CStore extends DAO_Store
 
 		if ($menu_id)
 		{
-			$DAO_menu = DAO_CFactory::create('menu');
+			$DAO_menu = DAO_CFactory::create('menu', true);
 			$DAO_menu->id = $menu_id;
 
 			if (!$DAO_menu->isEnabled_Starter_Pack($this))
@@ -649,9 +662,9 @@ class CStore extends DAO_Store
 	{
 		if (!is_object($Store) && is_numeric($Store))
 		{
-			$StoreObj = DAO_CFactory::create('store');
+			$StoreObj = DAO_CFactory::create('store', true);
 			$StoreObj->id = $Store;
-			$StoreObj->find(true);
+			$StoreObj->find_DAO_store(true);
 		}
 		else
 		{
@@ -1249,31 +1262,31 @@ class CStore extends DAO_Store
 			)
 		);
 
-		$Store = DAO_CFactory::create('store');
-		$Store->active = 1;
-		$Store->find();
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->active = 1;
+		$DAO_store->find();
 
-		while ($Store->fetch())
+		while ($DAO_store->fetch())
 		{
-			if ($Store->isActive() || $Store->isComingSoon())
+			if ($DAO_store->isActive() || $DAO_store->isComingSoon())
 			{
-				if ($Store->store_type != CStore::DISTRIBUTION_CENTER)
+				if ($DAO_store->store_type != CStore::DISTRIBUTION_CENTER)
 				{
-					$simpleMapsArray['locations'][$Store->id] = array(
-						'lat' => $Store->address_latitude,
-						'lng' => $Store->address_longitude,
-						'name' => $Store->store_name,
-						'url' => '/location/' . $Store->id
+					$simpleMapsArray['locations'][$DAO_store->id] = array(
+						'lat' => $DAO_store->address_latitude,
+						'lng' => $DAO_store->address_longitude,
+						'name' => $DAO_store->store_name,
+						'url' => '/location/' . $DAO_store->id
 					);
 
-					if ($Store->isComingSoon())
+					if ($DAO_store->isComingSoon())
 					{
-						$simpleMapsArray['locations'][$Store->id]['name'] .= ' - Coming Soon!';
-						$simpleMapsArray['locations'][$Store->id]['color'] = '#5c6670';
+						$simpleMapsArray['locations'][$DAO_store->id]['name'] .= ' - Coming Soon!';
+						$simpleMapsArray['locations'][$DAO_store->id]['color'] = '#5c6670';
 					}
 
-					$simpleMapsArray['state_specific'][$Store->state_id] = array(
-						'name' => CStatesAndProvinces::GetName($Store->state_id),
+					$simpleMapsArray['state_specific'][$DAO_store->state_id] = array(
+						'name' => CStatesAndProvinces::GetName($DAO_store->state_id),
 						'color' => '#b9bf33',
 						'hover_color' => '#959a21'
 					);
@@ -1282,22 +1295,28 @@ class CStore extends DAO_Store
 		}
 
 		// get distribution center eligible states
-		$zipCodes = DAO_CFactory::create('zipcodes');
-		$zipCodes->query("select distinct zip.state from zipcodes as zip JOIN store AS st ON zip.distribution_center = st.id AND st.active AND st.show_on_customer_site AND st.store_type = '" . CStore::DISTRIBUTION_CENTER . "' AND st.is_deleted = 0;");
+		$DAO_zipcodes = DAO_CFactory::create('zipcodes', true);
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->active = 1;
+		$DAO_store->show_on_customer_site = 1;
+		$DAO_store->store_type = CStore::DISTRIBUTION_CENTER;
+		$DAO_zipcodes->joinAddWhereAsOn($DAO_store);
+		$DAO_zipcodes->groupBy("zipcodes.state");
+		$DAO_zipcodes->find();
 
-		while ($zipCodes->fetch())
+		while ($DAO_zipcodes->fetch())
 		{
 			// state has assembly and delivery
-			if (!empty($simpleMapsArray['state_specific'][$zipCodes->state]))
+			if (!empty($simpleMapsArray['state_specific'][$DAO_zipcodes->state]))
 			{
-				$simpleMapsArray['state_specific'][$zipCodes->state]['color'] = '#959a21';
-				$simpleMapsArray['state_specific'][$zipCodes->state]['hover_color'] = '#5b5e18';
+				$simpleMapsArray['state_specific'][$DAO_zipcodes->state]['color'] = '#959a21';
+				$simpleMapsArray['state_specific'][$DAO_zipcodes->state]['hover_color'] = '#5b5e18';
 			}
 			// state has delivery only
 			else
 			{
-				$simpleMapsArray['state_specific'][$zipCodes->state] = array(
-					'name' => CStatesAndProvinces::GetName($zipCodes->state),
+				$simpleMapsArray['state_specific'][$DAO_zipcodes->state] = array(
+					'name' => CStatesAndProvinces::GetName($DAO_zipcodes->state),
 					'color' => '#45cfd1',
 					'hover_color' => '#2db5b7'
 				);
@@ -2196,47 +2215,45 @@ class CStore extends DAO_Store
 	 */
 	function getMarkUpMultiObj($menuId)
 	{
-		if (!$this->id)
+		if (!empty($this->id))
 		{
-			throw new Exception('store id not set for mark up lookup');
-		}
-
-		if (!$this->_markupMultiFetched)
-		{
-			$MarkUp = DAO_CFactory::create('mark_up_multi');
-			$MarkUp->store_id = $this->id;
-			$num = $MarkUp->findActive($menuId);
-			if ($num)
+			if (!$this->_markupMultiFetched)
 			{
-				$MarkUp->fetch();
-
-				//				$DAO_order_minimum = DAO_CFactory::create('order_minimum');
-				//				$DAO_order_minimum->menu_id = $menuId;
-				//				$DAO_order_minimum->store_id = $this->id;
-				//				$DAO_order_minimum->find(true);
-
-				$DAO_order_minimum = COrderMinimum::fetchInstance(COrderMinimum::STANDARD_ORDER_TYPE, $this->id, $menuId);
-
-				if ($DAO_order_minimum->isZeroDollarAssembly())
+				$MarkUp = DAO_CFactory::create('mark_up_multi');
+				$MarkUp->store_id = $this->id;
+				$num = $MarkUp->findActive($menuId);
+				if ($num)
 				{
-					$MarkUp->setZeroDollarAssembly();
+					$MarkUp->fetch();
+
+					//				$DAO_order_minimum = DAO_CFactory::create('order_minimum');
+					//				$DAO_order_minimum->menu_id = $menuId;
+					//				$DAO_order_minimum->store_id = $this->id;
+					//				$DAO_order_minimum->find(true);
+
+					$DAO_order_minimum = COrderMinimum::fetchInstance(COrderMinimum::STANDARD_ORDER_TYPE, $this->id, $menuId);
+
+					if ($DAO_order_minimum->isZeroDollarAssembly())
+					{
+						$MarkUp->setZeroDollarAssembly();
+					}
+
+					$this->_markupMultiObj = $MarkUp;
 				}
 
-				$this->_markupMultiObj = $MarkUp;
+				$this->_markupMultiFetched = true;
 			}
 
-			$this->_markupMultiFetched = true;
-		}
+			//we could possibly get more than one if someone places an order simultaneously while the owner
+			//sets a new mark up value, so we'll just use the most recent one
+			//			if ( $rslt && ($rslt > 1) ) {
+			//				throw new exception('store has more than one current mark up');
+			//			}
 
-		//we could possibly get more than one if someone places an order simultaneously while the owner
-		//sets a new mark up value, so we'll just use the most recent one
-		//			if ( $rslt && ($rslt > 1) ) {
-		//				throw new exception('store has more than one current mark up');
-		//			}
-
-		if (isset($this->_markupMultiObj))
-		{
-			return $this->_markupMultiObj;
+			if (isset($this->_markupMultiObj))
+			{
+				return $this->_markupMultiObj;
+			}
 		}
 
 		return null;

@@ -1,20 +1,4 @@
 let bootDialog = [], icoMoon, icoMoonList = [];
-let stores = [
-	/*
-	{
-		text: 'Mobile - Dist. Ctr.',
-		value: '310',
-	},
-	{
-		text: 'Salt Lake - Dist. Ctr.',
-		value: '311',
-	},
-	*/
-	{
-		text: 'Rochester Hills - Dist. Ctr.',
-		value: '312',
-	}
-];
 
 $(function () {
 
@@ -83,7 +67,7 @@ $(function () {
 		bootDialog['deployDialog'] = bootbox.prompt({
 			title: "Select stores to deploy to",
 			inputType: 'checkbox',
-			inputOptions: stores,
+			inputOptions: storeDeployOptions,
 			callback: function (result) {
 
 				if (result == null)

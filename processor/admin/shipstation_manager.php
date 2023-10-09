@@ -77,10 +77,10 @@ class processor_admin_shipstation_manager extends CPageProcessor
 				$order->find(true);
 				$order->orderShipping();
 				$order->orderAddress();
-				$result = ShipStationManager::getInstance()->addUpdateOrder(new ShipStationOrderWrapper($order));
+				$result = ShipStationManager::getInstanceForOrder($order)->addUpdateOrder(new ShipStationOrderWrapper($order));
 				if ($result == false)
 				{
-					$errors = ShipStationManager::getInstance()->getLastError();
+					$errors = ShipStationManager::getInstanceForOrder($order)->getLastError();
 					CAppUtil::processorMessageEcho(array(
 						'processor_success' => false,
 						'processor_message' => 'Unable to resend order data to ShipStation.',
@@ -118,7 +118,7 @@ class processor_admin_shipstation_manager extends CPageProcessor
 				$order = new COrdersDelivered();
 				$order->id = $_REQUEST['order'];
 
-				$shipmentWrapper = ShipStationManager::getInstance()->getShipments(new ShipStationShipmentWrapper($order));
+				$shipmentWrapper = ShipStationManager::getInstanceForOrder($order)->getShipments(new ShipStationShipmentWrapper($order));
 				$result = $shipmentWrapper->storeShippingData();
 				if($result->isFailure()){
 					$result->echoFailureMessages();

@@ -50,65 +50,67 @@
 			</tr>
 		</table>
 
-		<table style="width: 100%; margin-bottom: 10px;">
-			<tr>
-				<td class="bgcolor_dark catagory_row" colspan="2">Public Bio</td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right; width: 210px;">Store Name:</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_store_name_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Owner/Manager Name:</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_primary_party_name_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Owner/Manager Title:</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_primary_party_title_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Owner/Manager Story:</td>
-				<td class="bgcolor_light">
-					<?php echo $this->form_store_details['bio_primary_party_story_html']; ?>
-					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_primary_party_story_preview"></div>
-				</td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Owner/Manager #2 Name:</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_secondary_party_name_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Owner/Manager #2 Title:</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['bio_secondary_party_title_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Owner/Manager #2 Story:</td>
-				<td class="bgcolor_light">
-					<?php echo $this->form_store_details['bio_secondary_party_story_html']; ?>
-					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_secondary_party_story_preview"></div>
-				</td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Meet the Team:</td>
-				<td class="bgcolor_light">
-					<?php echo $this->form_store_details['bio_team_description_html']; ?>
-					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_team_description_preview"></div>
-				</td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;vertical-align:top;">Store Hours:</td>
-				<td class="bgcolor_light">
-					<?php include $this->loadTemplate('admin/subtemplate/helpers/store_hour_select.tpl.php'); ?>
-				</td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;vertical-align:top;">Store Holiday Hours:</td>
-				<td class="bgcolor_light">
-					<?php echo $this->form_store_details['bio_store_holiday_hours_html']; ?>
-					<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_store_holiday_hours_preview"></div>
-				</td>
-			</tr>
-		</table>
+		<?php if (!$this->DAO_store->isDistributionCenter()) { ?>
+			<table style="width: 100%; margin-bottom: 10px;">
+				<tr>
+					<td class="bgcolor_dark catagory_row" colspan="2">Public Bio</td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right; width: 210px;">Store Name:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['bio_store_name_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Owner/Manager Name:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['bio_primary_party_name_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Owner/Manager Title:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['bio_primary_party_title_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Owner/Manager Story:</td>
+					<td class="bgcolor_light">
+						<?php echo $this->form_store_details['bio_primary_party_story_html']; ?>
+						<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_primary_party_story_preview"></div>
+					</td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Owner/Manager #2 Name:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['bio_secondary_party_name_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Owner/Manager #2 Title:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['bio_secondary_party_title_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Owner/Manager #2 Story:</td>
+					<td class="bgcolor_light">
+						<?php echo $this->form_store_details['bio_secondary_party_story_html']; ?>
+						<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_secondary_party_story_preview"></div>
+					</td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Meet the Team:</td>
+					<td class="bgcolor_light">
+						<?php echo $this->form_store_details['bio_team_description_html']; ?>
+						<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_team_description_preview"></div>
+					</td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;vertical-align:top;">Store Hours:</td>
+					<td class="bgcolor_light">
+						<?php include $this->loadTemplate('admin/subtemplate/helpers/store_hour_select.tpl.php'); ?>
+					</td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;vertical-align:top;">Store Holiday Hours:</td>
+					<td class="bgcolor_light">
+						<?php echo $this->form_store_details['bio_store_holiday_hours_html']; ?>
+						<div style="border: 2px solid #a8a94c; padding: 4px; display: none;" id="bio_store_holiday_hours_preview"></div>
+					</td>
+				</tr>
+			</table>
+		<?php } ?>
 
 		<table style="width: 100%; margin-bottom: 10px;">
 			<tr>
@@ -226,26 +228,27 @@
 			<?php } ?>
 		</table>
 
-		<table style="width: 100%; margin-bottom: 10px;">
-			<tr>
-				<td class="bgcolor_dark catagory_row" colspan="2">Customer Contact Information
-					<?php if (!$isSiteAdmin) { ?>
-						<span style="font-size:9pt; font-weight:lighter">Please contact <a href="mailto:<?php echo IT_EMAIL; ?>">Home Office</a> to request changes to your store contact information.</span>
-					<?php } ?>
-				</td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Store Information Page QR Code:</td>
-				<td class="guest_details_list_item">
-					<div class="input-group">
-						<input type="text" id="store_page_link" class="form-control" aria-label="Store landing page" value="<?php echo HTTPS_SERVER; ?><?php echo $this->DAO_store->getPrettyUrl(); ?>" readonly>
-						<div class="input-group-append">
-							<div class="input-group-text btn-clip" data-toggle="tooltip" data-placement="top" title="Copy link to clipboard" data-clipboard-target="#store_page_link" ><i class="fas fa-clipboard-list"></i></div>
+		<?php if (!$this->DAO_store->isDistributionCenter()) { ?>
+			<table style="width: 100%; margin-bottom: 10px;">
+				<tr>
+					<td class="bgcolor_dark catagory_row" colspan="2">Customer Contact Information
+						<?php if (!$isSiteAdmin) { ?>
+							<span style="font-size:9pt; font-weight:lighter">Please contact <a href="mailto:<?php echo IT_EMAIL; ?>">Home Office</a> to request changes to your store contact information.</span>
+						<?php } ?>
+					</td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Store Information Page QR Code:</td>
+					<td class="guest_details_list_item">
+						<div class="input-group">
+							<input type="text" id="store_page_link" class="form-control" aria-label="Store landing page" value="<?php echo HTTPS_SERVER; ?><?php echo $this->DAO_store->getPrettyUrl(); ?>" readonly>
+							<div class="input-group-append">
+								<div class="input-group-text btn-clip" data-toggle="tooltip" data-placement="top" title="Copy link to clipboard" data-clipboard-target="#store_page_link" ><i class="fas fa-clipboard-list"></i></div>
+							</div>
+							<div class="input-group-append">
+								<a class="input-group-text" data-toggle="tooltip" data-placement="top" title="Download QR code" href="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&op=store_info&d=1&s=10&id=<?php echo $this->store['id']; ?>" ><i class="fas fa-qrcode"></i></a>
+							</div>
 						</div>
-						<div class="input-group-append">
-							<a class="input-group-text" data-toggle="tooltip" data-placement="top" title="Download QR code" href="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&op=store_info&d=1&s=10&id=<?php echo $this->store['id']; ?>" ><i class="fas fa-qrcode"></i></a>
-						</div>
-					</div>
 					<?php if (!empty($this->shortURLArray)) { ?>
 						<ul class="list-group list-group-horizontal">
 							<?php foreach ($this->shortURLArray AS $DAO_short_url) { ?>
@@ -256,41 +259,42 @@
 						</ul>
 					<?php } ?>
 				</td>
-			</tr>
+				</tr>
 
-			<tr>
-				<td class="bgcolor_light" style="text-align: right; width: 210px;">Store Email:</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['email_address_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Telephone (Day):</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['telephone_day_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Telephone (Evening):</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['telephone_evening_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Text Messaging (SMS) Number:</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['telephone_sms_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Fax Line:</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['fax_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Twitter:</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['social_twitter_html']; ?> (account name only, e.g DDLancasterPA)</td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Facebook:</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['social_facebook_html']; ?> (account name only, e.g. dreamdinnersmillcreek)</td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Instagram:</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['social_instagram_html']; ?> (account name only, e.g. dreamdinnersmillcreek)</td>
-			</tr>
-		</table>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right; width: 210px;">Store Email:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['email_address_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Telephone (Day):</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['telephone_day_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Telephone (Evening):</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['telephone_evening_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Text Messaging (SMS) Number:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['telephone_sms_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Fax Line:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['fax_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Twitter:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['social_twitter_html']; ?> (account name only, e.g DDLancasterPA)</td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Facebook:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['social_facebook_html']; ?> (account name only, e.g. dreamdinnersmillcreek)</td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Instagram:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['social_instagram_html']; ?> (account name only, e.g. dreamdinnersmillcreek)</td>
+				</tr>
+			</table>
+		<?php } ?>
 
 		<table style="width: 100%;">
 			<tr>
@@ -359,97 +363,139 @@
 			</tr>
 		</table>
 
-		<table style="width: 100%; margin-bottom: 10px;">
-			<tr>
-				<td class="bgcolor_dark catagory_row" colspan="2">Session Settings</td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right; width: 400px;">Default number of<br />Starter Pack slots:</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['default_intro_slots_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Publish notes on<br />customer calendar:</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['publish_session_details_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Default close interval:</td>
-				<td class="bgcolor_light">
-					<div class="input-group">
-						<div class="input-group-prepend">
+		<?php if ($this->DAO_store->isDistributionCenter()) { ?>
+			<table style="width: 100%; margin-bottom: 10px;">
+				<tr>
+					<td class="bgcolor_dark catagory_row" colspan="2">Shipping Settings</td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right; width: 400px;">Default number of<br />Delivery Sessions:</td>
+					<td class="bgcolor_light">
+						<div class="input-group">
+							<?php echo $this->form_store_details['default_delivered_sessions_html']; ?>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Delivery Fee - Large</td>
+					<td class="bgcolor_light">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">$</span>
+							</div>
+							<?php echo $this->form_store_details['large_ship_cost_html']; ?>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Delivery Fee - Medium</td>
+					<td class="bgcolor_light">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">$</span>
+							</div>
+							<?php echo $this->form_store_details['medium_ship_cost_html']; ?>
+						</div>
+					</td>
+				</tr>
+			</table>
+		<?php } ?>
+
+		<?php if (!$this->DAO_store->isDistributionCenter()) { ?>
+			<table style="width: 100%; margin-bottom: 10px;">
+				<tr>
+					<td class="bgcolor_dark catagory_row" colspan="2">Session Settings</td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right; width: 400px;">Default number of<br />Starter Pack slots:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['default_intro_slots_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Publish notes on<br />customer calendar:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['publish_session_details_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Default close interval:</td>
+					<td class="bgcolor_light">
+						<div class="input-group">
+							<div class="input-group-prepend">
 							<span class="input-group-text">
 								<?php echo $this->form_store_details['close_interval_type_html'][CStore::HOURS]; ?>
 							</span>
-						</div>
-						<?php echo $this->form_store_details['close_session_hours_html']; ?>
-						<div class="input-group-append">
-							<span class="input-group-text">Hours prior</span>
-						</div>
-						<div class="input-group-prepend">
+							</div>
+							<?php echo $this->form_store_details['close_session_hours_html']; ?>
+							<div class="input-group-append">
+								<span class="input-group-text">Hours prior</span>
+							</div>
+							<div class="input-group-prepend">
 							<span class="input-group-text">
 								<?php echo $this->form_store_details['close_interval_type_html'][CStore::ONE_FULL_DAY] ; ?>
 							</span>
+							</div>
+							<div class="input-group-append">
+								<span class="input-group-text">1 day prior</span>
+							</div>
 						</div>
-						<div class="input-group-append">
-							<span class="input-group-text">1 day prior</span>
-						</div>
-					</div>
 
-				</td>
-			</tr>
-
-			<?php if (isset($this->form_store_details['supports_plate_points_html']) ) { ?>
-				<tr>
-					<td class="bgcolor_light" style="text-align: right;">Opt in to PLATEPOINTS Dinner Dollars and rewards:</td>
-					<td class="bgcolor_light"><?php echo $this->form_store_details['supports_plate_points_html']; ?></td>
-				</tr>
-				<tr id="supports_plate_points_signature_row" style="display:none">
-					<td class="bgcolor_light" style="text-align: right; color:red;">Please enter your name as the party responsible for opting in the PLATEPOINTS program.</td>
-					<td class="bgcolor_light" style="vertical-align:top;"><label for="supports_plate_points_signature"  id="supports_plate_points_signature_lbl" message="You must provide your full name when opting into PLATEPOINTS.">
-						</label><?php echo $this->form_store_details['supports_plate_points_signature_html']; ?>
 					</td>
 				</tr>
-			<?php } ?>
 
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Support Made for You sessions (Special Events):<br />
-																	 (If unchecked the Made for You sessions <br />feature will NOT be available.)</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['supports_special_events_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;"><b>Support PLATEPOINTS enhancements and promotions</b> such as, but not limited to Double Taste Host Incentives, Summer Bonus Points and Early Bird Incentives.<br /> (if unchecked, PLATEPOINTS enhancements and promotions feature will NOT be available)</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['supports_plate_points_enhancements_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Opt out of Meal Prep Workshop:</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['dream_taste_opt_out_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;"><b>Support seasonal promotions</b> including, but not limited to summer retention programs and holiday promotions. <br />(If unchecked, you will not be included in seasonal promotions.)</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['supports_retention_programs_html']; ?></td>
-			</tr>
-		</table>
+				<?php if (isset($this->form_store_details['supports_plate_points_html']) ) { ?>
+					<tr>
+						<td class="bgcolor_light" style="text-align: right;">Opt in to PLATEPOINTS Dinner Dollars and rewards:</td>
+						<td class="bgcolor_light"><?php echo $this->form_store_details['supports_plate_points_html']; ?></td>
+					</tr>
+					<tr id="supports_plate_points_signature_row" style="display:none">
+						<td class="bgcolor_light" style="text-align: right; color:red;">Please enter your name as the party responsible for opting in the PLATEPOINTS program.</td>
+						<td class="bgcolor_light" style="vertical-align:top;"><label for="supports_plate_points_signature"  id="supports_plate_points_signature_lbl" message="You must provide your full name when opting into PLATEPOINTS.">
+							</label><?php echo $this->form_store_details['supports_plate_points_signature_html']; ?>
+						</td>
+					</tr>
+				<?php } ?>
 
-		<table style="width: 100%; margin-bottom: 10px;">
-			<tr>
-				<td class="bgcolor_dark catagory_row" colspan="2">Calendar Order Type Descriptions</td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Assembly Sessions</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['assembly_session_desc_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Pick Up Sessions</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['pickup_session_desc_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Home Delivery Sessions</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['delivery_session_desc_html']; ?></td>
-			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Community Pick Up Sessions</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['remote_pickup_session_desc_html']; ?></td>
-			</tr>
-		</table>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Support Made for You sessions (Special Events):<br />
+																		 (If unchecked the Made for You sessions <br />feature will NOT be available.)</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['supports_special_events_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;"><b>Support PLATEPOINTS enhancements and promotions</b> such as, but not limited to Double Taste Host Incentives, Summer Bonus Points and Early Bird Incentives.<br /> (if unchecked, PLATEPOINTS enhancements and promotions feature will NOT be available)</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['supports_plate_points_enhancements_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Opt out of Meal Prep Workshop:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['dream_taste_opt_out_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;"><b>Support seasonal promotions</b> including, but not limited to summer retention programs and holiday promotions. <br />(If unchecked, you will not be included in seasonal promotions.)</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['supports_retention_programs_html']; ?></td>
+				</tr>
+			</table>
+		<?php } ?>
+
+		<?php if (!$this->DAO_store->isDistributionCenter()) { ?>
+			<table style="width: 100%; margin-bottom: 10px;">
+				<tr>
+					<td class="bgcolor_dark catagory_row" colspan="2">Calendar Order Type Descriptions</td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Assembly Sessions</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['assembly_session_desc_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Pick Up Sessions</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['pickup_session_desc_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Home Delivery Sessions</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['delivery_session_desc_html']; ?></td>
+				</tr>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Community Pick Up Sessions</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['remote_pickup_session_desc_html']; ?></td>
+				</tr>
+			</table>
+		<?php } ?>
 
 		<table style="width: 100%; margin-bottom: 10px;">
 			<tr>
@@ -595,20 +641,22 @@
 				<td class="bgcolor_light" style="text-align: right;">American Express processing:</td>
 				<td class="bgcolor_light"><?php echo $this->form_store_details['credit_card_amex_html']; ?></td>
 			</tr>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Discover Card processing:</td>
-				<td class="bgcolor_light">
-					<?php echo $this->form_store_details['credit_card_discover_html']; ?>
-					<br />
-					<span style="color: #cc4444;">
-						<i>* Your PayPal account must be configured for these card types before enabling them.</i>
+			<?php if (!empty($this->form_store_details['credit_card_discover_html'])) { ?>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Discover Card processing:</td>
+					<td class="bgcolor_light">
+						<?php echo $this->form_store_details['credit_card_discover_html']; ?>
 						<br />
-						<i>** It is not required to enable Discover Card processing to support Gift Cards.</i>
-						<br />
-						<i>*** Gift Card support does not enable Discover Card support.</i>
-					</span>
-				</td>
-			</tr>
+						<span style="color: #cc4444;">
+							<i>* Your PayPal account must be configured for these card types before enabling them.</i>
+							<br />
+							<i>** It is not required to enable Discover Card processing to support Gift Cards.</i>
+							<br />
+							<i>*** Gift Card support does not enable Discover Card support.</i>
+						</span>
+					</td>
+				</tr>
+			<?php } ?>
 			<tr>
 				<td class="bgcolor_light" style="text-align: right;">Supports Meal Customization</td>
 				<td class="bgcolor_light"><?php echo $this->form_store_details['supports_meal_customization_html']; ?></td>
@@ -620,7 +668,8 @@
 			</tr>
 			<tr class="customization_fields" style="display:<?php if (!$this->store_supports_meal_customization) { ?>none;<?php } ?>">
 				<td class="bgcolor_light" style="text-align: right;">Customization Fee<br><span style="font-size:smaller;">(Flat Rate based on number of core meals)</span></td>
-				<td class="bgcolor_light"><table>
+				<td class="bgcolor_light">
+					<table>
 						<?php foreach ( $this->customization_fees as $key => $fee){ ?>
 							<tr>
 								<td><?php echo $fee['description']; ?>:</td>
@@ -664,17 +713,19 @@
 
 		</table>
 
-		<table style="width: 100%; margin-bottom: 10px;">
-			<tr>
-				<td class="bgcolor_dark catagory_row" colspan="2">Available Positions</td>
-			</tr>
-			<?php foreach ($this->job_array AS $job_id => $job) { ?>
+		<?php if (!$this->DAO_store->isDistributionCenter()) { ?>
+			<table style="width: 100%; margin-bottom: 10px;">
 				<tr>
-					<td class="bgcolor_light" style="text-align: right; width: 400px;"><label for="job_position[<?php echo $job_id; ?>]"><?php echo $job['title']; ?></label></td>
-					<td class="bgcolor_light"><input type="checkbox" id="job_position[<?php echo $job_id; ?>]" name="job_position[<?php echo $job_id; ?>]" <?php echo (!empty($job['available'])) ? 'checked' : ''; ?> /> <?php if (!empty($job['available'])) { ?><label for="job_position[<?php echo $job_id; ?>]">Posted <?php echo CTemplate::dateTimeFormat($job['timestamp_updated'], CONCISE) ;?></label><?php } ?></td>
+					<td class="bgcolor_dark catagory_row" colspan="2">Available Positions</td>
 				</tr>
-			<?php } ?>
-		</table>
+				<?php foreach ($this->job_array AS $job_id => $job) { ?>
+					<tr>
+						<td class="bgcolor_light" style="text-align: right; width: 400px;"><label for="job_position[<?php echo $job_id; ?>]"><?php echo $job['title']; ?></label></td>
+						<td class="bgcolor_light"><input type="checkbox" id="job_position[<?php echo $job_id; ?>]" name="job_position[<?php echo $job_id; ?>]" <?php echo (!empty($job['available'])) ? 'checked' : ''; ?> /> <?php if (!empty($job['available'])) { ?><label for="job_position[<?php echo $job_id; ?>]">Posted <?php echo CTemplate::dateTimeFormat($job['timestamp_updated'], CONCISE) ;?></label><?php } ?></td>
+					</tr>
+				<?php } ?>
+			</table>
+		<?php } ?>
 
 		<table style="width: 100%; margin-bottom: 10px;">
 			<tr>

@@ -329,7 +329,7 @@
 				$labels = array( "Home Office ID", "GP Account ID", "Grand Opening Date", "Month", "Year", "Store Name", "Store City", "Store State", "Gross Income (Less Taxes)",
 				                    "Discounts", "Adjustments", "Fundraising", "LTD Meal Donations",  "Delivery Fees", "Door Dash Fees", "Total Sales with Adjust/Disc",
                 					"National Marketing Fee","Royalties Owed", "Total Fees Owed", "LTD Round-Up Donations", "LTD Meal Donations", 
-                				    "LTD Total Donations", "Delivery Fees",  "SalesForce Fee"    , "Royalties + LTD Donations + Delivery Fee",  "Marketing Fees + SalesForce Fee"   , "Performance Standard Note:", "isIncremental", "batch", "Archived Store Histories");
+                				    "LTD Total Donations", "Delivery Fees",  "Technology Fee"    , "Royalties + LTD Donations + Delivery Fee",  "Marketing Fees + Technology Fee"   , "Performance Standard Note:", "isIncremental", "batch", "Archived Store Histories");
 				$tpl->assign('labels', $labels);
 				$tpl->assign('rows', $temprows);
 				$tpl->assign('rowcount', count($temprows));

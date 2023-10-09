@@ -950,7 +950,7 @@ class COrdersDelivered extends COrders
 
 			if($paymentResult['result'] == 'edit_success'){
 				//Send Updates to SS
-				ShipStationManager::getInstance()->addUpdateOrder(new ShipStationOrderWrapper($originalOrder));
+				ShipStationManager::getInstanceForOrder($originalOrder)->addUpdateOrder(new ShipStationOrderWrapper($originalOrder));
 				$originalOrder->query('COMMIT;');
 				COrdersDigest::recordEditedOrder($originalOrder, $originalGrandTotalMinusTaxes);
 			}
@@ -1116,7 +1116,7 @@ class COrdersDelivered extends COrders
 				$this->orderShipping->insert();
 			}
 
-			ShipStationManager::getInstance()->addUpdateOrder(new ShipStationOrderWrapper($this));
+			ShipStationManager::getInstanceForOrder($this)->addUpdateOrder(new ShipStationOrderWrapper($this));
 		}
 		catch (exception $exc)
 		{

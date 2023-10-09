@@ -2877,19 +2877,23 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 		}
 	}
 
-	static function addDeliveredInventoryToMenuArray(&$inArray, $store, $orderIsACTIVE)
+	static function addDeliveredInventoryToMenuArray(&$inArray, $store_id, $orderIsACTIVE)
 	{
 		// note: unless order is active the intial inventory has not been reduced by the current items
 
-		$parent_store_id = CStore::getParentStoreID($store);
+		$parent_store_id = CStore::getParentStoreID($store_id);
 		// form unique list of recipes
 		$inventoryArray = array(); // recipe_id -> remaining_inventory
 		foreach ($inArray['bundle_items'] as $items)
 		{
-			foreach ($items as $item)
+			if(!is_null($items))
 			{
-				$inventoryArray[$item['recipe_id']] = 0;
+				foreach ($items as $item)
+				{
+					$inventoryArray[$item['recipe_id']] = 0;
+				}
 			}
+
 		}
 
 		$menu_id = false;

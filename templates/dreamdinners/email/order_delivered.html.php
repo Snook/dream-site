@@ -16,9 +16,8 @@
 <tr>
 <td>
 		<p><b><?=$this->user->firstname?> <?=$this->user->lastname?>,</b></p>
-		<p>Thank you for placing an order with Dream Dinners Delivered. We look forward to preparing delicious meals for your family. </p>
+		<p>Thank you for placing an order with Dream Dinners. We look forward to preparing delicious meals for your family. </p>
 		<p>Your prepped dinners will be delivered to your home on your selected delivery date. Be on the lookout for tracking information once your order has shipped. Make sure to place your dinners in the refrigerator as soon as you can to enjoy them within the first few days or if you plan to use them later, place them in the freezer.</p>
-		<p><i>Note: Due to ongoing FedEx delays, your order may by delivered later than expected. If you temperature tag reads red upon arrival, please reach out to <a href="mailto:support@dreamdinners.com">support@dreamdinners.com</a> to request a replacement.</p>
 		<p>Your Dream Dinners order is summarized below.</i></p>
 
         <hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;">

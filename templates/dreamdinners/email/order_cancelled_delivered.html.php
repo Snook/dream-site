@@ -15,7 +15,7 @@
 <table role="presentation" width="650"  border="0" cellspacing="0" cellpadding="8">
 <tr>
 <td><p>Dear <?= $this->customer_name ?>, </p>
-      <p>Your order with Dream Dinners Delivered has been canceled. If you have any questions or concerns regarding this order, please contact us at 360-804-2020 or via email at support@dreamdinners.com.</p>
+      <p>Your order with Dream Dinners has been canceled.</p>
       <p>Thank you</p>
 <hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;"></td>
 </tr>

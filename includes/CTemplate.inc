@@ -11,40 +11,40 @@ require_once("Savant2.php");
  *
  * -------------------------------------------------------------------------------------------------- */
 // DateTime format types
-define("VERBOSE", 1); // Thursday October 20, 2005 - 05:30 PM
-define("NORMAL", 2); // Oct 20, 2005 - 05:30 PM
-define("COMPACT", 3); // 10/20/05 17:30:00
-define("EXACT", 4); //Thursday October 20, 2005 05:30:00 PM
-define("VERBOSE_DATE", 5); //Thursday October 20, 2005
-define("TIME_ONLY", 6); //5:30 PM
-define("VERBOSE_DATE_NO_YEAR", 7); //Thursday October 20
-define("DATE_TIME", 8); //20110602T030000
-define("MONTH_YEAR", 9); // August 2011
-define("NORMAL_NO_YEAR", 10); // Oct 20 - 05:30 PM
-define("SIMPLE_TIME", 11); // lower case am/pm - drop minutes if 0: EG. "9 am"
-define("VERBOSE_DATE_NO_YEAR_W_COMMA", 12); //Thursday, October 20
-define("CONDENSED_MONTH_YEAR", 13); // Dec 12
-define("VERBOSE_MONTH_YEAR", 14); // December 2012
-define("COMPACT_W_DAY_OF_WEEK", 15); // Thu Jun 13, 2013 - 6:00 PM
-define("MONTH_DAY_YEAR", 16); // Dec, 20 2012
-define("YEAR_MONTH_DAY", 17); // 2013-07-12
-define("FULL_MONTH_DAY_YEAR", 18); // December, 20 2012
-define("CONCISE", 19); // Oct 20, 2015 1:22:23pm
-define("DATE_TIME_ITEMPROP", 20); // 2011-05-08T19:30
-define("DAY_NAME", 21); // Tue
-define("FULL_MONTH", 22); // October
-define("DAY_ONLY", 23); // SAT
-define("FULL_DAY", 24); // SATURDAY
-define("YEAR_UNDERSCORE_MONTH", 25); //
-define("MONTH_DAY", 26); //
-define("HH_MM", 27); // 15:23
-define("MYSQL", 28);
-define("CONCISE_NO_SECONDS", 29); // Oct 20, 2015 1:22pm
-define("MYSQL_TIMESTAMP", 30); // 2011-05-08 19:30:00
-define("DATE_TIME_LOCAL", 31); // 2011-05-08T19:30
-define("HH_MM_SS", 32); // 19:30:00 PM
-define("NORMAL_NO_TIME", 33); // Oct 20, 2005
-define("TIME", 34); // Oct 20, 2005
+const VERBOSE = 1; // Thursday October 20, 2005 - 05:30 PM
+const NORMAL = 2; // Oct 20, 2005 - 05:30 PM
+const COMPACT = 3; // 10/20/05 17:30:00
+const EXACT = 4; //Thursday October 20, 2005 05:30:00 PM
+const VERBOSE_DATE = 5; //Thursday October 20, 2005
+const TIME_ONLY = 6; //5:30 PM
+const VERBOSE_DATE_NO_YEAR = 7; //Thursday October 20
+const DATE_TIME = 8; //20110602T030000
+const MONTH_YEAR = 9; // August 2011
+const NORMAL_NO_YEAR = 10; // Oct 20 - 05:30 PM
+const SIMPLE_TIME = 11; // lower case am/pm - drop minutes if 0: EG. "9 am"
+const VERBOSE_DATE_NO_YEAR_W_COMMA = 12; //Thursday, October 20
+const CONDENSED_MONTH_YEAR = 13; // Dec 12
+const VERBOSE_MONTH_YEAR = 14; // December 2012
+const COMPACT_W_DAY_OF_WEEK = 15; // Thu Jun 13, 2013 - 6:00 PM
+const MONTH_DAY_YEAR = 16; // Dec, 20 2012
+const YEAR_MONTH_DAY = 17; // 2013-07-12
+const FULL_MONTH_DAY_YEAR = 18; // December, 20 2012
+const CONCISE = 19; // Oct 20, 2015 1:22:23pm
+const DATE_TIME_ITEMPROP = 20; // 2011-05-08T19:30
+const DAY_NAME = 21; // Tue
+const FULL_MONTH = 22; // October
+const DAY_ONLY = 23; // SAT
+const FULL_DAY = 24; // SATURDAY
+const YEAR_UNDERSCORE_MONTH = 25; //
+const MONTH_DAY = 26; //
+const HH_MM = 27; // 15:23
+const MYSQL = 28;
+const CONCISE_NO_SECONDS = 29; // Oct 20, 2015 1:22pm
+const MYSQL_TIMESTAMP = 30; // 2011-05-08 19:30:00
+const DATE_TIME_LOCAL = 31; // 2011-05-08T19:30
+const HH_MM_SS = 32; // 19:30:00 PM
+const NORMAL_NO_TIME = 33; // Oct 20, 2005
+const TIME = 34; // Oct 20, 2005
 
 class CTemplate extends Savant2
 {
@@ -76,12 +76,17 @@ class CTemplate extends Savant2
 	protected $debugInfoArray = array();
 	protected $emergency_mode = false;
 
+	public $page;
+	public $is_admin = false;
+	public $head_css;
+	public $head_script;
+	public $head_onload;
+	public $app_maintenance_message;
+	public $UserCurrent;
+	public $StoreCurrent;
 	public $isEditDeliveredOrder = false;
-
-	const IE_lessthan_10 = "IE_lessthan_10";
-
-	const IE_lessthan_9 = "IE_lessthan_9";
-	const IE_lessthan_8 = "IE_lessthan_8";
+	public $page_is_bootstrap;
+	public $rows;
 
 	// navigation types
 	const STANDARD = 'STANDARD';
@@ -104,6 +109,20 @@ class CTemplate extends Savant2
 	function __construct($template_path = false)
 	{
 		$page = str_replace('-', '_', $_REQUEST['page']);
+
+		if (!empty($_REQUEST['page']))
+		{
+			$this->page = str_replace('-', '_', $_REQUEST['page']);
+		}
+		else if (!empty($_REQUEST['static']))
+		{
+			$this->page = str_replace('-', '_', $_REQUEST['static']);
+		}
+
+		if (substr($this->page, 0, 6) == 'admin_')
+		{
+			$this->is_admin = true;
+		}
 
 		if (defined('DESIGNATE_AS_EMERGENCY_REPORTING_SERVER') && DESIGNATE_AS_EMERGENCY_REPORTING_SERVER)
 		{
@@ -932,19 +951,11 @@ class CTemplate extends Savant2
 	// Required css for all pages
 	function initSetCSS()
 	{
-		$page = str_replace('-', '_', $_REQUEST['page']);
-
-		$isAdmin = false;
-		if (isset($page) && substr($page, 0, 6) == 'admin_')
-		{
-			$isAdmin = true;
-		}
-
 		// Following included in front and back end
 		self::setCSS('//use.fontawesome.com/releases/v5.9.0/css/all.css');
 
 		// Following included in front end
-		if (!$isAdmin)
+		if (!$this->is_admin)
 		{
 			self::setCSS(CSS_PATH . '/customer/dreamdinners.min.css');
 		}
@@ -957,7 +968,7 @@ class CTemplate extends Savant2
 		{
 			if (DD_SERVER_NAME == 'HO_REPORTING')
 			{
-				if ($isAdmin)
+				if ($this->is_admin)
 				{
 					self::setCSS(CSS_PATH . '/admin/ho_reporting_style.css');
 				}
@@ -969,7 +980,7 @@ class CTemplate extends Savant2
 
 			if (DEBUG)
 			{
-				if ($isAdmin)
+				if ($this->is_admin)
 				{
 					self::setCSS(CSS_PATH . '/admin/dev_style.css');
 				}
@@ -982,16 +993,8 @@ class CTemplate extends Savant2
 	// Required scripts for all pages
 	function initSetScript()
 	{
-		$page = str_replace('-', '_', $_REQUEST['page']);
-
-		$isAdmin = false;
-		if (isset($page) && substr($page, 0, 6) == 'admin_')
-		{
-			$isAdmin = true;
-		}
-
 		// Following included in front end
-		if (!$isAdmin)
+		if (!$this->is_admin)
 		{
 			// vendor scripts
 			self::setScript('foot', SCRIPT_PATH . '/customer/vendor.min.js');
@@ -1050,14 +1053,6 @@ class CTemplate extends Savant2
 	// Required scripts for all pages
 	function initOnload()
 	{
-		$page = str_replace('-', '_', $_REQUEST['page']);
-
-		$isAdmin = false;
-		if (isset($page) && substr($page, 0, 6) == 'admin_')
-		{
-			$isAdmin = true;
-		}
-
 		if (DEBUG || (defined('DD_SERVER_NAME') && (DD_SERVER_NAME != 'LIVE')))
 		{
 			if ($msg = self::getDebugMsg())
@@ -1067,7 +1062,7 @@ class CTemplate extends Savant2
 		}
 
 		// Following included in front end
-		if ($isAdmin)
+		if ($this->is_admin)
 		{
 			self::$head_onload_array[] = 'admin_global_init();';
 		}
@@ -1222,38 +1217,11 @@ class CTemplate extends Savant2
 		return ($retVal == 0 ? false : true);
 	}
 
-	static function browserIsTarget($target)
+	function setCSS($stylesheet)
 	{
-		if ($target == CTemplate::IE_lessthan_10 && self::isIE())
-		{
-			$retVal = preg_match('/MSIE [1-9]/', $_SERVER['HTTP_USER_AGENT']);
+		self::$head_css_array[] = trim($stylesheet) . ((strpos($stylesheet, '?')) ? '&amp;' : '?') . 'ddv=' . JAVASCRIPT_CSS_VERSION;
 
-			return ($retVal == 0 ? false : true);
-		}
-		else if ($target == CTemplate::IE_lessthan_9 && self::isIE())
-		{
-			$retVal = preg_match('/MSIE [1-8]/', $_SERVER['HTTP_USER_AGENT']);
-
-			return ($retVal == 0 ? false : true);
-		}
-		else if ($target == CTemplate::IE_lessthan_8 && self::isIE())
-		{
-			$retVal = preg_match('/MSIE [1-7]/', $_SERVER['HTTP_USER_AGENT']);
-
-			return ($retVal == 0 ? false : true);
-		}
-
-		return false;
-	}
-
-	function setCSS($stylesheet, $target = false)
-	{
-		if (!$target || (self::browserIsTarget($target)))
-		{
-			self::$head_css_array[] = trim($stylesheet) . ((strpos($stylesheet, '?')) ? '&amp;' : '?') . 'ddv=' . JAVASCRIPT_CSS_VERSION;
-
-			$this->assign('head_css', array_unique(self::$head_css_array));
-		}
+		$this->assign('head_css', array_unique(self::$head_css_array));
 	}
 
 	function setScript($position, $javascript, $async = false, $defer = false, $crossorigin = false, $preconnect = false)
@@ -1336,6 +1304,8 @@ class CTemplate extends Savant2
 		{
 			return true;
 		}
+
+		return false;
 	}
 
 	static function isOldIE()
@@ -1345,6 +1315,8 @@ class CTemplate extends Savant2
 		{
 			return true;
 		}
+
+		return false;
 	}
 
 	static function isMobileSafari()
@@ -1372,18 +1344,15 @@ class CTemplate extends Savant2
 	{
 		switch ($session_type_switch)
 		{
-			case CTemplate::STANDARD:
-				return "Assembly Session";
-				break;
 			case CTemplate::INTRO:
 				return "Meal Prep Starter Pack";
-				break;
 			case CTemplate::EVENT:
 				return "Special Event";
-				break;
 			case CTemplate::MADE_FOR_YOU:
 				return "Made For You";
-				break;
+			case CTemplate::STANDARD:
+			default:
+				return "Assembly Session";
 		}
 	}
 

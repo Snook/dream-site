@@ -4,16 +4,6 @@
 
 		<!-- Totals -->
 		<?php if ($this->foodState != 'noFood') { if ($this->foodState == 'adequateFood') { ?>
-			<?php
-			if (isset($this->cart_info['order_info']['bundle_id']) && $this->cart_info['order_info']['bundle_id'] > 0)
-			{
-				$foodTotal = $this->cart_info['order_info']['subtotal_menu_items'] + $this->cart_info['order_info']['subtotal_home_store_markup'] - $this->cart_info['order_info']['subtotal_menu_item_mark_down'] - $this->cart_info['order_info']['bundle_discount'];
-			}
-			else
-			{
-				$foodTotal = $this->cart_info['order_info']['subtotal_menu_items'] + $this->cart_info['order_info']['subtotal_home_store_markup'] - $this->cart_info['order_info']['subtotal_menu_item_mark_down'];
-			}
-			?>
 			<div class="row">
 				<div class="col-md-6 col-8 text-left">
 					<?php if($this->cart_info['order_info']['servings_total_count'] > 0){?>
@@ -22,7 +12,7 @@
 							 + <?php echo $this->cart_info['cart_info_array']['num_sides']; ?> Sides and Sweets
 						<?php } ?>
 						<span class="font-italic">(<?php echo $this->cart_info['order_info']['servings_total_count']; ?> Servings /
-						Avg. $<span id="checkout-cost_per_serving"><?php echo CTemplate::moneyFormat($this->avgCostPerServingEntreeCost / $this->avgCostPerServingEntreeServings); ?></span> per serving)</span>
+						Avg. $<span id="checkout-cost_per_serving"><?php echo CTemplate::moneyFormat($this->cart_info["orderObj"]->getAvgCostPerServing()); ?></span> per serving)</span>
 					</p>
 					<?php }else{?>
 						<?php if($this->cart_info['cart_info_array']['num_sides'] > 0){?>
@@ -30,10 +20,9 @@
 						<?php }?>
 					<?php }?>
 
-
 				</div>
 				<div class="col-md-6 col-4 text-right">
-					<p>$<span id="checkout_total-food"><?php echo CTemplate::moneyFormat($foodTotal); ?></span></p>
+					<p>$<span id="checkout_total-food"><?php echo CTemplate::moneyFormat($this->cart_info["orderObj"]->getFoodTotal()); ?></span></p>
 				</div>
 			</div>
 		<?php } else if ($this->foodState != 'adequateFood' ) { ?>

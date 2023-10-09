@@ -1,74 +1,11 @@
 var g_lastSearch = '';
-function waitForElement(){
-	if(typeof someVariable !== "undefined"){
-		//variable exists, do what you want
-	}
-	else{
-		setTimeout(waitForElement, 250);
-	}
-}
-
-function handle_store_select()
-{
-
-	$('body').change(function ()
-	{
-		var SELECT_STORE_LITERAL = $('.locations-button').not('locations-button-selected').first().html();
-
-		$('.locations-button').on('click', function (e)
-		{
-			e.preventDefault();
-
-			if ($(this).hasClass('locations-button-selected'))
-			{
-				//is already selected
-				//remove selection from current
-				$(this).removeClass('locations-button-selected');
-
-				if ($(this).hasClass('btn-select-checked'))
-				{
-					$(this).html(SELECT_STORE_LITERAL);
-				}
-			}
-			else
-			{
-				//unselect everything first, then select the one we just clicked.
-				$('.locations-button-selected').removeClass('locations-button-selected');
-				$('.btn-select-checked').each(function ()
-				{
-					$(this).html(SELECT_STORE_LITERAL);
-				});
-				$(this).addClass('locations-button-selected');
-				if ($(this).hasClass('btn-select-checked'))
-				{
-					$(this).html('&nbsp;');
-				}
-			}
-
-			if ($('.locations-button-selected').length > 0)
-			{
-				$('#btn-next').prop('disabled', false);
-				//get currently selected store
-				var location = $('.locations-button-selected').parent().parent().find('h3').first().text();
-				$('#selected-location-marker').removeClass('marker-disabled').text(location);
-			}
-			else
-			{
-				$('#btn-next').prop('disabled', true);
-				$('#selected-location-marker').addClass('marker-disabled').text('&nbsp;');
-			}
-
-		});
-	}).change();
-}
 
 function handle_browser_location()
 {
 	// only attempt auto search if zip or state not being queried by url
 	if (!getQueryVariable('state') && !getQueryVariable('zip') && $('#zipsearch_zipcode_only').length)
 	{
-		address_location(function (status, results)
-		{
+		address_location(function (status, results) {
 
 			if (status == 'ok')
 			{
@@ -114,8 +51,7 @@ function address_components(results)
 {
 	addressArray = [];
 
-	$.each(results[0].address_components, function ()
-	{
+	$.each(results[0].address_components, function () {
 
 		addressArray[this.types[0]] = this;
 
@@ -160,8 +96,7 @@ function handle_address_search()
 		address_search += ' ' + $('#zipsearch_zipcode').getVal();
 	}
 
-	 address_location({address: address_search}, function (status, results)
-	{
+	address_location({address: address_search}, function (status, results) {
 
 		if (status == 'ok')
 		{
@@ -173,8 +108,7 @@ function handle_address_search()
 			if (typeof addressArray['postal_code'] === 'undefined')
 			{
 
-				address_location({latlong: latitude + ',' + longitude}, function (status, results)
-				{
+				address_location({latlong: latitude + ',' + longitude}, function (status, results) {
 
 					if (status == 'ok')
 					{
@@ -215,7 +149,7 @@ function handle_address_search()
 				retrieve_stores_for_lat_long({
 					latitude: latitude,
 					longitude: longitude,
-					zip: szZip,
+					zip: szZip
 
 				}, true);
 			}
@@ -237,22 +171,18 @@ function handle_address_search()
 
 function handle_zipcode_search()
 {
-
-
 	address_search = '';
 	if ($('#zipsearch_zipcode_only').getVal() == '')
 	{
 		modal_message({message: 'Zip code required'});
 		return false;
-	}else{
+	}
+	else
+	{
 		address_search += ' ' + $('#zipsearch_zipcode_only').getVal();
 	}
 
-
-
-
-	address_location({address: address_search}, function (status, results)
-	{
+	address_location({address: address_search}, function (status, results) {
 
 		if (status == 'ok')
 		{
@@ -275,7 +205,6 @@ function handle_zipcode_search()
 			$("#zipsearch_zipcode_only").removeClass('border-red');
 		}
 
-
 		else if (status == 'error' || status == 'no_result')
 		{
 			//the postal code search box results are BAD, clear old store search results to indicate bad postal code was entered
@@ -293,7 +222,6 @@ function handle_zipcode_search()
 		else
 		{
 			dd_console_log(results);
-
 		}
 
 	});
@@ -314,8 +242,7 @@ function retrieve_stores_for_address(settings)
 
 	$.extend(config, settings);
 
-	address_location(settings, function (status, results)
-	{
+	address_location(settings, function (status, results) {
 
 		if (status == 'ok')
 		{
@@ -331,14 +258,17 @@ function retrieve_stores_for_address(settings)
 				}
 			}
 
-			if(szZip != '') {
+			if (szZip != '')
+			{
 				retrieve_stores_for_lat_long({
 					latitude: latitude,
 					longitude: longitude,
 					zip: szZip,
 					compact: settings.compact
 				}, false);
-			} else{
+			}
+			else
+			{
 				$("#store_search_results").empty();
 				$("#store_search_results").html('<text>No local stores near you.</text>');
 			}
@@ -377,14 +307,13 @@ function retrieve_stores_for_lat_long(settings, doScrolling)
 			latitude: settings.latitude,
 			longitude: settings.longitude,
 			zip: settings.zip,
-			compact: settings.compact,
+			compact: settings.compact
 
 		},
-		success: function (json)
-		{
+		success: function (json) {
 			$("#store_search_results").html(json.html);
 
-			if(doScrolling)
+			if (doScrolling)
 			{
 				//scroll to successful search results
 				$('html, body').animate({
@@ -411,8 +340,7 @@ function retrieve_stores_for_lat_long(settings, doScrolling)
 				});
 			}
 		},
-		error: function (objAJAXRequest, strError)
-		{
+		error: function (objAJAXRequest, strError) {
 			response = 'Unexpected error';
 		}
 	});
@@ -444,11 +372,10 @@ function getStoresForState(state_id, scrollto)
 		data: {
 			processor: 'location_search',
 			op: 'json',
-			state: state_id,
+			state: state_id
 
 		},
-		success: function (json)
-		{
+		success: function (json) {
 			$("#store_search_results").html(json.html);
 			$("#store_search_results").slideDown();
 			select_location_click_handler();
@@ -472,8 +399,7 @@ function getStoresForState(state_id, scrollto)
 				});
 			}
 		},
-		error: function (objAJAXRequest, strError)
-		{
+		error: function (objAJAXRequest, strError) {
 			response = 'Unexpected error';
 		}
 	});
@@ -481,21 +407,10 @@ function getStoresForState(state_id, scrollto)
 
 $(function () {
 
-	$(document).on('click', '.location_state', function (e) {
-
-		e.preventDefault();
-
-		getStoresForState($(this).data('state'));
-
-	});
-
 	// Register click handler to search states
 	$(document).on('click', '[data-linear_address]', function (e) {
-
 		e.preventDefault();
-
 		showMap($(this).data('linear_address'));
-
 	});
 
 	// Register click handler to search states
@@ -505,16 +420,14 @@ $(function () {
 		e.preventDefault();
 	});
 
-	// Register click handler to search for stores by zip
-	$("#zipsearch_search_btn").on('click', function ()
-	{
+	$(document).on('click', '#zipsearch_search_btn', function (e) {
+		e.preventDefault();
 		handle_zipcode_search();
 		$(this).addClass('');
 	});
 
-	// Register click handler to search for stores by full address
-	$("#full_addr_search_btn").on('click', function ()
-	{
+	$(document).on('click', '#full_addr_search_btn', function (e) {
+		e.preventDefault();
 		if (handle_address_search() !== false)
 		{
 			$('html, body').animate({
@@ -523,10 +436,7 @@ $(function () {
 		}
 	});
 
-	// If enter key is pressed on input handle zipcode search
-	$("#zipsearch_zipcode").keypress(function (e)
-	{
-
+	$(document).on('keypress', '#zipsearch_zipcode', function (e) {
 		if (!$("#zipsearch_city").getVal())
 		{
 			$("#zipsearch_state_id").getVal('');
@@ -543,17 +453,13 @@ $(function () {
 
 	handle_browser_location();
 
-	handle_store_select();
-
 	if (typeof simplemaps_usmap != 'undefined')
 	{
-		simplemaps_usmap.hooks.zoomable_click_state = function(id)
-		{
+		simplemaps_usmap.hooks.zoomable_click_state = function (id) {
 			getStoresForState(id, false);
 		}
 
-		simplemaps_usmap.hooks.click_state = function(id)
-		{
+		simplemaps_usmap.hooks.click_state = function (id) {
 			getStoresForState(id, true);
 		}
 	}

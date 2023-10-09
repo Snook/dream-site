@@ -335,7 +335,8 @@ function showMap(address)
 		height: 580,
 		modal: false,
 		resizable: true,
-		message: '<iframe width="100%" height="97%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="//maps.google.com/maps?q=Dream%20Dinners%20' + encodeURIComponent(address) + '&amp;hnear=Dream%20Dinners%20' + encodeURIComponent(address) + '&amp;f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;ie=UTF8&amp;hq=&amp;t=m3&amp;spn=0.02878,0.054932&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>'
+		size: 'large',
+		message: '<iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="//maps.google.com/maps?q=Dream%20Dinners%20' + encodeURIComponent(address) + '&amp;hnear=Dream%20Dinners%20' + encodeURIComponent(address) + '&amp;f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;&amp;ie=UTF8&amp;hq=&amp;t=m3&amp;spn=0.02878,0.054932&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>'
 	});
 }
 
@@ -1329,6 +1330,61 @@ $('[data-gaq_cat]').each(function () {
 $('[data-background-image]').each(function () {
 	var bg_image = $(this).data('background-image');
 	$(this).css('background-image', 'url(' + bg_image + ')');
+});
+
+$(document).on('click', '.link-dinner-details', function (e) {
+
+	e.preventDefault();
+
+	let menu_id = $(this).data('menu_id');
+	let menu_item_id = $(this).data('menu_item_id');
+	let store_id = $(this).data('store_id');
+	let target = $(this).prop('target');
+	let detailed = $(this).data('detailed');
+	let size = $(this).data('size');
+
+	$.ajax({
+		url: '/processor',
+		type: 'POST',
+		timeout: 20000,
+		dataType: 'json',
+		data: {
+			processor: 'menu_item',
+			op: 'find_item',
+			menu_id: menu_id,
+			menu_item_id: menu_item_id,
+			store_id: store_id,
+			detailed: detailed
+		},
+		success: function (json) {
+			if (json.processor_success)
+			{
+				bootbox.dialog({
+					message: json.html,
+					size: size,
+					buttons: {
+						"Full details": function () {
+							bounce('/item?recipe=' + json.recipe_id + '&ov_menu=' + json.menu_id, target);
+						},
+						cancel: {
+							label: "Close"
+						}
+					}
+				})
+			}
+			else
+			{
+				modal_message({
+					title: 'Error',
+					message: json.processor_message
+				});
+			}
+		},
+		error: function (objAJAXRequest, strError) {
+			response = 'Unexpected error';
+		}
+	});
+
 });
 
 // Click handler for clear cart

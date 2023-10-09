@@ -15,7 +15,7 @@
 <table role="presentation" width="650"  border="0" cellspacing="0" cellpadding="8">
 <tr>
 <td>
-<p>Your order with Dream Dinners Delivered has been edited. We look forward to preparing delicious meals for your family. Please find your new order details below. If you have any questions or concerns regarding this order, please contact us at 360-804-2020 or via email at support@dreamdinners.com</p>
+<p>Your order with Dream Dinners has been edited. We look forward to preparing delicious meals for your family. Please find your new order details below.</p>
 <p>Your prepped dinners will be delivered to your home on your selected delivery date. Be on the lookout for tracking information once your order has shipped. Make sure to place your dinners in the refrigerator as soon as you can to enjoy them within the first few days or if you plan to use them later, place them in the freezer.</p>
 <p>Sincerely,<br />
   Your Dream Dinners Team</p>

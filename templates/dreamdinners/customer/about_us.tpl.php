@@ -108,7 +108,7 @@
 							</div>
 							<div class="tab-pane fade" id="team" role="tabpanel" aria-labelledby="team-tab">
 								<h4>Our Dream Dinners Team</h4>
-								<p>Dream Dinners is made up of passionate and caring people committed to helping our stores and communities bring their families around the dinner table. This passion leads to a hardworking, fast paced culture. However, despite all the hard work, we understand and emphasize the importance of time spent with our own families, creating loving memories and healthy lives. Here at Dream Dinners we strive to strike the perfect balance of work and play, creating a fun work environment to nourish both our bodies and souls.</p>
+								<p>Dream Dinners is made up of passionate and caring people committed to helping our stores and communities bring their families around the dinner table. This passion leads to a hardworking, fast-paced culture. However, despite all the hard work, we understand and emphasize the importance of time spent with our own families, creating loving memories and healthy lives. Here at Dream Dinners we strive to strike the perfect balance of work and play, creating a fun work environment to nourish both our bodies and souls.</p>
 								<p>Interested in joining the Dream Dinners community?</p>
 								<p>We are always looking for eager, hardworking individuals who are dedicated to helping families build strong relationships around the dinner table. <a href="/job-opportunities">Visit our Careers page</a> for more information.</p>
 							</div>

@@ -32,7 +32,7 @@
 						<p class="mb-0">&quot;Love to cook but hate shopping? These days, there are a lot of options to having groceries delivered. But what if you want to go a step further...&quot;</p>
 						<footer class="blockquote-footer">Emily Dwass <cite>LAWeekly.com - They Shop and Prep, You Just Cook: Blue Apron and Dream Dinners</cite></footer>
 					</blockquote>
-					<p><a href="http://www.laweekly.com/restaurants/they-shop-and-prep-you-just-cook-blue-apron-and-dream-dinners-5084482" class="btn btn-primary btn-sm" target="_blank">View Article</a></p>
+					<p><a href="https://www.laweekly.com/restaurants/they-shop-and-prep-you-just-cook-blue-apron-and-dream-dinners-5084482" class="btn btn-primary btn-sm" target="_blank">View Article</a></p>
 				</div>
 			</div>
 			<div class="row">
@@ -89,14 +89,14 @@
 						<p class="mb-0">&quot;...parents of high school aged children claim tabletop texting and other mobile phone use as a major dinnertime distraction that cuts into quality time at the table.&quot;</p>
 						<footer class="blockquote-footer"> <cite>MarketWatch.com - New Survey From Dream Dinners Reveals One in Five Households Fed Up With Technology at the Table</cite></footer>
 					</blockquote>
-					<p><a href="https://web.archive.org/web/20120121130719/http://www.marketwatch.com/story/new-survey-from-dream-dinners-reveals-one-in-five-households-fed-up-with-technology-at-the-table-2012-01-17" class="btn btn-primary btn-sm" target="_blank">View Article</a></p>
+					<p><a href="https://web.archive.org/web/20120121130719/https://www.marketwatch.com/story/new-survey-from-dream-dinners-reveals-one-in-five-households-fed-up-with-technology-at-the-table-2012-01-17" class="btn btn-primary btn-sm" target="_blank">View Article</a></p>
 				</div>
 				<div class="col-md-6 mb-4">
 					<blockquote class="blockquote">
 						<p class="mb-0">&quot;In the case of Dream Dinners, the company estimates it saves customers 20 hours a month in planning, shopping, preparation and cleanup time.&quot;</p>
 						<footer class="blockquote-footer">Paul F. Nunes, Geoffrey Godbey &amp; H. James Wilson <cite>The Wall Street Journal - Beat the Clock - How companies can use time to their competitive advantage</cite></footer>
 					</blockquote>
-					<p><a href="http://online.wsj.com/article/SB10001424052970204038304574145390833891688.html#articleTabs%3Darticle" class="btn btn-primary btn-sm" target="_blank">View Article</a></p>
+					<p><a href="https://online.wsj.com/article/SB10001424052970204038304574145390833891688.html#articleTabs%3Darticle" class="btn btn-primary btn-sm" target="_blank">View Article</a></p>
 				</div>
 			</div>
 			<div class="row">
@@ -105,7 +105,7 @@
 						<p class="mb-0">&quot;I learned that you can clip as many coupons as you want, but you can never make a dinner as cheaply as these kitchens can. I got nine entrées, each of which is supposed to serve three, and two desserts from Dream Dinners for $146.87--under $5 a serving&quot;</p>
 						<footer class="blockquote-footer">Joel Stein <cite>Time Magazine - Outsourcing Home Cooking - How the meal assembly concept helps busy moms save time and money</cite></footer>
 					</blockquote>
-					<p><a href="http://content.time.com/time/magazine/article/0,9171,1708841,00.html" class="btn btn-primary btn-sm" target="_blank">View Article</a></p>
+					<p><a href="https://content.time.com/time/magazine/article/0,9171,1708841,00.html" class="btn btn-primary btn-sm" target="_blank">View Article</a></p>
 				</div>
 				<div class="col-md-6 mb-4">
 					<blockquote class="blockquote">
@@ -128,7 +128,7 @@
 						<p class="mb-0">&quot;Decide what you’re making, collect what you need, and exit with healthy, hassle-free dinners.&quot;</p>
 						<footer class="blockquote-footer">M.E. Malone <cite>The Boston Globe - Some Assembly Required - With time-saving help, planning healthy, hassle-free meals has gotten a little easier</cite></footer>
 					</blockquote>
-					<p><a href="http://archive.boston.com/lifestyle/food/articles/2009/10/07/planning_hassle_free_meals_has_gotten_a_little_easier/" class="btn btn-primary btn-sm" target="_blank">View Article</a></p>
+					<p><a href="https://archive.boston.com/lifestyle/food/articles/2009/10/07/planning_hassle_free_meals_has_gotten_a_little_easier/" class="btn btn-primary btn-sm" target="_blank">View Article</a></p>
 				</div>
 			</div>
 			<div class="row">
@@ -137,7 +137,7 @@
 						<p class="mb-0">&quot;Shelley Victa no longer spends her evenings chopping vegetables and making dinner for her brother and boyfriend, who are in college and live with her. Instead, she calls them when she is leaving work and asks them to take a plastic bag of food out of the freezer ...&quot;</p>
 						<footer class="blockquote-footer">Kristina Shevory <cite>New York Times - You Made the Meatloaf. You Just Didn't Make It at Home</cite></footer>
 					</blockquote>
-					<p><a href="https://web.archive.org/web/20070212160007/http://select.nytimes.com/gst/abstract.html?res=F40A15FC345A0C7B8EDDA10894DD404482" class="btn btn-primary btn-sm" target="_blank">View Article</a></p>
+					<p><a href="https://web.archive.org/web/20070212160007/https://select.nytimes.com/gst/abstract.html?res=F40A15FC345A0C7B8EDDA10894DD404482" class="btn btn-primary btn-sm" target="_blank">View Article</a></p>
 				</div>
 			</div>
 			<h3 class="text-center mb-4">Publications for Download</h3>

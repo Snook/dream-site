@@ -86,7 +86,7 @@
 				<img src="<?php echo IMAGES_PATH; ?>/how_it_works/colleen-testimonial.png" width="100" height="130" alt="Colleen" align="left" />
 			</div>
 			<div class="columntext">
-				"It [<a href="http://www.youtube.com/watch?v=oUnWYYjigMM" target="_blank">Dream Dinners vs. the Grocery store challenge</a>] was absolutely an eye opening experience. I mean spending close to $400 dollars for 12 meals, makes me think about the amount of money I spend and then also, how much we end up throwing away and the amount of food we are wasting"<br />-- Colleen
+				"It [<a href="https://www.youtube.com/watch?v=oUnWYYjigMM" target="_blank">Dream Dinners vs. the Grocery store challenge</a>] was absolutely an eye opening experience. I mean spending close to $400 dollars for 12 meals, makes me think about the amount of money I spend and then also, how much we end up throwing away and the amount of food we are wasting"<br />-- Colleen
 			</div>
 			<div class="columnimage">
 				<img src="<?php echo IMAGES_PATH; ?>/how_it_works/annh-testimonial.png" width="100" height="130" alt="Ann" align="left" />

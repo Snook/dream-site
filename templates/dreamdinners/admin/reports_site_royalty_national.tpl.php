@@ -170,7 +170,7 @@ if (isset($this->report_submitted) && $this->report_submitted == TRUE) {
 			if (!empty($array_entity['salesforce_fee']))
 			{
 			    echo '<tr>';
-			    echo '<td width="140"><b>SalesForce Fee:</b></td>';
+			    echo '<td width="140"><b>Technology Fee:</b></td>';
 			    echo '<td width="180">'  .  CSessionReports::formatCurrency($array_entity['salesforce_fee']) . '</td>';
 			    echo '</tr>';
 			}

@@ -79,10 +79,11 @@ class processor_cart_clear_category extends CPageProcessor
 
 		if (strpos($_POST['clear_items'], 'all') !== false)
 		{
-			$Cart->addSessionId(0, true);
+			$Cart->clearSession(true);
 			$Cart->addNavigationType(null, true, true);
 			$Cart->clearMenuItems();
 			$Cart->clearAllPayments();
+			$Cart->clearStore(true);
 		}
 
 		if (strpos($_POST['clear_edit_order'], 'all') !== false)

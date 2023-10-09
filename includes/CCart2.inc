@@ -107,6 +107,11 @@ class CCart2
 		$this->restoreContents();
 	}
 
+	function getCartDAO()
+	{
+		return $this->_cartDAO;
+	}
+
 	function getDebugInfo()
 	{
 		// returns the current database settings; assumes cart is not fully constructed
@@ -1737,6 +1742,16 @@ class CCart2
 		if (!$directStore)
 		{
 			$this->_session_id = null;
+		}
+	}
+
+	function clearStore($directStore = false)
+	{
+		$this->_storage->storeOrderValue($this->_cart_contents_id, "store_id", null);
+
+		if (!$directStore)
+		{
+			$this->store_id = null;
 		}
 	}
 

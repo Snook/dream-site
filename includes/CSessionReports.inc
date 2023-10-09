@@ -1912,7 +1912,7 @@ class CSessionReports
 				$rows [$count]['is_bundle'] = $arr['is_bundle'] == 1 ? true : false;
 				$rows [$count]['is_chef_touched'] = $arr['is_chef_touched'] == 1 ? true : false;
 
-				$categoryids[$arr['categories']] = 1;
+				$categoryids[$count] = $arr['categories'];
 			}
 
 			$rows [$count]['entree_id'] = $arr['entree_id'];
@@ -1928,7 +1928,7 @@ class CSessionReports
 		// if for some reason stores are allowed to override categories then we will need to further define this.
 		if (!empty($categoryids))
 		{
-			$vararr = implode(array_keys($categoryids), ',');
+			$vararr = implode(',', $categoryids);
 			$categories = DAO_CFactory::create("menu_item_category");
 			$sql = "SELECT `menu_item_category`.`id`,`menu_item_category`.`category_type`,`menu_item_category`.`global_order_value` " . " FROM `menu_item_category` where `menu_item_category`.`id` in ($vararr) order by `global_order_value` asc";
 			$categories->query($sql);

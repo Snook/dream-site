@@ -1,3 +1,4 @@
+<?php $this->setScriptVar('storeDeployOptions = ' . $this->storeDeployOptions . ';'); ?>
 <?php //include $this->loadTemplate('admin/subtemplate/page_header/page_header.tpl.php'); ?>
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
@@ -13,13 +14,7 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text"><i class="fas fa-filter"></i></div>
 						</div>
-						<select class="form-control form-control-sm store-select-filter">
-							<option value="">Show All</option>
-							<option value="base">Base Boxes</option>
-							<!--<option value="310">Mobile - Dist. Ctr.</option>
-							<option value="311">Salt Lake - Dist. Ctr.</option>-->
-							<option value="312">Rochester Hills - Dist. Ctr.</option>
-						</select>
+						<?php echo $this->ManagerForm['store_filter_html']; ?>
 					</div>
 				<?php } ?>
 			</div>

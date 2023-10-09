@@ -45,8 +45,8 @@
 					<?php } ?>
 
 					<div class="row mt-4">
-						<span class="col-6 text-center text-green-dark font-size-small font-weight-bold"><span class="text-uppercase">Medium</span> serves 2-3</span>
-						<span class="col-6 text-center text-green font-size-small font-weight-bold"><span class="text-uppercase">Large</span> serves 4-6</span>
+						<span class="col-6 text-center text-green-dark font-size-small font-weight-bold"><span class="text-uppercase">Each Meal</span> serves 2-3</span>
+						<!--<span class="col-6 text-center text-green font-size-small font-weight-bold"><span class="text-uppercase">Large</span> serves 4-6</span>-->
 					</div>
 					<div class="row mt-3 d-none d-md-block font-size-small">
 						<?php foreach (CRecipe::getIconSchematic() AS $icon) { ?>
@@ -63,6 +63,6 @@
 	</div>
 
 	<div class="row mt-5">
-		<p class="text-center"><i>Due to food shortages related to COVID-19, we have had to make substitutions to various ingredients. These substitutions can affect our nutritional information and may cause slight changes to what is listed for each recipe.</i></p>
+		<p class="text-center"><i>Due to ongoing food shortages, we sometimes make substitutions to various ingredients. These substitutions can affect our nutritional information and may cause slight changes to what is listed for each recipe.</i></p>
 	</div>
 </main>
