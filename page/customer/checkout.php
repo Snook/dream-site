@@ -1445,7 +1445,7 @@ class page_checkout extends CPage
 		//build payment form
 		self::buildPaymentForm($Form, null, $Order, $tpl);
 
-		$platePointsStatus = CPointsUserHistory::getPlatePointsStatus($Order->store_id, CUser::getCurrentUser());
+		$platePointsStatus = CPointsUserHistory::getPlatePointsStatus($StoreObj, $User);
 
 		$tpl->assign('canProvideNewDepositMechanisms', $canProvideNewDepositMechanisms);
 

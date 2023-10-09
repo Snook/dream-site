@@ -2602,7 +2602,13 @@ class CCart2
 
 		if (isset($this->_OrderObj) && isset($this->_OrderObj->store_id) && !empty(CUser::getCurrentUser()->id))
 		{
-			$platePointsStatus = CPointsUserHistory::getPlatePointsStatus($this->_OrderObj->store_id, CUser::getCurrentUser());
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->id = $this->getStoreId();
+			$DAO_store->find(true);
+
+			$DAO_user = CUser::getCurrentUser();
+
+			$platePointsStatus = CPointsUserHistory::getPlatePointsStatus($DAO_store, $DAO_user);
 			if ($platePointsStatus['userIsEnrolled'] && $platePointsStatus['storeSupportsPlatePoints'])
 			{
 				$this->_OrderObj->storeAndUserSupportPlatePoints = true;

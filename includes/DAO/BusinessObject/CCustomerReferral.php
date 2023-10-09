@@ -421,8 +421,15 @@ class CCustomerReferral extends DAO_Customer_referral
 		$TSP->session_id = $sessionObj->id;
 		if ($TSP->find(true))
 		{
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->id = $sessionObj->store_id;
+			$DAO_store->find(true);
 
-			$status = CPointsUserHistory::getPlatePointsStatus($sessionObj->store_id, $TSP->session_host);
+			$DAO_user = DAO_CFactory::create('user', true);
+			$DAO_user->id = $TSP->session_host;
+			$DAO_user->find(true);
+
+			$status = CPointsUserHistory::getPlatePointsStatus($DAO_store, $DAO_user);
 
 			if ($status['storeSupportsPlatePoints'] && $status['userIsEnrolled'])
 			{
