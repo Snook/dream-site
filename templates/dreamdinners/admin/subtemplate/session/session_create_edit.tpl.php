@@ -5,7 +5,7 @@
 	</div>
 	<div class="form-group col-md-6">
 		<label class="font-weight-bold">Location</label>
-		<input type="text" class="form-control" value="<?php echo $this->StoreCurrent->store_name; ?>" disabled>
+		<input type="text" class="form-control" value="<?php echo $this->CurrentBackOfficeStore->store_name; ?>" disabled>
 	</div>
 	<div class="form-group col-md-3">
 		<label class="font-weight-bold" for="session_date">Session Date</label>
@@ -75,7 +75,7 @@
 	<div class="form-group col-md-6">
 		<label class="font-weight-bold" for="session_type">Session Type</label>
 		<?php echo $this->form_create_session['session_type_html']; ?>
-		<?php if (!$this->StoreCurrent->dream_taste_opt_out && !$this->hasDreamtTasteType) { ?>
+		<?php if (!$this->CurrentBackOfficeStore->dream_taste_opt_out && !$this->hasDreamtTasteType) { ?>
 			<div class="font-italic text-muted font-size-small">*Note: Meal Prep Workshop/Fundraiser sessions can only be created after menu items for the month are made available</div>
 		<?php } ?>
 	</div>
@@ -112,7 +112,7 @@
 		<label class="font-weight-bold" for="available_slots">Maximum Order Capacity</label>
 		<?php echo $this->form_create_session['available_slots_html']?>
 	</div>
-	<?php if ($this->StoreCurrent->storeSupportsIntroOrders($this->Menu->id)) { ?>
+	<?php if ($this->CurrentBackOfficeStore->storeSupportsIntroOrders($this->Menu->id)) { ?>
 		<div class="form-group col-md-3 collapse show" id="intro_slots_row">
 			<label class="font-weight-bold" for="introductory_slots">Starter Pack Order Capacity</label>
 			<?php echo $this->form_create_session['introductory_slots_html']?>

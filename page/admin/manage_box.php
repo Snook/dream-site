@@ -16,7 +16,7 @@ class page_admin_manage_box extends CPageAdminOnly
 
 		$this->Template->setScript('foot', SCRIPT_PATH . '/admin/manage_box.min.js');
 		$this->Template->assign('page_title', 'Manage Delivered Boxes');
-		$this->Template->assign('topnav', (($this->CurrentStore->store_type == CStore::DISTRIBUTION_CENTER) ? 'store' : 'tools'));
+		$this->Template->assign('topnav', (($this->CurrentBackOfficeStore->store_type == CStore::DISTRIBUTION_CENTER) ? 'store' : 'tools'));
 
 		$this->BoxForm = new CForm();
 		$this->BoxForm->Repost = true;
@@ -76,7 +76,7 @@ class page_admin_manage_box extends CPageAdminOnly
 		}
 		if ($this->singleStore)
 		{
-			$box->store_id = $this->CurrentStore->id;
+			$box->store_id = $this->CurrentBackOfficeStore->id;
 		}
 		$box->_get['box_bundle_1_obj'] = true;
 		$box->_get['box_bundle_2_obj'] = true;
@@ -275,7 +275,7 @@ class page_admin_manage_box extends CPageAdminOnly
 			// if the page is being managed with single store permissions otherwise permission to edit all stores
 			if ($this->singleStore)
 			{
-				$storeOptions = array($this->CurrentStore->id => $this->CurrentStore->store_name);
+				$storeOptions = array($this->CurrentBackOfficeStore->id => $this->CurrentBackOfficeStore->store_name);
 			}
 			else
 			{

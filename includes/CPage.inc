@@ -9,7 +9,6 @@
 class CPage
 {
 
-	protected $CurrentStore = null;
 	protected $CurrentUser = null;
 	protected $CurrentFutureMenus = null;
 	protected $CurrentFutureMenusDelivered = null;
@@ -20,7 +19,6 @@ class CPage
 
 	function __construct()
 	{
-		$this->CurrentStore = CBrowserSession::getCurrentFadminStoreObj();
 		$this->CurrentUser = CUser::getCurrentUser();
 		$this->CurrentFutureMenus = CMenu::getCurrentAndFutureMenuObj();
 		$this->CurrentFutureMenusDelivered = CMenu::getCurrentAndFutureDeliveredMenuObj();
@@ -29,7 +27,6 @@ class CPage
 		if (isset($this->Template))
 		{
 			$this->Template->assign('UserCurrent', $this->CurrentUser);
-			$this->Template->assign('StoreCurrent', $this->CurrentStore);
 		}
 	}
 

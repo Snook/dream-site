@@ -510,7 +510,7 @@ class page_admin_publish_sessions extends CPageAdminOnly
 						$savedSession->introductory_slots = $currentItem->introductory_slots;
 						$savedSession->session_title = $currentItem->session_title;
 
-						if (!$this->CurrentStore->storeSupportsIntroOrders($currentMenu))
+						if (!$this->CurrentBackOfficeStore->storeSupportsIntroOrders($currentMenu))
 						{
 							$savedSession->introductory_slots = 0;
 						}
@@ -617,7 +617,7 @@ class page_admin_publish_sessions extends CPageAdminOnly
 						$savedSession->session_title = $currentItem->session_title;
 						$savedSession->introductory_slots = $currentItem->introductory_slots;
 
-						if (!$this->CurrentStore->storeSupportsIntroOrders($currentMenu))
+						if (!$this->CurrentBackOfficeStore->storeSupportsIntroOrders($currentMenu))
 						{
 							$savedSession->introductory_slots = 0;
 						}

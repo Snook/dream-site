@@ -218,7 +218,7 @@ class processor_admin_helpers extends CPageProcessor
 					));
 				}
 
-				$Form->DefaultValues['change_store-selector'] = $this->CurrentStore->id;
+				$Form->DefaultValues['change_store-selector'] = $this->CurrentBackOfficeStore->id;
 
 				if ($this->CurrentUser->user_type == CUser::SITE_ADMIN || $this->CurrentUser->user_type == CUser::HOME_OFFICE_MANAGER || $this->CurrentUser->user_type == CUser::HOME_OFFICE_STAFF)
 				{

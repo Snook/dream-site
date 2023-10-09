@@ -8,7 +8,7 @@
  */
 abstract class CPageAdminOnly
 {
-	protected $CurrentStore = null;
+	protected $CurrentBackOfficeStore = null;
 	protected $CurrentUser = null;
 	protected $CurrentFutureMenus = null;
 	protected $CurrentFutureMenusDelivered = null;
@@ -34,7 +34,7 @@ abstract class CPageAdminOnly
 	//CES: ACCESS_CHANGE
 	function __construct()
 	{
-		$this->CurrentStore = CBrowserSession::getCurrentFadminStoreObj();
+		$this->CurrentBackOfficeStore = CBrowserSession::getCurrentFadminStoreObj();
 		$this->CurrentUser = CUser::getCurrentUser();
 		$this->CurrentFutureMenus = CMenu::getCurrentAndFutureMenuObj();
 		$this->CurrentFutureMenusDelivered = CMenu::getCurrentAndFutureDeliveredMenuObj();
@@ -43,7 +43,7 @@ abstract class CPageAdminOnly
 		if (isset($this->Template))
 		{
 			$this->Template->assign('UserCurrent', $this->CurrentUser);
-			$this->Template->assign('StoreCurrent', $this->CurrentStore);
+			$this->Template->assign('CurrentBackOfficeStore', $this->CurrentBackOfficeStore);
 		}
 
 		if (CApp::instance()->template()->page != 'admin_location_switch' && CApp::instance()->template()->page != 'admin_access_agreement')

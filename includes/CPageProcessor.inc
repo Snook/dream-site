@@ -8,7 +8,7 @@ class CPageProcessor
 
 	protected $doGenericInputCleaning = true;
 	protected $inputTypeMap = array();
-	protected $CurrentStore = null;
+	protected $CurrentBackOfficeStore = null;
 	protected $CurrentUser = null;
 	protected $CurrentFutureMenus = null;
 	protected $CurrentFutureMenusDelivered = null;
@@ -19,7 +19,7 @@ class CPageProcessor
 
 	function __construct()
 	{
-		$this->CurrentStore = CBrowserSession::getCurrentFadminStoreObj();
+		$this->CurrentBackOfficeStore = CBrowserSession::getCurrentFadminStoreObj();
 		$this->CurrentUser = CUser::getCurrentUser();
 		$this->CurrentFutureMenus = CMenu::getCurrentAndFutureMenuObj();
 		$this->CurrentFutureMenusDelivered = CMenu::getCurrentAndFutureDeliveredMenuObj();
@@ -28,7 +28,7 @@ class CPageProcessor
 		if (isset($this->Template))
 		{
 			$this->Template->assign('UserCurrent', $this->CurrentUser);
-			$this->Template->assign('StoreCurrent', $this->CurrentStore);
+			$this->Template->assign('CurrentBackOfficeStore', $this->CurrentBackOfficeStore);
 		}
 	}
 
