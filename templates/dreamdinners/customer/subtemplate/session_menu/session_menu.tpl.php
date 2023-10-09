@@ -30,10 +30,6 @@
 	{
 		include $this->loadTemplateIfElse('customer/subtemplate/event_theme/' . $this->session['dream_taste_theme_string'] . '/header.tpl.php', 'customer/subtemplate/event_theme/' . $this->session['dream_taste_theme_string_default'] . '/header.tpl.php');
 	}
-	else if (!empty($this->cart_info['cart_info_array']['direct_invite']))
-	{
-		include $this->loadTemplateIfElse('customer/subtemplate/event_theme/standard/standard/standard/' . CTemplate::dateTimeFormat($this->menu_info['menu_name'], YEAR_UNDERSCORE_MONTH) . '/header.tpl.php', 'customer/subtemplate/event_theme/standard/standard/standard/default/header.tpl.php');
-	}
 	else if (!empty($this->cart_info['sessionObj']) && is_object($this->cart_info['sessionObj']))
 	{
 		if ($this->cart_info['sessionObj']->isStandardPrivate())
@@ -55,6 +51,10 @@
 		else if ($this->cart_info['sessionObj']->isDelivery() && !empty($this->cart_info['cart_info_array']['direct_invite']))
 		{
 			include $this->loadTemplateIfElse('customer/subtemplate/event_theme/standard/made_for_you/delivery/' . CTemplate::dateTimeFormat($this->menu_info['menu_name'], YEAR_UNDERSCORE_MONTH) . '/header.tpl.php', 'customer/subtemplate/event_theme/standard/made_for_you/delivery/default/header.tpl.php');
+		}
+		else if (!empty($this->cart_info['cart_info_array']['direct_invite']))
+		{
+			include $this->loadTemplateIfElse('customer/subtemplate/event_theme/standard/standard/standard/' . CTemplate::dateTimeFormat($this->menu_info['menu_name'], YEAR_UNDERSCORE_MONTH) . '/header.tpl.php', 'customer/subtemplate/event_theme/standard/standard/standard/default/header.tpl.php');
 		}
 		else
 		{
