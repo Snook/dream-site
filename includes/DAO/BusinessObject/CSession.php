@@ -115,20 +115,6 @@ class CSession extends DAO_Session
 		return parent::find($n);
 	}
 
-	static function isTODDSession($session_id)
-	{
-		$SessionDAO = DAO_CFactory::create('session');
-		$SessionDAO->id = $session_id;
-		$SessionDAO->session_type = CSession::TODD;
-		$SessionDAO->find();
-		if ($SessionDAO->N == 1)
-		{
-			return true;
-		}
-
-		return false;
-	}
-
 	static function generateDeliveredSessionsForMenu($menu_id)
 	{
 
