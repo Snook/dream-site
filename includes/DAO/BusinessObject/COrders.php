@@ -10065,7 +10065,7 @@ class COrders extends DAO_Orders
 		return $retval;
 	}
 
-	function reconstruct($useOriginalPricing = true)
+	function reconstruct($useOriginalPricing = false)
 	{
 		if (empty($this->id))
 		{
