@@ -224,7 +224,7 @@ var _etmc = _etmc || []; // salesforce
 			});
 		}
 
-		// iUbenda
+		// iUbenda new
 		_iub.csConfiguration = {"cookiePolicyInOtherWindow":true,"countryDetection":true,"enableGdpr":false,"enableUspr":true,"lang":"en","siteId":1685553,"showBannerForUS":true,"usprPurposes":"s,sh,adv","whitelabel":false,"cookiePolicyId":48982534, "banner":{"backgroundColor":"#4c4c4c","closeButtonRejects":true,"position":"float-bottom-left","textColor":"white"}};
 		(function() {
 			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = false;
