@@ -1565,6 +1565,7 @@ class COrders extends DAO_Orders
 		$sumStorePrice = 0;
 		foreach ($this->bundle->items as $id => $bitem)
 		{
+			$hasLTDPriceSet = true;
 			if ($bitem['chosen'])
 			{
 				$thisItem = $this->getMenuItem($id);
@@ -1572,6 +1573,7 @@ class COrders extends DAO_Orders
 				if ($this->bundle->bundle_type == 'TV_OFFER')
 				{
 					$thisItemQty = 1;
+					$hasLTDPriceSet = false;
 				}
 				else
 				{
@@ -1579,7 +1581,7 @@ class COrders extends DAO_Orders
 				}
 				CLog::Assert(isset($thisItem), "Bundle Item $id not found in COrder::items");
 
-				$sumStorePrice += (self::getStorePrice($this->mark_up, $thisItem, 1, true) * $thisItemQty);
+				$sumStorePrice += (self::getStorePrice($this->mark_up, $thisItem, 1, $hasLTDPriceSet) * $thisItemQty);
 			}
 		}
 
@@ -5129,7 +5131,7 @@ class COrders extends DAO_Orders
 
 				if ((isset($mi_obj->is_side_dish) && $mi_obj->is_side_dish) || $mi_obj->menu_item_category_id == 9)
 				{
-					$this->pcal_sidedish_total += self::getStorePrice($this->mark_up, $mi_obj, $qty);
+					$this->pcal_sidedish_total += self::getStorePrice($this->mark_up, $mi_obj, $qty,true);
 				}
 
 				if (isset($mi_obj->is_preassembled) && $mi_obj->is_preassembled)
