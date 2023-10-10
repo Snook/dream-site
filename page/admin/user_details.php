@@ -452,7 +452,11 @@ class page_admin_user_details extends CPageAdminOnly
 
 			$isObserveOnlyAccount = $User->is_partial_account;
 
-			$PlatePointsStatus = CPointsUserHistory::getPlatePointsStatus($currentStore, $User);
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->id = $currentStore;
+			$DAO_store->find(true);
+
+			$PlatePointsStatus = CPointsUserHistory::getPlatePointsStatus($DAO_store, $User);
 			$MembershipStatus = $User->getMembershipStatus();
 			$userIsPreferredSomewhere = $User->isUserPreferred();
 
