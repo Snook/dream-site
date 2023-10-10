@@ -24,7 +24,7 @@
 							<option value="">Show All</option>
 							<option value="home_office_managed">Home Office Managed</option>
 							<option value="home_office_managed_not">Not Home Office Managed</option>
-							<?php foreach (CStore::getSiteNoticeMenu(true) AS $state => $stateArray) { ?>
+							<?php foreach (CStore::getSiteNoticeMenu(true, ture, false, $this->isHomeOffice) AS $state => $stateArray) { ?>
 								<optgroup label="<?php echo $state; ?>">
 									<?php foreach ($stateArray['stores'] AS $store) { ?>
 										<option value="<?php echo $store['id']; ?>"><?php echo $store['store_name']; ?></option>
