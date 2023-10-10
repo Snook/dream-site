@@ -5,14 +5,18 @@ class page_admin_manage_site_notice extends CPageAdminOnly {
 
 	private $currentStore = null;
 	private $singleStore = false;
+	private $isHomeOffice = false;
+
 
 	function runHomeOfficeManager()
 	{
+		$this->isHomeOffice = true;
 		$this->runSiteNotice();
 	}
 
 	function runSiteAdmin()
 	{
+		$this->isHomeOffice = true;
 		$this->runSiteNotice();
 	}
 
@@ -44,6 +48,7 @@ class page_admin_manage_site_notice extends CPageAdminOnly {
 		$noticeJS = (!empty($maintenance_array) ? json_encode(array_values($maintenance_array)) : "{}");
 		$storesJS = json_encode($storearray);
 
+		$tpl->assign('isHomeOffice', $this->isHomeOffice);
 		$tpl->assign('manageSingleStore', $this->singleStore);
 		$tpl->assign('time_now', $time_now);
 		$tpl->assign('maintenance_array', $maintenance_array);

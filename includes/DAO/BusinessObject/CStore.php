@@ -1983,9 +1983,15 @@ class CStore extends DAO_Store
 		return $maintenance_array;
 	}
 
-	static function getSiteNoticeMenu($active_only = false, $by_state = true, $fields = false)
+	static function getSiteNoticeMenu($active_only = false, $by_state = true, $fields = false, $includeHomeOfficeManaged = false)
 	{
 		$Maint = DAO_CFactory::create('site_message');
+
+		$hoClause = " AND sm.home_office_managed = '0' ";
+		if($includeHomeOfficeManaged)
+		{
+			$hoClause = '';
+		}
 		$Maint->query("SELECT
 			st.id,
 			st.store_name
@@ -1993,7 +1999,7 @@ class CStore extends DAO_Store
 			LEFT JOIN site_message_to_store AS smts ON smts.site_message_id = sm.id AND smts.is_deleted = '0'
 			LEFT JOIN store AS st ON st.id = smts.store_id
 			WHERE sm.is_deleted = '0' and sm.message_type <> 'SESSION_TYPE_DESC'
-		  	AND sm.home_office_managed = '0'
+		  	$hoClause
 			GROUP BY st.id
 			ORDER BY st.store_name ASC");
 
