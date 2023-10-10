@@ -5131,7 +5131,7 @@ class COrders extends DAO_Orders
 
 				if ((isset($mi_obj->is_side_dish) && $mi_obj->is_side_dish) || $mi_obj->menu_item_category_id == 9)
 				{
-					$this->pcal_sidedish_total += self::getStorePrice($this->mark_up, $mi_obj, $qty,true);
+					$this->pcal_sidedish_total += self::getStorePrice($this->mark_up, $mi_obj, $qty);
 				}
 
 				if (isset($mi_obj->is_preassembled) && $mi_obj->is_preassembled)
