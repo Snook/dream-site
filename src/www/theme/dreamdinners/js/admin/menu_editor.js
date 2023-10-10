@@ -71,7 +71,11 @@ function clearErrors()
 	let statusDiv = document.getElementById('errorMsg');
 	statusDiv.style.display = 'none';
 	let statusTextDiv = document.getElementById('errorMsgText');
-	statusTextDiv.innerHTML = "";
+	if(typeof statusTextDiv !== 'undefined' && statusTextDiv != null)
+	{
+		statusTextDiv.innerHTML = "";
+	}
+
 }
 
 function storeChange(obj)
