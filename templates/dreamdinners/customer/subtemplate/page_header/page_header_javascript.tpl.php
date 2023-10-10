@@ -16,13 +16,6 @@ if(isset($this->head_script))
 	gtag('config', '<?php echo GOOGLE_ANALYTICS_ID; ?>', {'user_id': '<?php echo CUser::getCurrentUser()->id; ?>' });
 	gtag('config', 'UA-425666-1');
 </script>
-
-<script type="text/javascript">
-	var _iub = _iub || [];
-	_iub.csConfiguration = {"cookiePolicyInOtherWindow":true,"countryDetection":true,"enableGdpr":false,"enableUspr":true,"lang":"en","siteId":1685553,"showBannerForUS":true,"usprPurposes":"s,sh,adv","whitelabel":false,"cookiePolicyId":48982534, "banner":{ "backgroundColor":"#4c4c4c","closeButtonRejects":true,"position":"float-bottom-left","textColor":"white" }};
-</script>
-<script type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
-<script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
 <?php } ?>
 <?php if (defined('ENABLE_HELP_SEARCH') && ENABLE_HELP_SEARCH == true) { ?>
 <script>

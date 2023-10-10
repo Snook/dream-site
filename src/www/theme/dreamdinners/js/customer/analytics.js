@@ -225,19 +225,18 @@ var _etmc = _etmc || []; // salesforce
 		}
 
 		// iUbenda
-		// _iub.csConfiguration = {"cookiePolicyInOtherWindow":true,"priorConsent":false,"consentOnScroll":false,"lang":"en","siteId":1685553,"gdprAppliesGlobally":false,"enableCcpa":true,"countryDetection":true,"cookiePolicyId":48982534,"cookiePolicyUrl":"/cookies", "banner":{ "position":"bottom","textColor":"white","backgroundColor":"#4c4c4c" }};
-		//
-		// (function() {
-		// 	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		// 	ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.iubenda.com/cs/iubenda_cs.js';
-		// 	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		// })();
-		//
-		// (function() {
-		// 	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		// 	ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.iubenda.com/cs/ccpa/stub.js';
-		// 	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		// })();
+		_iub.csConfiguration = {"cookiePolicyInOtherWindow":true,"countryDetection":true,"enableGdpr":false,"enableUspr":true,"lang":"en","siteId":1685553,"showBannerForUS":true,"usprPurposes":"s,sh,adv","whitelabel":false,"cookiePolicyId":48982534, "banner":{"backgroundColor":"#4c4c4c","closeButtonRejects":true,"position":"float-bottom-left","textColor":"white"}};
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = false;
+			ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.iubenda.com/cs/gpp/stub.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.charset = 'UTF-8';
+			ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.iubenda.com/cs/iubenda_cs.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
 
 		// salesforce
 		(function() {
