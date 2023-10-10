@@ -1574,10 +1574,8 @@ function displayValidationErrorMsg(msg)
 
 function clearErrors()
 {
-	var statusDiv = document.getElementById('errorMsg');
-	statusDiv.style.display = 'none';
-	statusTextDiv = document.getElementById('errorMsgText');
-	statusTextDiv.innerHTML = "";
+	$('#errorMsgText').html('');
+	$('#errorMsg').hideFlex();
 }
 
 function storeChange(obj)
