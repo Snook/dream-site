@@ -390,6 +390,7 @@ class page_admin_manage_bundle extends CPageAdminOnly
 		$Form->addElement(array(
 			CForm::type => CForm::Number,
 			CForm::disabled => (empty($menuItemArray) ? true : false),
+			CForm::step => '0.01',
 			CForm::name => 'price'
 		));
 
