@@ -38,7 +38,6 @@ class processor_cart_modify_plate_points_credits extends CPageProcessor
 
 		$CartObj = CCart2::instance();
 		$DAO_orders = $CartObj->getOrder();
-		$DAO_store = $DAO_orders->getStoreObj();
 		$DAO_user = $DAO_orders->getUser();
 
 		$coupon = $DAO_orders->getCoupon();
@@ -64,10 +63,13 @@ class processor_cart_modify_plate_points_credits extends CPageProcessor
 			$amountRequested = $maxDeduction;
 		}
 
-		$platePointsStatus = CPointsUserHistory::getPlatePointsStatus($DAO_store, $DAO_user);
-
 		$DAO_orders->points_discount_total = $amountRequested;
 		$DAO_orders->refresh($DAO_user);
+
+		$DAO_store = $DAO_orders->getStoreObj();
+
+		$platePointsStatus = CPointsUserHistory::getPlatePointsStatus($DAO_store, $DAO_user);
+
 		$DAO_orders->recalculate(false, false, false, $platePointsStatus['userIsOnHold']);
 		$CartObj->addOrder($DAO_orders);
 

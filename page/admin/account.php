@@ -290,7 +290,11 @@ class page_admin_account extends CPageAdminOnly {
 		//set template vars
 		if (!empty($fadminStoreID))
 		{
-			$platePointsStatus = CPointsUserHistory::getPlatePointsStatus($fadminStoreID, $User);
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->id = $fadminStoreID;
+			$DAO_store->find(true);
+
+			$platePointsStatus = CPointsUserHistory::getPlatePointsStatus($DAO_store, $User);
 		}
 		else
 		{

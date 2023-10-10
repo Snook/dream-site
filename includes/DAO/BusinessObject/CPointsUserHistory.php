@@ -498,53 +498,30 @@ class CPointsUserHistory extends DAO_Points_user_history
 		return $retVal;
 	}
 
-	static function getPlatePointsStatus($store, $user)
+	static function getPlatePointsStatus($DAO_store, $DAO_user)
 	{
-
-		if (!is_object($store))
+		if (!is_object($DAO_store))
 		{
-			if (!is_numeric($store))
-			{
-				throw new Exception("invalid store passed to getPlatePointsStatus");
-			}
-
-			$storeObj = DAO_CFactory::create('store');
-			$storeObj->query("select id, supports_plate_points from store where id = $store");
-			$storeObj->fetch();
-
-			$store = $storeObj;
+			throw new Exception("Invalid store object passed to getPlatePointsStatus");
 		}
 
-		if (!is_object($user))
+		if (!is_object($DAO_user))
 		{
-			if (!is_numeric($user))
-			{
-				throw new Exception("invalid user passed to getPlatePointsStatus");
-			}
-
-			$userObj = DAO_CFactory::create('user');
-			$userObj->query("select id, home_store_id, dream_reward_status, dream_rewards_version, has_opted_out_of_plate_points from user where id = $user");
-			$userObj->fetch();
-
-			$user = $userObj;
+			throw new Exception("Invalid user object passed to getPlatePointsStatus");
 		}
 
-		$userIsPreferred = $user->isUserPreferred();
-
-		$retVal = array(
-			'storeSupportsPlatePoints' => $store->supports_plate_points,
-			'transitionPeriodHasExpired' => CStore::hasPlatePointsTransitionPeriodExpired($store->id),
-			'userIsEnrolled' => self::userIsActiveInProgram($user),
-			'userIsEligibleForDRConversion' => ($user->dream_rewards_version == 2 && $user->dream_reward_status > 0),
-			'userIsPreferred' => $userIsPreferred,
-			'userIsNotInRewardProgram' => ($user->dream_reward_status != 1 && $user->dream_reward_status != 3),
-			'userIsOnHold' => $user->dream_reward_status == 5,
-			'user_has_opted_out_of_plate_points' => $user->has_opted_out_of_plate_points == 1,
-			'userHasHomeStore' => !empty($user->home_store_id),
-			'userAtHomeStore' => ($store->id == $user->home_store_id)
+		return array(
+			'storeSupportsPlatePoints' => $DAO_store->supports_plate_points,
+			'transitionPeriodHasExpired' => CStore::hasPlatePointsTransitionPeriodExpired($DAO_store->id),
+			'userIsEnrolled' => self::userIsActiveInProgram($DAO_user),
+			'userIsEligibleForDRConversion' => ($DAO_user->dream_rewards_version == 2 && $DAO_user->dream_reward_status > 0),
+			'userIsPreferred' => $DAO_user->isUserPreferred(),
+			'userIsNotInRewardProgram' => ($DAO_user->dream_reward_status != 1 && $DAO_user->dream_reward_status != 3),
+			'userIsOnHold' => $DAO_user->dream_reward_status == 5,
+			'user_has_opted_out_of_plate_points' => $DAO_user->has_opted_out_of_plate_points == 1,
+			'userHasHomeStore' => !empty($DAO_user->home_store_id),
+			'userAtHomeStore' => ($DAO_store->id == $DAO_user->home_store_id)
 		);
-
-		return $retVal;
 	}
 
 	static function getReceivedOrderBasedGifts($user_id)

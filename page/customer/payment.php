@@ -686,7 +686,7 @@ class page_payment extends CPage
 		//build payment form
 		self::buildPaymentForm($Form, null, $Order, $Order->getStore(), $DR_Ordering, $hasCreditCardPayment, $allowDelayedPayment);
 
-		$platePointsStatus = CPointsUserHistory::getPlatePointsStatus($Order->store_id, CUser::getCurrentUser());
+		$platePointsStatus = CPointsUserHistory::getPlatePointsStatus($OrderStore, CUser::getCurrentUser());
 
 		if (isset($_POST['enroll_in_plate_points']))
 		{
