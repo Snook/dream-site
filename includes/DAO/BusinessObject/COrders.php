@@ -1202,19 +1202,9 @@ class COrders extends DAO_Orders
 
 	function getSessionObj($doLookup = false)
 	{
-		if (isset($this->session))
+		if (is_object($this->session))
 		{
 			return $this->session;
-		}
-
-		if (!empty($this->session->id))
-		{
-			$Session = DAO_CFactory::create('session');
-			$Session->id = $this->session->id;
-			$Session->find(true);
-			$this->session = $Session;
-
-			return $Session;
 		}
 
 		if ($doLookup)
