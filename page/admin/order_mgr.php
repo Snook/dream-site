@@ -298,6 +298,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			// TODO: reconstruct should one day also reconstruct any products from the original order.
 			// as of 7/13/09 the only products are the dfl subscriptions. We will handle those specifically for now.
 			$this->originalOrder->reconstruct($this->orderState != 'SAVED');
+			$this->originalOrder->recalculate(true);
 
 			// TODO: update order number when deploying to most recent order
 			if ($this->originalOrder->id < FIRST_PLATE_POINTS_1_1_ORDER_ID)
