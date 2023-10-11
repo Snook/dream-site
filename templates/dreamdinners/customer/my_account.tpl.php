@@ -1,5 +1,7 @@
 <?php $this->setScript('foot', SCRIPT_PATH . '/customer/vendor/clipboard/clipboard.min.js'); ?>
+<?php $this->setScript('foot', SCRIPT_PATH . '/customer/my_account.min.js'); ?>
 <?php $this->assign('page_title','My Account Summary'); ?>
+<?php $this->setOnload('my_account_init();'); ?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
 
 	<header class="container my-5">
@@ -242,6 +244,20 @@
 								<p>Want to introduce your friends to Dream Dinners with a party? Looking to raise money for a local nonprofit with a fundraiser? At Dream Dinners, we have several different events to meet your needs.</p>
 								<p class="text-uppercase">Contact your local store</p>
 								<p><?php echo $this->store['telephone_day']; ?></p>
+							</div>
+						</div>
+					<?php } ?>
+				</div>
+			<?php } ?>
+			<?php if (!$this->is_delivered_only) { ?>
+				<div class="col-xl-6 mb-2 bg-gray-light">
+					<?php if (!empty($this->usersFuturePastEvents['myRsvp'])) { ?>
+						<div class="row pt-2">
+							<div class="col-md-12">
+								<h5 class="font-weight-bold text-uppercase">My RSVPS</h5>
+								<?php foreach ($this->usersFuturePastEvents['myRsvp'] as $id => $event) { ?>
+									<?php include $this->loadTemplate('customer/subtemplate/my_account/my_account_my_rsvps_upcoming.tpl.php'); ?>
+								<?php } ?>
 							</div>
 						</div>
 					<?php } ?>
