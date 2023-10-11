@@ -4371,28 +4371,6 @@ class COrders extends DAO_Orders
 		}
 	}
 
-
-	// TEMP function for help back-filling new pre-calculated totals
-	// Can be deleted after Plate Points 3.0 is wrapped up
-	public function tempReCalc()
-	{
-		$this->reconstruct();
-		$this->calculateBasePrice();
-		if (!empty($this->mark_up_multi_id))
-		{
-			$markup = DAO_CFactory::create('mark_up_multi');
-			$markup->id = $this->mark_up_multi_id;
-			if (!$markup->find_includeDeleted(true))
-			{
-				throw new Exception('markup not found when setting up order editor for order:' . $this->originalOrder->id);
-			}
-
-			$this->mark_up = $markup;
-		}
-
-		$this->calculateOtherTotals();
-	}
-
 	/**
 	 * Call this to recalculate all totals and apply adjustments
 	 */

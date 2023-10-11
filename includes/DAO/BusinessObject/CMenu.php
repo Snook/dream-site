@@ -410,7 +410,6 @@ class CMenu extends DAO_Menu
 			$DAO_order_item = DAO_CFactory::create('order_item', true);
 			$DAO_order_item->whereAdd("order_id IN (" . implode(',', $optionsArray['join_order_item_order_id']) . ")");
 			$DAO_booking = DAO_CFactory::create('booking', true);
-			$DAO_booking->status = CBooking::ACTIVE;
 			$DAO_session = DAO_CFactory::create('session', true);
 			$DAO_booking->joinAddWhereAsOn($DAO_session);
 			$DAO_order_item->joinAddWhereAsOn($DAO_booking);
