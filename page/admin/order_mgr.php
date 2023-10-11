@@ -2875,10 +2875,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				'orderInfo' => array('grand_total' => 0),
 				'paymentInfo' => array(),
 				'sessionInfo' => array(),
-				'storeInfo' => array(
-					'store_name' => $this->daoStore->store_name,
-					'default_bag_fee' => $this->daoStore->default_bag_fee
-				)
+				'storeInfo' => $this->daoStore->toArray()
 			);
 		}
 
@@ -2897,6 +2894,9 @@ class page_admin_order_mgr extends CPageAdminOnly
 			CForm::name => 'autoAdjust',
 			CForm::label => '<span id="OEH_auto_pay_msg"></span>'
 		));
+
+		$tpl->assign('planArray', false);
+		$tpl->assign('menuInfo', false);
 
 		if ($this->orderState != 'NEW')
 		{
