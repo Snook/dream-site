@@ -75,7 +75,14 @@ class processor_location_search extends CPage
 				{
 					$distance = distance($req_latitude, $req_longitude, $DAO_store->address_latitude, $DAO_store->address_longitude);
 
-					if ($distance < 50.0)
+					$allowed_distance = 50;
+
+					if ($DAO_store->id = 80)
+					{
+						$allowed_distance = 100;
+					}
+
+					if ($distance < $allowed_distance)
 					{
 						$rawList[$DAO_store->id] = $DAO_store->toArray();
 						$rawList[$DAO_store->id]['DAO_store'] = clone $DAO_store;
@@ -177,7 +184,14 @@ class processor_location_search extends CPage
 				{
 					$distance = distance($Zip->latitude, $Zip->longitude, $DAO_store->DAO_zipcodes->latitude, $DAO_store->DAO_zipcodes->longitude);
 
-					if ($distance < 50.0)
+					$allowed_distance = 50;
+
+					if ($DAO_store->id = 80)
+					{
+						$allowed_distance = 100;
+					}
+
+					if ($distance < $allowed_distance)
 					{
 						$rawList[$DAO_store->id] = $DAO_store->toArray();
 						$rawList[$DAO_store->id]['DAO_store'] = clone $DAO_store;
