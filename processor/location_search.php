@@ -77,7 +77,7 @@ class processor_location_search extends CPage
 
 					$allowed_distance = 50;
 
-					if ($DAO_store->id = 80)
+					if ($DAO_store->id == 80)
 					{
 						$allowed_distance = 100;
 					}
@@ -186,7 +186,7 @@ class processor_location_search extends CPage
 
 					$allowed_distance = 50;
 
-					if ($DAO_store->id = 80)
+					if ($DAO_store->id == 80)
 					{
 						$allowed_distance = 100;
 					}
