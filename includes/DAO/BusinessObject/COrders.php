@@ -114,6 +114,87 @@ class COrders extends DAO_Orders
 		parent::__construct();
 	}
 
+	function find_DAO_orders($n = false)
+	{
+		if ($this->_query["data_select"] === "*")
+		{
+			throw new Exception("When creating this object, second parameter in DAO_CFactory::create() needs to be 'true'");
+		}
+
+		$DAO_booking = DAO_CFactory::create('booking', true);
+		$DAO_booking->whereAdd("booking.status = 'ACTIVE' OR booking.status = 'SAVED' OR booking.status = 'CANCELLED'");
+
+		$DAO_session = DAO_CFactory::create('session', true);
+		$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('menu', true));
+		$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('store', true));
+
+		$DAO_session_discount = DAO_CFactory::create('session_discount', true);
+		$DAO_session_discount->unsetProperty('is_deleted'); // make sure to join deleted rows to account for edited sessions
+		$DAO_session->joinAddWhereAsOn($DAO_session_discount, 'LEFT');
+
+		$DAO_session_properties = DAO_CFactory::create('session_properties', true);
+
+		$DAO_dream_taste_event_properties = DAO_CFactory::create('dream_taste_event_properties', true);
+		$DAO_dream_taste_event_properties->joinAddWhereAsOn(DAO_CFactory::create('dream_taste_event_theme', true), 'LEFT');
+		$DAO_session_properties->joinAddWhereAsOn($DAO_dream_taste_event_properties, 'LEFT');
+
+		$DAO_store_to_fundraiser = DAO_CFactory::create('store_to_fundraiser', true);
+		$DAO_fundraiser = DAO_CFactory::create('fundraiser', true);
+		$DAO_store_to_fundraiser->joinAddWhereAsOn($DAO_fundraiser, 'LEFT', 'session_fundraiser');
+		$DAO_session_properties->joinAddWhereAsOn($DAO_store_to_fundraiser, 'LEFT');
+
+		$DAO_session_properties->joinAddWhereAsOn(DAO_CFactory::create('store_pickup_location', true), 'LEFT');
+
+		$DAO_session->joinAddWhereAsOn($DAO_session_properties, 'LEFT');
+
+		$DAO_booking->joinAddWhereAsOn($DAO_session);
+
+		$this->joinAddWhereAsOn($DAO_booking);
+
+		$DAO_user = DAO_CFactory::create('user', true);
+		$DAO_user->unsetProperty('is_deleted'); // ability to look up orders with deleted users
+		$this->joinAddWhereAsOn($DAO_user);
+
+		$this->joinAddWhereAsOn(DAO_CFactory::create('bundle', true), 'LEFT');
+		$this->joinAddWhereAsOn(DAO_CFactory::create('coupon_code', true), 'LEFT');
+		$this->joinAddWhereAsOn(DAO_CFactory::create('fundraiser', true), 'LEFT');
+		$this->joinAddWhereAsOn(DAO_CFactory::create('mark_up', true), 'LEFT');
+		$this->joinAddWhereAsOn(DAO_CFactory::create('mark_up_multi', true), 'LEFT');
+		$this->joinAddWhereAsOn(DAO_CFactory::create('user_preferred', true), 'LEFT');
+
+		return parent::find($n);
+	}
+
+	function fetch_DAO_order_item_Array()
+	{
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->id = $this->DAO_menu->id;
+		$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
+			'join_order_item_order_id' => array($this->id),
+			'menu_to_menu_item_store_id' => $this->DAO_store->id,
+			'exclude_menu_item_category_core' => false,
+			'exclude_menu_item_category_efl' => false,
+			'exclude_menu_item_category_sides_sweets' => false
+		));
+
+		while($DAO_menu_item->fetch())
+		{
+			$this->DAO_order_item_Array[$DAO_menu_item->id] = clone $DAO_menu_item;
+		}
+	}
+
+	function fetch_DAO_payment_Array()
+	{
+		$DAO_payment = DAO_CFactory::create('payment', true);
+		$DAO_payment->order_id = $this->id;
+		$DAO_payment->find();
+
+		while($DAO_payment->fetch())
+		{
+			$this->DAO_payment_Array[$DAO_payment->id] = clone $DAO_payment;
+		}
+	}
+
 	// use passed in counts if provided otherwise use the item list of the Order object if provided
 	public static function getNumberBagsRequiredFromItems($orderObj, $entreeCount = false, $sidesCount = false)
 	{

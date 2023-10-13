@@ -1,6 +1,7 @@
 <?php
 
 require_once 'includes/CLog.inc';
+require_once 'includes/api/shipping/shipstation/ShipStationOrderResponseWrapper.php';
 
 /**
  * Wrapper Translate from DD Order to
@@ -27,13 +28,17 @@ class ShipStationOrderWrapper
 
 	private $shipWeightRollup = 0;
 
-	//from listAccountTags()[{"tagId":46183,"name":"ATTENTION - Unassigned Facility","color":"#00FF00"},{"tagId":46419,"name":"Mobile AL","color":"#CC99FF"},{"tagId":43541,"name":"Rochester Hills MI","color":"#FF0000"},{"tagId":43540,"name":"Salt Lake City UT","color":"#0000FF"}]
-
-
+	//from API ShipStationManager->listAccountTags()[{"tagId":46183,"name":"ATTENTION - Unassigned Facility","color":"#00FF00"},{"tagId":46419,"name":"Mobile AL","color":"#CC99FF"},{"tagId":43541,"name":"Rochester Hills MI","color":"#FF0000"},{"tagId":43540,"name":"Salt Lake City UT","color":"#0000FF"}]
+	//**NOT currently used, was used for marking-up orders in the old instance of Shipstation when all stores shared a single instance
 	private $ds_tags = array('310'=>array('tagId'=>46419, 'ssName'=>'Mobile AL', 'warehouseId' =>97052 ),
 							 '312'=>array('tagId'=>43541, 'ssName'=>'Rochester Hills MI', 'warehouseId' =>63108),
 							 '311'=>array('tagId'=>43540, 'ssName'=>'Salt Lake City UT', 'warehouseId' =>90212));
 
+	//dd store id to ss store id for manual order store in each shipstation instance
+	//from API ShipStationManager->listStores()
+	private $ssStoreIds = array('313'=>198889,
+							    '314'=>198821,
+							    '315'=>199066);
 
 
 
@@ -64,10 +69,13 @@ class ShipStationOrderWrapper
 	public static function instanceFromShipstationResponse($shipStationJson){
 		$ordersCollection = json_decode($shipStationJson);
 
+		$result = array();
 		foreach ( $ordersCollection->orders as $order)
 		{
-			echo $order->orderNumber;
+			$result[] = new ShipStationOrderResponseWrapper($order);
 		}
+
+		return $result;
 	}
 
 	private function mapOrder()
@@ -115,7 +123,7 @@ class ShipStationOrderWrapper
 			"city" => $billing->city,
 			"state" => $billing->state_id,
 			"postalCode" => $billing->postal_code,
-			"country" => $billing->coutry_id,
+			"country" => $billing->country_id,
 			"residential" => true
 		);
 
@@ -126,7 +134,7 @@ class ShipStationOrderWrapper
 			"city" => $this->hydratedOrderObj->orderAddress->city,
 			"state" => $this->hydratedOrderObj->orderAddress->state_id,
 			"postalCode" => $this->hydratedOrderObj->orderAddress->postal_code,
-			"country" => $this->hydratedOrderObj->orderAddress->county_id,
+			"country" => $this->hydratedOrderObj->orderAddress->country_id,
 			"phone" => $this->hydratedOrderObj->orderAddress->telephone_1,
 			"residential" => true
 		);
@@ -143,15 +151,16 @@ class ShipStationOrderWrapper
 
 
 		$this->ssOrder->advancedOptions= array(
-			"warehouseId"=>$this->translateStoreIdToWarehouseId($storeObj->id),
-			"storeId"=> 125909,//Manual Orders Store in SS
+			//"warehouseId"=>$this->translateStoreIdToWarehouseId($storeObj->id),
+			"storeId"=> $this->translateDDStoreIdToSSStoreId($storeObj->id),//125909,//Manual Orders Store in SS
 			"customField1"=> $couponCode,
 			"customField2"=> $this->hydratedOrderObj->orderShipping->requested_delivery_date,
 			"customField3"=> $storeObj->store_name,
 			"source"=> "Main Website"
 		);
 
-		$this->ssOrder->tagIds = $this->translateStoreIdToTagId($storeObj->id);
+		//Was used when all stores used same shipstation instance
+		//$this->ssOrder->tagIds = $this->translateStoreIdToTagId($storeObj->id);
 	}
 
 	private function fetchBoxOrderItemInformation($orderId, $location){
@@ -236,7 +245,15 @@ class ShipStationOrderWrapper
 		return $result;
 	}
 
+	private function translateDDStoreIdToSSStoreId($storeId){
+		if(!empty($storeId)){
+			return $this->ssStoreIds[$storeId];
+		}
 
+		CLog::RecordNew(CLog::ERROR, "Error occurred in ShipStationOrderWrapper.translateDDStoreIdToSSStoreId for storeID = {$storeId};", "", "", true);
+
+		return null;
+	}
 	private function translateStoreIdToWarehouseId($storeId){
 		if( defined('SHIPSTATION_TEST_ORDER_WHAREHOUSEID')){
 			return SHIPSTATION_TEST_ORDER_WHAREHOUSEID;
