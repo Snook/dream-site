@@ -14,7 +14,7 @@
 
 <?php $isSiteAdmin = ($this->form_login['user_type'] == 'SITE_ADMIN' || (isset($this->siteadminoverride) == true && $this->siteadminoverride == true)); ?>
 
-	<form action="" method="post" onSubmit="return override_check_form(event, this);" >
+	<form action="" method="post" class="needs-validation" novalidate>
 
 		<?php if (isset($this->form_store_details['hidden_html'])) echo $this->form_store_details['hidden_html'];?>
 
