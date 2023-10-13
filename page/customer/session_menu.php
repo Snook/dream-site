@@ -67,6 +67,10 @@ class page_session_menu extends CPage
 					$DAO_store = $CartObj->getOrder()->getStore();
 				}
 			}
+			else
+			{
+				CApp::bounce('/locations');
+			}
 		}
 
 		$result = $CartObj->cart_sanity_check('session_menu');
