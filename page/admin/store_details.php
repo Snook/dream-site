@@ -193,7 +193,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::Text,
 					CForm::disabled => false,
 					CForm::name => "store_name",
-					CForm::dd_required => true,
+					CForm::required => true,
 					CForm::size => 40
 				));
 
@@ -201,7 +201,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::Text,
 					CForm::disabled => false,
 					CForm::name => "vertical_response_code",
-					CForm::dd_required => false,
+					CForm::required => false,
 					CForm::size => 12
 				));
 
@@ -209,7 +209,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::EMail,
 					CForm::disabled => false,
 					CForm::name => "email_address",
-					CForm::dd_required => true,
+					CForm::required => true,
 					CForm::email => true,
 					CForm::length => 50
 				));
@@ -225,7 +225,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::Text,
 					CForm::disabled => false,
 					CForm::name => "address_line1",
-					CForm::dd_required => true,
+					CForm::required => true,
 					CForm::size => 40
 				));
 
@@ -233,7 +233,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::Text,
 					CForm::disabled => false,
 					CForm::name => "address_line2",
-					CForm::dd_required => false,
+					CForm::required => false,
 					CForm::size => 40
 				));
 
@@ -241,7 +241,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::Text,
 					CForm::disabled => false,
 					CForm::name => "city",
-					CForm::dd_required => true,
+					CForm::required => true,
 					CForm::size => 40
 				));
 
@@ -256,7 +256,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::Text,
 					CForm::disabled => false,
 					CForm::name => "postal_code",
-					CForm::dd_required => true,
+					CForm::required => true,
 					CForm::size => 10
 				));
 
@@ -271,7 +271,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::TextArea,
 					CForm::disabled => false,
 					CForm::name => "address_directions",
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
@@ -279,7 +279,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::disabled => false,
 					CForm::name => 'address_latitude',
 					CForm::css_class => 'gllpLatitude',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
@@ -287,14 +287,14 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::disabled => false,
 					CForm::name => 'address_longitude',
 					CForm::css_class => 'gllpLongitude',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
 					CForm::type => CForm::Tel,
 					CForm::disabled => false,
 					CForm::name => 'telephone_day',
-					CForm::dd_required => true,
+					CForm::required => true,
 					CForm::css_class => 'telephone',
 					CForm::length => 18
 				));
@@ -304,7 +304,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::disabled => false,
 					CForm::name => 'telephone_evening',
 					CForm::css_class => 'telephone',
-					CForm::dd_required => true,
+					CForm::required => false,
 					CForm::length => 18
 				));
 
@@ -313,7 +313,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::disabled => false,
 					CForm::name => 'telephone_sms',
 					CForm::css_class => 'telephone',
-					CForm::dd_required => false,
+					CForm::required => false,
 					CForm::length => 18
 				));
 
@@ -322,6 +322,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::disabled => false,
 					CForm::name => 'fax',
 					CForm::css_class => 'telephone',
+					CForm::required => false,
 					CForm::length => 18
 				));
 
@@ -329,42 +330,42 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::Text,
 					CForm::disabled => false,
 					CForm::name => 'google_place_id',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
 					CForm::type => CForm::Text,
 					CForm::disabled => false,
 					CForm::name => 'social_twitter',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
 					CForm::type => CForm::Text,
 					CForm::disabled => false,
 					CForm::name => 'social_facebook',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
 					CForm::type => CForm::Text,
 					CForm::disabled => false,
 					CForm::name => 'social_instagram',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
 					CForm::type => CForm::StatesProvinceDropDown,
 					CForm::disabled => false,
 					CForm::name => 'state_id',
-					CForm::dd_required => true
+					CForm::required => true
 				));
 
 				$Form->AddElement(array(
 					CForm::type => CForm::OpcoDropDown,
 					CForm::disabled => false,
 					CForm::name => 'opco_id',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
@@ -372,7 +373,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::disabled => false,
 					CForm::name => 'medium_ship_cost',
 					CForm::step => '.01',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
@@ -380,14 +381,14 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::disabled => false,
 					CForm::name => 'large_ship_cost',
 					CForm::step => '.01',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
 					CForm::type => CForm::Number,
 					CForm::disabled => false,
 					CForm::name => 'default_delivered_sessions',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
@@ -408,7 +409,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::name => 'delivery_fee',
 					CForm::min => 0,
 					CForm::step => 0.01,
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
@@ -417,7 +418,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::name => 'default_bag_fee',
 					CForm::min => 0,
 					CForm::step => 0.01,
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
@@ -465,7 +466,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::disabled => false,
 					CForm::name => 'medium_ship_cost',
 					CForm::step => '.01',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
@@ -473,13 +474,13 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::disabled => false,
 					CForm::name => 'large_ship_cost',
 					CForm::step => '.01',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 				$Form->AddElement(array(
 					CForm::type => CForm::Number,
 					CForm::disabled => false,
 					CForm::name => 'default_delivered_sessions',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
@@ -488,7 +489,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::name => 'delivery_fee',
 					CForm::min => 0,
 					CForm::step => 0.01,
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
@@ -503,7 +504,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::name => 'default_bag_fee',
 					CForm::min => 0,
 					CForm::step => 0.01,
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
@@ -531,7 +532,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::Text,
 					CForm::disabled => true,
 					CForm::name => "address_line1",
-					CForm::dd_required => true,
+					CForm::required => true,
 					CForm::size => 40
 				));
 
@@ -539,7 +540,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::Text,
 					CForm::disabled => true,
 					CForm::name => "address_line2",
-					CForm::dd_required => false,
+					CForm::required => false,
 					CForm::size => 40
 				));
 
@@ -547,7 +548,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::Text,
 					CForm::disabled => true,
 					CForm::name => "city",
-					CForm::dd_required => true,
+					CForm::required => true,
 					CForm::size => 40
 				));
 
@@ -562,7 +563,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::Text,
 					CForm::disabled => true,
 					CForm::name => "postal_code",
-					CForm::dd_required => true,
+					CForm::required => true,
 					CForm::size => 10
 				));
 
@@ -577,7 +578,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::TextArea,
 					CForm::disabled => true,
 					CForm::name => "address_directions",
-					CForm::dd_required => false,
+					CForm::required => false,
 					CForm::css_class => 'previewable'
 				));
 
@@ -586,7 +587,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::disabled => true,
 					CForm::name => 'address_latitude',
 					CForm::css_class => 'gllpLatitude',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
@@ -594,14 +595,14 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::disabled => true,
 					CForm::name => 'address_longitude',
 					CForm::css_class => 'gllpLongitude',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
 					CForm::type => CForm::Tel,
 					CForm::disabled => true,
 					CForm::name => 'telephone_day',
-					CForm::dd_required => true,
+					CForm::required => true,
 					CForm::css_class => 'telephone',
 					CForm::length => 18
 				));
@@ -611,7 +612,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::disabled => true,
 					CForm::name => 'telephone_evening',
 					CForm::css_class => 'telephone',
-					CForm::dd_required => true,
+					CForm::required => true,
 					CForm::length => 18
 				));
 
@@ -620,7 +621,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::disabled => false,
 					CForm::name => 'telephone_sms',
 					CForm::css_class => 'telephone',
-					CForm::dd_required => false,
+					CForm::required => false,
 					CForm::length => 18
 				));
 
@@ -636,35 +637,35 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::Text,
 					CForm::disabled => false,
 					CForm::name => 'google_place_id',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
 					CForm::type => CForm::Text,
 					CForm::disabled => false,
 					CForm::name => 'social_twitter',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
 					CForm::type => CForm::Text,
 					CForm::disabled => false,
 					CForm::name => 'social_facebook',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
 					CForm::type => CForm::Text,
 					CForm::disabled => false,
 					CForm::name => 'social_instagram',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 
 				$Form->AddElement(array(
 					CForm::type => CForm::StatesProvinceDropDown,
 					CForm::disabled => true,
 					CForm::name => 'state_id',
-					CForm::dd_required => true
+					CForm::required => true
 				));
 			}
 
@@ -674,7 +675,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::Text,
 					CForm::disabled => $disabledForm,
 					CForm::name => "home_office_id",
-					CForm::dd_required => true,
+					CForm::required => true,
 					CForm::length => 40
 				));
 
@@ -688,7 +689,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::Text,
 					CForm::disabled => $disabledForm,
 					CForm::name => "gp_account_id",
-					CForm::dd_required => true,
+					CForm::required => true,
 					CForm::length => 40
 				));
 
@@ -696,7 +697,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::Text,
 					CForm::disabled => $disabledForm,
 					CForm::name => "door_dash_id",
-					CForm::dd_required => false,
+					CForm::required => false,
 					CForm::length => 20
 				));
 			}
@@ -705,7 +706,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::type => CForm::TextArea,
 				CForm::disabled => $disabledForm,
 				CForm::name => "store_description",
-				CForm::dd_required => false,
+				CForm::required => false,
 				CForm::css_class => 'previewable'
 			));
 
@@ -758,7 +759,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::type => CForm::RadioButton,
 				CForm::disabled => $disabledForm,
 				CForm::name => 'close_interval_type',
-				CForm::dd_required => true,
+				CForm::required => true,
 				CForm::value => CStore::HOURS
 			));
 
@@ -766,7 +767,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::type => CForm::RadioButton,
 				CForm::disabled => $disabledForm,
 				CForm::name => 'close_interval_type',
-				CForm::dd_required => true,
+				CForm::required => true,
 				CForm::value => CStore::ONE_FULL_DAY
 			));
 
@@ -782,7 +783,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::type => CForm::RadioButton,
 				CForm::disabled => false,
 				CForm::name => 'meal_customization_close_interval_type',
-				CForm::dd_required => true,
+				CForm::required => true,
 				CForm::value => CStore::HOURS
 			));
 
@@ -790,7 +791,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::type => CForm::RadioButton,
 				CForm::disabled => false,
 				CForm::name => 'meal_customization_close_interval_type',
-				CForm::dd_required => true,
+				CForm::required => true,
 				CForm::value => CStore::FOUR_FULL_DAYS
 			));
 
@@ -924,7 +925,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::type => CForm::FranchiseDropDown,
 				CForm::disabled => $disabledForm,
 				CForm::name => 'franchise_id',
-				CForm::dd_required => true
+				CForm::required => true
 			));
 
 			$Form->AddElement(array(
@@ -933,7 +934,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => 'food_tax',
 				CForm::step => '0.00001',
 				CForm::number => true,
-				CForm::dd_required => false
+				CForm::required => false
 			));
 
 			$Form->AddElement(array(
@@ -942,7 +943,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => "total_tax",
 				CForm::step => '0.00001',
 				CForm::number => true,
-				CForm::dd_required => false
+				CForm::required => false
 			));
 
 			$Form->AddElement(array(
@@ -951,7 +952,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => "other1_tax",
 				CForm::step => '0.00001',
 				CForm::number => true,
-				CForm::dd_required => false
+				CForm::required => false
 			));
 
 			$Form->AddElement(array(
@@ -960,7 +961,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => "other2_tax",
 				CForm::step => '0.00001',
 				CForm::number => true,
-				CForm::dd_required => false
+				CForm::required => false
 			));
 
 			$Form->AddElement(array(
@@ -969,7 +970,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => "other3_tax",
 				CForm::step => '0.00001',
 				CForm::number => true,
-				CForm::dd_required => false
+				CForm::required => false
 			));
 
 			$Form->AddElement(array(
@@ -978,7 +979,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::name => "other4_tax",
 				CForm::step => '0.00001',
 				CForm::number => true,
-				CForm::dd_required => false
+				CForm::required => false
 			));
 
 			$Form->AddElement(array(
@@ -996,7 +997,7 @@ class page_admin_store_details extends CPageAdminOnly
 					2 => 'Two',
 					3 => 'Three',
 				),
-				CForm::dd_required => true
+				CForm::required => true
 			));
 
 			$Form->AddElement(array(
@@ -1033,7 +1034,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::min => 0,
 					CForm::step => 0.01,
 					CForm::css_class => 'customization_fields',
-					CForm::dd_required => false
+					CForm::required => false
 				));
 			}
 
@@ -1054,7 +1055,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::min => 20,
 					CForm::step => 0.01,
 					CForm::number => true,
-					CForm::dd_required => true
+					CForm::required => true
 				));
 
 				$this->Template->assign('store_supports_store_specific_deposit', true);
@@ -1067,7 +1068,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::min => 0,
 				CForm::step => 0.01,
 				CForm::number => true,
-				CForm::dd_required => false
+				CForm::required => false
 			));
 
 			$pkgSameAsStore = true;
@@ -1137,7 +1138,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::required_msg => "Please enter a street address.",
 				CForm::tooltip => true,
 				CForm::disabled => $pkgSameAsStore,
-				CForm::dd_required => true
+				CForm::required => true
 			));
 
 			$Form->AddElement(array(
@@ -1151,7 +1152,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::required_msg => "Please enter a suite number.",
 				CForm::tooltip => true,
 				CForm::disabled => $pkgSameAsStore,
-				CForm::dd_required => false
+				CForm::required => false
 			));
 
 			$Form->AddElement(array(
@@ -1165,7 +1166,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::required_msg => "Please enter a city.",
 				CForm::tooltip => true,
 				CForm::disabled => $pkgSameAsStore,
-				CForm::dd_required => true
+				CForm::required => true
 			));
 
 			$Form->AddElement(array(
@@ -1178,7 +1179,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::required_msg => "Please select state.",
 				CForm::tooltip => true,
 				CForm::disabled => $pkgSameAsStore,
-				CForm::dd_required => true
+				CForm::required => true
 			));
 
 			$Form->AddElement(array(
@@ -1192,7 +1193,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::required_msg => "Please enter a postal code.",
 				CForm::tooltip => true,
 				CForm::disabled => $pkgSameAsStore,
-				CForm::dd_required => true
+				CForm::required => true
 			));
 
 			$Form->AddElement(array(
@@ -1203,7 +1204,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::required_msg => "Please enter attention to.",
 				CForm::tooltip => true,
 				CForm::disabled => false,
-				CForm::dd_required => false
+				CForm::required => false
 			));
 
 			$Form->AddElement(array(
@@ -1217,7 +1218,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::required_msg => "Please enter a telephone number.",
 				CForm::tooltip => true,
 				CForm::disabled => $pkgSameAsStore,
-				CForm::dd_required => true,
+				CForm::required => true,
 				CForm::css_class => 'telephone'
 			));
 
@@ -1252,7 +1253,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::required_msg => "Please enter a street address.",
 				CForm::tooltip => true,
 				CForm::disabled => $letterSameAsStore,
-				CForm::dd_required => true
+				CForm::required => true
 			));
 
 			$Form->AddElement(array(
@@ -1266,7 +1267,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::required_msg => "Please enter a suite number.",
 				CForm::tooltip => true,
 				CForm::disabled => $letterSameAsStore,
-				CForm::dd_required => false
+				CForm::required => false
 			));
 
 			$Form->AddElement(array(
@@ -1280,7 +1281,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::required_msg => "Please enter a city.",
 				CForm::tooltip => true,
 				CForm::disabled => $letterSameAsStore,
-				CForm::dd_required => true
+				CForm::required => true
 			));
 
 			$Form->AddElement(array(
@@ -1293,7 +1294,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::required_msg => "Please select state.",
 				CForm::tooltip => true,
 				CForm::disabled => $letterSameAsStore,
-				CForm::dd_required => true
+				CForm::required => true
 			));
 
 			$Form->AddElement(array(
@@ -1307,7 +1308,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::required_msg => "Please enter a postal code.",
 				CForm::tooltip => true,
 				CForm::disabled => $letterSameAsStore,
-				CForm::dd_required => true
+				CForm::required => true
 			));
 
 			$Form->AddElement(array(
@@ -1318,7 +1319,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::required_msg => "Please enter attention to.",
 				CForm::tooltip => true,
 				CForm::disabled => false,
-				CForm::dd_required => false
+				CForm::required => false
 			));
 
 			$Form->AddElement(array(
@@ -1332,7 +1333,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::required_msg => "Please enter a telephone number.",
 				CForm::tooltip => true,
 				CForm::disabled => $letterSameAsStore,
-				CForm::dd_required => true,
+				CForm::required => true,
 				CForm::css_class => 'telephone'
 			));
 
@@ -1347,7 +1348,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::required_msg => "Please enter a user id.",
 				CForm::tooltip => true,
 				CForm::disabled => false,
-				CForm::dd_required => false
+				CForm::required => false
 			));
 
 			// Trade Area assignment
@@ -1386,7 +1387,7 @@ class page_admin_store_details extends CPageAdminOnly
 				$Form->AddElement(array(
 					CForm::type => CForm::DropDown,
 					CForm::disabled => $disabledForm,
-					CForm::dd_required => true,
+					CForm::required => true,
 					CForm::name => "regiondropdown",
 					CForm::default_value => $defaultTradeArea,
 					CForm::options => $tradeareaarray
@@ -1431,7 +1432,7 @@ class page_admin_store_details extends CPageAdminOnly
 					CForm::type => CForm::DropDown,
 					CForm::disabled => false,
 					CForm::name => "coachdropdown",
-					CForm::dd_required => true,
+					CForm::required => true,
 					CForm::default_value => $coachdefault,
 					CForm::options => $coacharr
 				));
@@ -1806,7 +1807,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::Text,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_store_name",
-			CForm::dd_required => false,
+			CForm::required => false,
 			CForm::size => 40
 		));
 
@@ -1814,7 +1815,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::Text,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_primary_party_name",
-			CForm::dd_required => false,
+			CForm::required => false,
 			CForm::size => 40
 		));
 
@@ -1822,7 +1823,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::Text,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_primary_party_title",
-			CForm::dd_required => false,
+			CForm::required => false,
 			CForm::size => 40
 		));
 
@@ -1830,7 +1831,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::TextArea,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_primary_party_story",
-			CForm::dd_required => false,
+			CForm::required => false,
 			CForm::size => 40,
 			CForm::css_class => 'previewable'
 		));
@@ -1839,7 +1840,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::Text,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_secondary_party_name",
-			CForm::dd_required => false,
+			CForm::required => false,
 			CForm::size => 40
 		));
 
@@ -1847,7 +1848,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::Text,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_secondary_party_title",
-			CForm::dd_required => false,
+			CForm::required => false,
 			CForm::size => 40
 		));
 
@@ -1855,7 +1856,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::TextArea,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_secondary_party_story",
-			CForm::dd_required => false,
+			CForm::required => false,
 			CForm::size => 40,
 			CForm::css_class => 'previewable'
 		));
@@ -1864,7 +1865,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::TextArea,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_team_description",
-			CForm::dd_required => false,
+			CForm::required => false,
 			CForm::size => 40,
 			CForm::css_class => 'previewable'
 		));
@@ -1873,7 +1874,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::Hidden,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_store_hours",
-			CForm::dd_required => false,
+			CForm::required => false,
 			CForm::size => 40
 		));
 
@@ -1881,7 +1882,7 @@ class page_admin_store_details extends CPageAdminOnly
 			CForm::type => CForm::TextArea,
 			CForm::disabled => $disabledForm,
 			CForm::name => "bio_store_holiday_hours",
-			CForm::dd_required => false,
+			CForm::required => false,
 			CForm::size => 40,
 			CForm::css_class => 'previewable'
 		));

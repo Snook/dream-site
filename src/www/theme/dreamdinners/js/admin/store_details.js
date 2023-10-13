@@ -344,45 +344,6 @@ function onPlatePointsOptinChange(obj)
 
 }
 
-function override_check_form(e, elements)
-{
-	let canProceed = true;
-
-	if ($("#default_delayed_payment_deposit").length)
-	{
-		var dp_deposit = $("#default_delayed_payment_deposit").val();
-
-		if (dp_deposit < 20)
-		{
-
-			dd_message({
-				message: 'The Delayed Payment Deposit must be at least $20.'
-			});
-
-			canProceed = false;
-		}
-	}
-
-	$("[id$='_session_desc']").each(function() {
-		if ($(this).val().length != 0 && $(this).val().length < 6)
-		{
-			dd_message({
-				message: 'Session Descriptions must either be empty or must be more than 5 characters in length. If empty the defauly description will be used.'
-			});
-
-			canProceed = false;
-		}
-	});
-
-	if (canProceed)
-	{
-		return _check_form(elements);
-	}
-
-	return false;
-
-}
-
 function handle_address_change()
 {
 	$('#address_line1, #address_line2, #city, #state_id, #postal_code, #usps_adc').bind('keyup change click', function () {
@@ -470,28 +431,14 @@ function handle_delete_store()
 
 function updatePreview(textArea)
 {
-	if (textArea)
-	{
-		var previewDiv = document.getElementById(textArea.attr('name') + '_preview');
-		if (textArea && previewDiv)
-		{
-			previewDiv.innerHTML = nl2br(textArea.val());
-		}
-	}
+	$("#" + textArea.attr('name') + "_preview").html(textArea.val());
 }
 
 function togglePreview(textArea)
 {
-	let previewDiv = document.getElementById(textArea.attr('name') + '_preview');
-	if ( previewDiv.style.display == 'none' && textArea.val() != '')
-	{
-		previewDiv.style.display = 'block';
-		updatePreview(textArea);
-	}
-	else
-	{
-		previewDiv.style.display = 'none';
-	}
+	$("#" + textArea.attr('name') + "_preview").toggleFlex();
+
+	updatePreview(textArea);
 }
 
 function update_grand_opening_function(element)

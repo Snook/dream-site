@@ -105,8 +105,8 @@
 
 				<?php if ( false ) { //dont show any longer - 7/28/2023 ?>
 					<a class="btn btn-primary btn-block" href="/backoffice/user_membership?id=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">Meal Prep+</a>
-					<a class="btn btn-primary btn-block" href="/backoffice/order-mgr-delivered?user=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">Order Delivered</a>
 				<?php } ?>
+				<a class="btn btn-primary btn-block" href="/backoffice/order-mgr-delivered?user=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">Order Delivered</a>
 
 				<?php if ((CBrowserSession::getCurrentFadminStore() == $this->user['home_store_id'] && $this->canUnsetHomeStore) || (CUser::getCurrentUser()->user_type == 'SITE_ADMIN' && $this->canUnsetHomeStore)) {	?>
 					<input type="button" class="btn btn-danger btn-block mt-5" value="Remove Homestore" onclick="unsetHomeStore('<?php echo $this->user['id']?>');" data-tooltip="Disassociate guest's home store." />
