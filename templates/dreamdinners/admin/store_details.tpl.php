@@ -228,76 +228,74 @@
 			<?php } ?>
 		</table>
 
-		<?php if ($this->DAO_store->isDistributionCenter()) { ?>
-			<table style="width: 100%; margin-bottom: 10px;">
+		<table style="width: 100%; margin-bottom: 10px;">
+			<tr>
+				<td class="bgcolor_dark catagory_row" colspan="2">Customer Contact Information
+					<?php if (!$isSiteAdmin) { ?>
+						<span style="font-size:9pt; font-weight:lighter">Please contact <a href="mailto:<?php echo IT_EMAIL; ?>">Home Office</a> to request changes to your store contact information.</span>
+					<?php } ?>
+				</td>
+			</tr>
+			<?php if (!$this->DAO_store->isDistributionCenter()) { ?>
 				<tr>
-					<td class="bgcolor_dark catagory_row" colspan="2">Customer Contact Information
-						<?php if (!$isSiteAdmin) { ?>
-							<span style="font-size:9pt; font-weight:lighter">Please contact <a href="mailto:<?php echo IT_EMAIL; ?>">Home Office</a> to request changes to your store contact information.</span>
+					<td class="bgcolor_light" style="text-align: right;">Store Information Page QR Code:</td>
+					<td class="guest_details_list_item">
+						<div class="input-group">
+							<input type="text" id="store_page_link" class="form-control" aria-label="Store landing page" value="<?php echo HTTPS_SERVER; ?><?php echo $this->DAO_store->getPrettyUrl(); ?>" readonly>
+							<div class="input-group-append">
+								<div class="input-group-text btn-clip" data-toggle="tooltip" data-placement="top" title="Copy link to clipboard" data-clipboard-target="#store_page_link" ><i class="fas fa-clipboard-list"></i></div>
+							</div>
+							<div class="input-group-append">
+								<a class="input-group-text" data-toggle="tooltip" data-placement="top" title="Download QR code" href="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&op=store_info&d=1&s=10&id=<?php echo $this->store['id']; ?>" ><i class="fas fa-qrcode"></i></a>
+							</div>
+						</div>
+						<?php if (!empty($this->shortURLArray)) { ?>
+							<ul class="list-group list-group-horizontal">
+								<?php foreach ($this->shortURLArray AS $DAO_short_url) { ?>
+									<?php if (!empty($DAO_short_url->is_deleted)) { ?>
+										<li class="list-group-item list-group-item-gray-900 p-1"><?php echo $DAO_short_url->short_url; ?></li>
+									<?php } ?>
+								<?php } ?>
+							</ul>
 						<?php } ?>
 					</td>
 				</tr>
-				<?php if (!$this->DAO_store->isDistributionCenter()) { ?>
-					<tr>
-						<td class="bgcolor_light" style="text-align: right;">Store Information Page QR Code:</td>
-						<td class="guest_details_list_item">
-							<div class="input-group">
-								<input type="text" id="store_page_link" class="form-control" aria-label="Store landing page" value="<?php echo HTTPS_SERVER; ?><?php echo $this->DAO_store->getPrettyUrl(); ?>" readonly>
-								<div class="input-group-append">
-									<div class="input-group-text btn-clip" data-toggle="tooltip" data-placement="top" title="Copy link to clipboard" data-clipboard-target="#store_page_link" ><i class="fas fa-clipboard-list"></i></div>
-								</div>
-								<div class="input-group-append">
-									<a class="input-group-text" data-toggle="tooltip" data-placement="top" title="Download QR code" href="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&op=store_info&d=1&s=10&id=<?php echo $this->store['id']; ?>" ><i class="fas fa-qrcode"></i></a>
-								</div>
-							</div>
-							<?php if (!empty($this->shortURLArray)) { ?>
-								<ul class="list-group list-group-horizontal">
-									<?php foreach ($this->shortURLArray AS $DAO_short_url) { ?>
-										<?php if (!empty($DAO_short_url->is_deleted)) { ?>
-											<li class="list-group-item list-group-item-gray-900 p-1"><?php echo $DAO_short_url->short_url; ?></li>
-										<?php } ?>
-									<?php } ?>
-								</ul>
-							<?php } ?>
-						</td>
-					</tr>
-				<?php } ?>
+			<?php } ?>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right; width: 210px;">Store Email:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['email_address_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Telephone (Day):</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['telephone_day_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Telephone (Evening):</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['telephone_evening_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Text Messaging (SMS) Number:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['telephone_sms_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Fax Line:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['fax_html']; ?></td>
+			</tr>
+			<?php if (!$this->DAO_store->isDistributionCenter()) { ?>
 				<tr>
-					<td class="bgcolor_light" style="text-align: right; width: 210px;">Store Email:</td>
-					<td class="bgcolor_light"><?php echo $this->form_store_details['email_address_html']; ?></td>
+					<td class="bgcolor_light" style="text-align: right;">Twitter:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['social_twitter_html']; ?> (account name only, e.g DDLancasterPA)</td>
 				</tr>
 				<tr>
-					<td class="bgcolor_light" style="text-align: right;">Telephone (Day):</td>
-					<td class="bgcolor_light"><?php echo $this->form_store_details['telephone_day_html']; ?></td>
+					<td class="bgcolor_light" style="text-align: right;">Facebook:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['social_facebook_html']; ?> (account name only, e.g. dreamdinnersmillcreek)</td>
 				</tr>
 				<tr>
-					<td class="bgcolor_light" style="text-align: right;">Telephone (Evening):</td>
-					<td class="bgcolor_light"><?php echo $this->form_store_details['telephone_evening_html']; ?></td>
+					<td class="bgcolor_light" style="text-align: right;">Instagram:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['social_instagram_html']; ?> (account name only, e.g. dreamdinnersmillcreek)</td>
 				</tr>
-				<tr>
-					<td class="bgcolor_light" style="text-align: right;">Text Messaging (SMS) Number:</td>
-					<td class="bgcolor_light"><?php echo $this->form_store_details['telephone_sms_html']; ?></td>
-				</tr>
-				<tr>
-					<td class="bgcolor_light" style="text-align: right;">Fax Line:</td>
-					<td class="bgcolor_light"><?php echo $this->form_store_details['fax_html']; ?></td>
-				</tr>
-				<?php if (!$this->DAO_store->isDistributionCenter()) { ?>
-					<tr>
-						<td class="bgcolor_light" style="text-align: right;">Twitter:</td>
-						<td class="bgcolor_light"><?php echo $this->form_store_details['social_twitter_html']; ?> (account name only, e.g DDLancasterPA)</td>
-					</tr>
-					<tr>
-						<td class="bgcolor_light" style="text-align: right;">Facebook:</td>
-						<td class="bgcolor_light"><?php echo $this->form_store_details['social_facebook_html']; ?> (account name only, e.g. dreamdinnersmillcreek)</td>
-					</tr>
-					<tr>
-						<td class="bgcolor_light" style="text-align: right;">Instagram:</td>
-						<td class="bgcolor_light"><?php echo $this->form_store_details['social_instagram_html']; ?> (account name only, e.g. dreamdinnersmillcreek)</td>
-					</tr>
-				<?php } ?>
-			</table>
-		<?php } ?>
+			<?php } ?>
+		</table>
 
 		<table style="width: 100%;">
 			<tr>
