@@ -162,7 +162,7 @@
 				<td class="bgcolor_light"><?php echo $this->form_store_details['usps_adc_html']; ?></td>
 			</tr>
 			<tr>
-				<td class="bgcolor_light" style="text-align: right;">County:</td>
+				<td class="bgcolor_light" style="text-align: right;">State County:</td>
 				<td class="bgcolor_light"><?php echo $this->form_store_details['county_html']; ?></td>
 			</tr>
 			<tr>
