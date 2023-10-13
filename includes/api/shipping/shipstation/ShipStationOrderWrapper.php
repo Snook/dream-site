@@ -123,7 +123,7 @@ class ShipStationOrderWrapper
 			"city" => $billing->city,
 			"state" => $billing->state_id,
 			"postalCode" => $billing->postal_code,
-			"country" => $billing->coutry_id,
+			"country" => $billing->country_id,
 			"residential" => true
 		);
 
