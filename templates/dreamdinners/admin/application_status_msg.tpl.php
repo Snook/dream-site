@@ -16,8 +16,10 @@ $debugMsg = $this->getDebugMsg();
 		</div>
 		<div id="errorMsg" role="alert" class="col-12 alert alert-danger alert-dismissible fade collapse <?php echo (strlen($errorMsg.(DEBUG ? $debugMsg:'')) > 0) ? 'show' : ''; ?>">
 			<div class="font-weight-bold">Error</div>
+			<div id="errorMsgText">
 				<?php echo $errorMsg; ?>
 				<?php echo $debugMsg; ?>
+			</div>
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
