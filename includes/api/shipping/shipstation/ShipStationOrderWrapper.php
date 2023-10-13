@@ -126,7 +126,7 @@ class ShipStationOrderWrapper
 			"city" => $this->hydratedOrderObj->orderAddress->city,
 			"state" => $this->hydratedOrderObj->orderAddress->state_id,
 			"postalCode" => $this->hydratedOrderObj->orderAddress->postal_code,
-			"country" => $this->hydratedOrderObj->orderAddress->county_id,
+			"country" => $this->hydratedOrderObj->orderAddress->country_id,
 			"phone" => $this->hydratedOrderObj->orderAddress->telephone_1,
 			"residential" => true
 		);
