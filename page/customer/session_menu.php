@@ -47,20 +47,25 @@ class page_session_menu extends CPage
 				$DAO_store->id = $storeId;
 				$DAO_store->active = 1;
 
-				if ($DAO_store->find())
+				if (!$DAO_store->find(true))
 				{
+					// active store not found, send them to locations
+					CApp::bounce('/locations');
+				}
+				else
+				{
+					// selected store is a DC, send them to locations
+					if($DAO_store->isDistributionCenter())
+					{
+						CApp::bounce('/locations');
+					}
+
 					$CartObj->storeChangeEvent($storeId);
 
 					$CartObj->restoreContents();
 
 					$DAO_store = $CartObj->getOrder()->getStore();
 				}
-			}
-
-			// no store, send them to pick a store
-			if (empty($DAO_store))
-			{
-				CApp::bounce('/locations');
 			}
 		}
 
