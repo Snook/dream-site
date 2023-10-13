@@ -17,7 +17,7 @@ echo $config->getAuthorization();
 
 //Bad Config
 $storeObj = new CStore();
-$storeObj->id = 311;
+$storeObj->id = 313;
 $config = ShipStationEndpointFactory::getEndpoint($storeObj);
 
 echo $config->getEndpoint();

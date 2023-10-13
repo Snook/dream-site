@@ -20,7 +20,7 @@
 			<div class="row">
 
 				<?php if (($this->DAO_store->hasBioPrimary())) { ?>
-					<div class="col-md-6">
+					<div class="col-md-6 mx-auto">
 						<div class="row">
 							<div class="col-12 mb-3">
 								<img src="/theme/dreamdinners/images/stores/bio/portrait-<?php echo $this->DAO_store->id; ?>-1.webp" alt="<?php echo $this->DAO_store->bio_primary_party_name; ?>" class="img-fluid w-100">
@@ -35,7 +35,7 @@
 				<?php } ?>
 
 				<?php if ($this->DAO_store->hasBioSecondary()) { ?>
-					<div class="col-md-6">
+					<div class="col-md-6 mx-auto">
 						<div class="row">
 							<div class="col-12 mb-3">
 								<img src="/theme/dreamdinners/images/stores/bio/portrait-<?php echo $this->DAO_store->id; ?>-2.webp" alt="<?php echo $this->DAO_store->bio_secondary_party_name; ?>" class="img-fluid w-100">

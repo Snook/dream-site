@@ -364,14 +364,15 @@ const AVALARA_API_ACCOUNT_ID = '';//sandbox
 const AVALARA_API_LICENSE_KEY = '';//sandbox
 
 //ShipStation Endpoints per Distribution Center
+//Cummings - GA
 const SHIPSTATION_API_ENDPOINT_313 = 'https://ssapi.shipstation.com/';
 const SHIPSTATION_API_KEY_313 = '';
 const SHIPSTATION_API_SECRET_313 = '';
-
+//Camden Park - CA
 const SHIPSTATION_API_ENDPOINT_314 = 'https://ssapi.shipstation.com/';
 const SHIPSTATION_API_KEY_314 = '';
 const SHIPSTATION_API_SECRET_314 = '';
-
+//Overland Park - KS
 const SHIPSTATION_API_ENDPOINT_315 = 'https://ssapi.shipstation.com/';
 const SHIPSTATION_API_KEY_315 = '';
 const SHIPSTATION_API_SECRET_315 = '';
