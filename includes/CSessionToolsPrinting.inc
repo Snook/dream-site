@@ -2525,7 +2525,6 @@ class CSessionToolsPDFDrawer
 					$this->printMenuToolHeaderRow_Freezer();
 
 					$yPos = 27.5;
-					$total_rows = $next_rows;
 				}
 
 				$globalRating = false;
