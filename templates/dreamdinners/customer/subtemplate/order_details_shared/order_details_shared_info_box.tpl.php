@@ -20,6 +20,6 @@
 		<?php } ?>
 	<?php } ?>
 	<?php if ( !empty($this->orderInfo['orderShipping']['tracking_number'])) { ?>
-		<div class="font-weight-bold font-size-small">FedEx Tracking Number: <a target="_blank" href="<?php echo CAppUtil::fedexTrackingUrl($this->orderInfo['orderShipping']['tracking_number']);?>"><?php echo $this->orderInfo['orderShipping']['tracking_number']; ?></a></div>
+		<div class="font-weight-bold font-size-small">UPS Tracking Number: <a target="_blank" href="<?php echo CAppUtil::upsTrackingUrl($this->orderInfo['orderShipping']['tracking_number']);?>"><?php echo $this->orderInfo['orderShipping']['tracking_number']; ?></a></div>
 	<?php } ?>
 </div>
