@@ -269,6 +269,11 @@ class CAppUtil
 		return "https://www.fedex.com/fedextrack/?tracknumbers={$trackingNumber}&cntry_code=us";
 	}
 
+	public static function upsTrackingUrl($trackingNumber)
+	{
+		return "https://wwwapps.ups.com/tracking/tracking.cgi?tracknum={$trackingNumber}";
+	}
+
 }
 
 ?>

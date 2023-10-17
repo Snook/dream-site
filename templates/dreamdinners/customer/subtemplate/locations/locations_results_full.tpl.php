@@ -86,7 +86,7 @@
 						<div class="col-12 col-sm-5 col-md-6 mt-4 mt-sm-0">
 							<h3 class="text-uppercase font-weight-bold d-none d-sm-block">Shipped</h3>
 							<div>
-								Get ready-to-cook dinners shipped via FedEx to your front door.
+								Get ready-to-cook dinners shipped to your front door.
 							</div>
 							<div class="mt-4">
 								No subscription required. Order as you need it.
@@ -147,7 +147,7 @@
 <?php if (empty($this->state_has_delivered) && !empty($this->store_results_array) && empty($this->delivered)) {?>
 	<div class="row my-4">
 		<div class="col col-lg-8 mx-auto">
-			<h2 class="text-center mb-4">We are not able to ship via FedEx to your area yet.</h2>
+			<h2 class="text-center mb-4">We are not able to ship to your area yet.</h2>
 			As we continue to grow, we will be adding additional shipping areas. If you have a local store near you, check to see if home delivery is an option!
 		</div>
 	</div>
