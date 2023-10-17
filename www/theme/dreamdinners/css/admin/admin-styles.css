@@ -38499,6 +38499,7 @@ A VERTICAL event
 
 .btn-delivered, .btn-delivered.btn-primary-delivered, .button-delivered, .button-delivered:focus {
   cursor: pointer;
+  color: black !important;
   line-height: normal;
   padding: 4px 6px;
   -webkit-border-radius: 4px;

@@ -48,8 +48,8 @@
 					</div>
 				<?php } ?>
 
-				<?php if ($isDC) { ?>
-						<input type="button" style="height: 44px;" class="btn btn-cyan btn-block " value="Place Delivered Order" onclick="bounce('/?page=admin_order_mgr_delivered&user=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+				<?php if ($this->canPlaceOrder == true && $isDC) { ?>
+						<input type="button" style="height: 44px;" class="btn btn-delivered btn-block " value="Place Shipping Order" onclick="bounce('/?page=admin_order_mgr_delivered&user=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ( $this->user['numorders'] ) { ?>
@@ -106,7 +106,9 @@
 				<?php if ( false ) { //dont show any longer - 7/28/2023 ?>
 					<a class="btn btn-primary btn-block" href="/?page=admin_user_membership&amp;id=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">Meal Prep+</a>
 				<?php } ?>
-					<a class="btn btn-primary btn-block" href="/?page=admin_order_mgr_delivered&amp;user=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">Order Delivered</a>
+				<?php if ($this->canPlaceOrder == true && !$isDC) { ?>
+					<a class="btn btn-delivered btn-block" href="/?page=admin_order_mgr_delivered&amp;user=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">Place Shipping Order</a>
+				<?php } ?>
 
 
 				<?php if ((CBrowserSession::getCurrentFadminStore() == $this->user['home_store_id'] && $this->canUnsetHomeStore) || (CUser::getCurrentUser()->user_type == 'SITE_ADMIN' && $this->canUnsetHomeStore)) {	?>
