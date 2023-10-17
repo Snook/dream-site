@@ -2510,18 +2510,13 @@ class CSessionToolsPDFDrawer
 
 		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
 		$count = 0;
+		$menu_items_per_page = 15;
 
 		if (!empty($this->data->orderItems[$this->data->userInfo->orderInfo['orderInfo']['id']]))
 		{
-			$total_rows = 3;
 			foreach ($this->data->orderItems[$this->data->userInfo->orderInfo['orderInfo']['id']] as $orderItem)
 			{
-				//dynamically size page based on the number of items or each size
-				//$next_rows = $this->calculateFreezerSheetRowHeight($orderItem);
-				$next_rows = null;
-
-				$total_rows += $next_rows;
-				if ($count > 1 && ($total_rows > 70))
+				if ($count > 1 && ($count % $menu_items_per_page) == 0)
 				{
 					$this->pdf->AddPage();
 
@@ -2783,9 +2778,11 @@ class CSessionToolsPDFDrawer
 
 		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
 		$count = 0;
+		$menu_items_per_page = 15;
+
 		foreach ($this->data->menuItems as $rid => $menuItemArray)
 		{
-			if ($count > 1 && ($count % 17) == 0)
+			if ($count > 1 && ($count % $menu_items_per_page) == 0)
 			{
 				$this->pdf->AddPage();
 
