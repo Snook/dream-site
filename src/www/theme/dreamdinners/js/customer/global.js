@@ -1079,7 +1079,7 @@ function strip_tags(input, allowed)
 
 				$(form).data('was_submitted', false);
 
-				$('html, body').scrollTop($(this).find('.form-control:invalid').first().offset().top);
+				$('html, body').scrollTop($(form).find('.form-control:invalid').first().offset().top);
 			}
 
 			form['0'].classList.add('was-validated');

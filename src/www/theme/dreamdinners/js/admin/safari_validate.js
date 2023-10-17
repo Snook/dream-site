@@ -373,12 +373,12 @@ function _check_elements(elementsArray)
 	if (rtn == false)
 	{
 		$('#errorMsgText').html('Please correct the following errors on the page below. ' + statusText);
-		$('#errorMsg').show();
+		$('#errorMsg').showFlex();
 		scroll(0, 0);
 	}
 	else
 	{
-		$('#errorMsg').slideUp();
+		$('#errorMsg').hideFlex();
 	}
 
 	return rtn;

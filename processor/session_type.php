@@ -94,7 +94,7 @@ class processor_session_type extends CPage
 		}
 
 		// store doesn't support intro, and they are requesting intro, send them to standard
-		if ($req_navigation == 'starter' && !$DAO_store->storeSupportsIntroOrders($req_menu))
+		if ($req_navigation === false || ($req_navigation == 'starter' && !$DAO_store->storeSupportsIntroOrders($req_menu)))
 		{
 			$req_navigation = 'all_standard';
 		}
