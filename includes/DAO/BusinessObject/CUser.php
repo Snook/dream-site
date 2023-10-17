@@ -423,7 +423,7 @@ class CUser extends DAO_User
 					self::OPS_LEAD
 				),
 				'title' => 'Home',
-				'link' => '/backoffice_delivered',
+				'link' => '/backoffice',
 				'submenu' => array()
 			),
 			'guests' => array(
