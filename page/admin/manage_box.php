@@ -434,7 +434,7 @@ class page_admin_manage_box extends CPageAdminOnly
 			$this->BoxForm->addElement(array(
 				CForm::type => CForm::DateTimeLocal,
 				CForm::name => 'availability_date_start',
-				CForm::min => $this->BoxForm->DefaultValues['availability_date_start'],
+				//CForm::min => $this->BoxForm->DefaultValues['availability_date_start'],
 				CForm::required => true
 			));
 
