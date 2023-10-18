@@ -170,7 +170,7 @@ class COrdersDelivered extends COrders
 		$this->orderShipping->order_id = $this->id;
 		$this->orderShipping->status = 'NEW';
 		$this->orderShipping->shipping_method = 0;
-		$this->orderShipping->carrier_code = 'FEDEX';
+		$this->orderShipping->carrier_code = 'UPS';
 		$this->orderShipping->distribution_center = $zipcode->distribution_center;
 		$this->orderShipping->service_days = $zipcode->service_days;
 		$this->orderShipping->shipping_postal_code = $destZipCode;

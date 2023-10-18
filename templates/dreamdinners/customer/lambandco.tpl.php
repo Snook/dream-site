@@ -128,7 +128,7 @@
 								<img src="<?php echo IMAGES_PATH; ?>/home_content/shipped-to-your-door-384x352.webp" alt="Shipped to your door" class="img-fluid">
 								<div class="card-body">
 									<h5 class="card-title">National Shipping</h5>
-									<p class="card-text">No location near you? We can ship via FedEx ready-to-cook meals to your home. No subscription required.</p>
+									<p class="card-text">No location near you? We can ship ready-to-cook meals to your home. No subscription required.</p>
 								</div>
 							</div>
 						</div>

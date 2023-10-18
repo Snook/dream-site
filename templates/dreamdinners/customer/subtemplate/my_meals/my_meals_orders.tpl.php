@@ -79,7 +79,7 @@
 						</div>
 						<?php if ($order['tracking_number']) { ?>
 							<div class="col-6 mb-1 col-md-auto" style="margin-left: auto;">
-								<span style="font-size: .95rem;">FedEx #: <a target="_blank" href="<?php echo CAppUtil::fedexTrackingUrl($order['tracking_number']); ?>"><?php echo $order['tracking_number']; ?></a></span>
+								<span style="font-size: .95rem;">UPS #: <a target="_blank" href="<?php echo CAppUtil::upsTrackingUrl($order['tracking_number']); ?>"><?php echo $order['tracking_number']; ?></a></span>
 							</div>
 						<?php } ?>
 					<?php } ?>
