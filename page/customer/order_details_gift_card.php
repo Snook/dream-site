@@ -3,32 +3,29 @@ require_once('includes/DAO/BusinessObject/COrders.php');
 require_once('includes/DAO/BusinessObject/CCouponCodeProgram.php');
 require_once('includes/DAO/BusinessObject/CGiftCard.php');
 
-class page_order_details_gift_card extends CPage {
+class page_order_details_gift_card extends CPage
+{
 
-	function runPublic() {
-		self::runPage();
-	}
-
-	function runCustomer() {
+	function runPublic()
+	{
 		self::runPage();
 	}
 
 	static function runPage()
 	{
 		$tpl = CApp::instance()->template();
-		$cardPurchase = array();
 
-		if (!isset($_REQUEST['orders']))
+		if (!isset($_GET['orders']) || !preg_match('/^\d+(?:,\d+)*$/', $_GET['orders']))
 		{
-			throw new Exception('did not receive GD array in order_details_gift_card');
+			CApp::bounce('/gift');
 		}
 
-		$IDs = explode(",", $_REQUEST['orders']);
+		$IDs = explode(",", $_GET['orders']);
 
 		CGiftCard::addOrderDrivenGiftCardDetailsToTemplate($tpl, CUser::getCurrentUser()->id, false, $IDs);
 
 		$gcOrders = array();
-		foreach($tpl->gift_card_purchase_array as $number => $gc_purchase)
+		foreach ($tpl->gift_card_purchase_array as $number => $gc_purchase)
 		{
 			$gcOrders[$gc_purchase['order_confirm_id']] = $gc_purchase['order_confirm_id'];
 		}
@@ -37,8 +34,14 @@ class page_order_details_gift_card extends CPage {
 
 		if (empty($gcOrders))
 		{
-			CApp::bounce();
+			CApp::bounce('/gift');
 		}
 	}
+
+	function runCustomer()
+	{
+		self::runPage();
+	}
 }
+
 ?>
