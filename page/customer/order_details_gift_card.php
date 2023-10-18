@@ -15,7 +15,7 @@ class page_order_details_gift_card extends CPage
 	{
 		$tpl = CApp::instance()->template();
 
-		if (!isset($_GET['orders']) || !preg_match('/^\d+(?:,\d+)*$/', $_GET['orders']))
+		if (!isset($_GET['orders']) || !preg_match('/^\w+(?:,\w+)*$/', $_GET['orders']))
 		{
 			CApp::bounce('/gift');
 		}
