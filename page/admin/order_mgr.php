@@ -323,17 +323,18 @@ class page_admin_order_mgr extends CPageAdminOnly
 				throw new Exception('Session not found');
 			}
 
-			$order_minimum = COrderMinimum::fetchInstance(COrders::STANDARD, $this->originalOrder->store_id, $Session->menu_id);
-			$tpl->assign('order_minimum_json', $order_minimum->toJson());
-			$tpl->assign('order_minimum_header_label', $order_minimum->formulateOrderMgrHeaderLabel($this->originalOrder));
-
-			if ($Session->session_type == CSession::DELIVERED)
+			// Shipping session, bounce to shipping order manager
+			if ($Session->isDelivered())
 			{
 				unset($_GET['back']);
 				unset($tpl->back);
 
 				CApp::bounce('/?page=admin_order_mgr_delivered&order=' . $this->originalOrder->id);
 			}
+
+			$order_minimum = COrderMinimum::fetchInstance(COrders::STANDARD, $this->originalOrder->store_id, $Session->menu_id);
+			$tpl->assign('order_minimum_json', $order_minimum->toJson());
+			$tpl->assign('order_minimum_header_label', $order_minimum->formulateOrderMgrHeaderLabel($this->originalOrder));
 
 			$Form->AddElement(array(
 				CForm::type => CForm::Hidden,
