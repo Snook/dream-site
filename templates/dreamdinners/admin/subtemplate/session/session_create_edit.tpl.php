@@ -97,10 +97,12 @@
 			<?php echo $this->form_create_session['fundraiser_theme_html']?>
 		</div>
 	<?php } ?>
-	<div class="form-group col-md-6 collapse" id="fundraiser_recipient_selection">
-		<label class="font-weight-bold" for="fundraiser_recipient">Fundraiser</label>
-		<?php echo $this->form_create_session['fundraiser_recipient_html']?>
-	</div>
+	<?php if (!empty($this->form_create_session['fundraiser_recipient_html'])) { ?>
+		<div class="form-group col-md-6 collapse" id="fundraiser_recipient_selection">
+			<label class="font-weight-bold" for="fundraiser_recipient">Fundraiser</label>
+			<?php echo $this->form_create_session['fundraiser_recipient_html']?>
+		</div>
+	<?php } ?>
 	<div class="form-group col-md-6 collapse" id="session_pickup_location_row">
 		<label class="font-weight-bold" for="session_pickup_location">Pick Up Location</label>
 		<?php echo $this->form_create_session['session_pickup_location_html']?>
