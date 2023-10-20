@@ -313,7 +313,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				unset($_GET['back']);
 				unset($tpl->back);
 
-				CApp::bounce('/?page=admin_order_mgr_delivered&order=' . $this->originalOrder->id);
+				CApp::bounce('/backoffice/order-mgr-delivered?order=' . $this->originalOrder->id);
 			}
 
 			// ask order to rebuild itself
@@ -334,14 +334,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$order_minimum = COrderMinimum::fetchInstance(COrders::STANDARD, $this->originalOrder->store_id, $Session->menu_id);
 			$tpl->assign('order_minimum_json', $order_minimum->toJson());
 			$tpl->assign('order_minimum_header_label', $order_minimum->formulateOrderMgrHeaderLabel($this->originalOrder));
-
-			if ($Session->session_type == CSession::DELIVERED)
-			{
-				unset($_GET['back']);
-				unset($tpl->back);
-
-				CApp::bounce('/?page=admin_order_mgr_delivered&order=' . $this->originalOrder->id);
-			}
 
 			$Form->AddElement(array(
 				CForm::type => CForm::Hidden,
