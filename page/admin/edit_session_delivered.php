@@ -575,15 +575,21 @@ class page_admin_edit_session_delivered extends CPageAdminOnly
 				{
 					throw new Exception("Session date was not posted.");
 				}
+				$incoming_session_start = date("Y-m-d", strtotime(CGPC::do_clean($_POST['session_date'],TYPE_STR)));
+				$original_session_start = date("Y-m-d", strtotime($Session->session_start));
 
-				$Session->session_start = date("Y-m-d H:i:s", strtotime(CGPC::do_clean($_POST['session_date'],TYPE_STR) . ' ' . CGPC::do_clean($_POST['session_time'],TYPE_STR)));
-
-				if (!$Menu->isTimeStampLegalForMenu(strtotime($Session->session_start)))
+				if( $original_session_start != $incoming_session_start)
 				{
-					$tpl->setErrorMsg('The session time is outside of the valid range for this menu');
+					$Session->session_start = date("Y-m-d H:i:s", strtotime(CGPC::do_clean($_POST['session_date'],TYPE_STR) . ' ' . CGPC::do_clean($_POST['session_time'],TYPE_STR)));
 
-					return;
+					if (!$Menu->isTimeStampLegalForMenu(strtotime($Session->session_start)))
+					{
+						$tpl->setErrorMsg('The session time is outside of the valid range for this menu');
+
+						return;
+					}
 				}
+
 			}
 
 			$Session->setCloseSchedulingTime($SessionForm->value("close_interval_type"), $SessionForm->value("custom_close_interval"));
