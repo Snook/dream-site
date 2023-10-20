@@ -4907,12 +4907,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 				{
 					$menuItemInfo->override_price = $orgPrices[$menuItemInfo->id];
 					$menuItemInfo->store_price = $orgPrices[$menuItemInfo->id];
-
-
-					if ($menuItemInfo->override_price < $menuItemInfo->price)
-					{
-						$menuItemInfo->price = $menuItemInfo->override_price;
-					}
 				}
 
 				if ($menuItemInfo->pricing_type == CMenuItem::INTRO)
