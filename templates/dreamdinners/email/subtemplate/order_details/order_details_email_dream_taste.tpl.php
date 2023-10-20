@@ -200,7 +200,7 @@
 									<td class="customersData" style="padding: 5px;" align="right" valign="top">
 										<?php
 										$itemPrice = 0.0;
-										$numItemServings = isset($item['servings_per_item']) ? isset($item['servings_per_item']) : $item['pricing_type']=="HALF" ? 3 : 6;
+										$numItemServings = isset($item['servings_per_item']) ? isset($item['servings_per_item']) : ($item['pricing_type']=="HALF" ? 3 : 6);
 
 										if( !$this->isEmptyFloat( $this->orderInfo['family_savings_discount'] ) ) {
 											if( isset( $item['discounted_price'] ) ) {

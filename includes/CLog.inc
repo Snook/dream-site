@@ -413,7 +413,7 @@ class CLog
 			if (MAIL_ENABLED)
 			{
 				$from = 'From: <do-not-reply@dreamdinners.com>';
-				$sendMail = @mail("ryan.snook@dreamdinners.com, josh.thayer@dreamdinners.com, evan.lee@dreamdinners.com, brandy.latta@dreamdinners.com", "!!!DREAMDINNERS SERVER ALERT!!!", $entry, $from);
+				$sendMail = @mail("ryan.snook@dreamdinners.com, josh.thayer@dreamdinners.com, evan.lee@dreamdinners.com, brandy.latta@dreamdinners.com, mona.mcdonald@dreamdinners.com", "!!!DREAMDINNERS SERVER ALERT!!!", $entry, $from);
 			}
 		}
 	}

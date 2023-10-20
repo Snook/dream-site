@@ -520,6 +520,7 @@ class page_admin_manage_box extends CPageAdminOnly
 				$this->Bundle1Form->addElement(array(
 					CForm::type => CForm::Number,
 					CForm::name => 'price',
+					CForm::step => '0.01',
 					CForm::required => true,
 					CForm::attribute => array(
 						'data-has_orders' => $editBox->number_sold_n,
@@ -530,6 +531,7 @@ class page_admin_manage_box extends CPageAdminOnly
 				$this->Bundle1Form->addElement(array(
 					CForm::type => CForm::Number,
 					CForm::name => 'price_shipping',
+					CForm::step => '0.01',
 					CForm::required => true,
 					CForm::disabled => (empty($editBox->box_bundle_1_active) || $editBox->number_sold_n)
 				));
@@ -600,6 +602,7 @@ class page_admin_manage_box extends CPageAdminOnly
 				$this->Bundle2Form->addElement(array(
 					CForm::type => CForm::Number,
 					CForm::name => 'price',
+					CForm::step => '0.01',
 					CForm::required => true,
 					CForm::attribute => array(
 						'data-has_orders' => $editBox->number_sold_n,
@@ -610,6 +613,7 @@ class page_admin_manage_box extends CPageAdminOnly
 				$this->Bundle2Form->addElement(array(
 					CForm::type => CForm::Number,
 					CForm::name => 'price_shipping',
+					CForm::step => '0.01',
 					CForm::required => true,
 					CForm::disabled => (empty($editBox->box_bundle_2_active) || $editBox->number_sold_n)
 				));

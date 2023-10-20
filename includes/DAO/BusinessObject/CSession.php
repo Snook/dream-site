@@ -115,6 +115,49 @@ class CSession extends DAO_Session
 		return parent::find($n);
 	}
 
+	static function isTODDSession($session_id)
+	{
+		$SessionDAO = DAO_CFactory::create('session');
+		$SessionDAO->id = $session_id;
+		$SessionDAO->session_type = CSession::TODD;
+		$SessionDAO->find();
+		if ($SessionDAO->N == 1)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param      $dateStr String 'yyyy-mm-dd'
+	 * @param      $menu_id
+	 * @param bool $allDistributionCenters Optional -> default is true, will create for all DCs
+	 * @param int $specificDistCenterId Optional -> default is null and ignored, will be used if $allDistributionCenters == true and a valid positive int
+	 *                                  is passed
+	 *
+	 * @throws Exception
+	 */
+	static function generateDeliveredBlackoutSession($dateStr, $menu_id, $allDistributionCenters = true, $specificDistCenterId = null)
+	{
+
+		$date = DateTime::createFromFormat('Y-m-d',$dateStr);
+
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->active = 1;
+		$DAO_store->store_type = CStore::DISTRIBUTION_CENTER;
+		if(!$allDistributionCenters && is_numeric($specificDistCenterId))
+		{
+			$DAO_store->id = $specificDistCenterId;
+		}
+		$DAO_store->find();
+
+		while ($DAO_store->fetch())
+		{
+			self::addUpdateDeliveredSession($date, $DAO_store->id, $menu_id, false, false, 0, 'Store Shipping Blackout');
+		}
+	}
+
 	static function generateDeliveredSessionsForMenu($menu_id)
 	{
 

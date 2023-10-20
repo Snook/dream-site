@@ -1029,7 +1029,7 @@ class checkout_validation
 				}
 
 				$Form->AddElement(array(
-					CForm::type => CForm::Text,
+					CForm::type => CForm::Money,
 					CForm::name => 'plate_points_discount',
 					CForm::length => 16,
 					CForm::onKeyUp => 'handlePlatePointsDiscount',
