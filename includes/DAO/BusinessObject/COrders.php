@@ -10157,8 +10157,13 @@ class COrders extends DAO_Orders
 
 		$totalItemQty = 0;
 
-		$OrderItem = DAO_CFactory::create('order_item');
+		$store_id = $this->store_id;
+		if (!empty($this->DAO_store) && ($this->DAO_store->isDistributionCenter()))
+		{
+			$store_id = $this->DAO_store->parent_store_id;
+		}
 
+		$OrderItem = DAO_CFactory::create('order_item');
 		$OrderItem->query("select
 				mmi.menu_id,
 				mmi.override_price,
@@ -10166,7 +10171,7 @@ class COrders extends DAO_Orders
 				mimd.id as markdown_id,
 				oi.*
 				from order_item oi
-				left join menu_to_menu_item mmi on mmi.menu_item_id = oi.menu_item_id and mmi.store_id = {$this->store_id} and mmi.is_deleted = 0
+				left join menu_to_menu_item mmi on mmi.menu_item_id = oi.menu_item_id and mmi.store_id = {$store_id} and mmi.is_deleted = 0
 				left join menu_item_mark_down mimd on mimd.id = oi.menu_item_mark_down_id
 				where oi.order_id = {$this->id}
 				and oi.is_deleted = 0");
@@ -10178,7 +10183,7 @@ class COrders extends DAO_Orders
 			$MenuItem = $DAO_menu->findMenuItemDAO(array(
 				'menu_item_id_list' => $OrderItem->menu_item_id,
 				'join_order_item_order_id' => array($this->id),
-				'menu_to_menu_item_store_id' => $this->store_id,
+				'menu_to_menu_item_store_id' => $store_id,
 				'exclude_menu_item_category_core' => false,
 				'exclude_menu_item_category_efl' => false,
 				'exclude_menu_item_category_sides_sweets' => false

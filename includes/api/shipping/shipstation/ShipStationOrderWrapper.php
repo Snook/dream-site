@@ -55,6 +55,7 @@ class ShipStationOrderWrapper
 
 		$this->orderDAO = DAO_CFactory::create('orders');
 		$this->orderDAO->id = $COrdersDelivered->id;
+		$this->orderDAO->joinAddWhereAsOn(DAO_CFactory::create('store', true));
 		$this->orderDAO->find(true);
 		$this->orderDAO->reconstruct();
 
