@@ -219,7 +219,7 @@ class processor_admin_manage_box extends CPageProcessor
 					{
 						$bundle = DAO_CFactory::create('bundle');
 						$bundle->bundle_type = CBundle::DELIVERED;
-						$bundle->bundle_name = 'Temporary Delivered Bundle';
+						$bundle->bundle_name = 'Temporary Shipping Bundle';
 						$bundle->menu_id = $box->menu_id;
 						$bundle->insert();
 

@@ -788,7 +788,7 @@ class CUser extends DAO_User
 							self::SITE_ADMIN,
 							self::HOME_OFFICE_MANAGER
 						),
-						'title' => 'Delivered - ShipStation',
+						'title' => 'Shipping - ShipStation',
 						'link' => 'https://signin.shipstation.com/login',
 					)
 				)

@@ -1,4 +1,4 @@
-<?php $this->assign('page_title','Delivered Order Manager'); ?>
+<?php $this->assign('page_title','Shipping Order Manager'); ?>
 <?php $this->assign('topnav','guests'); ?>
 <?php $this->assign('helpLinkSection','EO'); ?>
 <?php $this->setScript('head', SCRIPT_PATH . '/admin/main.min.js'); ?>

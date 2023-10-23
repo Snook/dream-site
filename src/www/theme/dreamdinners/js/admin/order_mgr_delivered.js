@@ -2415,7 +2415,7 @@ function onRescheduleClick(id, sessionTime, isDiscounted, control_message)
 function onSessionClick(id, sessionTime, isDiscounted)
 {
 	// Obsolete - delivered orders always set a session based on current date and service days
-	intenseLogging("onSessionClick() called .................... please investiage should not occur for Delivered order");
+	intenseLogging("onSessionClick() called .................... please investiage should not occur for Shipping order");
 
 }
 
@@ -2939,7 +2939,7 @@ function getAbbreviatedSummaryString()
 {
 	var htmlStr = "";
 
-	htmlStr += "<h3>Delivered Order</h3>";
+	htmlStr += "<h3>Shipping Order</h3>";
 
 	var first = true;
 	for (var box_inst_id in changeList.boxes)
