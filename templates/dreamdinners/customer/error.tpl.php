@@ -18,7 +18,7 @@
 <main class="container">
 	<div class="row">
 		<div class="col">
-			<p>We're sorry, an error has occurred in our system. Dream Dinners technical staff has been notified.
+			<p>We are sorry, an error has occurred in our system. Dream Dinners technical staff has been notified.
 			<p>Please try again later.</p>
 		</div>
 	</div>
