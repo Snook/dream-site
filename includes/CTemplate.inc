@@ -1008,6 +1008,8 @@ class CTemplate extends Savant2
 				self::setScript('foot', SCRIPT_PATH . '/customer/analytics.min.js', true, true); // common DD functions
 
 				self::setScript('head', 'https://www.googletagmanager.com/gtag/js?id=' . GOOGLE_ANALYTICS_ID, true, false, false); // google analytics
+
+				self::setScript('head', 'https://assets.sitescdn.net/ytag/ytag.min.js', true, false, false); //yext tracking
 			}
 			self::setScript('foot', 'https://addevent.com/libs/atc/1.6.1/atc.min.js', true, true); // add to calendar function
 
