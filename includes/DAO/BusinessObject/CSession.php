@@ -1029,7 +1029,7 @@ class CSession extends DAO_Session
 		$selfSearch = "";
 		if ($this->id != null && $this->id != "" && $this->id > 0)
 		{
-			$selfSearch = 'AND id <> ' . $this->id;
+			$selfSearch = 'AND s.id <> ' . $this->id;
 		}
 
 		$Session = new DAO();
