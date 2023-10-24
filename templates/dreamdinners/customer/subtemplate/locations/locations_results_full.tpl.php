@@ -12,17 +12,21 @@
 								<div class="col-12 col-sm-7 col-md-6">
 									<h3 class="text-uppercase font-weight-bold text-center d-sm-none"><?php echo $arStore["DAO_store"]->store_name; ?></h3>
 									<div>
-										<iframe
-												class="border border-width-2-imp border-gray-400"
-												width="100%"
-												height="250"
-												style="background-repeat: no-repeat; background-size: 100%; background-image:url('<?php echo IMAGES_PATH; ?>/stores/0.webp')"
-												src="//www.google.com/maps/embed/v1/place?key=<?php echo GOOGLE_APIKEY; ?>&q=<?php echo (!empty($arStore["DAO_store"]->google_place_id)) ? 'place_id:' . $arStore["DAO_store"]->google_place_id : urlencode($arStore["DAO_store"]->address_linear); ?>" allowfullscreen>
-										</iframe>
-										<a href="#" class="row text-uppercase" target="map_view" data-linear_address="<?php echo $arStore["DAO_store"]->address_linear; ?>">
-											<div class="col-1"><i class="fas fa-map-marked-alt"></i></div>
-											<div class="col-11"><?php echo $arStore["DAO_store"]->address_html; ?></div>
-										</a>
+										<?php if ($arStore["DAO_store"]->hasPublicAddress()) { ?>
+											<iframe
+													class="border border-width-2-imp border-gray-400"
+													width="100%"
+													height="250"
+													style="background-repeat: no-repeat; background-size: 100%; background-image:url('<?php echo IMAGES_PATH; ?>/stores/0.webp')"
+													src="//www.google.com/maps/embed/v1/place?key=<?php echo GOOGLE_APIKEY; ?>&q=<?php echo (!empty($arStore["DAO_store"]->google_place_id)) ? 'place_id:' . $arStore["DAO_store"]->google_place_id : urlencode($arStore["DAO_store"]->address_linear); ?>" allowfullscreen>
+											</iframe>
+											<a href="#" class="row text-uppercase" target="map_view" data-linear_address="<?php echo $arStore["DAO_store"]->address_linear; ?>">
+												<div class="col-1"><i class="fas fa-map-marked-alt"></i></div>
+												<div class="col-11"><?php echo $arStore["DAO_store"]->address_html; ?></div>
+											</a>
+										<?php } else { ?>
+											<img src="<?php echo IMAGES_PATH; ?>/stores/<?php echo $arStore["DAO_store"]->id; ?>.webp" class="img-fluid border border-width-2-imp border-gray-400" alt="<?php echo $arStore["DAO_store"]->store_name; ?>"/>
+										<?php } ?>
 									</div>
 								</div>
 								<div class="col-12 col-sm-5 col-md-6 mt-4 mt-sm-0">
