@@ -173,6 +173,7 @@ class COrders extends DAO_Orders
 		$DAO_menu->id = $this->DAO_menu->id;
 		$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
 			'join_order_item_order_id' => array($this->id),
+			'join_order_item_order' => 'INNER',
 			'menu_to_menu_item_store_id' => $this->DAO_store->id,
 			'exclude_menu_item_category_core' => false,
 			'exclude_menu_item_category_efl' => false,
@@ -1638,7 +1639,6 @@ class COrders extends DAO_Orders
 		$sumStorePrice = 0;
 		foreach ($this->bundle->items as $id => $bitem)
 		{
-			$hasLTDPriceSet = true;
 			if ($bitem['chosen'])
 			{
 				$thisItem = $this->getMenuItem($id);
@@ -1646,21 +1646,24 @@ class COrders extends DAO_Orders
 				if ($this->bundle->bundle_type == 'TV_OFFER')
 				{
 					$thisItemQty = 1;
-					$hasLTDPriceSet = false;
 				}
 				else
 				{
 					$thisItemQty = $this->getMenuItemQty($id);
 				}
+
 				CLog::Assert(isset($thisItem), "Bundle Item $id not found in COrder::items");
 
-				$sumStorePrice += (self::getStorePrice($this->mark_up, $thisItem, 1, $hasLTDPriceSet) * $thisItemQty);
+				$sumStorePrice += $thisItem->store_price * $thisItemQty;
+
+				if ($this->bundle->bundle_type == 'TV_OFFER')
+				{
+					$sumStorePrice -= $thisItem->ltd_menu_item_value;
+				}
 			}
 		}
 
-		$bundle_price = $this->bundle->price;
-
-		$this->bundle_discount = $sumStorePrice - $bundle_price;
+		$this->bundle_discount = $sumStorePrice - $this->bundle->price;
 	}
 
 	function getGiftCards()
@@ -2590,6 +2593,7 @@ class COrders extends DAO_Orders
 			$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
 				'menu_to_menu_item_store_id' => $orderDetails['store_id'],
 				'join_order_item_order_id' => array($orderDetails['order_id']),
+				'join_order_item_order' => 'INNER',
 				'menu_item_word_search' => $foodSearch,
 				'exclude_menu_item_category_core' => false,
 				'exclude_menu_item_category_efl' => false,
@@ -3434,21 +3438,26 @@ class COrders extends DAO_Orders
 
 	function getOriginalPrices()
 	{
-		$DAO_order_item = DAO_CFactory::create('order_item');
-		$DAO_order_item->order_id = $this->id;
-		$DAO_order_item->find();
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
+			'join_order_item_order_id' => array($this->id),
+			'join_order_item_order' => 'INNER',
+			'exclude_menu_item_category_core' => false,
+			'exclude_menu_item_category_efl' => false,
+			'exclude_menu_item_category_sides_sweets' => false
+		));
 
 		$retVal = array();
 
-		while ($DAO_order_item->fetch())
+		while ($DAO_menu_item->fetch())
 		{
-			if (!empty($DAO_order_item->discounted_subtotal) && empty($DAO_order_item->menu_item_mark_down_id))
+			if (!empty($DAO_menu_item->DAO_order_item->discounted_subtotal) && empty($DAO_menu_item->DAO_order_item->menu_item_mark_down_id))
 			{
-				$retVal[$DAO_order_item->menu_item_id] = $DAO_order_item->discounted_subtotal / $DAO_order_item->item_count;
+				$retVal[$DAO_menu_item->DAO_order_item->menu_item_id] = $DAO_menu_item->DAO_order_item->discounted_subtotal / $DAO_menu_item->DAO_order_item->item_count;
 			}
 			else
 			{
-				$retVal[$DAO_order_item->menu_item_id] = $DAO_order_item->sub_total / $DAO_order_item->item_count;
+				$retVal[$DAO_menu_item->DAO_order_item->menu_item_id] = $DAO_menu_item->DAO_order_item->sub_total / $DAO_menu_item->DAO_order_item->item_count;
 			}
 		}
 
@@ -5084,6 +5093,11 @@ class COrders extends DAO_Orders
 				if ($useCurrent || !array_key_exists($DAO_menu_item->id, $toddItems))
 				{
 					$totalPrice += $qty * $DAO_menu_item->store_price;
+
+					if ($this->type_of_order == 'INTRO' || (!empty($this->bundle) && $this->bundle->bundle_type == 'TV_OFFER'))
+					{
+						$totalPrice -= $DAO_menu_item->ltd_menu_item_value;
+					}
 				}
 				else
 				{
@@ -5423,8 +5437,6 @@ class COrders extends DAO_Orders
 						{
 							$this->subtotal_home_store_markup += $thisMarkupAmt;
 						}
-
-						$DAO_menu_item->store_price = $DAO_menu_item->override_price;
 					}
 					else
 					{
@@ -6485,8 +6497,19 @@ class COrders extends DAO_Orders
 					{
 						if ($this->family_savings_discount_version == 2)
 						{
+							if (isset($menu_item->store_price))
+							{
+								$orderItem->discounted_subtotal = $menu_item->store_price * $qty;
+								$orderItem->sub_total = $menu_item->store_price * $qty;
+								$orderItem->pre_mark_up_sub_total = $menu_item->store_price * $qty;
 
-							if (isset($menu_item->override_price))
+								if ($this->bundle->bundle_type == CBundle::TV_OFFER)
+								{
+									// remove one ltd from order
+									$orderItem->sub_total -= $menu_item->ltd_menu_item_value;
+								}
+							}
+							else if (isset($menu_item->override_price))
 							{
 								$orgOverridePrice = $menu_item->override_price;
 								if ($hasLTDMenuItem)
@@ -6765,17 +6788,27 @@ class COrders extends DAO_Orders
 
 					if ($useCurrent || !array_key_exists($menu_item->id, $toddItems))
 					{
-						if (isset($menu_item->override_price))
+						if (isset($menu_item->store_price))
 						{
-							// Note: the LTD item has the donation added to the store price which is then set to the override price
+							$orderItem->discounted_subtotal = $menu_item->store_price * $qty;
+							$orderItem->sub_total = $menu_item->store_price_no_ltd * $qty;
+							$orderItem->pre_mark_up_sub_total = $menu_item->store_price * $qty;
+						}
+						else if (isset($menu_item->override_price))
+						{
+							$orgOverridePrice = $menu_item->override_price;
 							if ($hasLTDMenuItem)
 							{
-								$orderItem->discounted_subtotal = ($menu_item->override_price) * $qty;
-								$menu_item->override_price -= $menu_item->ltd_menu_item_value;
+								$orderItem->discounted_subtotal = $menu_item->override_price * $qty;
+								$orgStoreOverridePrice = $menu_item->override_price - $menu_item->ltd_menu_item_value;
+								$orderItem->sub_total = $orgStoreOverridePrice * $qty;
+							}
+							else
+							{
+								$orderItem->sub_total = $menu_item->override_price * $qty;
 							}
 
-							$orderItem->sub_total = $menu_item->override_price * $qty;
-							$orderItem->pre_mark_up_sub_total = $menu_item->store_price * $qty;
+							$orderItem->pre_mark_up_sub_total = $menu_item->store_price_no_ltd * $qty;
 						}
 						else
 						{
@@ -10183,6 +10216,7 @@ class COrders extends DAO_Orders
 			$MenuItem = $DAO_menu->findMenuItemDAO(array(
 				'menu_item_id_list' => $OrderItem->menu_item_id,
 				'join_order_item_order_id' => array($this->id),
+				'join_order_item_order' => 'INNER',
 				'menu_to_menu_item_store_id' => $store_id,
 				'exclude_menu_item_category_core' => false,
 				'exclude_menu_item_category_efl' => false,
@@ -13246,7 +13280,7 @@ class COrders extends DAO_Orders
 	 *                    $menuOptions[id]['enddate'],
 	 *                    $menuItemInfo
 	 */
-	public static function buildOrderEditMenuPlanArrays($menu_select = null, $markup = null, $isNewPricePlan = false, $storeObj = false, $orderBy = 'FeaturedFirst')
+	function buildOrderEditMenuPlanArrays($menu_select = null, $markup = null, $isNewPricePlan = false, $storeObj = false, $orderBy = 'FeaturedFirst')
 	{
 		//create menu array[ id ] = (startdate, enddate)
 		$menuInfo = array();
@@ -13291,103 +13325,110 @@ class COrders extends DAO_Orders
 		*/
 
 		// get entrees
-		$daoMenuItem = $daoMenu->getMenuItemDAO($orderBy, $storeObj->id, false, //$fullEntreesOnly
-			false, //$groupByEntreeID
-			true, //$excludeAddons
-			true, //$excludeChefTouchedSelections
-			false); //returns the associated menu item query
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->id = $daoMenu->id;
+		$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
+			'join_order_item_order_id' => array($this->id),
+			'join_order_item_order' => 'LEFT',
+			'menu_to_menu_item_store_id' => $storeObj->id,
+			'exclude_menu_item_category_core' => false,
+			'exclude_menu_item_category_efl' => false,
+			'exclude_menu_item_category_sides_sweets' => true
+		));
+
 		$menuItemInfo = array();
 
-		while ($daoMenuItem->fetch())
+		while ($DAO_menu_item->fetch())
 		{
-			$daoMenuItem->original_category = $daoMenuItem->category;
+			$DAO_menu_item->original_category = $DAO_menu_item->category;
 
-			if ($daoMenuItem->menu_item_category_id == 1 || ($daoMenuItem->menu_item_category_id == 4 && !$daoMenuItem->is_store_special))
+			if ($DAO_menu_item->menu_item_category_id == 1 || ($DAO_menu_item->menu_item_category_id == 4 && !$DAO_menu_item->is_store_special))
 			{
-				$daoMenuItem->category = "Specials";
+				$DAO_menu_item->category = "Specials";
 			}
 
-			if ($daoMenuItem->menu_item_category_id == 4 && $daoMenuItem->is_store_special)
+			if ($DAO_menu_item->menu_item_category_id == 4 && $DAO_menu_item->is_store_special)
 			{
-				$daoMenuItem->category = "Extended Fast Lane";
+				$DAO_menu_item->category = "Extended Fast Lane";
 			}
 
-			$i = $daoMenuItem->id;
-			$menuItemInfo[$daoMenuItem->category][$i] = array();
-			$menuItemInfo[$daoMenuItem->category][$i]['id'] = $i;
-			$menuItemInfo[$daoMenuItem->category][$i]['menu_item_name'] = $daoMenuItem->menu_item_name;
-			$menuItemInfo[$daoMenuItem->category][$i]['display_title'] = $daoMenuItem->menu_item_name;
-			$menuItemInfo[$daoMenuItem->category][$i]['menu_item_description'] = $daoMenuItem->menu_item_description;
-			$menuItemInfo[$daoMenuItem->category][$i]['display_description'] = stripslashes($daoMenuItem->menu_item_description);
-			$menuItemInfo[$daoMenuItem->category][$i]['is_featured'] = $daoMenuItem->featuredItem;
-			$menuItemInfo[$daoMenuItem->category][$i]['base_price'] = $daoMenuItem->price;
-			$menuItemInfo[$daoMenuItem->category][$i]['pricing_type'] = $daoMenuItem->pricing_type;
-			$menuItemInfo[$daoMenuItem->category][$i]['pricing_type_info'] = $daoMenuItem->pricing_type_info;
-			$menuItemInfo[$daoMenuItem->category][$i]['is_side_dish'] = $daoMenuItem->is_side_dish;
-			$menuItemInfo[$daoMenuItem->category][$i]['is_kids_choice'] = $daoMenuItem->is_kids_choice;
-			$menuItemInfo[$daoMenuItem->category][$i]['is_menu_addon'] = $daoMenuItem->is_menu_addon;
-			$menuItemInfo[$daoMenuItem->category][$i]['is_chef_touched'] = $daoMenuItem->is_chef_touched;
-			$menuItemInfo[$daoMenuItem->category][$i]['is_bundle'] = $daoMenuItem->is_bundle;
-			$menuItemInfo[$daoMenuItem->category][$i]['is_preassembled'] = $daoMenuItem->is_preassembled;
-			$menuItemInfo[$daoMenuItem->category][$i]['servings_per_item'] = $daoMenuItem->servings_per_item;
-			$menuItemInfo[$daoMenuItem->category][$i]['item_count_per_item'] = $daoMenuItem->item_count_per_item;
-			$menuItemInfo[$daoMenuItem->category][$i]['entree_id'] = $daoMenuItem->entree_id;
-			$menuItemInfo[$daoMenuItem->category][$i]['cross_program_grouping_id'] = $daoMenuItem->cross_program_grouping_id;
-			$menuItemInfo[$daoMenuItem->category][$i]['menu_program_id'] = $daoMenuItem->menu_program_id;
-			$menuItemInfo[$daoMenuItem->category][$i]['is_optional'] = $daoMenuItem->is_optional;
-			$menuItemInfo[$daoMenuItem->category][$i]['menu_item_category_id'] = $daoMenuItem->menu_item_category_id;
-			$menuItemInfo[$daoMenuItem->category][$i]['initial_inventory'] = isset($daoMenuItem->initial_inventory) ? $daoMenuItem->initial_inventory : 9999;
-			$menuItemInfo[$daoMenuItem->category][$i]['override_inventory'] = isset($daoMenuItem->override_inventory) ? $daoMenuItem->override_inventory : 9999;
-			$menuItemInfo[$daoMenuItem->category][$i]['number_sold'] = isset($daoMenuItem->number_sold) ? $daoMenuItem->number_sold : 0;
-			$menuItemInfo[$daoMenuItem->category][$i]['markdown_id'] = !empty($daoMenuItem->markdown_id) ? $daoMenuItem->markdown_id : false;
-			$menuItemInfo[$daoMenuItem->category][$i]['markdown_value'] = !empty($daoMenuItem->markdown_value) ? $daoMenuItem->markdown_value : 0;
-			$menuItemInfo[$daoMenuItem->category][$i]['ltd_menu_item_value'] = !empty($daoMenuItem->ltd_menu_item_value) ? $daoMenuItem->ltd_menu_item_value : 0;
-			$menuItemInfo[$daoMenuItem->category][$i]['menu_order_value'] = $daoMenuItem->menu_order_value;
-			$menuItemInfo[$daoMenuItem->category][$i]['item_is_customizable'] = $daoMenuItem->allowsMealCustomization($storeObj);
+			$i = $DAO_menu_item->id;
+			$menuItemInfo[$DAO_menu_item->category][$i] = array();
+			$menuItemInfo[$DAO_menu_item->category][$i]['id'] = $i;
+			$menuItemInfo[$DAO_menu_item->category][$i]['menu_item_name'] = $DAO_menu_item->menu_item_name;
+			$menuItemInfo[$DAO_menu_item->category][$i]['display_title'] = $DAO_menu_item->menu_item_name;
+			$menuItemInfo[$DAO_menu_item->category][$i]['menu_item_description'] = $DAO_menu_item->menu_item_description;
+			$menuItemInfo[$DAO_menu_item->category][$i]['display_description'] = stripslashes($DAO_menu_item->menu_item_description);
+			$menuItemInfo[$DAO_menu_item->category][$i]['is_featured'] = $DAO_menu_item->featuredItem;
+			$menuItemInfo[$DAO_menu_item->category][$i]['base_price'] = $DAO_menu_item->price;
+			$menuItemInfo[$DAO_menu_item->category][$i]['pricing_type'] = $DAO_menu_item->pricing_type;
+			$menuItemInfo[$DAO_menu_item->category][$i]['pricing_type_info'] = $DAO_menu_item->pricing_type_info;
+			$menuItemInfo[$DAO_menu_item->category][$i]['is_side_dish'] = $DAO_menu_item->is_side_dish;
+			$menuItemInfo[$DAO_menu_item->category][$i]['is_kids_choice'] = $DAO_menu_item->is_kids_choice;
+			$menuItemInfo[$DAO_menu_item->category][$i]['is_menu_addon'] = $DAO_menu_item->is_menu_addon;
+			$menuItemInfo[$DAO_menu_item->category][$i]['is_chef_touched'] = $DAO_menu_item->is_chef_touched;
+			$menuItemInfo[$DAO_menu_item->category][$i]['is_bundle'] = $DAO_menu_item->is_bundle;
+			$menuItemInfo[$DAO_menu_item->category][$i]['is_preassembled'] = $DAO_menu_item->is_preassembled;
+			$menuItemInfo[$DAO_menu_item->category][$i]['servings_per_item'] = $DAO_menu_item->servings_per_item;
+			$menuItemInfo[$DAO_menu_item->category][$i]['item_count_per_item'] = $DAO_menu_item->item_count_per_item;
+			$menuItemInfo[$DAO_menu_item->category][$i]['entree_id'] = $DAO_menu_item->entree_id;
+			$menuItemInfo[$DAO_menu_item->category][$i]['cross_program_grouping_id'] = $DAO_menu_item->cross_program_grouping_id;
+			$menuItemInfo[$DAO_menu_item->category][$i]['menu_program_id'] = $DAO_menu_item->menu_program_id;
+			$menuItemInfo[$DAO_menu_item->category][$i]['is_optional'] = $DAO_menu_item->is_optional;
+			$menuItemInfo[$DAO_menu_item->category][$i]['menu_item_category_id'] = $DAO_menu_item->menu_item_category_id;
+			$menuItemInfo[$DAO_menu_item->category][$i]['initial_inventory'] = isset($DAO_menu_item->initial_inventory) ? $DAO_menu_item->initial_inventory : 9999;
+			$menuItemInfo[$DAO_menu_item->category][$i]['override_inventory'] = isset($DAO_menu_item->override_inventory) ? $DAO_menu_item->override_inventory : 9999;
+			$menuItemInfo[$DAO_menu_item->category][$i]['number_sold'] = isset($DAO_menu_item->number_sold) ? $DAO_menu_item->number_sold : 0;
+			$menuItemInfo[$DAO_menu_item->category][$i]['markdown_id'] = !empty($DAO_menu_item->markdown_id) ? $DAO_menu_item->markdown_id : false;
+			$menuItemInfo[$DAO_menu_item->category][$i]['markdown_value'] = !empty($DAO_menu_item->markdown_value) ? $DAO_menu_item->markdown_value : 0;
+			$menuItemInfo[$DAO_menu_item->category][$i]['ltd_menu_item_value'] = !empty($DAO_menu_item->ltd_menu_item_value) ? $DAO_menu_item->ltd_menu_item_value : 0;
+			$menuItemInfo[$DAO_menu_item->category][$i]['menu_order_value'] = $DAO_menu_item->menu_order_value;
+			$menuItemInfo[$DAO_menu_item->category][$i]['item_is_customizable'] = $DAO_menu_item->allowsMealCustomization($storeObj);
+			$menuItemInfo[$DAO_menu_item->category][$i]['store_price'] = $DAO_menu_item->getStorePrice($markup);
 
 			// is_visible will only be set if we are obtaining a store specific menu
 			// if not set it should default to true
-			if (isset($daoMenuItem->is_visible))
+			if (isset($DAO_menu_item->is_visible))
 			{
-				$menuItemInfo[$daoMenuItem->category][$i]['is_visible'] = $daoMenuItem->is_visible ? true : false;
+				$menuItemInfo[$DAO_menu_item->category][$i]['is_visible'] = $DAO_menu_item->is_visible ? true : false;
 			}
 			else
 			{
-				$menuItemInfo[$daoMenuItem->category][$i]['is_visible'] = true;
+				$menuItemInfo[$DAO_menu_item->category][$i]['is_visible'] = true;
 			}
 
-			$menuItemInfo[$daoMenuItem->category][$i]['is_price_controllable'] = $daoMenuItem->is_price_controllable;
-			$menuItemInfo[$daoMenuItem->category][$i]['is_visibility_controllable'] = $daoMenuItem->is_visibility_controllable;
-			$menuItemInfo[$daoMenuItem->category][$i]['override_price'] = isset($daoMenuItem->override_price) ? $daoMenuItem->override_price : null;
+			$menuItemInfo[$DAO_menu_item->category][$i]['is_price_controllable'] = $DAO_menu_item->is_price_controllable;
+			$menuItemInfo[$DAO_menu_item->category][$i]['is_visibility_controllable'] = $DAO_menu_item->is_visibility_controllable;
+			$menuItemInfo[$DAO_menu_item->category][$i]['override_price'] = isset($DAO_menu_item->override_price) ? $DAO_menu_item->override_price : null;
 
-			if (isset($daoMenuItem->override_price))
+			if (isset($DAO_menu_item->override_price))
 			{
-				$menuItemInfo[$daoMenuItem->category][$i]['price'] = $daoMenuItem->override_price;
+				$menuItemInfo[$DAO_menu_item->category][$i]['price'] = $DAO_menu_item->override_price;
 			}
 			else
 			{
 				if ($isNewPricePlan)
 				{
-					$menuItemInfo[$daoMenuItem->category][$i]['price'] = CTemplate::moneyFormat(COrders::getItemMarkupMultiSubtotal($markup, $daoMenuItem, 1));
+					$menuItemInfo[$DAO_menu_item->category][$i]['price'] = CTemplate::moneyFormat(COrders::getItemMarkupMultiSubtotal($markup, $DAO_menu_item, 1));
 				}
 				else
 				{
-					$menuItemInfo[$daoMenuItem->category][$i]['price'] = CTemplate::moneyFormat(COrders::getItemMarkupSubtotal($markup, $daoMenuItem, 1));
+					$menuItemInfo[$DAO_menu_item->category][$i]['price'] = CTemplate::moneyFormat(COrders::getItemMarkupSubtotal($markup, $DAO_menu_item, 1));
 				}
 			}
 
-			if ($menuItemInfo[$daoMenuItem->category][$i]['markdown_id'])
+			if ($menuItemInfo[$DAO_menu_item->category][$i]['markdown_id'])
 			{
-				$percentage = $menuItemInfo[$daoMenuItem->category][$i]['markdown_value'] / 100;
+				$percentage = $menuItemInfo[$DAO_menu_item->category][$i]['markdown_value'] / 100;
 
-				$menuItemInfo[$daoMenuItem->category][$i]['price'] -= COrders::std_round(($menuItemInfo[$daoMenuItem->category][$i]['price'] * $percentage));
+				$menuItemInfo[$DAO_menu_item->category][$i]['price'] -= COrders::std_round(($menuItemInfo[$DAO_menu_item->category][$i]['price'] * $percentage));
 			}
 
 			if (!empty($storeObj->supports_ltd_roundup))
 			{
-				if ($menuItemInfo[$daoMenuItem->category][$i]['ltd_menu_item_value'])
+				if ($menuItemInfo[$DAO_menu_item->category][$i]['ltd_menu_item_value'])
 				{
-					$menuItemInfo[$daoMenuItem->category][$i]['price'] += COrders::std_round($menuItemInfo[$daoMenuItem->category][$i]['ltd_menu_item_value']);
+					$menuItemInfo[$DAO_menu_item->category][$i]['price'] += COrders::std_round($menuItemInfo[$DAO_menu_item->category][$i]['ltd_menu_item_value']);
 				}
 			}
 		}

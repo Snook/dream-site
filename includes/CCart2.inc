@@ -827,29 +827,6 @@ class CCart2
 
 			while ($DAO_menu_item->fetch())
 			{
-				/* assign legacy object properties */
-				$DAO_menu_item->category = $DAO_menu_item->DAO_menu_item_category->category_type;
-				$DAO_menu_item->ltd_menu_item_value = $DAO_menu_item->DAO_recipe->ltd_menu_item_value;
-				$DAO_menu_item->markdown_id = $DAO_menu_item->DAO_menu_item_mark_down->id;
-				$DAO_menu_item->markdown_value = $DAO_menu_item->DAO_menu_item_mark_down->markdown_value;
-
-				if ($DAO_menu_item->DAO_recipe->ltd_menu_item_value > 0 && $storeObj->supports_ltd_roundup)
-				{
-					if (isset($DAO_menu_item->DAO_menu_to_menu_item->override_price))
-					{
-						$DAO_menu_item->override_price += $DAO_menu_item->DAO_recipe->ltd_menu_item_value;
-					}
-					else if ($hasMarkup)
-					{
-						$DAO_menu_item->override_price = COrders::std_round(COrders::getItemMarkupMultiSubtotal($MarkUp, $DAO_menu_item, 1));
-						$DAO_menu_item->override_price += $DAO_menu_item->DAO_recipe->ltd_menu_item_value;
-					}
-					else
-					{
-						$DAO_menu_item->override_price = $DAO_menu_item->price + $DAO_menu_item->DAO_recipe->ltd_menu_item_value;
-					}
-				}
-
 				$Order->addMenuItem(clone($DAO_menu_item), $outerArray['mitems'][$DAO_menu_item->id]);
 			}
 

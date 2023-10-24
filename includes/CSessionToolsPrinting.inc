@@ -448,6 +448,7 @@ class CSessionToolsData
 		$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
 			'menu_to_menu_item_store_id' => $this->store_id,
 			'join_order_item_order_id' => $order_ids,
+			'join_order_item_order' => 'INNER',
 			'exclude_menu_item_category_core' => false,
 			'exclude_menu_item_category_efl' => false,
 			'exclude_menu_item_category_sides_sweets' => false,
@@ -486,6 +487,7 @@ class CSessionToolsData
 		$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
 			'menu_to_menu_item_store_id' => $this->store_id,
 			'join_order_item_order_id' => $order_ids,
+			'join_order_item_order' => 'INNER',
 			'exclude_menu_item_category_core' => false,
 			'exclude_menu_item_category_efl' => false,
 			'exclude_menu_item_category_sides_sweets' => false,

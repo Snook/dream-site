@@ -89,6 +89,7 @@ class CMenuItem extends DAO_Menu_item
 	);
 	public $is_shiftsetgo = false;
 	public $store_price;
+	public $store_price_no_ltd;
 	public $remaining_servings;
 	public $override_inventory;
 	public $number_sold;
@@ -521,7 +522,7 @@ class CMenuItem extends DAO_Menu_item
 			{
 				list($bundle['id'], $bundle['bundle_type'], $bundle['master_menu_item']) = explode(':', $bundleInfo);
 
-				$this->in_bundle[$bundle['id']] = DAO_CFactory::create('bundle');
+				$this->in_bundle[$bundle['id']] = DAO_CFactory::create('bundle', true);
 				$this->in_bundle[$bundle['id']]->id = $bundle['id'];
 				$this->in_bundle[$bundle['id']]->bundle_type = $bundle['bundle_type'];
 				$this->in_bundle[$bundle['id']]->master_menu_item = $bundle['master_menu_item'];
@@ -595,7 +596,7 @@ class CMenuItem extends DAO_Menu_item
 			{
 				list($pricing['id'], $pricing['menu_id'], $pricing['recipe_id'], $pricing['pricing_type'], $pricing['tier'], $pricing['price']) = explode(':', $pricingInfo);
 
-				$this->pricing_tiers[$pricing['tier']][$pricing['pricing_type']] = DAO_CFactory::create('pricing');
+				$this->pricing_tiers[$pricing['tier']][$pricing['pricing_type']] = DAO_CFactory::create('pricing', true);
 				$this->pricing_tiers[$pricing['tier']][$pricing['pricing_type']]->id = $pricing['id'];
 				$this->pricing_tiers[$pricing['tier']][$pricing['pricing_type']]->menu_id = $pricing['menu_id'];
 				$this->pricing_tiers[$pricing['tier']][$pricing['pricing_type']]->recipe_id = $pricing['recipe_id'];
@@ -663,12 +664,30 @@ class CMenuItem extends DAO_Menu_item
 			$this->store_price -= COrders::std_round(($this->store_price * $percentage));
 		}
 
+		$this->store_price_no_ltd = $this->store_price;
+
 		if (!empty($this->DAO_store->supports_ltd_roundup))
 		{
 			if (!empty($this->ltd_menu_item_value))
 			{
 				$this->store_price += $this->ltd_menu_item_value;
 			}
+		}
+
+		// If the order_item object exists, restore the purchase price
+		if (!empty($this->DAO_order_item) && !empty($this->DAO_order_item->item_count))
+		{
+			if (!empty($this->DAO_order_item->discounted_subtotal) && empty($this->DAO_order_item->menu_item_mark_down_id))
+			{
+				$this->store_price = $this->DAO_order_item->discounted_subtotal / $this->DAO_order_item->item_count;
+			}
+			else
+			{
+				$this->store_price = $this->DAO_order_item->sub_total / $this->DAO_order_item->item_count;
+			}
+
+			// order_items stored the LTD value in the price, so remove it here
+			$this->store_price_no_ltd = $this->store_price - $this->ltd_menu_item_value;
 		}
 
 		return $this->store_price;

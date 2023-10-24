@@ -369,10 +369,10 @@ class CMenu extends DAO_Menu
 	 */
 	function findMenuItemDAO($optionsArray = false)
 	{
-		if (!$this->id)
+		if (empty($this->id) && empty($optionsArray['join_order_item_order_id']))
 		{
 			//throw new Exception('menu id must be set before creating a related menu item object.');
-			echo 'menu id must be set before creating a related menu item object.';
+			echo 'Menu id OR join_order_item_order_id must be set before creating a related menu item object.';
 
 			return null;
 		}
@@ -400,6 +400,7 @@ class CMenu extends DAO_Menu
 			// join a specific user's meal ratings
 			'join_food_survey_user_id' => false,
 			// join order_item
+			'join_order_item_order' => 'LEFT',
 			'join_order_item_order_id' => false,
 			'join_menu_item_inventory_week_projection' => false,
 			// group by 'EntreeID'
@@ -425,16 +426,22 @@ class CMenu extends DAO_Menu
 			$DAO_order_item = DAO_CFactory::create('order_item', true);
 			$DAO_order_item->whereAdd("order_id IN (" . implode(',', $optionsArray['join_order_item_order_id']) . ")");
 			$DAO_booking = DAO_CFactory::create('booking', true);
-			$DAO_session = DAO_CFactory::create('session', true);
-			$DAO_booking->joinAddWhereAsOn($DAO_session);
-			$DAO_order_item->joinAddWhereAsOn($DAO_booking);
-			$DAO_menu_item->joinAddWhereAsOn($DAO_order_item);
+			$DAO_booking->joinAddWhereAsOn(DAO_CFactory::create('session', true), $optionsArray['join_order_item_order']);
+			$DAO_order_item->joinAddWhereAsOn($DAO_booking, $optionsArray['join_order_item_order']);
+			$DAO_menu_item->joinAddWhereAsOn($DAO_order_item, $optionsArray['join_order_item_order']);
 
 			$DAO_menu_item->selectAdd("GROUP_CONCAT(DISTINCT order_item.order_id) as order_ids");
 		}
 
 		$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
-		$DAO_menu_to_menu_item->menu_id = $this->id;
+		if(!empty($this->id))
+		{
+			$DAO_menu_to_menu_item->menu_id = $this->id;
+		}
+		else if (!empty($optionsArray['join_order_item_order_id']))
+		{
+			$DAO_menu_to_menu_item->whereAdd("menu_to_menu_item.menu_id=session.menu_id");
+		}
 
 		$DAO_menu_to_menu_item->joinAddWhereAsOn(DAO_CFactory::create('menu'));
 
@@ -486,6 +493,7 @@ class CMenu extends DAO_Menu
 
 		$DAO_recipe->joinAddWhereAsOn($DAO_recipe_component, 'LEFT', false, false, false);
 
+		// Legacy selects
 		$DAO_menu_item->selectAdd('menu_item_category.category_type as category');
 		$DAO_menu_item->selectAdd('menu_item_category.display_title as category_display_title');
 		$DAO_menu_item->selectAdd('menu_to_menu_item.menu_id');
@@ -572,13 +580,21 @@ class CMenu extends DAO_Menu
 			$DAO_menu_item->joinAddWhereAsOn($DAO_menu_item_inventory);
 			$DAO_menu_item->joinAddWhereAsOn($DAO_menu_item_mark_down, 'LEFT');
 
-			$DAO_pricing = DAO_CFactory::create('pricing');
+			// This store specific pricing tier info
+			$DAO_pricing = DAO_CFactory::create('pricing', true);
 			$DAO_pricing->whereAdd("pricing.menu_id=menu_to_menu_item.menu_id");
 			$DAO_pricing->whereAdd("pricing.recipe_id=menu_item.recipe_id");
+			$DAO_pricing->whereAdd("pricing.tier=store.core_pricing_tier");
+			$DAO_menu_item->joinAddWhereAsOn($DAO_pricing, $optionsArray['join_pricing_to_menu_item']);
 
-			$DAO_menu_item->joinAddWhereAsOn($DAO_pricing, $optionsArray['join_pricing_to_menu_item'], false, false, false);
+			// Concat all pricing tier info for this item
+			$DAO_pricing_tiers = DAO_CFactory::create('pricing', true);
+			$DAO_pricing_tiers->whereAdd("pricing_tiers.menu_id=menu_to_menu_item.menu_id");
+			$DAO_pricing_tiers->whereAdd("pricing_tiers.recipe_id=menu_item.recipe_id");
+
+			$DAO_menu_item->joinAddWhereAsOn($DAO_pricing_tiers, $optionsArray['join_pricing_to_menu_item'], 'pricing_tiers', false, false);
 			// this will be decoded in CMenuItem::digestMenuItem()
-			$DAO_menu_item->selectAdd("GROUP_CONCAT(DISTINCT pricing.id, ':' , pricing.menu_id, ':' , pricing.recipe_id, ':' , pricing.pricing_type, ':' , pricing.tier, ':' , pricing.price) as _pricing_tiers");
+			$DAO_menu_item->selectAdd("GROUP_CONCAT(DISTINCT pricing_tiers.id, ':' , pricing_tiers.menu_id, ':' , pricing_tiers.recipe_id, ':' , pricing_tiers.pricing_type, ':' , pricing_tiers.tier, ':' , pricing.price) as _pricing_tiers");
 		}
 
 		if ($optionsArray['join_food_survey_user_id'] || !empty($optionsArray['join_order_item_order_id']))

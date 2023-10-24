@@ -871,7 +871,7 @@ class DAO extends DB_DataObject
 		{
 			foreach ($this->_joinAdd as $joinAs => $table)
 			{
-				$DAO_table = DAO_CFactory::create($table);
+				$DAO_table = DAO_CFactory::create($table, true);
 
 				$hasData = false;
 
