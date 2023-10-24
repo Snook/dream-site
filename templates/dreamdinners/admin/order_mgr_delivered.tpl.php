@@ -1,4 +1,4 @@
-<?php $this->assign('page_title','Delivered Order Manager'); ?>
+<?php $this->assign('page_title','Shipping Order Manager'); ?>
 <?php $this->assign('topnav','guests'); ?>
 <?php $this->assign('helpLinkSection','EO'); ?>
 <?php $this->setScript('head', SCRIPT_PATH . '/admin/main.min.js'); ?>
@@ -37,7 +37,7 @@
 <?php $this->setScriptVar('canAdjustDelayedPayment = ' . ((isset($this->canAdjustDelayedPayment) && $this->canAdjustDelayedPayment) ? 'true' : 'false') . ';'); ?>
 <?php $this->setScriptVar('currentDPAmount = ' . ((isset($this->PendingDPAmount)) ? $this->PendingDPAmount : '0') . ';'); ?>
 <?php $this->setScriptVar('creditBasis = ' . $this->CreditBasis . ';'); ?>
-<?php $this->setScriptVar('orderInfoGrandTotal = ' . $this->moneyFormat($this->orderInfo['grand_total'] + (isset($this->orderInfo['ltd_round_up_value']) ?  $this->orderInfo['ltd_round_up_value'] : 0)) . ';'); ?>
+<?php $this->setScriptVar('orderInfoGrandTotal = ' . $this->moneyFormat(floatval($this->orderInfo['grand_total']) + (isset($this->orderInfo['ltd_round_up_value']) ?  floatval($this->orderInfo['ltd_round_up_value']) : 0)) . ';'); ?>
 <?php $this->setScriptVar('orderInfo = ' . json_encode($this->orderInfo) . ';'); ?>
 <?php $this->setScriptVar('menuInfo = ' . (!empty($this->menuInfo) ? json_encode($this->menuInfo) : 'false') . ';'); ?>
 <?php $this->setScriptVar('curFoodTax = ' . (!empty($this->curFoodTax) ? $this->curFoodTax : 'false') . ';'); ?>
@@ -68,7 +68,6 @@
 <?php $this->setScriptVar('current_inventory = ' . (!empty($this->inventory_items) ? json_encode($this->inventory_items) : 'false') . ';'); ?>
 <?php $this->setScriptVar('current_box_ids = ' . (!empty($this->current_box_ids) ? json_encode($this->current_box_ids) : 'false') . ';'); ?>
 <?php $this->setScriptVar('service_days_for_current_zip = ' . (isset($this->shippingInfo->service_days) ? $this->shippingInfo->service_days : '2') . ';'); ?>
-
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
 <?php if ($this->orderState != 'NEW') { ?>

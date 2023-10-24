@@ -14,7 +14,7 @@
 		<div class="form-group col-md-4">
 			<div class="input-group">
 				<div class="input-group-prepend">
-					<label class="input-group-text font-size-small" for="is_delivered_coupon">Delivered coupon</label>
+					<label class="input-group-text font-size-small" for="is_delivered_coupon">Shipping coupon</label>
 				</div>
 				<?php echo $this->CouponForm['is_delivered_coupon_html']; ?>
 			</div>
@@ -498,7 +498,7 @@
 	<div class="form-row mb-3 collapse section-delivered_coupon">
 
 		<div class="col-12">
-			<h4>Delivered options</h4>
+			<h4>Shipping options</h4>
 		</div>
 
 		<div class="form-group col-md-6">

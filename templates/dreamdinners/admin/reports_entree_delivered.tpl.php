@@ -1,7 +1,7 @@
 <?php
 // constants for all report pages.
 $REPORTGIF = "page_header_entreereport.gif";
-$PAGETITLE = "Delivered Entree Report";
+$PAGETITLE = "Shipping Entree Report";
 $HIDDENPAGENAME = "admin_reports_entree_delivered";
 $SHOWSINGLEDATE = true;
 $SHOWRANGEDATE = true;

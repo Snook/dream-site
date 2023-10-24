@@ -79,14 +79,14 @@ else
 					<?php if (isset($this->includes_delivered_revenue) && $this->includes_delivered_revenue) { ?>
 						<tr>
 							<td colspan="5"><div>
-									Delivered Revenue Note:  On this Calendar Month Dashboard the Distribution Center&rsquo;s revenue is included in Regular Orders rows.
+									Shipping Revenue Note:  On this Calendar Month Dashboard the Distribution Center&rsquo;s revenue is included in Regular Orders rows.
 								</div>
 							</td>
 						</tr>
 
 						<tr>
 							<td colspan="5"><div>
-									Delivered Rollup Note:  On this Calendar Month Dashboard the SLC and RH Distribution Center&rsquo;s revenue are included in the Corporate Store rollup. The Mobile DC revenue is included in the Franchise Store rollup.
+									Shipping Rollup Note:  On this Calendar Month Dashboard the SLC and RH Distribution Center&rsquo;s revenue are included in the Corporate Store rollup. The Mobile DC revenue is included in the Franchise Store rollup.
 								</div>
 							</td>
 						</tr>

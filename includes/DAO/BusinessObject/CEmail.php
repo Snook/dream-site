@@ -218,6 +218,25 @@ class CEmail extends CMail
 		}
 	}
 
+	static function alertStoreShippingOrder($orderInfo)
+	{
+		if (!empty($orderInfo['sessionInfo']['session_type']) && ($orderInfo['sessionInfo']['session_type'] == CSession::DELIVERED ))
+		{
+			$Mail = new CMail();
+
+			$Mail->from_name = $orderInfo['customer_name'];
+			$Mail->from_email = $orderInfo['customer_primary_email'];
+			$Mail->to_name = $orderInfo['storeInfo']['store_name'];
+			$Mail->to_email = $orderInfo['storeInfo']['email_address'];
+			$Mail->subject = 'New Shipping Order - ' .$orderInfo['orderInfo']['orderAddress']['firstname'] . ' ' . $orderInfo['orderInfo']['orderAddress']['lastname'];
+			$Mail->body_html = CMail::mailMerge('order_shipping_alert.html.php', $orderInfo);
+			$Mail->body_text = CMail::mailMerge('order_shipping_alert.txt.php', $orderInfo);
+			$Mail->template_name = 'order_shipping_alert';
+
+			$Mail->sendEmail();
+		}
+	}
+
 	//TEMP FUNCTION TO ALERT THAT SHIFT_SET_GO Bundle was ordered
 	static function  alertStoreShiftSetGoOrdered($userObj, $orderObj)
 	{
@@ -272,6 +291,7 @@ class CEmail extends CMail
 		{
 			self::alertStoreSpecialInstructions($orderInfo);
 			self::alertStoreHomeDelivery($orderInfo);
+			self::alertStoreShippingOrder($orderInfo);
 			self::alertStoreCouponUsed($orderInfo);
 			self::alertOrderCustomizations($orderInfo);
 		}
@@ -280,6 +300,7 @@ class CEmail extends CMail
 			$orderInfo['storeInfo']['email_address'] = STORE_NOTIFICATION_ALERT_TEST_EMAIL;
 			self::alertStoreSpecialInstructions($orderInfo);
 			self::alertStoreHomeDelivery($orderInfo);
+			self::alertStoreShippingOrder($orderInfo);
 			self::alertStoreCouponUsed($orderInfo);
 			self::alertOrderCustomizations($orderInfo);
 		}
@@ -695,6 +716,20 @@ class CEmail extends CMail
 		$Mail->template_name = 'delivered_gift_recipient_notification';
 
 		$Mail->sendEmail();
+	}
+
+	static function sendDeliveredShipmentTrackingEmail($orderObj, $isEdited = false)
+	{
+		//ToDo
+//		$Mail = new CMail();
+//
+//		$Mail->to_email = $orderObj->orderAddress->email_address;
+//		$Mail->subject = 'You have a gift from Dream Dinners on the way!';
+//		$Mail->body_html = CMail::mailMerge('delivered/delivered-tracking-notification.html.php', array('orderObj' => $orderObj));
+//		$Mail->body_text = CMail::mailMerge('delivered/delivered-tracking-notification.txt.php', array('orderObj' => $orderObj));
+//		$Mail->template_name = 'delivered_gift_recipient_notification';
+//
+//		$Mail->sendEmail();
 	}
 
 }

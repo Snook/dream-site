@@ -1,6 +1,8 @@
 var _gaq = _gaq || []; // google
 var _iub = _iub || []; // iubenda
 var _etmc = _etmc || []; // salesforce
+window.ytagQ = window.ytagQ || []; //Yext
+
 
 (function() {
 
@@ -63,6 +65,10 @@ var _etmc = _etmc || []; // salesforce
 			{
 				gtag('event', 'purchase', purchase);
 			});
+
+			//Yext Conversion Tracking
+			function ytag() {window.ytagQ.push(arguments);}
+			ytag('conversion', {'cid': 'fff98dde-1e06-4be9-a696-629bdf698584', 'cv': ANALYTICS.order_total});
 		}
 		else if (ANALYTICS.dd_thank_you !== null && ANALYTICS.page == 'order_details_gift_card')
 		{

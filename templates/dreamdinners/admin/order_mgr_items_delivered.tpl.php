@@ -1,7 +1,7 @@
 <div id="" class="row">
 	<div class="col-6 border border-primary m-0">
 			<div>
-				<h5 class="text-center">Delivered Options</h5>
+				<h5 class="text-center">Shipping Options</h5>
 			</div>
 
 			<?php  if (!empty($this->menuInfo['box']))

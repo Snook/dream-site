@@ -352,7 +352,7 @@ $(function () {
 			message += '</div>';
 
 			iconDialog = bootbox.dialog({
-				title: "Select Delivered Box Icon",
+				title: "Select Shipping Box Icon",
 				message: message,
 				size: 'large',
 				scrollable: true,

@@ -51,7 +51,7 @@
 					<a href="/backoffice/reports_user_retention">Inactive Guest Status Report</a><br/>
 					<a href="/backoffice/reports_coupon">Coupon Report</a><br/>
 					<a href="/backoffice/reports_entree">Entr&eacute;e Report</a><br/>
-					<a href="/backoffice/reports_entree_delivered">Delivered Entr&eacute;e Report</a><br/>
+					<a href="/backoffice/reports_entree_delivered">Shipping Entr&eacute;e Report</a><br/>
 					<a href="/backoffice/reports_store_credit">Credit Report</a><br/>
 					<a href="/backoffice/reports_customer_referrals_revenue">Customer Referral Revenue</a><br/>
 					<a href="/backoffice/reports_preferred_users">Preferred Users</a><br/>

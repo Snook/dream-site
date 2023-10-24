@@ -511,7 +511,7 @@ class CEditOrderPaymentManager
 				}
 				else
 				{
-					CLog::RecordNew(CLog::ERROR, "Error reloading Gift Card while refunding Delivered Order: {$originalOrder->id} | Card # $account | Trans # {$origPayment['paymentData']['cc_number']} ", false, false, true);
+					CLog::RecordNew(CLog::ERROR, "Error reloading Gift Card while refunding Shipping Order: {$originalOrder->id} | Card # $account | Trans # {$origPayment['paymentData']['cc_number']} ", false, false, true);
 					CApp::instance()->template()->setErrorMsg('Reloading Gift Card failed.' );
 					throw new Exception('Reloading Gift Card Transaction failed.'. $message);
 				}

@@ -1029,7 +1029,7 @@ class CSession extends DAO_Session
 		$selfSearch = "";
 		if ($this->id != null && $this->id != "" && $this->id > 0)
 		{
-			$selfSearch = 'AND id <> ' . $this->id;
+			$selfSearch = 'AND s.id <> ' . $this->id;
 		}
 
 		$Session = new DAO();
@@ -2309,7 +2309,7 @@ class CSession extends DAO_Session
 		}
 	}
 
-	function findSessionsEligibleForOrdering($storeObj, $serviceDays, $max_returned)
+	function findSessionsEligibleForOrdering($storeObj, $serviceDays, $max_returned = 6)
 	{
 		$orgServiceDays = $serviceDays;
 		$deliveryDayFilter = $serviceDays - 1;
@@ -2323,7 +2323,7 @@ class CSession extends DAO_Session
 		$this->query("select iq.* from (
 								select * from session where store_id = {$storeObj->id}  and DATE(session_start) >= '$earliestDeliveryDate' and delivered_supports_delivery > $deliveryDayFilter and is_deleted = 0 order by session_start limit 20) as iq
 								join session s2 on s2.session_start = DATE_SUB(iq.session_start, INTERVAL $orgServiceDays DAY) and s2.store_id = iq.store_id and s2.is_deleted = 0 and s2.delivered_supports_shipping > 0
-								order by iq.session_start limit 10");
+								order by iq.session_start limit " .$max_returned);
 	}
 
 	static function isSessionValidForDeliveredOrder($session_id, $StoreObj, $menu_id, $serviceDays = false, $zip = false)
@@ -2362,15 +2362,15 @@ class CSession extends DAO_Session
 
 	static function getCurrentDeliveredSessionArrayForCustomer($Store, $service_days = 0, $date = false, $menu_id = false, $open_only = false, $get_bookings = false, $excludeFull = false)
 	{
-		return self::getMonthlySessionInfoArrayForDelivered($Store, $date, $menu_id, false, $open_only, $get_bookings, false, $excludeFull, $service_days, 10);
+		return self::getMonthlySessionInfoArrayForDelivered($Store, $date, $menu_id, false, $open_only, $get_bookings, false, $excludeFull, $service_days, 6);
 	}
 
 	static function getCurrentDeliveredSessionArrayForDistributionCenter($Store, $service_days = 0, $date = false, $menu_id = false, $open_only = false, $get_bookings = false, $excludeFull = false)
 	{
-		return self::getMonthlySessionInfoArrayForDelivered($Store, $date, $menu_id, false, $open_only, $get_bookings, false, $excludeFull, $service_days, 10);
+		return self::getMonthlySessionInfoArrayForDelivered($Store, $date, $menu_id, false, $open_only, $get_bookings, false, $excludeFull, $service_days, 6);
 	}
 
-	static function getMonthlySessionInfoArrayForDelivered($Store, $date = false, $menu_id = false, $cart_info = false, $open_only = false, $get_bookings = false, $date_is_anchor = false, $excludeFull = false, $customer_view = false, $max_returned = 10)
+	static function getMonthlySessionInfoArrayForDelivered($Store, $date = false, $menu_id = false, $cart_info = false, $open_only = false, $get_bookings = false, $date_is_anchor = false, $excludeFull = false, $customer_view = false, $max_returned = 6)
 	{
 
 		$Sessions = DAO_CFactory::create('session');

@@ -261,7 +261,7 @@
 				<tr>
 					<td>Current Total</td>
 					<td align="right"><b>$&nbsp;</b></td>
-					<td align="right"><b><span id="OEH_org_total"><?= $this->moneyFormat($this->orderInfo['grand_total'] + $this->orderInfo['ltd_round_up_value']) ?></span></b></td>
+					<td align="right"><b><span id="OEH_org_total"><?= $this->moneyFormat(floatval($this->orderInfo['grand_total']) + floatval($this->orderInfo['ltd_round_up_value'])) ?></span></b></td>
 				</tr>
 				</table>
 

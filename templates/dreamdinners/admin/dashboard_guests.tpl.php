@@ -137,7 +137,7 @@ if ($this->curMonthGuestMetrics['instore_signup_new_fundraiser'] > $this->curMon
 
 	<?php if ($this->showDeliveredRows) { ?>
 	<tr>
-		<td class="label_delimited" style="text-align:center"><span>Delivered</span></td>
+		<td class="label_delimited" style="text-align:center"><span>Shipping</span></td>
 		<td class="value_delimited" style="text-align:center; border-right:gray 1px solid;"><?php echo $this->curMonthGuestMetrics['orders_count_delivered_existing_guests'];?></td>
 		<td class="value_delimited" style="text-align:center; border-right:gray 1px solid;"><?php echo $this->curMonthGuestMetrics['existing_delivered_to_date_orders']?></td>
 		<td class="value_delimited" style="text-align:center;"><?php echo $this->curMonthGuestMetrics['guest_count_existing_delivered']?></td>
@@ -206,7 +206,7 @@ if ($this->curMonthGuestMetrics['instore_signup_new_fundraiser'] > $this->curMon
 
 <?php if ($this->showDeliveredRows) { ?>
 	<tr>
-		<td class="label_delimited" style="text-align:center;">Delivered</td>
+		<td class="label_delimited" style="text-align:center;">Shipping</td>
 		<td class="value_delimited" style="text-align:center; border-right:gray 1px solid;"><?php echo $this->curMonthGuestMetrics['orders_count_delivered_reacquired_guests'];?></td>
 		<td class="value_delimited" style="text-align:center; border-right:gray 1px solid;"><?php echo $this->curMonthGuestMetrics['reacquired_delivered_to_date_orders']?></td>
 		<td class="value_delimited" style="text-align:center;"><?php echo $this->curMonthGuestMetrics['guest_count_reacquired_delivered']?></td>
@@ -274,7 +274,7 @@ if ($this->curMonthGuestMetrics['instore_signup_new_fundraiser'] > $this->curMon
 
 <?php if ($this->showDeliveredRows) { ?>
 	<tr>
-		<td class="label_delimited" style="text-align:center;">Delivered</td>
+		<td class="label_delimited" style="text-align:center;">Shipping</td>
 		<td class="value_delimited" style="text-align:center; border-right:gray 1px solid;"><?php echo $this->curMonthGuestMetrics['orders_count_delivered_new_guests'];?></td>
 		<td class="value_delimited" style="text-align:center; border-right:gray 1px solid;"><?php echo $this->curMonthGuestMetrics['new_delivered_to_date_orders']?></td>
 		<td class="value_delimited" style="text-align:center;"><?php echo $this->curMonthGuestMetrics['guest_count_new_delivered']?></td>

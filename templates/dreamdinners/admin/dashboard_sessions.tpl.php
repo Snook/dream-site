@@ -77,7 +77,7 @@
 
 	<?php if ($this->showDeliveredRows) { ?>
 		<tr>
-			<td class="label_delimited" style="text-align:right">Delivered</td>
+			<td class="label_delimited" style="text-align:right">Shipping</td>
 			<td class="value_delimited" style="text-align:center;"><?php echo $this->curMonthGuestMetrics['sessions_count_delivered'];?> <!--<span>(<?php echo "TBD"; //$this->occupiedFundraiserSessionCount;?>)</span>--></td>
 			<td class="value_delimited" style="text-align:center;"><?php echo $this->curMonthGuestMetrics['orders_count_delivered'];?></td>
 			<td class="value_delimited" style="text-align:center;" ><?php echo CTemplate::divide_and_format($this->curMonthGuestMetrics['orders_count_delivered'], $this->curMonthGuestMetrics['sessions_count_delivered'], 2);?>

@@ -103,14 +103,14 @@ class page_session extends CPage
 
 				if (strtotime($session['session_close_scheduling']) <= CTimezones::getAdjustedServerTime($StoreObj))
 				{
-					//updated per brandy 3/7/23 -$tpl->setStatusMsg("We're sorry, the session that you were invited to is closed. The date may have passed or the session may have been closed due to extenuating circumstances. Here you may view other sessions at your friend's Dream Dinners location.");
-					$tpl->setStatusMsg("We're sorry, but the event you were invited to is either sold out or closed. Please contact the store for more information!");
+					//updated per brandy 3/7/23 -$tpl->setStatusMsg("We are sorry, the session that you were invited to is closed. The date may have passed or the session may have been closed due to extenuating circumstances. Here you may view other sessions at your friend's Dream Dinners location.");
+					$tpl->setStatusMsg("We are sorry, but the event you were invited to is either sold out or closed. Please contact the store for more information!");
 					CApp::bounce('/session-menu');
 				}
 
 				if ($session['session_publish_state'] != CSession::PUBLISHED)
 				{
-					$tpl->setStatusMsg("We're sorry, the session that you were invited to is currently closed. If you feel you have received this message in error please contact the store at {$StoreObj->telephone_day} or <a href='mailto:{$StoreObj->email_address}'>{$StoreObj->email_address}</a>.");
+					$tpl->setStatusMsg("We are sorry, the session that you were invited to is currently closed. If you feel you have received this message in error please contact the store at {$StoreObj->telephone_day} or <a href='mailto:{$StoreObj->email_address}'>{$StoreObj->email_address}</a>.");
 					CApp::bounce('/session-menu');
 				}
 
@@ -136,12 +136,12 @@ class page_session extends CPage
 						{
 							if ($is_starter_pack_link)
 							{
-								$tpl->setStatusMsg("We're sorry, the session that you were invited to is full. Please select a different session.");
+								$tpl->setStatusMsg("We are sorry, the session that you were invited to is full. Please select a different session.");
 								CApp::bounce('/session');
 							}
 							else
 							{
-								$tpl->setStatusMsg("We're sorry, the session that you were invited to is full. Here you may view other sessions at your friend's Dream Dinners location.");
+								$tpl->setStatusMsg("We are sorry, the session that you were invited to is full. Here you may view other sessions at your friend's Dream Dinners location.");
 								CApp::bounce('/session-menu');
 							}
 						}
@@ -170,7 +170,7 @@ class page_session extends CPage
 
 						if ($session['remaining_slots'] < 1)
 						{
-							$tpl->setStatusMsg("We're sorry, the session that you were invited to is full. Here you may view other sessions at your friend's Dream Dinners location.");
+							$tpl->setStatusMsg("We are sorry, the session that you were invited to is full. Here you may view other sessions at your friend's Dream Dinners location.");
 							CApp::bounce('/session-menu');
 						}
 
@@ -207,14 +207,14 @@ class page_session extends CPage
 
 					if ($session['remaining_slots'] < 1)
 					{
-						$tpl->setStatusMsg("We're sorry, the session that you were invited to is full. Here you may view other sessions at your friend's Dream Dinners location.");
+						$tpl->setStatusMsg("We are sorry, the session that you were invited to is full. Here you may view other sessions at your friend's Dream Dinners location.");
 						CApp::bounce('/session-menu');
 					}
 				}
 			}
 			else
 			{
-				$tpl->setStatusMsg("We're sorry, the session that you were invited to can not be found. Here you may view other sessions at your friend's Dream Dinners location.");
+				$tpl->setStatusMsg("We are sorry, the session that you were invited to can not be found. Here you may view other sessions at your friend's Dream Dinners location.");
 				CApp::bounce('/session-menu');
 			}
 
