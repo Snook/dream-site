@@ -600,7 +600,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_MANAGER
 						),
 						'title' => 'Store Information',
-						'link' => '/backoffice/store-details-delivered',
+						'link' => '/backoffice/store-details',
 					),
 					'admin_resources' => array(
 						'access' => array(
