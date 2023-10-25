@@ -383,6 +383,10 @@ RewriteRule ^processor\/backoffice\/([\w-]+)\/?$ /ddproc.php?processor=admin_$1 
 RewriteRule ^processor\/([\w-]+)\/?$ /ddproc.php?processor=$1 [NC,L,QSA]
 RewriteRule ^processor\/?$ /ddproc.php [NC,L,QSA]
 
+# 301 Redirect 10
+RewriteCond %{QUERY_STRING}  ^page=session_type* [NC]
+RewriteRule ^main\.php$ /main.php?page=session_menu [R=301,NE,NC,L]
+
 ## This handles the short/pretty urls for cutstomer website
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
