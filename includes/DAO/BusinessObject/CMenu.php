@@ -41,6 +41,16 @@ class CMenu extends DAO_Menu
 		}
 	}
 
+	function isEnabled_StarterPack()
+	{
+		if ($this->id >= 269)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	function isEnabled_Markup()
 	{
 		if ($this->id >= 265)
