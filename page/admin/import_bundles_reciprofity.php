@@ -101,37 +101,40 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 				$date_str_no_leading_underscore = date("Y_m", strtotime($DAO_menu->menu_start));
 
 				// create  bundles
-				$introBundle = DAO_CFactory::create('bundle');
-				$introBundle->menu_id = $menu_id;
-				$introBundle->bundle_type = 'TV_OFFER';
-
-				if (!$introBundle->find(true))
+				if ($DAO_menu->isEnabled_Starter_Pack_Bundle())
 				{
-					$introBundle->bundle_name = 'Meal Prep Starter Pack';
-					$introBundle->number_items_required = 0;
-					$introBundle->number_servings_required = 12;
-					$introBundle->price = 79.00;
-					$introBundle->price_shipping = 0.00;
+					$introBundle = DAO_CFactory::create('bundle');
+					$introBundle->menu_id = $menu_id;
+					$introBundle->bundle_type = 'TV_OFFER';
 
-					if (self::$testMode)
+					if (!$introBundle->find(true))
 					{
-						self::$changelog[] = array(
-							'event' => 'Will Add Intro Bundle'
-						);
+						$introBundle->bundle_name = 'Meal Prep Starter Pack';
+						$introBundle->number_items_required = 0;
+						$introBundle->number_servings_required = 12;
+						$introBundle->price = 79.00;
+						$introBundle->price_shipping = 0.00;
+
+						if (self::$testMode)
+						{
+							self::$changelog[] = array(
+								'event' => 'Will Add Intro Bundle'
+							);
+						}
+						else
+						{
+							$introBundle->insert();
+							self::$changelog[] = array(
+								'event' => 'Added Intro Bundle'
+							);
+						}
 					}
 					else
 					{
-						$introBundle->insert();
 						self::$changelog[] = array(
-							'event' => 'Added Intro Bundle'
+							'event' => 'Intro Bundle exists - no action'
 						);
 					}
-				}
-				else
-				{
-					self::$changelog[] = array(
-						'event' => 'Intro Bundle exists - no action'
-					);
 				}
 
 				$tasteBundle = DAO_CFactory::create('bundle');

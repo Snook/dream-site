@@ -322,12 +322,16 @@ $(document).on('click', '.add_box', function (e) {
 
 $(document).on('click', '.box-delete', function (e) {
 
+	e.preventDefault();
 	let box_inst_id = $(this).data('box_instance_id');
+	//let price_shipping = $(this).data('price_shipping');
+
+	let currentDeliveryFee = $('#subtotal_delivery_fee').val();
+	let newDeliveryFee = Number(formatAsMoney(currentDeliveryFee)) - Number(formatAsMoney($("#box_inst_id_" + box_inst_id).data('price_shipping')));
 
 	if (orderState == 'ACTIVE')
 	{
-		let currentDeliveryFee = $('#subtotal_delivery_fee').val();
-		let newDeliveryFee = Number(formatAsMoney(currentDeliveryFee)) - Number(formatAsMoney($("#box_inst_id_" + box_inst_id).data('price_shipping')));
+
 
 		$('#subtotal_delivery_fee').val(newDeliveryFee);
 
@@ -357,6 +361,10 @@ $(document).on('click', '.box-delete', function (e) {
 			if (json.processor_success)
 			{
 				$("#bi_" + box_inst_id).remove();
+
+				$('#subtotal_delivery_fee').val(newDeliveryFee);
+
+
 				updateInventory();
 				calculateTotal();
 			}
