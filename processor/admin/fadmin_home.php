@@ -212,7 +212,17 @@ class processor_admin_fadmin_home extends CPageProcessor
 					|| $session_info_array[$session_id]['session_type'] == CSession::STANDARD)
 					&& $session_info_array[$session_id]['remaining_intro_slots'] > 0)
 				{
-					$tpl->assign('show_start_pack_link',true);
+					$DAO_menu = DAO_CFactory::create('menu', true);
+					$DAO_menu->id = $sessionData["menu_id"];
+
+					if ($DAO_menu->isEnabled_Starter_Pack_Bundle())
+					{
+						$tpl->assign('show_start_pack_link', true);
+					}
+					else
+					{
+						$tpl->assign('show_start_pack_link', false);
+					}
 				}
 
 				$tpl->assign('food_testing_recipes', CFoodTesting::getRecipesForStore($session_info_array[$session_id]['store_id']));
