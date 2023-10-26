@@ -101,7 +101,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 				$date_str_no_leading_underscore = date("Y_m", strtotime($DAO_menu->menu_start));
 
 				// create  bundles
-				if ($DAO_menu->isEnabled_StarterPack())
+				if ($DAO_menu->isEnabled_Starter_Pack_Bundle())
 				{
 					$introBundle = DAO_CFactory::create('bundle');
 					$introBundle->menu_id = $menu_id;

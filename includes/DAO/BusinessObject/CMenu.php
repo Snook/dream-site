@@ -41,16 +41,6 @@ class CMenu extends DAO_Menu
 		}
 	}
 
-	function isEnabled_StarterPack()
-	{
-		if ($this->id >= 269)
-		{
-			return false;
-		}
-
-		return true;
-	}
-
 	function isEnabled_Markup()
 	{
 		if ($this->id >= 265)
@@ -105,8 +95,23 @@ class CMenu extends DAO_Menu
 		return $this->isEnabled_Bundle_Fundraiser();
 	}
 
+	function isEnabled_Starter_Pack_Bundle()
+	{
+		if ($this->id >= 269)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	function isEnabled_Starter_Pack($DAO_store)
 	{
+		if (!$this->isEnabled_Starter_Pack_Bundle())
+		{
+			return false;
+		}
+
 		if (!$DAO_store->storeSupportsIntroOrders())
 		{
 			return false;
