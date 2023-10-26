@@ -10257,6 +10257,11 @@ class COrders extends DAO_Orders
 
 	function getAvgCostPerServing()
 	{
+		return $this->getFoodTotal() / $this->getServingsTotalCount();
+	}
+
+	function getAvgCostPerServingCore()
+	{
 		return $this->getFoodTotal() / $this->getServingsCoreTotalCount();
 	}
 
@@ -10265,6 +10270,16 @@ class COrders extends DAO_Orders
 		if (!empty($this->servings_core_total_count))
 		{
 			return $this->servings_core_total_count;
+		}
+
+		return 0;
+	}
+
+	function getServingsTotalCount()
+	{
+		if (!empty($this->servings_total_count))
+		{
+			return $this->servings_total_count;
 		}
 
 		return 0;

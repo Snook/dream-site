@@ -9,6 +9,7 @@
 <?php $this->setScriptVar('session_id = ' . $this->session_id . ';'); ?>
 <?php $this->setScriptVar('allowGuest = ' . ($this->allowGuest ? "true" : "false") . ';'); ?>
 <?php $this->setScriptVar('coupon = ' . ($this->coupon ? $this->coupon : "false") . ';'); ?>
+<?php $this->setScriptVar('avgCostPerServing = ' . $this->cart_info["orderObj"]->getServingsTotalCount() . ';'); ?>
 <?php $this->setScriptVar('avgCostPerServingEntreeServings = ' . $this->cart_info["orderObj"]->getServingsCoreTotalCount() . ';'); ?>
 <?php $this->setScriptVar('avgCostPerServingEntreeCost = ' . $this->cart_info["orderObj"]->getFoodTotal() . ';'); ?>
 <?php $this->setScriptVar('precheck_enroll_in_platepoints = ' . (!empty( $this->precheck_enroll_in_platepoints) ?  $this->precheck_enroll_in_platepoints : 0) . ';'); ?>
