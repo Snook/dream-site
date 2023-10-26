@@ -21,10 +21,12 @@
 
 			<div class="row mb-3">
 				<div class="col-12 col-lg-6 col-xl-5">
-					<img src="/theme/dreamdinners/images/stores/<?php echo $this->DAO_store->id; ?>.webp" alt="Mill Creek" class="img-fluid w-100">
+					<img src="/theme/dreamdinners/images/stores/<?php echo $this->DAO_store->id; ?>.webp" alt="<?php echo $this->DAO_store->store_name; ?>" class="img-fluid w-100">
 				</div>
 				<div class="text-center text-lg-left col-12 mt-3 mt-lg-0 col-lg-6 col-xl-3">
-					<p><?php echo$this->DAO_store->address_html; ?></p>
+					<?php if ($this->DAO_store->hasPublicAddress()) { ?>
+						<p><?php echo$this->DAO_store->address_html; ?></p>
+					<?php } ?>
 					<div class="d-md-none"><a href="tel:<?php echo $this->DAO_store->telephone_day; ?>"><?php echo $this->DAO_store->telephone_day; ?></a></div>
 					<div class="d-none d-md-block"><?php echo $this->DAO_store->telephone_day; ?></div>
 					<?php echo (!empty($this->DAO_store->telephone_sms)) ? 'Text us at '.$this->DAO_store->telephone_sms . '<br />' : ''; ?>
@@ -41,28 +43,32 @@
 						</div>
 					<?php } ?>
 				</div>
-				<div class="col-12 mt-3 col-xl-4 mt-xl-0">
-					<?php if (!empty($this->DAO_store->address_directions)) { ?>
-						<h3 class="text-uppercase font-weight-bold text-center text-md-left">
-							Store directions
-						</h3>
-						<div class="location-about">
-							<?php echo nl2br($this->DAO_store->address_directions); ?>
-						</div>
-					<?php } ?>
-				</div>
+				<?php if ($this->DAO_store->hasPublicAddress()) { ?>
+					<div class="col-12 mt-3 col-xl-4 mt-xl-0">
+						<?php if (!empty($this->DAO_store->address_directions)) { ?>
+							<h3 class="text-uppercase font-weight-bold text-center text-md-left">
+								Store directions
+							</h3>
+							<div class="location-about">
+								<?php echo nl2br($this->DAO_store->address_directions); ?>
+							</div>
+						<?php } ?>
+					</div>
+				<?php } ?>
 			</div>
 
-			<div class="row mb-3">
-				<div class="col">
-					<iframe
-							class="border border-width-2-imp border-gray-500"
-							width="100%"
-							height="250"
-							src="//www.google.com/maps/embed/v1/place?key=<?php echo GOOGLE_APIKEY; ?>&q=<?php echo (!empty($this->DAO_store->google_place_id)) ? 'place_id:' . $this->DAO_store->google_place_id : urlencode($this->DAO_store->address_linear); ?>" allowfullscreen>
-					</iframe>
+			<?php if ($this->DAO_store->hasPublicAddress()) { ?>
+				<div class="row mb-3">
+					<div class="col">
+						<iframe
+								class="border border-width-2-imp border-gray-500"
+								width="100%"
+								height="250"
+								src="//www.google.com/maps/embed/v1/place?key=<?php echo GOOGLE_APIKEY; ?>&q=<?php echo (!empty($this->DAO_store->google_place_id)) ? 'place_id:' . $this->DAO_store->google_place_id : urlencode($this->DAO_store->address_linear); ?>" allowfullscreen>
+						</iframe>
+					</div>
 				</div>
-			</div>
+			<?php } ?>
 
 			<div class="row mb-3">
 				<?php if (!empty($this->DAO_store->bio_store_hours) || !empty($this->DAO_store->bio_store_holiday_hours)) { ?>

@@ -2826,6 +2826,16 @@ class CStore extends DAO_Store
 		}
 	}
 
+	function hasPublicAddress()
+	{
+		if ($this->id == 91 || $this->id == 121)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	function isOpen()
 	{
 		if ($this->isActive() && $this->isShowToCustomer() && !$this->isComingSoon())
