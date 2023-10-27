@@ -49,8 +49,8 @@ class CRecipe extends DAO_Recipe
 			'value' => null,
 			'css_icon' => 'icon-instant-pot text-gray-dark',
 			'png_icon' => 'icon-instant-pot.png',
-			'tooltip' => 'Crock-Pot/Instant Pot Option',
-			'label' => 'Crock-Pot/Instant Pot Option'
+			'tooltip' => 'Crock-Pot or Instant Pot Option',
+			'label' => 'Crock-Pot or Instant Pot Option'
 		),
 		'flag_cooks_from_frozen' => array(
 			'site_legend_enabled' => true,

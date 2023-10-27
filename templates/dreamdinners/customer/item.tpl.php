@@ -106,7 +106,7 @@
 								<?php } ?>
 
 								<?php if ($DAO_menu_item->instructions_crock_pot) { ?>
-									<h4 class="mt-4"><i class="font-size-medium-large dd-icon icon-instant-pot text-gray-dark align-middle" data-toggle="tooltip" data-placement="top" title="Crock-Pot/Instant Pot Option"></i> <?php if (!$DAO_menu_item->isMenuItem_SidesSweets()) { ?><?php echo $DAO_menu_item->pricing_type_info['pricing_type_name']; ?><?php } ?> Crock-Pot/Instant Pot Instructions</h4>
+									<h4 class="mt-4"><i class="font-size-medium-large dd-icon icon-instant-pot text-gray-dark align-middle" data-toggle="tooltip" data-placement="top" title="Crock-Pot or Instant Pot Option"></i> <?php if (!$DAO_menu_item->isMenuItem_SidesSweets()) { ?><?php echo $DAO_menu_item->pricing_type_info['pricing_type_name']; ?><?php } ?> Crock-Pot or Instant Pot Instructions</h4>
 									<p><?php echo nl2br($DAO_menu_item->instructions_crock_pot); ?></p>
 								<?php } ?>
 

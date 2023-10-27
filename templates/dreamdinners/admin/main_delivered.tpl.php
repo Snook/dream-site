@@ -73,8 +73,8 @@
 				<li><a href="#" id="st_print_labels_by_dinner">Labels by Dinner</a></li>
 				<li><a href="#" id="st_print_generic_labels">Generic Labels</a></li>
 				<li class="category">Reports</li>
-				<li><a href="#" id="st_daily_boxes_shipped">Entr&eacute;e Summary - shipping</a></li>
-				<li><a href="#" id="st_daily_boxes_delivered">Entr&eacute;e Summary - delivery</a></li>
+				<li><a href="#" id="st_daily_boxes_shipped">Entr&eacute;e Summary - Pick Up</a></li>
+				<li><a href="#" id="st_daily_boxes_delivered">Entr&eacute;e Summary - Delivery</a></li>
 
 				<li class="category">Session Docs by Type</li>
 				<li><a href="#" id="st_customer_menu_nutrition">Nutritionals</a></li>

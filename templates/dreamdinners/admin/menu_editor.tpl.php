@@ -101,35 +101,37 @@
 
 			</div>
 
-			<div class="form-row">
+			<?php if ($this->DAO_menu->isEnabled_Starter_Pack_Bundle()) { ?>
+				<div class="form-row">
 
-				<div class="form-group col-6">
+					<div class="form-group col-6">
 
-					<div class="input-group">
-						<div class="input-group-prepend">
-							<div class="input-group-text">
-								Menu starter
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									Menu starter
+								</div>
 							</div>
+							<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->store_id; ?>-<?php echo $this->menuInfo['menu_name_abbr']; ?>-starter" readonly>
 						</div>
-						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->store_id; ?>-<?php echo $this->menuInfo['menu_name_abbr']; ?>-starter" readonly>
+
+					</div>
+
+					<div class="form-group col-6">
+
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									Store starter
+								</div>
+							</div>
+							<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->store_id; ?>-starter" readonly>
+						</div>
+
 					</div>
 
 				</div>
-
-				<div class="form-group col-6">
-
-					<div class="input-group">
-						<div class="input-group-prepend">
-							<div class="input-group-text">
-								Store starter
-							</div>
-						</div>
-						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->store_id; ?>-starter" readonly>
-					</div>
-
-				</div>
-
-			</div>
+			<?php } ?>
 
 			<div class="form-row">
 				<?php if ($this->DAO_menu->isEnabled_Markup()) { ?>

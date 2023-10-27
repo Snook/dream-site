@@ -383,6 +383,12 @@ class CDreamTasteEvent extends DAO_Dream_taste_event_properties
 		$attendingGuestEmails = array();
 		$pastEvents = array();
 		$currentEvents = array();
+		$myRSVPs = self::mySessionRSVPList($user_id);
+		$myRSVPsSessionArray = array();
+		if (!empty($myRSVPs))
+		{
+			$myRSVPsSessionArray = CSession::getSessionDetailArray($myRSVPs, true);
+		}
 
 		if (!empty($_GET['sid']) && is_numeric($_GET['sid']))
 		{
@@ -477,7 +483,8 @@ class CDreamTasteEvent extends DAO_Dream_taste_event_properties
 			'pastEvents' => $pastEvents,
 			'manageEvent' => $manageEvent,
 			'eventReferrals' => $eventReferrals,
-			'eventReferralsJS' => ((!empty($eventReferrals)) ? json_encode($eventReferrals) : '{}')
+			'eventReferralsJS' => ((!empty($eventReferrals)) ? json_encode($eventReferrals) : '{}'),
+			'myRsvp'  => $myRSVPsSessionArray
 		);
 	}
 
@@ -494,6 +501,23 @@ class CDreamTasteEvent extends DAO_Dream_taste_event_properties
 		$sessionProperties->fetch();
 
 		return $sessionProperties->session_ids;
+	}
+
+	static function mySessionRSVPList($user_id, $future_only = false)
+	{
+		$sessionRsvps = DAO_CFactory::create('session');
+		$sessionRsvps->query("SELECT 
+			GROUP_CONCAT(rsvp.session_id) AS session_ids
+			FROM session_rsvp AS rsvp
+			INNER JOIN `session` AS s ON s.id = rsvp.session_id AND s.session_publish_state = 'PUBLISHED' AND s.is_deleted = '0'
+			WHERE rsvp.is_deleted = '0'
+			AND rsvp.user_id = '" . $user_id . "'
+			ORDER BY s.session_start ASC");
+
+
+		$sessionRsvps->fetch();
+
+		return $sessionRsvps->session_ids;
 	}
 
 	static function sessionProperties($session_id)

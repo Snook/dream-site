@@ -4,15 +4,38 @@ require_once("includes/CSRF.inc");
 
 class processor_session_rsvp extends CPageProcessor
 {
-	function runPublic()
+	function runCustomer()
 	{
 		$this->sessionRSVP();
 	}
 
 	function sessionRSVP()
 	{
-		$session_cookie_name = CBrowserSession::getSessionCookieName();
+		//$session_cookie_name = CBrowserSession::getSessionCookieName();
+		if (!empty($_REQUEST['op']) && $_REQUEST['op'] == 'delete_rsvp'){
+			$session_id = $_REQUEST['session_id'];
+			$user_id = $_REQUEST['user_id'];
 
+			$User = CUser::getCurrentUser();
+
+			if($User->id != $user_id)
+			{
+				CAppUtil::processorMessageEcho(array(
+					'processor_success' => false,
+					'processor_message' => 'Delete Session RSVP only allowed by invited user.'
+				));
+			}
+			else
+			{
+				CSession::deleteSessionRSVP($session_id, $user_id);
+
+				CAppUtil::processorMessageEcho(array(
+					'processor_success' => true,
+					'processor_message' => 'Session RSVP deleted.'
+				));
+			}
+
+		}
 		// handle RSVP only
 		if (!empty($_REQUEST['op']) && $_REQUEST['op'] == 'rsvp_dream_taste')
 		{
