@@ -81,12 +81,12 @@
 					<div class="row bg-gray-100 border p-2">
 						<div class="col-12 col-sm-7 col-md-6">
 							<h3 class="text-uppercase font-weight-bold text-center d-sm-none">Shipped</h3>
-							<img src="<?php echo IMAGES_PATH; ?>/stores/dc-locations-image.webp" <?php if (empty($this->state_has_delivered)) { ?>data-click_id="select_delivered"<?php } ?> alt="Dream Dinners Delivered" class="img-fluid w-100" />
+							<img src="<?php echo IMAGES_PATH; ?>/stores/dc-locations-image.webp" <?php if (empty($this->state_has_delivered)) { ?>data-click_id="select_delivered"<?php } ?> alt="Dream Dinners" class="img-fluid w-100" />
 						</div>
 						<div class="col-12 col-sm-5 col-md-6 mt-4 mt-sm-0">
 							<h3 class="text-uppercase font-weight-bold d-none d-sm-block">Shipped</h3>
 							<div>
-								Get ready-to-cook dinners shipped via FedEx to your front door.
+								Get ready-to-cook dinners shipped to your front door.
 							</div>
 							<div class="mt-4">
 								No subscription required. Order as you need it.
@@ -122,7 +122,7 @@
 	<div class="row my-4">
 		<div class="col col-lg-8 mx-auto">
 			<!--<p><b>Note to Clemmons Guests:</b> We are working through some logistics issues at our distribution shipping center. We will have shipping to your door available soon. We apologize for the inconvenience and will email you as soon as we are able to ship to your location.</p>-->
-			<p>Oh no! We do not currently have a Dream Dinners location near you and we have paused shipping to your area. As we continue to grow, we hope to be able to serve you and your family again soon. If you would like to be contacted when Dream Dinners is available in your community, please complete the contact form below.<br /><br />Note: You will be required to verify your email address after submission. Check your inbox for an email from Dream Dinners with the subject line of "Action Required: Confirm Your Sign-Up".</p>
+			<p>Oh no! We do not currently have a Dream Dinners location near you and we are not currently shipping to your area. As we continue to grow, we hope to be able to serve you and your family again soon. If you would like to be contacted when Dream Dinners is available in your community, please complete the contact form below.<br /><br />Note: You will be required to verify your email address after submission. Check your inbox for an email from Dream Dinners with the subject line of "Action Required: Confirm Your Sign-Up".</p>
 			<p>Want to learn more about owning a Dream Dinners Assembly Kitchen, visit <a href="https://www.dreamdinnersfranchise.com/" target="_blank">DreamDinnersFranchise.com</a>.</p>
 			<p>Want meal planning tips and family activities from Dream Dinners?</p>
 
@@ -147,7 +147,7 @@
 <?php if (empty($this->state_has_delivered) && !empty($this->store_results_array) && empty($this->delivered)) {?>
 	<div class="row my-4">
 		<div class="col col-lg-8 mx-auto">
-			<h2 class="text-center mb-4">We are not able to ship via FedEx to your area yet.</h2>
+			<h2 class="text-center mb-4">We are not able to ship to your area yet.</h2>
 			As we continue to grow, we will be adding additional shipping areas. If you have a local store near you, check to see if home delivery is an option!
 		</div>
 	</div>

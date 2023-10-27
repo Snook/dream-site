@@ -956,11 +956,11 @@ class checkout_validation
 			{
 				if (defined('ALLOW_TV_OFFER_IF_PREVIOUS') && ALLOW_TV_OFFER_IF_PREVIOUS)
 				{
-					$tpl->setStatusMsg("We're sorry, you currently have an active order for this Fundraiser session.<br /><br />This order is permitted on this test server but would be prohibited in production.");
+					$tpl->setStatusMsg("We are sorry, you currently have an active order for this Fundraiser session.<br /><br />This order is permitted on this test server but would be prohibited in production.");
 				}
 				else
 				{
-					$tpl->setStatusMsg("We're sorry, you currently have an active order for this Fundraiser session.");
+					$tpl->setStatusMsg("We are sorry, you currently have an active order for this Fundraiser session.");
 					CCart2::instance()->emptyCart();
 					CApp::bounce('/session-menu');
 				}
@@ -1029,7 +1029,7 @@ class checkout_validation
 				}
 
 				$Form->AddElement(array(
-					CForm::type => CForm::Text,
+					CForm::type => CForm::Money,
 					CForm::name => 'plate_points_discount',
 					CForm::length => 16,
 					CForm::onKeyUp => 'handlePlatePointsDiscount',

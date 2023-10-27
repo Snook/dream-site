@@ -7471,7 +7471,7 @@ function calculateTotal()
 			{
 				if (base > coupon.discount_var)
 				{
-					couponDiscountVal = formatAsMoney(base - coupon.discount_var);
+					couponDiscountVal = coupon.discount_var;
 				}
 				else
 				{
@@ -7492,7 +7492,7 @@ function calculateTotal()
 			{
 				if (base > coupon.discount_var)
 				{
-					couponDiscountVal = formatAsMoney(base - coupon.discount_var);
+					couponDiscountVal = coupon.discount_var;
 				}
 				else
 				{

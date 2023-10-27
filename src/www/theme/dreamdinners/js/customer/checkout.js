@@ -595,7 +595,7 @@ function updateFinancials()
 
 	//$('#debit_credit_card_amount').html(formatAsMoney(credit_card_food_total + giftCardCost));
 
-	var cost_per_serving = formatAsMoney(avgCostPerServingEntreeCost / avgCostPerServingEntreeServings);
+	var cost_per_serving = formatAsMoney(avgCostPerServingEntreeCost / avgCostPerServing);
 
 	$('#checkout-cost_per_serving').html(cost_per_serving);
 

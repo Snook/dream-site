@@ -16,7 +16,7 @@ class page_admin_manage_box extends CPageAdminOnly
 		parent::__construct();
 
 		$this->Template->setScript('foot', SCRIPT_PATH . '/admin/manage_box.min.js');
-		$this->Template->assign('page_title', 'Manage Delivered Boxes');
+		$this->Template->assign('page_title', 'Manage Shipping Boxes');
 		$this->Template->assign('topnav', (($this->CurrentStore->store_type == CStore::DISTRIBUTION_CENTER) ? 'store' : 'tools'));
 
 		$this->ManagerForm = new CForm();
@@ -434,7 +434,7 @@ class page_admin_manage_box extends CPageAdminOnly
 			$this->BoxForm->addElement(array(
 				CForm::type => CForm::DateTimeLocal,
 				CForm::name => 'availability_date_start',
-				CForm::min => $this->BoxForm->DefaultValues['availability_date_start'],
+				//CForm::min => $this->BoxForm->DefaultValues['availability_date_start'],
 				CForm::required => true
 			));
 
@@ -520,6 +520,7 @@ class page_admin_manage_box extends CPageAdminOnly
 				$this->Bundle1Form->addElement(array(
 					CForm::type => CForm::Number,
 					CForm::name => 'price',
+					CForm::step => '0.01',
 					CForm::required => true,
 					CForm::attribute => array(
 						'data-has_orders' => $editBox->number_sold_n,
@@ -530,6 +531,7 @@ class page_admin_manage_box extends CPageAdminOnly
 				$this->Bundle1Form->addElement(array(
 					CForm::type => CForm::Number,
 					CForm::name => 'price_shipping',
+					CForm::step => '0.01',
 					CForm::required => true,
 					CForm::disabled => (empty($editBox->box_bundle_1_active) || $editBox->number_sold_n)
 				));
@@ -600,6 +602,7 @@ class page_admin_manage_box extends CPageAdminOnly
 				$this->Bundle2Form->addElement(array(
 					CForm::type => CForm::Number,
 					CForm::name => 'price',
+					CForm::step => '0.01',
 					CForm::required => true,
 					CForm::attribute => array(
 						'data-has_orders' => $editBox->number_sold_n,
@@ -610,6 +613,7 @@ class page_admin_manage_box extends CPageAdminOnly
 				$this->Bundle2Form->addElement(array(
 					CForm::type => CForm::Number,
 					CForm::name => 'price_shipping',
+					CForm::step => '0.01',
 					CForm::required => true,
 					CForm::disabled => (empty($editBox->box_bundle_2_active) || $editBox->number_sold_n)
 				));

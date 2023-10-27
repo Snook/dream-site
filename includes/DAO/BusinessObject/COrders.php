@@ -4635,7 +4635,7 @@ class COrders extends DAO_Orders
 			$this->applySessionDiscount($suppressSessionDiscount, $editing);
 		}
 
-		$this->subtotal_food_items_adjusted = $this->subtotal_food_items_adjusted - $this->direct_order_discount + $this->misc_food_subtotal;
+		$this->subtotal_food_items_adjusted = floatval($this->subtotal_food_items_adjusted) - floatval($this->direct_order_discount) + floatval($this->misc_food_subtotal);
 
 		if ($this->subtotal_food_items_adjusted < .005)
 		{
@@ -10157,8 +10157,13 @@ class COrders extends DAO_Orders
 
 		$totalItemQty = 0;
 
-		$OrderItem = DAO_CFactory::create('order_item');
+		$store_id = $this->store_id;
+		if (!empty($this->DAO_store) && ($this->DAO_store->isDistributionCenter()))
+		{
+			$store_id = $this->DAO_store->parent_store_id;
+		}
 
+		$OrderItem = DAO_CFactory::create('order_item');
 		$OrderItem->query("select
 				mmi.menu_id,
 				mmi.override_price,
@@ -10166,23 +10171,23 @@ class COrders extends DAO_Orders
 				mimd.id as markdown_id,
 				oi.*
 				from order_item oi
-				left join menu_to_menu_item mmi on mmi.menu_item_id = oi.menu_item_id and mmi.store_id = {$this->store_id} and mmi.is_deleted = 0
+				left join menu_to_menu_item mmi on mmi.menu_item_id = oi.menu_item_id and mmi.store_id = {$store_id} and mmi.is_deleted = 0
 				left join menu_item_mark_down mimd on mimd.id = oi.menu_item_mark_down_id
 				where oi.order_id = {$this->id}
 				and oi.is_deleted = 0");
 
 		while ($OrderItem->fetch())
 		{
-			$MenuItem = DAO_CFactory::create('menu_item');
-
-			$MenuItem->query("SELECT
-				mi.*,
-				r.ltd_menu_item_value
-				FROM
-				menu_item AS mi
-				LEFT JOIN recipe AS r ON r.recipe_id = mi.recipe_id AND r.override_menu_id = '{$OrderItem->menu_id}' AND r.is_deleted = '0'
-				WHERE mi.id = {$OrderItem->menu_item_id}
-				AND mi.is_deleted = 0");
+			$DAO_menu = DAO_CFactory::create('menu');
+			$DAO_menu->id = $OrderItem->menu_id;
+			$MenuItem = $DAO_menu->findMenuItemDAO(array(
+				'menu_item_id_list' => $OrderItem->menu_item_id,
+				'join_order_item_order_id' => array($this->id),
+				'menu_to_menu_item_store_id' => $store_id,
+				'exclude_menu_item_category_core' => false,
+				'exclude_menu_item_category_efl' => false,
+				'exclude_menu_item_category_sides_sweets' => false
+			));
 
 			if (!$MenuItem->fetch())
 			{
@@ -10230,6 +10235,9 @@ class COrders extends DAO_Orders
 					if ($useOriginalPricing)
 					{
 						$MenuItem->override_price = $OrderItem->sub_total / $OrderItem->item_count;
+
+						// Refresh store_price if using original price
+						$MenuItem->getStorePrice();
 					}
 					else
 					{
@@ -10249,6 +10257,11 @@ class COrders extends DAO_Orders
 
 	function getAvgCostPerServing()
 	{
+		return $this->getFoodTotal() / $this->getServingsTotalCount();
+	}
+
+	function getAvgCostPerServingCore()
+	{
 		return $this->getFoodTotal() / $this->getServingsCoreTotalCount();
 	}
 
@@ -10257,6 +10270,16 @@ class COrders extends DAO_Orders
 		if (!empty($this->servings_core_total_count))
 		{
 			return $this->servings_core_total_count;
+		}
+
+		return 0;
+	}
+
+	function getServingsTotalCount()
+	{
+		if (!empty($this->servings_total_count))
+		{
+			return $this->servings_total_count;
 		}
 
 		return 0;

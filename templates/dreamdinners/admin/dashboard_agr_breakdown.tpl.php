@@ -85,7 +85,7 @@
 
 <?php if ($this->showDeliveredRows) { ?>
 
-	<td class="label_delimited" style="text-align:center"><span>Delivered</span></td>
+	<td class="label_delimited" style="text-align:center"><span>Shipping</span></td>
 	<td class="value_delimited" style="text-align:center;">$<?php echo CTemplate::number_format($this->curMonthAGRMetrics['revenue_by_guest_existing_delivered'], 2);?></td>
 	<td class="value_delimited" style="text-align:center;">$<?php echo CTemplate::number_format($this->curMonthAGRMetrics['avg_ticket_by_guest_existing_delivered'], 2);?></td>
 	<td class="value_delimited" style="text-align:center;">$<?php echo CTemplate::number_format(0, 2);?></td>
@@ -132,7 +132,7 @@
 	</tr>
 
 <?php if ($this->showDeliveredRows) { ?>
-	<td class="label_delimited" style="text-align:center"><span>Delivered</span></td>
+	<td class="label_delimited" style="text-align:center"><span>Shipping</span></td>
 	<td class="value_delimited" style="text-align:center;">$<?php echo CTemplate::number_format($this->curMonthAGRMetrics['revenue_by_guest_reacquired_delivered'], 2);?></td>
 	<td class="value_delimited" style="text-align:center;">$<?php echo CTemplate::number_format($this->curMonthAGRMetrics['avg_ticket_by_guest_reacquired_delivered'], 2);?></td>
 	<td class="value_delimited" style="text-align:center;">$<?php echo CTemplate::number_format(0, 2);?></td>
@@ -181,7 +181,7 @@
 	</tr>
 
 <?php if ($this->showDeliveredRows) { ?>
-	<td class="label_delimited" style="text-align:center"><span>Delivered</span></td>
+	<td class="label_delimited" style="text-align:center"><span>Shipping</span></td>
 	<td class="value_delimited" style="text-align:center;">$<?php echo CTemplate::number_format($this->curMonthAGRMetrics['revenue_by_guest_new_delivered'], 2);?></td>
 	<td class="value_delimited" style="text-align:center;">$<?php echo CTemplate::number_format($this->curMonthAGRMetrics['avg_ticket_by_guest_new_delivered'], 2);?></td>
 	<td class="value_delimited" style="text-align:center;">$<?php echo CTemplate::number_format(0, 2);?></td>

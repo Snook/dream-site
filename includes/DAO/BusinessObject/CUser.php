@@ -423,7 +423,7 @@ class CUser extends DAO_User
 					self::OPS_LEAD
 				),
 				'title' => 'Home',
-				'link' => '/backoffice_delivered',
+				'link' => '/backoffice',
 				'submenu' => array()
 			),
 			'guests' => array(
@@ -600,7 +600,7 @@ class CUser extends DAO_User
 							self::HOME_OFFICE_MANAGER
 						),
 						'title' => 'Store Information',
-						'link' => '/backoffice/store-details-delivered',
+						'link' => '/backoffice/store-details',
 					),
 					'admin_resources' => array(
 						'access' => array(
@@ -788,7 +788,7 @@ class CUser extends DAO_User
 							self::SITE_ADMIN,
 							self::HOME_OFFICE_MANAGER
 						),
-						'title' => 'Delivered - ShipStation',
+						'title' => 'Shipping - ShipStation',
 						'link' => 'https://signin.shipstation.com/login',
 					)
 				)

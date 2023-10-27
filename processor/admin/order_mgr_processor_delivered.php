@@ -244,6 +244,8 @@ class processor_admin_order_mgr_processor_delivered extends CPageProcessor
 			}
 
 			$this->deleteBoxFromOrder($_REQUEST['box_inst_id']);
+
+
 		}
 		else if (!empty($_REQUEST['op']) && $_REQUEST['op'] == 'reschedule')
 		{
@@ -654,15 +656,24 @@ class processor_admin_order_mgr_processor_delivered extends CPageProcessor
 		$box_instance = DAO_CFactory::create('box_instance');
 		$box_instance->id = $box_inst_id;
 		$box_instance->order_id = $this->order_id;
+
+
+
 		if ($box_instance->find())
 		{
+
+			$bundle = DAO_CFactory::create('bundle');
+			$bundle->id = $box_instance->bundle_id;
+			$bundle->find(true);
+
 			$box_instance->delete();
 
 			$orderItems = DAO_CFactory::create('order_item');
-			$orderItems->query("udpate order_items set is_deleted = 1 where order_id = {$this->order_id} and box_id = $box_inst_id");
+			$orderItems->query("update order_items set is_deleted = 1 where order_id = {$this->order_id} and box_id = $box_inst_id");
 			echo json_encode(array(
 				'processor_success' => true,
 				'processor_message' => 'The box instance was deleted from the order.',
+				'bundle_info' => DAO::getCompressedArrayFromDAO($bundle)
 			));
 			exit;
 		}

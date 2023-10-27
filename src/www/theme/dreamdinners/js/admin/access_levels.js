@@ -11,14 +11,14 @@ function access_levels_init()
 		$('#store_settings_div').show();
 	}
 
-	if (user_type_val == current_user_type)
-	{
-		$('#submit_account').prop("disabled", true);
-	}
-	else
-	{
+	// if (user_type_val == current_user_type)
+	// {
+	// 	$('#submit_account').prop("disabled", true);
+	// }
+	// else
+	//{
 		$('#submit_account').prop("disabled", false);
-	}
+	//}
 	
 	handle_store_display_checkbox();
 	handle_store_display_text();

@@ -23,7 +23,7 @@
 					Menu total $<?php echo CTemplate::moneyFormat($this->orderInfo['grand_total']); ?>
 				</div>
 				<div>
-					Grand total $<?php echo CTemplate::moneyFormat($this->orderInfo['grand_total'] + $this->orderInfo['ltd_round_up_value']); ?>
+					Grand total $<?php echo CTemplate::moneyFormat(floatval($this->orderInfo['grand_total']) + floatval($this->orderInfo['ltd_round_up_value'])); ?>
 				</div>
 				<?php foreach ($this->paymentInfo as $payment) { ?>
 					<?php if (is_array($payment) && $payment['payment_type'] == 'CC') { ?>

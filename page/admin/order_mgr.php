@@ -257,7 +257,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			throw new Exception('Store not found');
 		}
 
-		if ($this->orderState == 'NEW' && $this->daoStore->store_type == CStore::DISTRIBUTION_CENTER)
+		if ($this->orderState == 'NEW' && $this->daoStore->isDistributionCenter())
 		{
 			CApp::bounce('/?page=admin_order_mgr_delivered&user=' . $this->originalOrder->user_id);
 		}
@@ -291,23 +291,8 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 		$order_minimum = null;
 
-
 		if ($this->orderState != 'NEW')
 		{
-			// ask order to rebuild itself
-			// TODO: reconstruct should one day also reconstruct any products from the original order.
-			// as of 7/13/09 the only products are the dfl subscriptions. We will handle those specifically for now.
-			$this->originalOrder->reconstruct();
-
-			// TODO: update order number when deploying to most recent order
-			if ($this->originalOrder->id < FIRST_PLATE_POINTS_1_1_ORDER_ID)
-			{
-				if (!$this->originalOrder->hasStandardCoreServingMinimum())
-				{
-					$this->PlatePointsRulesVersion = 1;
-				}
-			}
-
 			if ($this->orderState == 'CANCELLED')
 			{
 				$Session = $this->originalOrder->findSession(false, true);
@@ -322,17 +307,33 @@ class page_admin_order_mgr extends CPageAdminOnly
 				throw new Exception('Session not found');
 			}
 
-			$order_minimum = COrderMinimum::fetchInstance(COrders::STANDARD, $this->originalOrder->store_id, $Session->menu_id);
-			$tpl->assign('order_minimum_json', $order_minimum->toJson());
-			$tpl->assign('order_minimum_header_label', $order_minimum->formulateOrderMgrHeaderLabel($this->originalOrder));
-
-			if ($Session->session_type == CSession::DELIVERED)
+			// Shipping session, bounce to shipping order manager
+			if ($Session->isDelivered())
 			{
 				unset($_GET['back']);
 				unset($tpl->back);
 
 				CApp::bounce('/?page=admin_order_mgr_delivered&order=' . $this->originalOrder->id);
 			}
+
+			// ask order to rebuild itself
+			// TODO: reconstruct should one day also reconstruct any products from the original order.
+			// as of 7/13/09 the only products are the dfl subscriptions. We will handle those specifically for now.
+			$this->originalOrder->reconstruct($this->orderState != 'SAVED');
+			$this->originalOrder->recalculate(true);
+
+			// TODO: update order number when deploying to most recent order
+			if ($this->originalOrder->id < FIRST_PLATE_POINTS_1_1_ORDER_ID)
+			{
+				if (!$this->originalOrder->hasStandardCoreServingMinimum())
+				{
+					$this->PlatePointsRulesVersion = 1;
+				}
+			}
+
+			$order_minimum = COrderMinimum::fetchInstance(COrders::STANDARD, $this->originalOrder->store_id, $Session->menu_id);
+			$tpl->assign('order_minimum_json', $order_minimum->toJson());
+			$tpl->assign('order_minimum_header_label', $order_minimum->formulateOrderMgrHeaderLabel($this->originalOrder));
 
 			$Form->AddElement(array(
 				CForm::type => CForm::Hidden,
@@ -4906,12 +4907,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 				{
 					$menuItemInfo->override_price = $orgPrices[$menuItemInfo->id];
 					$menuItemInfo->store_price = $orgPrices[$menuItemInfo->id];
-
-
-					if ($menuItemInfo->override_price < $menuItemInfo->price)
-					{
-						$menuItemInfo->price = $menuItemInfo->override_price;
-					}
 				}
 
 				if ($menuItemInfo->pricing_type == CMenuItem::INTRO)

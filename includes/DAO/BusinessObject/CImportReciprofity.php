@@ -436,10 +436,10 @@ class CImportReciprofity extends DAO
 		if (!$updateExistingMenu)
 		{
 
-			if (empty($sanity['available_intro']) || count($sanity['available_intro']) <> 12)
-			{
-				return "Too few or too many intro items, should be 12 items";
-			}
+//			if (empty($sanity['available_intro']) || count($sanity['available_intro']) <> 12)
+//			{
+//				return "Too few or too many intro items, should be 12 items";
+//			}
 
 			if (empty($sanity['available_dreamtaste']) || count($sanity['available_dreamtaste']) <> 5)
 			{

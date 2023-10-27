@@ -17,7 +17,7 @@
 			<a href="/?page=admin_reports_saved_orders">Saved Orders Report</a><br/>
 			<a href="/?page=admin_reports_delivery_orders">Delivery Orders Report</a><br/>
 			<a href="/?page=admin_reports_entree">Entr&eacute;e Report</a><br/>
-			<a href="/?page=admin_reports_entree_delivered">Delivered Entr&eacute;e Report</a><br/>
+			<a href="/?page=admin_reports_entree_delivered">Shipping Entr&eacute;e Report</a><br/>
 			<a href="/?page=admin_reports_store_credit">Credit Report</a><br/>
 			<a href="/?page=admin_reports_preferred_users">Preferred Users</a><br/>
 			<a href="/?page=admin_reports_user_data_v2">Guest Details Report</a><br/>

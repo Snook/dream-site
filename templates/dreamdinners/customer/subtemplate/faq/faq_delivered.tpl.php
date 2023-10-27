@@ -92,7 +92,7 @@
 		</div>
 		<div id="collapse-DLVRD-Eight" class="collapse" aria-labelledby="heading-DLVRD-Eight" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				All Dream Dinners meals are carefully hand packed in a Styrofoam cooler or insulated liners with either frozen gel packs or dry ice and are delivered via FedEx.
+				All Dream Dinners meals are carefully hand packed in a Styrofoam cooler or insulated liners with either frozen gel packs or dry ice and are delivered via UPS.
 			</div>
 		</div>
 	</div>
@@ -116,7 +116,7 @@
 		</div>
 		<div id="collapse-DLVRD-Ten" class="collapse" aria-labelledby="heading-DLVRD-Ten" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				Weather, natural disasters and other uncontrollable events can interrupt delivery service with little warning. Please refer to the tracking number provided with your order or contact our support team via the website with any questions or concerns regarding delivery. In addition, you can visit www.fedex.com to sign up for alerts direct from the carrier.
+				Weather, natural disasters and other uncontrollable events can interrupt delivery service with little warning. Please refer to the tracking number provided with your order or contact our support team via the website with any questions or concerns regarding delivery. In addition, you can visit www.ups.com to sign up for alerts direct from the carrier.
 			</div>
 		</div>
 	</div>

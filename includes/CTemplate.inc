@@ -54,7 +54,7 @@ class CTemplate extends Savant2
 	static private $head_css_array = array();
 	static private $head_onload_array = array();
 	static private $head_preload_array = array();
-	static private $head_analytics_array = array();
+	public $head_analytics_array = array();
 
 	// admin pages built in bootstrap
 	static $bootstrapPages = array(
@@ -1008,6 +1008,8 @@ class CTemplate extends Savant2
 				self::setScript('foot', SCRIPT_PATH . '/customer/analytics.min.js', true, true); // common DD functions
 
 				self::setScript('head', 'https://www.googletagmanager.com/gtag/js?id=' . GOOGLE_ANALYTICS_ID, true, false, false); // google analytics
+
+				self::setScript('head', 'https://assets.sitescdn.net/ytag/ytag.min.js', true, false, false); //yext tracking
 			}
 			self::setScript('foot', 'https://addevent.com/libs/atc/1.6.1/atc.min.js', true, true); // add to calendar function
 
@@ -1136,7 +1138,7 @@ class CTemplate extends Savant2
 			}
 		}
 
-		self::$head_analytics_array = array(
+		$this->head_analytics_array = array(
 			'analytics' => ENABLE_ANALYTICS,
 			'order_id' => ((!empty($this->orderInfo['id'])) ? $this->orderInfo['id'] : 0),
 			'order_type' => $orderType,
@@ -1196,7 +1198,7 @@ class CTemplate extends Savant2
 		// salesforce email studio
 		if (isset($_REQUEST['sfmc_sub']) && isset($_REQUEST['j']) && isset($_REQUEST['l']) && isset($_REQUEST['u']) && isset($_REQUEST['mid']) && isset($_REQUEST['jb']))
 		{
-			self::$head_analytics_array['smfcArray'] = array(
+			$this->head_analytics_array['smfcArray'] = array(
 				'sfmc_sub' => CGPC::do_clean($_REQUEST['sfmc_sub'], TYPE_INT, true),
 				'j' => CGPC::do_clean($_REQUEST['j'], TYPE_INT, true),
 				'l' => CGPC::do_clean($_REQUEST['l'], TYPE_NOHTML, true),
@@ -1204,10 +1206,10 @@ class CTemplate extends Savant2
 				'mid' => CGPC::do_clean($_REQUEST['mid'], TYPE_INT, true),
 				'jb' => CGPC::do_clean($_REQUEST['jb'], TYPE_INT, true)
 			);
-			CBrowserSession::setValue('smfc', json_encode(self::$head_analytics_array['smfcArray']), false, true, false); // can't be httponly so javascript can remove the cookie
+			CBrowserSession::setValue('smfc', json_encode($this->head_analytics_array['smfcArray']), false, true, false); // can't be httponly so javascript can remove the cookie
 		}
 
-		return self::$head_analytics_array;
+		return $this->head_analytics_array;
 	}
 
 	static function isAlphaNumHyphen($value)

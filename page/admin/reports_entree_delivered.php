@@ -968,7 +968,7 @@ class page_admin_reports_entree_delivered extends CPageAdminOnly
 
 			$Dest = ($export ? "Excel" : "Screen");
 
-			CLog::RecordReport("Entree Delivered", "Rows:$numRows ~ Store: $store ~ Day: $day ~ Month: $month ~ Year: $year ~ Duration: $duration ~ Type: $report_type_to_run ~ Dest: $Dest");
+			CLog::RecordReport("Entree Shipping", "Rows:$numRows ~ Store: $store ~ Day: $day ~ Month: $month ~ Year: $year ~ Duration: $duration ~ Type: $report_type_to_run ~ Dest: $Dest");
 
 			$tpl->assign('report_type', $report_type_to_run);
 			$tpl->assign('report_day', $day);

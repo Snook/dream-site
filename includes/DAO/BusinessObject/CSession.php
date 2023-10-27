@@ -129,6 +129,35 @@ class CSession extends DAO_Session
 		return false;
 	}
 
+	/**
+	 * @param      $dateStr String 'yyyy-mm-dd'
+	 * @param      $menu_id
+	 * @param bool $allDistributionCenters Optional -> default is true, will create for all DCs
+	 * @param int $specificDistCenterId Optional -> default is null and ignored, will be used if $allDistributionCenters == true and a valid positive int
+	 *                                  is passed
+	 *
+	 * @throws Exception
+	 */
+	static function generateDeliveredBlackoutSession($dateStr, $menu_id, $allDistributionCenters = true, $specificDistCenterId = null)
+	{
+
+		$date = DateTime::createFromFormat('Y-m-d',$dateStr);
+
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->active = 1;
+		$DAO_store->store_type = CStore::DISTRIBUTION_CENTER;
+		if(!$allDistributionCenters && is_numeric($specificDistCenterId))
+		{
+			$DAO_store->id = $specificDistCenterId;
+		}
+		$DAO_store->find();
+
+		while ($DAO_store->fetch())
+		{
+			self::addUpdateDeliveredSession($date, $DAO_store->id, $menu_id, false, false, 0, 'Store Shipping Blackout');
+		}
+	}
+
 	static function generateDeliveredSessionsForMenu($menu_id)
 	{
 
@@ -1000,7 +1029,7 @@ class CSession extends DAO_Session
 		$selfSearch = "";
 		if ($this->id != null && $this->id != "" && $this->id > 0)
 		{
-			$selfSearch = 'AND id <> ' . $this->id;
+			$selfSearch = 'AND s.id <> ' . $this->id;
 		}
 
 		$Session = new DAO();
@@ -2266,7 +2295,7 @@ class CSession extends DAO_Session
 		}
 	}
 
-	function findSessionsEligibleForOrdering($storeObj, $serviceDays, $max_returned)
+	function findSessionsEligibleForOrdering($storeObj, $serviceDays, $max_returned = 6)
 	{
 		$orgServiceDays = $serviceDays;
 		$deliveryDayFilter = $serviceDays - 1;
@@ -2280,7 +2309,7 @@ class CSession extends DAO_Session
 		$this->query("select iq.* from (
 								select * from session where store_id = {$storeObj->id}  and DATE(session_start) >= '$earliestDeliveryDate' and delivered_supports_delivery > $deliveryDayFilter and is_deleted = 0 order by session_start limit 20) as iq
 								join session s2 on s2.session_start = DATE_SUB(iq.session_start, INTERVAL $orgServiceDays DAY) and s2.store_id = iq.store_id and s2.is_deleted = 0 and s2.delivered_supports_shipping > 0
-								order by iq.session_start limit 10");
+								order by iq.session_start limit " .$max_returned);
 	}
 
 	static function isSessionValidForDeliveredOrder($session_id, $StoreObj, $menu_id, $serviceDays = false, $zip = false)
@@ -2319,15 +2348,15 @@ class CSession extends DAO_Session
 
 	static function getCurrentDeliveredSessionArrayForCustomer($Store, $service_days = 0, $date = false, $menu_id = false, $open_only = false, $get_bookings = false, $excludeFull = false)
 	{
-		return self::getMonthlySessionInfoArrayForDelivered($Store, $date, $menu_id, false, $open_only, $get_bookings, false, $excludeFull, $service_days, 10);
+		return self::getMonthlySessionInfoArrayForDelivered($Store, $date, $menu_id, false, $open_only, $get_bookings, false, $excludeFull, $service_days, 6);
 	}
 
 	static function getCurrentDeliveredSessionArrayForDistributionCenter($Store, $service_days = 0, $date = false, $menu_id = false, $open_only = false, $get_bookings = false, $excludeFull = false)
 	{
-		return self::getMonthlySessionInfoArrayForDelivered($Store, $date, $menu_id, false, $open_only, $get_bookings, false, $excludeFull, $service_days, 10);
+		return self::getMonthlySessionInfoArrayForDelivered($Store, $date, $menu_id, false, $open_only, $get_bookings, false, $excludeFull, $service_days, 6);
 	}
 
-	static function getMonthlySessionInfoArrayForDelivered($Store, $date = false, $menu_id = false, $cart_info = false, $open_only = false, $get_bookings = false, $date_is_anchor = false, $excludeFull = false, $customer_view = false, $max_returned = 10)
+	static function getMonthlySessionInfoArrayForDelivered($Store, $date = false, $menu_id = false, $cart_info = false, $open_only = false, $get_bookings = false, $date_is_anchor = false, $excludeFull = false, $customer_view = false, $max_returned = 6)
 	{
 
 		$Sessions = DAO_CFactory::create('session');

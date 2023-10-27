@@ -23,7 +23,7 @@ else
 				<div class="row">
 					<div class="col text-center">
 						<h1>Find how we can <span class="text-green font-weight-semi-bold">serve you</h1>
-						<p>Enter your zip code or the zip code of where you want to ship to.</p>
+						<p>Enter your zip code below to see services in your area.</p>
 					</div>
 				</div>
 

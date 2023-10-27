@@ -483,10 +483,10 @@
 											<?php echo $item['display_title']; ?>
 											<?php if ($DFL_tag_for_standard && $item['menu_program_id'] == 1) { ?><?php echo $DFL_tag_for_standard; ?><?php } ?>
 										</div>
-										<?php if ($item['is_preassembled']) { ?>
+										<?php if (!empty($item['is_preassembled'])) { ?>
 											<div class="font-size-extra-small ml-3">- Pre-Assembled</div>
 										<?php } ?>
-										<?php if ($this->order_has_meal_customization) { ?>
+										<?php if (!empty($this->order_has_meal_customization)) { ?>
 											<?php if ($item['is_freezer_menu'] == true || $item['is_chef_touched'] == true  || ($item['is_preassembled'] == true  && !$this->store_allows_preassembled_customization)) { ?>
 												<div class="font-size-extra-small ml-3">- Not Customizable</div>
 											<?php } ?>

@@ -5,7 +5,7 @@ $(function () {
 	$(document).on('change', '#menu_id', function (e) {
 
 		$('#availability_date_start').val(this.options[this.selectedIndex].dataset.date_start);
-		$('#availability_date_start').prop({'min': this.options[this.selectedIndex].dataset.date_start});
+		//$('#availability_date_start').prop({'min': this.options[this.selectedIndex].dataset.date_start});
 
 		$('#availability_date_end').val(this.options[this.selectedIndex].dataset.date_end);
 
@@ -352,7 +352,7 @@ $(function () {
 			message += '</div>';
 
 			iconDialog = bootbox.dialog({
-				title: "Select Delivered Box Icon",
+				title: "Select Shipping Box Icon",
 				message: message,
 				size: 'large',
 				scrollable: true,

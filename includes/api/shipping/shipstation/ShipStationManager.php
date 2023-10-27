@@ -2,7 +2,7 @@
 require_once 'includes/api/ApiManager.php';
 require_once 'includes/api/shipping/shipstation/ShipStationEndpointFactory.php';
 require_once 'includes/DAO/BusinessObject/COrdersShipping.php';
-
+require_once 'includes/DAO/BusinessObject/CEmail.php';
 /**
  * Wrapper for the ShipStation API
  *
@@ -605,6 +605,12 @@ class ShipStationManager extends ApiManager
 						{
 							$setShippingOnAll = false;
 						}
+						else
+						{
+							//Send Tracking Email to Guest
+							//CEmail::sendDeliveredShipmentTrackingEmail();
+						}
+
 					}else{
 						$setShippingOnAll = false;
 					}

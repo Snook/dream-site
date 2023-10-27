@@ -91,9 +91,6 @@
 <?php $this->setScriptVar('meal_customization_preferences = ' . (empty($this->meal_customization_preferences_json) ? '{}' : $this->meal_customization_preferences_json) . ';'); ?>
 <?php $this->setScriptVar('meal_customization_cost = ' . (empty($this->meal_customization_cost) ? '[]' : $this->meal_customization_cost) . ';'); ?>
 <?php $this->setScriptVar('default_meal_customization_to_selected = ' . ($this->default_meal_customization_to_selected ? "true" : "false"). ';'); ?>
-
-
-
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
 <?php if ($this->orderState != 'NEW') { ?>

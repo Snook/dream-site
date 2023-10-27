@@ -1286,7 +1286,7 @@ class page_admin_order_mgr_test extends CPageAdminOnly
 				$Form->DefaultValues['plate_points_discount'] = $this->originalOrder->points_discount_total;
 
 				$Form->AddElement(array(
-					CForm::type => CForm::Text,
+					CForm::type => CForm::Money,
 					CForm::name => 'plate_points_discount',
 					CForm::org_value => $this->originalOrder->points_discount_total,
 					CForm::number => true,

@@ -1,5 +1,5 @@
 <?php
-$this->assign('page_title','Delivered Boxes Shipping Report');
+$this->assign('page_title','Shipping Boxes Shipping Report');
 $this->setCSS(CSS_PATH . '/admin/admin-styles-reports.css'); ?>
 
 <?php if (!isset($this->suppress_header_footer)) { ?>
