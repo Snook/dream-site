@@ -43,7 +43,7 @@
 					</form>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/oct23-header-collage-957x657.webp" alt="Cattlemans Pie and Build Your Own Calzones and Chicken Egg Roll Bowl" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/nov23-shipping-957x657.webp" alt="Mini Turkey Hand Pies and Italiano Chicken and Orzo and Corn Chowder" class="img-fluid">
 						<!--<figure>
 							<img src="<?php echo IMAGES_PATH; ?>/home_content/homepage-header-collage-circles-957x657.webp" alt="Mini chicken pot pies, Pub style chicken and Cod fish N chips" class="img-fluid">
 						</figure>-->

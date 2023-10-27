@@ -62,7 +62,7 @@
 									<div class="card-body">
 										<h3>New Guest Shipping Exclusive:<br><strong>Free Shipping on First Box*</strong></h3>
 										<p>Place your first shipping order and get free shipping on your first box.</p>
-										<p>Use this code at checkout: <span class="font-weight-bold font-marker font-size-large">FREESHIP{</span></p>
+										<p>Use this code at checkout: <span class="font-weight-bold font-marker font-size-large">FREESHIP</span></p>
 										<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
 									</div>
 								</div>
