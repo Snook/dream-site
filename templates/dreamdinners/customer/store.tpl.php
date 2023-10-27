@@ -119,15 +119,15 @@
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center mb-2">
 						<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/calzone-kid-pick-400x400.webp" alt="Build Your Own Calzone" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-turkey-hand-pies-featured-kid-pick-400x400.webp" alt="Mini Turkey and Vegetable Hand Pies" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Build Your Own Calzone</h5>
+									<h5 class="card-title">Mini Turkey and Vegetable Hand Pies</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-parmesan-pan-400x400.webp" alt="Chicken Parmesan" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-pizzaiola-featured-pan-meal-400x400.webp" alt="Chicken Pizzaiola" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Parmesan</h5>
+									<h5 class="card-title">Chicken Pizzaiola</h5>
 								</div>
 							</div>
 					</div>
@@ -135,25 +135,25 @@
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center">
 						<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-egg-roll-bowl-30-min-400x400.webp" alt="Chicken Egg Roll Bowl" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/italiano-chicken-orzo-featured-30min-less-400x400.webp" alt="Italiano Chicken and Orzo" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Egg Roll Bowl</h5>
+									<h5 class="card-title">Italiano Chicken and Orzo</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cornflake-chicken-air-fryer-400x400.webp" alt="Cornflake Crusted Chicken Tenders with Dipping Sauce" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/beef-bourguignon-featured-instant-pot-400x400.webp" alt="Beef Bourguignon" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Cornflake Crusted Chicken Tenders with Dipping Sauce</h5>
+									<h5 class="card-title">Beef Bourguignon</h5>
 								</div>
 							</div>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-					<div class="col">
-						<a href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/order" class="btn btn-primary btn-block">Start your order</a>
-					</div>
+				<div class="col">
+					<a href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/order" class="btn btn-primary btn-block">Start your order</a>
 				</div>
+			</div>
 			<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted" />
 
 			<div class="row no-gutters">

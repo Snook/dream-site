@@ -72,7 +72,7 @@
 
 			<ul>
 				<li><a href="/locations">Locations</a> - Find a meal prep location near you.</li>
-				<li><a href="/delivered">Shipping</a> - Dinners shipped to your door.</li>
+				<li><a href="/shipping">Shipping</a> - Dinners shipped to your door.</li>
 
 			<h4>PlatePoints</h4>
 

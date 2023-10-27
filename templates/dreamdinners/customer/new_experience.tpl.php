@@ -27,7 +27,7 @@
 						<a href="/locations" class="btn btn-lg btn-green">View Menu & Order</a>
 					</div>
 					<div class="col-md-6 p-0">
-					<img src="<?php echo IMAGES_PATH; ?>/landing_pages/oct23-header-collage-circles-957x657.webp" alt="Cattlemans Pie and Cranberry Buttermilk Chicken and Hearty Braised Beef" class="img-fluid">
+					<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mom-making-pot-pies-pan-957x657.webp" alt="Woman making mini pot pies" class="img-fluid">
 				</div>
 			</div>
 		</section>
@@ -86,31 +86,7 @@
 						</div>
 					</div>
 				</div>
-						
-				<!--<div class="row my-2 mt-5">
-					<div class="col">
-						<div class="card-group">
-							<div class="card border-0 mx-1 text-center">
-								<i class="dd-icon icon-cart font-size-extra-extra-large text-cyan-dark m-4"></i>
-							</div>
-							<div class="card border-0 mx-1 text-left">
-								<div class="card-body">
-									<h5 class="card-title">Volume Rewards</h5>
-									<p class="card-text">Plan more, save more. Get 10% off when you order 8 or more meals.</p>
-								</div>
-							</div>
-							<div class="card border-0 mx-1 text-center">
-								<i class="dd-icon icon-chef font-size-extra-extra-large text-cyan-dark m-4"></i>
-							</div>
-							<div class="card border-0 mx-1 text-left">
-								<div class="card-body">
-									<h5 class="card-title">Plus, you will have access to...</h5>
-									<p class="card-text">Exclusive bundles & limited time only items.</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>-->
+					
 					<div class="row my-4">
 						<div class="col text-center">
 							<a href="/locations" class="btn btn-primary btn-orange text-center">Start ordering the way you want</a>

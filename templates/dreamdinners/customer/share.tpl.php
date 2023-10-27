@@ -16,7 +16,7 @@
 				</div>
 			</div>
 		</section>
-		<section>
+		<!--<section>
 			<div class="container">
 				<div class="row my-5">
 					<div class="col-md-7 text-left">
@@ -32,9 +32,9 @@
 					</div>
 				</div>
 			</div>
-		</section>
-		<!--<section>
-			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
+		</section>-->
+		<section>
+			<!--<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>-->
 			<div class="container my-5">
 				<div class="" id="" role="tabpanel" aria-labelledby="">
 					<div class="row my-2">
@@ -42,16 +42,33 @@
 							<div class="card-group">
 								<div class="card border-0 py-4 px-4 mx-1 text-left">
 									<div class="card-body text-center">
-										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/charity-hand-heart-orange-150x159.png" alt="Donation" class="img-fluid" />
+										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cashew-chicken-with-noodles-circle-458x344.webp" alt="Cashew Chicken and Noodles" class="img-fluid mb-3" />
 									</div>
 									<div class="card-body">
-										<h4 class="card-title">Get a Meal & Give Hope </h4>
-										<p class="card-text">This summer for every new customer our guests refer, the Dream Dinners Foundation will donate $5 to support lifesaving blood cancer research for children. </p>
+										<h3>New Guest Store Exclusive:<br><strong>Buy 3 Dinners, Get 1 Free*</strong></h3>
+										<p>Place an order for 3 or more dinners, get a free medium Cashew Chicken and Noodles as our gift to you. </p>
+										<p>Use this code at checkout: <span class="font-weight-bold font-marker font-size-large">SHARE</span></p>
+										<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="col">
+							<div class="card-group">
+								<div class="card border-0 py-4 px-4 mx-1 text-left">
+									<div class="card-body text-center">
+										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/shipping-doorstep-circle-458x344.webp" alt="Dream Dinners Shipping" class="img-fluid mb-3" />
+									</div>
+									<div class="card-body">
+										<h3>New Guest Shipping Exclusive:<br><strong>Free Shipping on First Box*</strong></h3>
+										<p>Place your first shipping order and get free shipping on your first box.</p>
+										<p>Use this code at checkout: <span class="font-weight-bold font-marker font-size-large">FREESHIP{</span></p>
+										<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--<div class="col">
 							<div class="card-group">
 								<div class="card border-0 py-4 px-4 mx-1 text-left">
 									<div class="card-body text-center">
@@ -79,11 +96,11 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</div>
-		</section>-->
+		</section>
 
 		<!-- How it works -->
 		<section>
@@ -206,27 +223,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/calzone-kid-pick-400x400.webp" alt="Build Your Own Calzone" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-turkey-hand-pies-featured-kid-pick-400x400.webp" alt="Mini Turkey and Vegetable Hand Pies" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Build Your Own Calzone</h5>
+									<h5 class="card-title">Mini Turkey and Vegetable Hand Pies</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-parmesan-pan-400x400.webp" alt="Chicken Parmesan" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-pizzaiola-featured-pan-meal-400x400.webp" alt="Chicken Pizzaiola" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Parmesan</h5>
+									<h5 class="card-title">Chicken Pizzaiola</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-egg-roll-bowl-30-min-400x400.webp" alt="Chicken Egg Roll Bowl" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/italiano-chicken-orzo-featured-30min-less-400x400.webp" alt="Italiano Chicken and Orzo" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Egg Roll Bowl</h5>
+									<h5 class="card-title">Italiano Chicken and Orzo</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cornflake-chicken-air-fryer-400x400.webp" alt="Cornflake Crusted Chicken Tenders with Dipping Sauce" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/beef-bourguignon-featured-instant-pot-400x400.webp" alt="Beef Bourguignon" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Cornflake Crusted Chicken Tenders with Dipping Sauce</h5>
+									<h5 class="card-title">Beef Bourguignon</h5>
 								</div>
 							</div>
 
@@ -286,7 +303,7 @@
 		</section>
 		<div class="container">
 			<div class="row my-5 text-center">
-				<p class="mt-4"><i>Fine Print: The free dinner voucher is for new guests who have never been to Dream Dinners. The voucher has no cash value and is not for sale; it is good for one redemption per a household, and recipient must be at least 18 years old. Not valid combined with any other offers or promotions. Code is only valid at participating locations.</i></p>
+				<p class="mt-4"><i>Fine Print: The free dinner voucher and free shipping voucher is for new guests who have never been to Dream Dinners. The voucher has no cash value and is not for sale; it is good for one redemption per a household, and recipient must be at least 18 years old. Not valid combined with any other offers or promotions. Code is only valid at participating locations.</i></p>
 			</div>
 		</div>
 

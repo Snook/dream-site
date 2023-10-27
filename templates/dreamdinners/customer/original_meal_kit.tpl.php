@@ -14,7 +14,7 @@
 					</div>
 					<div class="col-md-6 p-0">
 						<figure>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/oct23-header-collagev2-957x657.webp" alt="Chicken Egg Roll Bowl and Cattlemans Pie and Build Your Own Calzones" class="img-fluid">
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/nov23-menu-collage-957x657.webp" alt="Italiano Chicken and Orzo adn Buffalo Ranch Chicken Sliders and Pork Marsala" class="img-fluid">
 						</figure>
 					</div>
 				</div>
@@ -56,27 +56,27 @@
 					<div class="col">
 						<div class="card-group text-center">
 							<div class="card border-0 mx-1">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/fully-loaded-chicken-potato-soup-circle-458x344.webp" alt="Fully Loaded Chicken and Potato Soup" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-turkey-hand-pies-circle-458x344.webp" alt="Mini Turkey and Vegetable Hand Pies" class="img-fluid" />
 								<div class="card-body">
-									<p class="card-text">Fully Loaded Chicken and Potato Soup</p>
+									<p class="card-text">Mini Turkey and Vegetable Hand Pies</p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/philly-cheesesteak-circle-458x344.webp" alt="Philly Cheesesteaks" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cod-fish-n-chips-circle-458x344.webp" alt="Cod Fish n Chips" class="img-fluid" />
 								<div class="card-body">
-									<p class="card-text">Philly Cheesesteaks</p>
+									<p class="card-text">Cod Fish n Chips</p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-parmesan-circle-458x344.webp" alt="Chicken Parmesan" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mexican-lasagna-circle-458x344.webp" alt="Mexican Beef Tortilla Bake" class="img-fluid" />
 								<div class="card-body">
-									<p class="card-text">Chicken Parmesan</p>
+									<p class="card-text">Mexican Beef Tortilla Bake</p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cornflake-chicken-tenders-circle-458x344.webp" alt="Cornflake Crusted Chicken Tenders" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken_pizzaiola_family_circle_458x344.webp" alt="Chicken Pizzaiola" class="img-fluid" />
 								<div class="card-body">
-									<p class="card-text">Cornflake Crusted Chicken Tenders with Dipping Sauce</p>
+									<p class="card-text">Chicken Pizzaiola</p>
 								</div>
 							</div>
 						</div>

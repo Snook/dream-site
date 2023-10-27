@@ -66,7 +66,7 @@
 				<div class="row my-5">
 					<div class="col-md-6 mb-5">
 						<div>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-egg-roll-bowl-circle-458x344.webp" alt="Chicken Egg Roll Bowl" class="img-fluid" />
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/italiano-chicken-orzo-458x344.webp" alt="Italiano Chicken and Orzo" class="img-fluid" />
 						</div>
 					</div>
 					<div class="col-md-6 text-left">
