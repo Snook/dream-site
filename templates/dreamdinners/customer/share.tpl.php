@@ -60,8 +60,8 @@
 										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/shipping-doorstep-circle-458x344.webp" alt="Dream Dinners Shipping" class="img-fluid mb-3" />
 									</div>
 									<div class="card-body">
-										<h3>New Guest Shipping Exclusive:<br><strong>Free Shipping on First Box*</strong></h3>
-										<p>Place your first shipping order and get free shipping on your first box.</p>
+										<h3>New Guest Shipping Offer:<br><strong>Free Shipping*</strong></h3>
+										<p>Get free shipping on your first box of 4 medium dinners as a special offer just for you.</p>
 										<p>Use this code at checkout: <span class="font-weight-bold font-marker font-size-large">FREESHIP</span></p>
 										<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
 									</div>
