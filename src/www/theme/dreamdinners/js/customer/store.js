@@ -156,12 +156,16 @@ document.addEventListener('DOMContentLoaded', function () {
 				{
 					title += '<span class="font-size-small"><span class="d-none d-md-inline"> - </span><span class="d-block d-md-inline">' + info.event.extendedProps.remaining_slots + ' spot' + ((info.event.extendedProps.remaining_slots != 1) ? 's' : '') + ' remaining</span></span>';
 
-					if ([
-						'STANDARD'
-					].includes(info.event.extendedProps.session_type_true))
+					if (info.event.extendedProps.menu_id < 269)
 					{
-						title += '<span class="font-size-small"><span class="d-none d-md-inline"> - </span><span class="d-block d-md-inline">' + info.event.extendedProps.remaining_intro_slots + ' Starter Pack spot' + ((info.event.extendedProps.remaining_intro_slots != 1) ? 's' : '') + ' remaining</span></span>';
+						if ([
+							'STANDARD'
+						].includes(info.event.extendedProps.session_type_true))
+						{
+							title += '<span class="font-size-small"><span class="d-none d-md-inline"> - </span><span class="d-block d-md-inline">' + info.event.extendedProps.remaining_intro_slots + ' Starter Pack spot' + ((info.event.extendedProps.remaining_intro_slots != 1) ? 's' : '') + ' remaining</span></span>';
+						}
 					}
+
 				}
 
 				if (info.event.extendedProps.is_open_for_customization)
@@ -171,9 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 				$(info.el).find('.fc-list-event-title').html(title);
 			}
-		}
-		,
-
+		},
 		eventClick: function (info) {
 
 			if (info.event.extendedProps.remaining_slots <= 0)
