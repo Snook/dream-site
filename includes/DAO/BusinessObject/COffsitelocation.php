@@ -189,8 +189,18 @@ class COffsitelocation extends DAO_Store_pickup_location
 		$pdf->MultiCellTag(84, 6, '<hs>' . HTTPS_BASE . 'session/' . $sessionDetails['id'] . '</hs>', $draw_borders, 'C');
 
 		// Link
-		$pdf->SetXY(10, 212);
-		$pdf->MultiCellTag(84, 6, '<hs>' . HTTPS_BASE . 'starter/' . $sessionDetails['id'] . '</hs>', $draw_borders, 'C');
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->id = $sessionDetails['menu_id'];
+
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->id = $sessionDetails['store_id'];
+		$DAO_store->find(true);
+
+		if ($DAO_menu->isEnabled_Starter_Pack($DAO_store))
+		{
+			$pdf->SetXY(10, 212);
+			$pdf->MultiCellTag(84, 6, '<hs>' . HTTPS_BASE . 'starter/' . $sessionDetails['id'] . '</hs>', $draw_borders, 'C');
+		}
 
 		// Password
 		$pdf->SetXY(10, 232);
