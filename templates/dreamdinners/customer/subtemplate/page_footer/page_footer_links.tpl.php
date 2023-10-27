@@ -78,6 +78,7 @@
 			<p class="font-weight-bold text-uppercase pl-1 mt-4 mt-md-0">Learn More</p>
 			<div class="list-group list-group-flush">
 				<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/how-it-works">How It Works</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/gift">Gift</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/platepoints">PlatePoints</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/promotions">Promotions</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/fundraisers">Fundraisers</a>
@@ -103,7 +104,7 @@
 			<div class="row">
 				<div class="col text-center text-xl-right">
 					<a href="https://instagram.com/dreamdinners" rel="noopener" class="text-decoration-hover-none font-size-extra-large text-green-light mr-3" target="_blank"><i class="fab fa-instagram"></i></a>
-					<a href="https://twitter.com/dreamdinners" rel="noopener" class="text-decoration-hover-none font-size-extra-large text-green-light mr-3" target="_blank"><i class="fab fa-twitter"></i></a>
+					<!--<a href="https://twitter.com/dreamdinners" rel="noopener" class="text-decoration-hover-none font-size-extra-large text-green-light mr-3" target="_blank"><i class="fab fa-twitter"></i></a>-->
 					<a href="https://facebook.com/dreamdinners" rel="noopener" class="text-decoration-hover-none font-size-extra-large text-green-light mr-3" target="_blank"><i class="fab fa-facebook-f"></i></a>
 					<a href="https://pinterest.com/dreamdinners" rel="noopener" class="text-decoration-hover-none font-size-extra-large text-green-light" target="_blank"><i class="fab fa-pinterest"></i></a>
 				</div>
