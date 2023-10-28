@@ -74,7 +74,7 @@
 											<?php if (false && $recipe['info']['flag_heart_healthy']) { // disabled 9-23-2020 ?><li><i class="font-size-medium-small dd-icon icon-health text-gray-dark" data-toggle="tooltip" data-placement="top" title="Heart Healthy"></i></li><?php } ?>
 											<?php if ($recipe['info']['flag_grill_friendly']) { ?><li><i class="font-size-medium-small dd-icon icon-grill text-gray-dark" data-toggle="tooltip" data-placement="top" title="Grill Option"></i></li><?php } ?>
 											<?php if ($recipe['info']['flag_cooks_from_frozen']) { ?><li><i class="font-size-medium-small dd-icon icon-frozen text-gray-dark" data-toggle="tooltip" data-placement="top" title="Cooks from Frozen"></i></li><?php } ?>
-											<?php if ($recipe['info']['flag_crockpot']) { ?><li><i class="font-size-medium-small dd-icon icon-instant-pot text-gray-dark" data-toggle="tooltip" data-placement="top" title="Crock-Pot/Instant Pot Option"></i></li><?php } ?>
+											<?php if ($recipe['info']['flag_crockpot']) { ?><li><i class="font-size-medium-small dd-icon icon-instant-pot text-gray-dark" data-toggle="tooltip" data-placement="top" title="Crock-Pot or Instant Pot Option"></i></li><?php } ?>
 											<?php if ($recipe['info']['flag_under_400']) { ?><li><i class="font-size-medium-small dd-icon icon-calories text-gray-dark" data-toggle="tooltip" data-placement="top" title="Under 500 Calories"></i></li><?php } ?>
 											<?php if ($recipe['info']['flag_no_added_salt']) { ?><li><i class="font-size-medium-small dd-icon icon-no-added-salt text-gray-dark" data-toggle="tooltip" data-placement="top" title="No Added Salt"></i></li><?php } ?>
 											<?php if ($recipe['info']['flag_under_thirty']) { ?><li><i class="font-size-medium-small dd-icon icon-minutes_30 text-gray-dark" data-toggle="tooltip" data-placement="top" title="Cooks in under 30 Minutes"></i></li><?php } ?>
@@ -116,7 +116,7 @@
 			</div>
 			<div class="row">
 				<div class="col">
-					<i class="font-size-medium-large align-middle dd-icon icon-instant-pot text-gray-dark"></i> Crock-Pot/Instant Pot Option
+					<i class="font-size-medium-large align-middle dd-icon icon-instant-pot text-gray-dark"></i> Crock-Pot or Instant Pot Option
 				</div>
 			</div>
 			<div class="row">

@@ -138,7 +138,7 @@ class processor_admin_food_sales extends CPageProcessor
 			join session s on b.session_id = s.id and s.session_start >= '$start' and s.session_start < DATE_ADD('$start',INTERVAL $duration)
 			join orders o on o.id = b.order_id
 			join user u on u.id = b.user_id " . $omitUserList . "
-			join address ad on ad.user_id = u.id and ad.location_type = 'BILLING' AND ad.is_deleted = 0
+			left join address ad on ad.user_id = u.id and ad.location_type = 'BILLING' AND ad.is_deleted = 0
 			join store st on st.id = s.store_id $storeClause
 			join order_item oi on oi.order_id = b.order_id and oi.is_deleted = 0
 			join menu_item mi on mi.id = oi.menu_item_id and mi.recipe_id in ("  . implode(",", $items) .  " )
