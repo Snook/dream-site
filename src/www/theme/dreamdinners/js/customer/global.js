@@ -532,7 +532,7 @@ function dd_toast(settings)
 	var html = '<div class="toast mx-auto" role="alert" aria-live="assertive" aria-atomic="true" data-delay="' + config.delay + '" data-autohide="' + config.autohide + '">';
 	html += '<div class="toast-header ' + config.css_header + '">';
 	html += '<strong class="mr-auto">' + ((config.title) ? config.title : 'Notice') + '</strong>';
-	html += '<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true" class="text-white">&times;</span></button>';
+	html += '<button type="btn btn-primary btn-sm" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true" class="text-white">&times;</span></button>';
 	html += '</div>';
 	html += '<div class="toast-body">' + config.message + '</div>';
 	html += '</div>';

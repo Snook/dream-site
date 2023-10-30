@@ -24,16 +24,16 @@
 <table style="width: 100%;">
 <tr>
 	<td style="padding-left:20px;">
-		<input type="button" class ="button" value="Set Fill Start Date" onclick="onSetFillWindowStart();" />
-		<input type="button" class ="button" value="Set Fill End Date" onclick="onSetFillWindowEnd();" />
-		<input type="button" class ="button" value="Clear Fill Window" onclick="onClearFillWindow();" />
+		<input type="button" class="btn btn-primary btn-sm" value="Set Fill Start Date" onclick="onSetFillWindowStart();" />
+		<input type="button" class="btn btn-primary btn-sm" value="Set Fill End Date" onclick="onSetFillWindowEnd();" />
+		<input type="button" class="btn btn-primary btn-sm" value="Clear Fill Window" onclick="onClearFillWindow();" />
 	</td>
 	<td>
 		<?=$this->templateSetForm['fill_window_html']?> <?=$this->templateSetForm['set_id_html']?>
 	</td>
 	<td style="padding-right:20px;text-align:right;">
-		<input id="saveButton" type="button" class ="button" value="Save" onclick="saveItems();" />
-		<input id="publishButton" type="button" class ="button" value="Publish" onclick="publishItems();" />
+		<input id="saveButton" type="button" class="btn btn-primary btn-sm" value="Save" onclick="saveItems();" />
+		<input id="publishButton" type="button" class="btn btn-primary btn-sm" value="Publish" onclick="publishItems();" />
 	</td>
 </tr>
 <?=$this->templateSetForm['hidden_html']?>

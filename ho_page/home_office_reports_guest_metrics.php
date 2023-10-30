@@ -9,19 +9,19 @@
  require_once ('includes/DAO/BusinessObject/CStoreCredit.php');
  require_once ('includes/CSessionReports.inc');
 require_once ('includes/CDashboardReportWeekBased.inc');
- 
+
 require_once('ExcelExport.inc');
 
- 
- class page_admin_home_office_reports_guest_metrics extends CPageAdminOnly 
+
+ class page_admin_home_office_reports_guest_metrics extends CPageAdminOnly
 {
     var  $header;
     var  $rows;
     var  $colDescriptions;
-    
+
     static $DollarMetricsList = array('average_standard_ticket');
     static $DollarNoCentsMetricsList = array('total_agr');
-    
+
     static $metricsList = array(
         "none" => "Select a Metric",
         "lifestyle_guest_count" => "Critical^^^Lifestyle Guest Count",
@@ -101,17 +101,17 @@ require_once('ExcelExport.inc');
         "orders_count_fundraiser_new_guests" => "Order Counts^^^Orders Count Fundraiser New Guests",
         "orders_count_fundraiser_reacquired_guests" => "Order Counts^^^Orders Count Fundraiser Reacquired Guests"
     );
-    
+
     public function runSiteAdmin()
     {
         $this->run();
     }
-    
+
     public function runHomeOfficeManager()
     {
         $this->run();
     }
-                
+
     function getStoreClause($Form)
     {
         $retVal = false;
@@ -126,12 +126,12 @@ require_once('ExcelExport.inc');
         else if ($Form->value('store_type') == 'region')
         {
             $region = $Form->value('regions');
-            
+
             if (empty($region) or !is_numeric($region))
             {
                 throw new Exception("Invalid region id");
             }
-            
+
             $retVal = "
             INNER JOIN store st on dmw.store_id = st.id and st.is_corporate_owned = 0 and st.active = 1
             INNER JOIN store_trade_area str on str.store_id = st.id and str.trade_area_id = $region and str.is_deleted = 0 and str.is_active = 1";
@@ -147,7 +147,7 @@ require_once('ExcelExport.inc');
         {
             if ($_POST['requested_stores'] != 'all')
             {
-                
+
                 $tarr = explode(",", $_POST['requested_stores']);
                 $newTarr = array();
                 foreach($tarr as $storeID)
@@ -155,22 +155,22 @@ require_once('ExcelExport.inc');
                     if (is_numeric($storeID))
                         $newTarr[] = $storeID;
                 }
-                
+
                 $storeList = implode(",", $newTarr);
             }
             else
             {
                 throw new Exception("TODO");
             }
-            
+
             $retVal = "INNER JOIN store st on dmw.store_id = st.id and st.active = 1 and st.id in ($storeList) ";
         }
-        
+
         return $retVal;
-        
-        
+
+
     }
-    
+
     function getTitle($Form)
     {
         $retVal = false;
@@ -189,163 +189,163 @@ require_once('ExcelExport.inc');
         else if ($Form->value('store_type') == 'region')
         {
             $region = $Form->value('regions');
-            
+
             $RegionDAO = new DAO();
             $RegionDAO->query("select ta.region from trade_area ta 
                     where ta.id = $region");
             $RegionDAO->fetch();
-            
+
             $retVal = "{$RegionDAO->region} Region Stores";
         }
         else if ($Form->value('store_type') == 'selected_stores')
         {
             $retVal = "Selected Stores";
         }
-        
+
         return $retVal;
-        
-        
+
+
     }
-    
-    
+
+
     function safeDivide($dividend, $divisor)
     {
         if (empty($divisor))
         {
             return 0;
         }
-         
+
         return $dividend / $divisor;
     }
-    
+
     private function run()
     {
-        
-        
+
+
         ini_set('memory_limit','-1');
         set_time_limit(3600 * 24);
-        
+
         $tpl = CApp::instance()->template();
-        
+
         if (isset ($_REQUEST["range_day_start"]))
         {
             $range_day_start = $_REQUEST["range_day_start"];
             $tpl->assign('range_day_start_set', $range_day_start);
         }
-        
+
         if (isset ($_REQUEST["range_day_end"]))
         {
             $range_day_end = $_REQUEST["range_day_end"];
             $tpl->assign('range_day_end_set', $range_day_end);
         }
-        
-        
+
+
         $Form = new CForm();
         $Form->Repost = TRUE;
         $Form->DefaultValues['store_type'] = 'corporate_stores';
-        
+
         $Form->AddElement(array(CForm::type=> CForm::RadioButton,
             CForm::name => "store_type",
             CForm::onChange => 'storeTypeClick',
             CForm::required => true,
             CForm::value => 'corporate_stores'));
-        
+
         $Form->AddElement(array(CForm::type=> CForm::RadioButton,
             CForm::name => "store_type",
             CForm::onChange => 'storeTypeClick',
             CForm::required => true,
             CForm::value => 'franchise_stores'));
-        
+
         $Form->AddElement(array(CForm::type=> CForm::RadioButton,
             CForm::name => "store_type",
             CForm::onChange => 'storeTypeClick',
             CForm::required => true,
             CForm::value => 'region'));
-        
+
         $Form->AddElement(array(CForm::type=> CForm::RadioButton,
             CForm::name => "store_type",
             CForm::onChange => 'storeTypeClick',
             CForm::required => true,
             CForm::value => 'store_class'));
-        
+
         $Form->AddElement(array(CForm::type=> CForm::DropDown,
             CForm::name => "store_class",
             CForm::options => array(1 => "Class 1 (> $50,000)", 2 => "Class 2 ($30,001 to $49,999)", 3 => "Class 3 (<= $30,000)")));
-        
-        
+
+
         $Form->AddElement(array(CForm::type=> CForm::RegionDropDown,
             CForm::name => "regions"));
-        
+
         $Form->AddElement(array(CForm::type=> CForm::RadioButton,
             CForm::name => "store_type",
             CForm::onChange => 'storeTypeClick',
             CForm::required => true,
             CForm::value => 'selected_stores'));
-        
-        
+
+
         $Form->DefaultValues['focus_type'] = 'week';
         $Form->DefaultValues['metric'] = 'none';
-        
+
         $Form->AddElement(array(CForm::type=> CForm::RadioButton,
             CForm::name => "focus_type",
             CForm::onChange => 'weekClick',
             CForm::required => true,
             CForm::value => 'week'));
-        
+
         $Form->AddElement(array(CForm::type=> CForm::RadioButton,
             CForm::name => "focus_type",
             CForm::onChange => 'weekClick',
             CForm::required => true,
             CForm::value => 'month'));
-        
+
         $Form->addElement(array(CForm::type=> CForm::DropDown,
             CForm::name => "metric",
             CForm::required => true,
             CForm::options => self::$metricsList));
-        
-        
+
+
         $Form->AddElement(array (CForm::type => CForm::Submit,
             CForm::name => 'report_submit',
-            CForm::css_class => 'button',
+            CForm::css_class => 'btn btn-primary btn-sm',
             CForm::value => 'Run Report'));
-        
-        
+
+
         $Form->addElement(array(CForm::type => CForm::Hidden, CForm::name => 'requested_stores'));
-        
+
         $tpl->assign('store_data', CStore::getStoreTreeAsNestedList(false, true));
         $tpl->assign('query_form', $Form->render());
-        
+
       if (isset($_POST['report_submit']) && $_POST['report_submit'] == "Run Report")
         {
-                        
+
             $error = false;
-            
+
             $title = $this->getTitle($Form);
-            
-            
+
+
             $reportType = $Form->value('focus_type');
-            
+
             $metric = $Form->value('metric');
-            
+
             if (strtotime($range_day_start) > strtotime($range_day_end))
             {
                 $temp = $range_day_start;
                 $range_day_start = $range_day_end;
                 $range_day_end = $temp;
             }
-            
+
             if (!$error)
-            {            
-                                
+            {
+
                 $_GET['export'] = 'xlsx';
-                
-                
-                // header 
+
+
+                // header
                 $titleRows = array();
                 $titleRows[] = array("Dream Dinners Retail - " . $title);
                 $titleRows[] = array("Metric: " . $metric);
             // TODO    $titleRows[] = array("Week of ", date("n/j/Y", strtotime($this->focusWeek['week_start'])));
-                
+
                 if ($reportType == 'week')
                 {
                     list($rows, $labels, $colDesc) = $this->retrieveRangeForMetricByWeek($range_day_start, $range_day_end, $metric, $Form);
@@ -353,47 +353,47 @@ require_once('ExcelExport.inc');
                 else
                 {
                     // month
-                    
+
                     list($rows, $labels, $colDesc) = $this->retrieveRangeForMetricByMonth($range_day_start, $range_day_end, $metric, $Form);
-                    
+
                 }
-                               
-                
+
+
                 // spit out excel sheet
                 $tpl->assign('rows', $rows);
-                
+
             //    $callbacks = array('row_callback' => 'weeklyMetricReportRowsCallback');
              //   $tpl->assign('excel_callbacks', $callbacks);
-                
+
                 $tpl->assign('title_rows', $titleRows);
-                
+
                 $tpl->assign('col_descriptions', $colDesc);
                 $tpl->assign('labels', $labels);
             }
         }
-        
-        
-        
+
+
+
         header_remove('Set-Cookie');
     }
-    
+
     function  retrieveRangeForMetricByWeek($range_day_start, $range_day_end, $metric, $Form)
     {
         $retArr = array();
-        
-        
+
+
         $colDesc = array(
             'A' => array('width' => 8),
             'B' => array('width' => 15),
             'C' => array('width' => 15),
             'D' => array('width' => 8));
-        
-        
-        
+
+
+
         $col = 'E';
         $colSecondChar = '';
         $thirdSecondChar = '';
-        
+
         $metricType = 'number';
         if (in_array($metric, self::$DollarMetricsList))
         {
@@ -403,82 +403,82 @@ require_once('ExcelExport.inc');
         {
             $metricType = "currency_no_cents";
         }
-        
+
         // get start week
         $startWeekDate = new DateTime($range_day_start);
         $startWeek = $startWeekDate->format('W');
         $startYear = $startWeekDate->format('o');
         $startWeekData = CDashboardWeekBased::getWeekTimeData(false, $startWeek, $startYear);
-        
-        
+
+
         // get end week
         $endWeekDate = new DateTime($range_day_end);
         $endWeek = $endWeekDate->format('W');
         $endYear = $endWeekDate->format('o');
         $endWeekData = CDashboardWeekBased::getWeekTimeData(false, $endWeek, $endYear);
-        
-        
+
+
         if ($metric == 'total_new_guest_count')
         {
             $metricClause = "dmw.guest_count_new_regular + dmw.guest_count_new_taste + dmw.guest_count_new_intro + dmw.guest_count_new_fundraiser as total_new_guest_count";
         }
-        else 
+        else
         {
             $metricClause = "dmw." . $metric;
         }
-        
+
         $storeClause = $this->getStoreClause($Form);
         $metricsObj = new DAO();
         $metricsObj->query("select dmw.start_date, dmw.store_id, $metricClause, st.store_name, st.city, st.home_office_id, st.state_id from dashboard_metrics_guests_by_week dmw
                              $storeClause 
                             where dmw.start_date >= '{$startWeekData['week_start']}' and dmw.start_date < '{$endWeekData['week_end']}' and dmw.is_deleted = 0
                               order by dmw.start_date, dmw.store_id");
-        
+
         $foundStoreArr = array();
         $foundDatesArr = array();
         $storeInfo = array();
         $labels = array("Home Office ID", "Store Name", "City", "State");
-        
+
         while($metricsObj->fetch())
         {
             if (!isset($retArr[$metricsObj->store_id]))
             {
                 $retArr[$metricsObj->store_id] = array();
             }
-            
+
             if (!in_array($metricsObj->store_id, $foundStoreArr))
             {
                 $foundStoreArr[] = $metricsObj->store_id;
                 $storeInfo[$metricsObj->store_id] = array($metricsObj->home_office_id, $metricsObj->store_name, $metricsObj->city, $metricsObj->state_id);
             }
-            
+
             if (!in_array($metricsObj->start_date, $foundDatesArr))
             {
                 $foundDatesArr[] = $metricsObj->start_date;
-                
-                
+
+
                 $thisWeekData = CDashboardWeekBased::getWeekTimeData($metricsObj->start_date);
-                
+
                 $tmp = explode(" ", $metricsObj->start_date);
                 $thisLabel = $tmp[0];
-                
+
                 $labels[] = $thisLabel . " Q" . $thisWeekData['quarter'] . "W" . $thisWeekData['quarter_week'];
-                
+
                 $colDesc[$thirdSecondChar.$colSecondChar.$col] =  array(
                     'align' => 'center',
                     'type' => $metricType,
                     'width' => '12');
-                
+
                 incrementColumn($thirdSecondChar, $colSecondChar, $col);
-                
+
             }
-            
-            
+
+
             $retArr[$metricsObj->store_id][$metricsObj->start_date] = $metricsObj->$metric;
         }
-        
+
         // normalize
-        
+
         foreach($retArr as $thisStore => $data)
         {
             foreach($foundDatesArr as $thisDate)
@@ -489,54 +489,54 @@ require_once('ExcelExport.inc');
                 }
             }
         }
-        
-        
+
+
         foreach($storeInfo as $id => $data)
         {
             $retArr[$id] = array_merge($storeInfo[$id],  $retArr[$id]);
         }
-        
+
         $numStores = count($storeInfo);
-        
+
         $sumRow = array("","","", "Total");
         $avgRow = array("","","", "Average");
         $col = 'E';
         $colSecondChar = '';
         $thirdSecondChar = '';
-        
+
         foreach($foundDatesArr as $thisDate)
         {
             $sumRow[] = "=SUM(" . $thirdSecondChar.$colSecondChar.$col . "4:" . $thirdSecondChar.$colSecondChar.$col . ($numStores + 3) . ")";
             $avgRow[] = "=AVERAGE(" . $thirdSecondChar.$colSecondChar.$col . "4:" . $thirdSecondChar.$colSecondChar.$col . ($numStores + 3) . ")";
             incrementColumn($thirdSecondChar, $colSecondChar, $col);
         }
-        
-        
+
+
        $retArr[] = $sumRow;
        $retArr[] = $avgRow;
         return array($retArr, $labels, $colDesc);
-        
-        
-        
+
+
+
     }
-    
+
     function  retrieveRangeForMetricByMonth($range_day_start, $range_day_end, $metric, $Form)
     {
         $retArr = array();
-        
-        
+
+
         $colDesc = array(
             'A' => array('width' => 8),
             'B' => array('width' => 15),
             'C' => array('width' => 15),
             'D' => array('width' => 8));
-        
-        
-        
+
+
+
         $col = 'E';
         $colSecondChar = '';
         $thirdSecondChar = '';
-        
+
         $metricType = 'number';
         if (in_array($metric, self::$DollarMetricsList))
         {
@@ -546,22 +546,22 @@ require_once('ExcelExport.inc');
         {
             $metricType = "currency_no_cents";
         }
-        
-        
+
+
         $startMenu = CMenu::getMenuByDate($range_day_start);
         $startAnchor = $startMenu['menu_start'];
-        
+
         $endMenu = CMenu::getMenuByDate($range_day_end);
         $endAnchor = $endMenu['menu_start'];
-        
+
         $targetTable = 'dashboard_metrics_guests_by_menu';
-        
+
         if ($metric == 'total_agr')
         {
             $targetTable = 'dashboard_metrics_agr_by_menu';
         }
-        
-        
+
+
         if ($metric == 'total_new_guest_count')
         {
             $metricClause = "dmw.guest_count_new_regular + dmw.guest_count_new_taste + dmw.guest_count_new_intro + dmw.guest_count_new_fundraiser as total_new_guest_count";
@@ -570,8 +570,8 @@ require_once('ExcelExport.inc');
         {
             $metricClause = "dmw." . $metric;
         }
-        
-  
+
+
         // get end week
         $storeClause = $this->getStoreClause($Form);
         $metricsObj = new DAO();
@@ -579,48 +579,48 @@ require_once('ExcelExport.inc');
             $storeClause
             where dmw.date >= '$startAnchor' and dmw.date <= '$endAnchor' and dmw.is_deleted = 0
             order by dmw.date, dmw.store_id");
-            
-            
+
+
             $foundStoreArr = array();
             $foundDatesArr = array();
             $storeInfo = array();
             $labels = array("Home Office ID", "Store Name", "City", "State");
-            
+
             while($metricsObj->fetch())
             {
                 if (!isset($retArr[$metricsObj->store_id]))
                 {
                     $retArr[$metricsObj->store_id] = array();
                 }
-                
+
                 if (!in_array($metricsObj->store_id, $foundStoreArr))
                 {
                     $foundStoreArr[] = $metricsObj->store_id;
                     $storeInfo[$metricsObj->store_id] = array($metricsObj->home_office_id, $metricsObj->store_name, $metricsObj->city, $metricsObj->state_id);
                 }
-                
+
                 if (!in_array($metricsObj->date, $foundDatesArr))
                 {
                     $foundDatesArr[] = $metricsObj->date;
-                    
-                                                           
+
+
                     $labels[] = $metricsObj->date;
-                    
+
                     $colDesc[$thirdSecondChar.$colSecondChar.$col] =  array(
                         'align' => 'center',
                         'type' => $metricType,
                         'width' => '12');
-                    
+
                     incrementColumn($thirdSecondChar, $colSecondChar, $col);
-                    
+
                 }
-                
-                
+
+
                 $retArr[$metricsObj->store_id][$metricsObj->date] = $metricsObj->$metric;
             }
-            
+
             // normalize
-            
+
             foreach($retArr as $thisStore => $data)
             {
                 foreach($foundDatesArr as $thisDate)
@@ -631,36 +631,36 @@ require_once('ExcelExport.inc');
                     }
                 }
             }
-            
-            
+
+
             foreach($storeInfo as $id => $data)
             {
                 $retArr[$id] = array_merge($storeInfo[$id],  $retArr[$id]);
             }
-            
+
             $numStores = count($storeInfo);
-            
+
             $sumRow = array("","","", "Total");
             $avgRow = array("","","", "Average");
             $col = 'E';
             $colSecondChar = '';
             $thirdSecondChar = '';
-            
+
             foreach($foundDatesArr as $thisDate)
             {
                 $sumRow[] = "=SUM(" . $thirdSecondChar.$colSecondChar.$col . "4:" . $thirdSecondChar.$colSecondChar.$col . ($numStores + 3) . ")";
                 $avgRow[] = "=AVERAGE(" . $thirdSecondChar.$colSecondChar.$col . "4:" . $thirdSecondChar.$colSecondChar.$col . ($numStores + 3) . ")";
                 incrementColumn($thirdSecondChar, $colSecondChar, $col);
             }
-            
-            
+
+
             $retArr[] = $sumRow;
             $retArr[] = $avgRow;
             return array($retArr, $labels, $colDesc);
-            
-            
-            
+
+
+
     }
-    
+
 }
 ?>

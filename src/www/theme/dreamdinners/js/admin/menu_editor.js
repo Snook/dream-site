@@ -1544,7 +1544,7 @@ function addUnsavedEFLItem(item_id, name, size, base_price, thisItemCount, count
 	var el = document.createElement('button');
 	var idStr = "add-mkdn_" + item_id;
 	el.setAttribute("id", idStr);
-	el.setAttribute("class", "button");
+	el.setAttribute("class", "btn btn-primary btn-sm");
 	var buttonTextNode = document.createTextNode("Add");
 	el.appendChild(buttonTextNode);
 
