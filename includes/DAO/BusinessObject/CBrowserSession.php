@@ -163,9 +163,9 @@ class CBrowserSession extends DAO_Browser_sessions
 
 		$DAY = (60 * 60 * 24); //seconds in a day
 
-		if (!$no_expire)
+		if (strpos($key, 'cart') !== false )//cart cookie
 		{
-			setcookie($key, $value, time() + 60 * 15, "/", COOKIE_DOMAIN, $secure, $httponly); //expire in 15 minutes
+			setcookie($key, $value, time() + $DAY * 5, "/", COOKIE_DOMAIN, $secure, $httponly); //expire in 5 days
 		}
 		else if ($no_expire)
 		{
@@ -173,8 +173,12 @@ class CBrowserSession extends DAO_Browser_sessions
 		}
 		else
 		{
-			setcookie($key, $value, time() + $DAY * 60, "/", COOKIE_DOMAIN, $secure, $httponly); //expire in 60 days: cart, firstname etc.
+			setcookie($key, $value, time() + 60 * 15, "/", COOKIE_DOMAIN, $secure, $httponly); //expire in 15 minutes
 		}
+//		else
+//		{
+//			setcookie($key, $value, time() + $DAY * 60, "/", COOKIE_DOMAIN, $secure, $httponly); //expire in 60 days: cart, firstname etc.
+//		}
 
 		if ($value === false)
 		{
