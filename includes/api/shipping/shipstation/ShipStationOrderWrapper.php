@@ -36,7 +36,7 @@ class ShipStationOrderWrapper
 
 	//dd store id to ss store id for manual order store in each shipstation instance
 	//from API ShipStationManager->listStores()
-	private $ssStoreIds = array('313'=>198889,
+	public static $ssStoreIds = array('313'=>198889,
 							    '314'=>198821,
 							    '315'=>199066);
 

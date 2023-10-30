@@ -101,6 +101,30 @@ class ShipStationManager extends ApiManager
 		return self::getInstance($store);
 	}
 
+	/**
+	 * ----------------------------------------------------
+	 *  getInstanceForOrder()
+	 * ----------------------------------------------------
+	 *
+	 * Get the ShipStation Manager instance for the specified order's store.
+	 *
+	 * @param string shipstation store id
+	 * @return  ShipStationManager $shipStationManager
+	 */
+	public static function getInstanceFromShipStationStore($shipstationStoreId)
+	{
+		foreach(ShipStationOrderWrapper::$ssStoreIds as $ddStoreId => $ssStoreId){
+			if( $ssStoreId == $shipstationStoreId)
+			{
+				$store = new CStore();
+				$store->id = $ddStoreId;
+				return self::getInstance($store);
+			}
+		}
+
+		throw new Exception('ShipStationManager::getInstanceFromShipStationStore() -> Could not find a shipstation manager instance that matches the incoming ShipSations store ID of ' .$shipstationStoreId);
+	}
+
 
 	public function getCurrentStoreForConfig()
 	{
@@ -574,15 +598,31 @@ class ShipStationManager extends ApiManager
 	 *
 	 * @return boolean true if all updated
 	 */
-	public function loadOrderShippingInfo(){
+	public static function loadOrderShippingInfo(){
 
 		$recordToProcess = TransientDataStore::retrieveData(TransientDataStore::SHIPPING_SHIP_NOTIFICATION_NEW);
 		if( $recordToProcess['successful'] ){
 			$data = json_decode($recordToProcess['data']);
 			$recordId = $recordToProcess['id'];
 			$url = $data->resource_url;
+			$url_components = parse_url($url);
+			$qs = $url_components['query'];
+			parse_str($qs, $queryParams);
 
-			$batchWrapper = $this->loadOrderShippingInfoFromBatch(new ShipStationOrderBatchWrapper($url));
+			$shipStationMgrInstance = null;
+			try
+			{
+				$shipStationMgrInstance = ShipStationManager::getInstanceFromShipStationStore($queryParams['storeID']);
+			}
+			catch(Exception $e)
+			{
+				CLog::RecordNew(CLog::ERROR, $e->getMessage(), "", "", true);
+				TransientDataStore::updateDataClass($recordId, TransientDataStore::SHIPPING_SHIP_NOTIFICATION_FAILED);
+				return;
+			}
+
+
+			$batchWrapper = $shipStationMgrInstance->loadOrderShippingInfoFromBatch(new ShipStationOrderBatchWrapper($url));
 
 			$setShippingOnAll = true;
 			foreach($batchWrapper->getShipments() as $ssorder){

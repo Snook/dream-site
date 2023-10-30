@@ -18,6 +18,7 @@ class TransientDataStore
 	const SHIPPING_SHIPMENT_CACHE = 'SHIPPING_SHIPMENT_CACHE';
 	const SHIPPING_SHIP_NOTIFICATION_NEW = 'SHIPPING_SHIP_NOTIFICATION_NEW';
 	const SHIPPING_SHIP_NOTIFICATION_DONE = 'SHIPPING_SHIP_NOTIFICATION_DONE';
+	const SHIPPING_SHIP_NOTIFICATION_FAILED = 'SHIPPING_SHIP_NOTIFICATION_FAILED';
 	const SHIPPING_TRACKING_CACHE = 'SHIPPING_TRACKING_CACHE';
 	const TAX_RATE_CACHE = 'TAX_RATE_CACHE';
 
@@ -157,7 +158,7 @@ class TransientDataStore
 			$result['successful'] = true;
 		}
 
-		mysqli_free_result($dbresult);
+		//mysqli_free_result($dbresult);
 		mysqli_close($db);
 
 		return $result;
