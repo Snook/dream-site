@@ -1684,7 +1684,7 @@ function handle_session_tools()
 	$('#ds_goal_tracking').on('click', function (e)
 	{
 
-		bounce('/backoffice/reports_goal_management_v2&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path());
+		bounce('/backoffice/reports_goal_management_v2?date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path());
 
 	});
 
