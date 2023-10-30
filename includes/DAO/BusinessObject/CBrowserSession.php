@@ -138,6 +138,14 @@ class CBrowserSession extends DAO_Browser_sessions
 	);
 
 	/**
+	 * Express method for extending the length that a cart cookie will exist
+	 */
+	static public function refreshCartCookieExpiry()
+	{
+		self::setValue('cart', self::getValue('cart'));
+	}
+
+	/**
 	 * Wrapper for saving a value into the browser session cache (cookie,session,db,etc)
 	 * Passing in no value will delete the variable, use 0 or 1 for booleans instead
 	 */

@@ -28,6 +28,8 @@ class page_session_menu extends CPage
 	{
 		CTemplate::noCache();
 
+		CBrowserSession::refreshCartCookieExpiry();
+
 		$CartObj = CCart2::instance();
 
 		$UserObj = CUser::getCurrentUser();
