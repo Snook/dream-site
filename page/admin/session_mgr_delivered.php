@@ -71,7 +71,7 @@ class page_admin_session_mgr_delivered extends CPageAdminOnly
 		if ($this->currentStore)
 		{
 			//fadmins
-			$currentStore = $this->currentStore->id;
+			$currentStore = $this->currentStore;
 		}
 		else
 		{
