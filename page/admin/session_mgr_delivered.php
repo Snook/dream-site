@@ -60,13 +60,18 @@ class page_admin_session_mgr_delivered extends CPageAdminOnly
 
 		//------------------------------------------------set up store and menu form
 
+		if (!$this->CurrentBackOfficeStore->isDistributionCenter())
+		{
+			CApp::bounce('/backoffice/session-mgr');
+		}
+
 		$storeMenuForm = new CForm();
 		$storeMenuForm->Repost = true;
 
 		if ($this->currentStore)
 		{
 			//fadmins
-			$currentStore = $this->currentStore;
+			$currentStore = $this->currentStore->id;
 		}
 		else
 		{
