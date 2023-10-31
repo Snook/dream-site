@@ -203,12 +203,12 @@ class test_ShipStationManager
 }
 
 $test =  test_ShipStationManager::getInstance();
-//$test->echoAllShipstationStoreId();
+$test->echoAllShipstationStoreId();
 //$test->echoAllShipstationCarriers();
 //$test->doUpsertShipstationOrder(3855722);
 //$test->echoShipstationOrder(3855722);
 //$test->echoShipstationOrder(3855723);
-$test->echoShipstationOrder(3855725);
+//$test->echoShipstationOrder(3855725);
 
 
 //$test->echoTrackingNumber(3641674);
