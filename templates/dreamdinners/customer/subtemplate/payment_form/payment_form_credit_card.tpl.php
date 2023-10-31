@@ -151,19 +151,21 @@
 	</div>
 </div>
 
-<?php if (isset($this->form_payment['is_store_specific_flat_rate_delayed_payment_html']["0"]) && $this->canProvideNewDepositMechanisms) { ?>
-	<div class="row mb-2">
-		<div class="col">
-			<h2 class="text-uppercase font-weight-bold font-size-medium-small text-left">Payment method</h2>
+<?php if (!$this->cart_info["orderObj"]->getStoreObj()->isDistributionCenter()) { ?>
+	<?php if (isset($this->form_payment['is_store_specific_flat_rate_delayed_payment_html']["0"]) && $this->canProvideNewDepositMechanisms) { ?>
+		<div class="row mb-2">
+			<div class="col">
+				<h2 class="text-uppercase font-weight-bold font-size-medium-small text-left">Payment method</h2>
 
-			<div class="form-row">
-				<div class="form-group pl-3">
-					<?php echo $this->form_payment['is_store_specific_flat_rate_delayed_payment_html']["0"]; ?>
-					<?php echo $this->form_payment['is_store_specific_flat_rate_delayed_payment_html']["1"]; ?>
+				<div class="form-row">
+					<div class="form-group pl-3">
+						<?php echo $this->form_payment['is_store_specific_flat_rate_delayed_payment_html']["0"]; ?>
+						<?php echo $this->form_payment['is_store_specific_flat_rate_delayed_payment_html']["1"]; ?>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	<?php } ?>
 <?php } ?>
 
 <?php if (!$this->isGiftCardOnlyOrder && !$this->User->hasEnrolledInPlatePoints() && !$this->isPreferred){ ?>
