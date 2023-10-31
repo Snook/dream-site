@@ -17,10 +17,10 @@
 
 		<div class="row my-4">
 			<div class="col-4 offset-4 text-center ">
-				<h1><a href="/backoffice/menu_editor">Menu Editor</a></h1>
+				<h1><a href="/backoffice/menu-editor">Menu Editor</a></h1>
 			</div>
 			<div class="col-4 text-right">
-				<a href="/backoffice/menu_inventory_mgr?tabs=menu.specials" class="btn btn-primary btn-sm" id="inv-nav-button">Inventory Manager</a>
+				<a href="/backoffice/menu-inventory-mgr" class="btn btn-primary btn-sm">Inventory Manager</a>
 			</div>
 		</div>
 

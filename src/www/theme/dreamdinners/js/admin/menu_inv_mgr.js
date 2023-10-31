@@ -23,8 +23,6 @@ function menu_editor_init()
 
 	calculatePage();
 
-	initNavTab();
-
 	$("#itemsTbl, #ctsItemsTbl").stickyTableHeaders();
 
 	if (!menuState.hasSavedPreOrder)
@@ -34,27 +32,6 @@ function menu_editor_init()
 		});
 	}
 
-}
-
-function initNavTab()
-{
-
-	var oldUrl = $('#inv_mgr').attr("href"); // Get current url
-	var newUrl = oldUrl.substring(0, oldUrl.indexOf('&tabs'));
-	const params = new Proxy(new URLSearchParams(window.location.search), {
-		get: (searchParams, prop) => searchParams.get(prop)
-	});
-	newUrl = newUrl + '&tabs=' + params.tabs;
-	$('#inv_mgr').attr("href", newUrl);
-
-	$('.tab').each(function () {
-		$(this).on('click', function () {
-			var oldUrl = $('#inv_mgr').attr("href"); // Get current url
-			var newUrl = oldUrl.substring(0, oldUrl.indexOf('&tab'));
-			newUrl = newUrl + '&tabs=menu.' + $(this).data('tabid');
-			$('#inv_mgr').attr("href", newUrl);
-		});
-	});
 }
 
 function init_reset_to_current()

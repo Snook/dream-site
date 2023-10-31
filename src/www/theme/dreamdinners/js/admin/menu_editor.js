@@ -1702,37 +1702,11 @@ function giveTabFocus()
 
 }
 
-function initNavTab()
-{
-
-	var oldUrl = $('#inv-nav-button').attr("href"); // Get current url
-	var newUrl = oldUrl.substring(0, oldUrl.indexOf('&tabs'));
-	const params = new Proxy(new URLSearchParams(window.location.search), {
-		get: (searchParams, prop) => searchParams.get(prop)
-	});
-
-	if (typeof params.tabs != 'undefined' && params.tabs != null)
-	{
-		newUrl = newUrl + '&tabs=' + params.tabs;
-		$('#inv-nav-button').attr("href", newUrl);
-	}
-
-	$('.nav-tab').each(function () {
-		$(this).on('click', function () {
-			var oldUrl = $('#inv-nav-button').attr("href"); // Get current url
-			var newUrl = oldUrl.substring(0, oldUrl.indexOf('&tabs'));
-			newUrl = newUrl + '&tabs=menu.' + $(this).data('nav');
-			$('#inv-nav-button').attr("href", newUrl);
-		});
-	});
-}
-
 $(function () {
 
 	$(document).ready(function () {
 		calculatePage()
 		giveTabFocus();
-		initNavTab();
 	});
 
 	$(document).on('change keyup', '#markup_6_serving, #markup_4_serving, #markup_3_serving, #markup_2_serving, #markup_sides, #assembly_fee, #delivery_assembly_fee, #volume_reward, [name="is_default_markup"], [id^=pic_], [id^=form_], [id^=ovr_], [id^=vis_], [id^=hid_]', function (e) {
