@@ -239,13 +239,22 @@ class COrdersDigest extends DAO_Orders_digest
 		{
 			return 0;
 		}
-		$ordersDAO = DAO_CFactory::create('orders');
-		$ordersDAO->query("select count(bi.id) as total_boxes from box_instance bi, orders o, booking b
-			where bi.order_id = o.id and
-			b.order_id = o.id and
-			b.status != 'CANCELLED' and
-			bi.is_deleted = 0 and
-			o.user_id = {$user_id}");
+		$ordersDAO = DAO_CFactory::create('orders', true);
+		$ordersDAO->query("SELECT
+				count( bi.id ) AS total_boxes 
+			FROM
+				box_instance bi,
+				orders o,
+				booking b 
+			WHERE
+				bi.order_id = o.id 
+				AND b.order_id = o.id 
+				AND o.is_deleted = 0 
+				AND b.STATUS = 'ACTIVE' 
+				AND b.is_deleted = 0 
+				AND bi.is_deleted = 0 
+				AND o.user_id = {$user_id}");
+
 		$total_boxes = 0;
 		while ($ordersDAO->fetch())
 		{
