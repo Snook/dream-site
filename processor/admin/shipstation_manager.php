@@ -117,6 +117,7 @@ class processor_admin_shipstation_manager extends CPageProcessor
 			if(!empty($_REQUEST['order']) && is_numeric($_REQUEST['order'])){
 				$order = new COrdersDelivered();
 				$order->id = $_REQUEST['order'];
+				$order->find(true);
 
 				$shipmentWrapper = ShipStationManager::getInstanceForOrder($order)->getShipments(new ShipStationShipmentWrapper($order));
 				$result = $shipmentWrapper->storeShippingData();
