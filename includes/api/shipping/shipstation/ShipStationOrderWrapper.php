@@ -53,7 +53,7 @@ class ShipStationOrderWrapper
 		$this->hydratedOrderObj->orderShipping();
 		$this->hydratedOrderObj->orderAddress();
 
-		$this->orderDAO = DAO_CFactory::create('orders');
+		$this->orderDAO = DAO_CFactory::create('orders', true);
 		$this->orderDAO->id = $COrdersDelivered->id;
 		$this->orderDAO->joinAddWhereAsOn(DAO_CFactory::create('store', true));
 		$this->orderDAO->find(true);
