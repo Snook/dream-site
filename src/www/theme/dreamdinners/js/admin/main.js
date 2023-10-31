@@ -82,6 +82,7 @@ function handle_resend_delivered_to_shipstation()
 				success: function (json) {
 					if (json.processor_success)
 					{
+						dd_toast({'message': json.processor_message});
 					}
 					else
 					{
