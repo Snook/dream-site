@@ -168,7 +168,17 @@ class page_admin_main extends CPageAdminOnly
 
 		if ($Store->store_type === CStore::DISTRIBUTION_CENTER)
 		{
-			CApp::bounce('/backoffice/main_delivered');
+			$passParams = array();
+			if (!empty($_GET["session"]))
+			{
+				$passParams['session'] = $_GET["session"];
+			}
+			if (!empty($_GET["order"]))
+			{
+				$passParams['order'] = $_GET["order"];
+			}
+
+			CApp::bounce('/backoffice/main-delivered' . ((!empty($passParams)) ? '?' . http_build_query($passParams) : ''));
 		}
 
 		// temp hack for Sean Harris
