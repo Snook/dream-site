@@ -30,7 +30,7 @@ if ($this->report_submitted == TRUE) {
 			$exportAllLink = '/backoffice/reports_customer_referrals_revenue?store=' . $this->form_session_list['store'] . '&day=' . $this->report_day .
 					'&month=' . $this->report_month . '&year=' . $this->report_year . '&duration=' . urlencode($this->report_duration) . '&export=xlsx&referraltypefilter=' . $this->referraltypefilter;
 		else
-			$exportAllLink = '/backoffice/reports_customer_referrals_revenue' . '&day=' . $this->report_day . '&month=' . $this->report_month .
+			$exportAllLink = '/backoffice/reports_customer_referrals_revenue?day=' . $this->report_day . '&month=' . $this->report_month .
 				 '&year=' . $this->report_year . '&duration=' . urlencode($this->report_duration) . '&export=xlsx&referraltypefilter=' . $this->referraltypefilter;
 
 		if (!empty($this->form_session_list['groupbyfilter']))

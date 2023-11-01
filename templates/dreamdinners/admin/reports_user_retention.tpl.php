@@ -721,11 +721,11 @@ $url = "/backoffice/reports_user_retention";
 								<form action="" method="post" onSubmit="return _check_form(this);">
 									<b>Select a Report:</b>
 									<SELECT ONCHANGE="location = this.options[this.selectedIndex].value;" ID="report_type" NAME="report_type">
-										<OPTION ID="ch00" VALUE=" <?php echo 	$url."&step=0"	?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Summary Details
-										<OPTION ID="ch01" VALUE=" <?php echo 	$url."&step=1&report_type=true"?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">60-89 days Inactive Report
-										<OPTION ID="ch02" VALUE=" <?php echo 	$url."&step=2&report_type=true"?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">90-119 days Inactive Report
-										<OPTION ID="ch03" VALUE=" <?php echo 	$url."&step=3&report_type=true"?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">60-89 days Inactive to Active Report
-										<OPTION ID="ch04" VALUE=" <?php echo 	$url."&step=4&report_type=true"?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">90-119 days Inactive to Active Report
+										<OPTION ID="ch00" VALUE=" <?php echo 	$url."?step=0"	?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Summary Details
+										<OPTION ID="ch01" VALUE=" <?php echo 	$url."?step=1&report_type=true"?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">60-89 days Inactive Report
+										<OPTION ID="ch02" VALUE=" <?php echo 	$url."?step=2&report_type=true"?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">90-119 days Inactive Report
+										<OPTION ID="ch03" VALUE=" <?php echo 	$url."?step=3&report_type=true"?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">60-89 days Inactive to Active Report
+										<OPTION ID="ch04" VALUE=" <?php echo 	$url."?step=4&report_type=true"?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">90-119 days Inactive to Active Report
 									</SELECT>
 								</form>
 							</td>
@@ -771,20 +771,20 @@ $url = "/backoffice/reports_user_retention";
 							<td align=center width=800 class='header'>
 								<b>Select a Report:</b>
 								<SELECT ONCHANGE="location = this.options[this.selectedIndex].value;" ID="report_type" NAME="report_type">
-									<OPTION ID="ch00" VALUE=" <?php echo 	$url."&step=0"?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Summary Details
-									<OPTION ID="ch01" VALUE=" <?php echo 	$url."&step=1&report_type=true"	?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">60-89 days Inactive Report
-									<OPTION ID="ch02" VALUE=" <?php echo 	$url."&step=2&report_type=true"	?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">90-119 days Inactive Report
-									<OPTION ID="ch03" VALUE=" <?php echo 	$url."&step=3&report_type=true"	?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">60-89 days Inactive to Active Report
-									<OPTION ID="ch04" VALUE=" <?php echo 	$url."&step=4&report_type=true"	?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">90-119 days Inactive to Active Report
+									<OPTION ID="ch00" VALUE=" <?php echo 	$url."?step=0"?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Summary Details
+									<OPTION ID="ch01" VALUE=" <?php echo 	$url."?step=1&report_type=true"	?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">60-89 days Inactive Report
+									<OPTION ID="ch02" VALUE=" <?php echo 	$url."?step=2&report_type=true"	?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">90-119 days Inactive Report
+									<OPTION ID="ch03" VALUE=" <?php echo 	$url."?step=3&report_type=true"	?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">60-89 days Inactive to Active Report
+									<OPTION ID="ch04" VALUE=" <?php echo 	$url."?step=4&report_type=true"	?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">90-119 days Inactive to Active Report
 								</SELECT>
 
 
 
 								<b>Sort By:</b>
 								<SELECT ONCHANGE="location = this.options[this.selectedIndex].value;" ID="sort_type" NAME="sort_type">
-									<OPTION ID="sort1" VALUE=" <?php echo $url."&step=". $this->step	?>&sort=1&report_type=true <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Last Session
-									<OPTION ID="sort2" VALUE=" <?php echo $url."&step=". $this->step?>&sort=2&report_type=true <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Last Name
-									<OPTION ID="sort3" VALUE=" <?php echo $url."&step=". $this->step ?>&sort=3&report_type=true <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Total Days Inactive
+									<OPTION ID="sort1" VALUE=" <?php echo $url."?step=". $this->step	?>&sort=1&report_type=true <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Last Session
+									<OPTION ID="sort2" VALUE=" <?php echo $url."?step=". $this->step?>&sort=2&report_type=true <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Last Name
+									<OPTION ID="sort3" VALUE=" <?php echo $url."?step=". $this->step ?>&sort=3&report_type=true <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Total Days Inactive
 								</SELECT>
 							</td>
 						</tr>
@@ -805,14 +805,14 @@ $url = "/backoffice/reports_user_retention";
 							<td> </td>
 							<td align=right>
 								<?php
-								$exportAllLink = $url."&step=". $this->step . '&sort=' . $this->sort . '&report_type=true&export=xlsx'	;
+								$exportAllLink = $url."?step=". $this->step . '&sort=' . $this->sort . '&report_type=true&export=xlsx'	;
 								?>
 								<a href=" <?php echo $exportAllLink?>">Export All Records</a>
 								<?php if (!empty($this->bandwidth) && $this->bandwidth == 1) {
 									$pages = ceil($this->report_count/$this->rowcount);
 									if ($pages > 1) { echo ' Page: ';	}
 
-									$pagelink = $url."&step=". $this->step . '&sort=' . $this->sort . '&report_type=true&bandwidth=1'	;
+									$pagelink = $url."?step=". $this->step . '&sort=' . $this->sort . '&report_type=true&bandwidth=1'	;
 
 
 									for ($i = 0; $i<$pages; $i++) {
@@ -1282,11 +1282,11 @@ $url = "/backoffice/reports_user_retention";
 
 						<b>Select a Report:</b>
 						<SELECT ONCHANGE="location = this.options[this.selectedIndex].value;" ID="report_type" NAME="report_type">
-							<OPTION ID="ch00" VALUE=" <?php echo 	$url."&step=0"?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Summary Details
-							<OPTION ID="ch01" VALUE=" <?php echo 	$url."&step=1&report_type=true"?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">60-89 days Inactive Report
-							<OPTION ID="ch02" VALUE=" <?php echo 	$url."&step=2&report_type=true"?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">90-119 days Inactive Report
-							<OPTION ID="ch03" VALUE=" <?php echo 	$url."&step=3&report_type=true"	?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">60-89 days Inactive to Active Report
-							<OPTION ID="ch04" VALUE=" <?php echo 	$url."&step=4&report_type=true"	?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">90-119 days Inactive to Active Report
+							<OPTION ID="ch00" VALUE=" <?php echo 	$url."?step=0"?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Summary Details
+							<OPTION ID="ch01" VALUE=" <?php echo 	$url."?step=1&report_type=true"?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">60-89 days Inactive Report
+							<OPTION ID="ch02" VALUE=" <?php echo 	$url."?step=2&report_type=true"?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">90-119 days Inactive Report
+							<OPTION ID="ch03" VALUE=" <?php echo 	$url."?step=3&report_type=true"	?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">60-89 days Inactive to Active Report
+							<OPTION ID="ch04" VALUE=" <?php echo 	$url."?step=4&report_type=true"	?> <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">90-119 days Inactive to Active Report
 						</SELECT>
 
 
@@ -1295,9 +1295,9 @@ $url = "/backoffice/reports_user_retention";
 						<b>Sort By:</b>
 
 						<SELECT ONCHANGE="location = this.options[this.selectedIndex].value;" ID="sort_type" NAME="sort_type">
-							<OPTION ID="sort1" VALUE=" <?php echo $url."&step=". $this->step	?>&sort=1&report_type=true <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Last Session
-							<OPTION ID="sort2" VALUE=" <?php echo $url."&step=". $this->step?>&sort=2&report_type=true <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Last Name
-							<OPTION ID="sort3" VALUE=" <?php echo $url."&step=". $this->step ?>&sort=3&report_type=true <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Total Days Inactive
+							<OPTION ID="sort1" VALUE=" <?php echo $url."?step=". $this->step	?>&sort=1&report_type=true <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Last Session
+							<OPTION ID="sort2" VALUE=" <?php echo $url."?step=". $this->step?>&sort=2&report_type=true <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Last Name
+							<OPTION ID="sort3" VALUE=" <?php echo $url."?step=". $this->step ?>&sort=3&report_type=true <?php echo isset($this->bandwidth) ? "&bandwidth=1" : null;?>">Total Days Inactive
 						</SELECT>
 					</td>
 				</tr>
@@ -1318,7 +1318,7 @@ $url = "/backoffice/reports_user_retention";
 					<td> </td>
 					<td align=right>
 						<?php
-						$exportAllLink = $url."&step=". $this->step . '&sort=' . $this->sort . '&report_type=true&export=xlsx'	;
+						$exportAllLink = $url."?step=". $this->step . '&sort=' . $this->sort . '&report_type=true&export=xlsx'	;
 						?>
 						<a href=" <?php echo $exportAllLink?>">Export All Records</a>
 					</td>
