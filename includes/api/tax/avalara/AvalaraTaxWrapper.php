@@ -31,7 +31,7 @@ class AvalaraTaxWrapper extends CacheableRequestWrapper
 	public function __construct($COrdersDelivered)
 	{
 
-		$this->hydratedOrderObj = DAO_CFactory::create('orders');
+		$this->hydratedOrderObj = DAO_CFactory::create('orders',true);
 
 		if (!is_null($COrdersDelivered->id) && !$COrdersDelivered->isInEditOrder())
 		{
