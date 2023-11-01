@@ -154,7 +154,7 @@ class CStoreCredit extends DAO_Store_credit
 				$reward_amount = 5;
 			}
 
-			$awardDate = date('Y-m-d', strtotime($credit->session_start) + (86400 * 3)) . " 1:00am";
+			$awardDate = date('Y-m-d', strtotime($credit->session_start) + (86400 * 3)) . " 1:00:00";
 
 			$tarray = array(
 				'user_id' => $credit->referring_user_id,

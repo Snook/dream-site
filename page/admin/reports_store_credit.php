@@ -162,7 +162,7 @@ class page_admin_reports_store_credit extends CPageAdminOnly
 					unset($subelement['referred_guest_id']);
 					unset($subelement['origination_date']);
 
-					if ($subelement['expiration_date'] != 'N/A' && $subelement['expiration_date'] != 0)
+					if (strtoupper($subelement['expiration_date']) != 'N/A' && $subelement['expiration_date'] != 0)
 					{
 						$subelement['expiration_date'] = PHPExcel_Shared_Date::stringToExcel(date("Y-m-d H:i:s", $subelement['expiration_date']));
 					}
