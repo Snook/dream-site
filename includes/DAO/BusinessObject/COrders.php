@@ -161,6 +161,7 @@ class COrders extends DAO_Orders
 		$this->joinAddWhereAsOn(DAO_CFactory::create('mark_up', true), 'LEFT');
 		$this->joinAddWhereAsOn(DAO_CFactory::create('mark_up_multi', true), 'LEFT');
 		$this->joinAddWhereAsOn(DAO_CFactory::create('user_preferred', true), 'LEFT');
+		$this->joinAddWhereAsOn(DAO_CFactory::create('orders_address', true), 'LEFT');
 
 		return parent::find($n);
 	}
