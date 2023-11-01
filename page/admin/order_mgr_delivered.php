@@ -35,7 +35,7 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 
 	private $discountEligable = array(
 		'limited_access' => false,
-		'direct_order' => true,
+		'direct_order' => false,
 		'dinner_dollars' => true,
 		'coupon_code' => true,
 		'preferred' => true,
@@ -441,6 +441,12 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 		{
 			$order_is_locked = false;
 			$this->discountEligable['limited_access'] = false;
+		}
+
+		// Only the DC can apply Direct Order discounts
+		if ($this->CurrentBackOfficeStore->id == $this->originalOrder->store_id)
+		{
+			$this->discountEligable['direct_order'] = true;
 		}
 
 		$tpl->assign('order_is_locked', $order_is_locked);
