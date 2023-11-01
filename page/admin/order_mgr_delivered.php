@@ -443,6 +443,12 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 			$this->discountEligable['limited_access'] = false;
 		}
 
+		// Only the DC can apply Direct Order discounts
+		if ($this->CurrentBackOfficeStore->id == $this->originalOrder->store_id)
+		{
+			$this->discountEligable['direct_order'] = true;
+		}
+
 		$tpl->assign('order_is_locked', $order_is_locked);
 		$tpl->assign('discountEligable', $this->discountEligable);
 
