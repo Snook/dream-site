@@ -1247,8 +1247,9 @@ class processor_admin_order_mgr_processor_delivered extends CPageProcessor
 
 	function cancel_preflight()
 	{
-		$OrderObj = DAO_CFactory::create('orders');
+		$OrderObj = DAO_CFactory::create('orders', true);
 		$OrderObj->id = $this->order_id;
+		$OrderObj->joinAddWhereAsOn(DAO_CFactory::create('store', true));
 		$OrderObj->find(true);
 		$OrderObj->reconstruct();
 		$sessionObj = $OrderObj->findSession(true);
@@ -1258,7 +1259,7 @@ class processor_admin_order_mgr_processor_delivered extends CPageProcessor
 		$OrderObj->recalculate(true, false);
 
 		// get user and store names
-		$UserObj = DAO_CFactory::create('user');
+		$UserObj = DAO_CFactory::create('user', true);
 		$UserObj->query("select CONCAT(u.firstname, ' ', u.lastname) as customer_name, s.store_name, u.dream_rewards_version, u.dream_reward_status from user u
 				join store s on s.id = {$sessionObj->store_id}
 				where u.id = {$OrderObj->user_id}");

@@ -10148,12 +10148,20 @@ class COrders extends DAO_Orders
 		$totalItemQty = 0;
 
 		$store_id = $this->store_id;
+
+		if (empty($this->DAO_store))
+		{
+			$this->DAO_store = DAO_CFactory::create('store', true);
+			$this->DAO_store->id = $store_id;
+			$this->DAO_store->find(true);
+		}
+
 		if (!empty($this->DAO_store) && ($this->DAO_store->isDistributionCenter()))
 		{
 			$store_id = $this->DAO_store->parent_store_id;
 		}
 
-		$OrderItem = DAO_CFactory::create('order_item');
+		$OrderItem = DAO_CFactory::create('order_item', true);
 		$OrderItem->query("select
 				mmi.menu_id,
 				mmi.override_price,
@@ -10168,7 +10176,7 @@ class COrders extends DAO_Orders
 
 		while ($OrderItem->fetch())
 		{
-			$DAO_menu = DAO_CFactory::create('menu');
+			$DAO_menu = DAO_CFactory::create('menu', true);
 			$DAO_menu->id = $OrderItem->menu_id;
 			$MenuItem = $DAO_menu->findMenuItemDAO(array(
 				'menu_item_id_list' => $OrderItem->menu_item_id,
