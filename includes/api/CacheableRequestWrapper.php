@@ -74,7 +74,7 @@ abstract class CacheableRequestWrapper
 		$this->cachedData->data = $this->getDataToCache();
 		$this->cachedData->key = $this->createCacheHashKey();
 
-		TransientDataStore::storeData($this->getDatabaseLookupKey(), $this->cachedData->key, json_encode($this->getDataToCache()), 5,true);
+		TransientDataStore::storeData($this->getDatabaseLookupKey(), $this->cachedData->key, json_encode($this->getDataToCache()), $this->getExpirationTime(),true);
 	}
 
 	/**
@@ -104,7 +104,9 @@ abstract class CacheableRequestWrapper
 		if ($fetched['successful'])
 		{
 			$cachedData = new stdClass();
-			$cachedData->timestame = strtotime($fetched['expires']);;
+			$cachedData->expires_timestamp = strtotime($fetched['expires']);
+			$cachedData->expires = $fetched['expires'];
+			$cachedData->expires_date = date_create($fetched['expires']);
 			$cachedData->data = $fetched['data'];
 			$cachedData->key = $fetched['data_reference'];
 		}
@@ -114,10 +116,10 @@ abstract class CacheableRequestWrapper
 
 	private function isCacheExpired()
 	{
-		$curtime = time();
-		if (($curtime - $this->cachedData->timestame) > ($this->getExpirationTime() * 3))
-		{//3 days old
-			return true;
+		$now = new DateTime();
+
+		if($this->cachedData->expires_date < $now) {
+			echo true;
 		}
 
 		return false;

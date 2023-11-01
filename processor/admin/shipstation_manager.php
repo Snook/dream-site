@@ -119,7 +119,7 @@ class processor_admin_shipstation_manager extends CPageProcessor
 				$order->id = $_REQUEST['order'];
 				$order->find(true);
 
-				$shipmentWrapper = ShipStationManager::getInstanceForOrder($order)->getShipments(new ShipStationShipmentWrapper($order));
+				$shipmentWrapper = ShipStationManager::getInstanceForOrder($order)->getShipments(new ShipStationShipmentWrapper($order), false);
 				$result = $shipmentWrapper->storeShippingData();
 				if($result->isFailure()){
 					$result->echoFailureMessages();

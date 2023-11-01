@@ -22,7 +22,7 @@ class ShipStationRateWrapper extends CacheableRequestWrapper
 	const SS_FEDEX_EXPRESS_SAVER = "fedex_express_save";
 	const SS_FEDEX_GROUND = "fedex_ground";
 
-	const CACHE_EXPIRE_SECONDS = 86400; //one day
+	const CACHE_EXPIRE_DAYS = 1; //one day
 
 	private $hydratedOrderObj = null;
 	private $ddStore;
@@ -142,7 +142,7 @@ class ShipStationRateWrapper extends CacheableRequestWrapper
 
 	protected function getExpirationTime()
 	{
-		return self::CACHE_EXPIRE_SECONDS;
+		return self::CACHE_EXPIRE_DAYS;
 	}
 
 	protected function setFromCache($data)

@@ -12,7 +12,7 @@ class ShipStationShipmentWrapper extends CacheableRequestWrapper
 {
 
 
-	const CACHE_EXPIRE_SECONDS = 300; //5 minutes to prevent spamming service
+	const CACHE_EXPIRE_DAYS = 1; //5 minutes to prevent spamming service
 
 	private $orderId = null;
 
@@ -91,7 +91,7 @@ class ShipStationShipmentWrapper extends CacheableRequestWrapper
 
 	protected function getExpirationTime()
 	{
-		return self::CACHE_EXPIRE_SECONDS;
+		return self::CACHE_EXPIRE_DAYS;
 	}
 
 	protected function setFromCache($data)

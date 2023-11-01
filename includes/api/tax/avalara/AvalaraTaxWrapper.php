@@ -18,7 +18,7 @@ class AvalaraTaxWrapper extends CacheableRequestWrapper
 	private $avalaraTransaction = null;
 	private $transactionType = AvalaraTaxWrapper::AVALARA_CREATE_TYPE_TRANSIENT;
 
-	const CACHE_EXPIRE_SECONDS = 86400; //one day
+	const CACHE_EXPIRE_DAYS = 1; //one day
 
 	private $taxRateResponseJsonData = null;
 	private $taxResponseArray = null;
@@ -204,7 +204,7 @@ class AvalaraTaxWrapper extends CacheableRequestWrapper
 
 	protected function getExpirationTime()
 	{
-		return self::CACHE_EXPIRE_SECONDS;
+		return self::CACHE_EXPIRE_DAYS;
 	}
 
 	protected function getDatabaseLookupKey()

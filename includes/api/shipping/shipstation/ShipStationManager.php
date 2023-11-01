@@ -350,10 +350,10 @@ class ShipStationManager extends ApiManager
 	 * @return ShipStationShipmentWrapper
 	 */
 
-	public function getShipments($shipmentWrapper)
+	public function getShipments($shipmentWrapper, $useCache = true)
 	{
 
-		if ($shipmentWrapper->isCached())
+		if ($useCache && $shipmentWrapper->isCached())
 		{
 			return $shipmentWrapper->restoreFromCache();
 		}
