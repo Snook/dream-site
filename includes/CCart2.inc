@@ -1175,7 +1175,7 @@ class CCart2
 
 		if ($this->_OrderObj->findSession() && ($this->_OrderObj->findSession()->isDelivery() || $this->_OrderObj->findSession()->isDelivered()))
 		{
-			$this->_OrderObj->OrderAddress();
+			$this->_OrderObj->orderAddress();
 
 			$ShippingAddressArray = $this->_storage->retrieveArray($this->_cart_contents_id, 'SHIPPING_ADDRESS');
 

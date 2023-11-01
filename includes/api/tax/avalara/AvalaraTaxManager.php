@@ -90,7 +90,12 @@ class AvalaraTaxManager extends ApiManager
 
 		$this->cleanNulls($avalaraTaxRateWrapper);
 
-		$response = $this->sendPostRequest($this->endpoint . $this->methodsPaths['create'], $avalaraTaxRateWrapper->getRateRequestJson());
+		$payload = $avalaraTaxRateWrapper->getRateRequestJson();
+
+		CLog::RecordNew(CLog::DEBUG, "INFO ONLY: Call to Avalara with payload: ".$payload, "", "", true);
+
+
+		$response = $this->sendPostRequest($this->endpoint . $this->methodsPaths['create'], $payload);
 
 		$jsonRateResults = $this->processReply($response);
 

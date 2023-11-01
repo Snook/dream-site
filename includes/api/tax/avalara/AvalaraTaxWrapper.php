@@ -33,16 +33,20 @@ class AvalaraTaxWrapper extends CacheableRequestWrapper
 
 		$this->hydratedOrderObj = DAO_CFactory::create('orders',true);
 
-		if (!is_null($COrdersDelivered->id) && !$COrdersDelivered->isInEditOrder())
-		{
-			$this->hydratedOrderObj->id = $COrdersDelivered->id;
-			$this->hydratedOrderObj->find(true);
-			$this->hydratedOrderObj->reconstruct();
-			$this->hydratedOrderObj->orderAddress();
-		}
-		else
-		{
+//		if (!is_null($COrdersDelivered->id) && !$COrdersDelivered->isInEditOrder())
+//		{
+//			$this->hydratedOrderObj->id = $COrdersDelivered->id;
+//			$this->hydratedOrderObj->find(true);
+//			$this->hydratedOrderObj->reconstruct();
+//			$this->hydratedOrderObj->orderAddress();
+//		}
+//		else
+//		{
 			$this->hydratedOrderObj = $COrdersDelivered;
+//		}
+
+		if (empty($this->hydratedOrderObj->orderAddress) || empty($this->hydratedOrderObj->orderAddress->address_line1)){
+			$this->hydratedOrderObj->orderAddress();
 		}
 
 		$this->populateRateRequestData();
