@@ -151,7 +151,7 @@
 	</div>
 </div>
 
-<?php if (!$this->cart_info["orderObj"]->getStoreObj()->isDistributionCenter()) { ?>
+<?php if (!empty($this->cart_info["orderObj"]->getStoreObj()) && !$this->cart_info["orderObj"]->getStoreObj()->isDistributionCenter()) { ?>
 	<?php if (isset($this->form_payment['is_store_specific_flat_rate_delayed_payment_html']["0"]) && $this->canProvideNewDepositMechanisms) { ?>
 		<div class="row mb-2">
 			<div class="col">
