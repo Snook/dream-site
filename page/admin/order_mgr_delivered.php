@@ -35,7 +35,7 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 
 	private $discountEligable = array(
 		'limited_access' => false,
-		'direct_order' => true,
+		'direct_order' => false,
 		'dinner_dollars' => true,
 		'coupon_code' => true,
 		'preferred' => true,
