@@ -10,7 +10,7 @@ require_once 'includes/api/CacheableRequestWrapper.php';
 class ShipStationOrderBatchWrapper extends CacheableRequestWrapper
 {
 
-	const CACHE_EXPIRE_DAYS = 10; //10 days
+	const CACHE_EXPIRE_DAYS = 1; //1 days
 	private $responseObj = null;
 
 	private $responseJsonData;
