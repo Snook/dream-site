@@ -152,6 +152,16 @@ class page_checkout_gift_card extends CPage
 
 		$Form->AddElement(array(
 			CForm::type => CForm::Text,
+			CForm::name => "billing_address2",
+			CForm::placeholder => "Address 2",
+			CForm::css_class => "form-control",
+			CForm::required => false,
+			CForm::size => 30,
+			CForm::length => 50
+		));
+
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
 			CForm::name => "billing_city",
 			CForm::placeholder => "*Billing City",
 			CForm::required => true,
