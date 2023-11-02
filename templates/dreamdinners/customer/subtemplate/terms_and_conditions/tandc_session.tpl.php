@@ -99,7 +99,7 @@
 	<div class="card">
 		<div class="card-header" id="heading-SN-Five">
 			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-SN-Five" aria-expanded="false" aria-controls="collapse-SN-Five">
-				Donations and Round Up Donations
+				Donations
 			</button>
 		</div>
 		<div id="collapse-SN-Five" class="collapse" aria-labelledby="heading-SN-Five" data-parent="#accordion-SN">

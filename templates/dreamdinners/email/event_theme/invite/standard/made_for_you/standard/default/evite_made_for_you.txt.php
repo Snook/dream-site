@@ -1,7 +1,7 @@
 You have been invited to try our Pick Up service
 
 <?php echo $this->to_name; ?>,
-Want to give Dream Dinners a try, but don't have enough time to assemble your dinners this month? Choose a pick up session and we will assemble delicious dinners for your family. You simply pick up your dinners during the selected pick up window. A nominal fee may apply.
+Give Dream Dinners a try. Choose a pick up session and we will assemble delicious dinners for your family. You simply pick up your dinners during the selected pick up window.
 
 <?php echo $this->message; ?>
 

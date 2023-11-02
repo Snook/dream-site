@@ -17,6 +17,19 @@
 				<p class="mb-0">For questions or concerns about your order call <?php echo $this->cart_info['store_info']['telephone_day']; ?> or email <span class="font-weight-bold"><a href="mailto:<?php echo $this->cart_info['store_info']['email_address']; ?>?subject=Regarding session on <?php echo CTemplate::dateTimeFormat($this->session['session_start'], VERBOSE); ?>"><?php echo $this->cart_info['store_info']['email_address']; ?></a></span></p>
 			</div>
 		</div>
+		<?php if (CUser::getCurrentUser()->isNewBundleCustomer() && !empty($this->session['remaining_intro_slots'])) { ?>
+			<div class="row m-3 d-print-none">
+				<div class="col text-center">
+					<?php if ($this->order_type == CSession::SPECIAL_EVENT) { ?>
+						<div>New to Dream Dinners? Our Meal Prep Starter Pack gives you a taste of Dream Dinners for only $79.</div>
+						<button class="btn btn-primary btn-sm pp-view-intro" data-view_menu="INTRO">View Meal Prep Starter Pack Menu</button>
+					<?php } else if ($this->order_type == CSession::INTRO) { ?>
+						<div>Switch to our monthly menu to get more menu items to choose from!</div>
+						<button class="btn btn-primary btn-sm pp-view-intro" data-view_menu="SPECIAL_EVENT">Place Your Monthly Order</button>
+					<?php } ?>
+				</div>
+			</div>
+		<?php } ?>
 	</div>
 	<div class="d-none d-lg-block col-12 col-lg-6">
 		<img src="<?php echo IMAGES_PATH; ?>/event_theme/standard/made_for_you/standard/<?php echo CTemplate::dateTimeFormat($this->menu_info['menu_name'], YEAR_UNDERSCORE_MONTH); ?>/landing-graphic.jpg" class="img-fluid w-100" alt="community pick up event menu item" />

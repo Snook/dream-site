@@ -20,8 +20,6 @@ For questions about your order contact the store at: <?php echo $this->session['
 Place your monthly order today!
 <?php echo $this->referral_link; ?>
 
-New to Dream Dinners? Try the Meal Prep Starter Pack for only $99.
-<?php echo $this->referral_link_starter; ?>
 
 
 Thanks,

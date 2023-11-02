@@ -24,15 +24,6 @@
 				<p>Our Beaverton and Clackamas Stores Are Here to Serve You!</p>
 					<p>Get family meals on the table with our community pick up service. Choose a date/time from the list below to place your order. We will meet you at the Corvallis Dream Dinners store parking lot to deliver your meals. Perfectly prepped by the Beaverton or Clackamas team.</p>
 					<p>Contact either store for questions. Order today!</p>
-					<ul>
-						<li><a href="https://dreamdinners.com/session/1008912">Wed, Oct 11th - 5:30</a></li>
-						<li><a href="https://dreamdinners.com/session/1008913">Fri, Oct 13th - 5:30</a></li>
-						<li><a href="https://dreamdinners.com/session/1008909">Sat, Oct 14th - 10:00</a></li>
-						<li><a href="https://dreamdinners.com/session/1008914">Wed, Oct 18th - 5:30</a></li>
-						<li><a href="https://dreamdinners.com/session/1008910">Sat, Oct 21st - 10:00</a></li>
-						<li><a href="https://dreamdinners.com/session/1008911">Thur, Oct 26th - 5:30</a></li>
-						<li><a href="https://dreamdinners.com/session/1008915">Wed, Oct 28th - 10:00</a></li>
-					</ul>
 					<p>November</p>
 					<ul>
 						<li><a href="https://dreamdinners.com/session/1008918">Thurs, Nov 2nd - 5:30</a></li>

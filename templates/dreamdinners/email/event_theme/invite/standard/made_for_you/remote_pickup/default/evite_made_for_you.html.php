@@ -26,11 +26,8 @@
 				
 				
 				<p align="center"><strong>For questions about ordering contact Dream Dinners at:</strong><br />
-						<?php echo $this->session['telephone_day']; ?><br>
-</p>
-<p align="center"><strong>New to Dream Dinners?</strong> <a href="<?php echo $this->referral_link_starter; ?>">Try the Meal Prep Starter Pack for only $99.</a>
-			</p>
-			<p align="center"><a href="<?php echo $this->referral_link; ?>"><img src="<?php echo EMAIL_IMAGES_PATH; ?>/email/event_theme/default/view-menu-order.png" alt="View menu and order" width="300" height="45" border="0"></a></p>
+						<?php echo $this->session['telephone_day']; ?><br></p>
+				<p align="center"><a href="<?php echo $this->referral_link; ?>"><img src="<?php echo EMAIL_IMAGES_PATH; ?>/email/event_theme/default/view-menu-order.png" alt="View menu and order" width="300" height="45" border="0"></a></p>
 			
 		</td>
 	</tr>
