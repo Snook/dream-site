@@ -241,45 +241,40 @@ class CCart2
 		$retVal['has_item'] = (!empty($this->_products) || !empty($this->_gift_card_orders));
 
 		$validFoodItemFound = false;
-		if (!$retVal['has_item'])
+		$validItemFound = false;
+		if ($isDeliveredOrder)
 		{
-
-			$validItemFound = false;
-			if ($isDeliveredOrder)
+			// menu item check is more involved
+			if (!empty($this->_delivered_boxes))
 			{
-
-				// menu item check is more involved
-				if (!empty($this->_delivered_boxes))
+				foreach ($this->_delivered_boxes as $thisArray)
 				{
-					foreach ($this->_delivered_boxes as $thisArray)
+					if (!empty($thisArray) && !empty($thisArray['box_instance']->is_complete))
 					{
-						if (!empty($thisArray) && !empty($thisArray['box_instance']->is_complete))
-						{
-							$validItemFound = true;
-							$validFoodItemFound = true;
-						}
+						$validItemFound = true;
+						$validFoodItemFound = true;
 					}
 				}
 			}
-			else
+		}
+		else
+		{
+			// menu item check is more involved
+			if (!empty($this->_menu_items))
 			{
-
-				// menu item check is more involved
-				if (!empty($this->_menu_items))
+				foreach ($this->_menu_items as $thisArray)
 				{
-					foreach ($this->_menu_items as $thisArray)
+					if (!empty($thisArray))
 					{
-						if (!empty($thisArray))
-						{
-							$validItemFound = true;
-						}
+						$validItemFound = true;
 					}
 				}
 			}
-			if ($validItemFound)
-			{
-				$retVal['has_item'] = true;
-			}
+		}
+
+		if ($validItemFound)
+		{
+			$retVal['has_item'] = true;
 		}
 
 		$retVal['has_payment'] = (!empty($this->_PaymentArray));
@@ -1175,17 +1170,18 @@ class CCart2
 
 		if ($this->_OrderObj->findSession() && ($this->_OrderObj->findSession()->isDelivery() || $this->_OrderObj->findSession()->isDelivered()))
 		{
+			// instantiate the object
 			$this->_OrderObj->orderAddress();
 
 			$ShippingAddressArray = $this->_storage->retrieveArray($this->_cart_contents_id, 'SHIPPING_ADDRESS');
 
+			// Populate orderAddress using cart data
 			if (!empty($ShippingAddressArray))
 			{
 				$shipping_phone_number = $ShippingAddressArray['shipping_phone_number'];
 				$shipping_phone_number_new = $ShippingAddressArray['shipping_phone_number_new'];
 				$shipping_address_note = $ShippingAddressArray['shipping_address_note'];
 
-				$this->_OrderObj->orderAddress();
 				$this->_OrderObj->orderAddress->firstname = $ShippingAddressArray['shipping_firstname'];
 				$this->_OrderObj->orderAddress->lastname = $ShippingAddressArray['shipping_lastname'];
 				$this->_OrderObj->orderAddress->address_line1 = $ShippingAddressArray['shipping_address_line1'];

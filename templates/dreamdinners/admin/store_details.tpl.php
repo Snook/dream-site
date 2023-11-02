@@ -440,36 +440,10 @@
 
 					</td>
 				</tr>
-
-				<?php if (isset($this->form_store_details['supports_plate_points_html']) ) { ?>
-					<tr>
-						<td class="bgcolor_light" style="text-align: right;">Opt in to PLATEPOINTS Dinner Dollars and rewards:</td>
-						<td class="bgcolor_light"><?php echo $this->form_store_details['supports_plate_points_html']; ?></td>
-					</tr>
-					<tr id="supports_plate_points_signature_row" style="display:none">
-						<td class="bgcolor_light" style="text-align: right; color:red;">Please enter your name as the party responsible for opting in the PLATEPOINTS program.</td>
-						<td class="bgcolor_light" style="vertical-align:top;"><label for="supports_plate_points_signature"  id="supports_plate_points_signature_lbl" message="You must provide your full name when opting into PLATEPOINTS.">
-							</label><?php echo $this->form_store_details['supports_plate_points_signature_html']; ?>
-						</td>
-					</tr>
-				<?php } ?>
-
 				<tr>
 					<td class="bgcolor_light" style="text-align: right;">Support Made for You sessions (Special Events):<br />
 																		 (If unchecked the Made for You sessions <br />feature will NOT be available.)</td>
 					<td class="bgcolor_light"><?php echo $this->form_store_details['supports_special_events_html']; ?></td>
-				</tr>
-				<tr>
-					<td class="bgcolor_light" style="text-align: right;"><b>Support PLATEPOINTS enhancements and promotions</b> such as, but not limited to Double Taste Host Incentives, Summer Bonus Points and Early Bird Incentives.<br /> (if unchecked, PLATEPOINTS enhancements and promotions feature will NOT be available)</td>
-					<td class="bgcolor_light"><?php echo $this->form_store_details['supports_plate_points_enhancements_html']; ?></td>
-				</tr>
-				<tr>
-					<td class="bgcolor_light" style="text-align: right;">Opt out of Meal Prep Workshop:</td>
-					<td class="bgcolor_light"><?php echo $this->form_store_details['dream_taste_opt_out_html']; ?></td>
-				</tr>
-				<tr>
-					<td class="bgcolor_light" style="text-align: right;"><b>Support seasonal promotions</b> including, but not limited to summer retention programs and holiday promotions. <br />(If unchecked, you will not be included in seasonal promotions.)</td>
-					<td class="bgcolor_light"><?php echo $this->form_store_details['supports_retention_programs_html']; ?></td>
 				</tr>
 			</table>
 		<?php } ?>
@@ -497,6 +471,36 @@
 				</tr>
 			</table>
 		<?php } ?>
+
+		<table style="width: 100%; margin-bottom: 10px;">
+			<tr>
+				<td class="bgcolor_dark catagory_row" colspan="2">Programs</td>
+			</tr>
+			<?php if (isset($this->form_store_details['supports_plate_points_html']) ) { ?>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Opt in to PLATEPOINTS Dinner Dollars and rewards:</td>
+					<td class="bgcolor_light"><?php echo $this->form_store_details['supports_plate_points_html']; ?></td>
+				</tr>
+				<tr id="supports_plate_points_signature_row" style="display:none">
+					<td class="bgcolor_light" style="text-align: right; color:red;">Please enter your name as the party responsible for opting in the PLATEPOINTS program.</td>
+					<td class="bgcolor_light" style="vertical-align:top;"><label for="supports_plate_points_signature"  id="supports_plate_points_signature_lbl" message="You must provide your full name when opting into PLATEPOINTS.">
+						</label><?php echo $this->form_store_details['supports_plate_points_signature_html']; ?>
+					</td>
+				</tr>
+			<?php } ?>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;"><b>Support PLATEPOINTS enhancements and promotions</b> such as, but not limited to Double Taste Host Incentives, Summer Bonus Points and Early Bird Incentives.<br /> (if unchecked, PLATEPOINTS enhancements and promotions feature will NOT be available)</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['supports_plate_points_enhancements_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Opt out of Meal Prep Workshop:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['dream_taste_opt_out_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;"><b>Support seasonal promotions</b> including, but not limited to summer retention programs and holiday promotions. <br />(If unchecked, you will not be included in seasonal promotions.)</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['supports_retention_programs_html']; ?></td>
+			</tr>
+		</table>
 
 		<table style="width: 100%; margin-bottom: 10px;">
 			<tr>
