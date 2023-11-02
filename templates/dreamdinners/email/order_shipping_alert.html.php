@@ -15,14 +15,14 @@
 <table role="presentation" width="650"  border="0" cellspacing="0" cellpadding="8">
 	<tr>
 		<td>
-			<p class="sectionhead"><b>Customer Information</b></p>
+			<p class="sectionhead"><b>Customer Information:</b></p>
 			Name:&nbsp;<?php echo $this->customer_name; ?><br />
 			Email:&nbsp;<?php echo $this->customer_primary_email; ?><br/>
 			Order Confirmation: <?php echo $this->orderInfo['order_confirmation']; ?>
 			<br/>
 			<br/>
 			Order Date: <?php echo CTemplate::dateTimeFormat($this->orderInfo['timestamp_created'], NORMAL, $this->store_id, CONCISE) ?><br/>
-			<?php //Carrier Pick Up Date: <?php echo $this->sessionInfo['session_start_dtf_verbose_date']; <br/>?>
+			Carrier Pick Up Date: <?php echo CTemplate::dateTimeFormat($this->orderInfo['orderShipping']['ship_date'], VERBOSE_DATE, $this->store_id, CONCISE) ?><br/>
 			Requested Delivery Date: <?php echo $this->sessionInfo['session_start_dtf_verbose_date']; ?>
 			<br/>
 			<p class="sectionhead"><b>Ship To:</b></p>
