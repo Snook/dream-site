@@ -24,7 +24,7 @@
 					<div class="col">
 						<div class="card-group text-center">
 							<div class="card border-0 mx-1">
-								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Turkey-Day-Toolkit.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/thanksgiving-turkey-day-toolkit-458x344.jpg" alt="Thanksgiving" class="img-fluid" /></a>
+								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Turkey-Day-Toolkit.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/thanksgiving-turkey-day-toolkit-458x344.webp" alt="Thanksgiving" class="img-fluid" /></a>
 								<div class="card-body">
 									<h5 class="card-title">Thanksgiving Toolkit</h5>
 									<p class="card-text">Filled with activities, tips and tricks to keep the kiddos entertained.</p>
@@ -32,7 +32,7 @@
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Turkey-Day-Placemat.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/thanksgiving-turkey-day-placemat-458x344.jpg" alt="Thanksgiving Placemat" class="img-fluid" /></a>
+								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Turkey-Day-Placemat.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/thanksgiving-turkey-day-placemat-458x344.webp" alt="Thanksgiving Placemat" class="img-fluid" /></a>
 								<div class="card-body">
 									<h5 class="card-title">Thanksgiving Placemat</h5>
 									<p class="card-text">Download and print a 11x17 fun activity placemat.</p>
@@ -40,7 +40,7 @@
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Turkey-Day-Timeline.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/thanksgiving-turkey-day-timeline-458x344.jpg" alt="Timeline" class="img-fluid" /></a>
+								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Turkey-Day-Timeline.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/thanksgiving-turkey-day-timeline-458x344.webp" alt="Timeline" class="img-fluid" /></a>
 								<div class="card-body">
 									<h5 class="card-title">Thanksgiving Timeline</h5>
 									<p class="card-text">Follow our step-by-step cooking instructions and timeline for effortless holiday meal prep!</p>
