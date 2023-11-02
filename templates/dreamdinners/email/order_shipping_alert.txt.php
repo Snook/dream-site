@@ -6,6 +6,7 @@ Email:&nbsp;<?php echo $this->customer_primary_email; ?>
 Order Confirmation: <?php echo $this->orderInfo['order_confirmation']; ?>
 
 Order Date: <?php echo CTemplate::dateTimeFormat($this->orderInfo['timestamp_created'], NORMAL, $this->store_id, CONCISE) ?>
+arrier Pick Up Date: <?php echo $this->sessionInfo['session_start_dtf_verbose_date']; ?>
 Requested Delivery Date: <?php echo $this->sessionInfo['session_start_dtf_verbose_date']; ?>
 
 
@@ -23,6 +24,7 @@ Note: <?php echo $this->orderInfo['orderAddress']['address_note']; ?>
 
 This shipment includes the following items
 -----------------------------
-<?php foreach ($this->orderInfo['boxes']['itemList'] as $item) {?>
+<?php foreach ($this->orderInfo['boxes']['itemList'] as $item) {
+	if( $item['qty'] > 0 ){?>
 	- <?php echo $item['qty'] ?> <?php echo CMenuItem::translatePricingType($item['pricing_type'], true)  ?> <?php echo $item['display_title'] ?>
-<?php }?>
+<?php }}?>
