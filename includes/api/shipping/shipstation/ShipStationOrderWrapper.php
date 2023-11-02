@@ -56,6 +56,7 @@ class ShipStationOrderWrapper
 		$this->orderDAO = DAO_CFactory::create('orders', true);
 		$this->orderDAO->id = $COrdersDelivered->id;
 		$this->orderDAO->joinAddWhereAsOn(DAO_CFactory::create('store', true));
+		$this->orderDAO->joinAddWhereAsOn(DAO_CFactory::create('booking', true));
 		$this->orderDAO->find(true);
 		$this->orderDAO->reconstruct();
 
@@ -92,6 +93,12 @@ class ShipStationOrderWrapper
 		$this->ssOrder->orderKey = $testingPrefix.$this->orderDAO->id;//string, optional **used to determine add and update must be unique**
 		$this->ssOrder->orderDate = $this->orderDAO->timestamp_created;//string, required
 		$this->ssOrder->orderStatus = self::SS_ORDER_STATUS_PENDING_SHIPMENT;//string, required [awaiting_payment, awaiting_shipment, shipped, on_hold, cancelled]
+		if(!is_null($this->orderDAO) && !is_null($this->orderDAO->DAO_booking)){
+			if($this->orderDAO->DAO_booking->status == CBooking::CANCELLED)
+			{
+				$this->ssOrder->orderStatus = self::SS_ORDER_STATUS_PENDING_CANCELLED;
+			}
+		}
 
 		$userObj = $this->hydratedOrderObj->getUser();
 		$this->ssOrder->customerEmail = $userObj->primary_email;//string, optional
