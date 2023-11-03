@@ -192,20 +192,20 @@ class ShipStationOrderWrapper
 
 		//medium
 		$mediumWeight= array(
-			"value"=>14,
+			"value"=>21,
 			"units" => "pounds"
 		);
 		//large
 		$largeWeight= array(
-			"value"=>22,
+			"value"=>21,
 			"units" => "pounds"
 		);
 
 		$dimensions= array(
 			"units"=>"inches",
-			"length"=>18,
+			"length"=>16,
 			"width"=>16,
-			"height"=>16.5
+			"height"=>16
 		);
 
 

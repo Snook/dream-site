@@ -12664,7 +12664,7 @@ class COrders extends DAO_Orders
 
 					if ($thisOrderAllowsCustomization && !$thisOrderAllowsPreAssembledCustomization)
 					{
-						$parentItems[$DAO_menu_item->parent_menu_item_id]['display_title'] .= "<span style='font-size:x-small;color:black;font-weight: lighter;text-transform:capitalize;'><br>&nbsp;&nbsp;&nbsp; - Not Customizable</span>";
+						$parentItems[$DAO_menu_item->parent_menu_item_id]['display_title'] .= "<span style='font-size:x-small;color:darkred;font-weight: lighter;text-transform:capitalize;'><br>&nbsp;&nbsp;&nbsp; - Not Customizable</span>";
 					}
 				}
 
