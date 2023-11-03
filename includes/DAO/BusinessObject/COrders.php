@@ -114,55 +114,76 @@ class COrders extends DAO_Orders
 		parent::__construct();
 	}
 
-	function find_DAO_orders($n = false)
+	function find($n = false, $optionsArray = false)
 	{
-		if ($this->_query["data_select"] === "*")
+		$defaultOptionsArray = array(
+			'join_sub_dao' => false
+		);
+
+		if (!empty($optionsArray))
 		{
-			throw new Exception("When creating this object, second parameter in DAO_CFactory::create() needs to be 'true'");
+			$optionsArray = array_replace_recursive($defaultOptionsArray, $optionsArray);
+		}
+		else
+		{
+			$optionsArray = $defaultOptionsArray;
 		}
 
-		$DAO_booking = DAO_CFactory::create('booking', true);
-		$DAO_booking->whereAdd("booking.status = 'ACTIVE' OR booking.status = 'SAVED' OR booking.status = 'CANCELLED'");
+		if ($optionsArray['join_sub_dao'])
+		{
+			// When joining the dao objects, the $this can't have a just wildcard select
+			if ($this->_query["data_select"] === "*")
+			{
+				throw new Exception("When creating this object, second parameter in DAO_CFactory::create() needs to be 'true'");
+			}
 
-		$DAO_session = DAO_CFactory::create('session', true);
-		$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('menu', true));
-		$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('store', true));
+			$DAO_booking = DAO_CFactory::create('booking', true);
+			$DAO_booking->whereAdd("booking.status = 'ACTIVE' OR booking.status = 'SAVED' OR booking.status = 'CANCELLED'");
 
-		$DAO_session_discount = DAO_CFactory::create('session_discount', true);
-		$DAO_session_discount->unsetProperty('is_deleted'); // make sure to join deleted rows to account for edited sessions
-		$DAO_session->joinAddWhereAsOn($DAO_session_discount, 'LEFT');
+			$DAO_session = DAO_CFactory::create('session', true);
+			$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('menu', true));
+			$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('store', true));
 
-		$DAO_session_properties = DAO_CFactory::create('session_properties', true);
+			$DAO_session_discount = DAO_CFactory::create('session_discount', true);
+			$DAO_session_discount->unsetProperty('is_deleted'); // make sure to join deleted rows to account for edited sessions
+			$DAO_session->joinAddWhereAsOn($DAO_session_discount, 'LEFT');
 
-		$DAO_dream_taste_event_properties = DAO_CFactory::create('dream_taste_event_properties', true);
-		$DAO_dream_taste_event_properties->joinAddWhereAsOn(DAO_CFactory::create('dream_taste_event_theme', true), 'LEFT');
-		$DAO_session_properties->joinAddWhereAsOn($DAO_dream_taste_event_properties, 'LEFT');
+			$DAO_session_properties = DAO_CFactory::create('session_properties', true);
 
-		$DAO_store_to_fundraiser = DAO_CFactory::create('store_to_fundraiser', true);
-		$DAO_fundraiser = DAO_CFactory::create('fundraiser', true);
-		$DAO_store_to_fundraiser->joinAddWhereAsOn($DAO_fundraiser, 'LEFT', 'session_fundraiser');
-		$DAO_session_properties->joinAddWhereAsOn($DAO_store_to_fundraiser, 'LEFT');
+			$DAO_dream_taste_event_properties = DAO_CFactory::create('dream_taste_event_properties', true);
+			$DAO_dream_taste_event_properties->joinAddWhereAsOn(DAO_CFactory::create('dream_taste_event_theme', true), 'LEFT');
+			$DAO_session_properties->joinAddWhereAsOn($DAO_dream_taste_event_properties, 'LEFT');
 
-		$DAO_session_properties->joinAddWhereAsOn(DAO_CFactory::create('store_pickup_location', true), 'LEFT');
+			$DAO_store_to_fundraiser = DAO_CFactory::create('store_to_fundraiser', true);
+			$DAO_fundraiser = DAO_CFactory::create('fundraiser', true);
+			$DAO_store_to_fundraiser->joinAddWhereAsOn($DAO_fundraiser, 'LEFT', 'session_fundraiser');
+			$DAO_session_properties->joinAddWhereAsOn($DAO_store_to_fundraiser, 'LEFT');
 
-		$DAO_session->joinAddWhereAsOn($DAO_session_properties, 'LEFT');
+			$DAO_session_properties->joinAddWhereAsOn(DAO_CFactory::create('store_pickup_location', true), 'LEFT');
 
-		$DAO_booking->joinAddWhereAsOn($DAO_session);
+			$DAO_session->joinAddWhereAsOn($DAO_session_properties, 'LEFT');
 
-		$this->joinAddWhereAsOn($DAO_booking);
+			$DAO_booking->joinAddWhereAsOn($DAO_session);
 
-		$DAO_user = DAO_CFactory::create('user', true);
-		$DAO_user->unsetProperty('is_deleted'); // ability to look up orders with deleted users
-		$this->joinAddWhereAsOn($DAO_user);
+			$this->joinAddWhereAsOn($DAO_booking);
 
-		$this->joinAddWhereAsOn(DAO_CFactory::create('bundle', true), 'LEFT');
-		$this->joinAddWhereAsOn(DAO_CFactory::create('coupon_code', true), 'LEFT');
-		$this->joinAddWhereAsOn(DAO_CFactory::create('fundraiser', true), 'LEFT');
-		$this->joinAddWhereAsOn(DAO_CFactory::create('mark_up', true), 'LEFT');
-		$this->joinAddWhereAsOn(DAO_CFactory::create('mark_up_multi', true), 'LEFT');
-		$this->joinAddWhereAsOn(DAO_CFactory::create('user_preferred', true), 'LEFT');
-		$this->joinAddWhereAsOn(DAO_CFactory::create('orders_address', true), 'LEFT');
-		$this->joinAddWhereAsOn(DAO_CFactory::create('orders_shipping', true), 'LEFT');
+			$DAO_user = DAO_CFactory::create('user', true);
+			$DAO_user->unsetProperty('is_deleted'); // ability to look up orders with deleted users
+			$this->joinAddWhereAsOn($DAO_user);
+
+			$this->joinAddWhereAsOn(DAO_CFactory::create('bundle', true), 'LEFT');
+			$this->joinAddWhereAsOn(DAO_CFactory::create('coupon_code', true), 'LEFT');
+			$this->joinAddWhereAsOn(DAO_CFactory::create('fundraiser', true), 'LEFT');
+			$this->joinAddWhereAsOn(DAO_CFactory::create('mark_up', true), 'LEFT');
+			$this->joinAddWhereAsOn(DAO_CFactory::create('mark_up_multi', true), 'LEFT');
+			$this->joinAddWhereAsOn(DAO_CFactory::create('user_preferred', true), 'LEFT');
+			$this->joinAddWhereAsOn(DAO_CFactory::create('orders_address', true), 'LEFT');
+			$this->joinAddWhereAsOn(DAO_CFactory::create('orders_shipping', true), 'LEFT');
+
+			$DAO_sales_tax = DAO_CFactory::create('sales_tax', true);
+			$DAO_sales_tax->unsetProperty('is_deleted'); // ability to reference previous tax record associated with the order
+			$this->joinAddWhereAsOn($DAO_sales_tax, 'LEFT');
+		}
 
 		return parent::find($n);
 	}
