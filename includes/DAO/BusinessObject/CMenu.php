@@ -257,20 +257,6 @@ class CMenu extends DAO_Menu
 		return $testMenuToMenuItem->count() > 0;
 	}
 
-	// define mutiple stores like this:
-	// static $excludedStores = array(244, 21, 257);
-	static $excludedDecemberStores = array(73);
-
-	static function excludedForStore($menu_id, $store_id)
-	{
-		if (in_array($store_id, self::$excludedDecemberStores) && $menu_id == 124)
-		{
-			return true;
-		}
-
-		return false;
-	}
-
 	static function getStorePricingForMenu($menu_id, $store_id)
 	{
 		$daoMenuItem = DAO_CFactory::create('menu_to_menu_item');
