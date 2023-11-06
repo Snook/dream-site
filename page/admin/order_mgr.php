@@ -1248,7 +1248,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 						'data-item_is_customizable' => 0,
 						'data-index' => $index++
 					),
-					CForm::price => $data['price'],
+					CForm::price => $data['store_price'],
 					CForm::is_bundle => $data['is_bundle'],
 					CForm::pricing_type => $data['pricing_type'],
 					CForm::entreeID => $data['entree_id'],
