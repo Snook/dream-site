@@ -92,8 +92,8 @@ class AvalaraTaxManager extends ApiManager
 
 		$payload = $avalaraTaxRateWrapper->getRateRequestJson();
 
-		CLog::RecordNew(CLog::DEBUG, "INFO ONLY: Call to Avalara with payload: ".$payload, "", "", true);
-
+		// Debug information
+		// CLog::RecordNew(CLog::DEBUG, "INFO ONLY: Call to Avalara with payload: ".$payload, "", "", true);
 
 		$response = $this->sendPostRequest($this->endpoint . $this->methodsPaths['create'], $payload);
 
