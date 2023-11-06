@@ -3810,6 +3810,8 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			{
 				$query = "SELECT
 					mmi.override_price as override_price,
+					mmi.menu_id,
+					mmi.store_id,
 					mimd.id as markdown_id,
 					mimd.markdown_value,
 					r.ltd_menu_item_value,
