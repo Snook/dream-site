@@ -189,7 +189,7 @@ class page_payment extends CPage
 		));
 
 		$Form->AddElement(array(
-			CForm::type => CForm::Tel,
+			CForm::type => CForm::Number,
 			CForm::name => "ccSecurityCode",
 			CForm::autocomplete => false,
 			CForm::placeholder => "*Code",

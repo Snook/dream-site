@@ -247,7 +247,7 @@ function determineEntreeId($tpl, $categoryName, $planNode, $menuItemId)
 
 										<?php if ($isDreamy) { ?>
 											<td>
-												<span>$<span id="prc_<?php echo $thisItem['id']; ?>"><?php echo CTemplate::moneyFormat($thisItem['price']); ?></span></span>
+												<span>$<span id="prc_<?php echo $thisItem['id']; ?>"><?php echo CTemplate::moneyFormat($thisItem['store_price']); ?></span></span>
 											</td>
 											<td>
 												<div class="input-group">
@@ -262,7 +262,7 @@ function determineEntreeId($tpl, $categoryName, $planNode, $menuItemId)
 											</td>
 										<?php } else if (!$this->isDreamTaste && !$this->isFundraiser) { ?>
 											<td class="text-right">
-												<span>$<span id="prc_<?php echo $thisItem['id']; ?>"><?php echo CTemplate::moneyFormat($thisItem['price']); ?></span></span>
+												<span>$<span id="prc_<?php echo $thisItem['id']; ?>"><?php echo CTemplate::moneyFormat($thisItem['store_price']); ?></span></span>
 											</td>
 											<td>
 												<div class="input-group">
@@ -401,7 +401,7 @@ function determineEntreeId($tpl, $categoryName, $planNode, $menuItemId)
 					</td>
 
 					<td class="text-right">
-						$<span id="prc_<?php echo $thisItem['id']; ?>"><?php echo $thisItem['price']; ?></span>
+						$<span id="prc_<?php echo $thisItem['id']; ?>"><?php echo $thisItem['store_price']; ?></span>
 					</td>
 					<td>
 						<div class="input-group">

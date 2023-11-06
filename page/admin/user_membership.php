@@ -512,7 +512,7 @@ class page_admin_user_membership extends CPageAdminOnly
 		));
 
 		$Form->AddElement(array(
-			CForm::type => CForm::Tel,
+			CForm::type => CForm::Number,
 			CForm::name => "ccSecurityCode",
 			CForm::autocomplete => false,
 			CForm::placeholder => "*Code",

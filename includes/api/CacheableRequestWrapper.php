@@ -119,7 +119,7 @@ abstract class CacheableRequestWrapper
 		$now = new DateTime();
 
 		if($this->cachedData->expires_date < $now) {
-			echo true;
+			return true;
 		}
 
 		return false;

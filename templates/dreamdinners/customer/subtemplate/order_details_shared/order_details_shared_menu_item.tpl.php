@@ -14,7 +14,7 @@
 				<?php if ($this->order_has_meal_customization) { ?>
 					<?php
 					if ($itemInfo['is_freezer_menu'] == true || $itemInfo['is_chef_touched'] == true  || ($itemInfo['is_preassembled'] == true  && !$this->store_allows_preassembled_customization)) { ?>
-						<span class="font-weight-light font-size-small"><span>&nbsp;&nbsp;&nbsp;- Not Customizable</span>
+						<span class="font-weight-light font-size-small text-danger""><span>&nbsp;&nbsp;&nbsp;- Not Customizable</span>
 					<?php } ?>
 				<?php } ?>
 			</div>

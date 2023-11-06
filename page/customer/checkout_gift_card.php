@@ -126,7 +126,7 @@ class page_checkout_gift_card extends CPage
 		));
 
 		$Form->AddElement(array(
-			CForm::type => CForm::Text,
+			CForm::type => CForm::Number,
 			CForm::name => "ccSecurityCode",
 			CForm::autocomplete => false,
 			CForm::placeholder => "*Security Code",

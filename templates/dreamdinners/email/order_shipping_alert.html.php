@@ -15,13 +15,14 @@
 <table role="presentation" width="650"  border="0" cellspacing="0" cellpadding="8">
 	<tr>
 		<td>
-			<p class="sectionhead"><b>Customer Information</b></p>
+			<p class="sectionhead"><b>Customer Information:</b></p>
 			Name:&nbsp;<?php echo $this->customer_name; ?><br />
 			Email:&nbsp;<?php echo $this->customer_primary_email; ?><br/>
 			Order Confirmation: <?php echo $this->orderInfo['order_confirmation']; ?>
 			<br/>
 			<br/>
 			Order Date: <?php echo CTemplate::dateTimeFormat($this->orderInfo['timestamp_created'], NORMAL, $this->store_id, CONCISE) ?><br/>
+			Carrier Pick Up Date: <?php echo CTemplate::dateTimeFormat($this->orderInfo['orderShipping']['ship_date'], VERBOSE_DATE, $this->store_id, CONCISE) ?><br/>
 			Requested Delivery Date: <?php echo $this->sessionInfo['session_start_dtf_verbose_date']; ?>
 			<br/>
 			<p class="sectionhead"><b>Ship To:</b></p>
@@ -39,9 +40,10 @@
 			<br/>
 			<p class="sectionhead"><b>This shipment includes the following items:</b></p>
 			<p>
-				<?php foreach ($this->orderInfo['boxes']['itemList'] as $item) {?>
+				<?php foreach ($this->orderInfo['boxes']['itemList'] as $item) {
+					if( $item['qty'] > 0 ){?>
 					- <?php echo $item['qty'] ?> <?php echo CMenuItem::translatePricingType($item['pricing_type'], true)  ?> <?php echo $item['display_title'] ?><br />
-				<?php }?>
+				<?php } }?>
 			</p>
 
 			<hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;">

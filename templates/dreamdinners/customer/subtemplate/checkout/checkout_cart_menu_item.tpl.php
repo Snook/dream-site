@@ -15,7 +15,7 @@
 			<?php } ?>
 			<?php if ($this->should_allow_meal_customization) { ?>
 				<?php if ($this->curItem['is_freezer_menu'] || ($this->curItem['is_preassembled'] && !$this->allow_preassembled_customization)) { ?>
-					<div>Not Customizable</div>
+					<div class="text-danger">Not Customizable</div>
 				<?php } ?>
 			<?php } ?>
 		</div>
@@ -39,7 +39,7 @@
 							<?php } ?>
 							<?php if ($this->should_allow_meal_customization) { ?>
 								<?php if ($itemData['is_freezer_menu'] || ($itemData['is_preassembled'] && !$this->allow_preassembled_customization)) { ?>
-									<div>Not Customizable</div>
+									<div class="text-danger">Not Customizable</div>
 								<?php } ?>
 							<?php } ?>
 						</div>

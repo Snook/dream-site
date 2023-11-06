@@ -689,7 +689,7 @@ class page_admin_order_mgr_test extends CPageAdminOnly
 		// -------------------------------------Set up menu
 		if ($this->orderState != 'NEW')
 		{
-			$menuInfo = COrders::buildOrderEditMenuPlanArrays($Session->menu_id, $markup, true, $this->daoStore);
+			$menuInfo = $this->originalOrder->buildOrderEditMenuPlanArrays($Session->menu_id, $markup, true, $this->daoStore);
 
 			$ctsArray = CMenu::buildCTSArray($this->daoStore, $Session->menu_id);
 

@@ -933,6 +933,7 @@ class page_admin_reports_customer_menu_item_labels extends CPageAdminOnly
 			$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
 				'menu_to_menu_item_store_id' => $store_id,
 				'join_order_item_order_id' => array($DAO_booking->order_id),
+				'join_order_item_order' => 'INNER',
 				'exclude_menu_item_is_bundle' => true,
 				'exclude_menu_item_category_core' => false,
 				'exclude_menu_item_category_core_preassembled' => ($suppressFastlane == "true" ? true : false),

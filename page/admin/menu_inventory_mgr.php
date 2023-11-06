@@ -106,7 +106,7 @@ class page_admin_menu_inventory_mgr extends CPageAdminOnly
 			$DAO_menu_item->selectAdd("menu_item.recipe_id");
 			$DAO_menu_item->selectAdd("menu_item.menu_item_name");
 			$DAO_menu_item->selectAdd("menu_item.entree_id");
-			$DAO_menu_item->selectAdd("menu_item_inventory.initial_inventory");
+			$DAO_menu_item->selectAdd("SUM(DISTINCT menu_item_inventory.initial_inventory) AS initial_inventory");
 			$DAO_menu_item->selectAdd("GROUP_CONCAT(menu_item.pricing_type order by menu_item.pricing_type DESC) as types");
 			$DAO_menu_item->selectAdd("GROUP_CONCAT(menu_item.servings_per_item order by menu_item.pricing_type DESC) as servings_per_item");
 			$DAO_menu_item->selectAdd("GROUP_CONCAT(menu_item.price order by menu_item.pricing_type DESC) as prices");

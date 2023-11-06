@@ -3035,6 +3035,9 @@ class COrdersDelivered extends COrders
 		//Look to set qualification status on another order if one exists
 		$User->establishMonthlyMinimumQualifyingOrder($sessionObj->menu_id, $this->store_id);
 
+		//Try to Cancel Order in shipstation
+		ShipStationManager::getInstanceForOrder($this)->addUpdateOrder(new ShipStationOrderWrapper($this));
+
 		self::sendCancelEmail($User, $this);
 
 		return $resultArray;

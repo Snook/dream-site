@@ -882,7 +882,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		// -------------------------------------Set up menu
 		if ($this->orderState != 'NEW')
 		{
-			$menuInfo = COrders::buildOrderEditMenuPlanArrays($Session->menu_id, $markup, true, $this->daoStore,'FeaturedFirst');
+			$menuInfo = $this->originalOrder->buildOrderEditMenuPlanArrays($Session->menu_id, $markup, true, $this->daoStore,'FeaturedFirst');
 
 			$ctsArray = CMenu::buildCTSArray($this->daoStore, $Session->menu_id, $markup);
 
@@ -1027,30 +1027,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 								$disabled = true;
 							}
 
-							$itemPriceValue = $menu_item['price'];
-
-							if (isset($orgPrices[$item]))
-							{
-								if (empty($menu_item['ltd_menu_item_value']))
-								{
-									$itemPriceValue = CTemplate::MoneyFormat($orgPrices[$item]);
-								}
-								else
-								{
-									// Make an exception for setting the LTD item price
-									// if a quantity is 0 then use the current LTD price
-									// otherwise set to saved value as usual
-									if ($Form->value($qtyName) > 0)
-									{
-										$itemPriceValue = CTemplate::MoneyFormat($orgPrices[$item]);
-									}
-									else
-									{
-										$orgPrices[$item] = $menu_item['override_price'];
-									}
-								}
-							}
-
 							$Form->AddElement(array(
 								CForm::type => CForm::Number,
 								CForm::name => $qtyName,
@@ -1074,7 +1050,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 								CForm::pricing_type => $menu_item['pricing_type'],
 								CForm::is_bundle => $menu_item['is_bundle'],
 								CForm::css_class => 'form-control-sm no-spin-button',
-								CForm::price => $itemPriceValue,
+								CForm::price => $menu_item['store_price'],
 								CForm::lastQty => $Form->value($qtyName),
 								CForm::onItemQtyKeyUp => $keyUpHandlerName,
 								CForm::max => 127

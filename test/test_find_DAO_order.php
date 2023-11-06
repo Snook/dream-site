@@ -5,12 +5,12 @@ require_once("DAO.inc");
 
 $DAO_orders = DAO_CFactory::create('orders', true);
 
-$DAO_orders->id = 3851043;
+$DAO_orders->id = 3861404;
 //$DAO_orders->whereAdd('orders.id IN (3851040, 3851043)');
 //$DAO_orders->user_id = 662598;
 
 $DAO_orders->orderBy("orders.timestamp_created DESC");
-$DAO_orders->find_DAO_orders();
+$DAO_orders->find(false, array('join_sub_dao' => true));
 
 $ordersArray = array();
 while($DAO_orders->fetch())

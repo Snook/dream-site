@@ -42,15 +42,6 @@
 					<a class="btn btn-primary btn-sm" href="/backoffice/list_users?store=<?php echo $this->store; ?>&amp;letter_select=all">View All</a>
 				</td>
 			</tr>
-			<tr>
-				<td class="bgcolor_light" style="padding:6px;white-space:nowrap;text-align:right;vertical-align:top;font-weight:bold;"><input type="button" class="btn btn-primary btn-sm" style="cursor:pointer;" value="Swipe Credit Card" onclick="document.getElementById('search_type').value='lastname'; prepareForCCSwipe();" /></td>
-				<td class="bgcolor_light">
-					<div id="scanArea" style="display:none;border:#93C89F 2px solid;padding:8px;text-align:left;">
-						<span>Please swipe the credit card.</span><br />
-						<textarea  onblur="endScanHandling();" id="hidden_text_store" name="hidden_text_store"  cols="50" rows="1" ></textarea>
-					</div>
-				</td>
-			</tr>
 		</table>
 
 	</form>
