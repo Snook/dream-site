@@ -12,14 +12,6 @@ function bundleSetup()
 			{
 				$("#bnd_" + id).prop('disabled', false);
 			});
-
-			originalAssemblyFee = $("#subtotal_service_fee").val();
-
-			if (session_type == "SPECIAL_EVENT")
-			{
-				$("#subtotal_service_fee").val("0.00");
-			}
-
 		}
 		else
 		{
@@ -27,12 +19,6 @@ function bundleSetup()
 			{
 				$("#bnd_" + id).prop('checked', false);
 			});
-
-			if (session_type == "SPECIAL_EVENT" && originalAssemblyFee != -1)
-			{
-				$("#subtotal_service_fee").val(originalAssemblyFee);
-			}
-
 		}
 
 		calculateTotal();
