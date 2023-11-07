@@ -2,44 +2,6 @@ var itemTabIsDirty = false;
 
 const EXCEED_INV_MSG = 'Your request would exceed the available inventory for this item. <br><br>The item amount has been limited to the amount currently available. <br><br>Please use the Inventory Manager to add inventory if required.';
 
-function bundleSetup()
-{
-	$(document).on('change', '#selectedBundle', function (e) {
-
-		if ($(this).is(':checked'))
-		{
-			$.each(bundleItemsBundle, function (id, item)
-			{
-				$("#bnd_" + id).prop('disabled', false);
-			});
-
-			originalAssemblyFee = $("#subtotal_service_fee").val();
-
-			if (session_type == "SPECIAL_EVENT")
-			{
-				$("#subtotal_service_fee").val("0.00");
-			}
-
-		}
-		else
-		{
-			$.each(bundleItemsBundle, function (id, item)
-			{
-				$("#bnd_" + id).prop('checked', false);
-			});
-
-			if (session_type == "SPECIAL_EVENT" && originalAssemblyFee != -1)
-			{
-				$("#subtotal_service_fee").val(originalAssemblyFee);
-			}
-
-		}
-
-		calculateTotal();
-
-	});
-}
-
 function bundleItemClick(obj)
 {
 	var numBundItems = countSelectedBundleItems();
@@ -333,6 +295,27 @@ function qtyUpdate(input)
 
 	calculateTotal();
 }
+
+$(document).on('change', '#selectedBundle', function (e) {
+
+	if ($(this).is(':checked'))
+	{
+		$.each(bundleItemsBundle, function (id, item)
+		{
+			$("#bnd_" + id).prop('disabled', false);
+		});
+	}
+	else
+	{
+		$.each(bundleItemsBundle, function (id, item)
+		{
+			$("#bnd_" + id).prop('checked', false);
+		});
+	}
+
+	calculateTotal();
+
+});
 
 $(document).on('change', '[id^="qty_"], [id^="sbi_"]', function (e) {
 	if (e.type != 'keyup')
