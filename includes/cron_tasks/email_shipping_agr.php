@@ -4,7 +4,7 @@
  *
  * @author evan lee
  */
-require_once("../Config.inc");
+require_once("../../Config.inc");
 require_once("DAO/CFactory.php");
 require_once("CLog.inc");
 require_once("CMailHandlers.inc");
@@ -29,8 +29,6 @@ function sendEmail($storeObj, $agrObj, $previousMonthName, $selectMonthYear)
 {
 
 	$data = array("storeName" => $storeObj->store_name, "month" => $previousMonthName , "year" => $selectMonthYear, "agr"=>$agrObj->total_agr);
-
-
 
 
 	$Mail = new CMail();
