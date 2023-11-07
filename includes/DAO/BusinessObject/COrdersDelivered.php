@@ -2067,67 +2067,70 @@ class COrdersDelivered extends COrders
 		{
 			foreach ($this->boxes as $box_instance_id => $thisBox)
 			{
-				$bundleID = $thisBox['bundle']->id;
-
-				foreach ($thisBox['items'] as $item)
+				if (!empty($thisBox["box_instance"]->is_complete) && empty($thisBox["box_instance"]->is_in_edit_mode))
 				{
+					$bundleID = $thisBox['bundle']->id;
 
-					list($qty, $menu_item) = $item;
-
-					if ($qty && $menu_item->id)
+					foreach ($thisBox['items'] as $item)
 					{
 
-						$orderItem = DAO_CFactory::create('order_item');
-						$orderItem->box_instance_id = $box_instance_id;
-						$orderItem->menu_item_id = $menu_item->id;
-						$orderItem->order_id = $this->id;
-						$orderItem->item_count = $qty;
-						$orderItem->bundle_id = $bundleID;
+						list($qty, $menu_item) = $item;
 
-						$thisPrice = $menu_item->price;
-						$preMarkupPrice = $menu_item->price;
-
-						$orderItem->sub_total = $thisPrice * $qty;
-						$orderItem->pre_mark_up_sub_total = $preMarkupPrice * $qty;
-
-						if (!$orderItem->insert())
+						if ($qty && $menu_item->id)
 						{
-							throw new Exception ('could not insert order item');
-						}
 
-						try
-						{
-							if (!empty($menu_item->recipe_id))
+							$orderItem = DAO_CFactory::create('order_item');
+							$orderItem->box_instance_id = $box_instance_id;
+							$orderItem->menu_item_id = $menu_item->id;
+							$orderItem->order_id = $this->id;
+							$orderItem->item_count = $qty;
+							$orderItem->bundle_id = $bundleID;
+
+							$thisPrice = $menu_item->price;
+							$preMarkupPrice = $menu_item->price;
+
+							$orderItem->sub_total = $thisPrice * $qty;
+							$orderItem->pre_mark_up_sub_total = $preMarkupPrice * $qty;
+
+							if (!$orderItem->insert())
 							{
-								$servingQty = $menu_item->servings_per_item;
-
-								if ($servingQty == 0)
-								{
-									$servingQty = 6;
-								}
-
-								if ($menu_item->is_chef_touched)
-								{
-									$servingQty = 1;
-								}
-
-								$servingQty *= $qty;
-
-								// INVENTORY TOUCH POINT 5
-
-								//subtract from inventory
-								$invItem = DAO_CFactory::create('menu_item_inventory');
-								$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold +  " . " $servingQty where mii.recipe_id = {$menu_item->recipe_id} and
-								                mii.store_id = $parentStoreId and mii.menu_id = $menu_id and mii.is_deleted = 0");
+								throw new Exception ('could not insert order item');
 							}
-						}
-						catch (exception $exc)
-						{
-							// don't allow a problem here to fail the order
-							//log the problem
-							CLog::RecordException($exc);
-							$debugStr = "INV_CONTROL ISSUE- Order: " . $this->id . " | Item: " . $orderItem->menu_item_id . " | Store: " . $this->store_id;
-							CLog::RecordNew(CLog::ERROR, $debugStr, "", "", true);
+
+							try
+							{
+								if (!empty($menu_item->recipe_id))
+								{
+									$servingQty = $menu_item->servings_per_item;
+
+									if ($servingQty == 0)
+									{
+										$servingQty = 6;
+									}
+
+									if ($menu_item->is_chef_touched)
+									{
+										$servingQty = 1;
+									}
+
+									$servingQty *= $qty;
+
+									// INVENTORY TOUCH POINT 5
+
+									//subtract from inventory
+									$invItem = DAO_CFactory::create('menu_item_inventory');
+									$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold +  " . " $servingQty where mii.recipe_id = {$menu_item->recipe_id} and
+								                mii.store_id = $parentStoreId and mii.menu_id = $menu_id and mii.is_deleted = 0");
+								}
+							}
+							catch (exception $exc)
+							{
+								// don't allow a problem here to fail the order
+								//log the problem
+								CLog::RecordException($exc);
+								$debugStr = "INV_CONTROL ISSUE- Order: " . $this->id . " | Item: " . $orderItem->menu_item_id . " | Store: " . $this->store_id;
+								CLog::RecordNew(CLog::ERROR, $debugStr, "", "", true);
+							}
 						}
 					}
 				}
