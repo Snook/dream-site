@@ -13471,6 +13471,35 @@ class COrders extends DAO_Orders
 		return $menuItemInfo;
 	}
 
+	function buildCTSArray($storeObj, $menu_id, $overrideMarkup = null)
+	{
+		$daoMenu = DAO_CFactory::create('menu');
+		$daoMenu->id = $menu_id;
+
+		$daoMenuItem = $daoMenu->findMenuItemDAO(array(
+			'join_order_item_order_id' => array($this->id),
+			'join_order_item_order' => 'LEFT',
+			'menu_to_menu_item_store_id' => $storeObj->id,
+			'exclude_menu_item_category_core' => true,
+			'exclude_menu_item_category_efl' => true,
+			'exclude_menu_item_category_sides_sweets' => false
+		));
+
+		$menuItemInfo = array();
+
+		while ($daoMenuItem->fetch())
+		{
+			$menuItemInfo[$daoMenuItem->category][$daoMenuItem->id] = $daoMenuItem->buildMenuItemArray($storeObj, $overrideMarkup);
+		}
+
+		if (!empty($menuItemInfo['Chef Touched Selections']))
+		{
+			return $menuItemInfo['Chef Touched Selections'];
+		}
+
+		return array();
+	}
+
 	/**
 	 * Returns all of the session data for this month plus surrounding days, regardless of the menu.
 	 *

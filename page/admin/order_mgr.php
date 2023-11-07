@@ -884,7 +884,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		{
 			$menuInfo = $this->originalOrder->buildOrderEditMenuPlanArrays($Session->menu_id, $markup, true, $this->daoStore,'FeaturedFirst');
 
-			$ctsArray = CMenu::buildCTSArray($this->daoStore, $Session->menu_id, $markup);
+			$ctsArray = $this->originalOrder->buildCTSArray($this->daoStore, $Session->menu_id, $markup);
 
 			$this->removePromoFromDisplayItems($items, $orgQuantities);
 			$this->removeCouponFreeMealFromDisplayItems($this->originalOrder, $items, $orgQuantities);
