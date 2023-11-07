@@ -188,6 +188,11 @@ class COrders extends DAO_Orders
 		return parent::find($n);
 	}
 
+	function find_DAO_orders($n = false)
+	{
+		return self::find($n, array('join_sub_dao' => true));
+	}
+
 	function fetch_DAO_order_item_Array()
 	{
 		$DAO_menu = DAO_CFactory::create('menu', true);
