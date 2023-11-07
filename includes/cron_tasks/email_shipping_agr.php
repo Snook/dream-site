@@ -18,11 +18,11 @@ ini_set('memory_limit','1012M');
 
 
 
-define('TEST_MODE', true);
+define('TEST_MODE', false);
 
 if( TEST_MODE ){
-	//define('TO_EMAIL','evan.lee@dreamdinners.com,ryan.snook@dreamdinners.com');
-	define('TO_EMAIL','evan.lee@dreamdinners.com');
+	define('TO_EMAIL','evan.lee@dreamdinners.com,ryan.snook@dreamdinners.com');
+	//define('TO_EMAIL','evan.lee@dreamdinners.com');
 }
 else
 {
