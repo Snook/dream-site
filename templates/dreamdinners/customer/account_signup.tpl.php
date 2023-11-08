@@ -63,6 +63,11 @@
 				</div>
 				<div class="row mt-4 mb-2">
 					<div class="col text-center">
+						<?php echo $this->form_account['sms_opt_in_html']; ?>
+					</div>
+				</div>
+				<div class="row mb-2">
+					<div class="col text-center">
 						<?php $this->tandc_page = 'account'; include $this->loadTemplate('customer/subtemplate/terms_and_conditions/tandc_agree.tpl.php'); ?>
 					</div>
 				</div>

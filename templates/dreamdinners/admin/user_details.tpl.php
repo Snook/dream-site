@@ -382,7 +382,7 @@
 														<label class="custom-control-label" for="add_method_new">Provide New Number</label>
 													</div>
 													<div id="new_mobile_number_div" class="ml-4 ml-lg-2 collapse">
-														<input type="tel" name="new mobile_number" id="new_mobile_number" class="form-control form-control-sm telephone" placeholder="*Mobile Telephone" data-telephone="true" maxlength="18" size="18" value="<?php echo ($this->user['preferences']['TEXT_MESSAGE_TARGET_NUMBER']['value'] != 'UNANSWERED') ? $this->user['preferences']['TEXT_MESSAGE_TARGET_NUMBER']['value'] : ''; ?>" />
+														<input type="tel" name="new_mobile_number" id="new_mobile_number" class="form-control form-control-sm telephone" placeholder="*Mobile Telephone" data-telephone="true" maxlength="18" size="18" value="<?php echo ($this->user['preferences']['TEXT_MESSAGE_TARGET_NUMBER']['value'] != 'UNANSWERED') ? $this->user['preferences']['TEXT_MESSAGE_TARGET_NUMBER']['value'] : ''; ?>" />
 													</div>
 												</div>
 
@@ -415,6 +415,7 @@
 											data-user_pref="text_message_reminder_session_primary"
 											data-user_pref_value_check="OPTED_IN"
 											data-user_pref_value_uncheck="OPTED_OUT"
+											data-user_id="<?php echo $this->user['id']; ?>"
 											type="checkbox"
 											<?php if ($this->user['preferences'][CUser::TEXT_MESSAGE_REMINDER_SESSION_PRIMARY]['value'] == 'OPTED_IN' || $this->user['preferences'][CUser::TEXT_MESSAGE_REMINDER_SESSION_PRIMARY]['value'] == 'PENDING_OPT_IN') {?>checked="checked"<?php } ?> />
 									<label for="text_message_reminder_session_primary"><span>Orders & Sessions</span></label><br />
@@ -426,6 +427,7 @@
 											data-user_pref="text_message_promo_primary"
 											data-user_pref_value_check="OPTED_IN"
 											data-user_pref_value_uncheck="OPTED_OUT"
+											data-user_id="<?php echo $this->user['id']; ?>"
 											type="checkbox"
 											<?php if ($this->user['preferences'][CUser::TEXT_MESSAGE_PROMO_PRIMARY]['value'] == 'OPTED_IN' || $this->user['preferences'][CUser::TEXT_MESSAGE_PROMO_PRIMARY]['value'] == 'PENDING_OPT_IN') {?>checked="checked"<?php } ?> />
 									<label for="text_message_promo_primary"><span>Promotions & Announcements</span></label><br />
@@ -437,9 +439,21 @@
 											data-user_pref="text_message_thaw_primary"
 											data-user_pref_value_check="OPTED_IN"
 											data-user_pref_value_uncheck="OPTED_OUT"
+											data-user_id="<?php echo $this->user['id']; ?>"
 											type="checkbox"
 											<?php if ($this->user['preferences'][CUser::TEXT_MESSAGE_THAW_PRIMARY]['value'] == 'OPTED_IN' || $this->user['preferences'][CUser::TEXT_MESSAGE_THAW_PRIMARY]['value'] == 'PENDING_OPT_IN') {?>checked="checked"<?php } ?> />
 									<label for="text_message_thaw_primary"><span>Thaw Reminders</span></label><br />
+
+									<input
+											data-sms_pref="false"
+											id="text_message_opt_in"
+											data-user_pref="text_message_opt_in"
+											data-user_pref_value_check="OPTED_IN"
+											data-user_pref_value_uncheck="OPTED_OUT"
+											data-user_id="<?php echo $this->user['id']; ?>"
+											type="checkbox"
+											<?php if ($this->user['preferences'][CUser::TEXT_MESSAGE_OPT_IN]['value'] == 'OPTED_IN') {?>checked="checked"<?php } ?> />
+									<label for="text_message_opt_in"><span>Opt-in to receive text messages from the store.</span></label><br />
 
 									<div class="collapse"  data-sms_dlog_comp="true" >
 										<div class="col">

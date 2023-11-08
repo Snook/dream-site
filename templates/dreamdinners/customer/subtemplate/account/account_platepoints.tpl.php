@@ -27,18 +27,20 @@
 			</div>
 		</div>
 
-		<div class="row mb-2">
-			<div class="col text-center">
-				<?php if (CUser::getCurrentUser()->platePointsData['status'] == 'active') { ?>
-					You're currently enrolled in the program. View details under My Account.
-				<?php } else if (!CUser::getCurrentUser()->platePointsData['userIsOnHold']) { ?>
-					<div class="custom-control custom-control-inline custom-checkbox">
-						<input type="checkbox" class="custom-control-input" name="enroll_in_plate_points" id="enroll_in_plate_points">
-						<label for="enroll_in_plate_points" class="custom-control-label">Enroll me in PlatePoints. I agree to the <a href="/terms#platepoints" target="_blank">program terms.</a></label>
-					</div>
-				<?php } ?>
+		<?php if (CUser::isLoggedIn()) { ?>
+			<div class="row mb-2">
+				<div class="col text-center">
+					<?php if (CUser::getCurrentUser()->platePointsData['status'] == 'active') { ?>
+						You're currently enrolled in the program. View details under My Account.
+					<?php } else if (!CUser::getCurrentUser()->platePointsData['userIsOnHold']) { ?>
+						<div class="custom-control custom-control-inline custom-checkbox">
+							<input type="checkbox" class="custom-control-input" name="enroll_in_plate_points" id="enroll_in_plate_points">
+							<label for="enroll_in_plate_points" class="custom-control-label">Enroll me in PlatePoints. I agree to the <a href="/terms#platepoints" target="_blank">program terms.</a></label>
+						</div>
+					<?php } ?>
+				</div>
 			</div>
-		</div>
+		<?php } ?>
 
 	</div>
 </div>

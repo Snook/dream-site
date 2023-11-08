@@ -4,7 +4,7 @@
 			<div class="col-12 col-lg-12">
 				<div class="form-row">
 					<div class="form-group col">
-						<?php if ($this->hasReferralSource) { ?>
+						<?php if (!empty($this->hasReferralSource)) { ?>
 							<?php echo $this->form_account['referral_source_html']; ?>
 							<div id="referral_source_details_div" class="collapse"><?php echo $this->form_account['referral_source_details_html'];?> </div>
 							<div id="virtual_party_source_details_div" class="collapse"><?php echo $this->form_account['virtual_party_source_details_html'];?></div>
