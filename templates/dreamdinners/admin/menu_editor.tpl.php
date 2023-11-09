@@ -627,42 +627,45 @@
 								<tbody class="text-white-space-nowrap text-center">
 								<?php if (!empty($this->pricingReferenceArray)) { ?>
 									<?php foreach ($this->pricingReferenceArray AS $DAO_menu_item) { ?>
-										<?php if (!empty($DAO_menu_item->pricing_tiers)) { ?>
-											<tr>
-												<td class="text-left">
-													<?php echo $DAO_menu_item->menu_item_name; ?> (<?php echo $DAO_menu_item->recipe_id; ?>)
-												</td>
-												<td>
-													<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['1'][CMenuItem::HALF])) { ?>
-														<?php echo $DAO_menu_item->pricing_tiers['1'][CMenuItem::HALF]->price; ?>
-													<?php } ?>
-												</td>
-												<td>
-													<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['1'][CMenuItem::FULL])) { ?>
-														<?php echo $DAO_menu_item->pricing_tiers['1'][CMenuItem::FULL]->price; ?>
-													<?php } ?>
-												</td>
-												<td>
-													<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['2'][CMenuItem::HALF])) { ?>
-														<?php echo $DAO_menu_item->pricing_tiers['2'][CMenuItem::HALF]->price; ?>
-													<?php } ?>
-												</td>
-												<td>
-													<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['2'][CMenuItem::FULL])) { ?>
-														<?php echo $DAO_menu_item->pricing_tiers['2'][CMenuItem::FULL]->price; ?>
-													<?php } ?>
-												</td>
-												<td>
-													<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['3'][CMenuItem::HALF])) { ?>
-														<?php echo $DAO_menu_item->pricing_tiers['3'][CMenuItem::HALF]->price; ?>
-													<?php } ?>
-												</td>
-												<td>
-													<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['3'][CMenuItem::FULL])) { ?>
-														<?php echo $DAO_menu_item->pricing_tiers['3'][CMenuItem::FULL]->price; ?>
-													<?php } ?>
-												</td>
-											</tr>
+										<?php if (!$DAO_menu_item->isMenuItem_SidesSweets()) { ?>
+
+											<?php if (!empty($DAO_menu_item->pricing_tiers)) { ?>
+												<tr>
+													<td class="text-left">
+														<?php echo $DAO_menu_item->menu_item_name; ?> (<?php echo $DAO_menu_item->recipe_id; ?>)
+													</td>
+													<td>
+														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['1'][CMenuItem::HALF])) { ?>
+															<?php echo $DAO_menu_item->pricing_tiers['1'][CMenuItem::HALF]->price; ?>
+														<?php } ?>
+													</td>
+													<td>
+														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['1'][CMenuItem::FULL])) { ?>
+															<?php echo $DAO_menu_item->pricing_tiers['1'][CMenuItem::FULL]->price; ?>
+														<?php } ?>
+													</td>
+													<td>
+														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['2'][CMenuItem::HALF])) { ?>
+															<?php echo $DAO_menu_item->pricing_tiers['2'][CMenuItem::HALF]->price; ?>
+														<?php } ?>
+													</td>
+													<td>
+														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['2'][CMenuItem::FULL])) { ?>
+															<?php echo $DAO_menu_item->pricing_tiers['2'][CMenuItem::FULL]->price; ?>
+														<?php } ?>
+													</td>
+													<td>
+														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['3'][CMenuItem::HALF])) { ?>
+															<?php echo $DAO_menu_item->pricing_tiers['3'][CMenuItem::HALF]->price; ?>
+														<?php } ?>
+													</td>
+													<td>
+														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['3'][CMenuItem::FULL])) { ?>
+															<?php echo $DAO_menu_item->pricing_tiers['3'][CMenuItem::FULL]->price; ?>
+														<?php } ?>
+													</td>
+												</tr>
+											<?php } ?>
 										<?php } ?>
 									<?php } ?>
 								<?php } ?>
