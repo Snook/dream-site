@@ -16,11 +16,11 @@ require_once('includes/CLog.inc');
 
 //CCartStorage::fetchAbandonedCartRows(10);
 
-$contactKeyResult = QrCodeMonkeyManager::getInstance()->fetchContactKeyByEmail('evan.lee@dreamdinners.com');
+$contactKeyResult = QrCodeMonkeyManager::getInstance()->fetchContactKeyByEmail('ryan.snook@dreamdinners.com');
 //
 $contactKey = $contactKeyResult->getPayload();
 //
-QrCodeMonkeyManager::getInstance()->invokeAbandonedCartJourney($contactKey,'evan.lee@dreamdinners.com', 'Evan','1c0d3f4a26ff32cb07baa4a3bb1627b8');
+QrCodeMonkeyManager::getInstance()->invokeAbandonedCartJourney($contactKey,'ryan.snook@dreamdinners.com', 'Ryan','1c0d3f4a26ff32cb07baa4a3bb1627b8');
 
 
 

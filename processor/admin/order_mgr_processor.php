@@ -2991,7 +2991,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 
 		if (!empty($_REQUEST['cart_id']))
 		{
-			CLog::RecordIntense("DoSetSessionAndSave called with a cart id", "ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com");
+			CLog::RecordIntense("DoSetSessionAndSave called with a cart id", "ryan.snook@dreamdinners.com");
 
 			$Cart = CCart2::instance(true, $_REQUEST['cart_id']);
 			$Order = $Cart->getOrder();
@@ -3014,7 +3014,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 
 			if ($delta > 1)
 			{
-				CLog::RecordIntense("PlatePoints Discount is greater than discountable amount during customer order submission", "ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com");
+				CLog::RecordIntense("PlatePoints Discount is greater than discountable amount during customer order submission", "ryan.snook@dreamdinners.com");
 
 				$Cart->updateDinnerDollarsDirect($discountableAmount);
 				throw new Exception('It appears your cart has been updated since this checkout page was loaded. We need to reload the page now to reflect those changes.', self::dd_dinner_dollars_exception_code);
@@ -3810,6 +3810,8 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			{
 				$query = "SELECT
 					mmi.override_price as override_price,
+					mmi.menu_id,
+					mmi.store_id,
 					mimd.id as markdown_id,
 					mimd.markdown_value,
 					r.ltd_menu_item_value,

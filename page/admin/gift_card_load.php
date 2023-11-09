@@ -416,7 +416,7 @@ class page_admin_gift_card_load extends CPageAdminOnly
                                 $voidResult = $process->voidGiftCardPayment(CGPC::do_clean($_POST['primary_email'],TYPE_STR), $ccResponse[1]['PNREF']);
                                 if ($voidResult != 'success')
                                 {
-                                    CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+                                    CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com');
                                 }
                             }
                             else

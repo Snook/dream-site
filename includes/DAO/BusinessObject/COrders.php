@@ -188,6 +188,11 @@ class COrders extends DAO_Orders
 		return parent::find($n);
 	}
 
+	function find_DAO_orders($n = false)
+	{
+		return self::find($n, array('join_sub_dao' => true));
+	}
+
 	function fetch_DAO_order_item_Array()
 	{
 		$DAO_menu = DAO_CFactory::create('menu', true);
@@ -9907,7 +9912,7 @@ class COrders extends DAO_Orders
 		{
 			if ($this->grand_total > 0)
 			{
-				CLog::RecordIntense("The Payment Array is empty: cctype: $ccType: paymentNumber: $paymentNumber", 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+				CLog::RecordIntense("The Payment Array is empty: cctype: $ccType: paymentNumber: $paymentNumber", 'ryan.snook@dreamdinners.com');
 
 				return array(
 					'result' => 'failed',
@@ -10136,7 +10141,7 @@ class COrders extends DAO_Orders
 		/* test fails in some legitimate places so remove it
 		 *
 		if ( !array_key_exists('store_id', $rtn) || !$rtn['store_id']) {
-			CLog::RecordIntense("Store serialization issue", "ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com");
+			CLog::RecordIntense("Store serialization issue", "ryan.snook@dreamdinners.com");
 			//throw new exception('serialization error: store id not found');
 		}
 		*/
@@ -13469,6 +13474,35 @@ class COrders extends DAO_Orders
 		$menuItmInfo['menu_month'] = strftime('%B', strtotime($daoMenu->menu_start));
 
 		return $menuItemInfo;
+	}
+
+	function buildCTSArray($storeObj, $menu_id, $overrideMarkup = null)
+	{
+		$daoMenu = DAO_CFactory::create('menu');
+		$daoMenu->id = $menu_id;
+
+		$daoMenuItem = $daoMenu->findMenuItemDAO(array(
+			'join_order_item_order_id' => array($this->id),
+			'join_order_item_order' => 'LEFT',
+			'menu_to_menu_item_store_id' => $storeObj->id,
+			'exclude_menu_item_category_core' => true,
+			'exclude_menu_item_category_efl' => true,
+			'exclude_menu_item_category_sides_sweets' => false
+		));
+
+		$menuItemInfo = array();
+
+		while ($daoMenuItem->fetch())
+		{
+			$menuItemInfo[$daoMenuItem->category][$daoMenuItem->id] = $daoMenuItem->buildMenuItemArray($storeObj, $overrideMarkup);
+		}
+
+		if (!empty($menuItemInfo['Chef Touched Selections']))
+		{
+			return $menuItemInfo['Chef Touched Selections'];
+		}
+
+		return array();
 	}
 
 	/**

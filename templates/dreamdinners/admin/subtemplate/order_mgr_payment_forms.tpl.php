@@ -69,7 +69,7 @@
 						<p class="form_subtitle_cell"><b>Additional New Payment</b></p>
 						<?php echo $this->form_direct_order['payment2_type_html']?>
 						<label id="payment2_type_lbl" name="payment2_type_lbl" message="Please enter a payment type."></label>
-
+						<a href="javascript:document.getElementById('payment2_type').value='CC'; changePayment2('CC'); prepareForCCSwipe(2);">Swipe Credit Card</a><br />
 						<hr />
 
 						<?php include $this->loadTemplate('admin/subtemplate/order_manager_cash_check_payment_2_form.tpl.php');?>

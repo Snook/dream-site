@@ -268,7 +268,7 @@ class CEmail extends CMail
 					$Mail->to_name = $storeObj->store_name;
 
 					if(MAIL_TEST_MODE){
-						$Mail->to_email = 'evan.lee@dreamdinners.com';
+						$Mail->to_email = 'ryan.snook@dreamdinners.com';
 					}else{
 						$Mail->to_email = $storeObj->email_address;
 					}

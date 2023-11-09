@@ -580,7 +580,7 @@ class CMenu extends DAO_Menu
 
 			$DAO_menu_item->joinAddWhereAsOn($DAO_pricing_tiers, $optionsArray['join_pricing_to_menu_item'], 'pricing_tiers', false, false);
 			// this will be decoded in CMenuItem::digestMenuItem()
-			$DAO_menu_item->selectAdd("GROUP_CONCAT(DISTINCT pricing_tiers.id, ':' , pricing_tiers.menu_id, ':' , pricing_tiers.recipe_id, ':' , pricing_tiers.pricing_type, ':' , pricing_tiers.tier, ':' , pricing.price) as _pricing_tiers");
+			$DAO_menu_item->selectAdd("GROUP_CONCAT(DISTINCT pricing_tiers.id, ':' , pricing_tiers.menu_id, ':' , pricing_tiers.recipe_id, ':' , pricing_tiers.pricing_type, ':' , pricing_tiers.tier, ':' , pricing_tiers.price) as _pricing_tiers");
 		}
 
 		if ($optionsArray['join_food_survey_user_id'] || !empty($optionsArray['join_order_item_order_id']))
@@ -1181,8 +1181,7 @@ class CMenu extends DAO_Menu
 		$currentUserID = CUser::getCurrentUser()->id;
 		$allowedUserArray = array(
 			400252,
-			662598,
-			907086
+			662598
 		);
 
 		if ($adjustedServerTime > $cutOff && !in_array($currentUserID, $allowedUserArray))

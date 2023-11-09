@@ -6,7 +6,7 @@ require_once 'includes/DAO/BusinessObject/CUser.php';
 require_once 'includes/DAO/BusinessObject/COrderMinimum.php';
 
 $user= new CUser();
-$user->id = 907086;
+$user->id = 662598;
 $user->find(true);
 
 $order = new COrders();

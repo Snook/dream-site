@@ -698,7 +698,7 @@ class page_admin_create_session extends CPageAdminOnly
 
 					if (empty($tasteThemeInfo['id']) || $tasteThemeInfo['id'] == 1)
 					{
-						CLog::RecordIntense("No Meal Prep Workshop ID", "evan.lee@dreamdinners.com, ryan.snook@dreamdinners.com");
+						CLog::RecordIntense("No Meal Prep Workshop ID", "ryan.snook@dreamdinners.com");
 
 						$tpl->setErrorMsg('Error finding Meal Prep Workshop information, if this continues please contact support.');
 
@@ -714,7 +714,7 @@ class page_admin_create_session extends CPageAdminOnly
 
 					if (empty($fundraiserThemeInfo['id']) || $fundraiserThemeInfo['id'] == 1)
 					{
-						CLog::RecordIntense("No Fundraiser ID", "ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com");
+						CLog::RecordIntense("No Fundraiser ID", "ryan.snook@dreamdinners.com");
 
 						$tpl->setErrorMsg('Error finding Fundraiser information, if this continues please contact support.');
 
@@ -868,7 +868,7 @@ class page_admin_create_session extends CPageAdminOnly
 							$session_properties->session_id = $Session->id;
 							if (empty($tasteThemeInfo['id']) || $tasteThemeInfo['id'] == 1)
 							{
-								CLog::RecordIntense("No Meal Prep Workshop ID", "ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com");
+								CLog::RecordIntense("No Meal Prep Workshop ID", "ryan.snook@dreamdinners.com");
 							}
 							$session_properties->dream_taste_event_id = $tasteThemeInfo['id'];
 							$session_properties->menu_pricing_method = 'USE_CURRENT';
@@ -907,7 +907,7 @@ class page_admin_create_session extends CPageAdminOnly
 							$session_properties->session_id = $Session->id;
 							if (empty($fundraiserThemeInfo['id']) || $fundraiserThemeInfo['id'] == 1)
 							{
-								CLog::RecordIntense("No Fundraiser ID", "ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com");
+								CLog::RecordIntense("No Fundraiser ID", "ryan.snook@dreamdinners.com");
 							}
 							$session_properties->dream_taste_event_id = $fundraiserThemeInfo['id'];
 							$session_properties->menu_pricing_method = 'USE_CURRENT';

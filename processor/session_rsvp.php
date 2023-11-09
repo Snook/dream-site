@@ -4,6 +4,11 @@ require_once("includes/CSRF.inc");
 
 class processor_session_rsvp extends CPageProcessor
 {
+	function runPublic()
+	{
+		$this->sessionRSVP();
+	}
+
 	function runCustomer()
 	{
 		$this->sessionRSVP();

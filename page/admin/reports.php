@@ -16,7 +16,7 @@
 
 	const LIMITED_P_AND_L_ACCESS_SECTION_ID = 8;
 	const LIMITED_WEEKLY_REPORT_ACCESS = 9;
-	
+
 	function handleFileRetrieval($tpl)
 	{
 		if (isset($_REQUEST['file_id']) && is_numeric($_REQUEST['file_id']))
@@ -26,7 +26,7 @@
 			if (!$File)
 			{
 				$tpl->setErrorMessage("An error occurred when retrieving the file.");
-				CLog::RecordIntense('Missing File or shenanigans', 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+				CLog::RecordIntense('Missing File or shenanigans', 'ryan.snook@dreamdinners.com');
 			}
 		}
 	}
@@ -64,17 +64,17 @@
 	 	$storeObj->fetch();
 
 	 	$this->storeObj = $storeObj;
-	 	
+
 	 	$tpl = CApp::instance()->template();
-	 	 
+
 	 	$hasPandLAccess = CApp::directAccessControlTest(self::LIMITED_P_AND_L_ACCESS_SECTION_ID, CUser::getCurrentUser()->id);
-	 	
+
 	 	$tpl->assign('hasPandLAccess', $hasPandLAccess);
 		 $tpl->assign('storeSupportsDelivery', $this->storeObj->supports_delivery);
 		 $tpl->assign('storeSupportsMembership', $this->storeObj->supports_membership);
 
 		 $this->runFranchiseOwner();
-	 	 
+
 
 
 	 	$this->runFranchiseOwner();
@@ -90,9 +90,9 @@
 	 	$this->storeObj = $storeObj;
 
 	 	$tpl = CApp::instance()->template();
-	 	
+
 	 	$hasPandLAccess = CApp::directAccessControlTest(self::LIMITED_P_AND_L_ACCESS_SECTION_ID, CUser::getCurrentUser()->id);
-	 	 
+
 	 	$tpl->assign('hasPandLAccess', $hasPandLAccess);
 		 $tpl->assign('storeSupportsDelivery', $this->storeObj->supports_delivery);
 		 $tpl->assign('storeSupportsMembership', $this->storeObj->supports_membership);
@@ -137,7 +137,7 @@
 		 $hasPandLAccess = CApp::directAccessControlTest(self::LIMITED_P_AND_L_ACCESS_SECTION_ID, CUser::getCurrentUser()->id);
 
 		 $hasWeeklyReportAccess = CApp::directAccessControlTest(self::LIMITED_WEEKLY_REPORT_ACCESS, CUser::getCurrentUser()->id);
-	 	 
+
 	 	$tpl->assign('hasPandLAccess', $hasPandLAccess);
 	 	$tpl->assign('hasWeeklyReportAccess', $hasWeeklyReportAccess);
 

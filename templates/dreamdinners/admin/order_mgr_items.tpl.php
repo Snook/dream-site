@@ -401,7 +401,7 @@ function determineEntreeId($tpl, $categoryName, $planNode, $menuItemId)
 					</td>
 
 					<td class="text-right">
-						$<span id="prc_<?php echo $thisItem['id']; ?>"><?php echo $thisItem['store_price']; ?></span>
+						$<span id="prc_<?php echo $thisItem['id']; ?>"><?php echo CTemplate::moneyFormat($thisItem['store_price']); ?></span>
 					</td>
 					<td>
 						<div class="input-group">

@@ -757,7 +757,7 @@ class CSessionReports
 			$menu_id = $session['menu_id'];
 
 			$this->total_orders += $session['numOrders'];
-			$this->total_orders_greater_than_72_servings += $session['numOrdersGreaterThan72servings'];
+			$this->total_orders_greater_than_72_servings += !empty($session['numOrdersGreaterThan72servings']) ? $session['numOrdersGreaterThan72servings'] : 0;
 
 			$session_id = $session['session_id'];
 
@@ -835,7 +835,7 @@ class CSessionReports
 			$menu_id = $session['menu_id'];
 
 			$this->total_orders += $session['numOrders'];
-			$this->total_orders_greater_than_72_servings += $session['numOrdersGreaterThan72servings'];
+			$this->total_orders_greater_than_72_servings += !empty($session['numOrdersGreaterThan72servings']) ? $session['numOrdersGreaterThan72servings'] : 0;
 
 			$session_id = $session['session_id'];
 
@@ -1378,11 +1378,16 @@ class CSessionReports
 
 	function getContainerTypesDelivered($menu_id, $store_id = false)
 	{
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->id = $store_id;
+		$DAO_store->find_DAO_store(true);
 
 		$menu_item_details = array();
 		$varStr = "";
-		$menu_item = DAO_CFactory::create("menu_to_menu_item");
-		$varStr = "SELECT menu_item.servings_per_item, menu_item.id,menu_item.container_type, pricing_type FROM menu_to_menu_item " . "INNER JOIN menu_item ON menu_to_menu_item.menu_item_id = menu_item.id ";
+		$menu_item = DAO_CFactory::create("menu_to_menu_item", true);
+		$varStr = "SELECT menu_item.servings_per_item, menu_item.id,menu_item.container_type, pricing_type 
+			FROM menu_to_menu_item
+			INNER JOIN menu_item ON menu_to_menu_item.menu_item_id = menu_item.id ";
 		$SSM_menu_array = array();
 
 		// split menu array into store specific and non-store specific menus
@@ -1394,9 +1399,11 @@ class CSessionReports
 
 		$listClause = implode(",", $SSM_menu_array);
 
+
+
 		if ($store_id)
 		{
-			$varStr .= " Where (menu_to_menu_item.menu_id IN ($listClause) and menu_to_menu_item.store_id = $store_id) and menu_to_menu_item.is_deleted = 0";
+			$varStr .= " Where (menu_to_menu_item.menu_id IN ($listClause) and menu_to_menu_item.store_id = " . ((!empty($DAO_store->parent_store_id)) ? $DAO_store->parent_store_id : $DAO_store->id) .") and menu_to_menu_item.is_deleted = 0";
 		}
 		else
 		{
@@ -1694,6 +1701,9 @@ class CSessionReports
 
 	function generateMenuArrayNItemsDelivered($menu_array, &$menu_name_array, $container_type_array, $store_id = false)
 	{
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->id = $store_id;
+		$DAO_store->find_DAO_store(true);
 
 		$SSM_menu_array = array();
 
@@ -1719,7 +1729,7 @@ class CSessionReports
 		}
 		else
 		{
-			$storeClause .= "(menu_to_menu_item.menu_id IN ($listClause) and menu_to_menu_item.store_id = $store_id) ";
+			$storeClause .= "(menu_to_menu_item.menu_id IN ($listClause) and menu_to_menu_item.store_id = " . ((!empty($DAO_store->parent_store_id)) ? $DAO_store->parent_store_id : $DAO_store->id) .") ";
 			$storeClause = " AND (" . $storeClause . ")";
 		}
 

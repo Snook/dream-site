@@ -498,7 +498,7 @@
                                         $voidResult = CGiftCard::voidTransaction($thisTransID, $AuthCode);
                                         if ($voidResult != 'success')
                                         {
-                                            CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+                                            CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com');
                                         }
 
                                         $reverter = new DAO();
@@ -520,7 +520,7 @@
                                     $voidResult = $process->voidGiftCardPayment(CGPC::do_clean($_POST['primary_email']), $refNum);
                                     if ($voidResult != 'success')
                                     {
-                                        CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+                                        CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com');
                                     }
          							$tpl->setErrorMsg("An error occurred when recording your Gift card order. Please try again later or contact support.");
          						}

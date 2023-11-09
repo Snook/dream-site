@@ -29,7 +29,7 @@ DD_Selenium_Test_Utils::Trace("Customer Order Test Initialized: About to begin .
 
 DD_Selenium_Test_Utils::signOnSiteAdmin($driver);
 
-$FNO_Session_ID = DD_Selenium_Test_Session_Utils::createFNOSession($driver, $dest_fp, '12/17/2017', 196, 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+$FNO_Session_ID = DD_Selenium_Test_Session_Utils::createFNOSession($driver, $dest_fp, '12/17/2017', 196, 'ryan.snook@dreamdinners.com');
 $driver->get($baseURL . "/backoffice?session=" . $FNO_Session_ID);
 sleep(2);
 for ($x = 0; $x < 4; $x++)

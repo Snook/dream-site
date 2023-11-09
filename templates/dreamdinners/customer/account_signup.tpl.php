@@ -45,13 +45,15 @@
 							</div>
 						</div>
 						<div class="form-row text-center text-md-left pl-2 mb-4">
-							<div class="col">
+							<div class="col-md-6">
 								<div class="custom-control-inline">
 									<?php echo $this->form_account['telephone_1_type_html']['MOBILE']; ?>
 								</div>
 								<div class="custom-control-inline">
 									<?php echo $this->form_account['telephone_1_type_html']['LAND_LINE']; ?>
 								</div>
+							</div>
+							<div class="col-md-6">
 							</div>
 						</div>
 

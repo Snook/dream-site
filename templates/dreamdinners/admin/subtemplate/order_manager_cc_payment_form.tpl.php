@@ -30,7 +30,17 @@
 			<td valign="top" class="form_field_cell">Credit Card Number</td>
 			<td class="form_field_cell">
 				<?php echo $this->form_direct_order['payment1_ccNumber_html']?>
-				<label id="payment1_ccNumber_lbl" for="payment1_ccNumber" message="Please enter your credit card number."></label>
+				<label id="payment1_ccNumber_lbl" for="payment1_ccNumber" message="Please enter your credit card number."></label><a href="javascript:prepareForCCSwipe(1);">Swipe Credit Card</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<!-- Scan Area for credit card swipe -->
+				<div id="scanArea" style="text-align:center;display:none;border:green thick solid;padding:8px;margin-top:4px;margin-bottom:4px;">
+					<span>Please swipe the credit card.</span><br />
+					<textarea onblur="endScanHandling();" id="hidden_text_store" name="hidden_text_store" cols="30" rows="1" ></textarea>
+				</div>
+
 			</td>
 		</tr>
 		<tr class="form_field_cell">

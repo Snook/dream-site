@@ -737,7 +737,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$tpl->assign('order_is_complete_but_unconfirmed', true);
 		}
 
-		if (CUser::getCurrentUser()->id == 662598 || CUser::getCurrentUser()->id == 907086)
+		if (CUser::getCurrentUser()->id == 662598)
 		{
 			$order_is_locked = false;
 			$this->discountEligable['limited_access'] = false;
@@ -884,7 +884,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		{
 			$menuInfo = $this->originalOrder->buildOrderEditMenuPlanArrays($Session->menu_id, $markup, true, $this->daoStore,'FeaturedFirst');
 
-			$ctsArray = CMenu::buildCTSArray($this->daoStore, $Session->menu_id, $markup);
+			$ctsArray = $this->originalOrder->buildCTSArray($this->daoStore, $Session->menu_id, $markup);
 
 			$this->removePromoFromDisplayItems($items, $orgQuantities);
 			$this->removeCouponFreeMealFromDisplayItems($this->originalOrder, $items, $orgQuantities);
@@ -1248,7 +1248,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 						'data-item_is_customizable' => 0,
 						'data-index' => $index++
 					),
-					CForm::price => $data['price'],
+					CForm::price => $data['store_price'],
 					CForm::is_bundle => $data['is_bundle'],
 					CForm::pricing_type => $data['pricing_type'],
 					CForm::entreeID => $data['entree_id'],

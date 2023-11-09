@@ -675,7 +675,7 @@ class page_admin_reports_payment_reconciliation extends CPageAdminOnly {
 			if (!$excessiveData)
 				$tarray['session_start'] = PHPExcel_Shared_Date::stringToExcel($tarray['session_start']);
 
-			$tarray['order_confirmation'] = "=HYPERLINK(\"" . HTTPS_BASE . "backoffice/order-details?order=" . $booking->orders_id ."\", \"" . $tarray['order_confirmation'] . "\")";
+			$tarray['order_confirmation'] = "=HYPERLINK(\"" . HTTPS_BASE . "backoffice/order-mgr-thankyou?order=" . $booking->orders_id ."\", \"" . $tarray['order_confirmation'] . "\")";
 			$tarray['firstname'] = addslashes($tarray['firstname']);// escape the last and first name
 			$tarray['lastname']  = addslashes($tarray['lastname']);// escape the last and first name
 
@@ -919,7 +919,7 @@ class page_admin_reports_payment_reconciliation extends CPageAdminOnly {
 			}
 
 
-			$tarray['order_confirmation'] = "=HYPERLINK(\"" . HTTPS_BASE . "backoffice/order-details?order=" . $booking->orders_id ."\", \"" . $tarray['order_confirmation'] . "\")";
+			$tarray['order_confirmation'] = "=HYPERLINK(\"" . HTTPS_BASE . "backoffice/order-mgr-thankyou?order=" . $booking->orders_id ."\", \"" . $tarray['order_confirmation'] . "\")";
 			$tarray['firstname'] = addslashes($tarray['firstname']);// escape the last and first name
 			$tarray['lastname']  = addslashes($tarray['lastname']);// escape the last and first name
 

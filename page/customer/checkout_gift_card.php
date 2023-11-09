@@ -575,7 +575,7 @@ class page_checkout_gift_card extends CPage
                                 $voidResult = $process->voidGiftCardPayment($guestEmail, $refNum);
                                 if ($voidResult != 'success')
                                 {
-                                    CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+                                    CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com');
                                 }
 
                                 $hasVoidedCCPayment = true;
@@ -611,7 +611,7 @@ class page_checkout_gift_card extends CPage
                                     $voidResult = $process->voidGiftCardPayment($guestEmail, $refNum);
                                     if ($voidResult != 'success')
                                     {
-                                        CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+                                        CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com');
                                     }
 
                                     $hasVoidedCCPayment = true;
@@ -628,14 +628,14 @@ class page_checkout_gift_card extends CPage
 						else
 						{
 							//handle this very nasty problem
-							CLog::RecordIntense("obtainAccountNumberAndLoad Failure", 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+							CLog::RecordIntense("obtainAccountNumberAndLoad Failure", 'ryan.snook@dreamdinners.com');
                             if (!$hasVoidedCCPayment)
                             {
                                 $process = new PayPalProcess();
                                 $voidResult = $process->voidGiftCardPayment($guestEmail, $refNum);
                                 if ($voidResult != 'success')
                                 {
-                                    CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+                                    CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com');
                                 }
 
                                 $hasVoidedCCPayment = true;

@@ -35,7 +35,7 @@ try {
             $Mail->send(null,
                 null,
                 "Dream Dinners Technical Staff",
-                "evan.lee@dreamdinners.com,josh.thayer@dreamdinners.com,ryan.snook@dreamdinners.com",
+                "josh.thayer@dreamdinners.com,ryan.snook@dreamdinners.com",
                 "Cron Job Failures",
                 $contentsHtml,
                 null,

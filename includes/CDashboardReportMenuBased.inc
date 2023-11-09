@@ -389,7 +389,7 @@ class CDashboardMenuBased
 		$MenuObj->menu_start = $thisMonth;
 		if (!$MenuObj->find(true))
 		{
-			//CLog::RecordIntense("Menu not found in updateGuestMetrics", "ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com");
+			//CLog::RecordIntense("Menu not found in updateGuestMetrics", "ryan.snook@dreamdinners.com");
 		}
 
 		$Metrics_Exist = false;
