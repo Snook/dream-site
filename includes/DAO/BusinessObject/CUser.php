@@ -2749,7 +2749,7 @@ class CUser extends DAO_User
 		if (self::isUserEnrolledInDFL($orderDAO->user_id, 2))
 		{
 			//TODO: maybe we should throw here , if the subscription cost money the we can't let this go by undetected.
-			CLog::RecordIntense('User already has subscription - for order: ' . $orderDAO->id, 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+			CLog::RecordIntense('User already has subscription - for order: ' . $orderDAO->id, 'ryan.snook@dreamdinners.com');
 
 			return;
 		}
@@ -2800,7 +2800,7 @@ class CUser extends DAO_User
 					default:
 						$endTS = mktime(0, 0, 0, date("n", $curTimeTS), date("j", $curTimeTS), date("Y", $curTimeTS) + 1);
 						// config issue: notify and record one year subscription
-						CLog::RecordIntense('Could not find enrollment period type in registerSubscription for order: ' . $orderDAO->id, 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+						CLog::RecordIntense('Could not find enrollment period type in registerSubscription for order: ' . $orderDAO->id, 'ryan.snook@dreamdinners.com');
 						break;
 				}
 
@@ -2826,7 +2826,7 @@ class CUser extends DAO_User
 			}
 			else if (!$userMembership->insert())
 			{
-				CLog::RecordIntense('Could not insert enrollment for order: ' . $orderDAO->id, 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+				CLog::RecordIntense('Could not insert enrollment for order: ' . $orderDAO->id, 'ryan.snook@dreamdinners.com');
 
 				return;
 			}
@@ -2840,7 +2840,7 @@ class CUser extends DAO_User
 		else
 		{
 			// don't throw here, no need to lose the entire order because of an enrollment snafu so
-			CLog::RecordIntense('Could not find package in registerSubscription for order: ' . $orderDAO->id, 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+			CLog::RecordIntense('Could not find package in registerSubscription for order: ' . $orderDAO->id, 'ryan.snook@dreamdinners.com');
 		}
 	}
 
@@ -2857,7 +2857,7 @@ class CUser extends DAO_User
 		{
 			//somehow a DFL order was placed but the user has no enrollment
 			//CLog::RecordNew('ERROR', 'DFL Order was placed for user without active enrollment');
-			CLog::RecordIntense('DFL Order was placed for user without any enrollment2', 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+			CLog::RecordIntense('DFL Order was placed for user without any enrollment2', 'ryan.snook@dreamdinners.com');
 		}
 		else
 		{
@@ -4219,7 +4219,7 @@ class CUser extends DAO_User
 		{
 			if (!isset($this->preferences[self::HAS_SEEN_ELEMENT]))
 			{
-				CLog::RecordIntense("HAS_SEEN_ELEMENT not set in this preferences", "ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com");
+				CLog::RecordIntense("HAS_SEEN_ELEMENT not set in this preferences", "ryan.snook@dreamdinners.com");
 			}
 
 			foreach ($not_in_has_seen_element_pref as $key => $default)
@@ -4928,7 +4928,7 @@ class CUser extends DAO_User
 				}
 				else
 				{
-					CLog::RecordIntense("User obj was deleted but email exists in undeleted row in user login: user_id#" . $loginObj->user_id, "ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com");
+					CLog::RecordIntense("User obj was deleted but email exists in undeleted row in user login: user_id#" . $loginObj->user_id, "ryan.snook@dreamdinners.com");
 					// display the message so bad dudes learn nothing
 					if (!$suppressUIfunction)
 					{

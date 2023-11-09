@@ -9,16 +9,16 @@ require_once('includes/CDashboardReport.inc');
 
 class CDashboardWeekBased
 {
-    
-    
-    
+
+
+
     static function updateGrowthScoreCard($store_id, $curWeek, $curYear, $cutoffTime)
     {
-        
+
         // current Month
         $weekObj = new DAO();
-        
-        
+
+
         $weekObj->query("select  m.menu_name, m.id as this_menu_id, WEEK(s.session_start, 3) as week_num, count(distinct b.user_id) as guest_count, GROUP_CONCAT(distinct b.user_id) as guest_list from session s
             join booking b on b.session_id = s.id and b.status = 'ACTIVE' and b.is_deleted = 0
             join orders o on o.id = b.order_id and o.servings_total_count > 35
@@ -27,7 +27,7 @@ class CDashboardWeekBased
             and s.store_id = $store_id and s.session_start < '$cutoffTime'
             group by WEEK(s.session_start, 3)
             order by s.session_start");
-        
+
         if($weekObj->fetch())
         {
             $last_month_menu_id = $weekObj->this_menu_id - 1;
@@ -36,27 +36,27 @@ class CDashboardWeekBased
                 join booking b on b.session_id = s.id and b.status = 'ACTIVE' and b.is_deleted = 0  and b.user_id in ({$weekObj->guest_list})
                 join orders o on o.id = b.order_id and o.servings_total_count > 35
                 where s.menu_id = $last_month_menu_id and s.store_id = $store_id");
-            
+
             $guests_last_month =  $lastMonth->N;
-            
+
             $next_month_menu_id = $weekObj->this_menu_id + 1;
             $nextMonth = new DAO();
             $nextMonth->query("select distinct b.user_id from session s
                 join booking b on b.session_id = s.id and b.status = 'ACTIVE' and b.is_deleted = 0  and b.user_id in ({$weekObj->guest_list})
                 join orders o on o.id = b.order_id and o.servings_total_count > 35
                 where s.menu_id = $next_month_menu_id and s.store_id = $store_id");
-            
+
             $guests_next_month =  $nextMonth->N;
-            
+
             $growthValue = $guests_next_month - $guests_last_month;
-            
+
         }
         else
         {
             $growthValue = 0;
         }
-        
-        
+
+
         $arr = self::getWeekTimeData(false, $curWeek, $curYear);
         $startDate = $arr['week_start'];
         $endDate = $arr['week_end'];
@@ -65,8 +65,8 @@ class CDashboardWeekBased
         $quarter_week = $arr['quarter_week'];
         $week_number = $arr['week_number'];
         $calc_year = $arr['year'];
-        
-        
+
+
         $Metric = DAO_CFactory::create('dashboard_metrics_guests_by_week');
         $Metric->start_date = $startDate;
         $Metric->end_date = $endDate;
@@ -76,13 +76,13 @@ class CDashboardWeekBased
         $Metric->quarter_week = $quarter_week;
         $Metric->week_number= $week_number;
         $Metric->year = $calc_year;
-        
-        
+
+
         if ($Metric->find(true))
         {
             $MetricOld = clone($Metric);
             $Metric->growth_scorecard_value = $growthValue;
-            
+
             $Metric->update($MetricOld);
         }
         else
@@ -90,12 +90,12 @@ class CDashboardWeekBased
             $Metric->growth_scorecard_value = $growthValue;
             $Metric->insert();
         }
-        
-        
+
+
     }
-    
-    
-    
+
+
+
     static function getFullActiveDateRange()
     {
         $now = date("Y-m-d");
@@ -103,9 +103,9 @@ class CDashboardWeekBased
         $menuObj->query("SELECT * FROM menu WHERE '$now' <= global_menu_end_date ORDER BY id LIMIT 1");
         $menuObj->fetch();
         $curMenuID = $menuObj->id;
-                
+
         $SpecialperiodEndTS = strtotime(date("Y-m-08", strtotime($menuObj->menu_start)));
-        
+
         if (time() < $SpecialperiodEndTS)
         {
             // must also build previous menu weeks
@@ -115,22 +115,22 @@ class CDashboardWeekBased
             $daoPrevMenu->find(true);
             $periodStartTS = strtotime($daoPrevMenu->global_menu_end_date);
         }
-        else 
+        else
         {
             $periodStartTS = strtotime($menuObj->global_menu_start_date);
         }
-        
-        
+
+
         $menuObj2 = new CMenu();
         $menuObj2->query("SELECT id, global_menu_end_date FROM menu ORDER BY id desc  LIMIT 1");
         $menuObj2->fetch();
-        
+
         $periodEndTS = strtotime($menuObj2->global_menu_end_date);
-        
+
         return array($periodStartTS, $periodEndTS);
-        
+
     }
-    
+
     static function getQuarterWeek($weekNumber, $year)
     {
         $menu = new CMenu();
@@ -140,26 +140,26 @@ class CDashboardWeekBased
             $yearStart = $menu->global_menu_start_date;
             $dateDT = new DateTime($yearStart);
             $firstWeekNum = $dateDT->format('W');
-            
+
             if ($firstWeekNum == 53) $firstWeekNum = 1;
-            
+
             $interval = $weekNumber - $firstWeekNum;
-            
-            
-            
+
+
+
             $retVal = ($interval % 13) + 1;
-            
+
             return $retVal;
         }
-        
+
         return 0;
     }
-    
+
     static function getWeekTimeData($date = false, $weekNumber = false, $year = false)
     {
         $ret = array('week_start' => false, 'week_end' => false, 'menu_id' => false, 'quarter' => false,
                     'quarter_week' => false, 'week_number' => false, 'year' => false);
-        
+
         if ($date)
         {
             $dateDT = new DateTime($date);
@@ -168,34 +168,34 @@ class CDashboardWeekBased
             $year = $dateDT->format("o"); // ??? Use "o"?
             $ret['year'] = $year;
         }
-            
+
         $weekDate = new DateTime();
         $weekDate->setISODate($year, $weekNumber);
-        
+
         $ret['week_start'] = $weekDate->format('Y-m-d 00:00:00');
         $weekDate->modify('+7 days');
         $ret['week_end'] = $weekDate->format('Y-m-d 00:00:00');
-        
+
         $tempDate = (!empty($date) ? $date : $ret['week_start']);
-        
+
         $menuArr = CMenu::getMenuByDate(date("Y-m-d", strtotime($tempDate)));
-        
+
         $ret['menu_id'] = $menuArr['id'];
         $month = date("n", strtotime($menuArr['menu_start']));
         $ret['quarter'] = floor(($month - 1) / 3) + 1;
         $ret['quarter_week'] = self::getQuarterWeek($weekNumber, $year);
         $ret['week_number'] = $weekNumber;
         $ret['year'] = $year;
-        
-        
+
+
         return $ret;
-            
-        
+
+
     }
 
 	static function updateGuestMetrics($store_id, $week, $year)
 	{
-	    	    
+
 	     $arr = self::getWeekTimeData(false, $week, $year);
 	     $startDate = $arr['week_start'];
 	     $endDate = $arr['week_end'];
@@ -204,7 +204,7 @@ class CDashboardWeekBased
 	     $quarter_week = $arr['quarter_week'];
 	     $week_number = $arr['week_number'];
 	     $calc_year = $arr['year'];
-	     
+
 
 		$Metric = DAO_CFactory::create('dashboard_metrics_guests_by_week');
 		$Metric->start_date = $startDate;
@@ -215,45 +215,45 @@ class CDashboardWeekBased
 		$Metric->quarter_week = $quarter_week;
 		$Metric->week_number= $week_number;
 		$Metric->year = $calc_year;
-		
-		
+
+
 		$isCurrentMonth = false;
-		
+
 		$curMenuID = CMenu::getCurrentMenuId();
-		
+
 		if ($curMenuID == $menu_id)
 		{
 		    $isCurrentMonth = true;
 		}
-		
-		
+
+
 		$MenuObj = DAO_CFactory::create('menu');
 		$MenuObj->id = $menu_id;
 		if (!$MenuObj->find(true))
 		{
-			CLog::RecordIntense("Menu not found in updateGuestMetrics", "ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com");
+			CLog::RecordIntense("Menu not found in updateGuestMetrics", "ryan.snook@dreamdinners.com");
 		}
-		
+
 		$interval = 7;
-		
+
 		$Metrics_Exist = false;
 		if ($Metric->find(true))
 		{
 			$Metrics_Exist = true;
 			$beforeState = clone($Metric);
 		}
-		
-		
+
+
 		$tempArr = explode(" ", $startDate);
 		$justDate = $tempArr[0];
-		
+
 		$sales = CDashboardMenuBased::getGrossSales($store_id, $justDate, 7);
-		
+
 		if (!isset($sales) || !isset($sales['total_less_discounts']))
 		    $sales['total_less_discounts'] = 0;
-		    
+
 		 $Metric->total_agr = $sales['total_less_discounts'];
-		    
+
 		// get guest_counts
 
 		$Metric->guest_count_total = 0;
@@ -529,17 +529,17 @@ class CDashboardWeekBased
                         and s.session_publish_state <> 'SAVED' 
                         GROUP BY s.id) as iq
                         GROUP BY iq.session_type");
-		
+
 		$Metric->sessions_count_all = 0;
 		$Metric->sessions_count_regular = 0;
 		$Metric->sessions_count_mfy = 0;
 		$Metric->sessions_count_taste = 0;
 		$Metric->sessions_count_fundraiser = 0;
-		
+
 		while($Sessions->fetch())
 		{
 		    $Metric->sessions_count_all += $Sessions->theCount;
-		    
+
 		    if ($Sessions->session_type == 'STANDARD')
 		    {
 		        $Metric->sessions_count_regular = $Sessions->theCount;
@@ -697,7 +697,7 @@ class CDashboardWeekBased
 
 		// Converted Guests
 		// version 3
-         
+
 		$digest5 = DAO_CFactory::create('orders_digest');
 
 		$Metric->converted_guests = $Metric->instore_signup_new_regular + $Metric->instore_signup_new_intro + $Metric->instore_signup_new_taste + $Metric->instore_signup_new_fundraiser +
@@ -785,7 +785,7 @@ class CDashboardWeekBased
 		$Metric->total_servings_sold = $digest11->total_servings;
 		$Metric->total_items_sold = $digest11->total_items;
 
-		
+
 		// retention count
 		$digest12 = DAO_CFactory::create('orders_digest');
 		$thisMenuID = $MenuObj->id;
@@ -798,12 +798,12 @@ class CDashboardWeekBased
 			join booking b2 on b2.user_id = iq.user_id and b2.status = 'ACTIVE'
 			join session s2 on s2.id = b2.session_id and s2.menu_id = $nextMenuID
 			join orders o on o.id = b2.order_id and o.type_of_order = 'STANDARD'");
-		
+
 		$Metric->retention_count = $digest12->N;
-		
-		
+
+
 		// average ticket regular
-		
+
 		$digest401 = DAO_CFactory::create('orders_digest');
 		$digest401->query("select od.order_type as type, avg(o.grand_total - o.subtotal_all_taxes) as avg_ticket_reg from orders_digest od
 		    join orders o on o.id = od.order_id and o.servings_total_count >= 36
@@ -812,28 +812,28 @@ class CDashboardWeekBased
 		    and od.order_type = 'REGULAR'
 		    group by od.order_type");
 		$digest401->fetch();
-		
+
 		if (empty($digest401->avg_ticket_reg))
 		{
 		    $digest401->avg_ticket_reg = 0;
 		}
-		
+
 		$Metric->average_standard_ticket = $digest401->avg_ticket_reg;
-		
-		
+
+
 		$Metric->lifestyle_guest_count = self::getLifestyleGuestCount($store_id, $startDate, $interval, $endDate);
-				
+
 		$digest402 = DAO_CFactory::create('orders_digest');
 		$digest402->query("select sum(iq.total_cost) as total_food_cost from (
 		    select od.order_id, oi.menu_item_id, mi.food_cost as cost, mi.food_cost * oi.item_count as total_cost, oi.item_count from orders_digest od
 		    join order_item oi on od.order_id = oi.order_id and oi.is_deleted = 0
 		    join menu_item mi on mi.id = oi.menu_item_id
 		    where od.session_time >= '$startDate' and od.session_time < DATE_ADD('$startDate', INTERVAL $interval DAY) and od.is_deleted = 0 and od.store_id = $store_id) as iq");
-		    
+
 		$digest402->fetch();
-		
+
 		$Metric->total_food_cost = $digest402->total_food_cost;
-		
+
 		if ($Metrics_Exist)
 		    $Metric->update($beforeState);
 		else
@@ -848,9 +848,9 @@ class CDashboardWeekBased
 	    $digest->query("select distinct od.user_id from orders_digest od
 	        where od.is_deleted = 0 and od.store_id = $store_id
 	        and od.session_time >= '$startDate' and od.session_time < DATE_ADD('$startDate', INTERVAL $interval DAY)");
-	    
+
 	    $count = 0;
-	    
+
 	    while($digest->fetch())
 	    {
 	        if (self::wasAdoptedAtTime($digest->user_id, $startDate, $endDate))
@@ -858,28 +858,28 @@ class CDashboardWeekBased
 	            $count++;
 	        }
 	    }
-	    
+
 	    return $count;
 	}
 
 	static function wasAdoptedAtTime($user_id, $startDate, $endDate)
 	{
 	    // get all orders by this user in last 180 days
-	    
+
 	    $orders = new DAO();
 	    $orders->query("select od.session_time, b.session_id from booking b
                         join session s on s.id = b.session_id and s.session_start < '$endDate' and s.session_start > DATE_SUB('$endDate', INTERVAL 135 DAY)
                         join orders_digest od on od.order_id = b.order_id and od.order_type = 'REGULAR'
                         where b.user_id = $user_id and b.status = 'ACTIVE' order by s.session_start desc");
-	    
+
 	    if ($orders->N > 2)
 	    {
 	        return true;
 	    }
-	        
+
 	    return false;
 	}
-	
+
 }
 
 ?>

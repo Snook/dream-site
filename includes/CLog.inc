@@ -414,7 +414,7 @@ class CLog
 			if (MAIL_ENABLED)
 			{
 				$from = 'From: <do-not-reply@dreamdinners.com>';
-				$sendMail = @mail("ryan.snook@dreamdinners.com, josh.thayer@dreamdinners.com, evan.lee@dreamdinners.com, brandy.latta@dreamdinners.com, mona.mcdonald@dreamdinners.com", "!!!DREAMDINNERS SERVER ALERT!!!", $entry, $from);
+				$sendMail = @mail("ryan.snook@dreamdinners.com, josh.thayer@dreamdinners.com, brandy.latta@dreamdinners.com, mona.mcdonald@dreamdinners.com", "!!!DREAMDINNERS SERVER ALERT!!!", $entry, $from);
 			}
 		}
 	}
@@ -439,7 +439,7 @@ class CLog
 			else
 			{
 				$from = 'From: <do-not-reply@dreamdinners.com>';
-				$sendMail = mail('ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com', $subject . " from Test Server", $msg, $from);
+				$sendMail = mail('ryan.snook@dreamdinners.com', $subject . " from Test Server", $msg, $from);
 			}
 		}
 	}
@@ -679,7 +679,7 @@ class CLog
 	{
 		if ($email)
 		{
-			$email = 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com';
+			$email = 'ryan.snook@dreamdinners.com';
 		}
 
 		if ($_SERVER['REMOTE_ADDR'] == 'xx.xx.xx.xx')

@@ -403,7 +403,7 @@ class CBundle extends DAO_Bundle
 		}
 		else
 		{
-			CLog::RecordIntense("No store provided to getActiveBundleForMenu", 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+			CLog::RecordIntense("No store provided to getActiveBundleForMenu", 'ryan.snook@dreamdinners.com');
 		}
 
 		$theBundle = DAO_CFactory::create('bundle');

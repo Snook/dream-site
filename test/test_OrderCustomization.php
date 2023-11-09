@@ -15,7 +15,7 @@ require_once 'includes/OrdersCustomization.php';
 
 
 $user = new CUser();
-$user->id =907086;
+$user->id =662598;
 	$user->find(true);
 	$customizations = $user->getMealCustomizationPreferences();
 

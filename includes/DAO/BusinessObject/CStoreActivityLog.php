@@ -253,7 +253,7 @@ class CStoreActivityLog extends DAO_Store_activity_log
 
 		if (self::TEST_ALERT_ONLY)
 		{
-			$Mail->to_email = 'evan.lee@dreamdinners.com';
+			$Mail->to_email = 'ryan.snook@dreamdinners.com';
 		}
 		else
 		{

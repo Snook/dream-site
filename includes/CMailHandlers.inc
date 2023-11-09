@@ -51,7 +51,7 @@ class plate_points_mail_handlers
 
 	static function sendPlatePointslevelUpEmail($data)
 	{
-	    
+
 	    /*
 		$Mail = new CMail();
 
@@ -86,7 +86,7 @@ class plate_points_mail_handlers
 				break;
 			default:
 
-				CLog::RecordIntense('invalid platepoints level email requested', 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+				CLog::RecordIntense('invalid platepoints level email requested', 'ryan.snook@dreamdinners.com');
 				return;
 
 		}
@@ -103,9 +103,9 @@ class plate_points_mail_handlers
 				$data['userObj']->id,
 				'level_up');
     */
-	    
+
 	    CLog::RecordEmail($data['userObj']->id, $data['userObj']->primary_email, null, null, "NOT SENT - RECORD ONLY - TYPE: PlatePoints Level Up - " . $data['program_summary']['current_level']['level']);
-	    
+
 
 	}
 
@@ -136,7 +136,7 @@ class plate_points_mail_handlers
 	static function sendPlatePointsCreditRewardEmail($data)
 	{
 	    /*
-	    
+
 		$Mail = new CMail();
 
 		$contentsText = CMail::mailMerge('platepoints/credit_notify_platepoints.txt.php', $data);
@@ -153,11 +153,11 @@ class plate_points_mail_handlers
 			'',
 			$data['userObj']->id,
 			'credit_notify_platepoints');
-			
+
 		*/
-	    
+
 	    CLog::RecordEmail($data['userObj']->id, $data['userObj']->primary_email, null, null, "NOT SENT - RECORD ONLY - TYPE: PlatePoints Credit Award");
-	    
+
 	}
 
 
@@ -181,10 +181,10 @@ class plate_points_mail_handlers
 				$data->user_id,
 				'credit_notify_platepoints');
 		*/
-	    
+
 	    CLog::RecordEmail($data->user_id, $data->primary_email, null, null, "NOT SENT - RECORD ONLY - TYPE: Expiring Dinner Dollars");
-	    
-	    
+
+
 	}
 
 
@@ -207,10 +207,10 @@ class plate_points_mail_handlers
 				'',
 				$data['userObj']->id,
 				'birthday_platepoints');
-*/	
+*/
 			CLog::RecordEmail($data->user_id, $data->primary_email, null, null, "NOT SENT - RECORD ONLY - TYPE: Birthday Reward");
-				
-				
+
+
 	}
 
 }

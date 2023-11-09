@@ -110,7 +110,7 @@ try {
 	if (TEST_MODE)
 	{
 		$storeObj->query("select iq.* from
-			(select st.id, st.franchise_id, smpl.net_income, 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com, lori.pierce@dreamdinners.com' as email_addresses, GROUP_CONCAT(u.user_type), count(DISTINCT u.id) as owner_count, GROUP_CONCAT(u.id) as owner_ids,
+			(select st.id, st.franchise_id, smpl.net_income, 'ryan.snook@dreamdinners.com, lori.pierce@dreamdinners.com' as email_addresses, GROUP_CONCAT(u.user_type), count(DISTINCT u.id) as owner_count, GROUP_CONCAT(u.id) as owner_ids,
 			GROUP_CONCAT(u.firstname) as firstnames, GROUP_CONCAT(CONCAT(u.firstname, ' ', u.lastname)) as fullnames  from store st
 			left join store_monthly_profit_and_loss smpl on date = '$selectMonth' and smpl.store_id = st.id
 			left join user_to_franchise utf on utf.franchise_id = st.franchise_id and utf.is_deleted = 0

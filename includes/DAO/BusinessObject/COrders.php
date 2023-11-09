@@ -9912,7 +9912,7 @@ class COrders extends DAO_Orders
 		{
 			if ($this->grand_total > 0)
 			{
-				CLog::RecordIntense("The Payment Array is empty: cctype: $ccType: paymentNumber: $paymentNumber", 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+				CLog::RecordIntense("The Payment Array is empty: cctype: $ccType: paymentNumber: $paymentNumber", 'ryan.snook@dreamdinners.com');
 
 				return array(
 					'result' => 'failed',
@@ -10141,7 +10141,7 @@ class COrders extends DAO_Orders
 		/* test fails in some legitimate places so remove it
 		 *
 		if ( !array_key_exists('store_id', $rtn) || !$rtn['store_id']) {
-			CLog::RecordIntense("Store serialization issue", "ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com");
+			CLog::RecordIntense("Store serialization issue", "ryan.snook@dreamdinners.com");
 			//throw new exception('serialization error: store id not found');
 		}
 		*/

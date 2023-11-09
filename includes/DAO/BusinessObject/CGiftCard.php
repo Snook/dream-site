@@ -167,7 +167,7 @@ class CGiftCard extends DAO_Gift_card_transaction
 
 		if (!$result)
 		{
-			CLog::RecordIntense("CURL error - in voidTransaction", 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+			CLog::RecordIntense("CURL error - in voidTransaction", 'ryan.snook@dreamdinners.com');
 
 			return false;
 		}
@@ -189,7 +189,7 @@ class CGiftCard extends DAO_Gift_card_transaction
 			case '00':
 				return true;
 			default:
-				CLog::RecordIntense("Error occurred when voiding transaction: " . print_r($retarr, true), 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+				CLog::RecordIntense("Error occurred when voiding transaction: " . print_r($retarr, true), 'ryan.snook@dreamdinners.com');
 
 				return false;
 		}
@@ -225,7 +225,7 @@ class CGiftCard extends DAO_Gift_card_transaction
 
 		if (!$result)
 		{
-			CLog::RecordIntense("CURL error - in isSmartTransactionsAliveAndWell", 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+			CLog::RecordIntense("CURL error - in isSmartTransactionsAliveAndWell", 'ryan.snook@dreamdinners.com');
 
 			return false;
 		}
@@ -251,11 +251,11 @@ class CGiftCard extends DAO_Gift_card_transaction
 				{
 					return true;
 				}
-				CLog::RecordIntense("bogus card number accepted as real - very strange happenings indeed in isSmartTransactionsAliveAndWell: " . print_r($retarr, true), 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+				CLog::RecordIntense("bogus card number accepted as real - very strange happenings indeed in isSmartTransactionsAliveAndWell: " . print_r($retarr, true), 'ryan.snook@dreamdinners.com');
 
 				return false;
 			default:
-				CLog::RecordIntense("bogus card number returns unexpected response code in isSmartTransactionsAliveAndWell: " . print_r($retarr, true), 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+				CLog::RecordIntense("bogus card number returns unexpected response code in isSmartTransactionsAliveAndWell: " . print_r($retarr, true), 'ryan.snook@dreamdinners.com');
 
 				return false;
 		}
@@ -268,7 +268,7 @@ class CGiftCard extends DAO_Gift_card_transaction
 		if (!$gcOrderObj->find(true))
 		{
 			// gift_card_orders update failed - should never happen
-			CLog::RecordIntense("Cannot find order in completeNewAccountTransaction - Order ID = $GC_Order_id - Acct number: $accountNumber", 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+			CLog::RecordIntense("Cannot find order in completeNewAccountTransaction - Order ID = $GC_Order_id - Acct number: $accountNumber", 'ryan.snook@dreamdinners.com');
 
 			$args = func_get_args();
 			CLog::RecordNew(CLog::ERROR, "GC_ERROR: cannot find Order ID = $GC_Order_id Order Data: " . print_r($args, true));
@@ -310,7 +310,7 @@ class CGiftCard extends DAO_Gift_card_transaction
 			// gift_card_orders update failed - should never happen
 			$args = func_get_args();
 			CLog::RecordNew(CLog::ERROR, "GC_ERROR: Update failure - ID = $GC_Order_id Order Data: " . print_r($args, true));
-			CLog::RecordIntense("Insert failed in completeNewAccountTransaction - Order ID = $GC_Order_id - Acct number: $accountNumber", 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+			CLog::RecordIntense("Insert failed in completeNewAccountTransaction - Order ID = $GC_Order_id - Acct number: $accountNumber", 'ryan.snook@dreamdinners.com');
 
 			return null;
 		}
@@ -331,7 +331,7 @@ class CGiftCard extends DAO_Gift_card_transaction
 		$gcOrderObj->id = $GC_Order_id;
 		if (!$gcOrderObj->find(true))
 		{
-			CLog::RecordIntense("Cannot find order in completePhysicalCardPurchaseTransaction - Order ID = $GC_Order_id", 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+			CLog::RecordIntense("Cannot find order in completePhysicalCardPurchaseTransaction - Order ID = $GC_Order_id", 'ryan.snook@dreamdinners.com');
 
 			$args = func_get_args();
 			CLog::RecordNew(CLog::ERROR, "GC_ERROR: cannot find Order ID = $GC_Order_id Order Data: " . print_r($args, true));
@@ -373,7 +373,7 @@ class CGiftCard extends DAO_Gift_card_transaction
 			// gift_card_orders update failed - should never happen
 			$args = func_get_args();
 			CLog::RecordNew(CLog::ERROR, "GC_ERROR: Update failure - ID = $GC_Order_id Order Data: " . print_r($args, true));
-			CLog::RecordIntense("Insert failed in completePhysicalCardPurchaseTransaction - Order ID = $GC_Order_id", 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+			CLog::RecordIntense("Insert failed in completePhysicalCardPurchaseTransaction - Order ID = $GC_Order_id", 'ryan.snook@dreamdinners.com');
 
 			return null;
 		}
@@ -1514,7 +1514,7 @@ class CGiftCard extends DAO_Gift_card_transaction
 			try
 			{
 
-				$Mail->send(null, null, "", "sarah@smarttransactions.com, mariah@localgiftcards.com, geekifyinc@gmail.com", $subject, null, $data, '', "ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com");
+				$Mail->send(null, null, "", "sarah@smarttransactions.com, mariah@localgiftcards.com, geekifyinc@gmail.com", $subject, null, $data, '', "ryan.snook@dreamdinners.com");
 
 				//update gift_card_order to flag these orders as processed
 				foreach ($processed_ids as $id)
@@ -1534,7 +1534,7 @@ class CGiftCard extends DAO_Gift_card_transaction
 		}
 		else
 		{
-			$Mail->send(null, null, "", "sarah@smarttransactions.com, mariah@localgiftcards.com, geekifyinc@gmail.com", $subject, null, "No orders today.", '', "ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com");
+			$Mail->send(null, null, "", "sarah@smarttransactions.com, mariah@localgiftcards.com, geekifyinc@gmail.com", $subject, null, "No orders today.", '', "ryan.snook@dreamdinners.com");
 		}
 	}
 }

@@ -737,7 +737,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$tpl->assign('order_is_complete_but_unconfirmed', true);
 		}
 
-		if (CUser::getCurrentUser()->id == 662598 || CUser::getCurrentUser()->id == 907086)
+		if (CUser::getCurrentUser()->id == 662598)
 		{
 			$order_is_locked = false;
 			$this->discountEligable['limited_access'] = false;

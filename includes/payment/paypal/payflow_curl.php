@@ -125,7 +125,7 @@ require_once("Config.inc");
    	  {
         	curl_close($ch);
 
-            CLog::RecordIntense("Error connecting to PayPal: " . print_r($headers, true), "ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com");
+            CLog::RecordIntense("Error connecting to PayPal: " . print_r($headers, true), "ryan.snook@dreamdinners.com");
 
         	return array('RESULT' => -1, 'RESPMSG' => 'Unable to connect to PayPal server.');
    	   }

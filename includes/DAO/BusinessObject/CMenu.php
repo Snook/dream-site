@@ -1181,8 +1181,7 @@ class CMenu extends DAO_Menu
 		$currentUserID = CUser::getCurrentUser()->id;
 		$allowedUserArray = array(
 			400252,
-			662598,
-			907086
+			662598
 		);
 
 		if ($adjustedServerTime > $cutOff && !in_array($currentUserID, $allowedUserArray))

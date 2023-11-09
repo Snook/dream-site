@@ -107,7 +107,7 @@ try {
         $Mail->send(null,
             null,
             "Dream Dinners Technical Staff",
-            "josh.thayer@dreamdinners.com,ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com",
+            "josh.thayer@dreamdinners.com,ryan.snook@dreamdinners.com",
             "ECommerce Failure",
             null,
             $alertStr,

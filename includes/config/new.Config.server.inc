@@ -187,7 +187,7 @@ switch (SERVER_ENV)
 		define("RECORD_NAVIGATION", true);
 		define("DD_THANK_YOU_DEBUG", false);
 
-		define('STORE_NOTIFICATION_ALERT_TEST_EMAIL', 'evan.lee@dreamdinners.com,ryan.snook@dreamdinners.com,brandy.latta@dreamdinners.com');
+		define('STORE_NOTIFICATION_ALERT_TEST_EMAIL', 'ryan.snook@dreamdinners.com,brandy.latta@dreamdinners.com');
 
 		// ECommerce
 		define("PFP_TEST_MODE", true);

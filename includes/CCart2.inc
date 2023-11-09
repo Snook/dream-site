@@ -2770,7 +2770,7 @@ class CCart2
 			else if ($num > 1)
 			{
 				$this->emptyCart();
-				CLog::RecordIntense('More than 1 cart for cart key: ' . $key, 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com');
+				CLog::RecordIntense('More than 1 cart for cart key: ' . $key, 'ryan.snook@dreamdinners.com');
 			}
 			else
 			{
