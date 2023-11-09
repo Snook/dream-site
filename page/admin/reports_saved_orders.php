@@ -430,7 +430,7 @@
 						    	$tarray['session_type'] = $session_type;
 						    	$tarray['order_type'] = $order_type;
 						    	$tarray['grand_total'] = $total;
-						    	$tarray['order_link'] =  "=HYPERLINK(\"" . HTTPS_BASE . "backoffice/order-details?order=" . $ID ."\", \"" . 'Link to Order' . "\")";
+						    	$tarray['order_link'] =  "=HYPERLINK(\"" . HTTPS_BASE . "backoffice/order-mgr-thankyou?order=" . $ID ."\", \"" . 'Link to Order' . "\")";
 						    	$tarray['saved_times'] = $savedTime;
 						    	$tarray['notes'] = $thisNote;
 

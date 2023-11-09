@@ -3,9 +3,9 @@
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
 <?php if ($this->bookingStatus == CBooking::CANCELLED) { ?>
-	<h1>Payment for Canceled Order has been processed for <a href="/backoffice/user_details?id=<?php echo $this->orderInfo['user_id']; ?>"><?php echo $this->customerName; ?></a>!</h1>
+	<h1>Canceled Order details for <a href="/backoffice/user_details?id=<?php echo $this->orderInfo['user_id']; ?>"><?php echo $this->customerName; ?></a></h1>
 <?php } else { ?>
-	<h1>Order has been processed for <a href="/backoffice/user_details?id=<?=$this->orderInfo['user_id']?>"><?php echo $this->customerName; ?></a>!</h1>
+	<h1>Order details for <a href="/backoffice/user_details?id=<?=$this->orderInfo['user_id']?>"><?php echo $this->customerName; ?></a></h1>
 <?php } ?>
 	<table style="width: 100%; margin-bottom: 10px;">
 		<tr>

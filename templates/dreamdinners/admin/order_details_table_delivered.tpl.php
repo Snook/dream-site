@@ -182,7 +182,7 @@
 					</tr>
 					<tr>
 						<td class="font-weight-bold">Tracking Number(s):</td>
-						<td><?php echo $this->orderInfo['tracking_number']; ?></td>
+						<td><?php echo !empty($this->orderInfo['tracking_number']) ? $this->orderInfo['tracking_number'] : 'Pending'; ?></td>
 					</tr>
 				<?php } ?>
 			</table>
@@ -276,7 +276,7 @@
 								}
 								echo '</td>';
 								echo '<td>';
-								echo $itemData['is_side_dish'] ? "" : ($itemData['pricing_type'] == 'FULL' ? 'Large' : 'Medium');
+								echo !empty($itemData['is_side_dish']) ? "" : ($itemData['pricing_type'] == 'FULL' ? 'Large' : 'Medium');
 								echo '</td>';
 								echo '<td>';
 								echo $itemData['display_title'];

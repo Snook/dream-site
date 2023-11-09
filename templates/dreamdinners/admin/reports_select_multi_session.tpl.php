@@ -1166,7 +1166,7 @@ if ($this->print_view == false) {
 								if ($this->print_view == false)
 								{
 									$canEditURL = "";
-									$viewOrderURL = '<a href="/backoffice/order-details?order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><font color="#333366">View Order</font></a><br />';
+									$viewOrderURL = '<a href="/backoffice/order-mgr-thankyou?order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><font color="#333366">View Order</font></a><br />';
 									if (CSessionReports::can_edit_order($this->printdate, $this->store_id))
 									{
 										if ($entity['is_partial_account'])
@@ -1214,8 +1214,8 @@ if ($this->print_view == false) {
 
 								if (isset($this->payment_failed_balance_due_array[$entity['customer_id']][$entity['order_id']]['balance_due']))
 								{
-									$viewOrderURL = '<a href="/backoffice/order-details?order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><b>$' . $this->payment_failed_balance_due_array[$entity['customer_id']][$entity['order_id']]['balance_due'] . '</b></a>';
-									$viewOrderURLBalanceDue = '<a href="/backoffice/order-details?order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><b>Balance Due:</b></a>';
+									$viewOrderURL = '<a href="/backoffice/order-mgr-thankyou?order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><b>$' . $this->payment_failed_balance_due_array[$entity['customer_id']][$entity['order_id']]['balance_due'] . '</b></a>';
+									$viewOrderURLBalanceDue = '<a href="/backoffice/order-mgr-thankyou?order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><b>Balance Due:</b></a>';
 
 									$results_display .= '<tr><td width="90">' . $viewOrderURLBalanceDue . '</td><td style="color:#FF6A6A;font-weight:bold;text-align:right">' . $viewOrderURL . '</td></tr>';
 								}

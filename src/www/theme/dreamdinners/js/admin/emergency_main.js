@@ -1857,7 +1857,7 @@ function handle_order_search()
 
 		var order_id = $('#os_search_value').val().trim();
 
-		bounce('/backoffice/order-details?order=' + order_id);
+		bounce('/backoffice/order-mgr-thankyou?order=' + order_id);
 
 	});
 
