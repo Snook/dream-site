@@ -3804,51 +3804,25 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 
 		if ($menu_item_ids)
 		{
-			$menuItemInfo = DAO_CFactory::create('menu_item');
+			$DAO_menu = DAO_CFactory::create('menu', true);
+			$DAO_menu->id = $menu_id;
+			$menuItemInfo = $DAO_menu->findMenuItemDAO(array(
+				'join_order_item_order_id' => array($OrderObj->id),
+				'menu_to_menu_item_store_id' => (!empty($OrderObj->store_id)) ? $OrderObj->store_id : 'NULL',
+				'exclude_menu_item_category_core' => false,
+				'exclude_menu_item_category_efl' => false,
+				'exclude_menu_item_category_sides_sweets' => false,
+				'menu_item_id_list' => $menu_item_ids
+			));
 
-			if ($getStoreMenu)
-			{
-				$query = "SELECT
-					mmi.override_price as override_price,
-					mmi.menu_id,
-					mmi.store_id,
-					mimd.id as markdown_id,
-					mimd.markdown_value,
-					r.ltd_menu_item_value,
-					mi.*
-					FROM menu_item  mi
-					left join menu_item_mark_down mimd on mi.id = mimd.menu_item_id and mimd.store_id = {$OrderObj->store_id} and mimd.is_deleted = 0
-					left join menu_to_menu_item mmi on mi.id = mmi.menu_item_id and mmi.store_id = {$OrderObj->store_id} and mmi.menu_id = $menu_id and mmi.is_deleted = 0
-					LEFT JOIN recipe AS r ON r.recipe_id = mi.recipe_id AND r.override_menu_id = $menu_id AND r.is_deleted = 0
-					WHERE mi.id IN ($menu_item_ids) and mi.is_deleted = 0 group by mi.id";
-			}
-			else
-			{
-				$query = "SELECT
-					mmi.override_price as override_price,
-					mi.*
-					FROM menu_item  mi
-					left join menu_to_menu_item mmi on mi.id = mmi.menu_item_id and mmi.store_id is null and mmi.menu_id = " . $menu_id . " and mmi.is_deleted = 0
-					WHERE mi.id IN ($menu_item_ids) and mi.is_deleted = 0";
-			}
-
-			$menuItemInfo->query($query);
 			while ($menuItemInfo->fetch())
 			{
-				if ($addFinishingTouchOnly && $menuItemInfo->menu_item_category_id != 9)
+				if ($addFinishingTouchOnly && !$menuItemInfo->isMenuItem_SidesSweets())
 				{
 					continue;
 				}
 
 				$qty = $items[$menuItemInfo->id];
-
-				if (isset($orgPrices[$menuItemInfo->id]))
-				{
-					$menuItemInfo->override_price = $orgPrices[$menuItemInfo->id];
-
-					$menuItemInfo->price = $menuItemInfo->override_price;
-					$menuItemInfo->store_price = $menuItemInfo->override_price;
-				}
 
 				if ($menuItemInfo->is_bundle && $qty > 0)
 				{
@@ -3862,21 +3836,14 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 						}
 					}
 
-					$subItemInfo = DAO_CFactory::create('menu_item');
-					$select = "SELECT menu_item_category.category_type AS 'category', menu_item.*, menu_to_menu_item.override_price, menu_to_menu_item.menu_order_value FROM menu_item ";
-					if ($getStoreMenu)
-					{
-						$joins = "INNER JOIN  menu_to_menu_item ON menu_to_menu_item.menu_item_id=menu_item.id and menu_to_menu_item.store_id = " . $OrderObj->store_id . " LEFT JOIN menu_item_category on menu_item.menu_item_category_id = menu_item_category.id ";
-					}
-					else
-					{
-						$joins = "INNER JOIN  menu_to_menu_item ON menu_to_menu_item.menu_item_id=menu_item.id and menu_to_menu_item.store_id is null LEFT JOIN menu_item_category on menu_item.menu_item_category_id = menu_item_category.id ";
-					}
-
-					$where = "where menu_item.id IN (" . implode(",", $subItemKeys) . ") AND menu_to_menu_item.is_deleted = 0 AND  menu_item.is_deleted = 0 ";
-					$orderBy = "group by menu_item.id order by menu_to_menu_item.menu_order_value ASC ";
-
-					$subItemInfo->query($select . $joins . $where . $orderBy);
+					$subItemInfo = $DAO_menu->findMenuItemDAO(array(
+						'join_order_item_order_id' => array($OrderObj->id),
+						'menu_to_menu_item_store_id' => (!empty($OrderObj->store_id)) ? $OrderObj->store_id : 'NULL',
+						'exclude_menu_item_category_core' => false,
+						'exclude_menu_item_category_efl' => false,
+						'exclude_menu_item_category_sides_sweets' => false,
+						'menu_item_id_list' => implode(",", $subItemKeys)
+					));
 
 					while ($subItemInfo->fetch())
 					{

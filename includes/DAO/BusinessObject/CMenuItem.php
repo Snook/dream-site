@@ -702,7 +702,10 @@ class CMenuItem extends DAO_Menu_item
 			}
 
 			// order_items stored the LTD value in the price, so remove it here
-			$this->store_price_no_ltd = $this->store_price - $this->ltd_menu_item_value;
+			if (!empty($this->DAO_store->supports_ltd_roundup))
+			{
+				$this->store_price_no_ltd = $this->store_price - $this->ltd_menu_item_value;
+			}
 		}
 
 		return $this->store_price;
