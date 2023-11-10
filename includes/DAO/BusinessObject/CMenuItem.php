@@ -493,7 +493,7 @@ class CMenuItem extends DAO_Menu_item
 		$this->display_description = stripslashes($this->menu_item_description); // legacy support
 		$this->category_id = $this->menu_item_category_id; // legacy support
 		$this->category_group = $this->categoryGroup();
-		$this->category_group_id = $this->categoryGroupId();
+ 		$this->category_group_id = $this->categoryGroupId();
 		$this->is_freezer_menu = $this->isFreezer();
 		$this->is_visible = $this->isVisible();
 		$this->show_on_pick_sheet = $this->showOnPickSheet();
@@ -665,6 +665,13 @@ class CMenuItem extends DAO_Menu_item
 		}
 
 		$this->store_price_no_ltd = $this->store_price;
+
+		if(empty($this->DAO_store))
+		{
+			$this->DAO_store = DAO_CFactory::create('store', true);
+			$this->DAO_store->id = $this->store_id;
+			$this->DAO_store->find_DAO_store(true);
+		}
 
 		if (!empty($this->DAO_store->supports_ltd_roundup))
 		{
