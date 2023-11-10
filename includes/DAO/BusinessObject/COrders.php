@@ -5469,7 +5469,7 @@ class COrders extends DAO_Orders
 						if ($this->family_savings_discount_version == 2)
 						{
 							$DAO_menu_item->store_price = self::std_round(self::getItemMarkupMultiSubtotal($markup, $DAO_menu_item, 1));
-							$thisMarkupAmt = self::getItemMarkupMultiSubtotal($markup, $DAO_menu_item, $qty) - ($DAO_menu_item->price * $qty);
+							$thisMarkupAmt = self::getItemMarkupMultiSubtotal($markup, $DAO_menu_item, $qty) - ($DAO_menu_item->store_price * $qty);
 							if ($thisMarkupAmt > 0)
 							{
 								$this->subtotal_home_store_markup += $thisMarkupAmt;
@@ -5478,7 +5478,7 @@ class COrders extends DAO_Orders
 						else
 						{
 							$DAO_menu_item->store_price = self::std_round(self::getItemMarkupMultiSubtotal($markup, $DAO_menu_item, 1));
-							$thisMarkupAmt = self::getItemMarkupSubtotal($markup, $DAO_menu_item, $qty) - ($DAO_menu_item->price * $qty);
+							$thisMarkupAmt = self::getItemMarkupSubtotal($markup, $DAO_menu_item, $qty) - ($DAO_menu_item->store_price * $qty);
 							if ($thisMarkupAmt > 0)
 							{
 								$this->subtotal_home_store_markup += $thisMarkupAmt;
