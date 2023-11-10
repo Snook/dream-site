@@ -666,7 +666,7 @@ class CMenuItem extends DAO_Menu_item
 
 		$this->store_price_no_ltd = $this->store_price;
 
-		if(empty($this->DAO_store))
+		if(!empty($this->store_id) && empty($this->DAO_store))
 		{
 			$this->DAO_store = DAO_CFactory::create('store', true);
 			$this->DAO_store->id = $this->store_id;
