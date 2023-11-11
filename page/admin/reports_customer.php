@@ -1188,13 +1188,14 @@ class page_admin_reports_customer extends CPageAdminOnly
 			array_splice($tarray, $colcount, count($tarray));
 
 			$tempDate = $tarray['sessions_attended'];
+			$tempDateArray = explode(",", $tarray['sessions_attended']);
 
 			$newSessionStr = "";
 
 			if (!$defeatRepeats)
 			{
 
-				if (count($tempDate) > 0)
+				if (count($tempDateArray) > 0)
 				{
 
 					$sep = explode(",", $tempDate);
