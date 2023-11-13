@@ -616,10 +616,14 @@ class CMenuItem extends DAO_Menu_item
 	{
 		// Start with base price
 		$this->store_price = $this->price;
+		$this->store_price_pre_markup = $this->store_price;
+		$this->store_price_markup_amount = 0;
 
 		if (isset($this->override_price))
 		{
 			$this->store_price = $this->override_price;
+			$this->store_price_pre_markup = $this->store_price;
+			$this->store_price_markup_amount = 0;
 		}
 		else if (!empty($this->DAO_store) && !empty($this->menu_id))
 		{
@@ -635,7 +639,9 @@ class CMenuItem extends DAO_Menu_item
 				}
 			}
 
+			$this->store_price_pre_markup = $this->store_price;
 			$this->store_price = COrders::getItemMarkupMultiSubtotal($DAO_mark_up_multi, $this);
+			$this->store_price_markup_amount = $this->store_price - $this->store_price_pre_markup;
 		}
 		else if (!empty($this->store_id) && !empty($this->menu_id))
 		{
@@ -654,7 +660,9 @@ class CMenuItem extends DAO_Menu_item
 				}
 			}
 
+			$this->store_price_pre_markup = $this->store_price;
 			$this->store_price = COrders::getItemMarkupMultiSubtotal($DAO_mark_up_multi, $this);
+			$this->store_price_markup_amount = $this->store_price - $this->store_price_pre_markup;
 		}
 
 		if (!empty($this->DAO_menu_item_mark_down->id))
