@@ -1248,11 +1248,11 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 					}
 
 					// now delete the original box_instances ... new ones will be created
-					$box_instances = DAO_CFactory::create('box_instance');
-					$adminUser = CUser::getCurrentUser()->id;
 					foreach ($boxInstanceArray as $box_inst_id)
 					{
-						$box_instances->query("update box_instance set is_deleted = 1, edit_sequence_id = {$order_record->id}, updated_by = $adminUser where id = $box_inst_id");
+						$DAO_box_instance = DAO_CFactory::create('box_instance', true);
+						$DAO_box_instance->id = $box_inst_id;
+						$DAO_box_instance->delete();
 					}
 
 					// addons are processed separately and must be added into the subtotals when displaying the confirmation
@@ -2597,6 +2597,20 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 		{
 			$this->CreditGiftCardPayments(CGPC::do_clean($_POST['giftCardRefund'], TYPE_NUM));
 		}
+	}
+
+	function refundCash($amount, $number)
+	{
+		$newPayment = DAO_CFactory::create('payment');
+		$newPayment->user_id = $this->originalOrder->user_id;
+		$newPayment->store_id = $this->originalOrder->store_id;
+		$newPayment->order_id = $this->originalOrder->id;
+		$newPayment->is_delayed_payment = 0;
+		$newPayment->total_amount = $amount;
+		$newPayment->payment_number = $number;
+		$newPayment->payment_type = CPayment::REFUND_CASH;
+
+		$newPayment->insert();
 	}
 
 	function CreditStoreCreditPayments($totalToCredit)
