@@ -698,17 +698,27 @@ class CMenuItem extends DAO_Menu_item
 			{
 				// Restore the price
 				$this->store_price_no_ltd = $this->DAO_order_item->sub_total / $this->DAO_order_item->item_count;
-				// Restore the LTD price on the recipe object
-				$this->DAO_recipe->ltd_menu_item_value = ($this->DAO_order_item->discounted_subtotal - $this->DAO_order_item->sub_total) / $this->DAO_order_item->item_count;
-				// Restore the LTD value on the menu_item object
-				$this->ltd_menu_item_value = $this->DAO_recipe->ltd_menu_item_value; // legacy support
+
+				if(!empty($this->DAO_recipe))
+				{
+					// Restore the LTD price on the recipe object
+					$this->DAO_recipe->ltd_menu_item_value = ($this->DAO_order_item->discounted_subtotal - $this->DAO_order_item->sub_total) / $this->DAO_order_item->item_count;
+
+					// Restore the LTD value on the menu_item object
+					$this->ltd_menu_item_value = $this->DAO_recipe->ltd_menu_item_value; // legacy support
+				}
 			}
 			else
 			{
 				// Restore the price
 				$this->store_price_no_ltd = $this->DAO_order_item->sub_total / $this->DAO_order_item->item_count;
-				// Restore the LTD price on the recipe object
-				$this->DAO_recipe->ltd_menu_item_value = 0;
+
+				if(!empty($this->DAO_recipe))
+				{
+					// Restore the LTD price on the recipe object
+					$this->DAO_recipe->ltd_menu_item_value = 0;
+				}
+
 				// Restore the LTD value on the menu_item object
 				$this->ltd_menu_item_value = 0;
 			}
