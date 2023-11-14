@@ -12,7 +12,7 @@
 								<label class="custom-control-label" for="store_id-<?php echo $id; ?>"><?php echo $arStore['store_name']; ?></label>
 							</div>
 							<div class="pl-4 mt-1">
-								<p class="font-size-small"><i class="dd-icon icon-location font-size-small text-green-dark"></i> <a target="map_view" onclick="showMap('<?php echo urlencode($arStore['linear_address']); ?>');event.preventDefault();" href="<?php echo $arStore['map_link']; ?>"><?php echo $arStore['linear_address']; ?></a></p>
+								<p class="font-size-small"><i class="dd-icon icon-location font-size-small text-green-dark"></i> <a target="map_view" onclick="showMap('<?php echo urlencode($arStore["DAO_store"]->address_linear); ?>');event.preventDefault();" href="<?php echo $arStore['DAO_store']->generateMapLink(); ?>"><?php echo $arStore["DAO_store"]->address_linear; ?></a></p>
 							</div>
 						</div>
 					</div>
