@@ -449,7 +449,9 @@
 					$categoryDrawn = true;
 					$StationNumberColspan = ($displayStationNumber) ? '3' : '2';
 					?>
-					<tr><td colspan="<?php echo $StationNumberColspan; ?>" class="font-weight-bold text-white-space-nowrap text-center"><?php echo $categoryName; ?></td><td colspan="3">&nbsp;</td></tr>
+					<?php if ($categoryName != 'Add On Dinners') { ?>
+						<tr><td colspan="<?php echo $StationNumberColspan; ?>" class="font-weight-bold text-white-space-nowrap text-center"><?php echo $categoryName; ?></td><td colspan="3">&nbsp;</td></tr>
+					<?php } ?>
 					<?php
 				}
 				?>
