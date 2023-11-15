@@ -4915,6 +4915,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 							// If it's a new MotM item then we need to update the price here
 
 							$menuItemInfo->override_price = COrders::getStorePrice($OrderObj->findMarkUp(), $menuItemInfo, 1);
+							$menuItemInfo->getStorePrice($OrderObj->findMarkUp());
 						}
 					}
 					else
@@ -4922,7 +4923,14 @@ class page_admin_order_mgr extends CPageAdminOnly
 						$menuItemInfo->order_item_ltd_menu_item = false;
 					}
 
-					$OrderObj->addMenuItem(clone($menuItemInfo), $qty);
+					if (!empty($oldItems[$menuItemInfo->id]))
+					{
+						$OrderObj->addMenuItem(clone($oldItems[$menuItemInfo->id][1]), $qty);
+					}
+					else
+					{
+						$OrderObj->addMenuItem(clone($menuItemInfo), $qty);
+					}
 				}
 			}
 		}
