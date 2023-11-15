@@ -191,7 +191,7 @@ switch (SERVER_ENV)
 
 		// ECommerce
 		define("PFP_TEST_MODE", true);
-		define("USE_CORPORATE_TEST_ACCOUNT", true);
+		define("USE_CORPORATE_TEST_ACCOUNT", 175); // Kennewick for test credit card
 
 		define('DESIGNATE_AS_EMERGENCY_REPORTING_SERVER', false);
 
