@@ -12663,9 +12663,9 @@ class COrders extends DAO_Orders
 		}
 
 		$menuInfo = array(
-			'Specials' => null,
-			'Fast Lane' => null,
-			'Chef Touched Selections' => null
+			CMenuItem::CORE => null,
+			CMenuItem::EXTENDED => null,
+			CMenuItem::SIDE => null
 		);
 
 		while ($DAO_menu_item->fetch())
@@ -12811,11 +12811,11 @@ class COrders extends DAO_Orders
 					}
 					else
 					{
-						$menuInfo[$DAO_menu_item->category][$DAO_menu_item->id] = $tempArr;
+						$menuInfo[$DAO_menu_item->category_group][$DAO_menu_item->id] = $tempArr;
 						if ($DAO_menu_item->DAO_order_item->discounted_subtotal && $DAO_menu_item->DAO_order_item->discounted_subtotal != 0)
 						{
-							$menuInfo[$DAO_menu_item->category][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->DAO_order_item->discounted_subtotal / $DAO_menu_item->DAO_order_item->item_count;
-							$menuInfo[$DAO_menu_item->category][$DAO_menu_item->id]['subtotal'] = $DAO_menu_item->DAO_order_item->discounted_subtotal;
+							$menuInfo[$DAO_menu_item->category_group][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->DAO_order_item->discounted_subtotal / $DAO_menu_item->DAO_order_item->item_count;
+							$menuInfo[$DAO_menu_item->category_group][$DAO_menu_item->id]['subtotal'] = $DAO_menu_item->DAO_order_item->discounted_subtotal;
 						}
 					}
 				}
@@ -12852,10 +12852,10 @@ class COrders extends DAO_Orders
 				}
 				else
 				{
-					$menuInfo[$DAO_menu_item->category][$DAO_menu_item->id] = $tempArr;
+					$menuInfo[$DAO_menu_item->category_group][$DAO_menu_item->id] = $tempArr;
 					if ($DAO_menu_item->DAO_order_item->discounted_subtotal && $DAO_menu_item->DAO_order_item->discounted_subtotal != 0)
 					{
-						$menuInfo[$DAO_menu_item->category][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->DAO_order_item->discounted_subtotal;
+						$menuInfo[$DAO_menu_item->category_group][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->DAO_order_item->discounted_subtotal;
 					}
 				}
 			}

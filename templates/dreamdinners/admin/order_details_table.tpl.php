@@ -425,7 +425,7 @@
 				</thead>
 				<tbody>
 				<?php
-				foreach ($this->menuInfo as $categoryName => $subArray)
+				foreach ($this->menuInfo as $categoryGroup => $subArray)
 				{
 				$categoryDrawn = false;
 				if (is_array($subArray))
@@ -434,27 +434,15 @@
 				{
 				if (is_numeric($id) && isset($item['qty']) && $item['qty'])
 				{
-				if (!$categoryDrawn && $categoryName != 'Specials')
+				if (!$categoryDrawn && $categoryGroup == CMenuItem::SIDE)
 				{
-					if ($categoryName == "Chef Touched Selections")
-					{
-						$categoryName = "Sides &amp; Sweets";
-					}
-
-					if ($categoryName == "Fast Lane")
-					{
-						$categoryName = "Add On Dinners";
-					}
-
 					$categoryDrawn = true;
 					$StationNumberColspan = ($displayStationNumber) ? '3' : '2';
 					?>
-					<?php if ($categoryName != 'Add On Dinners') { ?>
-						<tr><td colspan="<?php echo $StationNumberColspan; ?>" class="font-weight-bold text-white-space-nowrap text-center"><?php echo $categoryName; ?></td><td colspan="3">&nbsp;</td></tr>
+					<?php if ($categoryGroup == CMenuItem::SIDE) { ?>
+						<tr><td colspan="<?php echo $StationNumberColspan; ?>" class="font-weight-bold text-white-space-nowrap text-center">Sides &amp; Sweets</td><td colspan="3">&nbsp;</td></tr>
 					<?php } ?>
-					<?php
-				}
-				?>
+					<?php } ?>
 				<tr>
 					<?php if ($displayStationNumber) { ?>
 						<td class="text-center align-top"><?php echo ($item['station_number'] >= 1) ? $item['station_number'] : '-'; ?></td>
