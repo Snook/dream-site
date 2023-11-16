@@ -12695,11 +12695,11 @@ class COrders extends DAO_Orders
 
 			if (!empty($DAO_menu_item->DAO_order_item->parent_menu_item_id))
 			{
-				$parentItems[$DAO_menu_item->DAO_order_item->parent_menu_item_id]['display_title'] .= "<br /><span style='font-size:smaller;'>&nbsp;&nbsp;&nbsp;" . $DAO_menu_item->bundle_item_count . " " . $DAO_menu_item->menu_item_name . "</span>";
+				$parentItems[$DAO_menu_item->DAO_order_item->parent_menu_item_id]['display_title'] .= "<br /><span style='font-size:smaller;'>&nbsp;&nbsp;&nbsp;" . $DAO_menu_item->DAO_order_item->bundle_item_count . " " . $DAO_menu_item->menu_item_name . "</span>";
 
 				if (!empty($DAO_menu_item->is_preassembled))
 				{
-					$parentItems[$DAO_menu_item->DAO_order_item->parent_menu_item_id]['display_title_pre_assembled'] .= "<br /><span style='font-size:smaller;'>&nbsp;&nbsp;&nbsp;" . $DAO_menu_item->bundle_item_count . " " . $DAO_menu_item->menu_item_name . "</span>";
+					$parentItems[$DAO_menu_item->DAO_order_item->parent_menu_item_id]['display_title_pre_assembled'] .= "<br /><span style='font-size:smaller;'>&nbsp;&nbsp;&nbsp;" . $DAO_menu_item->DAO_order_item->bundle_item_count . " " . $DAO_menu_item->menu_item_name . "</span>";
 
 					$parentItems[$DAO_menu_item->DAO_order_item->parent_menu_item_id]['display_title'] .= "<span style='font-size:x-small;color:black;font-weight: lighter;text-transform:capitalize;'><br>&nbsp;&nbsp;&nbsp; - Pre-Assembled</span>";
 
