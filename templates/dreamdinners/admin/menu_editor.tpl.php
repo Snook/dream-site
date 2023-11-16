@@ -9,6 +9,7 @@
 <?php $this->setScriptVar('markupData = ' . json_encode($this->markupData) . ';'); ?>
 <?php $this->setScriptVar('menuInfo = ' . $this->menuInfoJS . ';'); ?>
 <?php $this->setScriptVar('isEnabled_Markup = ' . ($this->DAO_menu->isEnabled_Markup() ? 'true' : 'false') . ';'); ?>
+<?php $this->setScriptVar('isEnabled_Markup_Sides = ' . ($this->DAO_menu->isEnabled_Markup_Sides() ? 'true' : 'false') . ';'); ?>
 
 <?php //include $this->loadTemplate('admin/subtemplate/page_header/page_header.tpl.php'); ?>
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
@@ -185,17 +186,18 @@
 
 				<?php } ?>
 
-				<div class="form-group col-4">
-					<div class="input-group">
-						<div class="input-group-prepend">
-							<div class="input-group-text">
-								Markup Sides %
+				<?php if ($this->DAO_menu->isEnabled_Markup_Sides()) { ?>
+					<div class="form-group col-4">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									Markup Sides %
+								</div>
 							</div>
+							<?php echo $this->form['markup_sides_html']; ?>
 						</div>
-						<?php echo $this->form['markup_sides_html']; ?>
 					</div>
-				</div>
-
+				<?php } ?>
 
 			</div>
 
@@ -227,24 +229,26 @@
 
 				<?php } ?>
 
-				<div class="form-group col-4">
-					<div class="input-group">
-						<div class="input-group-prepend mr-2">
-							<div class="input-group-text">
-								Save as Default
+				<?php if ($this->DAO_menu->isEnabled_Markup() || $this->DAO_menu->isEnabled_Markup_Sides()) { ?>
+					<div class="form-group col-4">
+						<div class="input-group">
+							<div class="input-group-prepend mr-2">
+								<div class="input-group-text">
+									Save as Default
+								</div>
+							</div>
+							<div class="form-check form-check-inline">
+								<?php echo $this->form['is_default_markup_html']['yes']; ?>
+								<label class="form-check-label" for="is_default_markupyes">Yes</label>
+							</div>
+
+							<div class="form-check form-check-inline">
+								<?php echo $this->form['is_default_markup_html']['no']; ?>
+								<label class="form-check-label" for="is_default_markupno">No</label>
 							</div>
 						</div>
-						<div class="form-check form-check-inline">
-							<?php echo $this->form['is_default_markup_html']['yes']; ?>
-							<label class="form-check-label" for="is_default_markupyes">Yes</label>
-						</div>
-
-						<div class="form-check form-check-inline">
-							<?php echo $this->form['is_default_markup_html']['no']; ?>
-							<label class="form-check-label" for="is_default_markupno">No</label>
-						</div>
 					</div>
-				</div>
+				<?php } ?>
 
 			</div>
 
@@ -348,7 +352,7 @@
 															   id="ovr_<?php echo $planNode['id' ]; ?>"
 															   <?php if ($this->limitToInventoryControl) { ?>readonly="readonly"<?php } ?>
 															   name="ovr_<?php echo $planNode['id' ]; ?>" value="<?php echo $planNode['override_price' ]; ?>"
-															   type="number" step="any" size="3" maxlength="6" tabindex="<?php echo ++$tabindex; ?>" />
+															   type="number" step="0.01" size="3" maxlength="6" tabindex="<?php echo ++$tabindex; ?>" <?php if (!$this->DAO_menu->isEnabled_Markup_Sides()) { ?>required<?php } ?> />
 													<?php } ?>
 												</td>
 
@@ -453,7 +457,13 @@
 
 												<td class="align-middle">
 													<?php if ($planNode['is_price_controllable']) { ?>
-														<input class="form-control form-control-sm no-spin-button efl-override-price-input" data-orgval="<?php echo $planNode['override_price' ]; ?>" id="ovr_<?php echo $planNode['id' ]; ?>" <?php if ($this->limitToInventoryControl) { ?>readonly="readonly"<?php } ?> name="ovr_<?php echo $planNode['id' ]; ?>" value="<?php echo $planNode['override_price' ]; ?>" type="number" step="any" size="3" maxlength="6" tabindex="<?php echo ++$tabindex; ?>" />
+														<input class="form-control form-control-sm no-spin-button efl-override-price-input"
+															   data-orgval="<?php echo $planNode['override_price' ]; ?>"
+															   id="ovr_<?php echo $planNode['id' ]; ?>"
+															   <?php if ($this->limitToInventoryControl) { ?>readonly="readonly"<?php } ?>
+															   name="ovr_<?php echo $planNode['id' ]; ?>"
+															   value="<?php echo $planNode['override_price' ]; ?>"
+															   type="number" step="0.01" size="3" maxlength="6" tabindex="<?php echo ++$tabindex; ?>" <?php if (!$this->DAO_menu->isEnabled_Markup_Sides()) { ?>required<?php } ?> />
 													<?php } ?>
 												</td>
 
@@ -518,9 +528,13 @@
 									<th class="align-middle">Hide Item Everywhere</th>
 									<th class="align-middle">Item title <span class="font-weight-normal">(Recipe ID)</span></th>
 									<th class="align-middle">Size</th>
-									<th class="align-middle">Base Price</th>
-									<th class="align-middle">Current Price</th>
-									<th class="align-middle">Markup Price</th>
+									<?php if ($this->DAO_menu->isEnabled_Markup_Sides()) { ?>
+										<th class="align-middle">Base Price</th>
+									<?php } ?>
+										<th class="align-middle">Current Price</th>
+									<?php if ($this->DAO_menu->isEnabled_Markup_Sides()) { ?>
+										<th class="align-middle">Markup Price</th>
+									<?php } ?>
 									<th class="align-middle">Override Price</th>
 									<th class="align-middle">Preview Price</th>
 									<th class="align-middle">Remaining Inventory</th>
@@ -531,7 +545,7 @@
 									<?php $subcategory = false; foreach ($this->CTSMenu as $id => $ctsItem) { ?>
 										<?php if ($subcategory != $ctsItem['subcategory_label' ])  { $subcategory = $ctsItem['subcategory_label' ]; ?>
 											<tr>
-												<td colspan="11" class="font-weight-bold py-3">
+												<td colspan="<?php echo ($this->DAO_menu->isEnabled_Markup_Sides() ? 11 : 9); ?>" class="font-weight-bold py-3">
 													<?php echo $ctsItem['subcategory_label' ]; ?>
 												</td>
 											</tr>
@@ -564,23 +578,32 @@
 
 											<td class="align-middle">1 item</td>
 
-											<td class="align-middle">
-												<?php echo $ctsItem['base_price' ]; ?>
-											</td>
+											<?php if ($this->DAO_menu->isEnabled_Markup_Sides()) { ?>
+												<td class="align-middle">
+													<?php echo $ctsItem['base_price' ]; ?>
+												</td>
+											<?php } ?>
 
 											<td class="align-middle">
 												<?php echo $ctsItem['price' ]; ?>
 											</td>
 
-											<td class="align-middle markup-price">
-												<?php if ((!empty($this->markupData['markup_value_2_serving']) && $ctsItem['pricing_type'] == CMenuItem::TWO) || (!empty($this->markupData['markup_value_4_serving']) && $ctsItem['pricing_type'] == CMenuItem::FOUR) || (!empty($this->markupData['markup_value_3_serving']) && $ctsItem['pricing_type'] == CMenuItem::HALF) || (!empty($this->markupData['markup_value_6_serving']) && $ctsItem['pricing_type'] == CMenuItem::FULL)) { ?>
-													<?php echo $ctsItem['price' ]; ?>
-												<?php } ?>
-											</td>
+											<?php if ($this->DAO_menu->isEnabled_Markup_Sides()) { ?>
+												<td class="align-middle markup-price">
+													<?php if ((!empty($this->markupData['markup_value_2_serving']) && $ctsItem['pricing_type'] == CMenuItem::TWO) || (!empty($this->markupData['markup_value_4_serving']) && $ctsItem['pricing_type'] == CMenuItem::FOUR) || (!empty($this->markupData['markup_value_3_serving']) && $ctsItem['pricing_type'] == CMenuItem::HALF) || (!empty($this->markupData['markup_value_6_serving']) && $ctsItem['pricing_type'] == CMenuItem::FULL)) { ?>
+														<?php echo $ctsItem['price' ]; ?>
+													<?php } ?>
+												</td>
+											<?php } ?>
 
 											<td class="align-middle">
 												<?php if ($ctsItem['is_price_controllable']) { ?>
-													<input class="form-control form-control-sm no-spin-button side-override-price-input" data-orgval="<?php echo $ctsItem['override_price' ]; ?>" id="ovr_<?php echo $ctsItem['id' ]; ?>" name="ovr_<?php echo $ctsItem['id' ]; ?>" value="<?php echo $ctsItem['override_price' ]; ?>" type="number" step="any" size="3" maxlength="6" tabindex="<?php echo $tabindex++; ?>" <?php if ($this->limitToInventoryControl) { ?>readonly="readonly"<?php } ?> />
+													<input class="form-control form-control-sm no-spin-button side-override-price-input"
+														   data-orgval="<?php echo $ctsItem['override_price' ]; ?>"
+														   id="ovr_<?php echo $ctsItem['id' ]; ?>"
+														   name="ovr_<?php echo $ctsItem['id' ]; ?>"
+														   value="<?php echo $ctsItem['override_price' ]; ?>"
+														   type="number" step="0.01" size="3" maxlength="6" tabindex="<?php echo $tabindex++; ?>" <?php if ($this->limitToInventoryControl) { ?>readonly="readonly"<?php } ?> <?php if (!$this->DAO_menu->isEnabled_Markup_Sides()) { ?>required<?php } ?> />
 												<?php } ?>
 											</td>
 
@@ -625,47 +648,54 @@
 								</tr>
 								</thead>
 								<tbody class="text-white-space-nowrap text-center">
-								<?php if (!empty($this->pricingReferenceArray)) { ?>
+								<?php if (!empty($this->pricingReferenceArray)) { $category = false; $sub_category = false; ?>
 									<?php foreach ($this->pricingReferenceArray AS $DAO_menu_item) { ?>
-										<?php if (!$DAO_menu_item->isMenuItem_SidesSweets()) { ?>
-
-											<?php if (!empty($DAO_menu_item->pricing_tiers)) { ?>
-												<tr>
-													<td class="text-left">
-														<?php echo $DAO_menu_item->menu_item_name; ?> (<?php echo $DAO_menu_item->recipe_id; ?>)
-													</td>
-													<td>
-														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['1'][CMenuItem::HALF])) { ?>
-															<?php echo $DAO_menu_item->pricing_tiers['1'][CMenuItem::HALF]->price; ?>
-														<?php } ?>
-													</td>
-													<td>
-														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['1'][CMenuItem::FULL])) { ?>
-															<?php echo $DAO_menu_item->pricing_tiers['1'][CMenuItem::FULL]->price; ?>
-														<?php } ?>
-													</td>
-													<td>
-														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['2'][CMenuItem::HALF])) { ?>
-															<?php echo $DAO_menu_item->pricing_tiers['2'][CMenuItem::HALF]->price; ?>
-														<?php } ?>
-													</td>
-													<td>
-														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['2'][CMenuItem::FULL])) { ?>
-															<?php echo $DAO_menu_item->pricing_tiers['2'][CMenuItem::FULL]->price; ?>
-														<?php } ?>
-													</td>
-													<td>
-														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['3'][CMenuItem::HALF])) { ?>
-															<?php echo $DAO_menu_item->pricing_tiers['3'][CMenuItem::HALF]->price; ?>
-														<?php } ?>
-													</td>
-													<td>
-														<?php if (!empty($DAO_menu_item->pricing_tiers) && !empty($DAO_menu_item->pricing_tiers['3'][CMenuItem::FULL])) { ?>
-															<?php echo $DAO_menu_item->pricing_tiers['3'][CMenuItem::FULL]->price; ?>
-														<?php } ?>
-													</td>
-												</tr>
-											<?php } ?>
+										<?php if ($category != $DAO_menu_item->category_group) { $category = $DAO_menu_item->category_group; ?>
+											<tr>
+												<th colspan="7"><?php echo $DAO_menu_item->categoryGroupName(); ?></th>
+											</tr>
+										<?php } ?>
+										<?php if ($DAO_menu_item->isMenuItem_SidesSweets() && $sub_category != $DAO_menu_item->subcategory_label) { $sub_category = $DAO_menu_item->subcategory_label; ?>
+											<tr>
+												<th colspan="7"><?php echo $DAO_menu_item->subcategory_label; ?></th>
+											</tr>
+										<?php } ?>
+										<?php if (!empty($DAO_menu_item->pricing_tiers)) { ?>
+											<tr>
+												<td class="text-left">
+													<?php echo $DAO_menu_item->menu_item_name; ?> (<?php echo $DAO_menu_item->recipe_id; ?>)
+												</td>
+												<td>
+													<?php if (!empty($DAO_menu_item->pricing_tiers['1'][CMenuItem::HALF])) { ?>
+														<?php echo $DAO_menu_item->pricing_tiers['1'][CMenuItem::HALF]->price; ?>
+													<?php } ?>
+												</td>
+												<td>
+													<?php if (!empty($DAO_menu_item->pricing_tiers['1'][CMenuItem::FULL])) { ?>
+														<?php echo $DAO_menu_item->pricing_tiers['1'][CMenuItem::FULL]->price; ?>
+													<?php } ?>
+												</td>
+												<td>
+													<?php if (!empty($DAO_menu_item->pricing_tiers['2'][CMenuItem::HALF])) { ?>
+														<?php echo $DAO_menu_item->pricing_tiers['2'][CMenuItem::HALF]->price; ?>
+													<?php } ?>
+												</td>
+												<td>
+													<?php if (!empty($DAO_menu_item->pricing_tiers['2'][CMenuItem::FULL])) { ?>
+														<?php echo $DAO_menu_item->pricing_tiers['2'][CMenuItem::FULL]->price; ?>
+													<?php } ?>
+												</td>
+												<td>
+													<?php if (!empty($DAO_menu_item->pricing_tiers['3'][CMenuItem::HALF])) { ?>
+														<?php echo $DAO_menu_item->pricing_tiers['3'][CMenuItem::HALF]->price; ?>
+													<?php } ?>
+												</td>
+												<td>
+													<?php if (!empty($DAO_menu_item->pricing_tiers['3'][CMenuItem::FULL])) { ?>
+														<?php echo $DAO_menu_item->pricing_tiers['3'][CMenuItem::FULL]->price; ?>
+													<?php } ?>
+												</td>
+											</tr>
 										<?php } ?>
 									<?php } ?>
 								<?php } ?>

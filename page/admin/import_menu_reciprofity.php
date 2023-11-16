@@ -561,102 +561,99 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 			}
 
 			// First setup pricing for reference if not S&S
-			if ($targetItem->menu_item_category_id != 9)
+			$DAO_pricing = DAO_CFactory::create('pricing');
+			$DAO_pricing->menu_id = $menu_id;
+			$DAO_pricing->recipe_id = $fields['recipe_id'];
+			$DAO_pricing->pricing_type = $fields['pricing_type'];
+
+			// If they aren't found, insert them no matter what
+			if (!$DAO_pricing->find())
 			{
-				$DAO_pricing = DAO_CFactory::create('pricing');
-				$DAO_pricing->menu_id = $menu_id;
-				$DAO_pricing->recipe_id = $fields['recipe_id'];
-				$DAO_pricing->pricing_type = $fields['pricing_type'];
-
-				// If they aren't found, insert them no matter what
-				if (!$DAO_pricing->find())
+				switch ($fields['pricing_type'])
 				{
-					switch ($fields['pricing_type'])
-					{
-						case CMenuItem::FULL:
-							$DAO_pricing->tier = 1;
-							$DAO_pricing->price = trim($fields[PRICE_TIER_1_LG]);
-							$DAO_pricing->insert();
-							$DAO_pricing->tier = 2;
-							$DAO_pricing->price = trim($fields[PRICE_TIER_2_LG]);
-							$DAO_pricing->insert();
-							$DAO_pricing->tier = 3;
-							$DAO_pricing->price = trim($fields[PRICE_TIER_3_LG]);
-							$DAO_pricing->insert();
-							break;
-						case CMenuItem::HALF:
-							$DAO_pricing->tier = 1;
-							$DAO_pricing->price = trim($fields[PRICE_TIER_1_MD]);
-							$DAO_pricing->insert();
-							$DAO_pricing->tier = 2;
-							$DAO_pricing->price = trim($fields[PRICE_TIER_2_MD]);
-							$DAO_pricing->insert();
-							$DAO_pricing->tier = 3;
-							$DAO_pricing->price = trim($fields[PRICE_TIER_3_MD]);
-							$DAO_pricing->insert();
-							break;
-					}
+					case CMenuItem::FULL:
+						$DAO_pricing->tier = 1;
+						$DAO_pricing->price = trim($fields[PRICE_TIER_1_LG]);
+						$DAO_pricing->insert();
+						$DAO_pricing->tier = 2;
+						$DAO_pricing->price = trim($fields[PRICE_TIER_2_LG]);
+						$DAO_pricing->insert();
+						$DAO_pricing->tier = 3;
+						$DAO_pricing->price = trim($fields[PRICE_TIER_3_LG]);
+						$DAO_pricing->insert();
+						break;
+					case CMenuItem::HALF:
+						$DAO_pricing->tier = 1;
+						$DAO_pricing->price = trim($fields[PRICE_TIER_1_MD]);
+						$DAO_pricing->insert();
+						$DAO_pricing->tier = 2;
+						$DAO_pricing->price = trim($fields[PRICE_TIER_2_MD]);
+						$DAO_pricing->insert();
+						$DAO_pricing->tier = 3;
+						$DAO_pricing->price = trim($fields[PRICE_TIER_3_MD]);
+						$DAO_pricing->insert();
+						break;
 				}
-				else
+			}
+			else
+			{
+				while ($DAO_pricing->fetch())
 				{
-					while ($DAO_pricing->fetch())
+					$DAO_pricing_org = $DAO_pricing->cloneObj();
+
+					switch ($DAO_pricing->tier)
 					{
-						$DAO_pricing_org = $DAO_pricing->cloneObj();
-
-						switch ($DAO_pricing->tier)
-						{
-							case 1:
-								if ($fields['pricing_type'] == CMenuItem::FULL)
+						case 1:
+							if ($fields['pricing_type'] == CMenuItem::FULL)
+							{
+								if (!empty($_POST['import_price_tier_1_lg']))
 								{
-									if (!empty($_POST['import_price_tier_1_lg']))
-									{
-										$DAO_pricing->price = trim($fields[PRICE_TIER_1_LG]);
-									}
+									$DAO_pricing->price = trim($fields[PRICE_TIER_1_LG]);
 								}
-								else if ($fields['pricing_type'] == CMenuItem::HALF)
+							}
+							else if ($fields['pricing_type'] == CMenuItem::HALF)
+							{
+								if (!empty($_POST['import_price_tier_1_md']))
 								{
-									if (!empty($_POST['import_price_tier_1_md']))
-									{
-										$DAO_pricing->price = trim($fields[PRICE_TIER_1_MD]);
-									}
+									$DAO_pricing->price = trim($fields[PRICE_TIER_1_MD]);
 								}
-								break;
-							case 2:
-								if ($fields['pricing_type'] == CMenuItem::FULL)
+							}
+							break;
+						case 2:
+							if ($fields['pricing_type'] == CMenuItem::FULL)
+							{
+								if (!empty($_POST['import_price_tier_2_lg']))
 								{
-									if (!empty($_POST['import_price_tier_2_lg']))
-									{
-										$DAO_pricing->price = trim($fields[PRICE_TIER_2_LG]);
-									}
+									$DAO_pricing->price = trim($fields[PRICE_TIER_2_LG]);
 								}
-								else if ($fields['pricing_type'] == CMenuItem::HALF)
+							}
+							else if ($fields['pricing_type'] == CMenuItem::HALF)
+							{
+								if (!empty($_POST['import_price_tier_2_md']))
 								{
-									if (!empty($_POST['import_price_tier_2_md']))
-									{
-										$DAO_pricing->price = trim($fields[PRICE_TIER_2_MD]);
-									}
+									$DAO_pricing->price = trim($fields[PRICE_TIER_2_MD]);
 								}
-								break;
-							case 3:
-								if ($fields['pricing_type'] == CMenuItem::FULL)
+							}
+							break;
+						case 3:
+							if ($fields['pricing_type'] == CMenuItem::FULL)
+							{
+								if (!empty($_POST['import_price_tier_3_lg']))
 								{
-									if (!empty($_POST['import_price_tier_3_lg']))
-									{
-										$DAO_pricing->price = trim($fields[PRICE_TIER_3_LG]);
-									}
+									$DAO_pricing->price = trim($fields[PRICE_TIER_3_LG]);
 								}
-								else if ($fields['pricing_type'] == CMenuItem::HALF)
+							}
+							else if ($fields['pricing_type'] == CMenuItem::HALF)
+							{
+								if (!empty($_POST['import_price_tier_3_md']))
 								{
-									if (!empty($_POST['import_price_tier_3_md']))
-									{
-										$DAO_pricing->price = trim($fields[PRICE_TIER_3_MD]);
-									}
+									$DAO_pricing->price = trim($fields[PRICE_TIER_3_MD]);
 								}
-								break;
-						}
-
-						$DAO_pricing->update($DAO_pricing_org);
+							}
+							break;
 					}
+
+					$DAO_pricing->update($DAO_pricing_org);
 				}
 			}
 
@@ -1190,7 +1187,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item', true);
 				$DAO_menu_to_menu_item->menu_id = $menu_id;
 				$DAO_menu_to_menu_item->store_id = 'NULL';
-				$DAO_menu_item = DAO_CFactory::create('menu_item');
+				$DAO_menu_item = DAO_CFactory::create('menu_item', true);
 				$DAO_menu_item->whereAdd("menu_item.entree_id IN (" . implode(',', $menu_item_id_array) . ")");
 				$DAO_menu_to_menu_item->joinAddWhereAsOn($DAO_menu_item);
 				$DAO_menu_to_menu_item->find();
@@ -1208,18 +1205,15 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 						$new_DAO_menu_to_menu_item->menu_order_value = $DAO_menu_to_menu_item->menu_order_value;
 						$new_DAO_menu_to_menu_item->featuredItem = 0;
 
-						if ($DAO_menu_to_menu_item->DAO_menu_item->menu_item_category_id != 9)
-						{
-							$DAO_pricing = DAO_CFactory::create('pricing');
-							$DAO_pricing->menu_id = $menu_id;
-							$DAO_pricing->recipe_id = $DAO_menu_to_menu_item->DAO_menu_item->recipe_id;
-							$DAO_pricing->tier = $DAO_store->core_pricing_tier;
-							$DAO_pricing->pricing_type = $DAO_menu_to_menu_item->DAO_menu_item->pricing_type;
+						$DAO_pricing = DAO_CFactory::create('pricing', true);
+						$DAO_pricing->menu_id = $menu_id;
+						$DAO_pricing->recipe_id = $DAO_menu_to_menu_item->DAO_menu_item->recipe_id;
+						$DAO_pricing->tier = $DAO_store->core_pricing_tier;
+						$DAO_pricing->pricing_type = $DAO_menu_to_menu_item->DAO_menu_item->pricing_type;
 
-							if ($DAO_pricing->find(true))
-							{
-								$new_DAO_menu_to_menu_item->override_price = $DAO_pricing->price;
-							}
+						if ($DAO_pricing->find(true))
+						{
+							$new_DAO_menu_to_menu_item->override_price = $DAO_pricing->price;
 						}
 
 						if ($DAO_menu_to_menu_item->DAO_menu_item->isMenuItem_Core() || $DAO_store->store_type == CStore::DISTRIBUTION_CENTER)
@@ -1301,7 +1295,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 							{
 								if ($DAO_pricing->price > $new_DAO_menu_to_menu_item->override_price)
 								{
-								//	$tpl->setStatusMsg("<p>Due to price increase, Override Price for <b>" . $new_DAO_menu_to_menu_item->DAO_menu_item->menu_item_name . "</b> has been reset for <b>" . $DAO_pricing->price . "</b>.</p>");
+									//	$tpl->setStatusMsg("<p>Due to price increase, Override Price for <b>" . $new_DAO_menu_to_menu_item->DAO_menu_item->menu_item_name . "</b> has been reset for <b>" . $DAO_pricing->price . "</b>.</p>");
 								}
 
 								$new_DAO_menu_to_menu_item->override_price = $DAO_pricing->price;
