@@ -8,65 +8,69 @@ require_once("DAO/BusinessObject/CStore.php");
 require_once("DAO/CFactory.php");
 require_once("CLog.inc");
 
+ini_set('memory_limit', '768M');
 set_time_limit(100000);
 
 $months = array(
-	array(
-		266
-	)
+	266,
+	267,
+	268
 );
 
 try
 {
 	$fcount = 0;
-	foreach ($months as $subMonths)
+	foreach ($months as $month)
 	{
 		gc_collect_cycles();
 		$fcount++;
-		$strMonth = implode(',', $subMonths);
-		$activeMenus = CMenu::getSpecificMenuArray($strMonth);
-
-		$csv_path = "../output/sales_price_report/sales-price-report-sides_" . $subMonths[0] . "_" . date("Y-m-d") . ".xlsx";
 
 		$sheets = array();
 		$line = '';
 		$count = 0;
-		foreach ($activeMenus as $menu)
-		{
-			$DAO_store = DAO_CFactory::create('store', true);
-			$DAO_store->active = 1;
-			$DAO_store->find();
-			$rows = array();
-			while ($DAO_store->fetch())
-			{
-				echo 'Processing ' . $DAO_store->store_name . "<br>\n";
 
-				$arr = COrders::buildNewPricingMenuPlanArrays($DAO_store, $menu['id'], 'FeaturedFirst', false, false);
-				if (!array_key_exists('Chef Touched Selections', $arr))
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->id = $month;
+		$DAO_menu->find(true);
+
+		$csv_path = "../output/sales_price_report/sales-price-report-sides-" . strtolower(str_replace(' ', '_', $DAO_menu->menu_name)) . "-as_of-" . date("Y-m-d") . ".xlsx";
+
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->active = 1;
+		$DAO_store->find();
+
+		$rows = array();
+
+		while ($DAO_store->fetch())
+		{
+			echo 'Processing ' . $DAO_store->store_name . "<br>\n";
+
+			$arr = COrders::buildNewPricingMenuPlanArrays($DAO_store, $DAO_menu->id, 'FeaturedFirst', false, false);
+			if (!array_key_exists('Chef Touched Selections', $arr))
+			{
+				continue;
+			}
+			foreach ($arr['Chef Touched Selections'] as $key => $coreItem)
+			{
+				$line = $DAO_menu->menu_name . ' (' . $DAO_menu->id . ')|';
+				$line .= $DAO_store->store_name . ' (' . $DAO_store->id . ')|';
+				$line .= $DAO_store->core_pricing_tier . '|';
+				$line .= $DAO_store->city . '|';
+				$line .= $DAO_store->state_id . '|';
+				$line .= $coreItem['recipe_id'] . ($coreItem['pricing_type'] == 'HALF' ? '_M' : '_L') . '|';
+				$line .= $coreItem['display_title'] . '|';
+				$line .= $coreItem['base_price'] . '|';
+				if (empty($coreItem['override_price']))
 				{
-					continue;
+					$line .= $coreItem['price'] . '|';
 				}
-				foreach ($arr['Chef Touched Selections'] as $key => $coreItem)
+				else
 				{
-					$line = $menu['name'] . ' (' . $menu['id'] . ')|';
-					$line .= $DAO_store->store_name . ' (' . $DAO_store->id . ')|';
-					$line .= $DAO_store->core_pricing_tier . '|';
-					$line .= $DAO_store->city . '|';
-					$line .= $DAO_store->state_id . '|';
-					$line .= $coreItem['recipe_id'] . ($coreItem['pricing_type'] == 'HALF' ? '_M' : '_L') . '|';
-					$line .= $coreItem['display_title'] . '|';
-					$line .= $coreItem['base_price'] . '|';
-					if (empty($coreItem['override_price']))
-					{
-						$line .= $coreItem['price'] . '|';
-					}
-					else
-					{
-						$line .= $coreItem['override_price'] . '|';
-					}
-					$line .= ($coreItem['pricing_type'] == 'HALF' ? 'Medium' : 'Large') . '|';
-					$DAO_order_item = DAO_CFactory::create('order_item', true);
-					$DAO_order_item->query("
+					$line .= $coreItem['override_price'] . '|';
+				}
+				$line .= ($coreItem['pricing_type'] == 'HALF' ? 'Medium' : 'Large') . '|';
+				$DAO_order_item = DAO_CFactory::create('order_item', true);
+				$DAO_order_item->query("
 					select oi.menu_item_id, sum(oi.item_count) as total_sold
 					from order_item oi
 					join orders o on o.id = oi.order_id and o.is_deleted = 0
@@ -75,24 +79,24 @@ try
 					where oi.is_deleted = 0
 					and oi.menu_item_id = {$coreItem['id']}
 					and s.store_id = {$DAO_store->id}
-					and s.menu_id = {$menu['id']}
+					and s.menu_id = {$DAO_menu->id}
 					group by oi.menu_item_id");
-					$DAO_order_item->fetch();
+				$DAO_order_item->fetch();
 
-					$line .= empty($DAO_order_item->total_sold) ? 0 : $DAO_order_item->total_sold;
-					$DAO_order_item = null;
+				$line .= empty($DAO_order_item->total_sold) ? 0 : $DAO_order_item->total_sold;
+				$DAO_order_item = null;
 
-					$rows[$count++] = explode('|', $line);
-					//echo $line.PHP_EOL;
-					//echo memory_get_peak_usage() . PHP_EOL;
-					$line = null;
-				}
-				$arr = null;
-				//for testing
-				//$rows[$count++]  = array($menu['name'],$storeObj->store_name,'Recipe Id', 'Recipe Name', 'Price');
+				$rows[$count++] = explode('|', $line);
+				//echo $line.PHP_EOL;
+				//echo memory_get_peak_usage() . PHP_EOL;
+				$line = null;
 			}
-			$sheets[$menu['name']] = $rows;
+			$arr = null;
+			//for testing
+			//$rows[$count++]  = array($menu['name'],$storeObj->store_name,'Recipe Id', 'Recipe Name', 'Price');
 		}
+		$sheets[$DAO_menu->menu_name] = $rows;
+
 		$rows = null;
 		$header = array(
 			'Menu',
