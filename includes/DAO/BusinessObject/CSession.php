@@ -2320,14 +2320,10 @@ class CSession extends DAO_Session
 		$earliestDeliveryDate = $today->format("Y-m-d");
 
 		//$this->query("select * from session where store_id = {$storeObj->id} and DATE(session_start) >= '$earliestDeliveryDate' and delivered_supports_delivery > $deliveryDayFilter and is_deleted = 0 order by session_start limit $max_returned");
-		$this->query("select 
-			`session`.*,
-			(`session`.available_slots - count(booking.id)) AS 'remaining_slots'
-			from (select * from `session` where `session`.store_id = 314 and DATE(`session`.session_start) >= '2023-11-20' and `session`.delivered_supports_delivery > 1 and `session`.is_deleted = 0 order by `session`.session_start limit 20) as `session`
-			join `session` as session_2 on session_2.session_start = DATE_SUB(`session`.session_start, INTERVAL 2 DAY) and session_2.store_id = `session`.store_id and session_2.is_deleted = 0 and session_2.delivered_supports_shipping > 0
-			LEFT JOIN booking ON booking.session_id = `session`.id  AND booking.status = 'ACTIVE' and booking.is_deleted = 0
-			group by `session`.id
-			order by `session`.session_start limit " .$max_returned);
+		$this->query("select iq.* from (
+								select * from session where store_id = {$storeObj->id}  and DATE(session_start) >= '$earliestDeliveryDate' and delivered_supports_delivery > $deliveryDayFilter and is_deleted = 0 order by session_start limit 20) as iq
+								join session s2 on s2.session_start = DATE_SUB(iq.session_start, INTERVAL $orgServiceDays DAY) and s2.store_id = iq.store_id and s2.is_deleted = 0 and s2.delivered_supports_shipping > 0
+								order by iq.session_start limit " .$max_returned);
 	}
 
 	static function isSessionValidForDeliveredOrder($session_id, $StoreObj, $menu_id, $serviceDays = false, $zip = false)
@@ -2377,7 +2373,7 @@ class CSession extends DAO_Session
 	static function getMonthlySessionInfoArrayForDelivered($Store, $date = false, $menu_id = false, $cart_info = false, $open_only = false, $get_bookings = false, $date_is_anchor = false, $excludeFull = false, $customer_view = false, $max_returned = 6)
 	{
 
-		$Sessions = DAO_CFactory::create('session', true);
+		$Sessions = DAO_CFactory::create('session');
 		$Sessions->store_id = $Store->id;
 
 		if (!$date)
@@ -2417,7 +2413,7 @@ class CSession extends DAO_Session
 			$sessionInfoArray['sessions'] = array();
 
 			// if not false then customer_view is the the number service days for delivery
-			$Sessions->findSessionsEligibleForOrdering($Store, $customer_view, 20);
+			$Sessions->findSessionsEligibleForOrdering($Store, $customer_view, $max_returned);
 		}
 		else if (!empty($menu_id))
 		{
@@ -2443,7 +2439,6 @@ class CSession extends DAO_Session
 		}
 
 		$sessionsIDArray = array();
-		$count = 0;
 
 		while ($Sessions->fetch())
 		{
@@ -2451,6 +2446,12 @@ class CSession extends DAO_Session
 			if ($excludeFull && $Sessions->getRemainingSlots() <= 0)
 			{
 				continue;
+			}
+
+			if (!$Store->storeSupportsIntroOrders($Sessions->menu_id))
+			{
+				$Sessions->introductory_slots = 0;
+				$Sessions->remaining_intro_slots = 0;
 			}
 
 			// open sessions only
@@ -2471,11 +2472,6 @@ class CSession extends DAO_Session
 			$date = date('Y-m-d', strtotime($Sessions->session_start));
 			$sessionInfoArray['sessions'][$date]['sessions'][$Sessions->id] = $Sessions->id;
 			$sessionsIDArray[$Sessions->id] = $Sessions->id;
-
-			if(++$count == $max_returned)
-			{
-				break;
-			}
 		}
 
 		// query to get each session details
