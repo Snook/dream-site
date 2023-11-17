@@ -98,7 +98,7 @@ class page_admin_order_details_view_all extends CPageAdminOnly
 		// build a flat list of menu_item ids
 		foreach ($order_items as $k => $v)
 		{
-			if (is_array($v) && $k != "Chef Touched Selections" && $k != "Meal Prep Workshop")
+			if (is_array($v) && $k != CMenuItem::SIDE && $k != "Meal Prep Workshop")
 			{
 				foreach ($v as $id => $itemData)
 				{
@@ -547,7 +547,7 @@ class page_admin_order_details_view_all extends CPageAdminOnly
 					{
 						if (!empty($var))
 						{
-							if (($key == "Chef Touched Selections"))
+							if (($key == CMenuItem::SIDE))
 							{
 								//unset($order_info['menuInfo'][$key]);
 								//unset($order_info['menuInfo']['markup_discount_scalar']);
