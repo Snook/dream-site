@@ -434,15 +434,18 @@
 				{
 				if (is_numeric($id) && isset($item['qty']) && $item['qty'])
 				{
-				if (!$categoryDrawn && $categoryGroup == CMenuItem::SIDE)
+				if (!$categoryDrawn && $categoryGroup != CMenuItem::CORE)
 				{
 					$categoryDrawn = true;
 					$StationNumberColspan = ($displayStationNumber) ? '3' : '2';
 					?>
+					<?php if ($categoryGroup == CMenuItem::EXTENDED) { ?>
+					<tr><td colspan="<?php echo $StationNumberColspan; ?>" class="font-weight-bold text-white-space-nowrap text-center">Add On Dinners</td><td colspan="3">&nbsp;</td></tr>
+				<?php } ?>
 					<?php if ($categoryGroup == CMenuItem::SIDE) { ?>
-						<tr><td colspan="<?php echo $StationNumberColspan; ?>" class="font-weight-bold text-white-space-nowrap text-center">Sides &amp; Sweets</td><td colspan="3">&nbsp;</td></tr>
-					<?php } ?>
-					<?php } ?>
+					<tr><td colspan="<?php echo $StationNumberColspan; ?>" class="font-weight-bold text-white-space-nowrap text-center">Sides &amp; Sweets</td><td colspan="3">&nbsp;</td></tr>
+				<?php } ?>
+				<?php } ?>
 				<tr>
 					<?php if ($displayStationNumber) { ?>
 						<td class="text-center align-top"><?php echo ($item['station_number'] >= 1) ? $item['station_number'] : '-'; ?></td>
