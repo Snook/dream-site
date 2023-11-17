@@ -56,14 +56,14 @@ class page_admin_session_mgr_delivered extends CPageAdminOnly
 
 	function runSiteAdmin()
 	{
-		$tpl = CApp::instance()->template();
-
-		//------------------------------------------------set up store and menu form
-
 		if (!$this->CurrentBackOfficeStore->isDistributionCenter())
 		{
 			CApp::bounce('/backoffice/session-mgr');
 		}
+
+		$tpl = CApp::instance()->template();
+
+		//------------------------------------------------set up store and menu form
 
 		$storeMenuForm = new CForm();
 		$storeMenuForm->Repost = true;
