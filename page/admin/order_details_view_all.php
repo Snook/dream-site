@@ -347,7 +347,7 @@ class page_admin_order_details_view_all extends CPageAdminOnly
 
 		if (!$single_booking_id)
 		{
-			$whereClause = " status = 'ACTIVE'";
+			$whereClause = " booking.status = 'ACTIVE'";
 		}
 		else
 		{
