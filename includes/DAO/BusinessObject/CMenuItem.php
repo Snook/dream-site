@@ -493,7 +493,7 @@ class CMenuItem extends DAO_Menu_item
 		$this->display_description = stripslashes($this->menu_item_description); // legacy support
 		$this->category_id = $this->menu_item_category_id; // legacy support
 		$this->category_group = $this->categoryGroup();
-		$this->category_group_id = $this->categoryGroupId();
+ 		$this->category_group_id = $this->categoryGroupId();
 		$this->is_freezer_menu = $this->isFreezer();
 		$this->is_visible = $this->isVisible();
 		$this->show_on_pick_sheet = $this->showOnPickSheet();
@@ -616,10 +616,14 @@ class CMenuItem extends DAO_Menu_item
 	{
 		// Start with base price
 		$this->store_price = $this->price;
+		$this->store_price_pre_markup = $this->store_price;
+		$this->store_price_markup_amount = 0;
 
 		if (isset($this->override_price))
 		{
 			$this->store_price = $this->override_price;
+			$this->store_price_pre_markup = $this->store_price;
+			$this->store_price_markup_amount = 0;
 		}
 		else if (!empty($this->DAO_store) && !empty($this->menu_id))
 		{
@@ -635,7 +639,9 @@ class CMenuItem extends DAO_Menu_item
 				}
 			}
 
+			$this->store_price_pre_markup = $this->store_price;
 			$this->store_price = COrders::getItemMarkupMultiSubtotal($DAO_mark_up_multi, $this);
+			$this->store_price_markup_amount = $this->store_price - $this->store_price_pre_markup;
 		}
 		else if (!empty($this->store_id) && !empty($this->menu_id))
 		{
@@ -654,7 +660,9 @@ class CMenuItem extends DAO_Menu_item
 				}
 			}
 
+			$this->store_price_pre_markup = $this->store_price;
 			$this->store_price = COrders::getItemMarkupMultiSubtotal($DAO_mark_up_multi, $this);
+			$this->store_price_markup_amount = $this->store_price - $this->store_price_pre_markup;
 		}
 
 		if (!empty($this->DAO_menu_item_mark_down->id))
@@ -666,6 +674,13 @@ class CMenuItem extends DAO_Menu_item
 
 		$this->store_price_no_ltd = $this->store_price;
 
+		if(!empty($this->store_id) && empty($this->DAO_store))
+		{
+			$this->DAO_store = DAO_CFactory::create('store', true);
+			$this->DAO_store->id = $this->store_id;
+			$this->DAO_store->find_DAO_store(true);
+		}
+
 		if (!empty($this->DAO_store->supports_ltd_roundup))
 		{
 			if (!empty($this->ltd_menu_item_value))
@@ -674,20 +689,41 @@ class CMenuItem extends DAO_Menu_item
 			}
 		}
 
-		// If the order_item object exists, restore the purchase price
+		// If the order_item object exists, restore the purchase price and LTD value
 		if (!empty($this->DAO_order_item) && !empty($this->DAO_order_item->item_count))
 		{
+			// discounted_subtotal != null and menu_item_mark_down_id = null
+			// means that this is an LTD item so restore the LTD values
 			if (!empty($this->DAO_order_item->discounted_subtotal) && empty($this->DAO_order_item->menu_item_mark_down_id))
 			{
-				$this->store_price = $this->DAO_order_item->discounted_subtotal / $this->DAO_order_item->item_count;
+				// Restore the price
+				$this->store_price_no_ltd = $this->DAO_order_item->sub_total / $this->DAO_order_item->item_count;
+
+				if(!empty($this->DAO_recipe))
+				{
+					// Restore the LTD price on the recipe object
+					$this->DAO_recipe->ltd_menu_item_value = ($this->DAO_order_item->discounted_subtotal - $this->DAO_order_item->sub_total) / $this->DAO_order_item->item_count;
+
+					// Restore the LTD value on the menu_item object
+					$this->ltd_menu_item_value = $this->DAO_recipe->ltd_menu_item_value; // legacy support
+				}
 			}
 			else
 			{
-				$this->store_price = $this->DAO_order_item->sub_total / $this->DAO_order_item->item_count;
+				// Restore the price
+				$this->store_price_no_ltd = $this->DAO_order_item->sub_total / $this->DAO_order_item->item_count;
+
+				if(!empty($this->DAO_recipe))
+				{
+					// Restore the LTD price on the recipe object
+					$this->DAO_recipe->ltd_menu_item_value = 0;
+				}
+
+				// Restore the LTD value on the menu_item object
+				$this->ltd_menu_item_value = 0;
 			}
 
-			// order_items stored the LTD value in the price, so remove it here
-			$this->store_price_no_ltd = $this->store_price - $this->ltd_menu_item_value;
+			$this->store_price = $this->store_price_no_ltd + $this->ltd_menu_item_value;
 		}
 
 		return $this->store_price;

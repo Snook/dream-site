@@ -541,7 +541,7 @@ class checkout_validation
 			{
 				$selectMerchantAccoutClause = ', ma.id';
 				$selectMerchantAccoutJoin = 'join merchant_accounts ma on ma.store_id = ucr.store_id and ma.is_deleted = 0 and ma.id = ucr.merchant_account_id';
-				if (defined('USE_CORPORATE_TEST_ACCOUNT') && USE_CORPORATE_TEST_ACCOUNT)
+				if (defined('USE_CORPORATE_TEST_ACCOUNT') && USE_CORPORATE_TEST_ACCOUNT !== false)
 				{
 					$selectMerchantAccoutClause = '';
 					$selectMerchantAccoutJoin = '';

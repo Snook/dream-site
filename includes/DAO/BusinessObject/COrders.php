@@ -5469,7 +5469,7 @@ class COrders extends DAO_Orders
 						if ($this->family_savings_discount_version == 2)
 						{
 							$DAO_menu_item->store_price = self::std_round(self::getItemMarkupMultiSubtotal($markup, $DAO_menu_item, 1));
-							$thisMarkupAmt = self::getItemMarkupMultiSubtotal($markup, $DAO_menu_item, $qty) - ($DAO_menu_item->price * $qty);
+							$thisMarkupAmt = self::getItemMarkupMultiSubtotal($markup, $DAO_menu_item, $qty) - ($DAO_menu_item->store_price * $qty);
 							if ($thisMarkupAmt > 0)
 							{
 								$this->subtotal_home_store_markup += $thisMarkupAmt;
@@ -5478,7 +5478,7 @@ class COrders extends DAO_Orders
 						else
 						{
 							$DAO_menu_item->store_price = self::std_round(self::getItemMarkupMultiSubtotal($markup, $DAO_menu_item, 1));
-							$thisMarkupAmt = self::getItemMarkupSubtotal($markup, $DAO_menu_item, $qty) - ($DAO_menu_item->price * $qty);
+							$thisMarkupAmt = self::getItemMarkupSubtotal($markup, $DAO_menu_item, $qty) - ($DAO_menu_item->store_price * $qty);
 							if ($thisMarkupAmt > 0)
 							{
 								$this->subtotal_home_store_markup += $thisMarkupAmt;
@@ -6488,80 +6488,78 @@ class COrders extends DAO_Orders
 		{
 			foreach ($items as $item)
 			{
+				list($qty, $DAO_menu_item) = $item;
 
-				list($qty, $menu_item) = $item;
-
-				if ($qty && $menu_item->id)
+				if ($qty && $DAO_menu_item->id)
 				{
-
-					$orderItem = DAO_CFactory::create('order_item');
-					$orderItem->menu_item_id = $menu_item->id;
-					$orderItem->order_id = $this->id;
-					$orderItem->item_count = $qty;
+					$DAO_order_item = DAO_CFactory::create('order_item', true);
+					$DAO_order_item->menu_item_id = $DAO_menu_item->id;
+					$DAO_order_item->order_id = $this->id;
+					$DAO_order_item->item_count = $qty;
 
 					$hasMarkdown = false;
 					$hasLTDMenuItem = false;
 
-					if (isset($menu_item->markdown_id) && is_numeric($menu_item->markdown_id) && $menu_item->markdown_id > 0)
+					if (isset($DAO_menu_item->markdown_id) && is_numeric($DAO_menu_item->markdown_id) && $DAO_menu_item->markdown_id > 0)
 					{
-						$orderItem->menu_item_mark_down_id = $menu_item->markdown_id;
+						$DAO_order_item->menu_item_mark_down_id = $DAO_menu_item->markdown_id;
 						$hasMarkdown = true;
 					}
 
-					if (!empty($menu_item->order_item_ltd_menu_item))
+					if (!empty($DAO_menu_item->order_item_ltd_menu_item))
 					{
 						$hasLTDMenuItem = true;
 					}
 
-					if (!empty($menu_item->parentItemId))
+					if (!empty($DAO_menu_item->parentItemId))
 					{
-						$orderItem->parent_menu_item_id = $menu_item->parentItemId;
-						$orderItem->bundle_item_count = $menu_item->bundleItemCount;
+						$DAO_order_item->parent_menu_item_id = $DAO_menu_item->parentItemId;
+						$DAO_order_item->bundle_item_count = $DAO_menu_item->bundleItemCount;
 					}
 
-					if ($useCurrent || !array_key_exists($menu_item->id, $toddItems))
+					if ($useCurrent || !array_key_exists($DAO_menu_item->id, $toddItems))
 					{
 						if ($this->family_savings_discount_version == 2)
 						{
-							if (isset($menu_item->store_price))
+							if (isset($DAO_menu_item->store_price))
 							{
-								$orderItem->discounted_subtotal = $menu_item->store_price * $qty;
-								$orderItem->sub_total = $menu_item->store_price * $qty;
-								$orderItem->pre_mark_up_sub_total = $menu_item->store_price * $qty;
+								$DAO_order_item->discounted_subtotal = (!empty($DAO_menu_item->DAO_recipe->ltd_menu_item_value)) ? $DAO_menu_item->store_price * $qty : null;
+								$DAO_order_item->sub_total = $DAO_menu_item->store_price_no_ltd * $qty;
+								$DAO_order_item->pre_mark_up_sub_total = $DAO_menu_item->store_price * $qty;
 
 								if ($this->bundle->bundle_type == CBundle::TV_OFFER)
 								{
 									// remove one ltd from order
-									$orderItem->sub_total -= $menu_item->ltd_menu_item_value;
+									$DAO_order_item->sub_total -= $DAO_menu_item->ltd_menu_item_value;
 								}
 							}
-							else if (isset($menu_item->override_price))
+							else if (isset($DAO_menu_item->override_price))
 							{
-								$orgOverridePrice = $menu_item->override_price;
+								$orgOverridePrice = $DAO_menu_item->override_price;
 								if ($hasLTDMenuItem)
 								{
-									$orderItem->discounted_subtotal = $menu_item->override_price * $qty;
-									$orgStoreOverridePrice = $menu_item->override_price - $menu_item->ltd_menu_item_value;
-									$orderItem->sub_total = $orgStoreOverridePrice * $qty;
+									$DAO_order_item->discounted_subtotal = $DAO_menu_item->override_price * $qty;
+									$orgStoreOverridePrice = $DAO_menu_item->override_price - $DAO_menu_item->ltd_menu_item_value;
+									$DAO_order_item->sub_total = $orgStoreOverridePrice * $qty;
 								}
 								else
 								{
-									$orderItem->sub_total = $menu_item->override_price * $qty;
+									$DAO_order_item->sub_total = $DAO_menu_item->override_price * $qty;
 								}
 
-								$orderItem->pre_mark_up_sub_total = $menu_item->store_price * $qty;
+								$DAO_order_item->pre_mark_up_sub_total = $DAO_menu_item->store_price * $qty;
 							}
 							else
 							{
-								$orderItem->sub_total = self::getItemMarkupMultiSubtotal($this->mark_up, $menu_item, $qty);
-								$orderItem->pre_mark_up_sub_total = $menu_item->store_price * $qty;
+								$DAO_order_item->sub_total = self::getItemMarkupMultiSubtotal($this->mark_up, $DAO_menu_item, $qty);
+								$DAO_order_item->pre_mark_up_sub_total = $DAO_menu_item->store_price * $qty;
 							}
 
-							$normalPrice = $orderItem->sub_total / $qty;
+							$normalPrice = $DAO_order_item->sub_total / $qty;
 
 							if ($hasMarkdown)
 							{
-								$orderItem->discounted_subtotal = ($normalPrice - self::std_round(($normalPrice * $menu_item->markdown_value) / 100, 2)) * $qty;
+								$DAO_order_item->discounted_subtotal = ($normalPrice - self::std_round(($normalPrice * $DAO_menu_item->markdown_value) / 100, 2)) * $qty;
 							}
 						}
 					}
@@ -6569,33 +6567,33 @@ class COrders extends DAO_Orders
 					{
 						if ($pricing_method == 'OVERRIDE')
 						{
-							$thisPrice = ($menu_item->pricing_type == 'HALF' ? $half_price : $full_price);
-							if (self::isPriceGreaterThan($thisPrice, $menu_item->price))
+							$thisPrice = ($DAO_menu_item->pricing_type == 'HALF' ? $half_price : $full_price);
+							if (self::isPriceGreaterThan($thisPrice, $DAO_menu_item->price))
 							{
-								$preMarkupPrice = $menu_item->price;
+								$preMarkupPrice = $DAO_menu_item->price;
 							}
 							else
 							{
 								$preMarkupPrice = $thisPrice;
 							}
 
-							$orderItem->sub_total = $thisPrice * $qty;
-							$orderItem->pre_mark_up_sub_total = $preMarkupPrice * $qty;
+							$DAO_order_item->sub_total = $thisPrice * $qty;
+							$DAO_order_item->pre_mark_up_sub_total = $preMarkupPrice * $qty;
 						}
 						else // FREE
 						{
-							$orderItem->sub_total = 0;
-							$orderItem->pre_mark_up_sub_total = 0;
+							$DAO_order_item->sub_total = 0;
+							$DAO_order_item->pre_mark_up_sub_total = 0;
 						}
 					}
 
 					// mark order items that belong to a bundle with a bundle_id
-					if (!empty($this->bundle_id) && isset($this->bundle) && array_key_exists($orderItem->menu_item_id, $this->bundle->items) && $this->bundle->items[$orderItem->menu_item_id]['chosen'])
+					if (!empty($this->bundle_id) && isset($this->bundle) && array_key_exists($DAO_order_item->menu_item_id, $this->bundle->items) && $this->bundle->items[$DAO_order_item->menu_item_id]['chosen'])
 					{
-						$orderItem->bundle_id = $this->bundle_id;
+						$DAO_order_item->bundle_id = $this->bundle_id;
 					}
 
-					if (!$orderItem->insert())
+					if (!$DAO_order_item->insert())
 					{
 						throw new Exception ('could not insert order item');
 					}
@@ -6603,14 +6601,14 @@ class COrders extends DAO_Orders
 					try
 					{
 
-						$servingQty = $menu_item->servings_per_item;
+						$servingQty = $DAO_menu_item->servings_per_item;
 
 						if ($servingQty == 0)
 						{
 							$servingQty = 6;
 						}
 
-						if ($menu_item->is_chef_touched)
+						if ($DAO_menu_item->is_chef_touched)
 						{
 							$servingQty = 1;
 						}
@@ -6622,7 +6620,7 @@ class COrders extends DAO_Orders
 						{
 							//subtract from inventory
 							$invItem = DAO_CFactory::create('menu_item_inventory');
-							$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold +  " . " $servingQty where mii.recipe_id = {$menu_item->recipe_id}
+							$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold +  " . " $servingQty where mii.recipe_id = {$DAO_menu_item->recipe_id}
 								    and mii.store_id = {$this->store_id} and mii.menu_id = $menu_id and mii.is_deleted = 0");
 						}
 					}
@@ -6632,7 +6630,7 @@ class COrders extends DAO_Orders
 						//log the problem
 						CLog::RecordException($exc);
 
-						$debugStr = "INV_CONTROL ISSUE- Order: " . $this->id . " | Item: " . $orderItem->menu_item_id . " | Store: " . $this->store_id;
+						$debugStr = "INV_CONTROL ISSUE- Order: " . $this->id . " | Item: " . $DAO_order_item->menu_item_id . " | Store: " . $this->store_id;
 						CLog::RecordNew(CLog::ERROR, $debugStr, "", "", true);
 					}
 				}
@@ -6650,14 +6648,14 @@ class COrders extends DAO_Orders
 				if ($qty && $product->id)
 				{
 
-					$orderItem = DAO_CFactory::create('order_item');
-					$orderItem->product_id = $product->id;
-					$orderItem->order_id = $this->id;
-					$orderItem->item_count = $qty;
+					$DAO_order_item = DAO_CFactory::create('order_item');
+					$DAO_order_item->product_id = $product->id;
+					$DAO_order_item->order_id = $this->id;
+					$DAO_order_item->item_count = $qty;
 
 					if ($product->item_type == 'ENROLLMENT')
 					{
-						$orderItem->sub_total = $product->price * $qty;
+						$DAO_order_item->sub_total = $product->price * $qty;
 					}
 
 					/*
@@ -6669,9 +6667,9 @@ class COrders extends DAO_Orders
 					}
 					*/
 
-					$orderItem->pre_mark_up_sub_total = $product->price * $qty;
+					$DAO_order_item->pre_mark_up_sub_total = $product->price * $qty;
 
-					if (!$orderItem->insert())
+					if (!$DAO_order_item->insert())
 					{
 						throw new Exception ('could not insert order item');
 					}
@@ -6781,121 +6779,119 @@ class COrders extends DAO_Orders
 		{
 			foreach ($this->items as $item)
 			{
+				list($qty, $DAO_menu_item) = $item;
 
-				list($qty, $menu_item) = $item;
-
-				if ($qty && $menu_item->id)
+				if ($qty && $DAO_menu_item->id)
 				{
+					$DAO_order_item = DAO_CFactory::create('order_item', true);
+					$DAO_order_item->menu_item_id = $DAO_menu_item->id;
+					$DAO_order_item->order_id = $this->id;
+					$DAO_order_item->item_count = $qty;
 
-					$orderItem = DAO_CFactory::create('order_item');
-					$orderItem->menu_item_id = $menu_item->id;
-					$orderItem->order_id = $this->id;
-					$orderItem->item_count = $qty;
-
-					if (!empty($menu_item->parentItemId))
+					if (!empty($DAO_menu_item->parentItemId))
 					{
-						$orderItem->parent_menu_item_id = $menu_item->parentItemId;
-						$orderItem->bundle_item_count = $menu_item->bundleItemCount;
+						$DAO_order_item->parent_menu_item_id = $DAO_menu_item->parentItemId;
+						$DAO_order_item->bundle_item_count = $DAO_menu_item->bundleItemCount;
 					}
 
 					$hasMarkdown = false;
 					$hasLTDMenuItem = false;
 
-					if (!empty($menu_item->markdown_id) && is_numeric($menu_item->markdown_id))
+					if (!empty($DAO_menu_item->markdown_id) && is_numeric($DAO_menu_item->markdown_id))
 					{
-						$orderItem->menu_item_mark_down_id = $menu_item->markdown_id;
+						$DAO_order_item->menu_item_mark_down_id = $DAO_menu_item->markdown_id;
 						$hasMarkdown = true;
 					}
 
-					if (!empty($this->store->supports_ltd_roundup) && !empty($menu_item->ltd_menu_item_value) && is_numeric($menu_item->ltd_menu_item_value))
+					if (!empty($this->store->supports_ltd_roundup) && !empty($DAO_menu_item->ltd_menu_item_value) && is_numeric($DAO_menu_item->ltd_menu_item_value))
 					{
 						$hasLTDMenuItem = true;
 					}
 
-					if ($useCurrent || !array_key_exists($menu_item->id, $toddItems))
+					if ($useCurrent || !array_key_exists($DAO_menu_item->id, $toddItems))
 					{
-						if (isset($menu_item->store_price))
+						if (isset($DAO_menu_item->store_price))
 						{
-							$orderItem->discounted_subtotal = $menu_item->store_price * $qty;
-							$orderItem->sub_total = $menu_item->store_price_no_ltd * $qty;
-							$orderItem->pre_mark_up_sub_total = $menu_item->store_price * $qty;
+							$DAO_order_item->discounted_subtotal = (!empty($DAO_menu_item->DAO_recipe->ltd_menu_item_value)) ? $DAO_menu_item->store_price * $qty : null;
+							$DAO_order_item->sub_total = $DAO_menu_item->store_price_no_ltd * $qty;
+							$DAO_order_item->pre_mark_up_sub_total = $DAO_menu_item->store_price * $qty;
 						}
-						else if (isset($menu_item->override_price))
+						else if (isset($DAO_menu_item->override_price))
 						{
-							$orgOverridePrice = $menu_item->override_price;
+							$orgOverridePrice = $DAO_menu_item->override_price;
 							if ($hasLTDMenuItem)
 							{
-								$orderItem->discounted_subtotal = $menu_item->override_price * $qty;
-								$orgStoreOverridePrice = $menu_item->override_price - $menu_item->ltd_menu_item_value;
-								$orderItem->sub_total = $orgStoreOverridePrice * $qty;
+								$DAO_order_item->discounted_subtotal = $DAO_menu_item->override_price * $qty;
+								$orgStoreOverridePrice = $DAO_menu_item->override_price - $DAO_menu_item->ltd_menu_item_value;
+								$DAO_order_item->sub_total = $orgStoreOverridePrice * $qty;
 							}
 							else
 							{
-								$orderItem->sub_total = $menu_item->override_price * $qty;
+								$DAO_order_item->sub_total = $DAO_menu_item->override_price * $qty;
 							}
 
-							$orderItem->pre_mark_up_sub_total = $menu_item->store_price_no_ltd * $qty;
+							$DAO_order_item->pre_mark_up_sub_total = $DAO_menu_item->store_price_no_ltd * $qty;
 						}
 						else
 						{
-							$orderItem->sub_total = self::getItemMarkupMultiSubtotal($this->mark_up, $menu_item, $qty);
-							$orderItem->pre_mark_up_sub_total = $menu_item->store_price * $qty;
+							$DAO_order_item->sub_total = self::getItemMarkupMultiSubtotal($this->mark_up, $DAO_menu_item, $qty);
+							$DAO_order_item->pre_mark_up_sub_total = $DAO_menu_item->store_price * $qty;
 						}
 
-						$normalPrice = $orderItem->sub_total / $qty;
+						$normalPrice = $DAO_order_item->sub_total / $qty;
 
 						if ($hasMarkdown)
 						{
-							$orderItem->discounted_subtotal = ($normalPrice - self::std_round(($normalPrice * $menu_item->markdown_value) / 100, 2)) * $qty;
+							$DAO_order_item->discounted_subtotal = ($normalPrice - self::std_round(($normalPrice * $DAO_menu_item->markdown_value) / 100, 2)) * $qty;
 						}
 					}
 					else
 					{
 						if ($pricing_method == 'OVERRIDE')
 						{
-							$thisPrice = ($menu_item->pricing_type == 'HALF' ? $half_price : $full_price);
-							if (self::isPriceGreaterThan($thisPrice, $menu_item->price))
+							$thisPrice = ($DAO_menu_item->pricing_type == 'HALF' ? $half_price : $full_price);
+							if (self::isPriceGreaterThan($thisPrice, $DAO_menu_item->price))
 							{
-								$preMarkupPrice = $menu_item->price;
+								$preMarkupPrice = $DAO_menu_item->price;
 							}
 							else
 							{
 								$preMarkupPrice = $thisPrice;
 							}
 
-							$orderItem->sub_total = $thisPrice * $qty;
-							$orderItem->pre_mark_up_sub_total = $preMarkupPrice * $qty;
+							$DAO_order_item->sub_total = $thisPrice * $qty;
+							$DAO_order_item->pre_mark_up_sub_total = $preMarkupPrice * $qty;
 						}
 						else // FREE
 						{
-							$orderItem->sub_total = 0;
-							$orderItem->pre_mark_up_sub_total = 0;
+							$DAO_order_item->sub_total = 0;
+							$DAO_order_item->pre_mark_up_sub_total = 0;
 						}
 					}
 
 					// mark order items that belong to a bundle with a bundle_id
-					if (!empty($this->bundle_id) && isset($this->bundle) && array_key_exists($orderItem->menu_item_id, $this->bundle->items) && $this->bundle->items[$orderItem->menu_item_id]['chosen'])
+					if (!empty($this->bundle_id) && isset($this->bundle) && array_key_exists($DAO_order_item->menu_item_id, $this->bundle->items) && $this->bundle->items[$DAO_order_item->menu_item_id]['chosen'])
 					{
-						$orderItem->bundle_id = $this->bundle_id;
+						$DAO_order_item->bundle_id = $this->bundle_id;
 					}
 
-					if (!$orderItem->insert())
+					if (!$DAO_order_item->insert())
 					{
 						throw new Exception ('could not insert order item');
 					}
 
 					try
 					{
-						if (!empty($menu_item->recipe_id))
+						if (!empty($DAO_menu_item->recipe_id))
 						{
-							$servingQty = $menu_item->servings_per_item;
+							$servingQty = $DAO_menu_item->servings_per_item;
 
 							if ($servingQty == 0)
 							{
 								$servingQty = 6;
 							}
 
-							if ($menu_item->is_chef_touched)
+							if ($DAO_menu_item->is_chef_touched)
 							{
 								$servingQty = 1;
 							}
@@ -6906,7 +6902,7 @@ class COrders extends DAO_Orders
 
 							//subtract from inventory
 							$invItem = DAO_CFactory::create('menu_item_inventory');
-							$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold +  " . " $servingQty where mii.recipe_id = {$menu_item->recipe_id} and 
+							$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold +  " . " $servingQty where mii.recipe_id = {$DAO_menu_item->recipe_id} and 
 							                mii.store_id = {$this->store_id} and mii.menu_id = $menu_id and mii.is_deleted = 0");
 						}
 					}
@@ -6915,7 +6911,7 @@ class COrders extends DAO_Orders
 						// don't allow a problem here to fail the order
 						//log the problem
 						CLog::RecordException($exc);
-						$debugStr = "INV_CONTROL ISSUE- Order: " . $this->id . " | Item: " . $orderItem->menu_item_id . " | Store: " . $this->store_id;
+						$debugStr = "INV_CONTROL ISSUE- Order: " . $this->id . " | Item: " . $DAO_order_item->menu_item_id . " | Store: " . $this->store_id;
 						CLog::RecordNew(CLog::ERROR, $debugStr, "", "", true);
 					}
 				}
@@ -6933,25 +6929,25 @@ class COrders extends DAO_Orders
 				if ($qty && $product->id)
 				{
 
-					$orderItem = DAO_CFactory::create('order_item');
-					$orderItem->product_id = $product->id;
-					$orderItem->order_id = $this->id;
-					$orderItem->item_count = $qty;
+					$DAO_order_item = DAO_CFactory::create('order_item');
+					$DAO_order_item->product_id = $product->id;
+					$DAO_order_item->order_id = $this->id;
+					$DAO_order_item->item_count = $qty;
 
 					//TODO: getItemMarkupMultiSubtotal really is not designed for prodcuts
 					// consider a new function once markup rules for products are established
 					if ($product->item_type == 'ENROLLMENT')
 					{
-						$orderItem->sub_total = $product->price * $qty;
+						$DAO_order_item->sub_total = $product->price * $qty;
 					}
 					else
 					{
-						$orderItem->sub_total = self::getItemMarkupMultiSubtotal($this->mark_up, $product, $qty);
+						$DAO_order_item->sub_total = self::getItemMarkupMultiSubtotal($this->mark_up, $product, $qty);
 					}
 
-					$orderItem->pre_mark_up_sub_total = $product->price * $qty;
+					$DAO_order_item->pre_mark_up_sub_total = $product->price * $qty;
 
-					if (!$orderItem->insert())
+					if (!$DAO_order_item->insert())
 					{
 						throw new Exception ('could not insert order item');
 					}
@@ -11775,6 +11771,7 @@ class COrders extends DAO_Orders
 		$Store = DAO_CFactory::create('store');
 		$Store->id = $session->store_id;
 		$Store->find(true);
+		$Order->store = clone $Store;
 		$storeInfo = $Store->toArray();
 		$storeInfo['map'] = $Store->generateMapLink();
 		$storeInfo['linear_address'] = $Store->generateLinearAddress();
@@ -12639,32 +12636,16 @@ class COrders extends DAO_Orders
 
 	public static function buildOrderItemsArray($Order, $promo = null, $freeMeal = null, $flatList = false, $orderBy = 'FeaturedFirst')
 	{
-		$DAO_menu_item = DAO_CFactory::create('menu_item');
-
-		$DAO_menu_item->selectAdd();
-		$DAO_menu_item->selectAdd("menu_item.*");
-		$DAO_menu_item->selectAdd("IF(menu_item.menu_item_category_id = 4 AND menu_item.is_store_special = 0, 'Specials', menu_item_category.category_type) as category_type");
-		$DAO_menu_item->selectAdd("order_item.id as order_item_id");
-		$DAO_menu_item->selectAdd("order_item.parent_menu_item_id");
-		$DAO_menu_item->selectAdd("order_item.bundle_item_count");
-		$DAO_menu_item->selectAdd("order_item.bundle_id");
-		$DAO_menu_item->selectAdd("order_item.item_count");
-		$DAO_menu_item->selectAdd("order_item.discounted_subtotal");
-		$DAO_menu_item->selectAdd("order_item.sub_total");
-
-		$DAO_order_item = DAO_CFactory::create('order_item');
-		$DAO_order_item->order_id = $Order->id;
-
-		$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
-		$DAO_menu_to_menu_item->store_id = $Order->store_id;
-
-		$DAO_menu_item->joinAddWhereAsOn($DAO_order_item);
-		$DAO_menu_item->joinAddWhereAsOn(DAO_CFactory::create('menu_item_category'));
-		$DAO_menu_item->joinAddWhereAsOn($DAO_menu_to_menu_item);
-
-		$DAO_menu_item->orderBy($orderBy);
-
-		$DAO_menu_item->find();
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->id = $Order->menu_id;
+		$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
+			'menu_to_menu_item_store_id' => $Order->store->id,
+			'join_order_item_order_id' => array($Order->id),
+			'join_order_item_order' => 'INNER',
+			'exclude_menu_item_category_core' => false,
+			'exclude_menu_item_category_efl' => false,
+			'exclude_menu_item_category_sides_sweets' => false
+		));
 
 		$is_menu_sampler = false;
 
@@ -12682,14 +12663,14 @@ class COrders extends DAO_Orders
 		}
 
 		$menuInfo = array(
-			'Specials' => null,
-			'Fast Lane' => null,
-			'Chef Touched Selections' => null
+			CMenuItem::CORE => null,
+			CMenuItem::EXTENDED => null,
+			CMenuItem::SIDE => null
 		);
 
 		while ($DAO_menu_item->fetch())
 		{
-			if (empty($DAO_menu_item->parent_menu_item_id) && !empty($DAO_menu_item->is_bundle))
+			if (empty($DAO_menu_item->DAO_order_item->parent_menu_item_id) && !empty($DAO_menu_item->is_bundle))
 			{
 				$menu_item_id = $DAO_menu_item->id;
 
@@ -12712,47 +12693,47 @@ class COrders extends DAO_Orders
 				}
 			}
 
-			if (!empty($DAO_menu_item->parent_menu_item_id))
+			if (!empty($DAO_menu_item->DAO_order_item->parent_menu_item_id))
 			{
-				$parentItems[$DAO_menu_item->parent_menu_item_id]['display_title'] .= "<br /><span style='font-size:smaller;'>&nbsp;&nbsp;&nbsp;" . $DAO_menu_item->bundle_item_count . " " . $DAO_menu_item->menu_item_name . "</span>";
+				$parentItems[$DAO_menu_item->DAO_order_item->parent_menu_item_id]['display_title'] .= "<br /><span style='font-size:smaller;'>&nbsp;&nbsp;&nbsp;" . $DAO_menu_item->DAO_order_item->bundle_item_count . " " . $DAO_menu_item->menu_item_name . "</span>";
 
 				if (!empty($DAO_menu_item->is_preassembled))
 				{
-					$parentItems[$DAO_menu_item->parent_menu_item_id]['display_title_pre_assembled'] .= "<br /><span style='font-size:smaller;'>&nbsp;&nbsp;&nbsp;" . $DAO_menu_item->bundle_item_count . " " . $DAO_menu_item->menu_item_name . "</span>";
+					$parentItems[$DAO_menu_item->DAO_order_item->parent_menu_item_id]['display_title_pre_assembled'] .= "<br /><span style='font-size:smaller;'>&nbsp;&nbsp;&nbsp;" . $DAO_menu_item->DAO_order_item->bundle_item_count . " " . $DAO_menu_item->menu_item_name . "</span>";
 
-					$parentItems[$DAO_menu_item->parent_menu_item_id]['display_title'] .= "<span style='font-size:x-small;color:black;font-weight: lighter;text-transform:capitalize;'><br>&nbsp;&nbsp;&nbsp; - Pre-Assembled</span>";
+					$parentItems[$DAO_menu_item->DAO_order_item->parent_menu_item_id]['display_title'] .= "<span style='font-size:x-small;color:black;font-weight: lighter;text-transform:capitalize;'><br>&nbsp;&nbsp;&nbsp; - Pre-Assembled</span>";
 
 					if ($thisOrderAllowsCustomization && !$thisOrderAllowsPreAssembledCustomization)
 					{
-						$parentItems[$DAO_menu_item->parent_menu_item_id]['display_title'] .= "<span style='font-size:x-small;color:darkred;font-weight: lighter;text-transform:capitalize;'><br>&nbsp;&nbsp;&nbsp; - Not Customizable</span>";
+						$parentItems[$DAO_menu_item->DAO_order_item->parent_menu_item_id]['display_title'] .= "<span style='font-size:x-small;color:darkred;font-weight: lighter;text-transform:capitalize;'><br>&nbsp;&nbsp;&nbsp; - Not Customizable</span>";
 					}
 				}
 
-				$parentItems[$DAO_menu_item->parent_menu_item_id]['sub_items']['menu_items'][$DAO_menu_item->id] = $DAO_menu_item->cloneObj();
+				$parentItems[$DAO_menu_item->DAO_order_item->parent_menu_item_id]['sub_items']['menu_items'][$DAO_menu_item->id] = $DAO_menu_item->cloneObj();
 
-				if (empty($parentItems[$DAO_menu_item->parent_menu_item_id]['sub_items']['has_pre_assembled']) && !empty($DAO_menu_item->is_preassembled))
+				if (empty($parentItems[$DAO_menu_item->DAO_order_item->parent_menu_item_id]['sub_items']['has_pre_assembled']) && !empty($DAO_menu_item->is_preassembled))
 				{
-					$parentItems[$DAO_menu_item->parent_menu_item_id]['sub_items']['has_pre_assembled'] = true;
+					$parentItems[$DAO_menu_item->DAO_order_item->parent_menu_item_id]['sub_items']['has_pre_assembled'] = true;
 				}
 
-				if ($DAO_menu_item->bundle_item_count == $DAO_menu_item->item_count)
+				if ($DAO_menu_item->DAO_order_item->bundle_item_count == $DAO_menu_item->DAO_order_item->item_count)
 				{
 					continue;
 				}
 
-				$DAO_menu_item->sub_total -= ($DAO_menu_item->bundle_item_count * ($DAO_menu_item->sub_total / $DAO_menu_item->item_count));
-				$DAO_menu_item->item_count -= $DAO_menu_item->bundle_item_count;
+				$DAO_menu_item->DAO_order_item->sub_total -= ($DAO_menu_item->DAO_order_item->bundle_item_count * ($DAO_menu_item->DAO_order_item->sub_total / $DAO_menu_item->DAO_order_item->item_count));
+				$DAO_menu_item->DAO_order_item->item_count -= $DAO_menu_item->DAO_order_item->bundle_item_count;
 			}
 
 			//use price with mark up
 
 			// Some migrated data has 0 for an item count, look for that condition and try to display something meaningful with a divide by 0 error
-			if (isset($DAO_menu_item->item_count) && $DAO_menu_item->item_count != 0)
+			if (isset($DAO_menu_item->DAO_order_item->item_count) && $DAO_menu_item->DAO_order_item->item_count != 0)
 			{
-				$tempItemAmount = $DAO_menu_item->sub_total / $DAO_menu_item->item_count;
+				$tempItemAmount = $DAO_menu_item->DAO_order_item->sub_total / $DAO_menu_item->DAO_order_item->item_count;
 				if ($promo && $promo->promo_menu_item_id == $DAO_menu_item->id)
 				{
-					$DAO_menu_item->item_count--;
+					$DAO_menu_item->DAO_order_item->item_count--;
 					$menuInfo['promo_item'] = array(
 						'qty' => 1,
 						'display_title' => $DAO_menu_item->menu_item_name,
@@ -12770,12 +12751,12 @@ class COrders extends DAO_Orders
 						'station_number' => $DAO_menu_item->station_number
 					);
 
-					$DAO_menu_item->sub_total -= $tempItemAmount;
+					$DAO_menu_item->DAO_order_item->sub_total -= $tempItemAmount;
 				}
 
 				if ($freeMeal && $freeMeal->menu_item_id == $DAO_menu_item->id)
 				{
-					$DAO_menu_item->item_count--;
+					$DAO_menu_item->DAO_order_item->item_count--;
 					$menuInfo['free_meal_item'] = array(
 						'qty' => 1,
 						'display_title' => $DAO_menu_item->menu_item_name,
@@ -12793,18 +12774,18 @@ class COrders extends DAO_Orders
 						'station_number' => $DAO_menu_item->station_number
 					);
 
-					$DAO_menu_item->sub_total -= $tempItemAmount;
+					$DAO_menu_item->DAO_order_item->sub_total -= $tempItemAmount;
 				}
 
-				if ($DAO_menu_item->item_count)
+				if ($DAO_menu_item->DAO_order_item->item_count)
 				{
 
 					$tempArr = array(
-						'qty' => $DAO_menu_item->item_count,
+						'qty' => $DAO_menu_item->DAO_order_item->item_count,
 						'display_title' => $DAO_menu_item->menu_item_name,
 						'pricing_type' => $DAO_menu_item->pricing_type,
 						'pricing_type_info' => $DAO_menu_item->pricing_type_info,
-						'price' => ($DAO_menu_item->sub_total / $DAO_menu_item->item_count),
+						'price' => ($DAO_menu_item->DAO_order_item->sub_total / $DAO_menu_item->DAO_order_item->item_count),
 						'is_preassembled' => $DAO_menu_item->is_preassembled,
 						'is_menu_addon' => $DAO_menu_item->is_menu_addon,
 						'is_chef_touched' => $DAO_menu_item->is_chef_touched,
@@ -12813,28 +12794,28 @@ class COrders extends DAO_Orders
 						'menu_program_id' => $DAO_menu_item->menu_program_id,
 						'is_side_dish' => $DAO_menu_item->is_side_dish,
 						'servings_per_item' => $DAO_menu_item->servings_per_item,
-						'bundle_id' => $DAO_menu_item->bundle_id,
+						'bundle_id' => $DAO_menu_item->DAO_order_item->bundle_id,
 						'station_number' => $DAO_menu_item->station_number,
-						'subtotal' => $DAO_menu_item->sub_total,
+						'subtotal' => $DAO_menu_item->DAO_order_item->sub_total,
 						'recipe_id' => $DAO_menu_item->recipe_id,
 					);
 
 					if ($flatList)
 					{
 						$menuInfo['itemList'][$DAO_menu_item->id] = $tempArr;
-						if ($DAO_menu_item->discounted_subtotal && $DAO_menu_item->discounted_subtotal != 0)
+						if ($DAO_menu_item->DAO_order_item->discounted_subtotal && $DAO_menu_item->DAO_order_item->discounted_subtotal != 0)
 						{
-							$menuInfo['itemList'][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->discounted_subtotal / $DAO_menu_item->item_count;
-							$menuInfo['itemList'][$DAO_menu_item->id]['subtotal'] = $DAO_menu_item->discounted_subtotal;
+							$menuInfo['itemList'][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->DAO_order_item->discounted_subtotal / $DAO_menu_item->DAO_order_item->item_count;
+							$menuInfo['itemList'][$DAO_menu_item->id]['subtotal'] = $DAO_menu_item->DAO_order_item->discounted_subtotal;
 						}
 					}
 					else
 					{
-						$menuInfo[$DAO_menu_item->category_type][$DAO_menu_item->id] = $tempArr;
-						if ($DAO_menu_item->discounted_subtotal && $DAO_menu_item->discounted_subtotal != 0)
+						$menuInfo[$DAO_menu_item->category_group][$DAO_menu_item->id] = $tempArr;
+						if ($DAO_menu_item->DAO_order_item->discounted_subtotal && $DAO_menu_item->DAO_order_item->discounted_subtotal != 0)
 						{
-							$menuInfo[$DAO_menu_item->category_type][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->discounted_subtotal / $DAO_menu_item->item_count;
-							$menuInfo[$DAO_menu_item->category_type][$DAO_menu_item->id]['subtotal'] = $DAO_menu_item->discounted_subtotal;
+							$menuInfo[$DAO_menu_item->category_group][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->DAO_order_item->discounted_subtotal / $DAO_menu_item->DAO_order_item->item_count;
+							$menuInfo[$DAO_menu_item->category_group][$DAO_menu_item->id]['subtotal'] = $DAO_menu_item->DAO_order_item->discounted_subtotal;
 						}
 					}
 				}
@@ -12844,37 +12825,37 @@ class COrders extends DAO_Orders
 				// Handle 0 item count
 
 				$tempArr = array(
-					'qty' => $DAO_menu_item->item_count,
+					'qty' => $DAO_menu_item->DAO_order_item->item_count,
 					'display_title' => $DAO_menu_item->menu_item_name,
 					'is_menu_addon' => $DAO_menu_item->is_menu_addon,
 					'is_chef_touched' => $DAO_menu_item->is_chef_touched,
 					'pricing_type' => $DAO_menu_item->pricing_type,
 					'pricing_type_info' => $DAO_menu_item->pricing_type_info,
-					'price' => $DAO_menu_item->sub_total,
+					'price' => $DAO_menu_item->DAO_order_item->sub_total,
 					'menu_program_id' => $DAO_menu_item->menu_program_id,
 					'is_kids_choice' => $DAO_menu_item->is_kids_choice,
 					'is_bundle' => $DAO_menu_item->is_bundle,
 					'is_side_dish' => $DAO_menu_item->is_side_dish,
 					'servings_per_item' => $DAO_menu_item->servings_per_item,
 					'station_number' => $DAO_menu_item->station_number,
-					'subtotal' => $DAO_menu_item->sub_total,
+					'subtotal' => $DAO_menu_item->DAO_order_item->sub_total,
 					'recipe_id' => $DAO_menu_item->recipe_id,
 				);
 
 				if ($flatList)
 				{
 					$menuInfo['itemList'][$DAO_menu_item->id] = $tempArr;
-					if ($DAO_menu_item->discounted_subtotal && $DAO_menu_item->discounted_subtotal != 0)
+					if ($DAO_menu_item->DAO_order_item->discounted_subtotal && $DAO_menu_item->DAO_order_item->discounted_subtotal != 0)
 					{
-						$menuInfo['itemList'][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->discounted_subtotal;
+						$menuInfo['itemList'][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->DAO_order_item->discounted_subtotal;
 					}
 				}
 				else
 				{
-					$menuInfo[$DAO_menu_item->category_type][$DAO_menu_item->id] = $tempArr;
-					if ($DAO_menu_item->discounted_subtotal && $DAO_menu_item->discounted_subtotal != 0)
+					$menuInfo[$DAO_menu_item->category_group][$DAO_menu_item->id] = $tempArr;
+					if ($DAO_menu_item->DAO_order_item->discounted_subtotal && $DAO_menu_item->DAO_order_item->discounted_subtotal != 0)
 					{
-						$menuInfo[$DAO_menu_item->category_type][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->discounted_subtotal;
+						$menuInfo[$DAO_menu_item->category_group][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->DAO_order_item->discounted_subtotal;
 					}
 				}
 			}

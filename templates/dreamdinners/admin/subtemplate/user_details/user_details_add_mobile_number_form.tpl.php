@@ -34,7 +34,7 @@
 					<label class="custom-control-label" for="add_method_new">Provide New Number</label>
 				</div>
 				<div id="new_mobile_number_div" class="ml-4 ml-lg-2 collapse">
-					<input type="tel" name="new mobile_number" id="new_mobile_number" class="form-control form-control-sm telephone" placeholder="*Mobile Telephone" data-telephone="true" maxlength="18" size="18" value="<?php echo ($this->user['preferences']['TEXT_MESSAGE_TARGET_NUMBER']['value'] != 'UNANSWERED') ? $this->user['preferences']['TEXT_MESSAGE_TARGET_NUMBER']['value'] : ''; ?>" />
+					<input type="tel" name="new_mobile_number" id="new_mobile_number" class="form-control form-control-sm telephone" placeholder="*Mobile Telephone" data-telephone="true" maxlength="18" size="18" value="<?php echo ($this->user['preferences']['TEXT_MESSAGE_TARGET_NUMBER']['value'] != 'UNANSWERED') ? $this->user['preferences']['TEXT_MESSAGE_TARGET_NUMBER']['value'] : ''; ?>" />
 				</div>
 			</div>
 

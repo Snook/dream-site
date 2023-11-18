@@ -376,9 +376,9 @@ class PayPalProcess
 		}
 		else
 		{
-			if (defined('USE_CORPORATE_TEST_ACCOUNT') && USE_CORPORATE_TEST_ACCOUNT)
+			if (defined('USE_CORPORATE_TEST_ACCOUNT') && USE_CORPORATE_TEST_ACCOUNT !== false)
 			{
-				$store_id = 244;
+				$store_id = USE_CORPORATE_TEST_ACCOUNT;
 			}
 
 			//find the franchise merchant account number
@@ -463,9 +463,9 @@ class PayPalProcess
 		$MerchantAccount = DAO_CFactory::create("merchant_accounts");
 
 		$MerchantAccount->store_id = $store_id;
-		if (defined('USE_CORPORATE_TEST_ACCOUNT') && USE_CORPORATE_TEST_ACCOUNT)
+		if (defined('USE_CORPORATE_TEST_ACCOUNT') && USE_CORPORATE_TEST_ACCOUNT !== false)
 		{
-			$MerchantAccount->store_id = 244;
+			$MerchantAccount->store_id = USE_CORPORATE_TEST_ACCOUNT;
 		}
 
 		if (!$MerchantAccount->find(true))

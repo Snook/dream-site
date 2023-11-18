@@ -204,7 +204,7 @@ if (isset($this->menuInfo['free_meal_item']))
 			<?php } ?>
 			<a href="/print?order=<?php echo $this->orderInfo['id']; ?>&amp;nutrition=true" class="btn btn-lg btn-primary m-1 d-block" target="_blank">Nutritionals</a>
 			<?php if($this->store_allows_meal_customization) { ?>
-				<a href="/account?view=recipe_customization_row" class="btn btn-lg btn-cyan m-1 d-block" target="_blank">Meal Customizations</a>
+				<a href="/account#recipe_customization" class="btn btn-lg btn-cyan m-1 d-block" target="_blank">Meal Customizations</a>
 			<?php } ?>
 		</div>
 

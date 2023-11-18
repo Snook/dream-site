@@ -253,13 +253,13 @@ class form_account
 		));
 
 		// Billing Address
-		$billingRequired = $billingAddrRequired ? '*':'';
+		$billingRequired = $billingAddrRequired ? '*' : '';
 
 		$Form->AddElement(array(
 			CForm::type => CForm::Text,
 			CForm::name => "address_line1",
 			CForm::required => $billingAddrRequired,
-			CForm::placeholder => $billingRequired."Street Address",
+			CForm::placeholder => $billingRequired . "Street Address",
 			CForm::required_msg => "Please enter a street address.",
 			CForm::maxlength => 255,
 			CForm::size => 30,
@@ -279,7 +279,7 @@ class form_account
 			CForm::type => CForm::Text,
 			CForm::name => "city",
 			CForm::required => $billingAddrRequired,
-			CForm::placeholder => $billingRequired."City",
+			CForm::placeholder => $billingRequired . "City",
 			CForm::required_msg => "Please enter a city.",
 			CForm::maxlength => 64,
 			CForm::size => 30,
@@ -297,7 +297,7 @@ class form_account
 			CForm::type => CForm::Text,
 			CForm::name => "postal_code",
 			CForm::required => $billingAddrRequired,
-			CForm::placeholder => $billingRequired."Postal Code",
+			CForm::placeholder => $billingRequired . "Postal Code",
 			CForm::gpc_type => TYPE_POSTAL_CODE,
 			CForm::xss_filter => true,
 			CForm::maxlength => 5,
@@ -459,6 +459,14 @@ class form_account
 			CForm::name => "enroll_in_plate_points"
 		));
 
+		$Form->AddElement(array(
+			CForm::type => CForm::CheckBox,
+			CForm::label => "Opt-in to receive text messages. Message and data rates may apply.",
+			CForm::message => 'To receive text messages, please enter a mobile number above.',
+			CForm::label_css_class => "font-size-small",
+			CForm::name => "sms_opt_in"
+		));
+
 		// gender
 		$ddRequired = false;
 		if (!empty($Form->DefaultValues['dream_rewards_version']) && $Form->DefaultValues['dream_rewards_version'] == 3)
@@ -491,7 +499,6 @@ class form_account
 		{
 			$readOnlyRS = false;
 		}
-
 
 		if ($readOnlyRS)
 		{
@@ -556,7 +563,7 @@ class form_account
 		return $Form;
 	}
 
-	static function _saveForm($Form, $User, $adminAdd = false, $suppressBounce = false, $suppressEmail = false, $SFICurrentValues = false, $fadminStoreID = false, $isConvertingFromPartial = false,$billingAddrRequired = true, $noAddress = false)
+	static function _saveForm($Form, $User, $adminAdd = false, $suppressBounce = false, $suppressEmail = false, $SFICurrentValues = false, $fadminStoreID = false, $isConvertingFromPartial = false, $billingAddrRequired = true, $noAddress = false)
 	{
 		$error = false;
 
@@ -867,10 +874,10 @@ class form_account
 						$customer_referral_id = false;
 						if ($rslt !== false)
 						{
-							if(!$noAddress){
+							if (!$noAddress)
+							{
 								$rslt = self::_saveAddresses($Form, $User);
 							}
-
 
 							//PLATEPOINTS enrollee?
 							if (isset($_POST['enroll_in_plate_points']))
@@ -898,6 +905,11 @@ class form_account
 							if (!empty($_POST['tc_delayed_payment']))
 							{
 								$User->setUserPreference(CUser::TC_DELAYED_PAYMENT_AGREE, 1);
+							}
+
+							if (!empty($_POST['sms_opt_in']))
+							{
+								$User->setUserPreference(CUser::TEXT_MESSAGE_OPT_IN, 'OPTED_IN');
 							}
 
 							// Agree to Dream Dinners T&C, should be true here anyhow
@@ -1405,8 +1417,6 @@ class form_account
 				$error = true;
 			}
 
-
-
 			$szUsername = explode('@', $Form->value('primary_email'));
 			$szUsername = $szUsername[0];
 
@@ -1556,11 +1566,14 @@ class form_account
 						}
 
 						$CartObj = CCart2::instance();
-						if(!is_null($CartObj)){
+						if (!is_null($CartObj))
+						{
 							$OrderObj = $CartObj->getOrder();
-							if(!is_null($OrderObj)){
+							if (!is_null($OrderObj))
+							{
 								$StoreObj = $OrderObj->getStore();
-								if(!is_null($StoreObj) && !empty($StoreObj->id)){
+								if (!is_null($StoreObj) && !empty($StoreObj->id))
+								{
 									$User->home_store_id = $StoreObj->id;
 								}
 							}
@@ -1592,7 +1605,6 @@ class form_account
 									$tpl->setErrorMsg(CPointsUserHistory::getLastOperationResult());
 								}
 							}
-
 
 							// Agree to Dream Dinners T&C, should be true here anyhow
 							if (!empty($_POST['customers_terms']))
@@ -1920,13 +1932,12 @@ class form_account
 		$SFICurrentValues = CUserData::buildSFIFormElementsNew($Form, $User);
 
 		//if($tpl->page == 'payment'){
-			//$error = self::_saveForm($Form, $User, false, true, false, $SFICurrentValues);
+		//$error = self::_saveForm($Form, $User, false, true, false, $SFICurrentValues);
 
 		//}else{
-			$error = self::_saveFormSimplified($Form, $User, false, true, false, $SFICurrentValues);
+		$error = self::_saveFormSimplified($Form, $User, false, true, false, $SFICurrentValues);
 
 		//}
-
 
 		//
 		// Check for POST and login and possibly redirect
@@ -1950,9 +1961,9 @@ class form_account
 						// HACK ALERT: somehow a second slash is added to the REQUEST_URI
 
 						$destination = $_SERVER['REQUEST_URI'];
-						if (strpos($destination,"//") === 0)
+						if (strpos($destination, "//") === 0)
 						{
-							$destination = ltrim($destination,"/");
+							$destination = ltrim($destination, "/");
 							$destination = "/" . $destination;
 						}
 

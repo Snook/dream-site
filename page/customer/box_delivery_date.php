@@ -53,7 +53,7 @@ class page_box_delivery_date extends CPage
 		$StoreObj = $OrderObj->getStore();
 		$CartMenuId = $CartObj->getMenuId();
 
-		$sessionsArray = CSession::getCurrentDeliveredSessionArrayForCustomer($StoreObj, $serviceDays, false, $CartMenuId);
+		$sessionsArray = CSession::getCurrentDeliveredSessionArrayForCustomer($StoreObj, $serviceDays, false, $CartMenuId, true, false, true);
 
 		$tpl->assign('sessions', $sessionsArray);
 

@@ -142,6 +142,7 @@ class CUser extends DAO_User
 	const LTD_AUTO_ROUND_UP = 'LTD_AUTO_ROUND_UP';
 	const HAS_SEEN_ELEMENT = 'HAS_SEEN_ELEMENT';
 
+	const TEXT_MESSAGE_OPT_IN = 'TEXT_MESSAGE_OPT_IN';
 	const TEXT_MESSAGE_THAW_PRIMARY = 'TEXT_MESSAGE_THAW_PRIMARY';
 	const TEXT_MESSAGE_PROMO_PRIMARY = 'TEXT_MESSAGE_PROMO_PRIMARY';
 	const TEXT_MESSAGE_REMINDER_SESSION_PRIMARY = 'TEXT_MESSAGE_REMINDER_SESSION_PRIMARY';
@@ -196,6 +197,7 @@ class CUser extends DAO_User
 			'DDU_TAKE_OFF' => 0,
 			'WEEKLY_INVENTORY_WARNING' => 0
 		),
+		self::TEXT_MESSAGE_OPT_IN => 'UNANSWERED',
 		// UNANSWERED, PENDING_OPT_IN, PENDING_OPT_OUT, OPTED_IN, OPTED_OUT
 		self::TEXT_MESSAGE_THAW_PRIMARY => 'UNANSWERED',
 		self::TEXT_MESSAGE_PROMO_PRIMARY => 'UNANSWERED',
@@ -594,6 +596,21 @@ class CUser extends DAO_User
 				'title' => 'Store/Franchise',
 				'link' => '/backoffice/resources',
 				'submenu' => array(
+					'admin_dashboard_activity_log' => array(
+						'access' => array(
+							self::HOME_OFFICE_MANAGER,
+							self::HOME_OFFICE_STAFF,
+							self::FRANCHISE_OWNER,
+							self::FRANCHISE_MANAGER,
+							self::FRANCHISE_LEAD,
+							self::FRANCHISE_STAFF,
+							self::EVENT_COORDINATOR,
+							self::OPS_LEAD,
+							self::OPS_SUPPORT
+						),
+						'title' => 'Activity Log',
+						'link' => '/backoffice/dashboard-activity-log',
+					),
 					'admin_store_details' => array(
 						'access' => array(
 							self::FRANCHISE_OWNER,

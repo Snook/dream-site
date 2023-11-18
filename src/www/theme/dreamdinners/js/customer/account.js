@@ -711,11 +711,20 @@ $(function () {
 		}
 	}
 
-	if(scroll != '' && scroll.length > 0){
-		$('html, body').animate({
-			scrollTop: $('#'+scroll).offset().top - 60
-		}, 2000);
-	}
+	$(document).on('change', 'input[type="radio"][name="telephone_1_type"], input[type="radio"][name="telephone_2_type"]', function (e) {
+
+		if ($('input[name="telephone_1_type"]:checked').val() == 'MOBILE' || $('input[name="telephone_2_type"]:checked').val() == 'MOBILE')
+		{
+			$('#sms_opt_in').prop({disabled: false});
+			$('[data-warning_id="sms_opt_in"]').hideFlex();
+		}
+		else
+		{
+			$('#sms_opt_in').prop({disabled: true, checked: false});
+			$('[data-warning_id="sms_opt_in"]').showFlex();
+		}
+	});
+	$(document).ready($('input[type="radio"][name="telephone_1_type"], input[type="radio"][name="telephone_2_type"]').change());
 
 	// Click handler for remove items
 	$(document).on('click', '[id^="remove-cc_ref"]', function (e) {

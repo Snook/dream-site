@@ -68,46 +68,28 @@ class CCalendar
 		{
 			case CSession::WALK_IN:
 				return '<span class="note_calendar note_walk_in' . $closed . '" data-tooltip="Walk-In">' . self::sessionTypeTiny($type) . '</span>';
-				break;
 			case CSession::DELIVERY:
 				return '<span class="note_calendar note_delivery' . $closed . '" data-tooltip="Made For You - Delivery">' . self::sessionTypeTiny($type) . '</span>';
-				break;
 			case CSession::DELIVERY_PRIVATE:
 				return '<span class="note_calendar note_delivery_private' . $closed . '" data-tooltip="Made For You - Delivery Private">' . self::sessionTypeTiny($type) . '</span>';
-				break;
 			case CSession::REMOTE_PICKUP:
 				return '<span class="note_calendar note_remote_pickup' . $closed . '" data-tooltip="Made For You - Community Pick Up">' . self::sessionTypeTiny($type) . '</span>';
-				break;
 			case CSession::REMOTE_PICKUP_PRIVATE:
 				return '<span class="note_calendar note_remote_pickup_private' . $closed . '" data-tooltip="Made For You - Community Pick Up - Private">' . self::sessionTypeTiny($type) . '</span>';
-				break;
 			case CSession::SPECIAL_EVENT:
 				return '<span class="note_calendar note_special_event' . $closed . '" data-tooltip="Made For You">' . self::sessionTypeTiny($type) . '</span>';
-				break;
 			case CSession::DREAM_TASTE:
 				return '<span class="note_calendar note_dream_taste' . $closed . '" data-tooltip="Meal Prep Workshop">' . self::sessionTypeTiny($type) . '</span>';
-				break;
 			case CSession::FUNDRAISER:
 				return '<span class="note_calendar note_fundraiser' . $closed . '" data-tooltip="Fundraiser Event">' . self::sessionTypeTiny($type) . '</span>';
-				break;
 			case 'FUNDRAISER_CURBSIDE': // for legends
 				return '<span class="note_calendar note_fundraiser_pick_up' . $closed . '" data-tooltip="Fundraiser $10 Curbside">' . self::sessionTypeTiny('FUNDRAISER_CURBSIDE') . '</span>';
-				break;
 			case CSession::TODD:
 				return '<span class="note_calendar note_todd' . $closed . '" data-tooltip="Taste of Dream Dinners">' . self::sessionTypeTiny($type) . '</span>';
-				break;
 			case CSession::PRIVATE_SESSION:
 				return '<span class="note_calendar note_private' . $closed . '" data-tooltip="Private Session">' . self::sessionTypeTiny($type) . '</span>';
-				break;
 			case CSession::STANDARD:
 				return '<span class="note_calendar note_standard' . $closed . '" data-tooltip="Assembly session">' . self::sessionTypeTiny($type) . '</span>';
-				break;
-			case CSession::WALK_IN:
-				return '<span class="note_calendar note_standard' . $closed . '" data-tooltip="Walk In">WI -' . self::sessionTypeTiny($type) . '</span>';
-				break;
-			case CSession:
-			default:
-				return '<span class="note_calendar">&nbsp;</span>';
 		}
 	}
 

@@ -84,9 +84,12 @@ class page_account extends CPage
 
 		$User = new CUser();
 
-		if ($Form->value('home_store') !== "None Selected" && $_POST['store_id'] != "no_store" && isset($_POST['store_id']) && is_numeric($_POST['store_id']))
+		if (!empty($_POST['store_id']))
 		{
-			$Form->DefaultValues['home_store_id'] = $_POST['store_id'];
+			if ($Form->value('home_store') !== "None Selected" && $_POST['store_id'] != "no_store" && isset($_POST['store_id']) && is_numeric($_POST['store_id']))
+			{
+				$Form->DefaultValues['home_store_id'] = $_POST['store_id'];
+			}
 		}
 
 		$SFICurrentValues = CUserData::buildSFIFormElementsNew($Form, $User);
@@ -120,6 +123,9 @@ class page_account extends CPage
 		}
 
 		//set template vars
+		$tpl->assign('isPreferred', false);
+		$tpl->assign('hide_second_number', false);
+		$tpl->assign('sms_special_case', 'none');
 		$tpl->assign('form_account', $Form->Render());
 		$tpl->assign('isCreate', true);
 		$tpl->assign('isCreate', true);
@@ -192,13 +198,7 @@ class page_account extends CPage
 
 		form_account::sanitizeAccountFields();
 
-
 		$tpl->assign('hide_second_number', false);
-		$tpl->assign('scroll', '');
-		if ($_REQUEST && isset($_REQUEST['view']))
-		{
-			$tpl->assign('scroll', $_REQUEST['view']);
-		}
 
 		$hasReferraSource = false;
 		$ReferralSource = false;

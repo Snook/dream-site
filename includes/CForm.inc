@@ -1105,7 +1105,7 @@ class CForm
 
 			if (isset($a[self::label]))
 			{
-				$szBuildString .= ' for="' . $a[self::name] . '">' . $a[self::label] . '</label>';
+				$szBuildString .= ' for="' . $a[self::name] . '">' . $a[self::label] . ((!empty($a[self::message])) ? '<div class="text-danger collapse" data-warning_id="' . $a[self::name] . '">' . $a[self::message] . '</div>' : '') . '</label>';
 			}
 			else
 			{

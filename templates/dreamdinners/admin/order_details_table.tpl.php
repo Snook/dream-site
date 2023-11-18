@@ -342,7 +342,7 @@
 							<td><?php echo $this->dr_info['next_reward']; ?></td>
 						</tr>
 					</table>
-				<?php } else {  // userISPP ?>
+				<?php } else { // userISPP ?>
 					<table>
 						<tr>
 							<td class="font-weight-bold">Status:</td>
@@ -418,569 +418,562 @@
 					<th class="text-center">Size</th>
 					<th class="font-weight-bold">Dinner</th>
 					<th class="text-right text-white-space-nowrap">
-						<?= $this->isEmptyFloat($this->orderInfo['family_savings_discount']) ? "Item Price" : "Family Savings Price" ?>
+						<?php echo $this->isEmptyFloat($this->orderInfo['family_savings_discount']) ? "Item Price" : "Family Savings Price" ?>
 					</th>
 					<th class="text-right text-white-space-nowrap">Total Price</th>
 				</tr>
 				</thead>
 				<tbody>
 				<?php
-				foreach ($this->menuInfo as $categoryName => $subArray)
+				foreach ($this->menuInfo as $categoryGroup => $subArray)
 				{
-					$categoryDrawn = false;
-					if (is_array($subArray))
-					{
-						foreach ($subArray as $id => $item)
-						{
-							if (is_numeric($id) && isset($item['qty']) && $item['qty'])
-							{
-								if (!$categoryDrawn && $categoryName != 'Specials')
-								{
-									if ($categoryName == "Chef Touched Selections")
-									{
-										$categoryName = "Sides &amp; Sweets";
-									}
-
-									if ($categoryName == "Fast Lane")
-									{
-										$categoryName = "Add On Dinners";
-									}
-
-									$categoryDrawn = true;
-									$StationNumberColspan = ($displayStationNumber) ? '3' : '2';
-									?>
-									<tr><td colspan="<?php echo $StationNumberColspan; ?>" class="font-weight-bold text-white-space-nowrap text-center"><?php echo $categoryName; ?></td><td colspan="3">&nbsp;</td></tr>
-									<?php
-								}
-								?>
-								<tr>
-									<?php if ($displayStationNumber) { ?>
-										<td class="text-center align-top"><?php echo ($item['station_number'] >= 1) ? $item['station_number'] : '-'; ?></td>
-									<?php } ?>
-
-									<td class="text-center align-top"><?php echo $item['qty']; ?></td>
-
-									<td class="text-center align-top">
-										<?php if (empty($this->orderInfo['bundle_id'])) { ?>
-											<?php if (isset($item['servings_per_item'])) { ?>
-												<?php echo((!empty($item['is_side_dish']) || !empty($item['is_kids_choice']) || !empty($item['is_menu_addon']) || !empty($item['is_chef_touched']) || (isset($item['servings_per_item']) && $item['servings_per_item'] == 0)) ? "" : $item['pricing_type_info']['pricing_type_name']); ?>
-											<?php } else { ?>
-												<?php echo $item['is_side_dish'] ? "" : CMenuItem::translatePricingType($item['pricing_type'],false ); ?>
-											<?php } ?>
-										<?php } else { // Added 12/16/19 CES: intro orders can have standard items so do not just skip if there is a bundle, instead look for a recipe id and check for item type as before ?>
-											<?php if (isset($item['recipe_id'])) { ?>
-												<?php if (isset($item['servings_per_item'])) { ?>
-													<?php echo((!empty($item['is_side_dish']) || !empty($item['is_kids_choice']) || !empty($item['is_menu_addon']) || !empty($item['is_chef_touched']) || (isset($item['servings_per_item']) && $item['servings_per_item'] == 0)) ? "" : $item['pricing_type_info']['pricing_type_name']); ?>
-												<?php } else { ?>
-													<?php echo $item['is_side_dish'] ? "" : CMenuItem::translatePricingType($item['pricing_type'],false); ?>
-												<?php } ?>
-											<?php } ?>
-										<?php } ?>
-									</td>
-
-									<td>
-										<div>
-											<?php echo $item['display_title']; ?>
-											<?php if ($DFL_tag_for_standard && $item['menu_program_id'] == 1) { ?><?php echo $DFL_tag_for_standard; ?><?php } ?>
-										</div>
-										<?php if (!empty($item['is_preassembled'])) { ?>
-											<div class="font-size-extra-small ml-3">- Pre-Assembled</div>
-										<?php } ?>
-										<?php if (!empty($this->order_has_meal_customization)) { ?>
-											<?php if ($item['is_freezer_menu'] == true || $item['is_chef_touched'] == true  || ($item['is_preassembled'] == true  && !$this->store_allows_preassembled_customization)) { ?>
-												<div class="font-size-extra-small ml-3 text-danger"">- Not Customizable</div>
-											<?php } ?>
-										<?php } ?>
-									</td>
-									<td class="text-right align-top">
-										<?php
-										$floatItemPrice = 0.0;
-										if (!$this->isEmptyFloat($this->orderInfo['family_savings_discount']))
-										{
-											if (isset($item['discounted_price']))
-											{
-												$floatItemPrice = $this->moneyFormat(round($item['discounted_price'], 2));
-											}
-											else
-											{
-												$numItemServings = (isset($item['servings_per_item']) ? isset($item['servings_per_item']) : ($item['pricing_type'] == "HALF" ? 3 : 6));
-
-												$floatItemPrice = $this->moneyFormat(COrders::getItemDiscountedPrice($item['price'], $this->orderInfo['number_servings'], $numItemServings, isset($this->menuInfo['markup_discount_scalar']) ? $this->menuInfo['markup_discount_scalar'] : null));
-											}
-										}
-										else
-										{
-
-											if (isset($item['discounted_price']) && !$this->isEmptyFloat($item['discounted_price']))
-											{
-												$floatItemPrice = $this->moneyFormat($item['discounted_price']);
-											}
-											else
-											{
-												$floatItemPrice = $this->moneyFormat($item['price']);
-											}
-										}
-										echo '$', $this->moneyFormat($floatItemPrice, 2);
-										?>
-									</td>
-									<td class="text-right text-white-space-nowrap align-top">
-										$<?php echo $this->moneyFormat((((int)$item['qty']) * $floatItemPrice), 2); ?></td>
-								</tr>
-							<?php }
-						}
-					}
-				} // end item loop ?>
-
-				<?php
-				if (isset($this->menuInfo['promo_item']))
+				$categoryDrawn = false;
+				if (is_array($subArray))
 				{
+				foreach ($subArray as $id => $item)
+				{
+				if (is_numeric($id) && isset($item['qty']) && $item['qty'])
+				{
+				if (!$categoryDrawn && $categoryGroup != CMenuItem::CORE)
+				{
+					$categoryDrawn = true;
 					$StationNumberColspan = ($displayStationNumber) ? '3' : '2';
-					echo '<tr><td colspan="' . $StationNumberColspan . '" class="text-white-space-nowrap text-center font-weight-bold">Promotion</td><td colspan="3">&nbsp;</td></tr>';
-					$numPromoServings = isset($this->menuInfo['promo_item']['servings_per_item']) ? $this->menuInfo['promo_item']['servings_per_item'] : ($this->menuInfo['promo_item']['pricing_type'] == "HALF" ? 3 : 6);
 					?>
-					<tr>
-						<td class="text-center">1</td>
-						<td class="text-center"><?= $numPromoServings == 3 ? "Medium" : "Large"; ?></td>
-						<td><?= $this->menuInfo['promo_item']['display_title'] ?> (Promotion)</td>
-						<td class="text-right"><?php echo '$', $this->moneyFormat($this->menuInfo['promo_item']['price']); ?></td>
-						<td class="text-right">
-							<?php echo '$', $this->moneyFormat($this->menuInfo['promo_item']['price']); ?>
-						</td>
-					</tr>
+					<?php if ($categoryGroup == CMenuItem::EXTENDED) { ?>
+					<tr><td colspan="<?php echo $StationNumberColspan; ?>" class="font-weight-bold text-white-space-nowrap text-center">Add On Dinners</td><td colspan="3">&nbsp;</td></tr>
 				<?php } ?>
-				<?php
-				if (isset($this->menuInfo['free_meal_item']))
-				{
-					$StationNumberColspan = ($displayStationNumber) ? '3' : '2';
-					echo '<tr><td colspan="' . $StationNumberColspan . '" class="text-white-space-nowrap text-center font-weight-bold">Coupon Free Meal</td><td colspan="3">&nbsp;</td></tr>';
-					$numFreeMealServings = isset($this->menuInfo['free_meal_item']['servings_per_item']) ? $this->menuInfo['free_meal_item']['servings_per_item'] : ($this->menuInfo['free_meal_item']['pricing_type'] == "HALF" ? 3 : 6);
-					?>
-					<tr>
-						<td class="text-center">1</td>
-						<td class="text-center"><?= $numFreeMealServings == 3 ? "Medium" : "Large"; ?></td>
-						<td><?= $this->menuInfo['free_meal_item']['display_title'] ?> (Coupon - Free Item)</td>
-						<td align="right"><?php echo '$', $this->moneyFormat($this->menuInfo['free_meal_item']['price']); ?></td>
-						<td align="right">
-							<?php echo '$', $this->moneyFormat($this->menuInfo['free_meal_item']['price']); ?>
-						</td>
-					</tr>
+					<?php if ($categoryGroup == CMenuItem::SIDE) { ?>
+					<tr><td colspan="<?php echo $StationNumberColspan; ?>" class="font-weight-bold text-white-space-nowrap text-center">Sides &amp; Sweets</td><td colspan="3">&nbsp;</td></tr>
 				<?php } ?>
-
-				<?php if (!$this->isEmptyFloat($this->orderInfo['misc_food_subtotal']) || !$this->isEmptyFloat($this->orderInfo['misc_nonfood_subtotal'])) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '6' : '5'; ?>" class="text-right">
-							<hr class="float-right w-25" size="1" noshade="noshade" />
-						</td>
-					</tr>
 				<?php } ?>
-
-				<?php if (!$this->isEmptyFloat($this->orderInfo['misc_food_subtotal'])) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Misc Food ( <?= $this->orderInfo['misc_food_subtotal_desc']; ?> )</td>
-						<td align="right"><?php echo '$', $this->moneyFormat($this->orderInfo['misc_food_subtotal']); ?></td>
-					</tr>
-				<?php } ?>
-				<?php if (!$this->isEmptyFloat($this->orderInfo['misc_nonfood_subtotal'])) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Misc Non-Food ( <?= $this->orderInfo['misc_nonfood_subtotal_desc']; ?> )</td>
-						<td align="right"><?php echo '$', $this->moneyFormat($this->orderInfo['misc_nonfood_subtotal']); ?></td>
-					</tr>
-				<?php } ?>
-
 				<tr>
-					<td colspan="<?php echo ($displayStationNumber) ? '6' : '5'; ?>" class="text-right">
-						<hr class="float-right w-25" size="1" noshade="noshade" />
-					</td>
-				</tr>
-
-				<!-- Order subtotal -->
-				<tr>
-					<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">
-						<?= $this->isEmptyFloat($this->orderInfo['family_savings_discount']) ? 'Order Subtotal' : 'Discounted Order Subtotal' ?>
-						<?php echo(!$this->isEmptyFloat($this->orderInfo['misc_food_subtotal']) || !$this->isEmptyFloat($this->orderInfo['misc_nonfood_subtotal']) ? '( includes misc )' : ''); ?></td>
-					<td align="right">
-						$<span id="DO_item_subtotal"><?= $this->moneyFormat($this->orderInfo['subtotal_menu_items'] + $this->orderInfo['subtotal_products'] + $this->orderInfo['misc_food_subtotal'] + $this->orderInfo['subtotal_home_store_markup'] - $this->orderInfo['subtotal_menu_item_mark_down'] - ($this->isEmptyFloat($this->orderInfo['family_savings_discount']) ? 0 : $this->orderInfo['family_savings_discount']) - ($this->isEmptyFloat($this->orderInfo['bundle_discount']) ? 0 : $this->orderInfo['bundle_discount'])); ?></span><span id="DO_nonFoodTotal" class="collapse"><?= $this->orderInfo['subtotal_products'] ?></span>
-					</td>
-				</tr>
-
-				<?php if ($this->orderInfo['opted_to_customize_recipes'] == 1 ) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Customization Fee</td>
-						<td align="right">$<span id="DO_subtotal_meal_customization_fee"><?= $this->moneyFormat($this->orderInfo['subtotal_meal_customization_fee']) ?></span></td>
-					</tr>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right font-italic"><?php echo $this->meal_customization_string;?></td>
-						<td align="right"></td>
-					</tr>
-				<?php } ?>
-
-				<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_service_fee']) || $this->orderInfo['service_fee_description'] == "Free Assembly Promo") { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Service Fee</td>
-						<td align="right">$<span id="DO_subtotal_service_fee"><?= $this->moneyFormat($this->orderInfo['subtotal_service_fee']) ?></span></td>
-					</tr>
-				<?php } ?>
-
-				<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_bag_fee'])){ ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Bag Fee</td>
-						<td align="right">$<span id="DO_subtotal_bag_fee"><?= $this->moneyFormat($this->orderInfo['subtotal_bag_fee']) ?></span></td>
-					</tr>
-				<?php } else { ?>
-					<?php if (!$this->isEmptyFloat($this->orderInfo['opted_to_bring_bags'])){ ?>
-						<tr>
-							<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Bag Fee</td>
-							<td align="right">I will bring my own</td>
-						</tr>
+					<?php if ($displayStationNumber) { ?>
+						<td class="text-center align-top"><?php echo ($item['station_number'] >= 1) ? $item['station_number'] : '-'; ?></td>
 					<?php } ?>
-				<?php }  ?>
 
-				<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_delivery_fee'])) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Delivery Fee</td>
-						<td align="right">$<span id="DO_subtotal_delivery_fee"><?= $this->moneyFormat($this->orderInfo['subtotal_delivery_fee']) ?></span></td>
-					</tr>
-				<?php } ?>
+					<td class="text-center align-top"><?php echo $item['qty']; ?></td>
 
-				<?php if (!$this->isEmptyFloat($this->orderInfo['volume_discount_total'])) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Volume Reward</td>
-						<td align="right">-$<?= $this->moneyFormat($this->orderInfo['volume_discount_total']) ?></td>
-					</tr>
-				<?php } ?>
-				<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_premium_markup'])) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Quick 6 Premium</td>
-						<td align="right">-$<?= $this->moneyFormat($this->orderInfo['subtotal_premium_markup']) ?></td>
-					</tr>
-				<?php } ?>
-				<?php if (!$this->isEmptyFloat($this->orderInfo['user_preferred_discount_total'])) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Preferred Discount</td>
-						<td align="right">-$<span id="DO_preferred_discount"><?= $this->moneyFormat($this->orderInfo['user_preferred_discount_total']) ?></span></td>
-					</tr>
-				<?php } ?>
-				<?php if (!$this->isEmptyFloat($this->orderInfo['membership_discount'])) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Meal Prep+ Discount</td>
-						<td align="right">-$<span><?= $this->moneyFormat($this->orderInfo['membership_discount']) ?></span></td>
-					</tr>
-				<?php } ?>
-
-				<?php if (!$this->isEmptyFloat($this->orderInfo['dream_rewards_discount'])) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Dream Rewards Discount</td>
-						<td align="right">-$<span id="DO_dream_rewards_discount"><?= $this->moneyFormat($this->orderInfo['dream_rewards_discount']) ?></span></td>
-					</tr>
-				<?php } ?>
-				<?php $hasDiscount = $this->isEmptyFloat($this->orderInfo['direct_order_discount']) ? false : true; ?>
-				<tr id="DOD_row" class="<?= ($hasDiscount ? '' : 'collapse') ?>">
-					<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Direct Order Discount</td>
-					<td align="right">-$<span id="DO_discount"><?= $this->moneyFormat($this->orderInfo['direct_order_discount']) ?></span></td>
-				</tr>
-				<?php $hasPPDiscount = $this->isEmptyFloat($this->orderInfo['points_discount_total']) ? false : true; ?>
-				<tr id="PPD_row" class="<?= ($hasPPDiscount ? '' : 'collapse') ?>">
-					<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">PLATEPOINTS Dinner Dollars</td>
-					<td align="right">-$<span id="PP_discount"><?= $this->moneyFormat($this->orderInfo['points_discount_total']) ?></span></td>
-				</tr>
-				<?php $hasPromo = $this->isEmptyFloat($this->orderInfo['promo_code_discount_total']) ? false : true; ?>
-				<tr id="DOPromo_row" class="<?= ($hasPromo ? '' : 'collapse') ?>">
-					<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Promotion Discount</td>
-					<td align="right">-$<span id="DO_promo_discount"><?= $this->moneyFormat($this->orderInfo['promo_code_discount_total']) ?></span></td>
-				</tr>
-				<?php $hasCoupon = ($this->isEmptyFloat($this->orderInfo['coupon_code_discount_total']) && empty($this->coupon_title)) ? false : true; ?>
-				<tr id="DOCoupon_row" class="<?= ($hasCoupon ? '' : 'collapse') ?>">
-					<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">
-						<input type="hidden" name="temp_coupon_id" id="temp_coupon_id" value="<?= $this->orderInfo['coupon_code_id'] ?>" />Coupon <?= isset($this->coupon_title) ? '(' . $this->coupon_title . ')' : "" ?>
+					<td class="text-center align-top">
+						<?php if (empty($this->orderInfo['bundle_id'])) { ?>
+							<?php if (isset($item['servings_per_item'])) { ?>
+								<?php echo ((!empty($item['is_side_dish']) || !empty($item['is_kids_choice']) || !empty($item['is_menu_addon']) || !empty($item['is_chef_touched']) || (isset($item['servings_per_item']) && $item['servings_per_item'] == 0)) ? "" : $item['pricing_type_info']['pricing_type_name']); ?>
+							<?php } else { ?>
+								<?php echo $item['is_side_dish'] ? "" : CMenuItem::translatePricingType($item['pricing_type'],false ); ?>
+							<?php } ?>
+						<?php } else { // Added 12/16/19 CES: intro orders can have standard items so do not just skip if there is a bundle, instead look for a recipe id and check for item type as before ?>
+							<?php if (isset($item['recipe_id'])) { ?>
+								<?php if (isset($item['servings_per_item'])) { ?>
+									<?php echo ((!empty($item['is_side_dish']) || !empty($item['is_kids_choice']) || !empty($item['is_menu_addon']) || !empty($item['is_chef_touched']) || (isset($item['servings_per_item']) && $item['servings_per_item'] == 0)) ? "" : $item['pricing_type_info']['pricing_type_name']); ?>
+								<?php } else { ?>
+									<?php echo $item['is_side_dish'] ? "" : CMenuItem::translatePricingType($item['pricing_type'],false); ?>
+								<?php } ?>
+							<?php } ?>
+						<?php } ?>
 					</td>
-					<td align="right">-$<span id="DO_coupon_discount"><?= $this->moneyFormat($this->orderInfo['coupon_code_discount_total']) ?></span></td>
-				</tr>
-				<?php if (!$this->isEmptyFloat($this->orderInfo['session_discount_total'])) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Session Discount</td>
-						<td align="right">-$<span id="DO_session_discount"><?= $this->moneyFormat($this->orderInfo['session_discount_total']) ?></span></td>
-					</tr>
-				<?php } ?>
-				<tr>
-					<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Food Tax</td>
-					<td align="right">$<span id="DO_taxes"><?= $this->moneyFormat($this->orderInfo['subtotal_food_sales_taxes']) ?></span></td>
-				</tr>
-				<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_sales_taxes'])) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Non-Food Tax</td>
-						<td align="right">$<span id="DO_taxes2"><?= $this->moneyFormat($this->orderInfo['subtotal_sales_taxes']) ?></span></td>
-					</tr>
-				<?php } ?>
-				<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_service_tax'])) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Service Tax</td>
-						<td align="right">$<span id="DO_taxes_service_fee"><?= $this->moneyFormat($this->orderInfo['subtotal_service_tax']) ?></span></td>
-					</tr>
-				<?php } ?>
-				<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_delivery_tax'])) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Delivery Fee Tax</td>
-						<td align="right">$<span id="DO_taxes_delivery_fee"><?= $this->moneyFormat($this->orderInfo['subtotal_delivery_tax']) ?></span></td>
-					</tr>
-				<?php } ?>
-				<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_bag_fee_tax'])) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Bag Fee Tax</td>
-						<td align="right">$<span id="DO_taxes_bag_fee"><?= $this->moneyFormat($this->orderInfo['subtotal_bag_fee_tax']) ?></span></td>
-					</tr>
-				<?php } ?>
-				<tr>
-					<td colspan="<?php echo ($displayStationNumber) ? '6' : '5'; ?>" class="text-right">
-						<hr class="float-right w-25" size="1" noshade="noshade" />
-					</td>
-				</tr>
-				<tr>
-					<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right"><b>Grand Total</b></td>
-					<td align="right"><b>$<span id="ODT_grand_total"><?= $this->moneyFormat($this->orderInfo['grand_total']) ?></span></b></td>
-				</tr>
-				<?php if (!$this->isEmptyFloat($this->orderInfo['ltd_round_up_value'])) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right"><b>Dream Dinners Foundation Donation</b></td>
-						<td align="right"><b>$<span id="ODT_lt_round_up_value"><?= $this->moneyFormat($this->orderInfo['ltd_round_up_value']) ?></span></b></td>
-					</tr>
-				<?php } ?>
-				<?php if (!$this->isEmptyFloat($this->orderInfo['family_savings_discount'])) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '6' : '5'; ?>">&nbsp;</td>
-					</tr>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Your total family savings is</td>
-						<td align="right">$<?= $this->moneyFormat($this->orderInfo['family_savings_discount']) ?></td>
-					</tr>
-				<?php } ?>
-				<?php if (isset($this->orderInfo['total_payments'])) { ?>
-					<tr>
-						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Total Payments</td>
-						<td align="right">$<?= $this->moneyFormat($this->orderInfo['total_payments']) ?></td>
-					</tr>
-					<?php if ($this->orderInfo['total_payments'] > ($this->orderInfo['grand_total'] + .00001)) { ?>
-						<tr>
-							<td colspan="<?php echo ($displayStationNumber) ? '6' : '5'; ?>" align="right"><b>** OVERPAYMENT **</b></td>
-						</tr>
-					<?php } ?>
-				<?php } ?>
 
-				</tbody>
-			</table>
-		</div>
-	</div>
-
-	<?php if ($this->orderInfo['order_confirmation']) { // Show section only if order has been completed ?>
-		<p class="p-1 mb-1 font-weight-bold border-top border-bottom font-size-medium-small">Payment Information</p>
-		<table class="mb-2" style="width:100%;">
+					<td>
+						<div>
+							<?php echo $item['display_title']; ?>
+							<?php if ($DFL_tag_for_standard && $item['menu_program_id'] == 1) { ?><?php echo $DFL_tag_for_standard; ?><?php } ?>
+						</div>
+						<?php if (!empty($item['is_preassembled'])) { ?>
+							<div class="font-size-extra-small ml-3">- Pre-Assembled</div>
+						<?php } ?>
+						<?php if (!empty($this->order_has_meal_customization)) { ?>
+						<?php if ($item['is_freezer_menu'] == true || $item['is_chef_touched'] == true || ($item['is_preassembled'] == true && !$this->store_allows_preassembled_customization)) { ?>
+						<div class="font-size-extra-small ml-3 text-danger"">- Not Customizable</div>
+		<?php } ?>
+		<?php } ?>
+		</td>
+		<td class="text-right align-top">
 			<?php
-			if (isset($this->paymentInfo))
+			$floatItemPrice = 0.0;
+			if (!$this->isEmptyFloat($this->orderInfo['family_savings_discount']))
 			{
-				if (isset($this->gift_card_credits))
+				if (isset($item['discounted_price']))
 				{
-					foreach ($this->gift_card_credits as $credit)
-					{
-						?>
-						<tr>
-							<td style="width:150px;">Payment Type</td>
-							<td>Debit Gift Card</td>
-							<td class="text-right">Payment Total</td>
-							<td class="text-right" style="width:70px;">-<?php echo $credit['gc_amount']; ?></td>
-						</tr>
-						<tr>
-							<td>Gift Card Number</td>
-							<td colspan="3"><?php echo $credit['gc_number']; ?></td>
-						</tr>
-						<?php
-					}
+					$floatItemPrice = $this->moneyFormat(round($item['discounted_price'], 2));
 				}
-
-				$paymentCount = 0;
-				foreach ($this->paymentInfo as $arrItem)
+				else
 				{
-					if (is_array($arrItem))
-					{
-						$paymentCount++;
-						?>
-						<tr>
-							<td style="width:200px;">Payment Type</td>
-							<td><?php echo $arrItem['payment_info']['other']; ?></td>
-							<td class="text-right">Payment Total</td>
-							<td class="text-right" style="width:70px;"><?php echo(($arrItem['payment_info']['other'] != 'Refund') ? "-" : ""); ?>
-								$<?php echo (isset($arrItem['is_delayed_payment']) && ($arrItem['delayed_payment_status'] == 'CANCELLED' || $arrItem['delayed_payment_status'] == 'FAIL')) ? '<span style="text-decoration:line-through;">' . $arrItem['total']['other'] . '</span>' : $arrItem['total']['other']; ?></td>
-						</tr>
+					$numItemServings = (isset($item['servings_per_item']) ? isset($item['servings_per_item']) : ($item['pricing_type'] == "HALF" ? 3 : 6));
 
-						<?php if (isset($arrItem['gift_certificate_type'])) { ?>
-						<tr>
-							<td>Gift Certificate Type</td>
-							<td colspan="3"><?php echo ucfirst(strtolower($arrItem['gift_certificate_type']['other'])); ?></td>
-						</tr>
-					<?php } ?>
+					$floatItemPrice = $this->moneyFormat(COrders::getItemDiscountedPrice($item['price'], $this->orderInfo['number_servings'], $numItemServings, isset($this->menuInfo['markup_discount_scalar']) ? $this->menuInfo['markup_discount_scalar'] : null));
+				}
+			}
+			else
+			{
 
-						<?php if (isset($arrItem['gift_cert_id'])) { ?>
-						<tr>
-							<td>Gift Certificate Number</td>
-							<td colspan="3"><?php echo ucfirst(strtolower($arrItem['gift_cert_id']['other'])); ?></td>
-						</tr>
-					<?php } ?>
+				if (isset($item['discounted_price']) && !$this->isEmptyFloat($item['discounted_price']))
+				{
+					$floatItemPrice = $this->moneyFormat($item['discounted_price']);
+				}
+				else
+				{
+					$floatItemPrice = $this->moneyFormat($item['price']);
+				}
+			}
+			echo '$', $this->moneyFormat($floatItemPrice, 2);
+			?>
+		</td>
+		<td class="text-right text-white-space-nowrap align-top">
+			$<?php echo $this->moneyFormat((((int)$item['qty']) * $floatItemPrice), 2); ?></td>
+		</tr>
+		<?php }
+		}
+		}
+		} // end item loop ?>
 
-
-						<?php if (isset($arrItem['is_delayed_payment'])) { ?>
-						<tr>
-							<td>Payment Status</td>
-							<td colspan="3"><?php echo ucfirst(strtolower($arrItem['delayed_payment_status'])); ?></td>
-						</tr>
-					<?php } ?>
-
-						<tr>
-							<td>Payment Date</td>
-							<td colspan="3"><?php echo (isset($arrItem['is_delayed_payment'])) ? $arrItem['delayed_date']['other'] : $arrItem['paymentDate']['other']; ?></td>
-						</tr>
-						<?php if (isset($arrItem['credit_card_type']['other'])) { ?>
-						<tr>
-							<td>Credit Card Number</td>
-							<td colspan="3"><?php echo $arrItem['credit_card_type']['other']; ?><?php echo $arrItem['payment_number']['other']; ?></td>
-						</tr>
-					<?php } ?>
-
-						<?php if (isset($arrItem['is_delayed_payment']) && $arrItem['delayed_payment_status'] == "SUCCESS") { ?>
-						<tr>
-							<td>Delayed Payment Transaction ID</td>
-							<td colspan="3"><?php echo (!empty($arrItem['delayed_tran_num']['other'])) ? $arrItem['delayed_tran_num']['other'] : ''; ?></td>
-						</tr>
-					<?php } else if (isset($arrItem['payment_transaction_number']['other'])) { ?>
-						<tr>
-							<td>Payment Transaction ID</td>
-							<td colspan="3"><?php echo $arrItem['payment_transaction_number']['other']; ?></td>
-						</tr>
-					<?php } ?>
-
-						<?php if (isset($arrItem['payment_note']['other'])) { ?>
-						<tr>
-							<td>Payment Note</td>
-							<td colspan="3"><?php echo $arrItem['payment_note']['other']; ?></td>
-						</tr>
-					<?php } ?>
-						<?php if ($paymentCount != $this->paymentInfo['payment_count']) { ?>
-						<tr>
-							<td colspan="4">&nbsp;</td>
-						</tr>
-					<?php } ?>
-					<?php } ?>
-				<?php } ?>
-			<?php } ?>
+		<?php
+		if (isset($this->menuInfo['promo_item']))
+		{
+			$StationNumberColspan = ($displayStationNumber) ? '3' : '2';
+			echo '<tr><td colspan="' . $StationNumberColspan . '" class="text-white-space-nowrap text-center font-weight-bold">Promotion</td><td colspan="3">&nbsp;</td></tr>';
+			$numPromoServings = isset($this->menuInfo['promo_item']['servings_per_item']) ? $this->menuInfo['promo_item']['servings_per_item'] : ($this->menuInfo['promo_item']['pricing_type'] == "HALF" ? 3 : 6);
+			?>
 			<tr>
-				<td colspan="4">
+				<td class="text-center">1</td>
+				<td class="text-center"><?php echo $numPromoServings == 3 ? "Medium" : "Large"; ?></td>
+				<td><?php echo $this->menuInfo['promo_item']['display_title'] ?> (Promotion)</td>
+				<td class="text-right"><?php echo '$', $this->moneyFormat($this->menuInfo['promo_item']['price']); ?></td>
+				<td class="text-right">
+					<?php echo '$', $this->moneyFormat($this->menuInfo['promo_item']['price']); ?>
+				</td>
+			</tr>
+		<?php } ?>
+		<?php
+		if (isset($this->menuInfo['free_meal_item']))
+		{
+			$StationNumberColspan = ($displayStationNumber) ? '3' : '2';
+			echo '<tr><td colspan="' . $StationNumberColspan . '" class="text-white-space-nowrap text-center font-weight-bold">Coupon Free Meal</td><td colspan="3">&nbsp;</td></tr>';
+			$numFreeMealServings = isset($this->menuInfo['free_meal_item']['servings_per_item']) ? $this->menuInfo['free_meal_item']['servings_per_item'] : ($this->menuInfo['free_meal_item']['pricing_type'] == "HALF" ? 3 : 6);
+			?>
+			<tr>
+				<td class="text-center">1</td>
+				<td class="text-center"><?php echo $numFreeMealServings == 3 ? "Medium" : "Large"; ?></td>
+				<td><?php echo $this->menuInfo['free_meal_item']['display_title'] ?> (Coupon - Free Item)</td>
+				<td align="right"><?php echo '$', $this->moneyFormat($this->menuInfo['free_meal_item']['price']); ?></td>
+				<td align="right">
+					<?php echo '$', $this->moneyFormat($this->menuInfo['free_meal_item']['price']); ?>
+				</td>
+			</tr>
+		<?php } ?>
+
+		<?php if (!$this->isEmptyFloat($this->orderInfo['misc_food_subtotal']) || !$this->isEmptyFloat($this->orderInfo['misc_nonfood_subtotal'])) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '6' : '5'; ?>" class="text-right">
 					<hr class="float-right w-25" size="1" noshade="noshade" />
 				</td>
 			</tr>
-			<tr>
-				<td colspan="2">&nbsp;</td>
-				<td class="text-right font-weight-bold">Balance Due</td>
-				<td class="text-right font-weight-bold">
+		<?php } ?>
 
+		<?php if (!$this->isEmptyFloat($this->orderInfo['misc_food_subtotal'])) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Misc Food ( <?php echo $this->orderInfo['misc_food_subtotal_desc']; ?> )</td>
+				<td align="right"><?php echo '$', $this->moneyFormat($this->orderInfo['misc_food_subtotal']); ?></td>
+			</tr>
+		<?php } ?>
+		<?php if (!$this->isEmptyFloat($this->orderInfo['misc_nonfood_subtotal'])) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Misc Non-Food ( <?php echo $this->orderInfo['misc_nonfood_subtotal_desc']; ?> )</td>
+				<td align="right"><?php echo '$', $this->moneyFormat($this->orderInfo['misc_nonfood_subtotal']); ?></td>
+			</tr>
+		<?php } ?>
+
+		<tr>
+			<td colspan="<?php echo ($displayStationNumber) ? '6' : '5'; ?>" class="text-right">
+				<hr class="float-right w-25" size="1" noshade="noshade" />
+			</td>
+		</tr>
+
+		<!-- Order subtotal -->
+		<tr>
+			<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">
+				<?php echo $this->isEmptyFloat($this->orderInfo['family_savings_discount']) ? 'Order Subtotal' : 'Discounted Order Subtotal' ?>
+				<?php echo (!$this->isEmptyFloat($this->orderInfo['misc_food_subtotal']) || !$this->isEmptyFloat($this->orderInfo['misc_nonfood_subtotal']) ? '( includes misc )' : ''); ?></td>
+			<td align="right">
+				$<span id="DO_item_subtotal"><?php echo $this->moneyFormat($this->orderInfo['subtotal_menu_items'] + $this->orderInfo['subtotal_products'] + $this->orderInfo['misc_food_subtotal'] + $this->orderInfo['subtotal_home_store_markup'] - $this->orderInfo['subtotal_menu_item_mark_down'] - ($this->isEmptyFloat($this->orderInfo['family_savings_discount']) ? 0 : $this->orderInfo['family_savings_discount']) - ($this->isEmptyFloat($this->orderInfo['bundle_discount']) ? 0 : $this->orderInfo['bundle_discount'])); ?></span><span id="DO_nonFoodTotal" class="collapse"><?php echo $this->orderInfo['subtotal_products'] ?></span>
+			</td>
+		</tr>
+
+		<?php if ($this->orderInfo['opted_to_customize_recipes'] == 1 ) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Customization Fee</td>
+				<td align="right">$<span id="DO_subtotal_meal_customization_fee"><?php echo $this->moneyFormat($this->orderInfo['subtotal_meal_customization_fee']) ?></span></td>
+			</tr>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right font-italic"><?php echo $this->meal_customization_string;?></td>
+				<td align="right"></td>
+			</tr>
+		<?php } ?>
+
+		<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_service_fee']) || $this->orderInfo['service_fee_description'] == "Free Assembly Promo") { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Service Fee</td>
+				<td align="right">$<span id="DO_subtotal_service_fee"><?php echo $this->moneyFormat($this->orderInfo['subtotal_service_fee']) ?></span></td>
+			</tr>
+		<?php } ?>
+
+		<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_bag_fee'])){ ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Bag Fee</td>
+				<td align="right">$<span id="DO_subtotal_bag_fee"><?php echo $this->moneyFormat($this->orderInfo['subtotal_bag_fee']) ?></span></td>
+			</tr>
+		<?php } else { ?>
+			<?php if (!$this->isEmptyFloat($this->orderInfo['opted_to_bring_bags'])){ ?>
+				<tr>
+					<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Bag Fee</td>
+					<td align="right">I will bring my own</td>
+				</tr>
+			<?php } ?>
+		<?php } ?>
+
+		<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_delivery_fee'])) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Delivery Fee</td>
+				<td align="right">$<span id="DO_subtotal_delivery_fee"><?php echo $this->moneyFormat($this->orderInfo['subtotal_delivery_fee']) ?></span></td>
+			</tr>
+		<?php } ?>
+
+		<?php if (!$this->isEmptyFloat($this->orderInfo['volume_discount_total'])) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Volume Reward</td>
+				<td align="right">-$<?php echo $this->moneyFormat($this->orderInfo['volume_discount_total']) ?></td>
+			</tr>
+		<?php } ?>
+		<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_premium_markup'])) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Quick 6 Premium</td>
+				<td align="right">-$<?php echo $this->moneyFormat($this->orderInfo['subtotal_premium_markup']) ?></td>
+			</tr>
+		<?php } ?>
+		<?php if (!$this->isEmptyFloat($this->orderInfo['user_preferred_discount_total'])) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Preferred Discount</td>
+				<td align="right">-$<span id="DO_preferred_discount"><?php echo $this->moneyFormat($this->orderInfo['user_preferred_discount_total']) ?></span></td>
+			</tr>
+		<?php } ?>
+		<?php if (!$this->isEmptyFloat($this->orderInfo['membership_discount'])) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Meal Prep+ Discount</td>
+				<td align="right">-$<span><?php echo $this->moneyFormat($this->orderInfo['membership_discount']) ?></span></td>
+			</tr>
+		<?php } ?>
+
+		<?php if (!$this->isEmptyFloat($this->orderInfo['dream_rewards_discount'])) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Dream Rewards Discount</td>
+				<td align="right">-$<span id="DO_dream_rewards_discount"><?php echo $this->moneyFormat($this->orderInfo['dream_rewards_discount']) ?></span></td>
+			</tr>
+		<?php } ?>
+		<?php $hasDiscount = $this->isEmptyFloat($this->orderInfo['direct_order_discount']) ? false : true; ?>
+		<tr id="DOD_row" class="<?php echo ($hasDiscount ? '' : 'collapse') ?>">
+			<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Direct Order Discount</td>
+			<td align="right">-$<span id="DO_discount"><?php echo $this->moneyFormat($this->orderInfo['direct_order_discount']) ?></span></td>
+		</tr>
+		<?php $hasPPDiscount = $this->isEmptyFloat($this->orderInfo['points_discount_total']) ? false : true; ?>
+		<tr id="PPD_row" class="<?php echo ($hasPPDiscount ? '' : 'collapse') ?>">
+			<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">PLATEPOINTS Dinner Dollars</td>
+			<td align="right">-$<span id="PP_discount"><?php echo $this->moneyFormat($this->orderInfo['points_discount_total']) ?></span></td>
+		</tr>
+		<?php $hasPromo = $this->isEmptyFloat($this->orderInfo['promo_code_discount_total']) ? false : true; ?>
+		<tr id="DOPromo_row" class="<?php echo ($hasPromo ? '' : 'collapse') ?>">
+			<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Promotion Discount</td>
+			<td align="right">-$<span id="DO_promo_discount"><?php echo $this->moneyFormat($this->orderInfo['promo_code_discount_total']) ?></span></td>
+		</tr>
+		<?php $hasCoupon = ($this->isEmptyFloat($this->orderInfo['coupon_code_discount_total']) && empty($this->coupon_title)) ? false : true; ?>
+		<tr id="DOCoupon_row" class="<?php echo ($hasCoupon ? '' : 'collapse') ?>">
+			<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">
+				<input type="hidden" name="temp_coupon_id" id="temp_coupon_id" value="<?php echo $this->orderInfo['coupon_code_id'] ?>" />Coupon <?php echo isset($this->coupon_title) ? '(' . $this->coupon_title . ')' : "" ?>
+			</td>
+			<td align="right">-$<span id="DO_coupon_discount"><?php echo $this->moneyFormat($this->orderInfo['coupon_code_discount_total']) ?></span></td>
+		</tr>
+		<?php if (!$this->isEmptyFloat($this->orderInfo['session_discount_total'])) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Session Discount</td>
+				<td align="right">-$<span id="DO_session_discount"><?php echo $this->moneyFormat($this->orderInfo['session_discount_total']) ?></span></td>
+			</tr>
+		<?php } ?>
+		<tr>
+			<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Food Tax</td>
+			<td align="right">$<span id="DO_taxes"><?php echo $this->moneyFormat($this->orderInfo['subtotal_food_sales_taxes']) ?></span></td>
+		</tr>
+		<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_sales_taxes'])) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Non-Food Tax</td>
+				<td align="right">$<span id="DO_taxes2"><?php echo $this->moneyFormat($this->orderInfo['subtotal_sales_taxes']) ?></span></td>
+			</tr>
+		<?php } ?>
+		<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_service_tax'])) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Service Tax</td>
+				<td align="right">$<span id="DO_taxes_service_fee"><?php echo $this->moneyFormat($this->orderInfo['subtotal_service_tax']) ?></span></td>
+			</tr>
+		<?php } ?>
+		<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_delivery_tax'])) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Delivery Fee Tax</td>
+				<td align="right">$<span id="DO_taxes_delivery_fee"><?php echo $this->moneyFormat($this->orderInfo['subtotal_delivery_tax']) ?></span></td>
+			</tr>
+		<?php } ?>
+		<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_bag_fee_tax'])) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Bag Fee Tax</td>
+				<td align="right">$<span id="DO_taxes_bag_fee"><?php echo $this->moneyFormat($this->orderInfo['subtotal_bag_fee_tax']) ?></span></td>
+			</tr>
+		<?php } ?>
+		<tr>
+			<td colspan="<?php echo ($displayStationNumber) ? '6' : '5'; ?>" class="text-right">
+				<hr class="float-right w-25" size="1" noshade="noshade" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right"><b>Grand Total</b></td>
+			<td align="right"><b>$<span id="ODT_grand_total"><?php echo $this->moneyFormat($this->orderInfo['grand_total']) ?></span></b></td>
+		</tr>
+		<?php if (!$this->isEmptyFloat($this->orderInfo['ltd_round_up_value'])) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right"><b>Dream Dinners Foundation Donation</b></td>
+				<td align="right"><b>$<span id="ODT_lt_round_up_value"><?php echo $this->moneyFormat($this->orderInfo['ltd_round_up_value']) ?></span></b></td>
+			</tr>
+		<?php } ?>
+		<?php if (!$this->isEmptyFloat($this->orderInfo['family_savings_discount'])) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '6' : '5'; ?>">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Your total family savings is</td>
+				<td align="right">$<?php echo $this->moneyFormat($this->orderInfo['family_savings_discount']) ?></td>
+			</tr>
+		<?php } ?>
+		<?php if (isset($this->orderInfo['total_payments'])) { ?>
+			<tr>
+				<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Total Payments</td>
+				<td align="right">$<?php echo $this->moneyFormat($this->orderInfo['total_payments']) ?></td>
+			</tr>
+			<?php if ($this->orderInfo['total_payments'] > ($this->orderInfo['grand_total'] + .00001)) { ?>
+				<tr>
+					<td colspan="<?php echo ($displayStationNumber) ? '6' : '5'; ?>" align="right"><b>** OVERPAYMENT **</b></td>
+				</tr>
+			<?php } ?>
+		<?php } ?>
+
+		</tbody>
+		</table>
+	</div>
+</div>
+
+<?php if ($this->orderInfo['order_confirmation']) { // Show section only if order has been completed ?>
+	<p class="p-1 mb-1 font-weight-bold border-top border-bottom font-size-medium-small">Payment Information</p>
+	<table class="mb-2" style="width:100%;">
+		<?php
+		if (isset($this->paymentInfo))
+		{
+			if (isset($this->gift_card_credits))
+			{
+				foreach ($this->gift_card_credits as $credit)
+				{
+					?>
+					<tr>
+						<td style="width:150px;">Payment Type</td>
+						<td>Debit Gift Card</td>
+						<td class="text-right">Payment Total</td>
+						<td class="text-right" style="width:70px;">-<?php echo $credit['gc_amount']; ?></td>
+					</tr>
+					<tr>
+						<td>Gift Card Number</td>
+						<td colspan="3"><?php echo $credit['gc_number']; ?></td>
+					</tr>
 					<?php
-					if (isset($this->balanceDue))
+				}
+			}
+
+			$paymentCount = 0;
+			foreach ($this->paymentInfo as $arrItem)
+			{
+				if (is_array($arrItem))
+				{
+					$paymentCount++;
+					?>
+					<tr>
+						<td style="width:200px;">Payment Type</td>
+						<td><?php echo $arrItem['payment_info']['other']; ?></td>
+						<td class="text-right">Payment Total</td>
+						<td class="text-right" style="width:70px;"><?php echo (($arrItem['payment_info']['other'] != 'Refund') ? "-" : ""); ?>
+							$<?php echo (isset($arrItem['is_delayed_payment']) && ($arrItem['delayed_payment_status'] == 'CANCELLED' || $arrItem['delayed_payment_status'] == 'FAIL')) ? '<span style="text-decoration:line-through;">' . $arrItem['total']['other'] . '</span>' : $arrItem['total']['other']; ?></td>
+					</tr>
+
+					<?php if (isset($arrItem['gift_certificate_type'])) { ?>
+					<tr>
+						<td>Gift Certificate Type</td>
+						<td colspan="3"><?php echo ucfirst(strtolower($arrItem['gift_certificate_type']['other'])); ?></td>
+					</tr>
+				<?php } ?>
+
+					<?php if (isset($arrItem['gift_cert_id'])) { ?>
+					<tr>
+						<td>Gift Certificate Number</td>
+						<td colspan="3"><?php echo ucfirst(strtolower($arrItem['gift_cert_id']['other'])); ?></td>
+					</tr>
+				<?php } ?>
+
+
+					<?php if (isset($arrItem['is_delayed_payment'])) { ?>
+					<tr>
+						<td>Payment Status</td>
+						<td colspan="3"><?php echo ucfirst(strtolower($arrItem['delayed_payment_status'])); ?></td>
+					</tr>
+				<?php } ?>
+
+					<tr>
+						<td>Payment Date</td>
+						<td colspan="3"><?php echo (isset($arrItem['is_delayed_payment'])) ? $arrItem['delayed_date']['other'] : $arrItem['paymentDate']['other']; ?></td>
+					</tr>
+					<?php if (isset($arrItem['credit_card_type']['other'])) { ?>
+					<tr>
+						<td>Credit Card Number</td>
+						<td colspan="3"><?php echo $arrItem['credit_card_type']['other']; ?><?php echo $arrItem['payment_number']['other']; ?></td>
+					</tr>
+				<?php } ?>
+
+					<?php if (isset($arrItem['is_delayed_payment']) && $arrItem['delayed_payment_status'] == "SUCCESS") { ?>
+					<tr>
+						<td>Delayed Payment Transaction ID</td>
+						<td colspan="3"><?php echo (!empty($arrItem['delayed_tran_num']['other'])) ? $arrItem['delayed_tran_num']['other'] : ''; ?></td>
+					</tr>
+				<?php } else if (isset($arrItem['payment_transaction_number']['other'])) { ?>
+					<tr>
+						<td>Payment Transaction ID</td>
+						<td colspan="3"><?php echo $arrItem['payment_transaction_number']['other']; ?></td>
+					</tr>
+				<?php } ?>
+
+					<?php if (isset($arrItem['payment_note']['other'])) { ?>
+					<tr>
+						<td>Payment Note</td>
+						<td colspan="3"><?php echo $arrItem['payment_note']['other']; ?></td>
+					</tr>
+				<?php } ?>
+					<?php if ($paymentCount != $this->paymentInfo['payment_count']) { ?>
+					<tr>
+						<td colspan="4">&nbsp;</td>
+					</tr>
+				<?php } ?>
+				<?php } ?>
+			<?php } ?>
+		<?php } ?>
+		<tr>
+			<td colspan="4">
+				<hr class="float-right w-25" size="1" noshade="noshade" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+			<td class="text-right font-weight-bold">Balance Due</td>
+			<td class="text-right font-weight-bold">
+
+				<?php
+				if (isset($this->balanceDue))
+				{
+					if (is_numeric($this->balanceDue))
 					{
-						if (is_numeric($this->balanceDue))
+						if ($this->balanceDue < 0)
 						{
-							if ($this->balanceDue < 0)
-							{
-								?>
-								<span style="color:blue;">-$<?php echo abs($this->moneyFormat($this->balanceDue)); ?></span>
-								<?php
-							}
-							else if ($this->balanceDue > 0)
-							{
-								if (isset($this->isCancelled) && $this->isCancelled)
-								{ ?>
-									<span style="color:blue;">$<?php echo $this->moneyFormat($this->balanceDue); ?></span>
-								<?php } else { ?>
-									<span style="color:red;">$<?php echo $this->moneyFormat($this->balanceDue); ?></span>
-									<?php
-								}
-							}
-							else
-							{
-								?>
-								<span style="color:green;">$<?php echo $this->moneyFormat($this->balanceDue); ?></span>
+							?>
+							<span style="color:blue;">-$<?php echo abs($this->moneyFormat($this->balanceDue)); ?></span>
+							<?php
+						}
+						else if ($this->balanceDue > 0)
+						{
+							if (isset($this->isCancelled) && $this->isCancelled)
+							{ ?>
+								<span style="color:blue;">$<?php echo $this->moneyFormat($this->balanceDue); ?></span>
+							<?php } else { ?>
+								<span style="color:red;">$<?php echo $this->moneyFormat($this->balanceDue); ?></span>
 								<?php
 							}
 						}
 						else
 						{
 							?>
-							<?php echo $this->balanceDue; ?>
+							<span style="color:green;">$<?php echo $this->moneyFormat($this->balanceDue); ?></span>
 							<?php
 						}
 					}
-					?>
-				</td>
-			</tr>
-		</table>
-	<?php } // end if order_confirmation ?>
-
-	<?php if (isset($this->storeInfo)) { ?>
-		<p class="p-1 mb-1 font-weight-bold border-top border-bottom font-size-medium-small">Session Details: <?= $this->sessionTypeDateTimeFormat($this->sessionInfo['session_start'], $this->sessionInfo['session_type_subtype'], NORMAL) ?></p>
-		<table style="width:100%;">
-			<tbody>
-			<tr>
-				<td width="50%" valign="top">
-					<b><?php echo $this->storeInfo['store_name']; ?></b><br />
-					<?php echo $this->storeInfo['address_line1']; ?><br /><?php if (strlen($this->storeInfo['address_line2']))
-					{
-						echo $this->storeInfo['address_line2'] . '<br />';
-					} ?>
-					<?= $this->storeInfo['city'] ?>, <?= $this->storeInfo['state_id'] ?> <?= $this->storeInfo['postal_code'] ?><br />
-					<a target="_map" href="<?= $this->storeInfo['map'] ?>"><img src="<?= ADMIN_IMAGES_PATH ?>/icon/map.png" width="16" height="16" style="vertical-align:middle;margin-bottom:.25em;">
-						Map</a>
-				</td>
-				<td width="50%">
-					<?php if (!empty($this->storeInfo['telephone_day'])) { ?>Phone (day): <?= $this->storeInfo['telephone_day'] ?><br /><?php } ?>
-					<?php if (!empty($this->storeInfo['telephone_evening'])) { ?>Phone (evening): <?= $this->storeInfo['telephone_evening'] ?><br /><?php } ?>
-					<?php if (!empty($this->storeInfo['telephone_sms'])) { ?>Text Us: <?= $this->storeInfo['telephone_sms'] ?><br /><?php } ?>
-					<?php if (!empty($this->storeInfo['fax'])) { ?>Phone (fax): <?= $this->storeInfo['fax'] ?><br /><?php } ?>
-					Email: <a href="mailto:<?= $this->storeInfo['email_address'] ?>"><?= $this->storeInfo['email_address'] ?></a><br /><br />
-				</td>
-			</tr>
-			</tbody>
-		</table>
-	<?php } // end if sessionInfo ?>
-
-	<?php if (false && $customerView && isset($this->finishingTouchSuggestions) && !empty($this->finishingTouchSuggestions)) { ?>
-		<p class="p-1 mb-1 font-weight-bold border-top border-bottom font-size-medium-small">Suggested Pairings</p>
-		<table style="width:100%;">
-			<tbody>
-			<?php
-			$countFTs = 0;
-			foreach ($this->finishingTouchSuggestions as $id => $FTItem)
-			{
-				$countFTs++;
-				if ($countFTs > 3)
-				{
-					break;
-				}
-				if ($FTItem['remaining_inventory'] > 0)
-				{
-					if ($FTItem['has_match'])
+					else
 					{
 						?>
-						<tr>
-							<td valign="top"><?php echo $FTItem['sideName']; ?>
-							</td>
-							<td style="width:70%">Complements the <?php echo $FTItem['matches'][0]['name']; ?>
-							</td>
-						</tr>
-					<?php } else { ?>
-						<tr>
-							<td valign="top"><?php echo $FTItem['sideName']; ?>
-							</td>
-							<td>
-							</td>
-						</tr>
+						<?php echo $this->balanceDue; ?>
+						<?php
+					}
+				}
+				?>
+			</td>
+		</tr>
+	</table>
+<?php } // end if order_confirmation ?>
 
-					<?php } } } ?>
-			</tbody>
-		</table>
-	<?php } // end if sessionInfo ?>
+<?php if (isset($this->storeInfo)) { ?>
+	<p class="p-1 mb-1 font-weight-bold border-top border-bottom font-size-medium-small">Session Details: <?php echo $this->sessionTypeDateTimeFormat($this->sessionInfo['session_start'], $this->sessionInfo['session_type_subtype'], NORMAL) ?></p>
+	<table style="width:100%;">
+		<tbody>
+		<tr>
+			<td width="50%" valign="top">
+				<b><?php echo $this->storeInfo['store_name']; ?></b><br />
+				<?php echo $this->storeInfo['address_line1']; ?><br /><?php if (strlen($this->storeInfo['address_line2']))
+				{
+					echo $this->storeInfo['address_line2'] . '<br />';
+				} ?>
+				<?php echo $this->storeInfo['city'] ?>, <?php echo $this->storeInfo['state_id'] ?> <?php echo $this->storeInfo['postal_code'] ?><br />
+				<a target="_map" href="<?php echo $this->storeInfo['map'] ?>"><img src="<?php echo ADMIN_IMAGES_PATH ?>/icon/map.png" width="16" height="16" style="vertical-align:middle;margin-bottom:.25em;">
+					Map</a>
+			</td>
+			<td width="50%">
+				<?php if (!empty($this->storeInfo['telephone_day'])) { ?>Phone (day): <?php echo $this->storeInfo['telephone_day'] ?><br /><?php } ?>
+				<?php if (!empty($this->storeInfo['telephone_evening'])) { ?>Phone (evening): <?php echo $this->storeInfo['telephone_evening'] ?><br /><?php } ?>
+				<?php if (!empty($this->storeInfo['telephone_sms'])) { ?>Text Us: <?php echo $this->storeInfo['telephone_sms'] ?><br /><?php } ?>
+				<?php if (!empty($this->storeInfo['fax'])) { ?>Phone (fax): <?php echo $this->storeInfo['fax'] ?><br /><?php } ?>
+				Email: <a href="mailto:<?php echo $this->storeInfo['email_address'] ?>"><?php echo $this->storeInfo['email_address'] ?></a><br /><br />
+			</td>
+		</tr>
+		</tbody>
+	</table>
+<?php } // end if sessionInfo ?>
+
+<?php if (false && $customerView && isset($this->finishingTouchSuggestions) && !empty($this->finishingTouchSuggestions)) { ?>
+	<p class="p-1 mb-1 font-weight-bold border-top border-bottom font-size-medium-small">Suggested Pairings</p>
+	<table style="width:100%;">
+		<tbody>
+		<?php
+		$countFTs = 0;
+		foreach ($this->finishingTouchSuggestions as $id => $FTItem)
+		{
+			$countFTs++;
+			if ($countFTs > 3)
+			{
+				break;
+			}
+			if ($FTItem['remaining_inventory'] > 0)
+			{
+				if ($FTItem['has_match'])
+				{
+					?>
+					<tr>
+						<td valign="top"><?php echo $FTItem['sideName']; ?>
+						</td>
+						<td style="width:70%">Complements the <?php echo $FTItem['matches'][0]['name']; ?>
+						</td>
+					</tr>
+				<?php } else { ?>
+					<tr>
+						<td valign="top"><?php echo $FTItem['sideName']; ?>
+						</td>
+						<td>
+						</td>
+					</tr>
+
+				<?php } } } ?>
+		</tbody>
+	</table>
+<?php } // end if sessionInfo ?>
 </div>

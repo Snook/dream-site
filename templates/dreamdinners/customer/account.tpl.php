@@ -3,7 +3,6 @@
 <?php $this->setScript('foot', SCRIPT_PATH . '/customer/account.min.js'); ?>
 <?php $this->setScriptVar('is_create = ' . ($this->isCreate ? 'true' : 'false') . ';'); ?>
 <?php $this->setScriptVar('sms_special_case = "' . $this->sms_special_case . '";'); ?>
-<?php $this->setScriptVar('scroll = "' . $this->scroll . '";'); ?>
 
 <?php $this->assign('page_title', 'Account');?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
@@ -84,6 +83,11 @@
 
 				<?php if(!empty($this->isCreate) && $this->isCreate ) { ?>
 					<div class="row mt-4 mb-2">
+						<div class="col text-center">
+							<?php echo $this->form_account['sms_opt_in_html']; ?>
+						</div>
+					</div>
+					<div class="row mb-2">
 						<div class="col text-center">
 							<?php $this->tandc_page = 'account'; include $this->loadTemplate('customer/subtemplate/terms_and_conditions/tandc_agree.tpl.php'); ?>
 						</div>
@@ -235,7 +239,7 @@
 					</div>
 
 					<?php if ($this->user->homeStoreAllowsMealCustomization()) { ?>
-						<div class="form-group col-md-6 col-xl-4 bg-green-light p-3" id="recipe_customization_row">
+						<div class="form-group col-md-6 col-xl-4 bg-green-light p-3" id="recipe_customization">
 
 							<h2 class="font-weight-bold font-size-medium-small text-uppercase text-left mt-3">Meal Customizations</h2>
 							<p class="font-size-small"><?php echo OrdersCustomization::RECIPE_DESCRIPTION;?></p>
