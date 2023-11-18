@@ -12,7 +12,7 @@
 		<a class="btn btn-secondary btn-sm d-print-none" href="/session?reschedule=<?php echo $this->orderInfo['id']; ?>">Reschedule</a>
 	<?php } ?>
 	<?php if ($this->orderDetailsArray['bookingStatus'] != CBooking::CANCELLED) { ?>
-		<p class="mt-2 font-size-small">To edit your order or make additional changes please contact Dream Dinners at <a href="mailto:support@dreamdinners.com?subject=Dream Dinners Delivered support request, confirmation number <?php echo $this->orderDetailsArray['orderInfo']['order_confirmation']; ?>">support@dreamdinners.com</a></p>
+		<p class="mt-2 font-size-small">To edit your order or make additional changes please contact Dream Dinners at <a href="mailto:<?php echo $this->contactStoreInfo->email_address; ?>?subject=Dream Dinners Delivered support request, confirmation number <?php echo $this->orderDetailsArray['orderInfo']['order_confirmation']; ?>"><?php echo $this->contactStoreInfo->email_address; ?></a></p>
 	<?php } ?>
 	<?php if ( !empty($this->orderInfo['orderShipping']['tracking_number'])) { ?>
 		<div class="font-weight-bold font-size-small">UPS Tracking Number: <a target="_blank" href="<?php echo CAppUtil::upsTrackingUrl($this->orderInfo['orderShipping']['tracking_number']);?>"><?php echo $this->orderInfo['orderShipping']['tracking_number']; ?></a></div>

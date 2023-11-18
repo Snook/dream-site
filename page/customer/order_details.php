@@ -184,6 +184,20 @@ class page_order_details extends CPage
 		$tpl->assign('paymentInfo', $OrderDetailsArray['paymentInfo']);
 		$tpl->assign('sessionInfo', $OrderDetailsArray['sessionInfo']);
 		$tpl->assign('storeInfo', $OrderDetailsArray['storeInfo']);
+
+		$DAO_store = DAO_CFactory::create('store', true);
+		if (!empty($OrderDetailsArray["storeInfo"]["parent_store_id"]))
+		{
+			$DAO_store->id = $OrderDetailsArray["storeInfo"]["parent_store_id"];
+		}
+		else
+		{
+			$DAO_store->id = $OrderDetailsArray["storeInfo"]["id"];
+		}
+		$DAO_store->find_DAO_store(true);
+
+		$tpl->assign('contactStoreInfo', $DAO_store);
+
 		$tpl->assign('customerActionString',  COrders::getCustomerActionStringFrom($FullyQualifiedOrderType));
 
 
