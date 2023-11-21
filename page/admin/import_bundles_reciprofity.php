@@ -206,39 +206,42 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 					}
 				}
 
-				// create mappings to items
-				foreach (self::$intro_bundle as $recipeID)
+				if ($DAO_menu->isEnabled_Starter_Pack_Bundle())
 				{
-					$tempMenuItem = DAO_CFactory::create('menu_item');
-					$tempMenuItem->query("select mi.id, mi.menu_item_name, mi.recipe_id, mi.pricing_type from menu_item mi
+					// create mappings to items
+					foreach (self::$intro_bundle as $recipeID)
+					{
+						$tempMenuItem = DAO_CFactory::create('menu_item');
+						$tempMenuItem->query("select mi.id, mi.menu_item_name, mi.recipe_id, mi.pricing_type from menu_item mi
 						join menu_to_menu_item mmi on mmi.menu_item_id = mi.id and isnull(mmi.store_id) and mmi.menu_id = $menu_id
 						where mi.recipe_id = $recipeID and mi.is_deleted = 0");
-					while ($tempMenuItem->fetch())
-					{
-						$tempMappingObject = DAO_CFactory::create('bundle_to_menu_item');
-						$tempMappingObject->bundle_id = $introBundle->id;
-						$tempMappingObject->menu_item_id = $tempMenuItem->id;
-						if (!$tempMappingObject->find(true))
+						while ($tempMenuItem->fetch())
 						{
-							if (self::$testMode)
+							$tempMappingObject = DAO_CFactory::create('bundle_to_menu_item');
+							$tempMappingObject->bundle_id = $introBundle->id;
+							$tempMappingObject->menu_item_id = $tempMenuItem->id;
+							if (!$tempMappingObject->find(true))
 							{
-								self::$changelog[] = array(
-									'event' => "Will Map (" . $tempMenuItem->recipe_id . ") " . $tempMenuItem->menu_item_name . " - " . $tempMenuItem->pricing_type . " to Intro Bundle"
-								);
+								if (self::$testMode)
+								{
+									self::$changelog[] = array(
+										'event' => "Will Map (" . $tempMenuItem->recipe_id . ") " . $tempMenuItem->menu_item_name . " - " . $tempMenuItem->pricing_type . " to Intro Bundle"
+									);
+								}
+								else
+								{
+									$tempMappingObject->insert();
+									self::$changelog[] = array(
+										'event' => "Mapped (" . $tempMenuItem->recipe_id . ") " . $tempMenuItem->menu_item_name . " - " . $tempMenuItem->pricing_type . " to Intro Bundle"
+									);
+								}
 							}
 							else
 							{
-								$tempMappingObject->insert();
 								self::$changelog[] = array(
-									'event' => "Mapped (" . $tempMenuItem->recipe_id . ") " . $tempMenuItem->menu_item_name . " - " . $tempMenuItem->pricing_type . " to Intro Bundle"
+									'event' => "Item Exists (" . $tempMenuItem->recipe_id . ") " . $tempMenuItem->menu_item_name . " - " . $tempMenuItem->pricing_type . " in Intro Bundle - no action"
 								);
 							}
-						}
-						else
-						{
-							self::$changelog[] = array(
-								'event' => "Item Exists (" . $tempMenuItem->recipe_id . ") " . $tempMenuItem->menu_item_name . " - " . $tempMenuItem->pricing_type . " in Intro Bundle - no action"
-							);
 						}
 					}
 				}
