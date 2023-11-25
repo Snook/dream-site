@@ -316,14 +316,17 @@ class page_admin_order_details_view_all extends CPageAdminOnly
 
 		$isDeliveredOrder = false;
 
+		$DAO_session = DAO_CFactory::create('session', true);
+		$DAO_session->id = $session_id;
+		$DAO_session->find_DAO_session(true);
+
 		if (!empty($sideDishReport) || !empty($preassembledReport))
 		{
 			$filename = "order_customer_view_table_additional.tpl.php";
 		}
 		else
 		{
-
-			if (CBrowserSession::getCurrentFadminStoreType() === CStore::DISTRIBUTION_CENTER)
+			if ($DAO_session->isDelivered())
 			{
 				$filename = 'order_details_table_delivered.tpl.php';  // okay, the customer and store receipts have been merged into this file... please edit for both
 				$isDeliveredOrder = true;
