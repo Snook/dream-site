@@ -334,15 +334,34 @@ class page_admin_user_details extends CPageAdminOnly
 				{
 					$tpl->setStatusMsg('User not found.');
 
-					CApp::bounce('/backoffice/list_users');
+					CApp::bounce('/backoffice/list-users');
 				}
 
 				$userCopy = clone($User);
 				if (!$User->delete())
 				{
-					$tpl->setStatusMsg('The account has pending orders and cannot be deleted.');
+					if ($User->hasPendingOrder(false))
+					{
+						$tpl->setStatusMsg('The account has pending future orders and cannot be deleted.');
 
-					CApp::bounce('/backoffice/order-history?id=' . $User->id);
+						CApp::bounce('/backoffice/order-history?id=' . $User->id);
+					}
+
+					// has balance due
+
+					if ($User->hasBalanceDue())
+					{
+						$tpl->setStatusMsg('The account has balance due on past orders and cannot be deleted.');
+
+						CApp::bounce('/backoffice/order-history?id=' . $User->id);
+					}
+
+					if ($User->hasPendingDataRequest())
+					{
+						$tpl->setStatusMsg('The account has a pending request for data cannot be deleted.');
+
+						CApp::bounce('/backoffice/user-details?id=' . $User->id);
+					}
 				}
 				else
 				{
@@ -351,7 +370,7 @@ class page_admin_user_details extends CPageAdminOnly
 
 					$tpl->setStatusMsg('The account has been deleted.');
 
-					CApp::bounce('/backoffice/list_users');
+					CApp::bounce('/backoffice/list-users');
 				}
 			}
 
@@ -421,7 +440,7 @@ class page_admin_user_details extends CPageAdminOnly
 			if (!$isFound)
 			{
 				$tpl->setErrorMsg('Guest not found');
-				CApp::bounce('/backoffice/list_users');
+				CApp::bounce('/backoffice/list-users');
 			}
 
 			// Login as User
@@ -447,7 +466,7 @@ class page_admin_user_details extends CPageAdminOnly
 				$User->home_store_id = "null";
 				$User->update();
 				$tpl->setErrorMsg('Guest removed from store');
-				CApp::bounce('/backoffice/list_users');
+				CApp::bounce('/backoffice/list-users');
 			}
 
 			$isObserveOnlyAccount = $User->is_partial_account;
@@ -600,7 +619,7 @@ class page_admin_user_details extends CPageAdminOnly
 			}
 			else
 			{
-				$tpl->assign('back', '/backoffice/list_users');
+				$tpl->assign('back', '/backoffice/list-users');
 			}
 
 			switch ($AdminUser->user_type)
@@ -847,8 +866,8 @@ class page_admin_user_details extends CPageAdminOnly
 		}
 		else
 		{
-			$tpl->setErrorMsg('guest not found');
-			CApp::bounce('/backoffice/list_users');
+			$tpl->setErrorMsg('Guest not found');
+			CApp::bounce('/backoffice/list-users');
 		}
 	}
 }
