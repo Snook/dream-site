@@ -3,10 +3,10 @@
 /**
  * subclass of DAO/BusinessObject/COrders
  */
-require_once 'DAO/BusinessObject/COrders.php';
-require_once 'DAO/BusinessObject/CBox.php';
-require_once 'DAO/BusinessObject/CBoxInstance.php';
-require_once 'DAO/BusinessObject/CBundle.php';
+require_once 'includes/DAO/BusinessObject/COrders.php';
+require_once 'includes/DAO/BusinessObject/CBox.php';
+require_once 'includes/DAO/BusinessObject/CBoxInstance.php';
+require_once 'includes/DAO/BusinessObject/CBundle.php';
 
 require_once 'includes/api/shipping/shipstation/ShipStationManager.php';
 require_once 'includes/api/shipping/shipstation/ShipStationOrderWrapper.php';

@@ -37,6 +37,7 @@ switch (SERVER_ENV)
 		// PATHS
 		define("APP_BASE", 'C:/Development/DreamWeb/dream-site/'); // Server path, requires trailing slash
 		define("WEB_BASE", '/');
+		define("REPORT_OUTPUT_BASE", APP_BASE . '/reports/output');
 
 		define("MAIL_HANDLER", 'sendmail');
 		define("MAIL_ENABLED", true);
@@ -52,6 +53,7 @@ switch (SERVER_ENV)
 		// PATHS
 		define("APP_BASE", '/DreamWeb/dream-site/'); // Server path, requires trailing slash
 		define("WEB_BASE", '/');
+		define("REPORT_OUTPUT_BASE", APP_BASE . '/reports/output');
 
 		define("MAIL_HANDLER", 'sendmail');
 		define("MAIL_ENABLED", true);

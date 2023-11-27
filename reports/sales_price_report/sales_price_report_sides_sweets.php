@@ -33,7 +33,7 @@ try
 		$DAO_menu->id = $month;
 		$DAO_menu->find(true);
 
-		$csv_path = "../output/sales_price_report/sales-price-report-sides-" . strtolower(str_replace(' ', '_', $DAO_menu->menu_name)) . "-as_of-" . date("Y-m-d") . ".xlsx";
+		$csv_path = REPORT_OUTPUT_BASE . "/sales_price_report/sales-price-report-sides-" . strtolower(str_replace(' ', '_', $DAO_menu->menu_name)) . "-as_of-" . date("Y-m-d") . ".xlsx";
 
 		$DAO_store = DAO_CFactory::create('store', true);
 		$DAO_store->active = 1;
