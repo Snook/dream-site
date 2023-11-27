@@ -1478,8 +1478,6 @@ class CGiftCard extends DAO_Gift_card_transaction
 		$DAO_Gift_card_order->joinAddWhereAsOn(DAO_CFactory::create('store', true), 'LEFT');
 		$DAO_Gift_card_order->find();
 
-		//$DAO_Gift_card_order->query(" select gco.*, if (s.merchant_id is null, '711389000121', s.merchant_id) as merchant_id from gift_card_order gco left join store s on s.id = gco.store_id where gco.processed = 0 and gco.paid = 1 and gco.is_deleted = 0 and media_type = 'PHYSICAL'");
-
 		while ($DAO_Gift_card_order->fetch())
 		{
 			$list[] = array (
