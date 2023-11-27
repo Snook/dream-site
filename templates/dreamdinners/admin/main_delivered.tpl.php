@@ -65,7 +65,7 @@
 			<ul id="session_tools">
 
 				<li><a href="#" id="st_session_goal_sheet_print">Session Goal Sheet</a></li>
-				<li><a href="#" id="st_customer_receipt">Order Summary</a></li>
+				<li><a href="#" id="st_customer_receipt">Order Summary - Delivery Day</a></li>
 				<li class="category">Cooking Instructions
 					<input id="suppress_fastlane_labels" type="checkbox" checked="checked" data-tooltip="Include FastLane Labels, uncheck to suppress"/>
 				</li>
