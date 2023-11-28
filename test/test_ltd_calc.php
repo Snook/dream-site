@@ -1,11 +1,5 @@
 <?php
-/*
- * Created on Jan 16, 2008
- *
- * To change the template for this generated file go to
- * Window - Preferences - PHPeclipse - PHP - Code Templates
- */
-require_once("../includes/Config.inc");
+require_once(dirname(__FILE__) . "/../includes/Config.inc");
 require_once("CLog.inc");
 require_once("CAppUtil.inc");
 

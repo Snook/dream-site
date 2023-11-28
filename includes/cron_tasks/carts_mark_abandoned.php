@@ -1,8 +1,5 @@
 <?php
-/*
- * @author evanl
- */
-require_once("../Config.inc");
+require_once(dirname(__FILE__) . "/../Config.inc");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/CFactory.php");
 require_once("CCart2.inc");

@@ -1,5 +1,5 @@
 <?php
-require_once("../includes/Config.inc");
+require_once(dirname(__FILE__) . "/../includes/Config.inc");
 require_once 'includes/api/shipping/shipstation/ShipStationEndpointFactory.php';
 require_once("DAO/BusinessObject/CStore.php");
 ///Good Config

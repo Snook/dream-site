@@ -1,13 +1,5 @@
 <?php
-/*
- * Created on Nov 11, 2005
- * project_name process_delayed.php
- *
- * Copyright 2005 DreamDinners
- * @author ToddW
- */
-
-require_once("../Config.inc");
+require_once(dirname(__FILE__) . "/../Config.inc");
 require_once("CApp.inc");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/CFactory.php");

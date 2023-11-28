@@ -1,5 +1,5 @@
 <?php
-require_once("../includes/Config.inc");
+require_once(dirname(__FILE__) . "/../includes/Config.inc");
 require_once 'includes/CDashboardReportMenuBased.inc';
 
 list($startDate, $interval)  = CMenu::getMenuStartandInterval(false,  '2016-06-01');

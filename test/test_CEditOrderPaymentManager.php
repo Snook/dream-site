@@ -1,5 +1,5 @@
 <?php
-require_once("../includes/Config.inc");
+require_once(dirname(__FILE__) . "/../includes/Config.inc");
 require_once 'includes/CEditOrderPaymentManager.inc';
 require_once 'includes/CApp.inc';
 require_once 'DAO/BusinessObject/COrdersDelivered.php';

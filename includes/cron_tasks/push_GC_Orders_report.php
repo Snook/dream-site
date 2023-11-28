@@ -1,6 +1,5 @@
 <?php
-
-require_once("../Config.inc");
+require_once(dirname(__FILE__) . "/../Config.inc");
 require_once("DAO/BusinessObject/CGiftCard.php");
 require_once("DAO/CFactory.php");
 require_once("CLog.inc");
