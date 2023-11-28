@@ -59,7 +59,7 @@
 			</div>
 		</section>
 
-		<!-- Meal Prep Made Easy -->
+		<!-- Meal Prep Made Easy
 		<section>
 		<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 			<div class="container">
@@ -83,7 +83,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> -->
 <div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
         <div class="container">
 			<div class="row my-5">

@@ -29,11 +29,6 @@
 						<form action="/locations" method="post">
 						<div class="form-group mx-auto">
 							<div class="input-group">
-								<!--<div class="input-group-prepend">
-									<div class="input-group-text">
-									Find a location near you
-									</div>
-								</div>-->
 								<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
 								<div class="input-group-append">
 									<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
@@ -43,10 +38,7 @@
 					</form>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/nov23-shipping-957x657.webp" alt="Mini Turkey Hand Pies and Italiano Chicken and Orzo and Corn Chowder" class="img-fluid">
-						<!--<figure>
-							<img src="<?php echo IMAGES_PATH; ?>/home_content/homepage-header-collage-circles-957x657.webp" alt="Mini chicken pot pies, Pub style chicken and Cod fish N chips" class="img-fluid">
-						</figure>-->
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dec23-shipping-957x657.webp" alt="December menu items" class="img-fluid">
 					</div>
 
 				</div>
