@@ -32,7 +32,6 @@
 						<li>Order multiple cards at once <em>(you can even send to different recipients)</em></li>
 						<li>Available in amounts of $25 - $500*</li>
 					</ul>
-					<p><em>*When  considering a value to select for a gift, please remember that we do have a  minimum order requirement that may exceed the value selected and  require an additional financial contribution from the gift card  recipient. The standard order size is at least 12 medium dinners or six large dinners (or a combination of both sizes).&nbsp; <!--We do offer an 18-serving Meal Prep Starter Pack for $74.95 (for  first time guests).--></em></p>
 				</div>
 			</div>
 		</div>
