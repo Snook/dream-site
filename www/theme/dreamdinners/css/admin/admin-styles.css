@@ -13953,6 +13953,10 @@ body, p {
   text-decoration: none;
 }
 
+.text-decoration-line-through {
+  text-decoration: line-through;
+}
+
 .text-decoration-hover-underline:hover {
   text-decoration: underline;
 }
@@ -33237,6 +33241,10 @@ body, p {
 
 .text-decoration-hover-none:hover {
   text-decoration: none;
+}
+
+.text-decoration-line-through {
+  text-decoration: line-through;
 }
 
 .text-decoration-hover-underline:hover {
