@@ -62,25 +62,13 @@
 								<li><a data-view_order_details="<?php echo $booking['id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>"
 									   href="/backoffice/order-history?id=<?php echo $booking['user_id']; ?>&amp;order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">View Order</a></li>
 							<?php } ?>
-							<?php if (!empty($booking['can_edit'])) { ?>
-								<li><a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Edit Order</a></li>
-							<?php } else { ?>
-								<li><a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">GONE</a></li>
-
-							<?php } ?>
+							<li><a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Edit Order</a></li>
 							<?php if (!empty($booking['can_reschedule'])) { ?>
 								<li><a id="gd_reschedule-<?php echo $booking['id']; ?>" data-store_id="<?php echo $booking['store_id']; ?>" data-session_id="<?php echo $booking['session_id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>" data-menu_id="<?php echo $booking['menu_id']; ?>">Reschedule</a></li>
 							<?php } else { ?>
 								<li data-tooltip="Can not reschedule" style="text-decoration: line-through;">Reschedule</li>
 							<?php } ?>
 							<li><a href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" target="_blank">Order Summary</a></li>
-							<?php if ($booking['status'] != CBooking::SAVED) { ?>
-								<li><a href="/print?order=<?php echo $booking['order_id']; ?>&amp;nutrition=true" target="_blank">Nutritionals</a></li>
-								<li>
-									<a href="/backoffice/reports_customer_menu_item_labels?session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" target="_blank">Labels</a>
-								</li>
-							<?php } ?>
-
 							<li><a href="/backoffice/order-mgr-delivered?user=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Place <?php echo $this->date['this_M']; ?> Order</a></li>
 							<li><a href="/backoffice/order-history?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Order History</a></li>
 							<li><a href="" class="handle-resend-shipstation" data-order_id="<?php echo $booking['order_id']; ?>">Update ShipStation</a></li>
@@ -118,11 +106,11 @@
 				<td class="title">Boxes This Order</td>
 				<td class="value small_value" ><?php echo $booking['total_boxes']; ?></td>
 				<td class="title">Tracking Code(s)</td>
-			<?php if ($booking['tracking_number'] == '') { ?>
-				<td class="value small_value" style="font-weight:bold;color: darkred"><a href="" class="handle-fetch-tracking-number" data-order_id="<?php echo $booking['order_id']; ?>" data-tooltip="Request shipping data from ShipStation.">Not Yet Shipped</a></td>
-			<?php }else{ ?>
-				<td class="value small_value"><?php echo $booking['tracking_number']?></td>
-			<?php } ?>
+				<?php if ($booking['tracking_number'] == '') { ?>
+					<td class="value small_value" style="font-weight:bold;color: darkred"><a href="" class="handle-fetch-tracking-number" data-order_id="<?php echo $booking['order_id']; ?>" data-tooltip="Request shipping data from ShipStation.">Not Yet Shipped</a></td>
+				<?php }else{ ?>
+					<td class="value small_value"><?php echo $booking['tracking_number']?></td>
+				<?php } ?>
 			</tr>
 			<?php if ($booking['status'] == CBooking::ACTIVE) { ?>
 				<?php if (!empty($booking['order_user_notes'])) { ?>
