@@ -421,6 +421,16 @@ class CStore extends DAO_Store
 		return false;
 	}
 
+	function supportsPlatePoints()
+	{
+		if (empty($this->supports_plate_points))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	function storeSupportsIntroOrders($menu_id = false)
 	{
 		if (empty($this->supports_intro_orders))
