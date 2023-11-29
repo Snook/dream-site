@@ -540,8 +540,8 @@ class CUser extends DAO_User
 							self::OPS_LEAD,
 							self::OPS_SUPPORT
 						),
-						'title' => 'Entr&eacute;e Report',
-						'link' => '/backoffice/reports-entree',
+						'title' => 'Shipping Entr&eacute;e Report',
+						'link' => '/backoffice/reports-entree-delivered',
 					),
 					'admin_dashboard_new' => array(
 						'access' => array(
@@ -566,17 +566,6 @@ class CUser extends DAO_User
 						),
 						'title' => 'Trending',
 						'link' => '/backoffice/reports-trending-menu-based',
-					),
-					'admin_reports_manufacturer_labels' => array(
-						'access' => array(
-							self::HOME_OFFICE_MANAGER,
-							self::HOME_OFFICE_STAFF,
-							self::FRANCHISE_OWNER,
-							self::FRANCHISE_MANAGER,
-							self::OPS_LEAD
-						),
-						'title' => 'Manufacturing Labels',
-						'link' => '/backoffice/reports-manufacturer-labels',
 					)
 				)
 			),
