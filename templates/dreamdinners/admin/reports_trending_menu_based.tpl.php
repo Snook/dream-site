@@ -32,7 +32,7 @@ return; }
 </div>
 <div style="text-align:center; margin-bottom:10px;"><h2></h2></div>
 
-<form id="reports_trending_form" action="/backoffice/reports_trending_menu_based" method="post">
+<form id="reports_trending_form" action="/backoffice/reports-trending-menu-based" method="post">
 <?php echo $this->form_array['hidden_html'];?>
 
 

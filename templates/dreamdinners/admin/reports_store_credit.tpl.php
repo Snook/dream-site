@@ -15,7 +15,7 @@ $SHOWYEAR = false;
 
 		<div class="row my-4">
 			<div class="col text-center ">
-				<h1><a href="/backoffice/reports_store_credit">Credit Report</a></h1>
+				<h1><a href="/backoffice/reports-store-credit">Credit Report</a></h1>
 			</div>
 		</div>
 

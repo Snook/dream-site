@@ -93,13 +93,13 @@
 				<?php } ?>
 
 				<?php if ($this->canViewPlatePointsHistory == true) { ?>
-					<a class="btn btn-primary btn-block" href="/backoffice/user_plate_points?id=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">PLATEPOINTS</a>
+					<a class="btn btn-primary btn-block" href="/backoffice/user-plate-points?id=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">PLATEPOINTS</a>
 				<?php } else if (false){//$this->canJoinToPlatePoints == true ) { ?>
 					<?php if (!$this->user['platePointsData']['userIsOnHold'] && !$this->user['membershipData']['enrolled']) { ?>
 						<input type="button" class="btn btn-primary btn-block" value="Join PLATEPOINTS" onclick="enrollInPlatePoints(<?php echo $this->user['id']?>);" />
 						<input type="button" class="btn btn-primary btn-block" value="Print Enrollment Form" onclick="printEnrollmentForm(<?php echo $this->user['id']?>);" />
 					<?php } else { ?>
-						<a class="btn btn-cyan btn-block" href="/backoffice/user_plate_points?id=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">PLATEPOINTS</a>
+						<a class="btn btn-cyan btn-block" href="/backoffice/user-plate-points?id=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">PLATEPOINTS</a>
 					<?php } ?>
 				<?php } ?>
 

@@ -2924,6 +2924,18 @@ class CStore extends DAO_Store
 		}
 	}
 
+	function isCorporateOwned()
+	{
+		if (!empty($this->is_corporate_owned))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+
+
 	function generateAddressLinear()
 	{
 		$this->address_linear = $this->address_line1 . (!empty($this->address_line2) ? " " . $this->address_line2 : "") . ", " . $this->city  . ", " . $this->state_id . " " .  $this->postal_code . (!empty($this->usps_adc) ? "-" . $this->usps_adc : "");

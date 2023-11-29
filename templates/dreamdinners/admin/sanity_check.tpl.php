@@ -47,11 +47,11 @@
 					<a class="list-group-item list-group-item-action" href="/backoffice/create-session?menu=<?=$this->current_menu_id; ?>" target="_blank">Create Session</a>
 					<a class="list-group-item list-group-item-action" href="/backoffice/session_template_mgr" target="_blank">View Session Template Manager</a>
 					<a class="list-group-item list-group-item-action" href="/backoffice/finishing-touch-printable-form?store_id=244&menu_id=<?=$this->current_menu_id; ?>" target="_blank">Print <?=$this->current_menu_name; ?> Sides & Sweets</a>
-					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/backoffice/reports_entree" data-params='<?=$this->params_entree_report; ?>'>Run Entree Report for <?=$this->current_menu_name; ?> Menu</a>
-					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/backoffice/reports_growth_scorecard" data-params='<?=$this->params_growth_scoreboard; ?>'>Growth Scoreboard <?=$this->current_menu_name; ?></a>
-					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/backoffice/reports_customer_menu_item_labels?interface=1" data-params='<?=$this->params_cooking_instructions; ?>'> <?=$this->current_menu_name; ?> All Core Cooking Instructions PDF</a>
-					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/backoffice/reports_menu_item_nutritional_labels" data-params='<?=$this->params_nutritional_labels; ?>'> <?=$this->current_menu_name; ?> All Core Nutritional Labels PDF</a>
-					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/backoffice/reports_customer_menu_item_labels?interface=1" data-params='<?=$this->params_cooking_instructions; ?>'> <?=$this->current_menu_name; ?> All Core Cooking Instructions PDF</a>
+					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/backoffice/reports-entree" data-params='<?=$this->params_entree_report; ?>'>Run Entree Report for <?=$this->current_menu_name; ?> Menu</a>
+					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/backoffice/reports-growth-scorecard" data-params='<?=$this->params_growth_scoreboard; ?>'>Growth Scoreboard <?=$this->current_menu_name; ?></a>
+					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/backoffice/reports-customer-menu-item-labels?interface=1" data-params='<?=$this->params_cooking_instructions; ?>'> <?=$this->current_menu_name; ?> All Core Cooking Instructions PDF</a>
+					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/backoffice/reports-menu-item-nutritional-labels" data-params='<?=$this->params_nutritional_labels; ?>'> <?=$this->current_menu_name; ?> All Core Nutritional Labels PDF</a>
+					<a class="list-group-item list-group-item-action dynamic-form-submit" href="" data-action="/backoffice/reports-customer-menu-item-labels?interface=1" data-params='<?=$this->params_cooking_instructions; ?>'> <?=$this->current_menu_name; ?> All Core Cooking Instructions PDF</a>
 
 
 				</div>

@@ -1,5 +1,5 @@
 <?php
-$url = "/backoffice/reports_user_retention";
+$url = "/backoffice/reports-user-retention";
 ?>
 
 <?php $this->assign('page_title','Inactive Guest Status Reports'); ?>

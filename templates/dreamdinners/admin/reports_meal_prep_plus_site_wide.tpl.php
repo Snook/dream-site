@@ -11,7 +11,7 @@ include $this->loadTemplate('admin/page_header_reports.tpl.php');
 ?>
 
 
-<form action="/backoffice/reports_meal_prep_plus_site_wide" name="frm" method="post" onsubmit="$('#empty_result_warning').hide(); return true;">
+<form action="/backoffice/reports-meal-prep-plus-site-wide" name="frm" method="post" onsubmit="$('#empty_result_warning').hide(); return true;">
 	<left>
 
 		<!--Select a Valid Menu Month:

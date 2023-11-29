@@ -34,7 +34,7 @@ return; }
 
 <div style="background-color:#d0d0d0; border:2px; black solid; text-align:center; font-weight:bold; font-size:14pt; margin:0px; padding:5px;">
 <span style="color:green;"><?php echo $this->titleString; ?></span>
-<div style="float:right"><a href="/backoffice/reports_trending_menu_based" class="btn btn-primary btn-sm">Menu-Month Trending Report</a></div>
+<div style="float:right"><a href="/backoffice/reports-trending-menu-based" class="btn btn-primary btn-sm">Menu-Month Trending Report</a></div>
 </div>
 
 <form id="reports_trending_form" action="/backoffice/reports_trending" method="post">
