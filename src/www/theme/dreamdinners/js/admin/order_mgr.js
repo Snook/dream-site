@@ -113,9 +113,10 @@ function admin_order_mgr_init()
 	setMealCustomizationDefault();
 
 }
+
 function setMealCustomizationDefault()
 {
-	if( $('#opted_to_customize_recipes').length && default_meal_customization_to_selected == true && $('#opted_to_customize_recipes').prop('checked'))
+	if ($('#opted_to_customize_recipes').length && default_meal_customization_to_selected == true && $('#opted_to_customize_recipes').prop('checked'))
 	{
 		$('#opted_to_customize_recipes').click();
 	}
@@ -607,6 +608,7 @@ function updateMealCustomizationOrgValues()
 	$("#subtotal_meal_customization_fee").data('org_value', $("#subtotal_meal_customization_fee").val());
 
 }
+
 function updateItemsOrgValues()
 {
 
@@ -820,7 +822,8 @@ function saveItems(saveDiscountsUponCompletion, activateOnSaveDiscountsCompletio
 			{
 				itemTabIsDirty = false;
 				feesTabIsDirty = false;
-				if(opted_to_customize){
+				if (opted_to_customize)
+				{
 					updateMealCustomizationOrgValues();
 				}
 				updateItemsOrgValues();
@@ -4094,7 +4097,6 @@ function HideLineItemsIfZero()
 		$('#MealCustomizationFeeRow').show();
 	}
 
-
 	var doDiscountOrg = Number($('#OEH_direct_order_discount_org').html());
 	var doDiscount = Number($('#OEH_direct_order_discount').html());
 
@@ -4669,11 +4671,8 @@ function getChangeListHTML()
 		let previous = changeList.mealCustomizationFee['Meal Customization Selection']['orgVal'] == 1 ? " not selected" : " selected";
 		let newVal = changeList.mealCustomizationFee['Meal Customization Selection']['newVal'] == "on" ? " selected" : " not selected";
 
-
-		htmlStr += "Meal Customization was" + previous + ". Updated to " + newVal+ ".<br />";
+		htmlStr += "Meal Customization was" + previous + ". Updated to " + newVal + ".<br />";
 	}
-
-
 
 	if (changeList.mealCustomizationFee['Meal Customization'] != null)
 	{
@@ -4685,15 +4684,15 @@ function getChangeListHTML()
 
 		for (let key in changeList.mealCustomizationFee['Meal Customization'])
 		{
-			if(typeof changeList.mealCustomizationFee['Meal Customization'][key] !== 'undefined' && typeof changeList.mealCustomizationFee['Meal Customization'][key]['name'] !== 'undefined')
+			if (typeof changeList.mealCustomizationFee['Meal Customization'][key] !== 'undefined' && typeof changeList.mealCustomizationFee['Meal Customization'][key]['name'] !== 'undefined')
 			{
-				if(changeList.mealCustomizationFee['Meal Customization'][key]['newVal'].toUpperCase() == 'OPTED IN')
+				if (changeList.mealCustomizationFee['Meal Customization'][key]['newVal'].toUpperCase() == 'OPTED IN')
 				{
-					htmlStr += changeList.mealCustomizationFee['Meal Customization'][key]['newVal'] + " to "+changeList.mealCustomizationFee['Meal Customization'][key]['name'] +"<br />";
+					htmlStr += changeList.mealCustomizationFee['Meal Customization'][key]['newVal'] + " to " + changeList.mealCustomizationFee['Meal Customization'][key]['name'] + "<br />";
 				}
 				else
 				{
-					htmlStr += changeList.mealCustomizationFee['Meal Customization'][key]['newVal'] + " of "+changeList.mealCustomizationFee['Meal Customization'][key]['name'] +"<br />";
+					htmlStr += changeList.mealCustomizationFee['Meal Customization'][key]['newVal'] + " of " + changeList.mealCustomizationFee['Meal Customization'][key]['name'] + "<br />";
 				}
 			}
 		}
@@ -5067,8 +5066,10 @@ function updateChangeList()
 	changeList.reporting = {};
 	changeList.delivery = {};
 	changeList.bagFee = {};
-	changeList.mealCustomizationFee = {'Meal Customization':null,'Meal Customization Fee':null};
-
+	changeList.mealCustomizationFee = {
+		'Meal Customization': null,
+		'Meal Customization Fee': null
+	};
 
 	changeList.sideBundleItem = {};
 
@@ -5270,7 +5271,8 @@ function updateChangeList()
 	// meal customization fees
 	if ($("#subtotal_meal_customization_fee").length)
 	{
-		if($("#subtotal_meal_customization_fee").val() == ''){
+		if ($("#subtotal_meal_customization_fee").val() == '')
+		{
 			$("#subtotal_meal_customization_fee").val('0.00');
 		}
 		if ($("#subtotal_meal_customization_fee").val() != $("#subtotal_meal_customization_fee").data("org_value"))
@@ -5288,9 +5290,10 @@ function updateChangeList()
 		}
 	}
 
-	let customizationSelection = $("#opted_to_customize_recipes").is(":checked")  ? '1':'0';
-	let origCustomizationSelection = (typeof $("#opted_to_customize_recipes").data("org_value") == 'undefined' || $("#opted_to_customize_recipes").data("org_value") == '' || $("#opted_to_customize_recipes").data("org_value") == '0') ? '0':'1';
-	if( origCustomizationSelection != customizationSelection){
+	let customizationSelection = $("#opted_to_customize_recipes").is(":checked") ? '1' : '0';
+	let origCustomizationSelection = (typeof $("#opted_to_customize_recipes").data("org_value") == 'undefined' || $("#opted_to_customize_recipes").data("org_value") == '' || $("#opted_to_customize_recipes").data("org_value") == '0') ? '0' : '1';
+	if (origCustomizationSelection != customizationSelection)
+	{
 		changeList.mealCustomizationFee['Meal Customization Selection'] = {
 			newVal: $("#opted_to_customize_recipes").val(),
 			orgVal: $("#opted_to_customize_recipes").data("org_value")
@@ -5352,17 +5355,16 @@ function updateChangeList()
 		var orgVal = $(this).data('org_value');
 		var name = $(this).data('name');
 
-
-		if (curVal.toLowerCase() != orgVal.toLowerCase() )
+		if (curVal.toLowerCase() != orgVal.toLowerCase())
 		{
 			//$(this).addClass('unsaved_data');
-			if( changeList.mealCustomizationFee['Meal Customization'] == null){
+			if (changeList.mealCustomizationFee['Meal Customization'] == null)
+			{
 				changeList.mealCustomizationFee['Meal Customization'] = [];
 			}
 
-
 			changeList.mealCustomizationFee['Meal Customization'][this.id] = {
-				name : name,
+				name: name,
 				newVal: curVal,
 				orgVal: orgVal
 			}
@@ -5371,7 +5373,7 @@ function updateChangeList()
 		}
 		else
 		{
-			if( changeList.mealCustomizationFee['Meal Customization'] != null)
+			if (changeList.mealCustomizationFee['Meal Customization'] != null)
 			{
 				changeList.mealCustomizationFee['Meal Customization'][this.id] = '';
 			}
@@ -5386,28 +5388,27 @@ function updateChangeList()
 
 		let key = this.id + 'detail';
 
-		if (curVal.toLowerCase() != orgVal.toLowerCase() )
+		if (curVal.toLowerCase() != orgVal.toLowerCase())
 		{
-			if( changeList.mealCustomizationFee['Meal Customization'] == null){
+			if (changeList.mealCustomizationFee['Meal Customization'] == null)
+			{
 				changeList.mealCustomizationFee['Meal Customization'] = [];
 			}
 
-
 			changeList.mealCustomizationFee['Meal Customization'][key] = {
-				name : name,
+				name: name,
 				newVal: curVal,
 				orgVal: orgVal
 			}
 		}
 		else
 		{
-			if( changeList.mealCustomizationFee['Meal Customization'] != null)
+			if (changeList.mealCustomizationFee['Meal Customization'] != null)
 			{
 				changeList.mealCustomizationFee['Meal Customization'][key] = '';
 			}
 		}
 	});
-
 
 	if (feeChanges)
 	{
@@ -6097,8 +6098,7 @@ function getAbbreviatedChangeString()
 		let previous = changeList.mealCustomizationFee['Meal Customization Selection']['orgVal'] == 1 ? " not selected" : " selected";
 		let newVal = changeList.mealCustomizationFee['Meal Customization Selection']['newVal'] == "on" ? " selected" : " not selected";
 
-
-		htmlStr += "Meal Customization was" + previous + ". Updated to " + newVal+ ".<br />";
+		htmlStr += "Meal Customization was" + previous + ". Updated to " + newVal + ".<br />";
 
 	}
 	if (changeList.mealCustomizationFee['Meal Customization Fee'] != null)
@@ -6121,15 +6121,15 @@ function getAbbreviatedChangeString()
 
 		for (let key in changeList.mealCustomizationFee['Meal Customization'])
 		{
-			if(typeof changeList.mealCustomizationFee['Meal Customization'][key] !== 'undefined' && typeof changeList.mealCustomizationFee['Meal Customization'][key]['name'] !== 'undefined')
+			if (typeof changeList.mealCustomizationFee['Meal Customization'][key] !== 'undefined' && typeof changeList.mealCustomizationFee['Meal Customization'][key]['name'] !== 'undefined')
 			{
-				if(changeList.mealCustomizationFee['Meal Customization'][key]['newVal'].toUpperCase() == 'OPTED IN')
+				if (changeList.mealCustomizationFee['Meal Customization'][key]['newVal'].toUpperCase() == 'OPTED IN')
 				{
-					htmlStr += changeList.mealCustomizationFee['Meal Customization'][key]['newVal'] + " to "+changeList.mealCustomizationFee['Meal Customization'][key]['name'] +"<br />";
+					htmlStr += changeList.mealCustomizationFee['Meal Customization'][key]['newVal'] + " to " + changeList.mealCustomizationFee['Meal Customization'][key]['name'] + "<br />";
 				}
 				else
 				{
-					htmlStr += changeList.mealCustomizationFee['Meal Customization'][key]['newVal'] + " of "+changeList.mealCustomizationFee['Meal Customization'][key]['name'] +"<br />";
+					htmlStr += changeList.mealCustomizationFee['Meal Customization'][key]['newVal'] + " of " + changeList.mealCustomizationFee['Meal Customization'][key]['name'] + "<br />";
 				}
 			}
 		}
@@ -6590,7 +6590,6 @@ function handleMealCustomizationFeeInput()
 	calculateTotal();
 }
 
-
 function handleBagCountInput()
 {
 	bagCountLockedToField = true;
@@ -6614,7 +6613,9 @@ function handleMealCustomizationWaiverInput()
 
 		$('.icon-customize').hide();
 
-	}else{
+	}
+	else
+	{
 		let mealCustomizationFeeTotal = $("#subtotal_meal_customization_fee").data('org_value');
 		$("#subtotal_meal_customization_fee").prop("disabled", false);
 		$("#subtotal_meal_customization_fee").val(formatAsMoney(mealCustomizationFeeTotal));
@@ -6633,19 +6634,23 @@ function handleMealCustomizationWaiverInput()
 	calculateTotal();
 }
 
-function calculateMealCustomizationFee(customizableMealQty){
+function calculateMealCustomizationFee(customizableMealQty)
+{
 	let priceConfig = meal_customization_cost;
 
-	if(typeof priceConfig === 'undefined' || priceConfig.length == 0){
+	if (typeof priceConfig === 'undefined' || priceConfig.length == 0 || Number(customizableMealQty) == 0)
+	{
 		return 0;
 	}
 
 	let fee = 0;
-	for (var key in priceConfig) {
-
-		switch(priceConfig[key].operator) {
+	for (var key in priceConfig)
+	{
+		switch (priceConfig[key].operator)
+		{
 			case 'EQUAL_OR_LESS':
-				if(customizableMealQty <= parseInt(priceConfig[key].value)){
+				if (customizableMealQty <= parseInt(priceConfig[key].value))
+				{
 					fee = priceConfig[key].cost;
 				}
 				break;
@@ -6653,12 +6658,14 @@ function calculateMealCustomizationFee(customizableMealQty){
 				let limit = priceConfig[key].value.split('-');
 				let limitLow = parseInt(limit[0]);
 				let limitHigh = parseInt(limit[1]);
-				if(customizableMealQty >= limitLow && customizableMealQty <= limitHigh ){
+				if (customizableMealQty >= limitLow && customizableMealQty <= limitHigh)
+				{
 					fee = priceConfig[key].cost;
 				}
 				break;
 			case 'GREATER':
-				if(customizableMealQty > parseInt(priceConfig[key].value)){
+				if (customizableMealQty > parseInt(priceConfig[key].value))
+				{
 					fee = priceConfig[key].cost;
 				}
 				break;
@@ -6668,12 +6675,10 @@ function calculateMealCustomizationFee(customizableMealQty){
 	}
 
 	return fee;
-
 }
 
 function getNumberBagsRequiredFromItems(entreeCount, sidesCount)
 {
-
 	let entreesPerBag = 4;
 	//	let sidesPerBag = 6;
 
@@ -6861,7 +6866,8 @@ function calculateTotal()
 						halfQty += itemQty * $(this).data('item_count_per_item');
 					}
 
-					if($(this).data('item_is_customizable') == '1'){
+					if ($(this).data('item_is_customizable') == '1')
+					{
 						customizableMealQty += itemQty * $(this).data('item_count_per_item');
 					}
 				}
@@ -6888,7 +6894,6 @@ function calculateTotal()
 			}
 		}
 	});
-
 
 	if (hasBundle)
 	{
@@ -7367,14 +7372,14 @@ function calculateTotal()
 			});
 			if (CouponCodeStr == 'VOLUME')
 			{
-				newDiscountAmount =  formatterUSD.format(coreItemsSubtotal * (couponDiscountVar / 100))
+				newDiscountAmount = formatterUSD.format(coreItemsSubtotal * (couponDiscountVar / 100))
 			}
 			else
 			{
 				newDiscountAmount = formatterUSD.format(pre_discounts_grand_total * (couponDiscountVar / 100))
 			}
 		}
-		catch(e)
+		catch (e)
 		{
 			//original way which lead to off-by-one issue compared to server's method of rounding
 			if (CouponCodeStr == 'VOLUME')
@@ -7388,7 +7393,6 @@ function calculateTotal()
 
 			newDiscountAmount /= 100;
 		}
-
 
 		$('#couponValue').val(newDiscountAmount);
 	}
@@ -7454,7 +7458,8 @@ function calculateTotal()
 			let currentDeliveryFee = $("#subtotal_delivery_fee").val();
 			if (couponDiscountVal != currentDeliveryFee)
 			{
-				if(parseFloat(couponDiscountVal) > parseFloat(currentDeliveryFee)){
+				if (parseFloat(couponDiscountVal) > parseFloat(currentDeliveryFee))
+				{
 					couponDiscountVal = currentDeliveryFee;
 					couponDiscountValIsDeliveryFee = true;
 				}
@@ -7465,7 +7470,7 @@ function calculateTotal()
 
 		if (coupon.limit_to_core == '1')
 		{
-			let base  = coreItemsSubtotal;
+			let base = coreItemsSubtotal;
 
 			if (coupon.discount_method == 'FLAT')
 			{
@@ -7486,7 +7491,7 @@ function calculateTotal()
 
 		if (coupon.limit_to_finishing_touch == '1')
 		{
-			let base  = sideDishSubTotal;
+			let base = sideDishSubTotal;
 
 			if (coupon.discount_method == 'FLAT')
 			{
@@ -7588,19 +7593,25 @@ function calculateTotal()
 					}
 					UPDiscount = formatAsMoney(basis);
 					UPType = 'flat';
-				}else if((preferredData.preferred_cap_type == 'ITEMS' && totalMealQuantity > preferredCapRemaining)){
+				}
+				else if ((preferredData.preferred_cap_type == 'ITEMS' && totalMealQuantity > preferredCapRemaining))
+				{
 
 					let cost = 0;
 					let halfCost = 0;
 					let itemCount = 0;
 					sortedCoreItemList.sort((a, b) => (a.price < b.price) ? 1 : -1);
-					for(let i = 0; i < totalMealQuantity; i++){
+					for (let i = 0; i < totalMealQuantity; i++)
+					{
 						itemCount += sortedCoreItemList[i].qty;
-						if(itemCount <= preferredCapRemaining){
-							if(sortedCoreItemList[i].serving_size > 5)
+						if (itemCount <= preferredCapRemaining)
+						{
+							if (sortedCoreItemList[i].serving_size > 5)
 							{
 								cost += sortedCoreItemList[i].qty * preferredData.value;
-							}else{
+							}
+							else
+							{
 								halfCost += Number(formatAsMoney(((sortedCoreItemList[i].qty - PUDExcludedHalfItemsCount) * (preferredData.value / 2))))
 							}
 						}
@@ -7611,7 +7622,6 @@ function calculateTotal()
 					}
 
 					cost += halfCost;
-
 
 					let basis = discounted_total - cost - addonsSubtotal - productsSubTotal - PUDExcludedItemsTotal;
 					if (preferredData.include_sides === '0')
@@ -7817,14 +7827,14 @@ function calculateTotal()
 	if (storeSupportsMealCustomization)
 	{
 
-		if($('#manual_customization_fee').val() == 'true')
+		if ($('#manual_customization_fee').val() == 'true')
 		{
 			//use manually entered value
 			mealCustomizationFeeTotal = Number($("#subtotal_meal_customization_fee").val());
 		}
 		else
 		{
-			mealCustomizationFeeTotal =  calculateMealCustomizationFee(customizableMealQty);
+			mealCustomizationFeeTotal = calculateMealCustomizationFee(customizableMealQty);
 			$("#subtotal_meal_customization_fee").val(formatAsMoney(mealCustomizationFeeTotal));
 		}
 
@@ -7922,7 +7932,10 @@ function calculateTotal()
 		{
 			newFoodTax = formatAsMoney(((newGrandTotal + (curPPDiscount * 1) - miscNonFoodSubtotal - serviceFee - food_portion_of_points_credit - deliveryFee) * (curFoodTax / 100)) + .000001);
 			let mealCustomizationFee = Number($('#subtotal_meal_customization_fee').val())
-			if (isNaN(mealCustomizationFee)) { mealCustomizationFee = 0;}
+			if (isNaN(mealCustomizationFee))
+			{
+				mealCustomizationFee = 0;
+			}
 			newServiceTax = formatAsMoney(((((serviceFee + mealCustomizationFee) - fee_portion_of_points_credit)) * (curServiceTax / 100)) + .000001);
 		}
 
@@ -7945,7 +7958,10 @@ function calculateTotal()
 		{
 			newFoodTax = formatAsMoney(((newGrandTotal - miscNonFoodSubtotal - serviceFee - deliveryFee) * (curFoodTax / 100)) + .000001);
 			let mealCustomizationFee = Number($('#subtotal_meal_customization_fee').val())
-			if (isNaN(mealCustomizationFee)) { mealCustomizationFee = 0;}
+			if (isNaN(mealCustomizationFee))
+			{
+				mealCustomizationFee = 0;
+			}
 			newServiceTax = formatAsMoney((serviceFee + mealCustomizationFee) * (curServiceTax / 100) + .000001);
 		}
 
@@ -8377,8 +8393,8 @@ function canIncrementBundleSubItem(input, selector)
 
 }
 
-
-function preferenceChangeListener(pref, setting, user, callback){
+function preferenceChangeListener(pref, setting, user, callback)
+{
 
 	pref = pref.toUpperCase();
 	let pref_value = USER_PREFERENCES[pref].value;
@@ -8392,10 +8408,13 @@ function preferenceChangeListener(pref, setting, user, callback){
 		setting = setting.toString()
 	}
 
-	if(pref.includes('_DETAILS')){
-		let key = 'MEAL_EXCLUDE_'+pref.replace('MEAL_','').replace('_DETAILS','');
+	if (pref.includes('_DETAILS'))
+	{
+		let key = 'MEAL_EXCLUDE_' + pref.replace('MEAL_', '').replace('_DETAILS', '');
 		meal_customization_preferences[key].details = setting;
-	}else{
+	}
+	else
+	{
 		meal_customization_preferences[pref].value = setting;
 	}
 
@@ -8413,22 +8432,26 @@ function preferenceChangeListener(pref, setting, user, callback){
 		success: function (json) {
 			if (json.processor_success)
 			{
-				if(json.cost > 0){
+				if (json.cost > 0)
+				{
 					$('#customization-fee-row').show();
 					$('#MealCustomizationFeeRow').show();
-				}else{
+				}
+				else
+				{
 					$('#customization-fee-row').hide();
 					$('#MealCustomizationFeeRow').hide();
 				}
 
-				if($('#manual_customization_fee').val() != 'true')
+				if ($('#manual_customization_fee').val() != 'true')
 				{
 					$('#subtotal_meal_customization_fee').val(formatAsMoney(json.cost));
 					$("#OEH_subtotal_meal_customization_fee").html(formatAsMoney(json.cost));
 				}
 				handleMealCustomizationFeeInput();
 
-				if(typeof callback !== 'undefined'){
+				if (typeof callback !== 'undefined')
+				{
 					callback(json);
 				}
 
