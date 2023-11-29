@@ -1,5 +1,5 @@
 <?php
-require_once("../../includes/Config.inc");
+require_once(dirname(__FILE__) . "/../../includes/Config.inc");
 require_once("DAO/BusinessObject/COrders.php");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/BusinessObject/CMenuItem.php");
@@ -33,7 +33,7 @@ try
 		$DAO_menu->id = $month;
 		$DAO_menu->find(true);
 
-		$csv_path = "../output/sales_price_report/sales-price-report-" . strtolower(str_replace(' ', '_', $DAO_menu->menu_name)) . "-as_of-" . date("Y-m-d") . ".xlsx";
+		$csv_path = REPORT_OUTPUT_BASE . "/sales_price_report/sales-price-report-" . strtolower(str_replace(' ', '_', $DAO_menu->menu_name)) . "-as_of-" . date("Y-m-d") . ".xlsx";
 
 		$DAO_store = DAO_CFactory::create('store', true);
 		$DAO_store->active = 1;

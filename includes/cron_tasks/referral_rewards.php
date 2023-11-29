@@ -1,13 +1,5 @@
 <?php
-/*
- * Created on Dec 8, 2005
- * project_name process_delayed.php
- *
- * Copyright 2005 DreamDinners
- * @author Carls
- */
-//require_once("C:\\Development\\Sites\\DreamSite\\includes\\Config.inc");
-require_once("/DreamSite/includes/Config.inc");
+require_once(dirname(__FILE__) . "/../Config.inc");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/BusinessObject/CStore.php");
 require_once("DAO/CFactory.php");

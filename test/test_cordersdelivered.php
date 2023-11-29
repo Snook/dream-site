@@ -1,6 +1,5 @@
 <?php
-
-require_once("../includes/Config.inc");
+require_once(dirname(__FILE__) . "/../includes/Config.inc");
 require_once 'includes/DAO/BusinessObject/COrdersDelivered.php';
 require_once '/processor/calculatetax.php';
 

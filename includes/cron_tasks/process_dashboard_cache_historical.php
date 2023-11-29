@@ -1,5 +1,5 @@
 <?php
-require_once("../Config.inc");
+require_once(dirname(__FILE__) . "/../Config.inc");
 require_once("CLog.inc");
 require_once("CDashboardReport.inc");
 

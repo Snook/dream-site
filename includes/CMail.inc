@@ -199,7 +199,14 @@ class CMail
 				}
 				$fileextArr = explode('/', finfo_buffer(finfo_open(), base64_decode($base64), FILEINFO_MIME_TYPE));
 				$fileext = $fileextArr[1];
-				$name = 'file.' . $fileext;
+				if(!empty($this->attachment['name']))
+				{
+					$name = $this->attachment['name'];
+				}
+				else
+				{
+					$name = 'file.' . $fileext;
+				}
 				$attach = chunk_split($base64);
 			}
 
@@ -333,6 +340,8 @@ class CMail
 		// probably being sent to the current user.
 		if (($this->to_id == null) && ($this->from_email == null))
 		{
+			require_once('includes/DAO/BusinessObject/CUser.php');
+
 			$this->to_id = CUser::getCurrentUser()->id;
 		}
 

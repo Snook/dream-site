@@ -5,13 +5,13 @@ define('DEV', true);
 
 if (DEV)
 {
-	require_once("../includes/Config.inc");
+	require_once(dirname(__FILE__) . "/../includes/Config.inc");
 	define ('BASE_CSV_PATH' ,"C:/Users/Carl.Samuelson/Zend/workspaces/DefaultWorkspace/DreamDigest/CSV/" );
 	define('TARGET', 'PLAYGROUND');
 }
 else
 {
-	require_once("../includes/Config.inc");
+	require_once(dirname(__FILE__) . "/../includes/Config.inc");
 	define ('BASE_CSV_PATH' ,"/DreamDigest/CSV/" );
 	define('TARGET', 'LIVE');
 }

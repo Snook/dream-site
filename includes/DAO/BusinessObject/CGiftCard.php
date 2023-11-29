@@ -1462,69 +1462,85 @@ class CGiftCard extends DAO_Gift_card_transaction
 
 	static function sendGiftCardOrderReport()
 	{
+		$filename = REPORT_OUTPUT_BASE . '/gift_card_order_report/dream_dinners_orders_' . date("m-d-y") . '.csv';
 
-		$gcOrder = DAO_CFactory::create('DAO_Gift_card_order');
-		$filename = '/DreamSite/gift_card_reports/dream_dinners_orders_' . date("m-d-y") . '.csv';
-		//	$filename = 'C:/wamp/www/test.csv';
-		$list = array('Amount, First Name, Last Name, Address 1, Address 2, City, State, Zip, Merchant_ID, Design Name, To Name, From Name, Message, ORDER_ID');
+		$list = array(
+			array('Amount', 'First Name', 'Last Name', 'Address 1', 'Address 2', 'City', 'State', 'Zip', 'Merchant_ID', 'Design Name', 'To Name', 'From Name', 'Message', 'ORDER_ID')
+		);
+
 		$processed_ids = array();
 
-		$gcOrder->query(" select gco.*, if (s.merchant_id is null, '711389000121', s.merchant_id) as merchant_id from gift_card_order gco  left join store s on s.id = gco.store_id where gco.processed = 0 and gco.paid = 1 and gco.is_deleted = 0 and media_type = 'PHYSICAL'");
+		$DAO_Gift_card_order = DAO_CFactory::create('gift_card_order', true);
+		$DAO_Gift_card_order->media_type = 'PHYSICAL';
+		$DAO_Gift_card_order->processed = 0;
+		$DAO_Gift_card_order->paid = 1;
+		$DAO_Gift_card_order->joinAddWhereAsOn(DAO_CFactory::create('gift_card_design', true));
+		$DAO_Gift_card_order->joinAddWhereAsOn(DAO_CFactory::create('store', true), 'LEFT');
+		$DAO_Gift_card_order->find();
 
-		while ($gcOrder->fetch())
+		while ($DAO_Gift_card_order->fetch())
 		{
-			$designName = "Dream Dinners Logo";
+			$list[] = array (
+				$DAO_Gift_card_order->initial_amount,
+				$DAO_Gift_card_order->first_name,
+				$DAO_Gift_card_order->last_name,
+				$DAO_Gift_card_order->shipping_address_1,
+				$DAO_Gift_card_order->shipping_address_2,
+				$DAO_Gift_card_order->shipping_city,
+				$DAO_Gift_card_order->shipping_state,
+				$DAO_Gift_card_order->shipping_zip,
+				(!empty($DAO_Gift_card_order->DAO_store->merchant_id)) ? $DAO_Gift_card_order->DAO_store->merchant_id : '711389000121',
+				$DAO_Gift_card_order->DAO_gift_card_design->title,
+				$DAO_Gift_card_order->to_name,
+				$DAO_Gift_card_order->from_name,
+				$DAO_Gift_card_order->message_text,
+				$DAO_Gift_card_order->id
+			);
 
-			switch ($gcOrder->design_type_id)
+			array_push($processed_ids, $DAO_Gift_card_order->id);
+		}
+
+		if(!empty($processed_ids))
+		{
+			$fp = fopen($filename, 'w');
+
+			foreach ($list as $line)
 			{
-				case 3:
-					$designName = "Celebrate";
-					break;
-				case 4:
-					$designName = "Stir up some fun";
-					break;
-				case 5:
-					$designName = "Life just got easier";
-					break;
+				fputcsv($fp, $line);
 			}
 
-			array_push($list, $gcOrder->initial_amount . "," . $gcOrder->first_name . "," . $gcOrder->last_name . "," . $gcOrder->shipping_address_1 . "," . $gcOrder->shipping_address_2 . "," . $gcOrder->shipping_city . "," . $gcOrder->shipping_state . "," . $gcOrder->shipping_zip . "," . $gcOrder->merchant_id . "," . $designName . "," . $gcOrder->to_name . "," . $gcOrder->from_name . "," . $gcOrder->message_text . "," . $gcOrder->id);
-
-			array_push($processed_ids, $gcOrder->id);
+			fclose($fp);
 		}
-
-		$fp = fopen($filename, 'w');
-
-		foreach ($list as $line)
-		{
-			fputcsv($fp, explode(',', $line));
-		}
-
-		fclose($fp);
 
 		$subject = "Dream Dinners Card Orders Report for " . date("m-d-y");
 		$Mail = new CMail();
+		$Mail->to_email = "sarah@smarttransactions.com, mariah@localgiftcards.com, geekifyinc@gmail.com";
+		$Mail->cc_email = "ryan.snook@dreamdinners.com";
+		$Mail->subject = $subject;
+
 		if (!empty($processed_ids))
 		{
-
-			$fp2 = fopen($filename, 'r');
-			$data = fread($fp2, 1000000);
-			fclose($fp2);
-
 			try
 			{
+				$email_data = array(
+					'gift_card_order' => $list
+				);
 
-				$Mail->send(null, null, "", "sarah@smarttransactions.com, mariah@localgiftcards.com, geekifyinc@gmail.com", $subject, null, $data, '', "ryan.snook@dreamdinners.com");
+				$Mail->body_html = CMail::mailMerge('report/gift_card_order/physical_gift_card_order_report.html.php', $email_data);
+				$Mail->body_text = CMail::mailMerge('report/gift_card_order/physical_gift_card_order_report.txt.php', $email_data);
+				$Mail->attachment['name'] = 'dream_dinners_orders_' . date("m-d-y") . '.csv';
+				$Mail->attachmentbase64 = base64_encode(file_get_contents($filename));
+				$Mail->sendEmail();
 
 				//update gift_card_order to flag these orders as processed
 				foreach ($processed_ids as $id)
 				{
-					$gcUpdateOrder = DAO_CFactory::create('gift_card_order');
-					$gcUpdateOrder->id = $id;
-					$gcUpdateOrder->find(true);
-					$orgOrder = clone($gcUpdateOrder);
-					$gcUpdateOrder->processed = '1';
-					$gcUpdateOrder->update($orgOrder);
+					$update_DAO_gift_card_order = DAO_CFactory::create('gift_card_order', true);
+					$update_DAO_gift_card_order->id = $id;
+					$update_DAO_gift_card_order->find(true);
+					$org_update_DAO_gift_card_order = clone($update_DAO_gift_card_order);
+					$update_DAO_gift_card_order->processed = '1';
+					$update_DAO_gift_card_order->update($org_update_DAO_gift_card_order);
 				}
 			}
 			catch (exception $e)
@@ -1534,7 +1550,8 @@ class CGiftCard extends DAO_Gift_card_transaction
 		}
 		else
 		{
-			$Mail->send(null, null, "", "sarah@smarttransactions.com, mariah@localgiftcards.com, geekifyinc@gmail.com", $subject, null, "No orders today.", '', "ryan.snook@dreamdinners.com");
+			$Mail->body_text = "No orders today.";
+			$Mail->sendEmail();
 		}
 	}
 }

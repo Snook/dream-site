@@ -989,6 +989,12 @@ class page_admin_store_details extends CPageAdminOnly
 			));
 
 			$Form->AddElement(array(
+				CForm::type => CForm::CheckBox,
+				CForm::disabled => $disabledForm,
+				CForm::name => 'credit_card_discover'
+			));
+
+			$Form->AddElement(array(
 				CForm::type => CForm::DropDown,
 				CForm::disabled => $disabledForm,
 				CForm::name => 'core_pricing_tier',

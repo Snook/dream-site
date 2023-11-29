@@ -646,22 +646,20 @@
 				<td class="bgcolor_light" style="text-align: right;">American Express processing:</td>
 				<td class="bgcolor_light"><?php echo $this->form_store_details['credit_card_amex_html']; ?></td>
 			</tr>
-			<?php if (!empty($this->form_store_details['credit_card_discover_html'])) { ?>
-				<tr>
-					<td class="bgcolor_light" style="text-align: right;">Discover Card processing:</td>
-					<td class="bgcolor_light">
-						<?php echo $this->form_store_details['credit_card_discover_html']; ?>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Discover Card processing:</td>
+				<td class="bgcolor_light">
+					<?php echo $this->form_store_details['credit_card_discover_html']; ?>
+					<br />
+					<span style="color: #cc4444;">
+						<i>* Your PayPal account must be configured for these card types before enabling them.</i>
 						<br />
-						<span style="color: #cc4444;">
-							<i>* Your PayPal account must be configured for these card types before enabling them.</i>
-							<br />
-							<i>** It is not required to enable Discover Card processing to support Gift Cards.</i>
-							<br />
-							<i>*** Gift Card support does not enable Discover Card support.</i>
-						</span>
-					</td>
-				</tr>
-			<?php } ?>
+						<i>** It is not required to enable Discover Card processing to support Gift Cards.</i>
+						<br />
+						<i>*** Gift Card support does not enable Discover Card support.</i>
+					</span>
+				</td>
+			</tr>
 			<tr>
 				<td class="bgcolor_light" style="text-align: right;">Supports Meal Customization</td>
 				<td class="bgcolor_light"><?php echo $this->form_store_details['supports_meal_customization_html']; ?></td>

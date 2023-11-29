@@ -1,11 +1,5 @@
 <?php
-/*
- * Created on Dec 8, 2005
- *
- * Copyright 2013 DreamDinners
- * @author Carls
- */
-require_once("../Config.inc");
+require_once(dirname(__FILE__) . "/../Config.inc");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/BusinessObject/CUserData.php");
 require_once("DAO/BusinessObject/CPointsUserHistory.php");

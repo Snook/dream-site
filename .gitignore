@@ -6,4 +6,6 @@
 !/www/theme/dreamdinners/images/charts/agr/agr_placeholder.png
 /www/theme/dreamdinners/images/charts/guests/*
 !/www/theme/dreamdinners/images/charts/guests/guests_placeholder.png
-/reports/output/
+/reports/output/**
+!/reports/output/**/
+!/reports/output/**/.gitkeep

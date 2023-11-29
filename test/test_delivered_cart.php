@@ -1,6 +1,5 @@
 <?php
-require_once("../includes/Config.inc");
-
+require_once(dirname(__FILE__) . "/../includes/Config.inc");
 require_once("CLog.inc");
 require_once("CAppUtil.inc");
 require_once("CApp.inc");

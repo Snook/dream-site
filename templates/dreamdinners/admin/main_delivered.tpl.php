@@ -63,22 +63,9 @@
 		<div id="session_tools_selector">
 
 			<ul id="session_tools">
-
-				<li><a href="#" id="st_session_goal_sheet_print">Session Goal Sheet</a></li>
-				<li><a href="#" id="st_customer_receipt">Order Summary</a></li>
-				<li class="category">Cooking Instructions
-					<input id="suppress_fastlane_labels" type="checkbox" checked="checked" data-tooltip="Include FastLane Labels, uncheck to suppress"/>
-				</li>
-				<li><a href="#" id="st_print_labels_w_breaks">Labels</a></li>
-				<li><a href="#" id="st_print_labels_by_dinner">Labels by Dinner</a></li>
-				<li><a href="#" id="st_print_generic_labels">Generic Labels</a></li>
-				<li class="category">Reports</li>
+				<li><a href="#" id="st_customer_receipt">Order Summary - Delivery Day</a></li>
 				<li><a href="#" id="st_daily_boxes_shipped">Entr&eacute;e Summary - Pick Up</a></li>
 				<li><a href="#" id="st_daily_boxes_delivered">Entr&eacute;e Summary - Delivery</a></li>
-
-				<li class="category">Session Docs by Type</li>
-				<li><a href="#" id="st_customer_menu_nutrition">Nutritionals</a></li>
-
 			</ul>
 
 		</div>

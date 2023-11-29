@@ -1,5 +1,6 @@
 <?php
 require_once("Savant2.php");
+require_once("includes/DAO/BusinessObject/CBrowserSession.php");
 /* ------------------------------------------------------------------------------------------------
  *	Class: CTemplate
  *
@@ -108,7 +109,11 @@ class CTemplate extends Savant2
 
 	function __construct($template_path = false)
 	{
-		$page = str_replace('-', '_', $_REQUEST['page']);
+		$page = false;
+		if (!empty($_REQUEST['page']))
+		{
+			$page = str_replace('-', '_', $_REQUEST['page']);
+		}
 
 		if (!empty($_REQUEST['page']))
 		{

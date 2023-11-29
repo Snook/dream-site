@@ -1,13 +1,5 @@
 <?php
-/*
- * Created on Nov 7, 2023
- *
- * @author evan lee
- */
-
-$path = '/DreamWeb/dream-site/'. PATH_SEPARATOR . '/DreamWeb/dream-site/phplib/'. PATH_SEPARATOR .'/DreamWeb/dream-site/includes/';
-set_include_path(get_include_path() . PATH_SEPARATOR . $path);
-require_once("config/Config.server.inc");
+require_once(dirname(__FILE__) . "/../Config.inc");
 require_once("DAO/CFactory.php");
 require_once("CLog.inc");
 require_once("CMailHandlers.inc");

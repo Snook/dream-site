@@ -5129,11 +5129,13 @@ class CUser extends DAO_User
 
 	function hasBalanceDue()
 	{
-		$ordersDigest = DAO_CFactory::create('orders_digest');
-		$ordersDigest->query("SELECT sum(balance_due) AS balance_due FROM `orders_digest` WHERE `user_id` = '" . $this->id . "' AND `is_deleted` = '0'");
-		$ordersDigest->fetch();
+		$DAO_orders_digest = DAO_CFactory::create('orders_digest', true);
+		$DAO_orders_digest->user_id = $this->id;
+		$DAO_orders_digest->selectAdd("SUM(orders_digest.balance_due) AS total_balance_due");
+		$DAO_orders_digest->whereAdd("orders_digest.session_time > (NOW() - INTERVAL 6 MONTH)");
+		$DAO_orders_digest->find(true);
 
-		if (!empty($ordersDigest->balance_due) && $ordersDigest->balance_due != '0.00')
+		if (!empty($DAO_orders_digest->total_balance_due) && $DAO_orders_digest->total_balance_due != '0.00')
 		{
 			return true;
 		}
