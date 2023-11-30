@@ -124,15 +124,13 @@
 									<div class="card-body bg-yellow-light">
 										<h5 class="card-title">Our Local Stores</h5>
 										<p class="card-text">Learn how to meal prep with Dream Dinners at a local store in your community. Three options available: Assemble your own meals with our simple recipes, pick up meals that our team assembles for you or have your meals delivered to your home.</p>
-										<p class="card-text">For new guests to give us a try, the Meal Prep Starter Pack will help you get dinner on the table with up to 4 family-style dinners for just $79. <span class="font-italic">*Available at participating locations.</span></p>
 										  <ul>
 											<li>Chef-created, family friendly recipes prepped in our local assembly kitchens.</li>
 											<li>Ready-to-cook frozen dinners leaving you prepared for dinner.</li>
 											<li>Easy to follow instructions making both cooking and clean up simple and stress-free.</li>
 											<li>Over 20 years of experience.</li>
 										  </ul>
-										<!--<p class="card-text">Pick up your dinners at our store or at local community pick up locations.</p>
-										<a href="/locations" class="btn btn-primary">Find a Store</a>-->
+										
 									</div>
 									<div class="card-body bg-yellow-light">
 										<img src="<?php echo IMAGES_PATH; ?>/how_it_works/assemble-your-meals-458x344.jpg" alt="assemble dinners in store" class="img-fluid" />
@@ -152,8 +150,7 @@
 												<li>Most dinners cook in under 30 minutes and use simple, easy-to-follow cooking instructions.</li>
 												<li>No subscription or commitment.</li>
 											</ul>
-										<!--<p class="card-text">Ship meals to your door via FedEx or send them as a thoughtful gift.</p>
-										<a href="/locations" class="btn btn-primary">Check for Shipping</a>-->
+										
 									</div>
 									<div class="card-body bg-cyan-extra-light">
 										<img src="<?php echo IMAGES_PATH; ?>/how_it_works/delivered-458x344.jpg" alt="dinners are delivered" class="img-fluid" />
