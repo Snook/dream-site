@@ -723,7 +723,7 @@ if ($this->report_submitted == true)
 				foreach ($this->table_data as $entity) {
 					// $arr = $entity->getAllReportData ( $menu_entity );
 					if ($entity['menu_month'] == $menu_entity) {
-						if ($entity['is_chef_touched'] == 1) {
+						if ($entity['is_chef_touched'] == 1 && empty($entity["is_bundle"])) {
 							$tempitems = $entity['large'] + $entity['medium'];
 							echo '<tr id="' . ($tempitems == "0" ? "hz_" : "nhz_") . ($rowCounter + 1) . '" style="display:' . ($tempitems == "0" ? "$initialZeroItemDisplay" : "$displayProp") . '">';
 							echo '<td width="300" class="subheaders">' . $entity['menu_name'] . '</td>';
