@@ -40,11 +40,6 @@ function admin_order_mgr_init()
 		setupForActiveOrder();
 	}
 
-	if (hasBundle)
-	{
-		bundleSetup();
-	}
-
 	setupSiteAdminFunctions();
 
 	initChangeList();

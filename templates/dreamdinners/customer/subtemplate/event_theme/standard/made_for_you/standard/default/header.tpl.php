@@ -1,8 +1,7 @@
 <div class="row mb-5">
 	<div class="col-12 col-lg-6">
 		<h3>Pick Up</h3>
-		<p>Don't have enough time to assemble your dinners this month? Choose a Pick Up session and we will assemble delicious dinners for your family. You simply pick up your dinners during the selected pick up window. A nominal fee may apply. </p>
-		<p>Want to assemble your meals in our store? <a href="/how-it-works">Learn more</a> about how our assembly sessions work.</p>
+		<p>Choose a Pick Up session and we will assemble delicious dinners for your family. You simply pick up your dinners during the selected pick up window.</p>
 		<div class="row m-2 p-3 bg-gray">
 			<div class="col text-center">
 				<p class="font-weight-bold">

@@ -14,7 +14,7 @@
 					</div>
 					<div class="col-md-6 p-0">
 						<figure>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/nov23-menu-collage-957x657.webp" alt="Italiano Chicken and Orzo adn Buffalo Ranch Chicken Sliders and Pork Marsala" class="img-fluid">
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dec23-menu-collage-957x657.webp" alt="Pulled Pork Sandwiches, Sirloin and Sausage Tortellini and Savory Grilled Chicken" class="img-fluid">
 						</figure>
 					</div>
 				</div>
@@ -41,7 +41,7 @@
 				</div>
 			  </div>
 		</section>
-		 <section>
+		<!--<section>
 		 <div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 			<div class="container">
 				<div class="row">
@@ -89,7 +89,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section>-->
 		<!-- Ways We Can Serve You-->
 		<section>
 			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
@@ -125,14 +125,19 @@
 									<p class="card-text">Visit a location near you and assemble your own meals in our local prep kitchen.</p>
 								</div>
 							</div>
-							<!--<div class="card border-0">
+							<div class="card border-0">
 								<img src="<?php echo IMAGES_PATH; ?>/home_content/shipped-to-your-door-384x352.webp" alt="Shipped to your door" class="img-fluid">
 								<div class="card-body">
 									<h5 class="card-title">National Shipping</h5>
-									<p class="card-text">No location near you? We can ship via FedEx ready-to-cook meals to your home. No subscription required.</p>
+									<p class="card-text">No location near you? We can ship ready-to-cook meals to your home. No subscription required.</p>
 								</div>
-							</div>-->
+							</div>
 						</div>
+					</div>
+				</div>
+				<div class="row my-4">
+					<div class="col text-center">
+						<a href="/locations" class="btn btn-lg btn-primary">Get Cooking</a>
 					</div>
 				</div>
 			</div>

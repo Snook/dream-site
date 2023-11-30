@@ -22,30 +22,8 @@
 			<div class="row mb-4">
 				<div class="col">
 				<p>Our Beaverton and Clackamas Stores Are Here to Serve You!</p>
-					<p>Get family meals on the table with our community pick up service. Choose a date/time from the list below to place your order. We will meet you at the Corvallis Dream Dinners store parking lot to deliver your meals. Perfectly prepped by the Beaverton or Clackamas team.</p>
+					<p>Get family meals on the table with our community pick up service. We will meet you at the Corvallis Dream Dinners store parking lot to deliver your meals. Perfectly prepped by the Beaverton or Clackamas team.</p>
 					<p>Contact either store for questions. Order today!</p>
-					<ul>
-						<li><a href="https://dreamdinners.com/session/1008912">Wed, Oct 11th - 5:30</a></li>
-						<li><a href="https://dreamdinners.com/session/1008913">Fri, Oct 13th - 5:30</a></li>
-						<li><a href="https://dreamdinners.com/session/1008909">Sat, Oct 14th - 10:00</a></li>
-						<li><a href="https://dreamdinners.com/session/1008914">Wed, Oct 18th - 5:30</a></li>
-						<li><a href="https://dreamdinners.com/session/1008910">Sat, Oct 21st - 10:00</a></li>
-						<li><a href="https://dreamdinners.com/session/1008911">Thur, Oct 26th - 5:30</a></li>
-						<li><a href="https://dreamdinners.com/session/1008915">Wed, Oct 28th - 10:00</a></li>
-					</ul>
-					<p>November</p>
-					<ul>
-						<li><a href="https://dreamdinners.com/session/1008918">Thurs, Nov 2nd - 5:30</a></li>
-						<li><a href="https://dreamdinners.com/session/1008922">Sat, Nov 4th - 10:00</a></li>
-						<li><a href="https://dreamdinners.com/session/1008919">Wed, Nov 8th - 5:30</a></li>
-						<li><a href="https://dreamdinners.com/session/1008923">Sat, Nov 11th - 10:00</a></li>
-						<li><a href="https://dreamdinners.com/session/1008924">Thurs, Nov 16th - 5:30</a></li>
-						<li><a href="https://dreamdinners.com/session/1008920">Sat, Nov 18th - 10:00</a></li>
-						<li><a href="https://dreamdinners.com/session/1008921">Mon, Nov 20th - 5:30</a></li>
-						<li><a href="https://dreamdinners.com/session/1008925">Wed, Nov 22nd - 5:30</a></li>
-						<li><a href="https://dreamdinners.com/session/1008926">Thurs, Nov 30th - 5:30</a></li>
-					</ul>
-					
 					<p>Clackamas: Call 503-974-9344 or email <a href="mailto:ClackamasOR@dreamdinners.com">ClackamasOR@dreamdinners.com</a> </p>
 					<p>Beaverton: Call 503-614-8800 or email <a href="mailto:BeavertonOR@dreamdinners.com">BeavertonOR@dreamdinners.com</a></p>
 				</div>

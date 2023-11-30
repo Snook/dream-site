@@ -15,11 +15,9 @@ LOCATION: <?php echo $this->sessionInfo['session_title']; ?>
 
 For questions contact the store at: <?php echo $this->session['telephone_day']; ?>
 
-Place your monthly order today!
+Place your order today!
 <?php echo $this->referral_link; ?>
 
-New to Dream Dinners? Try the Meal Prep Starter Pack for only $99.
-<?php echo $this->referral_link; ?>
 
 
 Thanks,

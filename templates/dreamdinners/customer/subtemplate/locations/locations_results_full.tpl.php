@@ -127,9 +127,7 @@
 <?php if (empty($this->state_has_delivered) && empty($this->delivered) && empty($this->store_results_array)) { ?>
 	<div class="row my-4">
 		<div class="col col-lg-8 mx-auto">
-			<!--<p><b>Note to Clemmons Guests:</b> We are working through some logistics issues at our distribution shipping center. We will have shipping to your door available soon. We apologize for the inconvenience and will email you as soon as we are able to ship to your location.</p>-->
-			<p>Oh no! We do not currently have a Dream Dinners location near you and we are not currently shipping to your area. As we continue to grow, we hope to be able to serve you and your family again soon. If you would like to be contacted when Dream Dinners is available in your community, please complete the contact form below.<br /><br />Note: You will be required to verify your email address after submission. Check your inbox for an email from Dream Dinners with the subject line of "Action Required: Confirm Your Sign-Up".</p>
-			<p>Want to learn more about owning a Dream Dinners Assembly Kitchen, visit <a href="https://www.dreamdinnersfranchise.com/" target="_blank">DreamDinnersFranchise.com</a>.</p>
+			<p>Oh no! We do not currently have a Dream Dinners location near you or we are not currently shipping to your area. As we continue to grow, we hope to be able to serve you and your family again soon.</p>
 			<p>Want meal planning tips and family activities from Dream Dinners?</p>
 
 			<ul>
@@ -159,42 +157,3 @@
 	</div>
 <?php } ?>
 
-<?php if (empty($this->state_has_delivered) && empty($this->store_results_array) && empty($this->delivered)) { ?>
-
-	<div class="row my-4">
-		<div class="col col-lg-8 mx-auto">
-			<h4>Your Contact Information</h4>
-			<p>We will not sell or distribute your information. It will be used solely for the purpose intended. <a href="/privacy" target="_blank">View our Privacy Policy</a> for complete details.</p>
-		</div>
-	</div>
-
-	<form method="post" action="//oi.vresp.com?fid=2b7c825d75" target="vr_optin_popup" class="row needs-validation" novalidate>
-		<div class="col col-lg-8 mx-auto">
-			<div class="row mb-2">
-				<div class="col-6">
-					<?php echo $this->vresp['first_name_html']; ?>
-				</div>
-				<div class="col-6">
-					<?php echo $this->vresp['last_name_html']; ?>
-				</div>
-			</div>
-			<div class="row mb-2">
-				<div class="col-4">
-					<?php echo $this->vresp['email_address_html']; ?>
-				</div>
-				<div class="col-4">
-					<?php echo $this->vresp['state_html']; ?>
-				</div>
-				<div class="col-4">
-					<?php echo $this->vresp['postalcode_html']; ?>
-				</div>
-			</div>
-			<div class="row mt-4">
-				<div class="col col-lg-6 mx-auto">
-					<input type="submit" value="Submit" class="btn btn-primary w-100" />
-				</div>
-			</div>
-		</div>
-	</form>
-
-<?php }  ?>

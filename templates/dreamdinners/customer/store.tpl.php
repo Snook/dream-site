@@ -119,15 +119,15 @@
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center mb-2">
 						<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-turkey-hand-pies-featured-kid-pick-400x400.webp" alt="Mini Turkey and Vegetable Hand Pies" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-tacos-featured-kid-pick-400x400.webp" alt="Chicken Soft Tacos" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Mini Turkey and Vegetable Hand Pies</h5>
+									<h5 class="card-title">Chicken Soft Tacos</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-pizzaiola-featured-pan-meal-400x400.webp" alt="Chicken Pizzaiola" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/manicotti-featured-pan-meal-400x400.webp" alt="Cheese Lovers Manicotti" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Pizzaiola</h5>
+									<h5 class="card-title">Cheese Lover’s Manicotti</h5>
 								</div>
 							</div>
 					</div>
@@ -135,15 +135,15 @@
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center">
 						<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/italiano-chicken-orzo-featured-30min-less-400x400.webp" alt="Italiano Chicken and Orzo" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-yakitori-featured-30min-less-400x400.webp" alt="Chicken Yakitori" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Italiano Chicken and Orzo</h5>
+									<h5 class="card-title">Chicken Yakitori</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/beef-bourguignon-featured-instant-pot-400x400.webp" alt="Beef Bourguignon" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pulled-pork-featured-crock-pot-400x400.webp" alt="Pulled Pork BBQ Sandwiches" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Beef Bourguignon</h5>
+									<h5 class="card-title">Pulled Pork BBQ Sandwiches</h5>
 								</div>
 							</div>
 					</div>
