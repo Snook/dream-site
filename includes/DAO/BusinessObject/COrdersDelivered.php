@@ -418,31 +418,34 @@ class COrdersDelivered extends COrders
 		$menuInfo = CBox::getBoxArray($Order->store_id, false, false, false, false, $menu_id);
 		$menuInfo['bundle_items'] = array();
 
-		foreach ($menuInfo['box'] as &$thisBox)
+		if (array_key_exists("box", $menuInfo))
 		{
-			if (!isset($thisBox->bundle))
+			foreach ($menuInfo['box'] as &$thisBox)
 			{
-				$thisBox->bundle = array();
-			}
+				if (!isset($thisBox->bundle))
+				{
+					$thisBox->bundle = array();
+				}
 
-			if (!empty($thisBox->box_bundle_1))
-			{
-				$bundle = DAO_CFactory::create('bundle');
-				$bundle->id = $thisBox->box_bundle_1;
-				$bundle->find(true);
-				$thisBox->bundle[$thisBox->box_bundle_1] = $bundle;
-				$items = CBundle::getDeliveredBundleByID($thisBox->box_bundle_1);
-				$menuInfo['bundle_items'][$thisBox->box_bundle_1] = $items['bundle'];
-			}
+				if (!empty($thisBox->box_bundle_1))
+				{
+					$bundle = DAO_CFactory::create('bundle');
+					$bundle->id = $thisBox->box_bundle_1;
+					$bundle->find(true);
+					$thisBox->bundle[$thisBox->box_bundle_1] = $bundle;
+					$items = CBundle::getDeliveredBundleByID($thisBox->box_bundle_1);
+					$menuInfo['bundle_items'][$thisBox->box_bundle_1] = $items['bundle'];
+				}
 
-			if (!empty($thisBox->box_bundle_2))
-			{
-				$bundle = DAO_CFactory::create('bundle');
-				$bundle->id = $thisBox->box_bundle_2;
-				$bundle->find(true);
-				$thisBox->bundle[$thisBox->box_bundle_2] = $bundle;
-				$items = CBundle::getDeliveredBundleByID($thisBox->box_bundle_2);
-				$menuInfo['bundle_items'][$thisBox->box_bundle_2] = $items['bundle'];
+				if (!empty($thisBox->box_bundle_2))
+				{
+					$bundle = DAO_CFactory::create('bundle');
+					$bundle->id = $thisBox->box_bundle_2;
+					$bundle->find(true);
+					$thisBox->bundle[$thisBox->box_bundle_2] = $bundle;
+					$items = CBundle::getDeliveredBundleByID($thisBox->box_bundle_2);
+					$menuInfo['bundle_items'][$thisBox->box_bundle_2] = $items['bundle'];
+				}
 			}
 		}
 
