@@ -182,7 +182,7 @@
 					</tr>
 					<tr>
 						<td class="font-weight-bold">Tracking Number(s):</td>
-						<td><?php echo !empty($this->orderInfo['tracking_number']) ? $this->orderInfo['tracking_number'] : 'Pending'; ?></td>
+						<td><?php echo !empty($this->orderInfo["orderShipping"]["tracking_number"]) ? $this->orderInfo["orderShipping"]["tracking_number"] : 'Pending'; ?></td>
 					</tr>
 				<?php } ?>
 			</table>
