@@ -109,9 +109,9 @@ class COrders extends DAO_Orders
 	//
 	// constructor
 	//
-	function __construct()
+	function __construct($dataSelectTable = false)
 	{
-		parent::__construct();
+		parent::__construct($dataSelectTable);
 	}
 
 	function find($n = false, $optionsArray = false)
