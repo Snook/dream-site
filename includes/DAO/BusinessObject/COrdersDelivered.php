@@ -2500,6 +2500,8 @@ class COrdersDelivered extends COrders
 				$Booking->session_id = $target_session_id;
 				$success = $Booking->update();
 
+				$this->defaultShippingInfo($this->orderShipping->shipping_postal_code, $this->session, true);
+
 				if ($success === false)
 				{
 					throw new Exception('data error ' . $Booking->_lastError->getMessage());

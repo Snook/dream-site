@@ -111,18 +111,17 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 				CApp::bounce("/backoffice/main");
 			}
 
-			$this->originalOrder = new COrdersDelivered();
+			$this->originalOrder = new COrdersDelivered(true);
 			$this->orderState = 'NEW';
 			$this->originalOrder->user_id = CGPC::do_clean($_REQUEST['user'], TYPE_INT);
 			$this->originalOrder->store_id = false; // store_id will be set once shipping address is confirmed
 		}
 		else
 		{
-
 			// Get the original order
-			$this->originalOrder = new COrdersDelivered();
+			$this->originalOrder = new COrdersDelivered(true);
 			$this->originalOrder->id = CGPC::do_clean($_REQUEST['order'], TYPE_INT);
-			if (!$this->originalOrder->find(true))
+			if (!$this->originalOrder->find_DAO_orders(true))
 			{
 				throw new Exception('Order not found');
 			}
@@ -1381,6 +1380,8 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 		// Build template arrays for display
 		if ($this->orderState != 'NEW')
 		{
+			$this->getShippingDetails($Session, $this->originalOrder->orderAddress->postal_code);
+
 			$this->originalOrder->refreshForEditing($Session->menu_id);
 
 			$this->originalOrder->recalculate(true);
@@ -1424,7 +1425,6 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 		if ($this->orderState != 'NEW')
 		{
 			$tpl->assign('menuInfo', $menuInfo);
-			$tpl->assign('shippingInfo', $this->getShippingDetails($Session, $this->originalOrder->orderAddress->postal_code));
 		}
 
 		$tpl->assign('form_direct_order', $Form->render());

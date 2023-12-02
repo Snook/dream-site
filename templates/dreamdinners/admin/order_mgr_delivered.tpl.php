@@ -67,7 +67,7 @@
 <?php $this->setScriptVar('initial_inventory = ' . (!empty($this->inventory_items) ? json_encode($this->inventory_items) : 'false') . ';'); ?>
 <?php $this->setScriptVar('current_inventory = ' . (!empty($this->inventory_items) ? json_encode($this->inventory_items) : 'false') . ';'); ?>
 <?php $this->setScriptVar('current_box_ids = ' . (!empty($this->current_box_ids) ? json_encode($this->current_box_ids) : 'false') . ';'); ?>
-<?php $this->setScriptVar('service_days_for_current_zip = ' . (isset($this->shippingInfo->service_days) ? $this->shippingInfo->service_days : '2') . ';'); ?>
+<?php $this->setScriptVar('service_days_for_current_zip = ' . (!empty($this->orderInfo["orderShipping"]["service_days"]) ? $this->orderInfo["orderShipping"]["service_days"] : '2') . ';'); ?>
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
 <?php if ($this->orderState != 'NEW') { ?>
@@ -125,7 +125,7 @@
 									<?php if ($this->orderState == 'NEW') { ?>
 										<span style="color: red;">Please select</span>
 									<?php } else { ?>
-										<span><?php echo $this->shippingInfo->shipping_postal_code; ?></span>
+										<span><?php echo $this->orderInfo["orderShipping"]["shipping_postal_code"]; ?></span>
 									<?php } ?>
 								</div>
 							</td>
@@ -137,7 +137,7 @@
 									<?php if ($this->orderState == 'NEW') { ?>
 										<span style="color: red;">-</span>
 									<?php } else { ?>
-										<?php echo $this->shippingInfo->service_days; ?>
+										<?php echo $this->orderInfo["orderShipping"]["service_days"]; ?>
 									<?php } ?>
 								</div>
 							</td>
@@ -149,7 +149,7 @@
 									<?php if ($this->orderState == 'NEW') { ?>
 										<span style="color: red;">-</span>
 									<?php } else { ?>
-										<?php echo $this->dateTimeFormat($this->shippingInfo->ship_date, FULL_MONTH_DAY_YEAR); ?>
+										<?php echo $this->dateTimeFormat($this->orderInfo["orderShipping"]["ship_date"], FULL_MONTH_DAY_YEAR); ?>
 									<?php } ?>
 								</div>
 							</td>
@@ -161,7 +161,7 @@
 									<?php if ($this->orderState == 'NEW') { ?>
 										<span style="color: red;">-</span>
 									<?php } else { ?>
-										<?php echo $this->dateTimeFormat($this->shippingInfo->actual_delivery_date, FULL_MONTH_DAY_YEAR); ?>
+										<?php echo $this->dateTimeFormat($this->orderInfo["orderShipping"]["actual_delivery_date"], FULL_MONTH_DAY_YEAR); ?>
 									<?php } ?>
 								</div>
 							</td>
@@ -176,7 +176,7 @@
 						<?php if ($this->orderState == 'ACTIVE') { ?>
 							<tr>
 								<td style="text-align: right;">Tracking Number:&nbsp;</td>
-								<td style="font-weight: bold;"><?php echo $this->orderInfo['tracking_number']; ?></td>
+								<td style="font-weight: bold;"><?php echo !empty($this->orderInfo["orderShipping"]["tracking_number"]) ? $this->orderInfo["orderShipping"]["tracking_number"] : 'Pending'; ?></td>
 							</tr>
 						<?php } ?>
 
