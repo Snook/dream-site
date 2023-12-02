@@ -14,9 +14,19 @@ class DAO extends DB_DataObject
 	var $_joinAdd = array();  // array (joinAs => tableName)
 	var $_query_string;
 
-	function __construct()
+	function __construct($dataSelectTable = false)
 	{
 		$this->is_deleted = 0;
+
+		if ($dataSelectTable)
+		{
+			$tableName = $this->tableName();
+			if ($this->_query['data_select'] === '*' && !empty($tableName))
+			{
+				$this->selectAdd();
+				$this->selectAdd($tableName . '.*');
+			}
+		}
 	}
 
 	/**
