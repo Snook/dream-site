@@ -5232,24 +5232,24 @@ class COrders extends DAO_Orders
 		{
 			foreach ($this->items as $item)
 			{
-				list($qty, $mi_obj) = $item;
+				list($qty, $DAO_menu_item) = $item;
 
-				if ($mi_obj->menu_item_category_id == 1 || ($mi_obj->menu_item_category_id == 4 && empty($mi_obj->is_store_special)))
+				if ($DAO_menu_item->menu_item_category_id == 1 || ($DAO_menu_item->menu_item_category_id == 4 && empty($DAO_menu_item->is_store_special)))
 				{
-					if (is_null($mi_obj->parentItemId))
-					{//TODO: evanl check with Ryan if this will work with bundles thay do not have fixed quantities??
-						$this->pcal_core_total += self::getStorePrice($this->mark_up, $mi_obj, $qty, true, $supportsMOTM);
+					if (is_null($DAO_menu_item->parentItemId))
+					{//TODO: evanl check with Ryan if this will work with bundles that do not have fixed quantities??
+						$this->pcal_core_total += $DAO_menu_item->store_price * $qty;
 					}
 				}
 
-				if ((isset($mi_obj->is_side_dish) && $mi_obj->is_side_dish) || $mi_obj->menu_item_category_id == 9)
+				if ((isset($DAO_menu_item->is_side_dish) && $DAO_menu_item->is_side_dish) || $DAO_menu_item->menu_item_category_id == 9)
 				{
-					$this->pcal_sidedish_total += self::getStorePrice($this->mark_up, $mi_obj, $qty);
+					$this->pcal_sidedish_total += $DAO_menu_item->store_price * $qty;
 				}
 
-				if (isset($mi_obj->is_preassembled) && $mi_obj->is_preassembled)
+				if (isset($DAO_menu_item->is_preassembled) && $DAO_menu_item->is_preassembled)
 				{
-					$this->pcal_preassembled_total += self::getStorePrice($this->mark_up, $mi_obj, $qty);
+					$this->pcal_preassembled_total += $DAO_menu_item->store_price * $qty;
 				}
 			}
 		}
