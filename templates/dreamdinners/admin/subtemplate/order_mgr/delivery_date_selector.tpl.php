@@ -8,13 +8,12 @@
 	</header>
 
 	<main class="container">
-
-		<?php if (!empty($this->sessions['sessions'] )) {
-		foreach ($this->sessions['sessions'] AS $date => $day) { ?>
-			<?php if ($day['info']['has_available_sessions']) { ?>
-				<?php include $this->loadTemplate('admin/subtemplate/order_mgr/box_delivery_date_card.tpl.php'); ?>
+		<?php if (!empty($this->sessions['sessions'] )) { ?>
+			<?php foreach ($this->sessions['sessions'] AS $date => $day) { ?>
+				<?php if ($day['info']['has_available_sessions']) { ?>
+					<?php include $this->loadTemplate('admin/subtemplate/order_mgr/box_delivery_date_card.tpl.php'); ?>
+				<?php } ?>
 			<?php } ?>
-		<?php } } ?>
-
+		<?php } ?>
 	</main>
 </div>
