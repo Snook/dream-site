@@ -431,6 +431,16 @@ class CStore extends DAO_Store
 		return true;
 	}
 
+	function supportsMealCustomization()
+	{
+		if (empty($this->supports_meal_customization))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	function storeSupportsIntroOrders($menu_id = false)
 	{
 		if (empty($this->supports_intro_orders))

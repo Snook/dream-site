@@ -1110,7 +1110,7 @@ class CSession extends DAO_Session
 			}
 		}
 
-		if (!$storeObj->supports_meal_customization)
+		if (!$storeObj->supportsMealCustomization())
 		{
 			$storeObj->free();
 
