@@ -23,7 +23,7 @@
 			<div class="row mb-5">
 				<div class="col">
 					<h3 class="text-center mb-4">Give the Gift of Family Dinnertime</h3>
-					<p>Dream Dinners gift cards are a  perfect gift for family, friends and co-workers, as well as a customer  appreciation or employee reward. Plus 1% of each gift card purchase goes to our non-profit, the Dream Dinners Foundation.</p>
+					<p>Dream Dinners gift cards are a  perfect gift for family, friends and co-workers, as well as a customer  appreciation or employee reward.</p>
 					<p><b>Gift Card Features:</b></p>
 					<ul>
 						<li>Easy ordering options</li>
