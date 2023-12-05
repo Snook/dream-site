@@ -60,9 +60,6 @@
 						<a href="/backoffice/reports-customer-referrals-revenue">Customer Referral Revenue</a><br/>
 						<a href="/backoffice/reports-preferred-users">Preferred Users</a><br/>
 					<?php } ?>
-					<?php if ($this->CurrentBackOfficeStore->supportsPlatePoints() ) { ?>
-						<a href="/backoffice/reports-points-status-by-date">PLATEPOINTS Awards</a><br/>
-					<?php } ?>
 					<a href="/backoffice/reports-user-data-v2">Guest Details Report</a><br/>
 					<a href="/backoffice/food-testing-survey">Food Testing Store Surveys</a><br/>
 				</td>
@@ -70,21 +67,16 @@
 		</table>
 	</div>
 	<div class="col-6">
-		<?php if (!$this->CurrentBackOfficeStore->isDistributionCenter() || $this->CurrentBackOfficeStore->supportsPlatePoints()) { ?>
+		<?php if (!$this->CurrentBackOfficeStore->isDistributionCenter()) { ?>
 			<table class="table ddtemp-table-border-collapse">
 				<tr>
 					<td><b>Supporting Menu Materials</b></td>
 				</tr>
 				<tr>
 					<td>
-						<?php if (!$this->CurrentBackOfficeStore->isDistributionCenter()) { ?>
-							<a href="/backoffice/session-tools-printing">Generic Menu Supporting Documents</a><br/>
-							<a href="/backoffice/reports-customer-menu-item-labels?interface=1">Generic Cooking Instruction Labels</a><br/>
-							<a href="/backoffice/reports-menu-item-nutritional-labels">Nutritional Labels</a><br/>
-						<?php } ?>
-						<?php if ($this->CurrentBackOfficeStore->supportsPlatePoints() ) { ?>
-							<a href="/backoffice/user-plate-points?print_blank_form=true" target="_blank">Blank PLATEPOINTS Enrollment Form</a><br/>
-						<?php } ?>
+						<a href="/backoffice/session-tools-printing">Generic Menu Supporting Documents</a><br/>
+						<a href="/backoffice/reports-customer-menu-item-labels?interface=1">Generic Cooking Instruction Labels</a><br/>
+						<a href="/backoffice/reports-menu-item-nutritional-labels">Nutritional Labels</a><br/>
 					</td>
 				</tr>
 			</table>
