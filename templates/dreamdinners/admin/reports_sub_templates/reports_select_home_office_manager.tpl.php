@@ -46,7 +46,8 @@
 					<a href="/backoffice/reports-delivery-orders">Delivery Orders Report</a><br/>
 					<a href="/backoffice/reports-user-retention">Inactive Guest Status Report</a><br/>
 					<a href="/backoffice/reports-coupon">Coupon Report</a><br/>
-					<a href="/backoffice/reports-entree">Entr&eacute;e Report</a><br/>
+					<a href="/backoffice/reports-entree" <?php if ($this->CurrentBackOfficeStore->isDistributionCenter()) { ?>class="text-decoration-line-through" data-toggle="tooltip" data-placement="top" title="Not available for Distribution Centers"<?php } ?>>Entr&eacute;e Report</a><br/>
+					<a href="/backoffice/reports-entree-delivered" <?php if (!$this->CurrentBackOfficeStore->isDistributionCenter()) { ?>class="text-decoration-line-through" data-toggle="tooltip" data-placement="top" title="Not available for Franchises"<?php } ?>>Shipping Entr&eacute;e Report</a><br/>
 					<a href="/backoffice/reports-entree-delivered">Shipping Entr&eacute;e Report</a><br/>
 					<a href="/backoffice/reports-store-credit">Credit Report</a><br/>
 					<a href="/backoffice/reports-customer-referrals-revenue">Customer Referral Revenue</a><br/>
