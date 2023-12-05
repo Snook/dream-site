@@ -8,7 +8,7 @@ $SHOWMONTH=TRUE;
 $SHOWYEAR=FALSE;
 include $this->loadTemplate('admin/page_header_reports.tpl.php');
 ?>
-<form method="post" action="/backoffice/reports_my_meals_comments?export=xlsx">
+<form method="post" action="/backoffice/reports-my-meals-comments?export=xlsx">
 
 <div id="coupon_report_form" style="display:block;">
 <h4>Select a Menu by Month and Year</h4>

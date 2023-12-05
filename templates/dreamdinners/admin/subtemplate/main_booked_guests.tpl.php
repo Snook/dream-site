@@ -107,9 +107,9 @@ if( !function_exists('translateOrderQuantityType')){
 						<?php if ($booking['user']->membershipData['enrolled']) { ?><a href="/backoffice/user_membership?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img alt="Meal Prep+" data-tooltip="Meal Prep+" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/membership/badge-membership-16x16.png" class="float-right ml-1" /></a><?php } ?>
 						<?php if ($booking['user']->platePointsData['status'] == 'active' || $booking['user']->platePointsData['userIsOnHold']) { ?>
 							<?php if ($booking['user']->platePointsData['userIsOnHold']) { ?>
-								<a href="/backoffice/user_plate_points?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PlatePoints On Hold" data-tooltip="PlatePoints On Hold" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-hold-16x16.png" class="float-right ml-1" /></a>
+								<a href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PlatePoints On Hold" data-tooltip="PlatePoints On Hold" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-hold-16x16.png" class="float-right ml-1" /></a>
 							<?php } else { ?>
-								<a href="/backoffice/user_plate_points?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PlatePoints <?php echo $booking['user']->platePointsData['current_level']['title'];?>" data-tooltip="PlatePoints <?php echo $booking['user']->platePointsData['current_level']['title'];?>" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-<?php echo $booking['user']->platePointsData['current_level']['image'];?>-16x16.png" class="float-right ml-1" /></a>
+								<a href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PlatePoints <?php echo $booking['user']->platePointsData['current_level']['title'];?>" data-tooltip="PlatePoints <?php echo $booking['user']->platePointsData['current_level']['title'];?>" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-<?php echo $booking['user']->platePointsData['current_level']['image'];?>-16x16.png" class="float-right ml-1" /></a>
 							<?php } ?>
 						<?php } ?>
 						<?php if (!empty($booking['preferred_type'])) { ?><a href="/backoffice/preferred?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img alt="Preferred Guest" src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/star_grey.png" class="float-right ml-1" data-tooltip="Preferred Guest" /></a><?php } ?>
@@ -144,7 +144,7 @@ if( !function_exists('translateOrderQuantityType')){
 							<li><a href="/backoffice/order-mgr?user=<?php echo $booking['user_id']; ?>&amp;month=<?php echo $this->date['next_M_time']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Place <?php echo $this->date['next_M']; ?> Order</a></li>
 							<li><a href="/backoffice/order-history?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Order History</a></li>
 							<?php if ($this->store_supports_plate_points && $booking['dream_rewards_version'] != 3) { ?>
-								<li><a href="/backoffice/user_plate_points?id=<?php echo $booking['user_id']; ?>&amp;print_enrollment_form=true&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" target="_blank">PP Enroll Form</a></li>
+								<li><a href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>&amp;print_enrollment_form=true&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" target="_blank">PP Enroll Form</a></li>
 							<?php } ?>
 
 							<?php if ($booking['status'] != CBooking::SAVED) { ?>
@@ -154,13 +154,13 @@ if( !function_exists('translateOrderQuantityType')){
 								<li><a href="/print?order=<?php echo $booking['order_id']; ?>&amp;nutrition=true" target="_blank">Nutritionals</a></li>
 								<li><a href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" target="_blank">Order Summary</a></li>
 								<!--li>
-									<p style="font-size: 10px;display:inline;">6-up&nbsp;<a href="/backoffice/reports_customer_menu_item_labels?session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>&amp;suppressFastlane=true" target="_blank">Labels</a> &bull;
-									<a href="/backoffice/reports_customer_menu_item_labels?session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>&amp;suppressFastlane=false" target="_blank">w/ FL</a>
+									<p style="font-size: 10px;display:inline;">6-up&nbsp;<a href="/backoffice/reports-customer-menu-item-labels?session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>&amp;suppressFastlane=true" target="_blank">Labels</a> &bull;
+									<a href="/backoffice/reports-customer-menu-item-labels?session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>&amp;suppressFastlane=false" target="_blank">w/ FL</a>
 									</p>
 								</li-->
 								<li>
-									<p style="font-size: inherit;display:inline;"><a href="/backoffice/reports_customer_menu_item_labels?labels_per_sheet=4&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>&amp;suppressFastlane=true" target="_blank">Labels</a> &bull;
-										<a href="/backoffice/reports_customer_menu_item_labels?labels_per_sheet=4&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>&amp;suppressFastlane=false" target="_blank">w/ FL</a>
+									<p style="font-size: inherit;display:inline;"><a href="/backoffice/reports-customer-menu-item-labels?labels_per_sheet=4&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>&amp;suppressFastlane=true" target="_blank">Labels</a> &bull;
+										<a href="/backoffice/reports-customer-menu-item-labels?labels_per_sheet=4&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>&amp;suppressFastlane=false" target="_blank">w/ FL</a>
 									</p>
 								</li>
 								<li><a href="/backoffice/session-tools-printing?do=print&amp;user_id=<?php echo $booking['user_id']; ?>&amp;session=<?php echo $booking['session_id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;core=true&amp;freezer=true&amp;nutrition=true" target="_blank">Collated Docs</a></li>
@@ -215,7 +215,7 @@ if( !function_exists('translateOrderQuantityType')){
 								if ($booking['dream_rewards_version'] < 3) { ?>
 									Yes
 								<?php } else { ?>
-									<div><span data-pp_user_lifetime_points="<?php echo $booking['user_id']; ?>"><a id="pp_credit_<?php echo $booking['user_id']; ?>_<?php echo $booking['order_id']; ?>" href="/backoffice/user_plate_points?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">$<?php echo CTemplate::moneyFormat($booking['user']->platePointsData['available_credit']); ?></a></span></div>
+									<div><span data-pp_user_lifetime_points="<?php echo $booking['user_id']; ?>"><a id="pp_credit_<?php echo $booking['user_id']; ?>_<?php echo $booking['order_id']; ?>" href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">$<?php echo CTemplate::moneyFormat($booking['user']->platePointsData['available_credit']); ?></a></span></div>
 								<?php } } else { ?>
 								<?php if ($booking['dream_reward_status'] == 5) { ?>
 									On Hold
@@ -237,7 +237,7 @@ if( !function_exists('translateOrderQuantityType')){
 									<?php }
 								} else { ?>
 									<?php if ($booking['dream_reward_status'] == 5) { ?>
-										<a class="btn btn-primary btn-sm" href="/backoffice/user_plate_points?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">PlatePoints</a>
+										<a class="btn btn-primary btn-sm" href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">PlatePoints</a>
 									<?php } else { ?>
 										<a class="btn btn-primary btn-sm" href="/backoffice/account?id=<?php echo $booking['user_id']; ?>&amp;pp_enroll=1&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Enroll in PlatePoints</a>
 									<?php } ?>

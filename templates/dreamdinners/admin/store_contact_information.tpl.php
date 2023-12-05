@@ -7,7 +7,7 @@
 
 <?php if ($this->show['store_selector']) { ?>
 <form method="post">
-<div style="float: right;"><a href="/backoffice/reports_store_contact_information?export=xlsx&amp;form=sci" class="btn btn-primary btn-sm">Export All</a></div>
+<div style="float: right;"><a href="/backoffice/reports-store-contact-information?export=xlsx&amp;form=sci" class="btn btn-primary btn-sm">Export All</a></div>
 <div style="font-size: 13pt; font-weight: bold;">Store: <?php echo $this->form_store_details['store_html']; ?></div>
 </form>
 <?php } ?>
