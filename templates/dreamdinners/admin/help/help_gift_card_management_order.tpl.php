@@ -21,15 +21,16 @@
     </ul>
   </li>
 </ul>
-<p>Franchise Gift Card Support at 1to1 Card</p>
+<p>Franchise Gift Card Support at Smart Transactions</p>
 <ul>
-  <li>Phone: 630-754-4800, 8:30a.m. - 5:30p.m. CST</li>
-  <li>Email: <a href="mailto:orders@1to1card.com">orders@1to1card.com</a></li>
+  <li>Phone: 888-494-9760 x 2</li>
+  <li>Email: <a href="mailto:info@smarttransactions.com">info@smarttransactions.com</a></li>
+  <li>Web: <a href="https://www.smarttransactionsystems.com/support/">https://www.smarttransactionsystems.com/support/</a></li>
 </ul>
 <p>Customer Gift Card Support </p>
 <ul>
-  <li>24/7 Automated cardholder balance information: 1-360-804-2020</li>
-  <li>Cardholder account balance information: <a href="/giftcards">gift cards</a></li>
+  <li>24/7 Automated cardholder balance information: 1-888-303-1175</li>
+  <li>Cardholder account balance information: <a href="https://smarttransactions.net/gb/">https://smarttransactions.net/gb/</a></li>
 </ul>
 	</td>
   </tr>
