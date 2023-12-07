@@ -877,11 +877,11 @@ class CStore extends DAO_Store
 
 	function storeIsClosing($DAO_menu)
 	{
-		$applicableStoreIds = array(37, 73, 76, 105);
+		$applicableStoreIds = array(37, 73, 76, 105, 103, 121);
 
 		if(in_array($this->id, $applicableStoreIds))
 		{
-			$DAO_order_minimum = DAO_CFactory::create('order_minimum');
+			$DAO_order_minimum = DAO_CFactory::create('order_minimum', true);
 			$DAO_order_minimum->store_id = $this->id;
 			$DAO_order_minimum->menu_id = $DAO_menu->id;
 			$DAO_order_minimum->order_type = COrderMinimum::STANDARD_ORDER_TYPE;
