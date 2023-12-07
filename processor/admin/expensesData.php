@@ -276,8 +276,8 @@ class processor_admin_expensesData extends CPageProcessor
 			));
 		}
 
-		$DAO_store_expenses = DAO_CFactory::create("store_expenses");
-		$DAO_store_expenses->entry_date = $date;
+		$DAO_store_expenses = DAO_CFactory::create("store_expenses", true);
+		$DAO_store_expenses->entry_date = date("Y-m-d", strtotime($date));
 		$DAO_store_expenses->store_id = $store_id;
 		$DAO_store_expenses->session_id = $session_id;
 
@@ -316,7 +316,7 @@ class processor_admin_expensesData extends CPageProcessor
 		CAppUtil::processorMessageEcho(array(
 			'processor_success' => true,
 			'processor_message' => 'The expenses were recorded.',
-			'date' => $result['date'],
+			'date' => date("n/j/Y", strtotime($result['date'])),
 			'month' => $result['month'],
 			'year' => $result['year'],
 			'session_id' => $session_id,
@@ -467,4 +467,5 @@ class processor_admin_expensesData extends CPageProcessor
 	}
 
 }
+
 ?>
