@@ -7,7 +7,7 @@ $SHOWRANGEDATE=FALSE;
 $SHOWMONTH=TRUE;
 $SHOWYEAR=FALSE;
 
-$this->setScript('head', SCRIPT_PATH . '/admin/reports_fin_perf.js');
+$this->setScript('head', SCRIPT_PATH . '/admin/reports_fin_perf.min.js');
 
 $this->setOnload('reports_fin_perf_init();');
 
