@@ -3703,7 +3703,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		{
 			$amountToUse = $_POST['store_credits_amount'];
 
-			if ($amountToUse > 0 && $amountToUse < 500)// sanity check
+			if ($amountToUse > 0)
 			{
 				foreach ($this->Store_Credit_Array as $id => $vals)
 				{
