@@ -1744,6 +1744,7 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 			if (isset($unsetArray['referral_reward_taste']))
 			{
 				$newEntity = array_merge($newEntity, array(
+					"",
 					'total_cost' => $arr['total_cost'],
 					'expense_type' => $arr['expense_type'] . ' - ' . $arr['notes'],
 					"",
@@ -1760,6 +1761,7 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 			else
 			{
 				$newEntity = array_merge($newEntity, array(
+					"",
 					'total_cost' => $arr['total_cost'],
 					'expense_type' => $arr['expense_type'] . ' - ' . $arr['notes'],
 					"",
