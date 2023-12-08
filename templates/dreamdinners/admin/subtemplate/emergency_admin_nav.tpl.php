@@ -50,7 +50,7 @@ $navigationArray = array
 			(
 				'access' => array(CUser::HOME_OFFICE_MANAGER, CUser::HOME_OFFICE_STAFF, CUser::FRANCHISE_OWNER, CUser::FRANCHISE_MANAGER, CUser::FRANCHISE_LEAD, CUser::FRANCHISE_STAFF, CUser::GUEST_SERVER, CUser::EVENT_COORDINATOR, CUser::OPS_LEAD, CUser::OPS_SUPPORT),
 				'title' => 'Entr&eacute;e Report',
-				'link' => '/backoffice/reports_entree',
+				'link' => '/backoffice/reports-entree',
 			),
 			'admin_dashboard_new' => array
 			(
@@ -62,13 +62,13 @@ $navigationArray = array
 			(
 				'access' => array(CUser::HOME_OFFICE_MANAGER, CUser::HOME_OFFICE_STAFF, CUser::FRANCHISE_OWNER, CUser::FRANCHISE_MANAGER, CUser::OPS_LEAD),
 				'title' => 'Trending',
-				'link' => '/backoffice/reports_trending_menu_based',
+				'link' => '/backoffice/reports-trending-menu-based',
 			),
 			'admin_reports_goal_management_v2' => array
 			(
 				'access' => array(CUser::HOME_OFFICE_MANAGER, CUser::HOME_OFFICE_STAFF, CUser::FRANCHISE_OWNER, CUser::FRANCHISE_MANAGER, CUser::EVENT_COORDINATOR, CUser::OPS_LEAD),
 			    'title' => 'Goal Management',
-				'link' => '/backoffice/reports_goal_management_v2',
+				'link' => '/backoffice/reports-goal-management-v2',
 			),
 			'admin_reports_manufacturer_labels' => array
 			(

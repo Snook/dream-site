@@ -547,7 +547,7 @@ class CTemplate extends Savant2
 
 	static function moneyFormat($dollarAmount)
 	{
-		return sprintf("%01.2f", $dollarAmount);
+		return number_format(floatval($dollarAmount), 2, '.', '');
 	}
 
 	static function cleanDisplayStringForJavascript($str, $stripTags = false)

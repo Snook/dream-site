@@ -25,7 +25,7 @@
 
 			<div class="row">
 				<div class="col text-center">
-					<p>Guest is ineligible to purchase a Meal Prep+ Membership. Please put their <a class="text-decoration-underline" href="/backoffice/user_plate_points?id=<?php echo $this->user->id; ?>">PLATEPOINTS enrollment on hold</a> first.</p>
+					<p>Guest is ineligible to purchase a Meal Prep+ Membership. Please put their <a class="text-decoration-underline" href="/backoffice/user-plate-points?id=<?php echo $this->user->id; ?>">PLATEPOINTS enrollment on hold</a> first.</p>
 				</div>
 			</div>
 

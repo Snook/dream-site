@@ -98,7 +98,7 @@ include $this->loadTemplate('admin/page_header.tpl.php');
 
 		function PrintLabelsForSummary(urlpass)
 		{
-			var baseURL = "/backoffice/reports_customer_menu_item_labels_multi?report_date=<?=$this->report_date?>&store_id=<?=$this->store_id?>&menuid=<?=$this->menu_id?>&back=<?=urlencode($this->form_submit_string)?>";
+			var baseURL = "/backoffice/reports-customer-menu-item-labels-multi?report_date=<?=$this->report_date?>&store_id=<?=$this->store_id?>&menuid=<?=$this->menu_id?>&back=<?=urlencode($this->form_submit_string)?>";
 			baseURL += urlpass;
 			var item = document.getElementsByName("FastLane");
 			var suppress="&fastlane="+item[0].checked;
@@ -379,7 +379,7 @@ if ($this->print_view == false) {
 
 							$results_display .= "<tr>" . "\n";
 
-							$url1 = '/backoffice/reports_customer_menu_item_labels?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string);
+							$url1 = '/backoffice/reports-customer-menu-item-labels?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string);
 
 							$results_display .= '<td colspan="1"><a onclick="PrintLabels(\'' . $url1 . '\');" href="#">Print Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 							$results_display .= '<td colspan="1"><a onclick="PrintLabels(\'' . $url1 . '&amp;break=1\');" href="#">Print Labels w/ Breaks <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
@@ -392,7 +392,7 @@ if ($this->print_view == false) {
 							$results_display .= "</tr>" . "\n";
 
 							$results_display .= "<tr>" ;
-							$results_display .= '<td colspan="4"><a target="_print" href="/backoffice/reports_customer_menu_item_labels?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;interface=1&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Print Generic Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+							$results_display .= '<td colspan="4"><a target="_print" href="/backoffice/reports-customer-menu-item-labels?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;interface=1&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Print Generic Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 							$results_display .= "</tr>" . "\n";
 						}
 					}
@@ -442,7 +442,7 @@ if ($this->print_view == false) {
 
 							$results_display .= "<tr>" . "\n";
 
-							$url1 = '/backoffice/reports_customer_menu_item_labels?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string);
+							$url1 = '/backoffice/reports-customer-menu-item-labels?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string);
 
 							$results_display .= '<td colspan="1"><a href="#" onclick="PrintLabels(\'' . $url1 . '\');">Print Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 							$results_display .= '<td colspan="1"><a href="#" onclick="PrintLabels(\'' . $url1 . '&amp;break=1\');">Print Labels w/ Breaks <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
@@ -455,7 +455,7 @@ if ($this->print_view == false) {
 							$results_display .= "</tr>" . "\n";
 
 							$results_display .= "<tr>" ;
-							$results_display .= '<td colspan="4"><a target="_print" href="/backoffice/reports_customer_menu_item_labels?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;interface=1&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Print Generic Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+							$results_display .= '<td colspan="4"><a target="_print" href="/backoffice/reports-customer-menu-item-labels?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;interface=1&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Print Generic Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 							$results_display .= "</tr>" . "\n";
 
 						}

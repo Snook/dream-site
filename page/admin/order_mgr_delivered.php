@@ -111,18 +111,17 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 				CApp::bounce("/backoffice/main");
 			}
 
-			$this->originalOrder = new COrdersDelivered();
+			$this->originalOrder = new COrdersDelivered(true);
 			$this->orderState = 'NEW';
 			$this->originalOrder->user_id = CGPC::do_clean($_REQUEST['user'], TYPE_INT);
 			$this->originalOrder->store_id = false; // store_id will be set once shipping address is confirmed
 		}
 		else
 		{
-
 			// Get the original order
-			$this->originalOrder = new COrdersDelivered();
+			$this->originalOrder = new COrdersDelivered(true);
 			$this->originalOrder->id = CGPC::do_clean($_REQUEST['order'], TYPE_INT);
-			if (!$this->originalOrder->find(true))
+			if (!$this->originalOrder->find_DAO_orders(true))
 			{
 				throw new Exception('Order not found');
 			}
@@ -252,7 +251,7 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 				$Form->DefaultValues['shipping_state_id'] = $dAddr->state_id;
 				$Form->DefaultValues['shipping_postal_code'] = $dAddr->postal_code;
 				$Form->DefaultValues['shipping_email_address'] = $dAddr->email_address;
-				$Form->DefaultValues['shipping_is_gift'] = $dAddr->is_gift;
+				$Form->DefaultValues['shipping_is_gift'] = !empty($dAddr->is_gift) ? $dAddr->is_gift : null;
 			}
 
 			//set DC/Store
@@ -344,7 +343,7 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 		$tpl->assign('storeSupportsPlatePoints', $this->storeSupportsPlatePoints);
 
 		$maxAvailablePPCredit = 0;
-		if ($this->userIsPlatePointsGuest && $this->storeSupportsPlatePoints && $this->originalOrder->is_in_plate_points_program)
+		if ($this->orderState != 'NEW' && $this->userIsPlatePointsGuest && $this->storeSupportsPlatePoints && $this->originalOrder->is_in_plate_points_program)
 		{
 			$tpl->assign('isPlatePointsOrder', true);
 
@@ -490,24 +489,27 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 
 			$menuInfo['bundle_items'] = array();
 
-			foreach ($menuInfo['box'] as &$thisBox)
+			if (!empty($menuInfo['box']))
 			{
-				if (!isset($thisBox->bundle))
+				foreach ($menuInfo['box'] as &$thisBox)
 				{
-					$thisBox->bundle = array();
-				}
+					if (!isset($thisBox->bundle))
+					{
+						$thisBox->bundle = array();
+					}
 
-				if (!empty($thisBox->box_bundle_1))
-				{
-					$thisBox->bundle[$thisBox->box_bundle_1] = $thisBox->box_bundle_1_obj;
-					$items = $thisBox->box_bundle_1_obj->getBundleItems();
-					$menuInfo['bundle_items'][$thisBox->box_bundle_1] = $items['bundle'];
-				}
-				if (!empty($thisBox->box_bundle_2))
-				{
-					$thisBox->bundle[$thisBox->box_bundle_2] = $thisBox->box_bundle_2_obj;
-					$items = $thisBox->box_bundle_2_obj->getBundleItems();
-					$menuInfo['bundle_items'][$thisBox->box_bundle_2] = $items['bundle'];
+					if (!empty($thisBox->box_bundle_1))
+					{
+						$thisBox->bundle[$thisBox->box_bundle_1] = $thisBox->box_bundle_1_obj;
+						$items = $thisBox->box_bundle_1_obj->getBundleItems();
+						$menuInfo['bundle_items'][$thisBox->box_bundle_1] = $items['bundle'];
+					}
+					if (!empty($thisBox->box_bundle_2))
+					{
+						$thisBox->bundle[$thisBox->box_bundle_2] = $thisBox->box_bundle_2_obj;
+						$items = $thisBox->box_bundle_2_obj->getBundleItems();
+						$menuInfo['bundle_items'][$thisBox->box_bundle_2] = $items['bundle'];
+					}
 				}
 			}
 
@@ -1378,6 +1380,8 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 		// Build template arrays for display
 		if ($this->orderState != 'NEW')
 		{
+			$this->getShippingDetails($Session, $this->originalOrder->orderAddress->postal_code);
+
 			$this->originalOrder->refreshForEditing($Session->menu_id);
 
 			$this->originalOrder->recalculate(true);
@@ -1421,7 +1425,6 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 		if ($this->orderState != 'NEW')
 		{
 			$tpl->assign('menuInfo', $menuInfo);
-			$tpl->assign('shippingInfo', $this->getShippingDetails($Session, $this->originalOrder->orderAddress->postal_code));
 		}
 
 		$tpl->assign('form_direct_order', $Form->render());
@@ -1431,12 +1434,12 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 	private function getShippingDetails($SessionObj, $destZipCode)
 	{
 
-		if (empty($this->originalOrder->ordersShipping()->shipping_postal_code))
+		if (empty($this->originalOrder->orderShipping()->shipping_postal_code))
 		{
 			return $this->originalOrder->defaultShippingInfo($destZipCode, $SessionObj, true);
 		}
 
-		return DAO::getCompressedArrayFromDAO($this->originalOrder->ordersShipping(), true, true);
+		return DAO::getCompressedArrayFromDAO($this->originalOrder->orderShipping(), true, true);
 	}
 
 	private function getOriginalPrices($order_id)
@@ -2923,16 +2926,22 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 		}
 		else
 		{
-			reset($inArray['box']);
-			$anyBox = current($inArray['box']);
-			$anyBundle = current($anyBox->bundle);
-			$menu_id = $anyBundle->menu_id;
+			if (array_key_exists("box", $inArray) && is_array($inArray["box"]))
+			{
+				reset($inArray['box']);
+				$anyBox = current($inArray['box']);
+				$anyBundle = current($anyBox->bundle);
+				$menu_id = $anyBundle->menu_id;
+			}
 		}
 
 		$recipeList = implode(",", array_keys($inventoryArray));
 
 		$ItemInvObj = new DAO();
-		$ItemInvObj->query("select recipe_id, override_inventory, number_sold from menu_item_inventory where store_id = $parent_store_id and menu_id = $menu_id and recipe_id in (" . $recipeList . ") and is_deleted = 0");
+		if (!empty($recipeList))
+		{
+			$ItemInvObj->query("select recipe_id, override_inventory, number_sold from menu_item_inventory where store_id = $parent_store_id and menu_id = $menu_id and recipe_id in (" . $recipeList . ") and is_deleted = 0");
+		}
 
 		while ($ItemInvObj->fetch())
 		{
@@ -2949,101 +2958,104 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 		}
 
 		$inArray['inventory_map'] = $inventoryArray;
-		foreach ($inArray['box'] as $box_id => $box_data)
+		if (array_key_exists("box", $inArray))
 		{
-			if ($box_data->box_type == CBox::DELIVERED_FIXED)
+			foreach ($inArray['box'] as $box_id => $box_data)
 			{
-				if (!empty($box_data->box_bundle_1))
+				if ($box_data->box_type == CBox::DELIVERED_FIXED)
 				{
-					foreach ($inArray['bundle_items'][$box_data->box_bundle_1] as $item)
+					if (!empty($box_data->box_bundle_1))
 					{
-						if ($inventoryArray[$item['recipe_id']] < $item['servings_per_item'])
+						foreach ($inArray['bundle_items'][$box_data->box_bundle_1] as $item)
 						{
-							$inArray['box'][$box_id]->bundle1_out_of_stock = true;
-							break;  // 1 item out of stock makes the entire fixed box out of stock
-						}
-					}
-				}
-
-				if (!empty($box_data->box_bundle_2))
-				{
-					foreach ($inArray['bundle_items'][$box_data->box_bundle_2] as $item)
-					{
-						if ($inventoryArray[$item['recipe_id']] < $item['servings_per_item'])
-						{
-							$inArray['box'][$box_id]->bundle2_out_of_stock = true;
-							break;  // 1 item out of stock makes the entire fixed box out of stock
-						}
-					}
-				}
-			}
-			else
-			{
-
-				$count1itemORMoreEntrees = 0;
-				$count2itemORMoreEntrees = 0;
-
-				// For a custom bundle to not be out of stock there must be 2 items with at least 2 items left in inv or
-				// 4 items with at least 1 item inventory or 1 item with at least 2 inv and 2  other items with at least 1 item inv
-
-				if (!empty($box_data->box_bundle_1))
-				{
-					foreach ($inArray['bundle_items'][$box_data->box_bundle_1] as $miid => $item)
-					{
-						if ($item['servings_per_item'] > $inventoryArray[$item['recipe_id']])
-						{
-							$inArray['bundle_items'][$box_data->box_bundle_1][$miid]["out_of_stock"] = true;
-						}
-						else
-						{
-							if ($inventoryArray[$item['recipe_id']] >= $item['servings_per_item'])
+							if ($inventoryArray[$item['recipe_id']] < $item['servings_per_item'])
 							{
-								$count1itemORMoreEntrees++;
+								$inArray['box'][$box_id]->bundle1_out_of_stock = true;
+								break;  // 1 item out of stock makes the entire fixed box out of stock
 							}
+						}
+					}
 
-							if ($inventoryArray[$item['recipe_id']] >= ($item['servings_per_item'] * 2))
+					if (!empty($box_data->box_bundle_2))
+					{
+						foreach ($inArray['bundle_items'][$box_data->box_bundle_2] as $item)
+						{
+							if ($inventoryArray[$item['recipe_id']] < $item['servings_per_item'])
 							{
-								$count2itemORMoreEntrees++;
+								$inArray['box'][$box_id]->bundle2_out_of_stock = true;
+								break;  // 1 item out of stock makes the entire fixed box out of stock
 							}
 						}
 					}
 				}
-
-				// note: $count1itemORMoreEntrees includes thoses with more than 2 - that's why "$count1itemORMoreEntrees > 3"
-				if (!($count2itemORMoreEntrees >= 2 || $count1itemORMoreEntrees >= 4 || ($count2itemORMoreEntrees == 1 && $count1itemORMoreEntrees > 3)))
+				else
 				{
-					$inArray['box'][$box_id]->bundle1_out_of_stock = true;
-				}
 
-				$count1itemORMoreEntrees = 0;
-				$count2itemORMoreEntrees = 0;
+					$count1itemORMoreEntrees = 0;
+					$count2itemORMoreEntrees = 0;
 
-				if (!empty($box_data->box_bundle_2))
-				{
-					foreach ($inArray['bundle_items'][$box_data->box_bundle_2] as $miid => $item)
+					// For a custom bundle to not be out of stock there must be 2 items with at least 2 items left in inv or
+					// 4 items with at least 1 item inventory or 1 item with at least 2 inv and 2  other items with at least 1 item inv
+
+					if (!empty($box_data->box_bundle_1))
 					{
-						if ($item['servings_per_item'] > $inventoryArray[$item['recipe_id']])
+						foreach ($inArray['bundle_items'][$box_data->box_bundle_1] as $miid => $item)
 						{
-							$inArray['bundle_items'][$box_data->box_bundle_2][$miid]["out_of_stock"] = true;
-						}
-						else
-						{
-							if ($inventoryArray[$item['recipe_id']] >= $item['servings_per_item'])
+							if ($item['servings_per_item'] > $inventoryArray[$item['recipe_id']])
 							{
-								$count1itemORMoreEntrees++;
+								$inArray['bundle_items'][$box_data->box_bundle_1][$miid]["out_of_stock"] = true;
 							}
-
-							if ($inventoryArray[$item['recipe_id']] >= ($item['servings_per_item'] * 2))
+							else
 							{
-								$count2itemORMoreEntrees++;
+								if ($inventoryArray[$item['recipe_id']] >= $item['servings_per_item'])
+								{
+									$count1itemORMoreEntrees++;
+								}
+
+								if ($inventoryArray[$item['recipe_id']] >= ($item['servings_per_item'] * 2))
+								{
+									$count2itemORMoreEntrees++;
+								}
 							}
 						}
 					}
-				}
 
-				if (!($count2itemORMoreEntrees >= 2 || $count1itemORMoreEntrees >= 4 || ($count2itemORMoreEntrees == 1 && $count1itemORMoreEntrees > 3)))
-				{
-					$inArray['box'][$box_id]->bundle2_out_of_stock = true;
+					// note: $count1itemORMoreEntrees includes thoses with more than 2 - that's why "$count1itemORMoreEntrees > 3"
+					if (!($count2itemORMoreEntrees >= 2 || $count1itemORMoreEntrees >= 4 || ($count2itemORMoreEntrees == 1 && $count1itemORMoreEntrees > 3)))
+					{
+						$inArray['box'][$box_id]->bundle1_out_of_stock = true;
+					}
+
+					$count1itemORMoreEntrees = 0;
+					$count2itemORMoreEntrees = 0;
+
+					if (!empty($box_data->box_bundle_2))
+					{
+						foreach ($inArray['bundle_items'][$box_data->box_bundle_2] as $miid => $item)
+						{
+							if ($item['servings_per_item'] > $inventoryArray[$item['recipe_id']])
+							{
+								$inArray['bundle_items'][$box_data->box_bundle_2][$miid]["out_of_stock"] = true;
+							}
+							else
+							{
+								if ($inventoryArray[$item['recipe_id']] >= $item['servings_per_item'])
+								{
+									$count1itemORMoreEntrees++;
+								}
+
+								if ($inventoryArray[$item['recipe_id']] >= ($item['servings_per_item'] * 2))
+								{
+									$count2itemORMoreEntrees++;
+								}
+							}
+						}
+					}
+
+					if (!($count2itemORMoreEntrees >= 2 || $count1itemORMoreEntrees >= 4 || ($count2itemORMoreEntrees == 1 && $count1itemORMoreEntrees > 3)))
+					{
+						$inArray['box'][$box_id]->bundle2_out_of_stock = true;
+					}
 				}
 			}
 		}

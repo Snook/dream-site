@@ -37,7 +37,7 @@ return; }
 </div>
 <div style="text-align:center; margin-bottom:10px;"><h2></h2></div>
 
-<form id="reports_trending_form" action="/backoffice/reports_trending_new?export=xlsx" method="post">
+<form id="reports_trending_form" action="/backoffice/reports-trending-new?export=xlsx" method="post">
 <?php echo $this->form_array['hidden_html'];?>
 
 

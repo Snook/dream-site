@@ -38,7 +38,7 @@
 
 						<?php if (!empty($booking['corporate_crate_client']) && !empty($booking['corporate_crate_client']->is_active)) { ?><img alt="<?php echo $booking['corporate_crate_client']->company_name; ?>" src="<?php echo ADMIN_IMAGES_PATH; ?>/corporate/<?php echo $booking['corporate_crate_client']->icon_path; ?>_icon.png" style="float: right; margin-left: 4px;" data-tooltip="<?php echo $booking['corporate_crate_client']->company_name; ?>" /><?php } ?>
 						<?php if ($booking['user_type'] != CUser::CUSTOMER) { ?><img alt="Dream Dinners Staff" src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/dreamdinners.png" style="float: right; margin-left: 4px;" data-tooltip="Dream Dinners Staff" /><?php } ?>
-						<?php if (($booking['dream_reward_status'] == 1 || $booking['dream_reward_status'] == 3) && $booking['dream_rewards_version'] == 3) { ?><a href="/backoffice/user_plate_points?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PLATEPOINTS <?php echo $booking['user']->platePointsData['current_level']['title'];?>" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-<?php echo $booking['user']->platePointsData['current_level']['image'];?>-16x16.png" style="float: right; margin-left: 4px;" /></a><?php } ?>
+						<?php if (($booking['dream_reward_status'] == 1 || $booking['dream_reward_status'] == 3) && $booking['dream_rewards_version'] == 3) { ?><a href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PLATEPOINTS <?php echo $booking['user']->platePointsData['current_level']['title'];?>" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-<?php echo $booking['user']->platePointsData['current_level']['image'];?>-16x16.png" style="float: right; margin-left: 4px;" /></a><?php } ?>
 						<?php if (!empty($booking['preferred_type'])) { ?><a href="/backoffice/preferred?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img alt="Preferred Guest" src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/star_grey.png" style="float: right; margin-left: 4px;" data-tooltip="Preferred Guest" /></a><?php } ?>
 						<?php if (empty($booking['user']->preferences['TC_DELAYED_PAYMENT_AGREE']['value'])) { ?><img alt="Delayed Payment terms" data-delayed_payment_tc="<?php echo $booking['user_id']; ?>" src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/money_dollar.png" style="cursor: pointer; float: right; margin-left: 4px;" data-tooltip="Has not agreed to Delayed Payment terms" /><?php } ?>
 						<?php if (!empty($booking['is_birthday_month'])) { ?><img alt="Happy Birthday" src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/cake.png" style="float: right; margin-left: 4px;" data-tooltip="Birthday this Month" /><?php } ?>
@@ -58,7 +58,7 @@
 
 							<li><a href="/backoffice/order-history?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Order History</a></li>
 							<?php if ($this->store_supports_plate_points && $booking['dream_rewards_version'] != 3) { ?>
-								<li><a href="/backoffice/user_plate_points?id=<?php echo $booking['user_id']; ?>&amp;print_enrollment_form=true&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" target="_blank">PP Enroll Form</a></li>
+								<li><a href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>&amp;print_enrollment_form=true&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" target="_blank">PP Enroll Form</a></li>
 							<?php } ?>
 
 							<?php if ($booking['status'] != CBooking::SAVED) { ?>
@@ -68,8 +68,8 @@
 								<li><a href="/print?order=<?php echo $booking['order_id']; ?>&amp;nutrition=true" target="_blank">Nutritionals</a></li>
 								<li><a href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" target="_blank">Order Summary</a></li>
 								<li>
-									<a href="/backoffice/reports_customer_menu_item_labels?session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>&amp;suppressFastlane=true" target="_blank">Labels</a> &bull;
-									<a href="/backoffice/reports_customer_menu_item_labels?session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>&amp;suppressFastlane=false" target="_blank">w/ FL</a>
+									<a href="/backoffice/reports-customer-menu-item-labels?session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>&amp;suppressFastlane=true" target="_blank">Labels</a> &bull;
+									<a href="/backoffice/reports-customer-menu-item-labels?session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>&amp;suppressFastlane=false" target="_blank">w/ FL</a>
 								</li>
 								<li><a href="/backoffice/session-tools-printing?do=print&amp;user_id=<?php echo $booking['user_id']; ?>&amp;session=<?php echo $booking['session_id']; ?>&amp;store_id=<?php echo $booking['store_id']; ?>&amp;core=true&amp;freezer=true&amp;nutrition=true" target="_blank">Collated Docs</a></li>
 							<?php } ?>
@@ -123,7 +123,7 @@
 							Yes
 						<?php } else { ?>
 							<div><span data-pp_user_level_title="<?php echo $booking['user_id'];?>"><?php echo $booking['user']->platePointsData['current_level']['title'];?></span></div>
-							<div>Points: <span data-pp_user_lifetime_points="<?php echo $booking['user_id']; ?>"><a href="/backoffice/user_plate_points?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><?php echo number_format($booking['user']->platePointsData['lifetime_points']); ?></a></span></div>
+							<div>Points: <span data-pp_user_lifetime_points="<?php echo $booking['user_id']; ?>"><a href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><?php echo number_format($booking['user']->platePointsData['lifetime_points']); ?></a></span></div>
 						<?php } } else { ?>
 						No
 					<?php } ?>

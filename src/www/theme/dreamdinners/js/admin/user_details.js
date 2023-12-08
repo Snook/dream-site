@@ -6,7 +6,7 @@ function enrollInPlatePoints(user_id)
 function viewPlatePoints(user_id)
 {
 	var config = {
-		action: '/backoffice/user_plate_points',
+		action: '/backoffice/user-plate-points',
 		input: {
 			user_id: user_id,
 			back: back_path()
@@ -21,7 +21,7 @@ function printEnrollmentForm(user_id)
 {
 	/*
 	var config = {
-			action: '/backoffice/user_plate_points',
+			action: '/backoffice/user-plate-points',
 			input: {
 				user_id: user_id,
 				back: back_path(),
@@ -32,7 +32,7 @@ function printEnrollmentForm(user_id)
 	create_and_submit_form(config);
 
 	*/
-	bounce('/backoffice/user_plate_points?user_id=' + user_id + '&print_enrollment_form=true', '_blank');
+	bounce('/backoffice/user-plate-points?user_id=' + user_id + '&print_enrollment_form=true', '_blank');
 }
 
 function markAccountDataRequestCompleteConfirm(user_id)

@@ -21,7 +21,7 @@
 		<div class="row mb-4">
 			<div class="col col-lg-6 mx-auto">
 				<div class="input-group">
-					<input class="form-control p-4 dd-strip-tags" id="ci_search" type="text" maxlength="255" placeholder="Search"<?php if (!empty($this->search_query)) { ?>value="<?php echo $this->search_query; ?>"<?php } ?> />
+					<input class="form-control dd-strip-tags" id="ci_search" type="search" maxlength="255" placeholder="Search" <?php if (!empty($this->search_query)) { ?>value="<?php echo $this->search_query; ?>"<?php } ?> />
 					<?php if (false) { //video_disabled ?>
 						<div class="input-group-append">
 							<div class="input-group-text">
@@ -42,7 +42,7 @@
 
 			<div class="row mb-4">
 				<div class="col-8 mx-auto">
-					<p>Search our recipes for step by step  cooking instructions and nutritional information. Please type in the recipe name you are looking for or keyword to search for it.</p>
+					<p>Search our recipes for step by step cooking instructions and nutritional information. Please type in the recipe name you are looking for or keyword to search for it.</p>
 
 					<p>Common keywords:
 						<a href="/recipe-resources?q=chicken">chicken</a>,

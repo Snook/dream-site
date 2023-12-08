@@ -1862,7 +1862,7 @@ $(function () {
 								label: 'Manage',
 								className: 'btn-success',
 								callback: function () {
-									bounce('/backoffice/user_plate_points?id=' + user_id + '&back=' + back_path());
+									bounce('/backoffice/user-plate-points?id=' + user_id + '&back=' + back_path());
 								}
 							},
 							close: {

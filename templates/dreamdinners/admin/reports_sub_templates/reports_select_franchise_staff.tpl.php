@@ -1,36 +1,36 @@
-<table style="width: 100%;">
-	<tr>
-		<td class="form_subtitle_cell"><a href="/backoffice/main"><b>BackOffice Home</b></a></td>
-	</tr>
-	<tr>
-		<td class="form_subtitle_cell"><b>Guests &amp; Orders</b></td>
-	</tr>
-	<tr>
-		<td>
-			<a href="/backoffice/reports_cancellations">Cancellation Report</a><br/>
-			<a href="/backoffice/reports_saved_orders">Saved Orders Report</a><br/>
-			<a href="/backoffice/reports_entree">Entr&eacute;e Report</a><br/>
-			<?php if (!$this->storeIsDistributionCenter) { ?>
-				<a href="/backoffice/reports_growth_scorecard">Growth Scorecard</a><br/>
-			<?php } ?>
-		</td>
-	</tr>
-</table>
+<div class="row">
+	<div class="col-6">
+		<table class="table ddtemp-table-border-collapse">
+			<tr>
+				<td><b>Guests &amp; Orders</b></td>
+			</tr>
+			<tr>
+				<td>
+					<a href="/backoffice/reports-cancellations">Cancellation Report</a><br/>
+					<a href="/backoffice/reports-saved-orders">Saved Orders Report</a><br/>
+					<?php if ($this->CurrentBackOfficeStore->isDistributionCenter()) { ?>
+						<a href="/backoffice/reports-entree-delivered">Shipping Entr&eacute;e Report</a><br/>
+					<?php } else { ?>
+						<a href="/backoffice/reports-entree">Entr&eacute;e Report</a><br/>
+						<a href="/backoffice/reports-growth-scorecard">Growth Scorecard</a><br/>
+					<?php } ?>
+				</td>
+			</tr>
+		</table>
 
-<table style="width: 100%;">
-	<tr>
-		<td class="form_subtitle_cell"><b>Supporting Menu Materials</b></td>
-	</tr>
-	<tr>
-		<td>
-			<a href="/backoffice/session-tools-printing">Generic Menu Supporting Documents</a><br/>
-			<a href="/backoffice/reports_customer_menu_item_labels?interface=1">Generic Cooking Instruction
-				Labels</a><br/>
-			<?php if (!$this->storeIsDistributionCenter) { ?>
-				<a href="/backoffice/reports_menu_item_nutritional_labels">Nutritional Labels</a><br/>
-			<?php } ?>
-			<?php if ($this->storeSupportsPlatePoints) { ?>
-				<a href="/backoffice/user_plate_points?print_blank_form=true" target="_blank">Blank PLATEPOINTS Enrollment Form</a><br/>
-			<?php } ?>
-	</tr>
-</table>
+		<?php if (!$this->CurrentBackOfficeStore->isDistributionCenter()) { ?>
+			<table class="table ddtemp-table-border-collapse">
+				<tr>
+					<td><b>Supporting Menu Materials</b></td>
+				</tr>
+				<tr>
+					<td>
+						<a href="/backoffice/session-tools-printing">Generic Menu Supporting Documents</a><br/>
+						<a href="/backoffice/reports-customer-menu-item-labels?interface=1">Generic Cooking Instruction Labels</a><br/>
+						<a href="/backoffice/reports-menu-item-nutritional-labels">Nutritional Labels</a><br/>
+					</td>
+				</tr>
+			</table>
+		<?php } ?>
+	</div>
+</div>

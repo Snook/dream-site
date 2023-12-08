@@ -431,6 +431,16 @@ class CStore extends DAO_Store
 		return true;
 	}
 
+	function supportsMealCustomization()
+	{
+		if (empty($this->supports_meal_customization))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	function storeSupportsIntroOrders($menu_id = false)
 	{
 		if (empty($this->supports_intro_orders))
@@ -2923,6 +2933,18 @@ class CStore extends DAO_Store
 			return false;
 		}
 	}
+
+	function isCorporateOwned()
+	{
+		if (!empty($this->is_corporate_owned))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+
 
 	function generateAddressLinear()
 	{

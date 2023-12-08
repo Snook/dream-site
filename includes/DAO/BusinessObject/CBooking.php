@@ -479,7 +479,7 @@ class CBooking extends DAO_Booking
 			$this_amount = array_shift($amounts);
 			$thisDelayed = array_shift($isDelayed);
 			$thisDelayedStatus = array_shift($delayedStatus);
-			$this_amount = $this_amount + .000000001;
+			$this_amount = floatval($this_amount) + .000000001;
 			$this_amount = intval($this_amount * 100);
 			switch ($thisType)
 			{
