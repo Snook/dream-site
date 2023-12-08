@@ -83,9 +83,9 @@ class page_admin_menu_editor extends CPageAdminOnly
 
 		CLog::Record("MENU_EDITOR: Page accessed for store: " . $store_id);
 		$tpl->assign("store_id", $store_id);
-		$storeObj = DAO_CFactory::create('store');
+		$storeObj = DAO_CFactory::create('store', true);
 		$storeObj->id = $store_id;
-		if (!$storeObj->find(true))
+		if (!$storeObj->find_DAO_store(true))
 		{
 			throw new Exception('Store not found in Menu Editor');
 		}
