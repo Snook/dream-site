@@ -6523,11 +6523,14 @@ class COrders extends DAO_Orders
 						{
 							if (isset($DAO_menu_item->store_price))
 							{
-								$DAO_order_item->discounted_subtotal = (!empty($DAO_menu_item->DAO_recipe->ltd_menu_item_value)) ? $DAO_menu_item->store_price * $qty : null;
+								if ($DAO_menu_item->DAO_store->supportsLTDRoundup())
+								{
+									$DAO_order_item->discounted_subtotal = (!empty($DAO_menu_item->DAO_recipe->ltd_menu_item_value)) ? $DAO_menu_item->store_price * $qty : null;
+								}
 								$DAO_order_item->sub_total = $DAO_menu_item->store_price_no_ltd * $qty;
 								$DAO_order_item->pre_mark_up_sub_total = $DAO_menu_item->store_price * $qty;
 
-								if ($this->bundle->bundle_type == CBundle::TV_OFFER)
+								if ($this->bundle->bundle_type == CBundle::TV_OFFER && $DAO_menu_item->DAO_store->supportsLTDRoundup())
 								{
 									// remove one ltd from order
 									$DAO_order_item->sub_total -= $DAO_menu_item->ltd_menu_item_value;
@@ -6812,7 +6815,10 @@ class COrders extends DAO_Orders
 					{
 						if (isset($DAO_menu_item->store_price))
 						{
-							$DAO_order_item->discounted_subtotal = (!empty($DAO_menu_item->DAO_recipe->ltd_menu_item_value)) ? $DAO_menu_item->store_price * $qty : null;
+							if ($DAO_menu_item->DAO_store->supportsLTDRoundup())
+							{
+								$DAO_order_item->discounted_subtotal = (!empty($DAO_menu_item->DAO_recipe->ltd_menu_item_value)) ? $DAO_menu_item->store_price * $qty : null;
+							}
 							$DAO_order_item->sub_total = $DAO_menu_item->store_price_no_ltd * $qty;
 							$DAO_order_item->pre_mark_up_sub_total = $DAO_menu_item->store_price * $qty;
 						}
