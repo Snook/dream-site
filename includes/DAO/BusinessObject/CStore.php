@@ -441,6 +441,16 @@ class CStore extends DAO_Store
 		return true;
 	}
 
+	function supportsLTDRoundup()
+	{
+		if (empty($this->supports_ltd_roundup))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	function storeSupportsIntroOrders($menu_id = false)
 	{
 		if (empty($this->supports_intro_orders))
