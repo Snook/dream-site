@@ -57,7 +57,7 @@ class page_admin_edit_session extends CPageAdminOnly
 
 		if (isset($_REQUEST["session"]) && $_REQUEST["session"])
 		{
-			$session_id = CGPC::do_clean($_REQUEST["session"],TYPE_INT);
+			$session_id = CGPC::do_clean($_REQUEST["session"], TYPE_INT);
 		}
 		else
 		{
@@ -81,7 +81,6 @@ class page_admin_edit_session extends CPageAdminOnly
 		$Store->getStorePickupLocations();
 
 		$tpl->assign('allowsMealCustomization', $Store->supports_meal_customization);
-
 
 		// Set up values in form
 		$SessionForm->DefaultValues = array_merge($SessionForm->DefaultValues, $Session->toArray());
@@ -110,10 +109,14 @@ class page_admin_edit_session extends CPageAdminOnly
 			$SessionForm->DefaultValues["session_delivery_fee"] = $Store->delivery_fee;
 		}
 
-		$tpl->assign('allow_assembly_fee',OrdersHelper::allow_assembly_fee($Session->menu_id));
-		if(!OrdersHelper::allow_assembly_fee($Session->menu_id)){
+		$tpl->assign('allow_assembly_fee', OrdersHelper::allow_assembly_fee($Session->menu_id));
+		if (!OrdersHelper::allow_assembly_fee($Session->menu_id))
+		{
 			$SessionForm->DefaultValues['session_assembly_fee'] = 0;
-			if ($markup) $markup->assembly_fee = '0.00';
+			if ($markup)
+			{
+				$markup->assembly_fee = '0.00';
+			}
 			$Session->session_assembly_fee = '0.00';
 		}
 
@@ -121,12 +124,14 @@ class page_admin_edit_session extends CPageAdminOnly
 		$SessionForm->DefaultValues["custom_close_interval"] = $Session->getScheduleCloseInterval();
 
 		$SessionForm->DefaultValues["meal_customization_close_interval_type"] = $Session->determineSessionMealCustomizationCloseEnum();
-		if($SessionForm->DefaultValues["meal_customization_close_interval_type"] == CSession::FOUR_FULL_DAYS){
+		if ($SessionForm->DefaultValues["meal_customization_close_interval_type"] == CSession::FOUR_FULL_DAYS)
+		{
 			$SessionForm->DefaultValues["meal_customization_close_interval"] = 96;
-		}else{
+		}
+		else
+		{
 			$SessionForm->DefaultValues["meal_customization_close_interval"] = $Session->getScheduleMealCustomizationCloseInterval();
 		}
-
 
 		$SessionForm->DefaultValues["session_sneak_peak"] = $Session->sneak_peak == 1 ? true : false;
 
@@ -528,7 +533,6 @@ class page_admin_edit_session extends CPageAdminOnly
 			CForm::options => $hoursCloseOptions
 		));
 
-
 		$hoursCloseOptionsCustomization = array();
 		for ($x = 0; $x < 241; $x++)
 		{
@@ -539,7 +543,6 @@ class page_admin_edit_session extends CPageAdminOnly
 			CForm::name => 'meal_customization_close_interval',
 			CForm::options => $hoursCloseOptionsCustomization
 		));
-
 
 		$SessionForm->AddElement(array(
 			CForm::type => CForm::Text,
@@ -567,7 +570,7 @@ class page_admin_edit_session extends CPageAdminOnly
 
 		$storePickupLocation = array('' => 'Select Location');
 
-		foreach($Store->remoteLocations AS $id => $location)
+		foreach ($Store->remoteLocations as $id => $location)
 		{
 			$storePickupLocation[$id] = array(
 				'title' => $location->location_title . ' - ' . $location->address_line1 . (!empty($location->address_line2) ? ' ' . $location->address_line2 : '') . ', ' . $location->city . ', ' . $location->state_id . ' ' . $location->postal_code,
@@ -766,7 +769,7 @@ class page_admin_edit_session extends CPageAdminOnly
 
 			if (!empty($_POST['session_assembly_fee_enable']) && OrdersHelper::allow_assembly_fee($Session->menu_id))
 			{
-				$Session->session_assembly_fee = CGPC::do_clean($_POST['session_assembly_fee'],TYPE_NUM);
+				$Session->session_assembly_fee = CGPC::do_clean($_POST['session_assembly_fee'], TYPE_NUM);
 			}
 			else
 			{
@@ -775,7 +778,7 @@ class page_admin_edit_session extends CPageAdminOnly
 
 			if (!empty($_POST['session_delivery_fee_enable']))
 			{
-				$Session->session_delivery_fee = CGPC::do_clean($_POST['session_delivery_fee'],TYPE_NUM);
+				$Session->session_delivery_fee = CGPC::do_clean($_POST['session_delivery_fee'], TYPE_NUM);
 			}
 			else
 			{
@@ -800,7 +803,7 @@ class page_admin_edit_session extends CPageAdminOnly
 				}
 				else
 				{
-					$userDAO->primary_email = trim(CGPC::do_clean($_POST['session_host'],TYPE_STR));
+					$userDAO->primary_email = trim(CGPC::do_clean($_POST['session_host'], TYPE_STR));
 					if ($userDAO->find(true))
 					{
 						$PP_foundUserAccount = $userDAO->id;
@@ -829,7 +832,7 @@ class page_admin_edit_session extends CPageAdminOnly
 					throw new Exception("Session date was not posted.");
 				}
 
-				$Session->session_start = date("Y-m-d H:i:s", strtotime(CGPC::do_clean($_POST['session_date'],TYPE_STR) . ' ' . CGPC::do_clean($_POST['session_time'],TYPE_STR)));
+				$Session->session_start = date("Y-m-d H:i:s", strtotime(CGPC::do_clean($_POST['session_date'], TYPE_STR) . ' ' . CGPC::do_clean($_POST['session_time'], TYPE_STR)));
 
 				if (!$Menu->isTimeStampLegalForMenu(strtotime($Session->session_start)))
 				{
@@ -840,21 +843,24 @@ class page_admin_edit_session extends CPageAdminOnly
 			}
 
 			$Session->setCloseSchedulingTime($SessionForm->value("close_interval_type"), $SessionForm->value("custom_close_interval"));
-			if ($Session->session_type == CSession::SPECIAL_EVENT){
+			if ($Session->session_type == CSession::SPECIAL_EVENT)
+			{
 				$Session->setMealCustomizationCloseSchedulingTime($SessionForm->value("meal_customization_close_interval_type"), $SessionForm->value("meal_customization_close_interval"));
-			}else{
+			}
+			else
+			{
 				$Session->setMealCustomizationCloseSchedulingTime($SessionForm->value("meal_customization_close_interval_type"), -1);
 			}
 			// determine new type and theme
 			$fadminAcronym = false;
 			if ($Session->session_type == CSession::DREAM_TASTE)
 			{
-				$newDTThemeID = CGPC::do_clean( $_POST['dream_taste_theme'],TYPE_STR);
+				$newDTThemeID = CGPC::do_clean($_POST['dream_taste_theme'], TYPE_STR);
 				$fadminAcronym = $DreamTasteTypeInfoArray[$newDTThemeID]['fadmin_acronym'];
 			}
 			else if ($Session->session_type == CSession::FUNDRAISER)
 			{
-				$newFundraiserThemeID = CGPC::do_clean($_POST['dream_taste_theme'],TYPE_STR);
+				$newFundraiserThemeID = CGPC::do_clean($_POST['dream_taste_theme'], TYPE_STR);
 				$fadminAcronym = $FundraiserTypeInfoArray[$newFundraiserThemeID]['fadmin_acronym'];
 			}
 
@@ -941,7 +947,7 @@ class page_admin_edit_session extends CPageAdminOnly
 					$Session->session_password = "";
 				}
 
-				if (empty($Session->session_type_subtype))
+				if (empty($_POST["session_type_subtype"]))
 				{
 					$Session->session_type_subtype = "null";
 				}
@@ -965,7 +971,7 @@ class page_admin_edit_session extends CPageAdminOnly
 							$session_properties->store_pickup_location_id = 0;
 							if (empty($Session->session_type_subtype) && ($Session->session_type_subtype == CSession::REMOTE_PICKUP || $Session->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE))
 							{
-								$session_properties->store_pickup_location_id = CGPC::do_clean($_POST['session_pickup_location'],TYPE_INT);
+								$session_properties->store_pickup_location_id = CGPC::do_clean($_POST['session_pickup_location'], TYPE_INT);
 							}
 
 							$session_properties->update();
@@ -980,14 +986,14 @@ class page_admin_edit_session extends CPageAdminOnly
 							$session_properties->store_pickup_location_id = 0;
 							if (empty($Session->session_type_subtype) && ($Session->session_type_subtype == CSession::REMOTE_PICKUP || $Session->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE))
 							{
-								$session_properties->store_pickup_location_id = CGPC::do_clean($_POST['session_pickup_location'],TYPE_INT);
+								$session_properties->store_pickup_location_id = CGPC::do_clean($_POST['session_pickup_location'], TYPE_INT);
 							}
 
 							$session_properties->insert();
 						}
 					}
 
-					if ( $Session->isMadeForYou())
+					if ($Session->isMadeForYou())
 					{
 						if (!empty($Session->session_type_subtype) && ($Session->session_type_subtype == CSession::REMOTE_PICKUP || $Session->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE))
 						{
@@ -996,13 +1002,13 @@ class page_admin_edit_session extends CPageAdminOnly
 
 							if ($session_properties->find(true))
 							{
-								$session_properties->store_pickup_location_id = CGPC::do_clean($_POST['session_pickup_location'],TYPE_INT);
+								$session_properties->store_pickup_location_id = CGPC::do_clean($_POST['session_pickup_location'], TYPE_INT);
 								$session_properties->menu_pricing_method = 'USE_CURRENT';
 								$session_properties->update();
 							}
 							else
 							{
-								$session_properties->store_pickup_location_id = CGPC::do_clean($_POST['session_pickup_location'],TYPE_INT);
+								$session_properties->store_pickup_location_id = CGPC::do_clean($_POST['session_pickup_location'], TYPE_INT);
 								$session_properties->menu_pricing_method = 'USE_CURRENT';
 								$session_properties->insert();
 							}
