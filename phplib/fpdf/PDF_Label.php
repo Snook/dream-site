@@ -943,11 +943,18 @@ class PDF_Label extends FPDF_MULTICELLTAG
 
 		$yRelative = $yRelative + 7;
 		// Serving per Container
-		if (!empty($entity['info']['servings_per_container']))
+		if (!empty($entity['info']['servings_per_container']) || $entity["info"]["menu_item_category_id"] < 9)
 		{
 			$this->SetXY($_PosX + 3, $_PosY + 1.75 + $yRelative);
 
-			$this->MultiCellTag($this->_Width, $overrideLineHeight, "<db9>" . $entity['info']['servings_per_container'] . " servings per container</db9>", $showBorders, "L", 0);
+			if ($entity["info"]["menu_item_category_id"] == 9)
+			{
+				$this->MultiCellTag($this->_Width, $overrideLineHeight, "<db9>" . $entity['info']['servings_per_container'] . " servings per container</db9>", $showBorders, "L", 0);
+			}
+			else
+			{
+				$this->MultiCellTag($this->_Width, $overrideLineHeight, "<db9>Lrg (6) & Med (3) servings per container</db9>", $showBorders, "L", 0);
+			}
 		}
 
 		$this->SetXY($_PosX + 3, $_PosY + 3.2 + $yRelative);
