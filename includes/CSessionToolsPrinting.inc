@@ -1996,7 +1996,10 @@ class CSessionToolsPDFDrawer
 		$x_offset = 0;
 		$count = 0;
 
-		foreach (CRecipe::getIconSchematic() as $icon)
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->id = $this->data->menu_id;
+
+		foreach (CRecipe::getIconSchematic($DAO_menu) as $icon)
 		{
 			if ($count++ == 7)
 			{
