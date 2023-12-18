@@ -719,6 +719,21 @@ class CUser extends DAO_User
 					),
 				)
 			),
+			'resources' => array(
+				'access' => array(
+					self::HOME_OFFICE_MANAGER,
+					self::HOME_OFFICE_STAFF,
+					self::FRANCHISE_OWNER,
+					self::FRANCHISE_MANAGER,
+					self::FRANCHISE_LEAD,
+					self::FRANCHISE_STAFF,
+					self::GUEST_SERVER,
+					self::EVENT_COORDINATOR,
+					self::OPS_LEAD
+				),
+				'title' => 'Links &amp; Resources',
+				'link' => '/backoffice/resources',
+			),
 			'tools' => array(
 				'access' => array(
 					self::HOME_OFFICE_MANAGER,
@@ -1235,22 +1250,7 @@ class CUser extends DAO_User
 							self::OPS_LEAD
 						),
 						'title' => 'Manage Community Pick Up Locations',
-						'link' => '/backoffice/offsitelocations',
-					),
-					'admin_resources' => array(
-						'access' => array(
-							self::HOME_OFFICE_MANAGER,
-							self::HOME_OFFICE_STAFF,
-							self::FRANCHISE_OWNER,
-							self::FRANCHISE_MANAGER,
-							self::FRANCHISE_LEAD,
-							self::FRANCHISE_STAFF,
-							self::EVENT_COORDINATOR,
-							self::GUEST_SERVER,
-							self::OPS_LEAD
-						),
-						'title' => 'Links &amp; Resources',
-						'link' => '/backoffice/resources',
+						'link' => '/backoffice/offsitelocations'
 					)
 				)
 			),
@@ -1291,6 +1291,21 @@ class CUser extends DAO_User
 						'link' => '/backoffice/resend-gift-card-emails',
 					),
 				)
+			),
+			'resources' => array(
+				'access' => array(
+					self::HOME_OFFICE_MANAGER,
+					self::HOME_OFFICE_STAFF,
+					self::FRANCHISE_OWNER,
+					self::FRANCHISE_MANAGER,
+					self::FRANCHISE_LEAD,
+					self::FRANCHISE_STAFF,
+					self::GUEST_SERVER,
+					self::EVENT_COORDINATOR,
+					self::OPS_LEAD
+				),
+				'title' => 'Links &amp; Resources',
+				'link' => '/backoffice/resources',
 			),
 			'tools' => array(
 				'access' => array(

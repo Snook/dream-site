@@ -1,5 +1,4 @@
 <?php $this->assign('page_title','Links &amp; Resources'); ?>
-<?php $this->assign('topnav','store'); ?>
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
 	<div class="container-fluid">
