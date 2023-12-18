@@ -251,7 +251,7 @@ class CMenuItem extends DAO_Menu_item
 				$would_order_again = $this->DAO_food_survey->would_order_again;
 			}
 
-			$this->icons = $this->DAO_recipe->buildFlagArray($would_order_again);
+			$this->icons = $this->DAO_recipe->buildFlagArray($would_order_again, $this->DAO_menu);
 		}
 	}
 

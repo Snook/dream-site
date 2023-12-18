@@ -108,7 +108,7 @@
 						<span class="col-6 text-center text-green font-size-small font-weight-bold"><span class="text-uppercase">Large</span> serves 4-6</span>
 					</div>
 					<div class="row mt-3 d-none d-md-block font-size-small">
-						<?php foreach (CRecipe::getIconSchematic() AS $icon) { ?>
+						<?php foreach (CRecipe::getIconSchematic($this->cart_info["menuObj"]) AS $icon) { ?>
 							<?php if ($icon['site_legend_enabled']) { ?>
 								<div class="col-12">
 									<?php if (!empty($icon['css_icon'])) { ?><i class="font-size-medium-large align-middle dd-icon <?php echo $icon['css_icon']; ?>"></i><?php } ?> <?php echo $icon['label']; ?>

@@ -8,6 +8,8 @@ class CRecipe extends DAO_Recipe
 	 */
 	public $icons;
 
+	const MENU_CUTOFF_NO_ADDED_SALT = 270;
+
 	/**
 	 * @var array[]
 	 *
@@ -15,212 +17,210 @@ class CRecipe extends DAO_Recipe
 	 * Place in the order in which you want them to display.
 	 *
 	 */
-	private static $_iconSchematic = array(
-		'flag_grill_friendly' => array(
-			'site_legend_enabled' => true,
-			'print_menu_legend_enabled' => true,
-			'meal_detail_enabled' => true,
-			'print_meal_detail_enabled' => true,
-			'show' => false,
-			'value' => null,
-			'css_icon' => 'icon-grill text-gray-dark',
-			'png_icon' => 'menu-icon02.png',
-			'tooltip' => 'Grill Option',
-			'label' => 'Grill Option'
-		),
-		'air_fryer' => array(
-			'site_legend_enabled' => true,
-			'print_menu_legend_enabled' => true,
-			'meal_detail_enabled' => true,
-			'print_meal_detail_enabled' => true,
-			'show' => false,
-			'value' => null,
-			'css_icon' => 'icon-air-fryer text-gray-dark',
-			'png_icon' => 'icon-air-fryer.png',
-			'tooltip' => 'Air Fryer Option',
-			'label' => 'Air Fryer Option'
-		),
-		'flag_crockpot' => array(
-			'site_legend_enabled' => true,
-			'print_menu_legend_enabled' => true,
-			'meal_detail_enabled' => true,
-			'print_meal_detail_enabled' => true,
-			'show' => false,
-			'value' => null,
-			'css_icon' => 'icon-instant-pot text-gray-dark',
-			'png_icon' => 'icon-instant-pot.png',
-			'tooltip' => 'Crock-Pot or Instant Pot Option',
-			'label' => 'Crock-Pot or Instant Pot Option'
-		),
-		'flag_cooks_from_frozen' => array(
-			'site_legend_enabled' => true,
-			'print_menu_legend_enabled' => true,
-			'meal_detail_enabled' => true,
-			'print_meal_detail_enabled' => true,
-			'show' => false,
-			'value' => null,
-			'css_icon' => 'icon-frozen text-gray-dark',
-			'png_icon' => 'menu-icon06.png',
-			'tooltip' => 'Cooks from Frozen',
-			'label' => 'Cooks from Frozen'
-		),
-		'flag_under_thirty' => array(
-			'site_legend_enabled' => true,
-			'print_menu_legend_enabled' => true,
-			'meal_detail_enabled' => true,
-			'print_meal_detail_enabled' => true,
-			'show' => false,
-			'value' => null,
-			'css_icon' => 'icon-minutes_30 text-gray-dark',
-			'png_icon' => 'menu-icon03.png',
-			'tooltip' => 'Cooks in under 30 Minutes',
-			'label' => 'Cooks in under 30 Minutes'
-		),
-		'flag_under_400' => array(
-			'site_legend_enabled' => true,
-			'print_menu_legend_enabled' => true,
-			'meal_detail_enabled' => true,
-			'print_meal_detail_enabled' => true,
-			'show' => false,
-			'value' => null,
-			'css_icon' => 'icon-calories text-gray-dark',
-			'png_icon' => 'menu-icon04.png',
-			'tooltip' => 'Under 500 Calories',
-			'label' => 'Under 500 Calories'
-		),
-		'flag_no_added_salt' => array(
-			'site_legend_enabled' => true,
-			'print_menu_legend_enabled' => true,
-			'meal_detail_enabled' => true,
-			'print_meal_detail_enabled' => true,
-			'show' => false,
-			'value' => null,
-			'css_icon' => 'icon-no-added-salt text-gray-dark',
-			'png_icon' => 'menu-icon09.png',
-			'tooltip' => 'No Added Salt',
-			'label' => 'No Added Salt'
-		),
-		'would_order_again' => array(
-			'site_legend_enabled' => true,
-			'print_menu_legend_enabled' => true,
-			'meal_detail_enabled' => true,
-			'print_meal_detail_enabled' => false,
-			'show' => false,
-			'value' => null,
-			'css_icon' => 'icon-star text-yellow',
-			'png_icon' => null,
-			'tooltip' => 'Would order again',
-			'label' => 'Would order again'
-		),
-		'pre_assembled' => array(
-			'site_legend_enabled' => true,
-			'print_menu_legend_enabled' => false,
-			'meal_detail_enabled' => false,
-			'print_meal_detail_enabled' => false,
-			'show' => false,
-			'value' => null,
-			'css_icon' => null,
-			'png_icon' => null,
-			'tooltip' => 'Pre-Assembled meals are always made by our team in our local assembly kitchen.',
-			'label' => 'Pre-Assembled meals are always made by our team in our local assembly kitchen.'
-		),
-		'ltd_menu_item' => array(
-			'site_legend_enabled' => true,
-			'print_menu_legend_enabled' => true,
-			'meal_detail_enabled' => true,
-			'print_meal_detail_enabled' => true,
-			'show' => false,
-			'value' => null,
-			'css_icon' => 'icon-steam_heart text-orange',
-			'png_icon' => 'menu-icon07.png',
-			'tooltip' => 'Dream Dinners Foundation Meal of the Month',
-			'label' => 'Dream Dinners Foundation Meal of the Month'
-		),
-		'gluten_friendly' => array(
-			'site_legend_enabled' => false,
-			'print_menu_legend_enabled' => false,
-			'meal_detail_enabled' => false,
-			'print_meal_detail_enabled' => false,
-			'show' => false,
-			'value' => null,
-			'css_icon' => 'icon-gluten-friendly text-gray-dark',
-			'png_icon' => 'icon-gluten-friendly.png',
-			'tooltip' => 'Gluten friendly',
-			'label' => 'Gluten friendly'
-		),
-		'high_protein' => array(
-			'site_legend_enabled' => false,
-			'print_menu_legend_enabled' => false,
-			'meal_detail_enabled' => false,
-			'print_meal_detail_enabled' => false,
-			'show' => false,
-			'value' => null,
-			'css_icon' => 'icon-high-protein text-gray-dark',
-			'png_icon' => 'icon-high-protein.png',
-			'tooltip' => 'High protein',
-			'label' => 'High protein'
-		),
-		'vegetarian' => array(
-			'site_legend_enabled' => false,
-			'print_menu_legend_enabled' => false,
-			'meal_detail_enabled' => false,
-			'print_meal_detail_enabled' => false,
-			'show' => false,
-			'value' => null,
-			'css_icon' => 'icon-vegetarian text-gray-dark',
-			'png_icon' => null,
-			'tooltip' => 'Vegetarian',
-			'label' => 'Vegetarian'
-		),
-		'flag_heart_healthy' => array(
-			'site_legend_enabled' => false,
-			'print_menu_legend_enabled' => false,
-			'meal_detail_enabled' => false,
-			'print_meal_detail_enabled' => false,
-			'show' => false,
-			'value' => null,
-			'css_icon' => 'icon-health text-gray-dark',
-			'png_icon' => 'menu-icon01.png',
-			'tooltip' => 'Heart Healthy',
-			'label' => 'Heart Healthy'
-		),
-		'gourmet' => array(
-			'site_legend_enabled' => false,
-			'print_menu_legend_enabled' => false,
-			'meal_detail_enabled' => false,
-			'print_meal_detail_enabled' => false,
-			'show' => false,
-			'value' => null,
-			'css_icon' => 'icon-gourmet text-gray-dark',
-			'png_icon' => null,
-			'tooltip' => 'Gourmet',
-			'label' => 'Gourmet'
-		),
-		'cooking_instruction_youtube_id' => array(
-			'site_legend_enabled' => false,
-			'print_menu_legend_enabled' => false,
-			'meal_detail_enabled' => false,
-			'print_meal_detail_enabled' => false,
-			'show' => false,
-			'value' => null,
-			'css_icon' => 'icon-video text-gray-dark',
-			'png_icon' => 'menu-icon05.png',
-			'tooltip' => 'Instructional Video',
-			'label' => 'Instructional Video'
-		)
-	);
-
-	static function getIconSchematic()
+	static function getIconSchematic($DAO_menu = false)
 	{
-		return self::$_iconSchematic;
+		return array(
+			'flag_grill_friendly' => array(
+				'site_legend_enabled' => true,
+				'print_menu_legend_enabled' => true,
+				'meal_detail_enabled' => true,
+				'print_meal_detail_enabled' => true,
+				'show' => false,
+				'value' => null,
+				'css_icon' => 'icon-grill text-gray-dark',
+				'png_icon' => 'menu-icon02.png',
+				'tooltip' => 'Grill Option',
+				'label' => 'Grill Option'
+			),
+			'air_fryer' => array(
+				'site_legend_enabled' => true,
+				'print_menu_legend_enabled' => true,
+				'meal_detail_enabled' => true,
+				'print_meal_detail_enabled' => true,
+				'show' => false,
+				'value' => null,
+				'css_icon' => 'icon-air-fryer text-gray-dark',
+				'png_icon' => 'icon-air-fryer.png',
+				'tooltip' => 'Air Fryer Option',
+				'label' => 'Air Fryer Option'
+			),
+			'flag_crockpot' => array(
+				'site_legend_enabled' => true,
+				'print_menu_legend_enabled' => true,
+				'meal_detail_enabled' => true,
+				'print_meal_detail_enabled' => true,
+				'show' => false,
+				'value' => null,
+				'css_icon' => 'icon-instant-pot text-gray-dark',
+				'png_icon' => 'icon-instant-pot.png',
+				'tooltip' => 'Crock-Pot or Instant Pot Option',
+				'label' => 'Crock-Pot or Instant Pot Option'
+			),
+			'flag_cooks_from_frozen' => array(
+				'site_legend_enabled' => true,
+				'print_menu_legend_enabled' => true,
+				'meal_detail_enabled' => true,
+				'print_meal_detail_enabled' => true,
+				'show' => false,
+				'value' => null,
+				'css_icon' => 'icon-frozen text-gray-dark',
+				'png_icon' => 'menu-icon06.png',
+				'tooltip' => 'Cooks from Frozen',
+				'label' => 'Cooks from Frozen'
+			),
+			'flag_under_thirty' => array(
+				'site_legend_enabled' => true,
+				'print_menu_legend_enabled' => true,
+				'meal_detail_enabled' => true,
+				'print_meal_detail_enabled' => true,
+				'show' => false,
+				'value' => null,
+				'css_icon' => 'icon-minutes_30 text-gray-dark',
+				'png_icon' => 'menu-icon03.png',
+				'tooltip' => 'Cooks in under 30 Minutes',
+				'label' => 'Cooks in under 30 Minutes'
+			),
+			'flag_under_400' => array(
+				'site_legend_enabled' => true,
+				'print_menu_legend_enabled' => true,
+				'meal_detail_enabled' => true,
+				'print_meal_detail_enabled' => true,
+				'show' => false,
+				'value' => null,
+				'css_icon' => 'icon-calories text-gray-dark',
+				'png_icon' => 'menu-icon04.png',
+				'tooltip' => 'Under 500 Calories',
+				'label' => 'Under 500 Calories'
+			),
+			'flag_no_added_salt' => array(
+				'site_legend_enabled' => !(!empty($DAO_menu) && $DAO_menu->id >= self::MENU_CUTOFF_NO_ADDED_SALT),
+				'print_menu_legend_enabled' => !(!empty($DAO_menu) && $DAO_menu->id >= self::MENU_CUTOFF_NO_ADDED_SALT),
+				'meal_detail_enabled' => true,
+				'print_meal_detail_enabled' => true,
+				'show' => false,
+				'value' => null,
+				'css_icon' => 'icon-no-added-salt text-gray-dark',
+				'png_icon' => 'menu-icon09.png',
+				'tooltip' => 'No Added Salt',
+				'label' => 'No Added Salt'
+			),
+			'would_order_again' => array(
+				'site_legend_enabled' => true,
+				'print_menu_legend_enabled' => true,
+				'meal_detail_enabled' => true,
+				'print_meal_detail_enabled' => false,
+				'show' => false,
+				'value' => null,
+				'css_icon' => 'icon-star text-yellow',
+				'png_icon' => null,
+				'tooltip' => 'Would order again',
+				'label' => 'Would order again'
+			),
+			'pre_assembled' => array(
+				'site_legend_enabled' => true,
+				'print_menu_legend_enabled' => false,
+				'meal_detail_enabled' => false,
+				'print_meal_detail_enabled' => false,
+				'show' => false,
+				'value' => null,
+				'css_icon' => null,
+				'png_icon' => null,
+				'tooltip' => 'Pre-Assembled meals are always made by our team in our local assembly kitchen.',
+				'label' => 'Pre-Assembled meals are always made by our team in our local assembly kitchen.'
+			),
+			'ltd_menu_item' => array(
+				'site_legend_enabled' => true,
+				'print_menu_legend_enabled' => true,
+				'meal_detail_enabled' => true,
+				'print_meal_detail_enabled' => true,
+				'show' => false,
+				'value' => null,
+				'css_icon' => 'icon-steam_heart text-orange',
+				'png_icon' => 'menu-icon07.png',
+				'tooltip' => 'Dream Dinners Foundation Meal of the Month',
+				'label' => 'Dream Dinners Foundation Meal of the Month'
+			),
+			'gluten_friendly' => array(
+				'site_legend_enabled' => false,
+				'print_menu_legend_enabled' => false,
+				'meal_detail_enabled' => false,
+				'print_meal_detail_enabled' => false,
+				'show' => false,
+				'value' => null,
+				'css_icon' => 'icon-gluten-friendly text-gray-dark',
+				'png_icon' => 'icon-gluten-friendly.png',
+				'tooltip' => 'Gluten friendly',
+				'label' => 'Gluten friendly'
+			),
+			'high_protein' => array(
+				'site_legend_enabled' => false,
+				'print_menu_legend_enabled' => false,
+				'meal_detail_enabled' => false,
+				'print_meal_detail_enabled' => false,
+				'show' => false,
+				'value' => null,
+				'css_icon' => 'icon-high-protein text-gray-dark',
+				'png_icon' => 'icon-high-protein.png',
+				'tooltip' => 'High protein',
+				'label' => 'High protein'
+			),
+			'vegetarian' => array(
+				'site_legend_enabled' => false,
+				'print_menu_legend_enabled' => false,
+				'meal_detail_enabled' => false,
+				'print_meal_detail_enabled' => false,
+				'show' => false,
+				'value' => null,
+				'css_icon' => 'icon-vegetarian text-gray-dark',
+				'png_icon' => null,
+				'tooltip' => 'Vegetarian',
+				'label' => 'Vegetarian'
+			),
+			'flag_heart_healthy' => array(
+				'site_legend_enabled' => false,
+				'print_menu_legend_enabled' => false,
+				'meal_detail_enabled' => false,
+				'print_meal_detail_enabled' => false,
+				'show' => false,
+				'value' => null,
+				'css_icon' => 'icon-health text-gray-dark',
+				'png_icon' => 'menu-icon01.png',
+				'tooltip' => 'Heart Healthy',
+				'label' => 'Heart Healthy'
+			),
+			'gourmet' => array(
+				'site_legend_enabled' => false,
+				'print_menu_legend_enabled' => false,
+				'meal_detail_enabled' => false,
+				'print_meal_detail_enabled' => false,
+				'show' => false,
+				'value' => null,
+				'css_icon' => 'icon-gourmet text-gray-dark',
+				'png_icon' => null,
+				'tooltip' => 'Gourmet',
+				'label' => 'Gourmet'
+			),
+			'cooking_instruction_youtube_id' => array(
+				'site_legend_enabled' => false,
+				'print_menu_legend_enabled' => false,
+				'meal_detail_enabled' => false,
+				'print_meal_detail_enabled' => false,
+				'show' => false,
+				'value' => null,
+				'css_icon' => 'icon-video text-gray-dark',
+				'png_icon' => 'menu-icon05.png',
+				'tooltip' => 'Instructional Video',
+				'label' => 'Instructional Video'
+			)
+		);
 	}
 
 	/*
 	 * would_order_again is not a static meal flag, so it must be passed in
 	 */
-	function buildFlagArray($would_order_again = false)
+	function buildFlagArray($would_order_again = false, $DAO_menu = false)
 	{
-		$this->icons = self::getIconSchematic();
+		$this->icons = self::getIconSchematic($DAO_menu);
 
 		$this->icons['flag_grill_friendly']['show'] = !empty($this->flag_grill_friendly);
 		$this->icons['flag_grill_friendly']['value'] = $this->flag_grill_friendly;
@@ -240,7 +240,7 @@ class CRecipe extends DAO_Recipe
 		$this->icons['flag_under_400']['show'] = !empty($this->flag_under_400);
 		$this->icons['flag_under_400']['value'] = $this->flag_under_400;
 
-		$this->icons['flag_no_added_salt']['show'] = !empty($this->flag_no_added_salt);
+		$this->icons['flag_no_added_salt']['show'] = !(!empty($DAO_menu) && $DAO_menu->id >= self::MENU_CUTOFF_NO_ADDED_SALT) && !empty($this->flag_no_added_salt);
 		$this->icons['flag_no_added_salt']['value'] = $this->flag_no_added_salt;
 
 		$this->icons['would_order_again']['show'] = !empty($would_order_again);
