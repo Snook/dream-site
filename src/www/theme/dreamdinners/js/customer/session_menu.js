@@ -488,85 +488,6 @@ function updateServingsCountAndCheckoutButton()
 			$('.remaining-note').hideFlex();
 		}
 
-		if (quantityOrdered > 0)
-		{
-
-			progress_min = Math.round((quantityOrdered / minServings) * 100);
-
-			if (progress_min >= 100)
-			{
-				progress_min = 100;
-
-				$('.progress-min').removeClass('bg-gray-dark').addClass('bg-green');
-				$('.progress-star').removeClass('text-gray').addClass('text-green');
-				$('.required-servings-note').hideFlex();
-			}
-			else
-			{
-				$('.progress-min').removeClass('bg-green').addClass('bg-gray-dark');
-				$('.progress-star').removeClass('text-green').addClass('text-gray');
-				$('.required-servings-note').showFlex();
-			}
-		}
-
-		var progress_rec = 0;
-		if (progress_min == 100)
-		{
-			var rec_servings = recommended_servings - minServings;
-
-			if (quantityOrdered > minServings)
-			{
-				var quantityOrdered_rec = quantityOrdered - minServings;
-
-				if (quantityOrdered_rec > 0)
-				{
-					progress_rec = Math.round((quantityOrdered_rec / rec_servings) * 100);
-
-					if (progress_rec > 100)
-					{
-						progress_rec = 100;
-					}
-				}
-			}
-		}
-
-		var progress_add = 0;
-		if (progress_rec == 100)
-		{
-			var quantityOrdered_add = quantityOrdered - recommended_servings;
-
-			if (quantityOrdered_add > 0)
-			{
-				progress_add = Math.round((quantityOrdered_add / (minServings * 3)) * 100);
-
-				if (progress_add > 100)
-				{
-					progress_add = 100;
-				}
-			}
-		}
-
-		if (progress_min > 0)
-		{
-			$('.progress-min-value').text(progress_min + '%');
-		}
-		else
-		{
-			$('.progress-min-value').text('');
-		}
-
-		$('.progress-min').css({
-			'width': progress_min + '%'
-		}).attr('aria-valuenow', progress_min);
-
-		$('.progress-rec').css({
-			'width': progress_rec + '%'
-		}).attr('aria-valuenow', progress_rec);
-
-		$('.progress-add').css({
-			'width': progress_add + '%'
-		}).attr('aria-valuenow', progress_add);
-
 		/* end handle progress bar */
 
 		if (menu_view == 'session_menu_freezer' && order_minimum.is_applicable == false)
@@ -702,7 +623,7 @@ function update_cart(menu_item_id, action)
 				$('.coupon-code-total').text(json.coupon_code_discount_total);
 				$('.cart-total').text(json.grand_total);
 
-				if (order_type == 'STANDARD' || order_type == 'SPECIAL_EVENT')
+				if (order_type != 'INTRO')
 				{
 					updateServingsCountAndCheckoutButton();
 

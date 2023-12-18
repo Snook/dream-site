@@ -2,7 +2,7 @@
 	<?php if (!empty($this->DAO_bundle) && !$itemData->isInBundle($this->DAO_bundle)) { continue; } // menu item is not in starter pack, skip ?>
 	<?php if ($itemData->isVisible()) { ?>
 		<div class="col<?php echo ($itemData->isBundle()) ? '-12' : ''; ?> p-1">
-			<button class="btn btn-<?php if (!empty($itemData->ltd_menu_item_supported)) { ?>orange<?php } else { ?>primary<?php } ?> btn-block btn-ripple py-3 <?php if ($itemData->isBundle()) { ?>configure-bundle<?php } else { ?>add-to-cart<?php } ?> <?php if ($itemData->this_type_out_of_stock || (($this->order_type != COrders::STANDARD && $this->order_type != COrders::MADE_FOR_YOU) && !empty($this->cart_info['entree_info'][$itemData->entree_id]))) echo ' disabled'; ?>" data-menu_item_id="<?php echo $itemData->id; ?>">
+			<button type="button" class="btn btn-<?php if (!empty($itemData->ltd_menu_item_supported)) { ?>orange<?php } else { ?>primary<?php } ?> btn-block btn-ripple py-3 <?php if ($itemData->isBundle()) { ?>configure-bundle<?php } else { ?>add-to-cart<?php } ?> <?php if ($itemData->this_type_out_of_stock || (($this->order_type != COrders::STANDARD && $this->order_type != COrders::MADE_FOR_YOU) && !empty($this->cart_info['entree_info'][$itemData->entree_id]))) echo ' disabled'; ?>" data-menu_item_id="<?php echo $itemData->id; ?>">
 				<?php if (empty($itemData->is_chef_touched)) { ?>
 					<span class="float-left"><?php echo $itemData->pricing_type_info['pricing_type_name_short']; ?></span>
 				<?php } ?>
@@ -44,7 +44,7 @@
 
 				<div class="row mt-2">
 					<div class="col">
-						<button class="btn btn-primary btn-block btn-ripple py-3 add-bundle-to-cart disabled" data-menu_item_id="<?php echo $itemData->id; ?>">
+						<button type="button" class="btn btn-primary btn-block btn-ripple py-3 add-bundle-to-cart disabled" data-menu_item_id="<?php echo $itemData->id; ?>">
 							Add bundle to cart
 						</button>
 					</div>
