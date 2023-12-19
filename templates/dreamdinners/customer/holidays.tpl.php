@@ -44,7 +44,7 @@
 								<div class="card-body">
 									<h5 class="card-title">Valentines Love Notes</h5>
 									<p class="card-text">Download some love notes for your besties.</p>
-									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Printable-Valentines.pdf" target="_blank" class="btn btn-primary">Download Gift Tags</a></p>
+									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Printable-Valentines.pdf" target="_blank" class="btn btn-primary">Download Notes</a></p>
 								</div>
 							</div>
 						</div>
