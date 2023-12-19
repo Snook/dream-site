@@ -38484,7 +38484,7 @@ A VERTICAL event
   box-shadow: 0 0 8px #df4e59;
 }
 
-.btn, #helpdesk, .button, .social_btn, .btn.btn-primary {
+.btn.btn-primary, #helpdesk, .button, .btn-primary.social_btn, .btn.btn-danger, .btn-danger.social_btn {
   color: #c3c861 !important;
   border-radius: 4px;
   font-size: 0.55rem !important;
@@ -38522,7 +38522,7 @@ A VERTICAL event
   border: 1px solid #580304;
 }
 
-.btn:hover, #helpdesk:hover, .button:hover, .social_btn:hover {
+.btn.btn-primary:hover, #helpdesk:hover, .button:hover, .btn-primary.social_btn:hover, .btn.btn-danger:hover, .btn-danger.social_btn:hover {
   color: #fff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #38883b;
