@@ -272,6 +272,9 @@ $(document).on('click', '.account-request-data:not(.disabled)', function (e) {
 					success: function (json) {
 						if (json.processor_success)
 						{
+							$('.account-request-data').addClass('disabled');
+							$('.account-request-data-pending').showFlex();
+
 							modal_message({
 								title: 'Account Data Management',
 								message: 'The request for a copy of your account information has been submitted.'
@@ -299,6 +302,8 @@ $(document).on('click', '.account-request-data:not(.disabled)', function (e) {
 });
 
 $(document).on('click', '.account-request-delete:not(.disabled)', function (e) {
+
+	$('.account-request-delete').addClass('disabled');
 
 	bootbox.prompt({
 		title: "Account Deletion Request Notice",
@@ -335,6 +340,8 @@ $(document).on('click', '.account-request-delete:not(.disabled)', function (e) {
 							}
 							else
 							{
+								$('.account-request-delete').removeClass('disabled');
+
 								modal_message({
 									title: 'Error',
 									message: json.processor_message
@@ -343,6 +350,8 @@ $(document).on('click', '.account-request-delete:not(.disabled)', function (e) {
 						}
 						else
 						{
+							$('.account-request-delete').removeClass('disabled');
+
 							modal_message({
 								title: 'Processing Error',
 								message: json.processor_message
@@ -356,6 +365,10 @@ $(document).on('click', '.account-request-delete:not(.disabled)', function (e) {
 						});
 					}
 				});
+			}
+			else
+			{
+				$('.account-request-delete').removeClass('disabled');
 			}
 		}
 	});
