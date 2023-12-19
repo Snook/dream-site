@@ -19,9 +19,25 @@
 
 	<main role="main">
 		<section>
+			<div class="container-fluid my-5">
+				<div class="row hero-double">
+					<div class="col-md-6 p-0">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jan24-big-game-bundle-collage-957x657.webp" alt="Big Game Bundle" class="img-fluid">
+					</div>
+					<div class="col-md-6 text-left p-5 my-5">
+						<h1 class="font-weight-bold font-marker mt-2">Big Game Bundle</h1>
+						<p class="text-uppercase mb-4">Get ready for the big game when you order our football party menu. Featuring our Classic French Dip Sandwiches with Homemade Au Jus, Jalapeno Cheddar Cheesy Potaotes, and Cookies. Add this on to your order exclusively in January. Available at select locations, while supplies last.</p>
+						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
+					</div>
+				</div>
+			</div>
+		 </section>
+		
+		<!--<section>
 			<div class="container">
 			<img src="<?php echo IMAGES_PATH; ?>/events_programs/refer-friend-1400x575.webp" alt="Assemble in-store with a friend" class="img-fluid" />
-				<!-- <div class="row my-5">
+
+				 <div class="row my-5">
 					<div class="col mb-4">
 						<h2><strong>Refer a Friend Promotion</strong></h2>
 
@@ -35,8 +51,8 @@
 					</div>
 			  	</div>
 
-				<div class="border-top mb-3 mx-3" style="border-top: #b9bf33 dotted 5px !important;"></div> -->
-
+				<div class="border-top mb-3 mx-3" style="border-top: #b9bf33 dotted 5px !important;"></div> 
+				
 				<div class="row my-5">
 					<div class="col mb-4">
 						<h2><strong>Opt into Dream Dinners Text Messaging Service</strong></h2>
@@ -56,7 +72,7 @@
 						<br>
 						<p class="font-italic">*When you opt into SMS in your Dream Dinners account, you will be opting into text messaging from Dream Dinners Home Office. Your local Dream Dinners store may reach out to you via text messaging regarding your upcoming session from their store phone number. This text messaging will have a separate opt out.</p>
 					</div>
-			  </div>
+			  </div>-->
 
 				<!--<img src="<?php echo IMAGES_PATH; ?>/events_programs/jellystone-park-1400x575.jpg" alt="Jellystone Park Camp-Resorts" class="img-fluid" />
 
@@ -137,11 +153,11 @@
 
 						<p>7Cellars, Farm Collection,Cabernet Sauvignon-98% Cabernet Sauvignon, 1% Merlot and 1% Syrah. Aged in American and French Oak for 14 months. Tasting Notes: Full bodied, rich, bold with dark fruit. Because of the bold flavors and bright tannins this wine pairs with meatballs, meatloaf, steak, pork, lamb and lasagna.</p>
 					</div>
-			  	</div>-->
+			  	</div>
 
 
 			</div>
-		</section>
+		</section>-->
 	</main>
 
 <?php include $this->loadTemplate('customer/subtemplate/page_footer.tpl.php'); ?>
