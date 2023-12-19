@@ -103,7 +103,7 @@ class page_admin_main extends CPageAdminOnly
 		}
 		else if (!empty($_REQUEST['day']))
 		{
-			$request_date = strtotime(CGPC::do_clean($_REQUEST['day'],TYPE_STR));
+			$request_date = strtotime(CGPC::do_clean($_REQUEST['day'], TYPE_STR));
 		}
 		else if (!empty($_REQUEST['session']) && is_numeric($_REQUEST['session']))
 		{
@@ -158,15 +158,15 @@ class page_admin_main extends CPageAdminOnly
 			$this->current_store_id = CBrowserSession::getCurrentFadminStoreID();
 		}
 
-		$Store = DAO_CFactory::create('store');
-		$Store->id = $this->current_store_id;
-		$Store->find(true);
-		if (!empty($Store->hide_fadmin_home_dashboard) && (CUser::getCurrentUser()->user_type == CUser::FRANCHISE_MANAGER || CUser::getCurrentUser()->user_type == CUser::FRANCHISE_OWNER || CUser::getCurrentUser()->user_type == CUser::OPS_LEAD))
+		$DAO_store = DAO_CFactory::create('store');
+		$DAO_store->id = $this->current_store_id;
+		$DAO_store->find(true);
+		if (!empty($DAO_store->hide_fadmin_home_dashboard) && (CUser::getCurrentUser()->user_type == CUser::FRANCHISE_MANAGER || CUser::getCurrentUser()->user_type == CUser::FRANCHISE_OWNER || CUser::getCurrentUser()->user_type == CUser::OPS_LEAD))
 		{
 			$this->show['dashboard_snapshot'] = false;
 		}
 
-		if ($Store->store_type === CStore::DISTRIBUTION_CENTER)
+		if ($DAO_store->store_type === CStore::DISTRIBUTION_CENTER)
 		{
 			$passParams = array();
 			if (!empty($_GET["session"]))
@@ -183,14 +183,13 @@ class page_admin_main extends CPageAdminOnly
 
 		// temp hack for Sean Harris
 		if (CUser::getCurrentUser()->id == 658891)
-        {
-            $this->show['dashboard_snapshot'] = true;
-        }
+		{
+			$this->show['dashboard_snapshot'] = true;
+		}
 
+		$tpl->assign('storeSupportsPlatePoints', CStore::storeSupportsPlatePoints($DAO_store));
 
-		$tpl->assign('storeSupportsPlatePoints', CStore::storeSupportsPlatePoints($Store));
-
-		$sessionsArray = CSession::getMonthlySessionInfoArray($Store, $request_date);
+		$sessionsArray = CSession::getMonthlySessionInfoArray($DAO_store, $request_date);
 
 		$menu_array = CMenu::menuInfoArray($request_date);
 		$tpl->assign('selected_menu_id', 0);
@@ -214,7 +213,7 @@ class page_admin_main extends CPageAdminOnly
 		$curMenuObj = CMenu::getMenuByDate(date("Y-m-d", $request_date));
 		$menuMonth = $curMenuObj['menu_start'];
 
-		list($dashboard_update_required, $dashboard_metrics) = CDashboardMenuBased::getMetricsSnapShot($Store->id, $menuMonth);
+		list($dashboard_update_required, $dashboard_metrics) = CDashboardMenuBased::getMetricsSnapShot($DAO_store->id, $menuMonth);
 
 		$tpl->assign('menu_month', CTemplate::dateTimeFormat($menuMonth, VERBOSE_MONTH_YEAR));
 		$tpl->assign('dashboard_metrics', $dashboard_metrics);
@@ -226,7 +225,8 @@ class page_admin_main extends CPageAdminOnly
 		$tpl->assign('selected_agenda_month', date('Y-m', $request_date));
 		$tpl->assign('sessions', $sessionsArray['sessions']);
 		$tpl->assign('show', $this->show);
-		$tpl->assign('store', $Store);
+		$tpl->assign('store', $DAO_store);
+		$tpl->assign('DAO_store', $DAO_store);
 	}
 }
 

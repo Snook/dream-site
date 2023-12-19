@@ -39,12 +39,14 @@
 			</td>
 			<td><label for="nutrition">Nutritionals</label></td>
 		</tr>
-		<tr>
-			<td>
-				<input id="intro" name="intro" data-print_menu="intro" type="checkbox" />
-			</td>
-			<td><label for="intro">Meal Prep Starter Pack</label></td>
-		</tr>
+		<?php if ($this->CurrentBackOfficeStore->storeSupportsIntroOrders(CMenu::getCurrentMenuId())) { ?>
+			<tr>
+				<td>
+					<input id="intro" name="intro" data-print_menu="intro" type="checkbox" />
+				</td>
+				<td><label for="intro">Meal Prep Starter Pack</label></td>
+			</tr>
+		<?php } ?>
 		<tr>
 			<td>
 				<input id="dream_taste" name="dream_taste" data-print_menu="dream_taste" type="checkbox" />
