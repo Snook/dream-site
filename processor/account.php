@@ -312,122 +312,13 @@ class processor_account extends CPageProcessor
 		return $results;
 	}
 
-	/*
-	function reconcileSMSOptinStatus($User)
-	{
-		if ($User)
-		{
-			$User->getUserPreferences();
-		}
-
-
-		$results = array('status' => "none", 'org_state' => "", "new_state" => "");
-
-		$internal_pending_2nd_Step = false;
-		$external_pending_2nd_Step = false;
-
-		$currentSMSPhoneSetting = $User->preferences[CUser::TEXT_MESSAGE_TARGET_NUMBER]['value'];
-		$results['org_state'] = $currentSMSPhoneSetting;
-		$results['new_state'] = $currentSMSPhoneSetting;
-
-		if (!empty($currentSMSPhoneSetting) && $currentSMSPhoneSetting != CUser::UNANSWERED)
-		{
-			if (strpos($currentSMSPhoneSetting, "PENDING ") !== false)
-			{
-				// 2 step in progress
-				$currentSMSPhoneSetting = str_replace("PENDING ", "", $currentSMSPhoneSetting);
-				$internal_pending_2nd_Step = true;
-			}
-
-			$salesForce = new CSFMCLink();        // get salesforce versions
-			$prefs= $salesForce->getSMSSubscriptionStatus(CAppUtil::normalizePhoneNumber($currentSMSPhoneSetting));
-
-			if (!empty($prefs['error_occurred']))
-			{
-				// most likely a brand new account with no SF object ... so ignore
-				$results['status'] = 'error';
-			}
-			else
-			{
-				// there should be an active keyword - fadmin has them as active so what do we do?
-				$activeInSF = false;
-				if (isset($prefs['count']) && $prefs['count'] > 0)
-				{
-					// a non-zero count indicates some history for the phone number though all keywords may be inactive
-					foreach ($prefs['contacts'] as $thisContact)
-					{
-						if ($thisContact['status'] == "active")
-						{
-							$activeInSF = true;
-							break;
-						}
-						else if ($thisContact['status'] == "pending")
-						{
-							$external_pending_2nd_Step = true;
-						}
-					}
-				}
-
-				if (!$activeInSF)
-				{
-					if ($external_pending_2nd_Step && $internal_pending_2nd_Step)
-					{
-						// we are in sync and we should either type YES to the number of use our dialog to cancel the 2 step and send the single step keyword
-						$results['status'] = 'pending';
-					}
-					else if ($external_pending_2nd_Step)
-					{
-						// Mobile Connect has us as pending but we are set to "UNANSWERED"
-						// Either the guest was able to guess and send the keyword or the store opted them in but it wasn't recorded somehow (should be very rare)
-						// TODO - Ask team
-						$results['status'] = 'sf_pending';
-
-					}
-					else if ($internal_pending_2nd_Step)
-					{
-						// we have them as pending but MC has them opted out completely.
-						// TODO - Ask Team
-						$results['status'] = 'sf_inactive_dd_pending';
-					}
-					else
-					{
-						// problem: need to reconcile
-						// for now alert
-						CLog::RecordNew(CLog::ERROR, "We have active SMS number but none found in SFMC: $currentSMSPhoneSetting", "", "", true);
-						$results['status'] = 'sf_ianctive_dd_active';
-					}
-
-
-				}
-				else if ($internal_pending_2nd_Step)
-				{
-					// MC has us as active but we are set to PENDING - just update us to the use the current number
-					$User->setUserPreference(CUser::TEXT_MESSAGE_TARGET_NUMBER, CTemplate::telephoneFormat($currentSMSPhoneSetting));
-					$results['new_state'] = $currentSMSPhoneSetting;
-					$results['status'] = 'active';
-				}
-				else
-				{
-					$results['status'] = 'active';
-				}
-
-			}
-		}
-		else
-		{
-			$results['status'] = 'inactive';
-
-		}
-
-		return $results;
-	}
-*/
-
 	function runAccount()
 	{
-		if(!isset($_POST['op'])){
+		if (!isset($_POST['op']))
+		{
 			$_POST['op'] = '';
 		}
+
 		if (defined('ENABLE_EMAIL_PREFERENCE') && ENABLE_EMAIL_PREFERENCE == true)
 		{
 			if (isset($_POST['reconcile_email_prefs']))
@@ -948,9 +839,13 @@ class processor_account extends CPageProcessor
 
 		if ($_POST['op'] == 'request_data')
 		{
-			CEmail::accountRequestData(CUser::getCurrentUser());
+			// Make sure there isn't already a request
+			if (!CUser::getCurrentUser()->hasPendingDataRequest())
+			{
+				CEmail::accountRequestData(CUser::getCurrentUser());
 
-			CUserAccountManagement::createTask(CUser::getCurrentUser()->id,CUserAccountManagement::ACTION_SEND_ACCOUNT_INFORMATION);
+				CUserAccountManagement::createTask(CUser::getCurrentUser()->id, CUserAccountManagement::ACTION_SEND_ACCOUNT_INFORMATION);
+			}
 
 			echo json_encode(array(
 				'processor_success' => true,

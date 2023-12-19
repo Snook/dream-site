@@ -583,7 +583,7 @@ class CUser extends DAO_User
 					self::EVENT_COORDINATOR
 				),
 				'title' => 'Store/Franchise',
-				'link' => '/backoffice/resources',
+				'link' => '/backoffice/dashboard-activity-log',
 				'submenu' => array(
 					'admin_dashboard_activity_log' => array(
 						'access' => array(
@@ -608,21 +608,6 @@ class CUser extends DAO_User
 						'title' => 'Store Information',
 						'link' => '/backoffice/store-details',
 					),
-					'admin_resources' => array(
-						'access' => array(
-							self::HOME_OFFICE_MANAGER,
-							self::HOME_OFFICE_STAFF,
-							self::FRANCHISE_OWNER,
-							self::FRANCHISE_MANAGER,
-							self::FRANCHISE_LEAD,
-							self::FRANCHISE_STAFF,
-							self::EVENT_COORDINATOR,
-							self::GUEST_SERVER,
-							self::OPS_LEAD
-						),
-						'title' => 'Resources',
-						'link' => '/backoffice/resources',
-					),
 					'admin_coupons' => array(
 						'access' => array(
 							self::HOME_OFFICE_MANAGER,
@@ -635,19 +620,6 @@ class CUser extends DAO_User
 						),
 						'title' => 'Coupon Codes',
 						'link' => '/backoffice/coupons',
-					),
-					'admin_estore' => array(
-						'access' => array(
-							self::FRANCHISE_OWNER,
-							self::FRANCHISE_MANAGER,
-							self::FRANCHISE_LEAD,
-							self::FRANCHISE_STAFF,
-							self::GUEST_SERVER,
-							self::OPS_LEAD
-						),
-						'title' => 'Estore',
-						'link' => 'http://dreammerch.com',
-						'target' => '_blank'
 					),
 					'admin_create_franchise' => array(
 						'access' => array(self::SITE_ADMIN),
@@ -691,6 +663,21 @@ class CUser extends DAO_User
 						),
 						'title' => 'Manage Boxes',
 						'link' => '/backoffice/manage-box',
+					),
+					'admin_resources' => array(
+						'access' => array(
+							self::HOME_OFFICE_MANAGER,
+							self::HOME_OFFICE_STAFF,
+							self::FRANCHISE_OWNER,
+							self::FRANCHISE_MANAGER,
+							self::FRANCHISE_LEAD,
+							self::FRANCHISE_STAFF,
+							self::EVENT_COORDINATOR,
+							self::GUEST_SERVER,
+							self::OPS_LEAD
+						),
+						'title' => 'Links &amp; Resources',
+						'link' => '/backoffice/resources',
 					)
 				)
 			),
@@ -731,6 +718,21 @@ class CUser extends DAO_User
 						'link' => '/backoffice/resend-gift-card-emails',
 					),
 				)
+			),
+			'resources' => array(
+				'access' => array(
+					self::HOME_OFFICE_MANAGER,
+					self::HOME_OFFICE_STAFF,
+					self::FRANCHISE_OWNER,
+					self::FRANCHISE_MANAGER,
+					self::FRANCHISE_LEAD,
+					self::FRANCHISE_STAFF,
+					self::GUEST_SERVER,
+					self::EVENT_COORDINATOR,
+					self::OPS_LEAD
+				),
+				'title' => 'Links &amp; Resources',
+				'link' => '/backoffice/resources',
 			),
 			'tools' => array(
 				'access' => array(
@@ -1131,7 +1133,7 @@ class CUser extends DAO_User
 					self::EVENT_COORDINATOR
 				),
 				'title' => 'Store/Franchise',
-				'link' => '/backoffice/resources',
+				'link' => '/backoffice/dashboard-activity-log',
 				'submenu' => array(
 					'admin_dashboard_activity_log' => array(
 						'access' => array(
@@ -1155,21 +1157,6 @@ class CUser extends DAO_User
 						),
 						'title' => 'Store Information',
 						'link' => '/backoffice/store-details',
-					),
-					'admin_resources' => array(
-						'access' => array(
-							self::HOME_OFFICE_MANAGER,
-							self::HOME_OFFICE_STAFF,
-							self::FRANCHISE_OWNER,
-							self::FRANCHISE_MANAGER,
-							self::FRANCHISE_LEAD,
-							self::FRANCHISE_STAFF,
-							self::EVENT_COORDINATOR,
-							self::GUEST_SERVER,
-							self::OPS_LEAD
-						),
-						'title' => 'Resources',
-						'link' => '/backoffice/resources',
 					),
 					'admin_coupons' => array(
 						'access' => array(
@@ -1207,19 +1194,6 @@ class CUser extends DAO_User
 						) : array()),
 						'title' => 'Inventory Manager',
 						'link' => '/backoffice/menu-inventory-mgr',
-					),
-					'admin_estore' => array(
-						'access' => array(
-							self::FRANCHISE_OWNER,
-							self::FRANCHISE_MANAGER,
-							self::FRANCHISE_LEAD,
-							self::FRANCHISE_STAFF,
-							self::GUEST_SERVER,
-							self::OPS_LEAD
-						),
-						'title' => 'Estore',
-						'link' => 'http://dreammerch.com',
-						'target' => '_blank'
 					),
 					'admin_create_franchise' => array(
 						'access' => array(self::SITE_ADMIN),
@@ -1276,7 +1250,7 @@ class CUser extends DAO_User
 							self::OPS_LEAD
 						),
 						'title' => 'Manage Community Pick Up Locations',
-						'link' => '/backoffice/offsitelocations',
+						'link' => '/backoffice/offsitelocations'
 					)
 				)
 			),
@@ -1317,6 +1291,21 @@ class CUser extends DAO_User
 						'link' => '/backoffice/resend-gift-card-emails',
 					),
 				)
+			),
+			'resources' => array(
+				'access' => array(
+					self::HOME_OFFICE_MANAGER,
+					self::HOME_OFFICE_STAFF,
+					self::FRANCHISE_OWNER,
+					self::FRANCHISE_MANAGER,
+					self::FRANCHISE_LEAD,
+					self::FRANCHISE_STAFF,
+					self::GUEST_SERVER,
+					self::EVENT_COORDINATOR,
+					self::OPS_LEAD
+				),
+				'title' => 'Links &amp; Resources',
+				'link' => '/backoffice/resources',
 			),
 			'tools' => array(
 				'access' => array(

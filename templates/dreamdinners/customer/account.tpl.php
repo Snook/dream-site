@@ -310,8 +310,9 @@
 							<div class="row">
 								<?php if (CUser::getCurrentUser()->isCCPA_Enabled()) { ?>
 									<div class="col-lg-6 mb-2">
-										<div class="btn btn-primary btn-sm account-request-data">Request my information</div>
+										<div class="btn btn-primary btn-sm account-request-data <?php if (CUser::getCurrentUser()->hasPendingDataRequest()) { ?>disabled<?php } ?>">Request my information</div>
 										<p class="font-size-small mt-2">Create a support request to receive access to a file containing your information and how it has been collected or shared. You will be notified by email when your file is available to download.</p>
+										<p class="font-size-small text-danger account-request-data-pending collapse <?php if (CUser::getCurrentUser()->hasPendingDataRequest()) { ?>show<?php } ?>">The request for a copy of your account information has been submitted.</p>
 									</div>
 								<?php } ?>
 								<?php if (CUser::getCurrentUser()->isAccountDeleteEligible()) { ?>

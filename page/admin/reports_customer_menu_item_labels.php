@@ -183,77 +183,36 @@ class page_admin_reports_customer_menu_item_labels extends CPageAdminOnly
 			$Form = new CForm();
 			$Form->Repost = false;
 
-			// $store_id = null;
-			// if ( !empty($this->currentStore) && $this->currentStore )
-			// $store_id = $this->currentStore;
-
-			$lastMenu = 0;
-			$curMenu = 100000;
-			$activeMenus = CMenu::getActiveMenuArray();
-			foreach ($activeMenus as $thisMenu)
-			{
-				if ($thisMenu['id'] > $lastMenu)
-				{
-					$lastMenu = $thisMenu['id'];
-				}
-				if ($thisMenu['id'] < $curMenu)
-				{
-					$curMenu = $thisMenu['id'];
-				}
-			}
-
-			$futureMenu = $lastMenu + 1;
-			$futureMenuTest = new DAO();
-			$futureMenuTest->query("select * from menu m
-									join menu_to_menu_item mmi on mmi.menu_id = m.id and isnull(mmi.store_id)
-									where m.id = $futureMenu");
-
-			if ($futureMenuTest->N > 0)
-			{
-				$lastMenu++;
-			}
-
 			// Get menu info
-			$Menu = DAO_CFactory::create('menu');
-
-			$Menu->selectAdd();
-			$Menu->selectAdd("menu.*");
-
-			$firstMenu = $lastMenu - 12;
-
-			if ($menu_id > 0 && $menu_id < $firstMenu)
-			{
-				$firstMenu = $menu_id;
-			}
-
-			$Menu->whereAdd("menu.id <= $lastMenu and menu.id >= $firstMenu");
-			$Menu->orderBy("menu.id DESC");
-			$Menu->find();
+			$DAO_menu = DAO_CFactory::create('menu', true);
+			$DAO_menu->limit(12);
+			$DAO_menu->orderBy("menu.id DESC");
+			$DAO_menu->find();
 			$menu_array = array();
 			$ft_menu_array = array();
 			$menu_months = array();
 
-			while ($Menu->fetch())
+			while ($DAO_menu->fetch())
 			{
-				$menu_array[$Menu->id] = CTemplate::dateTimeFormat($Menu->menu_start, "%B %Y");
+				$menu_array[$DAO_menu->id] = CTemplate::dateTimeFormat($DAO_menu->menu_start, "%B %Y");
 
-				if ($Menu->id > 137)
+				if ($DAO_menu->id > 137)
 				{
-					$ft_menu_array[$Menu->id] = CTemplate::dateTimeFormat($Menu->menu_start, "%B %Y");
+					$ft_menu_array[$DAO_menu->id] = CTemplate::dateTimeFormat($DAO_menu->menu_start, "%B %Y");
 				}
 
-				$menu_months[$Menu->id] = $Menu->menu_start;
+				if (date('Y-m-d') > $DAO_menu->menu_start && date('Y-m-d') < $DAO_menu->global_menu_end_date)
+				{
+					$curMenu = $DAO_menu->id;
+				}
+
+				$menu_months[$DAO_menu->id] = $DAO_menu->menu_start;
 			}
 
 			if (!empty($_REQUEST["menuid"]) && !array_key_exists($_REQUEST["menuid"], $menu_array) && is_numeric($_REQUEST["menuid"]))
 			{
 				$menu_array[$_REQUEST["menuid"]] = $_REQUEST["menuid"];
 				$ft_menu_array[$_REQUEST["menuid"]] = $_REQUEST["menuid"];
-			}
-
-			if ($menu_id > 0)
-			{
-				$curMenu = $menu_id;
 			}
 
 			$Form->DefaultValues['menus'] = $curMenu;
