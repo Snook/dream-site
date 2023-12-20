@@ -383,6 +383,11 @@ class page_admin_session_mgr_delivered extends CPageAdminOnly
 
 		$CurMonthText = date("F", $currentMenuTS);
 
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->id = $currentMenu;
+		$DAO_menu->find(true);
+
+		$tpl->assign('DAO_menu', $DAO_menu);
 		$tpl->assign('page_title', 'Session Management');
 		$tpl->assign('rows', $calendarRows);
 		//	$tpl->assign('dbg', self::$sessionArray );

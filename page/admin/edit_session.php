@@ -264,7 +264,7 @@ class page_admin_edit_session extends CPageAdminOnly
 		$SessionForm->DefaultValues["introductory_slots"] = ($Store->storeSupportsIntroOrders($Menu->id)) ? $Session->introductory_slots : 0;
 
 		$SessionForm->DefaultValues["standard_session_type_subtype"] = ((!empty($Session->session_password) ? CSession::PRIVATE_SESSION : CSession::STANDARD));
-		$session_types = array(CSession::STANDARD => 'Assembly Session');
+		$session_types = array(CSession::STANDARD => 'Assembly');
 
 		if ($Session->isMadeForYou() || $Store->supports_special_events)
 		{

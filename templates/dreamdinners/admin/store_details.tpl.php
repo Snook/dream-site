@@ -454,7 +454,7 @@
 					<td class="bgcolor_dark catagory_row" colspan="2">Calendar Order Type Descriptions</td>
 				</tr>
 				<tr>
-					<td class="bgcolor_light" style="text-align: right;">Assembly Sessions</td>
+					<td class="bgcolor_light" style="text-align: right;">Assembly</td>
 					<td class="bgcolor_light"><?php echo $this->form_store_details['assembly_session_desc_html']; ?></td>
 				</tr>
 				<tr>

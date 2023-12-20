@@ -1365,7 +1365,8 @@ class CTemplate extends Savant2
 				return "Made For You";
 			case CTemplate::STANDARD:
 			default:
-				return "Assembly Session";
+				return "Assembly
+				.";
 		}
 	}
 
