@@ -239,7 +239,7 @@ class page_admin_create_session extends CPageAdminOnly
 			$SessionForm->DefaultValues["session_delivery_fee"] = $Store->delivery_fee;
 		}
 
-		$session_types = array(CSession::STANDARD => 'Assembly Session');
+		$session_types = array(CSession::STANDARD => 'Assembly');
 
 		if ($Store->supports_special_events)
 		{

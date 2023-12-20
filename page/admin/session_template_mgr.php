@@ -6,7 +6,6 @@ require_once("includes/CPageAdminOnly.inc");
 require_once 'includes/CCalendar.inc';
 require_once 'includes/DAO/BusinessObject/CSession.php';
 
-
 /*
  *
  *  Delivery support:
@@ -15,7 +14,6 @@ require_once 'includes/DAO/BusinessObject/CSession.php';
  *
  *
  */
-
 
 function build24HourTime($hour, $minutes, $am_pm)
 {
@@ -81,21 +79,32 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 		$this->runSiteAdmin();
 	}
 
-	static $DayNameToNumMap = array("SUN" => 0, "MON" => 1, "TUE" => 2, "WED" => 3., "THU" => 4, "FRI" => 5, "SAT" => 6);
-
+	static $DayNameToNumMap = array(
+		"SUN" => 0,
+		"MON" => 1,
+		"TUE" => 2,
+		"WED" => 3.,
+		"THU" => 4,
+		"FRI" => 5,
+		"SAT" => 6
+	);
 
 	static function validateItemTime($setID, $day, $time, $duration, $type)
 	{
 
 		if ($type != CSession::STANDARD)
 		{
-			return array('valid' => true, "type" => "", "amount" => 0);
+			return array(
+				'valid' => true,
+				"type" => "",
+				"amount" => 0
+			);
 		}
 
 		$testDayNum = self::$DayNameToNumMap[$day];
 		$testTime = explode(':', $time);
-		$testTime = ($testTime[0]*60) + ($testTime[1]) + ($testTime[2]/60);
-		$testTime = ($testDayNum * 1440) +  $testTime;
+		$testTime = ($testTime[0] * 60) + ($testTime[1]) + ($testTime[2] / 60);
+		$testTime = ($testDayNum * 1440) + $testTime;
 
 		$testEndTime = $testTime + $duration;
 
@@ -107,49 +116,70 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 		{
 			$dayNum = self::$DayNameToNumMap[$curSet->start_day];
 			$time = explode(':', $curSet->start_time);
-			$time = ($time[0]*60) + ($time[1]) + ($time[2]/60);
-			$relTime = ($dayNum * 1440) +  $time;
+			$time = ($time[0] * 60) + ($time[1]) + ($time[2] / 60);
+			$relTime = ($dayNum * 1440) + $time;
 
-			$curSetList[] = array("time" => $relTime, "duration" => $curSet->duration_minutes);
+			$curSetList[] = array(
+				"time" => $relTime,
+				"duration" => $curSet->duration_minutes
+			);
 		}
 
 		usort($curSetList, 'sort_by_relative_times');
 
-		foreach($curSetList as $thisSession)
+		foreach ($curSetList as $thisSession)
 		{
 			$thisSessionEnd = $thisSession['time'] + $thisSession["duration"];
 
 			if ($thisSessionEnd == $testEndTime && $thisSession['time'] == $testTime)
 			{
-				return array('valid' => false, "type" => "dupe", "amount" => 0);
+				return array(
+					'valid' => false,
+					"type" => "dupe",
+					"amount" => 0
+				);
 			}
-
 
 			if ($testEndTime > $thisSession['time'] && $testEndTime < $thisSessionEnd)
 			{
 				// problem - ends during another session
-				return array('valid' => false, "type" => "tail", "amount" => $testEndTime - $thisSession['time']);
+				return array(
+					'valid' => false,
+					"type" => "tail",
+					"amount" => $testEndTime - $thisSession['time']
+				);
 			}
 			else if ($testTime > $thisSession['time'] && $testTime < $thisSessionEnd)
 			{
 				// problem - begins during another session
-				return array('valid' => false, "type" => "head", "amount" => $thisSession['time'] - $testTime);
+				return array(
+					'valid' => false,
+					"type" => "head",
+					"amount" => $thisSession['time'] - $testTime
+				);
 			}
 			else if ($testTime < $thisSession['time'] && $testEndTime > $thisSessionEnd)
 			{
 				// problem - engulfs another session
-				return array('valid' => false, "type" => "contains", "amount" => 0);
+				return array(
+					'valid' => false,
+					"type" => "contains",
+					"amount" => 0
+				);
 			}
 
-			if ( $thisSession['time'] > $testTime)
+			if ($thisSession['time'] > $testTime)
 			{
 				// in the clear
 				break;
 			}
 		}
 
-		return array('valid' => true, "type" => "", "amount" => 0);
-
+		return array(
+			'valid' => true,
+			"type" => "",
+			"amount" => 0
+		);
 	}
 
 	function runSiteAdmin()
@@ -238,7 +268,7 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 
 		if (isset($_REQUEST['menu_id']) && $_REQUEST['menu_id'])
 		{
-			$defaultMonth = CGPC::do_clean($_REQUEST['menu_id'],TYPE_INT);
+			$defaultMonth = CGPC::do_clean($_REQUEST['menu_id'], TYPE_INT);
 		}
 
 		//-----------------------------------------determine the current set
@@ -410,13 +440,13 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 
 			$newItem->session_weekly_template_id = $currentSet->id;
 			$newItem->start_day = $_POST['start_day'];
-			$newItem->start_time = date("H:i:s",strtotime($_POST["start_time"])); //Build24HourTime($_POST["time_hour"], $_POST["time_minutes"], $_POST["time_am_pm"]);
+			$newItem->start_time = date("H:i:s", strtotime($_POST["start_time"])); //Build24HourTime($_POST["time_hour"], $_POST["time_minutes"], $_POST["time_am_pm"]);
 
 			$validationResult = self::validateItemTime($currentSet->id, $newItem->start_day, $newItem->start_time, $_POST['duration_minutes'], $_POST['session_type']);
 
 			if ($validationResult['valid'])
 			{
-				$newItem->session_type =  $_POST['session_type'];
+				$newItem->session_type = $_POST['session_type'];
 				$newItem->duration_minutes = $_POST['duration_minutes'];
 				$newItem->available_slots = $_POST['available_slots'];
 				$newItem->introductory_slots = $_POST['introductory_slots'];
@@ -493,9 +523,9 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 
 			$ItemForm->DefaultValues = array_merge($ItemForm->DefaultValues, $Item->toArray());
 			$timeAsTS = strtotime($Item->start_time);
-		//	$ItemForm->DefaultValues['time_minutes'] = date('i', $timeAsTS);
-		//	$ItemForm->DefaultValues['time_hour'] = date('g', $timeAsTS);
-		//	$ItemForm->DefaultValues['time_am_pm'] = date('a', $timeAsTS);
+			//	$ItemForm->DefaultValues['time_minutes'] = date('i', $timeAsTS);
+			//	$ItemForm->DefaultValues['time_hour'] = date('g', $timeAsTS);
+			//	$ItemForm->DefaultValues['time_am_pm'] = date('a', $timeAsTS);
 			$ItemForm->DefaultValues['start_time'] = date('H:i:s', $timeAsTS);
 			$ItemForm->DefaultValues['end_time'] = date('H:i:s', $timeAsTS + ($Item->duration_minutes * 60));
 
@@ -535,18 +565,18 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 
 			$ItemForm->DefaultValues["close_interval_hours"] = $storeObj->close_session_hours;
 			$ItemForm->DefaultValues['close_interval_hours'] = 24;
-			if(!empty($_REQUEST['meal_customization_close_interval']))
+			if (!empty($_REQUEST['meal_customization_close_interval']))
 			{
 				$ItemForm->DefaultValues['meal_customization_close_interval'] = $_REQUEST['meal_customization_close_interval'];
 			}
 			else
 			{
-				$ItemForm->DefaultValues['meal_customization_close_interval'] = is_null($storeObj->close_customization_session_hours)? 24 : $storeObj->close_customization_session_hours;
+				$ItemForm->DefaultValues['meal_customization_close_interval'] = is_null($storeObj->close_customization_session_hours) ? 24 : $storeObj->close_customization_session_hours;
 			}
 			$ItemForm->DefaultValues['session_type'] = CSession::STANDARD;
 			$ItemForm->DefaultValues['introductory_slots'] = $storeObj->default_intro_slots;
-		//	$ItemForm->DefaultValues['time_minutes'] = '00';
-		//	$ItemForm->DefaultValues['time_am_pm'] = 'pm';
+			//	$ItemForm->DefaultValues['time_minutes'] = '00';
+			//	$ItemForm->DefaultValues['time_am_pm'] = 'pm';
 			$ItemForm->DefaultValues['start_time'] = '12:00:00';
 			$ItemForm->DefaultValues['end_time'] = '12:00:00';
 			$ItemForm->DefaultValues['duration_minutes'] = 0;
@@ -567,40 +597,40 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 			CForm::name => 'end_time'
 		));
 
-/*
-		$ItemForm->AddElement(array(
-			CForm::type => CForm::Text,
-			CForm::maxlength => 2,
-			CForm::size => 2,
-			CForm::hour => true,
-			CForm::required => true,
-			CForm::name => 'time_hour'
-		));
+		/*
+				$ItemForm->AddElement(array(
+					CForm::type => CForm::Text,
+					CForm::maxlength => 2,
+					CForm::size => 2,
+					CForm::hour => true,
+					CForm::required => true,
+					CForm::name => 'time_hour'
+				));
 
-		$ItemForm->AddElement(array(
-			CForm::type => CForm::Text,
-			CForm::maxlength => 2,
-			CForm::size => 2,
-			CForm::minutes => true,
-			CForm::required => true,
-			CForm::name => 'time_minutes'
-		));
+				$ItemForm->AddElement(array(
+					CForm::type => CForm::Text,
+					CForm::maxlength => 2,
+					CForm::size => 2,
+					CForm::minutes => true,
+					CForm::required => true,
+					CForm::name => 'time_minutes'
+				));
 
-		$ItemForm->AddElement(array(
-			CForm::type => CForm::RadioButton,
-			CForm::name => "time_am_pm",
-			CForm::required => true,
-			CForm::value => 'am'
-		));
+				$ItemForm->AddElement(array(
+					CForm::type => CForm::RadioButton,
+					CForm::name => "time_am_pm",
+					CForm::required => true,
+					CForm::value => 'am'
+				));
 
-		$ItemForm->AddElement(array(
-			CForm::type => CForm::RadioButton,
-			CForm::name => "time_am_pm",
-			CForm::required => true,
-			CForm::value => 'pm'
-		));
+				$ItemForm->AddElement(array(
+					CForm::type => CForm::RadioButton,
+					CForm::name => "time_am_pm",
+					CForm::required => true,
+					CForm::value => 'pm'
+				));
 
-*/
+		*/
 
 		$ItemForm->AddElement(array(
 			CForm::type => CForm::Text,
@@ -670,17 +700,19 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 		));
 
 		//TODO: Added Delivered session type
-        $session_type_array = array(CSession::STANDARD => "Assembly",
+		$session_type_array = array(
+			CSession::STANDARD => "Assembly",
 			CSession::SPECIAL_EVENT => "Made for You",
 			CSession::DELIVERY => "Delivery"
-        );
+		);
 
-        $ItemForm->AddElement(array(CForm::type=> CForm::DropDown,
-            CForm::onChangeSubmit => false,
-            CForm::allowAllOption => true,
-            CForm::options => $session_type_array,
-            CForm::name => 'session_type'));
-
+		$ItemForm->AddElement(array(
+			CForm::type => CForm::DropDown,
+			CForm::onChangeSubmit => false,
+			CForm::allowAllOption => true,
+			CForm::options => $session_type_array,
+			CForm::name => 'session_type'
+		));
 
 		$ItemForm->AddElement(array(
 			CForm::type => CForm::Hidden,
@@ -755,9 +787,9 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 				throw new exception ("No item_id supplied for item update request.");
 			}
 
-			$updateItem->id = CGPC::do_clean($_REQUEST['edited_item_id'],TYPE_INT);
+			$updateItem->id = CGPC::do_clean($_REQUEST['edited_item_id'], TYPE_INT);
 			$updateItem->setFrom($ItemForm->values());
-			$updateItem->start_time = date("H:i:s",strtotime(CGPC::do_clean($_POST["start_time"],TYPE_STR))); //Build24HourTime($_POST["time_hour"], $_POST["time_minutes"], $_POST["time_am_pm"]);
+			$updateItem->start_time = date("H:i:s", strtotime(CGPC::do_clean($_POST["start_time"], TYPE_STR))); //Build24HourTime($_POST["time_hour"], $_POST["time_minutes"], $_POST["time_am_pm"]);
 
 			$updateItem->session_type = $ItemForm->value('session_type');
 			$updateItem->session_weekly_template_id = $currentSet->id;
@@ -786,18 +818,21 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 
 		while ($currentItems->fetch())
 		{
-            $session_type = "std";
-            if ($currentItems->session_type == CSession::SPECIAL_EVENT)
-            {
-                $session_type = 'm4u';
+			$session_type = CCalendar::sessionTypeNote(CSession::STANDARD);
+			if ($currentItems->session_type == CSession::SPECIAL_EVENT)
+			{
+				$session_type = CCalendar::sessionTypeNote(CSession::SPECIAL_EVENT);
 			}
 			else if ($currentItems->session_type == CSession::DELIVERY)
-            {
-                $session_type = 'dlvr';
-            }
+			{
+				$session_type = CCalendar::sessionTypeNote(CSession::DELIVERY);
+			}
 
-            $asTS = strtotime($currentItems->start_time);
-            $items_array[$dayConversionArray[$currentItems->start_day]][$currentItems->id] = array('date' => date("g:i a", $asTS), 'type' => $session_type) ;
+			$asTS = strtotime($currentItems->start_time);
+			$items_array[$dayConversionArray[$currentItems->start_day]][$currentItems->id] = array(
+				'date' => date("g:i a", $asTS),
+				'type' => $session_type
+			);
 		}
 
 		//-------------------------------------------complete setup of set management form
@@ -846,6 +881,8 @@ class page_admin_session_template_mgr extends CPageAdminOnly
 		$itemFormArray = $ItemForm->render(true);
 
 		//----------------------------------------------------- assign to template
+		$tpl->assign('DAO_menu', CMenu::getCurrentMenu());
+
 		$tpl->assign('current_set', $currentSet->toArray());
 		$tpl->assign('this_set_id', $set_id);
 		$tpl->assign('items', $items_array);
@@ -867,7 +904,6 @@ function sort_by_relative_times_repair_mode($a, $b)
 	}
 
 	return ($timeA < $timeB) ? -1 : 1;
-
 }
 
 /*

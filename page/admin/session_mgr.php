@@ -116,10 +116,7 @@ class page_admin_session_mgr extends CPageAdminOnly
 		}
 
 		// Get menu info
-		$Menu = DAO_CFactory::create('menu');
-
-		$Menu->selectAdd();
-		$Menu->selectAdd("menu.*");
+		$Menu = DAO_CFactory::create('menu', true);
 
 		$start_date = mktime(0, 0, 0, $startMonth, 1, $startYear);
 		$start_date_sql = date("Y-m-d", $start_date);
@@ -401,6 +398,11 @@ class page_admin_session_mgr extends CPageAdminOnly
 
 		$CurMonthText = date("F", $currentMenuTS);
 
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->id = $currentMenu;
+		$DAO_menu->find(true);
+
+		$tpl->assign('DAO_menu', $DAO_menu);
 		$tpl->assign('page_title', 'Session Management');
 		$tpl->assign('rows', $calendarRows);
 		//	$tpl->assign('dbg', self::$sessionArray );

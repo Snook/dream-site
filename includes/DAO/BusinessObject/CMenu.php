@@ -136,6 +136,15 @@ class CMenu extends DAO_Menu
 		return $DAO_menu->id;
 	}
 
+	static function getCurrentMenu()
+	{
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->id = self::getCurrentMenuId();
+		$DAO_menu->find(true);
+
+		return $DAO_menu;
+	}
+
 	static function getCurrentMenuId()
 	{
 		if (self::$curMenuId === null)
