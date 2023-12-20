@@ -39457,6 +39457,50 @@ td.statusbar_notdone {
   font-size: 9px;
 }
 
+.calendar_nothing {
+  azimuth: behind;
+}
+
+.calendar_on_text_on {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 115%;
+}
+
+.calendar_on_text_on_small {
+  font-family: Trebuchet MS, serif, verdana, sans-serif;
+  font-size: 9px;
+}
+
+.calendar_on_text_off {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  line-height: 75%;
+}
+
+A.calendar_on_text_off {
+  color: #666;
+}
+
+.calendar_on_text_not_current {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  line-height: 75%;
+}
+
+A.calendar_on_text_not_current {
+  color: #8af;
+}
+
+.calendar_off {
+  background: #e4e4e4;
+  font-family: Trebuchet MS, serif, Verdana, sans-serif;
+  font-size: 9px;
+}
+
+.calendar_bg {
+  background: #d9d9d9;
+}
+
 .notesPopup {
   background-color: #faf7e6;
   display: none;
