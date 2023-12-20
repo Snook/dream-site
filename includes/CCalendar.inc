@@ -69,15 +69,16 @@ class CCalendar
 			case CSession::WALK_IN:
 				return '<span class="note_calendar note_walk_in' . $closed . '" data-tooltip="Walk-In">' . self::sessionTypeTiny($type) . '</span>';
 			case CSession::DELIVERY:
-				return '<span class="note_calendar note_delivery' . $closed . '" data-tooltip="Made For You - Delivery">' . self::sessionTypeTiny($type) . '</span>';
+				return '<span class="note_calendar note_delivery' . $closed . '" data-tooltip="Home Delivery">' . self::sessionTypeTiny($type) . '</span>';
 			case CSession::DELIVERY_PRIVATE:
-				return '<span class="note_calendar note_delivery_private' . $closed . '" data-tooltip="Made For You - Delivery Private">' . self::sessionTypeTiny($type) . '</span>';
+				return '<span class="note_calendar note_delivery_private' . $closed . '" data-tooltip="Home Delivery - Private">' . self::sessionTypeTiny($type) . '</span>';
 			case CSession::REMOTE_PICKUP:
-				return '<span class="note_calendar note_remote_pickup' . $closed . '" data-tooltip="Made For You - Community Pick Up">' . self::sessionTypeTiny($type) . '</span>';
+				return '<span class="note_calendar note_remote_pickup' . $closed . '" data-tooltip="Community Pick Up">' . self::sessionTypeTiny($type) . '</span>';
 			case CSession::REMOTE_PICKUP_PRIVATE:
-				return '<span class="note_calendar note_remote_pickup_private' . $closed . '" data-tooltip="Made For You - Community Pick Up - Private">' . self::sessionTypeTiny($type) . '</span>';
+				return '<span class="note_calendar note_remote_pickup_private' . $closed . '" data-tooltip="Community Pick Up - Private">' . self::sessionTypeTiny($type) . '</span>';
 			case CSession::SPECIAL_EVENT:
-				return '<span class="note_calendar note_special_event' . $closed . '" data-tooltip="Made For You">' . self::sessionTypeTiny($type) . '</span>';
+				return '<span class="note_calendar 
+				note_special_event' . $closed . '" data-tooltip="Pick Up">' . self::sessionTypeTiny($type) . '</span>';
 			case CSession::DREAM_TASTE:
 				return '<span class="note_calendar note_dream_taste' . $closed . '" data-tooltip="Meal Prep Workshop">' . self::sessionTypeTiny($type) . '</span>';
 			case CSession::FUNDRAISER:
@@ -87,9 +88,9 @@ class CCalendar
 			case CSession::TODD:
 				return '<span class="note_calendar note_todd' . $closed . '" data-tooltip="Taste of Dream Dinners">' . self::sessionTypeTiny($type) . '</span>';
 			case CSession::PRIVATE_SESSION:
-				return '<span class="note_calendar note_private' . $closed . '" data-tooltip="Private Session">' . self::sessionTypeTiny($type) . '</span>';
+				return '<span class="note_calendar note_private' . $closed . '" data-tooltip="Assembly - Private Party">' . self::sessionTypeTiny($type) . '</span>';
 			case CSession::STANDARD:
-				return '<span class="note_calendar note_standard' . $closed . '" data-tooltip="Assembly session">' . self::sessionTypeTiny($type) . '</span>';
+				return '<span class="note_calendar note_standard' . $closed . '" data-tooltip="Assembly">' . self::sessionTypeTiny($type) . '</span>';
 		}
 	}
 
@@ -99,44 +100,28 @@ class CCalendar
 		{
 			case CSession::DELIVERY:
 				return 'HD';
-				break;
 			case CSession::DELIVERY_PRIVATE:
 				return 'HDP';
-				break;
 			case CSession::REMOTE_PICKUP:
 				return 'CP';
-				break;
 			case CSession::REMOTE_PICKUP_PRIVATE:
 				return 'CPP';
-				break;
 			case CSession::SPECIAL_EVENT:
-				return 'MFY';
-				if(!is_null($subtypte) && $subtype ==  CSession::WALK_IN){
-					return 'WI';
-				}
-				return 'MFY';
-				break;
+				return 'P';
 			case CSession::TODD:
 				return 'T';
-				break;
 			case CSession::DREAM_TASTE:
 				return 'MPW';
-				break;
 			case CSession::PRIVATE_SESSION:
-				return 'P';
-				break;
+				return 'AP';
 			case CSession::STANDARD:
 				return 'A';
-				break;
 			case CSession::FUNDRAISER:
 				return 'F';
-				break;
 			case 'FUNDRAISER_CURBSIDE':
 				return 'FC';
-				break;
 			case CSession::WALK_IN:
 				return 'WI';
-				break;
 			default:
 				return $type;
 		}
