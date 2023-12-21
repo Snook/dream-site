@@ -13,13 +13,13 @@ class processor_admin_fadmin_home extends CPageProcessor
 {
 
 	private $emergency_mode = false;
-    function __construct()
-    {
-        $this->inputTypeMap['note'] = TYPE_NOCLEAN;
-    }
 
+	function __construct()
+	{
+		$this->inputTypeMap['note'] = TYPE_NOCLEAN;
+	}
 
-    function runEventCoordinator()
+	function runEventCoordinator()
 	{
 		$this->mainProcessor();
 	}
@@ -71,7 +71,6 @@ class processor_admin_fadmin_home extends CPageProcessor
 			$this->emergency_mode = true;
 		}
 
-
 		if (!empty($_POST['op']))
 		{
 			// Get user plateploints tooltip
@@ -106,7 +105,6 @@ class processor_admin_fadmin_home extends CPageProcessor
 				$curMenuObj = CMenu::getMenuByDate($_POST['dashboard_date']);
 				$menuMonth = $curMenuObj['menu_start'];
 
-
 				list($dashboard_update_required, $dashboard_metrics_info) = CDashboardMenuBased::getMetricsSnapShot($_POST['store_id'], $menuMonth);
 
 				if ($dashboard_update_required)
@@ -123,10 +121,12 @@ class processor_admin_fadmin_home extends CPageProcessor
 
 				$tpl->assign('dashboard_metrics', $dashboard_metrics_info);
 
-
-				if( CBrowserSession::getCurrentFadminStoreType() === CStore::DISTRIBUTION_CENTER){
+				if (CBrowserSession::getCurrentFadminStoreType() === CStore::DISTRIBUTION_CENTER)
+				{
 					$dashboard_metrics = $tpl->fetch('admin/subtemplate/main_dashboard_summary_delivered.tpl.php');
-				}else{
+				}
+				else
+				{
 					$dashboard_metrics = $tpl->fetch('admin/subtemplate/main_dashboard_summary.tpl.php');
 				}
 
@@ -142,24 +142,28 @@ class processor_admin_fadmin_home extends CPageProcessor
 			// Get agenda details
 			if ($_POST['op'] == 'agenda_details' && !empty($_POST['agenda_date']))
 			{
-				$Store = DAO_CFactory::create('store');
-				$Store->id = $_POST['store_id'];
-				$Store->find(true);
+				$DAO_store = DAO_CFactory::create('store', true);
+				$DAO_store->id = $_POST['store_id'];
+				$DAO_store->find(true);
 
 				$date = strtotime($_POST['agenda_date']);
 
 				$tmpName = 'admin/subtemplate/main_agenda.tpl.php';
 				$sessionsArray = array();
 
-				if($Store->store_type === CStore::DISTRIBUTION_CENTER){
+				if ($DAO_store->store_type === CStore::DISTRIBUTION_CENTER)
+				{
 					$tmpName = 'admin/subtemplate/main_agenda_delivered.tpl.php';
-					$sessionsArray = CSession::getMonthlySessionInfoArrayForDelivered($Store, $date, false, false, false, true, false);
-				}else{
-					$sessionsArray = CSession::getMonthlySessionInfoArray($Store, $date, false, false, false, false, false, false,false);
+					$sessionsArray = CSession::getMonthlySessionInfoArrayForDelivered($DAO_store, $date, false, false, false, true, false);
+				}
+				else
+				{
+					$sessionsArray = CSession::getMonthlySessionInfoArray($DAO_store, $date, false, false, false, false, false, false, false);
 				}
 
 				$tpl = new CTemplate();
 
+				$tpl->assign('DAO_store', $DAO_store);
 				$tpl->assign('sessions', $sessionsArray['sessions']);
 
 				$agenda_info = $tpl->fetch($tmpName);
@@ -179,15 +183,16 @@ class processor_admin_fadmin_home extends CPageProcessor
 
 				$session_id = $_POST['session_id'];
 
-
 				$sessionData = CSession::getSessionDetail($session_id, false);
-				if( $sessionData['session_type'] === CSession::DELIVERED)
+				if ($sessionData['session_type'] === CSession::DELIVERED)
 				{
 					$session_info_array = CSession::getDeliveredSessionDetailArray($session_id, true);
-				}else{
+				}
+				else
+				{
 					$session_info_array = CSession::getSessionDetailArray($session_id);
 				}
-				$minimum = COrderMinimum::fetchInstance( COrderMinimum::STANDARD_ORDER_TYPE, $sessionData['store_id'], $sessionData['menu_id']);
+				$minimum = COrderMinimum::fetchInstance(COrderMinimum::STANDARD_ORDER_TYPE, $sessionData['store_id'], $sessionData['menu_id']);
 				$tpl->assign('order_minimum', $minimum);
 
 				foreach ($session_info_array[$session_id]['bookings'] as $id => &$data)
@@ -208,9 +213,7 @@ class processor_admin_fadmin_home extends CPageProcessor
 					}
 				}
 
-				if (($session_info_array[$session_id]['session_type'] == CSession::SPECIAL_EVENT
-					|| $session_info_array[$session_id]['session_type'] == CSession::STANDARD)
-					&& $session_info_array[$session_id]['remaining_intro_slots'] > 0)
+				if (($session_info_array[$session_id]['session_type'] == CSession::SPECIAL_EVENT || $session_info_array[$session_id]['session_type'] == CSession::STANDARD) && $session_info_array[$session_id]['remaining_intro_slots'] > 0)
 				{
 					$DAO_menu = DAO_CFactory::create('menu', true);
 					$DAO_menu->id = $sessionData["menu_id"];
@@ -240,12 +243,12 @@ class processor_admin_fadmin_home extends CPageProcessor
 					$session_details = $tpl->fetch('admin/subtemplate/emergency_main_session_details.tpl.php');
 					$booking_details = $tpl->fetch('admin/subtemplate/emergency_main_booked_guests.tpl.php');
 				}
-				else if( $sessionData['session_type'] === CSession::DELIVERED)
+				else if ($sessionData['session_type'] === CSession::DELIVERED)
 				{
 					$session_details = $tpl->fetch('admin/subtemplate/main_session_details_delivered.tpl.php');
 					$booking_details = $tpl->fetch('admin/subtemplate/main_booked_guests_delivered.tpl.php');
 				}
-				else if( $sessionData['session_type_subtype'] === CSession::WALK_IN)
+				else if ($sessionData['session_type_subtype'] === CSession::WALK_IN)
 				{
 					$session_details = $tpl->fetch('admin/subtemplate/main_session_details_walk_in.tpl.php');
 					$booking_details = $tpl->fetch('admin/subtemplate/main_booked_guests.tpl.php');
@@ -255,7 +258,6 @@ class processor_admin_fadmin_home extends CPageProcessor
 					$session_details = $tpl->fetch('admin/subtemplate/main_session_details.tpl.php');
 					$booking_details = $tpl->fetch('admin/subtemplate/main_booked_guests.tpl.php');
 				}
-
 
 				$booking_details = mb_convert_encoding($booking_details, 'UTF-8', 'UTF-8');
 
@@ -268,7 +270,7 @@ class processor_admin_fadmin_home extends CPageProcessor
 					'session_details' => $session_details,
 					'booking_details' => $booking_details,
 					'session_info' => $session_info,
-					'session_data'=> $sessionData
+					'session_data' => $sessionData
 				));
 			}
 
@@ -289,13 +291,16 @@ class processor_admin_fadmin_home extends CPageProcessor
 
 				//$date_details = $tpl->fetch('admin/subtemplate/main_date_details.tpl.php');
 
-				if( CBrowserSession::getCurrentFadminStoreType() === CStore::DISTRIBUTION_CENTER){
+				if (CBrowserSession::getCurrentFadminStoreType() === CStore::DISTRIBUTION_CENTER)
+				{
 					reset($session_info_array);
 					$session_id = key($session_info_array);
 					$session_info_delivered = CSession::getDeliveredSessionDetailArray($session_id, true);
 					$tpl->assign('session_info_delivered', $session_info_delivered[$session_id]);
 					$date_details = $tpl->fetch('admin/subtemplate/main_date_details_delivered.tpl.php');
-				}else{
+				}
+				else
+				{
 					$date_details = $tpl->fetch('admin/subtemplate/main_date_details.tpl.php');
 				}
 
@@ -303,15 +308,17 @@ class processor_admin_fadmin_home extends CPageProcessor
 
 				$tpl->assign('store_supports_plate_points', CStore::storeSupportsPlatePoints($_POST['store_id']));
 
-				$minimum = COrderMinimum::fetchInstance( COrderMinimum::STANDARD_ORDER_TYPE, $_POST['store_id'], $date_info_array['menu_id']);
+				$minimum = COrderMinimum::fetchInstance(COrderMinimum::STANDARD_ORDER_TYPE, $_POST['store_id'], $date_info_array['menu_id']);
 				$tpl->assign('order_minimum', $minimum);
-				foreach ($session_info_array AS $session_id => $session_info)
+				foreach ($session_info_array as $session_id => $session_info)
 				{
 					$tpl->assign('session_info', $session_info_array[$session_id]);
 					if ($this->emergency_mode)
 					{
 						$booking_details .= $tpl->fetch('admin/subtemplate/emergency_main_booked_guests.tpl.php');
-					}else if( $session_info_array[$session_id]['session_type'] === CSession::DELIVERED){
+					}
+					else if ($session_info_array[$session_id]['session_type'] === CSession::DELIVERED)
+					{
 						$tpl->assign('session_info', $session_info_delivered[$session_id]);
 						$booking_details = $tpl->fetch('admin/subtemplate/main_booked_guests_delivered.tpl.php');
 					}
@@ -410,9 +417,9 @@ class processor_admin_fadmin_home extends CPageProcessor
 				// array to object for sendHostessNotification
 				$Session = json_decode(json_encode($session_info_array[$session_id]), false);
 
-				$Store = DAO_CFactory::create('store');
-				$Store->id = $_POST['store_id'];
-				$Store->find(true);
+				$DAO_store = DAO_CFactory::create('store');
+				$DAO_store->id = $_POST['store_id'];
+				$DAO_store->find(true);
 
 				CEmail::sendHostessNotification($Session->session_host_primary_email, $Session->session_host_firstname . ' ' . $Session->session_host_lastname, $Session);
 

@@ -821,7 +821,9 @@ function handle_agenda_click()
 								{
 									$('#session-' + selected_session_id + ' > span.attending').html((json.session_info.booked_count * 1) + (json.session_info.num_rsvps * 1));
 								}
-								$('#session-' + selected_session_id + ' > span.remaining').html(json.session_info.remaining_slots + '/' + (json.session_info.remaining_intro_slots > 0 ? json.session_info.remaining_intro_slots : 0));
+
+								$('#session-' + selected_session_id + ' > span.remaining[data-stupports_intro="true"]').html(json.session_info.remaining_slots + '/' + (json.session_info.remaining_intro_slots > 0 ? json.session_info.remaining_intro_slots : 0));
+								$('#session-' + selected_session_id + ' > span.remaining[data-stupports_intro="false"]').html(json.session_info.remaining_slots);
 							}
 
 							if (json.session_info.session_publish_state == 'PUBLISHED')

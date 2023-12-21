@@ -60,14 +60,8 @@ try
 				$line .= $coreItem['recipe_id'] . ($coreItem['pricing_type'] == 'HALF' ? '_M' : '_L') . '|';
 				$line .= $coreItem['display_title'] . '|';
 				$line .= $coreItem['base_price'] . '|';
-				if (empty($coreItem['override_price']))
-				{
-					$line .= $coreItem['price'] . '|';
-				}
-				else
-				{
-					$line .= $coreItem['override_price'] . '|';
-				}
+				$line .= $coreItem["pricing_tiers"][$DAO_store->core_pricing_tier][$coreItem["pricing_type"]]->price . '|';
+				$line .= (($coreItem['override_price'] != $coreItem["pricing_tiers"][$DAO_store->core_pricing_tier][$coreItem["pricing_type"]]->price) ? $coreItem['override_price'] : '') . '|';
 				$line .= ($coreItem['pricing_type'] == 'HALF' ? 'Medium' : 'Large') . '|';
 				$DAO_order_item = DAO_CFactory::create('order_item', true);
 				$DAO_order_item->query("
@@ -107,7 +101,8 @@ try
 			'Recipe Id',
 			'Recipe Name',
 			'Base Price',
-			'Price',
+			'Tier Price',
+			'Override Price',
 			'Size',
 			'Sold'
 		);
@@ -133,8 +128,12 @@ try
 			'align' => 'center',
 			'type' => 'currency'
 		);
-		$columnDescs['J'] = array('align' => 'left');
+		$columnDescs['J'] = array(
+			'align' => 'center',
+			'type' => 'currency'
+		);
 		$columnDescs['K'] = array('align' => 'left');
+		$columnDescs['L'] = array('align' => 'left');
 
 		require_once('ExcelExport.inc');
 

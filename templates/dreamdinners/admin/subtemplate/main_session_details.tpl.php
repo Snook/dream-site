@@ -14,7 +14,7 @@
 		<td class="label">Booked Standard</td>
 		<td class="value"><?php echo $this->session_info['booked_standard_slots'];  if ($this->session_info['num_rsvps']) echo " (+ " . $this->session_info['num_rsvps'] . " RSVPs)"; ?></td>
 	</tr>
-	<?php if ($this->session_info['session_type'] != CSession::DREAM_TASTE) { ?>
+	<?php if (!empty($this->show_start_pack_link) && $this->session_info['session_type'] != CSession::DREAM_TASTE) { ?>
 		<tr>
 			<td class="label">Intro Slots</td>
 			<td class="value"><?php echo $this->session_info['introductory_slots']; ?></td>

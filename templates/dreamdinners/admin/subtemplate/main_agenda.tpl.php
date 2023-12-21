@@ -37,8 +37,12 @@
 						<span class="attending" data-tooltip="Booked Guests"><?php echo $session['booked_count'] + $session['num_rsvps']; ?></span>
 					<?php } ?>
 
-					<?php if($session['session_type_subtype'] != CSession::WALK_IN){?>
-						<span class="remaining" data-tooltip="<?php echo ($session['remaining_slots'] >= 0) ? 'Remaining' : 'Overbooked'; ?> Standard / Intro"><?php echo $session['remaining_slots']; ?>/<?php echo ($session['remaining_intro_slots'] > 0) ? $session['remaining_intro_slots'] : 0; ?></span>
+					<?php if($session['session_type_subtype'] != CSession::WALK_IN) { ?>
+						<?php if ($this->DAO_store->storeSupportsIntroOrders($session["menu_id"])) { ?>
+							<span class="remaining" data-stupports_intro="true" data-tooltip="<?php echo ($session['remaining_slots'] >= 0) ? 'Remaining' : 'Overbooked'; ?> Standard / Intro"><?php echo $session['remaining_slots']; ?>/<?php echo ($session['remaining_intro_slots'] > 0) ? $session['remaining_intro_slots'] : 0; ?></span>
+						<?php } else { ?>
+							<span class="remaining" data-stupports_intro="false" data-tooltip="<?php echo ($session['remaining_slots'] >= 0) ? 'Remaining' : 'Overbooked'; ?> Standard"><?php echo $session['remaining_slots']; ?></span>
+						<?php } ?>
 					<?php } ?>
 					<div class="clear"></div>
 				</li>

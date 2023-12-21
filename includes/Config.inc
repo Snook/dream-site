@@ -1,15 +1,6 @@
 <?php
 require_once("config/Config.server.inc");
 
-// Send users to maintenance page
-//define('SITE_DISABLED', true);
-
-// Optional: Message to appear only on maintenance page
-//define('MAINT_PAGE_MESSAGE', 'Our website is currently down for scheduled maintenance, site expected to be up at 9:00 PM PDT.');
-
-// List of IPs who won't get redirect to maintenance page
-//$g_IP_ExclusionList = array('127.0.0.1','50.34.44.26');
-
 if(isset($_SERVER['HTTP_USER_AGENT']))
 {
 	if (preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]))

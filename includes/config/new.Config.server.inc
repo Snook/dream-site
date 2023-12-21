@@ -1,6 +1,15 @@
 <?php
 date_default_timezone_set('America/New_York');
 
+// Send users to maintenance page
+//define('SITE_DISABLED', true);
+
+// Optional: Message to appear only on maintenance page
+//define('MAINT_PAGE_MESSAGE', 'Our website is currently down for scheduled maintenance, site expected to be up at 9:00 PM PDT.');
+
+// List of IPs who won't get redirect to maintenance page
+//$g_IP_ExclusionList = array('127.0.0.1','50.34.44.26');
+
 // THIS SERVER'S UNIQUE IDENTITY
 const DD_SERVER_NAME = 'LIVE'; // dreamdinners.com
 //const DD_SERVER_NAME = 'CHORS'; // chors.dreamdinners.com
