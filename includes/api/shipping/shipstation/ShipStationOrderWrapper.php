@@ -9,7 +9,6 @@ require_once 'includes/api/shipping/shipstation/ShipStationOrderResponseWrapper.
  * render as json.
  *
  */
-
 class ShipStationOrderWrapper
 {
 	const SS_ORDER_STATUS_PENDING_PAYMENT = "awaiting_payment";
@@ -30,17 +29,31 @@ class ShipStationOrderWrapper
 
 	//from API ShipStationManager->listAccountTags()[{"tagId":46183,"name":"ATTENTION - Unassigned Facility","color":"#00FF00"},{"tagId":46419,"name":"Mobile AL","color":"#CC99FF"},{"tagId":43541,"name":"Rochester Hills MI","color":"#FF0000"},{"tagId":43540,"name":"Salt Lake City UT","color":"#0000FF"}]
 	//**NOT currently used, was used for marking-up orders in the old instance of Shipstation when all stores shared a single instance
-	private $ds_tags = array('310'=>array('tagId'=>46419, 'ssName'=>'Mobile AL', 'warehouseId' =>97052 ),
-							 '312'=>array('tagId'=>43541, 'ssName'=>'Rochester Hills MI', 'warehouseId' =>63108),
-							 '311'=>array('tagId'=>43540, 'ssName'=>'Salt Lake City UT', 'warehouseId' =>90212));
+	private $ds_tags = array(
+		'310' => array(
+			'tagId' => 46419,
+			'ssName' => 'Mobile AL',
+			'warehouseId' => 97052
+		),
+		'312' => array(
+			'tagId' => 43541,
+			'ssName' => 'Rochester Hills MI',
+			'warehouseId' => 63108
+		),
+		'311' => array(
+			'tagId' => 43540,
+			'ssName' => 'Salt Lake City UT',
+			'warehouseId' => 90212
+		)
+	);
 
 	//dd store id to ss store id for manual order store in each shipstation instance
 	//from API ShipStationManager->listStores()
-	public static $ssStoreIds = array('313'=>198889,
-							    '314'=>198821,
-							    '315'=>199066);
-
-
+	public static $ssStoreIds = array(
+		'313' => 198889,
+		'314' => 198821,
+		'315' => 199066
+	);
 
 	/**
 	 * ShipStationOrderWrapper constructor.
@@ -68,11 +81,12 @@ class ShipStationOrderWrapper
 	 *
 	 * @return $array ShipStationOrderWrappers
 	 */
-	public static function instanceFromShipstationResponse($shipStationJson){
+	public static function instanceFromShipstationResponse($shipStationJson)
+	{
 		$ordersCollection = json_decode($shipStationJson);
 
 		$result = array();
-		foreach ( $ordersCollection->orders as $order)
+		foreach ($ordersCollection->orders as $order)
 		{
 			$result[] = new ShipStationOrderResponseWrapper($order);
 		}
@@ -85,16 +99,18 @@ class ShipStationOrderWrapper
 		$this->ssOrder = new stdClass();
 
 		$testingPrefix = '';
-		if( defined('SHIPSTATION_TEST_ORDER_PREFIX')){
+		if (defined('SHIPSTATION_TEST_ORDER_PREFIX'))
+		{
 			$testingPrefix = SHIPSTATION_TEST_ORDER_PREFIX;
 		}
 
-		$this->ssOrder->orderNumber = $testingPrefix.$this->hydratedOrderObj->id;//string, required, max-length: 50
-		$this->ssOrder->orderKey = $testingPrefix.$this->orderDAO->id;//string, optional **used to determine add and update must be unique**
+		$this->ssOrder->orderNumber = $testingPrefix . $this->hydratedOrderObj->id;//string, required, max-length: 50
+		$this->ssOrder->orderKey = $testingPrefix . $this->orderDAO->id;//string, optional **used to determine add and update must be unique**
 		$this->ssOrder->orderDate = $this->orderDAO->timestamp_created;//string, required
 		$this->ssOrder->orderStatus = self::SS_ORDER_STATUS_PENDING_SHIPMENT;//string, required [awaiting_payment, awaiting_shipment, shipped, on_hold, cancelled]
-		if(!is_null($this->orderDAO) && !is_null($this->orderDAO->DAO_booking)){
-			if($this->orderDAO->DAO_booking->status == CBooking::CANCELLED)
+		if (!is_null($this->orderDAO) && !is_null($this->orderDAO->DAO_booking))
+		{
+			if ($this->orderDAO->DAO_booking->status == CBooking::CANCELLED)
 			{
 				$this->ssOrder->orderStatus = self::SS_ORDER_STATUS_PENDING_CANCELLED;
 			}
@@ -115,13 +131,13 @@ class ShipStationOrderWrapper
 		$this->ssOrder->taxAmount = $this->orderDAO->subtotal_all_taxes;//number, optional
 		$this->ssOrder->shippingAmount = $this->orderDAO->orderShipping->ship_cost;//number, optional
 
-		$this->ssOrder->internalNotes = "Confirmation: " . $this->hydratedOrderObj->order_confirmation .". " .$this->hydratedOrderObj->order_admin_notes;//string, optional
+		$this->ssOrder->internalNotes = "Confirmation: " . $this->hydratedOrderObj->order_confirmation . ". " . $this->hydratedOrderObj->order_admin_notes;//string, optional
 
 		$this->ssOrder->requestedShippingService = $storeObj->store_name;
 
-		$this->ssOrder->items = $this->fetchBoxOrderItemInformation($this->orderDAO->id,$this->hydratedOrderObj->orderShipping->distribution_center);
+		$this->ssOrder->items = $this->fetchBoxOrderItemInformation($this->orderDAO->id, $this->hydratedOrderObj->orderShipping->distribution_center);
 
-		$this->ssOrder->gift = ($this->hydratedOrderObj->orderAddress->is_gift == '1') ? 'true': 'false';
+		$this->ssOrder->gift = ($this->hydratedOrderObj->orderAddress->is_gift == '1') ? 'true' : 'false';
 
 		$billing = $userObj->getPrimaryBillingAddress();
 		$this->ssOrder->billTo = array(
@@ -147,31 +163,32 @@ class ShipStationOrderWrapper
 			"residential" => true
 		);
 
-
 		$couponCodeId = $this->orderDAO->coupon_code_id;
 		$couponCode = '';
-		if(!empty($couponCodeId)){
+		if (!empty($couponCodeId))
+		{
 			$CouponObj = DAO_CFactory::create('coupon_code');
 			$CouponObj->id = $couponCodeId;
 			$CouponObj->find(true);
 			$couponCode = $CouponObj->coupon_code;
 		}
 
-
-		$this->ssOrder->advancedOptions= array(
+		$this->ssOrder->advancedOptions = array(
 			//"warehouseId"=>$this->translateStoreIdToWarehouseId($storeObj->id),
-			"storeId"=> $this->translateDDStoreIdToSSStoreId($storeObj->id),//125909,//Manual Orders Store in SS
-			"customField1"=> $couponCode,
-			"customField2"=> $this->hydratedOrderObj->orderShipping->requested_delivery_date,
-			"customField3"=> $storeObj->store_name,
-			"source"=> "Main Website"
+			"storeId" => $this->translateDDStoreIdToSSStoreId($storeObj->id),
+			//125909,//Manual Orders Store in SS
+			"customField1" => $couponCode,
+			"customField2" => $this->hydratedOrderObj->orderShipping->requested_delivery_date,
+			"customField3" => $storeObj->store_name,
+			"source" => "Main Website"
 		);
 
 		//Was used when all stores used same shipstation instance
 		//$this->ssOrder->tagIds = $this->translateStoreIdToTagId($storeObj->id);
 	}
 
-	private function fetchBoxOrderItemInformation($orderId, $location){
+	private function fetchBoxOrderItemInformation($orderId, $location)
+	{
 
 		$OrderItem = DAO_CFactory::create('order_item');
 
@@ -191,70 +208,84 @@ class ShipStationOrderWrapper
 		$boxes = array();
 
 		//medium
-		$mediumWeight= array(
-			"value"=>0,
+		$mediumWeight = array(
+			"value" => 0,
 			"units" => "pounds"
 		);
 		//large
-		$largeWeight= array(
-			"value"=>0,
+		$largeWeight = array(
+			"value" => 0,
 			"units" => "pounds"
 		);
 
-		$dimensions= array(
-			"units"=>"inches",
-			"length"=>16,
-			"width"=>16,
-			"height"=>16
+		$dimensions = array(
+			"units" => "inches",
+			"length" => 0,
+			"width" => 0,
+			"height" => 0
 		);
-
 
 		while ($OrderItem->fetch())
 		{
-
-			if(array_key_exists($OrderItem->box_instance_id,$boxes)){
+			if (array_key_exists($OrderItem->box_instance_id, $boxes))
+			{
 				//$items = $boxes[$OrderItem->box_instance_id]["options"];
 
-				$boxes[$OrderItem->box_instance_id]["options"][] = array("name"=>$OrderItem->menu_item_name, "value"=> "Qty: " .$OrderItem->item_qty);
-			}else{
+				$boxes[$OrderItem->box_instance_id]["options"][] = array(
+					"name" => $OrderItem->menu_item_name,
+					"value" => "Qty: " . $OrderItem->item_qty
+				);
+			}
+			else
+			{
 				//add new
 				$weight = $largeWeight;
 				$shipAmount = $this->storesLargeDeliveryFee;
 
-				if($OrderItem->number_servings_required != 24){
+				if ($OrderItem->number_servings_required != 24)
+				{
 					$weight = $mediumWeight;
 					$shipAmount = $this->storesMediumDeliveryFee;
 				}
 				$this->shipWeightRollup += $weight['value'];
-				$boxes[$OrderItem->box_instance_id]  = array("lineItemKey"=>$OrderItem->box_instance_id,
-															 "options"=>array(array("name"=>$OrderItem->menu_item_name, "value"=> "Qty: " .$OrderItem->item_qty)),
-															 "name" => $OrderItem->bundle_name,
-															 "quantity" => 1,
-															 "unitPrice"=>$OrderItem->bundle_price,
-															 "dimensions"=>$dimensions,
-															 "weight"=>$weight,
-															 "warehouseLocation" => $location,
-															 "taxAmount" => 2.5,
-															 "shippingAmount" => $shipAmount);
+				$boxes[$OrderItem->box_instance_id] = array(
+					"lineItemKey" => $OrderItem->box_instance_id,
+					"options" => array(
+						array(
+							"name" => $OrderItem->menu_item_name,
+							"value" => "Qty: " . $OrderItem->item_qty
+						)
+					),
+					"name" => $OrderItem->bundle_name,
+					"quantity" => 1,
+					"unitPrice" => $OrderItem->bundle_price,
+					"dimensions" => $dimensions,
+					"weight" => $weight,
+					"warehouseLocation" => $location,
+					"taxAmount" => 2.5,
+					"shippingAmount" => $shipAmount
+				);
 			}
 		}
 		$result = array();
 
-		foreach ( $boxes as $key => $subArray )
+		foreach ($boxes as $key => $subArray)
 		{
 			$result[] = $subArray;
 		}
 
 		$this->ssOrder->weight = array(
-			"value"=>$this->shipWeightRollup,
+			"value" => $this->shipWeightRollup,
 			"units" => "pounds"
 		);
 
 		return $result;
 	}
 
-	private function translateDDStoreIdToSSStoreId($storeId){
-		if(!empty($storeId)){
+	private function translateDDStoreIdToSSStoreId($storeId)
+	{
+		if (!empty($storeId))
+		{
 			return $this->ssStoreIds[$storeId];
 		}
 
@@ -262,10 +293,15 @@ class ShipStationOrderWrapper
 
 		return null;
 	}
-	private function translateStoreIdToWarehouseId($storeId){
-		if( defined('SHIPSTATION_TEST_ORDER_WHAREHOUSEID')){
+
+	private function translateStoreIdToWarehouseId($storeId)
+	{
+		if (defined('SHIPSTATION_TEST_ORDER_WHAREHOUSEID'))
+		{
 			return SHIPSTATION_TEST_ORDER_WHAREHOUSEID;
-		}elseif(!empty($storeId)){
+		}
+		else if (!empty($storeId))
+		{
 			return $this->ds_tags[$storeId]['warehouseId'];
 		}
 
@@ -273,11 +309,16 @@ class ShipStationOrderWrapper
 
 		return null;
 	}
-	private function translateStoreIdToTagId($storeId){
 
-		if( defined('SHIPSTATION_TEST_ORDER_TAG')){
+	private function translateStoreIdToTagId($storeId)
+	{
+
+		if (defined('SHIPSTATION_TEST_ORDER_TAG'))
+		{
 			return array(SHIPSTATION_TEST_ORDER_TAG);
-		}elseif(!empty($storeId)){
+		}
+		else if (!empty($storeId))
+		{
 			return array($this->ds_tags[$storeId]['tagId']);
 		}
 
