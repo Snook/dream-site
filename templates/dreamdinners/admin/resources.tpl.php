@@ -23,6 +23,7 @@
 							<a href="/print?menu=<?php echo $this->current_menu_id; ?>&amp;store=<?php echo $this->CurrentBackOfficeStore->id; ?>" target="Print_Menu">Print Menu <?php echo $this->current_menu_name; ?> - <?php echo $this->CurrentBackOfficeStore->store_name; ?></a><br/>
 							<a href="/print?menu=<?php echo $this->next_menu_id; ?>&amp;store=<?php echo $this->CurrentBackOfficeStore->id; ?>"  target="Print_Menu">Print Menu <?php echo $this->next_menu_name; ?> - <?php echo $this->CurrentBackOfficeStore->store_name; ?></a><br/>
 							<a href="/backoffice/signature_generator">Signature Generator</a><br/>
+							<a href="https://dreamdinners.monday.com/boards/1949008947/views/41601422" target="_blank">Company Event Calendar</a><br/>
 						</td>
 					</tr>
 					<tr>
