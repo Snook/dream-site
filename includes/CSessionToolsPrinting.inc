@@ -2515,7 +2515,7 @@ class CSessionToolsPDFDrawer
 
 		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
 		$count = 0;
-		$menu_items_per_page = 15;
+		$menu_items_per_page = 17;
 
 		if (!empty($this->data->orderItems[$this->data->userInfo->orderInfo['orderInfo']['id']]))
 		{
@@ -2782,7 +2782,7 @@ class CSessionToolsPDFDrawer
 
 		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
 		$count = 0;
-		$menu_items_per_page = 15;
+		$menu_items_per_page = 17;
 
 		foreach ($this->data->menuItems as $rid => $menuItemArray)
 		{
