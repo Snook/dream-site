@@ -98,7 +98,7 @@ class page_admin_session_mgr_delivered extends CPageAdminOnly
 
 		$currentMenu = CBrowserSession::instance()->getValue('sm_current_menu');
 
-		CBrowserSession::instance()->setValue('sm_current_page', '/backoffice/session_mgr');
+		CBrowserSession::instance()->setValue('sm_current_page', '/backoffice/session-mgr');
 
 		$todaysMonth = date("n");
 		$todaysYear = date("Y");
@@ -322,7 +322,7 @@ class page_admin_session_mgr_delivered extends CPageAdminOnly
 				'remainingSlots' => $remaining_slots,
 				'remainingIntroSlots' => $Sessions->remaining_intro_slots,
 				'num_rsvps' => $Sessions->num_rsvps,
-				'supportsIntro' => $Sessions->introductory_slots > 0 ? true : false,
+				'supportsIntro' => $Store->storeSupportsIntroOrders($Sessions->menu_id),
 				'isOpen' => $isOpen,
 				'isPrivate' => ($Sessions->session_password ? true : false),
 				'isCurrent' => $isCurrent,
@@ -485,7 +485,7 @@ function populateCallback($Date)
 //				$dayItem['session_type_string'] = 'delivery';
 //				$sessionTypeNote = CCalendar::dayItemTypeNote($dayItem);
 //
-//				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['id'] . '&amp;back=/backoffice/session_mgr">
+//				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr">
 //				<img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign">
 //				</a>' . $sessionTypeNote . '<a href="/backoffice/main_delivered?session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Pick Ups: ' . $dayItem['remainingSlots'] . '">&nbsp;' . $dayItem['remainingSlots'] .'</a>';
 //			}
@@ -497,7 +497,7 @@ function populateCallback($Date)
 				$dayItem['session_type_title'] = 'Pickup';
 				$sessionTypeNote = CCalendar::dayItemTypeNote($dayItem);
 
-				$itemList[$count++] = '<a href="/backoffice/edit-session-delivered?session=' . $dayItem['id'] . '&amp;back=/backoffice/session_mgr_delivered">
+				$itemList[$count++] = '<a href="/backoffice/edit-session-delivered?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr-delivered">
 				<img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign">
 				</a>' . $sessionTypeNote . '<a href="/backoffice/main_delivered?session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Pick Ups: ' . $dayItem['remainingSlots'] . '">&nbsp;' . $dayItem['remainingSlots'] .'</a>';
 			}
@@ -515,7 +515,7 @@ function populateCallback($Date)
 				$dayItem['session_type_title'] = 'Delivery Blackout';
 				$sessionNoteDelivery = CCalendar::dayItemTypeNote($dayItem);
 
-				$itemList[$count++] = '<a href="/backoffice/edit-session-delivered?session=' . $dayItem['id'] . '&amp;back=/backoffice/session_mgr_delivered">
+				$itemList[$count++] = '<a href="/backoffice/edit-session-delivered?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr-delivered">
 				<img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign">
 				</a>' . $sessionNotePickup.$sessionNoteDelivery;
 			}else if(!$dayItem['delivered_supports_delivery'] ){
@@ -525,7 +525,7 @@ function populateCallback($Date)
 				$dayItem['session_type_title'] = 'Delivery Blackout';
 				$sessionNoteDelivery = CCalendar::dayItemTypeNote($dayItem);
 
-				$itemList[$count++] = '<a href="/backoffice/edit-session-delivered?session=' . $dayItem['id'] . '&amp;back=/backoffice/session_mgr_delivered">
+				$itemList[$count++] = '<a href="/backoffice/edit-session-delivered?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr-delivered">
 				<img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign">
 				</a>' .$sessionNoteDelivery;
 			}else if(!$dayItem['delivered_supports_shipping']){
@@ -535,7 +535,7 @@ function populateCallback($Date)
 				$dayItem['session_type_title'] = 'Pickup Blackout';
 				$sessionNotePickup = CCalendar::dayItemTypeNote($dayItem);
 
-				$itemList[$count++] = '<a href="/backoffice/edit-session-delivered?session=' . $dayItem['id'] . '&amp;back=/backoffice/session_mgr_delivered">
+				$itemList[$count++] = '<a href="/backoffice/edit-session-delivered?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr-delivered">
 				<img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign">
 				</a>' . $sessionNotePickup;
 			}

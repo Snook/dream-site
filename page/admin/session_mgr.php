@@ -56,7 +56,7 @@ class page_admin_session_mgr extends CPageAdminOnly
 
 	function runSiteAdmin()
 	{
-		if($this->CurrentBackOfficeStore->isDistributionCenter())
+		if ($this->CurrentBackOfficeStore->isDistributionCenter())
 		{
 			CApp::bounce('/backoffice/session-mgr-delivered');
 		}
@@ -78,7 +78,7 @@ class page_admin_session_mgr extends CPageAdminOnly
 			//site admin
 			//does the location stuff for the site admin, adds the dropdown, checks the url for a store id first
 			//CForm ::storedropdown always sets the default to the last chosen store
-			$storeMenuForm->DefaultValues['store'] = array_key_exists('store', $_GET) ? CGPC::do_clean($_GET['store'],TYPE_INT) : null;
+			$storeMenuForm->DefaultValues['store'] = array_key_exists('store', $_GET) ? CGPC::do_clean($_GET['store'], TYPE_INT) : null;
 
 			$storeMenuForm->addElement(array(
 				CForm::type => CForm::AdminStoreDropDown,
@@ -98,7 +98,7 @@ class page_admin_session_mgr extends CPageAdminOnly
 
 		$currentMenu = CBrowserSession::instance()->getValue('sm_current_menu');
 
-		CBrowserSession::instance()->setValue('sm_current_page', '/backoffice/session_mgr');
+		CBrowserSession::instance()->setValue('sm_current_page', '/backoffice/session-mgr');
 
 		$todaysMonth = date("n");
 		$todaysYear = date("Y");
@@ -169,7 +169,7 @@ class page_admin_session_mgr extends CPageAdminOnly
 
 		if (isset($_POST["menus"]))
 		{
-			$storeMenuForm->DefaultValues['menus'] = CGPC::do_clean($_POST["menus"],TYPE_INT);
+			$storeMenuForm->DefaultValues['menus'] = CGPC::do_clean($_POST["menus"], TYPE_INT);
 		}
 		else
 		{
@@ -331,7 +331,7 @@ class page_admin_session_mgr extends CPageAdminOnly
 				'remainingSlots' => $Sessions->remaining_slots,
 				'remainingIntroSlots' => $Sessions->remaining_intro_slots,
 				'num_rsvps' => $Sessions->num_rsvps,
-				'supportsIntro' => $Sessions->introductory_slots > 0 ? true : false,
+				'supportsIntro' => $Store->storeSupportsIntroOrders($Sessions->menu_id),
 				'isOpen' => $isOpen,
 				'isOpenForCustomization' => $isOpenForCustomization,
 				'allowedCustomization' => $allowedCustomization,
@@ -450,11 +450,10 @@ function populateCallback($Date)
 			$anchorEnd = "";
 			$editClick = "";
 
-
-
 			//Walk-in sessions are created for every day in the month when the menu is created. They are not shown on the session calendar
 			//because there is no need to edit them
-			if (array_key_exists('session_type_subtype', $dayItem) && $dayItem['session_type_subtype'] == CSession::WALK_IN){
+			if (array_key_exists('session_type_subtype', $dayItem) && $dayItem['session_type_subtype'] == CSession::WALK_IN)
+			{
 				continue;
 			}
 			if ($dayItem['isOpen'])
@@ -504,7 +503,7 @@ function populateCallback($Date)
 				$editClick = 'onmouseover="hiliteIcon(' . $dayItem['id'] . ', 4);" onmouseout="unHiliteIcon(' . $dayItem['id'] . ', 4);"';
 			}
 			$customizable = '';
-			if($dayItem['allowedCustomization'])
+			if ($dayItem['allowedCustomization'])
 			{
 				if ($dayItem['isOpenForCustomization'])
 				{
@@ -516,7 +515,6 @@ function populateCallback($Date)
 				}
 			}
 
-
 			if ($dayItem['dreamTaste'] || $dayItem['fundraiserEvent'])
 			{
 				$numOrders = $dayItem['capacity'] - ($dayItem['num_rsvps'] + $dayItem['remainingSlots']);
@@ -526,11 +524,11 @@ function populateCallback($Date)
 					$breakdown = "<br />($numOrders Orders, {$dayItem['num_rsvps']} RSVPs)";
 				}
 
-				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['id'] . '&amp;back=/backoffice/session_mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="/backoffice?session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . $breakdown . '">' . $time12Hour . '&nbsp;(' . $dayItem['remainingSlots'] . '/' . $IntroSlots . ')</a>'. $customizable;
+				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="/backoffice?session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . $breakdown . '">' . $time12Hour . ' (' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '/' . $IntroSlots : '') . ')</a>' . $customizable;
 			}
 			else
 			{
-				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['id'] . '&amp;back=/backoffice/session_mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="/backoffice?session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . '<br />Remaining Starter Pack Slots: ' . $IntroSlots . '">' . $time12Hour . '&nbsp;(' . $dayItem['remainingSlots'] . '/' . $IntroSlots . ')</a>'. $customizable;
+				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="/backoffice?session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '<br />Remaining Starter Pack Slots: ' . $IntroSlots : '') . '">' . $time12Hour . ' (' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '/' . $IntroSlots : '') . ')</a>' . $customizable;
 			}
 		}
 	}

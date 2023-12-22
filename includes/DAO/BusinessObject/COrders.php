@@ -13593,6 +13593,7 @@ class COrders extends DAO_Orders
 					'fundraiserEvent' => ($daoSession->session_type == CSession::FUNDRAISER ? true : false),
 					'isPrivate' => ($daoSession->session_password ? true : false),
 					'details' => $storeObj->publish_session_details ? $daoSession->session_details : "",
+					'supportsIntro' => $storeObj->storeSupportsIntroOrders($daoSession->menu_id),
 					'capacity' => $daoSession->available_slots,
 					'isOpen' => $isOpenSession,
 					'isCurrentMonth' => ($currentMonth == date('m', strtotime($daoSession->menu_start)) ? true : false),
@@ -14096,6 +14097,7 @@ class COrders extends DAO_Orders
 				'isPrivate' => ($daoSession->session_password ? true : false),
 				'details' => $storeObj->publish_session_details ? $daoSession->session_details : "",
 				'capacity' => $daoSession->available_slots,
+				'supportsIntro' => $storeObj->storeSupportsIntroOrders($daoSession->menu_id),
 				'intro_capacity' => $daoSession->introductory_slots,
 				'is_discounted' => !empty($daoSession->session_discount_id) ? true : false,
 				'isOpen' => $isOpenSession,
@@ -14837,7 +14839,12 @@ function PopulateCalendarItem($date, $isDirect = false)
 						}
 						else
 						{
-							$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " intro spots available";
+							$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
+
+							if ($dayItem["supportsIntro"])
+							{
+								$spotsText .= "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
+							}
 						}
 
 						if ($dayItem['isTODD'] && $dayItem['isTODDExpired'])
@@ -14898,7 +14905,7 @@ function PopulateCalendarItem($date, $isDirect = false)
 					}
 					else
 					{
-						$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " intro spots available";
+						$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
 					}
 
 					$contents = '<img src="' . ADMIN_IMAGES_PATH . '/calendar/past.gif" style="float:right;" />' . $dayItemTypeNote . '<span style="color: #909090;" data-tooltip="Session Closed">';
@@ -14936,14 +14943,19 @@ function PopulateCalendarItem($date, $isDirect = false)
 				{
 					if ($dayItem['slots'] < 0)
 					{
-						$spotsText = "standard slots overbooked by " . (0 - $dayItem['slots']) . "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " intro spots available";
+						$spotsText = "standard slots overbooked by " . (0 - $dayItem['slots']);
+
+						if ($dayItem["supportsIntro"])
+						{
+							$spotsText .= "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
+						}
 					}
 					else
 					{
 						$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
-						if ($isDirect)
+						if ($isDirect && $dayItem["supportsIntro"])
 						{
-							$spotsText .= "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " intro spots available";
+							$spotsText .= "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
 						}
 					}
 				}

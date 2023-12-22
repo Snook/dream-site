@@ -92,10 +92,10 @@
 				<div class="list-group list-group-flush">
 					<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/backoffice/main">BackOffice Home</a>
 					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/reports">Reports</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/list_users">Guests</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/session_mgr">Session Calendar</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/menu_inventory_mgr">Inventory Manager</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/menu_editor">Menu Editor</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/list-users">Guests</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/session-mgr">Session Calendar</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/menu-inventory-mgr">Inventory Manager</a>
+					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/menu-editor">Menu Editor</a>
 					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/gift-card-management">Gift Cards</a>
 				</div>
 			<?php } ?>
