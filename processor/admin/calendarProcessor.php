@@ -215,6 +215,7 @@ class processor_admin_calendarProcessor extends CPageProcessor
 
 			$query = "SELECT
        				session.id, 
+					session.menu_id, 
 					session.session_publish_state, 
        				session.session_start, 
        				session.session_close_scheduling, 
@@ -402,6 +403,7 @@ class processor_admin_calendarProcessor extends CPageProcessor
 						'capacity' => $Sessions->available_slots,
 						'intro_capacity' => $Sessions->introductory_slots,
 						'is_discounted' => !empty($Sessions->session_discount_id) ? true : false,
+						'supportsIntro' => $daoStore->storeSupportsIntroOrders($Sessions->menu_id),
 						'isOpen' => $isOpenSession,
 						'publish_state' => $Sessions->session_publish_state,
 						//	'isCurrentMonth' => ($currentMonth == date('m',strtotime($Sessions->menu_start))?true:false),
@@ -559,7 +561,12 @@ function populateRescheduleCallbackNew($date, $isDirect = true)
 						}
 						else
 						{
-							$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
+							$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
+
+							if ($dayItem['supportsIntro'])
+							{
+								$spotsText .= "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
+							}
 						}
 
 						if ($dayItem['isSelected'])
@@ -629,7 +636,12 @@ function populateRescheduleCallbackNew($date, $isDirect = true)
 					}
 					else
 					{
-						$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
+						$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
+
+						if ($dayItem['supportsIntro'])
+						{
+							$spotsText .= "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
+						}
 					}
 
 					if ($dayItem['isSelected'])
@@ -672,12 +684,17 @@ function populateRescheduleCallbackNew($date, $isDirect = true)
 				{
 					if ($dayItem['slots'] < 0)
 					{
-						$spotsText = "Standard slots overbooked by " . (0 - $dayItem['slots']) . "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
+						$spotsText = "Standard slots overbooked by " . (0 - $dayItem['slots']);
+
+						if ($dayItem['supportsIntro'])
+						{
+							$spotsText .= "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
+						}
 					}
 					else
 					{
 						$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
-						if ($isDirect)
+						if ($isDirect && $dayItem['supportsIntro'])
 						{
 							$spotsText .= "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
 						}

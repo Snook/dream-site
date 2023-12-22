@@ -98,7 +98,7 @@
 </div>
 
 <div class="container">
-    <iframe class="dd_content" data-has_loaded="false" id="calendar" data-content_id="calendar" data-content_source="<?= HTTPS_SERVER?>/backoffice/session_mgr" src=""></iframe>
+    <iframe class="dd_content" data-has_loaded="false" id="calendar" data-content_id="calendar" data-content_source="<?= HTTPS_SERVER?>/backoffice/session-mgr" src=""></iframe>
     <iframe class="dd_content" data-has_loaded="false" id="fadmin" data-content_id="fadmin" data-content_source="<?= HTTPS_SERVER?>/backoffice/main" src=""></iframe>
     <iframe class="dd_content" data-has_loaded="false" id="support" data-content_id="support" data-content_source="https://support.dreamdinners.com" src=""></iframe>
     <iframe class="dd_content" data-has_loaded="false" id="real_talk" data-content_id="real_talk" data-content_source="https://support.dreamdinners.com/discussions/forums/5000174751" src=""></iframe>
