@@ -371,7 +371,7 @@ class CSession extends DAO_Session
 				$thisSession->delivered_supports_delivery = "0";
 				$thisSession->delivered_supports_shipping = "0";
 				$thisSession->available_slots = 250;
-				$thisSession->introductory_slots = 250;
+				$thisSession->introductory_slots = 0;
 				$thisSession->sneak_peak = 0;
 				$thisSession->duration_minutes = 60 * 23;
 				$thisSession->session_type = CSession::SPECIAL_EVENT;
@@ -388,7 +388,7 @@ class CSession extends DAO_Session
 			$thisSession->store_id = $storeId;
 			$thisSession->menu_id = $menu_id;
 			$thisSession->available_slots = 250;
-			$thisSession->introductory_slots = 250;
+			$thisSession->introductory_slots = 0;
 			$thisSession->sneak_peak = 0;
 			$thisSession->duration_minutes = 60 * 23;
 			$thisSession->session_type = CSession::SPECIAL_EVENT;
