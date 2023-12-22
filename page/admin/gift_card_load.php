@@ -320,7 +320,7 @@ class page_admin_gift_card_load extends CPageAdminOnly
 				else
 				{
 					$currentCard = null;
-					$tpl->setErrorMsg('The Gift Card number is invalid.');
+					$tpl->setErrorMsg('The Gift Card number is invalid, non-numeric numbers were entered.');
 					$hadError = true;
 				}
 
