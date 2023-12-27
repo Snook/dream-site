@@ -8,8 +8,6 @@ in any field if your P&L statement shows zero for that line item.  Please also e
 for all previous months has been input into the template as well.  To avoid further escalation, your 
 data needs to be entered no later than <?php echo $this->curMonth;?> 30th.
 
-A guide with step-by-step instructions can be found at   
-https://dreamdinners.box.com/s/9qnprsz53zygv27htbmjxj7gqqaja6cz
 
 If you need assistance, please reach out to Support at support@dreamdinners.com. 
 
