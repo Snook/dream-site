@@ -42,11 +42,11 @@
 							<div class="card-group">
 								<div class="card border-0 py-4 px-4 mx-1 text-left">
 									<div class="card-body text-center">
-										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cashew-chicken-with-noodles-circle-458x344.webp" alt="Cashew Chicken and Noodles" class="img-fluid mb-3" />
+										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/creamy-chicken-risotto-circle-458x344.webp" alt="Creamy Chicken Risotto" class="img-fluid mb-3" />
 									</div>
 									<div class="card-body">
 										<h3>New Guest Store Exclusive:<br><strong>Buy 3 Dinners, Get 1 Free*</strong></h3>
-										<p>Place an order for 3 or more dinners, get a free medium Cashew Chicken and Noodles as our gift to you. </p>
+										<p>Place an order for 3 or more dinners, get a free medium Creamy Chicken Risotto as our gift to you. </p>
 										<p>Use this code at checkout: <span class="font-weight-bold font-marker font-size-large">SHARE</span></p>
 										<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
 									</div>
@@ -223,27 +223,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-tacos-featured-kid-pick-400x400.webp" alt="Chicken Soft Tacos" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/buffalo-ranch-chicken-kid-pick-menu-items-400x400.webp" alt="Buffalo Ranch Chicken" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Soft Tacos</h5>
+									<h5 class="card-title">Buffalo Ranch Chicken</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/manicotti-featured-pan-meal-400x400.webp" alt="Cheese Lovers Manicotti" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/arroz-con-pollo-pan-meal-menu-items-400x400.webp" alt="Arroz Con Pollo" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Cheese Lover’s Manicotti</h5>
+									<h5 class="card-title">Arroz Con Pollo</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-yakitori-featured-30min-less-400x400.webp" alt="Chicken Yakitori" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pork-chop-milanese-30min-menu-items-400x400.webp" alt="Pork Chop Milanese" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Yakitori</h5>
+									<h5 class="card-title">Pork Chop Milanese</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pulled-pork-featured-crock-pot-400x400.webp" alt="Pulled Pork BBQ Sandwiches" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/smoked-sausage-penne-new-menu-items-400x400.webp" alt="Smoked Sausage Penne Pasta" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Pulled Pork BBQ Sandwiches</h5>
+									<h5 class="card-title">Smoked Sausage Penne Pasta</h5>
 								</div>
 							</div>
 

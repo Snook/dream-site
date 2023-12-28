@@ -73,27 +73,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-tacos-featured-kid-pick-400x400.webp" alt="Chicken Soft Tacos" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/buffalo-ranch-chicken-kid-pick-menu-items-400x400.webp" alt="Buffalo Ranch Chicken" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Soft Tacos</h5>
+									<h5 class="card-title">Buffalo Ranch Chicken</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/manicotti-featured-pan-meal-400x400.webp" alt="Cheese Lovers Manicotti" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/arroz-con-pollo-pan-meal-menu-items-400x400.webp" alt="Arroz Con Pollo" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Cheese Lover’s Manicotti</h5>
+									<h5 class="card-title">Arroz Con Pollo</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-yakitori-featured-30min-less-400x400.webp" alt="Chicken Yakitori" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pork-chop-milanese-30min-menu-items-400x400.webp" alt="Pork Chop Milanese" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Yakitori</h5>
+									<h5 class="card-title">Pork Chop Milanese</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pulled-pork-featured-crock-pot-400x400.webp" alt="Pulled Pork BBQ Sandwiches" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/smoked-sausage-penne-new-menu-items-400x400.webp" alt="Smoked Sausage Penne Pasta" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Pulled Pork BBQ Sandwiches</h5>
+									<h5 class="card-title">Smoked Sausage Penne Pasta</h5>
 								</div>
 							</div>
 
@@ -211,8 +211,39 @@
 				</div>
 			</div>
 		</section>
+		<section>
+			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
+			<div class="container-fluid my-5">
+				<div class="row hero-double">
+					<div class="col-md-6 text-left p-5 my-5">
+						<h1 class="font-weight-bold font-marker mt-2">January Fan Favorites Bundle</h1>
+						<p class="text-uppercase mb-4">Start your order with our January Fan Favorites bundle. These 4 dinners are our best-sellers on the January menu.</p>
+						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
+					</div>
+					<div class="col-md-6 p-0">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jan24-fan-favorites-bundle-collage-957x657.webp" alt="January Fan Favorites" class="img-fluid">
+					</div>
 
-		<!-- How it works -->
+				</div>
+			</div>
+		</section>
+		<section>
+			<div class="container-fluid my-5">
+				<div class="row hero-double">
+					<div class="col-md-6 p-0">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jan24-big-game-bundle-collage-957x657.webp" alt="Big Game Bundle" class="img-fluid">
+					</div>
+					<div class="col-md-6 text-left p-5 my-5">
+						<h1 class="font-weight-bold font-marker mt-2">Big Game Bundle</h1>
+						<p class="text-uppercase mb-4">Get ready for the big game when you order our football party menu. Featuring our Classic French Dip Sandwiches with Homemade Au Jus, Jalapeno Cheddar Cheesy Potaotes, and Cookies. Add this on to your order exclusively in January. Available at select locations, while supplies last.</p>
+						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
+					</div>
+					
+
+				</div>
+			</div>
+		</section>
+		<!-- How it works
 		<section>
 			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 			<div class="container my-5">
@@ -224,7 +255,7 @@
 					</div>
 				</div>
 
-				<!--  -->
+				
 				<div class="" id="" role="tabpanel" aria-labelledby="">
 					<div class="row my-2">
 						<div class="col">
@@ -316,7 +347,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> -->
 
 		<!-- Instagram -->
 		<section>

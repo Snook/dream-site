@@ -9,8 +9,8 @@
 			<div class="container-fluid">
 				<div class="row my-5 p-5 bg-image-intro-offer">
 					<div class="col-md-8 text-center mx-auto">
-						<h1 class="my-4 font-weight-bold">Try our Meal Prep Starter Pack</h1>
-						<h3 class="mb-5">Get delicious, easy meals prepared with quality ingredients ready for you to cook at home.</h3>
+						<h1 class="my-4 font-weight-bold">Try Our Four Dinner Bundle</h1>
+						<h3 class="mb-5">Our starter pack menu has been made even easier with our Four Meal Favorites Bundle. Just look for this month’s four meal bundle on the menu to try our guest favorite meals for the month. Get delicious, easy meals prepared with quality ingredients ready for you to cook at home.</h3>
 						<a href="/locations" class="btn btn-primary mb-4">Find a Location &amp; View Menu</a>
 					</div>
 				</div>
@@ -59,37 +59,12 @@
 			</div>
 		</section>
 
-		<!-- Meal Prep Made Easy
-		<section>
-		<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
-			<div class="container">
-				<div class="row my-5">
-					<div class="col-md-6 mb-5">
-						<div>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/italiano-chicken-orzo-458x344.webp" alt="Italiano Chicken and Orzo" class="img-fluid" />
-						</div>
-					</div>
-					<div class="col-md-6 text-left">
-						<h2><b>Meal Prep Made Easy</b></h2>
-						<p>Dream Dinners will change how you meal plan, cook and gather at the table with your family. The benefits of Dream Dinners include:</p>
-						<ul>
-							<li>Home Delivery or Quick, Easy Pick Up</li>
-							<li>Less Time Grocery Shopping</li>
-							<li>Less Money Spent on Groceries and Takeout</li>
-							<li>Easy Meal Planning and Prep</li>
-							<li>Less Food Waste</li>
-							<li>More Time with Your Family</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</section> -->
 <div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
-        <div class="container">
+        <!--<div class="container">
 			<div class="row my-5">
 				<div class="col-md-6 mb-6">
 					<div class="embed-responsive embed-responsive-16by9">
-						<!--<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/8L6TMDW4jf4?rel=0&amp;controls=0" allowfullscreen></iframe>-->
+						<!--<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/8L6TMDW4jf4?rel=0&amp;controls=0" allowfullscreen></iframe>
 						<iframe class="embed-responsive-item" loading="lazy" src="https://www.youtube.com/embed/IBMWQ1Z5sDw?rel=0&amp;controls=0" allowfullscreen></iframe>
 					</div>
 				</div>
@@ -99,8 +74,8 @@
 					<p><a href="/locations" data-gaq_cat="Intro Offer" data-gaq_action="View Menu" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Find a Location &amp; View Menu</a></p>
 				</div>
 			</div>
-          </div>
-			 <section>
+          </div>-->
+		<section>
 			<div class="container-fluid my-5 bg-cyan-dark">
 				<div class="container">
 				<div class="row">
@@ -140,7 +115,7 @@
 					<div class="col text-center text-white">
 
 						<p><a href="/locations" class="btn btn-cyan text-white">Find a Location &amp; View Menu</a></p>
-						<p><i>*Availability varies by location. Check your local store's calendar to find available ordering options.</i></p>
+						<p><i>*Availability varies by location.</i></p>
 					</div>
 				</div>
 			</div>

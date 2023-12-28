@@ -14,7 +14,7 @@
 					</div>
 					<div class="col-md-6 p-0">
 						<figure>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dec23-menu-collage-957x657.webp" alt="Pulled Pork Sandwiches, Sirloin and Sausage Tortellini and Savory Grilled Chicken" class="img-fluid">
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jan24-menu-collage-circles-957x657.webp" alt="Arroz Con Pollo, Cashew Chicken and Noodles and Pork Chop Milanese" class="img-fluid">
 						</figure>
 					</div>
 				</div>

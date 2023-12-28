@@ -24,27 +24,27 @@
 					<div class="col">
 						<div class="card-group text-center">
 							<div class="card border-0 mx-1">
-								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Holiday-Toolkit.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/holiday-toolkit-458x344.png" alt="Holiday" class="img-fluid" /></a>
+								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Valentines-Toolkit.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/happy-valentines-day-458x344.png" alt="Toolkit" class="img-fluid" /></a>
 								<div class="card-body">
-									<h5 class="card-title">Holiday Toolkit</h5>
+									<h5 class="card-title">Valentines Toolkit</h5>
 									<p class="card-text">Games, activities, food, tips & tricks to fill your holidays with love & laughter.</p>
-									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Holiday-Toolkit.pdf" target="_blank" class="btn btn-primary">Download Toolkit</a></p>
+									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Valentines-Toolkit.pdf" target="_blank" class="btn btn-primary">Download Toolkit</a></p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Holiday-Placemat.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/holiday-placemat-458x344.png" alt="Holiday Placemat" class="img-fluid" /></a>
+								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Valentines-Placemat.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/valentines-placemat-458x344.png" alt="Placemat" class="img-fluid" /></a>
 								<div class="card-body">
-									<h5 class="card-title">Holiday Placemat</h5>
+									<h5 class="card-title">Valentines Placemat</h5>
 									<p class="card-text">Download and print a 11x17 fun activity placemat.</p>
-									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Holiday-Placemat.pdf" target="_blank" class="btn btn-primary">Download Placemat</a></p>
+									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Valentines-Placemat.pdf" target="_blank" class="btn btn-primary">Download Placemat</a></p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Holiday-Gift-Tags.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/holiday-gift-tags-458x344.png" alt="Gift Tags" class="img-fluid" /></a>
+								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Printable-Valentines.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/valentines-458x344.png" alt="Love Notes" class="img-fluid" /></a>
 								<div class="card-body">
-									<h5 class="card-title">Holiday Gift Tags</h5>
-									<p class="card-text">Download some fun gift tags and fun gift giving ideas.</p>
-									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Holiday-Gift-Tags.pdf" target="_blank" class="btn btn-primary">Download Gift Tags</a></p>
+									<h5 class="card-title">Valentines Love Notes</h5>
+									<p class="card-text">Download some love notes for your besties.</p>
+									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Printable-Valentines.pdf" target="_blank" class="btn btn-primary">Download Notes</a></p>
 								</div>
 							</div>
 						</div>

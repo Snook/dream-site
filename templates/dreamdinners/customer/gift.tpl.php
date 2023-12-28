@@ -25,7 +25,7 @@
 			<div class="container">
 				<div class="row my-5 text-center">
                 	<div class="col mb-2">
-						<h2 class="font-weight-bold"><strong>Three Ways to Gift</strong></h2>
+						<h2 class="font-weight-bold"><strong>Ways to Gift</strong></h2>
 					</div>
 				</div>
 				<div class="row my-3">
@@ -47,14 +47,14 @@
 									<p><a href="/locations" class="btn btn-primary">Contact Your Local Store</a></p>
 								</div>
 							</div>
-							<div class="card border-0 mx-1">
+							<!--<div class="card border-0 mx-1">
 								<a href="/gift-card-order"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/dream-dinners-gift-card-458x344.webp" alt="Dream Dinner Gift Cards" class="img-fluid" /></a>
 								<div class="card-body">
 									<h5 class="card-title">Gift Card</h5>
 									<p class="card-text">Not sure what meals they would enjoy. A Dream Dinners gift card is the perfect solution.</p>
 									<p><a href="/gift-card-order" class="btn btn-primary">Purchase Gift Card</a></p>
 								</div>
-							</div>
+							</div>-->
 						</div>
 					</div>
 				</div>

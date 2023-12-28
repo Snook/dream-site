@@ -81,7 +81,7 @@
 								Menu link
 							</div>
 						</div>
-						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->store_id; ?>-<?php echo $this->menuInfo['menu_name_abbr']; ?>" readonly>
+						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?><?php echo $this->storeInfo->getPrettyUrl(); ?>/order/<?php echo $this->menuInfo['menu_name_abbr']; ?>" readonly>
 					</div>
 
 				</div>
@@ -94,7 +94,7 @@
 								Store link
 							</div>
 						</div>
-						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?>/menu/<?php echo $this->store_id; ?>" readonly>
+						<input type="text" class="form-control" value="<?php echo HTTPS_SERVER; ?><?php echo $this->storeInfo->getPrettyUrl(); ?>/order" readonly>
 					</div>
 
 				</div>
