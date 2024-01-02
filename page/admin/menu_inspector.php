@@ -44,7 +44,7 @@ class page_admin_menu_inspector extends CPageAdminOnly {
 			$menuOptions[$MenuTest->id] = $MenuTest->menu_name;
 		}
 
-		$currentMenu = CBrowserSession::instance()->getValue('menu_editor_current_menu');
+		$currentMenu = CBrowserSession::getValue('menu_editor_current_menu');
 
 		if (!empty($_GET['menus']) && is_numeric($_GET['menus']))
 		{
