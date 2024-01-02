@@ -695,6 +695,7 @@ class page_admin_menu_inventory_mgr extends CPageAdminOnly
 		$menus = CMenu::getLastXMenus(4);
 		$lastActiveMenuId = null;
 		$menuOptions = array();
+		$currentMenu = CMenu::getCurrentMenuId();
 		//$lowestMenuID = 1000000;
 
 		foreach ($menus as $thisMenu)
@@ -728,7 +729,7 @@ class page_admin_menu_inventory_mgr extends CPageAdminOnly
 		{
 			$currentMenu = $_GET['menus'];
 		}
-		else
+		else if (!empty(CBrowserSession::instance()->getValue('menu_editor_current_menu')))
 		{
 			$currentMenu = CBrowserSession::instance()->getValue('menu_editor_current_menu');
 		}

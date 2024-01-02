@@ -96,6 +96,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 		$lastActiveMenuId = null;
 		$menuOptions = array();
 		$lowestMenuID = 1000000;
+		$currentMenu = CMenu::getCurrentMenuId();
 
 		foreach ($menus as $thisMenu)
 		{
@@ -132,7 +133,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 		{
 			$currentMenu = CGPC::do_clean($_GET['rd_menu'], TYPE_INT);
 		}
-		else
+		else if (!empty(CBrowserSession::instance()->getValue('menu_editor_current_menu')))
 		{
 			$currentMenu = CBrowserSession::instance()->getValue('menu_editor_current_menu');
 		}
