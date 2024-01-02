@@ -2,72 +2,76 @@
 require_once("DAO/BusinessObject/CMenuItem.php");
 require_once 'DAO.inc';
 
-define('RECIPE_NAME', 0);
-define('DESCRIPTION', 1);
-define('RECIPE_ID', 2);
-define('ALLERGENS', 3);
-define('MENU_CLASS', 4);
-define('SUB_CATEGORY', 5);
-define('FOOD_COST', 6);
-define('PRICE_6', 7);
-define('SERVING_PER_ORDER', 8);  // servings_per_item, ie: 6 or 3
-define('COMPONENT_NAME', 9); // serving size - ie: 1 cup
-define('SERVING_WEIGHT', 10); // new
-define('PRICE_TIER_1_MD', 11);
-define('PRICE_TIER_1_LG', 12);
-define('PRICE_TIER_2_MD', 13);
-define('PRICE_TIER_2_LG', 14);
-define('PRICE_TIER_3_MD', 15);
-define('PRICE_TIER_3_LG', 16);
-define('SERVE_WITH', 17);
-define('SUGGESTED_SIDE', 18); // may need recipe id - column 11 is the sides name
-define('STATION_NUMBER', 19); // custom field
-define('INCLUDE_ON_INTRO', 20); // custom field
-define('INCLUDE_ON_TASTE', 21); // custom field
-define('INITIAL_MENU_OFFER', 22);  // custom field
-define('MENU_SUBSORT', 23);
-define('SALES_MIX', 24);
-define('LTD_MOTM', 25);
-define('IMPROVED', 26);
-define('COOKING_METHOD', 27); //  custom field - review
-define('DISPLAY_SERVINGS_PER_CONTAINER', 28); //
-define('COOKING_TIME', 29); //  new
-define('COOKING_INSTRUCTIONS', 30); //  new
-define('AIR_FRYER_ICON', 31); //  new
-define('COOKING_INSTRUCTIONS_AIR_FRYER', 32); //  new
-define('CROCKPOT_ICON', 33); //  new
-define('COOKING_INSTRUCTIONS_CROCK_POT', 34); //  new
-define('GRILL_ICON', 35); //  new
-define('COOKING_INSTRUCTIONS_GRILL', 36); //  new
-define('PREPARE_BY', 37);
-define('FROM_FROZEN_ICON', 38);
-define('UNDER_30_ICON', 39);
-define('UNDER_400_ICON', 40);
-define('GLUTEN_FRIENDLY_ICON', 41);
-define('HIGH_PROTEIN_ICON', 42);
-define('VEGETARIAN_ICON', 43);
-define('KID_PICK', 44);
-define('NO_SALT_ADDED', 45);
-define('PAN_MEAL', 46);
-define('PRICING_CATEGORY', 47);
-define('INGREDIENTS', 48); // yay
-define('NUT_CALORIES', 49); // Discuss merging components OR use sub-recipes
-define('NUT_FAT', 50);
-define('NUT_SATFAT', 51);
-define('NUT_TRANSFAT', 52);
-define('NUT_CHOLESTEROL', 53);
-define('NUT_CARBS', 54);
-define('NUT_FIBER', 55);
-define('NUT_SUGARS', 56);
-define('NUT_ADDED_SUGARS', 57);
-define('NUT_PROTEIN', 58);
-define('NUT_SODIUM', 59);
-define('NUT_VIT_A', 60);
-define('NUT_VIT_C', 61);
-define('NUT_VIT_D', 62);
-define('NUT_CALCIUM', 63);
-define('NUT_POTASSIUM_K', 64);
-define('NUT_IRON', 65);
+define('RECIPE_NAME', 0); // recipe_name
+define('DESCRIPTION', 1); // description
+define('RECIPE_ID', 2); // recipe_id
+define('ALLERGENS', 3); // allergens
+define('MENU_CLASS', 4); // menu_class
+define('SUB_CATEGORY', 5); // menu_category
+define('FOOD_COST', 6); // food_cost
+define('PRICE_6', 7); // base_price
+define('SERVING_PER_ORDER', 8);  // ni_number_of_servings; inventory calculation, ie: 6 or 3
+define('COMPONENT_NAME', 9); // ni_serving_size; serving size - ie: 1 cup
+define('SERVING_WEIGHT', 10); // ni_label_serving_weight_grams
+define('PRICE_TIER_1_MD', 11); // Tier 1 MD
+define('PRICE_TIER_1_LG', 12); // Tier 1 LG
+define('PRICE_TIER_2_MD', 13); // Tier 2 MD
+define('PRICE_TIER_2_LG', 14); // Tier 2 LG
+define('PRICE_TIER_3_MD', 15); // Tier 3 MD
+define('PRICE_TIER_3_LG', 16); // Tier 3 LG
+define('PRICE_TIER_4_MD', 17); // Tier 4 MD
+define('PRICE_TIER_4_LG', 18); // Tier 4 LG
+define('SERVE_WITH', 19); // Serving Suggestion
+define('SUGGESTED_SIDE', 20); // Sides and Sweets ID
+define('STATION_NUMBER', 21); // Station
+define('INCLUDE_ON_INTRO', 22); // Starter Pack
+define('INCLUDE_ON_TASTE', 23); // Workshop
+define('INITIAL_MENU_OFFER', 24); // Initial Menu Offer
+define('MENU_SUBSORT', 25); // Menu Subsort
+define('SALES_MIX', 26); // Menu Sales Mix Percentage
+define('LTD_MOTM', 27); // DDF
+define('IMPROVED', 28); // Improved
+define('COOKING_METHOD', 29); // Cooking Method
+define('DISPLAY_SERVINGS_PER_CONTAINER', 30); // Nutritional Label Servings Per Container, nutritional display only, not used for inventory
+define('COOKING_TIME', 31); // Cooking Time
+define('COOKING_INSTRUCTIONS', 32); // Main Cooking Instructions
+define('AIR_FRYER_ICON', 33); // Air Fryer
+define('COOKING_INSTRUCTIONS_AIR_FRYER', 34); // Air Fryer Cooking Instructions
+define('CROCKPOT_ICON', 35); // Crockpot
+define('COOKING_INSTRUCTIONS_CROCK_POT', 36); // Crockpot Cooking Instructions
+define('INSTANT_POT_ICON', 37); // Instant Pot
+define('COOKING_INSTRUCTIONS_INSTANT_POT', 38); // Instant Pot Cooking Instructions
+define('GRILL_ICON', 39); // Grill
+define('COOKING_INSTRUCTIONS_GRILL', 40); // Grill Cooking Instructions
+define('PREPARE_BY', 41); // Best if prepared by
+define('FROM_FROZEN_ICON', 42); // Cook from Frozen
+define('UNDER_30_ICON', 43); // Under 30 minutes
+define('UNDER_400_ICON', 44); // Under 500 calories
+define('GLUTEN_FRIENDLY_ICON', 45); // Gluten Friendly
+define('HIGH_PROTEIN_ICON', 46); // High Protein
+define('VEGETARIAN_ICON', 47); // Vegetarian
+define('KID_PICK', 48); // Kid Pick
+define('NO_SALT_ADDED', 49); // No Salt Added
+define('PAN_MEAL', 50); // Pan Meal
+define('PRICING_CATEGORY', 51); // Pricing Category
+define('INGREDIENTS', 52); // ingredients
+define('NUT_CALORIES', 53); // calories
+define('NUT_FAT', 54); // fat
+define('NUT_SATFAT', 55); // sat_fat
+define('NUT_TRANSFAT', 56); // trans_fat
+define('NUT_CHOLESTEROL', 57); // cholesterol
+define('NUT_CARBS', 58); // carbs
+define('NUT_FIBER', 59); // fiber
+define('NUT_SUGARS', 60); // sugars
+define('NUT_ADDED_SUGARS', 61); // added_sugars
+define('NUT_PROTEIN', 62); // protein
+define('NUT_SODIUM', 63); // sodium
+define('NUT_VIT_A', 64); // vit_a
+define('NUT_VIT_C', 65); // vit_c
+define('NUT_VIT_D', 66); // vit_d
+define('NUT_CALCIUM', 67); // calcium
+define('NUT_POTASSIUM_K', 68); // potasium
+define('NUT_IRON', 69); // iron
 
 class CImportReciprofity extends DAO
 {
