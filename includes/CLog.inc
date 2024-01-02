@@ -209,12 +209,20 @@ class CLog
 			echo 'logging not available';
 			// exit;
 		}
-		if (!mysqli_query(self::$_db, $szInsert))
+
+		try
 		{
-			// Insert failed so try creating new years event_log table
-			CLog::createEventLogTable();
-			mysqli_query(self::$_db, $szInsert);
+			$res = mysqli_query(self::$_db, $szInsert);
 		}
+		catch (Exception $e)
+		{
+			if ($e->getCode() == 1146)
+			{
+				CLog::createEventLogTable();
+				mysqli_query(self::$_db, $szInsert);
+			}
+		}
+
 		//echo "<P>$szInsert";
 		//exit;
 	}
@@ -316,11 +324,18 @@ class CLog
 			echo 'logging not available';
 			// exit;
 		}
-		if (!mysqli_query(self::$_db, $szInsert))
+
+		try
 		{
-			// Insert failed so try creating new years event_log table
-			CLog::createEventLogTable();
-			mysqli_query(self::$_db, $szInsert);
+			$res = mysqli_query(self::$_db, $szInsert);
+		}
+		catch (Exception $e)
+		{
+			if ($e->getCode() == 1146)
+			{
+				CLog::createEventLogTable();
+				mysqli_query(self::$_db, $szInsert);
+			}
 		}
 
 		if ($notifyAdmin)
@@ -734,11 +749,18 @@ class CLog
 			echo 'logging not available';
 			// exit;
 		}
-		if (!mysqli_query(self::$_db, $szInsert))
+
+		try
 		{
-			// Insert failed so try creating new years event_log table
-			CLog::createEventLogTable();
-			mysqli_query(self::$_db, $szInsert);
+			$res = mysqli_query(self::$_db, $szInsert);
+		}
+		catch (Exception $e)
+		{
+			if ($e->getCode() == 1146)
+			{
+				CLog::createEventLogTable();
+				mysqli_query(self::$_db, $szInsert);
+			}
 		}
 
 		$time = date("M j Y g:i a");
@@ -876,11 +898,18 @@ class CLog
 			echo 'logging not available';
 			// exit;
 		}
-		if (!mysqli_query(self::$_db, $szInsert))
+
+		try
 		{
-			// Insert failed so try creating new years event_log table
-			CLog::createEventLogTable();
-			mysqli_query(self::$_db, $szInsert);
+			$res = mysqli_query(self::$_db, $szInsert);
+		}
+		catch (Exception $e)
+		{
+			if ($e->getCode() == 1146)
+			{
+				CLog::createEventLogTable();
+				mysqli_query(self::$_db, $szInsert);
+			}
 		}
 
 		if (defined('DEVELOPMENT_MODE') && DEVELOPMENT_MODE)
@@ -916,12 +945,20 @@ class CLog
 			echo 'logging not available';
 			// exit;
 		}
-		if (!mysqli_query(self::$_db, $szInsert))
+
+		try
 		{
-			// Insert failed so try creating new years event_log table
-			CLog::createEventLogTable();
-			mysqli_query(self::$_db, $szInsert);
+			$res = mysqli_query(self::$_db, $szInsert);
 		}
+		catch (Exception $e)
+		{
+			if ($e->getCode() == 1146)
+			{
+				CLog::createEventLogTable();
+				mysqli_query(self::$_db, $szInsert);
+			}
+		}
+
 		//echo "<P>$szInsert";
 		//exit;
 	}
