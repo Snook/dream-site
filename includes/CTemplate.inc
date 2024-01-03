@@ -1182,20 +1182,23 @@ class CTemplate extends Savant2
 					'enabled' => false
 				),
 				'wisepop' => array(
-					'enabled' => in_array(((!empty($this->page)) ? $this->page : false), array(
-						'meal_prep_dinners',
-						'meal_prep_delivery',
-						'meal_prep_starter_pack',
-						'local_meal_prep',
-						'meal_prep_company',
-						'prepared_meals',
-						'session_menu',
-						'email_signup',
-						'order_details',
-						'sp1n2',
-						'sp3c1al',
-						'spec1al3'
-					))
+					'enabled' => false,
+					/*
+							'enabled' => in_array(((!empty($this->page)) ? $this->page : false), array(
+								'meal_prep_dinners',
+								'meal_prep_delivery',
+								'meal_prep_starter_pack',
+								'local_meal_prep',
+								'meal_prep_company',
+								'prepared_meals',
+								'session_menu',
+								'email_signup',
+								'order_details',
+								'sp1n2',
+								'sp3c1al',
+								'spec1al3'
+							))
+					*/
 				)
 			)
 		);
