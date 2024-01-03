@@ -100,7 +100,7 @@ class processor_admin_expensesData extends CPageProcessor
 				store_expenses.expense_type in ('SYSCO', 'OTHER_FOOD') order by entry_date, id DESC");
 
 		$incrementWeekNum = 0;
-		if ($year == 2018 || $year == 2019 || $year == 2020)
+		if ($year == 2018 || $year == 2019 || $year == 2020 || $year == 2024)
 		{
 			$incrementWeekNum = 1;
 		}

@@ -455,7 +455,7 @@ class page_admin_reports_goal_management extends CPageAdminOnly
 		$year = date("Y", strtotime($menuStart));
 
 		$incrementWeekNum = 0;
-        if ($year == 2018 || $year == 2019 || $year == 2020)
+        if ($year == 2018 || $year == 2019 || $year == 2020 || $year == 2024)
 		{
 			$incrementWeekNum = 1;
 		}
@@ -494,7 +494,7 @@ class page_admin_reports_goal_management extends CPageAdminOnly
 		$year = date("Y", strtotime($menuStart));
 
 		$incrementWeekNum = 0;
-        if ($year == 2018 || $year == 2019 || $year == 2020)
+        if ($year == 2018 || $year == 2019 || $year == 2020 || $year == 2024)
 		{
 			$incrementWeekNum = 1;
 		}

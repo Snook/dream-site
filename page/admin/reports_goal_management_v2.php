@@ -4,20 +4,22 @@
  * @author Lynn Hook
  */
 
-require_once ('includes/CPageAdminOnly.inc');
-require_once ('includes/CSessionReports.inc');
-require_once ('includes/CDreamReport.inc');
-require_once ('includes/DAO/Booking.php');
-require_once ('includes/DAO/Dashboard_metrics_guests.php');
-require_once ('includes/DAO/BusinessObject/CSession.php');
-require_once ('includes/DAO/BusinessObject/CStoreExpenses.php');
+require_once('includes/CPageAdminOnly.inc');
+require_once('includes/CSessionReports.inc');
+require_once('includes/CDreamReport.inc');
+require_once('includes/DAO/Booking.php');
+require_once('includes/DAO/Dashboard_metrics_guests.php');
+require_once('includes/DAO/BusinessObject/CSession.php');
+require_once('includes/DAO/BusinessObject/CStoreExpenses.php');
 function sort_sessions($a, $b)
 {
 	$atime = $a['sessionTS'];
 	$btime = $b['sessionTS'];
 
 	if ($atime == $btime)
+	{
 		return 0;
+	}
 
 	return ($atime < $btime) ? -1 : 1;
 }
@@ -35,7 +37,9 @@ function sort_days($a, $b)
 	reset($b);
 
 	if ($atime == $btime)
+	{
 		return 0;
+	}
 
 	return ($atime < $btime) ? -1 : 1;
 }
@@ -55,16 +59,21 @@ function sort_weeks($a, $b)
 	{
 		$a_session = next($a_day);
 		$a_inf_loop_prevention++;
-		if ($a_inf_loop_prevention > 100) break;
+		if ($a_inf_loop_prevention > 100)
+		{
+			break;
+		}
 	}
 	$b_session = current($b_day);
 	while (!is_array($b_session))
 	{
 		$b_session = next($b_day);
 		$b_inf_loop_prevention++;
-		if ($b_inf_loop_prevention > 100) break;
+		if ($b_inf_loop_prevention > 100)
+		{
+			break;
+		}
 	}
-
 
 	$atime = $a_session['sessionTS'];
 	$btime = $b_session['sessionTS'];
@@ -75,9 +84,10 @@ function sort_weeks($a, $b)
 	reset($a_day);
 	reset($b_day);
 
-
 	if ($atime == $btime)
+	{
 		return 0;
+	}
 
 	return ($atime < $btime) ? -1 : 1;
 }
@@ -87,7 +97,13 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 	private $currentStore = null;
 	private $PandLAccess = true;
 
-	static $typeMap = array("STANDARD" => 'Standard', "SPECIAL_EVENT" => 'MFY', "DREAM_TASTE" => 'Taste', "TODD" => 'Taste', "FUNDRAISER" => 'Fundraiser');
+	static $typeMap = array(
+		"STANDARD" => 'Standard',
+		"SPECIAL_EVENT" => 'MFY',
+		"DREAM_TASTE" => 'Taste',
+		"TODD" => 'Taste',
+		"FUNDRAISER" => 'Fundraiser'
+	);
 
 	const LIMITED_P_AND_L_ACCESS_SECTION_ID = 8;
 
@@ -96,7 +112,6 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 		parent::__construct();
 		$this->cleanReportInputs();
 	}
-
 
 	function retreiveTasteHostesses($menuStart, $menuEnd)
 	{
@@ -110,13 +125,15 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 
 		$retval = array();
 
-		while($userObj->fetch())
+		while ($userObj->fetch())
 		{
-			$retval[$userObj->sess_id] = array('name' => $userObj->name, 'time' => $userObj->session_start);
+			$retval[$userObj->sess_id] = array(
+				'name' => $userObj->name,
+				'time' => $userObj->session_start
+			);
 		}
 
 		return $retval;
-
 	}
 
 	function getTasteEventCount($menuStart, $menuEnd)
@@ -128,38 +145,39 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 								and is_deleted = 0 and session_publish_state <> 'SAVED'");
 
 		if ($sessionObj->fetch())
+		{
 			return $sessionObj->num_tastes;
+		}
 
 		return 0;
-
 	}
-
 
 	function createEmptySessionArray($sessionFinderObj, $isPast, $sessionTS)
 	{
 
-		$retVal = array('session_id' => $sessionFinderObj->id,
-		'session_time' => date("l g:i A", $sessionTS),
-		'gross_revenue' => 0.00,
-		'ft_total' => 0.00,
-		'new_count' => 0,
-		'new_sign_ups' => 0,
-		'new_sign_ups_%' => 0,
-		'reac_count' => 0,
-		'reac_sign_ups' => 0,
-		'reac_sign_ups_%' => 0,
-		'existing_count' => 0,
-		'existing_sign_ups' => 0,
-		'existing_sign_ups_%' => 0,
-		'total_count' => 0,
-		'total_sign_ups' => 0,
-		'total_sign_ups_%' => 0,
-		'session_type' => self::$typeMap[$sessionFinderObj->session_type],
-		'session_lead' => '',
-		'isPast' => $isPast,
-		'out_of_month' => false,
-		'sessionTS' => $sessionTS);
-
+		$retVal = array(
+			'session_id' => $sessionFinderObj->id,
+			'session_time' => date("l g:i A", $sessionTS),
+			'gross_revenue' => 0.00,
+			'ft_total' => 0.00,
+			'new_count' => 0,
+			'new_sign_ups' => 0,
+			'new_sign_ups_%' => 0,
+			'reac_count' => 0,
+			'reac_sign_ups' => 0,
+			'reac_sign_ups_%' => 0,
+			'existing_count' => 0,
+			'existing_sign_ups' => 0,
+			'existing_sign_ups_%' => 0,
+			'total_count' => 0,
+			'total_sign_ups' => 0,
+			'total_sign_ups_%' => 0,
+			'session_type' => self::$typeMap[$sessionFinderObj->session_type],
+			'session_lead' => '',
+			'isPast' => $isPast,
+			'out_of_month' => false,
+			'sessionTS' => $sessionTS
+		);
 
 		if (!empty($sessionFinderObj->session_lead))
 		{
@@ -176,12 +194,9 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 			{
 				$retVal['session_lead'] = "0";
 			}
-
 		}
 
 		return $retVal;
-
-
 	}
 
 	function joinEmptySessions(&$masterArray, $nowAtStore, $menu_id, &$hasSessionToday)
@@ -195,18 +210,19 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 							from session s where s.store_id = {$this->currentStore} and s.menu_id = $menu_id and s.is_deleted = 0 and s.session_publish_state <> 'SAVED'
 							and (s.session_type_subtype != 'WALK_IN' || s.session_type_subtype is null) ");
 
-		while($sessionFinderObj->fetch())
+		while ($sessionFinderObj->fetch())
 		{
 
 			$sessionTimeTS = strtotime($sessionFinderObj->session_start);
 
 			$isPast = ($sessionTimeTS < $nowAtStore);
 
-
 			$weeknum = date("W", $sessionTimeTS);
 
 			if (!isset($masterArray[$weeknum]))
+			{
 				$masterArray[$weeknum] = array();
+			}
 
 			$dayNum = date("j", $sessionTimeTS);
 
@@ -228,12 +244,8 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 				uasort($masterArray[$weeknum], 'sort_days');
 				uasort($masterArray, 'sort_weeks');
 			}
-
 		}
-
-
 	}
-
 
 	function retrieveMetricsArray($month, $year, &$sessionLeads, $tpl, &$hasSessionToday, &$menu_start, &$menu_end, &$menu_id)
 	{
@@ -247,16 +259,13 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 		$hasPreviousMonthSessions = 0;
 		$hasFutureMonthSessions = 0;
 
-
 		$storeObj = DAO_CFactory::create('store');
 		$storeObj->query("select timezone_id from store where id = {$this->currentStore}");
 		$storeObj->fetch();
 
 		$nowAtStore = CTimezones::getAdjustedServerTime($storeObj);
 
-
-
-			$todaysTimeStamp = mktime(0,0,0, $todaysMonth, $todaysDay, date("Y") );
+		$todaysTimeStamp = mktime(0, 0, 0, $todaysMonth, $todaysDay, date("Y"));
 
 		// the old method retreives data for full weeks and disables those sessions outside of the calendar month
 		/*
@@ -303,25 +312,30 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 			group by s.id 
 			order by s.session_start");
 
-
-		while($sessionObj->fetch())
+		while ($sessionObj->fetch())
 		{
 
 			$sessionTimeTS = strtotime($sessionObj->session_start);
 			$weeknum = date("W", $sessionTimeTS);
 
 			if (!isset($retval[$weeknum]))
+			{
 				$retval[$weeknum] = array();
+			}
 
 			$dayNum = date("j", $sessionTimeTS);
 
 			if (!isset($retval[$weeknum][$dayNum]))
+			{
 				$retval[$weeknum][$dayNum] = array();
+			}
 
 			$sessionTime = date("l g:i A", $sessionTimeTS);
 
 			if (!isset($retval[$weeknum][$dayNum][$sessionObj->id]))
+			{
 				$retval[$weeknum][$dayNum][$sessionObj->id] = array();
+			}
 
 			$sesssionsMonth = date("n", $sessionTimeTS);
 
@@ -330,15 +344,16 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 				$hasSessionToday = true;
 			}
 
-			$thisDaysTimeStamp = mktime(0,0,0,$sesssionsMonth, $dayNum, date("Y", $sessionTimeTS));
+			$thisDaysTimeStamp = mktime(0, 0, 0, $sesssionsMonth, $dayNum, date("Y", $sessionTimeTS));
 
 			$isFutureDay = false;
-			if ($thisDaysTimeStamp > $todaysTimeStamp) $isFutureDay = true;
-
+			if ($thisDaysTimeStamp > $todaysTimeStamp)
+			{
+				$isFutureDay = true;
+			}
 
 			$retval[$weeknum][$dayNum][$sessionObj->id]['session_id'] = $sessionObj->id;
 			$retval[$weeknum][$dayNum][$sessionObj->id]['session_time'] = $sessionTime;
-
 
 			$retval[$weeknum][$dayNum][$sessionObj->id]['gross_revenue'] = $sessionObj->gross_revenue;
 			$retval[$weeknum][$dayNum][$sessionObj->id]['ft_total'] = $sessionObj->ft_total;
@@ -346,40 +361,52 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 			$retval[$weeknum][$dayNum][$sessionObj->id]['new_count'] = $sessionObj->new_guests;
 			$retval[$weeknum][$dayNum][$sessionObj->id]['new_sign_ups'] = $sessionObj->new_guest_signups;
 			if ($isFutureDay)
+			{
 				$retval[$weeknum][$dayNum][$sessionObj->id]['new_sign_ups_%'] = "0.00";
+			}
 			else
-				$retval[$weeknum][$dayNum][$sessionObj->id]['new_sign_ups_%'] = CTemplate::divide_and_format($sessionObj->new_guest_signups * 100,  $sessionObj->new_guests, 2);
-
-
+			{
+				$retval[$weeknum][$dayNum][$sessionObj->id]['new_sign_ups_%'] = CTemplate::divide_and_format($sessionObj->new_guest_signups * 100, $sessionObj->new_guests, 2);
+			}
 
 			$retval[$weeknum][$dayNum][$sessionObj->id]['reac_count'] = $sessionObj->reac_guests;
 			$retval[$weeknum][$dayNum][$sessionObj->id]['reac_sign_ups'] = $sessionObj->reac_guest_signups;
 			if ($isFutureDay)
+			{
 				$retval[$weeknum][$dayNum][$sessionObj->id]['reac_sign_ups_%'] = "0.00";
+			}
 			else
-				$retval[$weeknum][$dayNum][$sessionObj->id]['reac_sign_ups_%'] =  CTemplate::divide_and_format($sessionObj->reac_guest_signups * 100, $sessionObj->reac_guests, 2);
-
+			{
+				$retval[$weeknum][$dayNum][$sessionObj->id]['reac_sign_ups_%'] = CTemplate::divide_and_format($sessionObj->reac_guest_signups * 100, $sessionObj->reac_guests, 2);
+			}
 
 			$retval[$weeknum][$dayNum][$sessionObj->id]['existing_count'] = $sessionObj->existing_guests;
 			$retval[$weeknum][$dayNum][$sessionObj->id]['existing_sign_ups'] = $sessionObj->existing_guest_signups;
 			if ($isFutureDay)
+			{
 				$retval[$weeknum][$dayNum][$sessionObj->id]['existing_sign_ups_%'] = "0.00";
+			}
 			else
-				$retval[$weeknum][$dayNum][$sessionObj->id]['existing_sign_ups_%'] = CTemplate::divide_and_format($sessionObj->existing_guest_signups * 100,  $sessionObj->existing_guests, 2);
+			{
+				$retval[$weeknum][$dayNum][$sessionObj->id]['existing_sign_ups_%'] = CTemplate::divide_and_format($sessionObj->existing_guest_signups * 100, $sessionObj->existing_guests, 2);
+			}
 
 			$retval[$weeknum][$dayNum][$sessionObj->id]['total_count'] = $sessionObj->total_guests;
 			$retval[$weeknum][$dayNum][$sessionObj->id]['total_sign_ups'] = $sessionObj->total_guest_signups;
 			if ($isFutureDay)
+			{
 				$retval[$weeknum][$dayNum][$sessionObj->id]['total_sign_ups_%'] = "0.00";
+			}
 			else
+			{
 				$retval[$weeknum][$dayNum][$sessionObj->id]['total_sign_ups_%'] = CTemplate::divide_and_format($sessionObj->total_guest_signups * 100, $sessionObj->total_guests, 2);
+			}
 
 			$retval[$weeknum][$dayNum][$sessionObj->id]['session_type'] = self::$typeMap[$sessionObj->session_type];
 			$retval[$weeknum][$dayNum][$sessionObj->id]['session_lead'] = $sessionObj->session_lead;
 
 			$retval[$weeknum][$dayNum][$sessionObj->id]['isPast'] = ($sessionTimeTS < $nowAtStore);
 			$retval[$weeknum][$dayNum][$sessionObj->id]['sessionTS'] = $sessionTimeTS;
-
 
 			if (!empty($sessionObj->session_lead) && !array_key_exists($sessionObj->session_lead, $sessionLeads))
 			{
@@ -395,7 +422,6 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 				{
 					$sessionLeads[$sessionObj->session_lead] = "Unknown";
 				}
-
 			}
 
 			$retval[$weeknum][$dayNum][$sessionObj->id]['out_of_month'] = false;
@@ -403,28 +429,25 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 
 		$this->joinEmptySessions($retval, $nowAtStore, $MenuObj->id, $hasSessionToday);
 
-
 		if ($hasSessionToday && isset($retval[$todaysWeek][$todaysDay]))
 		{
 			$retval[$todaysWeek][$todaysDay]['isToday'] = true;
 		}
 
-
 		$tpl->assign('hasPreviousMonthSessions', 'false');
 		$tpl->assign('hasFutureMonthSessions', 'false');
 
+		$trimWeeks = array();
 
- 		$trimWeeks = array();
-
-		foreach($retval as $weekNumber => $thisWeek )
+		foreach ($retval as $weekNumber => $thisWeek)
 		{
 			$hasAtLeastOneInMonthSession = false;
 
-			foreach($thisWeek as $date => $thisDay)
+			foreach ($thisWeek as $date => $thisDay)
 			{
-				foreach($thisDay as $sessionID => $thisSession)
+				foreach ($thisDay as $sessionID => $thisSession)
 				{
-					if(!$thisSession['out_of_month'])
+					if (!$thisSession['out_of_month'])
 					{
 						$hasAtLeastOneInMonthSession = true;
 						break;
@@ -432,23 +455,24 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 				}
 
 				if ($hasAtLeastOneInMonthSession)
+				{
 					break;
+				}
 			}
 
 			if (!$hasAtLeastOneInMonthSession)
+			{
 				$trimWeeks[] = $weekNumber;
+			}
 		}
 
-
-		foreach($trimWeeks as $weekNumber)
+		foreach ($trimWeeks as $weekNumber)
 		{
 			unset($retval[$weekNumber]);
 		}
 
 		return $retval;
-
 	}
-
 
 	function getFoodCosts($menuStart, $menuEnd)
 	{
@@ -459,7 +483,7 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 		$year = date("Y", strtotime($menuStart));
 
 		$incrementWeekNum = 0;
-        if ($year == 2018 || $year == 2019 || $year == 2020)
+		if ($year == 2018 || $year == 2019 || $year == 2020 || $year == 2024)
 		{
 			$incrementWeekNum = 1;
 		}
@@ -468,21 +492,19 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 							From store_expenses Where store_expenses.entry_date >= '$menuStart' and store_expenses.entry_date < '$menuEnd' and store_id = {$this->currentStore} and store_expenses.is_deleted = 0 and
 							store_expenses.expense_type in ('SYSCO', 'OTHER_FOOD') order by entry_date, id DESC");
 
-
-		while($dataObj->fetch())
+		while ($dataObj->fetch())
 		{
 			if (isset($retVal[$dataObj->weekNum + $incrementWeekNum]))
-	        {
-	        	$retVal[$dataObj->weekNum + $incrementWeekNum] += $dataObj->total_cost;
-	        }
-	        else
-	        {
-	        	$retVal[$dataObj->weekNum + $incrementWeekNum] = $dataObj->total_cost;
-	        }
-	    }
+			{
+				$retVal[$dataObj->weekNum + $incrementWeekNum] += $dataObj->total_cost;
+			}
+			else
+			{
+				$retVal[$dataObj->weekNum + $incrementWeekNum] = $dataObj->total_cost;
+			}
+		}
 
 		return $retVal;
-
 	}
 
 	function getLaborCosts($menuStart, $menuEnd)
@@ -498,40 +520,36 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 		$year = date("Y", strtotime($menuStart));
 
 		$incrementWeekNum = 0;
-        if ($year == 2018 || $year == 2019 || $year == 2020)
+		if ($year == 2018 || $year == 2019 || $year == 2020 || $year == 2024)
 		{
 			$incrementWeekNum = 1;
 		}
 
-		while($dataObj->fetch())
+		while ($dataObj->fetch())
 		{
 			if (isset($retVal[$dataObj->weekNum + $incrementWeekNum]))
-	        {
-	        	$retVal[$dataObj->weekNum + $incrementWeekNum] += $dataObj->total_cost;
-	        }
-	        else
-	        {
-	        	$retVal[$dataObj->weekNum + $incrementWeekNum] = $dataObj->total_cost;
-	        }
-	    }
+			{
+				$retVal[$dataObj->weekNum + $incrementWeekNum] += $dataObj->total_cost;
+			}
+			else
+			{
+				$retVal[$dataObj->weekNum + $incrementWeekNum] = $dataObj->total_cost;
+			}
+		}
 
 		return $retVal;
-
 	}
-
 
 	function getGoalDefaultsFromLastYear($month, $year)
 	{
 
 		$retval = array();
 
-
-		$tempTime = mktime(0,0,0,$month - 1 , 1, $year);
+		$tempTime = mktime(0, 0, 0, $month - 1, 1, $year);
 		$lastMonth = date("n", $tempTime);
 		$lastMonthYear = date("Y", $tempTime);
 
 		$year--;
-
 
 		$MenuObj = DAO_CFactory::create('menu');
 		$MenuObj->findForMonthAndYear($month, $year);
@@ -548,7 +566,9 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 		if ($ordersObj->fetch())
 		{
 			if (empty($ordersObj->gross_revenue))
+			{
 				return false;
+			}
 
 			$retval['gross_revenue_goal'] = CTemplate::moneyFormat($ordersObj->gross_revenue);
 			$retval['finishing_touch_goal'] = CTemplate::moneyFormat($ordersObj->ft_revenue);
@@ -559,7 +579,6 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 			$MenuObj2->fetch();
 			$menu_start2 = date('Y-m-d H:i:s', strtotime($MenuObj2->global_menu_start_date));
 			$menu_end2 = date('Y-m-d 23:59:59', strtotime($MenuObj2->global_menu_end_date));
-
 
 			$ordersObj2 = DAO_CFactory::create('orders_digest');
 			$ordersObj2->query("select AVG(if (od.order_type <> 'TASTE' and od.order_type <> 'FUNDRAISER', (o.grand_total - o.subtotal_all_taxes), null)) as avg_ticket from orders_digest od
@@ -574,14 +593,10 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 
 				return $retval;
 			}
-
 		}
 
-
 		return false;
-
 	}
-
 
 	function getGoalDefaultsFromLastMonth($month, $year)
 	{
@@ -605,13 +620,14 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 		if ($ordersObj->fetch())
 		{
 			if (empty($ordersObj->gross_revenue))
+			{
 				return false;
+			}
 
 			$retval['gross_revenue_goal'] = CTemplate::moneyFormat($ordersObj->gross_revenue);
 			$retval['finishing_touch_goal'] = CTemplate::moneyFormat($ordersObj->ft_revenue);
 			$retval['avg_ticket_goal'] = CTemplate::moneyFormat($ordersObj->avg_ticket);
 			$retval['taste_sessions_goal'] = 4;
-
 
 			return $retval;
 		}
@@ -619,37 +635,32 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 		return false;
 	}
 
-
 	function flagNearestDayToToday(&$weeks)
 	{
 		$todaysWeek = date("W");
 		$todaysDay = date("j");
 
-		foreach($weeks as $weekNumber => &$thisWeek )
+		foreach ($weeks as $weekNumber => &$thisWeek)
 		{
 			if ($weekNumber == $todaysWeek)
 			{
-				foreach($thisWeek as $date => &$thisDay)
+				foreach ($thisWeek as $date => &$thisDay)
 				{
 					if ($date > $todaysDay)
 					{
 						$thisDay['first_future_session'] = true;
+
 						return;
 					}
-
 				}
 			}
-
 		}
 	}
-
-
 
 	function runHomeOfficeManager()
 	{
 		$this->runSiteAdmin();
 	}
-
 
 	function runEventCoordinator()
 	{
@@ -661,100 +672,114 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 
 	function runOpsLead()
 	{
-	    $hasPandLAccess = CApp::directAccessControlTest(self::LIMITED_P_AND_L_ACCESS_SECTION_ID, CUser::getCurrentUser()->id);
+		$hasPandLAccess = CApp::directAccessControlTest(self::LIMITED_P_AND_L_ACCESS_SECTION_ID, CUser::getCurrentUser()->id);
 
-	    if (!$hasPandLAccess)
-	    {
-	    	$this->PandLAccess = false;
-	    }
-
-	    $this->currentStore = CApp::forceLocationChoice();
-	    $this->runSiteAdmin();
-	}
-
-	function runFranchiseManager()
-	{
-
-	    $hasPandLAccess = CApp::directAccessControlTest(self::LIMITED_P_AND_L_ACCESS_SECTION_ID, CUser::getCurrentUser()->id);
-
-	    if (!$hasPandLAccess)
-	    {
-	        $this->PandLAccess = false;
-	    }
+		if (!$hasPandLAccess)
+		{
+			$this->PandLAccess = false;
+		}
 
 		$this->currentStore = CApp::forceLocationChoice();
 		$this->runSiteAdmin();
 	}
 
- 	function runFranchiseOwner()
- 	{
-	 	$this->currentStore = CApp::forceLocationChoice();
+	function runFranchiseManager()
+	{
 
+		$hasPandLAccess = CApp::directAccessControlTest(self::LIMITED_P_AND_L_ACCESS_SECTION_ID, CUser::getCurrentUser()->id);
+
+		if (!$hasPandLAccess)
+		{
+			$this->PandLAccess = false;
+		}
+
+		$this->currentStore = CApp::forceLocationChoice();
+		$this->runSiteAdmin();
+	}
+
+	function runFranchiseOwner()
+	{
+		$this->currentStore = CApp::forceLocationChoice();
 
 		$this->runSiteAdmin();
 	}
 
- 	function runSiteAdmin()
- 	{
- 		$tpl = CApp::instance()->template();
+	function runSiteAdmin()
+	{
+		$tpl = CApp::instance()->template();
 
- 		$Form = new CForm();
- 		$Form->Repost = TRUE;
+		$Form = new CForm();
+		$Form->Repost = true;
 
- 		$isHomeOfficeAccess  = true;
+		$isHomeOfficeAccess = true;
 
- 		if (CUser::getCurrentUser()->isFranchiseAccess())
- 			$isHomeOfficeAccess = false;
+		if (CUser::getCurrentUser()->isFranchiseAccess())
+		{
+			$isHomeOfficeAccess = false;
+		}
 
- 		$tpl->assign('isHomeOfficeAccess', $isHomeOfficeAccess);
+		$tpl->assign('isHomeOfficeAccess', $isHomeOfficeAccess);
 
+		if ($this->currentStore)
+		{ //fadmins
+			$store = $this->currentStore;
+		}
+		else
+		{
+			$Form->DefaultValues['store'] = array_key_exists('store', $_GET) ? $_GET['store'] : null;
 
- 		if ( $this->currentStore )
- 		{ //fadmins
- 			$store = $this->currentStore;
- 		}
- 		else
- 		{
- 			$Form->DefaultValues['store'] = array_key_exists('store', $_GET)? $_GET['store'] : null;
+			$Form->addElement(array(
+				CForm::type => CForm::AdminStoreDropDown,
+				CForm::allowAllOption => false,
+				CForm::showInactiveStores => false,
+				CForm::name => 'store'
+			));
 
- 			$Form->addElement(array(CForm::type=> CForm::AdminStoreDropDown,
- 					CForm::allowAllOption => false,
- 					CForm::showInactiveStores => false,
- 					CForm::name => 'store'));
+			$store = $Form->value('store');
+			$this->currentStore = $store;
+		}
 
- 			$store = $Form->value('store');
- 			$this->currentStore = $store;
- 		}
+		$storeObj = DAO_CFactory::create('store');
+		$storeObj->query("select is_corporate_owned from store where id = {$this->currentStore}");
+		$storeObj->fetch();
 
+		// Special privileges handling
+		if ($storeObj->is_corporate_owned && (CUser::getCurrentUser()->user_type == CUser::FRANCHISE_MANAGER || CUser::getCurrentUser()->user_type == CUser::OPS_LEAD))
+		{
+			$this->PandLAccess = true;
+		}
 
- 		$storeObj = DAO_CFactory::create('store');
- 		$storeObj->query("select is_corporate_owned from store where id = {$this->currentStore}");
- 		$storeObj->fetch();
+		$tpl->assign('PandLAccess', $this->PandLAccess);
 
+		$Form->AddElement(array(
+			CForm::type => CForm::Submit,
+			CForm::name => 'report_submit',
+			CForm::css_class => 'btn btn-primary btn-sm',
+			CForm::value => 'Run Report'
+		));
 
- 		// Special privileges handling
- 		if ($storeObj->is_corporate_owned && (CUser::getCurrentUser()->user_type == CUser::FRANCHISE_MANAGER || CUser::getCurrentUser()->user_type == CUser::OPS_LEAD))
- 		{
-             $this->PandLAccess = true;
- 		}
+		$month_array = array(
+			1 => 'January',
+			2 => 'February',
+			3 => 'March',
+			4 => 'April',
+			5 => 'May',
+			6 => 'June',
+			7 => 'July',
+			8 => 'August',
+			9 => 'September',
+			10 => 'October',
+			11 => 'November',
+			12 => 'December'
+		);
 
- 		$tpl->assign('PandLAccess', $this->PandLAccess);
-
- 		$Form->AddElement(array (CForm::type => CForm::Submit,
- 				CForm::name => 'report_submit',
- 				CForm::css_class => 'btn btn-primary btn-sm',
- 				CForm::value => 'Run Report'));
-
-
- 		$month_array = array (1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April', 5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August', 9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December');
-
- 		if (isset($_REQUEST['date']))
- 		{
+		if (isset($_REQUEST['date']))
+		{
 			$dateParts = explode("-", $_REQUEST['date']);
 			$year = $dateParts[0];
 			$month = $dateParts[1];
 			$monthnum = intval($month);
- 		}
+		}
 		else
 		{
 			$curMenuArr = CMenu::getMenuByDate(date("Y-m-d"));
@@ -763,26 +788,27 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 			$monthnum = date("n", $menuAnchorTS);
 		}
 
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::name => "year_field_001",
+			CForm::required => true,
+			CForm::default_value => $year,
+			CForm::length => 6
+		));
 
- 	 	$Form->AddElement(array(CForm::type=> CForm::Text,
- 				CForm::name => "year_field_001",
- 				CForm::required => true,
- 				CForm::default_value => $year,
- 				CForm::length => 6));
+		$Form->AddElement(array(
+			CForm::type => CForm::DropDown,
+			CForm::onChangeSubmit => false,
+			CForm::allowAllOption => false,
+			CForm::options => $month_array,
+			CForm::default_value => $monthnum,
+			CForm::name => 'month_popup'
+		));
 
+		$month = $Form->value('month_popup');
+		$year = $Form->value('year_field_001');
 
- 		$Form->AddElement(array(CForm::type=> CForm::DropDown,
- 				CForm::onChangeSubmit => false,
- 				CForm::allowAllOption => false,
- 				CForm::options => $month_array,
- 				CForm::default_value => $monthnum,
- 				CForm::name => 'month_popup'));
-
-
- 		$month = $Form->value('month_popup');
- 		$year = $Form->value('year_field_001');
-
- 		$date = date("Y-m-d", mktime(0,0,0,$month, 1, $year));
+		$date = date("Y-m-d", mktime(0, 0, 0, $month, 1, $year));
 
 		$goalObj = DAO_CFactory::create('store_monthly_goals');
 		$goalObj->store_id = $this->currentStore;
@@ -798,28 +824,26 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 			$Form->DefaultValues['taste_guest_count_goal'] = $goalObj->taste_guest_count_goal;
 			$Form->DefaultValues['intro_guest_count_goal'] = $goalObj->intro_guest_count_goal;
 
-
-
-			if (empty($goalObj->average_ticket_goal) || empty($goalObj->finishing_touch_revenue_goal)
-			    || $goalObj->average_ticket_goal == "0.00" || $goalObj->finishing_touch_revenue_goal == "0.00")
+			if (empty($goalObj->average_ticket_goal) || empty($goalObj->finishing_touch_revenue_goal) || $goalObj->average_ticket_goal == "0.00" || $goalObj->finishing_touch_revenue_goal == "0.00")
 			{
-			    $fb_defaults = $this->getGoalDefaultsFromLastYear($month, $year);
+				$fb_defaults = $this->getGoalDefaultsFromLastYear($month, $year);
 				CLog::Record("Need added defaults: " . print_r($fb_defaults, true));
 
-			    if (!$fb_defaults)
-			    {
-			        $fb_defaults = $this->getGoalDefaultsFromLastMonth($month, $year);
+				if (!$fb_defaults)
+				{
+					$fb_defaults = $this->getGoalDefaultsFromLastMonth($month, $year);
 					CLog::Record("Need added defaults from last month: " . print_r(fb_defaults, true));
+				}
 
-			    }
-
-			    if (empty($goalObj->average_ticket_goal) || $goalObj->average_ticket_goal == "0.00")
-			        $Form->DefaultValues['avg_ticket_goal'] = $fb_defaults['avg_ticket_goal'];
-			    if (empty($goalObj->finishing_touch_revenue_goal) || $goalObj->finishing_touch_revenue_goal == "0.00")
-			        $Form->DefaultValues['finishing_touch_goal'] = $fb_defaults['finishing_touch_goal'];
-
+				if (empty($goalObj->average_ticket_goal) || $goalObj->average_ticket_goal == "0.00")
+				{
+					$Form->DefaultValues['avg_ticket_goal'] = $fb_defaults['avg_ticket_goal'];
+				}
+				if (empty($goalObj->finishing_touch_revenue_goal) || $goalObj->finishing_touch_revenue_goal == "0.00")
+				{
+					$Form->DefaultValues['finishing_touch_goal'] = $fb_defaults['finishing_touch_goal'];
+				}
 			}
-
 		}
 		else
 		{
@@ -828,7 +852,6 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 			$Form->DefaultValues['regular_guest_count_goal'] = 0;
 			$Form->DefaultValues['taste_guest_count_goal'] = 0;
 			$Form->DefaultValues['intro_guest_count_goal'] = 0;
-
 
 			if (!$defaults)
 			{
@@ -858,253 +881,296 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 			}
 		}
 
- 		// Monthly Goals
+		// Monthly Goals
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 		        CForm::value => "$0.00",
- 				CForm::name => "gross_revenue_goal"));
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::value => "$0.00",
+			CForm::name => "gross_revenue_goal"
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Text,
- 				CForm::name => "avg_ticket_goal",
- 				CForm::required => true,
- 				CForm::onChange => 'calculatePage',
- 				CForm::css_class => 'gt_input',
- 				CForm::length => 10));
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::name => "avg_ticket_goal",
+			CForm::required => true,
+			CForm::onChange => 'calculatePage',
+			CForm::css_class => 'gt_input',
+			CForm::length => 10
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "guests_goal",
- 				CForm::value => ""));
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "guests_goal",
+			CForm::value => ""
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Text,
- 				CForm::name => "finishing_touch_goal",
- 				CForm::required => true,
- 				CForm::onChange => 'calculatePage',
- 				CForm::css_class => 'gt_input',
- 				CForm::length => 10));
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::name => "finishing_touch_goal",
+			CForm::required => true,
+			CForm::onChange => 'calculatePage',
+			CForm::css_class => 'gt_input',
+			CForm::length => 10
+		));
 
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::name => "taste_sessions_goal",
+			CForm::required => true,
+			CForm::onChange => 'calculatePage',
+			CForm::css_class => 'gt_input_count',
+			CForm::maxlength => 2
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Text,
- 				CForm::name => "taste_sessions_goal",
- 				CForm::required => true,
- 				CForm::onChange => 'calculatePage',
- 				CForm::css_class => 'gt_input_count',
- 				CForm::maxlength => 2));
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::name => "regular_guest_count_goal",
+			CForm::required => true,
+			CForm::onChange => 'calculatePage',
+			CForm::css_class => 'gt_input_count',
+			CForm::maxlength => 3
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Text,
- 		    CForm::name => "regular_guest_count_goal",
- 		    CForm::required => true,
- 		    CForm::onChange => 'calculatePage',
- 		    CForm::css_class => 'gt_input_count',
- 		    CForm::maxlength => 3));
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::name => "taste_guest_count_goal",
+			CForm::required => true,
+			CForm::onChange => 'calculatePage',
+			CForm::css_class => 'gt_input_count',
+			CForm::maxlength => 3
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Text,
- 		    CForm::name => "taste_guest_count_goal",
- 		    CForm::required => true,
- 		    CForm::onChange => 'calculatePage',
- 		    CForm::css_class => 'gt_input_count',
- 		    CForm::maxlength => 3));
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::name => "intro_guest_count_goal",
+			CForm::required => true,
+			CForm::onChange => 'calculatePage',
+			CForm::css_class => 'gt_input_count',
+			CForm::maxlength => 3
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Text,
- 		    CForm::name => "intro_guest_count_goal",
- 		    CForm::required => true,
- 		    CForm::onChange => 'calculatePage',
- 		    CForm::css_class => 'gt_input_count',
- 		    CForm::maxlength => 3));
+		// Session Goals
 
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "sg_gross_revenue_goal",
+			CForm::value => 0
+		));
 
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "sg_avg_ticket_goal",
+			CForm::value => 0
+		));
 
- 		// Session Goals
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "sg_guests_goal",
+			CForm::value => 0
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "sg_gross_revenue_goal",
- 				CForm::value => 0));
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "sg_finishing_touch_goal",
+			CForm::value => 0
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "sg_avg_ticket_goal",
- 				CForm::value => 0));
+		// Average Actual MTD
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "sg_guests_goal",
- 				CForm::value => 0));
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "aam_gross_revenue_goal",
+			CForm::value => 0
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "sg_finishing_touch_goal",
- 				CForm::value => 0));
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "aam_avg_ticket_goal",
+			CForm::value => 0
+		));
 
- 		// Average Actual MTD
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "aam_guests_goal",
+			CForm::value => 0
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "aam_gross_revenue_goal",
- 				CForm::value => 0));
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "aam_finishing_touch_goal",
+			CForm::value => 0
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "aam_avg_ticket_goal",
- 				CForm::value => 0));
+		// Revised Goal for Remaining Sessions:
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "aam_guests_goal",
- 				CForm::value => 0));
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "rgrs_gross_revenue_goal",
+			CForm::value => 0
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "aam_finishing_touch_goal",
- 				CForm::value => 0));
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "rgrs_avg_ticket_goal",
+			CForm::value => 0
+		));
 
- 		// Revised Goal for Remaining Sessions:
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "rgrs_guests_goal",
+			CForm::value => 0
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "rgrs_gross_revenue_goal",
- 				CForm::value => 0));
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "rgrs_finishing_touch_goal",
+			CForm::value => 0
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "rgrs_avg_ticket_goal",
- 				CForm::value => 0));
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "mat_gross_revenue_goal",
+			CForm::value => 0
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "rgrs_guests_goal",
- 				CForm::value => 0));
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "mat_avg_ticket_goal",
+			CForm::value => 0
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "rgrs_finishing_touch_goal",
- 				CForm::value => 0));
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "mat_guests_goal",
+			CForm::value => 0
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "mat_gross_revenue_goal",
- 				CForm::value => 0));
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "mat_finishing_touch_goal",
+			CForm::value => 0
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "mat_avg_ticket_goal",
- 				CForm::value => 0));
+		// Monthly Actuals:
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "mat_guests_goal",
- 				CForm::value => 0));
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "ma_gross_revenue_goal",
+			CForm::value => 0
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "mat_finishing_touch_goal",
- 				CForm::value => 0));
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "ma_avg_ticket_goal",
+			CForm::value => 0
+		));
 
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "ma_guests_goal",
+			CForm::value => 0
+		));
 
- 		// Monthly Actuals:
+		$Form->AddElement(array(
+			CForm::type => CForm::Label,
+			CForm::name => "ma_finishing_touch_goal",
+			CForm::value => 0
+		));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "ma_gross_revenue_goal",
- 				CForm::value => 0));
+		$isCurrentMonth = false;
+		if ($month == date("n") && $year == date("Y"))
+		{
+			$isCurrentMonth = true;
+		}
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "ma_avg_ticket_goal",
- 				CForm::value => 0));
+		$monthAsTS = mktime(0, 0, 0, $month, 1, $year);
+		$currentMonthAsTS = mktime(0, 0, 0, date("n"), 1, date("Y"));
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "ma_guests_goal",
- 				CForm::value => 0));
+		$monthIsPassed = 'false';
+		if ($monthAsTS < $currentMonthAsTS)
+		{
+			$monthIsPassed = 'true';
+		}
 
- 		$Form->AddElement(array(CForm::type=> CForm::Label,
- 				CForm::name => "ma_finishing_touch_goal",
- 				CForm::value => 0));
+		$tpl->assign('monthIsPassed', $monthIsPassed);
 
+		$monthIsFuture = false;
+		if ($monthAsTS > $currentMonthAsTS)
+		{
+			$monthIsFuture = true;
+		}
 
+		$tpl->assign('isFutureMonth', $monthIsFuture);
+		$tpl->assign('isCurrentMonth', $isCurrentMonth);
 
- 		$isCurrentMonth = false;
- 		if ($month == date("n") && $year == date("Y"))
- 			$isCurrentMonth = true;
+		$tpl->assign('month', $month);
+		$tpl->assign('year', $year);
+		$tpl->assign('store_id', $this->currentStore);
 
- 		$monthAsTS = mktime(0,0,0,$month, 1, $year);
- 		$currentMonthAsTS = mktime(0,0,0,date("n"), 1, date("Y"));
+		$formArray = $Form->render();
 
- 		$monthIsPassed = 'false';
- 		if ($monthAsTS < $currentMonthAsTS)
- 			$monthIsPassed = 'true';
+		$sessionLeads = CSession::retreiveSessionLeadArray($this->currentStore);
 
- 		$tpl->assign('monthIsPassed', $monthIsPassed);
+		$hasSessionToday = false;
 
-
- 		$monthIsFuture = false;
- 		if ($monthAsTS > $currentMonthAsTS)
- 			$monthIsFuture = true;
-
- 		$tpl->assign('isFutureMonth', $monthIsFuture);
-  		$tpl->assign('isCurrentMonth', $isCurrentMonth);
-
- 		$tpl->assign('month', $month);
- 		$tpl->assign('year', $year);
- 		$tpl->assign('store_id', $this->currentStore);
-
- 		$formArray = $Form->render();
-
- 		$sessionLeads = CSession::retreiveSessionLeadArray($this->currentStore);
-
- 		$hasSessionToday = false;
-
- 		$menuStart = false;
- 		$menuEnd = false;
+		$menuStart = false;
+		$menuEnd = false;
 		$menu_id = false;
 
- 		$rows = $this->retrieveMetricsArray($month, $year, $sessionLeads, $tpl, $hasSessionToday, $menuStart, $menuEnd, $menu_id);
+		$rows = $this->retrieveMetricsArray($month, $year, $sessionLeads, $tpl, $hasSessionToday, $menuStart, $menuEnd, $menu_id);
 
-
- 		$membershipFeeRevenue = CDreamReport::getMembershipFeeRevenueByMenuID($this->currentStore, $menu_id);
+		$membershipFeeRevenue = CDreamReport::getMembershipFeeRevenueByMenuID($this->currentStore, $menu_id);
 		$tpl->assign('membership_fee_revenue', $membershipFeeRevenue);
 
-
 		if ($isCurrentMonth && !$hasSessionToday)
- 		{
+		{
 			$this->flagNearestDayToToday($rows);
- 		}
+		}
 
+		$tpl->assign('weeks', $rows);
 
- 		$tpl->assign('weeks', $rows);
+		$foodCostArray = $this->getFoodCosts($menuStart, $menuEnd);
+		$tpl->assign('food_costs', $foodCostArray);
 
+		$laborCostArray = $this->getLaborCosts($menuStart, $menuEnd);
+		$tpl->assign('labor_costs', $laborCostArray);
 
- 		$foodCostArray = $this->getFoodCosts($menuStart, $menuEnd);
- 		$tpl->assign('food_costs', $foodCostArray);
+		$tpl->assign('taste_event_count', $this->getTasteEventCount($menuStart, $menuEnd));
 
- 		$laborCostArray = $this->getLaborCosts($menuStart, $menuEnd);
- 		$tpl->assign('labor_costs', $laborCostArray);
+		$tpl->assign('leads', $sessionLeads);
 
- 		$tpl->assign('taste_event_count', $this->getTasteEventCount($menuStart, $menuEnd));
+		$tpl->assign('form_session_list', $formArray);
 
- 		$tpl->assign('leads', $sessionLeads);
+		$this->setLivesChangedMetric($tpl, $this->currentStore, $month, $year);
 
- 		$tpl->assign('form_session_list', $formArray);
-
- 		$this->setLivesChangedMetric($tpl, $this->currentStore, $month, $year);
-
- 		$tpl->assign('hostesses', $this->retreiveTasteHostesses($menuStart, $menuEnd));
- 		CLog::RecordReport("Session Summary and Goal Tracking Report", "Store: {$this->currentStore}" );
-
-
-
-
-
-
-
-
+		$tpl->assign('hostesses', $this->retreiveTasteHostesses($menuStart, $menuEnd));
+		CLog::RecordReport("Session Summary and Goal Tracking Report", "Store: {$this->currentStore}");
 	}
-
-
 
 	function setLivesChangedMetric($tpl, $store_id, $month, $year)
 	{
 
-	    $date = date("Y-m-d", mktime(0,0,0,$month, 1, $year));
+		$date = date("Y-m-d", mktime(0, 0, 0, $month, 1, $year));
 
-	    $guestsDAO = DAO_CFactory::create('dashboard_metrics_guests');
-	    $guestsDAO->query("select iq.*, dmg2.total_servings_sold as store_servings, dmg2.guest_count_total as store_guests from
+		$guestsDAO = DAO_CFactory::create('dashboard_metrics_guests');
+		$guestsDAO->query("select iq.*, dmg2.total_servings_sold as store_servings, dmg2.guest_count_total as store_guests from
 	           (select avg(dmg.total_servings_sold) as nat_avg_servings, avg(dmg.guest_count_total) as nat_avg_guests from dashboard_metrics_guests dmg
 	            join store s on s.id = dmg.store_id and s.active = 1
 	           where date = '$date' and dmg.is_deleted = 0) as iq
 	            join dashboard_metrics_guests dmg2 on dmg2.store_id = $store_id and dmg2.date = '$date' and dmg2.is_deleted = 0");
-	    $guestsDAO->fetch();
+		$guestsDAO->fetch();
 
-        $livesChanged = array('store_guests' => $guestsDAO->store_guests,
-	                		   'national_avg_guests' => CTemplate::number_format($guestsDAO->nat_avg_guests,2),
-	                		  'percent_of_avg_guests' => CTemplate::divide_and_format($guestsDAO->store_guests, $guestsDAO->nat_avg_guests, 4) * 100,
-	                		  'store_servings' => $guestsDAO->store_servings,
-	                		   'national_avg_servings' => CTemplate::number_format($guestsDAO->nat_avg_servings,2),
-	                		   'percent_of_avg_servings' => CTemplate::divide_and_format($guestsDAO->store_servings, $guestsDAO->nat_avg_servings, 4) * 100);
+		$livesChanged = array(
+			'store_guests' => $guestsDAO->store_guests,
+			'national_avg_guests' => CTemplate::number_format($guestsDAO->nat_avg_guests, 2),
+			'percent_of_avg_guests' => CTemplate::divide_and_format($guestsDAO->store_guests, $guestsDAO->nat_avg_guests, 4) * 100,
+			'store_servings' => $guestsDAO->store_servings,
+			'national_avg_servings' => CTemplate::number_format($guestsDAO->nat_avg_servings, 2),
+			'percent_of_avg_servings' => CTemplate::divide_and_format($guestsDAO->store_servings, $guestsDAO->nat_avg_servings, 4) * 100
+		);
 
-        $tpl->assign('lives_changed',$livesChanged);
-
+		$tpl->assign('lives_changed', $livesChanged);
 	}
 }
+
 ?>
