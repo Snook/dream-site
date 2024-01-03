@@ -36,6 +36,5 @@
 				<p class="mb-0">For questions or concerns about your order call <span class="font-weight-bold"><?php echo $this->cart_info['store_info']['telephone_day']; ?></span> or email <span class="font-weight-bold"><a href="mailto:<?php echo $this->cart_info['store_info']['email_address']; ?>?subject=Regarding session on <?php echo CTemplate::dateTimeFormat($this->session['session_start'], VERBOSE); ?>"><?php echo $this->cart_info['store_info']['email_address']; ?></a></span></p>
 			</div>
 		</div>
-		<?php } ?>
 	</div>
 </div>
