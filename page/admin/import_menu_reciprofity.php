@@ -1227,7 +1227,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 						}
 						else
 						{
-							if ($DAO_menu_to_menu_item->DAO_menu_item->is_store_special)
+							if (!empty($DAO_menu_to_menu_item->DAO_menu_item->is_store_special))
 							{
 								$new_DAO_menu_to_menu_item->is_visible = 0;
 							}
