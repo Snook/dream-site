@@ -1373,7 +1373,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 
 			$targetItem->recipe_id = $fields['recipe_id'];
 			$targetItem->pricing_type = $fields['pricing_type'];
-			$targetItem->sales_mix = str_replace('%', '', $fields[SALES_MIX]) / 100;
+			$targetItem->sales_mix = !empty($fields[SALES_MIX]) ? str_replace('%', '', $fields[SALES_MIX]) / 100 : 0;
 
 			// must be inserted if it's not an update
 			if (!$doUpdate || !empty($_POST['import_menu_item_name']))
