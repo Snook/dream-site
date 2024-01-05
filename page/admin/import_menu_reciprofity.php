@@ -1178,7 +1178,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 
 		try
 		{
-			$DAO_store = DAO_CFactory::create('store');
+			$DAO_store = DAO_CFactory::create('store', true);
 			$DAO_store->whereAdd("store.id in (" . $_POST['multi_store_select'] . ")");
 			$DAO_store->whereAdd("store.store_type = '" . CStore::FRANCHISE . "' OR store.store_type = '" . CStore::DISTRIBUTION_CENTER . "'");
 			$DAO_store->whereAdd("store.ssm_builder = '1' OR store.active = '1' OR store.show_on_customer_site = '1'");
@@ -1207,7 +1207,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 						$new_DAO_menu_to_menu_item->menu_order_value = $DAO_menu_to_menu_item->menu_order_value;
 						$new_DAO_menu_to_menu_item->featuredItem = 0;
 
-						if ($DAO_menu_to_menu_item->menu_item_category_id != 9)
+						if ($DAO_menu_to_menu_item->DAO_menu_item->menu_item_category_id != 9)
 						{
 							$DAO_pricing = DAO_CFactory::create('pricing');
 							$DAO_pricing->menu_id = $menu_id;
@@ -1227,13 +1227,13 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 						}
 						else
 						{
-							if ($DAO_menu_to_menu_item->is_store_special)
+							if ($DAO_menu_to_menu_item->DAO_menu_item->is_store_special)
 							{
 								$new_DAO_menu_to_menu_item->is_visible = 0;
 							}
 							else
 							{
-								$new_DAO_menu_to_menu_item->is_visible = $DAO_menu_to_menu_item->is_visible;
+								$new_DAO_menu_to_menu_item->is_visible = $DAO_menu_to_menu_item->DAO_menu_item->is_visible;
 							}
 						}
 
