@@ -759,6 +759,10 @@ class page_admin_menu_inventory_mgr extends CPageAdminOnly
 			$currentMenu = 245;
 		}
 
+		$DAO_menu = DAO_CFactory::create('menu');
+		$DAO_menu->id = $currentMenu;
+		$DAO_menu->find(true);
+
 		if (array_key_exists($currentMenu, $menuOptions))
 		{
 			$Form->DefaultValues['menus'] = $currentMenu;
@@ -887,7 +891,7 @@ class page_admin_menu_inventory_mgr extends CPageAdminOnly
 			{
 				$Form->DefaultValues['regular_guest_count_goal'] = $defaults['regular'];
 				$Form->DefaultValues['taste_guest_count_goal'] = $defaults['taste'];
-				$Form->DefaultValues['intro_guest_count_goal'] = $defaults['intro'];
+				$Form->DefaultValues['intro_guest_count_goal'] = ($DAO_menu->isEnabled_Starter_Pack($storeObj)) ? $defaults['intro'] : 0;
 			}
 			else
 			{
