@@ -2324,7 +2324,7 @@ class CSession extends DAO_Session
 			`session`.*,
 			(`session`.available_slots - count(booking.id)) AS 'remaining_slots'
 			from (select * from `session` where `session`.store_id = " . $storeObj->id . " and DATE(`session`.session_start) >= '" . $earliestDeliveryDate . "' and `session`.delivered_supports_delivery > 1 and `session`.is_deleted = 0 order by `session`.session_start limit 20) as `session`
-			join `session` as session_2 on session_2.session_start = DATE_SUB(`session`.session_start, INTERVAL 2 DAY) and session_2.store_id = `session`.store_id and session_2.is_deleted = 0 and session_2.delivered_supports_shipping > 0
+			join `session` as session_2 on session_2.session_start = DATE_SUB(`session`.session_start, INTERVAL " . $orgServiceDays . " DAY) and session_2.store_id = `session`.store_id and session_2.is_deleted = 0 and session_2.delivered_supports_shipping > 0
 			LEFT JOIN booking ON booking.session_id = `session`.id  AND booking.status = 'ACTIVE' and booking.is_deleted = 0
 			group by `session`.id
 			order by `session`.session_start limit " .$max_returned);
