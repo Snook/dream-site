@@ -16,8 +16,9 @@ while ($stores->fetch())
 
 $DAO_session = DAO_CFactory::create('session', true);
 //$DAO_session->id = 989828;
-$DAO_session->store_id = 244;
-$DAO_session->menu_id = 263;
+$DAO_session->store_id = 204;
+$DAO_session->menu_id = 270;
+// $DAO_session->whereAdd('session_properties.store_pickup_location_id IS NOT NULL');
 
 //$DAO_booking = DAO_CFactory::create('booking');
 //$DAO_booking->status = CBooking::ACTIVE;
