@@ -8,25 +8,25 @@ class COffsitelocation extends DAO_Store_pickup_location
 
 	static function addUpdatePickupLocation($Store, $data, $edit_id = false)
 	{
-		$pickupLocation = DAO_CFactory::create('store_pickup_location');
+		$DAO_store_pickup_location = DAO_CFactory::create('store_pickup_location');
 
 		if ($edit_id)
 		{
-			$pickupLocation->id = $edit_id;
-			$pickupLocation->find(true);
+			$DAO_store_pickup_location->id = $edit_id;
+			$DAO_store_pickup_location->find(true);
 
-			$pickupLocation->contact = '';
+			$DAO_store_pickup_location->contact = '';
 
-			if (!empty($pickupLocation->contact_user_id))
+			if (!empty($DAO_store_pickup_location->contact_user_id))
 			{
 				$contactUser = DAO_CFactory::create('user');
-				$contactUser->id = $pickupLocation->contact_user_id;
+				$contactUser->id = $DAO_store_pickup_location->contact_user_id;
 				$contactUser->find(true);
 
-				$pickupLocation->contact = $contactUser->primary_email;
+				$DAO_store_pickup_location->contact = $contactUser->primary_email;
 			}
 
-			$pickupLocationOrg = clone $pickupLocation;
+			$pickupLocationOrg = clone $DAO_store_pickup_location;
 		}
 
 		if (!empty($data["contact"]))
@@ -35,37 +35,37 @@ class COffsitelocation extends DAO_Store_pickup_location
 			$contactUser->primary_email = $data["contact"];
 			$contactUser->find(true);
 
-			$pickupLocation->contact_user_id = $contactUser->id;
-			$pickupLocation->contact = $contactUser->primary_email;
+			$DAO_store_pickup_location->contact_user_id = $contactUser->id;
+			$DAO_store_pickup_location->contact = $contactUser->primary_email;
 		}
 		else
 		{
-			$pickupLocation->contact_user_id = 'NULL';
-			$pickupLocation->contact = 'NULL';
+			$DAO_store_pickup_location->contact_user_id = 'NULL';
+			$DAO_store_pickup_location->contact = 'NULL';
 		}
 
-		$pickupLocation->store_id = $Store->id;
-		$pickupLocation->location_title = $data["location"];
-		$pickupLocation->address_line1 = $data["address_line1"];
-		$pickupLocation->address_line2 = strlen($data["address_line2"]) ? $data["address_line2"] : "";
-		$pickupLocation->city = $data["city"];
-		$pickupLocation->state_id = $data["state"];
-		$pickupLocation->postal_code = $data["postal_code"];
+		$DAO_store_pickup_location->store_id = $Store->id;
+		$DAO_store_pickup_location->location_title = $data["location"];
+		$DAO_store_pickup_location->address_line1 = $data["address_line1"];
+		$DAO_store_pickup_location->address_line2 = strlen($data["address_line2"]) ? $data["address_line2"] : "";
+		$DAO_store_pickup_location->city = $data["city"];
+		$DAO_store_pickup_location->state_id = $data["state"];
+		$DAO_store_pickup_location->postal_code = $data["postal_code"];
+		$DAO_store_pickup_location->address_latitude = $data["address_latitude"];
+		$DAO_store_pickup_location->address_longitude = $data["address_longitude"];
 
-
-		$pickupLocation->default_session_override = 'NULL';
-
+		$DAO_store_pickup_location->default_session_override = 'NULL';
 
 		if ($edit_id)
 		{
-			$pickupLocation->update($pickupLocationOrg);
+			$DAO_store_pickup_location->update($pickupLocationOrg);
 		}
 		else
 		{
-			$pickupLocation->insert();
+			$DAO_store_pickup_location->insert();
 		}
 
-		return $pickupLocation;
+		return $DAO_store_pickup_location;
 	}
 
 	static function storeOffsitelocationArray($Store, $store_to_Offsitelocation_id = false, $get_totals = false)

@@ -368,7 +368,11 @@ class CStatesAndProvinces
 			// but I haven't found that.  The Qualys scan causes 1000s of traces because by passing through an int.
 			$states = self::GetStatesArray();
 
-			return $states[$abbrev];
+			if (!empty($states[$abbrev]))
+			{
+				return $states[$abbrev];
+			}
+
 		}
 
 		return null;
