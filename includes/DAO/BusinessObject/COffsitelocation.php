@@ -51,8 +51,22 @@ class COffsitelocation extends DAO_Store_pickup_location
 		$DAO_store_pickup_location->city = $data["city"];
 		$DAO_store_pickup_location->state_id = $data["state"];
 		$DAO_store_pickup_location->postal_code = $data["postal_code"];
-		$DAO_store_pickup_location->address_latitude = $data["address_latitude"];
-		$DAO_store_pickup_location->address_longitude = $data["address_longitude"];
+
+		if (empty($data["address_latitude"]) || empty($data["address_longitude"]))
+		{
+			$DAO_zipcodes = DAO_CFactory::create('zipcodes', true);
+			$DAO_zipcodes->zip = $DAO_store_pickup_location->postal_code;
+			$DAO_zipcodes->find(true);
+
+			$DAO_store_pickup_location->address_latitude = $DAO_zipcodes->latitude;
+			$DAO_store_pickup_location->address_longitude = $DAO_zipcodes->longitude;
+		}
+		else
+		{
+			$DAO_store_pickup_location->address_latitude = $data["address_latitude"];
+			$DAO_store_pickup_location->address_longitude = $data["address_longitude"];
+		}
+
 
 		$DAO_store_pickup_location->default_session_override = 'NULL';
 
