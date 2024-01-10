@@ -1080,13 +1080,14 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				$menuMapFull->menu_id = $menu_id;
 				$menuMapFull->menu_item_id = $targetItem->id;
 
-				if ($targetItem->menu_item_category_id == 8)
+				if ($targetItem->isMenuItem_Core())
+				{
+					$menuMapFull->is_visible = 1;
+				}
+				else
 				{
 					$menuMapFull->is_visible = 0;
-				}
 
-				if ($targetItem->menu_item_category_id == 9)
-				{
 					if (strtolower($fields[STATION_NUMBER]) == 'web')
 					{
 						$menuMapFull->is_visible = 1;
@@ -1221,20 +1222,13 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 							}
 						}
 
-						if ($DAO_store->store_type == CStore::DISTRIBUTION_CENTER)
+						if ($DAO_menu_to_menu_item->DAO_menu_item->isMenuItem_Core() || $DAO_store->store_type == CStore::DISTRIBUTION_CENTER)
 						{
 							$new_DAO_menu_to_menu_item->is_visible = 1;
 						}
 						else
 						{
-							if (!empty($DAO_menu_to_menu_item->DAO_menu_item->is_store_special))
-							{
-								$new_DAO_menu_to_menu_item->is_visible = 0;
-							}
-							else
-							{
-								$new_DAO_menu_to_menu_item->is_visible = $DAO_menu_to_menu_item->DAO_menu_item->is_visible;
-							}
+							$new_DAO_menu_to_menu_item->is_visible = 0;
 						}
 
 						$new_DAO_menu_to_menu_item->insert();
