@@ -362,7 +362,7 @@ class page_gift_card_order extends CPage
 
 			if (!isset($_POST['edit_submit']) && ($quantity < 1 || $quantity > 50))
 			{
-				$tpl->setErrorMsg("Invalid quantity: Please enter a quantity that is greater than 0 and no more than 50.");
+				$tpl->setErrorMsg("Invalid quantity: Please enter a quantity that is greater than 0 and no more than 50 gift cards.");
 				$hadError = true;
 			}
 
