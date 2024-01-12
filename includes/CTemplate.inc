@@ -1178,6 +1178,9 @@ class CTemplate extends Savant2
 				'twitter' => array(
 					'enabled' => false,
 				),
+				'dailystory' => array(
+					'enabled' => true
+				),
 				'nextdoor' => array(
 					'enabled' => false
 				),
