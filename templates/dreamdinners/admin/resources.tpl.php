@@ -23,7 +23,7 @@
 							<a href="/print?menu=<?php echo $this->current_menu_id; ?>&amp;store=<?php echo $this->CurrentBackOfficeStore->id; ?>" target="Print_Menu">Print Menu <?php echo $this->current_menu_name; ?> - <?php echo $this->CurrentBackOfficeStore->store_name; ?></a><br/>
 							<a href="/print?menu=<?php echo $this->next_menu_id; ?>&amp;store=<?php echo $this->CurrentBackOfficeStore->id; ?>"  target="Print_Menu">Print Menu <?php echo $this->next_menu_name; ?> - <?php echo $this->CurrentBackOfficeStore->store_name; ?></a><br/>
 							<a href="/backoffice/signature_generator">Signature Generator</a><br/>
-							<a href="https://dreamdinners.monday.com/boards/1949008947/views/41601422" target="_blank">Company Event Calendar</a><br/>
+							<a href="https://view.monday.com/1949008947-34ae0641cf7d934d1b2de3fcd067f6bc?r=use1" target="_blank">Company Event Calendar</a><br/>
 						</td>
 					</tr>
 					<tr>
@@ -37,7 +37,6 @@
 							<a href="https://www.bargreen.com/" target="_blank">Bargreen Ellingson (smallwares)</a><br/>
 							<a href="https://www.wasserstrom.com/" target="_blank">Wasserstrom Supplies &amp; Equipment</a><br/>
 							<a href="https://dreamdinners.facebook.com/" target="_blank">Workplace</a><br/>
-							<a href="https://view.monday.com/1949008947-34ae0641cf7d934d1b2de3fcd067f6bc?r=use1" target="_blank">Company Zoom Event Calendar</a><br/>
 							<a href="https://dreamdinners.ourproshop.com" target="_blank">Vistaprint ProShop</a><br/>
 							<a href="https://dreammerch.com" target="_blank">Estore</a><br/>
 						</td>

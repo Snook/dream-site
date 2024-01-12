@@ -24,15 +24,9 @@
 					<div class="col">
 						<p class="text-center"><img src="<?php echo IMAGES_PATH; ?>/events_programs/fundraisers.jpg" alt="Fundraising at Dream Dinners" class="img-fluid" /></p>
 						<h3 class="mb-4">Fundraising with Dream Dinners</h3>
-						<p>Our pick up and in-store fundraisers make it easy and safe for families to support your cause and take home dinner. Everyone wins!</p>
+						<p>Our pick up and in-store fundraisers make it easy for families to support your cause and take home dinner. Everyone wins!</p>
+
 						
-						<!--<p>And each year in March, we host our March Matchness event. Dream Dinners will award the top 10 March fundraisers with a donation match of up to $500! You really can't lose. Contact your store to  schedule your March fundraiser today!</p>
-
-						<p><i>*See terms for contest details.</i></p>-->
-
-						<p class="font-weight-bold text-uppercase mb-1">What we do</p>
-						<p>Hosting a fundraiser at your local Dream Dinners is easy and delicious. Each fundraiser attendee receives three medium meals for just $60 and your organization gets $10 for each purchase.</p>
-
 						<div class="row mb-4">
 							<div class="col">
 								<p class="font-weight-bold text-uppercase mb-1">How it works</p>
@@ -48,16 +42,16 @@
 										<div class="card-header font-weight-bold">Promote your event</div>
 										<i class="dd-icon icon-print font-size-extra-extra-large text-orange m-4"></i>
 										<div class="card-body">
-											<p class="card-text">Invite guests to join your Meal Prep Fundraiser event.</p>
+											<p class="card-text">Invite guests to join your event.</p>
 										</div>
 									</div>
-									<div class="card">
+									<!--<div class="card">
 										<div class="card-header font-weight-bold">Host your event &nbsp;&nbsp;&nbsp;</div>
 										<i class="dd-icon icon-email_1 font-size-extra-extra-large text-orange m-4"></i>
 										<div class="card-body">
 											<p class="card-text">Earn $10 for every meal prep order placed.</p>
 										</div>
-									</div>
+									</div>-->
 									<div class="card">
 										<div class="card-header font-weight-bold">Exceed your goal</div>
 										<i class="dd-icon icon-session-type-fundraiser font-size-extra-extra-large text-orange m-4"></i>
