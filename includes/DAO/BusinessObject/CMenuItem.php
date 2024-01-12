@@ -1410,6 +1410,11 @@ class CMenuItem extends DAO_Menu_item
 
 		while ($menuItemObj->fetch())
 		{
+			// Previously a core item, don't allow for S&S
+			if ($menuItemObj->recipe_id == 219)
+			{
+				continue;
+			}
 
 			if (in_array($menuItemObj->recipe_id, $curMonthIDs))
 			{
