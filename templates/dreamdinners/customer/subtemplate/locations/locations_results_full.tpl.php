@@ -65,11 +65,13 @@
 										</div>
 									</div>
 
-									<div class="row">
-										<div class="col">
-											<a href="<?php echo $store["DAO_store"]->getPrettyUrl(); ?>" class="btn btn-primary w-100 btn-spinner">Store Info &amp; Hours</a>
+									<?php if ($store["type"] != 'COMMUNITY_PICK_UP') { ?>
+										<div class="row">
+											<div class="col">
+												<a href="<?php echo $store["DAO_store"]->getPrettyUrl(); ?>" class="btn btn-primary w-100 btn-spinner">Store Info &amp; Hours</a>
+											</div>
 										</div>
-									</div>
+									<?php } ?>
 
 									<div class="mt-4">
 										<a href="tel:<?php echo $store["DAO_store"]->telephone_day; ?>" class="text-decoration-none text-body"><?php echo $store["DAO_store"]->telephone_day; ?></a>
@@ -78,17 +80,19 @@
 										<?php echo CTemplate::recaptcha_mailHideHtml($store["DAO_store"]->email_address, 'Email Store'); ?>
 									</div>
 
-									<?php if ($store["DAO_store"]->supports_delivery) { ?>
-										<div class="mt-1">
-											<i class="dd-icon icon-delivery text-green font-size-medium-large align-bottom"></i> <span class="font-italic">Home Delivery Available!</span>
+									<?php if ($store["type"] != 'COMMUNITY_PICK_UP') { ?>
+										<?php if ($store["DAO_store"]->supports_delivery) { ?>
+											<div class="mt-1">
+												<i class="dd-icon icon-delivery text-green font-size-medium-large align-bottom"></i> <span class="font-italic">Home Delivery Available!</span>
+											</div>
+										<?php } ?>
+
+										<div class="row mt-4">
+											<div class="col">
+												<a href="<?php echo $store["DAO_store"]->getPrettyUrl(); ?>/calendar" class="btn btn-primary w-100 btn-spinner">View store events</a>
+											</div>
 										</div>
 									<?php } ?>
-
-									<div class="row mt-4">
-										<div class="col">
-											<a href="<?php echo $store["DAO_store"]->getPrettyUrl(); ?>/calendar" class="btn btn-primary w-100 btn-spinner">View store events</a>
-										</div>
-									</div>
 								</div>
 							</div>
 						</div>
