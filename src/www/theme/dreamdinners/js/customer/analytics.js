@@ -148,6 +148,20 @@ window.ytagQ = window.ytagQ || []; //Yext
 			adroll.track("productView", {"products":[{"product_id": itemRecipeID.toString()}]})
 		}
 
+		// dailystory
+		if (ANALYTICS.vendor.dailystory.enabled)
+		{
+			(function(d,a,i,l,y,s,t,o,r,y){
+				d._dsSettings=i;
+				r = a.createElement('script');
+				o = a.getElementsByTagName('script')[0];
+				r.src= '//us-1.dailystory.com/ds/ds' + i + '.js';
+				r.async = true;
+				r.id = 'ds-sitescript';
+				o.parentNode.insertBefore(r, o);
+			})(window,document,'x9q2zysosonhbmxb');
+		}
+
 		// nextdoor
 		if (ANALYTICS.vendor.nextdoor.enabled)
 		{

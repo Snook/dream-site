@@ -199,7 +199,7 @@
 									</div>
 									<?php echo $this->form['quantity_html']; ?>
 								</div>
-								<small id="quantitytHelp" class="form-text text-muted">Please contact Dream Dinners customer support to order more than 50.</small>
+								<small id="quantitytHelp" class="form-text text-muted">Please contact Dream Dinners customer support to order more than 50 gift cards.</small>
 							</div>
 						</div>
 					<?php } ?>

@@ -2323,7 +2323,7 @@ class CSession extends DAO_Session
 		$this->query("select 
 			`session`.*,
 			(`session`.available_slots - count(booking.id)) AS 'remaining_slots'
-			from (select * from `session` where `session`.store_id = " . $storeObj->id . " and DATE(`session`.session_start) >= '" . $earliestDeliveryDate . "' and `session`.delivered_supports_delivery > 1 and `session`.is_deleted = 0 order by `session`.session_start limit 20) as `session`
+			from (select * from `session` where `session`.store_id = " . $storeObj->id . " and DATE(`session`.session_start) >= '" . $earliestDeliveryDate . "' and `session`.delivered_supports_delivery > '" . $deliveryDayFilter . "' and `session`.is_deleted = 0 order by `session`.session_start limit 20) as `session`
 			join `session` as session_2 on session_2.session_start = DATE_SUB(`session`.session_start, INTERVAL " . $orgServiceDays . " DAY) and session_2.store_id = `session`.store_id and session_2.is_deleted = 0 and session_2.delivered_supports_shipping > 0
 			LEFT JOIN booking ON booking.session_id = `session`.id  AND booking.status = 'ACTIVE' and booking.is_deleted = 0
 			group by `session`.id
@@ -3437,17 +3437,17 @@ class CSession extends DAO_Session
 	 */
 	static function getDeliveredSessionDetailArray($session_id, $get_bookings = true)
 	{
-		$Session = DAO_CFactory::create('session');
+		$DAO_session = DAO_CFactory::create('session', true);
 
-		$Session->query("SELECT
+		$DAO_session->query("SELECT
 					s.id,
 					s.store_id,
 					s.menu_id,
 					s.available_slots,
 					s.introductory_slots,
 					s.session_close_scheduling,
-       				s.session_close_scheduling_meal_customization,
-					s.available_slots AS remaining_slots, 
+					s.session_close_scheduling_meal_customization,
+					(s.available_slots - count(b.id)) AS remaining_slots,
 					0 AS remaining_intro_slots,
 					0 AS booked_intro_slots,
 					(COUNT(IF(b.`status` = 'ACTIVE', 1, NULL))) AS booked_count,
@@ -3458,8 +3458,8 @@ class CSession extends DAO_Session
 					s.created_by,
 					s.updated_by,
 					s.is_deleted,
-       				s.delivered_supports_shipping,
-       				s.delivered_supports_delivery,
+					s.delivered_supports_shipping,
+					s.delivered_supports_delivery,
 					st.address_line1,
 					st.address_line2,
 					st.city,
@@ -3493,61 +3493,61 @@ class CSession extends DAO_Session
 
 		$session_info_array = array();
 
-		while ($Session->fetch())
+		while ($DAO_session->fetch())
 		{
-			$session_info_array[$Session->id] = $Session->toArray();
+			$session_info_array[$DAO_session->id] = $DAO_session->toArray();
 			$numRSVPs = 0;
 
-			$session_info_array[$Session->id]['session_percent_full'] = $Session->percentFull();
-			$session_info_array[$Session->id]['is_open'] = ($Session->isOpen($Session->timezone_id)) ? 1 : 0;
+			$session_info_array[$DAO_session->id]['session_percent_full'] = $DAO_session->percentFull();
+			$session_info_array[$DAO_session->id]['is_open'] = ($DAO_session->isOpen($DAO_session->timezone_id)) ? 1 : 0;
 
-			$session_info_array[$Session->id]['session_remote_location'] = false;
-			$session_info_array[$Session->id]['session_note'] = $Session->sessionNoteType();
-			$session_info_array[$Session->id]['session_type_true'] = $Session->session_type_true;
-			$session_info_array[$Session->id]['session_type_desc'] = $Session->session_type_desc;
-			list ($session_info_array[$Session->id]['session_type_title'], $session_info_array[$Session->id]['session_type_title_public'], $session_info_array[$Session->id]['session_type_title_short'], $session_info_array[$Session->id]['session_type_fadmin_acronym'], $session_info_array[$Session->id]['session_type_string']) = $Session->getSessionTypeProperties();
+			$session_info_array[$DAO_session->id]['session_remote_location'] = false;
+			$session_info_array[$DAO_session->id]['session_note'] = $DAO_session->sessionNoteType();
+			$session_info_array[$DAO_session->id]['session_type_true'] = $DAO_session->session_type_true;
+			$session_info_array[$DAO_session->id]['session_type_desc'] = $DAO_session->session_type_desc;
+			list ($session_info_array[$DAO_session->id]['session_type_title'], $session_info_array[$DAO_session->id]['session_type_title_public'], $session_info_array[$DAO_session->id]['session_type_title_short'], $session_info_array[$DAO_session->id]['session_type_fadmin_acronym'], $session_info_array[$DAO_session->id]['session_type_string']) = $DAO_session->getSessionTypeProperties();
 
 			// session end in unix time stamp, useful to use JavaScript to updated the display dynamically when the session ends
-			$sessionEnd = new DateTime($Session->session_start, new DateTimeZone(CTimezones::zone_by_id($Session->timezone_id)));
-			$session_info_array[$Session->id]['unix_expiry'] = $sessionEnd->getTimestamp() + (60 * $Session->duration_minutes);
+			$sessionEnd = new DateTime($DAO_session->session_start, new DateTimeZone(CTimezones::zone_by_id($DAO_session->timezone_id)));
+			$session_info_array[$DAO_session->id]['unix_expiry'] = $sessionEnd->getTimestamp() + (60 * $DAO_session->duration_minutes);
 
 			// for use in image and template paths
-			if ($Session->store_type == CStore::DISTRIBUTION_CENTER)
+			if ($DAO_session->store_type == CStore::DISTRIBUTION_CENTER)
 			{
 				// may need uniquepath to theme folder
 			}
 			else
 			{
-				$session_info_array[$Session->id]['menu_directory'] = CTemplate::dateTimeFormat($Session->menu_name, YEAR_UNDERSCORE_MONTH);
+				$session_info_array[$DAO_session->id]['menu_directory'] = CTemplate::dateTimeFormat($DAO_session->menu_name, YEAR_UNDERSCORE_MONTH);
 			}
 
 			// check if session is in the past
-			$timeNow = CTimezones::getAdjustedServerTime($Session->timezone_id);
-			$session_info_array[$Session->id]['is_past'] = false;
-			if ($timeNow > $session_info_array[$Session->id]['unix_expiry'])
+			$timeNow = CTimezones::getAdjustedServerTime($DAO_session->timezone_id);
+			$session_info_array[$DAO_session->id]['is_past'] = false;
+			if ($timeNow > $session_info_array[$DAO_session->id]['unix_expiry'])
 			{
-				$session_info_array[$Session->id]['is_past'] = true;
+				$session_info_array[$DAO_session->id]['is_past'] = true;
 			}
 
 			// formatted variables useful for JavaScript display
-			$session_info_array[$Session->id]['session_start_dtf_verbose_date'] = CTemplate::dateTimeFormat($Session->session_start, VERBOSE_DATE);
-			$session_info_array[$Session->id]['session_start_dtf_time_only'] = CTemplate::dateTimeFormat($Session->session_start, TIME_ONLY);
-			$session_info_array[$Session->id]['session_start_dtf_ymd'] = CTemplate::dateTimeFormat($Session->session_start, YEAR_MONTH_DAY);
+			$session_info_array[$DAO_session->id]['session_start_dtf_verbose_date'] = CTemplate::dateTimeFormat($DAO_session->session_start, VERBOSE_DATE);
+			$session_info_array[$DAO_session->id]['session_start_dtf_time_only'] = CTemplate::dateTimeFormat($DAO_session->session_start, TIME_ONLY);
+			$session_info_array[$DAO_session->id]['session_start_dtf_ymd'] = CTemplate::dateTimeFormat($DAO_session->session_start, YEAR_MONTH_DAY);
 
 			if ($get_bookings)
 			{
-				$session_info_array[$Session->id]['bookings'] = $Session->getDeliveredBookingsForSession();
-				$session_info_array[$Session->id]['delivered_bookings_count'] = count($session_info_array[$Session->id]['bookings']);
-				$session_info_array[$Session->id]['shipping_bookings'] = $Session->getDeliveredBookingsForSession(true);
-				$session_info_array[$Session->id]['shipping_bookings_count'] = count($session_info_array[$Session->id]['shipping_bookings']);
+				$session_info_array[$DAO_session->id]['bookings'] = $DAO_session->getDeliveredBookingsForSession();
+				$session_info_array[$DAO_session->id]['delivered_bookings_count'] = count($session_info_array[$DAO_session->id]['bookings']);
+				$session_info_array[$DAO_session->id]['shipping_bookings'] = $DAO_session->getDeliveredBookingsForSession(true);
+				$session_info_array[$DAO_session->id]['shipping_bookings_count'] = count($session_info_array[$DAO_session->id]['shipping_bookings']);
 				//	$session_info_array[$Session->id]['bookings_by_ship_date'] = $Session->getDeliveredBookingsForShipDate();
-				$session_info_array[$Session->id]['session_rsvp'] = false;
-				$Session->remaining_slots = $Session->available_slots - count($session_info_array[$Session->id]['shipping_bookings']);
-				$session_info_array[$Session->id]['remaining_slots'] = $Session->remaining_slots;
+				$session_info_array[$DAO_session->id]['session_rsvp'] = false;
+				$DAO_session->remaining_slots = $DAO_session->available_slots - count($session_info_array[$DAO_session->id]['shipping_bookings']);
+				$session_info_array[$DAO_session->id]['remaining_slots'] = $DAO_session->remaining_slots;
 			}
 			else
 			{
-				$Session->remaining_slots = $Session->available_slots - $Session->getShippingCount();
+				$DAO_session->remaining_slots = $DAO_session->available_slots - $DAO_session->getShippingCount();
 			}
 		}
 
