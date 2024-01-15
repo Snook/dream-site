@@ -17,71 +17,79 @@
 	<section>
 		<div class="container mb-5">
 
-			<div class="row">
-				<div class="col">
-					<h3 class="text-uppercase font-weight-bold text-center">Communities served by <?php echo $this->DAO_store->store_name; ?></h3>
+			<?php if (!empty($this->locationArray)) { ?>
+				<div class="row">
+					<div class="col">
+						<h3 class="text-uppercase font-weight-bold text-center">Communities served by <?php echo $this->DAO_store->store_name; ?></h3>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<?php foreach ($this->locationArray AS $location) { ?>
-					<div class="col m-auto text-center">
-						<a href="#<?php echo $location['DAO_store_pickup_location']->generateAnchor(); ?>" class="btn btn-link mb-2"><?php echo $location['DAO_store_pickup_location']->city; ?></a>
-					</div>
-				<?php } ?>
-			</div>
-
-			<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted">
-
-			<div class="row">
-
-				<?php foreach ($this->locationArray AS $location) { ?>
-					<div id="<?php echo $location['DAO_store_pickup_location']->generateAnchor(); ?>" class="col-lg-6 col-xl-4 mb-5 mx-auto">
-
-						<div class="row mb-4">
-							<div class="text-center col">
-								<h3 class="text-uppercase font-weight-bold"><?php echo $location['DAO_store_pickup_location']->city; ?></h3>
-								<p><?php echo $location['DAO_store_pickup_location']->generateAddressHTML(); ?></p>
-								<?php echo $location['DAO_store_pickup_location']->location_title; ?>
-							</div>
+				<div class="row">
+					<?php foreach ($this->locationArray AS $location) { ?>
+						<div class="col m-auto text-center">
+							<a href="#<?php echo $location['DAO_store_pickup_location']->generateAnchor(); ?>" class="btn btn-link mb-2"><?php echo $location['DAO_store_pickup_location']->city; ?></a>
 						</div>
+					<?php } ?>
+				</div>
 
-						<div class="row mb-3">
-							<div class="col">
-								<iframe
-										class="border border-width-2-imp border-gray-500"
-										width="100%"
-										height="250"
-										src="//www.google.com/maps/embed/v1/place?key=<?php echo GOOGLE_APIKEY; ?>&q=<?php echo urlencode($location['DAO_store_pickup_location']->generateAddressLinear()); ?>" allowfullscreen>
-								</iframe>
-							</div>
-						</div>
+				<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted">
 
-						<div class="row">
-							<div class="col">
-								<h3 class="text-uppercase font-weight-bold text-center">Available pick up times</h3>
-							</div>
-						</div>
-						<div class="row">
-							<?php if (empty($location["sessionArray"])) { ?>
-								<div class="col">
-									<p class="text-center">No community pick up times currently available for the <?php echo $location['DAO_store_pickup_location']->city; ?> location.</p>
+				<div class="row">
+
+					<?php foreach ($this->locationArray AS $location) { ?>
+						<div id="<?php echo $location['DAO_store_pickup_location']->generateAnchor(); ?>" class="col-lg-6 col-xl-4 mb-5 mx-auto">
+
+							<div class="row mb-4">
+								<div class="text-center col">
+									<h3 class="text-uppercase font-weight-bold"><?php echo $location['DAO_store_pickup_location']->city; ?></h3>
+									<p><?php echo $location['DAO_store_pickup_location']->generateAddressHTML(); ?></p>
+									<?php echo $location['DAO_store_pickup_location']->location_title; ?>
 								</div>
-							<?php } else { ?>
-								<?php foreach ($location["sessionArray"] AS $DAO_session) { ?>
-									<div class="col-12">
-										<a href="/session/<?php echo $DAO_session->id; ?>" class="btn btn-primary btn-block mb-2" rel="nofollow">
-											<div><?php echo $DAO_session->sessionStartDateTime()->format('l F j'); ?></div>
-											<div><?php echo $DAO_session->sessionStartDateTime()->format('g:i A'); ?> - <?php echo $DAO_session->sessionEndDateTime()->format('g:i A'); ?></div>
-										</a>
+							</div>
+
+							<div class="row mb-3">
+								<div class="col">
+									<iframe
+											class="border border-width-2-imp border-gray-500"
+											width="100%"
+											height="250"
+											src="//www.google.com/maps/embed/v1/place?key=<?php echo GOOGLE_APIKEY; ?>&q=<?php echo urlencode($location['DAO_store_pickup_location']->generateAddressLinear()); ?>" allowfullscreen>
+									</iframe>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col">
+									<h3 class="text-uppercase font-weight-bold text-center">Available pick up times</h3>
+								</div>
+							</div>
+							<div class="row">
+								<?php if (empty($location["sessionArray"])) { ?>
+									<div class="col">
+										<p class="text-center">No community pick up times currently available for the <?php echo $location['DAO_store_pickup_location']->city; ?> location. Please contact the store for questions.</p>
 									</div>
+								<?php } else { ?>
+									<?php foreach ($location["sessionArray"] AS $DAO_session) { ?>
+										<div class="col-12">
+											<a href="/session/<?php echo $DAO_session->id; ?>" class="btn btn-primary btn-block mb-2" rel="nofollow">
+												<div><?php echo $DAO_session->sessionStartDateTime()->format('l F j'); ?></div>
+												<div><?php echo $DAO_session->sessionStartDateTime()->format('g:i A'); ?> - <?php echo $DAO_session->sessionEndDateTime()->format('g:i A'); ?></div>
+											</a>
+										</div>
+									<?php } ?>
 								<?php } ?>
-							<?php } ?>
+							</div>
+
 						</div>
+					<?php } ?>
 
-					</div>
-				<?php } ?>
+				</div>
+			<?php } else { ?>
+				<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted">
 
-			</div>
+				<div class="row">
+					<div class="col text-center">We do not have any community pick up dates available. Please contact the store for questions.</div>
+				</div>
+			<?php } ?>
 
 		</div>
 	</section>

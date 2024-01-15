@@ -58,12 +58,6 @@ class page_store_community_pick_up extends CPage
 					}
 				}
 
-				// no community pick ups, send them to the store page.
-				if (empty($locationArray))
-				{
-					CApp::bounce($DAO_store->getPrettyUrl());
-				}
-
 				$this->Template->assign('DAO_store', $DAO_store);
 				$this->Template->assign('locationArray', $locationArray);
 			}
