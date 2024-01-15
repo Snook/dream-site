@@ -2634,6 +2634,7 @@ class COrdersDelivered extends COrders
 					$OrginalBooking->status = CBooking::RESCHEDULED;
 					$OrginalBooking->update();
 
+					$shippingInfo->ship_date = $shippingDate->format("Y-m-d");
 
 					$shippingInfo->requested_delivery_date = $this->findSession()->session_start;
 					$shippingInfo->update();
