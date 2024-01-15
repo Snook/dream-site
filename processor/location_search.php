@@ -106,6 +106,7 @@ class processor_location_search extends CPage
 				}
 				$DAO_store->show_on_customer_site = 1;
 				$DAO_store->whereAdd("store.store_type <> '" . CStore::DISTRIBUTION_CENTER . "'");
+				$DAO_store->joinAddWhereAsOn(DAO_CFactory::create('short_url', true), 'LEFT');
 				$DAO_store_pickup_location->joinAddWhereAsOn($DAO_store);
 				$DAO_store_pickup_location->find();
 
@@ -122,10 +123,11 @@ class processor_location_search extends CPage
 
 					if ($distance < $allowed_distance && !$DAO_store_pickup_location->DAO_store->isComingSoon())
 					{
-						$id = $DAO_store_pickup_location->DAO_store->id . '-' . $DAO_store_pickup_location->id;
+					$id = $DAO_store_pickup_location->DAO_store->id . '-' . $DAO_store_pickup_location->id;
 
 						$rawList[$id] = $DAO_store_pickup_location->DAO_store->toArray();
 						$rawList[$id]['DAO_store'] = clone $DAO_store_pickup_location->DAO_store;
+						$rawList[$id]['DAO_store']->DAO_short_url = clone $DAO_store_pickup_location->DAO_short_url;
 						$rawList[$id]['DAO_store_pickup_location'] = clone $DAO_store_pickup_location;
 						$rawList[$id]['type'] = 'COMMUNITY_PICK_UP';
 						$rawList[$id]['distance'] = $distance;
