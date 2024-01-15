@@ -406,18 +406,14 @@ class CSession extends DAO_Session
 		}
 	}
 
-	function getSessionEnd($Store = false)
+	function sessionStartDateTime()
 	{
-		if (empty($Store))
-		{
-			$Store = DAO_CFactory::create('store');
-			$Store->id = $this->store_id;
-			$Store->find(true);
-		}
+		return new DateTime($this->session_start);
+	}
 
-		$sessionEnd = new DateTime($this->session_start, new DateTimeZone(CTimezones::zone_by_id($Store->timezone_id)));
-
-		return $sessionEnd->date;
+	function sessionEndDateTime()
+	{
+		return $this->sessionStartDateTime()->modify('+' . $this->duration_minutes . ' minutes');
 	}
 
 	function sessionTypeToText()

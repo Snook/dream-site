@@ -69,7 +69,10 @@
 							<?php } else { ?>
 								<?php foreach ($location["sessionArray"] AS $DAO_session) { ?>
 									<div class="col-12">
-										<a href="/session/<?php echo $DAO_session->id; ?>" class="btn btn-primary btn-block mb-2" rel="nofollow"><?php echo CTemplate::dateTimeFormat($DAO_session->session_start, VERBOSE); ?></a>
+										<a href="/session/<?php echo $DAO_session->id; ?>" class="btn btn-primary btn-block mb-2" rel="nofollow">
+											<div><?php echo $DAO_session->sessionStartDateTime()->format('l F j'); ?></div>
+											<div><?php echo $DAO_session->sessionStartDateTime()->format('g:i A'); ?> - <?php echo $DAO_session->sessionEndDateTime()->format('g:i A'); ?></div>
+										</a>
 									</div>
 								<?php } ?>
 							<?php } ?>
@@ -80,50 +83,8 @@
 
 			</div>
 
-			<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted">
-
-			<div class="row no-gutters">
-				<div class="col-12 col-lg-6">
-					<div class="card-group text-center">
-						<div class="card border-0">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/order-online-no-text-circles-550x410.webp" alt="order online" class="img-fluid" />
-							<div class="card-body">
-								<h5 class="card-title my-0">1. Order Online</h5>
-								<p class="card-text">View our monthly menu, select a time and complete your order.</p>
-							</div>
-						</div>
-						<div class="card border-0">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/prep-meals-no-text-circles-550x410.webp" alt="prep your meals" class="img-fluid" />
-							<div class="card-body">
-								<h5 class="card-title my-0">2. Meals are Prepped</h5>
-								<p class="card-text">The shopping, chopping, prep and clean up are taken care of, so you can enjoy meals at home.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-12 col-lg-6">
-					<div class="card-group text-center">
-						<div class="card border-0">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cook-at-home-no-text-circles-550x410.webp" alt="cook at home" class="img-fluid" />
-							<div class="card-body">
-								<h5 class="card-title my-0">3. Cook at Home</h5>
-								<p class="card-text">Thaw your meals each week, cook as directed, and enjoy dinner together.</p>
-							</div>
-						</div>
-						<div class="card border-0">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/eat-connect-no-text-circles-550x410.webp" alt="eat and connect together" class="img-fluid" />
-							<div class="card-body">
-								<h5 class="card-title my-0">4. Eat and Connect</h5>
-								<p class="card-text">Spend less time in the kitchen and more time doing what you love.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
 		</div>
 	</section>
 
-<?php include $this->loadTemplate('customer/subtemplate/store/store_footer.tpl.php'); ?>
 
 <?php include $this->loadTemplate('customer/subtemplate/page_footer.tpl.php'); ?>
