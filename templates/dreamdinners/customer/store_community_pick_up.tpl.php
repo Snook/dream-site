@@ -32,58 +32,55 @@
 
 			<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted">
 
-			<?php foreach ($this->locationArray AS $location) { ?>
-				<div class="row mb-4">
-					<div class="col-12 col-lg-6 col-xl-5">
-						<img src="<?php echo IMAGES_PATH; ?>/style/locations/community-pick-up.jpg" alt="<?php echo $this->DAO_store->store_name; ?>" class="img-fluid w-100">
-					</div>
-					<div class="text-center text-lg-left col-12 mt-3 mt-lg-0 col-lg-6 col-xl-3">
-						<h3 id="<?php echo $location['DAO_store_pickup_location']->generateAnchor(); ?>" class="text-uppercase font-weight-bold"><?php echo $location['DAO_store_pickup_location']->city; ?></h3>
-						<?php echo $location['DAO_store_pickup_location']->generateAddressHTML(); ?>
-					</div>
-					<div class="col-12 mt-3 col-xl-4 mt-xl-0">
-						<h3 class="text-uppercase font-weight-bold text-center text-md-left">
-							Location info
-						</h3>
-						<div class="location-about">
-							<?php echo $location['DAO_store_pickup_location']->location_title; ?>
-						</div>
-					</div>
-				</div>
+			<div class="row">
 
-				<div class="row mb-3">
-					<div class="col">
-						<iframe
-								class="border border-width-2-imp border-gray-500"
-								width="100%"
-								height="250"
-								src="//www.google.com/maps/embed/v1/place?key=<?php echo GOOGLE_APIKEY; ?>&q=<?php echo urlencode($location['DAO_store_pickup_location']->generateAddressLinear()); ?>" allowfullscreen>
-						</iframe>
-					</div>
-				</div>
+				<?php foreach ($this->locationArray AS $location) { ?>
+					<div id="<?php echo $location['DAO_store_pickup_location']->generateAnchor(); ?>" class="col-lg-6 col-xl-4 mb-5 mx-auto">
 
-				<div class="row">
-					<div class="col">
-						<h3 class="text-uppercase font-weight-bold text-center">Available pick up times</h3>
-					</div>
-				</div>
-				<div class="row">
-					<?php if (empty($location["sessionArray"])) { ?>
-						<div class="col">
-							<p class="text-center">No community pick up times currently available for the <?php echo $location['DAO_store_pickup_location']->city; ?> location.</p>
-						</div>
-					<?php } else { ?>
-						<?php foreach ($location["sessionArray"] AS $DAO_session) { ?>
-							<div class="col-md-6 m-auto">
-								<a href="/session/<?php echo $DAO_session->id; ?>" class="btn btn-primary btn-block mb-2" rel="nofollow"><?php echo CTemplate::dateTimeFormat($DAO_session->session_start, VERBOSE); ?></a>
+						<div class="row mb-4">
+							<div class="text-center col">
+								<h3 class="text-uppercase font-weight-bold"><?php echo $location['DAO_store_pickup_location']->city; ?></h3>
+								<p><?php echo $location['DAO_store_pickup_location']->generateAddressHTML(); ?></p>
+								<?php echo $location['DAO_store_pickup_location']->location_title; ?>
 							</div>
-						<?php } ?>
-					<?php } ?>
-				</div>
+						</div>
 
-				<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted">
+						<div class="row mb-3">
+							<div class="col">
+								<iframe
+										class="border border-width-2-imp border-gray-500"
+										width="100%"
+										height="250"
+										src="//www.google.com/maps/embed/v1/place?key=<?php echo GOOGLE_APIKEY; ?>&q=<?php echo urlencode($location['DAO_store_pickup_location']->generateAddressLinear()); ?>" allowfullscreen>
+								</iframe>
+							</div>
+						</div>
 
-			<?php } ?>
+						<div class="row">
+							<div class="col">
+								<h3 class="text-uppercase font-weight-bold text-center">Available pick up times</h3>
+							</div>
+						</div>
+						<div class="row">
+							<?php if (empty($location["sessionArray"])) { ?>
+								<div class="col">
+									<p class="text-center">No community pick up times currently available for the <?php echo $location['DAO_store_pickup_location']->city; ?> location.</p>
+								</div>
+							<?php } else { ?>
+								<?php foreach ($location["sessionArray"] AS $DAO_session) { ?>
+									<div class="col-12">
+										<a href="/session/<?php echo $DAO_session->id; ?>" class="btn btn-primary btn-block mb-2" rel="nofollow"><?php echo CTemplate::dateTimeFormat($DAO_session->session_start, VERBOSE); ?></a>
+									</div>
+								<?php } ?>
+							<?php } ?>
+						</div>
+
+					</div>
+				<?php } ?>
+
+			</div>
+
+			<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted">
 
 			<div class="row no-gutters">
 				<div class="col-12 col-lg-6">
