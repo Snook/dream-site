@@ -7046,6 +7046,12 @@ class COrders extends DAO_Orders
 			$retVal = false;
 		}
 
+		if ($this->isRemotePickup())
+		{
+			$cantRescheduleReason = "Community pick up orders must be rescheduled by your store.";
+			$retVal = false;
+		}
+
 		if ($this->isDelivery())
 		{
 			$cantRescheduleReason = "Delivery Orders must be rescheduled by your store.";
@@ -7481,6 +7487,16 @@ class COrders extends DAO_Orders
 		}
 
 		if ($Session->session_type == CSession::DREAM_TASTE)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function isRemotePickup()
+	{
+		if ($this->findSession()->isRemotePickup())
 		{
 			return true;
 		}
