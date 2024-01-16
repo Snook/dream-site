@@ -314,6 +314,7 @@ class page_admin_session_mgr extends CPageAdminOnly
 			// $remaining_slots = $Sessions->available_slots - $Sessions->filled;
 
 			self::$sessionArray[$dateOnly][$Sessions->id] = array(
+				'DAO_session' => clone $Sessions,
 				'time' => $timeOnly,
 				'state' => $Sessions->session_publish_state,
 				'id' => $Sessions->id,
@@ -526,11 +527,11 @@ function populateCallback($Date)
 					$breakdown = "<br />($numOrders Orders, {$dayItem['num_rsvps']} RSVPs)";
 				}
 
-				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="/backoffice?session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . $breakdown . '">' . $time12Hour . ' (' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '/' . $IntroSlots : '') . ')</a>' . $customizable;
+				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="/backoffice?session=' . $dayItem['id'] . '" class="' . $linkClass . '"><span data-tooltip="">' . $time12Hour . '</span> <span data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . $breakdown . '">(' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '/' . $IntroSlots : '') . ')</span></a>' . $customizable;
 			}
 			else
 			{
-				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="/backoffice?session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '<br />Remaining Starter Pack Slots: ' . $IntroSlots : '') . '">' . $time12Hour . ' (' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '/' . $IntroSlots : '') . ')</a>' . $customizable;
+				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="/backoffice?session=' . $dayItem['id'] . '" class="' . $linkClass . '"><span data-tooltip="">' . $time12Hour . '</span> <span data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '<br />Remaining Starter Pack Slots: ' . $IntroSlots : '') . '">(' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '/' . $IntroSlots : '') . ')</span></a>' . $customizable;
 			}
 		}
 	}
