@@ -49,7 +49,7 @@
 				<?php } ?>
 
 				<?php if ($this->canPlaceOrder == true && $isDC) { ?>
-						<input type="button" style="height: 44px;" class="btn btn-delivered btn-block " value="Place Shipping Order" onclick="bounce('/backoffice/order-mgr-delivered?user=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
+					<input type="button" style="height: 44px;" class="btn btn-delivered btn-block " value="Place Shipping Order" onclick="bounce('/backoffice/order-mgr-delivered?user=<?php echo  $this->user['id']?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>');" />
 				<?php } ?>
 
 				<?php if ( $this->user['numorders'] ) { ?>
@@ -107,7 +107,7 @@
 					<a class="btn btn-primary btn-block" href="/backoffice/user_membership?id=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">Meal Prep+</a>
 				<?php } ?>
 				<?php if ($this->canPlaceOrder == true && !$isDC) { ?>
-					<a class="btn btn-delivered btn-block" href="/backoffice/order-mgr-delivered?user=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">Place Shipping Order</a><?php } ?>
+				<a class="btn btn-delivered btn-block" href="/backoffice/order-mgr-delivered?user=<?php echo $this->user['id']?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>">Place Shipping Order</a><?php } ?>
 
 				<?php if ((CBrowserSession::getCurrentFadminStore() == $this->user['home_store_id'] && $this->canUnsetHomeStore) || (CUser::getCurrentUser()->user_type == 'SITE_ADMIN' && $this->canUnsetHomeStore)) {	?>
 					<input type="button" class="btn btn-danger btn-block mt-5" value="Remove Homestore" onclick="unsetHomeStore('<?php echo $this->user['id']?>');" data-tooltip="Disassociate guest's home store." />
@@ -288,13 +288,13 @@
 				</tr>-->
 				<?php if (!$this->emergency_mode) { ?>
 
+				<tr>
+					<td class="bgcolor_dark catagory_row" colspan="2">Guest's "My Preferences" <span style="font-size: .75em;">(Visible and editable by guest)</span></td>
+				</tr>
+				<?php if ($this->can['modify_delayed_payment_tc']) { ?>
 					<tr>
-						<td class="bgcolor_dark catagory_row" colspan="2">Guest's "My Preferences" <span style="font-size: .75em;">(Visible and editable by guest)</span></td>
-					</tr>
-					<?php if ($this->can['modify_delayed_payment_tc']) { ?>
-						<tr>
-							<td class="guest_details_list_name" style="vertical-align: middle;">Delayed Payment Terms &amp; Conditions</td>
-							<td class="guest_details_list_item" style="vertical-align: middle;">
+						<td class="guest_details_list_name" style="vertical-align: middle;">Delayed Payment Terms &amp; Conditions</td>
+						<td class="guest_details_list_item" style="vertical-align: middle;">
 								<span id="tc_delayed_payment_status">
 									<?php if (!empty($this->user['preferences'][CUser::TC_DELAYED_PAYMENT_AGREE]['updated_by'])) { ?>
 										<?php echo (empty($this->user['preferences'][CUser::TC_DELAYED_PAYMENT_AGREE]['value'])) ? 'Declined' : 'Accepted'; ?> - <?php echo CTemplate::dateTimeFormat($this->user['preferences'][CUser::TC_DELAYED_PAYMENT_AGREE]['timestamp_updated']); ?>
@@ -302,405 +302,285 @@
 										Unanswered
 									<?php } ?>
 								</span>
-								<span data-delayed_payment_tc="<?php echo $this->user['id']; ?>" class="btn btn-primary btn-sm">Change</span>
-							</td>
-						</tr>
-					<?php } ?>
-					<tr>
-						<td class="guest_details_list_name">Visit Print Outs</td>
-						<td class="guest_details_list_item">
-							<div><input id="session_print_next_menu" data-user_pref="session_print_next_menu" data-user_id="<?php echo $this->user['id']; ?>" type="checkbox" <?php if (!empty($this->user['preferences'][CUser::SESSION_PRINT_NEXT_MENU]['value'])) {?>checked="checked"<?php } ?> /> <label for="session_print_next_menu">Next Month's Menu</label></div>
-							<div><input id="session_print_freezer_sheet" data-user_pref="session_print_freezer_sheet" data-user_id="<?php echo $this->user['id']; ?>" type="checkbox" <?php if (!empty($this->user['preferences'][CUser::SESSION_PRINT_FREEZER_SHEET]['value'])) {?>checked="checked"<?php } ?> /> <label for="session_print_freezer_sheet">Freezer Sheet</label></div>
-							<div><input id="session_print_nutritionals" data-user_pref="session_print_nutritionals" data-user_id="<?php echo $this->user['id']; ?>" type="checkbox" <?php if (!empty($this->user['preferences'][CUser::SESSION_PRINT_NUTRITIONALS]['value'])) {?>checked="checked"<?php } ?> /> <label for="session_print_nutritionals">Nutritionals</label></div>
+							<span data-delayed_payment_tc="<?php echo $this->user['id']; ?>" class="btn btn-primary btn-sm">Change</span>
 						</td>
 					</tr>
-					<tr>
-						<td class="guest_details_list_name">User's Account Note</td>
-						<td class="guest_details_list_item">
-							<textarea id="user_account_note" data-user_pref="user_account_note" data-user_id="<?php echo $this->user['id']; ?>" style="width: 378px; height: 50px;"><?php if (!empty($this->user['preferences'][CUser::USER_ACCOUNT_NOTE]['value'])) { echo htmlentities($this->user['preferences'][CUser::USER_ACCOUNT_NOTE]['value']); } ?></textarea>
-						</td>
-					</tr>
-
-
-					<?php   if (defined('ENABLE_SMS_PREFERENCE') && ENABLE_SMS_PREFERENCE == true) { ?>
-
-						<tr>
-							<td class="guest_details_list_name">SMS Preferences</td>
-							<td class="guest_details_list_item">
-
-								<?php if ($this->user['preferences'][CUser::TEXT_MESSAGE_TARGET_NUMBER]['value'] == 'UNANSWERED') { ?>
-									<div class="col-12">
-										<button id="add_update_mobile_number" name="add_mobile_number" class="btn btn-primary toggle-update_mobile_number" value="Add Mobile Number" data-op="add" data-user_id="<?php echo $this->user['id']; ?>">Add Mobile Number</button>
-									</div>
-									<div class="col-12 pt-2 mb-2">
-										<span id="current_mobile_target"></span>
-									</div>
-								<?php } else { ?>
-									<div class="col-12">
-										<button id="add_update_mobile_number" name="update_mobile_number" class="btn btn-primary toggle-update_mobile_number" value="Update Mobile Number" data-op="update" data-user_id="<?php echo $this->user['id']; ?>">Update or Remove Mobile Number</button>
-									</div>
-									<div class="col-12 pt-2 mb-2">
-										<span id="current_mobile_target">Current Mobile number: <?php echo CTemplate::telephoneFormat($this->user['preferences'][CUser::TEXT_MESSAGE_TARGET_NUMBER]['value'] );?></span>
-									</div>
-								<?php } ?>
-
-								<form id="add_mobile_number">
-
-									<div id="add_or_change_SMS_number_div"  data-sms_dlog_comp="true" class="collapse mb-4">
-										<?php if ($this->user['preferences']['TEXT_MESSAGE_TARGET_NUMBER']['value'] == 'UNANSWERED')  { ?>
-											<h4>Select a Number or Add a New One</h4>
-										<?php } else { ?>
-											<h4>Update or Remove Mobile Number</h4>
-										<?php } ?>
-										<div class="mb-3">Note: Clicking "confirm" will immediately send a text message to the guest. Out of respect for our guests, do not add a number before 8AM or after 7PM (unless a guest requests it).</div>
-										<div class="row">
-											<div class="col">
-												<?php if (!empty($this->user['telephone_1'])) { ?>
-													<div class="form-row mb-2">
-														<div class="col">
-															<div class="custom-control custom-radio">
-																<input class="custom-control-input" type="radio" id="add_method_primary" value="primary" name="add_method" required />
-																<label class="custom-control-label" for="add_method_primary">Use Primary Number: <?php echo $this->user['telephone_1']; ?></label>
-															</div>
-														</div>
-													</div>
-												<?php } ?>
-												<?php if (!empty($this->user['telephone_2'])) { ?>
-													<div class="form-row mb-2">
-														<div class="col">
-															<div class="custom-control custom-radio">
-																<input class="custom-control-input" type="radio" id="add_method_secondary" value="secondary" name="add_method" required />
-																<label class="custom-control-label" for="add_method_secondary">Use Secondary Number:  <?php echo $this->user['telephone_2']; ?></label>
-															</div>
-														</div>
-													</div>
-												<?php } ?>
-
-												<div class="form-inline mb-2 mb-lg-0">
-													<div class="custom-control custom-radio mb-lg-2">
-														<input class="custom-control-input" type="radio" id="add_method_new" value="new" name="add_method" required />
-														<label class="custom-control-label" for="add_method_new">Provide New Number</label>
-													</div>
-													<div id="new_mobile_number_div" class="ml-4 ml-lg-2 collapse">
-														<input type="tel" name="new_mobile_number" id="new_mobile_number" class="form-control form-control-sm telephone" placeholder="*Mobile Telephone" data-telephone="true" maxlength="18" size="18" value="<?php echo ($this->user['preferences']['TEXT_MESSAGE_TARGET_NUMBER']['value'] != 'UNANSWERED') ? $this->user['preferences']['TEXT_MESSAGE_TARGET_NUMBER']['value'] : ''; ?>" />
-													</div>
-												</div>
-
-
-												<?php
-												$visState = "";
-												if (isset($this->user->preferences) && $this->user->preferences['TEXT_MESSAGE_TARGET_NUMBER']['value'] == 'UNANSWERED')
-												{
-													$visState = "collapse";
-												}
-												?>
-
-												<div class="form-row <?php echo $visState; ?>" id="remove_mobile_number_div">
-													<div class="col">
-														<div  class="custom-control custom-radio">
-															<input class="custom-control-input" type="radio" id="add_method_delete" value="delete" name="add_method" required />
-															<label class="custom-control-label" for="add_method_delete">Remove Current Number: <?php echo $this->user['preferences']['TEXT_MESSAGE_TARGET_NUMBER']['value']; ?></label>
-														</div>
-													</div>
-												</div>
-
-											</div>
-										</div>
-									</div>
-
-									<input
-											data-sms_pref="true"
-										<?php if ($this->user['preferences'][CUser::TEXT_MESSAGE_TARGET_NUMBER]['value'] == 'UNANSWERED') { echo "disabled='disabled'" ;} ?>
-											id="text_message_reminder_session_primary"
-											data-user_pref="text_message_reminder_session_primary"
-											data-user_pref_value_check="OPTED_IN"
-											data-user_pref_value_uncheck="OPTED_OUT"
-											data-user_id="<?php echo $this->user['id']; ?>"
-											type="checkbox"
-											<?php if ($this->user['preferences'][CUser::TEXT_MESSAGE_REMINDER_SESSION_PRIMARY]['value'] == 'OPTED_IN' || $this->user['preferences'][CUser::TEXT_MESSAGE_REMINDER_SESSION_PRIMARY]['value'] == 'PENDING_OPT_IN') {?>checked="checked"<?php } ?> />
-									<label for="text_message_reminder_session_primary"><span>Orders & Sessions</span></label><br />
-
-									<input
-											data-sms_pref="true"
-										<?php if ($this->user['preferences'][CUser::TEXT_MESSAGE_TARGET_NUMBER]['value'] == 'UNANSWERED') { echo "disabled='disabled'" ;} ?>
-											id="text_message_promo_primary"
-											data-user_pref="text_message_promo_primary"
-											data-user_pref_value_check="OPTED_IN"
-											data-user_pref_value_uncheck="OPTED_OUT"
-											data-user_id="<?php echo $this->user['id']; ?>"
-											type="checkbox"
-											<?php if ($this->user['preferences'][CUser::TEXT_MESSAGE_PROMO_PRIMARY]['value'] == 'OPTED_IN' || $this->user['preferences'][CUser::TEXT_MESSAGE_PROMO_PRIMARY]['value'] == 'PENDING_OPT_IN') {?>checked="checked"<?php } ?> />
-									<label for="text_message_promo_primary"><span>Promotions & Announcements</span></label><br />
-
-									<input
-											data-sms_pref="true"
-										<?php if ($this->user['preferences'][CUser::TEXT_MESSAGE_TARGET_NUMBER]['value'] == 'UNANSWERED') { echo "disabled='disabled'" ;} ?>
-											id="text_message_thaw_primary"
-											data-user_pref="text_message_thaw_primary"
-											data-user_pref_value_check="OPTED_IN"
-											data-user_pref_value_uncheck="OPTED_OUT"
-											data-user_id="<?php echo $this->user['id']; ?>"
-											type="checkbox"
-											<?php if ($this->user['preferences'][CUser::TEXT_MESSAGE_THAW_PRIMARY]['value'] == 'OPTED_IN' || $this->user['preferences'][CUser::TEXT_MESSAGE_THAW_PRIMARY]['value'] == 'PENDING_OPT_IN') {?>checked="checked"<?php } ?> />
-									<label for="text_message_thaw_primary"><span>Thaw Reminders</span></label><br />
-
-									<input
-											data-sms_pref="false"
-											id="text_message_opt_in"
-											data-user_pref="text_message_opt_in"
-											data-user_pref_value_check="OPTED_IN"
-											data-user_pref_value_uncheck="OPTED_OUT"
-											data-user_id="<?php echo $this->user['id']; ?>"
-											type="checkbox"
-											<?php if ($this->user['preferences'][CUser::TEXT_MESSAGE_OPT_IN]['value'] == 'OPTED_IN') {?>checked="checked"<?php } ?> />
-									<label for="text_message_opt_in"><span>Opt-in to receive text messages from the store.</span></label><br />
-
-									<div class="collapse"  data-sms_dlog_comp="true" >
-										<div class="col">
-											<button id="confirm_number_update" name="confirm_number_update" class="btn btn-primary custom-control-inline btn-spinner" value="Confirm Mobile Number Update">Confirm&nbsp;&nbsp;&nbsp;&nbsp;</button>
-											<button id="cancel_number_update" name="cancel_number_update" class="btn btn-secondary custom-control-inline toggle-update_mobile_number" value="Cancel Mobile Number Update">Cancel</button>
-										</div>
-									</div>
-								</form>
-
-							</td>
-						</tr>
-					<?php   } ?>
-					<?php if ($this->userObj->homeStoreAllowsMealCustomization()) { ?>
-						<tr>
-							<td class="guest_details_list_name">Meal Customization</td>
-							<td class="guest_details_list_item">
-								<?php foreach($this->userObj->getMealCustomizationPreferences() as $key => $pref) { ?>
-									<div class="ml-4">
-										<?php switch ($pref->type ) { case 'INPUT': ?>
-											<div class="">
-												<br>
-												<label class="control-label" for="<?php echo $key ?>"><span class="font-weight-bold"><?php echo $pref->description ?>:</span></label>
-												<input id="<?php echo $key ?>" type="text" style="width: 300px;display: inline;" data-user_id="<?php echo $this->user['id']; ?>" data-user_pref="<?php echo $key ?>" size="20" maxlength="15" class="form-control" value="<?php if (!empty($pref->value)) { echo htmlentities($pref->value); } ?>"></input>
-											</div>
-											<?php break; case 'CHECKBOX': ?>
-											<div class="custom-control custom-switch">
-												<input class="custom-control-input"  id="<?php echo $key ?>" data-user_id="<?php echo $this->user['id']; ?>" data-user_pref="<?php echo $key ?>" data-user_pref_value_check="OPTED_IN" data-user_pref_value_uncheck="OPTED_OUT" type="checkbox" <?php if ($pref->value == 'OPTED_IN' ) {?>checked="checked"<?php } ?> />
-												<label class="custom-control-label" for="<?php echo $key ?>"><span class="font-weight-bold"><?php echo $pref->description ?></span></label> <span class="font-size-small"><?php if(!empty($pref->information)){ ?><span data-toggle="tooltip" class="fa fa-info-circle" data-placement="top" title="<?php echo $pref->information ?>"></span><?php } ?>
-											</div>
-											<?php break; case 'SPECIAL_REQUEST': ?>
-												<div class="custom-control custom-switch">
-													<input class="custom-control-input"  id="<?php echo $key ?>" data-user_id="<?php echo $this->user['id']; ?>" data-user_pref="<?php echo $key ?>" data-user_pref_value_check="OPTED_IN" data-user_pref_value_uncheck="OPTED_OUT" type="checkbox" <?php if ($pref->value == 'OPTED_IN' ) {?>checked="checked"<?php } ?> />
-													<label class="custom-control-label" for="<?php echo $key ?>"><span class="font-weight-bold"><?php echo $pref->description ?></span></label> <span class="font-size-small"><?php if(!empty($pref->information)){ ?><span data-toggle="tooltip" class="fa fa-info-circle" data-placement="top" title="<?php echo $pref->information ?>. Applies to new orders."></span><?php } ?>
-													<textarea maxlength="<?php echo OrdersCustomization::SPECIAL_REQUEST_MAX_CHARS; ?>" id="<?php echo OrdersCustomization::determineDetailsKey($key) ?>" data-user_id="<?php echo $this->user['id']; ?>" data-user_pref="<?php echo OrdersCustomization::determineDetailsKey($key) ?>" class="form-control"><?php echo htmlentities($pref->details);?></textarea>
-														Special Request notes are visible to guests. 90 Character limit.
-												</div>
-											<?php break; } ?>
-									</div>
-									</div>
-								<?php } ?>
-							</td>
-						</tr>
-					<?php } ?>
-					<?php if (false && $this->can['modify_user_preferences_round_up']) { ?>
-						<tr>
-							<td class="guest_details_list_name">Dream Dinners Foundation Auto Round Up Preference</td>
-							<td class="guest_details_list_item">
-								<select data-user_pref="ltd_auto_round_up" data-user_id="<?php echo $this->user['id']; ?>">
-									<option value="0">Select a Round Up value</option>
-									<option value="1" <?php if (!empty($this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value']) && $this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value'] == '1') { ?>selected="selected"<?php } ?>>
-										Nearest Dollar
-									</option>
-									<option value="2" <?php if (!empty($this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value']) && $this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value'] == '2') { ?>selected="selected"<?php } ?>>
-										2 Dollars
-									</option>
-									<option value="5" <?php if (!empty($this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value']) && $this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value'] == '5') { ?>selected="selected"<?php } ?>>
-										5 Dollars
-									</option>
-									<option value="10" <?php if (!empty($this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value']) && $this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value'] == '10') { ?>selected="selected"<?php } ?>>
-										10 Dollars
-									</option>
-									<option value="35" <?php if (!empty($this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value']) && $this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value'] == '35') { ?>selected="selected"<?php } ?>>
-										35 Dollars
-									</option>
-									<option value="54" <?php if (!empty($this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value']) && $this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value'] == '54') { ?>selected="selected"<?php } ?>>
-										54 Dollars
-									</option>
-								</select>
-							</td>
-						</tr>
-					<?php } ?>
-
 				<?php } ?>
-
-
 				<tr>
-					<td class="bgcolor_dark catagory_row" colspan="2">Credit &amp; Dinner Dollars</td>
-				</tr>
-				<tr>
-					<td class="guest_details_list_name">Store Credit<br /><font style="font-size:smaller">(Guest(s) that <?php echo  $this->user['firstname'] . ' ' . $this->user['lastname']; ?><br /> has invited to DD)</font></td>
+					<td class="guest_details_list_name">Visit Print Outs</td>
 					<td class="guest_details_list_item">
-						Direct Referral / IAF Credit: <?php echo (isset($this->IAFRollup)) ? CTemplate::moneyFormat($this->IAFRollup) : '$0'; ?><br />
-						Direct Store Credit: <?php echo (isset($this->hasDirectCredit) && $this->hasDirectCredit && isset($this->DirectRollup)) ? CTemplate::moneyFormat($this->DirectRollup) : '$0'; ?><br />
+						<div><input id="session_print_next_menu" data-user_pref="session_print_next_menu" data-user_id="<?php echo $this->user['id']; ?>" type="checkbox" <?php if (!empty($this->user['preferences'][CUser::SESSION_PRINT_NEXT_MENU]['value'])) {?>checked="checked"<?php } ?> /> <label for="session_print_next_menu">Next Month's Menu</label></div>
+						<div><input id="session_print_freezer_sheet" data-user_pref="session_print_freezer_sheet" data-user_id="<?php echo $this->user['id']; ?>" type="checkbox" <?php if (!empty($this->user['preferences'][CUser::SESSION_PRINT_FREEZER_SHEET]['value'])) {?>checked="checked"<?php } ?> /> <label for="session_print_freezer_sheet">Freezer Sheet</label></div>
+						<div><input id="session_print_nutritionals" data-user_pref="session_print_nutritionals" data-user_id="<?php echo $this->user['id']; ?>" type="checkbox" <?php if (!empty($this->user['preferences'][CUser::SESSION_PRINT_NUTRITIONALS]['value'])) {?>checked="checked"<?php } ?> /> <label for="session_print_nutritionals">Nutritionals</label></div>
 					</td>
 				</tr>
 				<tr>
-					<td class="guest_details_list_name">Unused Gift Card Credit:</td>
-					<td class="guest_details_list_item">$<?php echo $this->GCRollup ?></td>
+					<td class="guest_details_list_name">User's Account Note</td>
+					<td class="guest_details_list_item">
+						<textarea id="user_account_note" data-user_pref="user_account_note" data-user_id="<?php echo $this->user['id']; ?>" style="width: 378px; height: 50px;"><?php if (!empty($this->user['preferences'][CUser::USER_ACCOUNT_NOTE]['value'])) { echo htmlentities($this->user['preferences'][CUser::USER_ACCOUNT_NOTE]['value']); } ?></textarea>
+					</td>
 				</tr>
-				<?php if (isset($this->available_pp_credit)) {?>
-					<tr>
-						<td class="guest_details_list_name">Available Dinner Dollars:</td>
-						<td class="guest_details_list_item">$<?php echo $this->available_pp_credit ?></td>
-					</tr>
 
-				<?php } ?>
-				<?php
-				foreach ($this->SFIData as $store => $data)
+				<tr>
+					<td class="guest_details_list_name">SMS Preferences</td>
+					<td class="guest_details_list_item">
+
+						<input
+								data-sms_pref="false"
+								id="text_message_opt_in"
+								data-user_pref="text_message_opt_in"
+								data-user_pref_value_check="OPTED_IN"
+								data-user_pref_value_uncheck="OPTED_OUT"
+								data-user_id="<?php echo $this->user['id']; ?>"
+								type="checkbox"
+								<?php if ($this->user['preferences'][CUser::TEXT_MESSAGE_OPT_IN]['value'] == 'OPTED_IN') {?>checked="checked"<?php } ?> />
+						<label for="text_message_opt_in"><span>Opt-in to receive text messages from the store.</span></label><br />
+
+						<div class="collapse"  data-sms_dlog_comp="true" >
+							<div class="col">
+								<button id="confirm_number_update" name="confirm_number_update" class="btn btn-primary custom-control-inline btn-spinner" value="Confirm Mobile Number Update">Confirm&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								<button id="cancel_number_update" name="cancel_number_update" class="btn btn-secondary custom-control-inline toggle-update_mobile_number" value="Cancel Mobile Number Update">Cancel</button>
+							</div>
+						</div>
+
+					</td>
+				</tr>
+
+				<?php if ($this->userObj->homeStoreAllowsMealCustomization()) { ?>
+				<tr>
+					<td class="guest_details_list_name">Meal Customization</td>
+					<td class="guest_details_list_item">
+						<?php foreach($this->userObj->getMealCustomizationPreferences() as $key => $pref) { ?>
+						<div class="ml-4">
+							<?php switch ($pref->type ) { case 'INPUT': ?>
+								<div class="">
+									<br>
+									<label class="control-label" for="<?php echo $key ?>"><span class="font-weight-bold"><?php echo $pref->description ?>:</span></label>
+									<input id="<?php echo $key ?>" type="text" style="width: 300px;display: inline;" data-user_id="<?php echo $this->user['id']; ?>" data-user_pref="<?php echo $key ?>" size="20" maxlength="15" class="form-control" value="<?php if (!empty($pref->value)) { echo htmlentities($pref->value); } ?>"></input>
+								</div>
+								<?php break; case 'CHECKBOX': ?>
+								<div class="custom-control custom-switch">
+									<input class="custom-control-input"  id="<?php echo $key ?>" data-user_id="<?php echo $this->user['id']; ?>" data-user_pref="<?php echo $key ?>" data-user_pref_value_check="OPTED_IN" data-user_pref_value_uncheck="OPTED_OUT" type="checkbox" <?php if ($pref->value == 'OPTED_IN' ) {?>checked="checked"<?php } ?> />
+									<label class="custom-control-label" for="<?php echo $key ?>"><span class="font-weight-bold"><?php echo $pref->description ?></span></label> <span class="font-size-small"><?php if(!empty($pref->information)){ ?><span data-toggle="tooltip" class="fa fa-info-circle" data-placement="top" title="<?php echo $pref->information ?>"></span><?php } ?>
+								</div>
+								<?php break; case 'SPECIAL_REQUEST': ?>
+								<div class="custom-control custom-switch">
+									<input class="custom-control-input"  id="<?php echo $key ?>" data-user_id="<?php echo $this->user['id']; ?>" data-user_pref="<?php echo $key ?>" data-user_pref_value_check="OPTED_IN" data-user_pref_value_uncheck="OPTED_OUT" type="checkbox" <?php if ($pref->value == 'OPTED_IN' ) {?>checked="checked"<?php } ?> />
+									<label class="custom-control-label" for="<?php echo $key ?>"><span class="font-weight-bold"><?php echo $pref->description ?></span></label> <span class="font-size-small"><?php if(!empty($pref->information)){ ?><span data-toggle="tooltip" class="fa fa-info-circle" data-placement="top" title="<?php echo $pref->information ?>. Applies to new orders."></span><?php } ?>
+													<textarea maxlength="<?php echo OrdersCustomization::SPECIAL_REQUEST_MAX_CHARS; ?>" id="<?php echo OrdersCustomization::determineDetailsKey($key) ?>" data-user_id="<?php echo $this->user['id']; ?>" data-user_pref="<?php echo OrdersCustomization::determineDetailsKey($key) ?>" class="form-control"><?php echo htmlentities($pref->details);?></textarea>
+														Special Request notes are visible to guests. 90 Character limit.
+								</div>
+								<?php break; } ?>
+						</div>
+		</div>
+		<?php } ?>
+		</td>
+		</tr>
+		<?php } ?>
+		<?php if (false && $this->can['modify_user_preferences_round_up']) { ?>
+			<tr>
+				<td class="guest_details_list_name">Dream Dinners Foundation Auto Round Up Preference</td>
+				<td class="guest_details_list_item">
+					<select data-user_pref="ltd_auto_round_up" data-user_id="<?php echo $this->user['id']; ?>">
+						<option value="0">Select a Round Up value</option>
+						<option value="1" <?php if (!empty($this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value']) && $this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value'] == '1') { ?>selected="selected"<?php } ?>>
+							Nearest Dollar
+						</option>
+						<option value="2" <?php if (!empty($this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value']) && $this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value'] == '2') { ?>selected="selected"<?php } ?>>
+							2 Dollars
+						</option>
+						<option value="5" <?php if (!empty($this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value']) && $this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value'] == '5') { ?>selected="selected"<?php } ?>>
+							5 Dollars
+						</option>
+						<option value="10" <?php if (!empty($this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value']) && $this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value'] == '10') { ?>selected="selected"<?php } ?>>
+							10 Dollars
+						</option>
+						<option value="35" <?php if (!empty($this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value']) && $this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value'] == '35') { ?>selected="selected"<?php } ?>>
+							35 Dollars
+						</option>
+						<option value="54" <?php if (!empty($this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value']) && $this->user['preferences'][CUser::LTD_AUTO_ROUND_UP]['value'] == '54') { ?>selected="selected"<?php } ?>>
+							54 Dollars
+						</option>
+					</select>
+				</td>
+			</tr>
+		<?php } ?>
+
+		<?php } ?>
+
+
+		<tr>
+			<td class="bgcolor_dark catagory_row" colspan="2">Credit &amp; Dinner Dollars</td>
+		</tr>
+		<tr>
+			<td class="guest_details_list_name">Store Credit<br /><font style="font-size:smaller">(Guest(s) that <?php echo  $this->user['firstname'] . ' ' . $this->user['lastname']; ?><br /> has invited to DD)</font></td>
+			<td class="guest_details_list_item">
+				Direct Referral / IAF Credit: <?php echo (isset($this->IAFRollup)) ? CTemplate::moneyFormat($this->IAFRollup) : '$0'; ?><br />
+				Direct Store Credit: <?php echo (isset($this->hasDirectCredit) && $this->hasDirectCredit && isset($this->DirectRollup)) ? CTemplate::moneyFormat($this->DirectRollup) : '$0'; ?><br />
+			</td>
+		</tr>
+		<tr>
+			<td class="guest_details_list_name">Unused Gift Card Credit:</td>
+			<td class="guest_details_list_item">$<?php echo $this->GCRollup ?></td>
+		</tr>
+		<?php if (isset($this->available_pp_credit)) {?>
+			<tr>
+				<td class="guest_details_list_name">Available Dinner Dollars:</td>
+				<td class="guest_details_list_item">$<?php echo $this->available_pp_credit ?></td>
+			</tr>
+
+		<?php } ?>
+		<?php
+		foreach ($this->SFIData as $store => $data)
+		{
+			if ($store == 'admin') { ?>
+				<tr>
+					<td class="bgcolor_dark catagory_row" colspan="2">Personal Information</td>
+				</tr>
+			<?php } else if ($store == 'storeData') { ?>
+				<tr>
+					<td class="bgcolor_dark catagory_row" colspan="2">Personal Information</td>
+				</tr>
+			<?php } else { ?>
+				<tr>
+					<td class="bgcolor_dark catagory_row" colspan="2"><?php echo $store?> Data</td>
+				</tr>
+			<?php } ?>
+
+			<?php if (isset($data[BIRTH_MONTH_FIELD_ID])) { ?>
+			<tr>
+				<td class="guest_details_list_name">Birth Month</td>
+				<td class="guest_details_list_item"><?php echo $data[BIRTH_MONTH_FIELD_ID] ?></td>
+			</tr>
+		<?php } ?>
+
+			<?php if (isset($data[BIRTH_YEAR_FIELD_ID])) { ?>
+			<tr>
+				<td class="guest_details_list_name">Birth Year</td>
+				<td class="guest_details_list_item"><?php echo $data[BIRTH_YEAR_FIELD_ID] ?></td>
+			</tr>
+		<?php } ?>
+
+			<?php if (isset($data[NUMBER_KIDS_FIELD_ID])) { ?>
+			<tr>
+				<td class="guest_details_list_name">Number of Kids at Home</td>
+				<td class="guest_details_list_item"><?php echo $data[NUMBER_KIDS_FIELD_ID] ?></td>
+			</tr>
+		<?php } ?>
+
+			<?php if (isset($data[FAMILY_SIZE_FIELD_ID])) { ?>
+			<tr>
+				<td class="guest_details_list_name">Number of Adults at Home</td>
+				<td class="guest_details_list_item"><?php echo $data[FAMILY_SIZE_FIELD_ID] ?></td>
+			</tr>
+		<?php } ?>
+			<?php if (isset($data[HOW_MANY_PEOPLE_FEEDING_FIELD_ID])) { ?>
+			<tr>
+				<td class="guest_details_list_name">Number Feeding at Home</td>
+				<td class="guest_details_list_item"><?php echo $data[HOW_MANY_PEOPLE_FEEDING_FIELD_ID] ?></td>
+			</tr>
+		<?php } ?>
+
+			<?php if (isset($data[DESIRED_HOMEMADE_MEALS_PER_WEEK_FIELD_ID])) { ?>
+			<tr>
+				<td class="guest_details_list_name">How many easy, homemade dinners would you like to serve your family each week?</td>
+				<td class="guest_details_list_item"><?php echo $data[DESIRED_HOMEMADE_MEALS_PER_WEEK_FIELD_ID] ?></td>
+			</tr>
+		<?php } ?>
+
+			<?php if (isset($data[FAVORITE_MEAL_FIELD_ID])) { ?>
+			<tr>
+				<td class="guest_details_list_name">Favorite Dream Dinners Meal</td>
+				<td class="guest_details_list_item"><?php echo $data[FAVORITE_MEAL_FIELD_ID] ?></td>
+			</tr>
+		<?php } ?>
+
+			<?php if (isset($data[WHY_WORKS_FIELD_ID])) { ?>
+			<tr>
+				<td class="guest_details_list_name">Why does Dream Dinners work for you?</td>
+				<td class="guest_details_list_item"><?php echo $data[WHY_WORKS_FIELD_ID] ?></td>
+			</tr>
+		<?php } ?>
+
+			<?php if (isset($data[GUEST_EMPLOYER_FIELD_ID])) { ?>
+			<tr>
+				<td class="guest_details_list_name">Guests' Employment Details</td>
+				<td class="guest_details_list_item"><?php echo $data[GUEST_EMPLOYER_FIELD_ID] ?></td>
+			</tr>
+		<?php } ?>
+
+			<?php if (isset($data[SPOUSE_EMPLOYER_FIELD_ID])) { ?>
+			<tr>
+				<td class="guest_details_list_name">Spouses' Employment Details</td>
+				<td class="guest_details_list_item"><?php echo $data[SPOUSE_EMPLOYER_FIELD_ID] ?></td>
+			</tr>
+		<?php } ?>
+
+			<?php if (isset($data[UPCOMING_EVENTS_FIELD_ID])) { ?>
+			<tr>
+				<td class="guest_details_list_name">Upcoming Events</td>
+				<td class="guest_details_list_item"><?php echo $data[UPCOMING_EVENTS_FIELD_ID] ?></td>
+			</tr>
+		<?php } ?>
+
+			<?php if (isset($data[MISC_NOTES_FIELD_ID])) { ?>
+			<tr>
+				<td class="guest_details_list_name">Miscellaneous Notes</td>
+				<td class="guest_details_list_item"><?php echo $data[MISC_NOTES_FIELD_ID] ?></td>
+			</tr>
+		<?php } ?>
+
+			<?php if (isset($data[USE_LISTS])) { ?>
+			<tr>
+				<td class="guest_details_list_name">Do you use lists to keep you organized?</td>
+				<td class="guest_details_list_item"><?php echo $data[USE_LISTS] ?></td>
+			</tr>
+		<?php } ?>
+
+			<?php if (isset($data[NUMBER_NIGHTS_OUT])) { ?>
+			<tr>
+				<td class="guest_details_list_name">How many nights a week do you eat out or pick up dinners?</td>
+				<td class="guest_details_list_item"><?php echo $data[NUMBER_NIGHTS_OUT] ?></td>
+			</tr>
+		<?php } ?>
+
+
+
+		<?php } ?>
+
+		<?php
+		if( $this->canViewReferralSources )
+		{
+			echo '<tr><td class="bgcolor_dark catagory_row" colspan="2">How ' . $this->user['firstname'] . ' ' . $this->user['lastname'] . ' heard about Dream Dinners</td></tr>';
+
+			if( count( $this->arReferralSources ) )
+			{
+				foreach( $this->arReferralSources as $source => $meta )
 				{
-					if ($store == 'admin') { ?>
-						<tr>
-							<td class="bgcolor_dark catagory_row" colspan="2">Personal Information</td>
-						</tr>
-					<?php } else if ($store == 'storeData') { ?>
-						<tr>
-							<td class="bgcolor_dark catagory_row" colspan="2">Personal Information</td>
-						</tr>
-					<?php } else { ?>
-						<tr>
-							<td class="bgcolor_dark catagory_row" colspan="2"><?php echo $store?> Data</td>
-						</tr>
-					<?php } ?>
-
-					<?php if (isset($data[BIRTH_MONTH_FIELD_ID])) { ?>
-					<tr>
-						<td class="guest_details_list_name">Birth Month</td>
-						<td class="guest_details_list_item"><?php echo $data[BIRTH_MONTH_FIELD_ID] ?></td>
-					</tr>
-				<?php } ?>
-
-					<?php if (isset($data[BIRTH_YEAR_FIELD_ID])) { ?>
-					<tr>
-						<td class="guest_details_list_name">Birth Year</td>
-						<td class="guest_details_list_item"><?php echo $data[BIRTH_YEAR_FIELD_ID] ?></td>
-					</tr>
-				<?php } ?>
-
-					<?php if (isset($data[NUMBER_KIDS_FIELD_ID])) { ?>
-					<tr>
-						<td class="guest_details_list_name">Number of Kids at Home</td>
-						<td class="guest_details_list_item"><?php echo $data[NUMBER_KIDS_FIELD_ID] ?></td>
-					</tr>
-				<?php } ?>
-
-					<?php if (isset($data[FAMILY_SIZE_FIELD_ID])) { ?>
-					<tr>
-						<td class="guest_details_list_name">Number of Adults at Home</td>
-						<td class="guest_details_list_item"><?php echo $data[FAMILY_SIZE_FIELD_ID] ?></td>
-					</tr>
-				<?php } ?>
-					<?php if (isset($data[HOW_MANY_PEOPLE_FEEDING_FIELD_ID])) { ?>
-					<tr>
-						<td class="guest_details_list_name">Number Feeding at Home</td>
-						<td class="guest_details_list_item"><?php echo $data[HOW_MANY_PEOPLE_FEEDING_FIELD_ID] ?></td>
-					</tr>
-				<?php } ?>
-
-					<?php if (isset($data[DESIRED_HOMEMADE_MEALS_PER_WEEK_FIELD_ID])) { ?>
-					<tr>
-						<td class="guest_details_list_name">How many easy, homemade dinners would you like to serve your family each week?</td>
-						<td class="guest_details_list_item"><?php echo $data[DESIRED_HOMEMADE_MEALS_PER_WEEK_FIELD_ID] ?></td>
-					</tr>
-				<?php } ?>
-
-					<?php if (isset($data[FAVORITE_MEAL_FIELD_ID])) { ?>
-					<tr>
-						<td class="guest_details_list_name">Favorite Dream Dinners Meal</td>
-						<td class="guest_details_list_item"><?php echo $data[FAVORITE_MEAL_FIELD_ID] ?></td>
-					</tr>
-				<?php } ?>
-
-					<?php if (isset($data[WHY_WORKS_FIELD_ID])) { ?>
-					<tr>
-						<td class="guest_details_list_name">Why does Dream Dinners work for you?</td>
-						<td class="guest_details_list_item"><?php echo $data[WHY_WORKS_FIELD_ID] ?></td>
-					</tr>
-				<?php } ?>
-
-					<?php if (isset($data[GUEST_EMPLOYER_FIELD_ID])) { ?>
-					<tr>
-						<td class="guest_details_list_name">Guests' Employment Details</td>
-						<td class="guest_details_list_item"><?php echo $data[GUEST_EMPLOYER_FIELD_ID] ?></td>
-					</tr>
-				<?php } ?>
-
-					<?php if (isset($data[SPOUSE_EMPLOYER_FIELD_ID])) { ?>
-					<tr>
-						<td class="guest_details_list_name">Spouses' Employment Details</td>
-						<td class="guest_details_list_item"><?php echo $data[SPOUSE_EMPLOYER_FIELD_ID] ?></td>
-					</tr>
-				<?php } ?>
-
-					<?php if (isset($data[UPCOMING_EVENTS_FIELD_ID])) { ?>
-					<tr>
-						<td class="guest_details_list_name">Upcoming Events</td>
-						<td class="guest_details_list_item"><?php echo $data[UPCOMING_EVENTS_FIELD_ID] ?></td>
-					</tr>
-				<?php } ?>
-
-					<?php if (isset($data[MISC_NOTES_FIELD_ID])) { ?>
-					<tr>
-						<td class="guest_details_list_name">Miscellaneous Notes</td>
-						<td class="guest_details_list_item"><?php echo $data[MISC_NOTES_FIELD_ID] ?></td>
-					</tr>
-				<?php } ?>
-
-					<?php if (isset($data[USE_LISTS])) { ?>
-					<tr>
-						<td class="guest_details_list_name">Do you use lists to keep you organized?</td>
-						<td class="guest_details_list_item"><?php echo $data[USE_LISTS] ?></td>
-					</tr>
-				<?php } ?>
-
-					<?php if (isset($data[NUMBER_NIGHTS_OUT])) { ?>
-					<tr>
-						<td class="guest_details_list_name">How many nights a week do you eat out or pick up dinners?</td>
-						<td class="guest_details_list_item"><?php echo $data[NUMBER_NIGHTS_OUT] ?></td>
-					</tr>
-				<?php } ?>
-
-
-
-				<?php } ?>
-
-				<?php
-				if( $this->canViewReferralSources )
-				{
-					echo '<tr><td class="bgcolor_dark catagory_row" colspan="2">How ' . $this->user['firstname'] . ' ' . $this->user['lastname'] . ' heard about Dream Dinners</td></tr>';
-
-					if( count( $this->arReferralSources ) )
+					if (empty($meta))
 					{
-						foreach( $this->arReferralSources as $source => $meta )
-						{
-							if (empty($meta))
-							{
-								echo '<tr>';
-								echo '<td class="guest_details_list_name">How did you hear</td>';
-								echo '<td class="guest_details_list_item">' . $source . '</td>';
-								echo '</tr>';
-							}
-							else
-							{
-								echo '<tr>';
-								echo '<td class="guest_details_list_name">' . $source . '</td>';
-								echo '<td class="guest_details_list_item">' . $meta . '</td>';
-								echo '</tr>';
-							}
-						}
+						echo '<tr>';
+						echo '<td class="guest_details_list_name">How did you hear</td>';
+						echo '<td class="guest_details_list_item">' . $source . '</td>';
+						echo '</tr>';
 					}
 					else
 					{
-						echo '<tr><td class="guest_details_list_item" colspan="2">No Information</td></tr>';
+						echo '<tr>';
+						echo '<td class="guest_details_list_name">' . $source . '</td>';
+						echo '<td class="guest_details_list_item">' . $meta . '</td>';
+						echo '</tr>';
 					}
 				}
-				?>
-			</table>
-		</div>
+			}
+			else
+			{
+				echo '<tr><td class="guest_details_list_item" colspan="2">No Information</td></tr>';
+			}
+		}
+		?>
+		</table>
+	</div>
 	</div>
 
 <?php include $this->loadTemplate('admin/page_footer.tpl.php'); ?>
