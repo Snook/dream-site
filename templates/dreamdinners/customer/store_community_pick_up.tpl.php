@@ -18,20 +18,13 @@
 		<div class="container mb-5">
 
 			<?php if (!empty($this->locationArray)) { ?>
-				<div class="row">
+				<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted">
+
+				<div class="row mb-3">
 					<div class="col">
 						<h3 class="text-uppercase font-weight-bold text-center">Communities served by <?php echo $this->DAO_store->store_name; ?></h3>
 					</div>
 				</div>
-				<div class="row">
-					<?php foreach ($this->locationArray AS $location) { ?>
-						<div class="col m-auto text-center">
-							<a href="#<?php echo $location['DAO_store_pickup_location']->generateAnchor(); ?>" class="btn btn-link mb-2"><?php echo $location['DAO_store_pickup_location']->city; ?></a>
-						</div>
-					<?php } ?>
-				</div>
-
-				<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted">
 
 				<div class="row">
 
@@ -40,9 +33,8 @@
 
 							<div class="row mb-4">
 								<div class="text-center col">
-									<h3 class="text-uppercase font-weight-bold"><?php echo $location['DAO_store_pickup_location']->city; ?></h3>
+									<h3 class="text-uppercase font-weight-bold"><?php echo $location['DAO_store_pickup_location']->location_title; ?></h3>
 									<p><?php echo $location['DAO_store_pickup_location']->generateAddressHTML(); ?></p>
-									<?php echo $location['DAO_store_pickup_location']->location_title; ?>
 								</div>
 							</div>
 
@@ -65,7 +57,7 @@
 							<div class="row">
 								<?php if (empty($location["sessionArray"])) { ?>
 									<div class="col">
-										<p class="text-center">No community pick up times currently available for the <?php echo $location['DAO_store_pickup_location']->city; ?> location. Please contact the store for questions.</p>
+										<p class="text-center">No community pick times currently available for this location. Please contact us at <?php echo $this->DAO_store->telephone_day; ?> for questions.</p>
 									</div>
 								<?php } else { ?>
 									<?php foreach ($location["sessionArray"] AS $DAO_session) { ?>

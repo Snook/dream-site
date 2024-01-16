@@ -11,7 +11,7 @@
 							<div class="row bg-gray-100 border p-2">
 								<div class="col-12 col-sm-7 col-md-6">
 									<?php if ($store["type"] == 'COMMUNITY_PICK_UP') { ?>
-										<h3 class="text-uppercase font-weight-bold text-center d-sm-none"><?php echo $store["DAO_store_pickup_location"]->city; ?></h3>
+										<h3 class="text-uppercase font-weight-bold text-center d-sm-none">Community Pick Up location</h3>
 									<?php } else { ?>
 										<h3 class="text-uppercase font-weight-bold text-center d-sm-none"><?php echo $store["DAO_store"]->store_name; ?></h3>
 									<?php } ?>
@@ -44,8 +44,8 @@
 								</div>
 								<div class="col-12 col-sm-5 col-md-6 mt-4 mt-sm-0">
 									<?php if ($store["type"] == 'COMMUNITY_PICK_UP') { ?>
-										<h3 class="text-uppercase font-weight-bold d-none d-sm-block"><?php echo $store["DAO_store_pickup_location"]->city; ?></h3>
-										<div class="text-uppercase d-none d-sm-block mb-4"><?php echo $store["DAO_store"]->store_name; ?> Community Pick Up location</div>
+										<h3 class="text-uppercase font-weight-bold d-none d-sm-block">Community Pick Up location</h3>
+										<div class="text-uppercase d-none d-sm-block mb-4"><?php echo $store["DAO_store_pickup_location"]->location_title; ?></div>
 									<?php } else { ?>
 										<h3 class="text-uppercase font-weight-bold d-none d-sm-block mb-4"><?php echo $store["DAO_store"]->store_name; ?></h3>
 									<?php } ?>
