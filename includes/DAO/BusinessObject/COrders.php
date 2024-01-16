@@ -7496,7 +7496,14 @@ class COrders extends DAO_Orders
 
 	function isRemotePickup()
 	{
-		if ($this->findSession()->isRemotePickup())
+		$Session = $this->findSession();
+
+		if (empty($Session))
+		{
+			return false;
+		}
+
+		if ($Session->isRemotePickup())
 		{
 			return true;
 		}
