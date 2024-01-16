@@ -75,7 +75,7 @@ class processor_location_search extends CPage
 				{
 					$distance = distance($req_latitude, $req_longitude, $DAO_store->address_latitude, $DAO_store->address_longitude);
 
-					$allowed_distance = 50;
+					$allowed_distance = 30;
 
 					if ($DAO_store->id == 80 || $DAO_store->id == 28)
 					{
@@ -114,7 +114,7 @@ class processor_location_search extends CPage
 				{
 					$distance = distance($req_latitude, $req_longitude, $DAO_store_pickup_location->address_latitude, $DAO_store_pickup_location->address_longitude);
 
-					$allowed_distance = 50;
+					$allowed_distance = 15;
 
 					if ($DAO_store_pickup_location->DAO_store->id == 80 || $DAO_store_pickup_location->DAO_store->id == 28)
 					{
