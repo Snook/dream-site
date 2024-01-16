@@ -449,11 +449,11 @@ class CSession extends DAO_Session
 			case CSession::REMOTE_PICKUP:
 				return $this->session_type_desc = "Community Pick Up";
 			case CSession::PRIVATE_SESSION:
-				return $this->session_type_desc = "Standard - Private";
+				return $this->session_type_desc = "Private Session";
 			case CSession::STANDARD:
 				return $this->session_type_desc = "Standard";
 			case CSession::SPECIAL_EVENT:
-				return $this->session_type_desc = "Pick Up";
+				return $this->session_type_desc = "Made For You";
 			case CSession::TODD:
 				return $this->session_type_desc = "Taste of Dream Dinners";
 			case CSession::DREAM_TASTE:
@@ -581,16 +581,16 @@ class CSession extends DAO_Session
 				break;
 			case CSession::PRIVATE_SESSION:
 				return array(
-					$this->session_type_title = "Assembly - Private Party",
+					$this->session_type_title = "Private Party",
 					$this->session_type_title_public = "Private Party",
-					$this->session_type_title_short = "AP",
-					$this->session_type_fadmin_acronym = "AP",
+					$this->session_type_title_short = "P",
+					$this->session_type_fadmin_acronym = "P",
 					$this->session_type_string = "private_party"
 				);
 				break;
 			case CSession::STANDARD:
 				return array(
-					$this->session_type_title = "Assembly",
+					$this->session_type_title = "Assembly session",
 					$this->session_type_title_public = "Assemble at store",
 					$this->session_type_title_short = "A",
 					$this->session_type_fadmin_acronym = "A",
@@ -599,10 +599,10 @@ class CSession extends DAO_Session
 				break;
 			case CSession::SPECIAL_EVENT:
 				return array(
-					$this->session_type_title = "Pick Up",
+					$this->session_type_title = "Made For You",
 					$this->session_type_title_public = "Pick Up at store",
-					$this->session_type_title_short = "P",
-					$this->session_type_fadmin_acronym = "P",
+					$this->session_type_title_short = "MFY",
+					$this->session_type_fadmin_acronym = "MFY",
 					$this->session_type_string = "made_for_you"
 				);
 				break;
@@ -635,8 +635,8 @@ class CSession extends DAO_Session
 				break;
 			default:
 				return array(
-					$this->session_type_title = "Assembly",
-					$this->session_type_title_public = "Assembly",
+					$this->session_type_title = "Assembly session",
+					$this->session_type_title_public = "Assembly session",
 					$this->session_type_title_short = "A",
 					$this->session_type_fadmin_acronym = "A",
 					$this->session_type_string = "standard"
