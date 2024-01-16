@@ -461,20 +461,17 @@ function populateCallback($Date)
 			}
 			if ($dayItem['isOpen'])
 			{
-				$linkClass = "calendar_on_text_on";
+				$linkClass = "";
 			}
 			else
 			{
-				$linkClass = "calendar_on_text_off";
+				$linkClass = "text-muted";
 			}
 
 			if (!$dayItem['isCurrent'])
 			{
-				$linkClass = "calendar_on_text_not_current";
+				$linkClass = "font-size-extra-small text-muted font-italic";
 			}
-
-			$id = 0;
-			$time12Hour = date("g:i a", strtotime($dayItem['time']));
 
 			$IntroSlots = "-";
 
@@ -527,11 +524,11 @@ function populateCallback($Date)
 					$breakdown = "<br />($numOrders Orders, {$dayItem['num_rsvps']} RSVPs)";
 				}
 
-				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="/backoffice?session=' . $dayItem['id'] . '" class="' . $linkClass . '"><span data-tooltip="">' . $time12Hour . '</span> <span data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . $breakdown . '">(' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '/' . $IntroSlots : '') . ')</span></a>' . $customizable;
+				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="/backoffice?session=' . $dayItem['id'] . '" class="' . $linkClass . '"><span data-tooltip="' . $dayItem['DAO_session']->sessionStartDateTime()->format('g:i A') . ' - ' . $dayItem['DAO_session']->sessionEndDateTime()->format('g:i A') . '">' . $dayItem['DAO_session']->sessionStartDateTime()->format('g:i A') . '</span> <span data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . $breakdown . '">(' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '/' . $IntroSlots : '') . ')</span></a>' . $customizable;
 			}
 			else
 			{
-				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="/backoffice?session=' . $dayItem['id'] . '" class="' . $linkClass . '"><span data-tooltip="">' . $time12Hour . '</span> <span data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '<br />Remaining Starter Pack Slots: ' . $IntroSlots : '') . '">(' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '/' . $IntroSlots : '') . ')</span></a>' . $customizable;
+				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="/backoffice?session=' . $dayItem['id'] . '" class="' . $linkClass . '"><span data-tooltip="' . $dayItem['DAO_session']->sessionStartDateTime()->format('g:i A') . ' - ' . $dayItem['DAO_session']->sessionEndDateTime()->format('g:i A') . '">' . $dayItem['DAO_session']->sessionStartDateTime()->format('g:i A') . '</span> <span data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '<br />Remaining Starter Pack Slots: ' . $IntroSlots : '') . '">(' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '/' . $IntroSlots : '') . ')</span></a>' . $customizable;
 			}
 		}
 	}

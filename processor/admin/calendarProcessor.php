@@ -453,7 +453,7 @@ function populateRescheduleCallbackNew($date, $isDirect = true)
 		{
 
 			$ctl_message = "'" . $dayItem['transition_type'] . "'";
-			$linkClass = 'calendar_on_text_on';
+			$linkClass = '';
 			$cellTS = strtotime($date);
 
 			CSession::prepareSessionDetailsForDisplay($dayItem['details']);
