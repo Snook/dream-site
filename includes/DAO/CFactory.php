@@ -68,6 +68,7 @@ class DAO_CFactory
 		'CStore' => 'DAO_Store',
 		'CStoreCredit' => 'DAO_Store_credit',
 		'CStoreExpenses' => 'DAO_Store_expenses',
+		'CStorePickUpLocation' => 'DAO_Store_pickup_location',
 		'CUser' => 'DAO_User',
 		'CUserData' => 'DAO_User_data',
 		'CUserPreferred' => 'DAO_User_preferred',

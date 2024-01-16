@@ -73,6 +73,8 @@ $(function () {
 						city: $('#city').val(),
 						state: $('#state').val(),
 						postal_code: $('#postal_code').val(),
+						address_latitude: $('#address_latitude').val(),
+						address_longitude: $('#address_longitude').val(),
 						contact: $('#contact').val(),
 						do_override: $('#default_session_override_enable').is(':checked'),
 						default_override: $('#default_session_override').val(),
@@ -142,6 +144,8 @@ $(function () {
 					$('#city').val(data.city);
 					$('#state').val(data.state_id);
 					$('#postal_code').val(data.postal_code);
+					$('#address_latitude').val(data.address_latitude);
+					$('#address_longitude').val(data.address_longitude);
 					$('#contact').val(data.contact);
 
 					if (data.default_session_override != null)

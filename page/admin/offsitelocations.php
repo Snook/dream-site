@@ -10,12 +10,6 @@ require_once('ExcelExport.inc');
 
 class page_admin_offsitelocations extends CPageAdminOnly
 {
-	private $current_store_id = null;
-
-	private $show = array(
-		'store_selector' => false
-	);
-
 	function runFranchiseManager()
 	{
 		$this->runPageOffsitelocation();
@@ -33,8 +27,6 @@ class page_admin_offsitelocations extends CPageAdminOnly
 
 	function runHomeOfficeStaff()
 	{
-		$this->show['store_selector'] = true;
-
 		$this->runPageOffsitelocation();
 	}
 
@@ -50,15 +42,11 @@ class page_admin_offsitelocations extends CPageAdminOnly
 
 	function runHomeOfficeManager()
 	{
-		$this->show['store_selector'] = true;
-
 		$this->runPageOffsitelocation();
 	}
 
 	function runSiteAdmin()
 	{
-		$this->show['store_selector'] = true;
-
 		$this->runPageOffsitelocation();
 	}
 
@@ -67,6 +55,7 @@ class page_admin_offsitelocations extends CPageAdminOnly
 		$tpl = CApp::instance()->template();
 
 		$Form = new CForm();
+		$Form->Bootstrap = true;
 		$Form->Repost = true;
 
 		$Form->AddElement(array(
@@ -133,38 +122,29 @@ class page_admin_offsitelocations extends CPageAdminOnly
 			CForm::value => 'menu'
 		));
 
-		if ($this->show['store_selector'])
-		{
-			if (!empty($_POST['store']) && is_numeric($_POST['store']))
-			{
-				CBrowserSession::setCurrentFadminStore($_POST['store']);
-			}
 
-			$Form->DefaultValues['store'] = CBrowserSession::getCurrentFadminStoreID();
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => false,
+			CForm::name => 'address_latitude',
+			CForm::css_class => 'gllpLatitude',
+			CForm::required => false
+		));
 
-			$Form->addElement(array(
-				CForm::type => CForm::AdminStoreDropDown,
-				CForm::name => 'store',
-				CForm::onChangeSubmit => false,
-				CForm::onChange => 'if (this.options[this.selectedIndex].value != \'\'){form.submit();}',
-				CForm::allowAllOption => false,
-				CForm::showInactiveStores => true
-			));
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::disabled => false,
+			CForm::name => 'address_longitude',
+			CForm::css_class => 'gllpLongitude',
+			CForm::required => false
+		));
 
-			$this->current_store_id = $Form->value('store');
-		}
-		else
-		{
-			$this->current_store_id = CBrowserSession::getCurrentFadminStoreID();
-		}
-
-		$Store = DAO_CFactory::create('store');
-		$Store->id = $this->current_store_id;
-		$Store->find(true);
+		$DAO_store = DAO_CFactory::create('store');
+		$DAO_store->id = CBrowserSession::getCurrentFadminStoreID();
+		$DAO_store->find(true);
 
 		if ($Form->value('report_submit'))
 		{
-
 			$report_type_to_run = CGPC::do_clean($_REQUEST["pickDate"],TYPE_INT);
 
 			if ($report_type_to_run == 1)
@@ -350,7 +330,7 @@ class page_admin_offsitelocations extends CPageAdminOnly
 		}
 
 		$OffsitelocationDropDownArray = array("all" => "All Community Pick Up Locations");
-		$OffsitelocationArray = COffsitelocation::storeOffsitelocationArray($Store, false, true);
+		$OffsitelocationArray = COffsitelocation::storeOffsitelocationArray($DAO_store, false, true);
 
 		foreach ($OffsitelocationArray as $id => $data)
 		{
@@ -368,21 +348,20 @@ class page_admin_offsitelocations extends CPageAdminOnly
 		$Form->AddElement(array(
 			CForm::type => CForm::Hidden,
 			CForm::name => 'store_id',
-			CForm::value => $this->current_store_id
+			CForm::value => CBrowserSession::getCurrentFadminStoreID()
 		));
 
 		$states = CStatesAndProvinces::GetStatesArray();
 		$statelist = "";
 		foreach ($states as $statekey => $statevalue)
 		{
-			$statelist .= '<option value="' . $statekey . '" ' . (($statekey == $Store->state_id) ? 'selected="selected"' : ''). '>' . $statevalue . '</option>';
+			$statelist .= '<option value="' . $statekey . '" ' . (($statekey == $DAO_store->state_id) ? 'selected="selected"' : ''). '>' . $statevalue . '</option>';
 		}
 
 		$tpl->assign('statelist', $statelist);
-		$tpl->assign('show', $this->show);
 		$tpl->assign('OffsitelocationArray', $OffsitelocationArray);
-		$tpl->assign('store', $Store);
-		$tpl->assign('form_session_list', $Form->render());
+		$tpl->assign('store', $DAO_store);
+		$tpl->assign('form', $Form->render());
 	}
 
 	function getOffsitelocationData($store_id, $month, $day, $year, $duration, $Offsitelocation_id)
