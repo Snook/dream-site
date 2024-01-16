@@ -89,16 +89,16 @@ function populateExpensesCalendarHO($Date)
 
 			if ($dayItem['isOpen'])
 			{
-				$linkClass = "calendar_on_text_on";
+				$linkClass = "";
 			}
 			else
 			{
-				$linkClass = "calendar_on_text_off";
+				$linkClass = "text-muted";
 			}
 
 			if (!$dayItem['isCurrent'])
 			{
-				$linkClass = "calendar_on_text_not_current";
+				$linkClass = "font-size-extra-small text-muted font-italic";
 			}
 
 			$id = 0;
