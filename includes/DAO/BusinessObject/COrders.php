@@ -14430,7 +14430,7 @@ function PopulateCalendarItem($date, $isDirect = false)
 
 			$retVal[] = $dayItem['DAO_session']->sessionTypeIcon(true) . '
 				<a class="' . (($dayItem['isSelected']) ? 'bg-warning border border-green' : '') . '" href="' . $sessionAction . '"><span ' . ((!$dayItem['DAO_session']->isPublished()) ? 'class="text-decoration-line-through"' : '') . ' data-toggle="tooltip" title="' . ((!$dayItem['DAO_session']->isWalkIn()) ? $dayItem['DAO_session']->sessionStartDateTime()->format('g:i A') . ' - ' . $dayItem['DAO_session']->sessionEndDateTime()->format('g:i A') : 'All day') . '">' . ((!$dayItem['DAO_session']->isWalkIn()) ? $dayItem['DAO_session']->sessionStartDateTime()->format('g:i A') : 'Walk-In') . '</span></a>
-				' . ((!$dayItem['DAO_session']->isWalkIn()) ? '<span data-toggle="tooltip" title="' . $spotsText . '">(' . $dayItem['slots'] . ')</span>' : '') . '
+				' . ((!$dayItem['DAO_session']->isWalkIn()) ? '<span data-toggle="tooltip" data-html="true" title="' . $spotsText . '">(' . $dayItem['slots'] . ')</span>' : '') . '
 				' . $dayItem['DAO_session']->openForCustomizationIcon() . '
 				' . $dayItem['DAO_session']->discountedIcon();
 		}
