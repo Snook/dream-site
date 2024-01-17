@@ -713,7 +713,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		/// check to see if editing period has expired
 		if ($this->orderState == 'ACTIVE')
 		{
-			$this->daoMenu = DAO_CFactory::create('menu');
+			$this->daoMenu = DAO_CFactory::create('menu', true);
 			$this->daoMenu->id = $Session->menu_id;
 			$this->daoMenu->find(true);
 
@@ -731,6 +731,12 @@ class page_admin_order_mgr extends CPageAdminOnly
 				$order_is_locked = true;
 				$this->discountEligable['limited_access'] = true;
 			}
+		}
+		else if ($this->orderState == 'NEW')
+		{
+			$this->daoMenu = DAO_CFactory::create('menu', true);
+			$this->daoMenu->id = CMenu::getCurrentMenuId();
+			$this->daoMenu->find(true);
 		}
 
 		if ($this->originalOrder->is_in_plate_points_program && !$this->originalOrder->points_are_actualized && $session_is_in_past)
