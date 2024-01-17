@@ -418,7 +418,11 @@ class CSession extends DAO_Session
 
 	function sessionTypeToText()
 	{
-		if ($this->session_type == CSession::STANDARD && $this->isPrivate())
+		if ($this->isWalkIn())
+		{
+			$this->session_type_true = CSession::WALK_IN;
+		}
+		else if ($this->session_type == CSession::STANDARD && $this->isPrivate())
 		{
 			$this->session_type_true = CSession::PRIVATE_SESSION;
 		}
@@ -775,6 +779,41 @@ class CSession extends DAO_Session
 
 		echo trim($output);
 		exit;
+	}
+
+	function sessionTypeIcon($mute_closed = false)
+	{
+		if ($mute_closed)
+		{
+			return CCalendar::sessionTypeNote($this->session_type_true, $this->isOpen());
+		}
+
+		return CCalendar::sessionTypeNote($this->session_type_true);
+	}
+
+	function openForCustomizationIcon()
+	{
+		if ($this->isWalkIn())
+		{
+			return false;
+		}
+
+		if ($this->isOpenForCustomization())
+		{
+			return '<i class="dd-icon icon-customize text-orange" style="font-size: .60rem" data-toggle="tooltip" title="Open for Customization"></i>';
+		}
+		else
+		{
+			return '<i class="dd-icon icon-customize text-black" style="font-size: .60rem" data-toggle="tooltip" title="Closed for Customization"></i>';
+		}
+	}
+
+	function discountedIcon()
+	{
+		if ($this->isDiscounted())
+		{
+			return '<span class="font-weight-bold text-green-dark" data-toggle="tooltip" title="Discounted">&dollar;</span>';
+		}
 	}
 
 	function percentFull()

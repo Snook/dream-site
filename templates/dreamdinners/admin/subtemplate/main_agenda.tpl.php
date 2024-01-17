@@ -21,7 +21,7 @@
 					data-session_id="<?php echo $session['id']; ?>"
 					data-session_date="<?php echo CTemplate::dateTimeFormat($session['session_start'], YEAR_MONTH_DAY); ?>"
 					data-menu_id="<?php echo $session['menu_id']; ?>">
-					<span class="type"><span class="note_calendar note_<?php echo $session['session_type_string']; ?> <?php echo (!empty($session['is_past']) ? 'note_closed' : ''); ?>" data-tooltip="<?php echo $session['session_type_title']; ?><?php if (!empty($session['session_host_firstname'])) { ?> hosted by <?php echo $session['session_host_firstname']; ?> <?php echo $session['session_host_lastname']; ?><?php } ?>"><?php echo $session['session_type_fadmin_acronym']; ?></span></span>
+					<span class="type"><span class="note_calendar note_<?php echo $session['session_type_string']; ?> <?php echo (!empty($session['is_past']) ? 'note_closed' : ''); ?>" data-toggle="tooltip" title="<?php echo $session['session_type_title']; ?><?php if (!empty($session['session_host_firstname'])) { ?> hosted by <?php echo $session['session_host_firstname']; ?> <?php echo $session['session_host_lastname']; ?><?php } ?>"><?php echo $session['session_type_fadmin_acronym']; ?></span></span>
 
 					<span class="time <?php echo ($session['session_publish_state'] == CSession::CLOSED) ? 'closed' : ''; ?>" <?php echo ($session['session_publish_state'] == CSession::CLOSED) ? 'data-tooltip="Closed"' : ''; ?>>
 						<?php if($session['session_type_subtype'] == CSession::WALK_IN){
