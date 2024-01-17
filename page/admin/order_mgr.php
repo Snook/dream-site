@@ -2865,6 +2865,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		$tpl->assign('paymentInfo', $OrderDetailsArray['paymentInfo']);
 		$tpl->assign('sessionInfo', $OrderDetailsArray['sessionInfo']);
 		$tpl->assign('storeInfo', $OrderDetailsArray['storeInfo']);
+		$tpl->assign('DAO_menu', $this->daoMenu);
 
 		$Form->AddElement(array(
 			CForm::type => CForm::CheckBox,
