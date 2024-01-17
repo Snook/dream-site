@@ -10,7 +10,7 @@
 				<li class="list-inline-item mb-2 mr-4"><img src="<?php echo ADMIN_IMAGES_PATH?>/calendar/session_new.png">&nbsp;New Session (not editable until saved or published)
 			<?php } ?>
 			<li class="list-inline-item mb-2 mr-4"><i class="dd-icon icon-customize text-orange"></i>/<i class="dd-icon icon-customize text-black"></i> Customization Open/Closed</li>
-			<li class="list-inline-item mb-2 mr-4"><font style="color:green;">$</font> Discounted Session</li>
+			<li class="list-inline-item mb-2 mr-4"><span class="font-weight-bold text-green-dark">&dollar;</span> Discounted</li>
 			<li class="list-inline-item mb-2 mr-4"><?php echo CCalendar::sessionTypeNote(CSession::STANDARD); ?> Assembly</li>
 			<li class="list-inline-item mb-2 mr-4"><?php echo CCalendar::sessionTypeNote(CSession::PRIVATE_SESSION); ?> Assembly - Private Party</li>
 			<li class="list-inline-item mb-2 mr-4"><?php echo CCalendar::sessionTypeNote(CSession::SPECIAL_EVENT); ?> Pick Up</li>
