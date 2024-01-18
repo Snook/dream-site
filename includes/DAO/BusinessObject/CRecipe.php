@@ -51,10 +51,22 @@ class CRecipe extends DAO_Recipe
 				'print_meal_detail_enabled' => true,
 				'show' => false,
 				'value' => null,
+				'css_icon' => 'icon-crockpot text-gray-dark',
+				'png_icon' => 'icon-crockpot.png',
+				'tooltip' => 'Crock-Pot Option',
+				'label' => 'Crock-Pot Option'
+			),
+			'flag_instant_pot' => array(
+				'site_legend_enabled' => true,
+				'print_menu_legend_enabled' => true,
+				'meal_detail_enabled' => true,
+				'print_meal_detail_enabled' => true,
+				'show' => false,
+				'value' => null,
 				'css_icon' => 'icon-instant-pot text-gray-dark',
 				'png_icon' => 'icon-instant-pot.png',
-				'tooltip' => 'Crock-Pot or Instant Pot Option',
-				'label' => 'Crock-Pot or Instant Pot Option'
+				'tooltip' => 'Instant Pot Option',
+				'label' => 'Instant Pot Option'
 			),
 			'flag_cooks_from_frozen' => array(
 				'site_legend_enabled' => true,
@@ -230,6 +242,9 @@ class CRecipe extends DAO_Recipe
 
 		$this->icons['flag_crockpot']['show'] = !empty($this->flag_crockpot);
 		$this->icons['flag_crockpot']['value'] = $this->flag_crockpot;
+
+		$this->icons['flag_instant_pot']['show'] = !empty($this->flag_instant_pot);
+		$this->icons['flag_instant_pot']['value'] = $this->flag_instant_pot;
 
 		$this->icons['flag_cooks_from_frozen']['show'] = !empty($this->flag_cooks_from_frozen);
 		$this->icons['flag_cooks_from_frozen']['value'] = $this->flag_cooks_from_frozen;

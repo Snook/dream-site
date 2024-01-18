@@ -21,6 +21,7 @@ class page_nutritionals extends CPage
 				"Grill Option",
 				"Cooks from Frozen",
 				"Crockpot",
+				"Instant pot",
 				"Under 400",
 				"Ready in under 30",
 				"Instructional Video",
@@ -62,6 +63,7 @@ class page_nutritionals extends CPage
 						$thisRow[] = !empty($recipe['info']['flag_grill_friendly']) ? 'X' : '';
 						$thisRow[] = !empty($recipe['info']['flag_cooks_from_frozen']) ? 'X' : '';
 						$thisRow[] = !empty($recipe['info']['flag_crockpot']) ? 'X' : '';
+						$thisRow[] = !empty($recipe['info']['flag_instant_pot']) ? 'X' : '';
 						$thisRow[] = !empty($recipe['info']['flag_under_400']) ? 'X' : '';
 						$thisRow[] = !empty($recipe['info']['flag_no_added_salt']) ? 'X' : '';
 						$thisRow[] = !empty($recipe['info']['flag_under_thirty']) ? 'X' : '';
@@ -72,6 +74,7 @@ class page_nutritionals extends CPage
 					{
 						$thisRow[] = "";
 						//$thisRow[] = ""; // disabled 9-23-2020
+						$thisRow[] = "";
 						$thisRow[] = "";
 						$thisRow[] = "";
 						$thisRow[] = "";

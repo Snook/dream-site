@@ -265,6 +265,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 			$thisNullRecipe->flag_grill_friendly = $thisRecipe->flag_grill_friendly = (strtolower($fields[GRILL_ICON]) == 'yes' ? 1 : 0);
 			$thisNullRecipe->flag_cooks_from_frozen = $thisRecipe->flag_cooks_from_frozen = (strtolower($fields[FROM_FROZEN_ICON]) == 'yes' ? 1 : 0);
 			$thisNullRecipe->flag_crockpot = $thisRecipe->flag_crockpot = (strtolower($fields[CROCKPOT_ICON]) == 'yes' ? 1 : 0);
+			$thisNullRecipe->flag_instant_pot = $thisRecipe->flag_instant_pot = (strtolower($fields[INSTANT_POT_ICON]) == 'yes' ? 1 : 0);
 			$thisNullRecipe->flag_under_400 = $thisRecipe->flag_under_400 = (strtolower($fields[UNDER_400_ICON]) == 'yes' ? 1 : 0);
 			$thisNullRecipe->flag_under_thirty = $thisRecipe->flag_under_thirty = (strtolower($fields[UNDER_30_ICON]) == 'yes' ? 1 : 0);
 			$thisNullRecipe->flag_no_added_salt = $thisRecipe->flag_no_added_salt = (strtolower($fields[NO_SALT_ADDED]) == 'yes' ? 1 : 0);
@@ -662,6 +663,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 			   'flag_grill_friendly',
 			   'flag_cooks_from_frozen',
 			   'flag_crockpot',
+			   'flag_instant_pot',
 			   'flag_under_400'*/
 	);
 
@@ -803,6 +805,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 			$thisNullRecipe->flag_grill_friendly = $thisRecipe->flag_grill_friendly = (strtolower($fields[GRILL_ICON]) == 'yes' ? 1 : 0);
 			$thisNullRecipe->flag_cooks_from_frozen = $thisRecipe->flag_cooks_from_frozen = (strtolower($fields[FROM_FROZEN_ICON]) == 'yes' ? 1 : 0);
 			$thisNullRecipe->flag_crockpot = $thisRecipe->flag_crockpot = (strtolower($fields[CROCKPOT_ICON]) == 'yes' ? 1 : 0);
+			$thisNullRecipe->flag_instant_pot = $thisRecipe->flag_instant_pot = (strtolower($fields[INSTANT_POT_ICON]) == 'yes' ? 1 : 0);
 			$thisNullRecipe->flag_under_400 = $thisRecipe->flag_under_400 = (strtolower($fields[UNDER_400_ICON]) == 'yes' ? 1 : 0);
 			$thisNullRecipe->flag_under_thirty = $thisRecipe->flag_under_thirty = (strtolower($fields[UNDER_30_ICON]) == 'yes' ? 1 : 0);
 			$thisNullRecipe->flag_no_added_salt = $thisRecipe->flag_no_added_salt = (strtolower($fields[NO_SALT_ADDED]) == 'yes' ? 1 : 0);

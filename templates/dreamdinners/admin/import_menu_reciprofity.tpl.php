@@ -68,11 +68,12 @@
 							<li class="list-group-item"><?php echo $this->ImportForm['import_initial_menu_html']; ?></li>
 							<li class="list-group-item">Menu sub-sort (X) - Determines what order the menu items are displayed, does not change with updates</li>
 							<li class="list-group-item">Sales mix (Y) - Core items should equal 100%, 8% or higher get auto labeled as Guest Favorite</li>
-							<li class="list-group-item"><?php echo $this->ImportForm['import_nutritional_serverings_per_container_html']; ?></li>
+							<li class="list-group-item"><?php echo $this->ImportForm['import_nutritional_servings_per_container_html']; ?></li>
 							<li class="list-group-item"><?php echo $this->ImportForm['import_prep_time_html']; ?></li>
 							<li class="list-group-item"><?php echo $this->ImportForm['import_instructions_html']; ?></li>
 							<li class="list-group-item"><?php echo $this->ImportForm['import_instructions_air_fryer_html']; ?></li>
 							<li class="list-group-item"><?php echo $this->ImportForm['import_instructions_crock_pot_html']; ?></li>
+							<li class="list-group-item"><?php echo $this->ImportForm['import_instructions_instant_pot_html']; ?></li>
 							<li class="list-group-item"><?php echo $this->ImportForm['import_instructions_grill_html']; ?></li>
 							<li class="list-group-item"><?php echo $this->ImportForm['import_best_prepared_by_html']; ?></li>
 						</ul>
