@@ -49,11 +49,11 @@ function populateCallbackPS($Date)
 
 			if ($dayItem['isOpen'])
 			{
-				$linkClass = "calendar_on_text_on";
+				$linkClass = "";
 			}
 			else
 			{
-				$linkClass = "calendar_on_text_off";
+				$linkClass = "text-muted";
 			}
 
 			$id = 0;

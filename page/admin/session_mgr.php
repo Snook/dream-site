@@ -314,6 +314,7 @@ class page_admin_session_mgr extends CPageAdminOnly
 			// $remaining_slots = $Sessions->available_slots - $Sessions->filled;
 
 			self::$sessionArray[$dateOnly][$Sessions->id] = array(
+				'DAO_session' => clone $Sessions,
 				'time' => $timeOnly,
 				'state' => $Sessions->session_publish_state,
 				'id' => $Sessions->id,
@@ -447,11 +448,6 @@ function populateCallback($Date)
 
 		foreach (page_admin_session_mgr::$sessionArray[$Date] as $dayItem)
 		{
-			$image = "";
-			$anchorStart = "";
-			$anchorEnd = "";
-			$editClick = "";
-
 			//Walk-in sessions are created for every day in the month when the menu is created. They are not shown on the session calendar
 			//because there is no need to edit them
 			if (array_key_exists('session_type_subtype', $dayItem) && $dayItem['session_type_subtype'] == CSession::WALK_IN)
@@ -460,20 +456,17 @@ function populateCallback($Date)
 			}
 			if ($dayItem['isOpen'])
 			{
-				$linkClass = "calendar_on_text_on";
+				$linkClass = "";
 			}
 			else
 			{
-				$linkClass = "calendar_on_text_off";
+				$linkClass = "text-muted";
 			}
 
 			if (!$dayItem['isCurrent'])
 			{
-				$linkClass = "calendar_on_text_not_current";
+				$linkClass = "font-size-extra-small text-muted font-italic";
 			}
-
-			$id = 0;
-			$time12Hour = date("g:i a", strtotime($dayItem['time']));
 
 			$IntroSlots = "-";
 
@@ -482,39 +475,25 @@ function populateCallback($Date)
 				$IntroSlots = $dayItem['remainingIntroSlots'];
 			}
 
-			$sessionTypeNote = CCalendar::dayItemTypeNote($dayItem);
-
 			if (!$dayItem['isOpen'])
 			{
 				$image = ADMIN_IMAGES_PATH . '/calendar/session_closed.png';
-				$editClick = 'onmouseover="hiliteIcon(' . $dayItem['id'] . ', 4);" onmouseout="unHiliteIcon(' . $dayItem['id'] . ', 4);"';
+				$editClick = 'onmouseover="hiliteIcon(' . $dayItem['DAO_session']->id . ', 4);" onmouseout="unHiliteIcon(' . $dayItem['DAO_session']->id . ', 4);"';
 			}
 			else if ($dayItem['state'] == "SAVED")
 			{
 				$image = ADMIN_IMAGES_PATH . '/calendar/session_saved.png';
-				$editClick = 'onmouseover="hiliteIcon(' . $dayItem['id'] . ', 2);" onmouseout="unHiliteIcon(' . $dayItem['id'] . ', 2);"';
+				$editClick = 'onmouseover="hiliteIcon(' . $dayItem['DAO_session']->id . ', 2);" onmouseout="unHiliteIcon(' . $dayItem['DAO_session']->id . ', 2);"';
 			}
 			else if ($dayItem['state'] == "PUBLISHED")// published
 			{
 				$image = ADMIN_IMAGES_PATH . '/calendar/session_pub.png';
-				$editClick = 'onmouseover="hiliteIcon(' . $dayItem['id'] . ', 1);" onmouseout="unHiliteIcon(' . $dayItem['id'] . ', 1);"';
+				$editClick = 'onmouseover="hiliteIcon(' . $dayItem['DAO_session']->id . ', 1);" onmouseout="unHiliteIcon(' . $dayItem['DAO_session']->id . ', 1);"';
 			}
 			else
 			{
 				$image = ADMIN_IMAGES_PATH . '/calendar/session_closed.png';
-				$editClick = 'onmouseover="hiliteIcon(' . $dayItem['id'] . ', 4);" onmouseout="unHiliteIcon(' . $dayItem['id'] . ', 4);"';
-			}
-			$customizable = '';
-			if ($dayItem['allowedCustomization'])
-			{
-				if ($dayItem['isOpenForCustomization'])
-				{
-					$customizable = '<i class="dd-icon icon-customize text-orange" style="font-size: 65%;" data-tooltip="Session Open for Customization"></i>';
-				}
-				else
-				{
-					$customizable = '<i class="dd-icon icon-customize text-black" style="font-size: 65%;" data-tooltip="Session Closed for Customization"></i>';
-				}
+				$editClick = 'onmouseover="hiliteIcon(' . $dayItem['DAO_session']->id . ', 4);" onmouseout="unHiliteIcon(' . $dayItem['DAO_session']->id . ', 4);"';
 			}
 
 			if ($dayItem['dreamTaste'] || $dayItem['fundraiserEvent'])
@@ -526,11 +505,11 @@ function populateCallback($Date)
 					$breakdown = "<br />($numOrders Orders, {$dayItem['num_rsvps']} RSVPs)";
 				}
 
-				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="/backoffice?session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . $breakdown . '">' . $time12Hour . ' (' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '/' . $IntroSlots : '') . ')</a>' . $customizable;
+				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['DAO_session']->id . '&amp;back=/backoffice/session-mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['DAO_session']->id . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $dayItem['DAO_session']->sessionTypeIcon(true) . '<a href="/backoffice?session=' . $dayItem['DAO_session']->id . '" class="' . $linkClass . '"><span  ' . ((!$dayItem['DAO_session']->isPublished()) ? 'class="text-decoration-line-through"' : '') . ' data-toggle="tooltip" title="' . $dayItem['DAO_session']->sessionStartDateTime()->format('g:i A') . ' - ' . $dayItem['DAO_session']->sessionEndDateTime()->format('g:i A') . '">' . $dayItem['DAO_session']->sessionStartDateTime()->format('g:i A') . '</span></a> <span data-toggle="tooltip" data-html="true" title="Remaining Slots: ' . $dayItem['remainingSlots'] . $breakdown . '">(' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '/' . $IntroSlots : '') . ')</span> ' . $dayItem['DAO_session']->openForCustomizationIcon() . ' ' . $dayItem['DAO_session']->discountedIcon();
 			}
 			else
 			{
-				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $sessionTypeNote . '<a href="/backoffice?session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Slots: ' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '<br />Remaining Starter Pack Slots: ' . $IntroSlots : '') . '">' . $time12Hour . ' (' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '/' . $IntroSlots : '') . ')</a>' . $customizable;
+				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['DAO_session']->id . '&amp;back=/backoffice/session-mgr"><img name="' . $dayItem['time'] . '" id="' . $dayItem['DAO_session']->id . '" src="' . $image . '" ' . $editClick . ' class="img_valign"></a>' . $dayItem['DAO_session']->sessionTypeIcon(true) . '<a href="/backoffice?session=' . $dayItem['DAO_session']->id . '" class="' . $linkClass . '"><span  ' . ((!$dayItem['DAO_session']->isPublished()) ? 'class="text-decoration-line-through"' : '') . ' data-toggle="tooltip" title="' . $dayItem['DAO_session']->sessionStartDateTime()->format('g:i A') . ' - ' . $dayItem['DAO_session']->sessionEndDateTime()->format('g:i A') . '">' . $dayItem['DAO_session']->sessionStartDateTime()->format('g:i A') . '</span></a> <span data-toggle="tooltip" data-html="true" title="Remaining Slots: ' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '<br />Remaining Starter Pack Slots: ' . $IntroSlots : '') . '">(' . $dayItem['remainingSlots'] . (($dayItem["supportsIntro"]) ? '/' . $IntroSlots : '') . ')</span> ' . $dayItem['DAO_session']->openForCustomizationIcon() . ' ' . $dayItem['DAO_session']->discountedIcon();
 			}
 		}
 	}
