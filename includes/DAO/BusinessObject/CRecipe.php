@@ -52,7 +52,7 @@ class CRecipe extends DAO_Recipe
 				'show' => false,
 				'value' => null,
 				'css_icon' => 'icon-crockpot text-gray-dark',
-				'png_icon' => 'icon-crockpot.png',
+				'png_icon' => 'menu-icon08.png',
 				'tooltip' => 'Crock-Pot Option',
 				'label' => 'Crock-Pot Option'
 			),
