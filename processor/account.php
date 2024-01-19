@@ -319,62 +319,6 @@ class processor_account extends CPageProcessor
 			$_POST['op'] = '';
 		}
 
-		if (defined('ENABLE_EMAIL_PREFERENCE') && ENABLE_EMAIL_PREFERENCE == true)
-		{
-			if (isset($_POST['reconcile_email_prefs']))
-			{
-				// Get internal prefs
-				if ($this->can['can_post_user_id'] && !empty($_POST['user_id']) && is_numeric($_POST['user_id']))
-				{
-					$User = DAO_CFactory::create('user');
-					$User->id = $_POST['user_id'];
-					$User->find(true);
-
-					$update_guest_pref = true;
-				}
-				else
-				{
-					$User = CUser::getCurrentUser();
-				}
-
-				if ($User)
-				{
-					$User->getUserPreferences();
-				}
-
-				// get salesforce versions
-				$salesForce = new CSalesforceLink();
-				$prefs = $salesForce->retrieveEmailPreferences($User->id);
-
-				// if no account in salesforce we can ignore that- the preferences will be updated by the nightly build
-				if (empty($prefs) || !empty($prefs['error_occurred']))
-				{
-					if (!empty($prefs['status']) && $prefs['status'] == 404)
-					{
-						// account is not in salesforce yet - todo?
-					}
-				}
-				else
-				{
-
-					foreach ($prefs as $prefName => $prefVal)
-					{
-						if (isset(CUser::$SalesforceToInternalPrefNameMap[$prefName]))
-						{
-							$val = CUser::OPTED_IN;
-							if ($prefVal)
-							{
-								// true means opted out
-								$val = CUser::OPTED_OUT;
-							}
-
-							$User->setUserPreference(CUser::$SalesforceToInternalPrefNameMap[$prefName], $val);
-						}
-					}
-				}
-			}
-		}
-
 		if ($_POST['op'] == 'update_pref')
 		{
 			if (!empty($_POST['key']))
@@ -397,32 +341,6 @@ class processor_account extends CPageProcessor
 				if ($User)
 				{
 					$User->setUserPreference($_POST['key'], $_POST['value']);
-				}
-			}
-
-			if (defined('ENABLE_EMAIL_PREFERENCE') && ENABLE_EMAIL_PREFERENCE == true)
-			{
-				if (isset(CUser::$EMailPrefsDefaults[$_POST['key']]) || isset(CUser::$SMSPrefsDefaults[$_POST['key']]))
-				{
-					$SalesForce = new CSalesforceLink();
-
-					$SFValue = true;
-					if ($_POST['value'] == 'PENDING_OPT_IN' || $_POST['value'] == 'OPTED_IN' || $_POST['value'] == 'OPT_IN')
-					{
-						$SFValue = false;
-					}
-
-					$result = $SalesForce->setPrefInSalesforce($User->id, CUser::$InternalToSalesforcePrefNameMap[$_POST['key']], $SFValue);
-
-					if (!empty($result['error_occurred']))
-					{
-						// schedule retry
-						CTaskRetryQueue::queueTask(CTaskRetryQueue::SYNC_SALES_FORCE_PREF, array(
-							'user_id' => $User->id,
-							'pref' => $_POST['key'],
-							'value' => $SFValue
-						), 3600, 300);
-					}
 				}
 			}
 

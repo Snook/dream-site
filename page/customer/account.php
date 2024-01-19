@@ -250,15 +250,6 @@ class page_account extends CPage
 			$tpl->assign('birthdayComplete', true);
 		}
 
-		if (defined('ENABLE_EMAIL_PREFERENCE') && ENABLE_EMAIL_PREFERENCE == true)
-		{
-
-			require_once("processor/account.php");
-			$prefsProcessor = new processor_account();
-			$_POST['reconcile_email_prefs'] = true;
-			$prefsProcessor->runCustomer();
-		}
-
 		$tpl->assign('sms_special_case', 'none');
 
 		$past_future_threshold = date("Y-m-d H:i:s", strtotime(date("Y-m-d")));

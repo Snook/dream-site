@@ -151,44 +151,6 @@
 						</div>
 					<?php } ?>
 
-
-					<?php if (defined('ENABLE_EMAIL_PREFERENCE') && ENABLE_EMAIL_PREFERENCE == true) { ?>
-						<div class="form-group col-md-6 col-xl-4 bg-green-light p-3">
-
-							<h2 class="font-weight-bold font-size-medium-small text-uppercase text-left mt-3">Email Subscriptions</h2>
-							<p class="font-size-small">Subscribe to Dream Dinners Email communications.</p>
-
-							<div class="ml-4">
-								<div class="custom-control custom-switch">
-									<input class="custom-control-input"  id="email_reminder_session" data-user_pref="email_reminder_session" data-user_pref_value_check="PENDING_OPT_IN" data-user_pref_value_uncheck="PENDING_OPT_OUT" type="checkbox" <?php if ($this->user->preferences[CUser::EMAIL_REMINDER_SESSION]['value'] == 'OPTED_IN' || $this->user->preferences[CUser::EMAIL_REMINDER_SESSION]['value'] == 'PENDING_OPT_IN') {?>checked="checked"<?php } ?> />
-									<label class="custom-control-label" for="email_reminder_session"><span class="font-weight-bold">Reminders:</span></label> <span class="font-size-small">Sent 3 days before your store session or tracking updates for Delivered orders.</span>
-								</div>
-							</div>
-
-							<div class="ml-4">
-								<div class="custom-control custom-switch">
-									<input class="custom-control-input"  id="email_plate_points" data-user_pref="email_plate_points" data-user_pref_value_check="PENDING_OPT_IN" data-user_pref_value_uncheck="PENDING_OPT_OUT" type="checkbox" <?php if ($this->user->preferences[CUser::EMAIL_PLATE_POINTS]['value'] == 'OPTED_IN' || $this->user->preferences[CUser::EMAIL_PLATE_POINTS]['value'] == 'PENDING_OPT_IN') {?>checked="checked"<?php } ?> />
-									<label class="custom-control-label" for="email_plate_points"><span class="font-weight-bold">PLATEPOINTS:</span></label> <span class="font-size-small">Loyalty program notifications, announcements and reminders</span>
-								</div>
-							</div>
-
-							<div class="ml-4">
-								<div class="custom-control custom-switch">
-									<input class="custom-control-input"  id="email_offers_and_promos" data-user_pref="email_offers_and_promos" data-user_pref_value_check="PENDING_OPT_IN" data-user_pref_value_uncheck="PENDING_OPT_OUT" type="checkbox" <?php if ($this->user->preferences[CUser::EMAIL_OFFERS_AND_PROMOS]['value'] == 'OPTED_IN' || $this->user->preferences[CUser::EMAIL_OFFERS_AND_PROMOS]['value'] == 'PENDING_OPT_IN') {?>checked="checked"<?php } ?> />
-									<label class="custom-control-label" for="email_offers_and_promos"><span class="font-weight-bold">Offers and Promotions:</span></label> <span class="font-size-small">Including contests, coupons and events</span>
-								</div>
-							</div>
-
-							<div class="ml-4">
-								<div class="custom-control custom-switch">
-									<input class="custom-control-input"  id="email_surveys" data-user_pref="email_surveys" data-user_pref_value_check="PENDING_OPT_IN" data-user_pref_value_uncheck="PENDING_OPT_OUT" type="checkbox" <?php if ($this->user->preferences[CUser::EMAIL_SURVEYS]['value'] == 'OPTED_IN' || $this->user->preferences[CUser::EMAIL_SURVEYS]['value'] == 'PENDING_OPT_IN') {?>checked="checked"<?php } ?> />
-									<label class="custom-control-label" for="email_surveys"><span class="font-weight-bold">Surveys:</span></label> <span class="font-size-small">Your opportunity to give us your feedback about your experience, meals and more.</span>
-								</div>
-							</div>
-
-						</div>
-					<?php } ?>
-
 					<div class="form-group col-md-6 col-xl-4 bg-green-dark text-white p-3">
 						<?php include $this->loadTemplate('customer/subtemplate/account/account_main_sms_preferences.tpl.php'); ?>
 					</div>
