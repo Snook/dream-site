@@ -242,15 +242,17 @@
 					</div>
 				</div>
 			<?php } ?>
-			<!--text message banner-->
-			<div class="col-xl-6 mb-2 bg-cyan-dark py-2">
-				<div class="col-12 pt-4 text-center">
-					<i class="d-none d-lg-block dd-icon icon-mobile font-size-extra-large text-white mb-2"></i>
-					<h5 class="font-weight-bold text-uppercase text-white">OPT INTO DREAM DINNERS EMAIl &amp; TEXT MESSAGING</h5>
-					<p class="text-white">Get important Dream Dinners info in the palm of your hand like a reminder about your next order. Plus exciting offers, announcements and weekly thaw reminders.</p>
-					<a class="btn btn-gray-dark btn-block mb-3" href="/account">Edit Preferences to Opt In</a>
+
+			<?php if (false) { ?>
+				<div class="col-xl-6 mb-2 bg-cyan-dark py-2">
+					<div class="col-12 pt-4 text-center">
+						<i class="d-none d-lg-block dd-icon icon-mobile font-size-extra-large text-white mb-2"></i>
+						<h5 class="font-weight-bold text-uppercase text-white">OPT INTO DREAM DINNERS EMAIl &amp; TEXT MESSAGING</h5>
+						<p class="text-white">Get important Dream Dinners info in the palm of your hand like a reminder about your next order. Plus exciting offers, announcements and weekly thaw reminders.</p>
+						<a class="btn btn-gray-dark btn-block mb-3" href="/account">Edit Preferences to Opt In</a>
+					</div>
 				</div>
-			</div>
+			<?php } ?>
 
 			<?php if ($this->userTestRecipes) { ?>
 				<div class="col-xl-6 mb-2 bg-gray py-2">
@@ -375,13 +377,6 @@
 							<li>Print freezer sheet - <?php echo (!empty(CUser::getCurrentUser()->preferences[CUser::SESSION_PRINT_FREEZER_SHEET]['value'])) ? 'Yes' : 'No'; ?></li>
 							<li>Print nutritionals - <?php echo (!empty(CUser::getCurrentUser()->preferences[CUser::SESSION_PRINT_NUTRITIONALS]['value'])) ? 'Yes' : 'No'; ?></li>
 							<li>Account note - <?php echo (!empty(CUser::getCurrentUser()->preferences[CUser::USER_ACCOUNT_NOTE]['value'])) ? CUser::getCurrentUser()->preferences[CUser::USER_ACCOUNT_NOTE]['value'] : 'Not set'; ?></li>
-							<li>Text Messages - <?php echo (!empty(CUser::getCurrentUser()->preferences[CUser::TEXT_MESSAGE_TARGET_NUMBER]['value'])
-									&& strpos(CUser::getCurrentUser()->preferences[CUser::TEXT_MESSAGE_TARGET_NUMBER]['value'], "PENDING ") === false
-									&& CUser::getCurrentUser()->preferences[CUser::TEXT_MESSAGE_TARGET_NUMBER]['value'] != CUser::UNANSWERED) ? CUser::getCurrentUser()->preferences[CUser::TEXT_MESSAGE_TARGET_NUMBER]['value'] : 'Not set'; ?></li>
-							<li>Email Subscription - <?php echo (CUser::getCurrentUser()->preferences[CUser::EMAIL_SURVEYS]['value'] == CUser::OPTED_IN
-									|| CUser::getCurrentUser()->preferences[CUser::EMAIL_OFFERS_AND_PROMOS]['value'] == CUser::OPTED_IN
-									|| CUser::getCurrentUser()->preferences[CUser::EMAIL_PLATE_POINTS]['value'] == CUser::OPTED_IN
-									|| CUser::getCurrentUser()->preferences[CUser::EMAIL_REMINDER_SESSION]['value'] == CUser::OPTED_IN) ? 'Subscribed' : 'Unsubscribed'; ?></li>
 						</ul>
 					</div>
 					<div class="col-sm-6 col-xl-3 mt-2">

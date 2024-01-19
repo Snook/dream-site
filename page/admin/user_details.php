@@ -325,7 +325,7 @@ class page_admin_user_details extends CPageAdminOnly
 			{
 				$tpl = CApp::instance()->template();
 
-				$user_id = CGPC::do_clean( $_REQUEST['id'],TYPE_INT);
+				$user_id = CGPC::do_clean($_REQUEST['id'], TYPE_INT);
 
 				$User = DAO_CFactory::create('user');
 				$User->id = $user_id;
@@ -377,17 +377,19 @@ class page_admin_user_details extends CPageAdminOnly
 			if ($_REQUEST['action'] == 'confirmAccountInfoSent')
 			{
 				$tpl = CApp::instance()->template();
-				$user_id = CGPC::do_clean($_REQUEST['id'],TYPE_INT);
+				$user_id = CGPC::do_clean($_REQUEST['id'], TYPE_INT);
 
-				$task = CUserAccountManagement::fetchTask($user_id,CUserAccountManagement::ACTION_SEND_ACCOUNT_INFORMATION);
-				if(is_null($task)){
+				$task = CUserAccountManagement::fetchTask($user_id, CUserAccountManagement::ACTION_SEND_ACCOUNT_INFORMATION);
+				if (is_null($task))
+				{
 					$tpl->setStatusMsg('No data request was found for this user.');
-				}else{
-					CUserAccountManagement::updateTask($task->id,CUserAccountManagement::ACTION_SEND_ACCOUNT_INFORMATION,CUserAccountManagement::STATUS_COMPLETED);
+				}
+				else
+				{
+					CUserAccountManagement::updateTask($task->id, CUserAccountManagement::ACTION_SEND_ACCOUNT_INFORMATION, CUserAccountManagement::STATUS_COMPLETED);
 
 					$tpl->setStatusMsg('The account data request has been marked complete.');
 				}
-
 			}
 		}
 
@@ -557,14 +559,12 @@ class page_admin_user_details extends CPageAdminOnly
 			$aProps['gender'] = $User->getFieldLabel($aProps['gender']);
 			$aProps['preferences'] = $User->preferences;
 
-
-			$aProps['rsvp_history'] =  $User->getRSVPHistory();
+			$aProps['rsvp_history'] = $User->getRSVPHistory();
 
 			if ($User->supports_corporate_crate)
 			{
 				$this->can['display_corporate_crate_email'] = true;
 			}
-
 
 			if (!empty($User->secondary_email))
 			{
@@ -578,7 +578,6 @@ class page_admin_user_details extends CPageAdminOnly
 			if (!empty($User->user_type) && $User->user_type != CUser::CUSTOMER)
 			{
 				$aProps['is_dd_employee'] = true;
-
 			}
 			else
 			{
@@ -586,8 +585,6 @@ class page_admin_user_details extends CPageAdminOnly
 			}
 
 			$aProps['is_preferred_somewhere'] = $userIsPreferredSomewhere;
-
-
 
 			$aProps['hasPendingDataRequest'] = $User->hasPendingDataRequest();
 
@@ -639,8 +636,7 @@ class page_admin_user_details extends CPageAdminOnly
 
 					//CES: ACCESS_CHANGE
 					$isfranchiseowner = true;
-					if ($User->user_type == CUser::FRANCHISE_STAFF || $User->user_type == CUser::GUEST_SERVER  ||
-						$User->user_type == CUser::FRANCHISE_MANAGER || $User->user_type == CUser::OPS_LEAD)
+					if ($User->user_type == CUser::FRANCHISE_STAFF || $User->user_type == CUser::GUEST_SERVER || $User->user_type == CUser::FRANCHISE_MANAGER || $User->user_type == CUser::OPS_LEAD)
 					{
 						$this->canSetAccessLevels = false;
 
@@ -834,15 +830,7 @@ class page_admin_user_details extends CPageAdminOnly
 				$this->canSetPrefStatus = false;
 			}
 
-
-            if (defined('ENABLE_SMS_PREFERENCE') && ENABLE_SMS_PREFERENCE == true)
-            {
-                require_once("processor/account.php");
-                $prefsProcessor = new processor_account();
-                $results = $prefsProcessor->reconcileSMSOptinStatus($User);
-            }
-
-                $tpl->assign('DRControl', CDreamRewardsHistory::getCurrentStateForUser($User, $StoreDAO, true, false));
+			$tpl->assign('DRControl', CDreamRewardsHistory::getCurrentStateForUser($User, $StoreDAO, true, false));
 			$tpl->assign('candelete', $this->candelete);
 			$tpl->assign('isPartialAccount', $isObserveOnlyAccount);
 			$tpl->assign('isFranchiseOwner', $isfranchiseowner);

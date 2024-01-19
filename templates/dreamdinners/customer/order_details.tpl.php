@@ -1,9 +1,5 @@
 <?php $this->assign('page_title', 'Order Details');?>
 <?php $this->setScript('foot', SCRIPT_PATH . '/customer/order_details.min.js'); ?>
-<?php if (defined('ENABLE_SMS_PREFERENCE_ORDER_DETAILS') && ENABLE_SMS_PREFERENCE_ORDER_DETAILS == true) { ?>
-	<?php $this->setScript('foot', SCRIPT_PATH . '/customer/account.min.js'); ?>
-	<?php $this->setScriptVar('sms_special_case = "' . $this->sms_special_case . '";'); ?>
-<?php } ?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
 
 	<header class="container my-5 d-print-none">
