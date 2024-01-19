@@ -51,6 +51,16 @@ class CMenu extends DAO_Menu
 		return true;
 	}
 
+	function isEnabled_Add_Sides_and_EFL()
+	{
+		if ($this->id == 272)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	function isEnabled_MarkDown()
 	{
 		// Currently same rules as isEnabled_Markup()
