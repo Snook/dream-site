@@ -261,19 +261,6 @@ class page_account extends CPage
 
 		$tpl->assign('sms_special_case', 'none');
 
-		if (defined('ENABLE_SMS_PREFERENCE') && ENABLE_SMS_PREFERENCE == true)
-		{
-			require_once("processor/account.php");
-			$prefsProcessor = new processor_account();
-			$results = $prefsProcessor->reconcileSMSOptinStatus($User);
-
-			if ($results['status'] == 'pending')
-			{
-				$tpl->assign('sms_special_case', 'pending_second_step');
-			}
-		}
-
-
 		$past_future_threshold = date("Y-m-d H:i:s", strtotime(date("Y-m-d")));
 		$upcomingOrdersArray = COrders::getUsersOrders($User, false, $past_future_threshold, false, false, false, 'asc', false, true);
 

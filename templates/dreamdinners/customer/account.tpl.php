@@ -189,12 +189,9 @@
 						</div>
 					<?php } ?>
 
-
-					<?php if (defined('ENABLE_SMS_PREFERENCE') && ENABLE_SMS_PREFERENCE == true) { ?>
-						<div class="form-group col-md-6 col-xl-4 bg-green-dark text-white p-3">
-							<?php include $this->loadTemplate('customer/subtemplate/account/account_main_sms_preferences.tpl.php'); ?>
-						</div>
-					<?php } ?>
+					<div class="form-group col-md-6 col-xl-4 bg-green-dark text-white p-3">
+						<?php include $this->loadTemplate('customer/subtemplate/account/account_main_sms_preferences.tpl.php'); ?>
+					</div>
 
 					<div class="form-group col-md-6 col-xl-4 bg-green-light">
 						<div class="row">

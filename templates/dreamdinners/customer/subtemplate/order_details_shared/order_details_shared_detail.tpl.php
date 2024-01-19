@@ -176,11 +176,6 @@
 					<a class="btn btn-secondary mt-3 mb-5" href="/my-meals">Start Rating My Meals</a>
 				</div>
 			<?php } ?>
-			<?php if (defined('ENABLE_SMS_PREFERENCE_ORDER_DETAILS') && ENABLE_SMS_PREFERENCE_ORDER_DETAILS == true) { ?>
-				<div class="col-12 col-lg-6 bg-gray-light">
-					<?php include $this->loadTemplate('customer/subtemplate/account/account_main_sms_preferences.tpl.php'); ?>
-				</div>
-			<?php } ?>
 		</div>
 
 
