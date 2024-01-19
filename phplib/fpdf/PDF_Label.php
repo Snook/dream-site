@@ -2112,16 +2112,24 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 3, $_PosY + $yOff);
 		$this->MultiCellTag($this->_Width * .6, $this->_Line_Height, $servingType, $showBorders, "L", 0);
 
-		if (!empty($menuItemArray['instructions_air_fryer']) || !empty($menuItemArray['instructions_crock_pot']) || !empty($menuItemArray['instructions_grill']))
+		if (!empty($menuItemArray['instructions_air_fryer']) || !empty($menuItemArray['instructions_crock_pot']) || !empty($menuItemArray['instructions_instant_pot']) || !empty($menuItemArray['instructions_grill']))
 		{
 			$alternate_instruction_type = 'alternate';
 			if(!empty($menuItemArray['instructions_air_fryer']))
 			{
 				$alternate_instruction_type = 'air fryer';
 			}
+			else if (!empty($menuItemArray['instructions_crock_pot']) && !empty($menuItemArray['instructions_instant_pot']))
+			{
+				$alternate_instruction_type = 'crock-pot or instant-pot';
+			}
 			else if (!empty($menuItemArray['instructions_crock_pot']))
 			{
-				$alternate_instruction_type = 'crock-pot or instant pot';
+				$alternate_instruction_type = 'crock-pot';
+			}
+			else if (!empty($menuItemArray['instructions_instant_pot']))
+			{
+				$alternate_instruction_type = 'instant pot';
 			}
 			else if (!empty($menuItemArray['instructions_grill']))
 			{

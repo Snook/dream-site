@@ -42,6 +42,7 @@ class DAO_Menu_item extends DAO
 	public $instructions;					 //
 	public $instructions_air_fryer;					 //
 	public $instructions_crock_pot;					 //
+	public $instructions_instant_pot;					 //
 	public $instructions_grill;					 //
 	public $prep_time;	 					//
 	public $best_prepared_by;				//

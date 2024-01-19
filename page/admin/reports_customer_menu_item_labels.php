@@ -714,6 +714,7 @@ class page_admin_reports_customer_menu_item_labels extends CPageAdminOnly
 				$output_array[$count]['instructions'] = mb_convert_encoding($DAO_menu_item->instructions, 'Windows-1252', 'HTML-ENTITIES');
 				$output_array[$count]['instructions_air_fryer'] = mb_convert_encoding($DAO_menu_item->instructions_air_fryer, 'Windows-1252', 'HTML-ENTITIES');
 				$output_array[$count]['instructions_crock_pot'] = mb_convert_encoding($DAO_menu_item->instructions_crock_pot, 'Windows-1252', 'HTML-ENTITIES');
+				$output_array[$count]['instructions_instant_pot'] = mb_convert_encoding($DAO_menu_item->instructions_instant_pot, 'Windows-1252', 'HTML-ENTITIES');
 				$output_array[$count]['instructions_grill'] = mb_convert_encoding($DAO_menu_item->instructions_grill, 'Windows-1252', 'HTML-ENTITIES');
 
 				$output_array[$count]['grand_total'] = 0;
@@ -729,6 +730,7 @@ class page_admin_reports_customer_menu_item_labels extends CPageAdminOnly
 				$output_array[$count]['flag_grill_friendly'] = $DAO_menu_item->flag_grill_friendly;
 				$output_array[$count]['flag_cooks_from_frozen'] = $DAO_menu_item->flag_cooks_from_frozen;
 				$output_array[$count]['flag_crockpot'] = $DAO_menu_item->flag_crockpot;
+				$output_array[$count]['flag_instant_pot'] = $DAO_menu_item->flag_instant_pot;
 				$output_array[$count]['flag_under_400'] = $DAO_menu_item->flag_under_400;
 				$output_array[$count]['flag_no_added_salt'] = $DAO_menu_item->flag_no_added_salt;
 				$output_array[$count]['cooking_instruction_youtube_id'] = $DAO_menu_item->cooking_instruction_youtube_id;
@@ -816,6 +818,7 @@ class page_admin_reports_customer_menu_item_labels extends CPageAdminOnly
 					$output_array[$count]['instructions'] = mb_convert_encoding($DAO_menu_item->instructions, 'Windows-1252', 'HTML-ENTITIES');
 					$output_array[$count]['instructions_air_fryer'] = mb_convert_encoding($DAO_menu_item->instructions_air_fryer, 'Windows-1252', 'HTML-ENTITIES');
 					$output_array[$count]['instructions_crock_pot'] = mb_convert_encoding($DAO_menu_item->instructions_crock_pot, 'Windows-1252', 'HTML-ENTITIES');
+					$output_array[$count]['instructions_instant_pot'] = mb_convert_encoding($DAO_menu_item->instructions_instant_pot, 'Windows-1252', 'HTML-ENTITIES');
 					$output_array[$count]['instructions_grill'] = mb_convert_encoding($DAO_menu_item->instructions_grill, 'Windows-1252', 'HTML-ENTITIES');
 
 					$output_array[$count]['grand_total'] = 0;
@@ -947,6 +950,7 @@ class page_admin_reports_customer_menu_item_labels extends CPageAdminOnly
 					$order_info[$count]['instructions'] = mb_convert_encoding($DAO_menu_item->instructions, 'Windows-1252', 'HTML-ENTITIES');
 					$order_info[$count]['instructions_air_fryer'] = mb_convert_encoding($DAO_menu_item->instructions_air_fryer, 'Windows-1252', 'HTML-ENTITIES');
 					$order_info[$count]['instructions_crock_pot'] = mb_convert_encoding($DAO_menu_item->instructions_crock_pot, 'Windows-1252', 'HTML-ENTITIES');
+					$order_info[$count]['instructions_instant_pot'] = mb_convert_encoding($DAO_menu_item->instructions_instant_pot, 'Windows-1252', 'HTML-ENTITIES');
 					$order_info[$count]['instructions_grill'] = mb_convert_encoding($DAO_menu_item->instructions_grill, 'Windows-1252', 'HTML-ENTITIES');
 					$order_info[$count]['prep_time'] = $DAO_menu_item->prep_time;
 					$order_info[$count]['container_type'] = $DAO_menu_item->container_type;
