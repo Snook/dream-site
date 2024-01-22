@@ -372,7 +372,7 @@ class page_admin_edit_session_delivered extends CPageAdminOnly
 		$SessionForm->AddElement(array(
 			CForm::type => CForm::Text,
 			CForm::maxlength => 50,
-			CForm::placeholder => 'Optional. Shows on store landing page calendar only. E.g. $20 delivery fee. No customization.',
+			CForm::placeholder => "Optional. Shows on the store locations' calendar and in the order process. E.g. Delivery to Seattle addresses only.",
 			CForm::name => 'session_title',
 			CForm::css_class => 'dd-strip-tags'
 		));

@@ -156,7 +156,7 @@
 				<td align="right" style="border: 0px;">Additional Info</td>
 				<td colspan="3" style="border: 0px;">
 					<?php echo $this->form_template_item['session_title_html']; ?><br />
-					(Optional. Shows on store landing page calendar only. E.g. $20 delivery fee. No customization.)
+					(Optional. Shows on the store locations' calendar and in the order process. E.g. Delivery to Seattle addresses only.)
 				</td>
 			</tr>
 			<tr>
