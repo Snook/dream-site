@@ -1093,7 +1093,7 @@ class CUser extends DAO_User
 						'title' => 'Goal Management',
 						'link' => '/backoffice/reports-goal-management-v2',
 					),
-					'admin_fundraiser' => array(
+					'admin_reports_customer' => array(
 						'access' => array(
 							self::HOME_OFFICE_MANAGER,
 							self::HOME_OFFICE_STAFF,
@@ -1103,8 +1103,8 @@ class CUser extends DAO_User
 							self::EVENT_COORDINATOR,
 							self::OPS_LEAD
 						),
-						'title' => 'Fundraising',
-						'link' => '/backoffice/fundraiser',
+						'title' => 'Order History',
+						'link' => '/backoffice/reports-customer',
 					),
 					'admin_reports_manufacturer_labels' => array(
 						'access' => array(
