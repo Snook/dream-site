@@ -2200,7 +2200,7 @@ $(function () {
 
 	//////---------Add past Sides & Sweets
 
-	$(document).on('click', '#add_past_menu_item_sides', function (e) {
+	$(document).on('click', '#add_past_menu_item_sides:not(.disabled)', function (e) {
 
 		displayModalWaitDialog('wait_for_adding_item_div', "Retrieving Sides & Sweets. Please wait ...");
 
