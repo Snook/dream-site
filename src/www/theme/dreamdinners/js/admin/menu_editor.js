@@ -509,8 +509,6 @@ function calculatePage()
 	let currentAssemblyFee = ((!$('#assembly_fee').val()) ? null : $('#assembly_fee').val());
 	let currentDeliveryAssemblyFee = ((!$('#delivery_assembly_fee').val()) ? null : $('#delivery_assembly_fee').val());
 
-	let currentDefaultStatus = document.getElementById('is_default_markupno').checked ? 0 : 1;
-
 	if ($('#delivery_assembly_fee').length != 0)
 	{
 		if (formatAsMoney(markupData.delivery_assembly_fee) != formatAsMoney(currentDeliveryAssemblyFee))
@@ -571,15 +569,6 @@ function calculatePage()
 		{
 			is_unsaved = true;
 			//dd_console_log("Unsaved 7");
-		}
-	}
-
-	if (menuInfo.menu_id != '100')
-	{
-		if (markupData.is_default != currentDefaultStatus)
-		{
-			is_unsaved = true;
-			//dd_console_log("Unsaved 8");
 		}
 	}
 
@@ -1522,12 +1511,12 @@ function addUnsavedEFLItem(item_id, name, size, base_price, thisItemCount, count
 	var el = document.createElement('input');
 	el.setAttribute("type", "number");
 	el.setAttribute("size", "3");
-	el.setAttribute("step", "any");
+	el.setAttribute("step", "0.01");
 
 	el.setAttribute("class", "form-control form-control-sm no-spin-button");
 
 	el.setAttribute("maxlength", "6");
-	el.setAttribute("data-orgval", "");
+	el.setAttribute("data-orgval", formatAsMoney(base_price));
 
 	var idStr = "ovr_" + item_id;
 	el.setAttribute("id", idStr);
@@ -1635,44 +1624,60 @@ function addUnsavedSideItem(item_id, name, size, base_price, category_label)
 	// size cell
 	var cellSize = row.insertCell(insertCellNum++);
 	cellSize.setAttribute("class", "align-middle");
-	var el = document.createTextNode(size);
+	var el = document.createTextNode('1 item');
 	cellSize.appendChild(el);
 
-	// basePrice cell
-	var cellbase = row.insertCell(insertCellNum++);
-	cellbase.setAttribute("class", "align-middle");
-	var el = document.createTextNode(formatAsMoney(base_price));
-	cellbase.appendChild(el);
+	if (isEnabled_Markup_Sides)
+	{
+		// basePrice cell
+		var cellbase = row.insertCell(insertCellNum++);
+		cellbase.setAttribute("class", "align-middle");
+		var el = document.createTextNode(formatAsMoney(base_price));
+		cellbase.appendChild(el);
 
-	var markup_price = getMarkUpPrice(size, base_price);
+		var markup_price = getMarkUpPrice(size, base_price);
 
-	// currentPrice cell
-	var cellcurrent = row.insertCell(insertCellNum++);
-	cellcurrent.setAttribute("class", "align-middle");
-	var el = document.createTextNode(markup_price);
-	cellcurrent.appendChild(el);
+		// currentPrice cell
+		var cellcurrent = row.insertCell(insertCellNum++);
+		cellcurrent.setAttribute("class", "align-middle");
+		var el = document.createTextNode(markup_price);
+		cellcurrent.appendChild(el);
 
-	// markupPrice cell
-	var cellmarkup = row.insertCell(insertCellNum++);
-	cellmarkup.setAttribute("class", "align-middle markup-price");
-	var el = document.createTextNode(markup_price);
-	cellmarkup.appendChild(el);
+		// markupPrice cell
+		var cellmarkup = row.insertCell(insertCellNum++);
+		cellmarkup.setAttribute("class", "align-middle markup-price");
+		var el = document.createTextNode(markup_price);
+		cellmarkup.appendChild(el);
+	}
+
+	if (!isEnabled_Markup_Sides)
+	{
+		// currentPrice cell
+		var cellcurrent = row.insertCell(insertCellNum++);
+		cellcurrent.setAttribute("class", "align-middle");
+		var el = document.createTextNode(base_price);
+		cellcurrent.appendChild(el);
+	}
 
 	// overridePrice cell
 	var celloverride = row.insertCell(insertCellNum++);
 	var el = document.createElement('input');
 	el.setAttribute("type", "number");
 	el.setAttribute("size", "3");
-	el.setAttribute("step", "any");
+	el.setAttribute("step", "0.01");
 
 	el.setAttribute("class", "form-control form-control-sm no-spin-button");
 
 	el.setAttribute("maxlength", "6");
-	el.setAttribute("data-orgval", "");
+	el.setAttribute("data-orgval", formatAsMoney(base_price));
 
 	var idStr = "ovr_" + item_id;
 	el.setAttribute("id", idStr);
 	el.setAttribute("name", idStr);
+	if (!isEnabled_Markup_Sides)
+	{
+		el.setAttribute("value", formatAsMoney(base_price));
+	}
 	celloverride.appendChild(el);
 
 	// previewPrice cell

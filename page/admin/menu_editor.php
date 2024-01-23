@@ -379,9 +379,17 @@ class page_admin_menu_editor extends CPageAdminOnly
 				}
 			}
 
-			if (trim($_POST['markup_sides']) == "")
+			if (!$DAO_menu->isEnabled_Markup_Sides())
 			{
 				$_POST['markup_sides'] = 0;
+				$_POST['is_default_markup'] = "yes";
+			}
+			else
+			{
+				if (trim($_POST['markup_sides']) == "")
+				{
+					$_POST['markup_sides'] = 0;
+				}
 			}
 
 			if (!is_numeric($_POST['markup_6_serving']) || !is_numeric($_POST['markup_4_serving']) || !is_numeric($_POST['markup_3_serving']) || !is_numeric($_POST['markup_2_serving']) || !is_numeric($_POST['markup_sides']))
@@ -505,6 +513,15 @@ class page_admin_menu_editor extends CPageAdminOnly
 				}
 				if ($markup)
 				{
+					if (empty($_POST['delivery_assembly_fee']))
+					{
+						$_POST['delivery_assembly_fee'] = 0;
+					}
+					if (empty($_POST['assembly_fee']))
+					{
+						$_POST['assembly_fee'] = 0;
+					}
+
 					if ($markup->markup_value_6_serving != $_POST['markup_6_serving'] || $markup->markup_value_sides != $_POST['markup_sides'] || $markup->markup_value_4_serving != $_POST['markup_4_serving'] || $markup->markup_value_3_serving != $_POST['markup_3_serving'] || $markup->markup_value_2_serving != $_POST['markup_2_serving'] || $markup->is_default != $posted_default_value || $markup->assembly_fee != $_POST['assembly_fee'] || $markup->delivery_assembly_fee != $_POST['delivery_assembly_fee'] || $markup->menu_id_start != $menu_id)
 					{
 						$shouldSaveNewMarkup = true;
@@ -718,7 +735,10 @@ class page_admin_menu_editor extends CPageAdminOnly
 						if ($DAO_menu_to_menu_item->find(true))
 						{
 							$old_DAO_menu_to_menu_item = clone($DAO_menu_to_menu_item);
-							$DAO_menu_to_menu_item->override_price = ((CGPC::do_clean($_POST[$priceName], TYPE_NUM) == '') ? 'null' : CGPC::do_clean($_POST[$priceName], TYPE_NUM));
+							if (!empty($_POST[$priceName]))
+							{
+								$DAO_menu_to_menu_item->override_price = ((CGPC::do_clean($_POST[$priceName], TYPE_NUM) == '') ? 'null' : CGPC::do_clean($_POST[$priceName], TYPE_NUM));
+							}
 							//visibility
 							$visName = "vis_" . $item['id'];
 							if ($item['is_visibility_controllable'] && isset($_POST[$visName]) && !empty($_POST[$visName]))

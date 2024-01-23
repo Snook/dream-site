@@ -1121,7 +1121,7 @@ class CMenuItem extends DAO_Menu_item
 						if (!$DAO_menu_to_menu_item_store->find())
 						{
 							// markup is gone, set the default override
-							if (!$DAO_menu->isEnabled_Markup())
+							if (!$DAO_menu->isEnabled_Markup() || !$DAO_menu->isEnabled_Markup_Sides())
 							{
 								// Look for the last price this sold for at the store and set the override to that
 								$last_price_DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
@@ -1947,6 +1947,21 @@ class CMenuItem extends DAO_Menu_item
 	function menuItemImagePath()
 	{
 		return empty($this->menu_image_override) ? 'default' : $this->menu_image_override;
+	}
+
+	function categoryGroupName()
+	{
+		switch ($this->categoryGroup())
+		{
+			case CMenuItem::SIDE:
+				return 'Sides & Sweets';
+			case CMenuItem::EXTENDED:
+				return 'Extended Fast Lane';
+			case CMenuItem::CORE:
+				return 'Core';
+			default:
+				return null;
+		}
 	}
 
 	function categoryGroup()
