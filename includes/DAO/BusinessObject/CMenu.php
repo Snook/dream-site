@@ -63,6 +63,11 @@ class CMenu extends DAO_Menu
 
 	function isEnabled_Add_Sides_and_EFL()
 	{
+		if (defined('DD_SERVER_NAME') && DD_SERVER_NAME != 'LIVE')
+		{
+			return true;
+		}
+
 		if ($this->id == 272)
 		{
 			return false;
