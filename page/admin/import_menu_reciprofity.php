@@ -946,6 +946,10 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				{
 					$targetItem->instructions = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
 				}
+				else
+				{
+					$targetItem->instructions = 'NULL';
+				}
 			}
 
 			if (!$doUpdate || !empty($_POST['import_instructions_air_fryer']))
@@ -953,6 +957,10 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				if (!empty($fields[COOKING_INSTRUCTIONS_AIR_FRYER]))
 				{
 					$targetItem->instructions_air_fryer = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS_AIR_FRYER], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
+				}
+				else
+				{
+					$targetItem->instructions_air_fryer = 'NULL';
 				}
 			}
 
@@ -962,6 +970,10 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				{
 					$targetItem->instructions_crock_pot = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS_CROCK_POT], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
 				}
+				else
+				{
+					$targetItem->instructions_crock_pot = 'NULL';
+				}
 			}
 
 			if (!$doUpdate || !empty($_POST['import_instructions_instant_pot']))
@@ -970,6 +982,10 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				{
 					$targetItem->instructions_instant_pot = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS_INSTANT_POT], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
 				}
+				else
+				{
+					$targetItem->instructions_instant_pot = 'NULL';
+				}
 			}
 
 			if (!$doUpdate || !empty($_POST['import_instructions_grill']))
@@ -977,6 +993,10 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				if (!empty($fields[COOKING_INSTRUCTIONS_GRILL]))
 				{
 					$targetItem->instructions_grill = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS_GRILL], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
+				}
+				else
+				{
+					$targetItem->instructions_grill = 'NULL';
 				}
 			}
 
@@ -1630,6 +1650,10 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				{
 					$targetItem->instructions = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
 				}
+				else
+				{
+					$targetItem->instructions = 'NULL';
+				}
 			}
 
 			if (!$doUpdate || !empty($_POST['import_instructions_air_fryer']))
@@ -1637,6 +1661,10 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				if (!empty($fields[COOKING_INSTRUCTIONS_AIR_FRYER]))
 				{
 					$targetItem->instructions_air_fryer = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS_AIR_FRYER], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
+				}
+				else
+				{
+					$targetItem->instructions_air_fryer = 'NULL';
 				}
 			}
 
@@ -1646,6 +1674,10 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				{
 					$targetItem->instructions_crock_pot = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS_CROCK_POT], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
 				}
+				else
+				{
+					$targetItem->instructions_crock_pot = 'NULL';
+				}
 			}
 
 			if (!$doUpdate || !empty($_POST['import_instructions_instant_pot']))
@@ -1654,6 +1686,10 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				{
 					$targetItem->instructions_instant_pot = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS_INSTANT_POT], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
 				}
+				else
+				{
+					$targetItem->instructions_instant_pot = 'NULL';
+				}
 			}
 
 			if (!$doUpdate || !empty($_POST['import_instructions_grill']))
@@ -1661,6 +1697,10 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				if (!empty($fields[COOKING_INSTRUCTIONS_GRILL]))
 				{
 					$targetItem->instructions_grill = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS_GRILL], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
+				}
+				else
+				{
+					$targetItem->instructions_grill = 'NULL';
 				}
 			}
 
