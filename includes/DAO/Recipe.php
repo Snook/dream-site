@@ -22,6 +22,7 @@ class DAO_Recipe extends DAO
 	public $flag_under_400;                  // int(1)  not_null unsigned
 	public $flag_no_added_salt;              // int(1)  not_null unsigned
 	public $flag_crockpot;                   // int(1)  not_null unsigned
+	public $flag_instant_pot;                   // int(1)  not_null unsigned
 	public $gluten_friendly;                    // int(1) not_null unsigned
 	public $air_fryer;                    // int(1) not_null unsigned
 	public $high_protein;                    // int(1) not_null unsigned

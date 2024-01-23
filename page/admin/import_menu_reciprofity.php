@@ -323,7 +323,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 		$this->ImportForm->AddElement(array(
 			CForm::type => CForm::CheckBox,
 			CForm::name => "import_serving_suggestions",
-			CForm::label => "Serving suggestions (R)",
+			CForm::label => "Serving suggestions (T)",
 			CForm::css_class => 'import_option',
 			CForm::checked => true
 		));
@@ -331,7 +331,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 		$this->ImportForm->AddElement(array(
 			CForm::type => CForm::CheckBox,
 			CForm::name => "import_station_number",
-			CForm::label => "Station number (T) - Anything marked as FL will be auto labeled as Pre-Assembled",
+			CForm::label => "Station number (V) - Anything marked as FL will be auto labeled as Pre-Assembled",
 			CForm::css_class => 'import_option',
 			CForm::checked => true
 		));
@@ -339,15 +339,15 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 		$this->ImportForm->AddElement(array(
 			CForm::type => CForm::CheckBox,
 			CForm::name => "import_initial_menu",
-			CForm::label => "Initial menu offer (W) - Set to yes if this is the first ever menu for this item, auto labeled as New",
+			CForm::label => "Initial menu offer (Y) - Set to yes if this is the first ever menu for this item, auto labeled as New",
 			CForm::css_class => 'import_option',
 			CForm::checked => true
 		));
 
 		$this->ImportForm->AddElement(array(
 			CForm::type => CForm::CheckBox,
-			CForm::name => "import_nutritional_serverings_per_container",
-			CForm::label => "Nutritional Label Servings Per Container (AC) - Not used in inventory or order requirements, only for display regarding nutrition.",
+			CForm::name => "import_nutritional_servings_per_container",
+			CForm::label => "Nutritional Label Servings Per Container (AE) - Not used in inventory or order requirements, only for display regarding nutrition.",
 			CForm::css_class => 'import_option',
 			CForm::checked => true
 		));
@@ -355,7 +355,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 		$this->ImportForm->AddElement(array(
 			CForm::type => CForm::CheckBox,
 			CForm::name => "import_prep_time",
-			CForm::label => "Prep time (AD)",
+			CForm::label => "Prep time (AF)",
 			CForm::css_class => 'import_option update_default',
 			CForm::checked => true
 		));
@@ -363,7 +363,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 		$this->ImportForm->AddElement(array(
 			CForm::type => CForm::CheckBox,
 			CForm::name => "import_instructions",
-			CForm::label => "Cooking instructions (AE)",
+			CForm::label => "Cooking instructions (AG)",
 			CForm::css_class => 'import_option update_default',
 			CForm::checked => true
 		));
@@ -371,7 +371,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 		$this->ImportForm->AddElement(array(
 			CForm::type => CForm::CheckBox,
 			CForm::name => "import_instructions_air_fryer",
-			CForm::label => "Cooking instructions - Air Fryer (AG)",
+			CForm::label => "Cooking instructions - Air Fryer (AI)",
 			CForm::css_class => 'import_option update_default',
 			CForm::checked => true
 		));
@@ -379,7 +379,15 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 		$this->ImportForm->AddElement(array(
 			CForm::type => CForm::CheckBox,
 			CForm::name => "import_instructions_crock_pot",
-			CForm::label => "Cooking instructions - Crock Pot (AI)",
+			CForm::label => "Cooking instructions - Crock Pot (AK)",
+			CForm::css_class => 'import_option update_default',
+			CForm::checked => true
+		));
+
+		$this->ImportForm->AddElement(array(
+			CForm::type => CForm::CheckBox,
+			CForm::name => "import_instructions_instant_pot",
+			CForm::label => "Cooking instructions - Instant Pot (AM)",
 			CForm::css_class => 'import_option update_default',
 			CForm::checked => true
 		));
@@ -387,7 +395,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 		$this->ImportForm->AddElement(array(
 			CForm::type => CForm::CheckBox,
 			CForm::name => "import_instructions_grill",
-			CForm::label => "Cooking instructions - Grill (AK)",
+			CForm::label => "Cooking instructions - Grill (AO)",
 			CForm::css_class => 'import_option update_default',
 			CForm::checked => true
 		));
@@ -395,7 +403,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 		$this->ImportForm->AddElement(array(
 			CForm::type => CForm::CheckBox,
 			CForm::name => "import_best_prepared_by",
-			CForm::label => "Best prepared by (AL)",
+			CForm::label => "Best prepared by (AP)",
 			CForm::css_class => 'import_option update_default',
 			CForm::checked => true
 		));
@@ -403,7 +411,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 		$this->ImportForm->AddElement(array(
 			CForm::type => CForm::CheckBox,
 			CForm::name => "option_update_menu_label",
-			CForm::label => "Update menu label - This is defined by (N), (Q) and (AH)",
+			CForm::label => "Update menu label - This is defined by an algorithm based on information from Station (V), Initial Menu (Y) and Sales Mix (AA)",
 			CForm::css_class => 'import_option',
 			CForm::checked => true
 		));
@@ -900,7 +908,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				}
 			}
 
-			if (!$doUpdate || !empty($_POST['import_nutritional_serverings_per_container']))
+			if (!$doUpdate || !empty($_POST['import_nutritional_servings_per_container']))
 			{
 				if (!empty($fields[DISPLAY_SERVINGS_PER_CONTAINER]) && is_numeric($fields[DISPLAY_SERVINGS_PER_CONTAINER]))
 				{
@@ -935,6 +943,10 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				{
 					$targetItem->instructions = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
 				}
+				else
+				{
+					$targetItem->instructions = 'NULL';
+				}
 			}
 
 			if (!$doUpdate || !empty($_POST['import_instructions_air_fryer']))
@@ -942,6 +954,10 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				if (!empty($fields[COOKING_INSTRUCTIONS_AIR_FRYER]))
 				{
 					$targetItem->instructions_air_fryer = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS_AIR_FRYER], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
+				}
+				else
+				{
+					$targetItem->instructions_air_fryer = 'NULL';
 				}
 			}
 
@@ -951,6 +967,22 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				{
 					$targetItem->instructions_crock_pot = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS_CROCK_POT], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
 				}
+				else
+				{
+					$targetItem->instructions_crock_pot = 'NULL';
+				}
+			}
+
+			if (!$doUpdate || !empty($_POST['import_instructions_instant_pot']))
+			{
+				if (!empty($fields[COOKING_INSTRUCTIONS_INSTANT_POT]))
+				{
+					$targetItem->instructions_instant_pot = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS_INSTANT_POT], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
+				}
+				else
+				{
+					$targetItem->instructions_instant_pot = 'NULL';
+				}
 			}
 
 			if (!$doUpdate || !empty($_POST['import_instructions_grill']))
@@ -958,6 +990,10 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				if (!empty($fields[COOKING_INSTRUCTIONS_GRILL]))
 				{
 					$targetItem->instructions_grill = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS_GRILL], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
+				}
+				else
+				{
+					$targetItem->instructions_grill = 'NULL';
 				}
 			}
 
@@ -1573,7 +1609,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				}
 			}
 
-			if (!$doUpdate || !empty($_POST['import_nutritional_serverings_per_container']))
+			if (!$doUpdate || !empty($_POST['import_nutritional_servings_per_container']))
 			{
 				if (!empty($fields[DISPLAY_SERVINGS_PER_CONTAINER]) && is_numeric($fields[DISPLAY_SERVINGS_PER_CONTAINER]))
 				{
@@ -1608,6 +1644,10 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				{
 					$targetItem->instructions = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
 				}
+				else
+				{
+					$targetItem->instructions = 'NULL';
+				}
 			}
 
 			if (!$doUpdate || !empty($_POST['import_instructions_air_fryer']))
@@ -1615,6 +1655,10 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				if (!empty($fields[COOKING_INSTRUCTIONS_AIR_FRYER]))
 				{
 					$targetItem->instructions_air_fryer = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS_AIR_FRYER], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
+				}
+				else
+				{
+					$targetItem->instructions_air_fryer = 'NULL';
 				}
 			}
 
@@ -1624,6 +1668,22 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				{
 					$targetItem->instructions_crock_pot = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS_CROCK_POT], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
 				}
+				else
+				{
+					$targetItem->instructions_crock_pot = 'NULL';
+				}
+			}
+
+			if (!$doUpdate || !empty($_POST['import_instructions_instant_pot']))
+			{
+				if (!empty($fields[COOKING_INSTRUCTIONS_INSTANT_POT]))
+				{
+					$targetItem->instructions_instant_pot = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS_INSTANT_POT], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
+				}
+				else
+				{
+					$targetItem->instructions_instant_pot = 'NULL';
+				}
 			}
 
 			if (!$doUpdate || !empty($_POST['import_instructions_grill']))
@@ -1631,6 +1691,10 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				if (!empty($fields[COOKING_INSTRUCTIONS_GRILL]))
 				{
 					$targetItem->instructions_grill = CImportReciprofity::charConversions($fields[COOKING_INSTRUCTIONS_GRILL], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
+				}
+				else
+				{
+					$targetItem->instructions_grill = 'NULL';
 				}
 			}
 
@@ -2003,7 +2067,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				}
 			}
 
-			if (!$doUpdate || !empty($_POST['import_nutritional_serverings_per_container']))
+			if (!$doUpdate || !empty($_POST['import_nutritional_servings_per_container']))
 			{
 				if (!empty($fields[DISPLAY_SERVINGS_PER_CONTAINER]) && is_numeric($fields[DISPLAY_SERVINGS_PER_CONTAINER]))
 				{
