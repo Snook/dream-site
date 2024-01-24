@@ -181,7 +181,7 @@ class page_admin_credit extends CPageAdminOnly
 				}
 				else
 				{
-					$tpl->setErrorMsg('Please provide a credit amount that is greater than 0 and not more than 100');
+					$tpl->setErrorMsg('Please provide a credit amount that is greater than 0 and not more than 500');
 				}
 			}
 			else
@@ -382,11 +382,13 @@ class page_admin_credit extends CPageAdminOnly
 		$tpl->assign('customer_id', $id);
 
 		$Form->AddElement(array(
-			CForm::type => CForm::Text,
+			CForm::type => CForm::Number,
 			CForm::name => "newCreditAmount",
 			CForm::maxlength => 6,
 			CForm::required => true,
-			//CForm::number => true,
+			CForm::min => 0,
+			CForm::max => 500,
+			CForm::step => .01,
 			CForm::size => 6
 		));
 
