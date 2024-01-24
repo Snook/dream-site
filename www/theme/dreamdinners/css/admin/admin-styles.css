@@ -18011,7 +18011,7 @@ A VERTICAL event
 
 @font-face {
   font-family: "ddicon";
-  src: url("fonts/ddicon.ttf?p12jmk") format("truetype"), url("fonts/ddicon.woff?p12jmk") format("woff"), url("fonts/ddicon.svg?p12jmk#ddicon") format("svg");
+  src: url("fonts/ddicon.ttf?x75ygv") format("truetype"), url("fonts/ddicon.woff?x75ygv") format("woff"), url("fonts/ddicon.svg?x75ygv#ddicon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -18056,10 +18056,6 @@ A VERTICAL event
 }
 
 .icon-instant-pot:before {
-  content: "\e95c";
-}
-
-.icon-crock-pot:before {
   content: "\e95c";
 }
 
@@ -18269,6 +18265,10 @@ A VERTICAL event
 }
 
 .icon-slow-cook:before {
+  content: "\e902";
+}
+
+.icon-crock-pot:before {
   content: "\e902";
 }
 
@@ -18596,16 +18596,16 @@ A VERTICAL event
   content: "\ea82";
 }
 
-.icon-information-solid:before {
-  content: "\e93a";
-}
-
 .icon-smjf-c:before {
   content: "C";
 }
 
 .icon-customize:before {
   content: "C";
+}
+
+.icon-information-solid:before {
+  content: "\e93a";
 }
 
 .ld-spin {
@@ -37301,7 +37301,7 @@ A VERTICAL event
 
 @font-face {
   font-family: "ddicon";
-  src: url("fonts/ddicon.ttf?p12jmk") format("truetype"), url("fonts/ddicon.woff?p12jmk") format("woff"), url("fonts/ddicon.svg?p12jmk#ddicon") format("svg");
+  src: url("fonts/ddicon.ttf?x75ygv") format("truetype"), url("fonts/ddicon.woff?x75ygv") format("woff"), url("fonts/ddicon.svg?x75ygv#ddicon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -37346,10 +37346,6 @@ A VERTICAL event
 }
 
 .icon-instant-pot:before {
-  content: "\e95c";
-}
-
-.icon-crock-pot:before {
   content: "\e95c";
 }
 
@@ -37559,6 +37555,10 @@ A VERTICAL event
 }
 
 .icon-slow-cook:before {
+  content: "\e902";
+}
+
+.icon-crock-pot:before {
   content: "\e902";
 }
 
@@ -37886,16 +37886,16 @@ A VERTICAL event
   content: "\ea82";
 }
 
-.icon-information-solid:before {
-  content: "\e93a";
-}
-
 .icon-smjf-c:before {
   content: "C";
 }
 
 .icon-customize:before {
   content: "C";
+}
+
+.icon-information-solid:before {
+  content: "\e93a";
 }
 
 .ld-spin {
