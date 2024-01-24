@@ -53,7 +53,7 @@ class CMenu extends DAO_Menu
 
 	function isEnabled_Markup_Sides()
 	{
-		if ($this->id >= 270)
+		if ($this->id >= 272)
 		{
 			return false;
 		}
