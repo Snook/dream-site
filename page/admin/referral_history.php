@@ -168,7 +168,7 @@ class page_admin_referral_history extends CPageAdminOnly {
 					}
 					else
 					{
-						$tpl->setErrorMsg('Please provide a credit amount that is greater than 0 and not more than 100');
+						$tpl->setErrorMsg('Please provide a credit amount that is greater than 0 and not more than 500');
 					}
 
 
