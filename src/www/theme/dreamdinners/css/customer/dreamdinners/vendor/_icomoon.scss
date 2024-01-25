@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'ddicon';
   src:
-          url('fonts/ddicon.ttf?p12jmk') format('truetype'),
-          url('fonts/ddicon.woff?p12jmk') format('woff'),
-          url('fonts/ddicon.svg?p12jmk#ddicon') format('svg');
+          url('fonts/ddicon.ttf?x75ygv') format('truetype'),
+          url('fonts/ddicon.woff?x75ygv') format('woff'),
+          url('fonts/ddicon.svg?x75ygv#ddicon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -47,9 +47,6 @@
   content: "\e95b";
 }
 .icon-instant-pot:before {
-  content: "\e95c";
-}
-.icon-crock-pot:before {
   content: "\e95c";
 }
 .icon-limited-time-offer:before {
@@ -209,6 +206,9 @@
   content: "\e902";
 }
 .icon-slow-cook:before {
+  content: "\e902";
+}
+.icon-crock-pot:before {
   content: "\e902";
 }
 .icon-stopwatch:before {
@@ -454,12 +454,12 @@
 .icon-share2:before {
   content: "\ea82";
 }
-.icon-information-solid:before {
-  content: "\e93a";
-}
 .icon-smjf-c:before {
   content: "\43";
 }
 .icon-customize:before {
   content: "\43";
+}
+.icon-information-solid:before {
+  content: "\e93a";
 }
