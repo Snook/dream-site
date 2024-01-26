@@ -22,11 +22,11 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jan24-big-game-bundle-collage-957x657.webp" alt="Big Game Bundle" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/feb23-date-night-bundle-homepage-collage-circles-957x657.webp" alt="Date Night Bundle" class="img-fluid">
 					</div>
 					<div class="col-md-6 text-left p-5 my-5">
-						<h1 class="font-weight-bold font-marker mt-2">Big Game Bundle</h1>
-						<p class="text-uppercase mb-4">Get ready for the big game when you order our football party menu. Featuring our Classic French Dip Sandwiches with Homemade Au Jus, Jalapeno Cheddar Cheesy Potaotes, and Cookies. Add this on to your order exclusively in January. Available at select locations, while supplies last.</p>
+						<h1 class="font-weight-bold font-marker mt-2">Date Night Bundle</h1>
+						<p class="text-uppercase mb-4">Celebrate date night at home with our beautiful XOXO Raspberry Glazed Chicken, and Almond Green Beans. End with our Chocolate Molten Lava Cakes for dessert. Add this Date Night Bundle on to your order exclusively in February. Available at select locations, while supplies last. Not available for shipping.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 				</div>

@@ -14,7 +14,7 @@
 					</div>
 					<div class="col-md-6 p-0">
 						<figure>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jan24-menu-collage-circles-957x657.webp" alt="Arroz Con Pollo, Cashew Chicken and Noodles and Pork Chop Milanese" class="img-fluid">
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/feb23-original-meal-kit-collage-circles-957x657.webp" alt="February Menu" class="img-fluid">
 						</figure>
 					</div>
 				</div>

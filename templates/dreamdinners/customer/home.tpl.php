@@ -73,27 +73,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/buffalo-ranch-chicken-kid-pick-menu-items-400x400.webp" alt="Buffalo Ranch Chicken" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/canadian-bacon-french-bread-kid-pick-featured-400x400.webp" alt="Canadian Bacon Stuffed French Bread " class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Buffalo Ranch Chicken</h5>
+									<h5 class="card-title">Canadian Bacon Stuffed French Bread </h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/arroz-con-pollo-pan-meal-menu-items-400x400.webp" alt="Arroz Con Pollo" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/ravioli-bake-featured-pan-400x400.webp" alt="Layered Ravioli Bake" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Arroz Con Pollo</h5>
+									<h5 class="card-title">Layered Ravioli Bake</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pork-chop-milanese-30min-menu-items-400x400.webp" alt="Pork Chop Milanese" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pubstyle-chicken-30min-featured-400x400.webp" alt="Pub Style Chicken with Mashed Potatoes" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Pork Chop Milanese</h5>
+									<h5 class="card-title">Pub Style Chicken with Mashed Potatoes</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/smoked-sausage-penne-new-menu-items-400x400.webp" alt="Smoked Sausage Penne Pasta" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/tortilla-lime-soup-new-featured-400x400.webp" alt="Lime Chicken Tortilla Soup" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Smoked Sausage Penne Pasta</h5>
+									<h5 class="card-title">Lime Chicken Tortilla Soup</h5>
 								</div>
 							</div>
 
@@ -216,12 +216,12 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
-						<h1 class="font-weight-bold font-marker mt-2">January Fan Favorites Bundle</h1>
-						<p class="text-uppercase mb-4">Start your order with our January Fan Favorites bundle. These 4 dinners are our best-sellers on the January menu.</p>
+						<h1 class="font-weight-bold font-marker mt-2">February Fan Favorites Bundle</h1>
+						<p class="text-uppercase mb-4">Start your order with our February Fan Favorites bundle. These 4 dinners are our best-sellers on the Febuary menu. Shipping menu items for the bundle may vary.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jan24-fan-favorites-bundle-collage-957x657.webp" alt="January Fan Favorites" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/feb23-fan-fav-bundle-collage-957x657.webp" alt="February Fan Favorites" class="img-fluid">
 					</div>
 
 				</div>
@@ -231,11 +231,11 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jan24-big-game-bundle-collage-957x657.webp" alt="Big Game Bundle" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/feb23-date-night-bundle-homepage-collage-circles-957x657.webp" alt="Date Night Bundle" class="img-fluid">
 					</div>
 					<div class="col-md-6 text-left p-5 my-5">
-						<h1 class="font-weight-bold font-marker mt-2">Big Game Bundle</h1>
-						<p class="text-uppercase mb-4">Get ready for the big game when you order our football party menu. Featuring our Classic French Dip Sandwiches with Homemade Au Jus, Jalapeno Cheddar Cheesy Potaotes, and Cookies. Add this on to your order exclusively in January. Available at select locations, while supplies last.</p>
+						<h1 class="font-weight-bold font-marker mt-2">Date Night Bundle</h1>
+						<p class="text-uppercase mb-4">Celebrate date night at home with our beautiful XOXO Raspberry Glazed Chicken, and Almond Green Beans. End with our Chocolate Molten Lava Cakes for dessert. Add this Date Night Bundle on to your order exclusively in February. Available at select locations, while supplies last. Not available for shipping.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 					

@@ -119,15 +119,15 @@
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center mb-2">
 						<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/buffalo-ranch-chicken-kid-pick-menu-items-400x400.webp" alt="Buffalo Ranch Chicken" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/canadian-bacon-french-bread-kid-pick-featured-400x400.webp" alt="Canadian Bacon Stuffed French Bread " class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Buffalo Ranch Chicken</h5>
+									<h5 class="card-title">Canadian Bacon Stuffed French Bread </h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/arroz-con-pollo-pan-meal-menu-items-400x400.webp" alt="Arroz Con Pollo" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/ravioli-bake-featured-pan-400x400.webp" alt="Layered Ravioli Bake" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Arroz Con Pollo</h5>
+									<h5 class="card-title">Layered Ravioli Bake</h5>
 								</div>
 							</div>
 					</div>
@@ -135,15 +135,15 @@
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center">
 						<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pork-chop-milanese-30min-menu-items-400x400.webp" alt="Pork Chop Milanese" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pubstyle-chicken-30min-featured-400x400.webp" alt="Pub Style Chicken with Mashed Potatoes" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Pork Chop Milanese</h5>
+									<h5 class="card-title">Pub Style Chicken with Mashed Potatoes</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/smoked-sausage-penne-new-menu-items-400x400.webp" alt="Smoked Sausage Penne Pasta" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/tortilla-lime-soup-new-featured-400x400.webp" alt="Lime Chicken Tortilla Soup" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Smoked Sausage Penne Pasta</h5>
+									<h5 class="card-title">Lime Chicken Tortilla Soup</h5>
 								</div>
 							</div>
 					</div>
