@@ -43,14 +43,25 @@
 						</div>
 					<?php } ?>
 				</div>
-				<?php if ($this->DAO_store->hasPublicAddress()) { ?>
+				<?php if ($this->DAO_store->hasPublicAddress() || $this->DAO_store->hasRemotePickupLocations()) { ?>
 					<div class="col-12 mt-3 col-xl-4 mt-xl-0">
 						<?php if (!empty($this->DAO_store->address_directions)) { ?>
 							<h3 class="text-uppercase font-weight-bold text-center text-md-left">
 								Store directions
 							</h3>
-							<div class="location-about">
+							<div>
 								<?php echo nl2br($this->DAO_store->address_directions); ?>
+							</div>
+						<?php } ?>
+						<?php if ($this->DAO_store->hasRemotePickupLocations()) { ?>
+							<h3 class="text-uppercase font-weight-bold text-center text-md-left <?php if ($this->DAO_store->hasPublicAddress()) { ?>mt-3<?php } ?>">
+								Community Pick Up
+							</h3>
+							<div class="mb-2">
+								Can’t come to us? We have multiple pick up locations throughout the community where we can deliver your meals to you. View available locations and times on our community pick up page.
+							</div>
+							<div>
+								<a href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/community-pick-up" rel="nofollow" class="btn btn-primary w-100 btn-spinner">View Pick Up Times</a>
 							</div>
 						<?php } ?>
 					</div>
