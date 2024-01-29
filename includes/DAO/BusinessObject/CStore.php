@@ -110,7 +110,7 @@ class CStore extends DAO_Store
 	/**
 	 * @var array|mixed
 	 */
-	private $remoteLocations = null;
+	public $remoteLocations = null;
 
 	function __construct()
 	{
