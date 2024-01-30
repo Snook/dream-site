@@ -73,8 +73,8 @@
 		<tr>
 			<?php for ($dayNum = 0; $dayNum < 7; $dayNum++){ ?>
 				<td class="dayCell" valign="top" onmouseup="onDayClick(this);">
-                    <?php if (array_key_exists($dayNum, $this->items)) { foreach ($this->items[$dayNum] as $item => $data ){ ?>
-                        <a href="javascript:editSession(<?=$item; ?>, <?=$this->this_set_id?>);"> <?= $data['date']; ?> (<?php echo $data['type']; ?>)</a><br />
+					<?php if (array_key_exists($dayNum, $this->items)) { foreach ($this->items[$dayNum] as $item => $data ){ ?>
+						<a href="javascript:editSession(<?php echo $item; ?>, <?php echo $this->this_set_id?>);"> <?php echo $data['date']; ?> <?php echo $data['type']; ?></a><br />
 					<?php } /* session */ ?>
 					<?php } // if array_key_ exists ?>
 					&nbsp;
@@ -88,21 +88,21 @@
 	<form id="itemEditor" action="/backoffice/session_template_mgr" method="post" onSubmit="return handleItemSubmit(this);">
 		<?php echo $this->form_template_item['hidden_html']; ?>
 
-		<table width="100%" name="edit/create" border="0" cellSpacing="0" cellpadding="3" bgcolor="<?=$this->editingItem ? "#F4ECDC" : "#EFF3E5"; ?>">
+		<table width="100%" name="edit/create" border="0" cellSpacing="0" cellpadding="3" bgcolor="<?php echo $this->editingItem ? "#F4ECDC" : "#EFF3E5"; ?>">
 			<tr>
 				<td align="right" style="border: 0px;">
-					<label id="start_time_lbl"  message="Please enter valid minutes.">Start time</label>
+					<label id="start_time_lbl" message="Please enter valid minutes.">Start time</label>
 				</td>
 				<td style="border: 0px;">
 					<?php	 echo $this->form_template_item['start_time_html'];?>
 
 				</td>
 				<td align="right" style="border: 0px;" rowspan="2">Day of the Week </td>
-				<td style="border: 0px;"  rowspan="2"><?php echo $this->form_template_item['start_day_html']; ?></td>
+				<td style="border: 0px;" rowspan="2"><?php echo $this->form_template_item['start_day_html']; ?></td>
 			</tr>
 			<tr>
 				<td align="right" style="border: 0px;">
-					<label id="end_time_lbl"  message="Please enter a valid hour.">End time</label>
+					<label id="end_time_lbl" message="Please enter a valid hour.">End time</label>
 				</td>
 				<td style="border: 0px;">
 					<?php	 echo $this->form_template_item['end_time_html'];?>
@@ -138,8 +138,8 @@
 				<td style="border: 0px;"><?php echo $this->form_template_item['close_interval_type_html'][CSession::HOURS];
 					echo $this->form_template_item['close_interval_hours_html'] . "hours prior&nbsp;&nbsp;";
 					echo $this->form_template_item['close_interval_type_html'][CSession::ONE_FULL_DAY] . "1 day prior"; ?></td>
-					<td style="border: 0px;"></td>
-					<td style="border: 0px;"></td>
+				<td style="border: 0px;"></td>
+				<td style="border: 0px;"></td>
 			</tr>
 			<tr id="meal_customization_row">
 				<?php if ($this->allowsMealCustomization) { ?>
@@ -156,7 +156,7 @@
 				<td align="right" style="border: 0px;">Additional Info</td>
 				<td colspan="3" style="border: 0px;">
 					<?php echo $this->form_template_item['session_title_html']; ?><br />
-					(Optional. Shows on store landing page calendar only. E.g. $20 delivery fee. No customization.)
+					(Optional. Shows on the store locations' calendar and in the order process. E.g. Delivery to Seattle addresses only.)
 				</td>
 			</tr>
 			<tr>
@@ -175,5 +175,9 @@
 			</tr>
 		</table>
 	</form>
+
+	<div class="mt-2">
+		<?php include $this->loadTemplate('admin/help/help_session_mgr.tpl.php'); ?>
+	</div>
 
 <?php include $this->loadTemplate('admin/page_footer.tpl.php'); ?>

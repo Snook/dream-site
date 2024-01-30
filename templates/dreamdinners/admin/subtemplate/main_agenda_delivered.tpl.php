@@ -23,7 +23,7 @@
 						data-session_id="<?php echo $session['id']; ?>"
 						data-session_date="<?php echo CTemplate::dateTimeFormat($session['session_start'], YEAR_MONTH_DAY); ?>"
 						data-menu_id="<?php echo $session['menu_id']; ?>">
-						<span class="type"><span class="note_calendar note_pickup" data-tooltip="Pick Up">P</span></span>
+						<span class="type"><span class="note_calendar note_pickup" data-toggle="tooltip" title="Pick Up">P</span></span>
 						<span class="shipped" data-tooltip="Pick Up"><?php echo count($session['shipping_bookings']); ?></span>
 						<span class="remaining" data-tooltip="Available to Ship"><?php echo $session['remaining_slots']; ?></span>
 						<div class="clear"></div>
@@ -34,7 +34,7 @@
 					data-session_id="<?php echo $session['id']; ?>"
 					data-session_date="<?php echo CTemplate::dateTimeFormat($session['session_start'], YEAR_MONTH_DAY); ?>"
 					data-menu_id="<?php echo $session['menu_id']; ?>">
-					<span class="type"><span class="note_calendar note_delivery" data-tooltip="Delivery">D</span></span>
+					<span class="type"><span class="note_calendar note_delivery" data-toggle="tooltip" title="Delivery">D</span></span>
 					<span class="attending" data-tooltip="Delivery"><?php echo count($session['bookings']);?></span>
 					<div class="clear"></div>
 				</li>

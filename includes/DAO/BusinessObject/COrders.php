@@ -206,7 +206,7 @@ class COrders extends DAO_Orders
 			'exclude_menu_item_category_sides_sweets' => false
 		));
 
-		while($DAO_menu_item->fetch())
+		while ($DAO_menu_item->fetch())
 		{
 			$this->DAO_order_item_Array[$DAO_menu_item->id] = clone $DAO_menu_item;
 		}
@@ -218,7 +218,7 @@ class COrders extends DAO_Orders
 		$DAO_payment->order_id = $this->id;
 		$DAO_payment->find();
 
-		while($DAO_payment->fetch())
+		while ($DAO_payment->fetch())
 		{
 			$this->DAO_payment_Array[$DAO_payment->id] = clone $DAO_payment;
 		}
@@ -13685,242 +13685,6 @@ class COrders extends DAO_Orders
 		);
 	}
 
-	/**
-	 * Returns all of the session data for this month plus surrounding days, regardless of the menu.
-	 *
-	 * return calendarInfo array
-	 */
-	static function buildCustomerCalendarArray($storeObj, $rangeStart, $rangeEnd, $menu_id, $timestamp, $selectedSessionId = false, $programObj = false, $doCheckForOpenSessions = false, $standardSessionsOnly = false)
-	{
-
-		$sessionInfo = array();
-		$menuInfo = array();
-
-		//find future sessions for this store
-		$daoSession = DAO_CFactory::create('session');
-
-		if ($doCheckForOpenSessions)
-		{
-			self::$foundAtLeastOneOpenSession = false;
-		}
-		else
-		{
-			self::$foundAtLeastOneOpenSession = true;
-		}
-
-		$rslt = $daoSession->findCalendarRangeForMenu($storeObj->id, $rangeStart, $rangeEnd, $menu_id);
-
-		$currentMonth = date('m', $timestamp);
-
-		$currentMonthDate = date('Y-m-01', $timestamp);
-		$tempmenu = DAO_CFactory::create('menu');
-		$tempmenu->menu_start = $currentMonthDate;
-		$tempmenu->find(true);
-		$startDateTS = null;
-		$endDateTS = null;
-		$tempmenu->getValidMenuRange($startDateTS, $endDateTS);
-		//self::$endofPreviousMenuCached = date('n/d/Y', $startDateTS);
-		//self::$endofCurrentMenuCached = date('n/d/Y', $endDateTS);
-		self::$startofCurrentMenu = date('n/d/Y', $startDateTS);
-		self::$endofCurrentMenu = date('n/d/Y', $endDateTS);
-
-		self::$currentMonthSuffix = '_' . strtolower(date('M', $timestamp));
-		//create session array[ id ] = (menu, session_start, openSlots)
-		while ($daoSession->fetch())
-		{
-			$menu_id = $daoSession->menu_id;
-			$session_start = $daoSession->session_start;
-
-			$isOpenSession = $daoSession->isOpen($storeObj);
-			$sessiondate = CCalendar::dateConvert($session_start);
-			if (!array_key_exists($sessiondate, $sessionInfo))
-			{
-				$sessionInfo[$sessiondate] = array();
-			}
-
-			$isCurrentMonth = ($currentMonth == date('m', strtotime($daoSession->menu_start)));
-
-			$warnAboutProgramExit = false;
-			if ($programObj && !$programObj->isValidDate($session_start))
-			{
-				$warnAboutProgramExit = true;
-			}
-
-			$suppress = false;
-			global $isDinnersForLife;
-
-			if ($isDinnersForLife && $daoSession->session_type == CSession::TODD)
-			{
-				$suppress = true;
-			}
-
-			if ($standardSessionsOnly && ($daoSession->session_type == CSession::TODD || $daoSession->session_type == CSession::DREAM_TASTE || $daoSession->session_type == CSession::FUNDRAISER || $daoSession->session_type == CSession::SPECIAL_EVENT || !empty($daoSession->session_password)))
-			{
-				$suppress = true;
-			}
-
-			if (!$suppress)
-			{
-				$sessionInfo[$sessiondate][$daoSession->id] = array(
-					'menu_id' => $menu_id,
-					'time' => date("g:i a", strtotime($session_start)),
-					'slots' => $daoSession->getRemainingSlots(),
-					'isQ6' => false,
-					'is3Plan' => true,
-					'isSpecialEvent' => ($daoSession->session_type == CSession::SPECIAL_EVENT ? true : false),
-					'isTODD' => ($daoSession->session_type == CSession::TODD ? true : false),
-					'dreamTaste' => ($daoSession->session_type == CSession::DREAM_TASTE ? true : false),
-					'fundraiserEvent' => ($daoSession->session_type == CSession::FUNDRAISER ? true : false),
-					'isPrivate' => ($daoSession->session_password ? true : false),
-					'details' => $storeObj->publish_session_details ? $daoSession->session_details : "",
-					'capacity' => $daoSession->available_slots,
-					'isOpen' => $isOpenSession,
-					'publish_state' => $daoSession->session_publish_state,
-					'isCurrentMonth' => ($currentMonth == date('m', strtotime($daoSession->menu_start)) ? true : false),
-					'isSelected' => ($selectedSessionId && ($selectedSessionId == $daoSession->id)) ? true : false,
-					'warnAboutProgramExit' => $warnAboutProgramExit
-				);
-			}
-
-			if ($isCurrentMonth)
-			{
-				//self::$endofCurrentMenu = $sessiondate;
-				self::$currentMenu = $menu_id; //save menu_id of most common menu on this calendar
-			}
-
-			//if (( !$isCurrentMonth) && (!self::$endofCurrentMenu) )
-			//	self::$endofPreviousMenu = $sessiondate;
-
-			if ($isOpenSession)
-			{
-				self::$foundAtLeastOneOpenSession = true;
-			}
-		}
-
-		self::$sessionInfo = $sessionInfo;
-
-		$calMonth = date("m", $timestamp);
-		$calYear = date("Y", $timestamp);
-
-		///add calendar data
-		$Cal = new CCalendar();
-
-		$calendarInfo = $Cal->generateDayArray($calMonth, $calYear, 'PopulateCalendarItemCustomer', null, null, false, $rangeStart, $rangeEnd);
-
-		//self::postProcessCalendarArray($calendarInfo);
-
-		return $calendarInfo;
-	}
-
-	/**
-	 * Returns all of the session data for this month plus surrounding days, regardless of the menu.
-	 *
-	 * return calendarInfo array
-	 */
-	static function buildIntroCalendarArray($storeObj, $timestamp = false, $selectedSessionId = false, $programObj = false, $doCheckForOpenSessions = false, $restrictToReAqRange = false)
-	{
-
-		$sessionInfo = array();
-		$menuInfo = array();
-
-		list($rangeStart, $rangeEnd) = CCalendar::calculateMonthRange($timestamp);
-
-		//find future sessions for this store
-		$daoSession = DAO_CFactory::create('session');
-
-		if ($doCheckForOpenSessions)
-		{
-			self::$foundAtLeastOneOpenSession = false;
-		}
-		else
-		{
-			self::$foundAtLeastOneOpenSession = true;
-		}
-
-		if ($restrictToReAqRange)
-		{
-			$rangeStart = '2010-01-01 00:00:00';
-			$rangeEnd = '2010-01-16 23:59:59';
-		}
-
-		$rslt = $daoSession->findIntroCalendarRange($storeObj->id, $rangeStart, $rangeEnd);
-
-		$currentMonth = date('m', $timestamp);
-		self::$currentMonthSuffix = '_' . strtolower(date('M', $timestamp));
-
-		$currentMonthDate = date('Y-m-01', $timestamp);
-		$tempmenu = DAO_CFactory::create('menu');
-		$tempmenu->menu_start = $currentMonthDate;
-		$tempmenu->find(true);
-		$startDateTS = null;
-		$endDateTS = null;
-		$tempmenu->getValidMenuRange($startDateTS, $endDateTS);
-
-		self::$startofCurrentMenu = date('n/d/Y', $startDateTS);
-		self::$endofCurrentMenu = date('n/d/Y', $endDateTS);
-
-		//create session array[ id ] = (menu, session_start, openSlots)
-		while ($daoSession->fetch())
-		{
-			$menu_id = $daoSession->menu_id;
-			$session_start = $daoSession->session_start;
-
-			$isOpenSession = $daoSession->isOpen($storeObj);
-			$sessiondate = CCalendar::dateConvert($session_start);
-			if (!array_key_exists($sessiondate, $sessionInfo))
-			{
-				$sessionInfo[$sessiondate] = array();
-			}
-
-			$isCurrentMonth = ($currentMonth == date('m', strtotime($daoSession->menu_start)));
-
-			$sessionInfo[$sessiondate][$daoSession->id] = array(
-				'menu_id' => $menu_id,
-				'time' => date("g:i a", strtotime($session_start)),
-				'slots' => $daoSession->getRemainingIntroSlots(),
-				'isQ6' => false,
-				'is3Plan' => true,
-				'isPrivate' => ($daoSession->session_password ? true : false),
-				'details' => $storeObj->publish_session_details ? $daoSession->session_details : "",
-				'capacity' => $daoSession->introductory_slots,
-				'publish_state' => $daoSession->session_publish_state,
-				'isOpen' => $isOpenSession,
-				'isCurrentMonth' => ($currentMonth == date('m', strtotime($daoSession->menu_start)) ? true : false),
-				'isSelected' => ($selectedSessionId && ($selectedSessionId == $daoSession->id)) ? true : false
-			);
-
-			if ($isCurrentMonth)
-			{
-				//self::$endofCurrentMenu = $sessiondate;
-				self::$currentMenu = $menu_id; //save menu_id of most common menu on this calendar
-			}
-
-			//if (( !$isCurrentMonth) && (!self::$endofCurrentMenu) )
-			//	self::$endofPreviousMenu = $sessiondate;
-
-			if ($isOpenSession)
-			{
-				self::$foundAtLeastOneOpenSession = true;
-			}
-
-			unset($daoSession->remaining_intro_slots);
-		}
-
-		self::$sessionInfo = $sessionInfo;
-
-		$calMonth = date("m", $timestamp);
-		$calYear = date("Y", $timestamp);
-
-		///add calendar data
-		$Cal = new CCalendar();
-
-		$calendarInfo = $Cal->generateDayArray($calMonth, $calYear, 'PopulateCalendarItemIntro', null, null, false, $rangeStart, $rangeEnd);
-
-		self::postProcessCalendarArray($calendarInfo);
-
-		return $calendarInfo;
-	}
-
 	static private function getPreviousMonthSuffix()
 	{
 
@@ -14102,6 +13866,7 @@ class COrders extends DAO_Orders
 			}
 
 			$sessionInfo[$sessiondate][$daoSession->id] = array(
+				'DAO_session' => clone $daoSession,
 				'menu_id' => $menu_id,
 				'time' => date("g:i a", strtotime($session_start)),
 				'slots' => $daoSession->getRemainingSlots(),
@@ -14616,129 +14381,9 @@ function history_sort_backwards($a, $b)
 	return -1;
 }
 
-function PopulateCalendarItemCustomer($date)
-{
-	return PopulateCalendarItem($date, false);
-}
-
 function PopulateCalendarItemDirectOrder($date)
 {
 	return PopulateCalendarItem($date, true);
-}
-
-function PopulateCalendarItemIntro($date)
-{
-	$retVal = array();
-
-	$styleOverride = null;
-
-	if (array_key_exists($date, COrders::$sessionInfo))
-	{
-		$dateArray = COrders::$sessionInfo;
-		foreach ($dateArray[$date] as $id => $dayItem)
-		{
-			CSession::prepareSessionDetailsForDisplay($dayItem['details']);
-
-			$timeText = $dayItem['time'];
-			//if it's 4 chars ( '9 am' ), then add extra space to the front so they line up
-			if (strlen($timeText) == 4)
-			{
-				$timeText = ' ' . $timeText;
-			}
-			$timeText = str_replace(' ', '&nbsp;', $timeText);
-
-			$contents = null;
-
-			if ((!$dayItem['isOpen']))
-			{
-				$hilight = " ";
-				if ($dayItem['isSelected'])
-				{
-					$hilight = ' style="background-color: #999999;" ';
-				}
-
-				$contents = '<span style="color: #909090;" title="Session Closed">';
-				$contents .= $timeText . '</span>';
-
-				if ($dayItem['isPrivate'])
-				{
-					$contents = '<img title="Session Closed" alt="Session Closed" class="img_valign" src="' . ADMIN_IMAGES_PATH . '/calendar/private_past.gif" />' . $contents;
-				}
-				else
-				{
-					$contents = '<img title="Session Closed" alt="Session Closed" class="img_valign" src="' . ADMIN_IMAGES_PATH . '/calendar/past.gif" />' . $contents;
-				}
-			}
-			else if ($dayItem['slots'] > 0) //remaining slots
-			{
-				COrders::$hasIntroSlots = true;
-
-				$spotsText = $dayItem['slots'] . ' of ' . $dayItem['capacity'] . ' spots available';
-
-				if (!$dayItem['isPrivate'])
-				{
-					$sessionAction = 'javascript:onSessionClick(' . $id . ', \'' . CTemplate::dateTimeFormat($date . ' ' . $dayItem['time']) . '\')';
-				}
-				else
-				{
-					$sessionAction = 'javascript:onPrivateSessionClick(\'' . $date . '\', ' . $id . ')';
-				}
-
-				$hilight = " ";
-				if ($dayItem['isSelected'])
-				{
-					$hilight = ' style="background-color: #999999;" ';
-				}
-
-				$contents .= '<a id="sessionlink' . $id . '" class="' . strtolower($dayItem['publish_state']) . '" ' . $hilight . ' title="' . $spotsText . '" href="' . $sessionAction . '">' . $timeText . '</a>';
-
-				if ($dayItem['isPrivate'])
-				{
-					$contents = '<img onclick="' . $sessionAction . '" title="' . $spotsText . '" title="' . $spotsText . '" class="img_valign" src="' . ADMIN_IMAGES_PATH . '/calendar/private.gif" />' . $contents;
-				}
-				else
-				{
-					$contents = '<img onclick="' . $sessionAction . '" title="' . $spotsText . '" title="' . $spotsText . '" class="img_valign" src="' . ADMIN_IMAGES_PATH . '/calendar/all_avail.gif" />' . $contents;
-				}
-			}
-			else //full
-			{
-				$spotsText = 'Session Full';
-
-				$contents = '<span style="color: #909090;" title="' . $spotsText . '">';
-				$contents .= $timeText . '</span>';
-
-				if ($dayItem['isPrivate'])
-				{
-					$contents = '<img title="Session Full" alt="Session Full" class="img_valign" src="' . ADMIN_IMAGES_PATH . '/calendar/full.gif" />' . $contents;
-				}
-				else
-				{
-					$contents = '<img title="Session Full" alt="Session Full" class="img_valign" src="' . ADMIN_IMAGES_PATH . '/calendar/full.gif" />' . $contents;
-				}
-			}
-
-			if ($contents)
-			{
-				$notesImg = '';
-				if (!empty($dayItem['details']))
-				{
-					$dayItem['details'] = str_replace("&quot;", "&amp;quot;", $dayItem['details']);
-
-					$notesImg = '<img src="' . ADMIN_IMAGES_PATH . '/calendar/notes.gif" data-tooltip="' . $dayItem['details'] . '" class="img_valign" />';
-				}
-
-				$contents = '<div id="sesssioncell' . $id . '">' . $contents . ' ' . $notesImg . '</div>';
-
-				$retVal [] = $contents;
-			}
-		}
-	}
-
-	return array(
-		$retVal,
-		$styleOverride
-	);
 }
 
 /**
@@ -14755,283 +14400,39 @@ function PopulateCalendarItem($date, $isDirect = false)
 		$dateArray = COrders::$sessionInfo;
 		foreach ($dateArray[$date] as $id => $dayItem)
 		{
-
-			CSession::prepareSessionDetailsForDisplay($dayItem['details']);
-
-			$timeText = $dayItem['time'];
-			//if it's 4 chars ( '9 am' ), then add extra space to the front so they line up
-			if (strlen($timeText) == 4)
+			if ($dayItem['dreamTaste'] || $dayItem['fundraiserEvent'])
 			{
-				$timeText = ' ' . $timeText;
-			}
-			//$timeText = str_replace(' ', '&nbsp;',$timeText);
-
-			$discountText = "";
-			$is_discounted = false;
-			if (isset($dayItem['is_discounted']) && $dayItem['is_discounted'])
-			{
-				$discountText = '<span style="color:green">-$</span>';
-				$is_discounted = true;
-			}
-
-			$customizable = '';
-			if ($dayItem['allowedCustomization'])
-			{
-				if ($dayItem['isOpenForCustomization'])
+				$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
+				if ($dayItem['num_rsvps'] > 0)
 				{
-					$customizable = '<i class="dd-icon icon-customize text-orange" style="font-size: 65%;" data-tooltip="Session Open for Customization"></i>';
+					$numOrders = $dayItem['capacity'] - ($dayItem['slots'] + $dayItem['num_rsvps']);
+					$spotsText .= "(" . $numOrders . " Orders, " . $dayItem['num_rsvps'] . " RSVPs)";
 				}
-				else
-				{
-					$customizable = '<i class="dd-icon icon-customize text-black" style="font-size: 65%;" data-tooltip="Session Closed for Customization"></i>';
-				}
-			}
-
-			$contents = null;
-
-			$dayItemTypeNote = CCalendar::dayItemTypeNote($dayItem);
-
-			//fullness: all_avail, 25percent_full, half_full, almost_full,
-			$image_howfull = 'all_avail';
-			if ($dayItem['capacity'] == 0)
-			{
-				$percentFull = 100;
 			}
 			else
 			{
-				$percentFull = ($dayItem['capacity'] - $dayItem['slots']) * 100 / $dayItem['capacity'];
+				$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
+
+				if ($dayItem["supportsIntro"])
+				{
+					$spotsText .= "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
+				}
 			}
-			if ($percentFull > 10)
+
+			if ($dayItem['isTODD'] && $dayItem['isTODDExpired'])
 			{
-				$image_howfull = '25percent_full';
+				$sessionAction = 'javascript:dd_message({title:\'Alert\', message:\'The Taste of Dream Dinners Session is more than 3 days old and cannot be booked\'});';
 			}
-			if ($percentFull > 40)
+			else
 			{
-				$image_howfull = 'half_full';
-			}
-			if ($percentFull > 65)
-			{
-				$image_howfull = 'almost_full';
-			}
-			if ($percentFull >= 100)
-			{
-				$image_howfull = 'full';
+				$sessionAction = 'javascript:onSessionClick(' . $id . ', \'' . CTemplate::dateTimeFormat($date . ' ' . $dayItem['time']) . '\', ' . ($dayItem['DAO_session']->isDiscounted() ? '1' : '0') . ')';
 			}
 
-			if ($dayItem['isPrivate'])
-			{
-				$alt_text_base = "Private Session";
-				$full_session_text = "Full Private Session";
-
-				if ($dayItem['isSpecialEvent'])
-				{
-					$alt_text_base = "Made for You - Private Session";
-					$full_session_text = "Full Session - Made for You";
-				}
-
-				if ($dayItem['isTODD'])
-				{
-					$alt_text_base = "Taste of Dream Dinners - Private Session";
-					$full_session_text = "Full Session - Taste of Dream Dinners";
-				}
-
-				if ($dayItem['dreamTaste'])
-				{
-					$alt_text_base = "Meal Prep Workshop - Private Session";
-					$full_session_text = "Full Session - Meal Prep Workshop";
-				}
-
-				if ($dayItem['fundraiserEvent'])
-				{
-					$alt_text_base = "Fundraiser Event - Private Session";
-					$full_session_text = "Full Session - Fundraiser Event";
-				}
-
-				if ($dayItem['isOpen'] || $isDirect)
-				{
-					if ($isDirect)
-					{
-						if ($dayItem['dreamTaste'] || $dayItem['fundraiserEvent'])
-						{
-							$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
-							if ($dayItem['num_rsvps'] > 0)
-							{
-								$numOrders = $dayItem['capacity'] - ($dayItem['slots'] + $dayItem['num_rsvps']);
-								$spotsText .= "(" . $numOrders . " Orders, " . $dayItem['num_rsvps'] . " RSVPs)";
-							}
-						}
-						else
-						{
-							$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
-
-							if ($dayItem["supportsIntro"])
-							{
-								$spotsText .= "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
-							}
-						}
-
-						if ($dayItem['isTODD'] && $dayItem['isTODDExpired'])
-						{
-							$sessionAction = 'javascript:dd_message({title:\'Alert\', message:\'The Taste of Dream Dinners Session is more than 3 days old and cannot be booked\'});';
-						}
-						else
-						{
-							$sessionAction = 'javascript:onSessionClick(' . $id . ', \'' . CTemplate::dateTimeFormat($date . ' ' . $dayItem['time']) . '\', ' . ($is_discounted ? '1' : '0') . ')';
-						}
-
-						$hilight = ' ';
-						if ($dayItem['isSelected'])
-						{
-							$hilight = ' style="background-color: #999999;" ';
-						}
-
-						$contents = $dayItemTypeNote . ' <a class="' . strtolower($dayItem['publish_state']) . '" ' . $hilight . ' data-tooltip="' . $spotsText . '" href="' . $sessionAction . '">' . $timeText . '</a>' . $discountText;
-					}
-					else
-					{
-						if ($dayItem['slots'] > 0)
-						{
-							$hilight = ' ';
-							$contents = $dayItemTypeNote . ' <a ' . $hilight . ' data-tooltip="' . $alt_text_base . '" href="javascript:onPrivateSessionClick(\'' . $date . '\', ' . $id . ')">' . $timeText . '</a>' . $discountText;
-						}
-						else
-						{
-							$contents = $dayItemTypeNote . ' <span style="color: #909090;" data-tooltip="' . $full_session_text . '">' . $timeText . '</span> ' . $discountText;
-						}
-					}
-				}
-				else
-				{
-					$contents = $dayItemTypeNote . ' <span style="color: #909090;" data-tooltip="Closed ' . $alt_text_base . '">' . $timeText . '</span> ' . $discountText;
-				}
-			}
-			else if ((!$dayItem['isOpen']))
-			{
-				$sessionAction = 'javascript:onSessionClick(' . $id . ', \'' . CTemplate::dateTimeFormat($date . ' ' . $dayItem['time']) . '\', ' . ($is_discounted ? '1' : '0') . ')';
-
-				$hilight = " ";
-				if ($dayItem['isSelected'])
-				{
-					$hilight = ' style="background-color: #999999;" ';
-				}
-
-				if ($isDirect)
-				{
-					if ($dayItem['dreamTaste'] || $dayItem['fundraiserEvent'])
-					{
-						$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
-						if ($dayItem['num_rsvps'] > 0)
-						{
-							$numOrders = $dayItem['capacity'] - ($dayItem['slots'] + $dayItem['num_rsvps']);
-							$spotsText .= "(" . $numOrders . " Orders, " . $dayItem['num_rsvps'] . " RSVPs)";
-						}
-					}
-					else
-					{
-						$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
-					}
-
-					$contents = '<img src="' . ADMIN_IMAGES_PATH . '/calendar/past.gif" style="float:right;" />' . $dayItemTypeNote . '<span style="color: #909090;" data-tooltip="Session Closed">';
-					$contents .= '<a id="sessionlink' . $id . '" class="' . strtolower($dayItem['publish_state']) . '" ' . $hilight . ' title="' . $spotsText . '" href="' . $sessionAction . '">' . $timeText . '</a> ' . $discountText . '</span>';
-				}
-				else
-				{
-					$contents = $dayItemTypeNote . '<span style="color: #909090;" data-tooltip="Session Closed"> ' . $timeText . $discountText . '</span>';
-				}
-			}
-			else if ($isDirect || ($dayItem['slots'] > 0)) //remaining slots
-			{
-				if ($dayItem['dreamTaste'] || $dayItem['fundraiserEvent'])
-				{
-					if ($dayItem['slots'] < 0)
-					{
-						$spotsText = "Overbooked by " . (0 - $dayItem['slots']);
-						if ($dayItem['num_rsvps'] > 0)
-						{
-							$numOrders = $dayItem['capacity'] - ($dayItem['slots'] + $dayItem['num_rsvps']);
-							$spotsText .= "(" . $numOrders . " Orders, " . $dayItem['num_rsvps'] . " RSVPs)";
-						}
-					}
-					else
-					{
-						$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
-						if ($dayItem['num_rsvps'] > 0)
-						{
-							$numOrders = $dayItem['capacity'] - ($dayItem['slots'] + $dayItem['num_rsvps']);
-							$spotsText .= "(" . $numOrders . " Orders, " . $dayItem['num_rsvps'] . " RSVPs)";
-						}
-					}
-				}
-				else
-				{
-					if ($dayItem['slots'] < 0)
-					{
-						$spotsText = "standard slots overbooked by " . (0 - $dayItem['slots']);
-
-						if ($dayItem["supportsIntro"])
-						{
-							$spotsText .= "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
-						}
-					}
-					else
-					{
-						$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
-						if ($isDirect && $dayItem["supportsIntro"])
-						{
-							$spotsText .= "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
-						}
-					}
-				}
-
-				if ($dayItem['is_walk_in'])
-				{
-					$spotsText = '';
-					$timeText = 'Walk-In';
-				}
-
-				if (isset($dayItem['warnAboutProgramExit']) && $dayItem['warnAboutProgramExit'])
-				{
-					$sessionAction = 'javascript:onNonProgramSessionClick(' . $id . ', \'' . CTemplate::sessionTypeDateTimeFormat($date . ' ' . $dayItem['time'], $dayItem['session_type_subtype'], NORMAL) . '\', ' . ($is_discounted ? '1' : '0') . ')';
-				}
-				else
-				{
-					$sessionAction = 'javascript:onSessionClick(' . $id . ', \'' . CTemplate::sessionTypeDateTimeFormat($date . ' ' . $dayItem['time'], $dayItem['session_type_subtype'], NORMAL) . '\', ' . ($is_discounted ? '1' : '0') . ')';
-				}
-
-				$imgPath = ADMIN_IMAGES_PATH . '/calendar/' . ($dayItem['isQ6'] ? '6_' : ($dayItem['is3Plan'] ? '' : '12_')) . $image_howfull . '.gif';
-				$percentimgPath = '<img class="img_valign" onclick="' . $sessionAction . '" alt="' . $spotsText . '" data-tooltip="' . $spotsText . '" src="' . $imgPath . '" style="float:right;" />';
-
-				$contents = $percentimgPath . $dayItemTypeNote;
-
-				$hilight = " ";
-				if ($dayItem['isSelected'])
-				{
-					$hilight = ' style="background-color: #999999;" ';
-				}
-
-				$contents .= ' <a id="sessionlink' . $id . '" class="' . strtolower($dayItem['publish_state']) . '" ' . $hilight . ' data-tooltip="' . $spotsText . '" href="' . $sessionAction . '">' . $timeText . '</a>' . $discountText;
-			}
-			else //full
-			{
-				$percentimgPath = '<img class="img_valign" alt="Session Full" data-tooltip="Session Full" src="' . ADMIN_IMAGES_PATH . '/calendar/full.gif" style="float:right;" />';
-				$contents = $percentimgPath . $dayItemTypeNote;
-				$contents .= ' <span data-tooltip="Session Full" style="color:#909090;">' . $timeText . '</span>';
-			}
-
-			if ($contents)
-			{
-				$notesImg = '';
-				if (!empty($dayItem['details']))
-				{
-					$dayItem['details'] = str_replace("&quot;", "&amp;quot;", $dayItem['details']);
-
-					$notesImg = '<img src="' . ADMIN_IMAGES_PATH . '/calendar/notes.gif" data-tooltip="' . $dayItem['details'] . '" class="img_valign" />';
-				}
-
-				$contents = '<div id="sesssioncell' . $id . '">' . $contents . ' ' . $notesImg . $customizable . '</div>';
-
-				$retVal [] = $contents;
-			}
+			$retVal[] = $dayItem['DAO_session']->sessionTypeIcon(true) . '
+				<a class="' . (($dayItem['isSelected']) ? 'bg-warning border border-green' : '') . '" href="' . $sessionAction . '"><span ' . ((!$dayItem['DAO_session']->isPublished()) ? 'class="text-decoration-line-through"' : '') . ' data-toggle="tooltip" title="' . ((!$dayItem['DAO_session']->isWalkIn()) ? $dayItem['DAO_session']->sessionStartDateTime()->format('g:i A') . ' - ' . $dayItem['DAO_session']->sessionEndDateTime()->format('g:i A') : 'All day') . '">' . ((!$dayItem['DAO_session']->isWalkIn()) ? $dayItem['DAO_session']->sessionStartDateTime()->format('g:i A') : 'Walk-In') . '</span></a>
+				' . ((!$dayItem['DAO_session']->isWalkIn()) ? '<span data-toggle="tooltip" data-html="true" title="' . $spotsText . '">(' . $dayItem['slots'] . ')</span>' : '') . '
+				' . $dayItem['DAO_session']->openForCustomizationIcon() . '
+				' . $dayItem['DAO_session']->discountedIcon();
 		}
 	}
 

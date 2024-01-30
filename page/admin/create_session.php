@@ -239,7 +239,7 @@ class page_admin_create_session extends CPageAdminOnly
 			$SessionForm->DefaultValues["session_delivery_fee"] = $Store->delivery_fee;
 		}
 
-		$session_types = array(CSession::STANDARD => 'Assembly Session');
+		$session_types = array(CSession::STANDARD => 'Assembly');
 
 		if ($Store->supports_special_events)
 		{
@@ -490,7 +490,7 @@ class page_admin_create_session extends CPageAdminOnly
 		$SessionForm->AddElement(array(
 			CForm::type => CForm::Text,
 			CForm::maxlength => 50,
-			CForm::placeholder => 'Optional. Shows on store landing page calendar only. E.g. $20 delivery fee. No customization.',
+			CForm::placeholder => "Optional. Shows on the store locations' calendar and in the order process. E.g. Delivery to Seattle addresses only.",
 			CForm::name => 'session_title',
 			CForm::css_class => 'dd-strip-tags'
 		));

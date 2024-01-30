@@ -161,6 +161,15 @@ class CMenu extends DAO_Menu
 		return $DAO_menu->id;
 	}
 
+	static function getCurrentMenu()
+	{
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->id = self::getCurrentMenuId();
+		$DAO_menu->find(true);
+
+		return $DAO_menu;
+	}
+
 	static function getCurrentMenuId()
 	{
 		if (self::$curMenuId === null)
@@ -1372,18 +1381,18 @@ class CMenu extends DAO_Menu
 
 	static function getActiveMenuArray($thisMenuOnly = false)
 	{
-		$instance = DAO_CFactory::create('menu');
+		$DAO_menu = DAO_CFactory::create('menu');
 		$today = date('Y-m-d');
 
 		if ($thisMenuOnly)
 		{
-			$instance->query("select *
+			$DAO_menu->query("select *
 				from menu where DATE(global_menu_end_date) >= '$today' and is_active = 1 and id = $thisMenuOnly and is_deleted = 0
 				order by global_menu_end_date asc");
 		}
 		else
 		{
-			$instance->query("select *
+			$DAO_menu->query("select *
 				from menu where DATE(global_menu_end_date) >= '$today' and is_active = 1 and is_deleted = 0
 				order by global_menu_end_date asc");
 		}
@@ -1392,12 +1401,12 @@ class CMenu extends DAO_Menu
 		$lastStart = false;
 		$counter = 0;
 
-		while ($instance->fetch())
+		while ($DAO_menu->fetch())
 		{
 			if (!$lastStart)
 			{
 				$tempMenu = DAO_CFactory::create('menu');
-				$tempMenu->id = $instance->id - 1;
+				$tempMenu->id = $DAO_menu->id - 1;
 				$tempMenu->selectAdd();
 				$tempMenu->selectAdd("global_menu_end_date");
 
@@ -1411,27 +1420,34 @@ class CMenu extends DAO_Menu
 				}
 			}
 
-			$retVal[$instance->id] = array(
-				'id' => $instance->id,
+			$retVal[$DAO_menu->id] = array(
+				'id' => $DAO_menu->id,
 				'position' => $counter++,
-				'name' => $instance->menu_name,
-				'anchor' => $instance->menu_start,
-				'description' => $instance->menu_description,
+				'name' => $DAO_menu->menu_name,
+				'anchor' => $DAO_menu->menu_start,
+				'description' => $DAO_menu->menu_description,
 				'start_date' => $lastStart,
-				'end_date' => strtotime($instance->global_menu_end_date),
-				'menu_name' => $instance->menu_name,
-				'menu_name_abbr' => $instance->menu_name_abbr,
-				'menu_month' => date('F', strtotime($instance->menu_name)),
-				'menu_start' => $instance->menu_start,
-				'menu_description' => $instance->menu_description,
-				'global_menu_end_date' => $instance->global_menu_end_date,
-				'global_menu_start_date' => $instance->global_menu_start_date
+				'end_date' => strtotime($DAO_menu->global_menu_end_date),
+				'menu_name' => $DAO_menu->menu_name,
+				'menu_name_abbr' => $DAO_menu->menu_name_abbr,
+				'menu_month' => date('F', strtotime($DAO_menu->menu_name)),
+				'menu_start' => $DAO_menu->menu_start,
+				'menu_description' => $DAO_menu->menu_description,
+				'global_menu_end_date' => $DAO_menu->global_menu_end_date,
+				'global_menu_start_date' => $DAO_menu->global_menu_start_date
 			);
 
-			$lastStart = strtotime($instance->global_menu_end_date) + 90000;
+			$lastStart = strtotime($DAO_menu->global_menu_end_date) + 90000;
 		}
 
 		return $retVal;
+	}
+
+	static function getActiveMenuArrayIDs()
+	{
+		$menuArray = self::getActiveMenuArray();
+
+		return array_keys($menuArray);
 	}
 
 	static function getCurrentAndFutureDeliveredMenuObj()

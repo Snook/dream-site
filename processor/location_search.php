@@ -75,7 +75,7 @@ class processor_location_search extends CPage
 				{
 					$distance = distance($req_latitude, $req_longitude, $DAO_store->address_latitude, $DAO_store->address_longitude);
 
-					$allowed_distance = 50;
+					$allowed_distance = 30;
 
 					if ($DAO_store->id == 80 || $DAO_store->id == 28)
 					{
@@ -86,18 +86,61 @@ class processor_location_search extends CPage
 					{
 						$rawList[$DAO_store->id] = $DAO_store->toArray();
 						$rawList[$DAO_store->id]['DAO_store'] = clone $DAO_store;
+						$rawList[$DAO_store->id]['DAO_store_pickup_location'] = null;
+						$rawList[$DAO_store->id]['type'] = 'STORE';
 						$rawList[$DAO_store->id]['distance'] = $distance;
 						$rawList[$DAO_store->id]['map_link'] = $DAO_store->generateMapLink();
-						//$rawList[$store->id]['linear_address'] = $store->generateLinearAddress();
 						$rawList[$DAO_store->id]['image_name'] = $DAO_store->getStoreImageName();
 						$rawList[$DAO_store->id]['coming_soon'] = $DAO_store->isComingSoon();
+					}
+				}
+
+				$DAO_store_pickup_location = DAO_CFactory::create('store_pickup_location', true);
+				$DAO_store_pickup_location->active = 1;
+				$DAO_store_pickup_location->whereAdd("store_pickup_location.address_latitude > '" . ($req_latitude - 5) . "' AND store_pickup_location.address_latitude  < '" . ($req_latitude + 5) . "'");
+				$DAO_store_pickup_location->whereAdd("store_pickup_location.address_longitude > '" . ($req_longitude - 5) . "' AND store_pickup_location.address_longitude < '" . ($req_longitude + 5) . "'");
+				$DAO_store = DAO_CFactory::create('store', true);
+				if ($req_compact)
+				{
+					$DAO_store->active = 1;
+				}
+				$DAO_store->show_on_customer_site = 1;
+				$DAO_store->whereAdd("store.store_type <> '" . CStore::DISTRIBUTION_CENTER . "'");
+				$DAO_store->joinAddWhereAsOn(DAO_CFactory::create('short_url', true), 'LEFT');
+				$DAO_store_pickup_location->joinAddWhereAsOn($DAO_store);
+				$DAO_store_pickup_location->find();
+
+				while ($DAO_store_pickup_location->fetch())
+				{
+					$distance = distance($req_latitude, $req_longitude, $DAO_store_pickup_location->address_latitude, $DAO_store_pickup_location->address_longitude);
+
+					$allowed_distance = 15;
+
+					if ($DAO_store_pickup_location->DAO_store->id == 80 || $DAO_store_pickup_location->DAO_store->id == 28)
+					{
+						$allowed_distance = 100;
+					}
+
+					if ($distance < $allowed_distance && !$DAO_store_pickup_location->DAO_store->isComingSoon())
+					{
+					$id = $DAO_store_pickup_location->DAO_store->id . '-' . $DAO_store_pickup_location->id;
+
+						$rawList[$id] = $DAO_store_pickup_location->DAO_store->toArray();
+						$rawList[$id]['DAO_store'] = clone $DAO_store_pickup_location->DAO_store;
+						$rawList[$id]['DAO_store']->DAO_short_url = clone $DAO_store_pickup_location->DAO_short_url;
+						$rawList[$id]['DAO_store_pickup_location'] = clone $DAO_store_pickup_location;
+						$rawList[$id]['type'] = 'COMMUNITY_PICK_UP';
+						$rawList[$id]['distance'] = $distance;
+						$rawList[$id]['map_link'] = $DAO_store_pickup_location->DAO_store->generateMapLink();
+						$rawList[$id]['image_name'] = $DAO_store_pickup_location->DAO_store->getStoreImageName();
+						$rawList[$id]['coming_soon'] = $DAO_store_pickup_location->DAO_store->isComingSoon();
 					}
 				}
 
 				usort($rawList, 'locationCompare');
 
 				$count = 0;
-				foreach ($rawList as $store_id => $DAO_store)
+				foreach ($rawList as $DAO_store)
 				{
 					if ($count++ > 4)
 					{
@@ -106,20 +149,29 @@ class processor_location_search extends CPage
 
 					$stateName = CStatesAndProvinces::GetName($DAO_store['state_id']);
 
+					if ($DAO_store['type'] == 'COMMUNITY_PICK_UP')
+					{
+						$id = $DAO_store['DAO_store']->id . '-' . $DAO_store['DAO_store_pickup_location']->id;
+					}
+					else
+					{
+						$id = $DAO_store['id'];
+					}
+
 					if (!array_key_exists($stateName, $results))
 					{
 						$results[$stateName] = array();
 					}
 
-					$results[$stateName][$DAO_store['id']] = $DAO_store;
+					$results[$stateName][$id] = $DAO_store;
 
 					if ($count == 1)
 					{
-						$results[$stateName][$DAO_store['id']]['checked'] = true;
+						$results[$stateName][$id]['checked'] = true;
 					}
 					else
 					{
-						$results[$stateName][$DAO_store['id']]['checked'] = false;
+						$results[$stateName][$id]['checked'] = false;
 					}
 				}
 

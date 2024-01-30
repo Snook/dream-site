@@ -383,6 +383,11 @@ class page_admin_session_mgr_delivered extends CPageAdminOnly
 
 		$CurMonthText = date("F", $currentMenuTS);
 
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->id = $currentMenu;
+		$DAO_menu->find(true);
+
+		$tpl->assign('DAO_menu', $DAO_menu);
 		$tpl->assign('page_title', 'Session Management');
 		$tpl->assign('rows', $calendarRows);
 		//	$tpl->assign('dbg', self::$sessionArray );
@@ -434,16 +439,16 @@ function populateCallback($Date)
 
 			if ($dayItem['isOpen'])
 			{
-				$linkClass = "calendar_on_text_on";
+				$linkClass = "";
 			}
 			else
 			{
-				$linkClass = "calendar_on_text_off";
+				$linkClass = "text-muted";
 			}
 
 			if (!$dayItem['isCurrent'])
 			{
-				$linkClass = "calendar_on_text_not_current";
+				$linkClass = "font-size-extra-small text-muted font-italic";
 			}
 
 			$id = 0;

@@ -45,14 +45,12 @@ function onDayClick(obj)
 <tr>
 	<td align="left" style="padding-left: 2px; width: 50%;">
 		<?php if( isset($this->calendarPrevious) ) { ?>
-			<img src="<?=ADMIN_IMAGES_PATH?>/calendar/prev_month.gif" style="width: 16px; height: 18px;" class="img_valign" onclick='window.location="<?=$this->calendarPrevious?>";'>
 			<a href="<?=$this->calendarPrevious?>" class="btn btn-primary btn-sm">Previous Month</a>
 		<?php } ?>
 	</td>
 	<td align="right" style="padding-right: 2px;">&nbsp;
 		<?php if( isset($this->calendarNext) ) { ?>
 			<a href="<?=$this->calendarNext?>" class="btn btn-primary btn-sm">Next Month</a>
-			<img src="<?=ADMIN_IMAGES_PATH?>/calendar/next_month.gif" style="width: 16px; height: 18px;" class="img_valign" onclick="window.location = '<?=$this->calendarNext?>';">
 		<?php } ?>
 	</td>
 </tr>

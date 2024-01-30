@@ -19,6 +19,8 @@ class DAO_Store_pickup_location extends DAO
 	public $city;
 	public $state_id;
 	public $postal_code;
+	public $address_latitude;				// real(12)  not_null multiple_key
+	public $address_longitude;				// real(12)  not_null multiple_key
 	public $default_session_override;
 	public $contact_user_id;
 	public $timestamp_updated;				// timestamp(19)  not_null unsigned zerofill binary timestamp

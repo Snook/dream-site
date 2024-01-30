@@ -147,19 +147,6 @@ class page_order_details extends CPage
 
 		$tpl->assign('sms_special_case', 'none');
 
-
-		if (defined('ENABLE_SMS_PREFERENCE_ORDER_DETAILS') && ENABLE_SMS_PREFERENCE_ORDER_DETAILS == true)
-		{
-			$User->getUserPreferences();
-			require_once("processor/account.php");
-			$prefsProcessor = new processor_account();
-			$results = $prefsProcessor->reconcileSMSOptinStatus($User);
-
-			if ($results['status'] == 'pending')
-			{
-				$tpl->assign('sms_special_case', 'pending_second_step');
-			}
-		}
 		$tpl->assign('user',$User);
 
 		//Meal Customization

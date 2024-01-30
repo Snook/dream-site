@@ -3,70 +3,96 @@
 	<form method="post" class="row">
 		<div class="col">
 			<h2 class="text-center mb-4">For the best value, visit a local store.</h2>
-			<?php if (!empty($this->zip_code)) { ?><p class="text-center">Search results for 50 miles around zip code <?php echo $this->zip_code; ?></p><?php } ?>
-			<?php foreach( $this->store_results_array as $szState => $arStores ) { ?>
-				<?php $count = 1; foreach( $arStores as $id => $arStore ) { $count++; ?>
+			<?php if (!empty($this->zip_code)) { ?><p class="text-center">Search results for 30 miles around zip code <?php echo $this->zip_code; ?></p><?php } ?>
+			<?php foreach($this->store_results_array as $szState => $storArray ) { ?>
+				<?php $count = 1; foreach($storArray as $id => $store ) { $count++; ?>
 					<div class="row pb-4">
 						<div class="col-lg-8 mx-auto col-s-12 pl-sm-0">
 							<div class="row bg-gray-100 border p-2">
 								<div class="col-12 col-sm-7 col-md-6">
-									<h3 class="text-uppercase font-weight-bold text-center d-sm-none"><?php echo $arStore["DAO_store"]->store_name; ?></h3>
+									<?php if ($store["type"] == 'COMMUNITY_PICK_UP') { ?>
+										<h3 class="text-uppercase font-weight-bold text-center d-sm-none">Community Pick Up location</h3>
+									<?php } else { ?>
+										<h3 class="text-uppercase font-weight-bold text-center d-sm-none"><?php echo $store["DAO_store"]->store_name; ?></h3>
+									<?php } ?>
 									<div>
-										<?php if ($arStore["DAO_store"]->hasPublicAddress()) { ?>
+										<?php if ($store["DAO_store"]->hasPublicAddress()) { ?>
 											<iframe
 													class="border border-width-2-imp border-gray-400"
 													width="100%"
 													height="250"
 													style="background-repeat: no-repeat; background-size: 100%; background-image:url('<?php echo IMAGES_PATH; ?>/stores/0.webp')"
-													src="//www.google.com/maps/embed/v1/place?key=<?php echo GOOGLE_APIKEY; ?>&q=<?php echo (!empty($arStore["DAO_store"]->google_place_id)) ? 'place_id:' . $arStore["DAO_store"]->google_place_id : urlencode($arStore["DAO_store"]->address_linear); ?>" allowfullscreen>
+												<?php if ($store["type"] == 'COMMUNITY_PICK_UP') { ?>
+													src="//www.google.com/maps/embed/v1/place?key=<?php echo GOOGLE_APIKEY; ?>&q=<?php echo urlencode($store["DAO_store_pickup_location"]->generateAddressLinear()); ?>"
+												<?php } else { ?>
+													src="//www.google.com/maps/embed/v1/place?key=<?php echo GOOGLE_APIKEY; ?>&q=<?php echo (!empty($store["DAO_store"]->google_place_id)) ? 'place_id:' . $store["DAO_store"]->google_place_id : urlencode($store["DAO_store"]->generateAddressLinear()); ?>"
+												<?php } ?>
+													allowfullscreen>
 											</iframe>
-											<a href="#" class="row text-uppercase" target="map_view" data-linear_address="<?php echo $arStore["DAO_store"]->address_linear; ?>">
+											<a href="#" class="row text-uppercase" target="map_view" data-linear_address="<?php echo $store["DAO_store"]->generateAddressLinear(); ?>">
 												<div class="col-1"><i class="fas fa-map-marked-alt"></i></div>
-												<div class="col-11"><?php echo $arStore["DAO_store"]->address_html; ?></div>
+												<?php if ($store["type"] == 'COMMUNITY_PICK_UP') { ?>
+													<div class="col-11"><?php echo $store["DAO_store_pickup_location"]->generateAddressHTML(); ?></div>
+												<?php } else { ?>
+													<div class="col-11"><?php echo $store["DAO_store"]->generateAddressHTML(); ?></div>
+												<?php } ?>
 											</a>
 										<?php } else { ?>
-											<img src="<?php echo IMAGES_PATH; ?>/stores/<?php echo $arStore["DAO_store"]->id; ?>.webp" class="img-fluid border border-width-2-imp border-gray-400" alt="<?php echo $arStore["DAO_store"]->store_name; ?>"/>
+											<img src="<?php echo IMAGES_PATH; ?>/stores/<?php echo $store["DAO_store"]->id; ?>.webp" class="img-fluid border border-width-2-imp border-gray-400" alt="<?php echo $store["DAO_store"]->store_name; ?>"/>
 										<?php } ?>
 									</div>
 								</div>
 								<div class="col-12 col-sm-5 col-md-6 mt-4 mt-sm-0">
-									<h3 class="text-uppercase font-weight-bold d-none d-sm-block mb-4"><?php echo $arStore["DAO_store"]->store_name; ?></h3>
+									<?php if ($store["type"] == 'COMMUNITY_PICK_UP') { ?>
+										<h3 class="text-uppercase font-weight-bold d-none d-sm-block">Community Pick Up location</h3>
+										<div class="text-uppercase d-none d-sm-block mb-4"><?php echo $store["DAO_store_pickup_location"]->location_title; ?></div>
+									<?php } else { ?>
+										<h3 class="text-uppercase font-weight-bold d-none d-sm-block mb-4"><?php echo $store["DAO_store"]->store_name; ?></h3>
+									<?php } ?>
 									<div class="row mb-2">
 										<div class="col">
-											<?php if ($arStore["DAO_store"]->isComingSoon()) { ?>
+											<?php if ($store["DAO_store"]->isComingSoon()) { ?>
 												<span class="btn btn-default w-100 btn-select-checked">Coming Soon!</span>
-											<?php } else if (!$arStore["DAO_store"]->hasAvailableCustomerMenu()) { ?>
+											<?php } else if (!$store["DAO_store"]->hasAvailableCustomerMenu()) { ?>
 												<span class="btn btn-primary w-100 disabled">Menu not available</span>
 											<?php } else { ?>
-												<a href="<?php echo $arStore["DAO_store"]->getPrettyUrl(); ?>/order" rel="nofollow" class="btn btn-primary w-100 btn-spinner">View Menu &amp; Order</a>
+												<?php if ($store["type"] == 'COMMUNITY_PICK_UP') { ?>
+													<a href="<?php echo $store["DAO_store"]->getPrettyUrl(); ?>/community-pick-up#<?php echo $store["DAO_store_pickup_location"]->generateAnchor(); ?>" rel="nofollow" class="btn btn-primary w-100 btn-spinner">View Pick Up Times</a>
+												<?php } else { ?>
+													<a href="<?php echo $store["DAO_store"]->getPrettyUrl(); ?>/order" rel="nofollow" class="btn btn-primary w-100 btn-spinner">View Menu &amp; Order</a>
+												<?php } ?>
 											<?php } ?>
 										</div>
 									</div>
 
-									<div class="row">
-										<div class="col">
-											<a href="<?php echo $arStore["DAO_store"]->getPrettyUrl(); ?>" class="btn btn-primary w-100 btn-spinner">Store Info &amp; Hours</a>
-										</div>
-									</div>
-
-									<div class="mt-4">
-										<a href="tel:<?php echo $arStore["DAO_store"]->telephone_day; ?>" class="text-decoration-none text-body"><?php echo $arStore["DAO_store"]->telephone_day; ?></a>
-									</div>
-									<div>
-										<?php echo CTemplate::recaptcha_mailHideHtml($arStore["DAO_store"]->email_address, 'Email Store'); ?>
-									</div>
-
-									<?php if ($arStore["DAO_store"]->supports_delivery) { ?>
-										<div class="mt-1">
-											<i class="dd-icon icon-delivery text-green font-size-medium-large align-bottom"></i> <span class="font-italic">Home Delivery Available!</span>
+									<?php if ($store["type"] != 'COMMUNITY_PICK_UP') { ?>
+										<div class="row">
+											<div class="col">
+												<a href="<?php echo $store["DAO_store"]->getPrettyUrl(); ?>" class="btn btn-primary w-100 btn-spinner">Store Info &amp; Hours</a>
+											</div>
 										</div>
 									<?php } ?>
 
-									<div class="row mt-4">
-										<div class="col">
-											<a href="<?php echo $arStore["DAO_store"]->getPrettyUrl(); ?>/calendar" class="btn btn-primary w-100 btn-spinner">View store events</a>
-										</div>
+									<div class="mt-4">
+										<a href="tel:<?php echo $store["DAO_store"]->telephone_day; ?>" class="text-decoration-none text-body"><?php echo $store["DAO_store"]->telephone_day; ?></a>
 									</div>
+									<div>
+										<?php echo CTemplate::recaptcha_mailHideHtml($store["DAO_store"]->email_address, 'Email Store'); ?>
+									</div>
+
+									<?php if ($store["type"] != 'COMMUNITY_PICK_UP') { ?>
+										<?php if ($store["DAO_store"]->supports_delivery) { ?>
+											<div class="mt-1">
+												<i class="dd-icon icon-delivery text-green font-size-medium-large align-bottom"></i> <span class="font-italic">Home Delivery Available!</span>
+											</div>
+										<?php } ?>
+
+										<div class="row mt-4">
+											<div class="col">
+												<a href="<?php echo $store["DAO_store"]->getPrettyUrl(); ?>/calendar" class="btn btn-primary w-100 btn-spinner">View store events</a>
+											</div>
+										</div>
+									<?php } ?>
 								</div>
 							</div>
 						</div>
@@ -142,7 +168,7 @@
 <?php if (empty($this->store_results_array) && !empty($this->delivered)) {?>
 	<div class="row my-4">
 		<div class="col col-lg-8 mx-auto">
-			<h2 class="text-center mb-4">We do not have a local store within 50 miles of your search.</h2>
+			<h2 class="text-center mb-4">We do not have a local store within 30 miles of your search.</h2>
 			As we continue to grow, we hope to add additional locations in your area.
 		</div>
 	</div>
@@ -156,4 +182,3 @@
 		</div>
 	</div>
 <?php } ?>
-

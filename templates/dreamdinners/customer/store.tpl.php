@@ -43,14 +43,25 @@
 						</div>
 					<?php } ?>
 				</div>
-				<?php if ($this->DAO_store->hasPublicAddress()) { ?>
+				<?php if ($this->DAO_store->hasPublicAddress() || $this->DAO_store->hasRemotePickupLocations()) { ?>
 					<div class="col-12 mt-3 col-xl-4 mt-xl-0">
 						<?php if (!empty($this->DAO_store->address_directions)) { ?>
 							<h3 class="text-uppercase font-weight-bold text-center text-md-left">
 								Store directions
 							</h3>
-							<div class="location-about">
+							<div>
 								<?php echo nl2br($this->DAO_store->address_directions); ?>
+							</div>
+						<?php } ?>
+						<?php if ($this->DAO_store->hasRemotePickupLocations()) { ?>
+							<h3 class="text-uppercase font-weight-bold text-center text-md-left <?php if ($this->DAO_store->hasPublicAddress()) { ?>mt-3<?php } ?>">
+								Community Pick Up
+							</h3>
+							<div class="mb-2">
+								Can’t come to us? We have multiple pick up locations throughout the community where we can deliver your meals to you. View available locations and times on our community pick up page.
+							</div>
+							<div>
+								<a href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/community-pick-up" rel="nofollow" class="btn btn-primary w-100 btn-spinner">View Pick Up Times</a>
 							</div>
 						<?php } ?>
 					</div>
@@ -119,15 +130,15 @@
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center mb-2">
 						<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/buffalo-ranch-chicken-kid-pick-menu-items-400x400.webp" alt="Buffalo Ranch Chicken" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/canadian-bacon-french-bread-kid-pick-featured-400x400.webp" alt="Canadian Bacon Stuffed French Bread " class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Buffalo Ranch Chicken</h5>
+									<h5 class="card-title">Canadian Bacon Stuffed French Bread </h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/arroz-con-pollo-pan-meal-menu-items-400x400.webp" alt="Arroz Con Pollo" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/ravioli-bake-featured-pan-400x400.webp" alt="Layered Ravioli Bake" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Arroz Con Pollo</h5>
+									<h5 class="card-title">Layered Ravioli Bake</h5>
 								</div>
 							</div>
 					</div>
@@ -135,15 +146,15 @@
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center">
 						<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pork-chop-milanese-30min-menu-items-400x400.webp" alt="Pork Chop Milanese" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pubstyle-chicken-30min-featured-400x400.webp" alt="Pub Style Chicken with Mashed Potatoes" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Pork Chop Milanese</h5>
+									<h5 class="card-title">Pub Style Chicken with Mashed Potatoes</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/smoked-sausage-penne-new-menu-items-400x400.webp" alt="Smoked Sausage Penne Pasta" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/tortilla-lime-soup-new-featured-400x400.webp" alt="Lime Chicken Tortilla Soup" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Smoked Sausage Penne Pasta</h5>
+									<h5 class="card-title">Lime Chicken Tortilla Soup</h5>
 								</div>
 							</div>
 					</div>

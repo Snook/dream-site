@@ -107,6 +107,10 @@ class CStore extends DAO_Store
 	 * @var array|array[]|mixed
 	 */
 	public $AvailableJobsArray;
+	/**
+	 * @var array|mixed
+	 */
+	public $remoteLocations = null;
 
 	function __construct()
 	{
@@ -2164,15 +2168,23 @@ class CStore extends DAO_Store
 
 	function getStorePickupLocations()
 	{
-		$pickupLocation = DAO_CFactory::create('store_pickup_location');
-		$pickupLocation->store_id = $this->id;
-		$pickupLocation->find();
+		// property is not null, means it has already bee fetched
+		if (!is_null($this->remoteLocations))
+		{
+			return $this->remoteLocations;
+		}
+
+		$DAO_store_pickup_location = DAO_CFactory::create('store_pickup_location', true);
+		$DAO_store_pickup_location->store_id = $this->id;
+		$DAO_store_pickup_location->orderBy("store_pickup_location.state_id, store_pickup_location.city");
+
+		$DAO_store_pickup_location->find();
 
 		$this->remoteLocations = array();
 
-		while ($pickupLocation->fetch())
+		while ($DAO_store_pickup_location->fetch())
 		{
-			$this->remoteLocations[$pickupLocation->id] = clone($pickupLocation);
+			$this->remoteLocations[$DAO_store_pickup_location->id] = clone($DAO_store_pickup_location);
 		}
 
 		return $this->remoteLocations;
@@ -2879,6 +2891,18 @@ class CStore extends DAO_Store
 	function hasPublicAddress()
 	{
 		if ($this->id == 91 || $this->id == 121)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	function hasRemotePickupLocations()
+	{
+		$this->getStorePickupLocations();
+
+		if (empty($this->remoteLocations))
 		{
 			return false;
 		}

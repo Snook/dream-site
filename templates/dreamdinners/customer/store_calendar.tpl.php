@@ -48,14 +48,14 @@
 				<?php if (!empty($this->calendar['info']['session_type'][CSession::EVENT])) { ?>
 					<div class="row mb-4">
 						<div class="col">
-							<h3 id="events" class="text-uppercase font-weight-bold text-center">Store events</h3>
+							<h3 id="events" class="text-uppercase font-weight-bold text-center">Store Special Events & Order Dates</h3>
 
 							<div class="row mb-3">
 								<div class="col-lg-4 mb-2">
 									<img src="<?php echo IMAGES_PATH; ?>/landing_pages/open-house-meal-prep-540x360.jpg" alt="Open House Meal Prep" class="img-fluid" />
 								</div>
 								<div class="col-lg-8">
-									<p>Have you been invited to a Dream Dinners Meal Prep Workshop, Fundraiser, Private Party, or Friends Night Out? Find your event to sign up here.</p>
+									<p>Have you been invited to a date specific home delivery, community pick up, Dream Dinners Meal Prep Workshop, Private Party, or Friends Night Out? Click the month below to find your event.</p>
 									<div class="row">
 										<?php foreach ($this->sessionArray['sessions'][CSession::EVENT] AS $mid => $sessionInfo) { ?>
 											<?php if (!empty($sessionInfo['session_info']['session_count'])) { ?>
@@ -71,7 +71,7 @@
 							</div>
 							<div class="row">
 								<div class="col">
-									<p class="font-italic text-muted font-size-small">*Our Open House events are only available to new Dream Dinners guests or guests that have not attended a Dream Dinners session in over a year.</p>
+									<!--<p class="font-italic text-muted font-size-small">*Our Open House events are only available to new Dream Dinners guests or guests that have not attended a Dream Dinners session in over a year.</p>-->
 								</div>
 							</div>
 						</div>

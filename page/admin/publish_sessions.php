@@ -49,16 +49,17 @@ function populateCallbackPS($Date)
 
 			if ($dayItem['isOpen'])
 			{
-				$linkClass = "calendar_on_text_on";
+				$linkClass = "";
 			}
 			else
 			{
-				$linkClass = "calendar_on_text_off";
+				$linkClass = "text-muted";
 			}
 
 			$id = 0;
 
-			if ($dayItem['isWalkIn']){
+			if ($dayItem['isWalkIn'])
+			{
 				continue;
 			}
 
@@ -101,21 +102,18 @@ function populateCallbackPS($Date)
 
 			$time12Hour = date("g:i a", strtotime($dayItem['time']));
 
-			$type = "(std)";
-			$color = "color='#000000'";
+			$type = CCalendar::sessionTypeNote(CSession::STANDARD);
 			if ($dayItem['isM4U'])
 			{
-				$type = "(M4U)";
-				$color = "color='#00AA00'";
+				$type = CCalendar::sessionTypeNote(CSession::SPECIAL_EVENT);;
 			}
 			if ($dayItem['isDLVR'])
 			{
-				$type = "(DLVR)";
-				$color = "color='#00AA00'";
+				$type = CCalendar::sessionTypeNote(CSession::DELIVERY);;
 			}
 
 			$customizable = '';
-			if($dayItem['allowedCustomization'])
+			if (!empty($dayItem['allowedCustomization']) && $dayItem['allowedCustomization'])
 			{
 				if ($dayItem['isOpenForCustomization'])
 				{
@@ -127,7 +125,7 @@ function populateCallbackPS($Date)
 				}
 			}
 
-			$retVal[$count++] = "<img name='" . $dayItem['time'] . "' id='" . $dayItem['id'] . "' src='" . ADMIN_IMAGES_PATH . $image . "' " . $editClick . ">$anchorStart<font size='1' $color>$time12Hour $type</font>$anchorEnd $customizable";
+			$retVal[$count++] = "<img name='" . $dayItem['time'] . "' id='" . $dayItem['id'] . "' src='" . ADMIN_IMAGES_PATH . $image . "' " . $editClick . ">$anchorStart $time12Hour $type $anchorEnd $customizable";
 		}
 	}
 
@@ -545,10 +543,12 @@ class page_admin_publish_sessions extends CPageAdminOnly
 						$savedSession->session_start = date("Y-m-d H:i:s", $sessionStartTimeStamp);
 						$savedSession->setCloseSchedulingTime($savedSession->close_interval_type, $currentItem->close_interval_hours);
 
-
-						if ($currentItem->session_type== CSession::SPECIAL_EVENT || $currentItem->session_type== CSession::DELIVERY){
+						if ($currentItem->session_type == CSession::SPECIAL_EVENT || $currentItem->session_type == CSession::DELIVERY)
+						{
 							$savedSession->setMealCustomizationCloseSchedulingTime($currentItem->meal_customization_close_interval_type, $currentItem->meal_customization_close_interval);
-						}else{
+						}
+						else
+						{
 							$savedSession->setMealCustomizationCloseSchedulingTime($currentItem->meal_customization_close_interval_type, -1);
 						}
 
@@ -643,9 +643,12 @@ class page_admin_publish_sessions extends CPageAdminOnly
 						$savedSession->setCloseSchedulingTime($savedSession->close_interval_type, $currentItem->close_interval_hours);
 
 						$savedSession->meal_customization_close_interval_type = $currentItem->meal_customization_close_interval_type;
-						if ($savedSession->session_type== CSession::SPECIAL_EVENT || $savedSession->session_type== CSession::DELIVERY){
+						if ($savedSession->session_type == CSession::SPECIAL_EVENT || $savedSession->session_type == CSession::DELIVERY)
+						{
 							$savedSession->setMealCustomizationCloseSchedulingTime($currentItem->meal_customization_close_interval_type, $currentItem->meal_customization_close_interval);
-						}else{
+						}
+						else
+						{
 							$savedSession->setMealCustomizationCloseSchedulingTime($currentItem->meal_customization_close_interval_type, -1);
 						}
 
@@ -783,7 +786,6 @@ class page_admin_publish_sessions extends CPageAdminOnly
 								if (isset(self::$sessionArray[$dateOnly][$v['time']]))
 								{
 									$timeIndex .= "a";
-
 								}
 
 								// CES: same start time overwrites
@@ -793,7 +795,7 @@ class page_admin_publish_sessions extends CPageAdminOnly
 									'id' => $k * -1,
 									'isM4U' => $v['isM4U'],
 									'isDLVR' => $v['isDLVR'],
-									'isWalkIn' => $v['isWalkIn'],
+									'isWalkIn' => !empty($v['isWalkIn']),
 									'isOpen' => true,
 									'can_overlap' => true,
 									'duration' => $v['duration']
@@ -818,6 +820,11 @@ class page_admin_publish_sessions extends CPageAdminOnly
 			$tpl->setErrorMsg(implode("<br />", $conflictArray));
 		}
 
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->id = $currentMenu;
+		$DAO_menu->find(true);
+
+		$tpl->assign('DAO_menu', $DAO_menu);
 		$tpl->assign('page_title', 'Publish Sessions');
 		$tpl->assign('rows', $calendarRows);
 		$tpl->assign('calendarName', 'publishCalendar');

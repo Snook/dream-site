@@ -1,11 +1,4 @@
 <?php
-
-/**
- *
- *
- * @version   $Id$
- * @copyright 2007
- */
 require_once('includes/CCart2.inc');
 require_once("includes/CPageProcessor.inc");
 require_once("CTemplate.inc");
@@ -57,8 +50,6 @@ class processor_admin_calendarProcessor extends CPageProcessor
 
 	function runFranchiseOwner()
 	{
-
-
 		header('Pragma: no-cache');
 		header("Cache-Control: no-store,no-cache, must-revalidate"); // HTTP/1.1
 		header("Expires: Mon, 26 Jul 2005 05:00:00 GMT"); // Date in the past
@@ -214,31 +205,21 @@ class processor_admin_calendarProcessor extends CPageProcessor
 			}
 
 			$query = "SELECT
-       				session.id, 
-					session.menu_id, 
-					session.session_publish_state, 
-       				session.session_start, 
-       				session.session_close_scheduling, 
-       				session.session_details,
-					session.session_type, 
-					session.session_type_subtype, 
-       				session.available_slots, 
-       				session.introductory_slots, 
-       				session.session_password,
-       				dtet.title_public as dream_taste_theme_title_public,
-       				dtet.title as dream_taste_theme_title,
-       				dtet.fadmin_acronym as dream_taste_theme_fadmin_acronym,
+ 				session.*,
+ 				dtet.title_public as dream_taste_theme_title_public,
+ 				dtet.title as dream_taste_theme_title,
+ 				dtet.fadmin_acronym as dream_taste_theme_fadmin_acronym,
 					(session.available_slots - count(booking.id)) - COUNT(distinct sr.id) as 'remaining_slots',
-					(introductory_slots -  (count(IF(booking.booking_type = 'INTRO', 1, NULL)) + if(count(IF(booking.booking_type = 'STANDARD', 1, NULL))
+					(introductory_slots - (count(IF(booking.booking_type = 'INTRO', 1, NULL)) + if(count(IF(booking.booking_type = 'STANDARD', 1, NULL))
 					> (available_slots - introductory_slots), count(IF(booking.booking_type = 'STANDARD', 1, NULL)) - (available_slots - introductory_slots),0))) as 'remaining_intro_slots',
 					COUNT(distinct sr.id) as num_rsvps
 					FROM session
-					LEFT JOIN booking ON booking.session_id = session.id  and booking.status = 'ACTIVE'
-					LEFT JOIN session_rsvp sr on sr.session_id = session.id AND sr.upgrade_booking_id IS NULL and sr.is_deleted  = 0
-					LEFT JOIN session_properties sp on sp.session_id = session.id and sp.is_deleted  = 0
-					LEFT JOIN dream_taste_event_properties dtep on dtep.id = sp.dream_taste_event_id and dtep.is_deleted  = 0
+					LEFT JOIN booking ON booking.session_id = session.id and booking.status = 'ACTIVE'
+					LEFT JOIN session_rsvp sr on sr.session_id = session.id AND sr.upgrade_booking_id IS NULL and sr.is_deleted = 0
+					LEFT JOIN session_properties sp on sp.session_id = session.id and sp.is_deleted = 0
+					LEFT JOIN dream_taste_event_properties dtep on dtep.id = sp.dream_taste_event_id and dtep.is_deleted = 0
 					LEFT JOIN dream_taste_event_theme dtet on dtet.id = dtep.dream_taste_event_theme
-					WHERE {$Org_session->menu_id} = session.menu_id and session.store_id = $storeID  AND session.is_deleted = 0 $typeExclusion group by session.id order by session.session_start";
+					WHERE {$Org_session->menu_id} = session.menu_id and session.store_id = $storeID AND session.is_deleted = 0 $typeExclusion group by session.id order by session.session_start";
 
 			// First get the session data
 			$Sessions->query($query);
@@ -252,7 +233,6 @@ class processor_admin_calendarProcessor extends CPageProcessor
 
 				$isOpenSession = $Sessions->isOpen($storeObj);
 				$Sessions->getSessionTypeProperties();
-
 
 				if ($Sessions->session_publish_state != 'SAVED')
 				{
@@ -275,7 +255,7 @@ class processor_admin_calendarProcessor extends CPageProcessor
 								// normal Pickup to Home Delivery
 								$transitionType = 'MFY_to_HD';
 							}
-							else if ($Sessions->session_type_subtype == CSession::REMOTE_PICKUP || $Sessions->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE )
+							else if ($Sessions->session_type_subtype == CSession::REMOTE_PICKUP || $Sessions->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE)
 							{
 								// normal Pickup to Community Pickup
 								$transitionType = 'MFY_to_CPU';
@@ -298,7 +278,7 @@ class processor_admin_calendarProcessor extends CPageProcessor
 								// WI to Pickup
 								$transitionType = 'WI_to_MFY';
 							}
-							else if ($Sessions->session_type_subtype == CSession::REMOTE_PICKUP || $Sessions->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE )
+							else if ($Sessions->session_type_subtype == CSession::REMOTE_PICKUP || $Sessions->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE)
 							{
 								$transitionType = 'WI_to_CPU';
 							}
@@ -306,7 +286,6 @@ class processor_admin_calendarProcessor extends CPageProcessor
 							{
 								$transitionType = 'WI_to_HD';
 							}
-
 						}
 						else if ($OrgSessionSubType == CSession::DELIVERY)
 						{
@@ -320,7 +299,7 @@ class processor_admin_calendarProcessor extends CPageProcessor
 								// normal Pickup to Home Delivery
 								$transitionType = 'HD_to_MFY';
 							}
-							else if ($Sessions->session_type_subtype == CSession::REMOTE_PICKUP || $Sessions->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE )
+							else if ($Sessions->session_type_subtype == CSession::REMOTE_PICKUP || $Sessions->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE)
 							{
 								// Home Delivery to Community Pickup
 								$transitionType = 'HD_to_CPU';
@@ -350,7 +329,7 @@ class processor_admin_calendarProcessor extends CPageProcessor
 							}
 							else if ($Sessions->session_type_subtype == CSession::WALK_IN)
 							{
-								// Community Pickup  to WI
+								// Community Pickup to WI
 								$transitionType = 'CPU_to_WI';
 							}
 						}
@@ -363,7 +342,7 @@ class processor_admin_calendarProcessor extends CPageProcessor
 							// Assembly to normal Puck Up
 							$transitionType = 'Assembly_to_MFY';
 						}
-						else if ($Sessions->session_type_subtype == CSession::REMOTE_PICKUP || $Sessions->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE )
+						else if ($Sessions->session_type_subtype == CSession::REMOTE_PICKUP || $Sessions->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE)
 						{
 							// Home Delivery to Community Pickup
 							$transitionType = 'Assembly_to_CPU';
@@ -381,6 +360,7 @@ class processor_admin_calendarProcessor extends CPageProcessor
 					}
 
 					self::$sessionArray[$dateOnly][$Sessions->id] = array(
+						'DAO_session' => clone $Sessions,
 						'time' => $timeOnly,
 						'state' => $Sessions->session_publish_state,
 						'id' => $Sessions->id,
@@ -440,7 +420,7 @@ class processor_admin_calendarProcessor extends CPageProcessor
 
 }
 
-function populateRescheduleCallbackNew($date, $isDirect = true)
+function populateRescheduleCallbackNew($date)
 {
 	$retVal = array();
 
@@ -449,314 +429,52 @@ function populateRescheduleCallbackNew($date, $isDirect = true)
 	if (array_key_exists($date, processor_admin_calendarProcessor::$sessionArray))
 	{
 		$dateArray = processor_admin_calendarProcessor::$sessionArray;
+
 		foreach ($dateArray[$date] as $id => $dayItem)
 		{
-
 			$ctl_message = "'" . $dayItem['transition_type'] . "'";
-			$linkClass = 'calendar_on_text_on';
-			$cellTS = strtotime($date);
 
-			CSession::prepareSessionDetailsForDisplay($dayItem['details']);
-
-			$timeText = $dayItem['time'];
-			//if it's 4 chars ( '9 am' ), then add extra space to the front so they line up
-			if (strlen($timeText) == 4)
+			if ($dayItem['is_walk_in'])
 			{
-				$timeText = ' ' . $timeText;
-			}
-			//$timeText = str_replace(' ', '&nbsp;',$timeText);
-
-			//if($dayItem[])
-
-			if ($dayItem['is_walk_in']){
-				$timeText = 'Walk-In';
-				$spotsText = "";
-				if($ctl_message == "'none'"){
+				if ($ctl_message == "'none'")
+				{
 					$ctl_message = "'none_wi'";
 				}
-
 			}
 
-			$discountText = "";
-			$is_discounted = false;
-			if (isset($dayItem['is_discounted']) && $dayItem['is_discounted'])
+			if ($dayItem['dreamTaste'] || $dayItem['fundraiserEvent'])
 			{
-				$discountText = '<font style="color:green">-$</font>';
-				$is_discounted = true;
-			}
-
-			$contents = null;
-
-			$dayItemTypeNote = CCalendar::dayItemTypeNote($dayItem);
-
-			//fullness: all_avail, 25percent_full, half_full, almost_full,
-			$image_howfull = 'all_avail';
-			if ($dayItem['capacity'] == 0)
-			{
-				$percentFull = 100;
+				$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
+				if ($dayItem['num_rsvps'] > 0)
+				{
+					$numOrders = $dayItem['capacity'] - ($dayItem['slots'] + $dayItem['num_rsvps']);
+					$spotsText .= "(" . $numOrders . " Orders, " . $dayItem['num_rsvps'] . " RSVPs)";
+				}
 			}
 			else
 			{
-				$percentFull = ($dayItem['capacity'] - $dayItem['slots']) * 100 / $dayItem['capacity'];
+				$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
+
+				if ($dayItem['supportsIntro'])
+				{
+					$spotsText .= "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
+				}
 			}
-			if ($percentFull > 10)
+
+			if ($dayItem['isSelected'])
 			{
-				$image_howfull = '25percent_full';
+				$sessionAction = 'javascript:dd_message({title:\'Alert\', message:\'This is the session that is currently booked.\'});';
 			}
-			if ($percentFull > 40)
+			else
 			{
-				$image_howfull = 'half_full';
-			}
-			if ($percentFull > 65)
-			{
-				$image_howfull = 'almost_full';
-			}
-			if ($percentFull >= 100)
-			{
-				$image_howfull = 'full';
+				$sessionAction = 'javascript:onRescheduleClick(' . $id . ', \'' . CTemplate::dateTimeFormat($date . ' ' . $dayItem['time']) . '\', ' . ($dayItem['DAO_session']->isDiscounted() ? '1' : '0') . ', ' . $ctl_message . ')';
 			}
 
-			if ($dayItem['isPrivate'])
-			{
-				$alt_text_base = "Private Session";
-				$full_session_text = "Full Private Session";
-
-				if ($dayItem['isSpecialEvent'])
-				{
-					$alt_text_base = "Made for You - Private Session";
-					$full_session_text = "Full Session - Made for You";
-				}
-
-				if ($dayItem['isTODD'])
-				{
-					$alt_text_base = "Taste of Dream Dinners - Private Session";
-					$full_session_text = "Full Session - Taste of Dream Dinners";
-				}
-
-				if ($dayItem['dreamTaste'])
-				{
-					$alt_text_base = "Meal Prep Workshop - Private Session";
-					$full_session_text = "Full Session - Meal Prep Workshop";
-				}
-
-				if ($dayItem['fundraiserEvent'])
-				{
-					$alt_text_base = "Fundraiser Event - Private Session";
-					$full_session_text = "Full Session - Fundraiser Event";
-				}
-
-
-				if ($dayItem['isOpen'] || $isDirect)
-				{
-					if ($isDirect)
-					{
-						if ($dayItem['dreamTaste'] || $dayItem['fundraiserEvent'])
-						{
-							$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
-							if ($dayItem['num_rsvps'] > 0)
-							{
-								$numOrders = $dayItem['capacity'] - ($dayItem['slots'] + $dayItem['num_rsvps']);
-								$spotsText .= "(" . $numOrders . " Orders, " . $dayItem['num_rsvps'] . " RSVPs)";
-							}
-						}
-						else
-						{
-							$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
-
-							if ($dayItem['supportsIntro'])
-							{
-								$spotsText .= "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
-							}
-						}
-
-						if ($dayItem['isSelected'])
-						{
-							$sessionAction = 'javascript:dd_message({title:\'Alert\', message:\'This is the session that is currently booked.\'});';
-						}
-						else
-						{
-							$sessionAction = 'javascript:onRescheduleClick(' . $id . ', \'' . CTemplate::dateTimeFormat($date . ' ' . $dayItem['time']) . '\', ' . ($is_discounted ? '1' : '0') . ', ' . $ctl_message . ')';
-						}
-
-						$hilight = ' ';
-						if ($dayItem['isSelected'])
-						{
-							$hilight = ' style="background-color: #eeeeff; border:1px solid black;" ';
-							$spotsText = "This is the guest's current session";
-						}
-
-						$contents = $dayItemTypeNote . ' <a class="' . strtolower($dayItem['publish_state']) . '" ' . $hilight . ' data-tooltip="' . $spotsText . '" href="' . $sessionAction . '">' . $timeText . '</a>' . $discountText;
-					}
-					else
-					{
-						if ($dayItem['slots'] > 0)
-						{
-							$hilight = ' ';
-							$contents = $dayItemTypeNote . ' <a ' . $hilight . ' data-tooltip="' . $alt_text_base . '" href="javascript:onPrivateSessionClick(\'' . $date . '\', ' . $id . ')">' . $timeText . '</a>' . $discountText;
-						}
-						else
-						{
-							$contents = $dayItemTypeNote . ' <span style="color: #909090;" data-tooltip="' . $full_session_text . '">' . $timeText . '</span> ' . $discountText;
-						}
-					}
-				}
-				else
-				{
-					$contents = $dayItemTypeNote . ' <span style="color: #909090;" data-tooltip="Closed ' . $alt_text_base . '">' . $timeText . '</span> ' . $discountText;
-				}
-			}
-			else if ((!$dayItem['isOpen']))
-			{
-				if ($dayItem['isSelected'])
-				{
-					$sessionAction = 'javascript:dd_message({title:\'Alert\', message:\'This is the session that is currently booked.\'});';
-				}
-				else
-				{
-					$sessionAction = 'javascript:onRescheduleClick(' . $id . ', \'' . CTemplate::dateTimeFormat($date . ' ' . $dayItem['time']) . '\', ' . ($is_discounted ? '1' : '0') . ', ' . $ctl_message . ')';
-				}
-
-				$hilight = " ";
-				if ($dayItem['isSelected'])
-				{
-					$hilight = ' style="background-color: #eeeeff; border:1px solid black" ';
-				}
-
-				if ($isDirect)
-				{
-
-					if ($dayItem['dreamTaste'] || $dayItem['fundraiserEvent'])
-					{
-						$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
-						if ($dayItem['num_rsvps'] > 0)
-						{
-							$numOrders = $dayItem['capacity'] - ($dayItem['slots'] + $dayItem['num_rsvps']);
-							$spotsText .= "(" . $numOrders . " Orders, " . $dayItem['num_rsvps'] . " RSVPs)";
-						}
-					}
-					else
-					{
-						$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
-
-						if ($dayItem['supportsIntro'])
-						{
-							$spotsText .= "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
-						}
-					}
-
-					if ($dayItem['isSelected'])
-					{
-						$spotsText = "This is the guest's current session";
-					}
-
-					$contents = '<img src="' . ADMIN_IMAGES_PATH . '/calendar/past.gif" style="float:right;" />' . $dayItemTypeNote . '<span style="color: #909090;" data-tooltip="Session Closed">';
-					$contents .= '<a id="sessionlink' . $id . '" class="' . strtolower($dayItem['publish_state']) . '" ' . $hilight . ' title="' . $spotsText . '" href="' . $sessionAction . '">' . $timeText . '</a> ' . $discountText . '</span>';
-				}
-				else
-				{
-					$contents = $dayItemTypeNote . '<span style="color: #909090;" data-tooltip="Session Closed"> ' . $timeText . $discountText . '</span>';
-				}
-			}
-			else if ($isDirect || ($dayItem['slots'] > 0)) //remaining slots
-			{
-				if ($dayItem['dreamTaste'] || $dayItem['fundraiserEvent'])
-				{
-					if ($dayItem['slots'] < 0)
-					{
-						$spotsText = "Overbooked by " . (0 - $dayItem['slots']);
-						if ($dayItem['num_rsvps'] > 0)
-						{
-							$numOrders = $dayItem['capacity'] - ($dayItem['slots'] + $dayItem['num_rsvps']);
-							$spotsText .= "(" . $numOrders . " Orders, " . $dayItem['num_rsvps'] . " RSVPs)";
-						}
-					}
-					else
-					{
-						$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
-						if ($dayItem['num_rsvps'] > 0)
-						{
-							$numOrders = $dayItem['capacity'] - ($dayItem['slots'] + $dayItem['num_rsvps']);
-							$spotsText .= "(" . $numOrders . " Orders, " . $dayItem['num_rsvps'] . " RSVPs)";
-						}
-					}
-				}
-				else
-				{
-					if ($dayItem['slots'] < 0)
-					{
-						$spotsText = "Standard slots overbooked by " . (0 - $dayItem['slots']);
-
-						if ($dayItem['supportsIntro'])
-						{
-							$spotsText .= "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
-						}
-					}
-					else
-					{
-						$spotsText = $dayItem['slots'] . " of " . $dayItem['capacity'] . " spots available";
-						if ($isDirect && $dayItem['supportsIntro'])
-						{
-							$spotsText .= "; " . $dayItem['intro_slots'] . " of " . $dayItem['intro_capacity'] . " starter pack spots available";
-						}
-					}
-				}
-
-				if ($dayItem['is_walk_in']){
-					$timeText = 'Walk-In';
-					$spotsText = "";
-					if($ctl_message == "'none'"){
-						$ctl_message = "'none_wi'";
-					}
-
-				}
-
-				if ($dayItem['isSelected'])
-				{
-					$sessionAction = 'javascript:dd_message({title:\'Alert\', message:\'This is the session that is currently booked.\'});';
-				}
-				else
-				{
-					$sessionAction = 'javascript:onRescheduleClick(' . $id . ', \'' . CTemplate::dateTimeFormat($date . ' ' . $dayItem['time']) . '\', ' . ($is_discounted ? '1' : '0') . ', ' . $ctl_message . ')';
-				}
-
-
-
-				$imgPath = ADMIN_IMAGES_PATH . '/calendar/' . ($dayItem['isQ6'] ? '6_' : ($dayItem['is3Plan'] ? '' : '12_')) . $image_howfull . '.gif';
-				$percentimgPath = '<img class="img_valign" onclick="' . $sessionAction . '" alt="' . $spotsText . '" data-tooltip="' . $spotsText . '" src="' . $imgPath . '" style="float:right;" />';
-				$contents = $percentimgPath . $dayItemTypeNote;
-
-				$hilight = " ";
-				if ($dayItem['isSelected'])
-				{
-					$hilight = ' style="background-color:yellow; border:1px solid black" ';
-					$spotsText = "This is the guest's current session";
-				}
-
-
-
-				$contents .= ' <a id="sessionlink' . $id . '" class="' . strtolower($dayItem['publish_state']) . '" ' . $hilight . ' data-tooltip="' . $spotsText . '" href="' . $sessionAction . '">' . $timeText . '</a>' . $discountText;
-			}
-			else //full
-			{
-				$percentimgPath = '<img class="img_valign" alt="Session Full" data-tooltip="Session Full" src="' . ADMIN_IMAGES_PATH . '/calendar/full.gif" style="float:right;" />';
-				$contents = $percentimgPath . $dayItemTypeNote;
-				$contents .= ' <span data-tooltip="Session Full" style="color:#909090;">' . $timeText . '</span>';
-			}
-
-			if ($contents)
-			{
-				$notesImg = '';
-				if (!empty($dayItem['details']))
-				{
-					$dayItem['details'] = str_replace("&quot;", "&amp;quot;", $dayItem['details']);
-
-					$notesImg = '<img src="' . ADMIN_IMAGES_PATH . '/calendar/notes.gif" data-tooltip="' . $dayItem['details'] . '" class="img_valign" />';
-				}
-
-				$contents = '<div id="sesssioncell' . $id . '">' . $contents . $notesImg . '</div>';
-
-				$retVal [] = $contents;
-			}
+			$retVal[] = $dayItem['DAO_session']->sessionTypeIcon(true) . '
+					<a class="' . (($dayItem['isSelected']) ? 'bg-warning border border-green' : '') . '" href="' . $sessionAction . '"><span ' . ((!$dayItem['DAO_session']->isPublished()) ? 'class="text-decoration-line-through"' : '') . ' data-toggle="tooltip" title="' . ((!$dayItem['DAO_session']->isWalkIn()) ? $dayItem['DAO_session']->sessionStartDateTime()->format('g:i A') . ' - ' . $dayItem['DAO_session']->sessionEndDateTime()->format('g:i A') : 'All day') . '">' . ((!$dayItem['DAO_session']->isWalkIn()) ? $dayItem['DAO_session']->sessionStartDateTime()->format('g:i A') : 'Walk-In') . '</span></a>
+					' . ((!$dayItem['DAO_session']->isWalkIn()) ? '<span data-toggle="tooltip" data-html="true" title="' . $spotsText . '">(' . $dayItem['slots'] . ')</span>' : '') . '
+					' . $dayItem['DAO_session']->openForCustomizationIcon() . '
+					' . $dayItem['DAO_session']->discountedIcon();
 		}
 	}
 
@@ -765,5 +483,4 @@ function populateRescheduleCallbackNew($date, $isDirect = true)
 		$styleOverride
 	);
 }
-
 ?>

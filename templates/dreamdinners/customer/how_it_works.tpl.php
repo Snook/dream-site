@@ -145,7 +145,7 @@
 										<h5 class="card-title">Dinners Shipped to Your Home</h5>
 										<p class="card-text">In some areas, we can ship Dream Dinners directly to your home. Each box includes 4 family-style dinners. Each dinner serves 2-3 people. If you have a larger family order multiples of the same meal.</p>
 											<ul>
-												<li>Meals are packaged frozen with dry ice to stay cold and a temperature tag to track box temperature during shipping.</li>
+												<li>Meals are packaged frozen with dry ice or ice packs to stay cold in transit.</li>
 												<li>Meals arrive prepped, so proteins are marinated, vegetables are chopped, and sauces are assembled.</li>
 												<li>Most dinners cook in under 30 minutes and use simple, easy-to-follow cooking instructions.</li>
 												<li>No subscription or commitment.</li>

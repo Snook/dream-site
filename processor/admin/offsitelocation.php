@@ -63,7 +63,6 @@ class processor_admin_offsitelocation extends CPageProcessor
 		header("Cache-Control: no-store,no-cache, must-revalidate"); // HTTP/1.1
 		header("Expires: Mon, 26 Jul 2005 05:00:00 GMT"); // Date in the past
 
-
 		$xssFilter = new InputFilter();
 		$_POST = $xssFilter->process($_POST);
 
@@ -71,36 +70,33 @@ class processor_admin_offsitelocation extends CPageProcessor
 		{
 			if ($_REQUEST['store_id'])
 			{
-				$Store = DAO_CFactory::create('store');
-				$Store->id = $_REQUEST['store_id'];
-				$Store->find(true);
+				$DAO_store = DAO_CFactory::create('store');
+				$DAO_store->id = $_REQUEST['store_id'];
+				$DAO_store->find(true);
 
-				$pickupLocation = COffsitelocation::addUpdatePickupLocation($Store, $_REQUEST['data']);
+				$pickupLocation = COffsitelocation::addUpdatePickupLocation($DAO_store, $_REQUEST['data']);
 
 				if (!empty($pickupLocation))
 				{
-					echo json_encode(array(
+					CAppUtil::processorMessageEcho(array(
 						'processor_success' => true,
 						'processor_message' => 'Offsite Location Added'
 					));
-					exit;
 				}
 				else
 				{
-					echo json_encode(array(
+					CAppUtil::processorMessageEcho(array(
 						'processor_success' => false,
 						'processor_message' => 'Offsite Location Not Added'
 					));
-					exit;
 				}
 			}
 			else
 			{
-				echo json_encode(array(
+				CAppUtil::processorMessageEcho(array(
 					'processor_success' => false,
 					'processor_message' => 'Offsite Store id was not supplied'
 				));
-				exit;
 			}
 		}
 
@@ -108,38 +104,35 @@ class processor_admin_offsitelocation extends CPageProcessor
 		{
 			if (!empty($_REQUEST['store_id']))
 			{
-				$Store = DAO_CFactory::create('store');
-				$Store->id = $_REQUEST['store_id'];
-				$Store->find(true);
+				$DAO_store = DAO_CFactory::create('store', true);
+				$DAO_store->id = $_REQUEST['store_id'];
+				$DAO_store->find(true);
 
-				$pickupLocation = COffsitelocation::addUpdatePickupLocation($Store, $_REQUEST['data'], $_POST['data']['edit_location']);
+				$pickupLocation = COffsitelocation::addUpdatePickupLocation($DAO_store, $_REQUEST['data'], $_POST['data']['edit_location']);
 
 				if (!empty($pickupLocation))
 				{
-					echo json_encode(array(
+					CAppUtil::processorMessageEcho(array(
 						'processor_success' => true,
 						'processor_message' => 'Offsite info edited',
 						'offsite_id' => $pickupLocation->id,
 						'data' => json_encode($pickupLocation)
 					));
-					exit;
 				}
 				else
 				{
-					echo json_encode(array(
+					CAppUtil::processorMessageEcho(array(
 						'processor_success' => false,
 						'processor_message' => 'Offsite info not found'
 					));
-					exit;
 				}
 			}
 			else
 			{
-				echo json_encode(array(
+				CAppUtil::processorMessageEcho(array(
 					'processor_success' => false,
 					'processor_message' => 'Store id was not supplied'
 				));
-				exit;
 			}
 		}
 
@@ -147,45 +140,42 @@ class processor_admin_offsitelocation extends CPageProcessor
 		{
 			if (!empty($_REQUEST['offsite_id']))
 			{
-				$Offsite = DAO_CFactory::create('store_pickup_location');
-				$Offsite->id = $_REQUEST['offsite_id'];
+				$DAO_store_pickup_location = DAO_CFactory::create('store_pickup_location', true);
+				$DAO_store_pickup_location->id = $_REQUEST['offsite_id'];
 
-				if ($Offsite->find(true))
+				if ($DAO_store_pickup_location->find(true))
 				{
-					$Offsite->contact = '';
+					$DAO_store_pickup_location->contact = '';
 
-					if (!empty($Offsite->contact_user_id))
+					if (!empty($DAO_store_pickup_location->contact_user_id))
 					{
 						$contactUser = DAO_CFactory::create('user');
-						$contactUser->id = $Offsite->contact_user_id;
+						$contactUser->id = $DAO_store_pickup_location->contact_user_id;
 						$contactUser->find(true);
 
-						$Offsite->contact = $contactUser->primary_email;
+						$DAO_store_pickup_location->contact = $contactUser->primary_email;
 					}
 
-					echo json_encode(array(
+					CAppUtil::processorMessageEcho(array(
 						'processor_success' => true,
 						'processor_message' => 'Community Pick Up Location info edited',
-						'data' => json_encode($Offsite)
+						'data' => json_encode($DAO_store_pickup_location)
 					));
-					exit;
 				}
 				else
 				{
-					echo json_encode(array(
+					CAppUtil::processorMessageEcho(array(
 						'processor_success' => false,
 						'processor_message' => 'Community Pick Up Location info not found'
 					));
-					exit;
 				}
 			}
 			else
 			{
-				echo json_encode(array(
+				CAppUtil::processorMessageEcho(array(
 					'processor_success' => false,
 					'processor_message' => 'Store id was not supplied'
 				));
-				exit;
 			}
 		}
 
@@ -193,51 +183,47 @@ class processor_admin_offsitelocation extends CPageProcessor
 		{
 			if (!empty($_REQUEST['location_id']))
 			{
-				$location = DAO_CFactory::create('store_pickup_location');
-				$location->id = $_REQUEST['location_id'];
-				$location->find(true);
+				$DAO_store_pickup_location = DAO_CFactory::create('store_pickup_location');
+				$DAO_store_pickup_location->id = $_REQUEST['location_id'];
+				$DAO_store_pickup_location->find(true);
 
-				if (!empty($location->active))
+				if (!empty($DAO_store_pickup_location->active))
 				{
-					$location->active = 0;
-					$location->update();
+					$DAO_store_pickup_location->active = 0;
+					$DAO_store_pickup_location->update();
 
-					echo json_encode(array(
+					CAppUtil::processorMessageEcho(array(
 						'processor_success' => true,
 						'processor_message' => 'Location disabled',
-						'fundraiser_id' => $location->id,
+						'fundraiser_id' => $DAO_store_pickup_location->id,
 						'dd_toasts' => array(
 							array('message' => 'Location disabled.')
 						)
 					));
-					exit;
 				}
 				else
 				{
-					$location->active = 1;
-					$location->update();
+					$DAO_store_pickup_location->active = 1;
+					$DAO_store_pickup_location->update();
 
-					echo json_encode(array(
+					CAppUtil::processorMessageEcho(array(
 						'processor_success' => true,
 						'processor_message' => 'Location enabled',
-						'fundraiser_id' => $location->id,
+						'fundraiser_id' => $DAO_store_pickup_location->id,
 						'dd_toasts' => array(
 							array('message' => 'Location enabled.')
 						)
 					));
-					exit;
 				}
 			}
 			else
 			{
-				echo json_encode(array(
+				CAppUtil::processorMessageEcho(array(
 					'processor_success' => false,
 					'processor_message' => 'Location id was not supplied'
 				));
-				exit;
 			}
 		}
-
 	}
 }
 

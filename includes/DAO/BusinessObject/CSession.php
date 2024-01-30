@@ -406,23 +406,23 @@ class CSession extends DAO_Session
 		}
 	}
 
-	function getSessionEnd($Store = false)
+	function sessionStartDateTime()
 	{
-		if (empty($Store))
-		{
-			$Store = DAO_CFactory::create('store');
-			$Store->id = $this->store_id;
-			$Store->find(true);
-		}
+		return new DateTime($this->session_start);
+	}
 
-		$sessionEnd = new DateTime($this->session_start, new DateTimeZone(CTimezones::zone_by_id($Store->timezone_id)));
-
-		return $sessionEnd->date;
+	function sessionEndDateTime()
+	{
+		return $this->sessionStartDateTime()->modify('+' . $this->duration_minutes . ' minutes');
 	}
 
 	function sessionTypeToText()
 	{
-		if ($this->session_type == CSession::STANDARD && $this->isPrivate())
+		if ($this->isWalkIn())
+		{
+			$this->session_type_true = CSession::WALK_IN;
+		}
+		else if ($this->session_type == CSession::STANDARD && $this->isPrivate())
 		{
 			$this->session_type_true = CSession::PRIVATE_SESSION;
 		}
@@ -453,11 +453,11 @@ class CSession extends DAO_Session
 			case CSession::REMOTE_PICKUP:
 				return $this->session_type_desc = "Community Pick Up";
 			case CSession::PRIVATE_SESSION:
-				return $this->session_type_desc = "Private Session";
+				return $this->session_type_desc = "Standard - Private";
 			case CSession::STANDARD:
 				return $this->session_type_desc = "Standard";
 			case CSession::SPECIAL_EVENT:
-				return $this->session_type_desc = "Made For You";
+				return $this->session_type_desc = "Pick Up";
 			case CSession::TODD:
 				return $this->session_type_desc = "Taste of Dream Dinners";
 			case CSession::DREAM_TASTE:
@@ -585,16 +585,16 @@ class CSession extends DAO_Session
 				break;
 			case CSession::PRIVATE_SESSION:
 				return array(
-					$this->session_type_title = "Private Party",
+					$this->session_type_title = "Assembly - Private Party",
 					$this->session_type_title_public = "Private Party",
-					$this->session_type_title_short = "P",
-					$this->session_type_fadmin_acronym = "P",
+					$this->session_type_title_short = "AP",
+					$this->session_type_fadmin_acronym = "AP",
 					$this->session_type_string = "private_party"
 				);
 				break;
 			case CSession::STANDARD:
 				return array(
-					$this->session_type_title = "Assembly session",
+					$this->session_type_title = "Assembly",
 					$this->session_type_title_public = "Assemble at store",
 					$this->session_type_title_short = "A",
 					$this->session_type_fadmin_acronym = "A",
@@ -603,10 +603,10 @@ class CSession extends DAO_Session
 				break;
 			case CSession::SPECIAL_EVENT:
 				return array(
-					$this->session_type_title = "Made For You",
+					$this->session_type_title = "Pick Up",
 					$this->session_type_title_public = "Pick Up at store",
-					$this->session_type_title_short = "MFY",
-					$this->session_type_fadmin_acronym = "MFY",
+					$this->session_type_title_short = "P",
+					$this->session_type_fadmin_acronym = "P",
 					$this->session_type_string = "made_for_you"
 				);
 				break;
@@ -639,8 +639,8 @@ class CSession extends DAO_Session
 				break;
 			default:
 				return array(
-					$this->session_type_title = "Assembly session",
-					$this->session_type_title_public = "Assembly session",
+					$this->session_type_title = "Assembly",
+					$this->session_type_title_public = "Assembly",
 					$this->session_type_title_short = "A",
 					$this->session_type_fadmin_acronym = "A",
 					$this->session_type_string = "standard"
@@ -779,6 +779,41 @@ class CSession extends DAO_Session
 
 		echo trim($output);
 		exit;
+	}
+
+	function sessionTypeIcon($mute_closed = false)
+	{
+		if ($mute_closed)
+		{
+			return CCalendar::sessionTypeNote($this->session_type_true, $this->isOpen());
+		}
+
+		return CCalendar::sessionTypeNote($this->session_type_true);
+	}
+
+	function openForCustomizationIcon()
+	{
+		if ($this->isWalkIn())
+		{
+			return false;
+		}
+
+		if ($this->isOpenForCustomization())
+		{
+			return '<i class="dd-icon icon-customize text-orange" style="font-size: .60rem" data-toggle="tooltip" title="Open for Customization"></i>';
+		}
+		else
+		{
+			return '<i class="dd-icon icon-customize text-black" style="font-size: .60rem" data-toggle="tooltip" title="Closed for Customization"></i>';
+		}
+	}
+
+	function discountedIcon()
+	{
+		if ($this->isDiscounted())
+		{
+			return '<span class="font-weight-bold text-green-dark" data-toggle="tooltip" title="Discounted">&dollar;</span>';
+		}
 	}
 
 	function percentFull()
@@ -2366,7 +2401,7 @@ class CSession extends DAO_Session
 
 	static function getCurrentDeliveredSessionArrayForCustomer($Store, $service_days = 0, $date = false, $menu_id = false, $open_only = true, $get_bookings = false, $excludeFull = false)
 	{
-		return self::getMonthlySessionInfoArrayForDelivered($Store, $date, $menu_id, false, $open_only, $get_bookings, false, $excludeFull, $service_days, 6);
+		return self::getMonthlySessionInfoArrayForDelivered($Store, $date, $menu_id, false, $open_only, $get_bookings, false, $excludeFull, $service_days, 5);
 	}
 
 	static function getCurrentDeliveredSessionArrayForDistributionCenter($Store, $service_days = 0, $date = false, $menu_id = false, $open_only = false, $get_bookings = false, $excludeFull = false)
