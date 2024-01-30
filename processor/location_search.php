@@ -97,6 +97,7 @@ class processor_location_search extends CPage
 
 				$DAO_store_pickup_location = DAO_CFactory::create('store_pickup_location', true);
 				$DAO_store_pickup_location->active = 1;
+				$DAO_store_pickup_location->show_on_customer_site = 1;
 				$DAO_store_pickup_location->whereAdd("store_pickup_location.address_latitude > '" . ($req_latitude - 5) . "' AND store_pickup_location.address_latitude  < '" . ($req_latitude + 5) . "'");
 				$DAO_store_pickup_location->whereAdd("store_pickup_location.address_longitude > '" . ($req_longitude - 5) . "' AND store_pickup_location.address_longitude < '" . ($req_longitude + 5) . "'");
 				$DAO_store = DAO_CFactory::create('store', true);

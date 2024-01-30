@@ -190,4 +190,26 @@ $(function () {
 
 	});
 
+	$(document).on('click', '[data-enable_customer_visibility]', function (e) {
+
+		let location_id = $(this).data('enable_customer_visibility');
+
+		$.ajax({
+			url: '/processor',
+			type: 'POST',
+			timeout: 20000,
+			dataType: 'json',
+			data: {
+				processor: 'admin_offsitelocation',
+				store_id: STORE_DETAILS.id,
+				op: 'toggle_customer_visibility',
+				location_id: location_id
+			},
+			error: function (objAJAXRequest, strError) {
+				response = 'Unexpected error';
+			}
+		});
+
+	});
+
 });

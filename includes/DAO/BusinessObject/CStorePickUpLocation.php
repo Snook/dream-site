@@ -30,6 +30,11 @@ class CStorePickUpLocation extends DAO_Store_pickup_location
 		return !empty($this->active);
 	}
 
+	function is_ShowOnCustomerSite()
+	{
+		return !empty($this->show_on_customer_site);
+	}
+
 	function generateAnchor()
 	{
 		return $this->id . '-' . str_replace(' ', '_', strtolower($this->city)) . '-pick-up';

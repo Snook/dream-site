@@ -22,7 +22,7 @@ class page_store_community_pick_up extends CPage
 				foreach ($DAO_store->getStorePickupLocations() AS $location)
 				{
 					// Prime with active locations
-					if ($location->is_Active())
+					if ($location->is_Active() && $location->is_ShowOnCustomerSite())
 					{
 						$locationArray[$location->id] = array(
 							'DAO_store_pickup_location' => clone $location,
@@ -46,7 +46,7 @@ class page_store_community_pick_up extends CPage
 					{
 						// Need to add location if there is a session active but the location itself is now inactive
 						// An inactive location does not govern session availability
-						if (empty($locationArray[$DAO_session->DAO_store_pickup_location->id]))
+						if (empty($locationArray[$DAO_session->DAO_store_pickup_location->id]) && $DAO_session->DAO_store_pickup_location->is_ShowOnCustomerSite())
 						{
 							$locationArray[$location->id] = array(
 								'DAO_store_pickup_location' => clone $DAO_session->DAO_store_pickup_location,

@@ -183,11 +183,11 @@ class processor_admin_offsitelocation extends CPageProcessor
 		{
 			if (!empty($_REQUEST['location_id']))
 			{
-				$DAO_store_pickup_location = DAO_CFactory::create('store_pickup_location');
+				$DAO_store_pickup_location = DAO_CFactory::create('store_pickup_location', true);
 				$DAO_store_pickup_location->id = $_REQUEST['location_id'];
 				$DAO_store_pickup_location->find(true);
 
-				if (!empty($DAO_store_pickup_location->active))
+				if ($DAO_store_pickup_location->is_Active())
 				{
 					$DAO_store_pickup_location->active = 0;
 					$DAO_store_pickup_location->update();
@@ -212,6 +212,52 @@ class processor_admin_offsitelocation extends CPageProcessor
 						'fundraiser_id' => $DAO_store_pickup_location->id,
 						'dd_toasts' => array(
 							array('message' => 'Location enabled.')
+						)
+					));
+				}
+			}
+			else
+			{
+				CAppUtil::processorMessageEcho(array(
+					'processor_success' => false,
+					'processor_message' => 'Location id was not supplied'
+				));
+			}
+		}
+
+		if (!empty($_REQUEST['op']) && $_REQUEST['op'] == 'toggle_customer_visibility')
+		{
+			if (!empty($_REQUEST['location_id']))
+			{
+				$DAO_store_pickup_location = DAO_CFactory::create('store_pickup_location', true);
+				$DAO_store_pickup_location->id = $_REQUEST['location_id'];
+				$DAO_store_pickup_location->find(true);
+
+				if ($DAO_store_pickup_location->is_ShowOnCustomerSite())
+				{
+					$DAO_store_pickup_location->show_on_customer_site = 0;
+					$DAO_store_pickup_location->update();
+
+					CAppUtil::processorMessageEcho(array(
+						'processor_success' => true,
+						'processor_message' => 'Location hidden from customers',
+						'fundraiser_id' => $DAO_store_pickup_location->id,
+						'dd_toasts' => array(
+							array('message' => 'Location hidden from customers.')
+						)
+					));
+				}
+				else
+				{
+					$DAO_store_pickup_location->show_on_customer_site = 1;
+					$DAO_store_pickup_location->update();
+
+					CAppUtil::processorMessageEcho(array(
+						'processor_success' => true,
+						'processor_message' => 'Location visible to customers',
+						'fundraiser_id' => $DAO_store_pickup_location->id,
+						'dd_toasts' => array(
+							array('message' => 'Location visible to customers.')
 						)
 					));
 				}

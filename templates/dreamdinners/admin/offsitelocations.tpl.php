@@ -118,7 +118,8 @@
 			<table class="table table-sm table-striped ddtemp-table-border-collapse bg-white">
 				<thead class="text-center">
 				<tr>
-					<th>Enable</th>
+					<th>Show in session editor</th>
+					<th>Show on customer site</th>
 					<th>Contact</th>
 					<th>Location</th>
 					<th>Address</th>
@@ -137,6 +138,12 @@
 								<div class="custom-control custom-checkbox">
 									<input class="custom-control-input" id="location-<?php echo $id; ?>" name="location-<?php echo $id; ?>" data-enable_location="<?php echo $id; ?>" type="checkbox" <?php echo (!empty($offsitelocation->active)) ? 'checked="checked"' : ''; ?> />
 									<label class="custom-control-label" for="location-<?php echo $id; ?>"></label>
+								</div>
+							</td>
+							<td class="text-center">
+								<div class="custom-control custom-checkbox">
+									<input class="custom-control-input" id="location-customer-vis-<?php echo $id; ?>" name="location-customer-vis-<?php echo $id; ?>" data-enable_customer_visibility="<?php echo $id; ?>" type="checkbox" <?php echo (!empty($offsitelocation->show_on_customer_site)) ? 'checked="checked"' : ''; ?> />
+									<label class="custom-control-label" for="location-customer-vis-<?php echo $id; ?>"></label>
 								</div>
 							</td>
 							<td><?php if (!empty($offsitelocation->contact_user_id)) { ?><a href="/backoffice/user_details?id=<?php echo $offsitelocation->contact_user_id; ?>"><?php echo $offsitelocation->firstname; ?> <?php echo $offsitelocation->lastname; ?></a><?php } else { ?>None<?php } ?></td>

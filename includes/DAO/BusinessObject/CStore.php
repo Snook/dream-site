@@ -2907,7 +2907,15 @@ class CStore extends DAO_Store
 			return false;
 		}
 
-		return true;
+		foreach ($this->remoteLocations as $DAO_store_pickup_location)
+		{
+			if ($DAO_store_pickup_location->is_ShowOnCustomerSite())
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	function isOpen()

@@ -13,6 +13,7 @@ class DAO_Store_pickup_location extends DAO
 	public $id;								// int(8)  not_null primary_key unsigned auto_increment
 	public $store_id;								// int(8)  not_null primary_key unsigned auto_increment
 	public $active;
+	public $show_on_customer_site;
 	public $location_title;
 	public $address_line1;
 	public $address_line2;
