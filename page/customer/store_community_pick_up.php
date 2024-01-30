@@ -42,7 +42,7 @@ class page_store_community_pick_up extends CPage
 
 				while ($DAO_session->fetch())
 				{
-					if ($DAO_session->isOpen() && !empty($locationArray[$DAO_session->DAO_store_pickup_location->id]))
+					if ($DAO_session->isOpen() && !$DAO_session->isPrivate() && !empty($locationArray[$DAO_session->DAO_store_pickup_location->id]))
 					{
 						// Need to add location if there is a session active but the location itself is now inactive
 						// An inactive location does not govern session availability
