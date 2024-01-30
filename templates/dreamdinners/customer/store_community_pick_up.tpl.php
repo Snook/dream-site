@@ -79,7 +79,7 @@
 				<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted">
 
 				<div class="row">
-					<div class="col text-center">We do not have any community pick up dates available. Please contact the store for questions.</div>
+					<div class="col text-center">We do not have any community pick up dates available. Please contact us at <?php echo $this->DAO_store->telephone_day; ?> for questions.</div>
 				</div>
 			<?php } ?>
 
