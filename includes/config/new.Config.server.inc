@@ -387,5 +387,26 @@ const SHIPSTATION_API_SECRET_314 = '';
 const SHIPSTATION_API_ENDPOINT_315 = 'https://ssapi.shipstation.com/';
 const SHIPSTATION_API_KEY_315 = '';
 const SHIPSTATION_API_SECRET_315 = '';
+// Pasadena		CA
+const SHIPSTATION_API_ENDPOINT_316 = 'https://ssapi.shipstation.com/';
+const SHIPSTATION_API_KEY_316 = '';
+const SHIPSTATION_API_SECRET_316 = '';
+// Midlothian		VA
+const SHIPSTATION_API_ENDPOINT_317 = 'https://ssapi.shipstation.com/';
+const SHIPSTATION_API_KEY_317 = '';
+const SHIPSTATION_API_SECRET_317 = '';
+// Plainville		MA
+const SHIPSTATION_API_ENDPOINT_318 = 'https://ssapi.shipstation.com/';
+const SHIPSTATION_API_KEY_318 = '';
+const SHIPSTATION_API_SECRET_318 = '';
+// La Mesa		CA
+const SHIPSTATION_API_ENDPOINT_319 = 'https://ssapi.shipstation.com/';
+const SHIPSTATION_API_KEY_319 = '';
+const SHIPSTATION_API_SECRET_319 = '';
+// Belmont		CA
+const SHIPSTATION_API_ENDPOINT_320 = 'https://ssapi.shipstation.com/';
+const SHIPSTATION_API_KEY_320 = '';
+const SHIPSTATION_API_SECRET_320 = '';
+
 
 ?>
