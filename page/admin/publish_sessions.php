@@ -102,16 +102,6 @@ function populateCallbackPS($Date)
 
 			$time12Hour = date("g:i a", strtotime($dayItem['time']));
 
-			$type = CCalendar::sessionTypeNote(CSession::STANDARD);
-			if ($dayItem['isM4U'])
-			{
-				$type = CCalendar::sessionTypeNote(CSession::SPECIAL_EVENT);;
-			}
-			if ($dayItem['isDLVR'])
-			{
-				$type = CCalendar::sessionTypeNote(CSession::DELIVERY);;
-			}
-
 			$customizable = '';
 			if (!empty($dayItem['allowedCustomization']) && $dayItem['allowedCustomization'])
 			{
@@ -124,6 +114,8 @@ function populateCallbackPS($Date)
 					$customizable = '<i class="dd-icon icon-customize text-black" style="font-size: 65%;" data-tooltip="Session Closed for Customization"></i>';
 				}
 			}
+
+			$type = $dayItem['DAO_session']->sessionTypeIcon();
 
 			$retVal[$count++] = "<img name='" . $dayItem['time'] . "' id='" . $dayItem['id'] . "' src='" . ADMIN_IMAGES_PATH . $image . "' " . $editClick . ">$anchorStart $time12Hour $type $anchorEnd $customizable";
 		}
@@ -659,14 +651,14 @@ class page_admin_publish_sessions extends CPageAdminOnly
 			// Also publish any previously saved sessions
 			$timeSpanStartasSQLDate = date("Y-m-d H:i:s", $timeSpanStart);
 			$timeSpanEndasSQLDate = date("Y-m-d H:i:s", $timeSpanEnd + 86400);
-			$Sessions = DAO_CFactory::create('session');
-			$Sessions->whereAdd("session_publish_state = 'SAVED' and $currentMenu = menu_id and store_id = $currentStore and session_start >= '$timeSpanStartasSQLDate' and session_start <= '$timeSpanEndasSQLDate'");
-			$Sessions->find();
+			$DAO_session = DAO_CFactory::create('session');
+			$DAO_session->whereAdd("session_publish_state = 'SAVED' and $currentMenu = menu_id and store_id = $currentStore and session_start >= '$timeSpanStartasSQLDate' and session_start <= '$timeSpanEndasSQLDate'");
+			$DAO_session->find();
 
-			while ($Sessions->fetch())
+			while ($DAO_session->fetch())
 			{
-				$Sessions->session_publish_state = 'PUBLISHED';
-				$Sessions->update();
+				$DAO_session->session_publish_state = 'PUBLISHED';
+				$DAO_session->update();
 			}
 
 			unset($_POST['item_ids']);
@@ -683,8 +675,8 @@ class page_admin_publish_sessions extends CPageAdminOnly
 		//	$Sessions->whereAdd("$currentMenu = menu_id and store_id = $currentStore");
 		//	$Sessions->find();
 
-		$Sessions = DAO_CFactory::create('session');
-		$Sessions->query("SELECT s.*, dtet.fadmin_acronym FROM session s
+		$DAO_session = DAO_CFactory::create('session');
+		$DAO_session->query("SELECT s.*, dtet.fadmin_acronym FROM session s
 									LEFT JOIN session_properties sp on sp.session_id = s.id and sp.is_deleted = 0
 									LEFT JOIN dream_taste_event_properties dtep on dtep.id = sp.dream_taste_event_id and dtep.is_deleted = 0
 									LEFT JOIN dream_taste_event_theme dtet on dtet.id = dtep.dream_taste_event_theme# and fadmin_acronym not in 
@@ -694,30 +686,31 @@ class page_admin_publish_sessions extends CPageAdminOnly
 		//AND s.session_type <> 'SPECIAL_EVENT' AND (isnull(dtet.fadmin_acronym) OR dtet.fadmin_acronym not in ('MPWC', 'OHC', 'FC')
 
 		$count = 0;
-		while ($Sessions->fetch())
+		while ($DAO_session->fetch())
 		{
-			$asTime = strtotime($Sessions->session_start);
+			$asTime = strtotime($DAO_session->session_start);
 			$dateOnly = Date("n", $asTime) . "/" . Date("j", $asTime) . "/" . Date("Y", $asTime);
 			$timeOnly = Date("G", $asTime) . ":" . Date("i", $asTime);
-			$isOpen = $Sessions->isOpen($Store);
+			$isOpen = $DAO_session->isOpen($Store);
 
 			//TODO: need means of recognizing new type : Delivery
 
-			$isOpenForCustomization = $Sessions->isOpenForCustomization($Store);
-			$allowedCustomization = $Sessions->allowedCustomization($Store);
+			$isOpenForCustomization = $DAO_session->isOpenForCustomization($Store);
+			$allowedCustomization = $DAO_session->allowedCustomization($Store);
 
-			self::$sessionArray[$dateOnly][$Sessions->id] = array(
+			self::$sessionArray[$dateOnly][$DAO_session->id] = array(
+				'DAO_session' => clone $DAO_session,
 				'time' => $timeOnly,
-				'state' => $Sessions->session_publish_state,
-				'isM4U' => $Sessions->session_type == CSession::SPECIAL_EVENT && $Sessions->session_type_subtype != CSession::DELIVERY ? true : false,
-				'isDLVR' => $Sessions->session_type == CSession::SPECIAL_EVENT && $Sessions->session_type_subtype == CSession::DELIVERY ? true : false,
-				'isWalkIn' => $Sessions->session_type_subtype == CSession::WALK_IN ? true : false,
+				'state' => $DAO_session->session_publish_state,
+				'isM4U' => $DAO_session->session_type == CSession::SPECIAL_EVENT && $DAO_session->session_type_subtype != CSession::DELIVERY ? true : false,
+				'isDLVR' => $DAO_session->session_type == CSession::SPECIAL_EVENT && $DAO_session->session_type_subtype == CSession::DELIVERY ? true : false,
+				'isWalkIn' => $DAO_session->session_type_subtype == CSession::WALK_IN ? true : false,
 				'isOpenForCustomization' => $isOpenForCustomization,
 				'allowedCustomization' => $allowedCustomization,
-				'id' => $Sessions->id,
+				'id' => $DAO_session->id,
 				'isOpen' => $isOpen,
-				'can_overlap' => $this->can_overlap($Sessions),
-				'duration' => $Sessions->duration_minutes
+				'can_overlap' => $this->can_overlap($DAO_session),
+				'duration' => $DAO_session->duration_minutes
 			);
 		}
 
