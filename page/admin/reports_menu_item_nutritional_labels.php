@@ -189,6 +189,10 @@ class page_admin_reports_menu_item_nutritional_labels extends CPageAdminOnly
 		{
 			$curMenu = $menu_id;
 		}
+		else
+		{
+			$curMenu = CMenu::getCurrentMenuId();
+		}
 
 		$Form->DefaultValues['menus'] = $curMenu;
 
