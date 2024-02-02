@@ -1,4 +1,4 @@
-<p><b>Session Tips</b></p>
+<p><b>Tips</b></p>
 <table width="100%" border="0" cellspacing="0" cellpadding="5">
 <tr>
 	<td><ol>

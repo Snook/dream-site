@@ -19,10 +19,10 @@
 			<p>Your fully prepped dinners will be waiting when you arrive. Please bring a cooler or box to transport your dinners home. It is important that you arrive during your scheduled time. </p>
 			<p>Community Pick Up Location:<br>
 				<?php echo $this->sessionInfo['session_title']; ?><br>
-				<?php echo $this->sessionInfo['session_remote_location']->address_line1 . ((!empty($this->sessionInfo['session_remote_location']->address_line2)) ? ' ' . $this->sessionInfo['session_remote_location']->address_line2 : '') . ', ' . $this->sessionInfo['session_remote_location']->city . ', ' . $this->sessionInfo['session_remote_location']->state_id . ' ' .$this->sessionInfo['session_remote_location']->postal_code; ?>
+				<?php echo $this->sessionInfo['session_remote_location']->address_line1 . ((!empty($this->sessionInfo['session_remote_location']->address_line2)) ? ' ' . $this->sessionInfo['session_remote_location']->address_line2 : '') . ', ' . $this->sessionInfo['session_remote_location']->city . ', ' . $this->sessionInfo['session_remote_location']->state_id . ' ' .$this->sessionInfo['session_remote_location']->postal_code; ?></p>
 			<p>If you have questions about your order please contact the store.</p>
 			<p>See you soon!</p>
-			</p>
+			
 			<hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;">
 		</td>
 	</tr>

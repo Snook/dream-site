@@ -1,15 +1,15 @@
-    Dream Dinners
-    PLATEPOINTS Program
+Dream Dinners
+PLATEPOINTS Program
 
-	Dear <?php echo $this->firstname;?>,
-    PLATEPOINTS On Hold!
+Dear <?php echo $this->firstname;?>,
+ Your PLATEPOINTS loyalty account has been put on hold.
 
-  Sincerely,
-    Dream Dinners
+While your account is on hold, you will not earn PLATEPOINTS or new Dinner Dollars on future orders and activities. If you have Dinner Dollars currently available in your account, you will not be able to redeem them unless you reactivate PLATEPOINTS. Dinner Dollars are still subject to the original expiration date.
 
---------------------------------------------------------------------------
-Order: <?=HTTPS_BASE ?>session-menu
-My Account: <?=HTTPS_BASE ?>my-account
-My PLATEPOINTS: <?=HTTPS_BASE ?>my-platepoints
+If you feel this is an error or you wish to remove the hold, please contact your local store.
 
-*Dinner Dollars are awarded after your 3rd standard order and can be applied on qualifying items on your 4th visit and beyond. Dinner Dollars can only be redeemed at participating stores.
+We look forward to seeing you again.
+-Your Dream Dinners Team
+
+
+

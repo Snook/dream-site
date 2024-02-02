@@ -2,14 +2,12 @@ Dream Dinners
 PLATEPOINTS Program
 
 Dear <?php echo $this->firstname;?>,
-PLATEPOINTS Reactivated!
+Your PLATEPOINTS Loyalty has been reactivated.
 
-Sincerely,
-Dream Dinners
+You will start to earn PLATEPOINTS and Dinner Dollars again.
 
---------------------------------------------------------------------------
-Order: <?=HTTPS_BASE ?>session-menu
-My Account: <?=HTTPS_BASE ?>my-account
-My PLATEPOINTS: <?=HTTPS_BASE ?>my-platepoints
+If you have any questions please contact your local store.
 
-*Dinner Dollars are awarded after your 3rd standard order and can be applied on qualifying items on your 4th visit and beyond. Dinner Dollars can only be redeemed at participating stores.
+We look forward to seeing you again.
+-Your Dream Dinners Team
+

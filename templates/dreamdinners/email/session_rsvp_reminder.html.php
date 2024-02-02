@@ -19,7 +19,7 @@
 			<p><strong>Things to know:</strong></p>
 			<ul>
 				<li>All recipes and their ingredients will be waiting for you when you arrive.</li>
-				<li><strong>Please bring a small cooler or box to transport your dinner home.</strong></li>
+				<li>Please bring a small cooler or box to transport any meals you take home.</li>
 				<li>So that we can all start together, we encourage you to arrive on time.</li>
 			</ul>
 		<p>If you have any questions regarding this or any other Dream Dinners information please contact the store.</p>
@@ -48,7 +48,15 @@
           </li>
         </ul></td>
     </tr>
-
+<tr>
+  <td>
+	  <hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;"><br/>
+	  <p><b>Not feeling well?</b><br/>
+		If you are experiencing a fever or other illness symptoms within 24 hours of your pick up or assembly session, please call to reschedule your visit.</p>
+	 	
+	  	<p><a href="<?=HTTPS_BASE?>/locations/<?=$this->store_id?>">Contact your local store</a> | <a href="<?=HTTPS_BASE?>terms">View Terms and Conditions</a></p>
+	</td>
+</tr>
 </table>
 
 </body>

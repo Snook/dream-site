@@ -8,25 +8,27 @@
 <td align="center" style="padding: 5px"><img src="<?=EMAIL_IMAGES_PATH?>/email/style/dream_dinners_logotype_darkgrey_300x28.png" alt="Dream Dinners" width="300" height="28"></td>
 </tr>
 <tr bgcolor="#5c6670">
-  <td style="padding: 5px"><p align="center"><span style="color:#FFF; font-size:14pt; font-weight:bold;">Pick Up Order Reminder</span></p></td>
+  <td style="padding: 5px"><p align="center"><span style="color:#FFF; font-size:14pt; font-weight:bold;">Home Delivery Order Reminder</span></p></td>
 </tr>
 </table>
 <table width="100%"  border="0" cellspacing="0" cellpadding="8">
 <tr>
 <td>
 <p>Dear <?= $this->firstname ?>, <br /><br />
-  It's almost time to pick up your meals. We're looking forward to seeing you when it's convenient during your pick up window on <b><?=$this->dateTimeFormat($this->session_start, NORMAL);?> to <?= date("g:i A", strtotime($this->session_end))?></b>at our <b><?=$this->store_name?></b> location.</p>
+  It's almost time to pick up your meals. We're looking forward to seeing you at the community pick up location during your pick up window on <b><?=$this->dateTimeFormat($this->session_start, NORMAL);?> to <?= date("g:i A", strtotime($this->session_end))?></b>.</p>
 
-<?php
-if ($this->bookings_made == 0)
-{
-	include $this->loadTemplate('email/session_reminder/first_visit_pick_up.html.php');
-}
-else
-{
-	include $this->loadTemplate('email/session_reminder/session_tips.html.php');
-}
-?>
+<p>Community Pick Up Location:<br>
+<?php echo $this->sessionInfo['session_title']; ?><br>
+<?php echo $this->sessionInfo['session_remote_location']->address_line1 . ((!empty($this->sessionInfo['session_remote_location']->address_line2)) ? ' ' . $this->sessionInfo['session_remote_location']->address_line2 : '') . ', ' . $this->sessionInfo['session_remote_location']->city . ', ' . $this->sessionInfo['session_remote_location']->state_id . ' ' .$this->sessionInfo['session_remote_location']->postal_code; ?></p>
+
+	<p>If you have questions about your order please contact the store.</p>
+<p><b>What to Expect:</b></p>
+<ol>
+<li>We will have your dinners ready when you arrive. Bring your cooler to take them home.</li>
+<li>Add a few of our delicious sides, breakfast and sweets to your order by <a href="<?=HTTPS_BASE?>freezer">completing your request today.</a></li>
+<li><a href="<?=HTTPS_BASE?>session-menu">Place your next order to reserve your preferred community pick up spot.</a></li>
+</ol>
+		
 <p>We look forward to seeing you soon.</p>
 <p>Enjoy!<br/>
  Dream Dinners</p>

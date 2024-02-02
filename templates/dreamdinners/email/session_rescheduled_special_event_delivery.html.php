@@ -16,7 +16,7 @@
 <tr>
 <td><p>Dear <?= $this->customer_name ?>, </p>
       <p>Your order scheduled for delivery on <b><?=$this->dateTimeFormat($this->origSessionInfo['session_start'], NORMAL);?></b> has been rescheduled.</p>
-      <p>The new 2 hour delivery window starts at <b><?=$this->dateTimeFormat($this->sessionInfo['session_start'], NORMAL);?></b>.</p>
+      <p>The new delivery window starts at <b><?=$this->dateTimeFormat($this->sessionInfo['session_start'], NORMAL);?></b>.</p>
       <p>If you have any questions or concerns regarding this order please contact us. The details of your order are listed below.</p>
       <p>Thank you</p>
 <hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;">

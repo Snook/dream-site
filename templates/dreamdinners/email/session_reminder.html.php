@@ -4,50 +4,44 @@
 </head>
 <body>
 <table width="100%"  border="0" cellspacing="0" cellpadding="0">
-<tr bgcolor="#afbd21">
-<td width="60%" align="left" style="padding: 5px"><img src="<?=EMAIL_IMAGES_PATH?>/email/style/dream_dinnners.gif" alt="Dream Dinners" width="325" height="75"></td>
-<td width="40%" align="right" style="padding: 5px"><a href="<?=HTTPS_SERVER?>/my-events?sid=<?=$this->session_id?>"><span style="color: #FFF;">Invite Friends</span></a><span style="color: #FFF;"> | </span><a href="<?=HTTPS_BASE ?>my-meals"><span style="color: #FFF;">Rate My Meals</span></a></td>
+<tr bgcolor="#fff">
+<td align="center" style="padding: 5px"><img src="<?=EMAIL_IMAGES_PATH?>/email/style/dream_dinners_logotype_darkgrey_300x28.png" alt="Dream Dinners" width="300" height="28"></td>
 </tr>
-<tr bgcolor="#663300">
-  <td colspan="2" style="padding: 5px"><p align="center"><span style="color:#FFF; font-size:14pt; font-weight:bold;">Session Reminder</span></p></td>
+<tr bgcolor="#5c6670">
+  <td style="padding: 5px"><p align="center"><span style="color:#FFF; font-size:14pt; font-weight:bold;">Assembly Order Reminder</span></p></td>
 </tr>
 </table>
 <table width="100%"  border="0" cellspacing="0" cellpadding="8">
 <tr>
 <td>
 <p>Dear <?= $this->firstname ?>, <br /><br />
-  Thank you for placing your order with Dream Dinners.  You're on your way to enjoying delicious homemade meals and simplifying your life.  We're looking forward to seeing you at your next session  <b>
-  <?=$this->dateTimeFormat($this->session_start, NORMAL);?>
-  </b> at our <b>
-  <?=$this->store_name?>
-  </b> location.</p>
-
+  It's almost time to assemble your meals. We're looking forward to seeing you <b><?=$this->dateTimeFormat($this->session_start, NORMAL);?></b> at our <b><?=$this->store_name?></b> location.</p>
 <?php
 if ($this->bookings_made == 0)
 {
 	include $this->loadTemplate('email/session_reminder/first_visit.html.php');
 }
-else if ($this->bookings_made == 1)
-{
-	include $this->loadTemplate('email/session_reminder/second_visit.html.php');
-}
 else
 {
-	include $this->loadTemplate('email/session_reminder/standard_visit.html.php');
+	include $this->loadTemplate('email/session_reminder/session_tips.html.php');
 }
 ?>
-
+<p>We look forward to seeing you soon.</p>
+<p>Enjoy!<br/>
+ Dream Dinners</p>
 </td>
 </tr>
-<!--<tr>
-  <td><hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;">
-        <p style="font-size:16px;"><strong>Special Mother's Day Offer</strong></p>
-        <p style="font-size:16px;">Mother's day is just around the corner, send your mom 3 easy homemade meals. Save 10% off a ShareCrate, use promo code: <strong>LovingMom17</strong> at checkout. Visit <a href="https://lovingwithfood.com/">LovingWithFood.com</a> to order.</p>
-        <hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;"></td>
-</tr>-->
 <tr>
-  <td><a href="http://blog.dreamdinners.com">Dream Dinners Blog</a> | <a href="<?=HTTPS_BASE?>/locations/<?=$this->store_id?>">Contact your local store</a> |
-<a href="<?=HTTPS_BASE?>terms">View Terms and Conditions</a></td>
+  <td>
+	  <hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;"><br/>
+	  <p><b>Not feeling well?</b><br/>
+		If you are experiencing a fever or other illness symptoms within 24 hours of your pick up or assembly session, please call to reschedule your visit.</p>
+
+		<p><b>Reschedule and Cancelation Policy</b><br/>
+		If you need to reschedule or cancel your order, contact us six days prior to your order date. Cancelations with six or more days’ notice will receive a full refund. Cancelations within five or fewer days’ notice will be subject to a 25% restocking fee.</p>
+	 	
+	  	<p><a href="http://blog.dreamdinners.com">Dream Dinners Blog</a> | <a href="<?=HTTPS_BASE?>/locations/<?=$this->store_id?>">Contact your local store</a> | <a href="<?=HTTPS_BASE?>terms">View Terms and Conditions</a></p>
+	</td>
 </tr>
 </table>
 </body>
