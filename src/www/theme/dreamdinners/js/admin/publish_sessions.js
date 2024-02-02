@@ -281,12 +281,12 @@ function onClearFillWindow()
 
 function onEditClick(id)
 {
-	window.location = "./backoffice/edit-session?session=" + id + "&back=/backoffice/publish_sessions";
+	bounce("/backoffice/edit-session?session=" + id + "&back=/backoffice/publish_sessions");
 }
 
 function onSessionClick(id)
 {
-	window.location = "./backoffice?session=" + id;
+	bounce("/backoffice?session=" + id);
 }
 
 function saveItems()
