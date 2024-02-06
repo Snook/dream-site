@@ -115,7 +115,22 @@ function populateCallbackPS($Date)
 				}
 			}
 
-			$type = $dayItem['DAO_session']->sessionTypeIcon();
+			if (!empty($dayItem['DAO_session']))
+			{
+				$type = $dayItem['DAO_session']->sessionTypeIcon();
+			}
+			else
+			{
+				$type = CCalendar::sessionTypeNote(CSession::STANDARD);
+				if ($dayItem['isM4U'])
+				{
+					$type = CCalendar::sessionTypeNote(CSession::SPECIAL_EVENT);;
+				}
+				if ($dayItem['isDLVR'])
+				{
+					$type = CCalendar::sessionTypeNote(CSession::DELIVERY);;
+				}
+			}
 
 			$retVal[$count++] = "<img name='" . $dayItem['time'] . "' id='" . $dayItem['id'] . "' src='" . ADMIN_IMAGES_PATH . $image . "' " . $editClick . ">$anchorStart $time12Hour $type $anchorEnd $customizable";
 		}
