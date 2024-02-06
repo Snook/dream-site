@@ -130,23 +130,23 @@ class CSession extends DAO_Session
 	}
 
 	/**
-	 * @param      $dateStr String 'yyyy-mm-dd'
+	 * @param      $dateStr                String 'yyyy-mm-dd'
 	 * @param      $menu_id
 	 * @param bool $allDistributionCenters Optional -> default is true, will create for all DCs
-	 * @param int $specificDistCenterId Optional -> default is null and ignored, will be used if $allDistributionCenters == true and a valid positive int
-	 *                                  is passed
+	 * @param int  $specificDistCenterId   Optional -> default is null and ignored, will be used if $allDistributionCenters == true and a valid positive int
+	 *                                     is passed
 	 *
 	 * @throws Exception
 	 */
 	static function generateDeliveredBlackoutSession($dateStr, $menu_id, $allDistributionCenters = true, $specificDistCenterId = null)
 	{
 
-		$date = DateTime::createFromFormat('Y-m-d',$dateStr);
+		$date = DateTime::createFromFormat('Y-m-d', $dateStr);
 
 		$DAO_store = DAO_CFactory::create('store', true);
 		$DAO_store->active = 1;
 		$DAO_store->store_type = CStore::DISTRIBUTION_CENTER;
-		if(!$allDistributionCenters && is_numeric($specificDistCenterId))
+		if (!$allDistributionCenters && is_numeric($specificDistCenterId))
 		{
 			$DAO_store->id = $specificDistCenterId;
 		}
@@ -426,6 +426,10 @@ class CSession extends DAO_Session
 		{
 			$this->session_type_true = CSession::PRIVATE_SESSION;
 		}
+		else if ($this->isMadeForYou() && $this->isDelivery() && $this->isPrivate())
+		{
+			$this->session_type_true = CSession::DELIVERY_PRIVATE;
+		}
 		else if ($this->isMadeForYou() && $this->isDelivery())
 		{
 			$this->session_type_true = CSession::DELIVERY;
@@ -450,12 +454,12 @@ class CSession extends DAO_Session
 		{
 			case CSession::DELIVERY:
 				return $this->session_type_desc = "Delivery";
+			case CSession::DELIVERY_PRIVATE:
+				return $this->session_type_desc = "Delivery - Private";
 			case CSession::REMOTE_PICKUP:
 				return $this->session_type_desc = "Community Pick Up";
 			case CSession::PRIVATE_SESSION:
-				return $this->session_type_desc = "Standard - Private";
-			case CSession::STANDARD:
-				return $this->session_type_desc = "Standard";
+				return $this->session_type_desc = "Assembly - Private Party";
 			case CSession::SPECIAL_EVENT:
 				return $this->session_type_desc = "Pick Up";
 			case CSession::TODD:
@@ -466,8 +470,9 @@ class CSession extends DAO_Session
 				return $this->session_type_desc = "Walk-In";
 			case CSession::FUNDRAISER:
 				return $this->session_type_desc = "Fundraiser Event";
+			case CSession::STANDARD:
 			default:
-				return $this->session_type_desc = "Standard";
+				return $this->session_type_desc = "Assembly";
 		}
 	}
 
@@ -2362,7 +2367,7 @@ class CSession extends DAO_Session
 			join `session` as session_2 on session_2.session_start = DATE_SUB(`session`.session_start, INTERVAL " . $orgServiceDays . " DAY) and session_2.store_id = `session`.store_id and session_2.is_deleted = 0 and session_2.delivered_supports_shipping > 0
 			LEFT JOIN booking ON booking.session_id = `session`.id  AND booking.status = 'ACTIVE' and booking.is_deleted = 0
 			group by `session`.id
-			order by `session`.session_start limit " .$max_returned);
+			order by `session`.session_start limit " . $max_returned);
 	}
 
 	static function isSessionValidForDeliveredOrder($session_id, $StoreObj, $menu_id, $serviceDays = false, $zip = false)
@@ -2507,7 +2512,7 @@ class CSession extends DAO_Session
 			$sessionInfoArray['sessions'][$date]['sessions'][$Sessions->id] = $Sessions->id;
 			$sessionsIDArray[$Sessions->id] = $Sessions->id;
 
-			if($customer_view && ++$count == $max_returned)
+			if ($customer_view && ++$count == $max_returned)
 			{
 				break;
 			}

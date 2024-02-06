@@ -13,7 +13,7 @@
 									<?php if ($store["type"] == 'COMMUNITY_PICK_UP') { ?>
 										<h3 class="text-uppercase font-weight-bold text-center d-sm-none">Community Pick Up location</h3>
 									<?php } else { ?>
-										<h3 class="text-uppercase font-weight-bold text-center d-sm-none"><?php echo $store["DAO_store"]->store_name; ?></h3>
+										<h3 class="text-uppercase font-weight-bold text-center d-sm-none"><?php echo $store["DAO_store"]->store_name; ?> Store</h3>
 									<?php } ?>
 									<div>
 										<?php if ($store["DAO_store"]->hasPublicAddress()) { ?>
@@ -47,7 +47,7 @@
 										<h3 class="text-uppercase font-weight-bold d-none d-sm-block">Community Pick Up location</h3>
 										<div class="text-uppercase d-none d-sm-block mb-4"><?php echo $store["DAO_store_pickup_location"]->location_title; ?></div>
 									<?php } else { ?>
-										<h3 class="text-uppercase font-weight-bold d-none d-sm-block mb-4"><?php echo $store["DAO_store"]->store_name; ?></h3>
+										<h3 class="text-uppercase font-weight-bold d-none d-sm-block mb-4"><?php echo $store["DAO_store"]->store_name; ?> Store</h3>
 									<?php } ?>
 									<div class="row mb-2">
 										<div class="col">
