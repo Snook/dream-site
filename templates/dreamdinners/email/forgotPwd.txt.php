@@ -3,10 +3,10 @@ New Password
 
 To reset your Dream Dinners password please click the link below.
 
-<?= $this->password_link ?>
+<?php echo $this->password_link ?>
 
 You can also reset your password by copying and pasting the following link into a browser.
-<?= $this->password_link ?>
+<?php echo $this->password_link ?>
 
 Note that this link will expire 1 hour after it is sent.
 

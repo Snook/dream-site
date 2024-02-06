@@ -1,10 +1,10 @@
 Dream Dinners
 Payment Declined or Transaction Error
 
-To <?= $this->sessionInfo['store_name'] ?> Staff,
-The payment for the order for <?= $this->customer_name ?> which is scheduled for <?=$this->dateTimeFormat($this->sessionInfo['session_start'], NORMAL);?> at our <?=$this->sessionInfo['store_name']?>
+To <?php echo $this->sessionInfo['store_name'] ?> Staff,
+The payment for the order for <?php echo $this->customer_name ?> which is scheduled for <?php echo $this->dateTimeFormat($this->sessionInfo['session_start'], NORMAL);?> at our <?php echo $this->sessionInfo['store_name']?>
  has been declined or an error occurred during the transaction.
-The reason that the transaction failed or was declined : <?=$this->declinedPaymentReason?>.
+The reason that the transaction failed or was declined : <?php echo $this->declinedPaymentReason?>.
 
 ---------------------------------------------------
 

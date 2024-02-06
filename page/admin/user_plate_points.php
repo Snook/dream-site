@@ -547,8 +547,7 @@ class page_admin_user_plate_points extends CPageAdminOnly
 				CPointsUserHistory::handleEvent($userObj, CPointsUserHistory::SUSPEND_MEMBERSHIP);
 				$result = CPointsUserHistory::getLastOperationResultAsHTML();
 
-				// from salesforce
-				//CEmail::platePointsOnHoldSuspend($userObj);
+				CEmail::platePointsOnHoldSuspend($userObj);
 
 				$tpl->setStatusMsg($result . '<br />' . $confirmResult);
 			}
@@ -570,8 +569,7 @@ class page_admin_user_plate_points extends CPageAdminOnly
 				CPointsUserHistory::handleEvent($userObj, CPointsUserHistory::REACTIVATE_MEMBERSHIP);
 				$result = CPointsUserHistory::getLastOperationResultAsHTML();
 
-				// from salesforce
-				//CEmail::platePointsOnHoldReactivate($userObj);
+				CEmail::platePointsOnHoldReactivate($userObj);
 
 				$tpl->setStatusMsg($result);
 			}

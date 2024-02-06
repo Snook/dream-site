@@ -1,7 +1,7 @@
 Dream Dinners
 Order Modification
 
-On <?php echo CTemplate::dateTimeFormat($this->orderInfo['timestamp_updated'], VERBOSE)?> we made the requested changes to your original order which may include:  different menu items, items added from the Sides &amp; Sweets Freezer, quantity adjustments, or payment changes. Please view these revisions below to confirm they're as you intended.
+On <?php echo CTemplate::dateTimeFormat($this->orderInfo['timestamp_updated'], VERBOSE)?> we made the requested changes to your original order which may include: different menu items, items added from the Sides &amp; Sweets Freezer, quantity adjustments, or payment changes. Please view these revisions below to confirm they're as you intended.
 
 Thank you for your order and sharing our dream of savoring life's moments one dinner at a time.
 

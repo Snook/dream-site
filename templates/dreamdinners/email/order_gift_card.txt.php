@@ -25,32 +25,32 @@ Traditional card (shipped to address)
 <?php } else { ?>
 eGift card (sent via email)
 <?php } ?>
-Card Design: <?=$thisCard['design_title']?>
-Amount: $<?=$thisCard['card_amount']?>
-To: <?=$thisCard['to_name']?>
-From:<?=$thisCard['from_name']?>
-Message: <?=$thisCard['message_text']?>
+Card Design: <?php echo $thisCard['design_title']?>
+Amount: $<?php echo $thisCard['card_amount']?>
+To: <?php echo $thisCard['to_name']?>
+From:<?php echo $thisCard['from_name']?>
+Message: <?php echo $thisCard['message_text']?>
 <?php if ($thisCard['media_type'] == 'VIRTUAL') { ?>
-Recipient Email Address: <?=$thisCard['recipient_email']?>
-Resend eGift Card Email: <?=HTTPS_BASE?>/resend_egift?oid=<?=$thisCard['confirm_id']?>
+Recipient Email Address: <?php echo $thisCard['recipient_email']?>
+Resend eGift Card Email: <?php echo HTTPS_BASE?>/resend_egift?oid=<?php echo $thisCard['confirm_id']?>
 <?php } else { ?>
-Recipient Name: <?=$thisCard['ship_to_name']?>
+Recipient Name: <?php echo $thisCard['ship_to_name']?>
 Recipient Address:
-<?=$thisCard['shipping_address_1']?>
+<?php echo $thisCard['shipping_address_1']?>
 <?php if (!empty($thisCard['shipping_address_2'])) { ?>
-<?=$thisCard['shipping_address_2']?>
+<?php echo $thisCard['shipping_address_2']?>
 <?php } ?>
-<?=$thisCard['shipping_city']?>, <?=$thisCard['shipping_state']?> <?=$thisCard['shipping_zip']?>
+<?php echo $thisCard['shipping_city']?>, <?php echo $thisCard['shipping_state']?> <?php echo $thisCard['shipping_zip']?>
 <?php } } ?>
 
 Payment Details
-Card Type: <?= $this->payment_card_type?>
-Last 4 digits: <?= $this->credit_card_number?>
-Amount: $<?= $this->charged_amount?>
-Date of Purchase: <?= $this->date_of_purchase?>
-Billing Name: <?= $this->billing_name?>
-Billing Address: <?= $this->billing_address?> <?= $this->billing_zip?>
-Billing Email: <?=$this->billing_email?>
+Card Type: <?php echo $this->payment_card_type?>
+Last 4 digits: <?php echo $this->credit_card_number?>
+Amount: $<?php echo $this->charged_amount?>
+Date of Purchase: <?php echo $this->date_of_purchase?>
+Billing Name: <?php echo $this->billing_name?>
+Billing Address: <?php echo $this->billing_address?> <?php echo $this->billing_zip?>
+Billing Email: <?php echo $this->billing_email?>
 
 *Gift Card orders that require shipping will take 2-6 business days for processing & shipping.
 
@@ -58,4 +58,4 @@ Note: $2 shipping/service fee added each Traditional Gift Card ordered.
 
 Have questions? To view the complete Gift Card Policies & Terms online or
 if you have questions regarding your Gift Card or Customer Service options
-please visit <?= HTTPS_SERVER ?>/giftcards
+please visit <?php echo HTTPS_SERVER ?>/giftcards

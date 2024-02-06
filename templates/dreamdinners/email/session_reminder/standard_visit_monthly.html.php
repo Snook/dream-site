@@ -1,7 +1,7 @@
 <?php if (date('M', strtotime($this->menu_name)) == 'Jan') { ?>
 <p>
 	<b>Make a 2018 family resolution to reconnect for dinner. </b><br />
-  Life moves too quickly to miss out on opportunities to learn about what's happening in each other's days.</p>
+ Life moves too quickly to miss out on opportunities to learn about what's happening in each other's days.</p>
 <?php } else if (date('M', strtotime($this->menu_name)) == 'Feb') { ?>
 <p>
 	<b>Craving a date night with your spouse?</b><br />
@@ -20,7 +20,7 @@ Ditch dinner reservations and bring the date night home. Settle into a romantic 
 <?php } else if (date('M', strtotime($this->menu_name)) == 'May') { ?>
 <p>
 	<b>Rate your Meals</b><br />
-Earn PLATEPOINTS while keeping track of your family's favorite meals. Since our menu changes monthly you'll have an easy way to help keep track of your dinners. <a href="<?=HTTPS_BASE ?>my-meals">Click here to rate your meals</a></p>
+Earn PLATEPOINTS while keeping track of your family's favorite meals. Since our menu changes monthly you'll have an easy way to help keep track of your dinners. <a href="<?php echo HTTPS_BASE ?>my-meals">Click here to rate your meals</a></p>
 <?php } else if (date('M', strtotime($this->menu_name)) == 'Jun') { ?>
 <p>
 	<b>On-The-Go-Bingo Summer Giveaway</b><br />
@@ -46,7 +46,7 @@ Earn PLATEPOINTS while keeping track of your family's favorite meals. Since our 
 	<b>Show Your Friends What They're Missing</b><br />
 	With Dream Dinners, are you saving time, prepping less and spending more quality moments with your family? Don't let your friends miss out on bringing home easy, homemade dinners. Invite them to join you at your next session. You will earn PLATEPOINTS too... just for bringing them along.
 </p>
-<p><a href="<?=HTTPS_SERVER?>/my-events?sid=<?=$this->session_id?>">Send them an invite today.</a></p>
+<p><a href="<?php echo HTTPS_SERVER?>/my-events?sid=<?php echo $this->session_id?>">Send them an invite today.</a></p>
 <?php } else if (date('M', strtotime($this->menu_name)) == 'Oct') { ?>
 <p>
 	<b>Earn More PLATEPOINTS</b><br />
@@ -62,7 +62,7 @@ Earn PLATEPOINTS while keeping track of your family's favorite meals. Since our 
 <?php } else if (date('M', strtotime($this->menu_name)) == 'Nov') { ?>
 <p>
 	<b>Want a little more coaching in the kitchen?</b><br />
-	Don't know how to cook shrimp to perfection or ever wondered how to broil? Let our Co-founder, Stephanie Allen, show you how with her cooking demonstrations. Look for this symbol <img src="<?=EMAIL_IMAGES_PATH?>/email/video-icon.png" width="22" height="19"> to find a menu item with a video. Click on the menu item title and watch the video demonstration on our website. The step by step demonstration will have you cooking like a pro in no time!
+	Don't know how to cook shrimp to perfection or ever wondered how to broil? Let our Co-founder, Stephanie Allen, show you how with her cooking demonstrations. Look for this symbol <img src="<?php echo EMAIL_IMAGES_PATH?>/email/video-icon.png" width="22" height="19"> to find a menu item with a video. Click on the menu item title and watch the video demonstration on our website. The step by step demonstration will have you cooking like a pro in no time!
 </p>
 <?php } else if (date('M', strtotime($this->menu_name)) == 'Dec') { ?>
 <p>

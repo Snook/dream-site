@@ -8,6 +8,7 @@ class page_admin_order_history extends CPageAdminOnly
 {
 
 	public static $PAGE_SIZE = 10;
+
 	function runSiteAdmin()
 	{
 		return $this->runFranchiseOwner();
@@ -104,11 +105,10 @@ class page_admin_order_history extends CPageAdminOnly
 		$tpl->assign('user', $User->toArray());
 		$tpl->assign('user_id', $User->id);
 
-
-		$Orders = self::fetchOrderHistory($User->id,self::$PAGE_SIZE);
+		$Orders = self::fetchOrderHistory($User->id, self::$PAGE_SIZE);
 
 		//paging control
-		$totalFetchedOrder = count($Orders) ;
+		$totalFetchedOrder = count($Orders);
 		$shouldPage = $totalFetchedOrder > (self::$PAGE_SIZE - 3);
 		$tpl->assign('orders', $Orders);
 		$tpl->assign('pagination', $shouldPage);
@@ -118,53 +118,24 @@ class page_admin_order_history extends CPageAdminOnly
 
 		$tpl->assign('active_menus', CMenu::getActiveMenuArray());
 
-
 		if (isset($_REQUEST['send_test_reminder_email']) && $_REQUEST['send_test_reminder_email'] = true)
 		{
+			if (isset($_REQUEST['order_id']) && is_numeric($_REQUEST['order_id']))
+			{
+				$DAO_booking = DAO_CFactory::create('booking', true);
+				$DAO_booking->order_id = $_REQUEST['order_id'];
+				$DAO_booking->status = CBooking::ACTIVE;;
 
-		    if (isset($_REQUEST['order_id']) && is_numeric($_REQUEST['order_id']))
-		    {
-		        $order_id = $_REQUEST['order_id'];
-
-    		   $Booking =  DAO_CFactory::create('booking');
-
-    		    $Booking->query("SELECT
-    			s.id AS session_id,
-    			s.session_start,
-    			s.session_type,
-    			s.duration_minutes,
-    			s.menu_id,
-    			m.menu_name,
-    			u.firstname,
-    			u.lastname,
-    			u.primary_email,
-    			st.store_name,
-    			st.id AS store_id,
-    			st.email_address AS store_email,
-    			b.user_id,
-    			b.order_id AS order_id,
-    			b.booking_type,
-    			o.menu_program_id,
-    			o.bundle_id
-    			FROM booking AS b
-    			LEFT JOIN `session` AS s ON s.id = b.session_id AND s.is_deleted = '0'
-    			LEFT JOIN `user` AS u ON u.id = b.user_id AND u.is_deleted = '0'
-    			LEFT JOIN orders AS o ON b.order_id = o.id AND o.is_deleted = '0'
-    			LEFT JOIN store AS st ON st.id = s.store_id AND st.is_deleted = '0'
-    			LEFT JOIN menu AS m ON m.id = s.menu_id AND m.is_deleted = '0'
-    			WHERE b.order_id = $order_id AND b.`status` = 'ACTIVE' AND b.is_deleted = '0'");
-    		    }
-
-    		    if ($Booking->fetch())
-    		    {
-    		        $Booking->send_reminder_email();
-    		    }
-
+				if ($DAO_booking->find_DAO_booking(true))
+				{
+					$DAO_booking->send_reminder_email();
+				}
+			}
 		}
-
 	}
 
-	public static function fetchOrderHistory($user_id, $limit = 15){
+	public static function fetchOrderHistory($user_id, $limit = 15)
+	{
 		$Order = DAO_CFactory::create('orders');
 		$query = "SELECT
 				booking.id AS booking_id,
@@ -198,8 +169,8 @@ class page_admin_order_history extends CPageAdminOnly
 				WHERE orders.user_id = '" . $user_id . "'
 				AND orders.is_deleted = 0
 				AND booking.status != 'RESCHEDULED'
-				ORDER BY session.session_start DESC limit ".$limit;
-		$Order->query($query );
+				ORDER BY session.session_start DESC limit " . $limit;
+		$Order->query($query);
 
 		$Orders = array();
 		$totalFetched = 0;
@@ -236,9 +207,7 @@ class page_admin_order_history extends CPageAdminOnly
 				$MenuObj->id = $Order->idmenu;
 				$MenuObj->find(true);
 				$canEdit = $MenuObj->areSessionsOrdersEditable(false, $Order->timezone_id);
-
 			}
-
 
 			if ($Order->status != CBooking::RESCHEDULED)
 			{
@@ -257,7 +226,6 @@ class page_admin_order_history extends CPageAdminOnly
 					{
 						$statusText = "NO SHOW";
 					}
-
 				}
 				else if (strtotime($Order->session_start) < $now && $Order->status == CBooking::ACTIVE)
 				{
@@ -314,15 +282,13 @@ class page_admin_order_history extends CPageAdminOnly
 
 				if (!empty($Orders[$Order->booking_id]['session_type_subtype']) && $Orders[$Order->booking_id]['session_type_subtype'] == CSession::DELIVERY)
 				{
-					$Orders[$Order->booking_id]['type_of_order'] .=  " (DELIVERY)";
+					$Orders[$Order->booking_id]['type_of_order'] .= " (DELIVERY)";
 				}
-
 			}
 		}
 
 		return $Orders;
 	}
-
 
 }
 

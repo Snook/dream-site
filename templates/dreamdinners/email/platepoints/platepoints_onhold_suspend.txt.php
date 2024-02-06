@@ -1,15 +1,15 @@
-    Dream Dinners
-    PLATEPOINTS Program
+  Dream Dinners
+  PLATEPOINTS Program
 
 	Dear <?php echo $this->firstname;?>,
-    PLATEPOINTS On Hold!
+  PLATEPOINTS On Hold!
 
-  Sincerely,
-    Dream Dinners
+ Sincerely,
+  Dream Dinners
 
 --------------------------------------------------------------------------
-Order: <?=HTTPS_BASE ?>session-menu
-My Account: <?=HTTPS_BASE ?>my-account
-My PLATEPOINTS: <?=HTTPS_BASE ?>my-platepoints
+Order: <?php echo HTTPS_BASE ?>session-menu
+My Account: <?php echo HTTPS_BASE ?>my-account
+My PLATEPOINTS: <?php echo HTTPS_BASE ?>my-platepoints
 
 *Dinner Dollars are awarded after your 3rd standard order and can be applied on qualifying items on your 4th visit and beyond. Dinner Dollars can only be redeemed at participating stores.

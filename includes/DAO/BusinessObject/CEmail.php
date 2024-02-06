@@ -220,7 +220,7 @@ class CEmail extends CMail
 
 	static function alertStoreShippingOrder($orderInfo)
 	{
-		if (!empty($orderInfo['sessionInfo']['session_type']) && ($orderInfo['sessionInfo']['session_type'] == CSession::DELIVERED ))
+		if (!empty($orderInfo['sessionInfo']['session_type']) && ($orderInfo['sessionInfo']['session_type'] == CSession::DELIVERED))
 		{
 			$Mail = new CMail();
 
@@ -228,7 +228,7 @@ class CEmail extends CMail
 			$Mail->from_email = $orderInfo['customer_primary_email'];
 			$Mail->to_name = $orderInfo['storeInfo']['store_name'];
 			$Mail->to_email = $orderInfo['storeInfo']['email_address'];
-			$Mail->subject = 'New Shipping Order - ' .$orderInfo['orderInfo']['orderAddress']['firstname'] . ' ' . $orderInfo['orderInfo']['orderAddress']['lastname'];
+			$Mail->subject = 'New Shipping Order - ' . $orderInfo['orderInfo']['orderAddress']['firstname'] . ' ' . $orderInfo['orderInfo']['orderAddress']['lastname'];
 			$Mail->body_html = CMail::mailMerge('order_shipping_alert.html.php', $orderInfo);
 			$Mail->body_text = CMail::mailMerge('order_shipping_alert.txt.php', $orderInfo);
 			$Mail->template_name = 'order_shipping_alert';
@@ -238,7 +238,7 @@ class CEmail extends CMail
 	}
 
 	//TEMP FUNCTION TO ALERT THAT SHIFT_SET_GO Bundle was ordered
-	static function  alertStoreShiftSetGoOrdered($userObj, $orderObj)
+	static function alertStoreShiftSetGoOrdered($userObj, $orderObj)
 	{
 		if (defined('DD_SERVER_NAME') && DD_SERVER_NAME == 'LIVE')
 		{
@@ -246,12 +246,12 @@ class CEmail extends CMail
 			$allowedStores = array(244);
 			$Mail = new CMail();
 
-			if(in_array($orderObj->store_id,$allowedStores))
+			if (in_array($orderObj->store_id, $allowedStores))
 			{
 
-				if ( $orderObj->hasItemByRecipeId(CBundle::shiftSetGoBundleRecipeIds(true)) ){
+				if ($orderObj->hasItemByRecipeId(CBundle::shiftSetGoBundleRecipeIds(true)))
+				{
 					$storeObj = $orderObj->getStore();
-
 
 					$sessionObj = $orderObj->getSession();
 					$sessionDetails = CSession::getSessionDetail($sessionObj->id, false);
@@ -260,16 +260,19 @@ class CEmail extends CMail
 						'guestObj' => $userObj,
 						'orderObj' => $orderObj,
 						'order_id' => $orderObj->id,
-						'session_time' => CTemplate::dateTimeFormat($sessionObj->session_start,VERBOSE,$storeObj),
+						'session_time' => CTemplate::dateTimeFormat($sessionObj->session_start, VERBOSE, $storeObj),
 						'sessionObj' => $sessionObj,
 						'sessionDetails' => $sessionDetails
 					);
 
 					$Mail->to_name = $storeObj->store_name;
 
-					if(MAIL_TEST_MODE){
+					if (MAIL_TEST_MODE)
+					{
 						$Mail->to_email = 'ryan.snook@dreamdinners.com';
-					}else{
+					}
+					else
+					{
 						$Mail->to_email = $storeObj->email_address;
 					}
 
@@ -295,7 +298,7 @@ class CEmail extends CMail
 			self::alertStoreCouponUsed($orderInfo);
 			self::alertOrderCustomizations($orderInfo);
 		}
-		else if (defined('STORE_NOTIFICATION_ALERT_TEST_EMAIL') )
+		else if (defined('STORE_NOTIFICATION_ALERT_TEST_EMAIL'))
 		{
 			$orderInfo['storeInfo']['email_address'] = STORE_NOTIFICATION_ALERT_TEST_EMAIL;
 			self::alertStoreSpecialInstructions($orderInfo);
@@ -305,7 +308,6 @@ class CEmail extends CMail
 			self::alertOrderCustomizations($orderInfo);
 		}
 	}
-
 
 	static public function alertOrderCustomizations($orderInfo)
 	{
@@ -325,7 +327,6 @@ class CEmail extends CMail
 
 			$Mail->sendEmail();
 		}
-
 	}
 
 	static public function alertStoreCouponUsed($orderInfo)
@@ -375,7 +376,6 @@ class CEmail extends CMail
 				$Mail->sendEmail();
 			}
 		}
-
 	}
 
 	static public function sendBundleConfirmationEmail($user, $order, $includeGiftCardMessage = false, $delayedTransaction = false)
@@ -451,7 +451,6 @@ class CEmail extends CMail
 
 		self::alertStoreInstructions($orderInfo);
 	}
-
 
 	static function platePointsOnHoldSuspend($userObj)
 	{
@@ -599,31 +598,28 @@ class CEmail extends CMail
 	//CCPA - full delete
 	static function accountRequestDelete($userObj)
 	{
-//		try{
-//			$userObj->getMembershipStatus();
-//		}catch (Exception $e){
-//
-//		}
-
+		//		try{
+		//			$userObj->getMembershipStatus();
+		//		}catch (Exception $e){
+		//
+		//		}
 
 		$storeObj = DAO_CFactory::create('store');
 		$storeObj->id = $userObj->home_store_id;
 		$storeObj->find(true);
 
-
 		$sql = "select distinct store.store_name, active from store, orders where
 				store.id = orders.store_id
-				and orders.user_id = ".$userObj->id;
-
-
+				and orders.user_id = " . $userObj->id;
 
 		$storeWithOrders = DAO_CFactory::create("store");
 		$storeWithOrders->query($sql);
 
 		$osn = '';
-		while ($storeWithOrders->fetch()){
-			$isActive = $storeWithOrders->active == "1" ? 'true':'false';
-			$osn .= $storeWithOrders->store_name . " (is active = " . $isActive. "),";
+		while ($storeWithOrders->fetch())
+		{
+			$isActive = $storeWithOrders->active == "1" ? 'true' : 'false';
+			$osn .= $storeWithOrders->store_name . " (is active = " . $isActive . "),";
 		}
 
 		$email_data = array(
@@ -652,7 +648,7 @@ class CEmail extends CMail
 
 		$userObj->getUserPreferences();
 		$currentSMSPhoneSetting = $userObj->preferences[CUser::TEXT_MESSAGE_TARGET_NUMBER]['value'];
-		$currentSMSPhoneSetting = (empty($currentSMSPhoneSetting) || $currentSMSPhoneSetting == 'UNANSWERED') ? 'Not Provided':$currentSMSPhoneSetting;
+		$currentSMSPhoneSetting = (empty($currentSMSPhoneSetting) || $currentSMSPhoneSetting == 'UNANSWERED') ? 'Not Provided' : $currentSMSPhoneSetting;
 
 		$email_data = array(
 			'user' => $userObj,
@@ -670,21 +666,20 @@ class CEmail extends CMail
 		$Mail->sendEmail();
 	}
 
-
 	//CCPA
 	static function accountRequestDeleteToStore($userObj)
 	{
-
 		$storeObj = DAO_CFactory::create('store');
 		$storeObj->id = $userObj->home_store_id;
 		$storeObj->find(true);
 
-		if($storeObj->N > 0){
+		if ($storeObj->N > 0)
+		{
 
 			$userObj->getUserPreferences();
 			$currentSMSPhoneSetting = $userObj->preferences[CUser::TEXT_MESSAGE_TARGET_NUMBER]['value'];
 
-			$currentSMSPhoneSetting = (empty($currentSMSPhoneSetting) || $currentSMSPhoneSetting == 'UNANSWERED') ? 'Not Provided':$currentSMSPhoneSetting;
+			$currentSMSPhoneSetting = (empty($currentSMSPhoneSetting) || $currentSMSPhoneSetting == 'UNANSWERED') ? 'Not Provided' : $currentSMSPhoneSetting;
 			$email_data = array(
 				'user' => $userObj,
 				'store' => $storeObj,
@@ -701,8 +696,6 @@ class CEmail extends CMail
 			$Mail->template_name = 'account_deletion_request_store';
 			$Mail->sendEmail();
 		}
-
-
 	}
 
 	static function sendDeliveredGiftEmail($orderObj, $isEdited = false)
@@ -711,26 +704,40 @@ class CEmail extends CMail
 
 		$Mail->to_email = $orderObj->orderAddress->email_address;
 		$Mail->subject = 'You have a gift from Dream Dinners on the way!';
-		$Mail->body_html = CMail::mailMerge('delivered/delivered-gift-recipient-notification.html.php', array('orderObj' => $orderObj));
-		$Mail->body_text = CMail::mailMerge('delivered/delivered-gift-recipient-notification.txt.php', array('orderObj' => $orderObj));
-		$Mail->template_name = 'delivered_gift_recipient_notification';
+		$Mail->body_html = CMail::mailMerge('shipping/shipping_order_confirmation_gift_recipient.html.php', array('orderObj' => $orderObj));
+		$Mail->body_text = CMail::mailMerge('shipping/shipping_order_confirmation_gift_recipient.txt.php', array('orderObj' => $orderObj));
+		$Mail->template_name = 'shipping_order_confirmation_gift_recipient';
 
 		$Mail->sendEmail();
 	}
 
-	static function sendDeliveredShipmentTrackingEmail($orderObj, $isEdited = false)
+	static function sendDeliveredShipmentTrackingEmail($DAO_orders)
 	{
-		//ToDo
-//		$Mail = new CMail();
-//
-//		$Mail->to_email = $orderObj->orderAddress->email_address;
-//		$Mail->subject = 'You have a gift from Dream Dinners on the way!';
-//		$Mail->body_html = CMail::mailMerge('delivered/delivered-tracking-notification.html.php', array('orderObj' => $orderObj));
-//		$Mail->body_text = CMail::mailMerge('delivered/delivered-tracking-notification.txt.php', array('orderObj' => $orderObj));
-//		$Mail->template_name = 'delivered_gift_recipient_notification';
-//
-//		$Mail->sendEmail();
-	}
+		$Mail = new CMail();
+		$Mail->to_email = $DAO_orders->DAO_user->primary_email;
+		if ($DAO_orders->DAO_orders_address->isGift())
+		{
+			$Mail->subject = 'Your gift from Dream Dinners is on the way!';
+		}
+		else
+		{
+			$Mail->subject = 'Your order from Dream Dinners is on the way!';
+		}
+		$Mail->body_html = CMail::mailMerge('shipping/shipping_tracking_notification.html.php', array('DAO_orders' => $DAO_orders));
+		$Mail->body_text = CMail::mailMerge('shipping/shipping_tracking_notification.txt.php', array('DAO_orders' => $DAO_orders));
+		$Mail->template_name = 'shipping_tracking_notification';
+		$Mail->sendEmail();
 
+		if ($DAO_orders->DAO_orders_address->isGift() && !empty($DAO_orders->DAO_orders_address->email_address))
+		{
+			$Mail = new CMail();
+			$Mail->to_email = $DAO_orders->DAO_orders_address->email_address;
+			$Mail->subject = 'You have a gift from Dream Dinners on the way!';
+			$Mail->body_html = CMail::mailMerge('shipping/shipping_tracking_notification_gift_recipient.html.php', array('DAO_orders' => $DAO_orders));
+			$Mail->body_text = CMail::mailMerge('shipping/shipping_tracking_notification_gift_recipient.txt.php', array('DAO_orders' => $DAO_orders));
+			$Mail->template_name = 'shipping_tracking_notification_gift_recipient';
+			$Mail->sendEmail();
+		}
+	}
 }
 ?>

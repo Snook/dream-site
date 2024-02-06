@@ -11,7 +11,6 @@ require_once 'includes/CResultToken.inc';
 class ShipStationShipmentWrapper extends CacheableRequestWrapper
 {
 
-
 	const CACHE_EXPIRE_DAYS = 1; //5 minutes to prevent spamming service
 
 	private $orderId = null;
@@ -21,7 +20,6 @@ class ShipStationShipmentWrapper extends CacheableRequestWrapper
 	private $responseJsonData = null;
 	private $responseArray = null;
 
-
 	/**
 	 * ShipStationShipmentWrapper constructor.
 	 *
@@ -29,12 +27,14 @@ class ShipStationShipmentWrapper extends CacheableRequestWrapper
 	 */
 	public function __construct($COrdersDelivered)
 	{
-		if( !is_null($COrdersDelivered->id))
+		if (!is_null($COrdersDelivered->id))
 		{
 			$this->orderId = $COrdersDelivered->id;
 
 			$this->populateRequestData();
-		}else{
+		}
+		else
+		{
 			//error
 		}
 	}
@@ -42,7 +42,8 @@ class ShipStationShipmentWrapper extends CacheableRequestWrapper
 	/**
 	 * @return OrderId
 	 */
-	public function getOrderNumber(){
+	public function getOrderNumber()
+	{
 		return $this->orderId;
 	}
 
@@ -59,7 +60,7 @@ class ShipStationShipmentWrapper extends CacheableRequestWrapper
 	}
 
 	/**
-	 * @return false|string The json required to request a 
+	 * @return false|string The json required to request a
 	 * from ShipStations service based on the order, session data passed in.
 	 */
 	public function getRequestJson()
@@ -78,11 +79,10 @@ class ShipStationShipmentWrapper extends CacheableRequestWrapper
 		$this->populateResponseData();
 	}
 
-
 	protected function createCacheHashKey()
 	{
 
-		$ref = $this->requestData->carrierCode . '|' . $this->requestData->fromPostalCode . '|' .$this->getOrderNumber();
+		$ref = $this->requestData->carrierCode . '|' . $this->requestData->fromPostalCode . '|' . $this->getOrderNumber();
 
 		$hashedDataRef = hash('md5', $ref, false);
 
@@ -119,9 +119,11 @@ class ShipStationShipmentWrapper extends CacheableRequestWrapper
 	 *
 	 * @return String the latest tracking number if there are multiple
 	 */
-	public function getLatestTrackingNumber(){
+	public function getLatestTrackingNumber()
+	{
 
-		if(count($this->responseArray->shipments) == 1){
+		if (count($this->responseArray->shipments) == 1)
+		{
 			return $this->responseArray->shipments[0]->trackingNumber;
 		}
 
@@ -130,7 +132,8 @@ class ShipStationShipmentWrapper extends CacheableRequestWrapper
 		foreach ($this->responseArray->shipments as $shipment)
 		{
 			$newDate = strtotime($shipment->createDate);
-			if($currentDate == null || $newDate > $currentDate){
+			if ($currentDate == null || $newDate > $currentDate)
+			{
 				$currentDate = strtotime($newDate);
 				$latestTrackingNumber = $shipment->trackingNumber;
 			}
@@ -145,7 +148,8 @@ class ShipStationShipmentWrapper extends CacheableRequestWrapper
 	 *
 	 * @return array of tracking number strings
 	 */
-	public function getTrackingNumbers(){
+	public function getTrackingNumbers()
+	{
 		$result = array();
 
 		foreach ($this->responseArray->shipments as $shipment)
@@ -154,38 +158,44 @@ class ShipStationShipmentWrapper extends CacheableRequestWrapper
 		}
 
 		return $result;
-
 	}
 
 	/**
 	 * Store tracking data to the Orders_shipping table
 	 * @return CResultToken true if data was updated
 	 */
-	public function storeShippingData(){
-
+	public function storeShippingData()
+	{
 		$result = new CResultToken();
 
 		$ordersShippingQbe = DAO_CFactory::create("orders_shipping");
 		$ordersShippingQbe->order_id = $this->getOrderNumber();
 		$ordersShippingQbe->find(true);
 
-		if($ordersShippingQbe->N != 1){
-			$result->addFailureMessage('Invalid number of orders_shipping records for order id: '.$this->getOrderNumber(), true);
+		if ($ordersShippingQbe->N != 1)
+		{
+			$result->addFailureMessage('Invalid number of orders_shipping records for order id: ' . $this->getOrderNumber(), true);
 		}
 
-		if($ordersShippingQbe->tracking_number != $this->getLatestTrackingNumber()){
+		if ($ordersShippingQbe->tracking_number != $this->getLatestTrackingNumber())
+		{
 			$copy = clone($ordersShippingQbe);
 			$ordersShippingQbe->tracking_number = $this->getLatestTrackingNumber();
 			$ordersShippingQbe->tracking_number_received = date("Y-m-d H:i:s");
 			$ordersShippingQbe->status = COrdersShipping::STATUS_SHIPPED;
 
-			if( $ordersShippingQbe->update($copy) ){
-				$result->addSuccessMessage('Updated orders_shipping records for order id: '.$this->getOrderNumber());
-			}else{
-				$result->addFailureMessage('Unable to update orders_shipping records for order id: '.$this->getOrderNumber(), true);
+			if ($ordersShippingQbe->update($copy))
+			{
+				$result->addSuccessMessage('Updated orders_shipping records for order id: ' . $this->getOrderNumber());
 			}
-		}else{
-			$result->addSuccessMessage('Tracking number ('.$ordersShippingQbe->tracking_number.') already up to date for: '.$this->getOrderNumber());
+			else
+			{
+				$result->addFailureMessage('Unable to update orders_shipping records for order id: ' . $this->getOrderNumber(), true);
+			}
+		}
+		else
+		{
+			$result->addSuccessMessage('Tracking number (' . $ordersShippingQbe->tracking_number . ') already up to date for: ' . $this->getOrderNumber());
 		}
 
 		return $result;

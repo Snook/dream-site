@@ -23,7 +23,7 @@ function copyToClipboard(text) {
 <td align="center" colspan="2" style="padding: 5px;">
 <b>Selected Store:</b>&nbsp;<?=$this->form['store_html']; ?> </td>
 </tr>
-<? } ?>
+<?php } ?>
 <tr>
 <td>
 

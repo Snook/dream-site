@@ -115,6 +115,23 @@ class CSession extends DAO_Session
 		return parent::find($n);
 	}
 
+	function setSessionObjects()
+	{
+		$DAO_session = DAO_CFactory::create('session', true);
+		$DAO_session->id = $this->id;
+		$DAO_session->find_DAO_session(true);
+
+		$this->DAO_dream_taste_event_properties = clone $DAO_session->DAO_dream_taste_event_properties;
+		$this->DAO_dream_taste_event_theme = clone $DAO_session->DAO_dream_taste_event_theme;
+		$this->DAO_fundraiser = clone $DAO_session->DAO_fundraiser;
+		$this->DAO_menu = clone $DAO_session->DAO_menu;
+		$this->DAO_session_discount = clone $DAO_session->DAO_session_discount;
+		$this->DAO_session_properties = clone $DAO_session->DAO_session_properties;
+		$this->DAO_store = clone $DAO_session->DAO_store;
+		$this->DAO_store_pickup_location = clone $DAO_session->DAO_store_pickup_location;
+		$this->DAO_store_to_fundraiser = clone $DAO_session->DAO_store_to_fundraiser;
+	}
+
 	static function isTODDSession($session_id)
 	{
 		$SessionDAO = DAO_CFactory::create('session');
@@ -2001,14 +2018,41 @@ class CSession extends DAO_Session
 		return false;
 	}
 
+	function isPickUp()
+	{
+		if ($this->session_type == CSession::MADE_FOR_YOU && empty($this->session_type_subtype))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	function isDelivery()
 	{
-		if ($this->isMadeForYou())
+		if ($this->isDeliveryPublic() || $this->isDeliveryPrivate())
 		{
-			if (!empty($this->session_type_subtype) && ($this->session_type_subtype == CSession::DELIVERY || $this->session_type_subtype == CSession::DELIVERY_PRIVATE))
-			{
-				return true;
-			}
+			return true;
+		}
+
+		return false;
+	}
+
+	function isDeliveryPublic()
+	{
+		if ($this->session_type == CSession::MADE_FOR_YOU && $this->session_type_subtype == CSession::DELIVERY)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function isDeliveryPrivate()
+	{
+		if ($this->session_type == CSession::MADE_FOR_YOU && $this->session_type_subtype == CSession::DELIVERY_PRIVATE)
+		{
+			return true;
 		}
 
 		return false;
@@ -2037,13 +2081,7 @@ class CSession extends DAO_Session
 
 	function isRemotePickupPublic()
 	{
-		//I don't see anywhere where store_pickup_location_id get set on the Session object so this is never true
-		//		if ($this->isMadeForYou() && !empty($this->store_pickup_location_id) && $this->session_type_subtype == CSession::REMOTE_PICKUP)
-		//		{
-		//			return true;
-		//		}
-
-		if ($this->isMadeForYou() && $this->session_type_subtype == CSession::REMOTE_PICKUP)
+		if ($this->session_type == CSession::MADE_FOR_YOU && $this->session_type_subtype == CSession::REMOTE_PICKUP)
 		{
 			return true;
 		}
@@ -2053,14 +2091,7 @@ class CSession extends DAO_Session
 
 	function isRemotePickupPrivate()
 	{
-		//I don't see anywhere where store_pickup_location_id get set on the Session object so this is never true
-
-		//		if ($this->isMadeForYou() && $this->isPrivate() && !empty($this->store_pickup_location_id) && $this->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE)
-		//		{
-		//			return true;
-		//		}
-
-		if ($this->isMadeForYou() && $this->isPrivate() && $this->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE)
+		if ($this->session_type == CSession::MADE_FOR_YOU && $this->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE)
 		{
 			return true;
 		}

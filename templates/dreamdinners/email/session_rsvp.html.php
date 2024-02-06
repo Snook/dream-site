@@ -21,7 +21,7 @@
 	</div>
 </div>
 
-<table width="650"  border="0" cellspacing="0" cellpadding="0">
+<table width="650" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td width="350" align="left" style="padding: 5px"><img src="<?php echo EMAIL_IMAGES_PATH; ?>/email/style/dream_dinners_grey_325x75.png" alt="Dream Dinners" width="325" height="75"></td>
 		<td width="300" align="right" style="padding: 5px"><a href="<?php echo HTTPS_BASE; ?>how_it_works">How It Works</a></td>
@@ -30,15 +30,15 @@
 		<td colspan="2" style="padding: 5px"><p align="center"><span style="color:#FFF; font-size:14pt; font-weight:bold;">RSVP Confirmation</span></p></td>
 	</tr>
 </table>
-<table width="650"  border="0" cellspacing="0" cellpadding="8">
+<table width="650" border="0" cellspacing="0" cellpadding="8">
 	<tr>
 		<td>
 			<p>We're thrilled you'll be joining us! Be ready to learn how Dream Dinners can be the solution to your dinnertime challenges! </p>
 			<p>Here's what to expect. You will...</p>
-		  <ul>
+		 <ul>
 				<li>Experience how to save time and money with our simple cook-at-home meals.</li>
-			  <li>Sample delicious appetizers.</li>
-			  <li>Learn from our helpful team members who can answer any questions you have.</li>
+			 <li>Sample delicious appetizers.</li>
+			 <li>Learn from our helpful team members who can answer any questions you have.</li>
 			</ul>
 			<p>If you have any questions about this event, please contact the store by using the contact information below.</p>
 			<p>We look forward to meeting you!</p>
@@ -58,7 +58,7 @@
 				<li>Address:
 					<?php echo $this->store_info->address_line1; ?><?php echo !empty($this->store_info->address_line2) ? '' . $this->store_info->address_line2 : ''; ?>, <?php echo $this->store_info->city; ?>, <?php echo $this->store_info->state_id; ?> <?php echo $this->store_info->postal_code; ?>
 				</li>
-				<li>Phone: 
+				<li>Phone:
 					<?php echo $this->store_info->telephone_day . "\n"; ?>
 				</li>
 			</ul>

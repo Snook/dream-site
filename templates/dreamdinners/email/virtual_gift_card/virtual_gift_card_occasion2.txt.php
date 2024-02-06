@@ -1,25 +1,25 @@
-You've received a $<?=$this->card_amount?> Dream Dinners Gift Card.
+You've received a $<?php echo $this->card_amount?> Dream Dinners Gift Card.
 -------------------------------------------------
 
-To: <?=$this->to_name?>
-From: <?=$this->from_name?>
+To: <?php echo $this->to_name?>
+From: <?php echo $this->from_name?>
 
 
 eGift Card Amount:
-$<?=$this->card_amount?>
+$<?php echo $this->card_amount?>
 
 eGift Card Number:
-<?=$this->account_number?>
+<?php echo $this->account_number?>
 
 
 
 Message:
-<?=$this->message_text?>
+<?php echo $this->message_text?>
 
 
 
 Click here to get started:
-> <?=HTTPS_SERVER?>/session-menu
+> <?php echo HTTPS_SERVER?>/session-menu
 -------------------------------------------------
 Redeem your Dream Dinners gift card:
 
