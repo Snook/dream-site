@@ -3,15 +3,15 @@
 <style type="text/css"><?php include $this->loadTemplate('email/css/style.css'); ?></style>
 </head>
 <body>
-<table role="presentation" width="600"  border="0" cellspacing="0" cellpadding="0">
+<table role="presentation" width="600" border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="350" align="center" style="padding: 5px"><img src="<?=EMAIL_IMAGES_PATH?>/email/style/dream_dinners_grey_325x75.png" alt="Dream Dinners" width="325" height="75"></td>
+<td width="350" align="center" style="padding: 5px"><img src="<?php echo EMAIL_IMAGES_PATH?>/email/style/dream_dinners_grey_325x75.png" alt="Dream Dinners" width="325" height="75"></td>
 </tr>
 <tr bgcolor="#5c6670">
-  <td colspan="2" style="padding: 5px"><p align="center"><span style="color:#FFF; font-size:16pt; font-weight:bold;">Request for Account Closure</span></p></td>
+ <td colspan="2" style="padding: 5px"><p align="center"><span style="color:#FFF; font-size:16pt; font-weight:bold;">Request for Account Closure</span></p></td>
 </tr>
 </table>
-<table role="presentation" width="600"  border="0" cellspacing="0" cellpadding="10">
+<table role="presentation" width="600" border="0" cellspacing="0" cellpadding="10">
 <tr>
 <td><p>Hello,</p>
 <p>One of your guests has requested that their account be closed and we do not contact them moving forward.</p>
@@ -38,16 +38,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-

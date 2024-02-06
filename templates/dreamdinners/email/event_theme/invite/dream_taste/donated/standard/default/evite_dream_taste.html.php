@@ -49,7 +49,7 @@
 	</tr>
 	<tr>
 		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/event_theme/default/invite-footer-gray.gif" width="650" height="50" alt="Dreamdinners.com">
-	    <p><i>*Meal Prep Workshop sessions are limited to one Meal Prep Workshop order per household per Meal Prep Workshop session.</i></p></td>
+	  <p><i>*Meal Prep Workshop sessions are limited to one Meal Prep Workshop order per household per Meal Prep Workshop session.</i></p></td>
 	</tr>
 </table>
 </body>

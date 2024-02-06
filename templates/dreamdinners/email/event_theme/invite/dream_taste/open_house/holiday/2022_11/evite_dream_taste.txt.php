@@ -1,6 +1,6 @@
 Celebrate the season with our Thanksgiving Trial Offer.
 
-For only  $<?php echo $this->session['dream_taste_price']; ?>, Dream Dinners has you covered for both your holiday and the week that follows.
+For only $<?php echo $this->session['dream_taste_price']; ?>, Dream Dinners has you covered for both your holiday and the week that follows.
 
 During this exclusive pick up event, you will receive our Holiday Roasted Turkey, Holiday Mashed Potatoes, Holiday Savory Stuffing, and Holiday Green Bean Casserole plus three medium dinners from our delicious menu.
 

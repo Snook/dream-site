@@ -24,13 +24,13 @@ Date of Purchase: <?php echo date("m/d/Y");?>
 
 Payment Details
 
-Card Type: <?= $this->credit_card_type?>
-Last 4 digits: <?= $this->credit_card_number?>
-Amount: $<?= $this->charged_amount?>
-Date of Purchase: <?= $this->date_of_purchase?>
-Billing Name: <?= $this->billing_name?>
-Billing Address: <?= $this->billing_address?> <?= $this->billing_zip?>
-Billing Email: <?=$this->billing_email?>
+Card Type: <?php echo $this->credit_card_type?>
+Last 4 digits: <?php echo $this->credit_card_number?>
+Amount: $<?php echo $this->charged_amount?>
+Date of Purchase: <?php echo $this->date_of_purchase?>
+Billing Name: <?php echo $this->billing_name?>
+Billing Address: <?php echo $this->billing_address?> <?php echo $this->billing_zip?>
+Billing Email: <?php echo $this->billing_email?>
 
 * Gift Card orders that require shipping will take 2-6 business days for processing & shipping.
 
@@ -38,4 +38,4 @@ Note: $2 shipping/service fee added each Traditional Gift Card ordered.
 
 Have questions? To view the complete Gift Card Policies & Terms online or if you
 have questions regarding your Gift Card or Customer Service options please visit
-<?= HTTPS_SERVER ?>/giftcards
+<?php echo HTTPS_SERVER ?>/giftcards

@@ -2,7 +2,7 @@ Celebrate the season with our Christmas Brunch Trial Offer.
 
 For only $<?php echo $this->session['dream_taste_price']; ?>, Dream Dinners has you covered for both your Christmas morning brunch and the week that follows.
 
-During this exclusive pick up event, you will receive our Raspberry Cream Cheese French Toast Bake plus three medium dinners from our delicious menu.  Your French toast bake comes in our family-size that serves 4 - 6 people. 
+During this exclusive pick up event, you will receive our Raspberry Cream Cheese French Toast Bake plus three medium dinners from our delicious menu. Your French toast bake comes in our family-size that serves 4 - 6 people. 
 
 We’re excited to introduce you to the Dream Dinners experience and make your Christmas homemade, made easy. Our offer is only for guests of this event, and spaces are limited. Use the link below to reserve your spot today!
 

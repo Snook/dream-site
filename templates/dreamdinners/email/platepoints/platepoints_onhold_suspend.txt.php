@@ -10,6 +10,3 @@ If you feel this is an error or you wish to remove the hold, please contact your
 
 We look forward to seeing you again.
 -Your Dream Dinners Team
-
-
-

@@ -13,7 +13,7 @@
 	<tr bgcolor="#FFFFFF">
 		<td style="padding:20px;"><p align="center"><span class="title">You’re Invited to a Community Pick Up Event</span></p>
 			<p align="center">
-		  Join me at this special pick up event to fill your freezer with delicious, easy meals for your family. You will choose your perfectly prepped dinners from Dream Dinners monthly menu, then the Dream Dinners team will assemble your dinners at their local assembly kitchen. You simply pick up your dinners at the community pick up location at <?php echo $this->dateTimeFormat($this->session['session_start'], TIME_ONLY); ?> on <?php echo $this->dateTimeFormat($this->session['session_start'], VERBOSE_DATE_NO_YEAR); ?>. </p>
+		 Join me at this special pick up event to fill your freezer with delicious, easy meals for your family. You will choose your perfectly prepped dinners from Dream Dinners monthly menu, then the Dream Dinners team will assemble your dinners at their local assembly kitchen. You simply pick up your dinners at the community pick up location at <?php echo $this->dateTimeFormat($this->session['session_start'], TIME_ONLY); ?> on <?php echo $this->dateTimeFormat($this->session['session_start'], VERBOSE_DATE_NO_YEAR); ?>. </p>
 			<p align="center">Spend less time in the kitchen and more time savoring moments together. </p>
 			<p align="center"><?php echo $this->message; ?><br>
 			</p>
@@ -29,11 +29,11 @@
 				<?php echo $this->session['telephone_day']; ?><br>
 			</p>
 			<p align="center"><a href="<?php echo $this->referral_link; ?>"><img src="<?php echo EMAIL_IMAGES_PATH; ?>/email/event_theme/default/view-menu-order.png" alt="View menu and order" width="300" height="45" border="0"></a></p>
-			
+
 		</td>
 	</tr>
 	<tr>
-		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/event_theme/default/invite-footer-gray.gif"  width="650" height="50" alt="dreamdinners.com"></td>
+		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/event_theme/default/invite-footer-gray.gif" width="650" height="50" alt="dreamdinners.com"></td>
 	</tr>
 </table>
 </body>

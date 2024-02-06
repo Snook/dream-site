@@ -2819,12 +2819,12 @@ class COrdersDelivered extends COrders
 		$orderInfo['plate_points'] = $user->getPlatePointsSummary($order);
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
 
-		$contentsText = CMail::mailMerge('session_rescheduled_delivered.txt.php', $orderInfo);
-		$contentsHtml = CMail::mailMerge('session_rescheduled_delivered.html.php', $orderInfo);
+		$contentsText = CMail::mailMerge('shipping/shipping_session_rescheduled.txt.php', $orderInfo);
+		$contentsHtml = CMail::mailMerge('shipping/shipping_session_rescheduled', $orderInfo);
 
 		$fromEmail = empty($orderInfo['storeInfo']['email_address']) ? null : $orderInfo['storeInfo']['email_address'];
 
-		$Mail->send(null, $fromEmail, $user->firstname . ' ' . $user->lastname, $user->primary_email, 'Order Rescheduled', $contentsHtml, $contentsText, '', '', $user->id, 'session_rescheduled');
+		$Mail->send(null, $fromEmail, $user->firstname . ' ' . $user->lastname, $user->primary_email, 'Order Rescheduled', $contentsHtml, $contentsText, '', '', $user->id, 'shipping_session_rescheduled');
 	}
 
 	function cancel($creditArray, $reason = false, $declinedMFY = false, $declinedReschedule = false, $suppressCancellationEmail = false, $cancelArray = false)
@@ -3067,8 +3067,8 @@ class COrdersDelivered extends COrders
 
 		$subject = "Confirmation of your order changes";
 
-		$contentsText = CMail::mailMerge('edited_order_delivered.txt.php', $orderInfo);
-		$contentsHtml = CMail::mailMerge('edited_order_delivered.html.php', $orderInfo);
+		$contentsText = CMail::mailMerge('shipping/shipping_order_edited.txt.php', $orderInfo);
+		$contentsHtml = CMail::mailMerge('shipping/shipping_order_edited.html.php', $orderInfo);
 
 		$fromEmail = empty($orderInfo['storeInfo']['email_address']) ? null : $orderInfo['storeInfo']['email_address'];
 
@@ -3091,8 +3091,8 @@ class COrdersDelivered extends COrders
 
 		$subject = "Order Canceled";
 
-		$contentsText = CMail::mailMerge('order_cancelled_delivered.txt.php', $orderInfo);
-		$contentsHtml = CMail::mailMerge('order_cancelled_delivered.html.php', $orderInfo);
+		$contentsText = CMail::mailMerge('shipping/shipping_order_cancelled.txt.php', $orderInfo);
+		$contentsHtml = CMail::mailMerge('shipping/shipping_order_cancelled.html.php', $orderInfo);
 
 		$fromEmail = empty($orderInfo['storeInfo']['email_address']) ? null : $orderInfo['storeInfo']['email_address'];
 

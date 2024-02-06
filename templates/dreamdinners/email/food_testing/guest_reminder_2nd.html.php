@@ -6,7 +6,7 @@
 
 <table role="presentation" width="550" border="0" cellspacing="0" cellpadding="0" class="border">
 	<tr>
-		<td align="center"><img src="<?=EMAIL_IMAGES_PATH?>/email/style/dream_dinners_grey_325x75.png" alt="Dream Dinners" width="325" height="75"></td>
+		<td align="center"><img src="<?php echo EMAIL_IMAGES_PATH?>/email/style/dream_dinners_grey_325x75.png" alt="Dream Dinners" width="325" height="75"></td>
 	</tr>
 	<tr>
 		<td style="padding:10px 15px 5px 15px;">

@@ -24,14 +24,14 @@
 			<table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="15">
 				<tr bgcolor="#b9bf33" style="padding: 15px;">
 					<td width="48%" align="left" valign="top">
-					  <span style="color:#000;">
+					 <span style="color:#000;">
 						<strong>When:</strong><br />
 						<?php echo $this->dateTimeFormat($this->session['session_start'], VERBOSE_DATE_NO_YEAR); ?><br />
 							<?php echo $this->dateTimeFormat($this->session['session_start'], TIME_ONLY); ?><br /><br />
-						
+
 						<strong>Invite Code:</strong><br />
 						<?php echo $this->session['session_password']; ?><br>
-					  <i>(Not all events require a code)</i></span>
+					 <i>(Not all events require a code)</i></span>
 					</td>
 					<td width="48%" align="left" valign="top">
 						<span style="color:#000;"><strong>Where:</strong><br />
@@ -46,7 +46,7 @@
 	</tr>
 	<tr>
 		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/event_theme/<?php echo $this->session['dream_taste_theme_string']; ?>/invite-footer-gray.gif" alt="dream dinners" width="650" height="50">
-        <p><i>*Holiday Pick Up Events are valid for new and reacquired guests only. Events are limited to one Trial per a household.</i></p></td>
+    <p><i>*Holiday Pick Up Events are valid for new and reacquired guests only. Events are limited to one Trial per a household.</i></p></td>
 	</tr>
 </table>
 </body>

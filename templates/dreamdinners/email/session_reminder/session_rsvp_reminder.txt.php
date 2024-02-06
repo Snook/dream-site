@@ -14,11 +14,10 @@ We look forward to meeting you!
 
 Event Details
 ---------------
-Time: <?=$this->dateTimeFormat($this->session_info->session_start, VERBOSE) . "\n";?>
-Location: <?=$this->store_info->store_name . "\n";?>
-Address: <?=$this->store_info->address_line1?>
-<?=!empty($this->store_info->address_line2) ? $this->store_info->address_line2 . "<br />" : ""?>
-<?=$this->store_info->city?> <?=$this->store_info->state_id?> <?=$this->store_info->postal_code?>
-Phone: <?=$this->store_info->telephone_day . "\n";?>
+Time: <?php echo $this->DAO_session->sessionStartDateTime()->format("F j, Y - g:i A"); ?>
 
+Location: <?php echo $this->DAO_store->store_name; ?>
 
+Address: <?php echo $this->DAO_store->generateAddressWithBreaks(); ?>
+
+Phone: <?php echo $this->DAO_store->telephone_day; ?>

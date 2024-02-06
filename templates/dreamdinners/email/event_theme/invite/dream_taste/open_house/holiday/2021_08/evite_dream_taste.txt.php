@@ -1,6 +1,6 @@
 Celebrate with our Summer Celebrations Trial Offer
 
-For only $<?php echo $this->session['dream_taste_price']; ?>, Dream Dinners has you covered for both your summer celebration and the week that follows.  
+For only $<?php echo $this->session['dream_taste_price']; ?>, Dream Dinners has you covered for both your summer celebration and the week that follows.
 
 During this exclusive pick up event, you will get a backyard BBQ bundle including our Herb Crusted Steaks, Chipotle Maple Corn, and a Peach Crisp plus three medium dinners from our delicious menu. Your backyard BBQ comes in our family-size that serves 4 - 6 people.
 

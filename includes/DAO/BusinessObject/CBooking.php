@@ -28,6 +28,12 @@ class CBooking extends DAO_Booking
 	public $bookings_made = null;
 	public $bookings_made_at_store = null;
 
+	public $DAO_session;
+	public $DAO_user;
+	public $DAO_store;
+	public $DAO_menu;
+	public $DAO_orders;
+
 	function find($n = false)
 	{
 		return parent::find($n);
@@ -45,6 +51,7 @@ class CBooking extends DAO_Booking
 		$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('store', true));
 		$this->joinAddWhereAsOn($DAO_session);
 		$this->joinAddWhereAsOn(DAO_CFactory::create('user', true));
+		$this->joinAddWhereAsOn(DAO_CFactory::create('orders', true));
 
 		return parent::find($n);
 	}
@@ -173,35 +180,62 @@ class CBooking extends DAO_Booking
 		return false;
 	}
 
-	// NOTE: SalesForce takes over on 9/24/2018 - this function is still called from the cron job but only to log what
-	// Fadmin would have sent for comparison purposes
 	function send_reminder_email()
 	{
 		try
 		{
+			$Mail = new CMail();
+			$Mail->to_name = $this->DAO_user->firstname . ' ' . $this->DAO_user->lastname;
+			$Mail->to_email = $this->DAO_user->primary_email;
+			$Mail->to_id = $this->DAO_user->id;
+			$Mail->from_email = $this->DAO_store->email_address;
 
-			if (isset($this->session_type) && $this->session_type == CSession::SPECIAL_EVENT)
+			if ($this->DAO_session->isPickUp())
 			{
-				$Type = "Made For You";
+				$Mail->subject = 'Your Order is Almost Ready for Pick Up';
+				$Mail->body_html = CMail::mailMerge('session_reminder/session_reminder_special_event.html.php', $this);
+				$Mail->body_text = CMail::mailMerge('session_reminder/session_reminder_special_event.txt.php', $this);
+				$Mail->template_name = 'session_reminder_special_event';
 			}
-			else if (isset($this->session_type) && $this->session_type == CSession::DREAM_TASTE)
+			else if ($this->DAO_session->isDreamTaste())
 			{
-				$Type = "DreamTaste";
+				$Mail->subject = 'Your Event is Almost Here';
+				$Mail->body_html = CMail::mailMerge('event_theme/session_reminder_dream_taste.html.php', $this);
+				$Mail->body_text = CMail::mailMerge('event_theme/session_reminder_dream_taste.txt.php', $this);
+				$Mail->template_name = 'session_reminder_dream_taste';
 			}
-			else if (isset($this->session_type) && $this->session_type == CSession::FUNDRAISER)
+			else if ($this->DAO_session->isDelivery())
 			{
-				$Type = "Fundraiser";
+				$Mail->subject = 'Your Order is Almost Ready for Delivery';
+				$Mail->body_html = CMail::mailMerge('session_reminder/session_reminder_special_event_delivery.html.php', $this);
+				$Mail->body_text = CMail::mailMerge('session_reminder/session_reminder_special_event_delivery.txt.php', $this);
+				$Mail->template_name = 'session_reminder_special_event_delivery';
 			}
-			else if (isset($this->type_of_order) && $this->type_of_order == "INTRO")
+			else if ($this->DAO_session->isRemotePickup())
 			{
-				$Type = "Intro";
+				$this->DAO_session->setSessionObjects();
+
+				$Mail->subject = 'Your Community Pick Up is Almost Here';
+				$Mail->body_html = CMail::mailMerge('session_reminder/session_reminder_special_event_remote_pickup.html.php', $this);
+				$Mail->body_text = CMail::mailMerge('session_reminder/session_reminder_special_event_remote_pickup.txt.php', $this);
+				$Mail->template_name = 'session_reminder_special_event_remote_pickup';
 			}
 			else
 			{
-				$Type = "Standard";
+				$Mail->subject = 'Your Store Assembly Visit is Almost Here!';
+				$Mail->body_html = CMail::mailMerge('session_reminder/session_reminder.html.php', $this);
+				$Mail->body_text = CMail::mailMerge('session_reminder/session_reminder.txt.php', $this);
+				$Mail->template_name = 'session_reminder';
 			}
 
-			CLog::RecordEmail($this->user_id, $this->primary_email, null, $this->store_email, "NOT SENT - RECORD ONLY - TYPE: " . $Type);
+			if (defined('CRON_TEST_MODE') && CRON_TEST_MODE)
+			{
+				CLog::Record('CRON_TEST: ' . print_r($this, true));
+			}
+			else
+			{
+				$Mail->sendEmail();
+			}
 		}
 		catch (exception $e)
 		{

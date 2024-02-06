@@ -6,7 +6,7 @@
 					<td valign="top">
 						<strong>Visit Details</strong><br /><br />
 						<strong>Date and Time:</strong>
-						<?= $this->sessionTypeDateTimeFormat($this->sessionInfo['session_start'], $this->sessionInfo['session_type_subtype'], VERBOSE);?>
+						<?php echo $this->sessionTypeDateTimeFormat($this->sessionInfo['session_start'], $this->sessionInfo['session_type_subtype'], VERBOSE);?>
 						<?php if (!empty($this->sessionInfo['session_type_subtype']) &&
 							($this->sessionInfo['session_type_subtype'] == CSession::DELIVERY ||
 								$this->sessionInfo['session_type_subtype'] == CSession::REMOTE_PICKUP ||
@@ -28,8 +28,8 @@
 							<strong> Location:</strong>
 							<?php echo $this->sessionInfo['store_name'] ?><br />
 						<?php } ?>
-						<strong>Order Confirmation:</strong> <a href="<?= HTTPS_BASE ?><?= $this->details_page ?>?order=<?= $this->orderInfo['id'] ?>">
-							<?= $this->orderInfo['order_confirmation']?>
+						<strong>Order Confirmation:</strong> <a href="<?php echo HTTPS_BASE ?><?php echo $this->details_page ?>?order=<?php echo $this->orderInfo['id'] ?>">
+							<?php echo $this->orderInfo['order_confirmation']?>
 						</a>
 						<br />
 
@@ -65,30 +65,30 @@
 					<td colspan="6"><hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;"><p><strong>Add to Your Calendar</strong></p></td>
 				</tr>
 				<tr style="text-align: center; ">
-					<td><img src="<?=EMAIL_IMAGES_PATH?>/email/icons/google-calendar-icon.png" style="width: 50; height: 50;" alt="Google"/></td>
-					<td><img src="<?=EMAIL_IMAGES_PATH?>/email/icons/apple-calendar-icon.png" style="width: 50; height: 50;" alt="Apple"/></td>
-					<td><img src="<?=EMAIL_IMAGES_PATH?>/email/icons/office-365-calendar-icon.png" style="width: 50; height: 50;" alt="Office365"/></td>
-					<td><img src="<?=EMAIL_IMAGES_PATH?>/email/icons/outlook-calendar-icon.png" style="width: 50; height: 50;" alt="Outlook"/></td>
-					<td><img src="<?=EMAIL_IMAGES_PATH?>/email/icons/yahoo-calendar-icon.png" style="width: 50; height: 50;" alt="Yahoo"/></td>
-					<td><img src="<?=EMAIL_IMAGES_PATH?>/email/icons/outlook-com-calendar-icon.png" style="width: 50; height: 50;" alt="Outlook.com" /></td>
+					<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/icons/google-calendar-icon.png" style="width: 50; height: 50;" alt="Google"/></td>
+					<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/icons/apple-calendar-icon.png" style="width: 50; height: 50;" alt="Apple"/></td>
+					<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/icons/office-365-calendar-icon.png" style="width: 50; height: 50;" alt="Office365"/></td>
+					<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/icons/outlook-calendar-icon.png" style="width: 50; height: 50;" alt="Outlook"/></td>
+					<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/icons/yahoo-calendar-icon.png" style="width: 50; height: 50;" alt="Yahoo"/></td>
+					<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/icons/outlook-com-calendar-icon.png" style="width: 50; height: 50;" alt="Outlook.com" /></td>
 				</tr>
 				<?php if(strpos($this->sessionInfo['session_type_subtype'],'PICKUP')){?>
 					<tr style="text-align: center; ">
-						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?=$this->sessionInfo['session_remote_location']->address_line1.' '.$this->sessionInfo['session_remote_location']->address_line2.' '.$this->sessionInfo['session_remote_location']->city.', '.$this->sessionInfo['session_remote_location']->state_id.' '.$this->sessionInfo['session_remote_location']->postal_code?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?=$this->sessionInfo['email_address']?>+Phone:+<?=$this->sessionInfo['telephone_day']?>&timezone=<?=$this->sessionInfo['PHPTimeZone']?>&service=google">Google</a></td>
-						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?=$this->sessionInfo['session_remote_location']->address_line1.' '.$this->sessionInfo['session_remote_location']->address_line2.' '.$this->sessionInfo['session_remote_location']->city.', '.$this->sessionInfo['session_remote_location']->state_id.' '.$this->sessionInfo['session_remote_location']->postal_code?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?=$this->sessionInfo['email_address']?>+Phone:+<?=$this->sessionInfo['telephone_day']?>&timezone=<?=$this->sessionInfo['PHPTimeZone']?>&service=apple">Apple</a></td>
-						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?=$this->sessionInfo['session_remote_location']->address_line1.' '.$this->sessionInfo['session_remote_location']->address_line2.' '.$this->sessionInfo['session_remote_location']->city.', '.$this->sessionInfo['session_remote_location']->state_id.' '.$this->sessionInfo['session_remote_location']->postal_code?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?=$this->sessionInfo['email_address']?>+Phone:+<?=$this->sessionInfo['telephone_day']?>&timezone=<?=$this->sessionInfo['PHPTimeZone']?>&service=office365">Office365</a></td>
-						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?=$this->sessionInfo['session_remote_location']->address_line1.' '.$this->sessionInfo['session_remote_location']->address_line2.' '.$this->sessionInfo['session_remote_location']->city.', '.$this->sessionInfo['session_remote_location']->state_id.' '.$this->sessionInfo['session_remote_location']->postal_code?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?=$this->sessionInfo['email_address']?>+Phone:+<?=$this->sessionInfo['telephone_day']?>&timezone=<?=$this->sessionInfo['PHPTimeZone']?>&service=outlook">Outlook</a></td>
-						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?=$this->sessionInfo['session_remote_location']->address_line1.' '.$this->sessionInfo['session_remote_location']->address_line2.' '.$this->sessionInfo['session_remote_location']->city.', '.$this->sessionInfo['session_remote_location']->state_id.' '.$this->sessionInfo['session_remote_location']->postal_code?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?=$this->sessionInfo['email_address']?>+Phone:+<?=$this->sessionInfo['telephone_day']?>&timezone=<?=$this->sessionInfo['PHPTimeZone']?>&service=yahoo">Yahoo</a></td>
-						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?=$this->sessionInfo['session_remote_location']->address_line1.' '.$this->sessionInfo['session_remote_location']->address_line2.' '.$this->sessionInfo['session_remote_location']->city.', '.$this->sessionInfo['session_remote_location']->state_id.' '.$this->sessionInfo['session_remote_location']->postal_code?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?=$this->sessionInfo['email_address']?>+Phone:+<?=$this->sessionInfo['telephone_day']?>&timezone=<?=$this->sessionInfo['PHPTimeZone']?>&service=outlookcom">Outlook.com</a></td>
+						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?php echo $this->sessionInfo['session_remote_location']->address_line1.' '.$this->sessionInfo['session_remote_location']->address_line2.' '.$this->sessionInfo['session_remote_location']->city.', '.$this->sessionInfo['session_remote_location']->state_id.' '.$this->sessionInfo['session_remote_location']->postal_code?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?php echo $this->sessionInfo['email_address']?>+Phone:+<?php echo $this->sessionInfo['telephone_day']?>&timezone=<?php echo $this->sessionInfo['PHPTimeZone']?>&service=google">Google</a></td>
+						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?php echo $this->sessionInfo['session_remote_location']->address_line1.' '.$this->sessionInfo['session_remote_location']->address_line2.' '.$this->sessionInfo['session_remote_location']->city.', '.$this->sessionInfo['session_remote_location']->state_id.' '.$this->sessionInfo['session_remote_location']->postal_code?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?php echo $this->sessionInfo['email_address']?>+Phone:+<?php echo $this->sessionInfo['telephone_day']?>&timezone=<?php echo $this->sessionInfo['PHPTimeZone']?>&service=apple">Apple</a></td>
+						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?php echo $this->sessionInfo['session_remote_location']->address_line1.' '.$this->sessionInfo['session_remote_location']->address_line2.' '.$this->sessionInfo['session_remote_location']->city.', '.$this->sessionInfo['session_remote_location']->state_id.' '.$this->sessionInfo['session_remote_location']->postal_code?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?php echo $this->sessionInfo['email_address']?>+Phone:+<?php echo $this->sessionInfo['telephone_day']?>&timezone=<?php echo $this->sessionInfo['PHPTimeZone']?>&service=office365">Office365</a></td>
+						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?php echo $this->sessionInfo['session_remote_location']->address_line1.' '.$this->sessionInfo['session_remote_location']->address_line2.' '.$this->sessionInfo['session_remote_location']->city.', '.$this->sessionInfo['session_remote_location']->state_id.' '.$this->sessionInfo['session_remote_location']->postal_code?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?php echo $this->sessionInfo['email_address']?>+Phone:+<?php echo $this->sessionInfo['telephone_day']?>&timezone=<?php echo $this->sessionInfo['PHPTimeZone']?>&service=outlook">Outlook</a></td>
+						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?php echo $this->sessionInfo['session_remote_location']->address_line1.' '.$this->sessionInfo['session_remote_location']->address_line2.' '.$this->sessionInfo['session_remote_location']->city.', '.$this->sessionInfo['session_remote_location']->state_id.' '.$this->sessionInfo['session_remote_location']->postal_code?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?php echo $this->sessionInfo['email_address']?>+Phone:+<?php echo $this->sessionInfo['telephone_day']?>&timezone=<?php echo $this->sessionInfo['PHPTimeZone']?>&service=yahoo">Yahoo</a></td>
+						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?php echo $this->sessionInfo['session_remote_location']->address_line1.' '.$this->sessionInfo['session_remote_location']->address_line2.' '.$this->sessionInfo['session_remote_location']->city.', '.$this->sessionInfo['session_remote_location']->state_id.' '.$this->sessionInfo['session_remote_location']->postal_code?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?php echo $this->sessionInfo['email_address']?>+Phone:+<?php echo $this->sessionInfo['telephone_day']?>&timezone=<?php echo $this->sessionInfo['PHPTimeZone']?>&service=outlookcom">Outlook.com</a></td>
 					</tr>
 				<?php } else{?>
 					<tr style="text-align: center; ">
-						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?=$this->sessionInfo['address_line1'].' '.$this->sessionInfo['address_line2'].' '.$this->sessionInfo['city'].', '.$this->sessionInfo['state_id'].' '.$this->sessionInfo['postal_code']?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?=$this->sessionInfo['email_address']?>+Phone:+<?=$this->sessionInfo['telephone_day']?>&timezone=<?=$this->sessionInfo['PHPTimeZone']?>&service=google">Google</a></td>
-						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?=$this->sessionInfo['address_line1'].' '.$this->sessionInfo['address_line2'].' '.$this->sessionInfo['city'].', '.$this->sessionInfo['state_id'].' '.$this->sessionInfo['postal_code']?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?=$this->sessionInfo['email_address']?>+Phone:+<?=$this->sessionInfo['telephone_day']?>&timezone=<?=$this->sessionInfo['PHPTimeZone']?>&service=apple">Apple</a></td>
-						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?=$this->sessionInfo['address_line1'].' '.$this->sessionInfo['address_line2'].' '.$this->sessionInfo['city'].', '.$this->sessionInfo['state_id'].' '.$this->sessionInfo['postal_code']?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?=$this->sessionInfo['email_address']?>+Phone:+<?=$this->sessionInfo['telephone_day']?>&timezone=<?=$this->sessionInfo['PHPTimeZone']?>&service=office365">Office 365</a></td>
-						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?=$this->sessionInfo['address_line1'].' '.$this->sessionInfo['address_line2'].' '.$this->sessionInfo['city'].', '.$this->sessionInfo['state_id'].' '.$this->sessionInfo['postal_code']?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?=$this->sessionInfo['email_address']?>+Phone:+<?=$this->sessionInfo['telephone_day']?>&timezone=<?=$this->sessionInfo['PHPTimeZone']?>&service=outlook">Outlook</a></td>
-						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?=$this->sessionInfo['address_line1'].' '.$this->sessionInfo['address_line2'].' '.$this->sessionInfo['city'].', '.$this->sessionInfo['state_id'].' '.$this->sessionInfo['postal_code']?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?=$this->sessionInfo['email_address']?>+Phone:+<?=$this->sessionInfo['telephone_day']?>&timezone=<?=$this->sessionInfo['PHPTimeZone']?>&service=yahoo">Yahoo</a></td>
-						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?=CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?=$this->sessionInfo['address_line1'].' '.$this->sessionInfo['address_line2'].' '.$this->sessionInfo['city'].', '.$this->sessionInfo['state_id'].' '.$this->sessionInfo['postal_code']?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?=$this->sessionInfo['email_address']?>+Phone:+<?=$this->sessionInfo['telephone_day']?>&timezone=<?=$this->sessionInfo['PHPTimeZone']?>&service=outlookcom">Outlook.com</a></td>
+						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?php echo $this->sessionInfo['address_line1'].' '.$this->sessionInfo['address_line2'].' '.$this->sessionInfo['city'].', '.$this->sessionInfo['state_id'].' '.$this->sessionInfo['postal_code']?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?php echo $this->sessionInfo['email_address']?>+Phone:+<?php echo $this->sessionInfo['telephone_day']?>&timezone=<?php echo $this->sessionInfo['PHPTimeZone']?>&service=google">Google</a></td>
+						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?php echo $this->sessionInfo['address_line1'].' '.$this->sessionInfo['address_line2'].' '.$this->sessionInfo['city'].', '.$this->sessionInfo['state_id'].' '.$this->sessionInfo['postal_code']?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?php echo $this->sessionInfo['email_address']?>+Phone:+<?php echo $this->sessionInfo['telephone_day']?>&timezone=<?php echo $this->sessionInfo['PHPTimeZone']?>&service=apple">Apple</a></td>
+						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?php echo $this->sessionInfo['address_line1'].' '.$this->sessionInfo['address_line2'].' '.$this->sessionInfo['city'].', '.$this->sessionInfo['state_id'].' '.$this->sessionInfo['postal_code']?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?php echo $this->sessionInfo['email_address']?>+Phone:+<?php echo $this->sessionInfo['telephone_day']?>&timezone=<?php echo $this->sessionInfo['PHPTimeZone']?>&service=office365">Office 365</a></td>
+						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?php echo $this->sessionInfo['address_line1'].' '.$this->sessionInfo['address_line2'].' '.$this->sessionInfo['city'].', '.$this->sessionInfo['state_id'].' '.$this->sessionInfo['postal_code']?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?php echo $this->sessionInfo['email_address']?>+Phone:+<?php echo $this->sessionInfo['telephone_day']?>&timezone=<?php echo $this->sessionInfo['PHPTimeZone']?>&service=outlook">Outlook</a></td>
+						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?php echo $this->sessionInfo['address_line1'].' '.$this->sessionInfo['address_line2'].' '.$this->sessionInfo['city'].', '.$this->sessionInfo['state_id'].' '.$this->sessionInfo['postal_code']?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?php echo $this->sessionInfo['email_address']?>+Phone:+<?php echo $this->sessionInfo['telephone_day']?>&timezone=<?php echo $this->sessionInfo['PHPTimeZone']?>&service=yahoo">Yahoo</a></td>
+						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?php echo $this->sessionInfo['address_line1'].' '.$this->sessionInfo['address_line2'].' '.$this->sessionInfo['city'].', '.$this->sessionInfo['state_id'].' '.$this->sessionInfo['postal_code']?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?php echo $this->sessionInfo['email_address']?>+Phone:+<?php echo $this->sessionInfo['telephone_day']?>&timezone=<?php echo $this->sessionInfo['PHPTimeZone']?>&service=outlookcom">Outlook.com</a></td>
 					</tr>
 				<?php } ?>
 			</table>
@@ -112,7 +112,7 @@
 										My last membership month is <?php echo $this->membership['display_strings']['completion_month']; ?>.<br />
 										My membership savings to date is $<?php echo CTemplate::moneyFormat($this->membership['display_strings']['total_savings']); ?>.<br />
 									</td>
-									<td style="width: 30%; text-align:center;"><img src="<?=EMAIL_IMAGES_PATH?>/style/membership/meal-prep-plus-badge-119x119.png" style="width: 119px; height: 119px;" alt="Meal Prep+" /></td>
+									<td style="width: 30%; text-align:center;"><img src="<?php echo EMAIL_IMAGES_PATH?>/style/membership/meal-prep-plus-badge-119x119.png" style="width: 119px; height: 119px;" alt="Meal Prep+" /></td>
 								</tr>
 							</table>
 						<?php } ?>
@@ -157,7 +157,7 @@
 						<?php } else { ?>
 							<p><strong>Rate Your Meals</strong><br />
 								Did you know rating your meals helps us decide on future menus? If you want to see your favorites back on the menu, make sure you are rating your meals each month.</p>
-							<p><a href="<?=HTTPS_BASE ?>my-meals">Rate your meals now &gt;</a></p>
+							<p><a href="<?php echo HTTPS_BASE ?>my-meals">Rate your meals now &gt;</a></p>
 
 						<?php } ?>
 					</td>
@@ -208,7 +208,7 @@
 						<td class="cart_ordered" style="padding: 5px;" align="center" width="40">Qty</td>
 						<td class="cart_ordered" style="padding: 5px;" align="center" width="70">Size</td>
 						<td class="cart_ordered" style="padding: 5px;" width="200">Menu Item</td>
-						<td class="cart_ordered" style="padding: 5px;" align="center" width="50"><?= $this->isEmptyFloat( $this->orderInfo['family_savings_discount'] ) ? 'Item Price' : 'Family Savings Price' ?></td>
+						<td class="cart_ordered" style="padding: 5px;" align="center" width="50"><?php echo $this->isEmptyFloat( $this->orderInfo['family_savings_discount'] ) ? 'Item Price' : 'Family Savings Price' ?></td>
 						<td class="cart_ordered" style="padding: 5px;" width="25"> </td>
 						<td class="cart_ordered" style="padding: 5px;" align="center" width="50">Total Price</td>
 					</tr>
@@ -233,9 +233,9 @@
 								*/
 								?>
 								<tr>
-									<td class="customersData" style="padding: 5px;" align="center" valign="top"><?= $item['qty'] ?></td>
-									<td class="customersData" style="padding: 5px;" align="center" valign="top"><?=!empty($item['is_chef_touched']) ? "" : (CMenuItem::translatePricingType($item['pricing_type']));?></td>
-									<td class="customersData" style="padding: 5px;" valign="top"><?= $item['display_title'] ?></td>
+									<td class="customersData" style="padding: 5px;" align="center" valign="top"><?php echo $item['qty'] ?></td>
+									<td class="customersData" style="padding: 5px;" align="center" valign="top"><?php echo !empty($item['is_chef_touched']) ? "" : (CMenuItem::translatePricingType($item['pricing_type']));?></td>
+									<td class="customersData" style="padding: 5px;" valign="top"><?php echo $item['display_title'] ?></td>
 									<td class="customersData" style="padding: 5px;" align="right" valign="top">
 										<?php
 										$itemPrice = 0.0;
@@ -267,7 +267,7 @@
 										?>
 									</td>
 									<td style="width: 25px;"> </td>
-									<td class="customersData" style="padding: 5px;" align="right" valign="top">$<?= $this->moneyFormat( $item['qty'] * $itemPrice ) ?></td>
+									<td class="customersData" style="padding: 5px;" align="right" valign="top">$<?php echo $this->moneyFormat( $item['qty'] * $itemPrice ) ?></td>
 								</tr>
 								<?php
 							} }
@@ -277,9 +277,9 @@
 						?>
 						<tr>
 							<td class="customersData" style="padding: 5px;" align="center">1</td>
-							<td class="customersData" style="padding: 5px;" align="center"><?=$numPromoItemServings == 3 ? "3 servings" : "6 servings";?></td>
+							<td class="customersData" style="padding: 5px;" align="center"><?php echo $numPromoItemServings == 3 ? "3 servings" : "6 servings";?></td>
 							<td width="1"> </td>
-							<td class="customersData" style="padding: 5px;"><?=$this->menuInfo['promo_item']['display_title']?> (Promotion)</td>
+							<td class="customersData" style="padding: 5px;"><?php echo $this->menuInfo['promo_item']['display_title']?> (Promotion)</td>
 							<td width="1"> </td>
 							<td class="customersData" style="padding: 5px;" align="right"> $<?php echo $this->moneyFormat($this->menuInfo['promo_item']['price']); ?></td>
 							<td width="1"> </td>
@@ -290,9 +290,9 @@
 						?>
 						<tr>
 							<td class="customersData" style="padding: 5px;" align="center">1</td>
-							<td class="customersData" style="padding: 5px;" align="center"><?=$numFreeMealItemServings == 3 ? "3 servings" : "6 servings";?></td>
+							<td class="customersData" style="padding: 5px;" align="center"><?php echo $numFreeMealItemServings == 3 ? "3 servings" : "6 servings";?></td>
 							<td width="1"> </td>
-							<td class="customersData" style="padding: 5px;"><?=$this->menuInfo['free_meal_item']['display_title']?> (Coupon - Free Item)</td>
+							<td class="customersData" style="padding: 5px;"><?php echo $this->menuInfo['free_meal_item']['display_title']?> (Coupon - Free Item)</td>
 							<td width="1"> </td>
 							<td class="customersData" style="padding: 5px;" align="right"> $<?php echo $this->moneyFormat($this->menuInfo['free_meal_item']['price']); ?></td>
 							<td width="1"> </td>
@@ -367,12 +367,12 @@
 			<table role="presentation" border="0" width="100%">
 				<tr>
 					<td align="right">Total Item Count:</td>
-					<td align="right"><?= $this->orderInfo['menu_items_total_count'] ?></td>
+					<td align="right"><?php echo $this->orderInfo['menu_items_total_count'] ?></td>
 					<td> </td>
 				</tr>
 				<tr>
-					<td align="right"><?= $this->isEmptyFloat( $this->orderInfo['family_savings_discount'] ) ? 'Item Subtotal:' : 'Discounted Item Subtotal:' ?></td>
-					<td align="right">$<?= $this->moneyFormat( $this->orderInfo['subtotal_menu_items'] + $this->orderInfo['subtotal_products'] + $this->orderInfo['subtotal_home_store_markup'] -
+					<td align="right"><?php echo $this->isEmptyFloat( $this->orderInfo['family_savings_discount'] ) ? 'Item Subtotal:' : 'Discounted Item Subtotal:' ?></td>
+					<td align="right">$<?php echo $this->moneyFormat( $this->orderInfo['subtotal_menu_items'] + $this->orderInfo['subtotal_products'] + $this->orderInfo['subtotal_home_store_markup'] -
 							( $this->isEmptyFloat( $this->orderInfo['family_savings_discount'] ) ? 0 : $this->orderInfo['family_savings_discount'] ) -
 							( $this->isEmptyFloat( $this->orderInfo['bundle_discount'] ) ? 0 : $this->orderInfo['bundle_discount'] ) -
 							( $this->isEmptyFloat( $this->orderInfo['subtotal_menu_item_mark_down'] ) ? 0 : $this->orderInfo['subtotal_menu_item_mark_down'] )); ?></td>
@@ -381,30 +381,30 @@
 
 				<?php if( !$this->isEmptyFloat($this->orderInfo['misc_food_subtotal']) ) { ?>
 					<tr>
-						<td align="right">Misc Food ( <?=$this->orderInfo['misc_food_subtotal_desc']?> ):</td>
-						<td align="right">$<?= $this->moneyFormat($this->orderInfo['misc_food_subtotal']) ?></td>
+						<td align="right">Misc Food ( <?php echo $this->orderInfo['misc_food_subtotal_desc']?> ):</td>
+						<td align="right">$<?php echo $this->moneyFormat($this->orderInfo['misc_food_subtotal']) ?></td>
 						<td> </td>
 					</tr>
 				<?php } ?>
 
 				<?php if( !$this->isEmptyFloat($this->orderInfo['misc_nonfood_subtotal']) ) { ?>
 					<tr>
-						<td align="right">Misc Non-Food ( <?=$this->orderInfo['misc_nonfood_subtotal_desc']?> ):</td>
-						<td align="right">$<?= $this->moneyFormat($this->orderInfo['misc_nonfood_subtotal']) ?></td>
+						<td align="right">Misc Non-Food ( <?php echo $this->orderInfo['misc_nonfood_subtotal_desc']?> ):</td>
+						<td align="right">$<?php echo $this->moneyFormat($this->orderInfo['misc_nonfood_subtotal']) ?></td>
 						<td> </td>
 					</tr>
 				<?php } ?>
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['volume_discount_total'] ) ) { ?>
 					<tr>
 						<td align="right">Volume Reward:</td>
-						<td align="right">-<?= $this->moneyFormat($this->orderInfo['volume_discount_total']) ?></td>
+						<td align="right">-<?php echo $this->moneyFormat($this->orderInfo['volume_discount_total']) ?></td>
 						<td> </td>
 					</tr>
 				<?php } ?>
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['points_discount_total'] ) ) { ?>
 					<tr>
 						<td align="right">PlatePoints Dinner Dollars:</td>
-						<td align="right">-<?= $this->moneyFormat($this->orderInfo['points_discount_total']) ?></td>
+						<td align="right">-<?php echo $this->moneyFormat($this->orderInfo['points_discount_total']) ?></td>
 						<td> </td>
 					</tr>
 				<?php } ?>
@@ -412,7 +412,7 @@
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['user_preferred_discount_total'] ) ) { ?>
 					<tr>
 						<td align="right">Preferred Discount:</td>
-						<td align="right">-<?= $this->moneyFormat( $this->orderInfo['user_preferred_discount_total'] ) ?></td>
+						<td align="right">-<?php echo $this->moneyFormat( $this->orderInfo['user_preferred_discount_total'] ) ?></td>
 						<td> </td>
 					</tr>
 				<?php } ?>
@@ -420,7 +420,7 @@
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['dream_rewards_discount'] ) ) { ?>
 					<tr>
 						<td align="right">Dream Rewards Discount:</td>
-						<td align="right">-<?= $this->moneyFormat( $this->orderInfo['dream_rewards_discount'] ) ?></td>
+						<td align="right">-<?php echo $this->moneyFormat( $this->orderInfo['dream_rewards_discount'] ) ?></td>
 						<td> </td>
 					</tr>
 				<?php } ?>
@@ -428,7 +428,7 @@
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['direct_order_discount'] ) ) { ?>
 					<tr>
 						<td align="right">Direct Order Discount:</td>
-						<td align="right">-<?= $this->moneyFormat( $this->orderInfo['direct_order_discount'] ) ?></td>
+						<td align="right">-<?php echo $this->moneyFormat( $this->orderInfo['direct_order_discount'] ) ?></td>
 						<td> </td>
 					</tr>
 				<?php } ?>
@@ -436,7 +436,7 @@
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['membership_discount'] ) ) { ?>
 					<tr>
 						<td align="right">Meal Prep+ Discount:</td>
-						<td align="right">-<?= $this->moneyFormat( $this->orderInfo['membership_discount'] ) ?></td>
+						<td align="right">-<?php echo $this->moneyFormat( $this->orderInfo['membership_discount'] ) ?></td>
 						<td> </td>
 					</tr>
 				<?php } ?>
@@ -444,15 +444,15 @@
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['promo_code_discount_total'] ) ) { ?>
 					<tr>
 						<td align="right">Promotional Code Discount:</td>
-						<td align="right">-<?= $this->moneyFormat( $this->orderInfo['promo_code_discount_total'] ) ?></td>
+						<td align="right">-<?php echo $this->moneyFormat( $this->orderInfo['promo_code_discount_total'] ) ?></td>
 						<td> </td>
 					</tr>
 				<?php } ?>
 
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['coupon_code_discount_total'] ) ) { ?>
 					<tr>
-						<td align="right">Promo Code Discount (<?=$this->orderInfo['coupon_title']?>):</td>
-						<td align="right">-<?= $this->moneyFormat( $this->orderInfo['coupon_code_discount_total'] ) ?></td>
+						<td align="right">Promo Code Discount (<?php echo $this->orderInfo['coupon_title']?>):</td>
+						<td align="right">-<?php echo $this->moneyFormat( $this->orderInfo['coupon_code_discount_total'] ) ?></td>
 						<td> </td>
 					</tr>
 				<?php } ?>
@@ -460,7 +460,7 @@
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['subtotal_service_fee'] ) || $this->orderInfo['service_fee_description'] == "Free Assembly Promo" ) { ?>
 					<tr>
 						<td align="right">Service Fees:</td>
-						<td align="right"><?= $this->moneyFormat( $this->orderInfo['subtotal_service_fee'] ) ?></td>
+						<td align="right"><?php echo $this->moneyFormat( $this->orderInfo['subtotal_service_fee'] ) ?></td>
 						<td> </td>
 					</tr>
 				<?php } ?>
@@ -469,11 +469,11 @@
 				<?php if( $this->orderInfo['opted_to_customize_recipes'] == 1 ) { ?>
 					<tr>
 						<td align="right">Customization Fee:</td>
-						<td align="right"><?= $this->moneyFormat( $this->orderInfo['subtotal_meal_customization_fee'] ) ?></td>
+						<td align="right"><?php echo $this->moneyFormat( $this->orderInfo['subtotal_meal_customization_fee'] ) ?></td>
 						<td> </td>
 					</tr>
 					<tr>
-						<td align="right"><?= $this->meal_customization_string ?></td>
+						<td align="right"><?php echo $this->meal_customization_string ?></td>
 						<td> </td>
 					</tr>
 				<?php } ?>
@@ -481,7 +481,7 @@
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['subtotal_bag_fee'] ) ) { ?>
 					<tr>
 						<td align="right">Bag Fees:</td>
-						<td align="right"><?= $this->moneyFormat( $this->orderInfo['subtotal_bag_fee'] ) ?></td>
+						<td align="right"><?php echo $this->moneyFormat( $this->orderInfo['subtotal_bag_fee'] ) ?></td>
 						<td> </td>
 					</tr>
 				<?php }else{ ?>
@@ -497,21 +497,21 @@
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['subtotal_delivery_fee'] )) { ?>
 					<tr>
 						<td align="right">Delivery Fee:</td>
-						<td align="right"><?= $this->moneyFormat( $this->orderInfo['subtotal_delivery_fee'] ) ?></td>
+						<td align="right"><?php echo $this->moneyFormat( $this->orderInfo['subtotal_delivery_fee'] ) ?></td>
 						<td> </td>
 					</tr>
 				<?php } ?>
 
 				<tr>
 					<td align="right">Food Tax:</td>
-					<td align="right"><?= $this->moneyFormat( $this->orderInfo['subtotal_food_sales_taxes'] ) ?></td>
+					<td align="right"><?php echo $this->moneyFormat( $this->orderInfo['subtotal_food_sales_taxes'] ) ?></td>
 					<td> </td>
 				</tr>
 
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['subtotal_service_tax'] ) ) { ?>
 					<tr>
 						<td align="right">Service Tax:</td>
-						<td align="right"><?= $this->moneyFormat( $this->orderInfo['subtotal_service_tax'] ) ?></td>
+						<td align="right"><?php echo $this->moneyFormat( $this->orderInfo['subtotal_service_tax'] ) ?></td>
 						<td> </td>
 					</tr>
 				<?php } ?>
@@ -519,7 +519,7 @@
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['subtotal_delivery_tax'] ) ) { ?>
 					<tr>
 						<td align="right">Delivery Fee Tax:</td>
-						<td align="right"><?= $this->moneyFormat( $this->orderInfo['subtotal_delivery_tax'] ) ?></td>
+						<td align="right"><?php echo $this->moneyFormat( $this->orderInfo['subtotal_delivery_tax'] ) ?></td>
 						<td> </td>
 					</tr>
 				<?php } ?>
@@ -527,7 +527,7 @@
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['subtotal_bag_fee_tax'] ) ) { ?>
 					<tr>
 						<td align="right">Bag Fee Tax:</td>
-						<td align="right"><?= $this->moneyFormat( $this->orderInfo['subtotal_bag_fee_tax'] ) ?></td>
+						<td align="right"><?php echo $this->moneyFormat( $this->orderInfo['subtotal_bag_fee_tax'] ) ?></td>
 						<td> </td>
 					</tr>
 				<?php } ?>
@@ -535,7 +535,7 @@
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['subtotal_sales_taxes'] ) ) { ?>
 					<tr>
 						<td align="right">Non-Food Tax:</td>
-						<td align="right"><?= $this->moneyFormat( $this->orderInfo['subtotal_sales_taxes'] ) ?></td>
+						<td align="right"><?php echo $this->moneyFormat( $this->orderInfo['subtotal_sales_taxes'] ) ?></td>
 						<td> </td>
 					</tr>
 				<?php } ?>
@@ -544,7 +544,7 @@
 
 				<tr>
 					<td align="right"><b>Menu Order Total:</b></td>
-					<td align="right"><b>$<?= $this->moneyFormat($this->orderInfo['grand_total']) ?></b></td>
+					<td align="right"><b>$<?php echo $this->moneyFormat($this->orderInfo['grand_total']) ?></b></td>
 					<td> </td>
 				</tr>
 
@@ -554,7 +554,7 @@
 					if (isset($this->orderInfo['average_per_serving_cost']) && $this->orderInfo['average_per_serving_cost'] >0 && !$this->isEmptyFloat($this->orderInfo['average_per_serving_cost']) ) { ?>
 						<tr>
 							<td align="right">Average Cost Per Serving:</td>
-							<td align="right"><?= $this->moneyFormat($this->orderInfo['average_per_serving_cost']) ?></td>
+							<td align="right"><?php echo $this->moneyFormat($this->orderInfo['average_per_serving_cost']) ?></td>
 							<td> </td>
 						</tr>
 					<?php } else if (!empty($this->orderInfo['servings_total_count']) && $this->orderInfo['servings_total_count']>0) {
@@ -562,7 +562,7 @@
 						?>
 						<tr>
 							<td align="right">Avg Cost Per Serving for Dinners:</td>
-							<td align="right">$<?= $this->moneyFormat( COrders::averageCostPerServing($this->orderInfo, false, $basisAdjustment) ) ?></td>
+							<td align="right">$<?php echo $this->moneyFormat( COrders::averageCostPerServing($this->orderInfo, false, $basisAdjustment) ) ?></td>
 							<td> </td>
 						</tr>
 					<?php } } ?>
@@ -584,7 +584,7 @@
 	<tr>
 		<td colspan="3" align="left" style="padding: 15px;">
 			<p><b>Not feeling well?</b><br />
-				If you are experiencing a fever or other illness symptoms within 24 hours of your pick up or assembly session, please call <?= $this->sessionInfo['telephone_day'] ?> to reschedule your visit.</p>
+				If you are experiencing a fever or other illness symptoms within 24 hours of your pick up or assembly session, please call <?php echo $this->sessionInfo['telephone_day'] ?> to reschedule your visit.</p>
 			<?php if( !$this->isEmptyFloat( $this->orderInfo['subtotal_meal_customization_fee'] ) ) { ?>
 			<p><b>Meal Customization</b><br />
 				<?php echo OrdersCustomization::RECIPE_LEGAL;
@@ -598,9 +598,9 @@
 	</tr>
 	<tr>
 		<td colspan="3" align="center"><p align="center">If you have questions please contact us at
-				<?= $this->sessionInfo['telephone_day'] ?> or via email by replying.<br />
-														 Dream Dinners <?=$this->sessionInfo['store_name']?><br /><?= $this->sessionInfo['address_line1'] ?>, <?= !empty( $this->sessionInfo['address_line2'] ) ? $this->sessionInfo['address_line2'] . '<br />' : '' ?> <?= $this->sessionInfo['city'] ?> <?= $this->sessionInfo['state_id'] ?> <?= $this->sessionInfo['postal_code'] ?><br />
-				<a href="<?=$this->sessionInfo['map']?>">Get Directions</a></p>
+				<?php echo $this->sessionInfo['telephone_day'] ?> or via email by replying.<br />
+														 Dream Dinners <?php echo $this->sessionInfo['store_name']?><br /><?php echo $this->sessionInfo['address_line1'] ?>, <?php echo !empty( $this->sessionInfo['address_line2'] ) ? $this->sessionInfo['address_line2'] . '<br />' : '' ?> <?php echo $this->sessionInfo['city'] ?> <?php echo $this->sessionInfo['state_id'] ?> <?php echo $this->sessionInfo['postal_code'] ?><br />
+				<a href="<?php echo $this->sessionInfo['map']?>">Get Directions</a></p>
 		</td>
 	</tr>
 </table>

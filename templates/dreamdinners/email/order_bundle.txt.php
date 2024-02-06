@@ -1,7 +1,7 @@
 Dream Dinners
 Meal Prep Starter Pack Order Confirmation
 
-Thank you for placing your first order with Dream Dinners.  Our guests say Dream Dinners makes them feel "prepared, empowered, less stressed, and like a Rock Star Chef!" We're happy to help you in the kitchen, so your family can enjoy homemade meals together.
+Thank you for placing your first order with Dream Dinners. Our guests say Dream Dinners makes them feel "prepared, empowered, less stressed, and like a Rock Star Chef!" We're happy to help you in the kitchen, so your family can enjoy homemade meals together.
 
 Your Dream Dinners' order is summarized below.
 

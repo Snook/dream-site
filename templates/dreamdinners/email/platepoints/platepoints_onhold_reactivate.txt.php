@@ -10,4 +10,3 @@ If you have any questions please contact your local store.
 
 We look forward to seeing you again.
 -Your Dream Dinners Team
-

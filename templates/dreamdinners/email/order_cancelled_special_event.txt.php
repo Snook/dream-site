@@ -1,8 +1,8 @@
 Dream Dinners
 Order Canceled
 
-Dear <?= $this->customer_name ?>,
-Your order, scheduled to be picked up <?=$this->dateTimeFormat($this->sessionInfo['session_start'], NORMAL);?> at our <?=$this->sessionInfo['store_name']?>
+Dear <?php echo $this->customer_name ?>,
+Your order, scheduled to be picked up <?php echo $this->dateTimeFormat($this->sessionInfo['session_start'], NORMAL);?> at our <?php echo $this->sessionInfo['store_name']?>
 location has been canceled.
 
 If you have any questions or concerns regarding this order please contact us. The details of the canceled order are listed below.

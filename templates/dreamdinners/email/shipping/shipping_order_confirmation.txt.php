@@ -17,4 +17,4 @@ By submitting this order and attending your session you are acknowledging agreem
 
 ---------------------------------------------------
 
- <?php include $this->loadTemplate('email/subtemplate/order_details/order_details_delivered_text_email.tpl.php'); ?>
+<?php include $this->loadTemplate('email/subtemplate/order_details/order_details_delivered_text_email.tpl.php'); ?>

@@ -17,11 +17,11 @@
 			</p>
 			<p align="center"><?php echo $this->message; ?><br>
 </p>
-            <p align="center"><strong>When:</strong><br />
+      <p align="center"><strong>When:</strong><br />
 				<?php echo $this->dateTimeFormat($this->session['session_start'], VERBOSE_DATE_NO_YEAR); ?>
-                <br /><?php echo $this->dateTimeFormat($this->session['session_start'], TIME_ONLY); ?><br>
+        <br /><?php echo $this->dateTimeFormat($this->session['session_start'], TIME_ONLY); ?><br>
 </p>
-            <p align="center"><strong>Where:</strong><br />
+      <p align="center"><strong>Where:</strong><br />
 						Dream Dinners<br />
 						<?php echo $this->session['address_line1']; ?><br />
 						<?php echo $this->session['address_line2']; ?><br />

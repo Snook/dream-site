@@ -47,7 +47,7 @@
 	<tr>
 		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/event_theme/default/invite-footer-gray.gif" width="650" height="50" alt="DreamDinners.com"></td>
 	</tr>
-    <tr>
+  <tr>
 		<td><br/><p><i>*Fundraising sessions are limited to one fundraising order per household per fundraising organization.</i></p></td>
 	</tr>
 

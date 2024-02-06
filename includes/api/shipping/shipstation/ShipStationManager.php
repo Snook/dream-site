@@ -3,6 +3,7 @@ require_once 'includes/api/ApiManager.php';
 require_once 'includes/api/shipping/shipstation/ShipStationEndpointFactory.php';
 require_once 'includes/DAO/BusinessObject/COrdersShipping.php';
 require_once 'includes/DAO/BusinessObject/CEmail.php';
+
 /**
  * Wrapper for the ShipStation API
  *
@@ -72,6 +73,7 @@ class ShipStationManager extends ApiManager
 	 * Get the ShipStation Manager instance for the specified store.
 	 *
 	 * @param CStore with id populated
+	 *
 	 * @return  ShipStationManager $shipStationManager
 	 */
 	public static function getInstance($storeObj)
@@ -83,6 +85,7 @@ class ShipStationManager extends ApiManager
 
 		return self::$instance;
 	}
+
 	/**
 	 * ----------------------------------------------------
 	 *  getInstanceForOrder()
@@ -91,6 +94,7 @@ class ShipStationManager extends ApiManager
 	 * Get the ShipStation Manager instance for the specified order's store.
 	 *
 	 * @param COrdersDelivered with the store id populated
+	 *
 	 * @return  ShipStationManager $shipStationManager
 	 */
 	public static function getInstanceForOrder($orderObj)
@@ -109,22 +113,24 @@ class ShipStationManager extends ApiManager
 	 * Get the ShipStation Manager instance for the specified order's store.
 	 *
 	 * @param string shipstation store id
+	 *
 	 * @return  ShipStationManager $shipStationManager
 	 */
 	public static function getInstanceFromShipStationStore($shipstationStoreId)
 	{
-		foreach(ShipStationOrderWrapper::$ssStoreIds as $ddStoreId => $ssStoreId){
-			if( $ssStoreId == $shipstationStoreId)
+		foreach (ShipStationOrderWrapper::$ssStoreIds as $ddStoreId => $ssStoreId)
+		{
+			if ($ssStoreId == $shipstationStoreId)
 			{
 				$store = new CStore();
 				$store->id = $ddStoreId;
+
 				return self::getInstance($store);
 			}
 		}
 
-		throw new Exception('ShipStationManager::getInstanceFromShipStationStore() -> Could not find a shipstation manager instance that matches the incoming ShipSations store ID of ' .$shipstationStoreId);
+		throw new Exception('ShipStationManager::getInstanceFromShipStationStore() -> Could not find a shipstation manager instance that matches the incoming ShipSations store ID of ' . $shipstationStoreId);
 	}
-
 
 	public function getCurrentStoreForConfig()
 	{
@@ -150,7 +156,7 @@ class ShipStationManager extends ApiManager
 		$this->cleanNulls($filters);
 
 		$filter = http_build_query($filters);
-		$response = $this->sendGetRequest($this->endpoint .$this->methodsPaths['getOrders'] . '?' . $filter);
+		$response = $this->sendGetRequest($this->endpoint . $this->methodsPaths['getOrders'] . '?' . $filter);
 
 		$jsonResults = $this->processReply($response);
 
@@ -220,7 +226,7 @@ class ShipStationManager extends ApiManager
 
 		$methodPath = str_replace('{id}', $orderId, $this->methodsPaths['getOrder']);
 
-		$response = $this->sendGetRequest($this->endpoint .$methodPath);
+		$response = $this->sendGetRequest($this->endpoint . $methodPath);
 
 		return $this->processReply($response);
 	}
@@ -253,7 +259,6 @@ class ShipStationManager extends ApiManager
 
 		return $this->processReply($response);
 	}
-
 
 	public function listAccountTags()
 	{
@@ -298,7 +303,8 @@ class ShipStationManager extends ApiManager
 
 	public function addUpdateOrder($orderWrapper)
 	{
-		if(defined('SHIPSTATION_DONT_SEND')){
+		if (defined('SHIPSTATION_DONT_SEND'))
+		{
 			return 'Order not sent to ShipStation based on SHIPSTATION_DONT_SEND set in config, remove from config to send.';
 		}
 		$this->enforceApiRateLimit();
@@ -333,7 +339,7 @@ class ShipStationManager extends ApiManager
 		$this->enforceApiRateLimit();
 
 		$methodPath = str_replace('{id}', $orderId, $this->methodsPaths['deleteOrder']);
-		$response = $this->sendPostRequest($this->endpoint .$methodPath);
+		$response = $this->sendPostRequest($this->endpoint . $methodPath);
 
 		return $this->processReply($response);
 	}
@@ -371,8 +377,6 @@ class ShipStationManager extends ApiManager
 
 		return $shipmentWrapper;
 	}
-
-
 
 	/**
 	 * ----------------------------------------------------
@@ -543,14 +547,14 @@ class ShipStationManager extends ApiManager
 	}
 
 	/**
-	 * @param $targetUrl required - callback url
-	 * @param $event required - ORDER_NOTIFY, ITEM_ORDER_NOTIFY, SHIP_NOTIFY, ITEM_SHIP_NOTIFY
-	 * @param $store_id optional, limits to events for store id
+	 * @param $targetUrl   required - callback url
+	 * @param $event       required - ORDER_NOTIFY, ITEM_ORDER_NOTIFY, SHIP_NOTIFY, ITEM_SHIP_NOTIFY
+	 * @param $store_id    optional, limits to events for store id
 	 * @param $displayName optional - display name for hook in Shipstation
 	 *
 	 * @return false|stdClass
 	 */
-	public function subscribeWebhook($targetUrl,$event,$store_id,$displayName)
+	public function subscribeWebhook($targetUrl, $event, $store_id, $displayName)
 	{
 		$this->enforceApiRateLimit();
 
@@ -562,11 +566,9 @@ class ShipStationManager extends ApiManager
 
 		$this->cleanNulls($data);
 
-
 		$response = $this->sendPostRequest($this->endpoint . $this->methodsPaths['subWebhook'], json_encode($data));
 
 		return $this->processReply($response);
-
 	}
 
 	/**
@@ -584,10 +586,9 @@ class ShipStationManager extends ApiManager
 		$this->enforceApiRateLimit();
 
 		$methodPath = str_replace('{id}', $webhookId, $this->methodsPaths['unsubWebhook']);
-		$response = $this->sendDeleteRequest($this->endpoint .$methodPath);
+		$response = $this->sendDeleteRequest($this->endpoint . $methodPath);
 
 		return $this->processReply($response);
-
 	}
 
 	/**
@@ -598,10 +599,12 @@ class ShipStationManager extends ApiManager
 	 *
 	 * @return boolean true if all updated
 	 */
-	public static function loadOrderShippingInfo(){
-
+	public static function loadOrderShippingInfo()
+	{
 		$recordToProcess = TransientDataStore::retrieveData(TransientDataStore::SHIPPING_SHIP_NOTIFICATION_NEW);
-		if( $recordToProcess['successful'] ){
+
+		if ($recordToProcess['successful'])
+		{
 			$data = json_decode($recordToProcess['data']);
 			$recordId = $recordToProcess['id'];
 			$url = $data->resource_url;
@@ -614,33 +617,33 @@ class ShipStationManager extends ApiManager
 			{
 				$shipStationMgrInstance = ShipStationManager::getInstanceFromShipStationStore($queryParams['storeID']);
 			}
-			catch(Exception $e)
+			catch (Exception $e)
 			{
 				CLog::RecordNew(CLog::ERROR, $e->getMessage(), "", "", true);
 				TransientDataStore::updateDataClass($recordId, TransientDataStore::SHIPPING_SHIP_NOTIFICATION_FAILED);
+
 				return;
 			}
-
 
 			$batchWrapper = $shipStationMgrInstance->loadOrderShippingInfoFromBatch(new ShipStationOrderBatchWrapper($url));
 
 			$setShippingOnAll = true;
-			foreach($batchWrapper->getShipments() as $ssorder){
-				//get order_shipping and set tracking number
-				$orderShipping = DAO_CFactory::create('orders_shipping');
-				$query = "select * from orders_shipping where  order_id = {$ssorder->orderKey} and is_deleted = 0";
-				$orderShipping->query($query);
+			foreach ($batchWrapper->getShipments() as $ssorder)
+			{
+				$DAO_orders = DAO_CFactory::create('orders', true);
+				$DAO_orders->id = $ssorder->orderKey;
 
-				while($orderShipping->fetch())
+				if ($DAO_orders->find_DAO_orders(true))
 				{
-					if (!empty($ssorder->trackingNumber)){
-						$copy = clone($orderShipping);
-						$orderShipping->status = COrdersShipping::STATUS_SHIPPED;
-						$orderShipping->tracking_number = $ssorder->trackingNumber;
-						$orderShipping->tracking_number_received = date('Y-m-d H:i:s');
-						$orderShipping->shipping_cost = $ssorder->shipmentCost;
-						$orderShipping->shipping_tax = 0.00;//$ssorder->shipping_tax;
-						$rslt = $orderShipping->update($copy);
+					if (!empty($ssorder->trackingNumber))
+					{
+						$copy_DAO_orders_shipping = clone($DAO_orders->DAO_orders_shipping);
+						$DAO_orders->DAO_orders_shipping->status = COrdersShipping::STATUS_SHIPPED;
+						$DAO_orders->DAO_orders_shipping->tracking_number = $ssorder->trackingNumber;
+						$DAO_orders->DAO_orders_shipping->tracking_number_received = date('Y-m-d H:i:s');
+						$DAO_orders->DAO_orders_shipping->shipping_cost = $ssorder->shipmentCost;
+						$DAO_orders->DAO_orders_shipping->shipping_tax = 0.00;//$ssorder->shipping_tax;
+						$rslt = $DAO_orders->DAO_orders_shipping->update($copy_DAO_orders_shipping);
 						if (!$rslt)
 						{
 							$setShippingOnAll = false;
@@ -648,27 +651,27 @@ class ShipStationManager extends ApiManager
 						else
 						{
 							//Send Tracking Email to Guest
-							//CEmail::sendDeliveredShipmentTrackingEmail();
+							CEmail::sendDeliveredShipmentTrackingEmail($DAO_orders);
 						}
-
-					}else{
+					}
+					else
+					{
 						$setShippingOnAll = false;
 					}
 				}
-
-
 			}
 
-			if($setShippingOnAll){
+			if ($setShippingOnAll)
+			{
 				TransientDataStore::updateDataClass($recordId, TransientDataStore::SHIPPING_SHIP_NOTIFICATION_DONE);
 			}
 
 			return $setShippingOnAll;
-		}else{
+		}
+		else
+		{
 			return false;
 		}
-
-
 	}
 
 	/**
@@ -678,10 +681,10 @@ class ShipStationManager extends ApiManager
 	 *
 	 * @return false|stdClass Json containing the information return from the service
 	 */
-	public function loadOrderShippingInfoFromUrl($url){
+	public function loadOrderShippingInfoFromUrl($url)
+	{
 
 		return $this->loadOrderShippingInfoFromBatch(new ShipStationOrderBatchWrapper($url));
-
 	}
 
 	/**
@@ -691,7 +694,8 @@ class ShipStationManager extends ApiManager
 	 *
 	 * @return false|stdClass Json containing the information return from the service
 	 */
-	public function loadOrderShippingInfoFromBatch($batchWrapper){
+	public function loadOrderShippingInfoFromBatch($batchWrapper)
+	{
 
 
 		if ($batchWrapper->isCached())

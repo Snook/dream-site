@@ -15,7 +15,7 @@
 			<p align="left">
 				This summer, the Dream Dinners Foundation is proud to partner with The Leukemia & Lymphoma Society (LLS) for The Dare to Dream Project, supporting pediatric blood cancer patients.</p>
 			<p align="left">
-				Join us to learn more about The Dare to Dream Project at our Leukemia and Lymphoma Society Open House Event. Enjoy delicious samples, fun giveaways and help us support a great cause.</p>	
+				Join us to learn more about The Dare to Dream Project at our Leukemia and Lymphoma Society Open House Event. Enjoy delicious samples, fun giveaways and help us support a great cause.</p>
 			<p align="left"><?php echo $this->message; ?></p>
 			<p align="center"><a href="<?php echo $this->referral_link; ?>"><img src="<?php echo EMAIL_IMAGES_PATH; ?>/email/event_theme/<?php echo $this->session['dream_taste_theme_string']; ?>/invite-rsvp-button-green.png" alt="RSVP" width="300" height="45" border="0"></a></p>
 		</td>
@@ -37,7 +37,7 @@
 						<?php echo $this->session['telephone_day']; ?></span>
 					</td>
 					<td width="35%" align="left" valign="top">
-                    <span style="color:#000;"><strong>RSVP:</strong><br />
+          <span style="color:#000;"><strong>RSVP:</strong><br />
 						<?php echo $this->referral_link; ?></span>
 					</td>
 				</tr>
@@ -46,7 +46,7 @@
 	</tr>
 	<tr>
 		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/event_theme/<?php echo $this->session['dream_taste_theme_string']; ?>/invite-footer-gray.gif" alt="dream dinners" width="650" height="50">
-        </td>
+    </td>
 	</tr>
 </table>
 </body>

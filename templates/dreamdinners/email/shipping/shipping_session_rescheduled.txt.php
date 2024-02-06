@@ -1,7 +1,7 @@
 Dream Dinners
 New Delivery Date
 
-Dear <?= $this->customer_name ?>,
+Dear <?php echo $this->customer_name ?>,
 
 Your order with Dream Dinners Delivered has a new delivery date. We look forward to preparing delicious meals for your family. Please find your updated order details below.
 
@@ -9,4 +9,4 @@ Your prepped dinners will be delivered to your home on your new delivery date. B
 
 ---------------------------------------------------
 
- <?php include $this->loadTemplate('email/subtemplate/order_details/order_details_delivered_text_email.tpl.php'); ?>
+<?php include $this->loadTemplate('email/subtemplate/order_details/order_details_delivered_text_email.tpl.php'); ?>

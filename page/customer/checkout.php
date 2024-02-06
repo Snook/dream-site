@@ -1691,7 +1691,7 @@ class page_checkout extends CPage
 
 						COrdersDelivered::sendEditedOrderConfirmationEmail($User, $originalOrder);
 						//send update gift email
-						if (!empty($originalOrder->orderAddress->is_gift))
+						if (!empty($originalOrder->orderAddress->is_gift) && !empty($originalOrder->orderAddress->email_address))
 						{
 							CEmail::sendDeliveredGiftEmail($originalOrder, true);
 						}

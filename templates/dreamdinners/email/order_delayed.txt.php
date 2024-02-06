@@ -6,9 +6,9 @@ successfully processed and your reservation has been retained. We look forward t
 seeing you.
 
 Order for: <?php echo $this->customer_name ?>
-attending <?$this->dateTimeFormat($this->sessionInfo['session_start'], VERBOSE)?>
-at <?$this->sessionInfo['store_name']; ?>
-Confirmation Number: <?= $this->orderInfo['order_confirmation'] ?>
+attending <?php echo $this->dateTimeFormat($this->sessionInfo['session_start'], VERBOSE)?>
+at <?php echo $this->sessionInfo['store_name']; ?>
+Confirmation Number: <?php echo $this->orderInfo['order_confirmation'] ?>
 Please keep this number for your records
 
 -------------------------------------------------

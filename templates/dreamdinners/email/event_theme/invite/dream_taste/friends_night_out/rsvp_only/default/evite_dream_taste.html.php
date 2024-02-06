@@ -46,7 +46,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td><img src="<?=EMAIL_IMAGES_PATH?>/email/event_theme/default/homemade-made-easy-grey-footer-650x40.gif" alt="Dream Dinners" width="650" height="40"></td>
+		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/event_theme/default/homemade-made-easy-grey-footer-650x40.gif" alt="Dream Dinners" width="650" height="40"></td>
 	</tr>
 </table>
 </body>

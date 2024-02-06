@@ -6,7 +6,7 @@ No more:
 - Last minute trips to the grocery store to buy ingredients for dinner
 - Unnecessary hours in the kitchen cooking and cleaning
 
-Account Email Address: <?=$this->primary_email?>
+Account Email Address: <?php echo $this->primary_email?>
 
 Dream Dinners has changed so many lives for the better. We know it can change yours too.
 See you soon!
