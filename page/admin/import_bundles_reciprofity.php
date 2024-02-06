@@ -548,8 +548,8 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 					$theme_string = "dream_taste/open_house/rsvp_only/new/" . $date_str_no_leading_underscore;
 
 					$oh_theme = DAO_CFactory::create('dream_taste_event_theme');
-					$oh_theme->title = "Open House";
-					$oh_theme->title_public = "Open House RSVP Only - New Guests";
+					$oh_theme->title = "Open House RSVP Only - New Guests";
+					$oh_theme->title_public = "Open House";
 					$oh_theme->sort = '51';
 					$oh_theme->sub_theme = 'open_house';
 					$oh_theme->sub_sub_theme = 'rsvp_only';
@@ -587,8 +587,8 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 					$theme_string = "dream_taste/open_house/rsvp_only/all/" . $date_str_no_leading_underscore;
 
 					$oh_theme = DAO_CFactory::create('dream_taste_event_theme');
-					$oh_theme->title = "Open House";
-					$oh_theme->title_public = "Open House RSVP Only - All Guests";
+					$oh_theme->title = "Open House RSVP Only - All Guests";
+					$oh_theme->title_public = "Open House";
 					$oh_theme->sort = '52';
 					$oh_theme->sub_theme = 'open_house';
 					$oh_theme->sub_sub_theme = 'rsvp_only';
