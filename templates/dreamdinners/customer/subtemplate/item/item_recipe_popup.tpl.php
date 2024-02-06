@@ -15,15 +15,17 @@
 						<?php } ?>
 						<?php echo trim($this->menu_item->menu_item_description); ?>
 					</p>
-					<div class="row mb-3">
-						<div class="col col-md-5 mb-2 text-center text-md-left">
-							<?php foreach ($this->icons AS $icon) { ?>
-								<?php if ($icon['meal_detail_enabled'] && !empty($icon['show'])) { ?>
-									<i class="font-size-medium-large dd-icon <?php echo $icon['css_icon']; ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $icon['tooltip']; ?>"></i>
+					<?php if (!empty($this->icons)) { ?>
+						<div class="row mb-3">
+							<div class="col col-md-5 mb-2 text-center text-md-left">
+								<?php foreach ($this->icons AS $icon) { ?>
+									<?php if ($icon['meal_detail_enabled'] && !empty($icon['show'])) { ?>
+										<i class="font-size-medium-large dd-icon <?php echo $icon['css_icon']; ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $icon['tooltip']; ?>"></i>
+									<?php } ?>
 								<?php } ?>
-							<?php } ?>
+							</div>
 						</div>
-					</div>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
