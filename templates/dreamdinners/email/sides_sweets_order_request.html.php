@@ -3,7 +3,7 @@
 	<style type="text/css"><?php include $this->loadTemplate('email/css/style.css'); ?></style>
 </head>
 <body>
-<table width="650"  border="0" cellspacing="0" cellpadding="8">
+<table width="650" border="0" cellspacing="0" cellpadding="8">
 	<tr>
 		<td>
 			<p><a href="<?php echo HTTPS_BASE; ?>backoffice/user_details?id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a> would like the following freezer items added to their order on <a href="<?php echo HTTPS_BASE; ?>backoffice/order-mgr?order=<?php echo $this->order_details['id']; ?>"><?php echo CTemplate::dateTimeFormat($this->order_details['session_start'], VERBOSE); ?></a></p>

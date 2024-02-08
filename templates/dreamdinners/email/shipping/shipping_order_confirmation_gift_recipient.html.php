@@ -4,12 +4,12 @@
 <body>
 <table role="presentation" width="500" border="0" align="center" cellpadding="5" cellspacing="0">
 	<tr>
-		<td align="center" style="padding: 10px"><a href="<?php echo HTTPS_SERVER; ?>"><img src="<?=EMAIL_IMAGES_PATH?>/email/style/dream_dinners_grey_325x75.png" alt="Dream Dinners" width="325" height="75"></a></td>
+		<td align="center" style="padding: 10px"><a href="<?php echo HTTPS_SERVER; ?>"><img src="<?php echo EMAIL_IMAGES_PATH?>/email/style/dream_dinners_grey_325x75.png" alt="Dream Dinners" width="325" height="75"></a></td>
 	</tr>
 </table>
 <table role="presentation" width="500" align="center">
 	<tr>
-		<td><img src="<?=EMAIL_IMAGES_PATH?>/delivered/delivered-box-doorstep-500x300.jpg" width="500" height="300" alt="Dream Dinners"></td>
+		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/delivered/delivered-box-doorstep-500x300.jpg" width="500" height="300" alt="Dream Dinners"></td>
 	</tr>
 </table>
 <table role="presentation" width="500" border="0" align="center" cellpadding="10" cellspacing="0">
@@ -21,7 +21,7 @@
 			<p style="font-family:Arial, Helvetica, sans-serif; font-size: 16px; color: #444444;"><b>Shipping To:</b> <?php echo $this->orderObj->orderAddress->firstname; ?> <?php echo $this->orderObj->orderAddress->lastname; ?>, <?php echo $this->orderObj->orderAddress->address_line1; ?> <?php echo (!empty($this->orderObj->orderAddress->address_line2) ? $this->orderObj->orderAddress->address_line2 : ''); ?>
 				<?php echo $this->orderObj->orderAddress->city; ?>, <?php echo $this->orderObj->orderAddress->state_id; ?> <?php echo $this->orderObj->orderAddress->postal_code; ?></p>
 			<hr>
-			<p style="font-family:Arial, Helvetica, sans-serif; font-size: 16px; color: #444444;">If you have questions please contact Dream Dinners <?=$this->sessionInfo['store_name']?> at <?= $this->sessionInfo['telephone_day'] ?> or via email by replying.</p>
+			<p style="font-family:Arial, Helvetica, sans-serif; font-size: 16px; color: #444444;">If you have questions please contact Dream Dinners <?php echo $this->sessionInfo['store_name']?> at <?php echo $this->sessionInfo['telephone_day'] ?> or via email by replying.</p>
 		</td>
 	</tr>
 </table>

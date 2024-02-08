@@ -11,4 +11,4 @@ Shipping To: <?php echo $this->orderObj->orderAddress->firstname; ?> <?php echo 
 
 ---------------------------
 
-If you have any questions, please contact <?=$this->sessionInfo['store_name'] . "\n";?> at <?=$this->sessionInfo['telephone_day'] . "\n";?>.
+If you have any questions, please contact <?php echo $this->sessionInfo['store_name'] . "\n";?> at <?php echo $this->sessionInfo['telephone_day'] . "\n";?>.

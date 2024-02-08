@@ -5,17 +5,17 @@ Below are the details for your party and a link to invite your friends.
 
 Dream Dinners Party Details:
 
-Your event is scheduled for <?php echo CTemplate::dateTimeFormat($this->session_info['session_start'], VERBOSE_DATE);  ?> at <?php echo CTemplate::dateTimeFormat($this->session_info['session_start'], TIME_ONLY);  ?>
+Your event is scheduled for <?php echo CTemplate::dateTimeFormat($this->session_info['session_start'], VERBOSE_DATE); ?> at <?php echo CTemplate::dateTimeFormat($this->session_info['session_start'], TIME_ONLY); ?>
 
-Invite Code: <?= $this->session_info['session_password'] ?>
+Invite Code: <?php echo $this->session_info['session_password'] ?>
 
-Store Location: <?=$this->session_info['store_name'] ?>
+Store Location: <?php echo $this->session_info['store_name'] ?>
 
 Address:
-<?= $this->session_info['address_line1'] ?> <?= $this->session_info['address_line2'] ?>
-<?= $this->session_info['city'] ?>, <?= $this->session_info['state_id'] ?>
-<?= $this->session_info['postal_code'] ?>
+<?php echo $this->session_info['address_line1'] ?> <?php echo $this->session_info['address_line2'] ?>
+<?php echo $this->session_info['city'] ?>, <?php echo $this->session_info['state_id'] ?>
+<?php echo $this->session_info['postal_code'] ?>
 
 
 Click the link below to invite your guests.
-<?=HTTPS_BASE ?>my-events?sid=<?= $this->session_info['id'] ?>
+<?php echo HTTPS_BASE ?>my-events?sid=<?php echo $this->session_info['id'] ?>

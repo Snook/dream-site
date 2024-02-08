@@ -11,7 +11,7 @@
 	<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
 	<!-- Prevent Apple from reformatting and zooming messages. -->
 	<meta name="x-apple-disable-message-reformatting">
-	<!-- Use the title for assistive technology and when people open emails in a browser tab.  -->
+	<!-- Use the title for assistive technology and when people open emails in a browser tab. -->
 	<title></title>
 	<!-- Allow for better image rendering on Windows hi-DPI displays. -->
 	<!--[if mso]>
@@ -84,10 +84,10 @@
 <body id="body" style="margin: 0 !important; padding: 0 !important;">
 <div role="article" aria-roledescription="email" aria-label="email name" lang="en" style="font-size:1rem">
 	<div style="color: #333333; font-family: "Arial", serif; font-size: 16px; font-weight: normal; line-height: 1.4; margin: 1rem auto;">
-	<table class="mobile" role="presentation" width="600"  border="0" cellspacing="0" cellpadding="0">
+	<table class="mobile" role="presentation" width="600" border="0" cellspacing="0" cellpadding="0">
 		<!-- Logo -->
 		<tr>
-			<td align="center" style="padding: 10px"><img src="<?=EMAIL_IMAGES_PATH?>/email/style/Meal-Prep-Plus-300x68.png" alt="Meal Prep+ Logo" width="300" height="68"></td>
+			<td align="center" style="padding: 10px"><img src="<?php echo EMAIL_IMAGES_PATH?>/email/style/Meal-Prep-Plus-300x68.png" alt="Meal Prep+ Logo" width="300" height="68"></td>
 		</tr>
 		<tr>
 			<td style="padding:20px 20px 10px 20px;">
@@ -99,7 +99,7 @@
 			<td><hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;"></td>
 		</tr>
 		<tr>
-			<td align="center"  style="padding:20px 20px 20px 20px;">
+			<td align="center" style="padding:20px 20px 20px 20px;">
 				<p>See the complete <a href="<?php echo HTTPS_SERVER; ?>/terms">Meal Prep+ terms and conditions here</a>.</p>
 				<p align="center">
 					Dream Dinners <?php echo $this->store->store_name; ?><br />

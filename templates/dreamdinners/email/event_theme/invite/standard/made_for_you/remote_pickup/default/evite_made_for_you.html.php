@@ -20,19 +20,19 @@
 			<p align="center"><strong>When:</strong><br />
 				<?php echo $this->dateTimeFormat($this->session['session_start'], VERBOSE_DATE_NO_YEAR); ?> at <?php echo $this->dateTimeFormat($this->session['session_start'], TIME_ONLY); ?><br>
 </p>
-            <p align="center"><strong>Community Pick Up Location:</strong><br>
+      <p align="center"><strong>Community Pick Up Location:</strong><br>
 				<?php echo $this->session['session_title']; ?><br>
 				<?php echo $this->session['session_remote_location']->address_line1 . ((!empty($this->session['session_remote_location']->address_line2)) ? ' ' . $this->session['session_remote_location']->address_line2 : '') . ', ' . $this->session['session_remote_location']->city . ', ' . $this->session['session_remote_location']->state_id . ' ' .$this->session['session_remote_location']->postal_code; ?></p>
-				
-				
+
+
 				<p align="center"><strong>For questions about ordering contact Dream Dinners at:</strong><br />
 						<?php echo $this->session['telephone_day']; ?><br></p>
 				<p align="center"><a href="<?php echo $this->referral_link; ?>"><img src="<?php echo EMAIL_IMAGES_PATH; ?>/email/event_theme/default/view-menu-order.png" alt="View menu and order" width="300" height="45" border="0"></a></p>
-			
+
 		</td>
 	</tr>
 	<tr>
-		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/event_theme/default/invite-footer-gray.gif"  width="650" height="50" alt="dreamdinners.com"></td>
+		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/event_theme/default/invite-footer-gray.gif" width="650" height="50" alt="dreamdinners.com"></td>
 	</tr>
 </table>
 </body>

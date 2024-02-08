@@ -15,11 +15,11 @@
 			<p align="left">
 				You're invited to my Meal Prep Workshop. Learn my secret to making easy homemade meals, taste delicious appetizers, and spend some time with friends. You’ll receive three delicious, medium-size meals to enjoy at home with your family for just $<?php echo $this->session['dream_taste_price']; ?>.</p>
 			<table role="presentation" width="100%" border="0" cellspacing="5">
-  <tbody>
-    <tr>
-       <td><p>There are limited spaces available, and this offer is only available for guests of this event. Use the link below to reserve your spot today! <a href="<?php echo HTTPS_SERVER; ?>/how-it-works" target="_blank">Learn more about Dream Dinners.</a></p></td>
-    </tr>
-  </tbody>
+ <tbody>
+  <tr>
+    <td><p>There are limited spaces available, and this offer is only available for guests of this event. Use the link below to reserve your spot today! <a href="<?php echo HTTPS_SERVER; ?>/how-it-works" target="_blank">Learn more about Dream Dinners.</a></p></td>
+  </tr>
+ </tbody>
 </table>
 			<p align="left"><?php echo $this->message; ?></p>
 			<p align="center"><a href="<?php echo $this->referral_link; ?>"><img src="<?php echo EMAIL_IMAGES_PATH; ?>/email/event_theme/<?php echo $this->session['dream_taste_theme_string']; ?>/invite-rsvp-button-green.png" alt="RSVP" width="300" height="45" border="0"></a></p>
@@ -54,7 +54,7 @@
 	</tr>
 	<tr>
 		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/event_theme/<?php echo $this->session['dream_taste_theme_string']; ?>/invite-footer-gray.gif" width="650" height="50" alt="Dreamdinners.com">
-	    <p><i>*Meal Prep Workshop sessions are limited to one Meal Prep Workshop order per household per Meal Prep Workshop session.</i></p></td>
+	  <p><i>*Meal Prep Workshop sessions are limited to one Meal Prep Workshop order per household per Meal Prep Workshop session.</i></p></td>
 	</tr>
 </table>
 </body>

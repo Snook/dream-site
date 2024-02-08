@@ -11,8 +11,8 @@
 		<td style="padding:20px;">
 			<p align="center"><span class="title">YOU'RE INVITED!</span></p>
 			<p align="center">Join me for a Friends Night Out. This event gives you the chance to see how easy it is to experience homemade meals with your family. </p>
-			<p align="center">Everyone who RSVP's will  receive one free, medium-size meal to take home and enjoy.</p>
-			<p align="center">In addition to the FREE dinner, you will have the opportunity  to get a one-time special offer during signup. This event has limited spots available, <a href="<?php echo $this->referral_link; ?>">so RSVP today!</a></p>
+			<p align="center">Everyone who RSVP's will receive one free, medium-size meal to take home and enjoy.</p>
+			<p align="center">In addition to the FREE dinner, you will have the opportunity to get a one-time special offer during signup. This event has limited spots available, <a href="<?php echo $this->referral_link; ?>">so RSVP today!</a></p>
 			<p align="center"><?php echo $this->message; ?></p>
 			<p align="center"><a href="<?php echo $this->referral_link; ?>"><img src="<?php echo EMAIL_IMAGES_PATH?>/email/event_theme/default/rsvp-now-olive-button-185x40.gif" alt="RSVP" width="185" height="40" border="0"></a></p>
 		</td>
@@ -45,7 +45,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td><img src="<?=EMAIL_IMAGES_PATH?>/email/event_theme/default/homemade-made-easy-grey-footer-650x40.gif" alt="Dream Dinners" width="650" height="40"></td>
+		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/event_theme/default/homemade-made-easy-grey-footer-650x40.gif" alt="Dream Dinners" width="650" height="40"></td>
 	</tr>
 </table>
 </body>

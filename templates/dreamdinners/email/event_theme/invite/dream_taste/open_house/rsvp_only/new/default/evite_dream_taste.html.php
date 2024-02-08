@@ -14,8 +14,8 @@
 		<td style="padding:20px;"><p align="center"><span class="title">You're Invited!</span></p>
 			<p align="left">
 				Come see how easy it is to provide homemade meals for your family with Dream Dinners. Connect with your community and taste delicious appetizers from our menu. RSVP today! Space is limited.</p></td>
-    </tr>
-  </tbody>
+  </tr>
+ </tbody>
 </table>
 			<p align="left"><?php echo $this->message; ?></p>
 			<p align="center"><a href="<?php echo $this->referral_link; ?>"><img src="<?php echo EMAIL_IMAGES_PATH; ?>/email/event_theme/<?php echo $this->session['dream_taste_theme_string']; ?>/invite-rsvp-button-green.png" alt="RSVP" width="300" height="45" border="0"></a></p>
@@ -38,7 +38,7 @@
 						<?php echo $this->session['telephone_day']; ?></span>
 					</td>
 					<td width="35%" align="left" valign="top">
-                    <span style="color:#000;"><strong>RSVP:</strong><br />
+          <span style="color:#000;"><strong>RSVP:</strong><br />
 						<?php echo $this->referral_link; ?></span>
 					</td>
 				</tr>
@@ -47,7 +47,7 @@
 	</tr>
 	<tr>
 		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/event_theme/<?php echo $this->session['dream_taste_theme_string']; ?>/invite-footer-gray.gif" alt="dream dinners" width="650" height="50">
-        <p><i>*This event is limited to new guests of Dream Dinners or guests that have not ordered in over a year.</i></p></td>
+    <p><i>*This event is limited to new guests of Dream Dinners or guests that have not ordered in over a year.</i></p></td>
 	</tr>
 </table>
 </body>

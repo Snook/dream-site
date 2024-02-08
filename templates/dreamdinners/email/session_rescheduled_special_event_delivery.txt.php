@@ -1,11 +1,11 @@
 Dream Dinners
 Order Rescheduled
 
-Dear <?= $this->customer_name ?>,
+Dear <?php echo $this->customer_name ?>,
 
-Your Home Delivery order scheduled for delivery on <?=$this->dateTimeFormat($this->origSessionInfo['session_start'], NORMAL);?> has been rescheduled.
+Your Home Delivery order scheduled for delivery on <?php echo $this->dateTimeFormat($this->origSessionInfo['session_start'], NORMAL);?> has been rescheduled.
 
-The new 2 hour delivery window starts at <b><?=$this->dateTimeFormat($this->sessionInfo['session_start'], NORMAL);?>.
+The new 2 hour delivery window starts at <b><?php echo $this->dateTimeFormat($this->sessionInfo['session_start'], NORMAL);?>.
 
 If you have any questions or concerns regarding this order please contact us. The details of your order are listed below.
 Thank you

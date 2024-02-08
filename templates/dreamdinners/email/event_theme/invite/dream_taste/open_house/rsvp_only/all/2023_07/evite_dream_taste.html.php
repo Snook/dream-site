@@ -37,7 +37,7 @@
 						<?php echo $this->session['telephone_day']; ?></span>
 					</td>
 					<td width="35%" align="left" valign="top">
-                    <span style="color:#000;"><strong>RSVP:</strong><br />
+          <span style="color:#000;"><strong>RSVP:</strong><br />
 						<?php echo $this->referral_link; ?></span>
 					</td>
 				</tr>
@@ -46,7 +46,7 @@
 	</tr>
 	<tr>
 		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/event_theme/<?php echo $this->session['dream_taste_theme_string']; ?>/invite-footer-gray.gif" alt="dream dinners" width="650" height="50">
-        </td>
+    </td>
 	</tr>
 </table>
 </body>

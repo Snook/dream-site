@@ -5,12 +5,12 @@
 	<tr>
 		<td width="315" align="left" valign="top"><strong>Visit Details</strong><br /><br />
 			<strong>Time:</strong>
-			<?= $this->dateTimeFormat( $this->sessionInfo['session_start'], VERBOSE) ?>
+			<?php echo $this->dateTimeFormat( $this->sessionInfo['session_start'], VERBOSE) ?>
 			<br />
 			<strong> Location:</strong>
-			<?= $this->sessionInfo['store_name'] ?><br />
-			<strong>Order Confirmation:</strong> <a href="<?= HTTPS_BASE ?><?= $this->details_page ?>?order=<?= $this->orderInfo['id'] ?>"><b>
-					<?= $this->orderInfo['order_confirmation'] ?>
+			<?php echo $this->sessionInfo['store_name'] ?><br />
+			<strong>Order Confirmation:</strong> <a href="<?php echo HTTPS_BASE ?><?php echo $this->details_page ?>?order=<?php echo $this->orderInfo['id'] ?>"><b>
+					<?php echo $this->orderInfo['order_confirmation'] ?>
 				</b></a><br /><br />
 			<table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
 				<?php
@@ -65,53 +65,53 @@
 				</tr>
 				<tr>
 					<td align="right">Total Item Count</td>
-					<td align="right"><?= $this->orderInfo['menu_items_total_count'] ?></td>
+					<td align="right"><?php echo $this->orderInfo['menu_items_total_count'] ?></td>
 				</tr>
 				<?php if( !$this->isEmptyFloat($this->orderInfo['misc_food_subtotal']) ) { ?>
 					<tr>
 						<td align="right">Misc Food (
-							<?=$this->orderInfo['misc_food_subtotal_desc']?>
-										  )</td>
+							<?php echo $this->orderInfo['misc_food_subtotal_desc']?>
+										 )</td>
 						<td align="right">$
-							<?= $this->moneyFormat($this->orderInfo['misc_food_subtotal']) ?></td>
+							<?php echo $this->moneyFormat($this->orderInfo['misc_food_subtotal']) ?></td>
 					</tr>
 				<?php } ?>
 				<?php if( !$this->isEmptyFloat($this->orderInfo['misc_nonfood_subtotal']) ) { ?>
 					<tr>
 						<td align="right">Misc Non-Food (
-							<?=$this->orderInfo['misc_nonfood_subtotal_desc']?>
-										  )</td>
+							<?php echo $this->orderInfo['misc_nonfood_subtotal_desc']?>
+										 )</td>
 						<td align="right">$
-							<?= $this->moneyFormat($this->orderInfo['misc_nonfood_subtotal']) ?></td>
+							<?php echo $this->moneyFormat($this->orderInfo['misc_nonfood_subtotal']) ?></td>
 					</tr>
 
 				<?php } ?>
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['subtotal_service_fee'] ) || $this->orderInfo['service_fee_description'] == "Free Assembly Promo" ) { ?>
 					<tr>
 						<td align="right">Service Fees</td>
-						<td align="right"><?= $this->moneyFormat( $this->orderInfo['subtotal_service_fee'] ) ?></td>
+						<td align="right"><?php echo $this->moneyFormat( $this->orderInfo['subtotal_service_fee'] ) ?></td>
 					</tr>
 				<?php } ?>
 				<tr>
 					<td align="right">Food Tax</td>
-					<td align="right"><?= $this->moneyFormat( $this->orderInfo['subtotal_food_sales_taxes'] ) ?></td>
+					<td align="right"><?php echo $this->moneyFormat( $this->orderInfo['subtotal_food_sales_taxes'] ) ?></td>
 				</tr>
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['subtotal_service_tax'] ) ) { ?>
 					<tr>
 						<td align="right">Service Tax</td>
-						<td align="right"><?= $this->moneyFormat( $this->orderInfo['subtotal_service_tax'] ) ?></td>
+						<td align="right"><?php echo $this->moneyFormat( $this->orderInfo['subtotal_service_tax'] ) ?></td>
 					</tr>
 				<?php } ?>
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['subtotal_delivery_tax'] ) ) { ?>
 					<tr>
 						<td align="right">Delivery Fee Tax</td>
-						<td align="right"><?= $this->moneyFormat( $this->orderInfo['subtotal_delivery_tax'] ) ?></td>
+						<td align="right"><?php echo $this->moneyFormat( $this->orderInfo['subtotal_delivery_tax'] ) ?></td>
 					</tr>
 				<?php } ?>
 				<?php if( !$this->isEmptyFloat( $this->orderInfo['subtotal_sales_taxes'] ) ) { ?>
 					<tr>
 						<td align="right">Non-Food Tax</td>
-						<td align="right"><?= $this->moneyFormat( $this->orderInfo['subtotal_sales_taxes'] ) ?></td>
+						<td align="right"><?php echo $this->moneyFormat( $this->orderInfo['subtotal_sales_taxes'] ) ?></td>
 					</tr>
 				<?php } ?>
 				<?php
@@ -120,7 +120,7 @@
 					if (isset($this->orderInfo['average_per_serving_cost']) && !$this->isEmptyFloat($this->orderInfo['average_per_serving_cost']) ) { ?>
 						<tr>
 							<td align="right">Average Cost Per Serving</td>
-							<td align="right"><?= $this->moneyFormat($this->orderInfo['average_per_serving_cost']) ?></td>
+							<td align="right"><?php echo $this->moneyFormat($this->orderInfo['average_per_serving_cost']) ?></td>
 						</tr>
 					<?php } else if (!empty($this->orderInfo['servings_total_count'])) {
 						$basisAdjustment = COrders::getBasisAdjustment($this->menuInfo);
@@ -128,7 +128,7 @@
 					<?php } } ?>
 				<tr>
 					<td align="right"><b>Menu Order Total</b></td>
-					<td align="right"><b>$<?= $this->moneyFormat($this->orderInfo['grand_total']) ?></b></td>
+					<td align="right"><b>$<?php echo $this->moneyFormat($this->orderInfo['grand_total']) ?></b></td>
 				</tr>
 				<?php if (!$this->isEmptyFloat($this->orderInfo['ltd_round_up_value'])) { ?>
 					<tr>
@@ -163,14 +163,14 @@
 						<td class="cart_ordered" style="padding: 5px;" align="center" width="40">Qty</td>
 						<td class="cart_ordered" style="padding: 5px;" align="center" width="70">Size</td>
 						<td class="cart_ordered" style="padding: 5px;" width="200">Menu Items</td>
-						<td class="cart_ordered" style="padding: 5px;" align="center" width="50"><?= $this->isEmptyFloat( $this->orderInfo['family_savings_discount'] ) ? 'Item Price' : 'Family Savings Price' ?></td>
+						<td class="cart_ordered" style="padding: 5px;" align="center" width="50"><?php echo $this->isEmptyFloat( $this->orderInfo['family_savings_discount'] ) ? 'Item Price' : 'Family Savings Price' ?></td>
 						<td style="width: 25px;">&nbsp;</td>
 						<td class="cart_ordered" style="padding: 5px;" align="center" width="50">Total Price</td>
 					</tr>
 					<?php
 					foreach ($this->menuInfo as $categoryName => $subArray) {
 
-						if (($this->orderInfo['type_of_order'] == 'INTRO' || $this->orderInfo['type_of_order'] == 'DREAM_TASTE' ||  $this->orderInfo['type_of_order'] == 'FUNDRAISER') && $categoryName == 'bundle_items')
+						if (($this->orderInfo['type_of_order'] == 'INTRO' || $this->orderInfo['type_of_order'] == 'DREAM_TASTE' || $this->orderInfo['type_of_order'] == 'FUNDRAISER') && $categoryName == 'bundle_items')
 						{
 							continue;
 						}
@@ -189,14 +189,14 @@
 								*/
 								?>
 								<tr>
-									<td class="customersData" style="padding: 5px;" align="center" valign="top"><?= $item['qty'] ?></td>
+									<td class="customersData" style="padding: 5px;" align="center" valign="top"><?php echo $item['qty'] ?></td>
 									<?php if (isset($item['servings_per_item'])) { ?>
-										<td class="customersData" style="padding: 5px;" align="center" valign="top" ><?=((!empty($item['is_side_dish']) || !empty($item['is_kids_choice'])
+										<td class="customersData" style="padding: 5px;" align="center" valign="top" ><?php echo ((!empty($item['is_side_dish']) || !empty($item['is_kids_choice'])
 												|| !empty($item['is_menu_addon']) || !empty($item['is_chef_touched']) || (isset($item['servings_per_item']) && $item['servings_per_item'] == 0)) ? "" : $item['servings_per_item'] . "-serving")?></td>
 									<?php } else { ?>
-										<td class="customersData" style="padding: 5px;" align="center" valign="top"><?=!empty($item['is_side_dish']) ? "" : ($item['pricing_type'] == 'HALF' ? 'Medium' : 'Large');?></td>
+										<td class="customersData" style="padding: 5px;" align="center" valign="top"><?php echo !empty($item['is_side_dish']) ? "" : ($item['pricing_type'] == 'HALF' ? 'Medium' : 'Large');?></td>
 									<?php } ?>
-									<td class="customersData" style="padding: 5px;" valign="top"><?= $item['display_title'] ?></td>
+									<td class="customersData" style="padding: 5px;" valign="top"><?php echo $item['display_title'] ?></td>
 									<td class="customersData" style="padding: 5px;" align="right" valign="top">
 										<?php
 										$itemPrice = 0.0;
@@ -225,7 +225,7 @@
 										?>
 									</td>
 									<td style="width: 25px;">&nbsp;</td>
-									<td align="right" valign="top" style="padding: 5px;" >$<?= $this->moneyFormat( $item['qty'] * $itemPrice ) ?></td>
+									<td align="right" valign="top" style="padding: 5px;" >$<?php echo $this->moneyFormat( $item['qty'] * $itemPrice ) ?></td>
 								</tr>
 								<?php
 							} }
@@ -235,9 +235,9 @@
 						?>
 						<tr>
 							<td class="customersData" style="padding: 5px;" align="center">1</td>
-							<td class="customersData" style="padding: 5px;" align="center"><?=$numPromoItemServings == 3 ? "3 servings" : "6 servings";?></td>
+							<td class="customersData" style="padding: 5px;" align="center"><?php echo $numPromoItemServings == 3 ? "3 servings" : "6 servings";?></td>
 							<td width="1">&nbsp;</td>
-							<td class="customersData" style="padding: 5px;"><?=$this->menuInfo['promo_item']['display_title']?> (Promotion)</td>
+							<td class="customersData" style="padding: 5px;"><?php echo $this->menuInfo['promo_item']['display_title']?> (Promotion)</td>
 							<td width="1">&nbsp;</td>
 							<td class="customersData" style="padding: 5px;" align="right"> $<?php echo $this->moneyFormat($this->menuInfo['promo_item']['price']); ?></td>
 							<td width="1">&nbsp;</td>
@@ -248,9 +248,9 @@
 						?>
 						<tr>
 							<td class="customersData" style="padding: 5px;" align="center">1</td>
-							<td class="customersData" style="padding: 5px;" align="center"><?=$numFreeMealItemServings == 3 ? "3 servings" : "6 servings";?></td>
+							<td class="customersData" style="padding: 5px;" align="center"><?php echo $numFreeMealItemServings == 3 ? "3 servings" : "6 servings";?></td>
 							<td width="1">&nbsp;</td>
-							<td class="customersData" style="padding: 5px;"><?=$this->menuInfo['free_meal_item']['display_title']?> (Coupon - Free Item)</td>
+							<td class="customersData" style="padding: 5px;"><?php echo $this->menuInfo['free_meal_item']['display_title']?> (Coupon - Free Item)</td>
 							<td width="1">&nbsp;</td>
 							<td class="customersData" style="padding: 5px;" align="right"> $<?php echo $this->moneyFormat($this->menuInfo['free_meal_item']['price']); ?></td>
 							<td width="1">&nbsp;</td>
@@ -273,9 +273,9 @@
 	</tr>
 	<tr>
 		<td colspan="3" align="center"><p align="center">If you have questions please contact us at
-				<?= $this->sessionInfo['telephone_day'] ?> or via email by replying.<br />
-														 Dream Dinners <?=$this->sessionInfo['store_name']?><br /><?= $this->sessionInfo['address_line1'] ?>, <?= !empty( $this->sessionInfo['address_line2'] ) ? $this->sessionInfo['address_line2'] . '<br />' : '' ?> <?= $this->sessionInfo['city'] ?>&nbsp;<?= $this->sessionInfo['state_id'] ?>&nbsp;<?= $this->sessionInfo['postal_code'] ?><br />
-				<a href="<?=$this->sessionInfo['map']?>">Get Directions</a></p></td>
+				<?php echo $this->sessionInfo['telephone_day'] ?> or via email by replying.<br />
+														 Dream Dinners <?php echo $this->sessionInfo['store_name']?><br /><?php echo $this->sessionInfo['address_line1'] ?>, <?php echo !empty( $this->sessionInfo['address_line2'] ) ? $this->sessionInfo['address_line2'] . '<br />' : '' ?> <?php echo $this->sessionInfo['city'] ?>&nbsp;<?php echo $this->sessionInfo['state_id'] ?>&nbsp;<?php echo $this->sessionInfo['postal_code'] ?><br />
+				<a href="<?php echo $this->sessionInfo['map']?>">Get Directions</a></p></td>
 	</tr>
 </table>
 <p></p>

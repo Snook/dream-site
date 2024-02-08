@@ -86,17 +86,17 @@
 	<table class="mobile" role="presentation" width="600" border="0" cellspacing="0" cellpadding="0">
 		<!-- Logo -->
 		<tr>
-			<td align="center" style="padding: 10px"><img src="<?=EMAIL_IMAGES_PATH?>/email/style/Meal-Prep-Plus-300x68.png" alt="Meal Prep+ Logo" width="300" height="68"></td>
+			<td align="center" style="padding: 10px"><img src="<?php echo EMAIL_IMAGES_PATH?>/email/style/Meal-Prep-Plus-300x68.png" alt="Meal Prep+ Logo" width="300" height="68"></td>
 		</tr>
 		<tr bgcolor="#5c6670">
 			<td style="padding: 15px"><h1 align="center"><span style="color:#FFF; font-weight:bold;">Membership Order Confirmation</span></h1></td>
 		</tr>
 		<tr>
-		  <td style="padding:10px 20px 10px 20px;">
+		 <td style="padding:10px 20px 10px 20px;">
 				<p>Thank you for joining Meal Prep+.</p>
 				<p>As a Meal Prep+ member, you will join an exclusive club of Dream Dinners guests who have fully embraced Dream Dinners as their dinnertime solution. No more last-minute trips to the grocery store or endless drive thru lines, you are prepared for whatever the week brings. </p>
 			<p>By signing up for Meal Prep+, you will receive 10% off all Dream Dinners meals, sides & sweets for the next 6 months. Plus, you have access to shop from the freezer all month long. Need an extra dessert, a few more meals or even just a side or two? You are covered.</p>
-			  <p>On average, our guests save over $100 during their membership period. Now pat yourself on the back for being such a savvy shopper. <a href="<?php echo HTTPS_SERVER; ?>/meal-prep-plus">Click here for additional information</a> on your new Meal Prep+ membership or contact your local Dream Dinners store.</p>
+			 <p>On average, our guests save over $100 during their membership period. Now pat yourself on the back for being such a savvy shopper. <a href="<?php echo HTTPS_SERVER; ?>/meal-prep-plus">Click here for additional information</a> on your new Meal Prep+ membership or contact your local Dream Dinners store.</p>
 		</tr>
 		<tr>
 			<td><hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;"></td>

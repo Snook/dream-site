@@ -19,9 +19,9 @@
 </p>
 			<p align="center"><strong>When:</strong><br />
 				<?php echo $this->dateTimeFormat($this->session['session_start'], VERBOSE_DATE_NO_YEAR); ?>
-                <br /><?php echo $this->dateTimeFormat($this->session['session_start'], TIME_ONLY); ?><br>
+        <br /><?php echo $this->dateTimeFormat($this->session['session_start'], TIME_ONLY); ?><br>
 </p>
-            <p align="center"><strong>Where:</strong><br />
+      <p align="center"><strong>Where:</strong><br />
 						Dream Dinners<br />
 						<?php echo $this->session['address_line1']; ?><br />
 						<?php echo $this->session['address_line2']; ?><br />
@@ -29,11 +29,11 @@
 						<?php echo $this->session['telephone_day']; ?><br>
 </p>
 
-            <p align="center"><a href="<?php echo $this->referral_link; ?>"><img src="<?php echo EMAIL_IMAGES_PATH; ?>/email/event_theme/default/view-menu-order.png" alt="View menu and order" width="300" height="45" border="0"></a></p>
+      <p align="center"><a href="<?php echo $this->referral_link; ?>"><img src="<?php echo EMAIL_IMAGES_PATH; ?>/email/event_theme/default/view-menu-order.png" alt="View menu and order" width="300" height="45" border="0"></a></p>
 		</td>
 	</tr>
 	<tr>
-		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/event_theme/default/invite-footer-gray.gif"  width="650" height="50" alt="dreamdinners.com"></td>
+		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/event_theme/default/invite-footer-gray.gif" width="650" height="50" alt="dreamdinners.com"></td>
 	</tr>
 </table>
 </body>

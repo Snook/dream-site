@@ -14,7 +14,7 @@ Learn more about how Dream Dinners works.
 --------------------------------
 Event Details
 
-ORGANIZATION:  <?php echo $this->session['fundraiser_name']; ?>
+ORGANIZATION: <?php echo $this->session['fundraiser_name']; ?>
 PICK UP DATE: <?php echo $this->dateTimeFormat($this->session['session_start'], VERBOSE_DATE_NO_YEAR); ?>
 TIME: <?php echo $this->dateTimeFormat($this->session['session_start'], TIME_ONLY); ?>
 

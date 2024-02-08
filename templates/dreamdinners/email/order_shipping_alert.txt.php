@@ -26,5 +26,5 @@ This shipment includes the following items
 -----------------------------
 <?php foreach ($this->orderInfo['boxes']['itemList'] as $item) {
 	if( $item['qty'] > 0 ){?>
-	- <?php echo $item['qty'] ?> <?php echo CMenuItem::translatePricingType($item['pricing_type'], true)  ?> <?php echo $item['display_title'] ?>
+	- <?php echo $item['qty'] ?> <?php echo CMenuItem::translatePricingType($item['pricing_type'], true) ?> <?php echo $item['display_title'] ?>
 <?php }}?>

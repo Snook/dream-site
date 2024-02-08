@@ -13,10 +13,10 @@ Learn more about Dream Dinners.
 --------------------------------
 Event Details
 
-HOST:  <?php echo $this->session['session_host_informal_name']; ?>
+HOST: <?php echo $this->session['session_host_informal_name']; ?>
 PICK UP DATE: <?php echo $this->dateTimeFormat($this->session['session_start'], VERBOSE_DATE_NO_YEAR); ?>
 TIME: <?php echo $this->dateTimeFormat($this->session['session_start'], TIME_ONLY); ?>
-INVITE CODE: <?php echo  $this->session['session_password']; ?>
+INVITE CODE: <?php echo $this->session['session_password']; ?>
 
 LOCATION: <?php echo $this->session['address_line1']; ?> <?php echo (!empty($this->session['address_line2']) ? $this->session['address_line2'] : ''); ?>
 <?php echo $this->session['city']; ?>, <?php echo $this->session['state_id']; ?> <?php echo $this->session['postal_code']; ?>

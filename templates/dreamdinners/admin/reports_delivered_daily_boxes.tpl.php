@@ -19,19 +19,19 @@ $this->setCSS(CSS_PATH . '/admin/admin-styles-reports.css'); ?>
 
 	<div class="row">
 	<!-- Order Header -->
-		<div class="col-6 font-weight-bold"><? echo $thisOrder['info']['menu']; ?> order for <?php echo $thisOrder['info']['name']; ?></div>
+		<div class="col-6 font-weight-bold"><?php echo $thisOrder['info']['menu']; ?> order for <?php echo $thisOrder['info']['name']; ?></div>
 		<div class="col-6"> Shipping to <?php echo $thisOrder['info']['name'] ?><br /> Delivered on  <?php echo $thisOrder['info']['delivery_date'] ?></div>
 
 		<div class="col-12">
 			<?php foreach($thisOrder['boxes'] as $biid  => $thisBox) { ?>
-				<div class="col-4"><? echo $thisBox['box_name']; ?></div>
+				<div class="col-4"><?php echo $thisBox['box_name']; ?></div>
 
 				<div class="col-8 ">
 					<ul>
 						<?php foreach($thisBox['items'] as $mid  => $thisItem) { ?>
 						<li>
 
-							<? echo $thisItem; ?>
+							<?php echo $thisItem; ?>
 
 						</li>
 						<?php } ?>
