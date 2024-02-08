@@ -1,5 +1,5 @@
 <?php $this->setScript('head', SCRIPT_PATH . '/admin/session_mgr.min.js'); ?>
-<?php $this->assign('page_title','Session Calendar'); ?>
+<?php $this->assign('page_title','Shipping Calendar'); ?>
 <?php $this->assign('topnav','sessions'); ?>
 <?php $this->assign('helpLinkSection','SM'); ?>
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>

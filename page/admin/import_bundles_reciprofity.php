@@ -339,7 +339,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 					$theme_string = "dream_taste/standard/standard/" . $date_str_no_leading_underscore;
 
 					$dt_theme = DAO_CFactory::create('dream_taste_event_theme');
-					$dt_theme->title = "Meal Prep Workshop Standard";
+					$dt_theme->title = "Meal Prep Workshop Assembly";
 					$dt_theme->title_public = "Meal Prep Workshop";
 					$dt_theme->sort = '10';
 					$dt_theme->sub_theme = 'standard';
@@ -351,7 +351,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 					if (self::$testMode)
 					{
 						self::$changelog[] = array(
-							'event' => "Will create Standard Meal Prep Workshop Theme and Properties"
+							'event' => "Will create Assembly Meal Prep Workshop Theme and Properties"
 						);
 					}
 					else
@@ -370,11 +370,11 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 						);
 					}
 
-					// create curbside
+					// create Pick Up
 					$theme_string = "dream_taste/standard/curbside/" . $date_str_no_leading_underscore;
 
 					$dt_theme = DAO_CFactory::create('dream_taste_event_theme');
-					$dt_theme->title = "Meal Prep Workshop Curbside";
+					$dt_theme->title = "Meal Prep Workshop Pick Up";
 					$dt_theme->title_public = "Meal Prep Workshop Pick Up";
 					$dt_theme->sort = '20';
 					$dt_theme->sub_theme = 'standard';
@@ -386,7 +386,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 					if (self::$testMode)
 					{
 						self::$changelog[] = array(
-							'event' => "Will create Curbside Meal Prep Workshop Theme and Properties"
+							'event' => "Will create Pick Up Meal Prep Workshop Theme and Properties"
 						);
 					}
 					else
@@ -401,14 +401,14 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 						$dt_props->customer_coupon_eligible = 0;
 						$dt_props->insert();
 						self::$changelog[] = array(
-							'event' => "Created Curbside Meal Prep Workshop Theme and Properties"
+							'event' => "Created Pick Up Meal Prep Workshop Theme and Properties"
 						);
 					}
 				}
 				else
 				{
 					self::$changelog[] = array(
-						'event' => "Standard Meal Prep Workshop Theme and Properties exist - no action"
+						'event' => "Pick Up Meal Prep Workshop Theme and Properties exist - no action"
 					);
 				}
 
@@ -462,7 +462,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 				else
 				{
 					self::$changelog[] = array(
-						'event' => "Standard Meal Prep Workshop Theme and Properties exist - no action"
+						'event' => "Donated Meal Prep Workshop Theme and Properties exist - no action"
 					);
 				}
 
@@ -480,7 +480,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 					$theme_string = "dream_taste/open_house/standard/" . $date_str_no_leading_underscore;
 
 					$oh_theme = DAO_CFactory::create('dream_taste_event_theme');
-					$oh_theme->title = "Open House Standard";
+					$oh_theme->title = "Open House Assembly";
 					$oh_theme->title_public = "Open House";
 					$oh_theme->sort = '40';
 					$oh_theme->sub_theme = 'open_house';
@@ -510,11 +510,11 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 						);
 					}
 
-					// create curbside theme
+					// create Pick Up theme
 					$theme_string = "dream_taste/open_house/curbside/" . $date_str_no_leading_underscore;
 
 					$oh_theme = DAO_CFactory::create('dream_taste_event_theme');
-					$oh_theme->title = "Open House Curbside";
+					$oh_theme->title = "Open House Pick Up";
 					$oh_theme->title_public = "Open House Pick Up";
 					$oh_theme->sort = '50';
 					$oh_theme->sub_theme = 'open_house';
@@ -526,7 +526,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 					if (self::$testMode)
 					{
 						self::$changelog[] = array(
-							'event' => "Will create Curbside Open House Meal Prep Workshop Theme and Properties"
+							'event' => "Will create Pick Up Open House Meal Prep Workshop Theme and Properties"
 						);
 					}
 					else
@@ -540,7 +540,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 						$oh_props->password_required = 2; // 2 = optional
 						$oh_props->insert();
 						self::$changelog[] = array(
-							'event' => "Created Curbside Open House Meal Prep Workshop Theme and Properties"
+							'event' => "Created Pick Up Open House Meal Prep Workshop Theme and Properties"
 						);
 					}
 
@@ -560,7 +560,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 					if (self::$testMode)
 					{
 						self::$changelog[] = array(
-							'event' => "Will create Curbside Open House RSVP Only - New Guests Meal Prep Workshop Theme and Properties"
+							'event' => "Will create Pick Up Open House RSVP Only - New Guests Meal Prep Workshop Theme and Properties"
 						);
 					}
 					else
@@ -579,7 +579,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 						$oh_props->existing_guests_can_attend = 0;
 						$oh_props->insert();
 						self::$changelog[] = array(
-							'event' => "Created Curbside Open House RSVP Only - New Guests Meal Prep Workshop Theme and Properties"
+							'event' => "Created Pick Up Open House RSVP Only - New Guests Meal Prep Workshop Theme and Properties"
 						);
 					}
 
@@ -599,7 +599,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 					if (self::$testMode)
 					{
 						self::$changelog[] = array(
-							'event' => "Will create Curbside Open House RSVP Only - All Guests Meal Prep Workshop Theme and Properties"
+							'event' => "Will create Pick Up Open House RSVP Only - All Guests Meal Prep Workshop Theme and Properties"
 						);
 					}
 					else
@@ -618,7 +618,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 						$oh_props->existing_guests_can_attend = 1;
 						$oh_props->insert();
 						self::$changelog[] = array(
-							'event' => "Created Curbside Open House RSVP Only - All Guests Meal Prep Workshop Theme and Properties"
+							'event' => "Created Pick Up Open House RSVP Only - All Guests Meal Prep Workshop Theme and Properties"
 						);
 					}
 
@@ -717,7 +717,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 					);
 				}
 
-				// Friends Night Out + Upgrade Curbside
+				// Friends Night Out + Upgrade Pick Up
 				$fno_props = DAO_CFactory::create('dream_taste_event_properties');
 				$fno_props->menu_id = $menu_id;
 				$fno_props->bundle_id = $tasteBundle->id;
@@ -731,7 +731,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 					$theme_string = "dream_taste/friends_night_out/curbside/" . $date_str_no_leading_underscore;
 
 					$fno_theme = DAO_CFactory::create('dream_taste_event_theme');
-					$fno_theme->title = "Friends Night Out + Upgrade Curbside";
+					$fno_theme->title = "Friends Night Out + Upgrade Pick Up";
 					$fno_theme->title_public = "Friends Night Out";
 					$fno_theme->sort = '73';
 					$fno_theme->sub_theme = 'friends_night_out';
@@ -864,11 +864,11 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 							);
 						}
 
-						// $10 curbside
+						// $10 Pick Up
 						$theme_string = "fundraiser/ten/curbside/" . $date_str_no_leading_underscore;
 
 						$fr_theme = DAO_CFactory::create('dream_taste_event_theme');
-						$fr_theme->title = "Fundraiser $10 Curbside";
+						$fr_theme->title = "Fundraiser $10 Pick Up";
 						$fr_theme->title_public = "Fundraiser Pick Up";
 						$fr_theme->sort = '90';
 						$fr_theme->sub_theme = 'ten';
@@ -880,7 +880,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 						if (self::$testMode)
 						{
 							self::$changelog[] = array(
-								'event' => "Will create Curbside Fundraiser Theme and Properties"
+								'event' => "Will create Pick Up Fundraiser Theme and Properties"
 							);
 						}
 						else
@@ -894,14 +894,14 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 							$fr_props->password_required = 0;
 							$fr_props->insert();
 							self::$changelog[] = array(
-								'event' => "Created Curbside Fundraiser Theme and Properties"
+								'event' => "Created Pick Up Fundraiser Theme and Properties"
 							);
 						}
 					}
 					else
 					{
 						self::$changelog[] = array(
-							'event' => "Curbside Fundraiser Theme and Properties exist - no action"
+							'event' => "Pick Up Fundraiser Theme and Properties exist - no action"
 						);
 					}
 				}

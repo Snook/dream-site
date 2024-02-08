@@ -491,7 +491,7 @@ class CUser extends DAO_User
 					self::EVENT_COORDINATOR,
 					self::OPS_LEAD
 				),
-				'title' => 'Calendar',
+				'title' => 'Shipping Calendar',
 				'link' => '/backoffice/session-mgr-delivered'
 			),
 
@@ -952,7 +952,7 @@ class CUser extends DAO_User
 					self::EVENT_COORDINATOR,
 					self::OPS_LEAD
 				),
-				'title' => 'Sessions',
+				'title' => 'Calendar',
 				'link' => '/backoffice/session-mgr',
 				'submenu' => array(
 					'admin_session_mgr' => array(
@@ -967,7 +967,7 @@ class CUser extends DAO_User
 							self::EVENT_COORDINATOR,
 							self::OPS_LEAD
 						),
-						'title' => 'Session Calendar',
+						'title' => 'Calendar',
 						'link' => '/backoffice/session-mgr',
 					),
 					'admin_create_session' => array(

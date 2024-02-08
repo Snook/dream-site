@@ -43,7 +43,7 @@
 					<a class="list-group-item list-group-item-action" href="/backoffice/user_details?id=<?=$this->current_user_id; ?>" target="_blank">View Account</a>
 					<a class="list-group-item list-group-item-action" href="/backoffice/account?id=<?=$this->current_user_id; ?>" target="_blank">Edit Account</a>
 					<a class="list-group-item list-group-item-action" href="/backoffice/store_details?id=244" target="_blank">View Store Information - Mill Creek</a>
-					<a class="list-group-item list-group-item-action" href="/backoffice/session-mgr" target="_blank">View <?=$this->current_menu_name; ?> Session Calendar</a>
+					<a class="list-group-item list-group-item-action" href="/backoffice/session-mgr" target="_blank">View <?=$this->current_menu_name; ?>Calendar</a>
 					<a class="list-group-item list-group-item-action" href="/backoffice/create-session?menu=<?=$this->current_menu_id; ?>" target="_blank">Create Session</a>
 					<a class="list-group-item list-group-item-action" href="/backoffice/session_template_mgr" target="_blank">View Session Template Manager</a>
 					<a class="list-group-item list-group-item-action" href="/backoffice/finishing-touch-printable-form?store_id=244&menu_id=<?=$this->current_menu_id; ?>" target="_blank">Print <?=$this->current_menu_name; ?> Sides & Sweets</a>

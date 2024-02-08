@@ -86,7 +86,7 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 										<a class="dropdown-item nav-link" href="/backoffice/main">BackOffice Home</a>
 										<a class="dropdown-item nav-link" href="/backoffice/reports">Reports</a>
 										<a class="dropdown-item nav-link" href="/backoffice/list-users">Guests</a>
-										<a class="dropdown-item nav-link" href="/backoffice/session-mgr">Session Calendar</a>
+										<a class="dropdown-item nav-link" href="/backoffice/session-mgr">Calendar</a>
 										<a class="dropdown-item nav-link" href="/backoffice/menu-inventory-mgr">Inventory Manager</a>
 										<a class="dropdown-item nav-link" href="/backoffice/menu-editor">Menu Editor</a>
 										<a class="dropdown-item nav-link" href="/backoffice/gift-card-management">Gift Cards</a>
@@ -146,7 +146,7 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 		<a class="dropdown-item" href="/backoffice/main">BackOffice Home</a>
 		<a class="dropdown-item" href="/backoffice/reports">Reports</a>
 		<a class="dropdown-item" href="/backoffice/list-users">Guests</a>
-		<a class="dropdown-item" href="/backoffice/session-mgr">Session Calendar</a>
+		<a class="dropdown-item" href="/backoffice/session-mgr">Calendar</a>
 		<a class="dropdown-item" href="/backoffice/menu-inventory-mgr">Inventory Manager</a>
 		<a class="dropdown-item" href="/backoffice/menu-editor">Menu Editor</a>
 		<a class="dropdown-item" href="/backoffice/gift-card-management">Gift Cards</a>
