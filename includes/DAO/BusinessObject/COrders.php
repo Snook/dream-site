@@ -5213,22 +5213,19 @@ class COrders extends DAO_Orders
 			{
 				list($qty, $DAO_menu_item) = $item;
 
-				if ($DAO_menu_item->menu_item_category_id == 1 || ($DAO_menu_item->menu_item_category_id == 4 && empty($DAO_menu_item->is_store_special)))
+				if ($DAO_menu_item->isMenuItem_Core())
 				{
-					if (is_null($DAO_menu_item->parentItemId))
-					{//TODO: evanl check with Ryan if this will work with bundles that do not have fixed quantities??
-						$this->pcal_core_total += $DAO_menu_item->store_price * $qty;
-					}
+					$this->pcal_core_total += $DAO_menu_item->store_price * ($qty - $DAO_menu_item->DAO_order_item->bundle_item_count);
 				}
 
-				if ((isset($DAO_menu_item->is_side_dish) && $DAO_menu_item->is_side_dish) || $DAO_menu_item->menu_item_category_id == 9)
+				if ((isset($DAO_menu_item->is_side_dish) && $DAO_menu_item->is_side_dish) || $DAO_menu_item->isMenuItem_SidesSweets())
 				{
-					$this->pcal_sidedish_total += $DAO_menu_item->store_price * $qty;
+					$this->pcal_sidedish_total += $DAO_menu_item->store_price * ($qty - $DAO_menu_item->DAO_order_item->bundle_item_count);
 				}
 
 				if (isset($DAO_menu_item->is_preassembled) && $DAO_menu_item->is_preassembled)
 				{
-					$this->pcal_preassembled_total += $DAO_menu_item->store_price * $qty;
+					$this->pcal_preassembled_total += $DAO_menu_item->store_price * ($qty - $DAO_menu_item->DAO_order_item->bundle_item_count);
 				}
 			}
 		}
