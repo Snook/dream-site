@@ -554,7 +554,9 @@ class page_admin_create_session extends CPageAdminOnly
 		$SessionForm->AddElement(array(
 			CForm::type => CForm::Number,
 			CForm::disabled => true,
-			CForm::name => 'session_delivery_fee'
+			CForm::name => 'session_delivery_fee',
+			CForm::min => '0',
+			CForm::step => '0.01'
 		));
 
 		$SessionForm->AddElement(array(
