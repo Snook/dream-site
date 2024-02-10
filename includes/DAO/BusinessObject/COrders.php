@@ -12810,7 +12810,7 @@ class COrders extends DAO_Orders
 						$menuInfo['itemList'][$DAO_menu_item->id] = $tempArr;
 						if ($DAO_menu_item->DAO_order_item->discounted_subtotal && $DAO_menu_item->DAO_order_item->discounted_subtotal != 0)
 						{
-							$menuInfo['itemList'][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->DAO_order_item->discounted_subtotal / $DAO_menu_item->DAO_order_item->item_count;
+							$menuInfo['itemList'][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->DAO_order_item->discounted_subtotal / ($DAO_menu_item->DAO_order_item->item_count + $DAO_menu_item->DAO_order_item->bundle_item_count);
 							$menuInfo['itemList'][$DAO_menu_item->id]['subtotal'] = $DAO_menu_item->DAO_order_item->discounted_subtotal;
 						}
 					}
@@ -12819,7 +12819,7 @@ class COrders extends DAO_Orders
 						$menuInfo[$DAO_menu_item->category_group][$DAO_menu_item->id] = $tempArr;
 						if ($DAO_menu_item->DAO_order_item->discounted_subtotal && $DAO_menu_item->DAO_order_item->discounted_subtotal != 0)
 						{
-							$menuInfo[$DAO_menu_item->category_group][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->DAO_order_item->discounted_subtotal / $DAO_menu_item->DAO_order_item->item_count;
+							$menuInfo[$DAO_menu_item->category_group][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->DAO_order_item->discounted_subtotal / ($DAO_menu_item->DAO_order_item->item_count + $DAO_menu_item->DAO_order_item->bundle_item_count);
 							$menuInfo[$DAO_menu_item->category_group][$DAO_menu_item->id]['subtotal'] = $DAO_menu_item->DAO_order_item->discounted_subtotal;
 						}
 					}
@@ -12852,7 +12852,7 @@ class COrders extends DAO_Orders
 					$menuInfo['itemList'][$DAO_menu_item->id] = $tempArr;
 					if ($DAO_menu_item->DAO_order_item->discounted_subtotal && $DAO_menu_item->DAO_order_item->discounted_subtotal != 0)
 					{
-						$menuInfo['itemList'][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->DAO_order_item->discounted_subtotal;
+						$menuInfo['itemList'][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->DAO_order_item->discounted_subtotal / $DAO_menu_item->DAO_order_item->item_count;
 					}
 				}
 				else
@@ -12860,7 +12860,7 @@ class COrders extends DAO_Orders
 					$menuInfo[$DAO_menu_item->category_group][$DAO_menu_item->id] = $tempArr;
 					if ($DAO_menu_item->DAO_order_item->discounted_subtotal && $DAO_menu_item->DAO_order_item->discounted_subtotal != 0)
 					{
-						$menuInfo[$DAO_menu_item->category_group][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->DAO_order_item->discounted_subtotal;
+						$menuInfo[$DAO_menu_item->category_group][$DAO_menu_item->id]['discounted_price'] = $DAO_menu_item->DAO_order_item->discounted_subtotal / $DAO_menu_item->DAO_order_item->item_count;
 					}
 				}
 			}
