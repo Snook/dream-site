@@ -1,6 +1,5 @@
 var _gaq = _gaq || []; // google
 var _iub = _iub || []; // iubenda
-var _etmc = _etmc || []; // salesforce
 window.ytagQ = window.ytagQ || []; //Yext
 
 
@@ -263,63 +262,6 @@ window.ytagQ = window.ytagQ || []; //Yext
 			ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.iubenda.com/cs/iubenda_cs.js';
 			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		})();
-
-		// salesforce
-		(function() {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + '100009514.collect.igodigital.com/collect.js';
-			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-
-		_etmc.push(["setOrgId", "100009514"]);
-		_etmc.push(["setUserInfo", {"email" : ANALYTICS.email}]);
-		_etmc.push(["trackPageView"]);
-		if (USER_PREFERENCES && ANALYTICS.page === 'checkout')
-		{
-			_etmc.push(["trackCart", { "clear_cart": true } ]);
-
-			if (ANALYTICS.cart_item !== null)
-			{
-				$.each(ANALYTICS.cart_item, function (id, item)
-				{
-					_etmc.push(["trackCart", { "cart": [{"item" : item.recipe_id, "quantity": item.qty, "price" : item.price, "unique_id" : id },]}]);
-				});
-			}
-
-		}
-
-		if (ANALYTICS.dd_thank_you != null)
-		{
-			var order_items = [];
-
-			$.each(ANALYTICS.order_item, function (id, item)
-			{
-				order_items[id] = {"item": item.recipe_id, "quantity":  item.qty, "price": item.price, "unique_id": id};
-			});
-
-			_etmc.push([
-				"trackConversion",
-				{
-					"cart": order_items,
-					"order_number": ANALYTICS.order_id,
-					"details": {
-						"order_type": ANALYTICS.order_type,
-						"order_total": ANALYTICS.total
-					}
-				}
-			]);
-		}
-
-		// salesforce email studio
-		if (ANALYTICS.dd_thank_you != null && ANALYTICS.smfcArray != null)
-		{
-			var imgtag = document.createElement('img');
-			imgtag.height = '1';
-			imgtag.width = '1';
-			imgtag.src = '//click.s10.exacttarget.com/conversion.aspx?xml=<system><system_name>tracking</system_name><action>conversion</action><member_id>' + ANALYTICS.smfcArray.mid + '</member_id><job_id>' + ANALYTICS.smfcArray.j + '</job_id><sub_id>' + ANALYTICS.smfcArray.sfmc_sub + '</sub_id><list>' + ANALYTICS.smfcArray.l + '</list><original_link_id>' + ANALYTICS.smfcArray.u + '</original_link_id><BatchID>' + ANALYTICS.smfcArray.jb + '</BatchID><conversion_link_id>2</conversion_link_id><link_alias>' + ANALYTICS.page_title + '</link_alias><display_order>3</display_order><email></email><data_set><data amt="' + ANALYTICS.total + '" unit="Dollars" accumulate="true" /><data amt="1" unit="' + ANALYTICS.order_type + '" accumulate="true" /></data_set></system>';
-
-			$.removeCookie('smfc', {domain: COOKIE.domain, path: '/'});
-		}
 
 		// end
 		if (ANALYTICS.dd_thank_you)
