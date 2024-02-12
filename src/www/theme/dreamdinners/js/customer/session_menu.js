@@ -1609,6 +1609,7 @@ $(function () {
 					firstname: $('#rsvp_firstname').val(),
 					lastname: $('#rsvp_lastname').val(),
 					telephone_1: $('#rsvp_telephone_1').val(),
+					sms_opt_in: $('#rsvp_sms_opt_in').is(':checked'),
 					nobo: 1,
 					submit_login: 1,
 					remember_login: 1

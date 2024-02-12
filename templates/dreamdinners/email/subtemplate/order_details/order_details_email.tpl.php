@@ -60,7 +60,7 @@
 					<?php } ?>
 				</tr>
 			</table>
-			<table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="10">
+			<!--<table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="10">
 				<tr style="text-align: center; ">
 					<td colspan="6"><hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;"><p><strong>Add to Your Calendar</strong></p></td>
 				</tr>
@@ -91,7 +91,7 @@
 						<td> <a href="https://www.addevent.com/dir/?client=aYXluBzdEzgASemdQmwx111525&start=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_start'], DATE_TIME_ITEMPROP)?>&end=<?php echo CTemplate::dateTimeFormat($this->sessionInfo['session_end'], DATE_TIME_ITEMPROP)?>&title=Dream+Dinners+Session&location=<?php echo $this->sessionInfo['address_line1'].' '.$this->sessionInfo['address_line2'].' '.$this->sessionInfo['city'].', '.$this->sessionInfo['state_id'].' '.$this->sessionInfo['postal_code']?>&description=Bring+your+cooler+to+easily+transport+your+meals+home.+If+you+have+any+questions+regarding+this+or+any+other+Dream+Dinners+information+please+contact+the+store.+Email:+<?php echo $this->sessionInfo['email_address']?>+Phone:+<?php echo $this->sessionInfo['telephone_day']?>&timezone=<?php echo $this->sessionInfo['PHPTimeZone']?>&service=outlookcom">Outlook.com</a></td>
 					</tr>
 				<?php } ?>
-			</table>
+			</table>-->
 		</td>
 	</tr>
 	<tr>
