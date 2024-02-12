@@ -11,7 +11,6 @@ require_once('includes/DAO/BusinessObject/CPointsUserHistory.php');
 require_once('includes/DAO/BusinessObject/CPointsCredits.php');
 require_once('includes/DAO/BusinessObject/CCorporateCrateClient.php');
 require_once('includes/DAO/BusinessObject/CTaskRetryQueue.php');
-require_once('includes/CSalesforceLink.inc');
 require_once('includes/CCart2.inc');
 require_once('includes/CPasswordPolicy.inc');
 require_once 'includes/CResultToken.inc';
@@ -226,28 +225,6 @@ class CUser extends DAO_User
 		self::MEAL_SPECIAL_REQUEST_DETAILS => ''
 		//self::MEAL_EXCLUDE_CUSTOM => '', currently not used
 
-	);
-
-	static $SalesforceToInternalPrefNameMap = array(
-		'HasOptOut_OffersPromotions__c' => self::EMAIL_OFFERS_AND_PROMOS,
-		'HasOptOut_Platepoints__c' => self::EMAIL_PLATE_POINTS,
-		'HasOptOut_SessionReminders__c' => self::EMAIL_REMINDER_SESSION,
-		'HasOptOut_Surveys__c' => self::EMAIL_SURVEYS,
-		'HasOptOut_SMS_DINNER__c' => self::TEXT_MESSAGE_PROMO_PRIMARY,
-		'HasOptOut_SMS_SESSION__c' => self::TEXT_MESSAGE_REMINDER_SESSION_PRIMARY,
-		'HasOptOut_SMS_THAW__c' => self::TEXT_MESSAGE_THAW_PRIMARY,
-		'HasOptOut_SMS_TEST__c' => self::TEXT_MESSAGE_DD_TEST
-	);
-
-	static $InternalToSalesforcePrefNameMap = array(
-		self::EMAIL_OFFERS_AND_PROMOS => 'HasOptOut_OffersPromotions__c',
-		self::EMAIL_PLATE_POINTS => 'HasOptOut_Platepoints__c',
-		self::EMAIL_REMINDER_SESSION => 'HasOptOut_SessionReminders__c',
-		self::EMAIL_SURVEYS => 'HasOptOut_Surveys__c',
-		self::TEXT_MESSAGE_PROMO_PRIMARY => 'HasOptOut_SMS_DINNER__c',
-		self::TEXT_MESSAGE_REMINDER_SESSION_PRIMARY => 'HasOptOut_SMS_SESSION__c',
-		self::TEXT_MESSAGE_THAW_PRIMARY => 'HasOptOut_SMS_THAW__c',
-		self::TEXT_MESSAGE_DD_TEST => 'HasOptOut_SMS_TEST__c'
 	);
 
 	static $SMSPrefsDefaults = array(
@@ -5191,7 +5168,6 @@ class CUser extends DAO_User
 			}
 			else
 			{
-				$result->addResult($this->unsubscribeFromAll());
 				$result->addResult($this->clearDataFromShipStation());
 				$result->addResult($this->obfuscateUserData());
 
@@ -5318,7 +5294,7 @@ class CUser extends DAO_User
 		if (!empty($this->id))
 		{
 			$dao = DAO_CFactory::create('orders');
-			$dao->query("select distinct o.id from booking b, orders o, session s, orders_shipping os " . "where b.session_id = s.id " . "and b.order_id = o.id " . "and o.user_id = " . $this->id . " " . "and os.order_id = o.id " . "and s.session_type = '" . CSession::DELIVERED . "' " . "and os.status in ('NEW','DELIVERED') ");
+			$dao->query("select distinct o.id from booking b, orders o, session s, orders_shipping os where b.session_id = s.id and b.order_id = o.id and o.user_id = " . $this->id . " and os.order_id = o.id  and s.session_type = '" . CSession::DELIVERED . "' " . "and os.status in ('NEW','DELIVERED') ");
 
 			while ($dao->fetch())
 			{
@@ -5337,30 +5313,6 @@ class CUser extends DAO_User
 						$result->addFailureMessage('Unable to clear data from shipstation on user delete for order id: ' . $dao->id);
 					}
 				}
-			}
-		}
-
-		return $result;
-	}
-
-	private function unsubscribeFromAll()
-	{
-		$result = new CResultToken();
-
-		//Unsub from SalesForce
-		$SalesForce = new CSalesforceLink();
-
-		foreach (CUser::$InternalToSalesforcePrefNameMap as $key => $value)
-		{
-			$salesForceResult = $SalesForce->setPrefInSalesforce($this->id, CUser::$InternalToSalesforcePrefNameMap[$key], true);
-			if (!empty($salesForceResult['error_occurred']))
-			{
-				// schedule retry
-				CTaskRetryQueue::queueTask(CTaskRetryQueue::SYNC_SALES_FORCE_PREF, array(
-					'user_id' => $this->id,
-					'pref' => $key,
-					'value' => false
-				), 3600, 300);
 			}
 		}
 

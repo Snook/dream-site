@@ -180,7 +180,7 @@ class CCartStorage
 	/**
 	 *  Set the list of cart record's abandoned_status to 'ABANDONED'.
 	 * This status is monitored by the abandoned cart
-	 * cron job which starts a journey in SalesForce for each.
+	 * cron job.
 	 *
 	 * This leaves the timestamp_update unaltered.
 	 *

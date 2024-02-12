@@ -39,11 +39,11 @@
 						<input type="hidden" id="id<?php echo $payment['id']; ?>" name="id<?php echo $payment['id']; ?>" value="<?php echo $payment['id']; ?>" />
 
 
-					<?php if ($cap == 0) { ?>
-						This payment has been fully refunded.
-					<?php } else { ?>
+						<?php if ($cap == 0) { ?>
+							This payment has been fully refunded.
+						<?php } else { ?>
 							<input type="text" maxlength="6" size="6" data-payment_input="true" id="Amt<?php echo $payment['id']; ?>" name="Amt<?php echo $payment['id']; ?>" value="<?php echo $cap; ?>" onKeyPress="validateKey(event);" onKeyUp="validateAmount( this, <?php echo $cap ?>);" />
-					<?php } ?>
+						<?php } ?>
 
 					<?php } else if (!empty($payment['num']) && $payment['num'] == 'pending') { // pending delayed payment ?>
 						<input type="hidden" id="Pnd<?php echo $payment['id']; ?>" name="Pnd<?php echo $payment['id']; ?>" value="<?php echo $payment['amt']; ?>" />Pending Delayed Payment will be cancelled.
@@ -53,7 +53,7 @@
 						<?php echo $payment['type']; ?>
 					<?php }	?>
 					<?php if ($cap > 0 && $payment['type'] == CPayment::CC && $payment['refunded_amount'] > 0) { ?>
-							$<?= $payment['refunded_amount']?> already refunded.
+						$<?= $payment['refunded_amount']?> already refunded.
 					<?php } ?>
 
 				</td>
@@ -73,24 +73,23 @@
 		</tr>
 	</table>
 
-
-    <div style="margin-top:10px;">
-        <select id="cancellation_reason" name="cancellation_reason" value="" >
-        <?php $options = CBooking::getCancellationReasonArray();
-                foreach($options as $key => $name)
-                {
-                    echo "<option value='$key'>" . $name . "</option>";
-                }
-        ?>
-        </select><br /><br />
-        <input type="checkbox" id="declined_MFY" name="declined_MFY"  /><label for="declined_MFY">Declined Made for You option</label><br /><br />
-        <input type="checkbox" id="declined_to_reschedule" name="declined_to_reschedule"  /><label for="declined_to_reschedule">Declined to reschedule</label><br /><br />
+	<div style="margin-top:10px;">
+		<select id="cancellation_reason" name="cancellation_reason" value="" >
+			<?php $options = CBooking::getCancellationReasonArray();
+			foreach($options as $key => $name)
+			{
+				echo "<option value='$key'>" . $name . "</option>";
+			}
+			?>
+		</select><br /><br />
+		<input type="checkbox" id="declined_MFY" name="declined_MFY"  /><label for="declined_MFY">Declined Made for You option</label><br /><br />
+		<input type="checkbox" id="declined_to_reschedule" name="declined_to_reschedule"  /><label for="declined_to_reschedule">Declined to reschedule</label><br /><br />
 		<input type="checkbox" id="suppress_cancel_email" name="suppress_cancel_email"  /><label for="suppress_cancel_email">Suppress Cancellation Email sent to Guest</label>
 	</div>
 
 	<?php if (!empty($this->order->membership_id)) { ?>
-	<div style="margin-top:10px;">
-		*Meal Prep+ canceled orders will not receive any emails from the Salesforce cancellation journey. Please accurately select the reason why they canceled from the drop down above.
-	</div>
+		<div style="margin-top:10px;">
+			*Meal Prep+ please accurately select the reason why they canceled from the drop down above.
+		</div>
 	<?php } ?>
 </div>

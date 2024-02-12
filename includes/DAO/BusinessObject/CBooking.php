@@ -60,29 +60,25 @@ class CBooking extends DAO_Booking
 	{
 		return array(
 			"" => "Select the main reason this guest canceled",
-			'TOO_MANY_MEALS_IN_FREEZER' => "Too many meals in the freezer (adds to cancellation journey)",
-			'DIETARY_RESTRICTIONS' => "Dietary restrictions or changes (adds to cancellation journey)",
-			'SESSION_TIMES_DID_NOT_WORK' => "Session times didn’t work for them (adds to cancellation journey)",
-			'FINANCIAL_CONCERNS' => "Financial concerns (no email)",
-			'DID_NOT_LIKE_PROCESS_OR_MEALS' => "Didn’t like the process or meals (no email)",
-			'OTHER' => "Other (no email)"
+			'TOO_MANY_MEALS_IN_FREEZER' => "Too many meals in the freezer",
+			'DIETARY_RESTRICTIONS' => "Dietary restrictions or changes",
+			'SESSION_TIMES_DID_NOT_WORK' => "Session times didn't work for them",
+			'FINANCIAL_CONCERNS' => "Financial concerns",
+			'DID_NOT_LIKE_PROCESS_OR_MEALS' => "Didn't like the process or meals",
+			'OTHER' => "Other"
 		);
 	}
 
-	static public function getCustomerCancellationReasonArray()//comment is SalesForce Journey
+	static public function getCustomerCancellationReasonArray()
 	{
 		return array(
 			"" => "Select the main reason you are cancelling this order",
 			'SESSION_TIMES_DID_NOT_WORK' => "I will no longer be home on my Delivery Date",
-			//adds to cancellation journey
 			'DIETARY_RESTRICTIONS' => "Dietary restrictions or changes",
-			//adds to cancellation journey
 			'FINANCIAL_CONCERNS' => "Too expensive",
-			//no email
-			'DID_NOT_LIKE_PROCESS_OR_MEALS' => "I didn’t like the meals in my previous order",
-			//no email
+			'DID_NOT_LIKE_PROCESS_OR_MEALS' => "I didn't like the meals in my previous order",
 			'OTHER' => "Other"
-		);//no email
+		);
 	}
 
 	static public function getBookingCancellationReasonDisplayString($reasonEnum)

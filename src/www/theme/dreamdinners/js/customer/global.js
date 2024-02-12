@@ -1429,15 +1429,6 @@ $(document).on('click', '.clear-cart, .clear-cart-gc', function (e) {
 							output: 'json'
 						},
 						success: function (json) {
-							// salesforce clear cart
-							if (typeof _etmc !== 'undefined')
-							{
-								_etmc.push([
-									"trackCart",
-									{"clear_cart": true}
-								]);
-							}
-
 							// reload page
 							window.location.reload();
 						},

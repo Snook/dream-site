@@ -1165,7 +1165,7 @@ class CTemplate extends Savant2
 			'intro_customer' => (CUser::isLoggedIn() && CUser::getCurrentUser()->isNewBundleCustomer()),
 			'page' => ((!empty($this->page)) ? $this->page : false),
 			'page_title' => ((!empty($this->page_title)) ? $this->page_title : 'DreamDinners.com'),
-			'smfcArray' => json_decode(CBrowserSession::getValue('smfc')),
+			//'smfcArray' => json_decode(CBrowserSession::getValue('smfc')),
 			'dd_thank_you' => CBrowserSession::getValue('dd_thank_you'),
 			'vendor' => array(
 				'google' => array(
@@ -1207,6 +1207,7 @@ class CTemplate extends Savant2
 		);
 
 		// salesforce email studio
+		/*
 		if (isset($_REQUEST['sfmc_sub']) && isset($_REQUEST['j']) && isset($_REQUEST['l']) && isset($_REQUEST['u']) && isset($_REQUEST['mid']) && isset($_REQUEST['jb']))
 		{
 			$this->head_analytics_array['smfcArray'] = array(
@@ -1219,6 +1220,7 @@ class CTemplate extends Savant2
 			);
 			CBrowserSession::setValue('smfc', json_encode($this->head_analytics_array['smfcArray']), false, true, false); // can't be httponly so javascript can remove the cookie
 		}
+		*/
 
 		return $this->head_analytics_array;
 	}
