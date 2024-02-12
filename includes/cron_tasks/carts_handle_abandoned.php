@@ -6,7 +6,8 @@ require_once("DAO/CFactory.php");
 require_once("CCart2.inc");
 require_once("CLog.inc");
 
-try {
+try
+{
 	if (defined("DISABLE_CRON") && DISABLE_CRON)
 	{
 		CLog::Record("CRON: Handle Abandoned Carts called but cron is disabled");
@@ -20,20 +21,25 @@ try {
 
 	if ($totalCount > 0)
 	{
-		foreach ($cartRecords as $cartData){
+		foreach ($cartRecords as $cartData)
+		{
 			//Need contact Email
 			$result = SalesForceMarketingManager::getInstance()->fetchContactKeyByEmail($cartData['email']);
 
-
-			if(!$result->isFailure()){
+			if (!$result->isFailure())
+			{
 				$contactKey = $result->getPayload();
-				if($contactKey != null){
-					$result = SalesForceMarketingManager::getInstance()->invokeAbandonedCartJourney($contactKey,$cartData['email'],$cartData['first_name'],$cartData['cart_key']);
-					if(!$result->isFailure()){
+				if ($contactKey != null)
+				{
+					$result = SalesForceMarketingManager::getInstance()->invokeAbandonedCartJourney($contactKey, $cartData['email'], $cartData['first_name'], $cartData['cart_key']);
+					if (!$result->isFailure())
+					{
 						//Mark record as sent
-						CCartStorage::markAbandonedCartStatus($cartData['id'],'TRIGGERED_SALESFORCE');
-					}else{
-						CCartStorage::markAbandonedCartStatus($cartData['id'],'FAILED');
+						CCartStorage::markAbandonedCartStatus($cartData['id'], 'TRIGGERED_SALESFORCE');
+					}
+					else
+					{
+						CCartStorage::markAbandonedCartStatus($cartData['id'], 'FAILED');
 					}
 				}
 			}
@@ -46,7 +52,7 @@ try {
 }
 catch (exception $e)
 {
-	CLog::RecordCronTask(0, CLog::PARTIAL_FAILURE, CLog::MARK_CART_ABANDONED, CLog::MARK_CART_ABANDONED. " - Exception occurred: " . $e->getMessage());
+	CLog::RecordCronTask(0, CLog::PARTIAL_FAILURE, CLog::MARK_CART_ABANDONED, CLog::MARK_CART_ABANDONED . " - Exception occurred: " . $e->getMessage());
 	CLog::RecordException($e);
 }
 
