@@ -409,6 +409,8 @@ class page_admin_edit_session extends CPageAdminOnly
 		$SessionForm->AddElement(array(
 			CForm::type => CForm::Number,
 			CForm::name => 'session_delivery_fee',
+			CForm::min => '0',
+			CForm::step => '0.01',
 			CForm::attribute => array('data-valdefault' => ((!empty($Store->delivery_fee)) ? $Store->delivery_fee : '0.00'))
 		));
 

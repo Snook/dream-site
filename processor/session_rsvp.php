@@ -77,6 +77,11 @@ class processor_session_rsvp extends CPageProcessor
 				// log in the user
 				$DAO_user->Login($remember_login);
 
+				if (!empty($_POST['sms_opt_in']))
+				{
+					$DAO_user->setUserPreference(CUser::TEXT_MESSAGE_OPT_IN, 'OPTED_IN');
+				}
+
 				if ($DAO_user->isEligibleForSessionRSVP_DreamTaste($DAO_session))
 				{
 					$slotsWithoutOrders = $DAO_session->getRemainingSlots();
@@ -159,6 +164,11 @@ class processor_session_rsvp extends CPageProcessor
 						if ($authenticateResult === true)
 						{
 							$DAO_user->Login($remember_login);
+						}
+
+						if (!empty($_POST['sms_opt_in']))
+						{
+							$DAO_user->setUserPreference(CUser::TEXT_MESSAGE_OPT_IN, 'OPTED_IN');
 						}
 
 						// create rsvp
