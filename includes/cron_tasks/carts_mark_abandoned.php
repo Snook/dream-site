@@ -5,8 +5,8 @@ require_once("DAO/CFactory.php");
 require_once("CCart2.inc");
 require_once("CLog.inc");
 
-
-try {
+try
+{
 	if (defined("DISABLE_CRON") && DISABLE_CRON)
 	{
 		CLog::Record("CRON: Mark Abandoned Carts called but cron is disabled");
@@ -19,14 +19,14 @@ try {
 
 	if ($totalCount > 0)
 	{
-        CCartStorage::markAbandonedCartRows($cartIDs);
+		CCartStorage::markAbandonedCartRows($cartIDs);
 	}
 
 	CLog::RecordCronTask($totalCount, CLog::SUCCESS, CLog::MARK_CART_ABANDONED, $totalCount . " carts marked abandoned.");
 }
 catch (exception $e)
 {
-	CLog::RecordCronTask(0, CLog::PARTIAL_FAILURE, CLog::MARK_CART_ABANDONED, CLog::MARK_CART_ABANDONED. " - Exception occurred: " . $e->getMessage());
+	CLog::RecordCronTask(0, CLog::PARTIAL_FAILURE, CLog::MARK_CART_ABANDONED, CLog::MARK_CART_ABANDONED . " - Exception occurred: " . $e->getMessage());
 	CLog::RecordException($e);
 }
 

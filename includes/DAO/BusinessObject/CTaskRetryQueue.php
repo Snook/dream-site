@@ -1,7 +1,7 @@
 <?php
 require_once("includes/CSalesforceLink.inc");
 require_once("includes/CSFMCLink.inc");
-require_once ("processor/account.php");
+require_once("processor/account.php");
 
 class CTaskRetryQueue
 {
@@ -14,7 +14,6 @@ class CTaskRetryQueue
 	const PROCESS_STATUS_FAILED = 2;
 	const PROCESS_STATUS_REQUEUE = 3;
 	const PROCESS_STATUS_FAILED_AND_EXPIRED = 4;
-
 
 	static function hasIntervalPassed($task)
 	{
@@ -42,7 +41,7 @@ class CTaskRetryQueue
 
 		if ($expireTimeTS > $now)
 		{
-				return true;
+			return true;
 		}
 
 		return false;
@@ -52,7 +51,6 @@ class CTaskRetryQueue
 	static function process($task_id)
 	{
 		$result = null;
-
 
 		$task = DAO_CFactory::create('task_retry_queue');
 		$task->id = $task_id;
@@ -71,7 +69,7 @@ class CTaskRetryQueue
 			return;
 		}
 
-		switch($task->task_type)
+		switch ($task->task_type)
 		{
 			case self::DETECT_2ND_SMS_OPT_IN_STEP:
 				$result = self::handle_DETECT_2ND_SMS_OPT_IN_STEP($task);
@@ -126,7 +124,6 @@ class CTaskRetryQueue
 			throw new Exception("Retry Queue Task interval must be at least 2 minutes");
 		}
 
-
 		$taskObj = DAO_CFactory::create('task_retry_queue');
 		$taskObj->task_type = $type;
 		$taskObj->data = json_encode($dataArray);
@@ -155,11 +152,15 @@ class CTaskRetryQueue
 			$SMSPrefs = CUser::$SMSPrefsDefaults;
 			foreach ($SMSPrefs as $key => $value)
 			{
-				if ($key != CUser::TEXT_MESSAGE_TARGET_NUMBER) {
+				if ($key != CUser::TEXT_MESSAGE_TARGET_NUMBER)
+				{
 
-					if (CUser::OPTED_IN) {
+					if (CUser::OPTED_IN)
+					{
 						$SMSNewValuesExternal[CUser::$InternalToSalesforcePrefNameMap[$key]] = false;
-					} else {
+					}
+					else
+					{
 						$SMSNewValuesExternal[CUser::$InternalToSalesforcePrefNameMap[$key]] = true;
 					}
 				}
@@ -177,7 +178,6 @@ class CTaskRetryQueue
 			}
 
 			return array('code' => self::PROCESS_STATUS_SUCCESS);
-
 		}
 		else
 		{
@@ -189,7 +189,6 @@ class CTaskRetryQueue
 			}
 
 			return array('code' => self::PROCESS_STATUS_SUCCESS);
-
 		}
 	}
 
@@ -211,7 +210,8 @@ class CTaskRetryQueue
 
 			$sfmcSettings = $salesForce->retrieveSMSPreferences($currentSMSPhoneSetting);
 
-			if (!empty($sfmcSettings['error_occurred'])) {
+			if (!empty($sfmcSettings['error_occurred']))
+			{
 				// most likely a brand new account with no SF object so ignore
 				return array('code' => self::PROCESS_STATUS_FAILED);
 			}
@@ -230,6 +230,7 @@ class CTaskRetryQueue
 							$User->setUserPreference(CUser::TEXT_MESSAGE_TARGET_NUMBER, CTemplate::telephoneFormat($currentSMSPhoneSetting));
 							$prefsProcessor = new processor_account();
 							$prefsProcessor->setAllSMSPreferences($User, CTemplate::telephoneFormat($currentSMSPhoneSetting));
+
 							return array('code' => self::PROCESS_STATUS_SUCCESS);
 						}
 						else if ($thisContact['status'] == "active" && $thisContact['keyword'] == SFMC_MAIN_KEYWORD)
@@ -238,9 +239,11 @@ class CTaskRetryQueue
 							$User->setUserPreference(CUser::TEXT_MESSAGE_TARGET_NUMBER, CTemplate::telephoneFormat($currentSMSPhoneSetting));
 							$prefsProcessor = new processor_account();
 							$prefsProcessor->setAllSMSPreferences($User, CTemplate::telephoneFormat($currentSMSPhoneSetting));
+
 							return array('code' => self::PROCESS_STATUS_SUCCESS);
 						}
 					}
+
 					return array('code' => self::PROCESS_STATUS_FAILED);
 				}
 				else
