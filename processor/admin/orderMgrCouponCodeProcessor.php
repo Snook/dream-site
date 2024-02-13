@@ -86,7 +86,7 @@ class processor_admin_orderMgrCouponCodeProcessor extends CPageProcessor
 			}
 		}
 
-		list($Order, $SessionObj) = self::buildOrderFromArray($daoStore, $values, $User);
+		list($Order, $SessionObj) = self::buildOrderFromArray($daoStore, $values, $User, $_REQUEST['order_id']);
 
 		$menu_id = $SessionObj->menu_id;
 
@@ -297,9 +297,10 @@ class processor_admin_orderMgrCouponCodeProcessor extends CPageProcessor
 	/**
 	 * @return $Order
 	 */
-	public static function buildOrderFromArray($daoStore, $array, $User)
+	public static function buildOrderFromArray($daoStore, $array, $User, $order_id = null)
 	{
 		$Order = DAO_CFactory::create('orders');
+		$Order->id = $order_id;
 		$Order->store_id = $daoStore->id;
 		$Order->is_sampler = 0;
 		$Order->family_savings_discount_version = 2;
@@ -499,60 +500,52 @@ class processor_admin_orderMgrCouponCodeProcessor extends CPageProcessor
 
 		if ($menu_item_ids)
 		{
-			$menuItemInfo = DAO_CFactory::create('menu_item');
+			$DAO_menu = DAO_CFactory::create('menu', true);
+			$DAO_menu->id = $Order->getMenuID();
+			$menuItemInfo = $DAO_menu->findMenuItemDAO(array(
+				'join_order_item_order_id' => array($Order->id),
+				'menu_to_menu_item_store_id' => (!empty($Order->store_id)) ? $Order->store_id : 'NULL',
+				'exclude_menu_item_category_core' => false,
+				'exclude_menu_item_category_efl' => false,
+				'exclude_menu_item_category_sides_sweets' => false,
+				'menu_item_id_list' => implode(", ", $menu_item_ids)
+			));
 
-			if ($getStoreMenu)
-			{
-				$query = "SELECT mmi.override_price AS override_price, mi.* FROM menu_item  mi LEFT JOIN menu_to_menu_item mmi ON mi.id = mmi.menu_item_id AND mmi.store_id = " . $Order->store_id . " AND mmi.menu_id = " . $Session->menu_id . " AND mmi.is_deleted = 0 WHERE mi.id IN (" . implode(", ", $menu_item_ids) . ") AND mi.is_deleted = 0";
-			}
-			else
-			{
-				$query = "SELECT mmi.override_price AS override_price, mi.* FROM menu_item  mi LEFT JOIN menu_to_menu_item mmi ON mi.id = mmi.menu_item_id AND mmi.store_id IS NULL AND mmi.menu_id = " . $Session->menu_id . " AND mmi.is_deleted = 0 WHERE mi.id IN (" . implode(", ", $menu_item_ids) . ") AND mi.is_deleted = 0";
-			}
-
-			$menuItemInfo->query($query);
 			while ($menuItemInfo->fetch())
 			{
+				$qty = null;
 
-				if ($menuItemInfo->is_bundle)
+				if ($menuItemInfo->is_bundle && $qty > 0)
 				{
-
-					$subItems = CBundle::getBundleMenuInfoForMenuItem($menuItemInfo->id, $Session->menu_id, $Order->store_id);
-
+					$subItems = CBundle::getBundleMenuInfoForMenuItem($menuItemInfo->id, $DAO_menu->id, $Order->store_id);
 					$subItemKeys = array();
 					foreach ($qty_keys as $itemKey)
 					{
 						$thisID = substr($itemKey, 4);
-						if (strstr($itemKey, 'sbi_') and is_numeric($thisID) and array_key_exists($thisID, $subItems['bundle']))
+
+						if (strstr($itemKey, 'sbi_') && is_numeric($thisID) && array_key_exists($thisID, $subItems['bundle']))
 						{
 							$subItemKeys[] = substr($itemKey, $prelen);
 						}
 					}
 
-					$subItemInfo = DAO_CFactory::create('menu_item');
-					$select = "SELECT menu_item_category.category_type AS 'category', menu_item.*, menu_to_menu_item.override_price, menu_to_menu_item.menu_order_value FROM menu_item ";
-					if ($getStoreMenu)
-					{
-						$joins = "INNER JOIN  menu_to_menu_item ON menu_to_menu_item.menu_item_id=menu_item.id and menu_to_menu_item.store_id = " . $Order->store_id . " LEFT JOIN menu_item_category on menu_item.menu_item_category_id = menu_item_category.id ";
-					}
-					else
-					{
-						$joins = "INNER JOIN  menu_to_menu_item ON menu_to_menu_item.menu_item_id=menu_item.id and menu_to_menu_item.store_id is null LEFT JOIN menu_item_category on menu_item.menu_item_category_id = menu_item_category.id ";
-					}
-
-					$where = "where menu_item.id IN (" . implode(",", $subItemKeys) . ") AND menu_to_menu_item.is_deleted = 0 AND  menu_item.is_deleted = 0 ";
-					$orderBy = "group by menu_item.id order by menu_to_menu_item.menu_order_value ASC ";
-
-					$subItemInfo->query($select . $joins . $where . $orderBy);
+					$subItemInfo = $DAO_menu->findMenuItemDAO(array(
+						'join_order_item_order_id' => array($Order->id),
+						'menu_to_menu_item_store_id' => (!empty($Order->store_id)) ? $Order->store_id : 'NULL',
+						'exclude_menu_item_category_core' => false,
+						'exclude_menu_item_category_efl' => false,
+						'exclude_menu_item_category_sides_sweets' => false,
+						'menu_item_id_list' => implode(",", $subItemKeys)
+					));
 
 					while ($subItemInfo->fetch())
 					{
-						$qty = $array['sbi_' . $subItemInfo->id];
-						if ($qty)
+						$subqty = $array['sbi_' . $subItemInfo->id];
+						if ($subqty)
 						{
 							$subItemInfo->parentItemId = $menuItemInfo->id;
-							$subItemInfo->bundleItemCount = $qty;
-							$Order->addMenuItem(clone($subItemInfo), $qty);
+							$subItemInfo->bundleItemCount = $subqty;
+							$Order->addMenuItem(clone($subItemInfo), $subqty);
 						}
 					}
 				}
