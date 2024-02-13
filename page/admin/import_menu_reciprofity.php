@@ -1009,10 +1009,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 			// must be inserted if it's not an update
 			if (!$doUpdate || !empty($_POST['import_serving_suggestions']))
 			{
-				if (!empty($fields[SERVE_WITH]))
-				{
-					$targetItem->serving_suggestions = CImportReciprofity::charConversions($fields[SERVE_WITH], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
-				}
+				$targetItem->serving_suggestions = CImportReciprofity::charConversions($fields[SERVE_WITH], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
 			}
 
 			// must be inserted if it's not an update
@@ -1715,10 +1712,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 			// must be inserted if it's not an update
 			if (!$doUpdate || !empty($_POST['import_serving_suggestions']))
 			{
-				if (!empty($fields[SERVE_WITH]))
-				{
-					$targetItem->serving_suggestions = CImportReciprofity::charConversions($fields[SERVE_WITH], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
-				}
+				$targetItem->serving_suggestions = CImportReciprofity::charConversions($fields[SERVE_WITH], $fields[RECIPE_ID], $fields[RECIPE_NAME]);
 			}
 
 			// must be inserted if it's not an update
