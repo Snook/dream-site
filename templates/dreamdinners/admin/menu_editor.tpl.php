@@ -25,13 +25,6 @@
 			</div>
 		</div>
 
-		<?php if (!$this->DAO_menu->isEnabled_Add_Sides_and_EFL()) { ?>
-			<div class="alert alert-danger" role="alert">
-				<h4 class="alert-heading">April Menu Notice</h4>
-				<p>The April Menu is now available in BackOffice. You can use the Inventory Manager to determine your pre-orders. We are currently working on a pricing update. Do not use the Menu Editor to set pricing or add EFLs or Sides and Sweets until this notice has been removed for April ONLY. We appreciate your patience while we finalize the menu.</p>
-			</div>
-		<?php } ?>
-
 		<div id="markdown_editor" class="collapse">
 			<h3 id="item_title"></h3><br />
 			Enter a percentage from 1% to 20% or a target price that is equivalent to 20% or less of the current price. The menu item will be marked down (from the marked up price) by the amount entered.<br /><br />

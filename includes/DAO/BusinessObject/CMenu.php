@@ -63,9 +63,7 @@ class CMenu extends DAO_Menu
 
 	function isEnabled_Add_Sides_and_EFL()
 	{
-		return true;
-
-		if ($this->id >= 272)
+		if ($this->id >= 273)
 		{
 			return false;
 		}
