@@ -1259,7 +1259,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 
 							if ($DAO_menu_to_menu_item->isMenuItem_SidesSweets())
 							{
-								$new_DAO_menu_to_menu_item->is_hidden_everywhere = 0;
+								$new_DAO_menu_to_menu_item->is_hidden_everywhere = 1;
 							}
 						}
 
