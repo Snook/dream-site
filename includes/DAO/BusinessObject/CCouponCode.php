@@ -1322,6 +1322,12 @@ class CCouponCode extends DAO_Coupon_code
 			return $errorArray;
 		}
 
+		// check for store exclusion
+		if (!CCouponCodeProgram::isCodeAcceptedByStore($Order->store_id, $this->coupon_code))
+		{
+			$errorArray[] = 'excluded_by_store';
+		}
+
 		$OrderedBoxTypes = $this->getOrderedBoxTypes($Order);
 
 		if ($this->delivered_requires_medium_box)

@@ -2669,7 +2669,7 @@ class COrdersDelivered extends COrders
 
 		$this->query('COMMIT;');
 		$new_time = $this->findSession()->session_start;
-		$new_type = $this->findSession()->session_class;
+		$new_type = $this->findSession()->session_type;
 		$newID = $this->findSession()->id;
 		$menuID = $this->findSession()->menu_id;
 

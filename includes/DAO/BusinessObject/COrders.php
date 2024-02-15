@@ -5215,17 +5215,44 @@ class COrders extends DAO_Orders
 
 				if ($DAO_menu_item->isMenuItem_Core())
 				{
-					$this->pcal_core_total += $DAO_menu_item->store_price * ($DAO_menu_item->DAO_order_item->item_count - $DAO_menu_item->DAO_order_item->bundle_item_count);
+					// Newer dao object method
+					if (!empty($DAO_menu_item->DAO_order_item))
+					{
+						$this->pcal_core_total += $DAO_menu_item->store_price * ($DAO_menu_item->DAO_order_item->item_count - $DAO_menu_item->DAO_order_item->bundle_item_count);
+					}
+					else
+					{
+						// old method
+						$this->pcal_core_total += $DAO_menu_item->store_price * ($qty - $DAO_menu_item->bundleItemCount);
+					}
 				}
 
 				if ((isset($DAO_menu_item->is_side_dish) && $DAO_menu_item->is_side_dish) || $DAO_menu_item->isMenuItem_SidesSweets())
 				{
-					$this->pcal_sidedish_total += $DAO_menu_item->store_price * ($DAO_menu_item->DAO_order_item->item_count - $DAO_menu_item->DAO_order_item->bundle_item_count);
+					// Newer dao object method
+					if (!empty($DAO_menu_item->DAO_order_item))
+					{
+						$this->pcal_sidedish_total += $DAO_menu_item->store_price * ($DAO_menu_item->DAO_order_item->item_count - $DAO_menu_item->DAO_order_item->bundle_item_count);
+					}
+					else
+					{
+						// old method
+						$this->pcal_sidedish_total += $DAO_menu_item->store_price * ($qty - $DAO_menu_item->bundleItemCount);
+					}
 				}
 
 				if (isset($DAO_menu_item->is_preassembled) && $DAO_menu_item->is_preassembled)
 				{
-					$this->pcal_preassembled_total += $DAO_menu_item->store_price * ($DAO_menu_item->DAO_order_item->item_count - $DAO_menu_item->DAO_order_item->bundle_item_count);
+					// Newer dao object method
+					if (!empty($DAO_menu_item->DAO_order_item))
+					{
+						$this->pcal_preassembled_total += $DAO_menu_item->store_price * ($DAO_menu_item->DAO_order_item->item_count - $DAO_menu_item->DAO_order_item->bundle_item_count);
+					}
+					else
+					{
+						// old method
+						$this->pcal_preassembled_total += $DAO_menu_item->store_price * ($qty - $DAO_menu_item->bundleItemCount);
+					}
 				}
 			}
 		}
