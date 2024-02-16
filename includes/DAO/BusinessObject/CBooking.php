@@ -181,7 +181,6 @@ class CBooking extends DAO_Booking
 		try
 		{
 			$Mail = new CMail();
-			$Mail->bcc_email = 'ryan.snook@dreamdinners.com,brandy.latta@dreamdinners.com';
 			$Mail->to_name = $this->DAO_user->firstname . ' ' . $this->DAO_user->lastname;
 			$Mail->to_email = $this->DAO_user->primary_email;
 			$Mail->to_id = $this->DAO_user->id;
