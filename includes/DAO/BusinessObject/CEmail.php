@@ -714,6 +714,7 @@ class CEmail extends CMail
 	static function sendDeliveredShipmentTrackingEmail($DAO_orders)
 	{
 		$Mail = new CMail();
+		$Mail->bcc_email = 'ryan.snook@dreamdinners.com,brandy.latta@dreamdinners.com';
 		$Mail->to_email = $DAO_orders->DAO_user->primary_email;
 		if ($DAO_orders->DAO_orders_address->isGift())
 		{
