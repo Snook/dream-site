@@ -277,7 +277,7 @@ class CUser extends DAO_User
 			throw new Exception("When creating this object, second parameter in DAO_CFactory::create() needs to be 'true'");
 		}
 
-		$this->joinAddWhereAsOn(DAO_CFactory::create('user_digest', true));
+		$this->joinAddWhereAsOn(DAO_CFactory::create('user_digest', true), 'LEFT');
 
 		return parent::find($n);
 	}
