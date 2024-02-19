@@ -50,7 +50,9 @@ class CBooking extends DAO_Booking
 		$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('menu', true));
 		$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('store', true));
 		$this->joinAddWhereAsOn($DAO_session);
-		$this->joinAddWhereAsOn(DAO_CFactory::create('user', true));
+		$DAO_user = DAO_CFactory::create('user', true);
+		$DAO_user->joinAddWhereAsOn(DAO_CFactory::create('user_digest', true));
+		$this->joinAddWhereAsOn($DAO_user);
 		$this->joinAddWhereAsOn(DAO_CFactory::create('orders', true));
 
 		return parent::find($n);
