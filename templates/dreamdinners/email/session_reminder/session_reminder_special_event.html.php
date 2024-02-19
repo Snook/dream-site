@@ -18,7 +18,7 @@
 			  It's almost time to pick up your meals. We're looking forward to seeing you when it's convenient during your pick up window on <b><?php echo $this->DAO_session->sessionStartDateTime()->format("F j, Y - g:i A"); ?> to <?php echo $this->DAO_session->sessionEndDateTime()->format("g:i A"); ?></b>at our <b><?php echo $this->DAO_store->store_name; ?></b> location.</p>
 
 			<?php if ($this->bookings_made == 0) { ?>
-				<?php include $this->loadTemplate('email/session_reminder/first_visit_pick_up.html.php'); ?>
+				<?php include $this->loadTemplate('email/session_reminder/session_tips.html.php'); ?>
 			<?php } else { ?>
 				<?php include $this->loadTemplate('email/session_reminder/session_tips.html.php'); ?>
 			<?php } ?>
