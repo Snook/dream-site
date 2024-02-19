@@ -16,8 +16,8 @@
 		<td>
 			<p>Dear <?php echo $this->DAO_user->firstname; ?>, <br /><br />
 			  It's almost time to assemble your meals. We're looking forward to seeing you <b><?php echo $this->DAO_session->sessionStartDateTime()->format("F j, Y - g:i A"); ?></b> at our <b><?php echo $this->DAO_store->store_name; ?></b> location.</p>
-			<?php if ($this->bookings_made == 0) { ?>
-				<?php include $this->loadTemplate('email/session_reminder/first_visit.html.php'); ?>
+			<?php if ($this->DAO_user_digest->visit_count == 1) { ?>
+				<?php include $this->loadTemplate('email/session_reminder/session_tips.html.php'); ?>
 			<?php } else { ?>
 				<?php include $this->loadTemplate('email/session_reminder/session_tips.html.php'); ?>
 			<?php } ?>
