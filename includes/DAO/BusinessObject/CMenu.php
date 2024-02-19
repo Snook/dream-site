@@ -362,17 +362,25 @@ class CMenu extends DAO_Menu
 		$endDT = new DateTime($menuObj->global_menu_end_date);
 		$retVal[$weekNumber]['menu_week_number'] = $weekNumber;
 		$retVal[$weekNumber]['week_start'] = $dateDT->format("Y-m-d H:i:s");
+		$retVal[$weekNumber]['dt_week_start'] = clone $dateDT;
 		$dateDT->modify('+7 days');
 		$retVal[$weekNumber]['week_end'] = $dateDT->format("Y-m-d H:i:s");
+		$retVal[$weekNumber]['dt_week_end'] = clone $dateDT;
+		$retVal[$weekNumber]['final'] = false;
 
-		while ($dateDT->format('U') < $endDT->format('U'))
+		while ($dateDT <= $endDT)
 		{
 			$weekNumber++;
 			$retVal[$weekNumber]['menu_week_number'] = $weekNumber;
 			$retVal[$weekNumber]['week_start'] = $dateDT->format("Y-m-d H:i:s");
+			$retVal[$weekNumber]['dt_week_start'] = clone $dateDT;
 			$dateDT->modify('+7 days');
-			$retVal[$weekNumber]['week_end'] = $dateDT->format("Y-m-d H:i:s");
+			//$retVal[$weekNumber]['week_end'] = $dateDT->format("Y-m-d H:i:s");
+			$retVal[$weekNumber]['dt_week_end'] = ($dateDT > $endDT) ? clone $endDT : clone $dateDT;
+			$retVal[$weekNumber]['week_end'] = ($dateDT > $endDT) ? $endDT->format("Y-m-d H:i:s") : $dateDT->format("Y-m-d H:i:s");
 		}
+
+		$retVal[$weekNumber]['final'] = true;
 
 		return $retVal;
 	}

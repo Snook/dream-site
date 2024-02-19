@@ -4,7 +4,6 @@ We're thrilled you'll be joining us for a Dream Dinners Event. Be ready to have 
 
 Things to know:
 
-- All recipes and their ingredients will be waiting for you when you arrive.
 - Please bring a small cooler or box to transport any meals you take home.
 - So that we can all start together, we encourage you to arrive on time.
 

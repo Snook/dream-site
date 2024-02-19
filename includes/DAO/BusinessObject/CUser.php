@@ -270,6 +270,18 @@ class CUser extends DAO_User
 		parent::__construct();
 	}
 
+	function find_DAO_user($n = false)
+	{
+		if ($this->_query["data_select"] === "*")
+		{
+			throw new Exception("When creating this object, second parameter in DAO_CFactory::create() needs to be 'true'");
+		}
+
+		$this->joinAddWhereAsOn(DAO_CFactory::create('user_digest', true), 'LEFT');
+
+		return parent::find($n);
+	}
+
 	static function isLoggedIn()
 	{
 		if (!CBrowserSession::isPrevious())

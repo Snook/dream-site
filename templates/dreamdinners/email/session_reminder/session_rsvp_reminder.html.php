@@ -19,7 +19,6 @@
 			</p>
 			<p><strong>Things to know:</strong></p>
 			<ul>
-				<li>All recipes and their ingredients will be waiting for you when you arrive.</li>
 				<li>Please bring a small cooler or box to transport any meals you take home.</li>
 				<li>So that we can all start together, we encourage you to arrive on time.</li>
 			</ul>
