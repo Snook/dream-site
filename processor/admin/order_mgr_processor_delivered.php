@@ -669,7 +669,13 @@ class processor_admin_order_mgr_processor_delivered extends CPageProcessor
 			$box_instance->delete();
 
 			$orderItems = DAO_CFactory::create('order_item');
-			$orderItems->query("update order_items set is_deleted = 1 where order_id = {$this->order_id} and box_id = $box_inst_id");
+			$orderItems->order_id = $this->order_id;
+			$orderItems->box_id = $box_inst_id;
+			if ($orderItems->find(true))
+			{
+				$orderItems->delete();
+			}
+
 			echo json_encode(array(
 				'processor_success' => true,
 				'processor_message' => 'The box instance was deleted from the order.',
