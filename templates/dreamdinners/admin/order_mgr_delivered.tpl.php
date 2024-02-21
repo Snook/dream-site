@@ -89,15 +89,15 @@
 							<td colspan="2" style="text-align: center;">
 
 								<?php if ($this->orderState == 'NEW') { ?>
-									<span class="order_state_title">New DELIVERED Order</span>
+									<span class="order_state_title">New Shipping Order</span>
 								<?php } else if ($this->orderState == 'SAVED') { ?>
-									<span class="order_state_title">Saved DELIVERED Order</span>
+									<span class="order_state_title">Saved Shipping Order</span>
 								<?php } else if ($this->order_is_locked == 'LOCKED') { ?>
-									<span class="order_state_title cancelled">Locked DELIVERED Order</span>
+									<span class="order_state_title cancelled">Locked Shipping Order</span>
 								<?php } else if ($this->orderState == 'CANCELLED') { ?>
-									<span class="order_state_title cancelled">Canceled DELIVERED Order</span>
+									<span class="order_state_title cancelled">Canceled Shipping Order</span>
 								<?php } else { ?>
-									<span class="order_state_title">Active DELIVERED Order</span>
+									<span class="order_state_title">Active Shipping Order</span>
 								<?php } ?>
 
 							</td>
