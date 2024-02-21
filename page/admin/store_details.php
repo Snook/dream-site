@@ -206,6 +206,14 @@ class page_admin_store_details extends CPageAdminOnly
 				));
 
 				$Form->AddElement(array(
+					CForm::type => CForm::Text,
+					CForm::disabled => false,
+					CForm::name => "dailystory_tenant_uid",
+					CForm::required => false,
+					CForm::size => 12
+				));
+
+				$Form->AddElement(array(
 					CForm::type => CForm::EMail,
 					CForm::disabled => false,
 					CForm::name => "email_address",
