@@ -376,7 +376,7 @@
 
 							<div class="col text-right py-2">
 								<?php if (isset($this->canAddEFLItems) && $this->canAddEFLItems) {?>
-									<span id="add_past_menu_item" class="btn btn-primary <?php if (!$this->DAO_menu->isEnabled_Add_Sides_and_EFL()) { ?>disabled<?php } ?>">Add EFL Menu Item</span>
+									<span id="add_past_menu_item" class="btn btn-primary">Add EFL Menu Item</span>
 								<?php } ?>
 								<?php if ($this->DAO_menu->isEnabled_MarkupRoundUp()) { ?>
 									<input name="submit_rounding" id="submit_rounding" type="button" value="Round Markup Price" class="btn btn-primary" onclick="confirm_and_round_form('efl')" data-tooltip="Set the Override price from the Markup price rounded-up to nearest 50 cents. This will overwrite the existing value, if any."/>
@@ -506,7 +506,7 @@
 						<div class="tab-pane fade" id="nav-sides" role="tabpanel" aria-labelledby="nav-sides-tab">
 							<?php if (!$this->limitToInventoryControl) { ?>
 								<div class="col text-right py-2" id="CTS_default_price_control">
-									<?php if (isset($this->canAddEFLItems) && $this->canAddEFLItems) {?>
+									<?php if (false && isset($this->canAddEFLItems) && $this->canAddEFLItems) {?>
 										<span id="add_past_menu_item_sides" class="btn btn-primary <?php if (!$this->DAO_menu->isEnabled_Add_Sides_and_EFL()) { ?>disabled<?php } ?>">Add Sides & Sweets Menu Item</span>
 									<?php } ?>
 									<button onclick="SavePricing(); return false;" class="btn btn-primary">Save Sides &amp; Sweets Defaults</button>
