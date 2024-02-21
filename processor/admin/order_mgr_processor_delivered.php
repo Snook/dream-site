@@ -244,8 +244,6 @@ class processor_admin_order_mgr_processor_delivered extends CPageProcessor
 			}
 
 			$this->deleteBoxFromOrder($_REQUEST['box_inst_id']);
-
-
 		}
 		else if (!empty($_REQUEST['op']) && $_REQUEST['op'] == 'reschedule')
 		{
@@ -569,63 +567,6 @@ class processor_admin_order_mgr_processor_delivered extends CPageProcessor
 
 			$this->retrieveAddress($_REQUEST['address_id']);
 		}
-		else if (!empty($_REQUEST['op']) && $_REQUEST['op'] == 'retrieve_sales_tax')
-		{
-			if (empty($_REQUEST['order_id']) || !is_numeric($_REQUEST['order_id']))
-			{
-				echo json_encode(array(
-					'processor_success' => false,
-					'processor_message' => 'A problem occurred while retrieving the order. Invalid order ID.',
-				));
-				exit;
-			}
-
-			$this->retrieveSalesTax($_REQUEST['order_id']);
-		}
-	}
-
-	function retrieveSalesTax($order_id)
-	{
-		$ordersObj = new COrdersDelivered();
-		$ordersObj->user_id = $this->user_id;
-		$ordersObj->subtotal_all_items = $_REQUEST['subtotal_all_items'];
-		$ordersObj->subtotal_delivery_fee = $_REQUEST['subtotal_delivery_fee'];
-		$ordersObj->id = $order_id;
-		$ordersObj->orderAddress();
-		$ordersObj->id = null;
-
-		//address is required to get sales tax (assumes the address is validated by this point)
-		$taxWrapper = AvalaraTaxManager::getInstance()->getTaxRates(new AvalaraTaxWrapper($ordersObj));
-		if ($taxWrapper == false)
-		{
-			//There was an error calling service:: AvalaraTaxManager::getInstance()->getLastError(), true);
-			echo json_encode(array(
-				'processor_success' => false,
-				'processor_message' => 'There was a problem determining sales tax.  There may be a connection issue with Avalara. Please contact Dream Dinners support.',
-			));
-			exit;
-		}
-		else
-		{
-			if (!is_null($taxWrapper->getFoodTax()))
-			{
-				$ordersObj->subtotal_food_sales_taxes = $taxWrapper->getFoodTax();
-			}
-			if (!is_null($taxWrapper->getDeliveryFeeTax()))
-			{
-				$ordersObj->subtotal_delivery_tax = $taxWrapper->getDeliveryFeeTax();
-			}
-
-			$ordersObj->subtotal_all_taxes = $ordersObj->subtotal_food_sales_taxes + $ordersObj->subtotal_delivery_tax;
-		}
-
-		echo json_encode(array(
-			'processor_success' => true,
-			'processor_message' => 'Tax Successfully retrieved.',
-			'subtotal_food_sales_taxes' => $ordersObj->subtotal_food_sales_taxes,
-			'subtotal_delivery_tax' => $ordersObj->subtotal_delivery_tax
-		));
-		exit;
 	}
 
 	function retrieveAddress($address_id)
@@ -634,8 +575,6 @@ class processor_admin_order_mgr_processor_delivered extends CPageProcessor
 		$addressObj->id = $address_id;
 		if ($addressObj->find(true))
 		{
-
-
 			echo json_encode(array(
 				'processor_success' => true,
 				'address' => DAO::getCompressedArrayFromDAO($addressObj),
@@ -971,13 +910,11 @@ class processor_admin_order_mgr_processor_delivered extends CPageProcessor
 
 			$session_id = $this->getNextShipDeliveryDateSession($Store, $ckzip->service_days);
 
-			// TODO:  invoke Avalara API ?
-			/*$taxObj = $Store->getCurrentSalesTaxObj();
+			$taxObj = $Store->getCurrentSalesTaxObj();
 			if ($taxObj)
 			{
 				$orderObj->sales_tax_id = $taxObj->id;
 			}
-			*/
 
 			//$orderObj->applyDeliveryFee();
 
@@ -1061,13 +998,11 @@ class processor_admin_order_mgr_processor_delivered extends CPageProcessor
 			$Store = $orderObj->getStore();
 			$session_id = $this->getNextShipDeliveryDateSession($Store, $ckzip->service_days);
 
-			// TODO:  invoke Avalara API ?
-			/*$taxObj = $Store->getCurrentSalesTaxObj();
+			$taxObj = $Store->getCurrentSalesTaxObj();
 			if ($taxObj)
 			{
 				$orderObj->sales_tax_id = $taxObj->id;
 			}
-			*/
 
 			//$orderObj->applyDeliveryFee();
 

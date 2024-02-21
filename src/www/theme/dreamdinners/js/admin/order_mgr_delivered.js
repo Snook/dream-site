@@ -332,7 +332,6 @@ $(document).on('click', '.box-delete', function (e) {
 	if (orderState == 'ACTIVE')
 	{
 
-
 		$('#subtotal_delivery_fee').val(newDeliveryFee);
 
 		// active orders defer database updates until finalized
@@ -363,7 +362,6 @@ $(document).on('click', '.box-delete', function (e) {
 				$("#bi_" + box_inst_id).remove();
 
 				$('#subtotal_delivery_fee').val(newDeliveryFee);
-
 
 				updateInventory();
 				calculateTotal();
@@ -1398,7 +1396,7 @@ function saveDiscounts(payOnCompletion)
 			user_id: user_id,
 			direct_order_discount: direct_order_discount,
 			plate_points_discount: dinner_dollars_discount,
-			coupon_id: coupon_id,
+			coupon_id: coupon_id
 		},
 		success: function (json) {
 			if (json.processor_success)
@@ -2533,8 +2531,8 @@ function HideLineItemsIfZero()
 
 	var ddOrg = Number($('#OEH_plate_points_order_discount_fee_org').html());
 	var dd = Number($('#OEH_plate_points_order_discount_fee').html());
-	dd = isNaN(dd)? 0:dd;
-	ddOrg = isNaN(ddOrg)? 0:ddOrg;
+	dd = isNaN(dd) ? 0 : dd;
+	ddOrg = isNaN(ddOrg) ? 0 : ddOrg;
 
 	if (ddOrg == 0 && dd == 0)
 	{
@@ -3942,12 +3940,32 @@ function dd_round_amount(inAmount)
 // this massive function is called anytime something that affects costs or payments is altered
 function calculateTotal()
 {
-
-	var total = 0;
-	var servings = 0;
-	var productsSubTotal = 0;
-	var discounted_total = 0;
-	var main_items_count = 0;
+	let total = 0;
+	let entrees = 0;
+	let servings = 0;
+	let core_servings = 0;
+	let halfQty = 0;
+	let wholeQty = 0;
+	let customizableMealQty = 0;
+	let introQty = 0;
+	let sideDishQty = 0;
+	let sideDishSubTotal = 0;
+	let bundlesSubTotal = 0;
+	let productsSubTotal = 0;
+	let coreItemsSubtotal = 0;
+	let bundlesQty = 0;
+	let discounted_total = 0;
+	let creditContribution = 0;
+	let main_items_count = 0;
+	let bundleIsSelected = false;
+	let PUDExcludedItemsTotal = 0;
+	let PUDExcludedFullItemsCount = 0;
+	let PUDExcludedHalfItemsCount = 0;
+	let creditConsumed = 0;
+	let hasServiceFeeWithMFYCoupon = false;
+	let hasDeliveryFeeWithCoupon = false;
+	let miscNonFoodSubtotal = 0;
+	let serviceFee = 0;
 	var num_boxes = 0;
 
 	for (var x in entreeIDToInventoryMap)
@@ -4086,7 +4104,6 @@ function calculateTotal()
 
 		$('#OEH_plate_points_order_discount_fee').html(formatAsMoney(curPPDiscount));
 
-
 		newGrandTotal = formatAsMoney(newGrandTotal - curPPDiscount);
 	}
 
@@ -4121,51 +4138,14 @@ function calculateTotal()
 	}
 
 	// --------------------------------------------------------------------- tax
-	var newFoodTax = 0;
-	var avalaraCalcTax = 0;
 	var newDeliveryTax = 0;
+	var newNonFoodTax = 0; // convert to float
 
-	if (orderState != "NEW" && newFoodTotal > 0)
+	if (!hasDeliveryFeeWithCoupon)
 	{
-		$.ajax({
-			url: '/processor',
-			type: 'POST',
-			timeout: 20000,
-			async: false,
-			dataType: 'json',
-			data: {
-				processor: 'admin_order_mgr_processor_delivered',
-				op: 'retrieve_sales_tax',
-				order_id: order_id,
-				user_id: user_id,
-				store_id: store_id,
-				subtotal_all_items: newGrandTotal,
-				subtotal_delivery_fee: deliveryFee
-			},
-			success: function (json) {
-				intenseLogging("retrieving Sales tax");
-
-				avalaraCalcTax = json.subtotal_food_sales_taxes;
-				newDeliveryTax = json.subtotal_delivery_tax;
-
-				$('#OEH_food_tax_subtotal').text(formatAsMoney(avalaraCalcTax));
-				$('#OEH_delivery_tax_subtotal').text(formatAsMoney(newDeliveryTax));
-
-			},
-			error: function (objAJAXRequest, strError) {
-
-				intenseLogging("retrieving Sales tax: " + strError + " | " + objAJAXRequest.responseText);
-
-				response = 'Unexpected error: ' + strError;
-				dd_message({
-					title: 'Error',
-					message: response
-				});
-			}
-		});
+		newDeliveryTax = formatAsMoney(deliveryFee * (curDeliveryTax / 100));
 	}
 
-	var newNonFoodTax = 0; // convert to float
 	if (productsSubTotal)
 	{
 		$('#nonFoodTaxLabel').html('Non-Food & Enrollment Tax');
@@ -4176,7 +4156,100 @@ function calculateTotal()
 
 	}
 
-	newFoodTax = formatAsMoney(avalaraCalcTax);
+	let newFoodTax = 0;
+	let newServiceTax = 0;
+
+	if (curPPDiscount > 0)
+	{
+		let food_portion_of_points_credit = 0;
+		let fee_portion_of_points_credit = 0;
+
+		if (hasServiceFeeWithMFYCoupon)
+		{
+			food_portion_of_points_credit = curPPDiscount;
+			fee_portion_of_points_credit = 0;
+		}
+		else if (discountMFYFeeFirst && serviceFee > 0)
+		{
+
+			if (curPPDiscount > serviceFee)
+			{
+				food_portion_of_points_credit = curPPDiscount - serviceFee;
+				fee_portion_of_points_credit = serviceFee;
+			}
+			else
+			{
+				fee_portion_of_points_credit = curPPDiscount;
+				food_portion_of_points_credit = 0;
+			}
+		}
+		else
+		{
+			let foodPortionOfMaxDeduction = discountablePlatePointsAmount - serviceFee;
+
+			if (curPPDiscount > foodPortionOfMaxDeduction)
+			{
+				let remainderAfterFoodDiscount = curPPDiscount - foodPortionOfMaxDeduction;
+				food_portion_of_points_credit = foodPortionOfMaxDeduction;
+				fee_portion_of_points_credit = remainderAfterFoodDiscount;
+			}
+			else
+			{
+				food_portion_of_points_credit = curPPDiscount;
+				fee_portion_of_points_credit = 0;
+			}
+		}
+
+		if (hasServiceFeeWithMFYCoupon)
+		{
+			newFoodTax = formatAsMoney(((newGrandTotal + (curPPDiscount * 1) - miscNonFoodSubtotal - food_portion_of_points_credit - deliveryFee) * (curFoodTax / 100)) + .000001);
+			newServiceTax = 0;
+		}
+		else if (hasDeliveryFeeWithCoupon)
+		{
+			newFoodTax = formatAsMoney(((newGrandTotal + (curPPDiscount * 1) - miscNonFoodSubtotal - food_portion_of_points_credit - serviceFee) * (curFoodTax / 100)) + .000001);
+			newDeliveryTax = 0;
+		}
+		else
+		{
+			newFoodTax = formatAsMoney(((newGrandTotal + (curPPDiscount * 1) - miscNonFoodSubtotal - serviceFee - food_portion_of_points_credit - deliveryFee) * (curFoodTax / 100)) + .000001);
+			let mealCustomizationFee = Number($('#subtotal_meal_customization_fee').val())
+			if (isNaN(mealCustomizationFee))
+			{
+				mealCustomizationFee = 0;
+			}
+			newServiceTax = formatAsMoney(((((serviceFee + mealCustomizationFee) - fee_portion_of_points_credit)) * (curServiceTax / 100)) + .000001);
+		}
+
+		$('#OEH_plate_points_order_discount_food').html(formatAsMoney(food_portion_of_points_credit));
+		$('#OEH_plate_points_order_discount_fee').html(formatAsMoney(fee_portion_of_points_credit));
+	}
+	else
+	{
+		if (hasServiceFeeWithMFYCoupon)
+		{
+			newFoodTax = formatAsMoney(((newGrandTotal - miscNonFoodSubtotal - deliveryFee) * (curFoodTax / 100)) + .000001);
+			newServiceTax = 0;
+		}
+		else if (hasDeliveryFeeWithCoupon)
+		{
+			newFoodTax = formatAsMoney(((newGrandTotal - miscNonFoodSubtotal - serviceFee) * (curFoodTax / 100)) + .000001);
+			newDeliveryTax = 0;
+		}
+		else
+		{
+			newFoodTax = formatAsMoney(((newGrandTotal - miscNonFoodSubtotal - serviceFee - deliveryFee) * (curFoodTax / 100)) + .000001);
+			let mealCustomizationFee = Number($('#subtotal_meal_customization_fee').val())
+			if (isNaN(mealCustomizationFee))
+			{
+				mealCustomizationFee = 0;
+			}
+			newServiceTax = formatAsMoney((serviceFee + mealCustomizationFee) * (curServiceTax / 100) + .000001);
+		}
+
+		$('#OEH_plate_points_order_discount_food').html(formatAsMoney(0));
+		$('#OEH_plate_points_order_discount_fee').html(formatAsMoney(0));
+	}
 
 	taxElem = document.getElementById('OEH_tax_subtotal');
 	if (taxElem)
@@ -4442,8 +4515,8 @@ function calculateTotal()
 
 }
 
-function handleDinnerDollars(total){
-
+function handleDinnerDollars(total)
+{
 
 	//var serviceFee = Number(document.getElementById('OEH_subtotal_delivery_fee').value);
 	var discountablePlatePointsAmount = total;// + serviceFee.valueOf();
@@ -4455,7 +4528,10 @@ function handleDinnerDollars(total){
 
 	lastMaxPPDiscountAmount = discountablePlatePointsAmount;
 
-	if (discountablePlatePointsAmount < 0) discountablePlatePointsAmount = 0;
+	if (discountablePlatePointsAmount < 0)
+	{
+		discountablePlatePointsAmount = 0;
+	}
 
 	$("#max_plate_points_deduction").html(formatAsMoney(discountablePlatePointsAmount))
 
@@ -4488,8 +4564,6 @@ function handleDinnerDollars(total){
 	{
 		$('#dinnerDollarsDiscountRow').show();
 	}
-
-
 
 	return discountablePlatePointsAmount;
 }
