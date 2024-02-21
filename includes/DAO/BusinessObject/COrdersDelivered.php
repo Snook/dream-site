@@ -1,8 +1,4 @@
 <?php
-
-/**
- * subclass of DAO/BusinessObject/COrders
- */
 require_once 'includes/DAO/BusinessObject/COrders.php';
 require_once 'includes/DAO/BusinessObject/CBox.php';
 require_once 'includes/DAO/BusinessObject/CBoxInstance.php';
@@ -12,48 +8,12 @@ require_once 'includes/api/shipping/shipstation/ShipStationManager.php';
 require_once 'includes/api/shipping/shipstation/ShipStationOrderWrapper.php';
 require_once 'includes/api/shipping/shipstation/ShipStationRateWrapper.php';
 
-require_once 'includes/api/tax/avalara/AvalaraTaxManager.php';
-require_once 'includes/api/tax/avalara/AvalaraTaxWrapper.php';
-
 require_once 'includes/CEditOrderPaymentManager.inc';
-
 
 class COrdersDelivered extends COrders
 {
 	private $boxes = array();
 	public $orderShipping = null;
-
-	function applyTax($fee_portion_of_points_credit = 0, $hasServiceFeeCoupon = false, $hasDeliveryFeeCoupon = false)
-	{
-		$this->subtotal_all_taxes = 0;
-		$this->subtotal_food_sales_taxes = 0;
-		$this->subtotal_sales_taxes = 0;
-		$this->subtotal_service_tax = 0;
-		$this->subtotal_delivery_tax = 0;
-
-		if (!empty($this->orderAddress) && !empty($this->orderAddress->address_line1))
-		{
-			//address is required to get sales tax (assumes the address is validated by this point)
-			$taxWrapper = AvalaraTaxManager::getInstance()->getTaxRates(new AvalaraTaxWrapper($this));
-			if ($taxWrapper == false)
-			{
-				//There was an error calling service:: AvalaraTaxManager::getInstance()->getLastError(), true);
-			}
-			else
-			{
-				if (!is_null($taxWrapper->getFoodTax()))
-				{
-					$this->subtotal_food_sales_taxes = $taxWrapper->getFoodTax();
-				}
-				if (!is_null($taxWrapper->getDeliveryFeeTax()))
-				{
-					$this->subtotal_delivery_tax = $taxWrapper->getDeliveryFeeTax();
-				}
-
-				$this->subtotal_all_taxes = $this->subtotal_food_sales_taxes + $this->subtotal_delivery_tax;
-			}
-		}
-	}
 
 	protected function calculateBasePrice()
 	{
@@ -324,18 +284,18 @@ class COrdersDelivered extends COrders
 		return false;
 	}
 
-/*
- *   Check that current boxes in cart can be fulfilled at $store_id
- * 	 $store_id may be different than the store and session in the cart
- *  since the customer nmay have changed the zip code
- */
+	/*
+	 *   Check that current boxes in cart can be fulfilled at $store_id
+	 * 	 $store_id may be different than the store and session in the cart
+	 *  since the customer nmay have changed the zip code
+	 */
 	public static function cartInventoryCheck($CartObj, $store_id)
 	{
 
 		$parent_store_id = CStore::getParentStoreID($store_id);
 		// form unique list of recipes
 		$inventoryArray = array(); // recipe_id -> remaining_inventory
-		$usageArray =  array();
+		$usageArray = array();
 
 		$hasInventory = true;
 
@@ -368,7 +328,6 @@ class COrdersDelivered extends COrders
 
 						$usageArray[$menu_item->recipe_id] += ($qty * $menu_item->servings_per_item);
 					}
-
 				}
 			}
 		}
@@ -410,7 +369,7 @@ class COrdersDelivered extends COrders
 		return $hasInventory;
 	}
 
-	public static function buildOrderItemsArray($Order, $promo = null, $freeMeal = null, $flatList = false,  $orderBy = 'FeaturedFirst')
+	public static function buildOrderItemsArray($Order, $promo = null, $freeMeal = null, $flatList = false, $orderBy = 'FeaturedFirst')
 	{
 
 		$menu_id = self::getMenuIDBasedOnBundle($Order->id);
@@ -491,7 +450,6 @@ class COrdersDelivered extends COrders
 					{
 						$menuInfo['itemList'][$id]['qty'] += $currentBoxes[$box_inst_id]['bundle_items'][$id]['qty'];
 					}
-
 				}
 			}
 		}
@@ -503,7 +461,6 @@ class COrdersDelivered extends COrders
 
 	function refreshForEditing($menu_id = false)
 	{
-
 		//get coupon
 		if (!empty($this->coupon_code_id) && is_numeric($this->coupon_code_id))
 		{
@@ -523,6 +480,11 @@ class COrdersDelivered extends COrders
 				throw new Exception("Coupon not found in refreshForEditing()");
 			}
 		}
+
+		$Store = $this->getStore();
+
+		//get tax
+		$this->addSalesTax($Store->getCurrentSalesTaxObj());
 	}
 
 	function clearBoxesUnsafe()
@@ -680,7 +642,10 @@ class COrdersDelivered extends COrders
 		}
 
 		// must have store
-		$this->getStore();
+		$Store = $this->getStore();
+
+		//get tax
+		$this->addSalesTax($Store->getCurrentSalesTaxObj());
 
 		//get coupon
 		if (isset($this->coupon_code_id) && $this->coupon_code_id)
@@ -719,8 +684,7 @@ class COrdersDelivered extends COrders
 		}
 	}
 
-
-	function processEditOrder($originalOrder, $Cart = null,  $order_revisions = null, $paymentsFromCart = null, $newPaymentType = null, $creditCardArray = null, $storeCreditArray = false, $giftCardArray = false, $useTransaction = true)
+	function processEditOrder($originalOrder, $Cart = null, $order_revisions = null, $paymentsFromCart = null, $newPaymentType = null, $creditCardArray = null, $storeCreditArray = false, $giftCardArray = false, $useTransaction = true)
 	{
 		ini_set('memory_limit', '64M');
 		set_time_limit(1800);
@@ -731,7 +695,10 @@ class COrdersDelivered extends COrders
 
 		if (empty($originalOrder))
 		{
-			return array('result' => 'edit_order_failed','msg'=>'Unable to continue. The order was not found.');
+			return array(
+				'result' => 'edit_order_failed',
+				'msg' => 'Unable to continue. The order was not found.'
+			);
 		}
 
 		$booking = DAO_CFactory::create('booking');
@@ -743,12 +710,18 @@ class COrdersDelivered extends COrders
 		$User->id = $originalOrder->user_id;
 		if (!$User->find(true)) // what if user was deleted?  CES: could use direct query and ignore is_deleted
 		{
-			return array('result' => 'edit_order_failed','msg'=>'Unable to continue. The user on this order was not found.');
+			return array(
+				'result' => 'edit_order_failed',
+				'msg' => 'Unable to continue. The user on this order was not found.'
+			);
 		}
 		// Is this order editable by the current user?
 		if ($originalOrder->user_id != CUser::getCurrentUser()->id)
 		{
-			return array('result' => 'edit_order_failed','msg'=>'You do not have access privileges for this order.');
+			return array(
+				'result' => 'edit_order_failed',
+				'msg' => 'You do not have access privileges for this order.'
+			);
 		}
 
 		$originalOrder->orderAddress();
@@ -756,7 +729,10 @@ class COrdersDelivered extends COrders
 		$daoStore = $originalOrder->getStore();
 		if (empty($daoStore) && $originalOrderState != 'NEW')
 		{
-			return array('result' => 'edit_order_failed','msg'=>'Unable to process this order.');
+			return array(
+				'result' => 'edit_order_failed',
+				'msg' => 'Unable to process this order.'
+			);
 		}
 
 		$originalOrder->reconstruct();
@@ -771,7 +747,10 @@ class COrdersDelivered extends COrders
 
 		if (!$OrigSession)
 		{
-			return array('result' => 'edit_order_failed','msg'=>'Selected Delivered time no longer available.');
+			return array(
+				'result' => 'edit_order_failed',
+				'msg' => 'Selected Delivered time no longer available.'
+			);
 		}
 
 		// original quantities to be shown in parentheses next to input boxes CES - maybe should error if in past?  Should never happen though
@@ -799,11 +778,11 @@ class COrdersDelivered extends COrders
 		$order_record->setFrom($originalOrder->toArray());
 		$order_record->original_order_id = $originalOrder->id;
 
-
 		$orderRevisionString = '';
 		$orderRevisionHtml = '';
-		if(is_array($order_revisions)){
-			foreach ( $order_revisions as $id => $item)
+		if (is_array($order_revisions))
+		{
+			foreach ($order_revisions as $id => $item)
 			{
 				$orderRevisionString .= $item->description;
 				$orderRevisionHtml .= $item->description_html;
@@ -811,7 +790,6 @@ class COrdersDelivered extends COrders
 		}
 		$order_record->order_revisions = $orderRevisionString;
 		$order_record->order_revision_notes = $orderRevisionHtml;
-
 
 		// remember state so that we can restore some critical values if an exception occurs
 		$originalOrderPriorToUpdate = clone($originalOrder);
@@ -840,15 +818,16 @@ class COrdersDelivered extends COrders
 		//update session if needed
 		$sessionObj = $originalOrder->findSession();
 		$TargetSession = $this->findSession(true);
-		if( $sessionObj->id != $TargetSession->id){
+		if ($sessionObj->id != $TargetSession->id)
+		{
 			$originalOrder->addSession($TargetSession);
-			$rescheduleResult = $originalOrder->reschedule($sessionObj->id , false, true);
-			if($rescheduleResult != 'success'){
+			$rescheduleResult = $originalOrder->reschedule($sessionObj->id, false, true);
+			if ($rescheduleResult != 'success')
+			{
 				CApp::instance()->template()->setErrorMsg('Unable to reschedule to selected delivery date.');
 				throw new Exception('Unable to reschedule to selected delivery date.');
 			}
 		}
-
 
 		// Ready to commit everything
 		$originalOrder->query('START TRANSACTION;');
@@ -901,7 +880,7 @@ class COrdersDelivered extends COrders
 					//log the problem
 					CLog::RecordException($exc);
 
-					$debugStr = "INV_CONTROL ISSUE- Edited Order subtract deleted items: " . $order_item->order_id . " | Item: " . $order_item->menu_item_id . " | Store: " . $tempStoreID. " | Parent Store: " . $parentStoreId;
+					$debugStr = "INV_CONTROL ISSUE- Edited Order subtract deleted items: " . $order_item->order_id . " | Item: " . $order_item->menu_item_id . " | Store: " . $tempStoreID . " | Parent Store: " . $parentStoreId;
 					CLog::RecordNew(CLog::ERROR, $debugStr, "", "", true);
 				}
 
@@ -912,7 +891,7 @@ class COrdersDelivered extends COrders
 			// now delete the original box_instances ... new ones will be created
 			$box_instances = DAO_CFactory::create('box_instance');
 			$adminUser = CUser::getCurrentUser()->id;
-			foreach($boxInstanceArray as $box_inst_id)
+			foreach ($boxInstanceArray as $box_inst_id)
 			{
 				$box_instances->query("update box_instance set is_deleted = 1, edit_sequence_id = {$order_record->id}, updated_by = $adminUser where id = $box_inst_id");
 			}
@@ -923,7 +902,11 @@ class COrdersDelivered extends COrders
 			if (!$originalOrder->verifyAdequateInventory())
 			{
 				$itemsOversold = $$originalOrder->getInvExceptionItemsString();
-				return array('result' => 'edit_order_failed','msg'=>'Inventory has changed since the order was started and an item has run out of stock. Please review the order and try again. Items adjusted are:<br />' . $itemsOversold);
+
+				return array(
+					'result' => 'edit_order_failed',
+					'msg' => 'Inventory has changed since the order was started and an item has run out of stock. Please review the order and try again. Items adjusted are:<br />' . $itemsOversold
+				);
 			}
 
 			$originalOrder->refreshForEditing($OrigSession->menu_id);
@@ -943,34 +926,40 @@ class COrdersDelivered extends COrders
 			if (isset($newPaymentType) && $newPaymentType != "" && count($paymentsFromCart) > 0)
 			{
 				$paymentArr['paymentsFromCart'] = $paymentsFromCart;
-				try{
-					CEditOrderPaymentManager::processPayment($this,$Cart, $paymentArr,$newPaymentType,$originalOrder,$originalGrandTotal, $User, $daoStore);
-				} catch (Exception $e) {
-					$paymentResult = array('result' => 'edit_order_failed','msg'=>$e->getMessage());
+				try
+				{
+					CEditOrderPaymentManager::processPayment($this, $Cart, $paymentArr, $newPaymentType, $originalOrder, $originalGrandTotal, $User, $daoStore);
 				}
-
+				catch (Exception $e)
+				{
+					$paymentResult = array(
+						'result' => 'edit_order_failed',
+						'msg' => $e->getMessage()
+					);
+				}
 			}
 
-			if($paymentResult['result'] == 'edit_success'){
+			if ($paymentResult['result'] == 'edit_success')
+			{
 				//Send Updates to SS
 				ShipStationManager::getInstanceForOrder($originalOrder)->addUpdateOrder(new ShipStationOrderWrapper($originalOrder));
 				$originalOrder->query('COMMIT;');
 				COrdersDigest::recordEditedOrder($originalOrder, $originalGrandTotalMinusTaxes);
 			}
 
-
-
 			return $paymentResult;
-
 		}
 		catch (Exception $e)
 		{
 			$originalOrder->query('ROLLBACK;');
-			return array('result' => 'edit_order_failed','msg'=>'A problem occurred while updating the order.');
+
+			return array(
+				'result' => 'edit_order_failed',
+				'msg' => 'A problem occurred while updating the order.'
+			);
 
 			CLog::RecordException($e);
 		}
-
 	}
 
 	private function addMenuItemsToOrder(&$originalOrder)
@@ -1014,8 +1003,10 @@ class COrdersDelivered extends COrders
 					if (!$MenuItem->fetch())
 					{
 						//throw new Exception("Menu item not found: " . $id);
-						return array('result' => 'edit_order_failed','msg'=>"Menu item not found: " . $id);
-
+						return array(
+							'result' => 'edit_order_failed',
+							'msg' => "Menu item not found: " . $id
+						);
 					}
 					else
 					{
@@ -2405,7 +2396,7 @@ class COrdersDelivered extends COrders
 		$deliveryDayFilter = $service_days - 1;
 		$service_days++;  // TODO: Is there a threshhold prior to which today can be considered the first day?
 		$todayTS = CTimezones::getAdjustedTime($storeObj, time());
-		$today = new DateTime(date("Y-m-d H:i:s",$todayTS));
+		$today = new DateTime(date("Y-m-d H:i:s", $todayTS));
 		$today->modify("+$service_days days");
 		$earliestDeliveryDate = $today->format("Y-m-d");
 		$sessionFinder = DAO_CFactory::create('session');
@@ -2673,7 +2664,7 @@ class COrdersDelivered extends COrders
 		$newID = $this->findSession()->id;
 		$menuID = $this->findSession()->menu_id;
 
-		COrdersDigest::recordRescheduledOrder($this->id, $new_time, $this->store_id, $newID,$menuID, $new_type);
+		COrdersDigest::recordRescheduledOrder($this->id, $new_time, $this->store_id, $newID, $menuID, $new_type);
 
 		// Send email
 		$User = DAO_CFactory::create('user');
@@ -3017,11 +3008,11 @@ class COrdersDelivered extends COrders
 			}
 
 			//Unset minimum qualification on this order
-			if($this->is_qualifying == 1){
+			if ($this->is_qualifying == 1)
+			{
 				$this->is_qualifying = 0;
 				$this->update();
 			}
-
 		}
 		catch (exception $exc)
 		{
@@ -3120,18 +3111,18 @@ class COrdersDelivered extends COrders
 	public static function canEditDeliveredOrder($order)
 	{
 
-		if( is_string($order) )
+		if (is_string($order))
 		{
 			$orderId = $order;
 		}
-		elseif ( is_a($order, 'COrdersDelivered') )
+		else if (is_a($order, 'COrdersDelivered'))
 		{
 			$orderId = $order->id;
 		}
-		else{
+		else
+		{
 			return false;
 		}
-
 
 		try
 		{
@@ -3179,11 +3170,13 @@ class COrdersDelivered extends COrders
 		return false;
 	}
 
-    public function isInEditOrder(){
+	public function isInEditOrder()
+	{
 		return $this->isInEditOrder;
 	}
 
-	public function setIsInEditOrder($val){
+	public function setIsInEditOrder($val)
+	{
 		$this->isInEditOrder = $val;
 	}
 }
