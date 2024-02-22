@@ -815,7 +815,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="bgcolor_light" style="text-align: right;">Daily Storey Tenant UID</td>
+					<td class="bgcolor_light" style="text-align: right;">Daily Story Tenant UID</td>
 					<td class="bgcolor_light"><?php echo $this->form_store_details['dailystory_tenant_uid_html']; ?></td>
 				</tr>
 				<tr>
