@@ -1565,6 +1565,8 @@ class form_account
 							$szPassword = CUser::getRandomPwd();
 						}
 
+						$rslt = $User->insert($szPassword, CUser::CUSTOMER, 'YES');
+
 						$CartObj = CCart2::instance();
 						if (!is_null($CartObj))
 						{
@@ -1574,12 +1576,10 @@ class form_account
 								$StoreObj = $OrderObj->getStore();
 								if (!is_null($StoreObj) && !empty($StoreObj->id))
 								{
-									$User->home_store_id = $StoreObj->id;
+									$User->setHomeStore($StoreObj->id);
 								}
 							}
 						}
-
-						$rslt = $User->insert($szPassword, CUser::CUSTOMER, 'YES');
 
 						$customer_referral_id = false;
 						if ($rslt !== false)
