@@ -3054,6 +3054,28 @@ class CUser extends DAO_User
 			$DAO_user->home_store_id = $DAO_user->DAO_store->id;
 			$DAO_user->update($org_DAO_user);
 		}
+
+		$this->setDistributionCenter($store_id);
+	}
+
+	function setDistributionCenter($store_id)
+	{
+		$DAO_user = DAO_CFactory::create('user', true);
+		$DAO_user->id = $this->id;
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->id = $store_id;
+		$DAO_store->store_type = CStore::DISTRIBUTION_CENTER;
+		$DAO_user->joinAddWhereAsOn($DAO_store, array(
+			'joinType' => 'INNER',
+			'useLinks' => false
+		));
+
+		if ($DAO_user->find(true))
+		{
+			$org_DAO_user = clone $DAO_user;
+			$DAO_user->distribution_center_id = $DAO_user->DAO_store->id;
+			$DAO_user->update($org_DAO_user);
+		}
 	}
 
 	/**
