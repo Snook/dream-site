@@ -1161,6 +1161,7 @@ class CTemplate extends Savant2
 			'email' => CUser::getCurrentUser()->primary_email,
 			'email_sha256' => ((!empty(CUser::getCurrentUser()->primary_email)) ? hash('sha256', CUser::getCurrentUser()->primary_email) : null),
 			'store_VR_code' => ((!empty($this->store_VR_code)) ? $this->store_VR_code : 0),
+			'store_DS_tenant' => ((!empty($this->orderDetailsArray["storeInfo"]["dailystory_tenant_uid"])) ? $this->orderDetailsArray["storeInfo"]["dailystory_tenant_uid"] : null),
 			'customer' => CUser::getCurrentUser()->id,
 			'intro_customer' => (CUser::isLoggedIn() && CUser::getCurrentUser()->isNewBundleCustomer()),
 			'page' => ((!empty($this->page)) ? $this->page : false),
