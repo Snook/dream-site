@@ -146,7 +146,7 @@
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center">
 						<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/yakisoba-featured-30min-400x400.webp" alt="Chicken Yakisoba Noodle Bowl" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-yakisoba-30min-featured-item-400x400.webp" alt="Chicken Yakisoba Noodle Bowl" class="img-fluid">
 								<div class="card-body">
 									<h5 class="card-title">Chicken Yakisoba Noodle Bowl</h5>
 								</div>
