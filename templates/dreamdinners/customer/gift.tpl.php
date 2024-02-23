@@ -31,20 +31,28 @@
 				<div class="row my-3">
 					<div class="col">
 						<div class="card-group text-center">
-							<div class="card border-0 mx-1">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chelsee-hood-458x344.webp" alt="Dream Dinners Home Delivery" class="img-fluid" />
-								<div class="card-body">
-									<h5 class="card-title">Delivered to their Door</h5>
-									<p class="card-text">Choose home delivery from one of our local stores to have delicious dinners delivered to their home. *Available within 20 miles of most locations.</p>
-									<p><a href="/locations" class="btn btn-primary">Check Your Local Store</a></p>
-								</div>
-							</div>
 							<div class="card border-0 mx-2">
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dinner-for-a-night-458x344.webp" alt="Dinner for a Night" class="img-fluid" />
 								<div class="card-body">
 									<h5 class="card-title">Dinner for a Night</h5>
-									<p class="card-text">Add an extra meal or two to your monthly order to gift. Want to gift them more? Place a home delivery order from one of our assembly kitchens.</p>
+									<p class="card-text">Add an extra meal or two to your monthly order to gift.</p>
 									<p><a href="/locations" class="btn btn-primary">Contact Your Local Store</a></p>
+								</div>
+							</div>
+							<div class="card border-0 mx-1">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chelsee-hood-458x344.webp" alt="Dream Dinners Home Delivery" class="img-fluid" />
+								<div class="card-body">
+									<h5 class="card-title">Delivered to their Door</h5>
+									<p class="card-text">Choose home delivery from one of our local stores to have three or more delicious dinners delivered to their home. *Available within 20 miles of most locations.</p>
+									<p><a href="/locations" class="btn btn-primary">Check Your Local Store</a></p>
+								</div>
+							</div>
+							<div class="card border-0 mx-2">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dream-dinners-delivered-458x344.webp" alt="Dream Dinner Shipping" class="img-fluid" />
+								<div class="card-body">
+									<h5 class="card-title">Shipped to their Door</h5>
+									<p class="card-text">Show your love with four delicious, easy meals for them to enjoy. *Shipping available to select locations. Enter their zip code on the locations page.</p>
+									<p><a href="/locations" class="btn btn-primary">Check Gifting Areas</a></p>
 								</div>
 							</div>
 							<!--<div class="card border-0 mx-1">
