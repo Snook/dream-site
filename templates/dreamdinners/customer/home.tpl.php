@@ -231,7 +231,7 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mar24-easter-bundle-homepage-collage-circles-957x657.webp" alt="Easter" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mar24-easter-bundle-collage-957x657.webp" alt="Easter" class="img-fluid">
 					</div>
 					<div class="col-md-6 text-left p-5 my-5">
 						<h1 class="font-weight-bold font-marker mt-2">Easter Dinner In A Snap</h1>
