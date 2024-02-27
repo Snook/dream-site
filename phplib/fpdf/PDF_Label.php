@@ -2114,30 +2114,42 @@ class PDF_Label extends FPDF_MULTICELLTAG
 
 		if (!empty($menuItemArray['instructions_air_fryer']) || !empty($menuItemArray['instructions_crock_pot']) || !empty($menuItemArray['instructions_instant_pot']) || !empty($menuItemArray['instructions_grill']))
 		{
-			$alternate_instruction_type = 'alternate';
+			$alternate_instruction_type = array();
+
 			if(!empty($menuItemArray['instructions_air_fryer']))
 			{
-				$alternate_instruction_type = 'air fryer';
+				$alternate_instruction_type[] = 'air fryer';
 			}
-			else if (!empty($menuItemArray['instructions_crock_pot']) && !empty($menuItemArray['instructions_instant_pot']))
+
+			if (!empty($menuItemArray['instructions_crock_pot']))
 			{
-				$alternate_instruction_type = 'crock-pot or instant-pot';
+				$alternate_instruction_type[] = 'crock-pot';
 			}
-			else if (!empty($menuItemArray['instructions_crock_pot']))
+
+			if (!empty($menuItemArray['instructions_instant_pot']))
 			{
-				$alternate_instruction_type = 'crock-pot';
+				$alternate_instruction_type[] = 'instant pot';
 			}
-			else if (!empty($menuItemArray['instructions_instant_pot']))
+
+			if (!empty($menuItemArray['instructions_grill']))
 			{
-				$alternate_instruction_type = 'instant pot';
+				$alternate_instruction_type[] = 'grill';
 			}
-			else if (!empty($menuItemArray['instructions_grill']))
+
+			if (empty($alternate_instruction_type))
 			{
-				$alternate_instruction_type = 'grill';
+				$alternate_instruction_string = 'alternate';
+			}
+			else
+			{
+				// get the last item off the array
+				$last = array_pop($alternate_instruction_type);
+				// comma separate the rest of the items and then append the last item from the previous function
+				$alternate_instruction_string = implode(', ', $alternate_instruction_type) . ' or ' . $last;
 			}
 
 			$this->SetXY($_PosX + 3, $_PosY + 4 + $yOff);
-			$this->MultiCellTag($this->_Width, $this->_Line_Height, "<t1>*Scan the QR code to get " . $alternate_instruction_type . " instructions*</t1>", $showBorders, "L", 0);
+			$this->MultiCellTag($this->_Width, $this->_Line_Height, "<t1>*Scan the QR code to get " . $alternate_instruction_string . " instructions*</t1>", $showBorders, "L", 0);
 		}
 
 		if (!empty($menuItemArray['recipe_id']))
