@@ -361,12 +361,8 @@ class processor_location_search extends CPage
 			{
 				// yes there is a distribution center for this zip
 				// check if there are active boxes for this distribution center
-				$hasBoxWithInventory = CBox::quickCheckForBoxAvailable($ckzip->distribution_center);
-
-				if ($hasBoxWithInventory)
-				{
-					$tpl->assign('delivered', $ckzip);
-				}
+				$tpl->assign('delivered', $ckzip);
+				$tpl->assign('shipping_has_inventory', CBox::quickCheckForBoxAvailable($ckzip->distribution_center));
 			}
 		}
 
