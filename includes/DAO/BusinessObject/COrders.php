@@ -4362,7 +4362,7 @@ class COrders extends DAO_Orders
 				{
 					foreach ($Boxes as $box_instance_id => $thisBox)
 					{
-						if (!empty($thisBox['bundle']->price_shipping))
+						if (!empty($thisBox['bundle']->price_shipping) && !empty($thisBox["box_instance"]->is_complete))
 						{
 							$this->subtotal_delivery_fee += $thisBox['bundle']->price_shipping;
 						}
