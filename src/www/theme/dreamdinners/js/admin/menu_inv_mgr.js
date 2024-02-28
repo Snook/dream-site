@@ -763,6 +763,7 @@ function init_finalize_preorder()
 							$("#MIM_progress").remove();
 							if (json.processor_success)
 							{
+								menuState.hasSavedPreOrder = true;
 
 								$("[id^='finalize_week_']").each(function () {
 									$(this).removeClass('disabled');

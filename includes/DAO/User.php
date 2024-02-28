@@ -18,7 +18,8 @@ class DAO_User extends DAO
 	public $secondary_email;                   // string(255)  multiple_key
     public $firstname;                       // string(80)  not_null
     public $lastname;                        // string(80)  not_null multiple_key
-    public $home_store_id;                   // int(8)  multiple_key unsigned
+	public $home_store_id;                   // int(8)  multiple_key unsigned
+	public $distribution_center_id;                   // int(8)  multiple_key unsigned
     public $dream_reward_status;             // int(4)  not_null unsigned
     public $dream_reward_level;              // int(4)  not_null unsigned
     public $dream_rewards_version;  		 // int(4)  not_null unsigned

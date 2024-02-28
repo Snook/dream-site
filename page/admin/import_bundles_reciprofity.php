@@ -146,7 +146,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 					$tasteBundle->bundle_name = 'Meal Prep Workshop';
 					$tasteBundle->number_items_required = 0;
 					$tasteBundle->number_servings_required = 9;
-					$tasteBundle->price = 60.00;
+					$tasteBundle->price = 67.49;
 					$tasteBundle->price_shipping = 0.00;
 
 					if (self::$testMode)
@@ -181,7 +181,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 						$fundraiserBundle->bundle_name = 'Fundraiser';
 						$fundraiserBundle->number_items_required = 0;
 						$fundraiserBundle->number_servings_required = 9;
-						$fundraiserBundle->price = 60.00;
+						$fundraiserBundle->price = 67.49;
 						$fundraiserBundle->price_shipping = 0.00;
 
 						if (self::$testMode)

@@ -1760,7 +1760,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			CForm::onKeyUp => 'handleBagCountInput',
 			CForm::onChange => 'handleBagCountInput',
 			CForm::step => 1,
-			CForm::min => 1,
+			CForm::min => 0,
 			CForm::max => 99
 		));
 

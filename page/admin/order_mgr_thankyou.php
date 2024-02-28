@@ -92,13 +92,7 @@ class page_admin_order_mgr_thankyou extends CPageAdminOnly
 
 		$User->getMembershipStatus($Order->id);
 
-		//update the user's home store if it changed
-		if (($User->user_type == CUser::CUSTOMER) and ($User->home_store_id != $Order->store_id))
-		{
-			$OldUser = clone($User);
-			$User->home_store_id = $Order->store_id;
-			$User->update($OldUser);
-		}
+		$User->setHomeStore($Order->store_id);
 
 		$orderInfoArray = COrders::buildOrderDetailArrays($User, $Order, false,false,false, false,$isDeliveredOrder	);
 
