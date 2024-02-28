@@ -798,20 +798,66 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 		));
 
 		// --------------------------------------- set up Taxes
-		//list($tax_id, $curfoodTax, $curNonFoodTax, $curServiceTax, $curEnrollmentTax, $curDeliveryTax) = $this->daoStore->getCurrentSalesTax();
-		// TODO: Avalara integration
+		list($tax_id, $curfoodTax, $curNonFoodTax, $curServiceTax, $curEnrollmentTax, $curDeliveryTax, $curBagFeeTax) = $this->daoStore->getCurrentSalesTax();
+
+		$taxRelation = 'equal';
+
+		if ($this->originalOrder->sales_tax_id)
+		{
+			$origSalesTaxObj = DAO_CFactory::create('sales_tax');
+			$origSalesTaxObj->id = $this->originalOrder->sales_tax_id;
+			$origSalesTaxObj->find(true);
+			$origFoodTax = $origSalesTaxObj->food_tax;
+			$origNonFoodTax = $origSalesTaxObj->total_tax;
+			$origServiceTax = $origSalesTaxObj->other1_tax;
+			$origEnrollmentTax = $origSalesTaxObj->other2_tax;
+			$origDeliveryTax = $origSalesTaxObj->other3_tax;
+			$origBagFeeTax = $origSalesTaxObj->other4_tax;
+
+			if ($origServiceTax == $origFoodTax)
+			{
+				$taxRelation = 'equal';
+			}
+
+			if ($origServiceTax > $origFoodTax)
+			{
+				$taxRelation = 'svc_tax_greater';
+			}
+			else
+			{
+				$taxRelation = 'food_tax_greater';
+			}
+		}
+		else
+		{
+			$origFoodTax = 0;
+			$origNonFoodTax = 0;
+			$origServiceTax = 0;
+			$origEnrollmentTax = 0;
+			$origDeliveryTax = 0;
+			$origBagFeeTax = 0;
+		}
+
+		if ($taxRelation == 'svc_tax_greater')
+		{
+			$this->originalOrder->pp_discount_mfy_fee_first = 1;
+		}
+		else
+		{
+			$this->originalOrder->pp_discount_mfy_fee_first = 0;
+		}
 
 		$tpl->assign('pp_discount_mfy_fee_first', $this->originalOrder->pp_discount_mfy_fee_first);
-		$tpl->assign('origNonFoodTax', false);
-		$tpl->assign('curNonFoodTax', false);
-		$tpl->assign('origFoodTax', false);
-		$tpl->assign('curFoodTax', false);
-		$tpl->assign('origServiceTax', false);
-		$tpl->assign('curServiceTax', false);
-		$tpl->assign('origEnrollmentTax', false);
-		$tpl->assign('curEnrollmentTax', false);
-		$tpl->assign('origDeliveryTax', false);
-		$tpl->assign('curDeliveryTax', false);
+		$tpl->assign('origNonFoodTax', $origNonFoodTax);
+		$tpl->assign('curNonFoodTax', $curNonFoodTax);
+		$tpl->assign('origFoodTax', $origFoodTax);
+		$tpl->assign('curFoodTax', $curfoodTax);
+		$tpl->assign('origServiceTax', $origServiceTax);
+		$tpl->assign('curServiceTax', $curServiceTax);
+		$tpl->assign('origEnrollmentTax', $origEnrollmentTax);
+		$tpl->assign('curEnrollmentTax', $curEnrollmentTax);
+		$tpl->assign('origDeliveryTax', $origDeliveryTax);
+		$tpl->assign('curDeliveryTax', $curDeliveryTax);
 
 		$tpl->assign('PlatePointsRulesVersion', false);
 
