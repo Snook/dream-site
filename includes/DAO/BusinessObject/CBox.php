@@ -59,6 +59,34 @@ class CBox extends DAO_Box
 		return parent::find($n);
 	}
 
+	function find_DAO_box($n = false)
+	{
+		if ($this->_query["data_select"] === "*")
+		{
+			throw new Exception("When creating this object, second parameter in DAO_CFactory::create() needs to be 'true'");
+		}
+
+		$this->joinAddWhereAsOn(DAO_CFactory::create('store', true), 'LEFT');
+		$this->joinAddWhereAsOn(DAO_CFactory::create('menu', true));
+
+		// join bundle master_item to menu_item
+		$DAO_bundle_1 = DAO_CFactory::create('bundle');
+		$DAO_bundle_1->whereAdd("box_bundle_1.id=box.box_bundle_1");
+		$this->joinAddWhereAsOn($DAO_bundle_1, array(
+			'joinType' => 'LEFT',
+			'useLinks' => false
+		), 'box_bundle_1');
+
+		$DAO_bundle_2 = DAO_CFactory::create('bundle');
+		$DAO_bundle_2->whereAdd("box_bundle_2.id=box.box_bundle_2");
+		$this->joinAddWhereAsOn($DAO_bundle_2, array(
+			'joinType' => 'LEFT',
+			'useLinks' => false
+		), 'box_bundle_2');
+
+		return parent::find($n);
+	}
+
 	/**
 	 * @throws Exception
 	 */
@@ -91,7 +119,7 @@ class CBox extends DAO_Box
 
 			if ($this->_get['store_obj'])
 			{
-				$this->store_obj =  $boxObj->getStoreObj();
+				$this->store_obj = $boxObj->getStoreObj();
 			}
 
 			if ($this->_get['menu_obj'])
@@ -159,7 +187,7 @@ class CBox extends DAO_Box
 
 		if ($this->number_sold_n && $n)
 		{
-			while($box_instance->fetch())
+			while ($box_instance->fetch())
 			{
 				$this->orders[$box_instance->order_id] = $box_instance->order_id;
 			}
@@ -167,7 +195,11 @@ class CBox extends DAO_Box
 			$this->orders_n = count($this->orders);
 		}
 
-		return array($this->number_sold_n, $this->orders_n, $this->orders);
+		return array(
+			$this->number_sold_n,
+			$this->orders_n,
+			$this->orders
+		);
 	}
 
 	/**
@@ -678,4 +710,5 @@ class CBox extends DAO_Box
 	}
 
 }
+
 ?>
