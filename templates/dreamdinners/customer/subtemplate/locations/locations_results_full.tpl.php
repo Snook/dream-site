@@ -124,11 +124,19 @@
 								No subscription required. Order as you need it.
 							</div>
 							<?php if (empty($this->state_has_delivered)) { ?>
-								<div class="mt-4">
-									<button class="btn btn-primary w-100 btn-spinner" id="select_delivered" data-start-delivered-order="<?php echo $this->delivered->zip; ?>">
-										View Menu &amp; Order
-									</button>
-								</div>
+								<?php if ($this->shipping_has_inventory) { ?>
+									<div class="mt-4">
+										<button class="btn btn-primary w-100 btn-spinner" id="select_delivered" data-start-delivered-order="<?php echo $this->delivered->zip; ?>">
+											View Menu &amp; Order
+										</button>
+									</div>
+								<?php } else { ?>
+									<div class="mt-4">
+										<div class="alert alert-warning">
+											We can ship to your door, but currently we do not have a menu available. Please check back soon.
+										</div>
+									</div>
+								<?php } ?>
 							<?php } ?>
 							<?php if (!empty($this->state_has_delivered)) { ?>
 								<div class="mt-4">
