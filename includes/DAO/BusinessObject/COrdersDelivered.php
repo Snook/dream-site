@@ -893,7 +893,7 @@ class COrdersDelivered extends COrders
 			$adminUser = CUser::getCurrentUser()->id;
 			foreach ($boxInstanceArray as $box_inst_id)
 			{
-				$box_instances->query("update box_instance set is_deleted = 1, edit_sequence_id = {$order_record->id}, updated_by = $adminUser where id = $box_inst_id");
+				$box_instances->query("update box_instance set is_deleted = 1, updated_by = $adminUser where id = $box_inst_id");
 			}
 
 			// record changes to the master
