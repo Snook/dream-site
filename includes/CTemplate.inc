@@ -68,6 +68,7 @@ class CTemplate extends Savant2
 		'admin_order_details_view_all_multi',
 		'admin_user_membership',
 		'admin_manage_box',
+		'admin_menu_editor',
 		'admin_manage_coupon_codes',
 		'admin_reports_map_activity',
 		'admin_reports_national_entree_projection',
