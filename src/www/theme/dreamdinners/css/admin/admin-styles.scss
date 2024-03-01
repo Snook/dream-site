@@ -8,10 +8,10 @@
 @import "old_style/fadmin";
 
 // helpers for old style
-.button {
-  @extend .btn, .btn-primary, .btn-sm;
-  text-transform: none;
-}
+//.button {
+//  @extend .btn, .btn-primary, .btn-sm;
+//  text-transform: none;
+//}
 
 #helpdesk {
   @extend .btn, .btn-primary, .btn-sm;

@@ -1,4 +1,4 @@
-.btn.btn-primary, .btn.btn-danger {
+.btn.btn-primary, .btn.btn-danger, .btn.btn-secondary {
   color: #c3c861 !important;
   border-radius: 4px;
   font-size: .55rem !important;
@@ -36,7 +36,7 @@
   border: 1px solid #580304;
 }
 
-.btn.btn-primary:hover, .btn.btn-danger:hover {
+.btn.btn-primary:hover, .btn.btn-secondary:hover, .btn.btn-danger:hover {
   color: #fff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #38883b;
