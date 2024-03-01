@@ -1,134 +1,100 @@
 <?php
-
-
-/**
- *
- *
- * @version $Id$
- * @copyright 2007
- */
-
 require_once('includes/CCart2.inc');
-require_once ("includes/CPageProcessor.inc");
-require_once ("CTemplate.inc");
+require_once("includes/CPageProcessor.inc");
+require_once("CTemplate.inc");
 
-class processor_admin_defaultPricingProcessor extends CPageProcessor {
+class processor_admin_defaultPricingProcessor extends CPageProcessor
+{
 
-	 private $currentStore = null;
+	private $currentStore = null;
 
-	function runSiteAdmin(){
-	 	$this->runFranchiseOwner();
+	function runSiteAdmin()
+	{
+		$this->runFranchiseOwner();
 	}
 
-    function runFranchiseLead() {
-	 	$this->runFranchiseOwner();
-	 }
-	 function runOpsLead() {
-	 	$this->runFranchiseOwner();
-	 }
+	function runFranchiseLead()
+	{
+		$this->runFranchiseOwner();
+	}
 
-	 function runFranchiseManager() {
-	 	$this->runFranchiseOwner();
-	 }
+	function runOpsLead()
+	{
+		$this->runFranchiseOwner();
+	}
 
-	 function runHomeOfficeManager() {
-	 	$this->runFranchiseOwner();
-	 }
+	function runFranchiseManager()
+	{
+		$this->runFranchiseOwner();
+	}
 
-	 function runFranchiseOwner() {
+	function runHomeOfficeManager()
+	{
+		$this->runFranchiseOwner();
+	}
 
-
+	function runFranchiseOwner()
+	{
 		header('Pragma: no-cache');
 		header("Cache-Control: no-store,no-cache, must-revalidate"); // HTTP/1.1
 		header("Expires: Mon, 26 Jul 2005 05:00:00 GMT"); // Date in the past
 
-		$storeID = null;
-		if (isset($_REQUEST['store_id'])) $storeID = $_REQUEST['store_id'];
-
-		if (!$storeID || !is_numeric($storeID)) return "error";
-
-
-
-		if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'save')
+		if (isset($_POST['action']) && $_POST['action'] == 'save')
 		{
-
-
-			$data = explode("|", $_POST['data']);
-			$extra = array_pop($data);
-
-			$org_data = array();
-
-			$existingItems = DAO_CFactory::create('default_prices');
-			$existingItems->store_id = $_REQUEST['store_id'];
-
-			$existingItems->find();
-
-			while($existingItems->fetch())
+			foreach ($_POST["data"] as $recipe_id => $setting)
 			{
-				$org_data[$existingItems->recipe_id] = $existingItems->default_price;
-			}
+				$DAO_default_prices = DAO_CFactory::create('default_prices', true);
+				$DAO_default_prices->store_id = $_POST["store_id"];
+				$DAO_default_prices->recipe_id = $recipe_id;
 
-			foreach($data as $thisItem)
-			{
-
-				list($recipeID, $showCustomer, $hideEverywhere, $itemPrice ) = explode("~", $thisItem);
-
-				$recipeID = CGPC::do_clean($recipeID, TYPE_INT);
-				$showCustomer = CGPC::do_clean($showCustomer, TYPE_INT);
-				$hideEverywhere = CGPC::do_clean($hideEverywhere, TYPE_INT);
-				$itemPrice = CGPC::do_clean($itemPrice, TYPE_NUM);
-
-				if (array_key_exists($recipeID, $org_data))
+				if ($DAO_default_prices->find(true))
 				{
-					//update
-					$upateObj = DAO_CFactory::create('default_prices');
-					$upateObj->query("update default_prices set default_price = $itemPrice, default_customer_visibility = $showCustomer, default_hide_completely = $hideEverywhere where store_id = $storeID and recipe_id = $recipeID and is_deleted = 0 ");
+					$update_DAO_default_prices = clone $DAO_default_prices;
+					$update_DAO_default_prices->default_price = $setting['ovr'];
+					$update_DAO_default_prices->default_customer_visibility = $setting['vis'];
+					$update_DAO_default_prices->default_hide_completely = $setting['hid'];
+					$update_DAO_default_prices->update($DAO_default_prices);
 				}
 				else
 				{
-					//insert
-					$insertObj = DAO_CFactory::create('default_prices');
-					$insertObj->store_id = $storeID;
-					$insertObj->recipe_id = $recipeID;
-					$insertObj->default_price = $itemPrice;
-					$insertObj->default_customer_visibility = $showCustomer;
-					$insertObj->default_hide_completely = $hideEverywhere;
-
-					$insertObj->insert();
+					$DAO_default_prices->default_price = $setting['ovr'];
+					$DAO_default_prices->default_customer_visibility = $setting['vis'];
+					$DAO_default_prices->default_hide_completely = $setting['hid'];
+					$DAO_default_prices->insert();
 				}
-
-
 			}
 
-
+			CAppUtil::processorMessageEcho(array(
+				'processor_success' => true,
+				'processor_message' => 'Defaults saved.'
+			));
 		}
 
-		if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'retrieve')
+		if (isset($_POST['action']) && $_POST['action'] == 'retrieve')
 		{
+			$DAO_default_prices = DAO_CFactory::create('default_prices', true);
+			$DAO_default_prices->store_id = $_POST['store_id'];
 
+			$returnData = array();
 
-			$org_data = array();
-
-			$existingItems = DAO_CFactory::create('default_prices');
-			$existingItems->store_id = $_REQUEST['store_id'];
-
-			$existingItems->find();
-
-			$returnData = "";
-
-			while($existingItems->fetch())
+			if ($DAO_default_prices->find())
 			{
-				$returnData .= $existingItems->recipe_id . "~" .  $existingItems->default_customer_visibility . "~" .
-									  $existingItems->default_hide_completely .  "~" .  $existingItems->default_price . "|";
-
+				while ($DAO_default_prices->fetch())
+				{
+					$returnData[$DAO_default_prices->recipe_id] = array(
+						'ovr' => $DAO_default_prices->default_price,
+						'vis' => $DAO_default_prices->default_customer_visibility,
+						'hid' => $DAO_default_prices->default_hide_completely,
+					);
+				}
 			}
 
-			print $returnData;
-
+			CAppUtil::processorMessageEcho(array(
+				'processor_success' => true,
+				'processor_message' => 'Retrieved store select form.',
+				'settings' => $returnData
+			));
 		}
-
-
-
 	}
 
 }
