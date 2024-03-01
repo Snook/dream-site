@@ -4,7 +4,7 @@
  */
 require_once 'DAO.inc';
 
-class DAO_Default_prices extends DAO 
+class DAO_Default_prices extends DAO
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -16,6 +16,7 @@ class DAO_Default_prices extends DAO
     public $default_price;                   // real(8)  not_null
     public $default_customer_visibility;     // int(4)  not_null
     public $default_hide_completely;         // int(4)  not_null
+	public $show_on_order_form;              // int(4)  not_null
     public $timestamp_updated;               // timestamp(19)  not_null unsigned zerofill binary timestamp
     public $timestamp_created;               // timestamp(19)  not_null unsigned zerofill binary
     public $updated_by;                      // int(11)  multiple_key unsigned
