@@ -71,8 +71,8 @@ class COrders extends DAO_Orders
 
 	protected $isInEditOrder = false;
 
-	private $itemsAdjustedByInventory = null;
-	private $itemsAdjustedByInventoryArray = null;
+	public $itemsAdjustedByInventory = null;
+	public $itemsAdjustedByInventoryArray = null;
 
 	private $applyPremium = true;
 
@@ -2815,7 +2815,7 @@ class COrders extends DAO_Orders
 
 		$tmpStr = substr($this->itemsAdjustedByInventory, 0, strlen($this->itemsAdjustedByInventory) - 1);
 
-		$Menu_items = DAO_CFactory::create('menu_item');
+		$Menu_items = DAO_CFactory::create('menu_item', true);
 
 		$Menu_items->query("select mi2.menu_item_name from (
 		    SELECT max(mi.id) as most_recent_version FROM menu_item mi WHERE mi.recipe_id IN (" . $tmpStr . ")
@@ -7541,7 +7541,7 @@ class COrders extends DAO_Orders
 		$this->isInEditOrder = $val;
 	}
 
-	function isDelivered()
+	function isShipping()
 	{
 		$Session = $this->findSession();
 		$Store = $this->getStore();
@@ -7557,6 +7557,11 @@ class COrders extends DAO_Orders
 		}
 
 		return false;
+	}
+
+	function isDelivered()
+	{
+		return $this->isShipping();
 	}
 
 	function isNewIntroOffer()
