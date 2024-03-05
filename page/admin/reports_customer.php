@@ -895,7 +895,7 @@ class page_admin_reports_customer extends CPageAdminOnly
 			$clientData = CCorporateCrateClient::getArrayOfAllClients();
 		}
 
-		$booking = DAO_CFactory::create("booking", true);
+		$booking = DAO_CFactory::create("booking");
 
 		$current_date = mktime(0, 0, 0, $Month, $Day, $Year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
@@ -904,12 +904,12 @@ class page_admin_reports_customer extends CPageAdminOnly
 
 		if (defined('ALLOW_SITE_WIDE_REPORTING') && ALLOW_SITE_WIDE_REPORTING && $store_id == "all")
 		{
-			$selectStr = "Select st.store_name, st.home_office_id, st.state_id, u.id, u.lastname, u.firstname, u.primary_email, IF(u.is_deleted=0, 'no', 'yes') as deleted ";
+			$selectStr = "Select st.store_name, st.home_office_id, st.state_id, u.id, u.lastname, u.firstname, u.primary_email, IF(u.is_deleted>0, 'no', 'yes') as deleted ";
 			$colcount = 8;
 		}
 		else
 		{
-			$selectStr = "Select u.id, u.lastname, u.firstname, u.primary_email, IF(u.is_deleted=0, 'no', 'yes') as deleted, st.store_name ";
+			$selectStr = "Select u.id, u.lastname, u.firstname, u.primary_email, IF(u.is_deleted>0, 'no', 'yes') as deleted, st.store_name ";
 			$colcount = 6;
 		}
 
