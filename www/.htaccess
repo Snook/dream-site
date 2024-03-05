@@ -124,11 +124,12 @@ RewriteRule ^colorado/?$ /colorado-meal-kit [R=301,NC,QSA]
 RewriteRule ^freezer/?$ /sides-and-sweets-order-form?utm_source=stores-salesforce&utm_medium=emails-sms&utm_campaign=sides-sweets-order-form [R=301,NC,QSA]
 RewriteRule ^playbook/?$ /media/Dream-Dinners-Playbook.pdf [R=301,NC,QSA]
 
-# Optioanl trailing "S" redirects
+# Optional trailing "S" redirects
 RewriteRule ^location/?$ /locations [R=301,NC,QSA]
 RewriteRule ^stores?/?$ /locations [R=301,NC,QSA]
 RewriteRule ^holiday/?$ /holidays [R=301,NC,QSA]
 RewriteRule ^gifts/?$ /gift [R=301,NC,QSA]
+RewriteRule ^faqs/?$ /help [R=301,NC,QSA]
 RewriteRule ^fundraisercards?/?$ /fundraiser-card-program [R=301,NC,QSA]
 
 # Offsite redirects

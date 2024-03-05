@@ -1,5 +1,5 @@
-<?php $this->assign('page_title', "FAQs | Frequently Asked Questions"); ?>
-<?php $this->assign('page_description', 'Dream Dinners frequently asked questions and answers about our products and services.'); ?>
+<?php $this->assign('page_title', "Help"); ?>
+<?php $this->assign('page_description', 'Dream Dinners answers about our products and services.'); ?>
 <?php $this->assign('page_keywords', 'about dream dinners, session questions, meal assembly, dinner preparation, freezing meals, attending a session'); ?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
 
@@ -9,7 +9,7 @@
 
 			</div>
 			<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center">
-				<h1>Dream Dinners FAQs</h1>
+				<h1>Dream Dinners Help</h1>
 			</div>
 			<div class="col-6 col-sm-3 p-0 order-3 order-sm-3 text-right">
 
