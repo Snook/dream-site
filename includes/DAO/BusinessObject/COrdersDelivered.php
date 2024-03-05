@@ -2729,14 +2729,147 @@ class COrdersDelivered extends COrders
 
 	function verifyAdequateInventory()
 	{
-		//TODO
-		return true;
-		//throw new Exception("Not implemented for Delivered");
+		$this->itemsAdjustedByInventory = null;
+
+		if (!$this->boxes)
+		{
+			return true;
+		}
+
+		if (empty($this->boxes))
+		{
+			return true;
+		}
+
+		if (empty($this->store_id))
+		{
+			return true;
+		}
+
+		$menu_id = $this->getMenuId();
+		if (empty($menu_id))
+		{
+			return true;
+		}
+
+		// every menu prior to April 2010 ignores inventory
+		if ($menu_id < 104)
+		{
+			return true;
+		}
+
+		$serving_totals = array();
+
+		$tempArray = array();
+
+		foreach ($this->boxes as $box_instance_id => $boxInstanceArray)
+		{
+			if (!empty($boxInstanceArray["box_instance"]->is_complete))
+			{
+				foreach ($boxInstanceArray["items"] AS $itemArray)
+				{
+					list($qty, $DAO_menu_item) = $itemArray;
+
+					$tempArray[] = $DAO_menu_item->id;
+
+					if (!isset($serving_totals[$DAO_menu_item->recipe_id]))
+					{
+						$serving_totals[$DAO_menu_item->recipe_id] = 0;
+					}
+
+					$serving_totals[$DAO_menu_item->recipe_id] += ($qty * $DAO_menu_item->servings_per_item);
+				}
+			}
+		}
+
+		$inv_array = array();
+
+		// INVENTORY TOUCH POINT 9
+		$DAO_menu_item_inventory = DAO_CFactory::create('menu_item_inventory', true);
+		$DAO_menu_item_inventory->menu_id = $menu_id;
+		$DAO_menu_item_inventory->store_id = $this->store->parent_store_id;
+		$DAO_menu_item_inventory->getMenuItemInventory($tempArray);
+		$DAO_menu_item_inventory->find();
+
+		while ($DAO_menu_item_inventory->fetch())
+		{
+			$inv_array[$DAO_menu_item_inventory->recipe_id] = $DAO_menu_item_inventory->remaining_servings;
+		}
+
+		$retVal = true;
+
+		foreach ($serving_totals as $recipeID => $itemServingsTotal)
+		{
+			if ($itemServingsTotal > $inv_array[$recipeID])
+			{
+				$retVal = false;
+
+				if (!isset($this->itemsAdjustedByInventory))
+				{
+					$this->itemsAdjustedByInventory = "";
+				}
+
+				$this->itemsAdjustedByInventory .= $recipeID . ",";
+
+				if (!isset($this->itemsAdjustedByInventoryArray))
+				{
+					$this->itemsAdjustedByInventoryArray = array();
+				}
+
+				$this->itemsAdjustedByInventoryArray[$recipeID] = $recipeID;
+			}
+		}
+
+		return $retVal;
 	}
 
-	function getInvExceptionItemsString()
+	function getUnderStockedItems()
 	{
-		throw new Exception("Not implemented for Delivered");
+		if (!$this->boxes)
+		{
+			return false;
+		}
+
+		if (empty($this->boxes))
+		{
+			return false;
+		}
+
+		if (empty($this->store_id))
+		{
+			return false;
+		}
+
+		$menu_id = $this->getMenuId();
+		if (empty($menu_id))
+		{
+			return false;
+		}
+
+		$removalList = array();
+
+		if (empty($this->itemsAdjustedByInventoryArray))
+		{
+			return false;
+		}
+
+		foreach ($this->boxes as $box_instance_id => $boxInstanceArray)
+		{
+			if (!empty($boxInstanceArray["box_instance"]->is_complete))
+			{
+				foreach ($boxInstanceArray["items"] as $itemArray)
+				{
+					list($qty, $DAO_menu_item) = $itemArray;
+
+					if (array_key_exists($DAO_menu_item->recipe_id, $this->itemsAdjustedByInventoryArray))
+					{
+						$removalList[$box_instance_id] = $box_instance_id;
+					}
+				}
+			}
+		}
+
+		return $removalList;
 	}
 
 	function removeInitialInventory($menu_id = false)
@@ -3168,6 +3301,16 @@ class COrdersDelivered extends COrders
 		}
 
 		return false;
+	}
+
+	function isShipping()
+	{
+		return true;
+	}
+
+	function isDelivered()
+	{
+		return $this->isShipping();
 	}
 
 	public function isInEditOrder()

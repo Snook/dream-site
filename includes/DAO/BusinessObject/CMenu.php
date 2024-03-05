@@ -378,6 +378,7 @@ class CMenu extends DAO_Menu
 			//$retVal[$weekNumber]['week_end'] = $dateDT->format("Y-m-d H:i:s");
 			$retVal[$weekNumber]['dt_week_end'] = ($dateDT > $endDT) ? clone $endDT : clone $dateDT;
 			$retVal[$weekNumber]['week_end'] = ($dateDT > $endDT) ? $endDT->format("Y-m-d H:i:s") : $dateDT->format("Y-m-d H:i:s");
+			$retVal[$weekNumber]['final'] = false;
 		}
 
 		$retVal[$weekNumber]['final'] = true;

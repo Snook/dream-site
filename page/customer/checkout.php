@@ -829,13 +829,23 @@ class checkout_validation
 			$itemsOversold = $Order->getInvExceptionItemsString();
 
 			$itemsToRemove = $Order->getUnderStockedItems();
+
 			foreach ($itemsToRemove as $id)
 			{
-				$Cart->removeItem($Order->findSession()->menu_id, $id, $Order->isNewIntroOffer(), ($Order->isDreamTaste() || $Order->isFundraiser()));
+				if ($Order->isShipping())
+				{
+					$Cart->removeDeliveredBox($id);
+					$Order->deleteBoxFromOrder($id);
+				}
+				else
+				{
+					$Cart->removeItem($Order->findSession()->menu_id, $id, $Order->isNewIntroOffer(), ($Order->isDreamTaste() || $Order->isFundraiser()));
+				}
 			}
 
 			$tpl->setErrorMsg("One or more items has become unavailable since you added it to your cart. Please review your order and try again. Items adjusted are:<br />" . $itemsOversold);
-			if ($Cart->getNavigationType() == CTemplate::DELIVERED)
+
+			if ($Order->isShipping())
 			{
 				CApp::bounce('/box-select');
 			}
