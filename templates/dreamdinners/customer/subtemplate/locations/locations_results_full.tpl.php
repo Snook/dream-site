@@ -133,7 +133,7 @@
 								<?php } else { ?>
 									<div class="mt-4">
 										<div class="alert alert-warning">
-											We can ship to your door, but currently we do not have a menu available. Please check back soon.
+											We can ship to you, but our fridge is currently empty. We are busy prepping our new menu. Check back soon for a new selection of meals.
 										</div>
 									</div>
 								<?php } ?>

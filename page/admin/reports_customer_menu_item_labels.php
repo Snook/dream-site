@@ -201,7 +201,7 @@ class page_admin_reports_customer_menu_item_labels extends CPageAdminOnly
 					$ft_menu_array[$DAO_menu->id] = CTemplate::dateTimeFormat($DAO_menu->menu_start, "%B %Y");
 				}
 
-				if (date('Y-m-d') >= $DAO_menu->menu_start && date('Y-m-d') < $DAO_menu->global_menu_end_date)
+				if (date('Y-m-d') >= $DAO_menu->menu_start && date('Y-m-d') <= $DAO_menu->global_menu_end_date)
 				{
 					$curMenu = $DAO_menu->id;
 				}

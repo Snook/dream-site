@@ -396,7 +396,7 @@ function SavePricing()
 					currentPrice = previewPrice;
 				}
 
-				if (currentPrice < basePrice)
+				if (noOverrideUnderBase && currentPrice < basePrice)
 				{
 					document.getElementById('dp_proc_mess').style.display = "none";
 					document.getElementById("dp_error").style.display = "block";
@@ -1298,11 +1298,10 @@ function confirm_and_check_form()
 			}
 		}
 
-		if (encounteredBasePriceIssue)
+		if (noOverrideUnderBase && encounteredBasePriceIssue)
 		{
 			message += "The Override Price must be greater than the base price for:<br />";
 			message += problemItemList;
-
 		}
 
 		if (message != "")

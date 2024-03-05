@@ -2145,7 +2145,14 @@ class PDF_Label extends FPDF_MULTICELLTAG
 				// get the last item off the array
 				$last = array_pop($alternate_instruction_type);
 				// comma separate the rest of the items and then append the last item from the previous function
-				$alternate_instruction_string = implode(', ', $alternate_instruction_type) . ' or ' . $last;
+				if (count($alternate_instruction_type) > 0)
+				{
+					$alternate_instruction_string = implode(', ', $alternate_instruction_type) . ' or ' . $last;
+				}
+				else
+				{
+					$alternate_instruction_string = $last;
+				}
 			}
 
 			$this->SetXY($_PosX + 3, $_PosY + 4 + $yOff);
