@@ -129,7 +129,7 @@ RewriteRule ^location/?$ /locations [R=301,NC,QSA]
 RewriteRule ^stores?/?$ /locations [R=301,NC,QSA]
 RewriteRule ^holiday/?$ /holidays [R=301,NC,QSA]
 RewriteRule ^gifts/?$ /gift [R=301,NC,QSA]
-RewriteRule ^faqs/?$ /help [R=301,NC,QSA]
+RewriteRule ^faqs?/?$ /help [R=301,NC,QSA]
 RewriteRule ^fundraisercards?/?$ /fundraiser-card-program [R=301,NC,QSA]
 
 # Offsite redirects
