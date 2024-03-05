@@ -20,9 +20,9 @@ if(isset($this->head_script))
 <?php if (defined('ENABLE_HELP_SEARCH') && ENABLE_HELP_SEARCH == true) { ?>
 <script>
 	window.fwSettings={
-		'widget_id':13000000535
+		'widget_id':13000000649
 	};
 	!function(){if("function"!=typeof window.FreshworksWidget){var n=function(){n.q.push(arguments)};n.q=[],window.FreshworksWidget=n}}()
 </script>
-<script type='text/javascript' src='https://widget.freshworks.com/widgets/13000000535.js' async defer></script>
+<script type='text/javascript' src='https://widget.freshworks.com/widgets/13000000649.js' async defer></script>
 <?php } ?>
