@@ -163,6 +163,14 @@ class CEmail extends CMail
 			$_email_template_name = 'host_notify_community_private';
 		}
 
+		if (false && $sessionDetailArray['session_type_true'] == CSession::DELIVERY_PRIVATE)
+		{
+			$contentsText = CMail::mailMerge('host_notify/host_notify_delivery_private.txt.php', $data);
+			$contentsHtml = CMail::mailMerge('host_notify/host_notify_delivery_private.html.php', $data);
+			$_email_subject = 'Your Home Delivery Session is set up';
+			$_email_template_name = 'host_notify_delivery_private';
+		}
+
 		if ($contentsHtml && $contentsText)
 		{
 			$Mail = new CMail();
