@@ -9,13 +9,13 @@
 		<td width="300" align="right" style="padding: 5px"><a href="<?php echo HTTPS_BASE ?>my-events">My Events</a> | <a href="<?php echo HTTPS_BASE ?>my-account">My Account</a></td>
 	</tr>
 	<tr bgcolor="#5c6670">
-		<td colspan="2" style="padding: 5px"><p align="center"><span style="color:#FFF; font-size:14pt; font-weight:bold;">Your Community Pick Up Event is Scheduled!</span></p></td>
+		<td colspan="2" style="padding: 5px"><p align="center"><span style="color:#FFF; font-size:14pt; font-weight:bold;">Your Private Home Delivery is Scheduled!</span></p></td>
 	</tr>
 </table>
 <table role="presentation" width="650" border="0" cellspacing="0" cellpadding="8">
 	<tr>
 		<td>
-			<p>You can now share Dream Dinners with your friends and family by inviting them to join you at your community pick up event. Below are the details of your event and, most importantly, the link for everyone to use to RSVP.</p>
+			<p>You can now share Dream Dinners with your friends and family by inviting them to join you at your private home delivery event. Below are the details of your event and, most importantly, the link for everyone to use to RSVP.</p>
 			<p>Visit the <a href="<?php echo HTTPS_BASE ?>my-events">My Events page</a> in your Dream Dinners account to get access to our easy to use sharing tools.</p>
 			<p>If you have any questions or concerns, please contact your store.</p>
 			<p>Have a great event!</p>
@@ -41,11 +41,11 @@
 					<td align="left" valign="middle"><?php echo $this->session_info['session_password'] ?></td>
 				</tr>
 				<tr>
-					<td align="right" valign="middle" bgcolor="#b9bf33">Meals Prepped at:</td>
+					<td align="right" valign="middle" bgcolor="#b9bf33">Meals Prepped by:</td>
 					<td align="left" valign="middle"><?php echo $this->session_info['store_name'] ?></td>
 				</tr>
 				<tr>
-					<td align="right" valign="top" bgcolor="#b9bf33">Event Pick Up Address:</td>
+					<td align="right" valign="top" bgcolor="#b9bf33">Home Delivery Address:</td>
 					<td align="left" valign="middle"><?php echo $this->session_info['session_remote_location']->address_line1 . ((!empty($this->session_info['session_remote_location']->address_line2)) ? ' ' . $this->session_info['session_remote_location']->address_line2 : '') . ', ' . $this->session_info['session_remote_location']->city . ', ' . $this->session_info['session_remote_location']->state_id . ' ' .$this->session_info['session_remote_location']->postal_code; ?></td>
 				</tr>
 				<tr>

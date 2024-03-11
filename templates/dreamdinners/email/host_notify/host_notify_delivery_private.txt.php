@@ -1,6 +1,6 @@
-Your Community Pick Up Event is Scheduled!
+Your Private Home Delivery is Scheduled!
 
-You can now share Dream Dinners with your friends and family by inviting them to join you at your community pick up event. Below are the details of your event and, most importantly, the link for everyone to use to RSVP.
+You can now share Dream Dinners with your friends and family by inviting them to join you at your private home delivery event. Below are the details of your event and, most importantly, the link for everyone to use to RSVP.
 
 Visit the My Events page in your Dream Dinners account to get access to our easy to use sharing tools.
 
@@ -18,9 +18,9 @@ RSVP Link: <?php echo HTTPS_BASE ?>session/<?php echo $this->session_info['id'] 
 
 Invite Code: <?php echo $this->session_info['session_password'] ?>
 
-Meals Prepped at: <?php echo $this->session_info['store_name'] ?>
+Meals Prepped by: <?php echo $this->session_info['store_name'] ?>
 
-Event Pick Up Address:
+Home Delivery Address:
 <?php echo $this->session_info['session_remote_location']->address_line1 . ((!empty($this->session_info['session_remote_location']->address_line2)) ? ' ' . $this->session_info['session_remote_location']->address_line2 : '') . ', ' . $this->session_info['session_remote_location']->city . ', ' . $this->session_info['session_remote_location']->state_id . ' ' .$this->session_info['session_remote_location']->postal_code; ?>
 
 
