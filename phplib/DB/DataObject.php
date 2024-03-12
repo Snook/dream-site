@@ -3664,7 +3664,7 @@ class DB_DataObject extends DB_DataObject_Overload
 		}
 		/* did I find a conneciton between them? */
 
-		if ($ofield === false)
+		if ($useLinks && $ofield === false)
 		{
 			$this->raiseError("joinAdd: {$obj->tableName()} has no link with {$this->tableName()}", DB_DATAOBJECT_ERROR_NODATA);
 

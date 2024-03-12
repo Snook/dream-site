@@ -184,6 +184,8 @@ class processor_delivered_box extends CPageProcessor
 		{
 			try
 			{
+				$CartObj = CCart2::instance(true);
+
 				if (!empty($_POST['box_id']) && is_numeric($_POST['box_id']) && !empty($_POST['bundle_id']) && is_numeric($_POST['bundle_id']))
 				{
 					$post_box_id = $_POST['box_id'];
@@ -200,11 +202,26 @@ class processor_delivered_box extends CPageProcessor
 
 				$items = CBundle::getDeliveredBundleByID($DAO_bundle->id, true);
 
+				$boxInfoArray = CBox::getBoxArray($CartObj->getStoreId(), $post_box_id, true, true, false, false, true);
+
+				$boxInfo = $boxInfoArray['box'][$post_box_id];
+
+				$boxBundleInfo = $boxInfo->bundle[$post_bundle_id];
+
+				if ($boxBundleInfo->info["out_of_stock"])
+				{
+					$this->Template->setStatusMsg("We are sorry requested box is currently out of stock.");
+
+					CAppUtil::processorMessageEcho(array(
+						'processor_success' => false,
+						'processor_message' => 'We are sorry requested box is currently out of stock',
+						'bounce_to' => '/box-select'
+					));
+				}
+
 				// add fixed box
 				if (empty($_POST['box_instance_id']))
 				{
-					$CartObj = CCart2::instance(true);
-
 					$boxInstanceID = CBoxInstance::getNewEmptyBoxForBundle($DAO_bundle->id, $post_box_id, false, false, true);
 
 					foreach ($items['bundle'] as $mid => $item)
