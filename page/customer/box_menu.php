@@ -40,6 +40,12 @@ class page_box_menu extends CPage
 
 			$boxBundleInfo = $boxInfo->bundle[$_POST['view_bundle']];
 
+			if ($boxBundleInfo->info["out_of_stock"])
+			{
+				$this->Template->setStatusMsg("We are sorry requested box is currently out of stock.");
+				CApp::bounce('/box-select');
+			}
+
 			$recipeIDtoInventoryMap = CBox::addDeliveredInventoryToMenuArray($boxInfoArray, $storeId, false);
 		}
 		else

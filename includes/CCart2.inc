@@ -221,13 +221,7 @@ class CCart2
 
 		$retVal['has_navigation_type'] = (!empty($this->_navigation_type));
 
-		$isDeliveredOrder = false;
-		if ($retVal['has_navigation_type'] && $this->_navigation_type == CTemplate::DELIVERED)
-		{
-			$isDeliveredOrder = true;
-		}
-
-		if ($isDeliveredOrder)
+		if ($this->_OrderObj->isShipping())
 		{
 			$items_in_cart = $this->_OrderObj->getBoxes();
 		}
@@ -242,7 +236,7 @@ class CCart2
 
 		$validFoodItemFound = false;
 		$validItemFound = false;
-		if ($isDeliveredOrder)
+		if ($this->_OrderObj->isShipping())
 		{
 			// menu item check is more involved
 			if (!empty($this->_delivered_boxes))
@@ -282,7 +276,7 @@ class CCart2
 		$retVal['servings_core_total_count'] = $this->_OrderObj->servings_core_total_count;
 		$retVal['has_gift_cards'] = (!empty($this->_gift_card_orders));
 
-		if ($isDeliveredOrder)
+		if ($this->_OrderObj->isShipping())
 		{
 			$retVal['has_food'] = $validFoodItemFound;
 		}
@@ -303,7 +297,7 @@ class CCart2
 
 		if (!empty($items_in_cart))
 		{
-			if ($isDeliveredOrder)
+			if ($this->_OrderObj->isShipping())
 			{
 				foreach ($items_in_cart as $thisBox)
 				{
@@ -393,7 +387,7 @@ class CCart2
 
 			$needed = $Bundle->number_servings_required - $retVal['servings_total_count'];
 		}
-		else if ($isDeliveredOrder)
+		else if ($this->_OrderObj->isShipping())
 		{
 			// TODO: need to look at each boxes bundle to establish servings_needed
 			$needed = 0;
@@ -1634,7 +1628,7 @@ class CCart2
 		}
 	}
 
-	function removeDeliveredBox($box_instance_id, $box_data, $directStore = false)
+	function removeDeliveredBox($box_instance_id, $box_data = false, $directStore = false)
 	{
 		// box data =
 		// array(bundle_id (int) , items (array), ...)
