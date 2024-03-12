@@ -45,10 +45,6 @@
 					<td align="left" valign="middle"><?php echo $this->session_info['store_name'] ?></td>
 				</tr>
 				<tr>
-					<td align="right" valign="top" bgcolor="#b9bf33">Home Delivery Address:</td>
-					<td align="left" valign="middle"><?php echo $this->session_info['session_remote_location']->address_line1 . ((!empty($this->session_info['session_remote_location']->address_line2)) ? ' ' . $this->session_info['session_remote_location']->address_line2 : '') . ', ' . $this->session_info['session_remote_location']->city . ', ' . $this->session_info['session_remote_location']->state_id . ' ' .$this->session_info['session_remote_location']->postal_code; ?></td>
-				</tr>
-				<tr>
 					<td align="right" valign="top" bgcolor="#b9bf33">Invite Tools:</td>
 					<td align="left" valign="middle"><a href="<?php echo HTTPS_BASE ?>my-events">Login to start sharing!</a></td>
 				</tr>

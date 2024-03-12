@@ -20,9 +20,6 @@ Invite Code: <?php echo $this->session_info['session_password'] ?>
 
 Meals Prepped by: <?php echo $this->session_info['store_name'] ?>
 
-Home Delivery Address:
-<?php echo $this->session_info['session_remote_location']->address_line1 . ((!empty($this->session_info['session_remote_location']->address_line2)) ? ' ' . $this->session_info['session_remote_location']->address_line2 : '') . ', ' . $this->session_info['session_remote_location']->city . ', ' . $this->session_info['session_remote_location']->state_id . ' ' .$this->session_info['session_remote_location']->postal_code; ?>
-
 
 My Events
 <?php echo HTTPS_BASE ?>my-events?sid=<?php echo $this->session_info['id'] ?>
