@@ -19,12 +19,12 @@
 				<?php if ($this->delta_boxes) { ?>
 					<a href="/box-select" class="btn btn-red btn-block">
 						<i class="fas fa-edit float-left text-white pt-1"></i>
-						You now have <?php echo $this->cart_info['cart_info_array']['dinners_total_count']; ?> nights of dinners
+						You now have <?php echo $this->cart_info['cart_info_array']['dinners_total_count']; ?> dinners
 					</a>
 				<?php } else {?>
 					<a href="/box-select" class="btn btn-primary btn-block">
 						<i class="fas fa-edit float-left text-green-dark-extra pt-1"></i>
-						You have <?php echo $this->cart_info['cart_info_array']['dinners_total_count']; ?> nights of dinners
+						You have <?php echo $this->cart_info['cart_info_array']['dinners_total_count']; ?> dinners
 					</a>
 				<?php }?>
 			</div>

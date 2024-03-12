@@ -170,12 +170,12 @@ class page_admin_manage_box extends CPageAdminOnly
 			$this->BoxForm->DefaultValues['menu_id'] = current($this->CurrentFutureMenusDelivered)->id;
 
 			$this->Bundle1Form->DefaultValues['id'] = 'new';
-			$this->Bundle1Form->DefaultValues['bundle_name'] = 'Medium';
+			$this->Bundle1Form->DefaultValues['bundle_name'] = 'Four Dinners';
 			$this->Bundle1Form->DefaultValues['menu_item_description'] = 'Each dinner serves 2-3';
 			$this->Bundle1Form->DefaultValues['number_items_required'] = 4;
 			$this->Bundle1Form->DefaultValues['number_servings_required'] = 12;
-			$this->Bundle1Form->DefaultValues['price'] = '99.00';
-			$this->Bundle1Form->DefaultValues['price_shipping'] = '0.00';
+			$this->Bundle1Form->DefaultValues['price'] = '109.99';
+			$this->Bundle1Form->DefaultValues['price_shipping'] = '14.99';
 
 			$this->Bundle2Form->DefaultValues['id'] = 'new';
 			$this->Bundle2Form->DefaultValues['bundle_name'] = 'Large';
