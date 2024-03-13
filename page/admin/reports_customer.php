@@ -1304,11 +1304,11 @@ class page_admin_reports_customer extends CPageAdminOnly
 									{
 										if ($sepOrderTypes[$counter] == 'INTRO')
 										{
-											$tempArr[$counter]['order_type'] = 'MFY - STARTER PACK';
+											$tempArr[$counter]['order_type'] = 'PICK UP - STARTER PACK';
 										}
 										else
 										{
-											$tempArr[$counter]['order_type'] = 'MFY';
+											$tempArr[$counter]['order_type'] = 'PICK UP';
 										}
 									}
 									else if ($sepSessionTypes[$counter] == 'DELIVERY')
@@ -1335,7 +1335,7 @@ class page_admin_reports_customer extends CPageAdminOnly
 									}
 									else if ($sepSessionTypes[$counter] == 'REMOTE_PICKUP')
 									{
-										$tempArr[$counter]['order_type'] = 'MFY - COMM PICKUP';
+										$tempArr[$counter]['order_type'] = 'PICK UP - COMM PICKUP';
 									}
 									else
 									{
@@ -1583,11 +1583,11 @@ class page_admin_reports_customer extends CPageAdminOnly
 							{
 								if ($tarray['order_type'] == 'INTRO')
 								{
-									$tarray['order_type'] = 'MFY - STARTER PACK';
+									$tarray['order_type'] = 'PICK UP - STARTER PACK';
 								}
 								else
 								{
-									$tarray['order_type'] = 'MFY';
+									$tarray['order_type'] = 'PICK UP';
 								}
 							}
 							if ($sessionTypes == 'DELIVERY')
@@ -1672,11 +1672,11 @@ class page_admin_reports_customer extends CPageAdminOnly
 					{
 						if ($tarray['order_type'] == 'INTRO')
 						{
-							$tarray['order_type'] = 'MFY - STARTER PACK';
+							$tarray['order_type'] = 'PICK UP - STARTER PACK';
 						}
 						else
 						{
-							$tarray['order_type'] = 'MFY';
+							$tarray['order_type'] = 'PICK UP';
 						}
 					}
 					if ($sessionTypes == 'DELIVERY')
