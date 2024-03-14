@@ -2540,7 +2540,7 @@ class CSessionToolsPDFDrawer
 
 				$delta = $this->printMenuToolRow_Freezer($orderItem, $yPos, $count++, $globalRating);
 				$this->printIconLegend(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 28, 8);
-				$this->printTextMessageReminders(14, CSessionToolsPDF::kPAGE_HEIGHT - 15);
+				//$this->printTextMessageReminders(14, CSessionToolsPDF::kPAGE_HEIGHT - 15);
 				$this->printStoreSummary_Freezer(CSessionToolsPDF::kTOP_MARGIN + 264);
 
 				if ($delta == 0)
@@ -2777,7 +2777,7 @@ class CSessionToolsPDFDrawer
 		$this->printMenuToolHeaderRow_Freezer();
 
 		$this->printIconLegend(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 28, 8);
-		$this->printTextMessageReminders(14, CSessionToolsPDF::kPAGE_HEIGHT - 15);
+		//$this->printTextMessageReminders(14, CSessionToolsPDF::kPAGE_HEIGHT - 15);
 		$this->printStoreSummary_Freezer(CSessionToolsPDF::kTOP_MARGIN + 264);
 
 		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
@@ -2795,7 +2795,7 @@ class CSessionToolsPDFDrawer
 				$this->printMenuToolHeaderRow_Freezer();
 
 				$this->printIconLegend(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 28, 8);
-				$this->printTextMessageReminders(14, CSessionToolsPDF::kPAGE_HEIGHT - 15);
+				//$this->printTextMessageReminders(14, CSessionToolsPDF::kPAGE_HEIGHT - 15);
 				$this->printStoreSummary_Freezer(CSessionToolsPDF::kTOP_MARGIN + 264);
 
 				$yPos = 27.5;

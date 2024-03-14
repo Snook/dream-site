@@ -84,7 +84,7 @@ class CCalendar
 			case CSession::FUNDRAISER:
 				return '<span class="note_calendar note_fundraiser' . $closed . '" data-toggle="tooltip" title="Fundraiser Event">' . self::sessionTypeTiny($type) . '</span>';
 			case 'FUNDRAISER_CURBSIDE': // for legends
-				return '<span class="note_calendar note_fundraiser_pick_up' . $closed . '" data-toggle="tooltip" title="Fundraiser $10 Curbside">' . self::sessionTypeTiny('FUNDRAISER_CURBSIDE') . '</span>';
+				return '<span class="note_calendar note_fundraiser_pick_up' . $closed . '" data-toggle="tooltip" title="Fundraiser $10 Pick Up">' . self::sessionTypeTiny('FUNDRAISER_CURBSIDE') . '</span>';
 			case CSession::TODD:
 				return '<span class="note_calendar note_todd' . $closed . '" data-toggle="tooltip" title="Taste of Dream Dinners">' . self::sessionTypeTiny($type) . '</span>';
 			case CSession::PRIVATE_SESSION:
