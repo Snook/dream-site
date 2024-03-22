@@ -25,10 +25,12 @@
 			</div>
 		</div>
 
+		<?php if (false) { ?>
 		<div class="alert alert-danger" role="alert">
 			<h4 class="alert-heading">June Menu Notice</h4>
 			<p>The June menu will be available by Friday afternoon. We are finalizing additional changes based on upcoming seasonal promotions that have caused us to push out the launch date.</p>
 		</div>
+		<?php } ?>
 
 		<div id="markdown_editor" class="collapse">
 			<h3 id="item_title"></h3><br />
