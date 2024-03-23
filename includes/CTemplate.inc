@@ -1159,6 +1159,7 @@ class CTemplate extends Savant2
 			'gift_card_array' => ((!empty($this->gift_card_purchase_array)) ? $this->gift_card_purchase_array : false),
 			'total' => ((!empty($this->gift_card_total)) ? $this->gift_card_total : ((!empty($this->order_total)) ? $this->order_total : 0)),
 			'email' => CUser::getCurrentUser()->primary_email,
+			'telephone_1' => CUser::getCurrentUser()->telephone_1,
 			'email_sha256' => ((!empty(CUser::getCurrentUser()->primary_email)) ? hash('sha256', CUser::getCurrentUser()->primary_email) : null),
 			'store_VR_code' => ((!empty($this->store_VR_code)) ? $this->store_VR_code : 0),
 			'store_DS_tenant' => ((!empty($this->orderDetailsArray["storeInfo"]["dailystory_tenant_uid"])) ? $this->orderDetailsArray["storeInfo"]["dailystory_tenant_uid"] : null),
