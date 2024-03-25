@@ -76,6 +76,7 @@
 						<li><a href="#" id="st_print_labels_w_breaks">Labels</a></li>
 						<li><a href="#" id="st_print_labels_by_dinner">Labels by Dinner</a></li>
 						<li><a href="#" id="st_print_generic_labels">Generic Labels</a></li>
+						<li><a href="#" id="st_print_generic_nutrition_labels">Generic Nutrition Labels</a></li>
 						<li class="category">Reports</li>
 						<li><a href="#" id="st_entree_summary">Entr&eacute;e Summary</a></li>
 						<li><a href="#" id="st_future_orders">Future Orders Report</a></li>
