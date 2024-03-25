@@ -2381,6 +2381,7 @@ function update_session_tool_links()
 
 	$('#st_finishing_touch_pick_sheet').prop('href', '/backoffice/finishing-touch-printable-form?store_id=' + STORE_DETAILS.id + '&menu_id=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
 	$('#st_print_generic_labels').prop('href', '/backoffice/reports-customer-menu-item-labels?store_id=' + STORE_DETAILS.id + '&interface=1&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+	$('#st_print_generic_nutrition_labels').prop('href', '/backoffice/reports-menu-item-nutritional-labels?store_id=' + STORE_DETAILS.id + '&interface=1&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
 }
 
 function handle_guest_search()
