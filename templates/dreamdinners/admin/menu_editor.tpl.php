@@ -25,6 +25,13 @@
 			</div>
 		</div>
 
+		<?php if (false) { ?>
+		<div class="alert alert-danger" role="alert">
+			<h4 class="alert-heading">June Menu Notice</h4>
+			<p>The June menu will be available by Friday afternoon. We are finalizing additional changes based on upcoming seasonal promotions that have caused us to push out the launch date.</p>
+		</div>
+		<?php } ?>
+
 		<div id="markdown_editor" class="collapse">
 			<h3 id="item_title"></h3><br />
 			Enter a percentage from 1% to 20% or a target price that is equivalent to 20% or less of the current price. The menu item will be marked down (from the marked up price) by the amount entered.<br /><br />

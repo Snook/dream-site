@@ -26,8 +26,6 @@ class processor_location_search extends CPage
 
 		parent::runPublic();
 
-		$tpl = new CTemplate();
-
 		$req_compact = CGPC::do_clean((!empty($_REQUEST['compact']) ? $_REQUEST['compact'] : false), TYPE_BOOL);
 		$req_latitude = CGPC::do_clean((!empty($_REQUEST['latitude']) ? $_REQUEST['latitude'] : false), TYPE_NUM);
 		$req_longitude = CGPC::do_clean((!empty($_REQUEST['longitude']) ? $_REQUEST['longitude'] : false), TYPE_NUM);
@@ -39,16 +37,16 @@ class processor_location_search extends CPage
 
 		$User = CUser::getCurrentUser();
 
-		$tpl->assign('compact', $req_compact);
-		$tpl->assign('cart_info', CUser::getCartIfExists());
-		$tpl->assign('store_results_array', false);
+		$this->Template->assign('compact', $req_compact);
+		$this->Template->assign('cart_info', CUser::getCartIfExists());
+		$this->Template->assign('store_results_array', false);
 
 		if (!empty($req_latitude) && !empty($req_longitude) && !empty($req_zip))
 		{
 			$Form->DefaultValues['postalcode'] = $req_zip;
 
-			$tpl->assign('zip_code', $req_zip);
-			$tpl->assign('request', 'for ' . $req_zip);
+			$this->Template->assign('zip_code', $req_zip);
+			$this->Template->assign('request', 'for ' . $req_zip);
 
 			$Zip = DAO_CFactory::create('zipcodes');
 			$Zip->zip = $req_zip;
@@ -176,7 +174,7 @@ class processor_location_search extends CPage
 					}
 				}
 
-				$tpl->assign('store_results_array', $results);
+				$this->Template->assign('store_results_array', $results);
 
 				if (empty($results) && !empty($req_zip))
 				{
@@ -196,8 +194,8 @@ class processor_location_search extends CPage
 		{
 			$Form->DefaultValues['postalcode'] = $req_zip;
 
-			$tpl->assign('zip_code', $req_zip);
-			$tpl->assign('request', 'for ' . $req_zip);
+			$this->Template->assign('zip_code', $req_zip);
+			$this->Template->assign('request', 'for ' . $req_zip);
 
 			$Zip = DAO_CFactory::create('zipcodes');
 			$Zip->zip = $req_zip;
@@ -285,7 +283,7 @@ class processor_location_search extends CPage
 					}
 				}
 
-				$tpl->assign('store_results_array', $results);
+				$this->Template->assign('store_results_array', $results);
 
 				if (empty($results) && !empty($req_zip))
 				{
@@ -306,7 +304,7 @@ class processor_location_search extends CPage
 			$state_id = substr($req_state, 0, 2); // substr added for security measure
 			$stateName = CStatesAndProvinces::GetName($state_id);
 
-			$tpl->assign('request', 'for ' . $stateName);
+			$this->Template->assign('request', 'for ' . $stateName);
 
 			$Form->DefaultValues['state'] = $state_id;
 
@@ -338,11 +336,11 @@ class processor_location_search extends CPage
 				$results[$DAO_store->id]['coming_soon'] = $DAO_store->isComingSoon();
 			}
 
-			$tpl->assign('state_has_delivered', CBox::quickCheckForBoxAvailableInState($state_id));
+			$this->Template->assign('state_has_delivered', CBox::quickCheckForBoxAvailableInState($state_id));
 
 			if (!empty($results))
 			{
-				$tpl->assign('store_results_array', array($stateName => $results));
+				$this->Template->assign('store_results_array', array($stateName => $results));
 			}
 		}
 		else
@@ -361,8 +359,8 @@ class processor_location_search extends CPage
 			{
 				// yes there is a distribution center for this zip
 				// check if there are active boxes for this distribution center
-				$tpl->assign('delivered', $ckzip);
-				$tpl->assign('shipping_has_inventory', CBox::quickCheckForBoxAvailable($ckzip->distribution_center));
+				$this->Template->assign('delivered', $ckzip);
+				$this->Template->assign('shipping_has_inventory', CBox::quickCheckForBoxAvailable($ckzip->distribution_center));
 			}
 		}
 
@@ -427,22 +425,39 @@ class processor_location_search extends CPage
 			CForm::css_class => "form-control"
 		));
 
-		$tpl->assign('vresp', $Form->Render());
-
-		$location_results = $tpl->fetch('customer/subtemplate/locations/locations_results.tpl.php');
-
-		$tpl->assign('location_results', $location_results);
-
-		if (!empty($_REQUEST['op']) && $_REQUEST['op'] == 'json')
+		if (!empty($_REQUEST['op']) && $_REQUEST['op'] == 'shipping')
 		{
 			CAppUtil::processorMessageEcho(array(
 				'processor_success' => true,
 				'processor_message' => 'Search results returned.',
-				'html' => $location_results
+				'delivered_store' => (!empty($this->Template->delivered->id) ? $this->Template->delivered->id : false),
+				'shipping_has_inventory' => (!empty($this->Template->shipping_has_inventory) ? $this->Template->shipping_has_inventory : false)
+			));
+		}
+		else if (!empty($_REQUEST['op']) && $_REQUEST['op'] == 'json')
+		{
+			$this->Template->assign('vresp', $Form->Render());
+
+			$location_results = $this->Template->fetch('customer/subtemplate/locations/locations_results.tpl.php');
+
+			$this->Template->assign('location_results', $location_results);
+
+			CAppUtil::processorMessageEcho(array(
+				'processor_success' => true,
+				'processor_message' => 'Search results returned.',
+				'html' => $location_results,
+				'delivered_store' => (!empty($this->Template->delivered->id) ? $this->Template->delivered->id : false),
+				'shipping_has_inventory' => (!empty($this->Template->shipping_has_inventory) ? $this->Template->shipping_has_inventory : false)
 			));
 		}
 		else
 		{
+			$this->Template->assign('vresp', $Form->Render());
+
+			$location_results = $this->Template->fetch('customer/subtemplate/locations/locations_results.tpl.php');
+
+			$this->Template->assign('location_results', $location_results);
+
 			return $location_results;
 		}
 	}

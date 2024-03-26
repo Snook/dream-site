@@ -123,6 +123,7 @@ RewriteRule ^policies/?$ /privacy [R=301,NC,QSA]
 RewriteRule ^colorado/?$ /colorado-meal-kit [R=301,NC,QSA]
 RewriteRule ^freezer/?$ /sides-and-sweets-order-form?utm_source=stores-salesforce&utm_medium=emails-sms&utm_campaign=sides-sweets-order-form [R=301,NC,QSA]
 RewriteRule ^playbook/?$ /media/Dream-Dinners-Playbook.pdf [R=301,NC,QSA]
+RewriteRule ^delivered/?$ /shipping [R=301,NC,QSA]
 
 # Optional trailing "S" redirects
 RewriteRule ^location/?$ /locations [R=301,NC,QSA]

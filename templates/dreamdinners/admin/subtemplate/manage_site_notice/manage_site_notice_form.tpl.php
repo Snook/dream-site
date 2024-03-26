@@ -21,8 +21,8 @@
 							CForm::css_class => 'notice-select-audience',
 							CForm::options => array(
 								'CUSTOMER' => 'Website Banner',
-								'FADMIN' => 'Admin Banner',
-								'SITE_WIDE' => 'Website &amp; Admin',
+								'FADMIN' => 'Backoffice Banner',
+								'SITE_WIDE' => 'Website &amp; Backoffice',
 								'STORE' => 'Store Page Promo'
 							)
 						), $notice['audience']); ?>

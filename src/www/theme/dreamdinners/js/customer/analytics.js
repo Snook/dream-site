@@ -265,7 +265,12 @@ window.ytagQ = window.ytagQ || []; //Yext
 
 				window.addEventListener('ds_ready', function () {
 
-					window.Ds && window.Ds.conversion('13a01a1a-4135-4550-9c39-3a7244f15e66', ANALYTICS.total);
+					let customerInfo = {
+						email: ANALYTICS.email,
+						phone: ANALYTICS.telephone_1
+					};
+
+					window.Ds && window.Ds.conversion('13a01a1a-4135-4550-9c39-3a7244f15e66', ANALYTICS.total, customerInfo);
 
 				});
 			}

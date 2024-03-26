@@ -1079,7 +1079,8 @@ function strip_tags(input, allowed)
 
 				$(form).data('was_submitted', false);
 
-				$('html, body').scrollTop($(form).find('.form-control:invalid').first().offset().top);
+				// scrolls the first invalid elemt to 1/3 top of screen.
+				$('html, body').scrollTop($(form).find('.form-control:invalid').first().offset().top + ( - ($(window).height() / 3)));
 			}
 
 			form['0'].classList.add('was-validated');
