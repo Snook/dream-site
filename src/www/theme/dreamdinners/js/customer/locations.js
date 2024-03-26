@@ -458,55 +458,72 @@ $(function () {
 		}
 	});
 
-	$(document).on('click', '.btn-shipping-search', function (e) {
+	$(document).on('submit', '.form-shipping-search', function (e) {
 
 		e.preventDefault();
-		$('.shipping-available, .shipping-not-available, .shipping-has-inventory, .shipping-has-no-inventory').hideFlex()
 
-		let zipSearch = null;
-		if ($('.form-shipping-search').getVal() == '')
+		if (this.checkValidity() !== false)
 		{
-			modal_message({message: 'Zip code required'});
-			return false;
-		}
-		else
-		{
-			zipSearch = $('.form-shipping-search').getVal();
-		}
+			let zipSearch = $.trim($(this).find('input.form-shipping-search-zip').getVal());
 
-		$.ajax({
-			url: '/processor',
-			type: 'POST',
-			timeout: 20000,
-			dataType: 'json',
-			data: {
-				processor: 'location_search',
-				op: 'shipping',
-				zip: zipSearch
-			},
-			success: function (json) {
+			$.ajax({
+				url: '/processor',
+				type: 'POST',
+				timeout: 20000,
+				dataType: 'json',
+				data: {
+					processor: 'location_search',
+					op: 'shipping',
+					zip: zipSearch
+				},
+				success: function (json) {
 
-				if (json.delivered_store)
-				{
-					if(json.shipping_has_inventory)
+					if (json.delivered_store)
 					{
-						create_and_submit_form({
-							action: '/box-select',
-							input: ({
-								delivered_zip: zipSearch
+						if (json.shipping_has_inventory)
+						{
+							create_and_submit_form({
+								action: '/box-select',
+								input: ({
+									delivered_zip: zipSearch
+								})
+							});
+						}
+						else
+						{
+							bootbox.dialog({
+								title: 'Out of stock',
+								message: "We can ship to you, but our fridge is currently empty. We are busy prepping our new menu. Check back soon for a new selection of meals.",
+								centerVertical: true,
+								buttons: {
+									locations: {
+										label: 'Search all locations',
+										callback: function () {
+											create_and_submit_form({
+												action: '/locations',
+												input: ({
+													zip: zipSearch
+												})
+											});
+										}
+									},
+									cancel: {
+										label: 'Close'
+									}
+								}
 							})
-						});
+						}
 					}
 					else
 					{
 						bootbox.dialog({
-							title: 'Out of stock',
-							message: "We can ship to you, but our fridge is currently empty. We are busy prepping our new menu. Check back soon for a new selection of meals.",
+							title: 'Shipping not available',
+							message: 'We do not ship to the zip code provided.',
 							centerVertical: true,
 							buttons: {
 								locations: {
 									label: 'Search all locations',
-									callback: function(){
+									callback: function () {
 										create_and_submit_form({
 											action: '/locations',
 											input: ({
@@ -521,38 +538,12 @@ $(function () {
 							}
 						})
 					}
+				},
+				error: function (objAJAXRequest, strError) {
+					response = 'Unexpected error';
 				}
-				else
-				{
-					bootbox.dialog({
-						title: 'Shipping not available',
-						message: 'We do not ship to the zip code provided.',
-						centerVertical: true,
-						buttons: {
-							locations: {
-								label: 'Search all locations',
-								callback: function(){
-									create_and_submit_form({
-										action: '/locations',
-										input: ({
-											zip: zipSearch
-										})
-									});
-								}
-							},
-							cancel: {
-								label: 'Close'
-							}
-						}
-					})
-				}
-
-			},
-			error: function (objAJAXRequest, strError) {
-				response = 'Unexpected error';
-			}
-		});
-
+			});
+		}
 	});
 
 	// Check that cookies are enabled

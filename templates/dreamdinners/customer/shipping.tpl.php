@@ -20,37 +20,34 @@
 	</header>-->
 
 	<main role="main">
+
 		<section>
 			<div class="container-fluid">
-				<div class="row hero-double">
-					<div class="col">
+				<div class="row mb-5">
+					<div class="col text-center">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/crispy-shrimp-green-beans-in-a-snap-header-1920x600.webp" alt="Family making and eating a meal together" class="img-fluid" />
 					</div>
 				</div>
-			</div>
-		</section>
-		<section>
-			<div class="container-fluid my-5">
-				<div class="row hero-double">
-					<div class="col-md-6 text-left p-5 my-5">
+				<div class="row">
+					<div class="col-lg-6 offset-xl-2 col-xl-5">
 						<h1 class="font-weight-bold font-marker mt-2">Get Dream Dinners Shipped to Your Door</h1>
 						<p class="text-uppercase mb-4">Real food made from scratch, so your life can feel a little easier.</p>
 						<p>Four easy, homemade meals prepped and ready to cook, most in less than 30 minutes. Order when you want, no subscription necessary. Enter your zip code to see if we can deliver to you. Great for travel or a gift for new baby, new home, mothers's day and more!</p>
-						<form action="/locations" method="post">
+						<form action="/locations" method="post" class="form-shipping-search needs-validation" novalidate>
 							<div class="form-group mx-auto">
 								<div class="input-group">
 									<div class="input-group-append">
 										<span class="input-group-text">Postal code</span>
 									</div>
-									<input type="number" class="form-control form-shipping-search">
+									<input type="number" class="form-control form-shipping-search-zip" required>
 									<div class="input-group-append">
-										<button type="submit" value="Get Started" class="btn btn-primary btn-shipping-search">Get started</button>
+										<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
 									</div>
 								</div>
 							</div>
 						</form>
 					</div>
-					<div class="col-md-6 p-0">
+					<div class="col-lg-6 col-xl-3">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/apr24-shipping-collage-957x657.webp" alt="April Menu" class="img-fluid">
 					</div>
 				</div>
@@ -59,7 +56,7 @@
 
 		<!-- customer data -->
 		<section class="bg-cyan-dark">
-			<div class="container my-5 mp-5 bg-cyan-dark">
+			<div class="container my-5 mp-5">
 				<div class="row">
 					<div class="col">
 						<div class="text-center">
@@ -94,7 +91,6 @@
 			</div>
 		</section>
 
-
 		<section>
 			<div class="container-fluid my-5">
 				<div class="col-sm-12 text-center">
@@ -112,24 +108,28 @@
 					</div>
 				</div>
 			</div>
-			<div class="row my-2">
-					<div class="col text-center">
-						<form action="/locations" method="post">
-						<div class="form-group mx-auto">
-							<div class="input-group">
-								<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
-								<div class="input-group-append">
-									<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
-								</div>
-							</div>
-						</div>
-					</form>
-					</div>
-				</div>
 		</section>
 
 		<section>
 			<div class="container my-5">
+				<div class="row my-2">
+					<div class="col offset-md-2 col-md-8">
+						<form action="/locations" method="post" class="form-shipping-search needs-validation" novalidate>
+							<div class="form-group mx-auto">
+								<div class="input-group">
+									<div class="input-group-append">
+										<span class="input-group-text">Postal code</span>
+									</div>
+									<input type="number" class="form-control form-shipping-search-zip" required>
+									<div class="input-group-append">
+										<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
 				<div class="row">
 					<div class="col">
 						<div class="text-center">
@@ -199,6 +199,7 @@
 						</div>
 					</div>
 				</div>
+			</div>
 		</section>
 
 
