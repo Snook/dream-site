@@ -28,8 +28,8 @@
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/crispy-shrimp-green-beans-in-a-snap-header-1920x600.webp" alt="Family making and eating a meal together" class="img-fluid" />
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-6 offset-xl-2 col-xl-5">
+				<div class="row justify-content-center">
+					<div class="col-lg-6 col-xl-4">
 						<h1 class="font-weight-bold font-marker mt-2">Get Dream Dinners Shipped to Your Door</h1>
 						<p class="text-uppercase mb-4">Real food made from scratch, so your life can feel a little easier.</p>
 						<p>Four easy, homemade meals prepped and ready to cook, most in less than 30 minutes. Order when you want, no subscription necessary. Enter your zip code to see if we can deliver to you. Great for travel or a gift for new baby, new home, mothers's day and more!</p>
@@ -37,17 +37,17 @@
 							<div class="form-group mx-auto">
 								<div class="input-group">
 									<div class="input-group-append">
-										<span class="input-group-text">Postal code</span>
+										<span class="input-group-text">Zip code</span>
 									</div>
 									<input type="number" class="form-control form-shipping-search-zip" required>
 									<div class="input-group-append">
-										<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
+										<button type="submit" value="Get Started" class="btn btn-primary">View menu</button>
 									</div>
 								</div>
 							</div>
 						</form>
 					</div>
-					<div class="col-lg-6 col-xl-3">
+					<div class="col-lg-6 col-xl-4">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/apr24-shipping-collage-957x657.webp" alt="April Menu" class="img-fluid">
 					</div>
 				</div>
@@ -118,11 +118,11 @@
 							<div class="form-group mx-auto">
 								<div class="input-group">
 									<div class="input-group-append">
-										<span class="input-group-text">Postal code</span>
+										<span class="input-group-text">Zip code</span>
 									</div>
 									<input type="number" class="form-control form-shipping-search-zip" required>
 									<div class="input-group-append">
-										<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
+										<button type="submit" value="Get Started" class="btn btn-primary">View menu</button>
 									</div>
 								</div>
 							</div>
