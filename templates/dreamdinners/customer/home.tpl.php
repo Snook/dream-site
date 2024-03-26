@@ -5,28 +5,29 @@
 
 	<main role="main">
 		<section>
-			<div class="container-fluid my-5">
+			<div class="container-fluid">
 				<div class="row hero-double">
 					<div class="col">
-						<img src="<?php echo IMAGES_PATH; ?>/home_content/carne-asada-in-a-snap-header-1920x600.webp" alt="Carne Asada Steak Tacos in a Snap" class="img-fluid">
-						<h1 class="font-marker">Your Local Meal Kit Solution</h1>
-						<p class="text-uppercase">Real food made from scratch, so your life can feel a little easier.</p>
-						<form action="/locations" method="post">
-							<div class="form-group mx-auto">
-								<div class="input-group">
-									<!--<div class="input-group-prepend">
-										<div class="input-group-text">
-										Find a location near you
+						<img src="<?php echo IMAGES_PATH; ?>/home_content/carne-asada-in-a-snap-background-1920x837.webp" alt="Carne Asada Steak Tacos in a Snap" class="img-fluid">
+						<div class="col-12 col-sm-9 col-md-8 col-lg-6 col-xl-4 ml-sm-5 p-4" style="bottom: 1rem; background-color: rgba(255,255,255,0.90)">
+							<h1 class="font-marker">Your Local Meal Kit Solution</h1>
+							<p class="text-uppercase">Real food made from scratch, so your life can feel a little easier.</p>
+							<form action="/locations" method="post">
+								<div class="form-group mx-auto">
+									<div class="input-group">
+										<!--<div class="input-group-prepend">
+											<div class="input-group-text">
+											Find a location near you
+											</div>
+										</div>-->
+										<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
+										<div class="input-group-append">
+											<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
 										</div>
-									</div>-->
-									<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
-									<div class="input-group-append">
-										<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
 									</div>
 								</div>
-							</div>
-						</form>
-						<div class="border-top mt-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -88,6 +89,7 @@
 		<section>
 			<div class="container my-5">
 				<div class="row">
+				<div class="border-top mt-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 					<div class="col">
 						<div class="text-center">
 							<h2 class="mt-4 mb-4 font-weight-bold">Meals Made In A Snap</h2>
@@ -98,12 +100,6 @@
 				<div class="row my-5">
 					<div class="col">
 						<div class="card-group text-center mb-2">
-							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/baked-penne-kid-pick-featured-menu-item-400x400.webp" alt="Baked Penne Chicken Alfredo" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Baked Penne Chicken Alfredo</h5>
-								</div>
-							</div>
 							<div class="card border-0 pr-2">
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chimichangas-pan-featured-menu-item-400x400.webp" alt="Oven Baked Chimichangas" class="img-fluid">
 								<div class="card-body">
@@ -111,9 +107,9 @@
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/surf-turf-yakisoba-30min-featured-menu-item-400x400.webp" alt="Surf and Turf Yakisoba Noodle Bowl" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/baked-penne-kid-pick-featured-menu-item-400x400.webp" alt="Baked Penne Chicken Alfredo" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Surf and Turf Yakisoba Noodle Bowl</h5>
+									<h5 class="card-title">Baked Penne Chicken Alfredo</h5>
 								</div>
 							</div>
 							<div class="card border-0">
@@ -122,7 +118,12 @@
 									<h5 class="card-title">Chicken Costoletta with Almond Green Beans</h5>
 								</div>
 							</div>
-
+							<div class="card border-0 pr-4">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/surf-turf-yakisoba-30min-featured-menu-item-400x400.webp" alt="Surf and Turf Yakisoba Noodle Bowl" class="img-fluid">
+								<div class="card-body">
+									<h5 class="card-title">Surf and Turf Yakisoba Noodle Bowl</h5>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -254,6 +255,7 @@
 			</div>
 		</section>
 		<section>
+			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 p-0">
