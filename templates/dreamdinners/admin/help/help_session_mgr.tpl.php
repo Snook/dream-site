@@ -21,7 +21,7 @@
 			<li class="list-inline-item mb-2 mr-4"><?php echo CCalendar::sessionTypeNote(CSession::DELIVERY_PRIVATE); ?> Home Delivery - Private</li>
 			<?php if (is_object($this->DAO_menu) && $this->DAO_menu->isEnabled_Bundle_Fundraiser()) { ?>
 				<li class="list-inline-item mb-2 mr-4"><?php echo CCalendar::sessionTypeNote(CSession::FUNDRAISER); ?> Fundraiser Event</li>
-				<li class="list-inline-item mb-2 mr-4"><?php echo CCalendar::sessionTypeNote('FUNDRAISER_CURBSIDE'); ?> Fundraiser Curbside</li>
+				<li class="list-inline-item mb-2 mr-4"><?php echo CCalendar::sessionTypeNote('FUNDRAISER_CURBSIDE'); ?> Fundraiser Pick Up</li>
 			<?php } ?>
 			<li class="list-inline-item mb-2 mr-4"><?php echo CCalendar::sessionTypeNote(CSession::WALK_IN); ?> Walk-In</li>
 		</ul>

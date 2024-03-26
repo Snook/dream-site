@@ -226,13 +226,12 @@ class page_admin_create_session extends CPageAdminOnly
 		if ($markup)
 		{
 			$SessionForm->DefaultValues["session_assembly_fee"] = $markup->assembly_fee;
-			if(!OrdersHelper::allow_assembly_fee($menu_id)){
+			if (!OrdersHelper::allow_assembly_fee($menu_id))
+			{
 				$SessionForm->DefaultValues['session_assembly_fee'] = 0;
 				$markup->assembly_fee = '0.00';
 			}
 		}
-
-
 
 		if ($Store->delivery_fee)
 		{
@@ -429,8 +428,6 @@ class page_admin_create_session extends CPageAdminOnly
 			CForm::options => $hoursCloseOptions
 		));
 
-
-
 		$SessionForm->AddElement(array(
 			CForm::type => CForm::RadioButton,
 			CForm::name => "meal_customization_close_interval_type",
@@ -446,7 +443,6 @@ class page_admin_create_session extends CPageAdminOnly
 			CForm::label => '4 Day Prior',
 			CForm::value => CSession::FOUR_FULL_DAYS
 		));
-
 
 		$SessionForm->AddElement(array(
 			CForm::type => CForm::DropDown,
@@ -788,12 +784,15 @@ class page_admin_create_session extends CPageAdminOnly
 			else
 			{
 				$Session->setCloseSchedulingTime($SessionForm->value("closes"), $SessionForm->value("custom_close_interval"));
-				if ($Session->session_type == CSession::SPECIAL_EVENT){
+
+				if ($Session->session_type == CSession::SPECIAL_EVENT)
+				{
 					$Session->setMealCustomizationCloseSchedulingTime($SessionForm->value("meal_customization_close_interval_type"), $SessionForm->value("meal_customization_close_interval"));
-				}else{
+				}
+				else
+				{
 					$Session->setMealCustomizationCloseSchedulingTime($SessionForm->value("meal_customization_close_interval_type"), -1);
 				}
-
 
 				if ($Session->doesTimeConflict($eventThemeAcronym))
 				{

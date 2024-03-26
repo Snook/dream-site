@@ -689,7 +689,8 @@ class CSessionReports
 	}
 
 	//get session info only without joins
-	function findSessionInfo($sessionid){
+	function findSessionInfo($sessionid)
+	{
 		$session = DAO_CFactory::create("session");
 
 		$varStr = "select *
@@ -706,6 +707,7 @@ class CSessionReports
 
 		return ($rows);
 	}
+
 	function findSessionDetails($sessionid)
 	{
 		$session = DAO_CFactory::create("session");
@@ -782,7 +784,8 @@ class CSessionReports
 						$varmenuid = $entity->menu_item_id;
 						$varCounter++;
 						//PHP 8 $children = $entity->children_entrees ?? array();
-						if(is_null($entity->children_entrees)){
+						if (is_null($entity->children_entrees))
+						{
 							$entity->children_entrees = array();
 						}
 						if (array_search($menu_item_id, $entity->children_entrees) === false)
@@ -944,11 +947,12 @@ class CSessionReports
 			$session = DAO_CFactory::create("session");
 			$session->query("select * from session where 
       		id in (" . $booking->session_ids . ")
-			and session_start = '".$booking->last_session_attended."'");
+			and session_start = '" . $booking->last_session_attended . "'");
 			$session->fetch();
 			$session_type = '';
 			$session_subtype = '';
-			if($session->N > 0){
+			if ($session->N > 0)
+			{
 				$session_type = $session->session_type;
 				$session_subtype = $session->session_type_subtype;
 			}
@@ -1006,7 +1010,7 @@ class CSessionReports
 			$store_id = $parentGetter->parent_store_id;
 		}
 
-		$menu_list = implode(',',$menu_array);
+		$menu_list = implode(',', $menu_array);
 		$varStr = "";
 		$item = DAO_CFactory::create("menu_to_menu_item");
 
@@ -1054,12 +1058,13 @@ class CSessionReports
 			if (count($sessionArray) > 0)
 			{
 				$ids = '';
-				foreach ($sessionArray as $value){
+				foreach ($sessionArray as $value)
+				{
 					$ids .= $value['session_id'] . ',';
 				}
 
-				$ids = rtrim($ids,',');
-				$session_clause = " s.id in (".$ids.") and ";
+				$ids = rtrim($ids, ',');
+				$session_clause = " s.id in (" . $ids . ") and ";
 			}
 		}
 
@@ -1083,24 +1088,49 @@ class CSessionReports
 
 	function getTVOfferCounts($store_id, $Day, $Month, $Year, $Interval = '1 DAY')
 	{
-		$varStr = "";
-		$session = DAO_CFactory::create("session");
 		$current_date = mktime(0, 0, 0, $Month, $Day, $Year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
-		$varStr = "SELECT COUNT(orders.bundle_id) AS numBundles, booking.session_id, menu.menu_name " . " From booking " . " Inner Join session ON session.id = booking.session_id " . " Inner Join menu ON menu.id = session.menu_id " . " Inner Join orders ON booking.order_id = orders.id and orders.bundle_id is not null and orders.bundle_id > 0 and orders.type_of_order = 'INTRO' " . " Where booking.status = 'ACTIVE' and booking.is_deleted = 0 AND session.is_deleted = 0 and session.store_id = $store_id and " . " session_start >= '" . $current_date_sql . "' AND " . " session_start <  DATE_ADD('" . $current_date_sql . "', INTERVAL " . $Interval . " ) " . " group by session.id";
 
-		$session->query($varStr);
+		$DAO_booking = DAO_CFactory::create('booking', true);
+		$DAO_booking->selectAdd();
+		$DAO_booking->selectAdd("COUNT(orders.bundle_id) AS numBundles");
+		$DAO_booking->selectAdd("booking.session_id");
+		$DAO_booking->selectAdd("menu.menu_name ");
+		$DAO_booking->status = CBooking::ACTIVE;
+		$DAO_session = DAO_CFactory::create('session', true);
+		if ($store_id)
+		{
+			$DAO_session->store_id = $store_id;
+		}
+		$DAO_session->whereAdd("session.session_start >= '" . $current_date_sql . "'");
+		$DAO_session->whereAdd("session.session_start <  DATE_ADD('" . $current_date_sql . "', INTERVAL " . $Interval . " )");
+		$DAO_booking->joinAddWhereAsOn($DAO_session);
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->whereAdd("menu.id = session.menu_id");
+		$DAO_booking->joinAddWhereAsOn($DAO_menu, array(
+			'joinType' => 'INNER',
+			'useLinks' => false
+		));
+		$DAO_orders = DAO_CFactory::create('orders', true);
+		$DAO_orders->type_of_order = COrders::INTRO;
+		$DAO_orders->whereAdd("orders.bundle_id is not null");
+		$DAO_orders->whereAdd("orders.bundle_id > 0");
+		$DAO_booking->joinAddWhereAsOn($DAO_orders);
+		$DAO_booking->groupBy("session.id");
+
+		$DAO_booking->find();
+
 		$rows = array();
-		while ($session->fetch())
+		while ($DAO_booking->fetch())
 		{
 
-			if (!isset($rows[$session->menu_name]))
+			if (!isset($rows[$DAO_booking->menu_name]))
 			{
-				$rows [$session->menu_name] = $session->numBundles;
+				$rows [$DAO_booking->menu_name] = $DAO_booking->numBundles;
 			}
 			else
 			{
-				$rows [$session->menu_name] += $session->numBundles;
+				$rows [$DAO_booking->menu_name] += $DAO_booking->numBundles;
 			}
 		}
 
@@ -1117,15 +1147,34 @@ class CSessionReports
 
 		$sessionList = implode(",", $session_ids);
 
-		$varStr = "";
-		$session = DAO_CFactory::create("session");
-		$varStr = "SELECT COUNT(orders.bundle_id) AS numBundles, booking.session_id, menu.menu_name " . " From booking " . " Inner Join session ON session.id = booking.session_id " . " Inner Join menu ON menu.id = session.menu_id " . " Inner Join orders ON booking.order_id = orders.id and orders.bundle_id is not null and orders.bundle_id > 0 and orders.type_of_order = 'INTRO' " . " Where booking.status = 'ACTIVE' and booking.is_deleted = 0 AND session.is_deleted = 0 and " . " session.id in ( $sessionList ) " . " group by session.id";
+		$DAO_booking = DAO_CFactory::create('booking', true);
+		$DAO_booking->selectAdd();
+		$DAO_booking->selectAdd("COUNT(orders.bundle_id) AS numBundles");
+		$DAO_booking->selectAdd("booking.session_id");
+		$DAO_booking->selectAdd("menu.menu_name ");
+		$DAO_booking->status = CBooking::ACTIVE;
+		$DAO_session = DAO_CFactory::create('session', true);
+		$DAO_session->whereAdd("session.id in ( $sessionList )");
+		$DAO_booking->joinAddWhereAsOn($DAO_session);
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->whereAdd("menu.id = session.menu_id");
+		$DAO_booking->joinAddWhereAsOn($DAO_menu, array(
+			'joinType' => 'INNER',
+			'useLinks' => false
+		));
+		$DAO_orders = DAO_CFactory::create('orders', true);
+		$DAO_orders->type_of_order = COrders::INTRO;
+		$DAO_orders->whereAdd("orders.bundle_id is not null");
+		$DAO_orders->whereAdd("orders.bundle_id > 0");
+		$DAO_booking->joinAddWhereAsOn($DAO_orders);
+		$DAO_booking->groupBy("session.id");
 
-		$session->query($varStr);
+		$DAO_booking->find();
+
 		$count = 0;
-		while ($session->fetch())
+		while ($DAO_booking->fetch())
 		{
-			$count += $session->numBundles;
+			$count += $DAO_booking->numBundles;
 		}
 
 		return $count;
@@ -1179,7 +1228,7 @@ class CSessionReports
 		return ($rows);
 	}
 
-	function getEntreeCounts($store_id, $Day, $Month, $Year, $Interval = '1 DAY', $selectedSessionTypes = array(),$queryDelivered = false)
+	function getEntreeCounts($store_id, $Day, $Month, $Year, $Interval = '1 DAY', $selectedSessionTypes = array(), $queryDelivered = false)
 	{
 		$storeClause = "";
 		if (!empty($store_id) && is_numeric($store_id))
@@ -1193,9 +1242,10 @@ class CSessionReports
 			$storeTypeClause = " and st.store_type = '" . CStore::DISTRIBUTION_CENTER . "' ";
 		}
 
-		$sessionTypeClause = self::generateWhereClauseForSessionType($selectedSessionTypes,'session');
-		if($sessionTypeClause != ''){
-			$sessionTypeClause = ' and ' .$sessionTypeClause;
+		$sessionTypeClause = self::generateWhereClauseForSessionType($selectedSessionTypes, 'session');
+		if ($sessionTypeClause != '')
+		{
+			$sessionTypeClause = ' and ' . $sessionTypeClause;
 		}
 
 		$varStr = "";
@@ -1204,13 +1254,12 @@ class CSessionReports
 		$current_date = mktime(0, 0, 0, $Month, $Day, $Year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 		$varStr = "SELECT 
-       		session.id as session_id,
+			booking.session_id,
 			session.menu_id,
 			session.session_start,
 			session.is_deleted,
 			GROUP_CONCAT(menu_item.id,':', order_item.item_count,':',order_item.sub_total) AS Menu_Items,
 			GROUP_CONCAT(product.id,':',order_item.item_count) AS Product_Items,
-			booking.session_id,
 			count(distinct order_item.order_id) as numOrders,
 			count(distinct if (orders.servings_total_count > 71, order_item.order_id, null)) as numOrdersGreaterThan72servings
 			From booking
@@ -1243,7 +1292,9 @@ class CSessionReports
 				$sessionQbe->find(true);
 
 				list ($rows[$count]['session_type_title'], $rows[$count]['session_type_title_public'], $rows[$count]['session_type_title_short'], $rows[$count]['session_type_fadmin_acronym'], $rows[$count]['session_type_string']) = $sessionQbe->getSessionTypeProperties();
-			}catch(Exception $e){
+			}
+			catch (Exception $e)
+			{
 				//not worth killing report if session can't be found, should not happen
 			}
 			$count++;
@@ -1399,11 +1450,9 @@ class CSessionReports
 
 		$listClause = implode(",", $SSM_menu_array);
 
-
-
 		if ($store_id)
 		{
-			$varStr .= " Where (menu_to_menu_item.menu_id IN ($listClause) and menu_to_menu_item.store_id = " . ((!empty($DAO_store->parent_store_id)) ? $DAO_store->parent_store_id : $DAO_store->id) .") and menu_to_menu_item.is_deleted = 0";
+			$varStr .= " Where (menu_to_menu_item.menu_id IN ($listClause) and menu_to_menu_item.store_id = " . ((!empty($DAO_store->parent_store_id)) ? $DAO_store->parent_store_id : $DAO_store->id) . ") and menu_to_menu_item.is_deleted = 0";
 		}
 		else
 		{
@@ -1729,7 +1778,7 @@ class CSessionReports
 		}
 		else
 		{
-			$storeClause .= "(menu_to_menu_item.menu_id IN ($listClause) and menu_to_menu_item.store_id = " . ((!empty($DAO_store->parent_store_id)) ? $DAO_store->parent_store_id : $DAO_store->id) .") ";
+			$storeClause .= "(menu_to_menu_item.menu_id IN ($listClause) and menu_to_menu_item.store_id = " . ((!empty($DAO_store->parent_store_id)) ? $DAO_store->parent_store_id : $DAO_store->id) . ") ";
 			$storeClause = " AND (" . $storeClause . ")";
 		}
 
@@ -2007,8 +2056,9 @@ class CSessionReports
 
 				$menu_array[$varCounter]['servings_sold'] += ($menucount * $servingSize);
 
-				$isShiftSetGo = CBundle::isShiftSetGoBundle($menu_array[$varCounter]['recipe_id'],$menu_array[$varCounter]['menu_name']);
-				if($isShiftSetGo){
+				$isShiftSetGo = CBundle::isShiftSetGoBundle($menu_array[$varCounter]['recipe_id'], $menu_array[$varCounter]['menu_name']);
+				if ($isShiftSetGo)
+				{
 					if ($servingSize == 18)
 					{
 						$menu_array[$varCounter]['actual_dinners'] += (1 * $menucount);
@@ -2034,7 +2084,6 @@ class CSessionReports
 				{
 					$menu_array[$varCounter]['actual_dinners'] += (1 * $menucount);
 				}
-
 
 				if ($isShiftSetGo == true)
 				{
@@ -2184,15 +2233,15 @@ class CSessionReports
 			}
 			else
 			{
-				if($thisItem['categories_type'] == "Fast Lane" && $thisItem['storespecial'] == "0" && $thisItem['preassembled'] == "1")
+				if ($thisItem['categories_type'] == "Fast Lane" && $thisItem['storespecial'] == "0" && $thisItem['preassembled'] == "1")
 				{
 					$thisItem['station_sort'] = $normalSortCoreFl++;
 				}
-				elseif($thisItem['categories_type'] == "Fast Lane" && $thisItem['storespecial'] == "1" && $thisItem['preassembled'] == "1")
+				else if ($thisItem['categories_type'] == "Fast Lane" && $thisItem['storespecial'] == "1" && $thisItem['preassembled'] == "1")
 				{
 					$thisItem['station_sort'] = $normalSortEFl++;
 				}
-				elseif($thisItem['categories_type'] == "Chef Touched Selections")
+				else if ($thisItem['categories_type'] == "Chef Touched Selections")
 				{
 					$thisItem['station_sort'] = $normalSortSS++;
 				}
@@ -2683,44 +2732,49 @@ class CSessionReports
 		return $diff;
 	}
 
-	static function generateWhereClauseForSessionType($selectedSessionTypes, $tableAlias = 'session'){
+	static function generateWhereClauseForSessionType($selectedSessionTypes, $tableAlias = 'session')
+	{
 		//session_type = enum('DREAM_EVENT','DREAM_TASTE','QUICKSIX','SPECIAL_EVENT','STANDARD','FUNDRAISER','TODD','DELIVERED')
 		//session_class = ('QUICKSIX','SPECIAL_EVENT','STANDARD','FUNDRAISER','TODD')
 		//session_type_subtype = enum('DELIVERY','DELIVERY_PRIVATE','REMOTE_PICKUP','REMOTE_PICKUP_PRIVATE','WALK_IN')
 		$resultSql = '';
 
-		if(sizeof($selectedSessionTypes) == 0 || $selectedSessionTypes ==""){
+		if (sizeof($selectedSessionTypes) == 0 || $selectedSessionTypes == "")
+		{
 			return $resultSql;
 		}
 
-		if(sizeof($selectedSessionTypes) == 3 ){
+		if (sizeof($selectedSessionTypes) == 3)
+		{
 			//If all, don't filter
 			return $resultSql;
 		}
 
-		foreach ($selectedSessionTypes as $sessionType){
-			if( strlen($resultSql) > 0 ){
+		foreach ($selectedSessionTypes as $sessionType)
+		{
+			if (strlen($resultSql) > 0)
+			{
 				$resultSql .= ' or ';
 			}
 			switch ($sessionType)
 			{
 				case CSession::DELIVERY:
-					$resultSql .= " ($tableAlias.session_type = '". CSession::SPECIAL_EVENT."' ";
-					$resultSql .= " and $tableAlias.session_type_subtype IN ('". CSession::DELIVERY."', '". CSession::DELIVERY_PRIVATE."')) ";
+					$resultSql .= " ($tableAlias.session_type = '" . CSession::SPECIAL_EVENT . "' ";
+					$resultSql .= " and $tableAlias.session_type_subtype IN ('" . CSession::DELIVERY . "', '" . CSession::DELIVERY_PRIVATE . "')) ";
 					break;//DONE
 				case CSession::STANDARD://ASSEMBLY
 					$resultSql .= " ( ";
-					$resultSql .= " ($tableAlias.session_type = '". CSession::STANDARD."' and dream_taste_event_theme.fadmin_acronym is null)";
-					$resultSql .= " or ( $tableAlias.session_type = '". CSession::DREAM_TASTE."' and dream_taste_event_theme.fadmin_acronym  in ('DT','MPW','DDT','MPWD','OH','FNO')) ";
-					$resultSql .= " or ( $tableAlias.session_type = '". CSession::FUNDRAISER."' and dream_taste_event_theme.fadmin_acronym  != 'FC') ";
+					$resultSql .= " ($tableAlias.session_type = '" . CSession::STANDARD . "' and dream_taste_event_theme.fadmin_acronym is null)";
+					$resultSql .= " or ( $tableAlias.session_type = '" . CSession::DREAM_TASTE . "' and dream_taste_event_theme.fadmin_acronym  in ('DT','MPW','DDT','MPWD','OH','FNO')) ";
+					$resultSql .= " or ( $tableAlias.session_type = '" . CSession::FUNDRAISER . "' and dream_taste_event_theme.fadmin_acronym  != 'FC') ";
 					$resultSql .= " ) ";
 					break;//DONE
 				case CSession::SPECIAL_EVENT://PICKUP
 					$resultSql .= " ( ";
-					$resultSql .= " ($tableAlias.session_type = '". CSession::SPECIAL_EVENT."' ";
-					$resultSql .= " and ( $tableAlias.session_type_subtype is null or $tableAlias.session_type_subtype NOT IN ('". CSession::DELIVERY."', '". CSession::DELIVERY_PRIVATE."'))) ";
-					$resultSql .= " or ( $tableAlias.session_type = '". CSession::DREAM_TASTE."' and dream_taste_event_theme.fadmin_acronym  in ('OHC','OHH','MPWC','FNOC')) ";
-					$resultSql .= " or ( $tableAlias.session_type = '". CSession::FUNDRAISER."' and dream_taste_event_theme.fadmin_acronym  = 'FC') ";
+					$resultSql .= " ($tableAlias.session_type = '" . CSession::SPECIAL_EVENT . "' ";
+					$resultSql .= " and ( $tableAlias.session_type_subtype is null or $tableAlias.session_type_subtype NOT IN ('" . CSession::DELIVERY . "', '" . CSession::DELIVERY_PRIVATE . "'))) ";
+					$resultSql .= " or ( $tableAlias.session_type = '" . CSession::DREAM_TASTE . "' and dream_taste_event_theme.fadmin_acronym  in ('OHC','OHH','MPWC','FNOC')) ";
+					$resultSql .= " or ( $tableAlias.session_type = '" . CSession::FUNDRAISER . "' and dream_taste_event_theme.fadmin_acronym  = 'FC') ";
 					$resultSql .= " ) ";
 					break;//DONE
 				default:
@@ -2729,78 +2783,84 @@ class CSessionReports
 			}
 		}
 
-		if( strlen($resultSql) > 0 ){
-			$resultSql = '('.$resultSql.')';
+		if (strlen($resultSql) > 0)
+		{
+			$resultSql = '(' . $resultSql . ')';
 		}
+
 		return $resultSql;
 	}
 
-	static function generateWhereClauseForSessionTypeSubType($selectedSessionTypes, $tableAlias = 'session'){
+	static function generateWhereClauseForSessionTypeSubType($selectedSessionTypes, $tableAlias = 'session')
+	{
 		//session_type = enum('DREAM_EVENT','DREAM_TASTE','QUICKSIX','SPECIAL_EVENT','STANDARD','FUNDRAISER','TODD','DELIVERED')
 		//session_class = ('QUICKSIX','SPECIAL_EVENT','STANDARD','FUNDRAISER','TODD')
 		//session_type_subtype = enum('DELIVERY','DELIVERY_PRIVATE','REMOTE_PICKUP','REMOTE_PICKUP_PRIVATE','WALK_IN')
 		$resultSql = '';
 
-		if(sizeof($selectedSessionTypes) == 0 || $selectedSessionTypes ==""){
+		if (sizeof($selectedSessionTypes) == 0 || $selectedSessionTypes == "")
+		{
 			return $resultSql;
 		}
 
-		foreach ($selectedSessionTypes as $sessionType){
-			if( strlen($resultSql) > 0 ){
+		foreach ($selectedSessionTypes as $sessionType)
+		{
+			if (strlen($resultSql) > 0)
+			{
 				$resultSql .= ' or ';
 			}
 			switch ($sessionType)
 			{
 				case CSession::DELIVERED:
-					$resultSql .= " $tableAlias.session_type = '". CSession::DELIVERED."' ";
+					$resultSql .= " $tableAlias.session_type = '" . CSession::DELIVERED . "' ";
 					break;//DONE
 				case CSession::DELIVERY:
-					$resultSql .= " ($tableAlias.session_type = '". CSession::SPECIAL_EVENT."' ";
-					$resultSql .= " and $tableAlias.session_type_subtype = '". CSession::DELIVERY."') ";
+					$resultSql .= " ($tableAlias.session_type = '" . CSession::SPECIAL_EVENT . "' ";
+					$resultSql .= " and $tableAlias.session_type_subtype = '" . CSession::DELIVERY . "') ";
 					break;//DONE
 				case CSession::DELIVERY_PRIVATE:
-					$resultSql .= " ($tableAlias.session_type = '". CSession::SPECIAL_EVENT."' ";
-					$resultSql .= "and $tableAlias.session_type_subtype = '". CSession::DELIVERY."' ";
+					$resultSql .= " ($tableAlias.session_type = '" . CSession::SPECIAL_EVENT . "' ";
+					$resultSql .= "and $tableAlias.session_type_subtype = '" . CSession::DELIVERY . "' ";
 					$resultSql .= "and $tableAlias.session_password is not null ";
 					$resultSql .= "and $tableAlias.session_password <> '') ";
 					break;//DONE
 				case CSession::REMOTE_PICKUP:
-					$resultSql .= " ($tableAlias.session_type = '". CSession::SPECIAL_EVENT."' ";
-					$resultSql .= "and  $tableAlias.session_type_subtype = '". CSession::REMOTE_PICKUP."') ";
+					$resultSql .= " ($tableAlias.session_type = '" . CSession::SPECIAL_EVENT . "' ";
+					$resultSql .= "and  $tableAlias.session_type_subtype = '" . CSession::REMOTE_PICKUP . "') ";
 					break;//DONE
 				case CSession::REMOTE_PICKUP_PRIVATE:
-					$resultSql .= " ($tableAlias.session_type = '". CSession::SPECIAL_EVENT."' ";
-					$resultSql .= "and $tableAlias.session_type_subtype = '". CSession::REMOTE_PICKUP_PRIVATE."' ";
+					$resultSql .= " ($tableAlias.session_type = '" . CSession::SPECIAL_EVENT . "' ";
+					$resultSql .= "and $tableAlias.session_type_subtype = '" . CSession::REMOTE_PICKUP_PRIVATE . "' ";
 					$resultSql .= "and $tableAlias.session_password is not null ";
 					$resultSql .= "and $tableAlias.session_password <> '') ";
 					break;//DONE
 				case CSession::PRIVATE_SESSION:
-					$resultSql .= " ($tableAlias.session_type = '". CSession::STANDARD."' ";
+					$resultSql .= " ($tableAlias.session_type = '" . CSession::STANDARD . "' ";
 					$resultSql .= "and $tableAlias.session_password is not null ";
 					$resultSql .= "and $tableAlias.session_password <> '') ";
 					break;//DONE
 				case CSession::STANDARD:
-					$resultSql .= " ($tableAlias.session_type = '". CSession::STANDARD."' ";
+					$resultSql .= " ($tableAlias.session_type = '" . CSession::STANDARD . "' ";
 					$resultSql .= "and ($tableAlias.session_password is null ";
 					$resultSql .= "or $tableAlias.session_password = '')) ";
 					break;//DONE
 				case CSession::SPECIAL_EVENT://PICKUP
 				case CSession::MADE_FOR_YOU:
-					$resultSql .= " ($tableAlias.session_type = '". CSession::SPECIAL_EVENT."' ";
+					$resultSql .= " ($tableAlias.session_type = '" . CSession::SPECIAL_EVENT . "' ";
 					$resultSql .= "and $tableAlias.session_type_subtype is null) ";
 					break;//DONE
 				case CSession::TODD:
-					$resultSql .= " $tableAlias.session_type = '". CSession::TODD."' ";
+					$resultSql .= " $tableAlias.session_type = '" . CSession::TODD . "' ";
 					break;//DONE
 				case CSession::DREAM_TASTE:
-					$resultSql .= " $tableAlias.session_type = '". CSession::DREAM_TASTE."' ";
+					$resultSql .= " $tableAlias.session_type = '" . CSession::DREAM_TASTE . "' ";
 					break;//DONE
 				case CSession::WALK_IN:
-					$resultSql .= " ($tableAlias.session_type = '". CSession::SPECIAL_EVENT."' ";
-					$resultSql .= "and  $tableAlias.session_type_subtype = '". CSession::WALK_IN."') ";
+					$resultSql .= " ($tableAlias.session_type = '" . CSession::SPECIAL_EVENT . "' ";
+					$resultSql .= "and  $tableAlias.session_type_subtype = '" . CSession::WALK_IN . "') ";
 					break;//DONE
 				case CSession::FUNDRAISER:
-					$resultSql .= " $tableAlias.session_type = '". CSession::FUNDRAISER."' ";
+					$resultSql .= " $tableAlias.session_type = '" . CSession::FUNDRAISER . "' ";
 					break;//DONE
 				default:
 					//$resultSql .= " $tableAlias.session_type = '". $sessionType ."' ";
@@ -2808,9 +2868,11 @@ class CSessionReports
 			}
 		}
 
-		if( strlen($resultSql) > 0 ){
-			$resultSql = '('.$resultSql.')';
+		if (strlen($resultSql) > 0)
+		{
+			$resultSql = '(' . $resultSql . ')';
 		}
+
 		return $resultSql;
 	}
 }

@@ -335,10 +335,12 @@ class CSession extends DAO_Session
 	//Creates or Modifies Delivered sessions
 	private static function addUpdateDeliveredSession($date, $storeId, $menu_id, $canDeliverThisDay, $canShipThisDay, $defaultMaximum, $details = null)
 	{
-		$thisSession = DAO_CFactory::create('session');
-		$thisSQLDate = $date->format("Y-m-d");
-		$thisSession->query("select * from session where store_id = {$storeId} and DATE(session_start) = '$thisSQLDate' and session_type='DELIVERED' and is_deleted = 0");
-		if ($thisSession->N > 0)
+		$thisSession = DAO_CFactory::create('session', true);
+		$thisSession->store_id = $storeId;
+		$thisSession->session_type = CSession::DELIVERED;
+		$thisSession->whereAdd("DATE(session.session_start) = '" . $date->format("Y-m-d") . "'");
+
+		if ($thisSession->find())
 		{
 			$thisSession->fetch();
 			$oldSession = clone($thisSession);
@@ -364,7 +366,30 @@ class CSession extends DAO_Session
 			$thisSession->session_type = CSession::DELIVERED;
 			$thisSession->session_publish_state = CSession::PUBLISHED;
 			$thisSession->session_start = $date->format("Y-m-d 08:00:00");
-			$thisSession->session_close_scheduling = $date->format("Y-m-d 08:00:00");
+
+			switch ($date->format("N"))
+			{
+				case 2:
+					// Tuesday, close 102 hours prior
+					$thisSession->setCloseSchedulingTime(CSession::HOURS, 102);
+					break;
+				case 3:
+					// Wednesday, close 72 hours prior
+					$thisSession->setCloseSchedulingTime(CSession::HOURS, 72);
+					break;
+				case 4:
+					// Thursday, close 48 hours prior
+					$thisSession->setCloseSchedulingTime(CSession::HOURS, 48);
+					break;
+				case 5:
+					// Friday, close 72 hours prior
+					$thisSession->setCloseSchedulingTime(CSession::HOURS, 72);
+					break;
+				default:
+					$thisSession->session_close_scheduling = $date->format("Y-m-d 08:00:00");
+					break;
+			}
+
 			$thisSession->session_close_scheduling_meal_customization = null;
 			$thisSession->delivered_supports_delivery = ($canDeliverThisDay ? self::getDeliveryServiceDays($date) : "0");
 			$thisSession->delivered_supports_shipping = ($canShipThisDay ? self::getShippingServiceDays($date) : "0");

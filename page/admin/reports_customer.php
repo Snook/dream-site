@@ -1,9 +1,4 @@
-<?php // page_admin_create_store.php
-
-/**
- * @author Lynn Hook
- */
-
+<?php
 require_once("includes/CPageAdminOnly.inc");
 require_once('includes/DAO/BusinessObject/CSession.php');
 require_once('includes/CSessionReports.inc');
@@ -25,7 +20,6 @@ function myDateCompare($a, $b)
 
 function myToExcelDataConversion($dateTime)
 {
-
 	return PHPExcel_Shared_Date::stringToExcel($dateTime);
 }
 
@@ -34,7 +28,6 @@ define("EXCEL_ORDER_LIMIT", 25);
 
 class page_admin_reports_customer extends CPageAdminOnly
 {
-
 	private $currentStore = null;
 
 	function __construct()
@@ -86,7 +79,6 @@ class page_admin_reports_customer extends CPageAdminOnly
 
 	function runSiteAdmin()
 	{
-
 		ini_set('memory_limit', '-1');
 		set_time_limit(3600 * 24);
 
@@ -502,7 +494,10 @@ class page_admin_reports_customer extends CPageAdminOnly
 					incrementColumn($thirdSecondChar, $colSecondChar, $col);
 					$columnDescs[$thirdSecondChar . $colSecondChar . $col] = array('align' => 'center');
 					incrementColumn($thirdSecondChar, $colSecondChar, $col);
-					$columnDescs[$thirdSecondChar . $colSecondChar . $col] = array('align' => 'center','type' => 'text');
+					$columnDescs[$thirdSecondChar . $colSecondChar . $col] = array(
+						'align' => 'center',
+						'type' => 'text'
+					);
 					incrementColumn($thirdSecondChar, $colSecondChar, $col);
 				}
 
@@ -939,7 +934,7 @@ class page_admin_reports_customer extends CPageAdminOnly
 			{
 				$selectStr .= ", '' as points_status ";
 				$colcount += 1;
-				// placeholder for lifetime points to be retreived later
+				// placeholder for lifetime points to be retrieved later
 			}
 		}
 
@@ -1141,11 +1136,8 @@ class page_admin_reports_customer extends CPageAdminOnly
 
 		foreach ($master_array as $tarray)
 		{
-
-
 			if ($supportsCorporateCrate && !empty($tarray['secondary_email']))
 			{
-
 				$domain = array_pop(explode("@", $tarray['secondary_email']));
 
 				if (isset($clientData[$domain]))
@@ -1312,11 +1304,11 @@ class page_admin_reports_customer extends CPageAdminOnly
 									{
 										if ($sepOrderTypes[$counter] == 'INTRO')
 										{
-											$tempArr[$counter]['order_type'] = 'MFY - STARTER PACK';
+											$tempArr[$counter]['order_type'] = 'PICK UP - STARTER PACK';
 										}
 										else
 										{
-											$tempArr[$counter]['order_type'] = 'MFY';
+											$tempArr[$counter]['order_type'] = 'PICK UP';
 										}
 									}
 									else if ($sepSessionTypes[$counter] == 'DELIVERY')
@@ -1343,7 +1335,7 @@ class page_admin_reports_customer extends CPageAdminOnly
 									}
 									else if ($sepSessionTypes[$counter] == 'REMOTE_PICKUP')
 									{
-										$tempArr[$counter]['order_type'] = 'MFY - COMM PICKUP';
+										$tempArr[$counter]['order_type'] = 'PICK UP - COMM PICKUP';
 									}
 									else
 									{
@@ -1591,11 +1583,11 @@ class page_admin_reports_customer extends CPageAdminOnly
 							{
 								if ($tarray['order_type'] == 'INTRO')
 								{
-									$tarray['order_type'] = 'MFY - STARTER PACK';
+									$tarray['order_type'] = 'PICK UP - STARTER PACK';
 								}
 								else
 								{
-									$tarray['order_type'] = 'MFY';
+									$tarray['order_type'] = 'PICK UP';
 								}
 							}
 							if ($sessionTypes == 'DELIVERY')
@@ -1680,11 +1672,11 @@ class page_admin_reports_customer extends CPageAdminOnly
 					{
 						if ($tarray['order_type'] == 'INTRO')
 						{
-							$tarray['order_type'] = 'MFY - STARTER PACK';
+							$tarray['order_type'] = 'PICK UP - STARTER PACK';
 						}
 						else
 						{
-							$tarray['order_type'] = 'MFY';
+							$tarray['order_type'] = 'PICK UP';
 						}
 					}
 					if ($sessionTypes == 'DELIVERY')
@@ -1714,7 +1706,6 @@ class page_admin_reports_customer extends CPageAdminOnly
 						$tarray['order_type'] = 'STARTER PACK';
 					}
 				}
-
 			}
 
 			$rows [$count++] = $tarray;
