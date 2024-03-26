@@ -1,3 +1,4 @@
+<?php $this->setScript('foot', SCRIPT_PATH . '/customer/locations.min.js'); ?>
 <?php $this->assign('page_title', 'Shipping at Dream Dinners');?>
 <?php $this->assign('page_description','Real food made from scratch shipped to your door.'); ?>
 <?php $this->assign('page_keywords','shipped prepared meals, prepared dinners shipped, shipping homemade meals, homemade meals shippeded, shipped prepped meals, dinner preparation'); ?>
@@ -10,15 +11,15 @@
 
 			</div>
 			<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center">
-				
+
 			</div>
 			<div class="col-6 col-sm-3 p-0 order-3 order-sm-3 text-center">
-				 
+
 			</div>
 		</div>
 	</header>-->
 
-  <main role="main">
+	<main role="main">
 		<section>
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
@@ -27,23 +28,26 @@
 						<p class="text-uppercase mb-4">Real food made from scratch, so your life can feel a little easier.</p>
 						<p>Get four family-style, homemade meals prepped and ready to cook. Most of our meals cook in less than 30 minutes. Order when you want, no subscription necessary. Find out if we ship to you and order today!</p>
 						<form action="/locations" method="post">
-						<div class="form-group mx-auto">
-							<div class="input-group">
-								<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
-								<div class="input-group-append">
-									<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
+							<div class="form-group mx-auto">
+								<div class="input-group">
+									<div class="input-group-append">
+										<span class="input-group-text">Postal code</span>
+									</div>
+									<input type="number" class="form-control form-shipping-search">
+									<div class="input-group-append">
+										<button type="submit" value="Get Started" class="btn btn-primary btn-shipping-search">Get started</button>
+									</div>
 								</div>
 							</div>
-						</div>
-					</form>
+						</form>
 					</div>
 					<div class="col-md-6 p-0">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mar24-shipping-collage-957x657.webp" alt="March Menu" class="img-fluid">
 					</div>
-
 				</div>
 			</div>
 		</section>
+
 		<section>
 			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 			<div class="container-fluid my-5">
@@ -115,82 +119,82 @@
 				<!-- 4 Steps -->
 				<div class="" id="" role="tabpanel" aria-labelledby="">
 					<div class="row my-2">
-					<div class="col">
-						<div class="card-group">
-							<div class="card border-0 mx-1 text-center">
-								<i class="dd-icon icon-table_setting font-size-extra-extra-large text-green m-4"></i>
-							</div>
-							<div class="card border-0 mx-1 text-left">
-								<div class="card-body">
-									<h5 class="card-title">Convenient</h5>
-									<p class="card-text">Our meals are fully prepped and ready to cook for more convenience and options.</p>
+						<div class="col">
+							<div class="card-group">
+								<div class="card border-0 mx-1 text-center">
+									<i class="dd-icon icon-table_setting font-size-extra-extra-large text-green m-4"></i>
 								</div>
-							</div>
-							<div class="card border-0 mx-1 text-center">
-								<i class="dd-icon icon-calendar_add font-size-extra-extra-large text-green m-4"></i>
-							</div>
-							<div class="card border-0 mx-1 text-left">
-								<div class="card-body">
-									<h5 class="card-title">Absolutely No Commitment</h5>
-									<p class="card-text">We won't charge your card monthly. No hassle of pausing or canceling a subscription. Simply order your meals and place another order when you're ready.</p>
+								<div class="card border-0 mx-1 text-left">
+									<div class="card-body">
+										<h5 class="card-title">Convenient</h5>
+										<p class="card-text">Our meals are fully prepped and ready to cook for more convenience and options.</p>
+									</div>
 								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row my-2 mt-5">
-					<div class="col">
-						<div class="card-group">
-							<div class="card border-0 mx-1 text-center">
-								<i class="dd-icon icon-eat_together font-size-extra-extra-large text-green m-4"></i>
-							</div>
-							<div class="card border-0 mx-1 text-left">
-								<div class="card-body">
-									<h5 class="card-title">Over 20 Years’ Experience</h5>
-									<p class="card-text">We aren't a fad. Dream Dinners has been around for 22 years with tried and true recipes our customers love. Unlike other meal kits, when you choose Dream Dinners, you choose tradition.</p>
+								<div class="card border-0 mx-1 text-center">
+									<i class="dd-icon icon-calendar_add font-size-extra-extra-large text-green m-4"></i>
 								</div>
-							</div>
-
-							<div class="card border-0 mx-1 text-center">
-								<i class="dd-icon icon-heart font-size-extra-extra-large text-green m-4"></i>
-							</div>
-							<div class="card border-0 mx-1 text-left">
-								<div class="card-body">
-									<h5 class="card-title">More Time for Things that Matter</h5>
-									<p class="card-text">We do all of the shopping, chopping, prepping, and clean up. Most of our meals cook in less than 30 minutes, leaving you more time to do the things you love.</p>
+								<div class="card border-0 mx-1 text-left">
+									<div class="card-body">
+										<h5 class="card-title">Absolutely No Commitment</h5>
+										<p class="card-text">We won't charge your card monthly. No hassle of pausing or canceling a subscription. Simply order your meals and place another order when you're ready.</p>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="row my-5">
-					<div class="col text-center">
-						<a href="/how-it-works" class="btn btn-primary">Learn More</a>
-						<p>&nbsp;</p>
+					<div class="row my-2 mt-5">
+						<div class="col">
+							<div class="card-group">
+								<div class="card border-0 mx-1 text-center">
+									<i class="dd-icon icon-eat_together font-size-extra-extra-large text-green m-4"></i>
+								</div>
+								<div class="card border-0 mx-1 text-left">
+									<div class="card-body">
+										<h5 class="card-title">Over 20 Years’ Experience</h5>
+										<p class="card-text">We aren't a fad. Dream Dinners has been around for 22 years with tried and true recipes our customers love. Unlike other meal kits, when you choose Dream Dinners, you choose tradition.</p>
+									</div>
+								</div>
+
+								<div class="card border-0 mx-1 text-center">
+									<i class="dd-icon icon-heart font-size-extra-extra-large text-green m-4"></i>
+								</div>
+								<div class="card border-0 mx-1 text-left">
+									<div class="card-body">
+										<h5 class="card-title">More Time for Things that Matter</h5>
+										<p class="card-text">We do all of the shopping, chopping, prepping, and clean up. Most of our meals cook in less than 30 minutes, leaving you more time to do the things you love.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row my-5">
+						<div class="col text-center">
+							<a href="/how-it-works" class="btn btn-primary">Learn More</a>
+							<p>&nbsp;</p>
+						</div>
 					</div>
 				</div>
-			</div>
 		</section>
 
 
-<div class="border-bottom border-green-dark mb-3 mx-5"></div>
+		<div class="border-bottom border-green-dark mb-3 mx-5"></div>
 		<section>
 			<div class="container">
 				<div class="row my-5">
 					<div class="col-md-6 mb-6 text-left">
-							<h3 class="my-4">OUR GUESTS LOVE US</h3>
+						<h3 class="my-4">OUR GUESTS LOVE US</h3>
 						<p>Hear how our guest Kellie uses our prepared dinners to make dinnertime easier for her family.</p>
 
 						<p><a href="/session-menu" data-gaq_cat="original" data-gaq_action="Order Now" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Order Now</a></p>
 					</div>
 					<div class="col-md-6 text-right">
 						<div class="embed-responsive embed-responsive-16by9">
-						<iframe class="embed-responsive-item" loading="lazy" src="https://www.youtube.com/embed/IBMWQ1Z5sDw?rel=0&amp;controls=0" allowfullscreen></iframe>
+							<iframe class="embed-responsive-item" loading="lazy" src="https://www.youtube.com/embed/IBMWQ1Z5sDw?rel=0&amp;controls=0" allowfullscreen></iframe>
+						</div>
 					</div>
 				</div>
-			  </div>
 			</div>
 		</section>
 	</main>

@@ -291,7 +291,8 @@ function retrieve_stores_for_address(settings)
 function retrieve_stores_for_lat_long(settings, doScrolling)
 {
 	var config = {
-		compact: false
+		compact: false,
+		callBack: false
 	};
 
 	$.extend(config, settings);
@@ -311,34 +312,43 @@ function retrieve_stores_for_lat_long(settings, doScrolling)
 
 		},
 		success: function (json) {
-			$("#store_search_results").html(json.html);
 
-			if (doScrolling)
+			if (settings.callBack == false)
 			{
-				//scroll to successful search results
-				$('html, body').animate({
-					scrollTop: $('#store_search_results').offset().top
-				}, 2000);
-				//handle the loading spinner on the button
-				$('#zipsearch_search_btn').removeClass('btn-spinner');
-				$('#zipsearch_search_btn').removeClass('btn-spinning');
-				$('#zipsearch_search_btn').addClass('btn-spinner');
+				$("#store_search_results").html(json.html);
 
+				if (doScrolling)
+				{
+					//scroll to successful search results
+					$('html, body').animate({
+						scrollTop: $('#store_search_results').offset().top
+					}, 2000);
+					//handle the loading spinner on the button
+					$('#zipsearch_search_btn').removeClass('btn-spinner');
+					$('#zipsearch_search_btn').removeClass('btn-spinning');
+					$('#zipsearch_search_btn').addClass('btn-spinner');
+
+				}
+				//$("#store_search_results").slideDown();
+				select_location_click_handler();
+
+				if (getQueryVariable('page') == 'locations')
+				{
+					// Update login form so they come back to last search
+					$('#back_url_top').val('/locations?zip=' + szZip);
+
+					// Record history in html5 browser
+					historyPush({
+						url: '/locations?zip=' + szZip,
+						title: szZip + ' ' + document.title
+					});
+				}
 			}
-			//$("#store_search_results").slideDown();
-			select_location_click_handler();
-
-			if (getQueryVariable('page') == 'locations')
+			else
 			{
-				// Update login form so they come back to last search
-				$('#back_url_top').val('/locations?zip=' + szZip);
-
-				// Record history in html5 browser
-				historyPush({
-					url: '/locations?zip=' + szZip,
-					title: szZip + ' ' + document.title
-				});
+				settings.callBack(json);
 			}
+
 		},
 		error: function (objAJAXRequest, strError) {
 			response = 'Unexpected error';
@@ -446,6 +456,103 @@ $(function () {
 		{
 			$("#zipsearch_search_btn").trigger('click');
 		}
+	});
+
+	$(document).on('click', '.btn-shipping-search', function (e) {
+
+		e.preventDefault();
+		$('.shipping-available, .shipping-not-available, .shipping-has-inventory, .shipping-has-no-inventory').hideFlex()
+
+		let zipSearch = null;
+		if ($('.form-shipping-search').getVal() == '')
+		{
+			modal_message({message: 'Zip code required'});
+			return false;
+		}
+		else
+		{
+			zipSearch = $('.form-shipping-search').getVal();
+		}
+
+		$.ajax({
+			url: '/processor',
+			type: 'POST',
+			timeout: 20000,
+			dataType: 'json',
+			data: {
+				processor: 'location_search',
+				op: 'shipping',
+				zip: zipSearch
+			},
+			success: function (json) {
+
+				if (json.delivered_store)
+				{
+					if(json.shipping_has_inventory)
+					{
+						create_and_submit_form({
+							action: '/box-select',
+							input: ({
+								delivered_zip: zipSearch
+							})
+						});
+					}
+					else
+					{
+						bootbox.dialog({
+							title: 'Out of stock',
+							message: "We can ship to you, but our fridge is currently empty. We are busy prepping our new menu. Check back soon for a new selection of meals.",
+							centerVertical: true,
+							buttons: {
+								locations: {
+									label: 'Search all locations',
+									callback: function(){
+										create_and_submit_form({
+											action: '/locations',
+											input: ({
+												zip: zipSearch
+											})
+										});
+									}
+								},
+								cancel: {
+									label: 'Close'
+								}
+							}
+						})
+					}
+				}
+				else
+				{
+					bootbox.dialog({
+						title: 'Shipping not available',
+						message: 'We do not ship to the zip code provided.',
+						centerVertical: true,
+						buttons: {
+							locations: {
+								label: 'Search all locations',
+								callback: function(){
+									create_and_submit_form({
+										action: '/locations',
+										input: ({
+											zip: zipSearch
+										})
+									});
+								}
+							},
+							cancel: {
+								label: 'Close'
+							}
+						}
+					})
+				}
+
+			},
+			error: function (objAJAXRequest, strError) {
+				response = 'Unexpected error';
+			}
+		});
+
 	});
 
 	// Check that cookies are enabled
