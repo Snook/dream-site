@@ -129,13 +129,13 @@
 			<div class="row mb-2 no-gutters">
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center mb-2">
-						<div class="card border-0 pr-2">
+						<div class="card border-0 pr-4">
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chimichangas-pan-featured-menu-item-400x400.webp" alt="Oven Baked Chimichangas" class="img-fluid">
 								<div class="card-body">
 									<h5 class="card-title">Oven Baked Chimichangas</h5>
 								</div>
 							</div>
-						<div class="card border-0 pr-4">
+						<div class="card border-0 pr-2">
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/baked-penne-kid-pick-featured-menu-item-400x400.webp" alt="Baked Penne Chicken Alfredo" class="img-fluid">
 								<div class="card-body">
 									<h5 class="card-title">Baked Penne Chicken Alfredo</h5>
@@ -146,13 +146,13 @@
 				</div>
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center">
-							<div class="card border-0">
+							<div class="card border-0 pr-4">
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-costoletta-air-fryer-featured-menu-item-400x400.webp" alt="Chicken Costoletta with Almond Green Beans" class="img-fluid">
 								<div class="card-body">
 									<h5 class="card-title">Chicken Costoletta with Almond Green Beans</h5>
 								</div>
 							</div>
-							<div class="card border-0 pr-4">
+							<div class="card border-0">
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/surf-turf-yakisoba-30min-featured-menu-item-400x400.webp" alt="Surf and Turf Yakisoba Noodle Bowl" class="img-fluid">
 								<div class="card-body">
 									<h5 class="card-title">Surf and Turf Yakisoba Noodle Bowl</h5>

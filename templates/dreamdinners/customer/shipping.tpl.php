@@ -69,19 +69,19 @@
 							<div class="card border-0 bg-cyan-dark">
 								<div class="card-body mb-2">
 									<i class="dd-icon icon-star font-size-extra-extra-large text-white m-5"></i>
-									<h3 class="font-weight-bold font-size-large mt-3">4.6<br>Value Rating</h3>
+									<h3 class="font-weight-bold font-size-large mt-3">4.6<br>VALUE RATING</h3>
 								</div>
 							</div>
 							<div class="card border-0 bg-cyan-dark">
 								<div class="card-body mb-2">
 									<i class="dd-icon icon-star font-size-extra-extra-large text-white mb-5"></i>
-									<h2 class="font-weight-bold font-size-large mt-3">4.9<br>Quality Rating</h2>
+									<h2 class="font-weight-bold font-size-large mt-3">4.9<br>QUALITY RATING</h2>
 								</div>
 							</div>
 							<div class="card border-0 bg-cyan-dark">
 								<div class="card-body mb-2">
-									<h2 class="font-weight-bold font-size-extra-extra-large mt-3">100%</h2>
-									<h3 class="font-weight-bold font-size-large mt-3">Will Order Again!</h3>
+									<i class="dd-icon icon-cart font-size-extra-extra-large text-white mb-5"></i>
+									<h3 class="font-weight-bold font-size-large mt-3">100%<br>WILL ORDER AGAIN!</h3>
 								</div>
 							</div>
 						</div>
@@ -92,7 +92,6 @@
 
 		
 		<section>
-			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 			<div class="container-fluid my-5">
 				<div class="col-sm-12 text-center">
 					<h2 class="mb-1 mt-4 font-weight-bold">Order In a Snap</h2></div>
