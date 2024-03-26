@@ -9,7 +9,7 @@
 				<div class="row hero-double">
 					<div class="col">
 						<img src="<?php echo IMAGES_PATH; ?>/home_content/carne-asada-in-a-snap-background-1920x837.webp" alt="Carne Asada Steak Tacos in a Snap" class="img-fluid">
-						<div class="col-12 col-sm-9 col-md-8 col-lg-6 col-xl-4 ml-sm-5 p-4 position-absolute" style="bottom: 1rem; background-color: rgba(255,255,255,0.90)">
+						<div class="col-12 col-sm-9 col-md-8 col-lg-6 col-xl-4 ml-sm-5 p-4" style="bottom: 1rem; background-color: rgba(255,255,255,0.90)">
 							<h1 class="font-marker">Your Local Meal Kit Solution</h1>
 							<p class="text-uppercase">Real food made from scratch, so your life can feel a little easier.</p>
 							<form action="/locations" method="post">
