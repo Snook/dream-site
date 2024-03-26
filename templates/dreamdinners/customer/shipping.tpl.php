@@ -20,12 +20,17 @@
 
   <main role="main">
 		<section>
+			<div class="container">
+				<img src="<?php echo IMAGES_PATH; ?>/landing_pages/crispy-shrimp-green-beans-in-a-snap-header-1920x600.webp" alt="Family making and eating a meal together" class="img-fluid" />
+			</div>
+		</section>
+		<section>
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
 						<h1 class="font-weight-bold font-marker mt-2">Get Dream Dinners Shipped to Your Door</h1>
 						<p class="text-uppercase mb-4">Real food made from scratch, so your life can feel a little easier.</p>
-						<p>Get four family-style, homemade meals prepped and ready to cook. Most of our meals cook in less than 30 minutes. Order when you want, no subscription necessary. Find out if we ship to you and order today!</p>
+						<p>Four easy, homemade meals prepped and ready to cook, most in less than 30 minutes. Order when you want, no subscription necessary. Enter your zip code to see if we can deliver to you. Great for travel or a gift for new baby, new home, mothers's day and more!</p>
 						<form action="/locations" method="post">
 						<div class="form-group mx-auto">
 							<div class="input-group">
@@ -38,39 +43,19 @@
 					</form>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mar24-shipping-collage-957x657.webp" alt="March Menu" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/apr24-shipping-collage-957x657.webp" alt="April Menu" class="img-fluid">
 					</div>
 
 				</div>
 			</div>
 		</section>
-		<section>
-			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
-			<div class="container-fluid my-5">
-				<div class="col-sm-12 text-center">
-					<h2 class="mb-1 mt-4 font-weight-bold">Ways To Serve You</h2></div>
-				<div class="row">
-					<div class="col-md-6 text-center p-5 my-2">
-						<img src="<?php echo IMAGES_PATH; ?>/home_content/dinner-doorstep-600x350.webp" alt="Shipped to doorstep" class="img-fluid">
-						<h3 class="font-weight-bold my-2">Shipped to Your Door</h3>
-						<p class="mb-4">We deliver prepped, family-style dinners to your front porch.<br /><a href="/locations" class="btn btn-lg btn-green-dark mt-3">Check Shipping Areas</a></p>
-					</div>
-					<div class="col-md-6 text-center p-5 my-2">
-						<img src="<?php echo IMAGES_PATH; ?>/home_content/family-dinner-summer-600x350.webp" alt="family of four eating dinner at table" class="img-fluid">
-						<h3 class="font-weight-bold my-2">Gift to Friends & Family</h3>
-						<p class="mb-4">Show your love with delicious, easy meals for them to enjoy.<br /><a href="/locations" class="btn btn-lg btn-green-dark mt-3">Check Gifting Areas</a></p>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- steps -->
+		<!-- customer data -->
 		<section class="bg-cyan-dark">
 			<div class="container my-5 mp-5 bg-cyan-dark">
 				<div class="row">
 					<div class="col">
 						<div class="text-center">
-							<h2 class="mt-5 mb-4 font-weight-bold text-center text-white">Easy as 1,2,3</h2>
+							<h2 class="mt-5 mb-4 font-weight-bold text-center text-white">Our Customers Love Us</h2>
 						</div>
 					</div>
 				</div>
@@ -79,26 +64,53 @@
 						<div class="card-group text-center text-white my-5 mp-5">
 							<div class="card border-0 bg-cyan-dark">
 								<div class="card-body mb-2">
-									<i class="dd-icon icon-order_online font-size-extra-extra-large text-white m-5"></i>
-									<h2 class="font-weight-bold font-size-large mt-3">Order Online</h2>
+									<h2 class="font-weight-bold font-size-large mt-3">4.6</h2><i class="dd-icon icon-star font-size-extra-extra-large text-white m-5"></i>
+									<h3 class="font-weight-bold font-size-large mt-3">Value Rating</h3>
 								</div>
 							</div>
 							<div class="card border-0 bg-cyan-dark">
 								<div class="card-body mb-2">
-									<i class="dd-icon icon-send_love font-size-extra-extra-large text-white mb-5"></i>
-									<h2 class="font-weight-bold font-size-large mt-3">Meals Are Shipped</h2>
+									<h2 class="font-weight-bold font-size-large mt-3">4.9</h2><i class="dd-icon icon-star font-size-extra-extra-large text-white mb-5"></i>
+									<h2 class="font-weight-bold font-size-large mt-3">Quality Rating</h2>
 								</div>
 							</div>
 							<div class="card border-0 bg-cyan-dark">
 								<div class="card-body mb-2">
-									<i class="dd-icon icon-cook font-size-extra-extra-large text-white mb-5"></i>
-									<h2 class="font-weight-bold font-size-large mt-3">Cook at Home</h2>
+									<h2 class="font-weight-bold font-size-extra-extra-large mt-3">100%</h2>
+									<h3 class="font-weight-bold font-size-large mt-3">Will Order Again!</h3>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</section>
+
+		
+		<section>
+			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
+			<div class="container-fluid my-5">
+				<div class="col-sm-12 text-center">
+					<h2 class="mb-1 mt-4 font-weight-bold">Ways To Serve You</h2></div>
+				<div class="row">
+					<div class="col-md-6 text-center p-5 my-2">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/noodle-bowl-and-drink-600x350.webp" alt="Woman enjoying a noodle bowl" class="img-fluid">
+						<h3 class="font-weight-bold my-2">Fan Favorites Box</h3>
+						<p class="mb-4">Get four best-selling dinners from our April menu, including Savannah Grilled Chicken with Seasoned Onion Rings, Cheddar Filled Mini Meatloaves with Mashed Potatoes, Chicken Egg Roll Bowl, and Buttery Bombay Chicken with Jasmine Rice.</p>
+					</div>
+					<div class="col-md-6 text-center p-5 my-2">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/new-baby-600x350.webp" alt="hands around baby feet shaped like heart" class="img-fluid">
+						<h3 class="font-weight-bold my-2">New Baby Gift Box</h3>
+						<p class="mb-4">Congratulate your friends and family on their new addition with easy, quick dinners including Chicken Egg Roll Bowl, Savannah Grilled Chicken with Seasoned Onion Rings, Pesto Cheese Ravioli with Chicken and Walnuts, and Surf and Turf Yakisoba Noodles. Show your love with easy, homemade meals.</p>
+					</div>
+				</div>
+			</div>
+			<div class="row my-5">
+					<div class="col text-center">
+						<a href="/locations" class="btn btn-lg btn-green-dark mt-3">Check Gifting Areas</a>
+						<p>&nbsp;</p>
+					</div>
+				</div>
 		</section>
 
 		<section>
@@ -175,7 +187,7 @@
 		</section>
 
 
-<div class="border-bottom border-green-dark mb-3 mx-5"></div>
+<!--<div class="border-bottom border-green-dark mb-3 mx-5"></div>
 		<section>
 			<div class="container">
 				<div class="row my-5">
@@ -192,7 +204,7 @@
 				</div>
 			  </div>
 			</div>
-		</section>
+		</section>-->
 	</main>
 
 <?php include $this->loadTemplate('customer/subtemplate/page_footer.tpl.php'); ?>
