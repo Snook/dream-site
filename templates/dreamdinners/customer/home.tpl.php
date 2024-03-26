@@ -6,28 +6,9 @@
 	<main role="main">
 		<section>
 			<div class="container-fluid">
-				<div class="row hero-double">
-					<div class="col">
+				<div class="row">
+					<div class="col text-center" style="max-height: 25rem; overflow: hidden;">
 						<img src="<?php echo IMAGES_PATH; ?>/home_content/carne-asada-in-a-snap-header-1920x600.webp" alt="Carne Asada Steak Tacos in a Snap" class="img-fluid">
-						<div class="col-12 col-sm-9 col-md-8 col-lg-6 col-xl-4 ml-sm-5 p-4" style="bottom: 1rem; background-color: rgba(255,255,255,0.90)">
-							<h1 class="font-marker">Your Local Meal Kit Solution</h1>
-							<p class="text-uppercase">Real food made from scratch, so your life can feel a little easier.</p>
-							<form action="/locations" method="post">
-								<div class="form-group mx-auto">
-									<div class="input-group">
-										<!--<div class="input-group-prepend">
-											<div class="input-group-text">
-											Find a location near you
-											</div>
-										</div>-->
-										<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
-										<div class="input-group-append">
-											<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
-										</div>
-									</div>
-								</div>
-							</form>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -88,15 +69,35 @@
 		<!-- Menu Highlights-->
 		<section>
 			<div class="container my-5">
+
+				<div class="col-lg-7 mx-lg-auto">
+					<h1 class="font-marker">Your Local Meal Kit Solution</h1>
+					<p class="text-uppercase">Real food made from scratch, so your life can feel a little easier.</p>
+					<form action="/locations" method="post">
+						<div class="form-group mx-auto">
+							<div class="input-group">
+								<!--<div class="input-group-prepend">
+									<div class="input-group-text">
+									Find a location near you
+									</div>
+								</div>-->
+								<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
+								<div class="input-group-append">
+									<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
 				<div class="row">
-				<div class="border-top mt-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 					<div class="col">
 						<div class="text-center">
 							<h2 class="mt-4 mb-4 font-weight-bold">Meals Made In A Snap</h2>
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="row my-5">
 					<div class="col">
 						<div class="card-group text-center mb-2">
@@ -266,7 +267,7 @@
 						<p class="text-uppercase mb-4">Perfect for Mother's Day, bridal brunches, baby showers or a weekend brunch, our easy breakfast bundle is a tasty treat to brighten up your morning. Available at select locations, while supplies last. Not available for shipping.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
-					
+
 
 				</div>
 			</div>
@@ -283,7 +284,7 @@
 					</div>
 				</div>
 
-				
+
 				<div class="" id="" role="tabpanel" aria-labelledby="">
 					<div class="row my-2">
 						<div class="col">
