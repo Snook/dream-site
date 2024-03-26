@@ -100,12 +100,6 @@
 				<div class="row my-5">
 					<div class="col">
 						<div class="card-group text-center mb-2">
-							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/baked-penne-kid-pick-featured-menu-item-400x400.webp" alt="Baked Penne Chicken Alfredo" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Baked Penne Chicken Alfredo</h5>
-								</div>
-							</div>
 							<div class="card border-0 pr-2">
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chimichangas-pan-featured-menu-item-400x400.webp" alt="Oven Baked Chimichangas" class="img-fluid">
 								<div class="card-body">
@@ -113,9 +107,9 @@
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/surf-turf-yakisoba-30min-featured-menu-item-400x400.webp" alt="Surf and Turf Yakisoba Noodle Bowl" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/baked-penne-kid-pick-featured-menu-item-400x400.webp" alt="Baked Penne Chicken Alfredo" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Surf and Turf Yakisoba Noodle Bowl</h5>
+									<h5 class="card-title">Baked Penne Chicken Alfredo</h5>
 								</div>
 							</div>
 							<div class="card border-0">
@@ -124,7 +118,12 @@
 									<h5 class="card-title">Chicken Costoletta with Almond Green Beans</h5>
 								</div>
 							</div>
-
+							<div class="card border-0 pr-4">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/surf-turf-yakisoba-30min-featured-menu-item-400x400.webp" alt="Surf and Turf Yakisoba Noodle Bowl" class="img-fluid">
+								<div class="card-body">
+									<h5 class="card-title">Surf and Turf Yakisoba Noodle Bowl</h5>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -256,7 +255,7 @@
 			</div>
 		</section>
 		<section>
-		<div class="border-top mt-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
+			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 p-0">
