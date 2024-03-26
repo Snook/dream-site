@@ -20,8 +20,12 @@
 
   <main role="main">
 		<section>
-			<div class="container">
-				<img src="<?php echo IMAGES_PATH; ?>/landing_pages/crispy-shrimp-green-beans-in-a-snap-header-1920x600.webp" alt="Family making and eating a meal together" class="img-fluid" />
+			<div class="container-fluid">
+				<div class="row hero-double">
+					<div class="col">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/crispy-shrimp-green-beans-in-a-snap-header-1920x600.webp" alt="Family making and eating a meal together" class="img-fluid" />
+					</div>
+				</div>
 			</div>
 		</section>
 		<section>
@@ -64,14 +68,14 @@
 						<div class="card-group text-center text-white my-5 mp-5">
 							<div class="card border-0 bg-cyan-dark">
 								<div class="card-body mb-2">
-									<h2 class="font-weight-bold font-size-large mt-3">4.6</h2><i class="dd-icon icon-star font-size-extra-extra-large text-white m-5"></i>
-									<h3 class="font-weight-bold font-size-large mt-3">Value Rating</h3>
+									<i class="dd-icon icon-star font-size-extra-extra-large text-white m-5"></i>
+									<h3 class="font-weight-bold font-size-large mt-3">4.6<br>Value Rating</h3>
 								</div>
 							</div>
 							<div class="card border-0 bg-cyan-dark">
 								<div class="card-body mb-2">
-									<h2 class="font-weight-bold font-size-large mt-3">4.9</h2><i class="dd-icon icon-star font-size-extra-extra-large text-white mb-5"></i>
-									<h2 class="font-weight-bold font-size-large mt-3">Quality Rating</h2>
+									<i class="dd-icon icon-star font-size-extra-extra-large text-white mb-5"></i>
+									<h2 class="font-weight-bold font-size-large mt-3">4.9<br>Quality Rating</h2>
 								</div>
 							</div>
 							<div class="card border-0 bg-cyan-dark">
@@ -91,7 +95,7 @@
 			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 			<div class="container-fluid my-5">
 				<div class="col-sm-12 text-center">
-					<h2 class="mb-1 mt-4 font-weight-bold">Ways To Serve You</h2></div>
+					<h2 class="mb-1 mt-4 font-weight-bold">Order In a Snap</h2></div>
 				<div class="row">
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/noodle-bowl-and-drink-600x350.webp" alt="Woman enjoying a noodle bowl" class="img-fluid">
@@ -105,10 +109,18 @@
 					</div>
 				</div>
 			</div>
-			<div class="row my-5">
+			<div class="row my-2">
 					<div class="col text-center">
-						<a href="/locations" class="btn btn-lg btn-green-dark mt-3">Check Gifting Areas</a>
-						<p>&nbsp;</p>
+						<form action="/locations" method="post">
+						<div class="form-group mx-auto">
+							<div class="input-group">
+								<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
+								<div class="input-group-append">
+									<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
+								</div>
+							</div>
+						</div>
+					</form>
 					</div>
 				</div>
 		</section>
