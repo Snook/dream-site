@@ -22,11 +22,11 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mar24-easter-bundle-collage-957x657.webp" alt="Easter" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/apr24-breakfast-bundle-homepage-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
 					</div>
 					<div class="col-md-6 text-left p-5 my-5">
-						<h1 class="font-weight-bold font-marker mt-2">Easter Dinner In A Snap</h1>
-						<p class="text-uppercase mb-4">Hop in and pick up everything you need for a delicious Easter dinner including our Carving Ham, Luscious Lemon Bars and sides bundle. Add your Easter favorites on to your order exclusively in March. Available at select locations, while supplies last. Not available for shipping.</p>
+						<h1 class="font-weight-bold font-marker mt-2">Spring Breakfast Bundle</h1>
+						<p class="text-uppercase mb-4">Perfect for Mother's Day, bridal brunches, baby showers or a weekend brunch, our easy breakfast bundle is a tasty treat to brighten up your morning. Available at select locations, while supplies last. Not available for shipping.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 					

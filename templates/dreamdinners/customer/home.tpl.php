@@ -4,8 +4,35 @@
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
 
 	<main role="main">
-
-		<section class="container-fluid">
+		<section>
+			<div class="container-fluid">
+				<div class="row hero-double">
+					<div class="col">
+						<img src="<?php echo IMAGES_PATH; ?>/home_content/carne-asada-in-a-snap-header-1920x600.webp" alt="Carne Asada Steak Tacos in a Snap" class="img-fluid">
+						<div class="col-12 col-sm-9 col-md-8 col-lg-6 col-xl-4 ml-sm-5 p-4" style="bottom: 1rem; background-color: rgba(255,255,255,0.90)">
+							<h1 class="font-marker">Your Local Meal Kit Solution</h1>
+							<p class="text-uppercase">Real food made from scratch, so your life can feel a little easier.</p>
+							<form action="/locations" method="post">
+								<div class="form-group mx-auto">
+									<div class="input-group">
+										<!--<div class="input-group-prepend">
+											<div class="input-group-text">
+											Find a location near you
+											</div>
+										</div>-->
+										<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
+										<div class="input-group-append">
+											<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--<section class="container-fluid">
 			<header class="d-none d-sm-block row hero-double position-relative" style="min-height: 70vh;" role="banner">
 				<video class="hero-double__img" autoplay="" id="heroVideo" loop="" muted="" poster="<?php echo IMAGES_PATH; ?>/home_content/media/family_dinner2.webp?v=<?php echo JAVASCRIPT_CSS_VERSION; ?>">
 					<source src="<?php echo IMAGES_PATH; ?>/home_content/media/family_dinner.mp4?v=<?php echo JAVASCRIPT_CSS_VERSION; ?>" type="video/mp4" />
@@ -23,7 +50,7 @@
 									Find a location near you
 									</div>
 								</div>-->
-								<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
+								<!--<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
 								<div class="input-group-append">
 									<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
 								</div>
@@ -46,7 +73,7 @@
 									Find a location near you
 									</div>
 								</div>-->
-								<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
+								<!--<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
 								<div class="input-group-append">
 									<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
 								</div>
@@ -56,12 +83,13 @@
 					<div class="border-top mt-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 				</div>
 			</header>
-		</section>
+		</section>-->
 
 		<!-- Menu Highlights-->
 		<section>
 			<div class="container my-5">
 				<div class="row">
+				<div class="border-top mt-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 					<div class="col">
 						<div class="text-center">
 							<h2 class="mt-4 mb-4 font-weight-bold">Meals Made In A Snap</h2>
@@ -73,30 +101,29 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-pot-pies-kid-featured-item-400x400.webp" alt="Mini Chicken Pot Pies" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chimichangas-pan-featured-menu-item-400x400.webp" alt="Oven Baked Chimichangas" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Mini Chicken Pot Pies</h5>
+									<h5 class="card-title">Oven Baked Chimichangas</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/tuscan-bake-pan-featured-item-400x400.webp" alt="Tuscan Chicken Bake" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/baked-penne-kid-pick-featured-menu-item-400x400.webp" alt="Baked Penne Chicken Alfredo" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Tuscan Chicken Bake</h5>
+									<h5 class="card-title">Baked Penne Chicken Alfredo</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-yakisoba-30min-featured-item-400x400.webp" alt="Chicken Yakisoba Noodle Bowl" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-costoletta-air-fryer-featured-menu-item-400x400.webp" alt="Chicken Costoletta with Almond Green Beans" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Yakisoba Noodle Bowl</h5>
+									<h5 class="card-title">Chicken Costoletta with Almond Green Beans</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/honey-mustard-pork-crockpot-featured-item-400x400.webp" alt="Honey Mustard Pork Tenderloin" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/surf-turf-yakisoba-30min-featured-menu-item-400x400.webp" alt="Surf and Turf Yakisoba Noodle Bowl" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Honey Mustard Pork Tenderloin</h5>
+									<h5 class="card-title">Surf and Turf Yakisoba Noodle Bowl</h5>
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
@@ -216,26 +243,27 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
-						<h1 class="font-weight-bold font-marker mt-2">March Fan Favorites Bundle</h1>
-						<p class="text-uppercase mb-4">Start your order with our March Fan Favorites bundle. These 4 dinners are our best-sellers on the March menu. Shipping menu items for the bundle may vary.</p>
+						<h1 class="font-weight-bold font-marker mt-2">April Fan Favorites Bundle</h1>
+						<p class="text-uppercase mb-4">Start your order with our April Fan Favorites bundle. These 4 dinners are our best-sellers on the April menu. Shipping menu items for the bundle may vary.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mar24-fan-fav-bundle-collage-957x657.webp" alt="Fan Favorites" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/apr24-fan-fav-bundle-collage-957x657.webp" alt="Fan Favorites" class="img-fluid">
 					</div>
 
 				</div>
 			</div>
 		</section>
 		<section>
+			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mar24-easter-bundle-collage-957x657.webp" alt="Easter" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/apr24-breakfast-bundle-homepage-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
 					</div>
 					<div class="col-md-6 text-left p-5 my-5">
-						<h1 class="font-weight-bold font-marker mt-2">Easter Dinner In A Snap</h1>
-						<p class="text-uppercase mb-4">Hop in and pick up everything you need for a delicious Easter dinner including our Carving Ham, Luscious Lemon Bars and sides bundle. Add your Easter favorites on to your order exclusively in March. Available at select locations, while supplies last. Not available for shipping.</p>
+						<h1 class="font-weight-bold font-marker mt-2">Spring Breakfast Bundle</h1>
+						<p class="text-uppercase mb-4">Perfect for Mother's Day, bridal brunches, baby showers or a weekend brunch, our easy breakfast bundle is a tasty treat to brighten up your morning. Available at select locations, while supplies last. Not available for shipping.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 					
