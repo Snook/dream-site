@@ -160,7 +160,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 			$Form->DefaultValues[$DAO_menu_item->id . '_pic'] = ($DAO_menu_item->DAO_menu_to_menu_item->isShowOnPickSheet() && !$DAO_menu_item->DAO_menu_to_menu_item->isHiddenEverywhere()) ? 1 : 0;
 			$Form->DefaultValues[$DAO_menu_item->id . '_form'] = ($DAO_menu_item->DAO_menu_to_menu_item->isShowOnOrderForm() && !$DAO_menu_item->DAO_menu_to_menu_item->isHiddenEverywhere()) ? 1 : 0;
 			$Form->DefaultValues[$DAO_menu_item->id . '_hid'] = $DAO_menu_item->DAO_menu_to_menu_item->isHiddenEverywhere() ? 1 : 0;
-			$Form->DefaultValues[$DAO_menu_item->id . '_ovr'] = (!empty($DAO_menu_item->DAO_menu_to_menu_item->override_price)) ? $DAO_menu_item->DAO_menu_to_menu_item->override_price : $DAO_menu_item->price;
+			$Form->DefaultValues[$DAO_menu_item->id . '_ovr'] = (!empty($DAO_menu_item->DAO_menu_to_menu_item->override_price)) ? $DAO_menu_item->DAO_menu_to_menu_item->override_price : $DAO_menu_item->getStorePrice();
 
 			$Form->AddElement(array(
 				CForm::type => CForm::DropDown,
