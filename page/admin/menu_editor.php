@@ -92,7 +92,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 
 		CBrowserSession::instance()->setValue('backoffice_current_menu', $Form->value('menu'));
 
-		if (!empty($_POST['submit_changes']) && $_POST['action'] == 'finalize')
+		if (!empty($_POST['action']) && $_POST["action"] == 'finalize')
 		{
 			CLog::Record("MENU_EDITOR: Page finalized for store: " . $this->CurrentBackOfficeStore->id);
 			CLog::RecordDebugTrace("Menu Finalized\r\n" . print_r($_POST, true), "MENU_EDITOR");
