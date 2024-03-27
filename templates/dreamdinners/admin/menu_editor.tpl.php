@@ -186,7 +186,7 @@
 								</thead>
 								<tbody class="text-white-space-nowrap text-center">
 								<?php if (!empty($this->menuItemArray[CMenuItem::EXTENDED])) { ?>
-									<?php $lastEntreeID = false; foreach ($this->menuItemArray[CMenuItem::EXTENDED] as $planNode) { ?>
+									<?php $lastEntreeID = false; foreach ($this->menuItemArray[CMenuItem::EXTENDED] as $DAO_menu_item) { ?>
 
 										<tr id="row_<?php echo $DAO_menu_item->id; ?>" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>">
 
