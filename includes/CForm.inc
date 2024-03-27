@@ -371,11 +371,13 @@ class CForm
 	 */
 	public function value($name)
 	{
-		$value = null;
-
 		if (isset ($this->DefaultValues[$name]))
 		{
 			$value = $this->DefaultValues[$name];
+		}
+		else
+		{
+			$value = null;
 		}
 
 		//check reposted vars
@@ -1627,7 +1629,7 @@ class CForm
 		{
 			$szBuildString .= '<option value="">' . $a[self::options]["null"] . '</option>' . "\n";
 		}
-		else if ($this->value($a[self::name]) === null)
+		else if (!$this->value($a[self::name]))
 		{//make sure something is selected or set the first option as the current form value
 			$optKeys = array_keys($a[self::options]);
 			$this->Vars[$a[self::name]] = reset($optKeys);

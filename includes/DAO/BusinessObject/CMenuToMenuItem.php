@@ -46,7 +46,7 @@ class CMenuToMenuItem extends DAO_Menu_to_menu_item
 			$this->store_price = COrders::getItemMarkupMultiSubtotal($markup, $this->DAO_menu_item);
 		}
 
-		return CTemplate::number_format($this->store_price);
+		return $this->store_price;
 	}
 
 	function getDAO_menu_item()
@@ -83,47 +83,6 @@ class CMenuToMenuItem extends DAO_Menu_to_menu_item
 		}
 
 		return $this->DAO_menu;
-	}
-
-
-	function isHiddenEverywhere()
-	{
-		if (!empty($this->is_hidden_everywhere))
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	function isShowOnOrderForm()
-	{
-		if (!empty($this->show_on_order_form))
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	function isShowOnPickSheet()
-	{
-		if (!empty($this->show_on_pick_sheet))
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	function isVisible()
-	{
-		if (!empty($this->is_visible))
-		{
-			return true;
-		}
-
-		return false;
 	}
 
 }

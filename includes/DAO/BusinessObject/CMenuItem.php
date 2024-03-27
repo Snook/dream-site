@@ -26,7 +26,6 @@ class CMenuItem extends DAO_Menu_item
 	const CORE = 'CORE';
 	const EXTENDED = 'EXTENDED';
 	const SIDE = 'SIDE';
-	const SIDE_HIDDEN = 'SIDE_HIDDEN';
 
 	const NONE = 'None';
 	const ZIP_LOCK = 'Zipped Freezer Bag';
@@ -152,7 +151,6 @@ class CMenuItem extends DAO_Menu_item
 					WHEN menu_item.menu_item_category_id = 4 AND menu_item.is_store_special = 1 THEN 2
 					WHEN menu_item.menu_item_category_id = 9 THEN 3
 				END ASC,
-				menu_to_menu_item.is_hidden_everywhere ASC,
 				menu_to_menu_item.featuredItem DESC,
 				CASE WHEN menu_item.menu_item_category_id = 1 OR (menu_item.menu_item_category_id = 4 AND menu_item.is_store_special = 0) THEN menu_to_menu_item.menu_order_value END ASC,
 				CASE WHEN menu_item.menu_item_category_id = 4 AND menu_item.is_store_special = 1 THEN menu_item.menu_item_name END ASC,
@@ -728,7 +726,7 @@ class CMenuItem extends DAO_Menu_item
 			$this->store_price = $this->store_price_no_ltd + $this->ltd_menu_item_value;
 		}
 
-		return CTemplate::number_format($this->store_price);
+		return $this->store_price;
 	}
 
 	function buildMenuItemArray($DAO_store = false, $DAO_mark_up_multi = null)
@@ -2088,11 +2086,7 @@ class CMenuItem extends DAO_Menu_item
 
 	function isHiddenEverywhere()
 	{
-		if(!empty($this->DAO_menu_to_menu_item))
-		{
-			return $this->DAO_menu_to_menu_item->isHiddenEverywhere();
-		}
-		else if (!empty($this->is_hidden_everywhere))
+		if (!empty($this->is_hidden_everywhere))
 		{
 			return true;
 		}

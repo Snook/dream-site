@@ -5647,7 +5647,7 @@ class COrders extends DAO_Orders
 			$retVal += COrders::std_round($itemObj->ltd_menu_item_value);
 		}
 
-		return CTemplate::number_format($retVal);
+		return $retVal;
 	}
 
 	/**
