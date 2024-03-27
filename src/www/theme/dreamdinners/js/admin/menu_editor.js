@@ -1,11 +1,11 @@
-$(document).on('change', '.sides-sweets-save', function (e) {
+$(document).on('click', '.sides-sweets-save', function (e) {
 
 	e.preventDefault()
 	let form = this;
 
 	bootbox.dialog({
 		title: 'Confirmation',
-		message: "<p>Are you sure you wish to save all current Sides &amp; Sweets settings as the default?</p>",
+		message: "<p>Are you sure you wish to save all current Sides &amp; Sweets settings as the default pricing and visibility?</p>",
 		centerVertical: true,
 		buttons: {
 			confirm: {
@@ -13,11 +13,64 @@ $(document).on('change', '.sides-sweets-save', function (e) {
 				className: 'btn-danger',
 				callback: function(){
 
-					bootbox.dialog({
-						message: '<p><i class="fa fa-spin fa-spinner"></i> Finalizing changes, please wait.</p>',
+					let saving_sides = bootbox.dialog({
+						message: '<p><i class="fa fa-spin fa-spinner"></i> Saving defaults, please wait.</p>',
 						centerVertical: true,
 						closeButton: false
 					});
+
+					let defaultData = {};
+
+					$('.menu-editor-ovr').each(function (e) {
+
+						let menu_item_id = $(this).data('menu_item_id');
+						let recipe_id = $(this).data('recipe_id');
+
+						defaultData[recipe_id] = {
+							'ovr': $(this).val(),
+							'vis': $('.menu-editor-vis[data-menu_item_id="' + menu_item_id + '"]').val(),
+							'hid': $('.menu-editor-hid[data-menu_item_id="' + menu_item_id + '"]').val(),
+							'pic': $('.menu-editor-pic[data-menu_item_id="' + menu_item_id + '"]').val(),
+							'form': $('.menu-editor-form[data-menu_item_id="' + menu_item_id + '"]').val()
+						}
+
+					});
+
+					$.ajax({
+						url: '/processor',
+						type: 'POST',
+						timeout: 20000,
+						dataType: 'json',
+						data: {
+							processor: 'admin_defaultPricingProcessor',
+							store_id: STORE_DETAILS.id,
+							action: 'save',
+							data: defaultData
+						},
+						success: function (json) {
+							if (json.processor_success)
+							{
+								saving_sides.modal('hide');
+							}
+							else
+							{
+								dd_message({
+									title: 'Error',
+									message: json.processor_message
+								});
+							}
+						},
+						error: function (objAJAXRequest, strError) {
+							response = 'Unexpected error: ' + strError;
+							dd_message({
+								title: 'Error',
+								message: response
+							});
+
+						}
+
+					});
+
 				}
 			},
 			cancel: {
@@ -28,8 +81,48 @@ $(document).on('change', '.sides-sweets-save', function (e) {
 
 });
 
-$(document).on('change', '.sides-sweets-retrieve', function (e) {
+$(document).on('click', '.sides-sweets-retrieve', function (e) {
 
+	$.ajax({
+		url: '/processor',
+		type: 'POST',
+		timeout: 20000,
+		dataType: 'json',
+		data: {
+			processor: 'admin_defaultPricingProcessor',
+			store_id: STORE_DETAILS.id,
+			action: 'retrieve'
+		},
+		success: function (json) {
+			if (json.processor_success)
+			{
+				$.each(json.settings, function (recipe_id, setting) {
+
+					$('.menu-editor-ovr[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['ovr']).trigger('change');
+					$('.menu-editor-vis[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['vis']).trigger('change');
+					$('.menu-editor-hid[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['hid']).trigger('change');
+
+				});
+
+			}
+			else
+			{
+				dd_message({
+					title: 'Error',
+					message: json.processor_message
+				});
+			}
+		},
+		error: function (objAJAXRequest, strError) {
+			response = 'Unexpected error: ' + strError;
+			dd_message({
+				title: 'Error',
+				message: response
+			});
+
+		}
+
+	});
 
 });
 

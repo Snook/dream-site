@@ -169,7 +169,8 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::style => 'min-width: 4rem;',
 				CForm::attribute => array(
 					'data-menu_item_id' => $DAO_menu_item->id,
-					'data-recipe_id' => $DAO_menu_item->recipe_id
+					'data-recipe_id' => $DAO_menu_item->recipe_id,
+					'data-category_id' => $DAO_menu_item->category_id
 				),
 				CForm::options => array(
 					'1' => 'Yes',
@@ -184,7 +185,8 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::style => 'min-width: 4rem;',
 				CForm::attribute => array(
 					'data-menu_item_id' => $DAO_menu_item->id,
-					'data-recipe_id' => $DAO_menu_item->recipe_id
+					'data-recipe_id' => $DAO_menu_item->recipe_id,
+					'data-category_id' => $DAO_menu_item->category_id
 				),
 				CForm::options => array(
 					'1' => 'Yes',
@@ -199,7 +201,8 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::style => 'min-width: 4rem;',
 				CForm::attribute => array(
 					'data-menu_item_id' => $DAO_menu_item->id,
-					'data-recipe_id' => $DAO_menu_item->recipe_id
+					'data-recipe_id' => $DAO_menu_item->recipe_id,
+					'data-category_id' => $DAO_menu_item->category_id
 				),
 				CForm::options => array(
 					'1' => 'Yes',
@@ -214,7 +217,8 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::style => 'min-width: 4rem;',
 				CForm::attribute => array(
 					'data-menu_item_id' => $DAO_menu_item->id,
-					'data-recipe_id' => $DAO_menu_item->recipe_id
+					'data-recipe_id' => $DAO_menu_item->recipe_id,
+					'data-category_id' => $DAO_menu_item->category_id
 				),
 				CForm::options => array(
 					'1' => 'Yes',
@@ -232,6 +236,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 					'data-orgval' => $DAO_menu_item->DAO_menu_to_menu_item->override_price,
 					'data-menu_item_id' => $DAO_menu_item->id,
 					'data-recipe_id' => $DAO_menu_item->recipe_id,
+					'data-category_id' => $DAO_menu_item->category_id,
 					'data-lowest_tier_price' => !empty($DAO_menu_item->pricing_tiers[1][$DAO_menu_item->pricing_type]->price) ? $DAO_menu_item->pricing_tiers[1][$DAO_menu_item->pricing_type]->price : 'null',
 					'data-highest_tier_price' => !empty($DAO_menu_item->pricing_tiers[3][$DAO_menu_item->pricing_type]->price) ? $DAO_menu_item->pricing_tiers[3][$DAO_menu_item->pricing_type]->price : 'null'
 				),
