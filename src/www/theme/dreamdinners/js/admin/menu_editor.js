@@ -1,3 +1,38 @@
+$(document).on('change', '.sides-sweets-save', function (e) {
+
+	e.preventDefault()
+	let form = this;
+
+	bootbox.dialog({
+		title: 'Confirmation',
+		message: "<p>Are you sure you wish to save all current Sides &amp; Sweets settings as the default?</p>",
+		centerVertical: true,
+		buttons: {
+			confirm: {
+				label: 'Safe defualts',
+				className: 'btn-danger',
+				callback: function(){
+
+					bootbox.dialog({
+						message: '<p><i class="fa fa-spin fa-spinner"></i> Finalizing changes, please wait.</p>',
+						centerVertical: true,
+						closeButton: false
+					});
+				}
+			},
+			cancel: {
+				label: 'Cancel',
+			}
+		}
+	});
+
+});
+
+$(document).on('change', '.sides-sweets-retrieve', function (e) {
+
+
+});
+
 $(document).on('change', '.menu-editor-hid', function (e) {
 
 	let menu_item_id = $(this).data('menu_item_id');

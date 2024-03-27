@@ -160,7 +160,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 			$Form->DefaultValues[$DAO_menu_item->id . '_pic'] = ($DAO_menu_item->DAO_menu_to_menu_item->isShowOnPickSheet() && !$DAO_menu_item->DAO_menu_to_menu_item->isHiddenEverywhere()) ? 1 : 0;
 			$Form->DefaultValues[$DAO_menu_item->id . '_form'] = ($DAO_menu_item->DAO_menu_to_menu_item->isShowOnOrderForm() && !$DAO_menu_item->DAO_menu_to_menu_item->isHiddenEverywhere()) ? 1 : 0;
 			$Form->DefaultValues[$DAO_menu_item->id . '_hid'] = $DAO_menu_item->DAO_menu_to_menu_item->isHiddenEverywhere() ? 1 : 0;
-			$Form->DefaultValues[$DAO_menu_item->id . '_ovr'] = $DAO_menu_item->DAO_menu_to_menu_item->override_price;
+			$Form->DefaultValues[$DAO_menu_item->id . '_ovr'] = (!empty($DAO_menu_item->DAO_menu_to_menu_item->override_price)) ? $DAO_menu_item->DAO_menu_to_menu_item->override_price : $DAO_menu_item->price;
 
 			$Form->AddElement(array(
 				CForm::type => CForm::DropDown,
@@ -168,7 +168,8 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::css_class => 'custom-select-sm menu-editor-vis',
 				CForm::style => 'min-width: 4rem;',
 				CForm::attribute => array(
-					'data-menu_item_id' => $DAO_menu_item->id
+					'data-menu_item_id' => $DAO_menu_item->id,
+					'data-recipe_id' => $DAO_menu_item->recipe_id
 				),
 				CForm::options => array(
 					'1' => 'Yes',
@@ -182,7 +183,8 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::css_class => 'custom-select-sm menu-editor-pic',
 				CForm::style => 'min-width: 4rem;',
 				CForm::attribute => array(
-					'data-menu_item_id' => $DAO_menu_item->id
+					'data-menu_item_id' => $DAO_menu_item->id,
+					'data-recipe_id' => $DAO_menu_item->recipe_id
 				),
 				CForm::options => array(
 					'1' => 'Yes',
@@ -196,7 +198,8 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::css_class => 'custom-select-sm menu-editor-form',
 				CForm::style => 'min-width: 4rem;',
 				CForm::attribute => array(
-					'data-menu_item_id' => $DAO_menu_item->id
+					'data-menu_item_id' => $DAO_menu_item->id,
+					'data-recipe_id' => $DAO_menu_item->recipe_id
 				),
 				CForm::options => array(
 					'1' => 'Yes',
@@ -210,7 +213,8 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::css_class => 'custom-select-sm menu-editor-hid',
 				CForm::style => 'min-width: 4rem;',
 				CForm::attribute => array(
-					'data-menu_item_id' => $DAO_menu_item->id
+					'data-menu_item_id' => $DAO_menu_item->id,
+					'data-recipe_id' => $DAO_menu_item->recipe_id
 				),
 				CForm::options => array(
 					'1' => 'Yes',
@@ -227,6 +231,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::attribute => array(
 					'data-orgval' => $DAO_menu_item->DAO_menu_to_menu_item->override_price,
 					'data-menu_item_id' => $DAO_menu_item->id,
+					'data-recipe_id' => $DAO_menu_item->recipe_id,
 					'data-lowest_tier_price' => !empty($DAO_menu_item->pricing_tiers[1][$DAO_menu_item->pricing_type]->price) ? $DAO_menu_item->pricing_tiers[1][$DAO_menu_item->pricing_type]->price : 'null',
 					'data-highest_tier_price' => !empty($DAO_menu_item->pricing_tiers[3][$DAO_menu_item->pricing_type]->price) ? $DAO_menu_item->pricing_tiers[3][$DAO_menu_item->pricing_type]->price : 'null'
 				),
