@@ -1,7 +1,6 @@
 $(document).on('click', '.sides-sweets-save', function (e) {
 
 	e.preventDefault()
-	let form = this;
 
 	bootbox.dialog({
 		title: 'Confirmation',
@@ -11,7 +10,7 @@ $(document).on('click', '.sides-sweets-save', function (e) {
 			confirm: {
 				label: 'Safe defualts',
 				className: 'btn-danger',
-				callback: function(){
+				callback: function () {
 
 					let saving_sides = bootbox.dialog({
 						message: '<p><i class="fa fa-spin fa-spinner"></i> Saving defaults, please wait.</p>',
@@ -74,7 +73,7 @@ $(document).on('click', '.sides-sweets-save', function (e) {
 				}
 			},
 			cancel: {
-				label: 'Cancel',
+				label: 'Cancel'
 			}
 		}
 	});
@@ -83,45 +82,70 @@ $(document).on('click', '.sides-sweets-save', function (e) {
 
 $(document).on('click', '.sides-sweets-retrieve', function (e) {
 
-	$.ajax({
-		url: '/processor',
-		type: 'POST',
-		timeout: 20000,
-		dataType: 'json',
-		data: {
-			processor: 'admin_defaultPricingProcessor',
-			store_id: STORE_DETAILS.id,
-			action: 'retrieve'
-		},
-		success: function (json) {
-			if (json.processor_success)
+	bootbox.prompt({
+		title: "Which settings do you wish to recieve?",
+		inputType: 'checkbox',
+		inputOptions: [
 			{
-				$.each(json.settings, function (recipe_id, setting) {
-
-					$('.menu-editor-ovr[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['ovr']).trigger('change');
-					$('.menu-editor-vis[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['vis']).trigger('change');
-					$('.menu-editor-hid[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['hid']).trigger('change');
-
-				});
-
-			}
-			else
+				text: 'Price',
+				value: 'ovr'
+			},
 			{
-				dd_message({
-					title: 'Error',
-					message: json.processor_message
-				});
+				text: 'Show on customer menu',
+				value: 'vis'
 			}
-		},
-		error: function (objAJAXRequest, strError) {
-			response = 'Unexpected error: ' + strError;
-			dd_message({
-				title: 'Error',
-				message: response
+		],
+		centerVertical: true,
+		callback: function (result) {
+
+			$.ajax({
+				url: '/processor',
+				type: 'POST',
+				timeout: 20000,
+				dataType: 'json',
+				data: {
+					processor: 'admin_defaultPricingProcessor',
+					store_id: STORE_DETAILS.id,
+					action: 'retrieve'
+				},
+				success: function (json) {
+					if (json.processor_success)
+					{
+						$.each(json.settings, function (recipe_id, setting) {
+
+							if (result.includes('ovr'))
+							{
+								$('.menu-editor-ovr[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['ovr']).trigger('change');
+							}
+
+							if (result.includes('vis'))
+							{
+								$('.menu-editor-vis[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['vis']).trigger('change');
+								$('.menu-editor-hid[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['hid']).trigger('change');
+							}
+
+						});
+					}
+					else
+					{
+						dd_message({
+							title: 'Error',
+							message: json.processor_message
+						});
+					}
+				},
+				error: function (objAJAXRequest, strError) {
+					response = 'Unexpected error: ' + strError;
+					dd_message({
+						title: 'Error',
+						message: response
+					});
+
+				}
+
 			});
 
 		}
-
 	});
 
 });
@@ -174,7 +198,7 @@ $(document).on('submit', '#menu_editor_form', function (e) {
 			confirm: {
 				label: 'Finalize Changes',
 				className: 'btn-danger',
-				callback: function(){
+				callback: function () {
 					$('#action').val('finalize')
 					form.submit();
 
@@ -186,7 +210,7 @@ $(document).on('submit', '#menu_editor_form', function (e) {
 				}
 			},
 			cancel: {
-				label: 'Cancel',
+				label: 'Cancel'
 			}
 		}
 	});
@@ -404,7 +428,8 @@ $(document).on('click', '#add_past_menu_item_sides:not(.disabled)', function (e)
 					let thisEntree = $(this).data('entree_id');
 					entreeList[thisEntree] = thisEntree;
 					let categoryLabel = $("[data-recipe_category=" + thisEntree + "]:visible").find(":selected").val();
-					if (typeof categoryLabel == 'undefined'){
+					if (typeof categoryLabel == 'undefined')
+					{
 						categoryLabel = $("[data-recipe_category=" + thisEntree + "]:visible").html();
 					}
 
@@ -413,7 +438,9 @@ $(document).on('click', '#add_past_menu_item_sides:not(.disabled)', function (e)
 
 						$("[data-recipe_category=" + thisEntree + "]").css("border-color", "red");
 						errorMissingCategory = true;
-					}else{
+					}
+					else
+					{
 						entreeList[thisEntree] = categoryLabel;
 					}
 				});
