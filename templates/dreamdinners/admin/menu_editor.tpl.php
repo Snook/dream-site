@@ -59,40 +59,9 @@
 			</div>
 
 			<div class="form-row">
-
-				<?php if (!$this->DAO_order_minimum->isZeroDollarAssembly() && $this->allow_assembly_fee) { ?>
-
-					<div class="form-group col">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<div class="input-group-text">
-									Delivery Assembly Fee $
-								</div>
-							</div>
-							<?php echo $this->form['delivery_assembly_fee_html']; ?>
-						</div>
-					</div>
-
-					<div class="form-group col">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<div class="input-group-text">
-									Assembly Fee $
-								</div>
-							</div>
-							<?php echo $this->form['assembly_fee_html']; ?>
-						</div>
-					</div>
-
-				<?php } ?>
-
-			</div>
-
-			<div class="form-row">
 				<div class="form-group col text-right">
 					<input type="submit" name="submit_changes" value="Finalize All Changes" class="btn btn-primary" />
 					<input type="reset" value="Reset to Current" class="btn btn-primary" />
-					<div id="saved_message" class="text-danger font-weight-bold collapse">Your changes have not yet been saved. Finalize all changes to see updated values.</div>
 				</div>
 			</div>
 
@@ -111,7 +80,7 @@
 
 					<div class="tab-content bg-white" id="nav-tabContent">
 						<div class="tab-pane fade show active" id="nav-specials" role="tabpanel" aria-labelledby="nav-specials-tab">
-							<table id="itemsTbl" class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
+							<table class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
 								<thead class="text-center bg-white sticky-top ddtemp-z-index-0">
 								<tr>
 									<th class="align-middle">Show on customer menu</th>
@@ -152,7 +121,17 @@
 											</td>
 
 											<td class="align-middle">
-												<?php echo $this->form[$DAO_menu_item->id . '_ovr_html']; ?>
+												<div class="input-group flex-nowrap">
+													<?php echo $this->form[$DAO_menu_item->id . '_ovr_html']; ?>
+													<div class="input-group-append">
+														<span class="ovr-alert-danger input-group-text collapse" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>">
+															<i class="fas fa-exclamation-triangle text-danger" data-toggle="tooltip" data-placement="top" title="Price outside highest and lowest tier prices"></i>
+														</span>
+														<span class="ovr-alert-warning input-group-text collapse" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>">
+															<i class="fas fa-exclamation-circle text-warning" data-toggle="tooltip" data-placement="top" title="Recommended pricing ends with .49 or .99"></i>
+														</span>
+													</div>
+												</div>
 											</td>
 
 											<td class="align-middle">
@@ -172,7 +151,7 @@
 								<span id="add_past_menu_item" data-menu_id="<?php echo $this->DAO_menu->id; ?>" class="btn btn-primary">Add EFL Menu Item</span>
 							</div>
 
-							<table id="EFLitemsTbl" class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
+							<table class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
 								<thead class="text-center bg-white sticky-top ddtemp-z-index-0">
 								<tr>
 									<th class="align-middle">Show on customer menu</th>
@@ -238,17 +217,12 @@
 
 						</div>
 						<div class="tab-pane fade" id="nav-sides" role="tabpanel" aria-labelledby="nav-sides-tab">
-							<?php if (!$this->limitToInventoryControl) { ?>
-								<div class="col text-right py-2" id="CTS_default_price_control">
-									<button type="button" class="btn btn-primary sides-sweets-save">Save Sides &amp; Sweets Defaults</button>
-									<button type="button" class="btn btn-primary sides-sweets-retrieve">Retrieve Sides &amp; Sweets Defaults</button>
-									<br />
-									<span id="dp_error" class="warning_text"></span>
-									<span id="dp_proc_mess" class="collapse"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/throbber_processing_noborder.gif" alt="Processing" /></span>
-								</div>
-							<?php } ?>
+							<div class="col text-right py-2" id="CTS_default_price_control">
+								<button type="button" class="btn btn-primary sides-sweets-save">Save Sides &amp; Sweets Defaults</button>
+								<button type="button" class="btn btn-primary sides-sweets-retrieve">Retrieve Sides &amp; Sweets Defaults</button>
+							</div>
 
-							<table id="ctsItemsTbl" class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
+							<table class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
 								<thead class="text-center bg-white sticky-top ddtemp-z-index-0">
 								<tr>
 									<th class="align-middle">Show on customer menu</th>
@@ -286,18 +260,13 @@
 						</div>
 
 						<div class="tab-pane fade" id="nav-sides-hidden" role="tabpanel" aria-labelledby="nav-sides-hidden-tab">
-							<?php if (!$this->limitToInventoryControl) { ?>
-								<div class="col text-right py-2" id="CTS_default_price_control">
-									<?php if ($this->DAO_menu->isEnabled_Add_Sides_and_EFL()) {?>
-										<span id="add_past_menu_item_sides" data-menu_id="<?php echo $this->DAO_menu->id; ?>" class="btn btn-primary <?php if (!$this->DAO_menu->isEnabled_Add_Sides_and_EFL()) { ?>disabled<?php } ?>">Add Sides & Sweets Menu Item</span>
-									<?php } ?>
-									<button type="button" class="btn btn-primary sides-sweets-save">Save Sides &amp; Sweets Defaults</button>
-									<button type="button" class="btn btn-primary sides-sweets-retrieve">Retrieve Sides &amp; Sweets Defaults</button>
-									<br />
-									<span id="dp_error" class="warning_text"></span>
-									<span id="dp_proc_mess" class="collapse"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/throbber_processing_noborder.gif" alt="Processing" /></span>
-								</div>
-							<?php } ?>
+							<div class="col text-right py-2" id="CTS_default_price_control">
+								<?php if ($this->DAO_menu->isEnabled_Add_Sides_and_EFL()) {?>
+									<span id="add_past_menu_item_sides" data-menu_id="<?php echo $this->DAO_menu->id; ?>" class="btn btn-primary <?php if (!$this->DAO_menu->isEnabled_Add_Sides_and_EFL()) { ?>disabled<?php } ?>">Add Sides & Sweets Menu Item</span>
+								<?php } ?>
+								<button type="button" class="btn btn-primary sides-sweets-save">Save Sides &amp; Sweets Defaults</button>
+								<button type="button" class="btn btn-primary sides-sweets-retrieve">Retrieve Sides &amp; Sweets Defaults</button>
+							</div>
 
 							<table class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
 								<thead class="text-center bg-white sticky-top ddtemp-z-index-0">
@@ -339,7 +308,7 @@
 						<div class="tab-pane fade" id="nav-pricing" role="tabpanel" aria-labelledby="nav-pricing-tab">
 							<br/>
 
-							<table id="pricingTbl" class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
+							<table class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
 								<thead class="text-center bg-white sticky-top ddtemp-z-index-0">
 								<tr>
 									<th class="align-middle text-left"></th>
@@ -419,10 +388,8 @@
 			<div class="row">
 				<div class="col-7">
 					<ul class="list-unstyled">
-						<li><span class="font-weight-bold">Base Price:</span> Pricing set by Home Office.</li>
-						<li><span class="font-weight-bold">Current Price:</span> Current store pricing in effect based on markup settings saved.</li>
-						<li><span class="font-weight-bold">Markup Price:</span> Price with mark up added.</li>
-						<li><span class="font-weight-bold">Price:</span> Price as directly input by store.</li>
+						<li><i class="fas fa-exclamation-triangle text-danger" data-toggle="tooltip" data-placement="top" title="Price outside highest and lowest tier prices"></i> Price outside highest and lowest tier prices</li>
+						<li><i class="fas fa-exclamation-circle text-warning" data-toggle="tooltip" data-placement="top" title="Recommended pricing ends with .49 or .99"></i> Recommended pricing ends with .49 or .99</li>
 					</ul>
 				</div>
 				<div class="col-5 text-right">
@@ -430,7 +397,6 @@
 						<input type="submit" name="submit_changes" value="Finalize All Changes" class="btn btn-primary" />
 						<input type="reset" value="Reset to Current" class="btn btn-primary" />
 					</div>
-					<div id="saved_message_2" class="text-danger font-weight-bold collapse">Your changes have not yet been saved. Finalize all changes to see updated values.</div><br />
 				</div>
 			</div>
 

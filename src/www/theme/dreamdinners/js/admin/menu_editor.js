@@ -196,21 +196,40 @@ $(document).on('change', '.menu-editor-vis, .menu-editor-form, .menu-editor-pic'
 
 $(document).on('change keyup', '.menu-editor-ovr', function (e) {
 
+	let menu_item_id = $(this).data('menu_item_id');
+	let lowest_tier_price = Number($(this).data('lowest_tier_price')).toFixed(2);
+	let highest_tier_price = Number($(this).data('highest_tier_price')).toFixed(2);
+	let ovr_value = Number($(this).val()).toFixed(2);
+	var priceArray = ovr_value.split('.');
+
+	$(this).removeClass('border-orange');
+	$('.ovr-alert-danger[data-menu_item_id="' + menu_item_id + '"]').hideFlex();
+	$('.ovr-alert-warning[data-menu_item_id="' + menu_item_id + '"]').hideFlex();
+
 	if ($(this).valNotDefault())
 	{
 		$(this).addClass('border-orange');
 	}
-	else
+
+	if (ovr_value < lowest_tier_price || ovr_value > highest_tier_price)
 	{
-		$(this).removeClass('border-orange');
+		$('.ovr-alert-danger[data-menu_item_id="' + menu_item_id + '"]').showFlex();
+	}
+
+	if (priceArray[1] != '99' && priceArray[1] != '49')
+	{
+		$('.ovr-alert-warning[data-menu_item_id="' + menu_item_id + '"]').showFlex();
 	}
 
 });
 
 $(document).on('reset', '#menu_editor_form', function (e) {
 
-	$('#menu_editor_form').removeClass('was-validated');
-	$('.menu-editor-vis, .menu-editor-form, .menu-editor-pic, .menu-editor-hid, .menu-editor-ovr').removeClass('border-orange');
+	// Timeout ensures form is reset first
+	setTimeout(function() {
+		$('#menu_editor_form').removeClass('was-validated');
+		$('.menu-editor-vis, .menu-editor-form, .menu-editor-pic, .menu-editor-hid, .menu-editor-ovr').removeClass('border-orange').trigger('change');
+	}, 1);
 
 });
 

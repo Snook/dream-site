@@ -107,11 +107,28 @@ class page_admin_menu_editor extends CPageAdminOnly
 			while ($DAO_menu_item->fetch())
 			{
 				$update_DAO_menu_to_menu_item = clone $DAO_menu_item->DAO_menu_to_menu_item;
-				$update_DAO_menu_to_menu_item->is_visible = !empty($_POST[$DAO_menu_item->id . '_vis']) ? 1 : 0;
-				$update_DAO_menu_to_menu_item->show_on_pick_sheet = !empty($_POST[$DAO_menu_item->id . '_pic']) ? 1 : 0;
-				$update_DAO_menu_to_menu_item->show_on_order_form = !empty($_POST[$DAO_menu_item->id . '_form']) ? 1 : 0;
-				$update_DAO_menu_to_menu_item->is_hidden_everywhere = !empty($_POST[$DAO_menu_item->id . '_hid']) ? 1 : 0;
-				$update_DAO_menu_to_menu_item->override_price = CTemplate::number_format($_POST[$DAO_menu_item->id . '_ovr']);
+
+				if (isset($_POST[$DAO_menu_item->id . '_vis']))
+				{
+					$update_DAO_menu_to_menu_item->is_visible = !empty($_POST[$DAO_menu_item->id . '_vis']) ? 1 : 0;
+				}
+				if (isset($_POST[$DAO_menu_item->id . '_pic']))
+				{
+					$update_DAO_menu_to_menu_item->show_on_pick_sheet = !empty($_POST[$DAO_menu_item->id . '_pic']) ? 1 : 0;
+				}
+				if (isset($_POST[$DAO_menu_item->id . '_form']))
+				{
+					$update_DAO_menu_to_menu_item->show_on_order_form = !empty($_POST[$DAO_menu_item->id . '_form']) ? 1 : 0;
+				}
+				if (isset($_POST[$DAO_menu_item->id . '_hid']))
+				{
+					$update_DAO_menu_to_menu_item->is_hidden_everywhere = !empty($_POST[$DAO_menu_item->id . '_hid']) ? 1 : 0;
+				}
+				if (isset($_POST[$DAO_menu_item->id . '_ovr']))
+				{
+					$update_DAO_menu_to_menu_item->override_price = CTemplate::number_format($_POST[$DAO_menu_item->id . '_ovr']);
+				}
+
 				$update_DAO_menu_to_menu_item->update($DAO_menu_item->DAO_menu_to_menu_item);
 			}
 		}
