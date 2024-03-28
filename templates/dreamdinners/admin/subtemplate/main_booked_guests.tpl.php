@@ -175,7 +175,7 @@ if( !function_exists('translateOrderQuantityType')){
 
 						<?php if (empty($booking['future_session'])) { ?>
 							<div class="clear"></div>
-							<div class="no_future_session_warning">Guest does not have a future session.</div>
+							<div class="alert alert-danger mt-3">Guest does not have a future session.</div>
 						<?php }  ?>
 
 					</td>
