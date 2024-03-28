@@ -196,8 +196,6 @@ $(document).on('change', '.menu-editor-vis, .menu-editor-form, .menu-editor-pic'
 
 $(document).on('change keyup', '.menu-editor-ovr', function (e) {
 
-	let menu_item_id = $(this).data('menu_item_id');
-
 	if ($(this).valNotDefault())
 	{
 		$(this).addClass('border-orange');
@@ -212,7 +210,7 @@ $(document).on('change keyup', '.menu-editor-ovr', function (e) {
 $(document).on('reset', '#menu_editor_form', function (e) {
 
 	$('#menu_editor_form').removeClass('was-validated');
-	$('.menu-editor-vis, .menu-editor-form, .menu-editor-pic, .menu-editor-hid, .menu-editor-ovr').removeClass('border-orange').trigger('change');
+	$('.menu-editor-vis, .menu-editor-form, .menu-editor-pic, .menu-editor-hid, .menu-editor-ovr').removeClass('border-orange');
 
 });
 
