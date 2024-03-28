@@ -216,33 +216,39 @@ $(document).on('reset', '#menu_editor_form', function (e) {
 
 $(document).on('submit', '#menu_editor_form', function (e) {
 
-	e.preventDefault()
-	let form = this;
+	if ($(this)['0'].checkValidity() !== false)
+	{
+		let form = this;
 
-	bootbox.dialog({
-		title: 'Confirmation',
-		message: "<p>Are you sure you wish to save all menu editor changes?</p>",
-		centerVertical: true,
-		buttons: {
-			confirm: {
-				label: 'Finalize Changes',
-				className: 'btn-danger',
-				callback: function () {
-					$('#action').val('finalize')
-					form.submit();
+		bootbox.dialog({
+			title: 'Confirmation',
+			message: "<p>Are you sure you wish to save all menu editor changes?</p>",
+			centerVertical: true,
+			buttons: {
+				confirm: {
+					label: 'Finalize Changes',
+					className: 'btn-danger',
+					callback: function () {
+						$('#action').val('finalize')
+						form.submit();
 
-					bootbox.dialog({
-						message: '<p><i class="fa fa-spin fa-spinner"></i> Finalizing changes, please wait.</p>',
-						centerVertical: true,
-						closeButton: false
-					});
+						bootbox.dialog({
+							message: '<p><i class="fa fa-spin fa-spinner"></i> Finalizing changes, please wait.</p>',
+							centerVertical: true,
+							closeButton: false
+						});
+					}
+				},
+				cancel: {
+					label: 'Cancel'
 				}
-			},
-			cancel: {
-				label: 'Cancel'
 			}
-		}
-	});
+		});
+	}
+	else
+	{
+		bootbox.alert("<p>Issue with submission, check tabs for required fields.</p>");
+	}
 
 });
 
