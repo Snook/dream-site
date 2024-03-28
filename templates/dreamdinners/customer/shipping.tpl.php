@@ -97,8 +97,7 @@
 
 		<section>
 			<div class="container-fluid my-5">
-				<div class="col-sm-12 text-center">
-					<h2 class="mb-1 mt-4 font-weight-bold">Order In a Snap</h2></div>
+				<div class="col-sm-12 text-center"><h2 class="mb-1 mt-4 font-weight-bold">Order In a Snap</h2></div>
 				<div class="row">
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/noodle-bowl-and-drink-600x350.webp" alt="Woman enjoying a noodle bowl" class="img-fluid">
@@ -111,11 +110,6 @@
 						<p class="mb-4">Congratulate your friends and family on their new addition with easy, quick dinners including Chicken Egg Roll Bowl, Savannah Grilled Chicken with Seasoned Onion Rings, Pesto Cheese Ravioli with Chicken and Walnuts, and Surf and Turf Yakisoba Noodles. Show your love with easy, homemade meals.</p>
 					</div>
 				</div>
-			</div>
-		</section>
-
-		<section>
-			<div class="container mb-5">
 				<div class="row">
 					<div class="col offset-md-2 col-md-8">
 					<h2 class="font-weight-bold font-marker mt-2">Ready to start cooking?</h2>
@@ -135,6 +129,12 @@
 						</form>
 					</div>
 				</div>
+			</div>
+		</section>
+
+		<section>
+			<div class="container mb-5">
+				
 
 				<div class="row">
 					<div class="col">
