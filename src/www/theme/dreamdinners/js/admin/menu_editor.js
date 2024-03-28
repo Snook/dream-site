@@ -201,10 +201,10 @@ $(document).on('change', '.menu-editor-vis, .menu-editor-form, .menu-editor-pic'
 $(document).on('change keyup', '.menu-editor-ovr', function (e) {
 
 	let menu_item_id = $(this).data('menu_item_id');
-	let lowest_tier_price = Number($(this).data('lowest_tier_price')).toFixed(2);
-	let highest_tier_price = Number($(this).data('highest_tier_price')).toFixed(2);
-	let ovr_value = Number($(this).val()).toFixed(2);
-	var priceArray = ovr_value.split('.');
+	let lowest_tier_price = Number($(this).data('lowest_tier_price'));
+	let highest_tier_price = Number($(this).data('highest_tier_price'))
+	let ovr_value = Number(Number($(this).val()).toFixed(2));
+	var priceArray = Number($(this).val()).toFixed(2).split('.');
 
 	$(this).removeClass('border-orange');
 	$('.ovr-alert-danger[data-menu_item_id="' + menu_item_id + '"]').hideFlex();
