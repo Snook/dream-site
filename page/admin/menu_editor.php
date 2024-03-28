@@ -56,10 +56,10 @@ class page_admin_menu_editor extends CPageAdminOnly
 		}
 
 		// Determine menu to display
-		if (!empty($_GET['menu']) && is_numeric($_GET['menu']) && array_key_exists($_GET['menu'], $menuOptions)) // url menu
+		if (!empty($_REQUEST['menu']) && is_numeric($_REQUEST['menu']) && array_key_exists($_REQUEST['menu'], $menuOptions)) // url menu
 		{
 			$DAO_menu = DAO_CFactory::create('menu', true);
-			$DAO_menu->id = $_GET['menu'];
+			$DAO_menu->id = $_REQUEST['menu'];
 			$DAO_menu->find_DAO_menu(true);
 		}
 		else if (CBrowserSession::getValue('backoffice_current_menu')) // cookie menu
@@ -249,6 +249,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::css_class => 'form-control-sm menu-editor-ovr',
 				CForm::style => 'min-width: 6rem;',
 				CForm::required => true,
+				CForm::pattern => '^\d+\.\d{0,2}$',
 				CForm::attribute => array(
 					'data-menu_item_id' => $DAO_menu_item->id,
 					'data-recipe_id' => $DAO_menu_item->recipe_id,

@@ -1,3 +1,7 @@
+$(document).ready(function () {
+	$('.menu-editor-ovr').trigger('change');
+});
+
 $(document).on('click', '.sides-sweets-save', function (e) {
 
 	e.preventDefault()
@@ -211,45 +215,78 @@ $(document).on('change keyup', '.menu-editor-ovr', function (e) {
 		$(this).addClass('border-orange');
 	}
 
-	if (ovr_value < lowest_tier_price || ovr_value > highest_tier_price)
+	// If the tier prices are zero, nothing to do
+	if (lowest_tier_price > 0 && highest_tier_price > 0)
 	{
-		$('.ovr-alert-danger[data-menu_item_id="' + menu_item_id + '"]').showFlex();
+		if (ovr_value < lowest_tier_price || ovr_value > highest_tier_price)
+		{
+			$('.ovr-alert-danger[data-menu_item_id="' + menu_item_id + '"]').showFlex();
+		}
 	}
 
-	if (priceArray[1] != '99' && priceArray[1] != '49')
+	// Only if the price isn't zero
+	if (ovr_value > 0 && priceArray[1] != '99' && priceArray[1] != '49')
 	{
 		$('.ovr-alert-warning[data-menu_item_id="' + menu_item_id + '"]').showFlex();
 	}
 
 });
 
-$(document).on('reset', '#menu_editor_form', function (e) {
+$(document).on('click', '.menu-editor-reset', function (e) {
 
-	// Timeout ensures form is reset first
-	setTimeout(function() {
-		$('#menu_editor_form').removeClass('was-validated');
-		$('.menu-editor-vis, .menu-editor-form, .menu-editor-pic, .menu-editor-hid, .menu-editor-ovr').removeClass('border-orange').trigger('change');
-	}, 1);
+	bootbox.dialog({
+		title: 'Confirmation',
+		message: "<p>Are you sure you wish to reset all currently pending changes?</p>",
+		centerVertical: true,
+		buttons: {
+			confirm: {
+				label: 'Reset changes',
+				className: 'btn-danger',
+				callback: function () {
+
+					$("#menu_editor_form").trigger('reset');
+
+					// Timeout ensures form is reset first
+					setTimeout(function() {
+						$('#menu_editor_form').removeClass('was-validated');
+						$('.menu-editor-vis, .menu-editor-form, .menu-editor-pic, .menu-editor-hid, .menu-editor-ovr').removeClass('border-orange').trigger('change');
+					}, 1);
+				}
+			},
+			cancel: {
+				label: 'Cancel'
+			}
+		}
+	});
 
 });
 
-$(document).on('submit', '#menu_editor_form', function (e) {
+$(document).on('submit keydown keyup', '#menu_editor_form', function (e) {
 
-	if ($(this)['0'].checkValidity() !== false)
+	if(e.keyCode == 13)
 	{
-		let form = this;
+		e.preventDefault();
+		return false;
+	}
 
+});
+
+$(document).on('click', '.menu-editor-finalize', function (e) {
+
+	if ($('#menu_editor_form')['0'].checkValidity() !== false)
+	{
 		bootbox.dialog({
 			title: 'Confirmation',
 			message: "<p>Are you sure you wish to save all menu editor changes?</p>",
 			centerVertical: true,
 			buttons: {
 				confirm: {
-					label: 'Finalize Changes',
+					label: 'Finalize changes',
 					className: 'btn-danger',
 					callback: function () {
+
 						$('#action').val('finalize')
-						form.submit();
+						$("#menu_editor_form").trigger('submit');
 
 						bootbox.dialog({
 							message: '<p><i class="fa fa-spin fa-spinner"></i> Finalizing changes, please wait.</p>',

@@ -34,7 +34,17 @@
 	</td>
 
 	<td class="align-middle">
-		<?php echo $this->form[$DAO_menu_item->id . '_ovr_html']; ?>
+		<div class="input-group flex-nowrap">
+			<?php echo $this->form[$DAO_menu_item->id . '_ovr_html']; ?>
+			<div class="input-group-append">
+				<span class="ovr-alert-danger input-group-text collapse" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>">
+					<i class="fas fa-exclamation-triangle text-danger" data-toggle="tooltip" data-placement="top" title="Price outside highest and lowest tier prices"></i>
+				</span>
+				<span class="ovr-alert-warning input-group-text collapse" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>">
+					<i class="fas fa-exclamation-circle text-warning" data-toggle="tooltip" data-placement="top" title="Recommended pricing ends with .49 or .99"></i>
+				</span>
+			</div>
+		</div>
 	</td>
 
 	<td class="align-middle">
