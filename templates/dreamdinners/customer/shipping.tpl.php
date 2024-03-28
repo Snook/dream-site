@@ -29,7 +29,7 @@
 					</div>
 				</div>
 				<div class="row justify-content-center">
-					<div class="col-lg-6 col-xl-4">
+					<div class="col-lg-5 col-xl-4">
 						<h1 class="font-weight-bold font-marker mt-2">Get Dream Dinners Shipped to Your Door</h1>
 						<p class="text-uppercase mb-4">Real food made from scratch, so your life can feel a little easier.</p>
 						<p>Four easy, homemade meals prepped and ready to cook, most in less than 30 minutes. Order when you want, no subscription necessary. Enter your zip code to see if we can deliver to you. Great for travel or a gift for new baby, new home, mothers's day and more!</p>
@@ -47,7 +47,7 @@
 							</div>
 						</form>
 					</div>
-					<div class="col-lg-6 col-xl-4">
+					<div class="col-lg-7 col-xl-4">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/apr24-shipping-collage-957x657.webp" alt="April Menu" class="img-fluid">
 					</div>
 				</div>
@@ -111,9 +111,11 @@
 		</section>
 
 		<section>
-			<div class="container my-5">
+			<div class="container my-2">
 				<div class="row my-2">
 					<div class="col offset-md-2 col-md-8">
+					<h2 class="font-weight-bold font-marker mt-2">Get Dream Dinners Shipped to Your Door</h2>
+						<p class="text-uppercase mb-3">Real food made from scratch, so your life can feel a little easier.</p>
 						<form action="/locations" method="post" class="form-shipping-search needs-validation" novalidate>
 							<div class="form-group mx-auto">
 								<div class="input-group">

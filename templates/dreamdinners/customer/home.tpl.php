@@ -70,7 +70,7 @@
 		<section>
 			<div class="container my-5">
 
-				<div class="col-lg-7 mx-lg-auto">
+				<div class="col-lg-8 mx-lg-auto">
 					<h1 class="font-marker">Your Local Meal Kit Solution</h1>
 					<p class="text-uppercase">Real food made from scratch, so your life can feel a little easier.</p>
 					<form action="/locations" method="post">
@@ -91,6 +91,7 @@
 				</div>
 
 				<div class="row">
+				<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 					<div class="col">
 						<div class="text-center">
 							<h2 class="mt-4 mb-4 font-weight-bold">Meals Made In A Snap</h2>
