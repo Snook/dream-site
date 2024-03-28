@@ -85,7 +85,7 @@ $(document).on('click', '.sides-sweets-retrieve', function (e) {
 	e.preventDefault()
 
 	bootbox.prompt({
-		title: "Which settings do you wish to recieve?",
+		title: "Which settings do you wish to retrieve?",
 		inputType: 'checkbox',
 		inputOptions: [
 			{
