@@ -28,35 +28,12 @@
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/crispy-shrimp-green-beans-in-a-snap-header-1920x600.webp" alt="Family making and eating a meal together" class="img-fluid" />
 					</div>
 				</div>
-				<div class="row justify-content-center">
-					<div class="col-lg-5 col-xl-4">
-						<h1 class="font-weight-bold font-marker mt-2">Get Dream Dinners Shipped to Your Door</h1>
-						<p class="text-uppercase mb-4">Real food made from scratch, so your life can feel a little easier.</p>
-						<p>Four easy, homemade meals prepped and ready to cook, most in less than 30 minutes. Order when you want, no subscription necessary. Enter your zip code to see if we can deliver to you. Great for travel or a gift for new baby, new home, mothers's day and more!</p>
-						<form action="/locations" method="post" class="form-shipping-search needs-validation" novalidate>
-							<div class="form-group mx-auto">
-								<div class="input-group">
-									<div class="input-group-append">
-										<span class="input-group-text">Zip code</span>
-									</div>
-									<input type="number" class="form-control form-shipping-search-zip" required>
-									<div class="input-group-append">
-										<button type="submit" value="Get Started" class="btn btn-primary">View menu</button>
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
-					<div class="col-lg-7 col-xl-4">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/apr24-shipping-collage-957x657.webp" alt="April Menu" class="img-fluid">
-					</div>
-				</div>
 			</div>
 		</section>
 		<section>
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
-					<div class="col-md-6 text-left p-5 my-5">
+					<div class="col-md-5 text-left p-5 my-5">
 						<h1 class="font-weight-bold font-marker mt-2">Get Dream Dinners Shipped to Your Door</h1>
 						<p class="text-uppercase mb-4">Real food made from scratch, so your life can feel a little easier.</p>
 						<p>Four easy, homemade meals prepped and ready to cook, most in less than 30 minutes. Order when you want, no subscription necessary. Enter your zip code to see if we can deliver to you. Great for travel or a gift for new baby, new home, mothers's day and more!</p>
@@ -74,7 +51,7 @@
 							</div>
 						</form>
 					</div>
-					<div class="col-md-6 p-0">
+					<div class="col-md-7 p-0">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/apr24-shipping-collage-957x657.webp" alt="April Menu" class="img-fluid">
 					</div>
 
@@ -138,11 +115,11 @@
 		</section>
 
 		<section>
-			<div class="container my-2">
-				<div class="row my-2">
+			<div class="container mb-5">
+				<div class="row">
 					<div class="col offset-md-2 col-md-8">
-					<h2 class="font-weight-bold font-marker mt-2">Get Dream Dinners Shipped to Your Door</h2>
-						<p class="text-uppercase mb-3">Real food made from scratch, so your life can feel a little easier.</p>
+					<h2 class="font-weight-bold font-marker mt-2">Ready to start cooking?</h2>
+						<p class="text-uppercase mb-3">Enter you zip code to see the menu.</p>
 						<form action="/locations" method="post" class="form-shipping-search needs-validation" novalidate>
 							<div class="form-group mx-auto">
 								<div class="input-group">
@@ -163,7 +140,7 @@
 					<div class="col">
 						<div class="text-center">
 							<h2 class="mt-5 mb-4 font-weight-bold">The Dream Dinners Difference</h2>
-							<div class="border-bottom border-green-dark mb-3 mx-5"></div>
+							<!--<div class="border-bottom border-green-dark mb-3 mx-5"></div>-->
 						</div>
 					</div>
 				</div>
