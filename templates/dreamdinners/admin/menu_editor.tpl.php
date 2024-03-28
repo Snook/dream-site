@@ -60,8 +60,8 @@
 
 			<div class="form-row">
 				<div class="form-group col text-right">
-					<button class="btn btn-primary menu-editor-finalize">Finalize All Changes</button>
-					<button class="btn btn-primary menu-editor-reset">Reset to Curren</button>
+					<span class="btn btn-primary menu-editor-finalize">Finalize All Changes</span>
+					<span class="btn btn-primary menu-editor-reset">Reset to Curren</span>
 				</div>
 			</div>
 
@@ -404,8 +404,8 @@
 				</div>
 				<div class="col-5 text-right">
 					<div>
-						<button class="btn btn-primary menu-editor-finalize">Finalize All Changes</button>
-						<button class="btn btn-primary menu-editor-reset">Reset to Curren</button>
+						<span class="btn btn-primary menu-editor-finalize">Finalize All Changes</span>
+						<span class="btn btn-primary menu-editor-reset">Reset to Curren</span>
 					</div>
 				</div>
 			</div>
