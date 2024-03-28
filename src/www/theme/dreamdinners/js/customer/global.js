@@ -917,6 +917,39 @@ function strip_tags(input, allowed)
 		return this;
 	};
 
+	$.fn.valNotDefault = function () {
+
+		if (typeof this[0].dataset.valdefault !== 'undefined')
+		{
+			if (this.value !== this.dataset.valdefault)
+			{
+				return true;
+			}
+		}
+		else if (typeof this[0].defaultValue !== 'undefined')
+		{
+			if (this.value !== this.defaultValue)
+			{
+				return true;
+			}
+		}
+		else if (this[0].type == 'select-one')
+		{
+			for (var i = 0; i < this[0].options.length; i++)
+			{
+				if (this[0].options[i].defaultSelected == true)
+				{
+					if (this[0].value !== this[0].options[i].value)
+					{
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
+	};
+
 	$.fn.valDefault = function (value) {
 
 		if (typeof value !== 'undefined')

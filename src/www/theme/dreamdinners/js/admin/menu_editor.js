@@ -82,6 +82,8 @@ $(document).on('click', '.sides-sweets-save', function (e) {
 
 $(document).on('click', '.sides-sweets-retrieve', function (e) {
 
+	e.preventDefault()
+
 	bootbox.prompt({
 		title: "Which settings do you wish to recieve?",
 		inputType: 'checkbox',
@@ -98,53 +100,55 @@ $(document).on('click', '.sides-sweets-retrieve', function (e) {
 		centerVertical: true,
 		callback: function (result) {
 
-			$.ajax({
-				url: '/processor',
-				type: 'POST',
-				timeout: 20000,
-				dataType: 'json',
-				data: {
-					processor: 'admin_defaultPricingProcessor',
-					store_id: STORE_DETAILS.id,
-					action: 'retrieve'
-				},
-				success: function (json) {
-					if (json.processor_success)
-					{
-						$.each(json.settings, function (recipe_id, setting) {
+			if (result)
+			{
+				$.ajax({
+					url: '/processor',
+					type: 'POST',
+					timeout: 20000,
+					dataType: 'json',
+					data: {
+						processor: 'admin_defaultPricingProcessor',
+						store_id: STORE_DETAILS.id,
+						action: 'retrieve'
+					},
+					success: function (json) {
+						if (json.processor_success)
+						{
+							$.each(json.settings, function (recipe_id, setting) {
 
-							if (result.includes('ovr'))
-							{
-								$('.menu-editor-ovr[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['ovr']).trigger('change');
-							}
+								if (result.includes('ovr'))
+								{
+									$('.menu-editor-ovr[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['ovr']).trigger('change');
+								}
 
-							if (result.includes('vis'))
-							{
-								$('.menu-editor-vis[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['vis']).trigger('change');
-								$('.menu-editor-hid[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['hid']).trigger('change');
-							}
+								if (result.includes('vis'))
+								{
+									$('.menu-editor-vis[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['vis']).trigger('change');
+									$('.menu-editor-hid[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['hid']).trigger('change');
+								}
 
-						});
-					}
-					else
-					{
+							});
+						}
+						else
+						{
+							dd_message({
+								title: 'Error',
+								message: json.processor_message
+							});
+						}
+					},
+					error: function (objAJAXRequest, strError) {
+						response = 'Unexpected error: ' + strError;
 						dd_message({
 							title: 'Error',
-							message: json.processor_message
+							message: response
 						});
+
 					}
-				},
-				error: function (objAJAXRequest, strError) {
-					response = 'Unexpected error: ' + strError;
-					dd_message({
-						title: 'Error',
-						message: response
-					});
 
-				}
-
-			});
-
+				});
+			}
 		}
 	});
 
@@ -156,7 +160,16 @@ $(document).on('change', '.menu-editor-hid', function (e) {
 
 	if (this.value == 1)
 	{
-		$('.menu-editor-vis[data-menu_item_id="' + menu_item_id + '"], .menu-editor-form[data-menu_item_id="' + menu_item_id + '"], .menu-editor-pic[data-menu_item_id="' + menu_item_id + '"]').val(0);
+		$('.menu-editor-vis[data-menu_item_id="' + menu_item_id + '"], .menu-editor-form[data-menu_item_id="' + menu_item_id + '"], .menu-editor-pic[data-menu_item_id="' + menu_item_id + '"]').val(0).trigger('change');
+	}
+
+	if ($(this).valNotDefault())
+	{
+		$(this).addClass('border-orange');
+	}
+	else
+	{
+		$(this).removeClass('border-orange');
 	}
 
 });
@@ -167,14 +180,32 @@ $(document).on('change', '.menu-editor-vis, .menu-editor-form, .menu-editor-pic'
 
 	if (this.value == 1)
 	{
-		$('.menu-editor-hid[data-menu_item_id="' + menu_item_id + '"]').val(0);
+		$('.menu-editor-hid[data-menu_item_id="' + menu_item_id + '"]').val(0).trigger('change');
+	}
+
+	if ($(this).valNotDefault())
+	{
+		$(this).addClass('border-orange');
+	}
+	else
+	{
+		$(this).removeClass('border-orange');
 	}
 
 });
 
-$(document).on('change', '.menu-editor-ovr', function (e) {
+$(document).on('change keyup', '.menu-editor-ovr', function (e) {
 
 	let menu_item_id = $(this).data('menu_item_id');
+
+	if ($(this).valNotDefault())
+	{
+		$(this).addClass('border-orange');
+	}
+	else
+	{
+		$(this).removeClass('border-orange');
+	}
 
 });
 
