@@ -233,7 +233,6 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::style => 'min-width: 6rem;',
 				CForm::required => true,
 				CForm::attribute => array(
-					'data-orgval' => $DAO_menu_item->DAO_menu_to_menu_item->override_price,
 					'data-menu_item_id' => $DAO_menu_item->id,
 					'data-recipe_id' => $DAO_menu_item->recipe_id,
 					'data-category_id' => $DAO_menu_item->category_id,

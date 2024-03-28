@@ -921,14 +921,14 @@ function strip_tags(input, allowed)
 
 		if (typeof this[0].dataset.valdefault !== 'undefined')
 		{
-			if (this.value !== this.dataset.valdefault)
+			if (this[0].value !== this[0].dataset.valdefault)
 			{
 				return true;
 			}
 		}
 		else if (typeof this[0].defaultValue !== 'undefined')
 		{
-			if (this.value !== this.defaultValue)
+			if (this[0].value !== this[0].defaultValue)
 			{
 				return true;
 			}
