@@ -53,7 +53,34 @@
 				</div>
 			</div>
 		</section>
+		<section>
+			<div class="container-fluid my-5">
+				<div class="row hero-double">
+					<div class="col-md-6 text-left p-5 my-5">
+						<h1 class="font-weight-bold font-marker mt-2">Get Dream Dinners Shipped to Your Door</h1>
+						<p class="text-uppercase mb-4">Real food made from scratch, so your life can feel a little easier.</p>
+						<p>Four easy, homemade meals prepped and ready to cook, most in less than 30 minutes. Order when you want, no subscription necessary. Enter your zip code to see if we can deliver to you. Great for travel or a gift for new baby, new home, mothers's day and more!</p>
+						<form action="/locations" method="post" class="form-shipping-search needs-validation" novalidate>
+							<div class="form-group mx-auto">
+								<div class="input-group">
+									<div class="input-group-append">
+										<span class="input-group-text">Zip code</span>
+									</div>
+									<input type="number" class="form-control form-shipping-search-zip" required>
+									<div class="input-group-append">
+										<button type="submit" value="Get Started" class="btn btn-primary">View menu</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="col-md-6 p-0">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/apr24-shipping-collage-957x657.webp" alt="April Menu" class="img-fluid">
+					</div>
 
+				</div>
+			</div>
+		</section>
 		<!-- customer data -->
 		<section class="bg-cyan-dark">
 			<div class="container my-5 mp-5">
