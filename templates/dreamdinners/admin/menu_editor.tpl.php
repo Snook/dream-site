@@ -1,4 +1,4 @@
-<?php $this->setScript('head', SCRIPT_PATH . '/admin/menu_editor.min.js'); ?>
+<?php $this->setScript('foot', SCRIPT_PATH . '/admin/menu_editor.min.js'); ?>
 <?php $this->assign('page_title', 'Menu Editor'); ?>
 <?php $this->assign('topnav', 'store'); ?>
 <?php $this->setScriptVar('menu_id = ' . $this->DAO_menu->id . ';'); ?>
@@ -32,9 +32,9 @@
 				</div>
 			</div>
 
-			<div class="form-row">
+			<div class="row mb-4">
 
-				<div class="form-group col-6">
+				<div class="col-6">
 					<div class="input-group">
 						<div class="input-group-prepend">
 							<div class="input-group-text">
@@ -45,7 +45,7 @@
 					</div>
 				</div>
 
-				<div class="form-group col-6">
+				<div class="col-6">
 					<div class="input-group">
 						<div class="input-group-prepend">
 							<div class="input-group-text">
@@ -58,15 +58,24 @@
 
 			</div>
 
-			<div class="form-row">
-				<div class="form-group col text-right">
-					<span class="btn btn-primary menu-editor-finalize">Finalize All Changes</span>
-					<span class="btn btn-primary menu-editor-reset">Reset to Current</span>
+			<div class="row menu-editor-unsaved-alert collapse">
+				<div class="col">
+					<div class="alert alert-danger">
+						<div class="row">
+							<div class="col-6 font-weight-bold font-size-medium-small">
+								Your changes have not yet been saved.
+							</div>
+							<div class="col-6 text-right">
+								<span class="btn btn-primary menu-editor-finalize">Finalize All Changes</span>
+								<span class="btn btn-primary menu-editor-reset"><i class="fas fa-undo"></i> Reset to Current</span>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
-			<div class="form-row">
-				<div class="form-group col">
+			<div class="row">
+				<div class="col">
 
 					<nav>
 						<div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -395,18 +404,28 @@
 				</div>
 			</div>
 
+			<div class="row menu-editor-unsaved-alert collapse">
+				<div class="col">
+					<div class="alert alert-danger">
+						<div class="row">
+							<div class="col-6 font-weight-bold font-size-medium-small">
+								Your changes have not yet been saved.
+							</div>
+							<div class="col-6 text-right">
+								<span class="btn btn-primary menu-editor-finalize">Finalize All Changes</span>
+								<span class="btn btn-primary menu-editor-reset"><i class="fas fa-undo"></i> Reset to Current</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div class="row">
 				<div class="col-7">
 					<ul class="list-unstyled">
 						<li><i class="fas fa-exclamation-triangle text-danger" data-toggle="tooltip" data-placement="top" title="Price outside highest and lowest tier prices"></i> Price outside highest and lowest tier prices</li>
 						<li><i class="fas fa-exclamation-circle text-warning" data-toggle="tooltip" data-placement="top" title="Recommended pricing ends with .49 or .99"></i> Recommended pricing ends with .49 or .99</li>
 					</ul>
-				</div>
-				<div class="col-5 text-right">
-					<div>
-						<span class="btn btn-primary menu-editor-finalize">Finalize All Changes</span>
-						<span class="btn btn-primary menu-editor-reset">Reset to Current</span>
-					</div>
 				</div>
 			</div>
 
