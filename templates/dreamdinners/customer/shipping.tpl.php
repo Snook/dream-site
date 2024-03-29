@@ -28,8 +28,12 @@
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/crispy-shrimp-green-beans-in-a-snap-header-1920x600.webp" alt="Family making and eating a meal together" class="img-fluid" />
 					</div>
 				</div>
-				<div class="row justify-content-center">
-					<div class="col-lg-6 col-xl-4">
+			</div>
+		</section>
+		<section>
+			<div class="container-fluid my-5">
+				<div class="row hero-double">
+					<div class="col-md-6 text-left p-5 my-5">
 						<h1 class="font-weight-bold font-marker mt-2">Get Dream Dinners Shipped to Your Door</h1>
 						<p class="text-uppercase mb-4">Real food made from scratch, so your life can feel a little easier.</p>
 						<p>Four easy, homemade meals prepped and ready to cook, most in less than 30 minutes. Order when you want, no subscription necessary. Enter your zip code to see if we can deliver to you. Great for travel or a gift for new baby, new home, mothers's day and more!</p>
@@ -47,13 +51,13 @@
 							</div>
 						</form>
 					</div>
-					<div class="col-lg-6 col-xl-4">
+					<div class="col-md-6 p-0">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/apr24-shipping-collage-957x657.webp" alt="April Menu" class="img-fluid">
 					</div>
+
 				</div>
 			</div>
 		</section>
-
 		<!-- customer data -->
 		<section class="bg-cyan-dark">
 			<div class="container my-5 mp-5">
@@ -93,8 +97,7 @@
 
 		<section>
 			<div class="container-fluid my-5">
-				<div class="col-sm-12 text-center">
-					<h2 class="mb-1 mt-4 font-weight-bold">Order In a Snap</h2></div>
+				<div class="col-sm-12 text-center"><h2 class="mb-1 mt-4 font-weight-bold">Order In a Snap</h2></div>
 				<div class="row">
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/noodle-bowl-and-drink-600x350.webp" alt="Woman enjoying a noodle bowl" class="img-fluid">
@@ -107,13 +110,10 @@
 						<p class="mb-4">Congratulate your friends and family on their new addition with easy, quick dinners including Chicken Egg Roll Bowl, Savannah Grilled Chicken with Seasoned Onion Rings, Pesto Cheese Ravioli with Chicken and Walnuts, and Surf and Turf Yakisoba Noodles. Show your love with easy, homemade meals.</p>
 					</div>
 				</div>
-			</div>
-		</section>
-
-		<section>
-			<div class="container my-5">
-				<div class="row my-2">
-					<div class="col offset-md-2 col-md-8">
+				<div class="row">
+					<div class="col offset-md-2 col-md-4 mx-lg-auto">
+					<h2 class="font-weight-bold font-marker mt-2">Ready to start cooking?</h2>
+						<p class="text-uppercase mb-3">Enter you zip code to see the menu.</p>
 						<form action="/locations" method="post" class="form-shipping-search needs-validation" novalidate>
 							<div class="form-group mx-auto">
 								<div class="input-group">
@@ -129,7 +129,12 @@
 						</form>
 					</div>
 				</div>
+			</div>
+		</section>
 
+		<section>
+		<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
+			<div class="container mb-5">
 				<div class="row">
 					<div class="col">
 						<div class="text-center">

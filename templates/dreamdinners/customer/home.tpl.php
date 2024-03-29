@@ -66,13 +66,12 @@
 			</header>
 		</section>-->
 
-		<!-- Menu Highlights-->
+		
 		<section>
 			<div class="container my-5">
-
-				<div class="col-lg-7 mx-lg-auto">
-					<h1 class="font-marker">Your Local Meal Kit Solution</h1>
-					<p class="text-uppercase">Real food made from scratch, so your life can feel a little easier.</p>
+				<div class="col-lg-10 mx-lg-auto">
+					<h1 class="font-marker">Real food made from scratch, so your life can feel a little easier.</h1>
+					<p class="text-uppercase">We do all of the shopping, chopping, prepping, and clean up. Most of our meals cook in less than 30 minutes, leaving you more time to do the things you love.</p>
 					<form action="/locations" method="post">
 						<div class="form-group mx-auto">
 							<div class="input-group">
@@ -89,7 +88,12 @@
 						</div>
 					</form>
 				</div>
-
+			</div>
+		</section>
+<!-- Menu Highlights-->
+		<section>
+		<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
+			<div class="container my-5">
 				<div class="row">
 					<div class="col">
 						<div class="text-center">
