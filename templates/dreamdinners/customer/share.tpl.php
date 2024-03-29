@@ -11,7 +11,7 @@
 				<div class="row my-5">
 					<div class="col mb-4 text-center">
 						<h1 class="font-weight-bold font-marker font-size-extra-large mt-2">Friends Don't Let Friends Struggle With Dinner</h1>
-						<h3>Share your love of Dream Dinners and give them a special offer. If they tell us you referred them, you can earn referral Dinner Dollars.</h3>
+						<h3>Share your love of Dream Dinners with a special offer. If they tell us you referred them, you can earn referral Dinner Dollars.</h3>
 					</div>
 				</div>
 			</div>
