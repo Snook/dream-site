@@ -9,7 +9,7 @@
 
 		<div class="row my-4">
 			<div class="col text-center">
-				<h1><a href="/backoffice/reports-guest-marketing">Marketing Exports</a></h1>
+				<h1><a href="/backoffice/reports-guest-marketing">Guest Marking Reports</a></h1>
 			</div>
 		</div>
 
@@ -32,7 +32,7 @@
 				<div class="form-group col-md-6 collapse report-option option-month-start">
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<span class="input-group-text">Month Start</span>
+							<span class="input-group-text">Month</span>
 						</div>
 						<?php echo $this->form['month_start_html']; ?>
 					</div>
@@ -52,7 +52,7 @@
 				<div class="form-group col-md-6 collapse report-option option-date-start">
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<span class="input-group-text">Date Start</span>
+							<span class="input-group-text">Date</span>
 						</div>
 						<?php echo $this->form['datetime_start_html']; ?>
 					</div>
