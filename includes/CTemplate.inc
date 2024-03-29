@@ -70,6 +70,7 @@ class CTemplate extends Savant2
 		'admin_manage_box',
 		'admin_manage_coupon_codes',
 		'admin_reports_map_activity',
+		'admin_reports_guest_marketing',
 		'admin_reports_national_entree_projection',
 		'admin_reports_entree'
 	);
