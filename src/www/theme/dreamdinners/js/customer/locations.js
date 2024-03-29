@@ -313,7 +313,7 @@ function retrieve_stores_for_lat_long(settings, doScrolling)
 		},
 		success: function (json) {
 
-			if (settings.callBack == false)
+			if (typeof settings.callBack !== 'function')
 			{
 				$("#store_search_results").html(json.html);
 
