@@ -29,3 +29,7 @@ $(document).on('change', '#marketing_report', function (e) {
 	}
 
 });
+
+$(document).ready(function () {
+	$('#marketing_report').trigger('change');
+});

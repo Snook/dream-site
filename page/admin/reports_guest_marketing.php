@@ -114,10 +114,12 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 
 	function exportGuestBirthdays()
 	{
-		$DateTime_month_start = new DateTime($this->Form->value('month_start'));
+		if ($this->Form->value('month_start'))
+		{
+			$DateTime_month_start = new DateTime($this->Form->value('month_start'));
 
-		$DAO_users = DAO_CFactory::create('user', true);
-		$DAO_users->query("SELECT
+			$DAO_users = DAO_CFactory::create('user', true);
+			$DAO_users->query("SELECT
 			`user`.id,
 			CONCAT(`user`.firstname,' ',`user`.lastname) as `name`,
 			`user`.primary_email,
@@ -132,36 +134,41 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 			where `user`.primary_email <> ''
 			order by store.state_id, store.store_name, `user`.firstname");
 
-		$labels = array(
-			'User ID',
-			'First and Last',
-			'Primary Email',
-			'Store Name',
-			'State',
-			'Birth Month',
-			'Share URL'
-		);
-
-		$rows = array();
-
-		while ($DAO_users->fetch())
-		{
-			$rows[] = array(
-				$DAO_users->id,
-				$DAO_users->name,
-				$DAO_users->primary_email,
-				$DAO_users->store_name,
-				$DAO_users->state_id,
-				$DAO_users->birth_month,
-				$DAO_users->share_url
+			$labels = array(
+				'User ID',
+				'First and Last',
+				'Primary Email',
+				'Store Name',
+				'State',
+				'Birth Month',
+				'Share URL'
 			);
+
+			$rows = array();
+
+			while ($DAO_users->fetch())
+			{
+				$rows[] = array(
+					$DAO_users->id,
+					$DAO_users->name,
+					$DAO_users->primary_email,
+					$DAO_users->store_name,
+					$DAO_users->state_id,
+					$DAO_users->birth_month,
+					$DAO_users->share_url
+				);
+			}
+
+			$_GET['export'] = 'csv';
+			$_GET['csvfilename'] = 'report_guest_birthdays';
+
+			$this->Template->assign('labels', $labels);
+			$this->Template->assign('rows', $rows);
 		}
-
-		$_GET['export'] = 'csv';
-		$_GET['csvfilename'] = 'report_guest_birthdays';
-
-		$this->Template->assign('labels', $labels);
-		$this->Template->assign('rows', $rows);
+		else
+		{
+			$this->Template->setErrorMsg('Report requires month selection');
+		}
 	}
 
 	function exportGuestDinnerDollars()
