@@ -7,11 +7,11 @@
 	<main role="main">
 		<section>
 			<div class="container">
-				<img src="<?php echo IMAGES_PATH; ?>/landing_pages/family-dinner-generational-cheers-1400x500.webp" alt="Family celebrating over a meal" class="img-fluid" />
+				<!--<img src="<?php echo IMAGES_PATH; ?>/landing_pages/family-dinner-generational-cheers-1400x500.webp" alt="Family celebrating over a meal" class="img-fluid" />-->
 				<div class="row my-5">
 					<div class="col mb-4 text-center">
-						<h1 class="font-weight-bold font-marker font-size-extra-large mt-2">Dinner is Now Easier Than Ever</h1>
-						<h3>Let us help you check easy, homemade meals off your to-do list.</h3>
+						<h1 class="font-weight-bold font-marker font-size-extra-large mt-2">Friends Don't Let Friends Struggle With Dinner</h1>
+						<h3>Share your love of Dream Dinners and give them a special offer. If they tell us you referred them, you can earn referral Dinner Dollars.</h3>
 					</div>
 				</div>
 			</div>
