@@ -51,11 +51,11 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 				'report_guest_with_dinner_dollars' => array(
 					'title' => 'Guests with Expiring Dinner Dollars',
 					'data' => array(
-						'data-description' => 'Guests with available Dinner Dollars at the time of download.',
+						'data-description' => 'Guests with available Dinner Dollars expiring between Date and Date End.',
 						'data-month-start' => 'false',
 						'data-month-end' => 'false',
-						'data-date-start' => 'false',
-						'data-date-end' => 'false'
+						'data-date-start' => 'true',
+						'data-date-end' => 'true'
 					)
 				)
 			)
@@ -63,6 +63,8 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 
 		$this->Form->DefaultValues['month_start'] = date("Y-m");
 		$this->Form->DefaultValues['month_end'] = date("Y-m");
+		$this->Form->DefaultValues['datetime_start'] = date("Y-m-d");
+		$this->Form->DefaultValues['datetime_end'] = date("Y-m-d", strtotime('+1 year'));
 
 		$this->Form->AddElement(array(
 			CForm::type => CForm::Hidden,
@@ -169,16 +171,19 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 		}
 		else
 		{
-			$this->Template->setErrorMsg('Report requires month selection');
+			$this->Template->setErrorMsg('Report requires Month selection');
 		}
 	}
 
 	function exportGuestDinnerDollars()
 	{
-		$DateTime_month_start = new DateTime($this->Form->value('month_start'));
+		if ($this->Form->value('datetime_start') && $this->Form->value('datetime_end'))
+		{
+			$DateTime_date_start = new DateTime($this->Form->value('datetime_start'));
+			$DateTime_date_end = new DateTime($this->Form->value('datetime_end'));
 
-		$DAO_users = DAO_CFactory::create('user', true);
-		$DAO_users->query("SELECT
+			$DAO_users = DAO_CFactory::create('user', true);
+			$DAO_users->query("SELECT
 			`user`.id,
 			`user`.firstname,
 			`user`.primary_email,
@@ -189,40 +194,47 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 			from points_credits 
 			join `user` on points_credits.user_id=`user`.id and `user`.primary_email <> '' and `user`.is_deleted=0
 			left join store on store.id=`user`.home_store_id and store.is_deleted = 0
-			where points_credits.credit_state='AVAILABLE' and points_credits.is_deleted=0
+			where points_credits.credit_state='AVAILABLE' and points_credits.is_deleted = 0
+			and points_credits.expiration_date >= '" . $DateTime_date_start->format('Y-m-d h:i:s') . "'
+			and points_credits.expiration_date <= '" . $DateTime_date_end->format('Y-m-d h:i:s') . "'
 			GROUP BY `user`.id
 			order by store.state_id, store.store_name, `user`.firstname");
 
-		$labels = array(
-			'User ID',
-			'First Name',
-			'Primary Email',
-			'Store Name',
-			'State',
-			'Credits Available',
-			'Credit Expiration'
-		);
-
-		$rows = array();
-
-		while ($DAO_users->fetch())
-		{
-			$rows[] = array(
-				$DAO_users->id,
-				$DAO_users->firstname,
-				$DAO_users->primary_email,
-				$DAO_users->store_name,
-				$DAO_users->state_id,
-				$DAO_users->credits_available,
-				$DAO_users->credit_expiration
+			$labels = array(
+				'User ID',
+				'First Name',
+				'Primary Email',
+				'Store Name',
+				'State',
+				'Credits Available',
+				'Credit Expiration'
 			);
+
+			$rows = array();
+
+			while ($DAO_users->fetch())
+			{
+				$rows[] = array(
+					$DAO_users->id,
+					$DAO_users->firstname,
+					$DAO_users->primary_email,
+					$DAO_users->store_name,
+					$DAO_users->state_id,
+					$DAO_users->credits_available,
+					$DAO_users->credit_expiration
+				);
+			}
+
+			$_GET['export'] = 'csv';
+			$_GET['csvfilename'] = 'guest_with_dinner_dollars';
+
+			$this->Template->assign('labels', $labels);
+			$this->Template->assign('rows', $rows);
 		}
-
-		$_GET['export'] = 'csv';
-		$_GET['csvfilename'] = 'guest_with_dinner_dollars';
-
-		$this->Template->assign('labels', $labels);
-		$this->Template->assign('rows', $rows);
+		else
+		{
+			$this->Template->setErrorMsg('Report requires Date and Date End');
+		}
 	}
 }
 
