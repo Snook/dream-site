@@ -183,6 +183,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::type => CForm::DropDown,
 				CForm::name => $DAO_menu_item->id . '_vis',
 				CForm::css_class => 'custom-select-sm menu-editor-vis',
+				CForm::readonly => empty($DAO_menu_item->is_visibility_controllable),
 				CForm::style => 'min-width: 4rem;',
 				CForm::attribute => array(
 					'data-menu_item_id' => $DAO_menu_item->id,
@@ -199,6 +200,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::type => CForm::DropDown,
 				CForm::name => $DAO_menu_item->id . '_pic',
 				CForm::css_class => 'custom-select-sm menu-editor-pic',
+				CForm::readonly => empty($DAO_menu_item->is_visibility_controllable),
 				CForm::style => 'min-width: 4rem;',
 				CForm::attribute => array(
 					'data-menu_item_id' => $DAO_menu_item->id,
@@ -215,6 +217,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::type => CForm::DropDown,
 				CForm::name => $DAO_menu_item->id . '_form',
 				CForm::css_class => 'custom-select-sm menu-editor-form',
+				CForm::readonly => empty($DAO_menu_item->is_visibility_controllable),
 				CForm::style => 'min-width: 4rem;',
 				CForm::attribute => array(
 					'data-menu_item_id' => $DAO_menu_item->id,
@@ -231,6 +234,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::type => CForm::DropDown,
 				CForm::name => $DAO_menu_item->id . '_hid',
 				CForm::css_class => 'custom-select-sm menu-editor-hid',
+				CForm::readonly => empty($DAO_menu_item->is_visibility_controllable),
 				CForm::style => 'min-width: 4rem;',
 				CForm::attribute => array(
 					'data-menu_item_id' => $DAO_menu_item->id,
@@ -248,6 +252,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::name => $DAO_menu_item->id . '_ovr',
 				CForm::css_class => 'form-control-sm menu-editor-ovr',
 				CForm::style => 'min-width: 6rem;',
+				CForm::readonly => empty($DAO_menu_item->is_price_controllable),
 				CForm::required => true,
 				CForm::pattern => '^\d+\.\d{0,2}$',
 				CForm::attribute => array(
