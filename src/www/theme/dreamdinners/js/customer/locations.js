@@ -344,7 +344,7 @@ function retrieve_stores_for_lat_long(settings, doScrolling)
 					});
 				}
 			}
-			else
+			else if (typeof settings.callBack === 'function')
 			{
 				settings.callBack(json);
 			}
