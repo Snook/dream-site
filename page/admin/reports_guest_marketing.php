@@ -41,6 +41,7 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 				'report_guest_birthdays' => array(
 					'title' => 'Guest Birthdays',
 					'data' => array(
+						'data-description' => 'Guests with a birthday in the selected month. Year not applicable.',
 						'data-month-start' => 'true',
 						'data-month-end' => 'false',
 						'data-date-start' => 'false',
@@ -50,6 +51,7 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 				'report_guest_with_dinner_dollars' => array(
 					'title' => 'Guests with Expiring Dinner Dollars',
 					'data' => array(
+						'data-description' => 'Guests with available Dinner Dollars at the time of download.',
 						'data-month-start' => 'false',
 						'data-month-end' => 'false',
 						'data-date-start' => 'false',
@@ -120,19 +122,19 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 
 			$DAO_users = DAO_CFactory::create('user', true);
 			$DAO_users->query("SELECT
-			`user`.id,
-			CONCAT(`user`.firstname,' ',`user`.lastname) as `name`,
-			`user`.primary_email,
-			store.store_name,
-			store.state_id,
-			user_data_month.user_data_value as birth_month,
-			CONCAT('https://dreamdinners.com/share/',`user`.id) as share_url
-			from `user`
-			join user_data as user_data_month on user_data_month.user_id = `user`.id and user_data_month.user_data_field_id = 1 and user_data_month.user_data_value = " . $DateTime_month_start->format('n') . " and user_data_month.is_deleted = 0
-			join user_data as user_data_year on user_data_year.user_id = `user`.id and user_data_year.user_data_field_id = 15 and user_data_year.is_deleted = 0
-			join store on store.id=`user`.home_store_id and store.active = 1 and store.is_deleted = 0
-			where `user`.primary_email <> ''
-			order by store.state_id, store.store_name, `user`.firstname");
+				`user`.id,
+				CONCAT(`user`.firstname,' ',`user`.lastname) as `name`,
+				`user`.primary_email,
+				store.store_name,
+				store.state_id,
+				user_data_month.user_data_value as birth_month,
+				CONCAT('https://dreamdinners.com/share/',`user`.id) as share_url
+				from `user`
+				join user_data as user_data_month on user_data_month.user_id = `user`.id and user_data_month.user_data_field_id = 1 and user_data_month.user_data_value = " . $DateTime_month_start->format('n') . " and user_data_month.is_deleted = 0
+				join user_data as user_data_year on user_data_year.user_id = `user`.id and user_data_year.user_data_field_id = 15 and user_data_year.is_deleted = 0
+				join store on store.id=`user`.home_store_id and store.active = 1 and store.is_deleted = 0
+				where `user`.primary_email <> ''
+				order by store.state_id, store.store_name, `user`.firstname");
 
 			$labels = array(
 				'User ID',

@@ -17,7 +17,7 @@
 			<?php echo $this->form['hidden_html'];  ?>
 
 			<div class="form-row">
-				<div class="form-group col">
+				<div class="form-group col-12">
 					<div class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">Report</span>
@@ -25,6 +25,7 @@
 						<?php echo $this->form['marketing_report_html']; ?>
 					</div>
 				</div>
+				<div class="form-group col-12 report-description font-size-medium-small"></div>
 			</div>
 
 			<div class="form-row">

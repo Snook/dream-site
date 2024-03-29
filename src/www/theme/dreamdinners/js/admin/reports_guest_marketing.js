@@ -1,10 +1,12 @@
 $(document).on('change', '#marketing_report', function (e) {
 
 	$('.report-submit, .report-option').hideFlex();
+	$('.report-description').html('');
 
 	if ($(this).find(':selected').val() != '')
 	{
 		$('.report-submit').showFlex();
+		$('.report-description').html($(this).find(':selected').data('description'));
 
 		if ($(this).find(':selected').data('month-start'))
 		{
