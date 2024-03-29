@@ -9,7 +9,7 @@
 
 		<div class="row my-4">
 			<div class="col text-center">
-				<h1><a href="/backoffice/reports-guest-marketing">Marketing Exports</a></h1>
+				<h1><a href="/backoffice/reports-guest-marketing">Guest Marking Reports</a></h1>
 			</div>
 		</div>
 
