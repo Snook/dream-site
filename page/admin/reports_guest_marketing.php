@@ -182,23 +182,33 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 			$DateTime_date_start = new DateTime($this->Form->value('datetime_start'));
 			$DateTime_date_end = new DateTime($this->Form->value('datetime_end'));
 
-			$DAO_users = DAO_CFactory::create('user', true);
-			$DAO_users->query("SELECT
-			`user`.id,
-			`user`.firstname,
-			`user`.primary_email,
-			store.store_name,
-			store.state_id,
-			sum(points_credits.dollar_value) as credits_available,
-			GROUP_CONCAT(CONCAT(points_credits.dollar_value,' expires ', DATE_FORMAT(date_sub(points_credits.expiration_date, INTERVAL 1 DAY), '%m-%d-%Y')) order by points_credits.expiration_date) as credit_expiration
-			from points_credits 
-			join `user` on points_credits.user_id=`user`.id and `user`.primary_email <> '' and `user`.is_deleted=0
-			left join store on store.id=`user`.home_store_id and store.is_deleted = 0
-			where points_credits.credit_state='AVAILABLE' and points_credits.is_deleted = 0
-			and points_credits.expiration_date >= '" . $DateTime_date_start->format('Y-m-d h:i:s') . "'
-			and points_credits.expiration_date <= '" . $DateTime_date_end->format('Y-m-d h:i:s') . "'
-			GROUP BY `user`.id
-			order by store.state_id, store.store_name, `user`.firstname");
+			$DAO_points_credits = DAO_CFactory::create('points_credits', true);
+			$DAO_points_credits->credit_state = CPointsCredits::AVAILABLE;
+			$DAO_points_credits->selectAdd();
+			$DAO_points_credits->selectAdd("user.id");
+			$DAO_points_credits->selectAdd("user.firstname");
+			$DAO_points_credits->selectAdd("user.primary_email");
+			$DAO_points_credits->selectAdd("store.store_name");
+			$DAO_points_credits->selectAdd("store.state_id");
+			$DAO_points_credits->selectAdd("sum(points_credits.dollar_value) as credits_available");
+			$DAO_points_credits->selectAdd("GROUP_CONCAT(CONCAT(points_credits.dollar_value,' expires ', DATE_FORMAT(date_sub(points_credits.expiration_date, INTERVAL 1 DAY), '%m-%d-%Y')) order by points_credits.expiration_date) as credit_expiration");
+			$DAO_user = DAO_CFactory::create('user', true);
+			$DAO_user->whereAdd("points_credits.user_id = user.id");
+			$DAO_user->whereAdd("user.primary_email <> ''");
+			$DAO_points_credits->joinAddWhereAsOn($DAO_user, array(
+				'joinType' => 'INNER',
+				'useLinks' => false
+			), false, false, false);
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->whereAdd("store.id = user.home_store_id");
+			$DAO_points_credits->joinAddWhereAsOn($DAO_store, array(
+				'joinType' => 'LEFT',
+				'useLinks' => false
+			), false, false, false);
+			$DAO_points_credits->whereAdd("points_credits.expiration_date >= '" . $DateTime_date_start->format('Y-m-d h:i:s') . "' AND points_credits.expiration_date <= '" . $DateTime_date_end->format('Y-m-d h:i:s') . "'");
+			$DAO_points_credits->groupBy("user.id");
+			$DAO_points_credits->orderBy("store.state_id, store.store_name, `user`.firstname");
+			$DAO_points_credits->find();
 
 			$labels = array(
 				'User ID',
@@ -212,16 +222,16 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 
 			$rows = array();
 
-			while ($DAO_users->fetch())
+			while ($DAO_points_credits->fetch())
 			{
 				$rows[] = array(
-					$DAO_users->id,
-					$DAO_users->firstname,
-					$DAO_users->primary_email,
-					$DAO_users->store_name,
-					$DAO_users->state_id,
-					$DAO_users->credits_available,
-					$DAO_users->credit_expiration
+					$DAO_points_credits->id,
+					$DAO_points_credits->firstname,
+					$DAO_points_credits->primary_email,
+					$DAO_points_credits->store_name,
+					$DAO_points_credits->state_id,
+					$DAO_points_credits->credits_available,
+					$DAO_points_credits->credit_expiration
 				);
 			}
 
