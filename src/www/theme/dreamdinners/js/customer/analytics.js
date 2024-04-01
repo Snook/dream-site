@@ -251,17 +251,20 @@ window.ytagQ = window.ytagQ || []; //Yext
 				o.parentNode.insertBefore(r, o);
 			})(window, document, 'x9q2zysosonhbmxb');
 
-			if (ANALYTICS.dd_thank_you !== null && ANALYTICS.page == 'order_details' && ANALYTICS.store_DS_tenant !== null)
+			if (ANALYTICS.dd_thank_you !== null && ANALYTICS.page == 'order_details')
 			{
-				(function (d, a, i, l, y, s, t, o, r, y) {
-					d._dsSettings = i;
-					r = a.createElement('script');
-					o = a.getElementsByTagName('script')[0];
-					r.src = '//us-1.dailystory.com/ds/ds' + i + '.js';
-					r.async = true;
-					r.id = 'ds-sitescript';
-					o.parentNode.insertBefore(r, o);
-				})(window, document, ANALYTICS.store_DS_tenant);
+				if (ANALYTICS.store_DS_tenant !== null)
+				{
+					(function (d, a, i, l, y, s, t, o, r, y) {
+						d._dsSettings = i;
+						r = a.createElement('script');
+						o = a.getElementsByTagName('script')[0];
+						r.src = '//us-1.dailystory.com/ds/ds' + i + '.js';
+						r.async = true;
+						r.id = 'ds-sitescript';
+						o.parentNode.insertBefore(r, o);
+					})(window, document, ANALYTICS.store_DS_tenant);
+				}
 
 				window.addEventListener('ds_ready', function () {
 

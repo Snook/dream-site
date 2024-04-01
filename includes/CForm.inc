@@ -45,6 +45,7 @@ class CForm
 	const Date = 'date';
 	const Time = 'time';
 	const DateTimeLocal = 'datetime-local';
+	const Month = 'month';
 	const Number = 'number';
 	const Money = 'money';
 	const File = 'file';
@@ -130,6 +131,7 @@ class CForm
 	const date = 'date';
 	const time = 'time';
 	const datetimelocal = 'datetime-local';
+	const month = 'month';
 	const money = 'money';
 	const hour = 'hour';
 	const minutes = 'minutes';
@@ -438,6 +440,10 @@ class CForm
 		else if ($a[self::type] == self::datetimelocal || array_key_exists(self::datetimelocal, $a) && $a[self::datetimelocal])
 		{
 			$szBuildString = "<input type='datetime-local' name='";
+		}
+		else if ($a[self::type] == self::month || array_key_exists(self::month, $a) && $a[self::month])
+		{
+			$szBuildString = "<input type='month' name='";
 		}
 		else
 		{
@@ -2843,6 +2849,10 @@ class CForm
 				break;
 
 			case self::DateTimeLocal:
+				$this->__AddTextElement($a);
+				break;
+
+			case self::Month:
 				$this->__AddTextElement($a);
 				break;
 
