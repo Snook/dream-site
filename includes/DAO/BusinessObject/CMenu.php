@@ -467,6 +467,15 @@ class CMenu extends DAO_Menu
 			$DAO_menu_item->selectAdd("GROUP_CONCAT(DISTINCT order_item.order_id) as order_ids");
 		}
 
+		$DAO_menu_item_sub_entree = DAO_CFactory::create('menu_item', true);
+		$DAO_menu_item_sub_entree->whereAdd("menu_item_sub_entree.entree_id=menu_item.entree_id");
+		$DAO_menu_item->selectAdd('GROUP_CONCAT(DISTINCT menu_item_sub_entree.id) AS sub_entree');
+		$DAO_menu_item->selectAdd('COUNT(DISTINCT menu_item_sub_entree.id) AS sub_entree_count');
+		$DAO_menu_item->joinAddWhereAsOn($DAO_menu_item_sub_entree, array(
+			'joinType' => 'LEFT',
+			'useLinks' => false
+		), 'menu_item_sub_entree', false, false);
+
 		$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
 		if(!empty($this->id))
 		{

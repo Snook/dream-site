@@ -143,9 +143,11 @@
 												</div>
 											</td>
 
-											<td class="align-middle">
-												<?php echo $DAO_menu_item->override_inventory - $DAO_menu_item->number_sold ?>
-											</td>
+											<?php if ($lastEntreeID != $DAO_menu_item->entree_id) { $lastEntreeID = $DAO_menu_item->entree_id; ?>
+												<td rowspan="<?php echo $DAO_menu_item->sub_entree_count; ?>" class="align-middle">
+													<?php echo $DAO_menu_item->override_inventory - $DAO_menu_item->number_sold ?>
+												</td>
+											<?php } ?>
 										</tr>
 									<?php } ?>
 								<?php } ?>
@@ -218,10 +220,11 @@
 												</div>
 											</td>
 
-											<td class="align-middle">
-												<?php echo $DAO_menu_item->override_inventory - $DAO_menu_item->number_sold ?>
-											</td>
-
+											<?php if ($lastEntreeID != $DAO_menu_item->entree_id) { $lastEntreeID = $DAO_menu_item->entree_id; ?>
+												<td rowspan="<?php echo $DAO_menu_item->sub_entree_count; ?>" class="align-middle">
+													<?php echo $DAO_menu_item->override_inventory - $DAO_menu_item->number_sold ?>
+												</td>
+											<?php } ?>
 										</tr>
 									<?php } ?>
 								<?php } else { ?>

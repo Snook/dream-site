@@ -171,7 +171,7 @@ class CMenuItem extends DAO_Menu_item
 					WHEN 'HALF' THEN 2
 					WHEN 'FOUR' THEN 3
 					WHEN 'FULL' THEN 4
-				END ASC
+				END DESC
 			");
 		}
 		else if ($order == 'NameAZ')
