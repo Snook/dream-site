@@ -9,6 +9,22 @@ $(document).ready(function () {
 
 });
 
+$(document).on('change', '#menu', function (e) {
+
+	bootbox.confirm("Are you sure you wish to change menus? You will lose any unsaved changes.", function (result) {
+		if (result)
+		{
+			create_and_submit_form({
+				action: '/backoffice/menu-editor',
+				input: ({
+					'menu': $(this).val()
+				})
+			});
+		}
+	});
+
+});
+
 $(document).on('click', '.sides-sweets-save', function (e) {
 
 	e.preventDefault()
@@ -770,10 +786,4 @@ function showPopup(config)
 			response = 'Unexpected error';
 		}
 	});
-}
-
-function menuChange(obj)
-{
-	document.getElementById('action').value = "menuChange";
-	document.getElementById('menu_editor_form').submit();
 }

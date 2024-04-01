@@ -85,7 +85,6 @@ class page_admin_menu_editor extends CPageAdminOnly
 
 		$Form->AddElement(array(
 			CForm::type => CForm::DropDown,
-			CForm::onChange => 'menuChange',
 			CForm::options => $menuOptions,
 			CForm::name => 'menu'
 		));
