@@ -21,12 +21,10 @@ $(document).on('change', '#menu', function (e) {
 		centerVertical: true,
 		buttons: {
 			cancel: {
-				label: 'Cancel',
-				className: 'btn-primary'
+				label: 'Cancel'
 			},
 			confirm: {
 				label: 'Switch menu',
-				className: 'btn-primary',
 				callback: function () {
 
 					create_and_submit_form({
@@ -53,8 +51,7 @@ $(document).on('click', '.sides-sweets-save', function (e) {
 		centerVertical: true,
 		buttons: {
 			cancel: {
-				label: 'Cancel',
-				className: 'btn-primary'
+				label: 'Cancel'
 			},
 			confirm: {
 				label: 'Safe defualts',
@@ -311,8 +308,7 @@ $(document).on('click', '.menu-editor-reset', function (e) {
 		centerVertical: true,
 		buttons: {
 			cancel: {
-				label: 'Cancel',
-				className: 'btn-primary'
+				label: 'Cancel'
 			},
 			confirm: {
 				label: 'Reset changes',
@@ -353,8 +349,7 @@ $(document).on('click', '.menu-editor-finalize', function (e) {
 			centerVertical: true,
 			buttons: {
 				cancel: {
-					label: 'Cancel',
-					className: 'btn-primary'
+					label: 'Cancel'
 				},
 				confirm: {
 					label: 'Finalize changes',

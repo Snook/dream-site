@@ -2952,7 +2952,7 @@ textarea.form-control {
   }
 }
 
-.btn, #helpdesk, .button, .social_btn {
+.btn, #helpdesk, .social_btn {
   display: inline-block;
   font-weight: 400;
   color: #212529;
@@ -2968,59 +2968,58 @@ textarea.form-control {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  .btn, #helpdesk, .button, .social_btn {
+  .btn, #helpdesk, .social_btn {
     transition: none;
   }
 }
-.btn:hover, #helpdesk:hover, .button:hover, .social_btn:hover {
+.btn:hover, #helpdesk:hover, .social_btn:hover {
   color: #212529;
   text-decoration: none;
 }
-.btn:focus, #helpdesk:focus, .button:focus, .social_btn:focus, .btn.focus, .focus#helpdesk, .focus.button, .focus.social_btn {
+.btn:focus, #helpdesk:focus, .social_btn:focus, .btn.focus, .focus#helpdesk, .focus.social_btn {
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(149, 154, 33, 0.25);
 }
-.btn.disabled, .disabled#helpdesk, .disabled.button, .disabled.social_btn, .btn:disabled, #helpdesk:disabled, .button:disabled, .social_btn:disabled {
+.btn.disabled, .disabled#helpdesk, .disabled.social_btn, .btn:disabled, #helpdesk:disabled, .social_btn:disabled {
   opacity: 0.65;
 }
-.btn:not(:disabled):not(.disabled), #helpdesk:not(:disabled):not(.disabled), .button:not(:disabled):not(.disabled), .social_btn:not(:disabled):not(.disabled) {
+.btn:not(:disabled):not(.disabled), #helpdesk:not(:disabled):not(.disabled), .social_btn:not(:disabled):not(.disabled) {
   cursor: pointer;
 }
-a.btn.disabled, a.disabled#helpdesk, a.disabled.button, a.disabled.social_btn,
+a.btn.disabled, a.disabled#helpdesk, a.disabled.social_btn,
 fieldset:disabled a.btn,
 fieldset:disabled a#helpdesk,
-fieldset:disabled a.button,
 fieldset:disabled a.social_btn {
   pointer-events: none;
 }
 
-.btn-primary, #helpdesk, .button {
+.btn-primary, #helpdesk {
   color: #fff;
   background-color: #959a21;
   border-color: #959a21;
 }
-.btn-primary:hover, #helpdesk:hover, .button:hover {
+.btn-primary:hover, #helpdesk:hover {
   color: #fff;
   background-color: #777b1a;
   border-color: #6c7018;
 }
-.btn-primary:focus, #helpdesk:focus, .button:focus, .btn-primary.focus, .focus#helpdesk, .focus.button {
+.btn-primary:focus, #helpdesk:focus, .btn-primary.focus, .focus#helpdesk {
   color: #fff;
   background-color: #777b1a;
   border-color: #6c7018;
   box-shadow: 0 0 0 0.2rem rgba(165, 169, 66, 0.5);
 }
-.btn-primary.disabled, .disabled#helpdesk, .disabled.button, .btn-primary:disabled, #helpdesk:disabled, .button:disabled {
+.btn-primary.disabled, .disabled#helpdesk, .btn-primary:disabled, #helpdesk:disabled {
   color: #fff;
   background-color: #959a21;
   border-color: #959a21;
 }
-.btn-primary:not(:disabled):not(.disabled):active, #helpdesk:not(:disabled):not(.disabled):active, .button:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, #helpdesk:not(:disabled):not(.disabled).active, .button:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle, .show > .dropdown-toggle#helpdesk, .show > .dropdown-toggle.button {
+.btn-primary:not(:disabled):not(.disabled):active, #helpdesk:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, #helpdesk:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle, .show > .dropdown-toggle#helpdesk {
   color: #fff;
   background-color: #6c7018;
   border-color: #626616;
 }
-.btn-primary:not(:disabled):not(.disabled):active:focus, #helpdesk:not(:disabled):not(.disabled):active:focus, .button:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, #helpdesk:not(:disabled):not(.disabled).active:focus, .button:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.dropdown-toggle:focus, .show > .dropdown-toggle#helpdesk:focus, .show > .dropdown-toggle.button:focus {
+.btn-primary:not(:disabled):not(.disabled):active:focus, #helpdesk:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, #helpdesk:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.dropdown-toggle:focus, .show > .dropdown-toggle#helpdesk:focus {
   box-shadow: 0 0 0 0.2rem rgba(165, 169, 66, 0.5);
 }
 
@@ -4936,14 +4935,14 @@ fieldset:disabled a.social_btn {
   pointer-events: none;
 }
 
-.btn-lg, .btn-group-lg > .btn, .btn-group-lg > #helpdesk, .btn-group-lg > .button, .btn-group-lg > .social_btn {
+.btn-lg, .btn-group-lg > .btn, .btn-group-lg > #helpdesk, .btn-group-lg > .social_btn {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
   border-radius: 0;
 }
 
-.btn-sm, #helpdesk, .button, .btn-group-sm > .btn, .btn-group-sm > .button, .btn-group-sm > .social_btn {
+.btn-sm, #helpdesk, .btn-group-sm > .btn, .btn-group-sm > .social_btn {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -5241,33 +5240,28 @@ input[type=button].btn-block {
   display: inline-flex;
   vertical-align: middle;
 }
-.btn-group > .btn, .btn-group > #helpdesk, .btn-group > .button, .btn-group > .social_btn,
+.btn-group > .btn, .btn-group > #helpdesk, .btn-group > .social_btn,
 .btn-group-vertical > .btn,
 .btn-group-vertical > #helpdesk,
-.btn-group-vertical > .button,
 .btn-group-vertical > .social_btn {
   position: relative;
   flex: 1 1 auto;
 }
-.btn-group > .btn:hover, .btn-group > #helpdesk:hover, .btn-group > .button:hover, .btn-group > .social_btn:hover,
+.btn-group > .btn:hover, .btn-group > #helpdesk:hover, .btn-group > .social_btn:hover,
 .btn-group-vertical > .btn:hover,
 .btn-group-vertical > #helpdesk:hover,
-.btn-group-vertical > .button:hover,
 .btn-group-vertical > .social_btn:hover {
   z-index: 1;
 }
-.btn-group > .btn:focus, .btn-group > #helpdesk:focus, .btn-group > .button:focus, .btn-group > .social_btn:focus, .btn-group > .btn:active, .btn-group > #helpdesk:active, .btn-group > .button:active, .btn-group > .social_btn:active, .btn-group > .btn.active, .btn-group > .active#helpdesk, .btn-group > .active.button, .btn-group > .active.social_btn,
+.btn-group > .btn:focus, .btn-group > #helpdesk:focus, .btn-group > .social_btn:focus, .btn-group > .btn:active, .btn-group > #helpdesk:active, .btn-group > .social_btn:active, .btn-group > .btn.active, .btn-group > .active#helpdesk, .btn-group > .active.social_btn,
 .btn-group-vertical > .btn:focus,
 .btn-group-vertical > #helpdesk:focus,
-.btn-group-vertical > .button:focus,
 .btn-group-vertical > .social_btn:focus,
 .btn-group-vertical > .btn:active,
 .btn-group-vertical > #helpdesk:active,
-.btn-group-vertical > .button:active,
 .btn-group-vertical > .social_btn:active,
 .btn-group-vertical > .btn.active,
 .btn-group-vertical > .active#helpdesk,
-.btn-group-vertical > .active.button,
 .btn-group-vertical > .active.social_btn {
   z-index: 1;
 }
@@ -5281,7 +5275,7 @@ input[type=button].btn-block {
   width: auto;
 }
 
-.btn-group > .btn:not(:first-child), .btn-group > #helpdesk:not(:first-child), .btn-group > .button:not(:first-child), .btn-group > .social_btn:not(:first-child),
+.btn-group > .btn:not(:first-child), .btn-group > #helpdesk:not(:first-child), .btn-group > .social_btn:not(:first-child),
 .btn-group > .btn-group:not(:first-child) {
   margin-left: -1px;
 }
@@ -5296,12 +5290,12 @@ input[type=button].btn-block {
   margin-right: 0;
 }
 
-.btn-sm + .dropdown-toggle-split, #helpdesk + .dropdown-toggle-split, .button + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .btn-group-sm > #helpdesk + .dropdown-toggle-split, .btn-group-sm > .button + .dropdown-toggle-split, .btn-group-sm > .social_btn + .dropdown-toggle-split {
+.btn-sm + .dropdown-toggle-split, #helpdesk + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .btn-group-sm > #helpdesk + .dropdown-toggle-split, .btn-group-sm > .social_btn + .dropdown-toggle-split {
   padding-right: 0.375rem;
   padding-left: 0.375rem;
 }
 
-.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split, .btn-group-lg > #helpdesk + .dropdown-toggle-split, .btn-group-lg > .button + .dropdown-toggle-split, .btn-group-lg > .social_btn + .dropdown-toggle-split {
+.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split, .btn-group-lg > #helpdesk + .dropdown-toggle-split, .btn-group-lg > .social_btn + .dropdown-toggle-split {
   padding-right: 0.75rem;
   padding-left: 0.75rem;
 }
@@ -5311,25 +5305,23 @@ input[type=button].btn-block {
   align-items: flex-start;
   justify-content: center;
 }
-.btn-group-vertical > .btn, .btn-group-vertical > #helpdesk, .btn-group-vertical > .button, .btn-group-vertical > .social_btn,
+.btn-group-vertical > .btn, .btn-group-vertical > #helpdesk, .btn-group-vertical > .social_btn,
 .btn-group-vertical > .btn-group {
   width: 100%;
 }
-.btn-group-vertical > .btn:not(:first-child), .btn-group-vertical > #helpdesk:not(:first-child), .btn-group-vertical > .button:not(:first-child), .btn-group-vertical > .social_btn:not(:first-child),
+.btn-group-vertical > .btn:not(:first-child), .btn-group-vertical > #helpdesk:not(:first-child), .btn-group-vertical > .social_btn:not(:first-child),
 .btn-group-vertical > .btn-group:not(:first-child) {
   margin-top: -1px;
 }
-.btn-group-toggle > .btn, .btn-group-toggle > #helpdesk, .btn-group-toggle > .button, .btn-group-toggle > .social_btn,
+.btn-group-toggle > .btn, .btn-group-toggle > #helpdesk, .btn-group-toggle > .social_btn,
 .btn-group-toggle > .btn-group > .btn,
 .btn-group-toggle > .btn-group > #helpdesk,
-.btn-group-toggle > .btn-group > .button,
 .btn-group-toggle > .btn-group > .social_btn {
   margin-bottom: 0;
 }
-.btn-group-toggle > .btn input[type=radio], .btn-group-toggle > #helpdesk input[type=radio], .btn-group-toggle > .button input[type=radio], .btn-group-toggle > .social_btn input[type=radio],
+.btn-group-toggle > .btn input[type=radio], .btn-group-toggle > #helpdesk input[type=radio], .btn-group-toggle > .social_btn input[type=radio],
 .btn-group-toggle > .btn input[type=checkbox],
 .btn-group-toggle > #helpdesk input[type=checkbox],
-.btn-group-toggle > .button input[type=checkbox],
 .btn-group-toggle > .social_btn input[type=checkbox],
 .btn-group-toggle > .btn-group > .btn input[type=radio],
 .btn-group-toggle > .btn-group > .btn input[type=checkbox] {
@@ -5385,55 +5377,42 @@ input[type=button].btn-block {
 .input-group-append {
   display: flex;
 }
-.input-group-prepend .btn, .input-group-prepend #helpdesk, .input-group-prepend .button, .input-group-prepend .social_btn,
+.input-group-prepend .btn, .input-group-prepend #helpdesk, .input-group-prepend .social_btn,
 .input-group-append .btn,
 .input-group-append #helpdesk,
-.input-group-append .button,
 .input-group-append .social_btn {
   position: relative;
   z-index: 2;
 }
-.input-group-prepend .btn:focus, .input-group-prepend #helpdesk:focus, .input-group-prepend .button:focus, .input-group-prepend .social_btn:focus,
+.input-group-prepend .btn:focus, .input-group-prepend #helpdesk:focus, .input-group-prepend .social_btn:focus,
 .input-group-append .btn:focus,
 .input-group-append #helpdesk:focus,
-.input-group-append .button:focus,
 .input-group-append .social_btn:focus {
   z-index: 3;
 }
-.input-group-prepend .btn + .btn, .input-group-prepend #helpdesk + .btn, .input-group-prepend .btn + #helpdesk, .input-group-prepend #helpdesk + #helpdesk, .input-group-prepend .button + .btn, .input-group-prepend .button + #helpdesk, .input-group-prepend .btn + .button, .input-group-prepend #helpdesk + .button, .input-group-prepend .button + .button, .input-group-prepend .social_btn + .btn, .input-group-prepend .social_btn + #helpdesk, .input-group-prepend .social_btn + .button, .input-group-prepend .btn + .social_btn, .input-group-prepend #helpdesk + .social_btn, .input-group-prepend .button + .social_btn, .input-group-prepend .social_btn + .social_btn,
+.input-group-prepend .btn + .btn, .input-group-prepend #helpdesk + .btn, .input-group-prepend .btn + #helpdesk, .input-group-prepend #helpdesk + #helpdesk, .input-group-prepend .social_btn + .btn, .input-group-prepend .social_btn + #helpdesk, .input-group-prepend .btn + .social_btn, .input-group-prepend #helpdesk + .social_btn, .input-group-prepend .social_btn + .social_btn,
 .input-group-prepend .btn + .input-group-text,
 .input-group-prepend #helpdesk + .input-group-text,
-.input-group-prepend .button + .input-group-text,
 .input-group-prepend .social_btn + .input-group-text,
 .input-group-prepend .input-group-text + .input-group-text,
 .input-group-prepend .input-group-text + .btn,
 .input-group-prepend .input-group-text + #helpdesk,
-.input-group-prepend .input-group-text + .button,
 .input-group-prepend .input-group-text + .social_btn,
 .input-group-append .btn + .btn,
 .input-group-append #helpdesk + .btn,
 .input-group-append .btn + #helpdesk,
 .input-group-append #helpdesk + #helpdesk,
-.input-group-append .button + .btn,
-.input-group-append .button + #helpdesk,
-.input-group-append .btn + .button,
-.input-group-append #helpdesk + .button,
-.input-group-append .button + .button,
 .input-group-append .social_btn + .btn,
 .input-group-append .social_btn + #helpdesk,
-.input-group-append .social_btn + .button,
 .input-group-append .btn + .social_btn,
 .input-group-append #helpdesk + .social_btn,
-.input-group-append .button + .social_btn,
 .input-group-append .social_btn + .social_btn,
 .input-group-append .btn + .input-group-text,
 .input-group-append #helpdesk + .input-group-text,
-.input-group-append .button + .input-group-text,
 .input-group-append .social_btn + .input-group-text,
 .input-group-append .input-group-text + .input-group-text,
 .input-group-append .input-group-text + .btn,
 .input-group-append .input-group-text + #helpdesk,
-.input-group-append .input-group-text + .button,
 .input-group-append .input-group-text + .social_btn {
   margin-left: -1px;
 }
@@ -5476,11 +5455,9 @@ input[type=button].btn-block {
 .input-group-lg > .input-group-append > .input-group-text,
 .input-group-lg > .input-group-prepend > .btn,
 .input-group-lg > .input-group-prepend > #helpdesk,
-.input-group-lg > .input-group-prepend > .button,
 .input-group-lg > .input-group-prepend > .social_btn,
 .input-group-lg > .input-group-append > .btn,
 .input-group-lg > .input-group-append > #helpdesk,
-.input-group-lg > .input-group-append > .button,
 .input-group-lg > .input-group-append > .social_btn {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
@@ -5498,11 +5475,9 @@ input[type=button].btn-block {
 .input-group-sm > .input-group-append > .input-group-text,
 .input-group-sm > .input-group-prepend > .btn,
 .input-group-sm > .input-group-prepend > #helpdesk,
-.input-group-sm > .input-group-prepend > .button,
 .input-group-sm > .input-group-prepend > .social_btn,
 .input-group-sm > .input-group-append > .btn,
 .input-group-sm > .input-group-append > #helpdesk,
-.input-group-sm > .input-group-append > .button,
 .input-group-sm > .input-group-append > .social_btn {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
@@ -6627,7 +6602,7 @@ a.badge:hover, a.note_calendar:hover, a.badge:focus, a.note_calendar:focus {
   display: none;
 }
 
-.btn .badge, #helpdesk .badge, .button .badge, .btn .note_calendar, #helpdesk .note_calendar, .button .note_calendar, .social_btn .badge, .social_btn .note_calendar {
+.btn .badge, #helpdesk .badge, .btn .note_calendar, #helpdesk .note_calendar, .social_btn .badge, .social_btn .note_calendar {
   position: relative;
   top: -1px;
 }
@@ -13395,7 +13370,7 @@ a.text-gray-900:hover, a.text-gray-900:focus {
     box-shadow: none !important;
   }
 
-  a:not(.btn):not(#helpdesk):not(.button):not(.social_btn) {
+  a:not(.btn):not(#helpdesk):not(.social_btn) {
     text-decoration: underline;
   }
 
@@ -13641,16 +13616,16 @@ body, p {
   background-color: #e9ecef;
 }
 
-.btn, #helpdesk, .button, .social_btn {
+.btn, #helpdesk, .social_btn {
   font-weight: 600;
   text-transform: uppercase;
 }
-.btn.disabled, .disabled#helpdesk, .disabled.button, .disabled.social_btn, .btn:disabled, #helpdesk:disabled, .button:disabled, .social_btn:disabled {
+.btn.disabled, .disabled#helpdesk, .disabled.social_btn, .btn:disabled, #helpdesk:disabled, .social_btn:disabled {
   cursor: initial;
 }
 
 @media only screen and (max-width: 350px) {
-  .btn, #helpdesk, .button, .social_btn {
+  .btn, #helpdesk, .social_btn {
     font-size: 0.8rem;
   }
 }
@@ -22226,7 +22201,7 @@ textarea.form-control {
   }
 }
 
-.btn, #helpdesk, .button, .social_btn {
+.btn, #helpdesk, .social_btn {
   display: inline-block;
   font-weight: 400;
   color: #212529;
@@ -22242,59 +22217,58 @@ textarea.form-control {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  .btn, #helpdesk, .button, .social_btn {
+  .btn, #helpdesk, .social_btn {
     transition: none;
   }
 }
-.btn:hover, #helpdesk:hover, .button:hover, .social_btn:hover {
+.btn:hover, #helpdesk:hover, .social_btn:hover {
   color: #212529;
   text-decoration: none;
 }
-.btn:focus, #helpdesk:focus, .button:focus, .social_btn:focus, .btn.focus, .focus#helpdesk, .focus.button, .focus.social_btn {
+.btn:focus, #helpdesk:focus, .social_btn:focus, .btn.focus, .focus#helpdesk, .focus.social_btn {
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(149, 154, 33, 0.25);
 }
-.btn.disabled, .disabled#helpdesk, .disabled.button, .disabled.social_btn, .btn:disabled, #helpdesk:disabled, .button:disabled, .social_btn:disabled {
+.btn.disabled, .disabled#helpdesk, .disabled.social_btn, .btn:disabled, #helpdesk:disabled, .social_btn:disabled {
   opacity: 0.65;
 }
-.btn:not(:disabled):not(.disabled), #helpdesk:not(:disabled):not(.disabled), .button:not(:disabled):not(.disabled), .social_btn:not(:disabled):not(.disabled) {
+.btn:not(:disabled):not(.disabled), #helpdesk:not(:disabled):not(.disabled), .social_btn:not(:disabled):not(.disabled) {
   cursor: pointer;
 }
-a.btn.disabled, a.disabled#helpdesk, a.disabled.button, a.disabled.social_btn,
+a.btn.disabled, a.disabled#helpdesk, a.disabled.social_btn,
 fieldset:disabled a.btn,
 fieldset:disabled a#helpdesk,
-fieldset:disabled a.button,
 fieldset:disabled a.social_btn {
   pointer-events: none;
 }
 
-.btn-primary, #helpdesk, .button {
+.btn-primary, #helpdesk {
   color: #fff;
   background-color: #959a21;
   border-color: #959a21;
 }
-.btn-primary:hover, #helpdesk:hover, .button:hover {
+.btn-primary:hover, #helpdesk:hover {
   color: #fff;
   background-color: #777b1a;
   border-color: #6c7018;
 }
-.btn-primary:focus, #helpdesk:focus, .button:focus, .btn-primary.focus, .focus#helpdesk, .focus.button {
+.btn-primary:focus, #helpdesk:focus, .btn-primary.focus, .focus#helpdesk {
   color: #fff;
   background-color: #777b1a;
   border-color: #6c7018;
   box-shadow: 0 0 0 0.2rem rgba(165, 169, 66, 0.5);
 }
-.btn-primary.disabled, .disabled#helpdesk, .disabled.button, .btn-primary:disabled, #helpdesk:disabled, .button:disabled {
+.btn-primary.disabled, .disabled#helpdesk, .btn-primary:disabled, #helpdesk:disabled {
   color: #fff;
   background-color: #959a21;
   border-color: #959a21;
 }
-.btn-primary:not(:disabled):not(.disabled):active, #helpdesk:not(:disabled):not(.disabled):active, .button:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, #helpdesk:not(:disabled):not(.disabled).active, .button:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle, .show > .dropdown-toggle#helpdesk, .show > .dropdown-toggle.button {
+.btn-primary:not(:disabled):not(.disabled):active, #helpdesk:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, #helpdesk:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle, .show > .dropdown-toggle#helpdesk {
   color: #fff;
   background-color: #6c7018;
   border-color: #626616;
 }
-.btn-primary:not(:disabled):not(.disabled):active:focus, #helpdesk:not(:disabled):not(.disabled):active:focus, .button:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, #helpdesk:not(:disabled):not(.disabled).active:focus, .button:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.dropdown-toggle:focus, .show > .dropdown-toggle#helpdesk:focus, .show > .dropdown-toggle.button:focus {
+.btn-primary:not(:disabled):not(.disabled):active:focus, #helpdesk:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, #helpdesk:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.dropdown-toggle:focus, .show > .dropdown-toggle#helpdesk:focus {
   box-shadow: 0 0 0 0.2rem rgba(165, 169, 66, 0.5);
 }
 
@@ -24210,14 +24184,14 @@ fieldset:disabled a.social_btn {
   pointer-events: none;
 }
 
-.btn-lg, .btn-group-lg > .btn, .btn-group-lg > #helpdesk, .btn-group-lg > .button, .btn-group-lg > .social_btn {
+.btn-lg, .btn-group-lg > .btn, .btn-group-lg > #helpdesk, .btn-group-lg > .social_btn {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
   border-radius: 0;
 }
 
-.btn-sm, #helpdesk, .button, .btn-group-sm > .btn, .btn-group-sm > .button, .btn-group-sm > .social_btn {
+.btn-sm, #helpdesk, .btn-group-sm > .btn, .btn-group-sm > .social_btn {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -24515,33 +24489,28 @@ input[type=button].btn-block {
   display: inline-flex;
   vertical-align: middle;
 }
-.btn-group > .btn, .btn-group > #helpdesk, .btn-group > .button, .btn-group > .social_btn,
+.btn-group > .btn, .btn-group > #helpdesk, .btn-group > .social_btn,
 .btn-group-vertical > .btn,
 .btn-group-vertical > #helpdesk,
-.btn-group-vertical > .button,
 .btn-group-vertical > .social_btn {
   position: relative;
   flex: 1 1 auto;
 }
-.btn-group > .btn:hover, .btn-group > #helpdesk:hover, .btn-group > .button:hover, .btn-group > .social_btn:hover,
+.btn-group > .btn:hover, .btn-group > #helpdesk:hover, .btn-group > .social_btn:hover,
 .btn-group-vertical > .btn:hover,
 .btn-group-vertical > #helpdesk:hover,
-.btn-group-vertical > .button:hover,
 .btn-group-vertical > .social_btn:hover {
   z-index: 1;
 }
-.btn-group > .btn:focus, .btn-group > #helpdesk:focus, .btn-group > .button:focus, .btn-group > .social_btn:focus, .btn-group > .btn:active, .btn-group > #helpdesk:active, .btn-group > .button:active, .btn-group > .social_btn:active, .btn-group > .btn.active, .btn-group > .active#helpdesk, .btn-group > .active.button, .btn-group > .active.social_btn,
+.btn-group > .btn:focus, .btn-group > #helpdesk:focus, .btn-group > .social_btn:focus, .btn-group > .btn:active, .btn-group > #helpdesk:active, .btn-group > .social_btn:active, .btn-group > .btn.active, .btn-group > .active#helpdesk, .btn-group > .active.social_btn,
 .btn-group-vertical > .btn:focus,
 .btn-group-vertical > #helpdesk:focus,
-.btn-group-vertical > .button:focus,
 .btn-group-vertical > .social_btn:focus,
 .btn-group-vertical > .btn:active,
 .btn-group-vertical > #helpdesk:active,
-.btn-group-vertical > .button:active,
 .btn-group-vertical > .social_btn:active,
 .btn-group-vertical > .btn.active,
 .btn-group-vertical > .active#helpdesk,
-.btn-group-vertical > .active.button,
 .btn-group-vertical > .active.social_btn {
   z-index: 1;
 }
@@ -24555,7 +24524,7 @@ input[type=button].btn-block {
   width: auto;
 }
 
-.btn-group > .btn:not(:first-child), .btn-group > #helpdesk:not(:first-child), .btn-group > .button:not(:first-child), .btn-group > .social_btn:not(:first-child),
+.btn-group > .btn:not(:first-child), .btn-group > #helpdesk:not(:first-child), .btn-group > .social_btn:not(:first-child),
 .btn-group > .btn-group:not(:first-child) {
   margin-left: -1px;
 }
@@ -24570,12 +24539,12 @@ input[type=button].btn-block {
   margin-right: 0;
 }
 
-.btn-sm + .dropdown-toggle-split, #helpdesk + .dropdown-toggle-split, .button + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .btn-group-sm > #helpdesk + .dropdown-toggle-split, .btn-group-sm > .button + .dropdown-toggle-split, .btn-group-sm > .social_btn + .dropdown-toggle-split {
+.btn-sm + .dropdown-toggle-split, #helpdesk + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .btn-group-sm > #helpdesk + .dropdown-toggle-split, .btn-group-sm > .social_btn + .dropdown-toggle-split {
   padding-right: 0.375rem;
   padding-left: 0.375rem;
 }
 
-.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split, .btn-group-lg > #helpdesk + .dropdown-toggle-split, .btn-group-lg > .button + .dropdown-toggle-split, .btn-group-lg > .social_btn + .dropdown-toggle-split {
+.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split, .btn-group-lg > #helpdesk + .dropdown-toggle-split, .btn-group-lg > .social_btn + .dropdown-toggle-split {
   padding-right: 0.75rem;
   padding-left: 0.75rem;
 }
@@ -24585,25 +24554,23 @@ input[type=button].btn-block {
   align-items: flex-start;
   justify-content: center;
 }
-.btn-group-vertical > .btn, .btn-group-vertical > #helpdesk, .btn-group-vertical > .button, .btn-group-vertical > .social_btn,
+.btn-group-vertical > .btn, .btn-group-vertical > #helpdesk, .btn-group-vertical > .social_btn,
 .btn-group-vertical > .btn-group {
   width: 100%;
 }
-.btn-group-vertical > .btn:not(:first-child), .btn-group-vertical > #helpdesk:not(:first-child), .btn-group-vertical > .button:not(:first-child), .btn-group-vertical > .social_btn:not(:first-child),
+.btn-group-vertical > .btn:not(:first-child), .btn-group-vertical > #helpdesk:not(:first-child), .btn-group-vertical > .social_btn:not(:first-child),
 .btn-group-vertical > .btn-group:not(:first-child) {
   margin-top: -1px;
 }
-.btn-group-toggle > .btn, .btn-group-toggle > #helpdesk, .btn-group-toggle > .button, .btn-group-toggle > .social_btn,
+.btn-group-toggle > .btn, .btn-group-toggle > #helpdesk, .btn-group-toggle > .social_btn,
 .btn-group-toggle > .btn-group > .btn,
 .btn-group-toggle > .btn-group > #helpdesk,
-.btn-group-toggle > .btn-group > .button,
 .btn-group-toggle > .btn-group > .social_btn {
   margin-bottom: 0;
 }
-.btn-group-toggle > .btn input[type=radio], .btn-group-toggle > #helpdesk input[type=radio], .btn-group-toggle > .button input[type=radio], .btn-group-toggle > .social_btn input[type=radio],
+.btn-group-toggle > .btn input[type=radio], .btn-group-toggle > #helpdesk input[type=radio], .btn-group-toggle > .social_btn input[type=radio],
 .btn-group-toggle > .btn input[type=checkbox],
 .btn-group-toggle > #helpdesk input[type=checkbox],
-.btn-group-toggle > .button input[type=checkbox],
 .btn-group-toggle > .social_btn input[type=checkbox],
 .btn-group-toggle > .btn-group > .btn input[type=radio],
 .btn-group-toggle > .btn-group > .btn input[type=checkbox] {
@@ -24659,55 +24626,42 @@ input[type=button].btn-block {
 .input-group-append {
   display: flex;
 }
-.input-group-prepend .btn, .input-group-prepend #helpdesk, .input-group-prepend .button, .input-group-prepend .social_btn,
+.input-group-prepend .btn, .input-group-prepend #helpdesk, .input-group-prepend .social_btn,
 .input-group-append .btn,
 .input-group-append #helpdesk,
-.input-group-append .button,
 .input-group-append .social_btn {
   position: relative;
   z-index: 2;
 }
-.input-group-prepend .btn:focus, .input-group-prepend #helpdesk:focus, .input-group-prepend .button:focus, .input-group-prepend .social_btn:focus,
+.input-group-prepend .btn:focus, .input-group-prepend #helpdesk:focus, .input-group-prepend .social_btn:focus,
 .input-group-append .btn:focus,
 .input-group-append #helpdesk:focus,
-.input-group-append .button:focus,
 .input-group-append .social_btn:focus {
   z-index: 3;
 }
-.input-group-prepend .btn + .btn, .input-group-prepend #helpdesk + .btn, .input-group-prepend .btn + #helpdesk, .input-group-prepend #helpdesk + #helpdesk, .input-group-prepend .button + .btn, .input-group-prepend .button + #helpdesk, .input-group-prepend .btn + .button, .input-group-prepend #helpdesk + .button, .input-group-prepend .button + .button, .input-group-prepend .social_btn + .btn, .input-group-prepend .social_btn + #helpdesk, .input-group-prepend .social_btn + .button, .input-group-prepend .btn + .social_btn, .input-group-prepend #helpdesk + .social_btn, .input-group-prepend .button + .social_btn, .input-group-prepend .social_btn + .social_btn,
+.input-group-prepend .btn + .btn, .input-group-prepend #helpdesk + .btn, .input-group-prepend .btn + #helpdesk, .input-group-prepend #helpdesk + #helpdesk, .input-group-prepend .social_btn + .btn, .input-group-prepend .social_btn + #helpdesk, .input-group-prepend .btn + .social_btn, .input-group-prepend #helpdesk + .social_btn, .input-group-prepend .social_btn + .social_btn,
 .input-group-prepend .btn + .input-group-text,
 .input-group-prepend #helpdesk + .input-group-text,
-.input-group-prepend .button + .input-group-text,
 .input-group-prepend .social_btn + .input-group-text,
 .input-group-prepend .input-group-text + .input-group-text,
 .input-group-prepend .input-group-text + .btn,
 .input-group-prepend .input-group-text + #helpdesk,
-.input-group-prepend .input-group-text + .button,
 .input-group-prepend .input-group-text + .social_btn,
 .input-group-append .btn + .btn,
 .input-group-append #helpdesk + .btn,
 .input-group-append .btn + #helpdesk,
 .input-group-append #helpdesk + #helpdesk,
-.input-group-append .button + .btn,
-.input-group-append .button + #helpdesk,
-.input-group-append .btn + .button,
-.input-group-append #helpdesk + .button,
-.input-group-append .button + .button,
 .input-group-append .social_btn + .btn,
 .input-group-append .social_btn + #helpdesk,
-.input-group-append .social_btn + .button,
 .input-group-append .btn + .social_btn,
 .input-group-append #helpdesk + .social_btn,
-.input-group-append .button + .social_btn,
 .input-group-append .social_btn + .social_btn,
 .input-group-append .btn + .input-group-text,
 .input-group-append #helpdesk + .input-group-text,
-.input-group-append .button + .input-group-text,
 .input-group-append .social_btn + .input-group-text,
 .input-group-append .input-group-text + .input-group-text,
 .input-group-append .input-group-text + .btn,
 .input-group-append .input-group-text + #helpdesk,
-.input-group-append .input-group-text + .button,
 .input-group-append .input-group-text + .social_btn {
   margin-left: -1px;
 }
@@ -24750,11 +24704,9 @@ input[type=button].btn-block {
 .input-group-lg > .input-group-append > .input-group-text,
 .input-group-lg > .input-group-prepend > .btn,
 .input-group-lg > .input-group-prepend > #helpdesk,
-.input-group-lg > .input-group-prepend > .button,
 .input-group-lg > .input-group-prepend > .social_btn,
 .input-group-lg > .input-group-append > .btn,
 .input-group-lg > .input-group-append > #helpdesk,
-.input-group-lg > .input-group-append > .button,
 .input-group-lg > .input-group-append > .social_btn {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
@@ -24772,11 +24724,9 @@ input[type=button].btn-block {
 .input-group-sm > .input-group-append > .input-group-text,
 .input-group-sm > .input-group-prepend > .btn,
 .input-group-sm > .input-group-prepend > #helpdesk,
-.input-group-sm > .input-group-prepend > .button,
 .input-group-sm > .input-group-prepend > .social_btn,
 .input-group-sm > .input-group-append > .btn,
 .input-group-sm > .input-group-append > #helpdesk,
-.input-group-sm > .input-group-append > .button,
 .input-group-sm > .input-group-append > .social_btn {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
@@ -25901,7 +25851,7 @@ a.badge:hover, a.note_calendar:hover, a.badge:focus, a.note_calendar:focus {
   display: none;
 }
 
-.btn .badge, #helpdesk .badge, .button .badge, .btn .note_calendar, #helpdesk .note_calendar, .button .note_calendar, .social_btn .badge, .social_btn .note_calendar {
+.btn .badge, #helpdesk .badge, .btn .note_calendar, #helpdesk .note_calendar, .social_btn .badge, .social_btn .note_calendar {
   position: relative;
   top: -1px;
 }
@@ -32685,7 +32635,7 @@ a.text-gray-900:hover, a.text-gray-900:focus {
     box-shadow: none !important;
   }
 
-  a:not(.btn):not(#helpdesk):not(.button):not(.social_btn) {
+  a:not(.btn):not(#helpdesk):not(.social_btn) {
     text-decoration: underline;
   }
 
@@ -32931,16 +32881,16 @@ body, p {
   background-color: #e9ecef;
 }
 
-.btn, #helpdesk, .button, .social_btn {
+.btn, #helpdesk, .social_btn {
   font-weight: 600;
   text-transform: uppercase;
 }
-.btn.disabled, .disabled#helpdesk, .disabled.button, .disabled.social_btn, .btn:disabled, #helpdesk:disabled, .button:disabled, .social_btn:disabled {
+.btn.disabled, .disabled#helpdesk, .disabled.social_btn, .btn:disabled, #helpdesk:disabled, .social_btn:disabled {
   cursor: initial;
 }
 
 @media only screen and (max-width: 350px) {
-  .btn, #helpdesk, .button, .social_btn {
+  .btn, #helpdesk, .social_btn {
     font-size: 0.8rem;
   }
 }
@@ -38484,7 +38434,7 @@ A VERTICAL event
   box-shadow: 0 0 8px #df4e59;
 }
 
-.btn.btn-primary, #helpdesk, .button, .btn-primary.social_btn, .btn.btn-danger, .btn-danger.social_btn {
+.btn.btn-primary, #helpdesk, .btn-primary.social_btn, .btn.btn-danger, .btn-danger.social_btn, .btn.btn-secondary, .btn-secondary.social_btn {
   color: #c3c861 !important;
   border-radius: 4px;
   font-size: 0.55rem !important;
@@ -38516,13 +38466,13 @@ A VERTICAL event
   display: inline-block;
 }
 
-.btn.btn-danger, .btn-danger#helpdesk, .btn-danger.button, .btn-danger.social_btn, .red {
+.btn.btn-danger, .btn-danger#helpdesk, .btn-danger.social_btn, .red {
   background-color: #580304;
   background-image: linear-gradient(#792028, #580304);
   border: 1px solid #580304;
 }
 
-.btn.btn-primary:hover, #helpdesk:hover, .button:hover, .btn-primary.social_btn:hover, .btn.btn-danger:hover, .btn-danger.social_btn:hover {
+.btn.btn-primary:hover, #helpdesk:hover, .btn-primary.social_btn:hover, .btn.btn-secondary:hover, .btn-secondary.social_btn:hover, .btn.btn-danger:hover, .btn-danger.social_btn:hover {
   color: #fff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #38883b;
@@ -38530,7 +38480,7 @@ A VERTICAL event
   text-decoration: none;
 }
 
-.btn.disabled, .disabled#helpdesk, .disabled.button, .disabled.social_btn, .btn:disabled, #helpdesk:disabled, .button:disabled, .social_btn:disabled {
+.btn.disabled, .disabled#helpdesk, .disabled.social_btn, .btn:disabled, #helpdesk:disabled, .social_btn:disabled {
   cursor: auto !important;
   color: #c5c5c5 !important;
   background-color: #5e5e5e;
@@ -38538,14 +38488,14 @@ A VERTICAL event
   border: 1px solid #494949 !important;
 }
 
-.btn.selected, .selected#helpdesk, .selected.button, .selected.social_btn {
+.btn.selected, .selected#helpdesk, .selected.social_btn {
   color: #000 !important;
   background-color: #ffed8c;
   background-image: none;
   border: 1px solid #494949 !important;
 }
 
-.btn.btn-danger:hover, .btn-danger#helpdesk:hover, .btn-danger.button:hover, .btn-danger.social_btn:hover {
+.btn.btn-danger:hover, .btn-danger#helpdesk:hover, .btn-danger.social_btn:hover {
   background-color: #d73818;
 }
 
@@ -42481,7 +42431,7 @@ x:-o-prefocus, .qtip .qtip-tip {
   color: #111;
 }
 
-.ui-tooltip-dreamdinners_sp .btn, .ui-tooltip-dreamdinners_sp #helpdesk, .ui-tooltip-dreamdinners_sp .button, .ui-tooltip-dreamdinners_sp .social_btn {
+.ui-tooltip-dreamdinners_sp .btn, .ui-tooltip-dreamdinners_sp #helpdesk, .ui-tooltip-dreamdinners_sp .social_btn {
   margin-right: 20px;
   margin-top: 10px;
   float: right;
@@ -42588,10 +42538,6 @@ x:-o-prefocus, .qtip .qtip-tip {
 #menubar .active a:hover {
   background: #2b6a5a;
   color: #c4c1b8;
-}
-
-.button {
-  text-transform: none;
 }
 
 #helpdesk {
