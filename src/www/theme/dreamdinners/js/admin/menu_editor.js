@@ -251,12 +251,6 @@ $(document).on('change', '.menu-editor-hid', function (e) {
 		$(this).removeClass('border-orange');
 	}
 
-	$('.menu-editor-unsaved-alert').hideFlex();
-	if ($form.serialize() !== originForm)
-	{
-		$('.menu-editor-unsaved-alert').showFlex();
-	}
-
 });
 
 $(document).on('change', '.menu-editor-vis, .menu-editor-form, .menu-editor-pic', function (e) {
@@ -275,12 +269,6 @@ $(document).on('change', '.menu-editor-vis, .menu-editor-form, .menu-editor-pic'
 	else
 	{
 		$(this).removeClass('border-orange');
-	}
-
-	$('.menu-editor-unsaved-alert').hideFlex();
-	if ($form.serialize() !== originForm)
-	{
-		$('.menu-editor-unsaved-alert').showFlex();
 	}
 
 });
@@ -316,6 +304,10 @@ $(document).on('change keyup', '.menu-editor-ovr', function (e) {
 	{
 		$('.ovr-alert-warning[data-menu_item_id="' + menu_item_id + '"]').showFlex();
 	}
+
+});
+
+$(document).on('change keyup', '.menu-editor-hid, .menu-editor-vis, .menu-editor-form, .menu-editor-pic, .menu-editor-ovr', function (e) {
 
 	$('.menu-editor-unsaved-alert').hideFlex();
 	if ($form.serialize() !== originForm)
@@ -367,7 +359,7 @@ $(document).on('submit keydown keyup', '#menu_editor_form', function (e) {
 
 $(document).on('click', '.menu-editor-finalize', function (e) {
 
-	if ($('#menu_editor_form')['0'].checkValidity() !== false)
+	if ($('#menu_editor_form').validateForm() !== false)
 	{
 		bootbox.dialog({
 			title: 'Confirmation',
