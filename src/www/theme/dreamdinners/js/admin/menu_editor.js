@@ -11,13 +11,15 @@ $(document).ready(function () {
 
 $(document).on('change', '#menu', function (e) {
 
+	let menu_id = $(this).val();
+
 	bootbox.confirm("Are you sure you wish to change menus? You will lose any unsaved changes.", function (result) {
 		if (result)
 		{
 			create_and_submit_form({
 				action: '/backoffice/menu-editor',
 				input: ({
-					'menu': $(this).val()
+					'menu': menu_id
 				})
 			});
 		}
