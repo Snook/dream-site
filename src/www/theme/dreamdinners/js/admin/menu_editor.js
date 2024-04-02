@@ -323,6 +323,9 @@ $(document).on('click', '.menu-editor-finalize', function (e) {
 			message: "<p>Are you sure you wish to save all menu editor changes?</p>",
 			centerVertical: true,
 			buttons: {
+				cancel: {
+					label: 'Cancel'
+				},
 				confirm: {
 					label: 'Finalize changes',
 					className: 'btn-danger',
@@ -337,9 +340,6 @@ $(document).on('click', '.menu-editor-finalize', function (e) {
 							closeButton: false
 						});
 					}
-				},
-				cancel: {
-					label: 'Cancel'
 				}
 			}
 		});
