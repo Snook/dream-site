@@ -50,16 +50,42 @@ class processor_admin_defaultPricingProcessor extends CPageProcessor
 				if ($DAO_default_prices->find(true))
 				{
 					$update_DAO_default_prices = clone $DAO_default_prices;
-					$update_DAO_default_prices->default_price = $setting['ovr'];
-					$update_DAO_default_prices->default_customer_visibility = $setting['vis'];
-					$update_DAO_default_prices->default_hide_completely = $setting['hid'];
+					if (isset($setting['ovr']))
+					{
+						$update_DAO_default_prices->default_price = $setting['ovr'];
+					}
+					if (isset($setting['vis']))
+					{
+						$update_DAO_default_prices->default_customer_visibility = $setting['vis'];
+					}
+					if (isset($setting['form']))
+					{
+						$update_DAO_default_prices->show_on_order_form = $setting['form'];
+					}
+					if (isset($setting['hid']))
+					{
+						$update_DAO_default_prices->default_hide_completely = $setting['hid'];
+					}
 					$update_DAO_default_prices->update($DAO_default_prices);
 				}
 				else
 				{
-					$DAO_default_prices->default_price = $setting['ovr'];
-					$DAO_default_prices->default_customer_visibility = $setting['vis'];
-					$DAO_default_prices->default_hide_completely = $setting['hid'];
+					if (isset($setting['ovr']))
+					{
+						$DAO_default_prices->default_price = $setting['ovr'];
+					}
+					if (isset($setting['vis']))
+					{
+						$DAO_default_prices->default_customer_visibility = $setting['vis'];
+					}
+					if (isset($setting['form']))
+					{
+						$DAO_default_prices->show_on_order_form = $setting['form'];
+					}
+					if (isset($setting['hid']))
+					{
+						$DAO_default_prices->default_hide_completely = $setting['hid'];
+					}
 					$DAO_default_prices->insert();
 				}
 			}
@@ -85,6 +111,7 @@ class processor_admin_defaultPricingProcessor extends CPageProcessor
 						'ovr' => $DAO_default_prices->default_price,
 						'vis' => $DAO_default_prices->default_customer_visibility,
 						'hid' => $DAO_default_prices->default_hide_completely,
+						'form' => $DAO_default_prices->show_on_order_form
 					);
 				}
 			}

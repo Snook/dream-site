@@ -13,15 +13,31 @@ $(document).on('change', '#menu', function (e) {
 
 	let menu_id = $(this).val();
 
-	bootbox.confirm("Are you sure you wish to change menus? You will lose any unsaved changes.", function (result) {
-		if (result)
-		{
-			create_and_submit_form({
-				action: '/backoffice/menu-editor',
-				input: ({
-					'menu': menu_id
-				})
-			});
+	e.preventDefault()
+
+	bootbox.dialog({
+		title: 'Confirmation',
+		message: "<p>Are you sure you wish to change menus? You will lose any unsaved changes.</p>",
+		centerVertical: true,
+		buttons: {
+			cancel: {
+				label: 'Cancel',
+				className: 'btn-primary'
+			},
+			confirm: {
+				label: 'Switch menu',
+				className: 'btn-primary',
+				callback: function () {
+
+					create_and_submit_form({
+						action: '/backoffice/menu-editor',
+						input: ({
+							'menu': menu_id
+						})
+					});
+
+				}
+			}
 		}
 	});
 
@@ -36,6 +52,10 @@ $(document).on('click', '.sides-sweets-save', function (e) {
 		message: "<p>Are you sure you wish to save all current Sides &amp; Sweets settings as the default pricing and visibility?</p>",
 		centerVertical: true,
 		buttons: {
+			cancel: {
+				label: 'Cancel',
+				className: 'btn-primary'
+			},
 			confirm: {
 				label: 'Safe defualts',
 				className: 'btn-danger',
@@ -86,6 +106,7 @@ $(document).on('click', '.sides-sweets-save', function (e) {
 									title: 'Error',
 									message: json.processor_message
 								});
+								return;
 							}
 						},
 						error: function (objAJAXRequest, strError) {
@@ -94,15 +115,12 @@ $(document).on('click', '.sides-sweets-save', function (e) {
 								title: 'Error',
 								message: response
 							});
-
+							return;
 						}
 
 					});
 
 				}
-			},
-			cancel: {
-				label: 'Cancel'
 			}
 		}
 	});
@@ -118,12 +136,16 @@ $(document).on('click', '.sides-sweets-retrieve', function (e) {
 		inputType: 'checkbox',
 		inputOptions: [
 			{
-				text: 'Price',
-				value: 'ovr'
-			},
-			{
 				text: 'Show on customer menu',
 				value: 'vis'
+			},
+			{
+				text: 'Show on Sides & Sweets Forms',
+				value: 'form'
+			},
+			{
+				text: 'Price',
+				value: 'ovr'
 			}
 		],
 		centerVertical: true,
@@ -154,6 +176,12 @@ $(document).on('click', '.sides-sweets-retrieve', function (e) {
 								if (result.includes('vis'))
 								{
 									$('.menu-editor-vis[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['vis']).trigger('change');
+									$('.menu-editor-hid[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['hid']).trigger('change');
+								}
+
+								if (result.includes('form'))
+								{
+									$('.menu-editor-form[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['form']).trigger('change');
 									$('.menu-editor-hid[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['hid']).trigger('change');
 								}
 
@@ -282,6 +310,10 @@ $(document).on('click', '.menu-editor-reset', function (e) {
 		message: "<p>Are you sure you wish to reset all currently pending changes?</p>",
 		centerVertical: true,
 		buttons: {
+			cancel: {
+				label: 'Cancel',
+				className: 'btn-primary'
+			},
 			confirm: {
 				label: 'Reset changes',
 				className: 'btn-danger',
@@ -290,14 +322,11 @@ $(document).on('click', '.menu-editor-reset', function (e) {
 					$("#menu_editor_form").trigger('reset');
 
 					// Timeout ensures form is reset first
-					setTimeout(function() {
+					setTimeout(function () {
 						$('#menu_editor_form').removeClass('was-validated');
 						$('.menu-editor-vis, .menu-editor-form, .menu-editor-pic, .menu-editor-hid, .menu-editor-ovr').removeClass('border-orange').trigger('change');
 					}, 1);
 				}
-			},
-			cancel: {
-				label: 'Cancel'
 			}
 		}
 	});
@@ -306,7 +335,7 @@ $(document).on('click', '.menu-editor-reset', function (e) {
 
 $(document).on('submit keydown keyup', '#menu_editor_form', function (e) {
 
-	if(e.keyCode == 13)
+	if (e.keyCode == 13)
 	{
 		e.preventDefault();
 		return false;
@@ -324,7 +353,8 @@ $(document).on('click', '.menu-editor-finalize', function (e) {
 			centerVertical: true,
 			buttons: {
 				cancel: {
-					label: 'Cancel'
+					label: 'Cancel',
+					className: 'btn-primary'
 				},
 				confirm: {
 					label: 'Finalize changes',
