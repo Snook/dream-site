@@ -783,6 +783,22 @@ $(document).on('click', '[data-info_menu_side]', function (e) {
 	});
 });
 
+$(document).on('keyup change', '#filter', function (e) {
+	$.uiTableFilter($('#recipe_list'), this.value);
+});
+
+$(document).on('click', '#clear_filter', function (e) {
+
+	$('#filter').val('').change();
+
+	if (!Modernizr.input.placeholder)
+	{
+		// trick to restore placeholder on IE
+		$('#filter').focus().blur();
+	}
+
+});
+
 function showPopup(config)
 {
 	var settings = { //defaults

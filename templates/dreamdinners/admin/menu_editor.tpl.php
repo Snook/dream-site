@@ -1,4 +1,5 @@
 <?php $this->setScript('foot', SCRIPT_PATH . '/admin/menu_editor.min.js'); ?>
+<?php $this->setScript('foot', SCRIPT_PATH . '/admin/vendor/jquery.uitablefilter.js'); ?>
 <?php $this->assign('page_title', 'Menu Editor'); ?>
 <?php $this->assign('topnav', 'store'); ?>
 <?php $this->setScriptVar('menu_id = ' . $this->DAO_menu->id . ';'); ?>
@@ -90,7 +91,7 @@
 					<div class="tab-content bg-white" id="nav-tabContent">
 						<div class="tab-pane fade show active" id="nav-specials" role="tabpanel" aria-labelledby="nav-specials-tab">
 							<table class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
-								<thead class="text-center bg-white sticky-top ddtemp-z-index-0">
+								<thead class="text-center bg-white sticky-top">
 								<tr>
 									<th class="align-middle">Show on customer menu</th>
 									<th class="align-middle">Item title <span class="font-weight-normal">(Recipe ID)</span></th>
@@ -163,7 +164,7 @@
 							</div>
 
 							<table class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
-								<thead class="text-center bg-white sticky-top ddtemp-z-index-0">
+								<thead class="text-center bg-white sticky-top">
 								<tr>
 									<th class="align-middle">Show on customer menu</th>
 									<th class="align-middle">Show on Sides &amp; Sweets Forms</th>
@@ -245,7 +246,7 @@
 							</div>
 
 							<table class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
-								<thead class="text-center bg-white sticky-top ddtemp-z-index-0">
+								<thead class="text-center bg-white sticky-top">
 								<tr>
 									<th class="align-middle">Show on customer menu</th>
 									<th class="align-middle">Show on Sides &amp; Sweets Forms</th>
@@ -291,7 +292,7 @@
 							</div>
 
 							<table class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
-								<thead class="text-center bg-white sticky-top ddtemp-z-index-0">
+								<thead class="text-center bg-white sticky-top">
 								<tr>
 									<th class="align-middle">Show on customer menu</th>
 									<th class="align-middle">Show on Sides &amp; Sweets Forms</th>
@@ -331,7 +332,7 @@
 							<br/>
 
 							<table class="table table-striped table-bordered table-hover table-hover-cyan ddtemp-table-border-collapse">
-								<thead class="text-center bg-white sticky-top ddtemp-z-index-0">
+								<thead class="text-center bg-white sticky-top">
 								<tr>
 									<th class="align-middle text-left"></th>
 									<th class="align-middle <?php echo (($this->CurrentBackOfficeStore->core_pricing_tier == 1) ? 'bg-green-light' : '' ); ?>" colspan="2">Tier 1</th>
