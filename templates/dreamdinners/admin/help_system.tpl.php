@@ -1,28 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" itemscope itemtype="https://schema.org/Article" prefix="fb: https://www.facebook.com/2008/fbml">
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>Dream Dinners | Help</title>
-<link href="<?= CSS_PATH ?>/admin/admin-styles.css" rel="stylesheet" type="text/css" />
+	<title lang="en-us">Dream Dinners Help</title>
+	<meta name="robots" content="noindex">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="<?php echo  CSS_PATH; ?>/admin/admin-styles.min.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body class="bg-white">
 
-<script type="text/javascript">
-//<![CDATA[
-function printWindow()
-{
-	browserVersion = parseInt(navigator.appVersion);
-	if (browserVersion >= 4) window.print()
-}
-//]]>
-</script>
+<div class="container-fluid">
 
-<div style="text-align:right;padding-right:10px;"><a href="javascript:printWindow()"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25;" /> Print This Page</a></div>
+	<div class="row my-2 d-print-none">
+		<div class="col text-right">
+			<a class="btn btn-primary btn-sm" href="javascript:window.close();">Close Window</a>
+			<a class="btn btn-primary btn-sm" href="javascript:window.print();">Print This Page</a>
+		</div>
+	</div>
 
-<div class="page" style="width:100%;padding:0px;margin:0px;"><div style="margin:10px;"><?php include $this->loadTemplate($this->report_template); ?></div></div>
+	<div class="row">
+		<div class="col">
+			<?php include $this->loadTemplate($this->report_template); ?>
+		</div>
+	</div>
 
-<div style="text-align:right;padding-right:10px;"><a href="javascript:printWindow();"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25;" /> Print This Page</a></div>
-<div style="text-align:right;padding-right:10px;"><a href="javascript:window.close();"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/exclamation.png" alt="Close Window!" style="vertical-align:middle;margin-bottom:.25;" /> Close Window</a></div>
+	<div class="row my-2 d-print-none">
+		<div class="col text-right">
+			<a class="btn btn-primary btn-sm" href="javascript:window.close();">Close Window</a>
+			<a class="btn btn-primary btn-sm" href="javascript:window.print();">Print This Page</a>
+		</div>
+	</div>
+
+</div>
+
+<?php include $this->loadTemplate('admin/page_footer_javascript.tpl.php'); ?>
 
 </body>
 </html>

@@ -11,9 +11,7 @@
 	<table style="width: 100%;">
 		<tr>
 			<td>
-				You must first visit the <b>Template Manager</b> and create a template before the sessions can be pulished on this page.<br /><br />
-				Please visit or the <a href="/backoffice/session_template_mgr">Template Manager</a> or view the
-				<a href="javascript:NewWindowScroll('/backoffice/help-system?section=SP','Help','675','575');">Help</a> page.
+				You must first visit the <a href="/backoffice/session-template-mgr"><b>Template Manager</b></a> and create a template before the sessions can be published on this page.
 			</td>
 		</tr>
 	</table>

@@ -1523,15 +1523,6 @@ function help_system_init()
 	 */
 }
 
-//Legacy function, needs replacement
-function NewWindowScroll(mypage, myname, w, h)
-{
-	var LeftPosition = (screen.width) ? Math.floor((screen.width - w) / 2) : 0;
-	var TopPosition = (screen.height) ? Math.floor((screen.height - h) / 2) : 0;
-	var settings = 'height=' + h + ',width=' + w + ',top=' + TopPosition + ',left=' + LeftPosition + ',status=no,toolbar=no,scrollbars=1,resizable=1';
-	window.open(mypage, myname, settings);
-}
-
 $(function () {
 
 	$(document).on('click', '[data-guestsearch]', function (e) {
