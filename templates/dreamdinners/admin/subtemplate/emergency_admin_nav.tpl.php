@@ -183,7 +183,7 @@ $navigationArray = array
 				<a href="<?php echo $this->back; ?>" class="fadmin_nav fadmin_nav_right">Back</a>
 				<?php } ?>
 				<?php if (isset($this->helpLinkSection)) { ?>
-				<a href="javascript:NewWindowScroll('/backoffice/help-system?section=<?php echo $this->helpLinkSection; ?>','Help','675','575');" class="fadmin_nav fadmin_nav_right"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/help.png" alt="Print" style="vertical-align:middle;margin-bottom:.25;" /> Page Help</a>
+					<a href="javascript:window.open('/backoffice/help-system?section=<?php echo $this->helpLinkSection; ?>', 'dd_help', 'toolbar=no,menubar=no,width=675,height=575');" class="fadmin_nav fadmin_nav_right"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/help.png" alt="Print" style="vertical-align:middle;" /> Page Help</a>
 				<?php } ?>
 			</td>
 		</tr>

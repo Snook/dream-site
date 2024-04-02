@@ -38,9 +38,7 @@
 
 	function viewGCOrder(id)
 	{
-		var dest = '/backoffice/gift-card-details?gcOrder=' + id;
-
-		NewWindowScroll(dest, 'GC_Details', '1000', '460');
+		window.open('/backoffice/gift-card-details?gcOrder=' + id, 'dd_help', 'toolbar=no,menubar=no,width=675,height=575');" class="fadmin_nav fadmin_nav_right"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/help.png" alt="Print" style="vertical-align:middle;" /> Page Help</a>
 	}
 
 	function checkSearchSring(form)

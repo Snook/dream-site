@@ -53,8 +53,6 @@
 		<tr>
 			<td valign="top" class="form_field_cell">Security Code</td>
 			<td class="form_field_cell"><?php echo $this->form_direct_order['payment2_cc_security_code_html']?>
-				(<a
-						href="javascript:NewWindowScroll('./cvv2help_popup.htm', 'Where is my security code?', 600,425 );">help</a>)
 				<br /> <label id="payment2_cc_security_code_lbl"
 							  for="payment2_cc_security_code"
 							  message="Please enter the security code printed on your credit card."></label>
