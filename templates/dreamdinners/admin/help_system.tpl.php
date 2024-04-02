@@ -5,9 +5,9 @@
 	<meta name="robots" content="noindex">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link href="<?php echo  CSS_PATH; ?>/customer/dreamdinners.min.css" rel="stylesheet" type="text/css" />
+	<link href="<?php echo  CSS_PATH; ?>/admin/admin-styles.min.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body class="bg-white">
 
 <div class="container-fluid">
 
