@@ -21,7 +21,8 @@ $(document).on('change', '#menu', function (e) {
 		centerVertical: true,
 		buttons: {
 			cancel: {
-				label: 'Cancel'
+				label: 'Cancel',
+				className: 'btn-secondary mr-auto'
 			},
 			confirm: {
 				label: 'Switch menu',
@@ -47,11 +48,12 @@ $(document).on('click', '.sides-sweets-save', function (e) {
 
 	bootbox.dialog({
 		title: 'Confirmation',
-		message: "<p>Are you sure you wish to save all current Sides &amp; Sweets settings as the default pricing and visibility?</p>",
+		message: "<p>Are you sure you wish to save all current Sides &amp; Sweets pricing and visibility settings to retrieve on future menus.</p>",
 		centerVertical: true,
 		buttons: {
 			cancel: {
-				label: 'Cancel'
+				label: 'Cancel',
+				className: 'btn-secondary mr-auto'
 			},
 			confirm: {
 				label: 'Safe defualts',
@@ -129,7 +131,8 @@ $(document).on('click', '.sides-sweets-retrieve', function (e) {
 	e.preventDefault()
 
 	bootbox.prompt({
-		title: "Which settings do you wish to retrieve?",
+		title: "Confirmation",
+		message: '<p>This will update settings for both hidden and visible Sides &amp; Sweets tabs. You will have the ability to review the changes before finalizing. Select the setings you wish to retrieve.</p>',
 		inputType: 'checkbox',
 		inputOptions: [
 			{
@@ -146,62 +149,84 @@ $(document).on('click', '.sides-sweets-retrieve', function (e) {
 			}
 		],
 		centerVertical: true,
+		buttons: {
+			cancel: {
+				label: 'Cancel',
+				className: 'btn-secondary mr-auto'
+			},
+			confirm: {
+				label: "Retrieve defaults"
+			}
+		},
 		callback: function (result) {
 
 			if (result)
 			{
-				$.ajax({
-					url: '/processor',
-					type: 'POST',
-					timeout: 20000,
-					dataType: 'json',
-					data: {
-						processor: 'admin_defaultPricingProcessor',
-						store_id: STORE_DETAILS.id,
-						action: 'retrieve'
-					},
-					success: function (json) {
-						if (json.processor_success)
-						{
-							$.each(json.settings, function (recipe_id, setting) {
+				if (result.length === 0)
+				{
+					bootbox.alert({
+						title: 'Notice',
+						message: '<p>No options were selected.</p>',
+						centerVertical: true
+					});
+				}
+				else
+				{
 
-								if (result.includes('ovr'))
-								{
-									$('.menu-editor-ovr[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['ovr']).trigger('change');
-								}
+					$.ajax({
+						url: '/processor',
+						type: 'POST',
+						timeout: 20000,
+						dataType: 'json',
+						data: {
+							processor: 'admin_defaultPricingProcessor',
+							store_id: STORE_DETAILS.id,
+							action: 'retrieve'
+						},
+						success: function (json) {
+							if (json.processor_success)
+							{
+								$.each(json.settings, function (recipe_id, setting) {
 
-								if (result.includes('vis'))
-								{
-									$('.menu-editor-vis[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['vis']).trigger('change');
-									$('.menu-editor-hid[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['hid']).trigger('change');
-								}
+									if (result.includes('ovr'))
+									{
+										$('.menu-editor-ovr[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['ovr']).trigger('change');
+									}
 
-								if (result.includes('form'))
-								{
-									$('.menu-editor-form[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['form']).trigger('change');
-									$('.menu-editor-hid[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['hid']).trigger('change');
-								}
+									if (result.includes('vis'))
+									{
+										$('.menu-editor-vis[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['vis']).trigger('change');
+										$('.menu-editor-hid[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['hid']).trigger('change');
+									}
 
-							});
-						}
-						else
-						{
+									if (result.includes('form'))
+									{
+										$('.menu-editor-form[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['form']).trigger('change');
+										$('.menu-editor-hid[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['hid']).trigger('change');
+									}
+
+								});
+							}
+							else
+							{
+								dd_message({
+									title: 'Error',
+									message: json.processor_message
+								});
+								return;
+							}
+						},
+						error: function (objAJAXRequest, strError) {
+							response = 'Unexpected error: ' + strError;
 							dd_message({
 								title: 'Error',
-								message: json.processor_message
+								message: response
 							});
+							return;
 						}
-					},
-					error: function (objAJAXRequest, strError) {
-						response = 'Unexpected error: ' + strError;
-						dd_message({
-							title: 'Error',
-							message: response
-						});
 
-					}
-
-				});
+					});
+				}
 			}
 		}
 	});
@@ -308,7 +333,8 @@ $(document).on('click', '.menu-editor-reset', function (e) {
 		centerVertical: true,
 		buttons: {
 			cancel: {
-				label: 'Cancel'
+				label: 'Cancel',
+				className: 'btn-secondary mr-auto'
 			},
 			confirm: {
 				label: 'Reset changes',
@@ -349,7 +375,8 @@ $(document).on('click', '.menu-editor-finalize', function (e) {
 			centerVertical: true,
 			buttons: {
 				cancel: {
-					label: 'Cancel'
+					label: 'Cancel',
+					className: 'btn-secondary mr-auto'
 				},
 				confirm: {
 					label: 'Finalize changes',
