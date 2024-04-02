@@ -13,6 +13,7 @@
 
 	<div class="row my-2 d-print-none">
 		<div class="col text-right">
+			<a class="btn btn-primary btn-sm" href="javascript:window.close();">Close Window</a>
 			<a class="btn btn-primary btn-sm" href="javascript:window.print();">Print This Page</a>
 		</div>
 	</div>
