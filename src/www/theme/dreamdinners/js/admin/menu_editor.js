@@ -315,13 +315,23 @@ $(document).on('change keyup', '.menu-editor-ovr', function (e) {
 
 $(document).on('change keyup', '.menu-editor-hid, .menu-editor-vis, .menu-editor-form, .menu-editor-pic, .menu-editor-ovr', function (e) {
 
+	$('#menu-editor-nav > [data-nav] > .fa-asterisk').hideFlex();
 	$('.menu-editor-unsaved-alert').hideFlex();
 	if ($form.serialize() !== originForm)
 	{
 		$('.menu-editor-unsaved-alert').showFlex();
 	}
 
+	$('#menu-editor-nav > [data-nav]').each(function () {
 
+		let this_nav = $(this).data('nav');
+
+		if ($('#nav-' + this_nav).find('.border-orange').length)
+		{
+			$('#menu-editor-nav > [data-nav="' + this_nav +'"] > .fa-asterisk').showFlex();
+		}
+
+	});
 
 });
 
@@ -347,6 +357,7 @@ $(document).on('click', '.menu-editor-reset', function (e) {
 					setTimeout(function () {
 						$('#menu_editor_form').removeClass('was-validated');
 						$('#menu-editor-nav > [data-nav] > .fa-exclamation-circle').hideFlex();
+						$('#menu-editor-nav > [data-nav] > .fa-asterisk').hideFlex();
 						$('.menu-editor-vis, .menu-editor-form, .menu-editor-pic, .menu-editor-hid, .menu-editor-ovr').removeClass('border-orange').trigger('change');
 					}, 1);
 				}

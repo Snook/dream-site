@@ -64,7 +64,7 @@
 					<div class="alert alert-danger">
 						<div class="row">
 							<div class="col-6 font-weight-bold font-size-medium-small">
-								Your changes have not yet been saved.
+								<i class="fas fa-asterisk text-orange"></i> Your changes have not yet been saved.
 							</div>
 							<div class="col-6 text-right">
 								<span class="btn btn-primary menu-editor-finalize">Finalize All Changes</span>
@@ -80,11 +80,11 @@
 
 					<nav>
 						<div class="nav nav-tabs" id="menu-editor-nav" role="tablist">
-							<a class="nav-link active nav-tab" id="nav-specials-tab" data-nav="specials" data-toggle="tab" href="#nav-specials" role="tab" aria-controls="nav-specials" aria-selected="true">Core <i class="fas fa-exclamation-circle text-danger collapse" data-toggle="tooltip" data-placement="top" title="Submission issue"></i></a>
-							<a class="nav-link nav-tab" id="nav-efl-tab" data-nav="efl" data-toggle="tab" href="#nav-efl" role="tab" aria-controls="nav-efl" aria-selected="false">Extended Fast Lane <i class="fas fa-exclamation-circle text-danger collapse" data-toggle="tooltip" data-placement="top" title="Submission issue"></i></a>
-							<a class="nav-link nav-tab" id="nav-sides-tab" data-nav="sides" data-toggle="tab" href="#nav-sides" role="tab" aria-controls="nav-sides" aria-selected="false">Sides &amp; Sweets <i class="fas fa-exclamation-circle text-danger collapse" data-toggle="tooltip" data-placement="top" title="Submission issue"></i></a>
-							<a class="nav-link nav-tab" id="nav-sides-hidden-tab" data-nav="sides-hidden" data-toggle="tab" href="#nav-sides-hidden" role="tab" aria-controls="nav-sides-hidden" aria-selected="false">Sides &amp; Sweets - Hidden <i class="fas fa-exclamation-circle text-danger collapse" data-toggle="tooltip" data-placement="top" title="Submission issue"></i></a>
-							<a class="nav-link nav-tab" id="nav-pricing-tab" data-nav="pricing" data-toggle="tab" href="#nav-pricing" role="tab" aria-controls="nav-pricing" aria-selected="false">Pricing Reference <i class="fas fa-exclamation-circle text-danger collapse" data-toggle="tooltip" data-placement="top" title="Submission issue"></i></a>
+							<a class="nav-link active nav-tab" id="nav-specials-tab" data-nav="specials" data-toggle="tab" href="#nav-specials" role="tab" aria-controls="nav-specials" aria-selected="true"><i class="fas fa-asterisk text-orange collapse" data-toggle="tooltip" data-placement="top" title="Unsaved changes"></i> Core <i class="fas fa-exclamation-circle text-danger collapse" data-toggle="tooltip" data-placement="top" title="Submission issue"></i></a>
+							<a class="nav-link nav-tab" id="nav-efl-tab" data-nav="efl" data-toggle="tab" href="#nav-efl" role="tab" aria-controls="nav-efl" aria-selected="false"><i class="fas fa-asterisk text-orange collapse" data-toggle="tooltip" data-placement="top" title="Unsaved changes"></i> Extended Fast Lane <i class="fas fa-exclamation-circle text-danger collapse" data-toggle="tooltip" data-placement="top" title="Submission issue"></i></a>
+							<a class="nav-link nav-tab" id="nav-sides-tab" data-nav="sides" data-toggle="tab" href="#nav-sides" role="tab" aria-controls="nav-sides" aria-selected="false"><i class="fas fa-asterisk text-orange collapse" data-toggle="tooltip" data-placement="top" title="Unsaved changes"></i> Sides &amp; Sweets <i class="fas fa-exclamation-circle text-danger collapse" data-toggle="tooltip" data-placement="top" title="Submission issue"></i></a>
+							<a class="nav-link nav-tab" id="nav-sides-hidden-tab" data-nav="sides-hidden" data-toggle="tab" href="#nav-sides-hidden" role="tab" aria-controls="nav-sides-hidden" aria-selected="false"><i class="fas fa-asterisk text-orange collapse" data-toggle="tooltip" data-placement="top" title="Unsaved changes"></i> Sides &amp; Sweets - Hidden <i class="fas fa-exclamation-circle text-danger collapse" data-toggle="tooltip" data-placement="top" title="Submission issue"></i></a>
+							<a class="nav-link nav-tab" id="nav-pricing-tab" data-nav="pricing" data-toggle="tab" href="#nav-pricing" role="tab" aria-controls="nav-pricing" aria-selected="false"><i class="fas fa-asterisk text-orange collapse" data-toggle="tooltip" data-placement="top" title="Unsaved changes"></i> Pricing Reference <i class="fas fa-exclamation-circle text-danger collapse" data-toggle="tooltip" data-placement="top" title="Submission issue"></i></a>
 						</div>
 					</nav>
 
@@ -413,7 +413,7 @@
 					<div class="alert alert-danger">
 						<div class="row">
 							<div class="col-6 font-weight-bold font-size-medium-small">
-								Your changes have not yet been saved.
+								<i class="fas fa-asterisk text-orange"></i> Your changes have not yet been saved.
 							</div>
 							<div class="col-6 text-right">
 								<span class="btn btn-primary menu-editor-finalize">Finalize All Changes</span>
