@@ -503,7 +503,7 @@ class CMenu extends DAO_Menu
 				$DAO_mark_up_multi = DAO_CFactory::create('mark_up_multi');
 				$DAO_mark_up_multi->id = $DAO_mark_up_multi_find->id;
 
-				$DAO_store->joinAddWhereAsOn($DAO_mark_up_multi);
+				$DAO_store->joinAddWhereAsOn($DAO_mark_up_multi, 'LEFT');
 			}
 
 			$DAO_menu_to_menu_item->joinAddWhereAsOn($DAO_store);

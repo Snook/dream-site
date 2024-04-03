@@ -152,7 +152,7 @@ class CMenuItem extends DAO_Menu_item
 					WHEN menu_item.menu_item_category_id = 4 AND menu_item.is_store_special = 1 THEN 2
 					WHEN menu_item.menu_item_category_id = 9 THEN 3
 				END ASC,
-				menu_to_menu_item.is_hidden_everywhere ASC,
+				CASE WHEN menu_item.menu_item_category_id = 9 THEN menu_to_menu_item.is_hidden_everywhere END ASC,
 				menu_to_menu_item.featuredItem DESC,
 				CASE WHEN menu_item.menu_item_category_id = 1 OR (menu_item.menu_item_category_id = 4 AND menu_item.is_store_special = 0) THEN menu_to_menu_item.menu_order_value END ASC,
 				CASE WHEN menu_item.menu_item_category_id = 4 AND menu_item.is_store_special = 1 THEN menu_item.menu_item_name END ASC,
