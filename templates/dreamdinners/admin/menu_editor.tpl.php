@@ -79,12 +79,12 @@
 				<div class="col">
 
 					<nav>
-						<div class="nav nav-tabs" id="nav-tab" role="tablist">
-							<a class="nav-link active nav-tab" id="nav-specials-tab" data-nav="specials" data-toggle="tab" href="#nav-specials" role="tab" aria-controls="nav-specials" aria-selected="true">Core</a>
-							<a class="nav-link nav-tab" id="nav-efl-tab" data-nav="efl" data-toggle="tab" href="#nav-efl" role="tab" aria-controls="nav-efl" aria-selected="false">Extended Fast Lane</a>
-							<a class="nav-link nav-tab" id="nav-sides-tab" data-nav="sides" data-toggle="tab" href="#nav-sides" role="tab" aria-controls="nav-sides" aria-selected="false">Sides &amp; Sweets</a>
-							<a class="nav-link nav-tab" id="nav-sides-hidden-tab" data-nav="sides-hidden" data-toggle="tab" href="#nav-sides-hidden" role="tab" aria-controls="nav-sides-hidden" aria-selected="false">Sides &amp; Sweets - Hidden</a>
-							<a class="nav-link nav-tab" id="nav-pricing-tab" data-nav="pricing" data-toggle="tab" href="#nav-pricing" role="tab" aria-controls="nav-pricing" aria-selected="false">Pricing Reference</a>
+						<div class="nav nav-tabs" id="menu-editor-nav" role="tablist">
+							<a class="nav-link active nav-tab" id="nav-specials-tab" data-nav="specials" data-toggle="tab" href="#nav-specials" role="tab" aria-controls="nav-specials" aria-selected="true">Core <i class="fas fa-exclamation-circle text-danger collapse" data-toggle="tooltip" data-placement="top" title="Submission issue"></i></a>
+							<a class="nav-link nav-tab" id="nav-efl-tab" data-nav="efl" data-toggle="tab" href="#nav-efl" role="tab" aria-controls="nav-efl" aria-selected="false">Extended Fast Lane <i class="fas fa-exclamation-circle text-danger collapse" data-toggle="tooltip" data-placement="top" title="Submission issue"></i></a>
+							<a class="nav-link nav-tab" id="nav-sides-tab" data-nav="sides" data-toggle="tab" href="#nav-sides" role="tab" aria-controls="nav-sides" aria-selected="false">Sides &amp; Sweets <i class="fas fa-exclamation-circle text-danger collapse" data-toggle="tooltip" data-placement="top" title="Submission issue"></i></a>
+							<a class="nav-link nav-tab" id="nav-sides-hidden-tab" data-nav="sides-hidden" data-toggle="tab" href="#nav-sides-hidden" role="tab" aria-controls="nav-sides-hidden" aria-selected="false">Sides &amp; Sweets - Hidden <i class="fas fa-exclamation-circle text-danger collapse" data-toggle="tooltip" data-placement="top" title="Submission issue"></i></a>
+							<a class="nav-link nav-tab" id="nav-pricing-tab" data-nav="pricing" data-toggle="tab" href="#nav-pricing" role="tab" aria-controls="nav-pricing" aria-selected="false">Pricing Reference <i class="fas fa-exclamation-circle text-danger collapse" data-toggle="tooltip" data-placement="top" title="Submission issue"></i></a>
 						</div>
 					</nav>
 

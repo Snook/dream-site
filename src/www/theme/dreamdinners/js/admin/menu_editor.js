@@ -9,6 +9,12 @@ $(document).ready(function () {
 
 });
 
+$('#menu-editor-nav > [data-toggle="tab"]').on('shown.bs.tab', function (event) {
+
+	historyReplace({ url: '?tab=nav-' + $(event.currentTarget).data('nav') });
+
+})
+
 $(document).on('change', '#menu', function (e) {
 
 	let menu_id = $(this).val();
@@ -251,12 +257,6 @@ $(document).on('change', '.menu-editor-hid', function (e) {
 		$(this).removeClass('border-orange');
 	}
 
-	$('.menu-editor-unsaved-alert').hideFlex();
-	if ($form.serialize() !== originForm)
-	{
-		$('.menu-editor-unsaved-alert').showFlex();
-	}
-
 });
 
 $(document).on('change', '.menu-editor-vis, .menu-editor-form, .menu-editor-pic', function (e) {
@@ -275,12 +275,6 @@ $(document).on('change', '.menu-editor-vis, .menu-editor-form, .menu-editor-pic'
 	else
 	{
 		$(this).removeClass('border-orange');
-	}
-
-	$('.menu-editor-unsaved-alert').hideFlex();
-	if ($form.serialize() !== originForm)
-	{
-		$('.menu-editor-unsaved-alert').showFlex();
 	}
 
 });
@@ -317,11 +311,17 @@ $(document).on('change keyup', '.menu-editor-ovr', function (e) {
 		$('.ovr-alert-warning[data-menu_item_id="' + menu_item_id + '"]').showFlex();
 	}
 
+});
+
+$(document).on('change keyup', '.menu-editor-hid, .menu-editor-vis, .menu-editor-form, .menu-editor-pic, .menu-editor-ovr', function (e) {
+
 	$('.menu-editor-unsaved-alert').hideFlex();
 	if ($form.serialize() !== originForm)
 	{
 		$('.menu-editor-unsaved-alert').showFlex();
 	}
+
+
 
 });
 
@@ -346,6 +346,7 @@ $(document).on('click', '.menu-editor-reset', function (e) {
 					// Timeout ensures form is reset first
 					setTimeout(function () {
 						$('#menu_editor_form').removeClass('was-validated');
+						$('#menu-editor-nav > [data-nav] > .fa-exclamation-circle').hideFlex();
 						$('.menu-editor-vis, .menu-editor-form, .menu-editor-pic, .menu-editor-hid, .menu-editor-ovr').removeClass('border-orange').trigger('change');
 					}, 1);
 				}
@@ -367,7 +368,9 @@ $(document).on('submit keydown keyup', '#menu_editor_form', function (e) {
 
 $(document).on('click', '.menu-editor-finalize', function (e) {
 
-	if ($('#menu_editor_form')['0'].checkValidity() !== false)
+	$('#menu-editor-nav > [data-nav] > .fa-exclamation-circle').hideFlex();
+
+	if ($('#menu_editor_form').validateForm() !== false)
 	{
 		bootbox.dialog({
 			title: 'Confirmation',
@@ -398,7 +401,22 @@ $(document).on('click', '.menu-editor-finalize', function (e) {
 	}
 	else
 	{
-		bootbox.alert("<p>Issue with submission, check tabs for required fields.</p>");
+		bootbox.alert({
+			title: 'Notice',
+			message: '<p>There is an issue with the submission, check tabs for required fields.</p>',
+			centerVertical: true
+		});
+
+		$('#menu-editor-nav > [data-nav]').each(function () {
+
+			let this_nav = $(this).data('nav');
+
+			if ($('#nav-' + this_nav).find('.form-control:invalid').length)
+			{
+				$('#menu-editor-nav > [data-nav="' + this_nav +'"] > .fa-exclamation-circle').showFlex();
+			}
+
+		});
 	}
 
 });

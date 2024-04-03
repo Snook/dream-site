@@ -276,6 +276,22 @@ function historyPush(config)
 	}
 }
 
+function historyReplace(config)
+{
+	// Record history in html5 browser if supported
+	if (window.history && window.history.replaceState)
+	{
+		var title = document.title;
+		if (config.title)
+		{
+			title = config.title;
+		}
+
+		history.replaceState(null, title, config.url);
+
+	}
+}
+
 function create_and_submit_form(config)
 {
 	var settings = { //defaults
