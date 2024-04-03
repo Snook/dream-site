@@ -1,12 +1,5 @@
-var $form, originForm;
-
 $(document).ready(function () {
-
-	$form = $('#menu_editor_form');
-	originForm = $form.serialize();
-
 	$('.menu-editor-ovr').trigger('change');
-
 });
 
 $('#menu-editor-nav > [data-toggle="tab"]').on('shown.bs.tab', function (event) {
@@ -19,32 +12,47 @@ $(document).on('change', '#menu', function (e) {
 
 	let menu_id = $(this).val();
 
-	e.preventDefault()
+	e.preventDefault();
 
-	bootbox.dialog({
-		title: 'Confirmation',
-		message: "<p>Are you sure you wish to change menus? You will lose any unsaved changes.</p>",
-		centerVertical: true,
-		buttons: {
-			cancel: {
-				label: 'Cancel',
-				className: 'btn-secondary mr-auto'
-			},
-			confirm: {
-				label: 'Switch menu',
-				callback: function () {
+	if ($(this.form).formHasChanged())
+	{
+		bootbox.dialog({
+			title: 'Confirmation',
+			message: "<p>Are you sure you wish to change menus? You will lose any unsaved changes.</p>",
+			centerVertical: true,
+			buttons: {
+				cancel: {
+					label: 'Cancel',
+					className: 'btn-secondary mr-auto',
+					callback: function () {
+						$('#menu').valDefault()
+					}
+				},
+				confirm: {
+					label: 'Switch menu',
+					callback: function () {
 
-					create_and_submit_form({
-						action: '/backoffice/menu-editor',
-						input: ({
-							'menu': menu_id
-						})
-					});
+						create_and_submit_form({
+							action: '/backoffice/menu-editor',
+							input: ({
+								'menu': menu_id
+							})
+						});
 
+					}
 				}
 			}
-		}
-	});
+		});
+	}
+	else
+	{
+		create_and_submit_form({
+			action: '/backoffice/menu-editor',
+			input: ({
+				'menu': menu_id
+			})
+		});
+	}
 
 });
 
@@ -317,7 +325,7 @@ $(document).on('change keyup', '.menu-editor-hid, .menu-editor-vis, .menu-editor
 
 	$('#menu-editor-nav > [data-nav] > .fa-asterisk').hideFlex();
 	$('.menu-editor-unsaved-alert').hideFlex();
-	if ($form.serialize() !== originForm)
+	if ($(this.form).formHasChanged())
 	{
 		$('.menu-editor-unsaved-alert').showFlex();
 	}
