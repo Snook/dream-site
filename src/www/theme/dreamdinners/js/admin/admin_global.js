@@ -629,6 +629,89 @@ function modal_message(settings)
 
 }
 
+// --------------------------------------------------------------------
+//	PayFlow_Payload
+//  support for encoding custom data sent to PayFlow as a commnt
+// ---------------------------------------------------------------------
+function PayFlow_Payload()
+{
+	this.encodedString = "";
+}
+
+PayFlow_Payload.prototype = {
+	constructor: PayFlow_Payload,
+	addNameValuePair: function (name, value) {
+		value += "";
+
+		var cleanName = name.replace("+", "");
+		cleanName = cleanName.replace(":", "");
+		var cleanValue = value.replace("+", "");
+		cleanValue = cleanValue.replace(":", "");
+		cleanValue = cleanValue.replace("`", "");
+		cleanValue = cleanValue.replace("'", "");
+		cleanValue = cleanValue.replace("\"", "");
+		cleanValue = cleanValue.replace("&", "and");
+
+		if (this.encodedString == "")
+		{
+			this.encodedString = cleanName + ":" + cleanValue;
+		}
+		else
+		{
+			this.encodedString += "+" + cleanName + ":" + cleanValue;
+		}
+	},
+	addAssocArray: function (name, arr) {
+		var cleanName = name.replace("+", "");
+		cleanName = cleanName.replace(":", "");
+
+		arrString = "";
+
+		for (var value in arr)
+		{
+			if (arr[value])
+			{
+				var cleanValue = arr[value].replace("+", "");
+				cleanValue = cleanValue.replace(":", "");
+				cleanValue = cleanValue.replace("|", "");
+				cleanValue = cleanValue.replace("~", "");
+				cleanValue = cleanValue.replace("`", "");
+				cleanValue = cleanValue.replace("'", "");
+				cleanValue = cleanValue.replace("\"", "");
+				cleanValue = cleanValue.replace("&", "and");
+
+				var cleanPropName = value.replace("+", "");
+				cleanPropName = cleanPropName.replace(":", "");
+				cleanPropName = cleanPropName.replace("|", "");
+				cleanPropName = cleanPropName.replace("~", "");
+
+				if (arrString == "")
+				{
+					arrString = cleanPropName + "~" + cleanValue;
+				}
+				else
+				{
+					arrString += "|" + cleanPropName + "~" + cleanValue;
+				}
+			}
+		}
+
+		if (this.encodedString == "")
+		{
+			this.encodedString = cleanName + ":" + arrString;
+		}
+		else
+		{
+			this.encodedString += "+" + cleanName + ":" + arrString;
+		}
+	},
+	retrieveEncodedString: function () {
+
+		return this.encodedString;
+
+	}
+};
+
 function dd_message(settings)
 {
 	var config = {

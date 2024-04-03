@@ -933,6 +933,22 @@ function strip_tags(input, allowed)
 		return this;
 	};
 
+	$.fn.formHasChanged = function () {
+
+		this.removeClass('form-has-changed');
+
+		if (typeof this.data('formHasChanged') !== 'undefined')
+		{
+			if (this.find(":input:not(.formHasChanged-ignore)").serialize() !== this.data('formHasChanged'))
+			{
+				this.addClass('form-has-changed');
+				return true;
+			}
+		}
+
+		return false;
+	};
+
 	$.fn.valNotDefault = function () {
 
 		if (typeof this[0].dataset.valdefault !== 'undefined')
@@ -1144,89 +1160,6 @@ function strip_tags(input, allowed)
 
 })(jQuery);
 
-// --------------------------------------------------------------------
-//	PayFlow_Payload
-//  support for encoding custom data sent to PayFlow as a commnt
-// ---------------------------------------------------------------------
-function PayFlow_Payload()
-{
-	this.encodedString = "";
-}
-
-PayFlow_Payload.prototype = {
-	constructor: PayFlow_Payload,
-	addNameValuePair: function (name, value) {
-		value += "";
-
-		var cleanName = name.replace("+", "");
-		cleanName = cleanName.replace(":", "");
-		var cleanValue = value.replace("+", "");
-		cleanValue = cleanValue.replace(":", "");
-		cleanValue = cleanValue.replace("`", "");
-		cleanValue = cleanValue.replace("'", "");
-		cleanValue = cleanValue.replace("\"", "");
-		cleanValue = cleanValue.replace("&", "and");
-
-		if (this.encodedString == "")
-		{
-			this.encodedString = cleanName + ":" + cleanValue;
-		}
-		else
-		{
-			this.encodedString += "+" + cleanName + ":" + cleanValue;
-		}
-	},
-	addAssocArray: function (name, arr) {
-		var cleanName = name.replace("+", "");
-		cleanName = cleanName.replace(":", "");
-
-		arrString = "";
-
-		for (var value in arr)
-		{
-			if (arr[value])
-			{
-				var cleanValue = arr[value].replace("+", "");
-				cleanValue = cleanValue.replace(":", "");
-				cleanValue = cleanValue.replace("|", "");
-				cleanValue = cleanValue.replace("~", "");
-				cleanValue = cleanValue.replace("`", "");
-				cleanValue = cleanValue.replace("'", "");
-				cleanValue = cleanValue.replace("\"", "");
-				cleanValue = cleanValue.replace("&", "and");
-
-				var cleanPropName = value.replace("+", "");
-				cleanPropName = cleanPropName.replace(":", "");
-				cleanPropName = cleanPropName.replace("|", "");
-				cleanPropName = cleanPropName.replace("~", "");
-
-				if (arrString == "")
-				{
-					arrString = cleanPropName + "~" + cleanValue;
-				}
-				else
-				{
-					arrString += "|" + cleanPropName + "~" + cleanValue;
-				}
-			}
-		}
-
-		if (this.encodedString == "")
-		{
-			this.encodedString = cleanName + ":" + arrString;
-		}
-		else
-		{
-			this.encodedString += "+" + cleanName + ":" + arrString;
-		}
-	},
-	retrieveEncodedString: function () {
-
-		return this.encodedString;
-
-	}
-};
-
 /* handle Bootstrap form validation */
 $(document).on('submit', '.needs-validation', function (e) {
 
@@ -1236,6 +1169,10 @@ $(document).on('submit', '.needs-validation', function (e) {
 		e.stopPropagation();
 	}
 
+});
+
+$('.needs-validation').each(function (e) {
+	$(this).data('formHasChanged', $(this).find(":input:not(.formHasChanged-ignore)").serialize());
 });
 
 /* Handle Bootstrap Tabbed Content */
@@ -1261,22 +1198,6 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 		historyPush({url: new_query_string});
 	}
 });
-
-function isIE()
-{
-	var ua = window.navigator.userAgent; //Check the userAgent property of the window.navigator object
-	var msie = ua.indexOf('MSIE '); // IE 10 or older
-	var trident = ua.indexOf('Trident/'); //IE 11
-
-	return (msie > 0 || trident > 0);
-}
-
-function isSafari()
-{
-	var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
-	return isSafari;
-}
 
 $(document).ajaxSuccess(function (event, xhr, settings) {
 
