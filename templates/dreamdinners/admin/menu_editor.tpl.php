@@ -168,6 +168,7 @@
 								<tr>
 									<th class="align-middle">Show on customer menu</th>
 									<th class="align-middle">Show on Sides &amp; Sweets Forms</th>
+									<th class="align-middle">Hide Item Everywhere</th>
 									<th class="align-middle">Item title <span class="font-weight-normal">(Recipe ID)</span></th>
 									<th class="align-middle">Size</th>
 									<th class="align-middle">Current Price</th>
@@ -187,6 +188,10 @@
 
 											<td class="align-middle">
 												<?php echo $this->form[$DAO_menu_item->id . '_pic_html']; ?>
+											</td>
+
+											<td class="align-middle">
+												<?php echo $this->form[$DAO_menu_item->id . '_hid_html']; ?>
 											</td>
 
 											<td class="align-middle text-left">
