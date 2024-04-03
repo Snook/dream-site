@@ -234,7 +234,6 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::type => CForm::DropDown,
 				CForm::name => $DAO_menu_item->id . '_hid',
 				CForm::css_class => 'custom-select-sm menu-editor-hid',
-				CForm::readonly => empty($DAO_menu_item->is_visibility_controllable),
 				CForm::style => 'min-width: 4rem;',
 				CForm::attribute => array(
 					'data-menu_item_id' => $DAO_menu_item->id,
