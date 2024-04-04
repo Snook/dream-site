@@ -144,8 +144,8 @@
 						<td class="text-right"><?php echo $bundle->number_servings_required; ?></td>
 						<td class="text-right">$<?php echo $bundle->price; ?></td>
 						<td class="text-right">
-							<span data-bundle_id="<?php echo $bundle->id; ?>" class="view_items button">Items</span>
-							<a href="/backoffice/manage_bundle?edit=<?php echo $bundle->id; ?>" data-bundle_id="<?php echo $bundle->id; ?>" class="edit_bundle button">Edit</a>
+							<span data-bundle_id="<?php echo $bundle->id; ?>" class="view_items btn btn-primary btn-sm">Items</span>
+							<a href="/backoffice/manage_bundle?edit=<?php echo $bundle->id; ?>" data-bundle_id="<?php echo $bundle->id; ?>" class="edit_bundle btn btn-primary btn-sm">Edit</a>
 						</td>
 					</tr>
 					<tr data-bundle_menu_items="<?php echo $bundle->id; ?>" class="collapse">

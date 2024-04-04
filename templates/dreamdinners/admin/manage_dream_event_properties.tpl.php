@@ -105,7 +105,7 @@
 				<td class="bgcolor_light"><?php echo $dteProperties->session_type; ?></td>
 				<td class="bgcolor_light"><?php echo $dteProperties->theme_string; ?></td>
 				<td class="bgcolor_light" style="text-align: center;">
-					<span data-dtep_id="<?php echo $dteProperties->id; ?>" class="view_items button">Details</span>
+					<span data-dtep_id="<?php echo $dteProperties->id; ?>" class="view_items btn btn-primary btn-sm">Details</span>
 					<a href="/backoffice/manage_dream_event_properties?edit=<?php echo $dteProperties->id; ?>" class="btn btn-primary btn-sm">Edit</a>
 				</td>
 			</tr>
