@@ -12,7 +12,7 @@
 	</td>
 
 	<td class="align-middle text-left">
-		<a href="/item?recipe=<?php echo $DAO_menu_item->recipe_id; ?>&amp;ov_menu=<?php echo $this->DAO_menu->id; ?>" class="link-dinner-details" data-tooltip="Dinner Details"
+		<a href="/item?recipe=<?php echo $DAO_menu_item->recipe_id; ?>&amp;ov_menu=<?php echo $this->DAO_menu->id; ?>" class="link-dinner-details" data-toggle="tooltip" data-placement="top" title="Dinner Details"
 		   data-recipe_id="<?php echo $DAO_menu_item->recipe_id; ?>"
 		   data-store_id="<?php echo $this->CurrentBackOfficeStore->id; ?>"
 		   data-menu_item_id="<?php echo $DAO_menu_item->id; ?>"
@@ -20,10 +20,10 @@
 		   data-size="large"
 		   data-detailed="true"
 		   target="_blank"><i class="fas fa-file-alt font-size-medium-small mr-1"></i></a>
-		<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-tooltip="Menu ID: ' . $DAO_menu_item->id . ' &bull; Recipe ID: ' . $DAO_menu_item->recipe_id . '"' : ''; ?>>
+		<span<?php echo ($this->form_login['user_type'] == CUser::SITE_ADMIN) ? ' data-toggle="tooltip" data-placement="top" title="Menu ID: ' . $DAO_menu_item->id . ' &bull; Recipe ID: ' . $DAO_menu_item->recipe_id . '"' : ''; ?>>
 			<?php echo $DAO_menu_item->menu_item_name; ?> (<?php echo $DAO_menu_item->recipe_id; ?>)
 		</span>
-		<?php if (!empty($DAO_menu_item->is_bundle)) { ?><i class="fas fa-layer-group font-size-small" data-tooltip="<?php echo (!empty($DAO_menu_item->admin_notes)) ? $DAO_menu_item->admin_notes : 'Meal bundle' ?>"></i><?php } ?>
+		<?php if (!empty($DAO_menu_item->is_bundle)) { ?><i class="fas fa-layer-group font-size-small" data-toggle="tooltip" data-placement="top" title="<?php echo (!empty($DAO_menu_item->admin_notes)) ? $DAO_menu_item->admin_notes : 'Meal bundle' ?>"></i><?php } ?>
 		<div id="rec_id_<?php echo $DAO_menu_item->id; ?>" class="collapse"><?php echo $DAO_menu_item->recipe_id; ?></div>
 	</td>
 

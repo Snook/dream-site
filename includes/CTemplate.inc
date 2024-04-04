@@ -1188,6 +1188,9 @@ class CTemplate extends Savant2
 				'nextdoor' => array(
 					'enabled' => false
 				),
+				'truuconversion' => array(
+					'enabled' => true
+				),
 				'wisepop' => array(
 					'enabled' => false,
 					/*

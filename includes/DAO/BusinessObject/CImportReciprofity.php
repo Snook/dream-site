@@ -54,24 +54,26 @@ define('KID_PICK', 48); // Kid Pick
 define('NO_SALT_ADDED', 49); // No Salt Added
 define('PAN_MEAL', 50); // Pan Meal
 define('PRICING_CATEGORY', 51); // Pricing Category
-define('INGREDIENTS', 52); // ingredients
-define('NUT_CALORIES', 53); // calories
-define('NUT_FAT', 54); // fat
-define('NUT_SATFAT', 55); // sat_fat
-define('NUT_TRANSFAT', 56); // trans_fat
-define('NUT_CHOLESTEROL', 57); // cholesterol
-define('NUT_CARBS', 58); // carbs
-define('NUT_FIBER', 59); // fiber
-define('NUT_SUGARS', 60); // sugars
-define('NUT_ADDED_SUGARS', 61); // added_sugars
-define('NUT_PROTEIN', 62); // protein
-define('NUT_SODIUM', 63); // sodium
-define('NUT_VIT_A', 64); // vit_a
-define('NUT_VIT_C', 65); // vit_c
-define('NUT_VIT_D', 66); // vit_d
-define('NUT_CALCIUM', 67); // calcium
-define('NUT_POTASSIUM_K', 68); // potasium
-define('NUT_IRON', 69); // iron
+define('STORE_CAN_EDIT_VISIBILITY', 51); // Store can edit visibility
+define('STORE_CAN_EDIT_PRICE', 52); // Store can edit visibility
+define('INGREDIENTS', 53); // ingredients
+define('NUT_CALORIES', 54); // calories
+define('NUT_FAT', 55); // fat
+define('NUT_SATFAT', 56); // sat_fat
+define('NUT_TRANSFAT', 57); // trans_fat
+define('NUT_CHOLESTEROL', 58); // cholesterol
+define('NUT_CARBS', 59); // carbs
+define('NUT_FIBER', 60); // fiber
+define('NUT_SUGARS', 61); // sugars
+define('NUT_ADDED_SUGARS', 62); // added_sugars
+define('NUT_PROTEIN', 63); // protein
+define('NUT_SODIUM', 64); // sodium
+define('NUT_VIT_A', 65); // vit_a
+define('NUT_VIT_C', 66); // vit_c
+define('NUT_VIT_D', 67); // vit_d
+define('NUT_CALCIUM', 68); // calcium
+define('NUT_POTASSIUM_K', 69); // potasium
+define('NUT_IRON', 70); // iron
 
 class CImportReciprofity extends DAO
 {
