@@ -788,18 +788,17 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				$targetItem->is_optional = 0;
 			}
 
-			// Change: category 9 is no longer always controllable. Now only the 5 marked as is_preferred are controllable and they are visible by default
-			if ($targetItem->menu_item_category_id != 9)
+			if (strtolower($fields[STORE_CAN_EDIT_VISIBILITY]) == 'no')
+			{
+				$targetItem->is_visibility_controllable = 0;
+			}
+			else
 			{
 				$targetItem->is_visibility_controllable = 1;
 			}
 
 			if ($targetItem->menu_item_category_id == 9)
 			{
-				//if (strtolower($fields[STATION_NUMBER]) == 'web')
-				//{
-				$targetItem->is_visibility_controllable = 1;
-				//}
 				if (!$doUpdate || !empty($_POST['import_sub_category']))
 				{
 					if (!empty($fields[SUB_CATEGORY]))
@@ -827,7 +826,14 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				$targetItem->menu_program_id = 1;
 			}
 
-			$targetItem->is_price_controllable = 1;
+			if (strtolower($fields[STORE_CAN_EDIT_PRICE]) == 'no')
+			{
+				$targetItem->is_price_controllable = 0;
+			}
+			else
+			{
+				$targetItem->is_price_controllable = 1;
+			}
 
 			if ($targetItem->menu_item_category_id == 4)
 			{
@@ -1077,6 +1083,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 							case 'menu_label':
 							case 'is_key_menu_push_item':
 							case 'is_visibility_controllable':
+							case 'is_price_controllable':
 							case 'timestamp_created':
 							case 'created_by':
 								// can't update menu item id, it would break the update
@@ -1490,16 +1497,17 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				$targetItem->is_optional = 0;
 			}
 
-			// Change: category 9 is no longer always controllable. Now only the 5 marked as is_preferred are controllable and they are visible by default
-			if ($targetItem->menu_item_category_id != 9)
+			if (strtolower($fields[STORE_CAN_EDIT_VISIBILITY]) == 'no')
+			{
+				$targetItem->is_visibility_controllable = 0;
+			}
+			else
 			{
 				$targetItem->is_visibility_controllable = 1;
 			}
 
 			if ($targetItem->menu_item_category_id == 9)
 			{
-				$targetItem->is_visibility_controllable = 1;
-
 				if (!$doUpdate || !empty($_POST['import_sub_category']))
 				{
 					if (!empty($fields[SUB_CATEGORY]))
@@ -1527,7 +1535,14 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				$targetItem->menu_program_id = 1;
 			}
 
-			$targetItem->is_price_controllable = 1;
+			if (strtolower($fields[STORE_CAN_EDIT_PRICE]) == 'no')
+			{
+				$targetItem->is_price_controllable = 0;
+			}
+			else
+			{
+				$targetItem->is_price_controllable = 1;
+			}
 
 			if ($targetItem->menu_item_category_id == 4)
 			{
@@ -1941,20 +1956,18 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				$targetItem->is_optional = 0;
 			}
 
-			// Change: category 9 is no longer always controllable. Now only the 5 marked as is_preferred are controllable and they are visible by default
-			if ($targetItem->menu_item_category_id == 4 || $targetItem->menu_item_category_id == 5 || $targetItem->menu_item_category_id == 7 || $targetItem->menu_item_category_id == 8)
+
+			if (strtolower($fields[STORE_CAN_EDIT_VISIBILITY]) == 'no')
 			{
-				$targetItem->is_visibility_controllable = 1;
+				$targetItem->is_visibility_controllable = 0;
 			}
 			else
 			{
-				$targetItem->is_visibility_controllable = 0;
+				$targetItem->is_visibility_controllable = 1;
 			}
 
 			if ($targetItem->menu_item_category_id == 9)
 			{
-				$targetItem->is_visibility_controllable = 1;
-
 				if (!$doUpdate || !empty($_POST['import_sub_category']))
 				{
 					if (!empty($fields[SUB_CATEGORY]))
@@ -1982,7 +1995,14 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				$targetItem->menu_program_id = 1;
 			}
 
-			$targetItem->is_price_controllable = 1;
+			if (strtolower($fields[STORE_CAN_EDIT_PRICE]) == 'no')
+			{
+				$targetItem->is_price_controllable = 0;
+			}
+			else
+			{
+				$targetItem->is_price_controllable = 1;
+			}
 
 			if ($targetItem->menu_item_category_id == 4)
 			{
