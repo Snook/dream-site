@@ -1503,7 +1503,7 @@ class CSessionToolsPDFDrawer
 		$menuItemArray['entree']->menu_item_name = str_replace("&eacute;", "\xC9", $menuItemArray['entree']->menu_item_name);
 
 		// Menu Item Name
-		if (strlen($menuItemArray['entree']->menu_item_name) >= 70)
+		if (strlen($menuItemArray['entree']->menu_item_name) >= 60)
 		{
 			$menu_item_title = "<t8b>" . CAppUtil::truncate(strtoupper($menuItemArray['entree']->menu_item_name), 70) . "</t8b>";
 		}
