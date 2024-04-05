@@ -825,10 +825,6 @@ class CCart2
 				{
 					$Order->addMenuItem(clone($DAO_menu_item), $outerArray['mitems'][$DAO_menu_item->id]);
 				}
-				else
-				{
-					$Order->addMenuItem(clone($DAO_menu_item), 1);
-				}
 			}
 
 			// special case for promo item
