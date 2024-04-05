@@ -430,7 +430,8 @@ $(document).on('click', '.menu-editor-reset', function (e) {
 						$('#menu_editor_form').removeClass('was-validated');
 						$('#menu-editor-nav > [data-nav] > .fa-exclamation-circle').hideFlex();
 						$('#menu-editor-nav > [data-nav] > .fa-asterisk').hideFlex();
-						$('.menu-editor-vis, .menu-editor-form, .menu-editor-pic, .menu-editor-hid, .menu-editor-ovr').removeClass('border-orange').trigger('change');
+						$('.menu-editor-vis, .menu-editor-form, .menu-editor-pic, .menu-editor-hid, .menu-editor-ovr').removeClass('border-orange');
+						$('.menu-editor-ovr').trigger('change');
 					}, 1);
 				}
 			}
