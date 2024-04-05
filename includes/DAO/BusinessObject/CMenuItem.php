@@ -1660,7 +1660,10 @@ class CMenuItem extends DAO_Menu_item
 		if (!$bundle_id)
 		{
 			$DAO_bundle = CBundle::getActiveBundleForMenu($menu_id, $DAO_store);
-			$bundle_id = $DAO_bundle->id;
+			if ($DAO_bundle)
+			{
+				$bundle_id = $DAO_bundle->id;
+			}
 		}
 
 		$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
