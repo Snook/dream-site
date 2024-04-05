@@ -4,9 +4,9 @@ $(document).ready(function () {
 
 $('#menu-editor-nav > [data-toggle="tab"]').on('shown.bs.tab', function (event) {
 
-	historyReplace({ url: '?tab=nav-' + $(event.currentTarget).data('nav') });
+	historyReplace({url: '?tab=nav-' + $(event.currentTarget).data('nav')});
 
-})
+});
 
 $(document).on('change', '#menu', function (e) {
 
@@ -270,10 +270,55 @@ $(document).on('change', '.menu-editor-hid', function (e) {
 $(document).on('change', '.menu-editor-vis, .menu-editor-form, .menu-editor-pic', function (e) {
 
 	let menu_item_id = $(this).data('menu_item_id');
+	let category_id = $(this).data('category_id');
+	let is_store_special = $(this).data('is_store_special');
+	let unique_recipes = new Set();
 
 	if (this.value == 1)
 	{
-		$('.menu-editor-hid[data-menu_item_id="' + menu_item_id + '"]').val(0).trigger('change');
+		// Check for S&S limit
+		if (category_id == 9)
+		{
+			$('.menu-editor-vis[data-category_id="9"] option:selected[value="1"]').each(function () {
+
+				unique_recipes.add($(this).closest('select').data('recipe_id'));
+
+			});
+
+			if (unique_recipes.size > 20)
+			{
+				$(this).closest('select').valDefault();
+
+				return bootbox.alert({
+					title: 'Notice',
+					message: '<p>You may only display a maximum of 20 Sides &amp; Sweets recipes on the customer facing menu.</p>',
+					centerVertical: true
+				});
+			}
+		}
+
+		// Check for EFL limit
+		if (category_id == 4 && is_store_special == 1)
+		{
+			$('.menu-editor-vis[data-category_id="4"][data-is_store_special="1"] option:selected[value="1"]').each(function () {
+
+				unique_recipes.add($(this).closest('select').data('recipe_id'));
+
+			});
+
+			if (unique_recipes.size > 10)
+			{
+				$(this).closest('select').valDefault();
+
+				return bootbox.alert({
+					title: 'Notice',
+					message: '<p>You may only display a maximum of 10 Extended Fast Lane recipes on the customer facing menu.</p>',
+					centerVertical: true
+				});
+			}
+		}
+
+		return $('.menu-editor-hid[data-menu_item_id="' + menu_item_id + '"]').val(0).trigger('change');
 	}
 
 	if ($(this).valNotDefault())
@@ -336,7 +381,7 @@ $(document).on('change keyup', '.menu-editor-hid, .menu-editor-vis, .menu-editor
 
 		if ($('#nav-' + this_nav).find('.border-orange').length)
 		{
-			$('#menu-editor-nav > [data-nav="' + this_nav +'"] > .fa-asterisk').showFlex();
+			$('#menu-editor-nav > [data-nav="' + this_nav + '"] > .fa-asterisk').showFlex();
 		}
 
 	});
@@ -432,7 +477,7 @@ $(document).on('click', '.menu-editor-finalize', function (e) {
 
 			if ($('#nav-' + this_nav).find('.form-control:invalid').length)
 			{
-				$('#menu-editor-nav > [data-nav="' + this_nav +'"] > .fa-exclamation-circle').showFlex();
+				$('#menu-editor-nav > [data-nav="' + this_nav + '"] > .fa-exclamation-circle').showFlex();
 			}
 
 		});

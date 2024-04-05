@@ -188,7 +188,8 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::attribute => array(
 					'data-menu_item_id' => $DAO_menu_item->id,
 					'data-recipe_id' => $DAO_menu_item->recipe_id,
-					'data-category_id' => $DAO_menu_item->category_id
+					'data-category_id' => $DAO_menu_item->category_id,
+					'data-is_store_special' => $DAO_menu_item->is_store_special
 				),
 				CForm::options => array(
 					'1' => 'Yes',
@@ -205,7 +206,8 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::attribute => array(
 					'data-menu_item_id' => $DAO_menu_item->id,
 					'data-recipe_id' => $DAO_menu_item->recipe_id,
-					'data-category_id' => $DAO_menu_item->category_id
+					'data-category_id' => $DAO_menu_item->category_id,
+					'data-is_store_special' => $DAO_menu_item->is_store_special
 				),
 				CForm::options => array(
 					'1' => 'Yes',
@@ -222,7 +224,8 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::attribute => array(
 					'data-menu_item_id' => $DAO_menu_item->id,
 					'data-recipe_id' => $DAO_menu_item->recipe_id,
-					'data-category_id' => $DAO_menu_item->category_id
+					'data-category_id' => $DAO_menu_item->category_id,
+					'data-is_store_special' => $DAO_menu_item->is_store_special
 				),
 				CForm::options => array(
 					'1' => 'Yes',
@@ -238,7 +241,8 @@ class page_admin_menu_editor extends CPageAdminOnly
 				CForm::attribute => array(
 					'data-menu_item_id' => $DAO_menu_item->id,
 					'data-recipe_id' => $DAO_menu_item->recipe_id,
-					'data-category_id' => $DAO_menu_item->category_id
+					'data-category_id' => $DAO_menu_item->category_id,
+					'data-is_store_special' => $DAO_menu_item->is_store_special
 				),
 				CForm::options => array(
 					'1' => 'Yes',
@@ -258,6 +262,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 					'data-menu_item_id' => $DAO_menu_item->id,
 					'data-recipe_id' => $DAO_menu_item->recipe_id,
 					'data-category_id' => $DAO_menu_item->category_id,
+					'data-is_store_special' => $DAO_menu_item->is_store_special,
 					'data-lowest_tier_price' => !empty($DAO_menu_item->pricing_tiers[1][$DAO_menu_item->pricing_type]->price) ? $DAO_menu_item->pricing_tiers[1][$DAO_menu_item->pricing_type]->price : 'null',
 					'data-highest_tier_price' => !empty($DAO_menu_item->pricing_tiers[3][$DAO_menu_item->pricing_type]->price) ? $DAO_menu_item->pricing_tiers[3][$DAO_menu_item->pricing_type]->price : 'null'
 				),

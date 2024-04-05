@@ -391,10 +391,6 @@ const SHIPSTATION_API_SECRET_314 = '';
 const SHIPSTATION_API_ENDPOINT_315 = 'https://ssapi.shipstation.com/';
 const SHIPSTATION_API_KEY_315 = '';
 const SHIPSTATION_API_SECRET_315 = '';
-//Original Instance
-const SHIPSTATION_API_ENDPOINT = 'https://ssapi.shipstation.com/';
-const SHIPSTATION_API_KEY = '';
-const SHIPSTATION_API_SECRET = '';
 // Pasadena		CA
 const SHIPSTATION_API_ENDPOINT_316 = 'https://ssapi.shipstation.com/';
 const SHIPSTATION_API_KEY_316 = '';
