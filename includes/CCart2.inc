@@ -802,7 +802,7 @@ class CCart2
 			{
 				//CES 1/21/08 -- this can happen now if the store has removed items since the cart was filled.
 				//CES 4/25/08 -- but now constrain the panic and don't throw here
-				CLog::RecordNew(CLog::DEBUG, "Menu items ins cart do not match main array.");
+				CLog::RecordNew(CLog::DEBUG, "Menu items in cart do not match main array.");
 			}
 
 			$storeObj = new DAO();
@@ -821,7 +821,14 @@ class CCart2
 
 			while ($DAO_menu_item->fetch())
 			{
-				$Order->addMenuItem(clone($DAO_menu_item), $outerArray['mitems'][$DAO_menu_item->id]);
+				if(array_key_exists($DAO_menu_item->id, $outerArray['mitems']))
+				{
+					$Order->addMenuItem(clone($DAO_menu_item), $outerArray['mitems'][$DAO_menu_item->id]);
+				}
+				else
+				{
+					$Order->addMenuItem(clone($DAO_menu_item), 1);
+				}
 			}
 
 			// special case for promo item
