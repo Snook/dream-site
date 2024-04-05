@@ -291,47 +291,51 @@ $(document).on('change', '.menu-editor-vis, .menu-editor-form, .menu-editor-pic'
 	{
 		$('.menu-editor-hid[data-menu_item_id="' + menu_item_id + '"]').val(0).trigger('change');
 
-		// Check for S&S limit
-		if (category_id == 9)
+		// If changing visibility, verify limits
+		if ($(this).is('.menu-editor-vis'))
 		{
-			$('.menu-editor-vis[data-category_id="9"] option:selected[value="1"]').each(function () {
-
-				unique_recipes.add($(this).closest('select').data('recipe_id'));
-
-			});
-
-			if (unique_recipes.size > limit_visible_sides)
+			// Check for S&S limit
+			if (category_id == 9)
 			{
-				$(this).closest('select').valDefault();
-				$('.menu-editor-hid[data-menu_item_id="' + menu_item_id + '"]').valDefault();
+				$('.menu-editor-vis[data-category_id="9"] option:selected[value="1"]').each(function () {
 
-				bootbox.alert({
-					title: 'Notice',
-					message: '<p>You may only display a maximum of 20 Sides &amp; Sweets recipes on the customer facing menu.</p>',
-					centerVertical: true
+					unique_recipes.add($(this).closest('select').data('recipe_id'));
+
 				});
+
+				if (unique_recipes.size > limit_visible_sides)
+				{
+					$(this).closest('select').valDefault();
+					$('.menu-editor-hid[data-menu_item_id="' + menu_item_id + '"]').valDefault();
+
+					bootbox.alert({
+						title: 'Notice',
+						message: '<p>You may only display a maximum of 20 Sides &amp; Sweets recipes on the customer facing menu.</p>',
+						centerVertical: true
+					});
+				}
 			}
-		}
 
-		// Check for EFL limit
-		if (category_id == 4 && is_store_special == 1)
-		{
-			$('.menu-editor-vis[data-category_id="4"][data-is_store_special="1"] option:selected[value="1"]').each(function () {
-
-				unique_recipes.add($(this).closest('select').data('recipe_id'));
-
-			});
-
-			if (unique_recipes.size > limit_visible_efl)
+			// Check for EFL limit
+			if (category_id == 4 && is_store_special == 1)
 			{
-				$(this).closest('select').valDefault();
-				$('.menu-editor-hid[data-menu_item_id="' + menu_item_id + '"]').valDefault();
+				$('.menu-editor-vis[data-category_id="4"][data-is_store_special="1"] option:selected[value="1"]').each(function () {
 
-				bootbox.alert({
-					title: 'Notice',
-					message: '<p>You may only display a maximum of 10 Extended Fast Lane recipes on the customer facing menu.</p>',
-					centerVertical: true
+					unique_recipes.add($(this).closest('select').data('recipe_id'));
+
 				});
+
+				if (unique_recipes.size > limit_visible_efl)
+				{
+					$(this).closest('select').valDefault();
+					$('.menu-editor-hid[data-menu_item_id="' + menu_item_id + '"]').valDefault();
+
+					bootbox.alert({
+						title: 'Notice',
+						message: '<p>You may only display a maximum of 10 Extended Fast Lane recipes on the customer facing menu.</p>',
+						centerVertical: true
+					});
+				}
 			}
 		}
 	}
@@ -421,15 +425,15 @@ $(document).on('click', '.menu-editor-reset', function (e) {
 
 					$("#menu_editor_form").trigger('reset');
 
-					// Timeout ensures form is reset first
-					setTimeout(function () {
-						$('#menu_editor_form').removeClass('was-validated');
-						$('#menu-editor-nav > [data-nav] > .fa-exclamation-circle').hideFlex();
-						$('#menu-editor-nav > [data-nav] > .fa-asterisk').hideFlex();
-						$('.menu-editor-vis, .menu-editor-form, .menu-editor-pic, .menu-editor-hid, .menu-editor-ovr').removeClass('border-orange').trigger('change');
-					}, 1);
+					$('#menu_editor_form').removeClass('was-validated');
+					$('#menu-editor-nav > [data-nav] > .fa-exclamation-circle').hideFlex();
+					$('#menu-editor-nav > [data-nav] > .fa-asterisk').hideFlex();
+					$('.menu-editor-vis, .menu-editor-form, .menu-editor-pic, .menu-editor-hid, .menu-editor-ovr').removeClass('border-orange');
 				}
 			}
+		},
+		onHidden: function(e) {
+			$('.menu-editor-ovr').trigger('change');
 		}
 	});
 

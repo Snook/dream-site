@@ -2983,7 +2983,7 @@ class COrders extends DAO_Orders
 			return;
 		}
 
-		if ($quantity == 0)
+		if (empty($quantity))
 		{
 			return;
 		}
