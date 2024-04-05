@@ -1,3 +1,6 @@
+const limit_visible_efl = 10;
+const limit_visible_sides = 20;
+
 $(document).ready(function () {
 	$('.menu-editor-ovr').trigger('change');
 });
@@ -209,7 +212,17 @@ $(document).on('click', '.sides-sweets-retrieve', function (e) {
 
 									if (result.includes('vis'))
 									{
-										$('.menu-editor-vis[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['vis']).trigger('change');
+										let unique_recipes = new Set();
+
+										$('.menu-editor-vis[data-category_id="9"] option:selected[value="1"]').each(function () {
+											unique_recipes.add($(this).closest('select').data('recipe_id'));
+										});
+
+										if (unique_recipes.size <= limit_visible_sides)
+										{
+											$('.menu-editor-vis[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['vis']).trigger('change');
+										}
+
 										$('.menu-editor-hid[data-recipe_id="' + recipe_id + '"][data-category_id="9"]').val(setting['hid']).trigger('change');
 									}
 
@@ -276,6 +289,8 @@ $(document).on('change', '.menu-editor-vis, .menu-editor-form, .menu-editor-pic'
 
 	if (this.value == 1)
 	{
+		$('.menu-editor-hid[data-menu_item_id="' + menu_item_id + '"]').val(0).trigger('change');
+
 		// Check for S&S limit
 		if (category_id == 9)
 		{
@@ -285,11 +300,12 @@ $(document).on('change', '.menu-editor-vis, .menu-editor-form, .menu-editor-pic'
 
 			});
 
-			if (unique_recipes.size > 20)
+			if (unique_recipes.size > limit_visible_sides)
 			{
 				$(this).closest('select').valDefault();
+				$('.menu-editor-hid[data-menu_item_id="' + menu_item_id + '"]').valDefault();
 
-				return bootbox.alert({
+				bootbox.alert({
 					title: 'Notice',
 					message: '<p>You may only display a maximum of 20 Sides &amp; Sweets recipes on the customer facing menu.</p>',
 					centerVertical: true
@@ -306,19 +322,18 @@ $(document).on('change', '.menu-editor-vis, .menu-editor-form, .menu-editor-pic'
 
 			});
 
-			if (unique_recipes.size > 10)
+			if (unique_recipes.size > limit_visible_efl)
 			{
 				$(this).closest('select').valDefault();
+				$('.menu-editor-hid[data-menu_item_id="' + menu_item_id + '"]').valDefault();
 
-				return bootbox.alert({
+				bootbox.alert({
 					title: 'Notice',
 					message: '<p>You may only display a maximum of 10 Extended Fast Lane recipes on the customer facing menu.</p>',
 					centerVertical: true
 				});
 			}
 		}
-
-		return $('.menu-editor-hid[data-menu_item_id="' + menu_item_id + '"]').val(0).trigger('change');
 	}
 
 	if ($(this).valNotDefault())
