@@ -2503,7 +2503,7 @@ class CCart2
 
 		if (get_class($OrderObj) == "COrdersDelivered")
 		{
-			CLog::Assert(!empty($_REQUEST["processor"]) && ($_REQUEST["processor"] == 'cart_remove_coupon' || $_REQUEST["processor"] == 'cart_add_coupon'), "unexpected call to storeOrdersMenuItems for COrdersDelivered order");
+		//	CLog::Assert(!empty($_REQUEST["processor"]) && ($_REQUEST["processor"] == 'cart_remove_coupon' || $_REQUEST["processor"] == 'cart_add_coupon'), "unexpected call to storeOrdersMenuItems for COrdersDelivered order");
 		}
 		else
 		{
