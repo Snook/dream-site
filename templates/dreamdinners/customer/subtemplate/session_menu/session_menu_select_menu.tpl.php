@@ -77,6 +77,26 @@
 				</div>
 			</div>
 		</div>
+	<?php } else if (CStore::storeSupportsMealCustomization($this->cart_info['storeObj'])) { ?>
+		<div class="col-12 col-lg bg-cyan-extra-light py-3">
+			<div class="row">
+				<div class="col mb-2 text-center">
+					<div class="font-weight-bold pb-2">Meal Customization Now Available</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col text-center">
+					<span class="btn btn-primary dropdown-toggle sm-customization-available">
+						Learn more
+					</span>
+				</div>
+			</div>
+			<div class="row mt-2 collapse sm-row-customization-available">
+				<div class="col">
+					Don’t love an ingredient or two? You can personally customize your meals at an assembly session or let us do it by choosing a special customization pick up or home delivery day/time. Pick your meals, then during checkout, let us know if we should leave out onion, garlic, mushroom, olives, bacon, or cilantro. A nominal fee may apply.
+				</div>
+			</div>
+		</div>
 	<?php } ?>
 
 </div>
