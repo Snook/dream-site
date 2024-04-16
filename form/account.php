@@ -394,7 +394,7 @@ class form_account
 		$Form->AddElement(array(
 			CForm::type => CForm::DropDown,
 			CForm::name => "telephone_1_call_time",
-			CForm::required => false,
+			CForm::required => true,
 			CForm::required_msg => "Please select best time to call.",
 			CForm::options => array(
 				'null' => 'Best Time to Call',
