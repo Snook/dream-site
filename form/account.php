@@ -72,7 +72,7 @@ class form_account
 
 	);
 
-	static $forwardTo = '/my_account'; //switched to auto-confirm
+	static $forwardTo = '/my-account'; //switched to auto-confirm
 	static public $originalCustomerReferral = false;
 
 	static function sanitizeAccountFields()
@@ -394,7 +394,7 @@ class form_account
 		$Form->AddElement(array(
 			CForm::type => CForm::DropDown,
 			CForm::name => "telephone_1_call_time",
-			CForm::required => true,
+			CForm::required => false,
 			CForm::required_msg => "Please select best time to call.",
 			CForm::options => array(
 				'null' => 'Best Time to Call',
@@ -1347,7 +1347,7 @@ class form_account
 			// so just catch the name and set it explicitly.
 			$lastname = $vals['lastname'];
 
-			$User->setFrom($vals);
+			$User->setFrom($vals, '%s', true);
 
 			if ($lastname == "Null")
 			{
