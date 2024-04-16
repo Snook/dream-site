@@ -394,7 +394,7 @@ class form_account
 		$Form->AddElement(array(
 			CForm::type => CForm::DropDown,
 			CForm::name => "telephone_1_call_time",
-			CForm::required => false,
+			CForm::required => true,
 			CForm::required_msg => "Please select best time to call.",
 			CForm::options => array(
 				'null' => 'Best Time to Call',
@@ -599,12 +599,6 @@ class form_account
 			$lastname = $vals['lastname'];
 
 			$User->setFrom($vals);
-
-			// for some reason this was not implemented as a CForm widget so we must grab it from $_POST
-			if (isset($_POST['telephone_1_call_time']) && !empty($_POST['telephone_1_call_time']))
-			{
-				$User->telephone_1_call_time = $_POST['telephone_1_call_time'];
-			}
 
 			if ($lastname == "Null")
 			{
@@ -1355,12 +1349,6 @@ class form_account
 
 			$User->setFrom($vals);
 
-			// for some reason this was not implemented as a CForm widget so we must grab it from $_POST
-			if (isset($_POST['telephone_1_call_time']) && !empty($_POST['telephone_1_call_time']))
-			{
-				$User->telephone_1_call_time = $_POST['telephone_1_call_time'];
-			}
-
 			if ($lastname == "Null")
 			{
 				$User->lastname = $lastname;
@@ -1919,7 +1907,7 @@ class form_account
 
 		self::_buildForm($Form, true, false, $referring_user_email);
 
-		$User = new CUser();
+		$User = DAO_CFactory::create('user', true);
 
 		//there may be 2 password fields on the page.. if so one is named new_password.
 		// if it is set then convert to what the backend expects

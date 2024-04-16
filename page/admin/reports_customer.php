@@ -227,7 +227,7 @@ class page_admin_reports_customer extends CPageAdminOnly
 			CForm::onChangeSubmit => false,
 			CForm::allowAllOption => false,
 			CForm::options => $filterOption,
-			CForm::default_value => 0,
+			CForm::default_value => 'all',
 			CForm::name => 'customer_type_filter'
 		));
 
