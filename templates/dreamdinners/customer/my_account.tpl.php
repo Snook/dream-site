@@ -41,11 +41,13 @@
 									<p class="text-uppercase">Points <?php echo number_format(200 - intVal(CUser::getCurrentUser()->platePointsData['points_until_next_credit'])); ?> of 200</p>
 									<div class="font-size-small">Points pending: <?php echo number_format(CUser::getCurrentUser()->platePointsData['pending_points']); ?></div>
 									<div class="font-size-small">Total Dinner Dollars: $<?php echo CUser::getCurrentUser()->platePointsData['available_credit']; ?></div>
-									<div class="font-size-small">
-										<?php foreach ($this->userCredits['credit']['available_pp_credits'] AS $id => $credit) {?>
-											&nbsp;&rtrif;$<?php echo $credit['dollar_value']; ?> expire on <?php echo CTemplate::dateTimeFormat($credit['expiration_date'], FULL_MONTH_DAY_YEAR); ?><br>
-										<?php } ?>
-									</div>
+									<?php if (!empty($this->userCredits['credit']['available_pp_credits'])) { ?>
+										<div class="font-size-small">
+											<?php foreach ($this->userCredits['credit']['available_pp_credits'] AS $id => $credit) {?>
+												&nbsp;&rtrif;$<?php echo $credit['dollar_value']; ?> expire on <?php echo CTemplate::dateTimeFormat($credit['expiration_date'], FULL_MONTH_DAY_YEAR); ?><br>
+											<?php } ?>
+										</div>
+									<?php } ?>
 								</div>
 							</div>
 						<?php } ?>
