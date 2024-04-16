@@ -245,17 +245,6 @@
 				</div>
 			<?php } ?>
 
-			<?php if (false) { ?>
-				<div class="col-xl-6 mb-2 bg-cyan-dark py-2">
-					<div class="col-12 pt-4 text-center">
-						<i class="d-none d-lg-block dd-icon icon-mobile font-size-extra-large text-white mb-2"></i>
-						<h5 class="font-weight-bold text-uppercase text-white">OPT INTO DREAM DINNERS EMAIl &amp; TEXT MESSAGING</h5>
-						<p class="text-white">Get important Dream Dinners info in the palm of your hand like a reminder about your next order. Plus exciting offers, announcements and weekly thaw reminders.</p>
-						<a class="btn btn-gray-dark btn-block mb-3" href="/account">Edit Preferences to Opt In</a>
-					</div>
-				</div>
-			<?php } ?>
-
 			<?php if ($this->userTestRecipes) { ?>
 				<div class="col-xl-6 mb-2 bg-gray py-2">
 					<div class="col-12">
