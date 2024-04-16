@@ -177,6 +177,7 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 		{
 
 			$nowTime = "now()";
+			$nowDate = "'" . date("Y-m-d H:i:s", time()) . "'";
 			if (is_numeric($store))
 			{
 				$nowTime = time(); // could add some tolerance here

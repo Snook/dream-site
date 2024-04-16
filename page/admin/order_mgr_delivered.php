@@ -798,7 +798,17 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 		));
 
 		// --------------------------------------- set up Taxes
-		list($tax_id, $curfoodTax, $curNonFoodTax, $curServiceTax, $curEnrollmentTax, $curDeliveryTax, $curBagFeeTax) = $this->daoStore->getCurrentSalesTax();
+		$tax_id = null;
+		$curfoodTax = null;
+		$curNonFoodTax = null;
+		$curServiceTax = null;
+		$curEnrollmentTax = null;
+		$curDeliveryTax = null;
+		$curBagFeeTax = null;
+		if ($this->orderState != 'NEW')
+		{
+			list($tax_id, $curfoodTax, $curNonFoodTax, $curServiceTax, $curEnrollmentTax, $curDeliveryTax, $curBagFeeTax) = $this->daoStore->getCurrentSalesTax();
+		}
 
 		$taxRelation = 'equal';
 
