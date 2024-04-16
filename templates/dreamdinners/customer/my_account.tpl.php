@@ -75,6 +75,23 @@
 					<?php } ?>
 				<?php } ?>
 
+				<!--<?php include $this->loadTemplateIfElse('customer/subtemplate/my_account/monthly/' . $this->monthlyDirectory . '/my_account_monthly.tpl.php', 'customer/subtemplate/my_account/monthly/default/my_account_monthly.tpl.php'); ?>-->
+
+				<div class="row mb-3">
+					<div class="col p-0">
+						<a class="btn btn-primary btn-lg btn-block" href="/session-menu" id="my_account_start">Start order</a>
+					</div>
+				</div>
+				<?php if (!$this->is_delivered_only) { ?>
+					<div class="row mb-2">
+						<?php foreach ($this->printMenus AS $calendar) { ?>
+							<div class="col-6">
+								<a class="btn btn-green-dark-extra btn-sm btn-block" href="/print?store=<?php echo $this->user->home_store_id; ?>&amp;menu=<?php echo $calendar['id']; ?>" target="_blank"><i class="dd-icon icon-print mr-2"></i> Print <?php echo $calendar['menu_name']; ?> Store Menu</a>
+							</div>
+						<?php } ?>
+					</div>
+				<?php } ?>
+			
 			</div>
 
 			<div class="col-md-6 mb-2">
@@ -172,24 +189,7 @@
 				</div>
 			<?php } ?>
 
-			<div class="col-md-6 mb-2">
-				<?php include $this->loadTemplateIfElse('customer/subtemplate/my_account/monthly/' . $this->monthlyDirectory . '/my_account_monthly.tpl.php', 'customer/subtemplate/my_account/monthly/default/my_account_monthly.tpl.php'); ?>
-
-				<div class="row mb-3">
-					<div class="col p-0">
-						<a class="btn btn-primary btn-lg btn-block" href="/session-menu" id="my_account_start">Start order</a>
-					</div>
-				</div>
-				<?php if (!$this->is_delivered_only) { ?>
-					<div class="row mb-2">
-						<?php foreach ($this->printMenus AS $calendar) { ?>
-							<div class="col-6">
-								<a class="btn btn-green-dark-extra btn-sm btn-block" href="/print?store=<?php echo $this->user->home_store_id; ?>&amp;menu=<?php echo $calendar['id']; ?>" target="_blank"><i class="dd-icon icon-print mr-2"></i> Print <?php echo $calendar['menu_name']; ?> Store Menu</a>
-							</div>
-						<?php } ?>
-					</div>
-				<?php } ?>
-			</div>
+			
 
 			<?php if (!$this->is_delivered_only) { ?>
 				<div class="col-xl-6 mb-2 bg-gray-light">
