@@ -104,7 +104,7 @@
 
 		echo '</td>';
 
-		echo '<td nowrap><a href="javascript:viewGCOrder(\'' . $this->rows->cc_ref_number . '\');">view</a></td>';
+		echo '<td nowrap><a class="btn btn-primary btn-sm" href="javascript:viewGCOrder(\'' . $this->rows->cc_ref_number . '\');">view</a></td>';
 		echo '</tr>';
 	}
 	?>
