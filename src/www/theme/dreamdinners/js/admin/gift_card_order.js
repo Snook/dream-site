@@ -33,8 +33,6 @@ function modifyDesign(obj)
 	document.getElementById('design_type_div_collapsed').style.display = "none";
 }
 
-
-
 function mediaClick(obj)
 {
 	document.getElementById('media_type_div_expanded').style.display = "none";
@@ -271,13 +269,11 @@ function _submit_click(obj)
 			title: 'Submit Gift Card Order',
 			message: msg,
 			modal: true,
-			confirm: function ()
-			{
+			confirm: function () {
 				processOrder();
 
 			},
-			cancel: function ()
-			{
+			cancel: function () {
 				$('#procCardOrderBtn').show();
 			}
 
@@ -288,13 +284,12 @@ function _submit_click(obj)
 	return true;
 }
 
-
 function processOrder()
 {
 	$("#gift_card_order").submit();
 }
 
-(function() {
+(function () {
 
 	$(document).on('change', '#credit_card_number', function (e) {
 
