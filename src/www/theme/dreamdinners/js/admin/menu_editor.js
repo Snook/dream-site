@@ -65,7 +65,7 @@ $(document).on('click', '.sides-sweets-save', function (e) {
 
 	bootbox.dialog({
 		title: 'Confirmation',
-		message: "<p>Are you sure you wish to save all current Sides &amp; Sweets pricing and visibility settings to retrieve on future menus.</p>",
+		message: "<p>Are you sure you wish to save all current Sides &amp; Sweets pricing and visibility settings to retrieve on future menus?</p>",
 		centerVertical: true,
 		buttons: {
 			cancel: {
@@ -73,7 +73,7 @@ $(document).on('click', '.sides-sweets-save', function (e) {
 				className: 'btn-secondary mr-auto'
 			},
 			confirm: {
-				label: 'Safe defualts',
+				label: 'Save defaults',
 				className: 'btn-danger',
 				callback: function () {
 
