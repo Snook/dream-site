@@ -1853,7 +1853,7 @@ class COrders extends DAO_Orders
 			$coreItemsQuantityTotal = 0;
 			foreach ($this->items as $id => $itemInfo)
 			{
-				if ($itemInfo[1]->menu_item_category_id < 4 || ($itemInfo[1]->menu_item_category_id == 4 && $itemInfo[1]->is_store_special == 0))
+				if ($itemInfo[1]->contributesToMinimum())
 				{
 					$coreItemsQuantityTotal += ($itemInfo[1]->item_count_per_item * $itemInfo[0]);
 					$coreServingsTotal += ($itemInfo[1]->servings_per_item * $itemInfo[0]);

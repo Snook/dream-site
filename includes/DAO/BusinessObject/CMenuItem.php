@@ -2103,6 +2103,16 @@ class CMenuItem extends DAO_Menu_item
 		return false;
 	}
 
+	function contributesToMinimum()
+	{
+		if ($this->isMenuItem_Core() || $this->isMenuItem_EFL())
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	function isShowOnOrderForm()
 	{
 		if (!empty($this->show_on_order_form))
@@ -2185,48 +2195,48 @@ class CMenuItem extends DAO_Menu_item
 
 	static function recipeReferenceArray($menuItemInfoByMID, $itemArray)
 	{
-		foreach ($itemArray as $item)
+		foreach ($itemArray as $DAO_menu_item)
 		{
-			$menuItemInfoByMID['entree'][$item->entree_id][$item->id] = $item->pricing_type;
-			$menuItemInfoByMID['recipe'][$item->recipe_id][$item->id] = $item->pricing_type;
+			$menuItemInfoByMID['entree'][$DAO_menu_item->entree_id][$DAO_menu_item->id] = $DAO_menu_item->pricing_type;
+			$menuItemInfoByMID['recipe'][$DAO_menu_item->recipe_id][$DAO_menu_item->id] = $DAO_menu_item->pricing_type;
 
 			$midArray = array(
-				'menu_item_id' => $item->id,
-				'entree_id' => $item->entree_id,
-				'menu_item_name' => $item->menu_item_name,
-				'recipe_id' => $item->recipe_id,
-				'parent_item' => (!empty($item->parent_item) ? $item->parent_item : null),
-				'category_id' => $item->category_id,
-				'qty_in_cart' => $item->qty_in_cart,
-				'remaining_servings' => $item->remaining_servings,
-				'servings_per_item' => $item->servings_per_item,
-				'pricing_type' => $item->pricing_type,
-				'pricing_type_info' => (!empty($item->pricing_type_info) ? $item->pricing_type_info : null),
-				'price' => $item->store_price,
-				'is_bundle' => $item->is_bundle,
-				'number_items_required' => (!empty($item->number_items_required) ? $item->number_items_required : null),
-				'item_count_per_item' => $item->item_count_per_item,
-				'item_contributes_to_minimum_order' => ($item->category_id < 5 and $item->is_store_special == 0),
-				'bundle_to_menu_item_group_id' => (!empty($item->bundle_to_menu_item_group_id) ? $item->bundle_to_menu_item_group_id : false)
+				'menu_item_id' => $DAO_menu_item->id,
+				'entree_id' => $DAO_menu_item->entree_id,
+				'menu_item_name' => $DAO_menu_item->menu_item_name,
+				'recipe_id' => $DAO_menu_item->recipe_id,
+				'parent_item' => (!empty($DAO_menu_item->parent_item) ? $DAO_menu_item->parent_item : null),
+				'category_id' => $DAO_menu_item->category_id,
+				'qty_in_cart' => $DAO_menu_item->qty_in_cart,
+				'remaining_servings' => $DAO_menu_item->remaining_servings,
+				'servings_per_item' => $DAO_menu_item->servings_per_item,
+				'pricing_type' => $DAO_menu_item->pricing_type,
+				'pricing_type_info' => (!empty($DAO_menu_item->pricing_type_info) ? $DAO_menu_item->pricing_type_info : null),
+				'price' => $DAO_menu_item->store_price,
+				'is_bundle' => $DAO_menu_item->is_bundle,
+				'number_items_required' => (!empty($DAO_menu_item->number_items_required) ? $DAO_menu_item->number_items_required : null),
+				'item_count_per_item' => $DAO_menu_item->item_count_per_item,
+				'item_contributes_to_minimum_order' => $DAO_menu_item->contributesToMinimum(),
+				'bundle_to_menu_item_group_id' => (!empty($DAO_menu_item->bundle_to_menu_item_group_id) ? $DAO_menu_item->bundle_to_menu_item_group_id : false)
 			);
 
-			if (!empty($item->parent_item))
+			if (!empty($DAO_menu_item->parent_item))
 			{
-				$menuItemInfoByMID['mid'][$item->parent_item]['sub_item'][$item->id] = $midArray;
+				$menuItemInfoByMID['mid'][$DAO_menu_item->parent_item]['sub_item'][$DAO_menu_item->id] = $midArray;
 
-				if (empty($menuItemInfoByMID['mid'][$item->id]))
+				if (empty($menuItemInfoByMID['mid'][$DAO_menu_item->id]))
 				{
-					$menuItemInfoByMID['mid'][$item->id] = $midArray;
+					$menuItemInfoByMID['mid'][$DAO_menu_item->id] = $midArray;
 				}
 			}
-			else if (empty($item->parent_item) && !empty($item->is_bundle) && empty($item->bundle_groups))
+			else if (empty($DAO_menu_item->parent_item) && !empty($DAO_menu_item->is_bundle) && empty($DAO_menu_item->bundle_groups))
 			{
-				$menuItemInfoByMID['mid'][$item->id] = $midArray;
-				$menuItemInfoByMID['mid'][$item->id]['bundle_groups'] = array();
+				$menuItemInfoByMID['mid'][$DAO_menu_item->id] = $midArray;
+				$menuItemInfoByMID['mid'][$DAO_menu_item->id]['bundle_groups'] = array();
 
-				foreach ($item->sub_items as $subid => $sub_midArray)
+				foreach ($DAO_menu_item->sub_items as $subid => $sub_midArray)
 				{
-					$menuItemInfoByMID['mid'][$item->id]['sub_item'][$subid] = array(
+					$menuItemInfoByMID['mid'][$DAO_menu_item->id]['sub_item'][$subid] = array(
 						'menu_item_id' => $sub_midArray['id'],
 						'entree_id' => $sub_midArray['entree_id'],
 						'menu_item_name' => $sub_midArray['menu_item_name'],
@@ -2240,7 +2250,7 @@ class CMenuItem extends DAO_Menu_item
 						'pricing_type_info' => (array_key_exists('pricing_type_info', $sub_midArray) ? $sub_midArray['pricing_type_info'] : null),
 						'price' => $sub_midArray['price'],
 						'is_bundle' => $sub_midArray['is_bundle'],
-						'item_count_per_item' => $item->item_count_per_item,
+						'item_count_per_item' => $DAO_menu_item->item_count_per_item,
 						'number_items_required' => $sub_midArray['number_items_required'],
 						'item_contributes_to_minimum_order' => ($sub_midArray['category_id'] < 5 and $sub_midArray['is_store_special'] == 0),
 						'bundle_to_menu_item_group_id' => (!empty($sub_midArray['bundle_to_menu_item_group_id']) ? $sub_midArray['bundle_to_menu_item_group_id'] : false)
@@ -2249,20 +2259,20 @@ class CMenuItem extends DAO_Menu_item
 			}
 			else
 			{
-				$menuItemInfoByMID['mid'][$item->id] = $midArray;
+				$menuItemInfoByMID['mid'][$DAO_menu_item->id] = $midArray;
 			}
 
-			if (!empty($item->is_bundle) && !empty($item->bundle_groups))
+			if (!empty($DAO_menu_item->is_bundle) && !empty($DAO_menu_item->bundle_groups))
 			{
-				$menuItemInfoByMID = self::recipeReferenceArray($menuItemInfoByMID, $item->sub_items);
+				$menuItemInfoByMID = self::recipeReferenceArray($menuItemInfoByMID, $DAO_menu_item->sub_items);
 
-				$menuItemInfoByMID['mid'][$item->id]['bundle_groups'] = array();
+				$menuItemInfoByMID['mid'][$DAO_menu_item->id]['bundle_groups'] = array();
 
-				foreach ($item->bundle_groups as $bundle_group)
+				foreach ($DAO_menu_item->bundle_groups as $bundle_group)
 				{
-					$menuItemInfoByMID['mid'][$item->id]['bundle_groups'][$bundle_group->id]['group_title'] = $bundle_group->group_title;
-					$menuItemInfoByMID['mid'][$item->id]['bundle_groups'][$bundle_group->id]['number_items_required'] = $bundle_group->number_items_required;
-					$menuItemInfoByMID['mid'][$item->id]['bundle_groups'][$bundle_group->id]['number_servings_required'] = $bundle_group->number_servings_required;
+					$menuItemInfoByMID['mid'][$DAO_menu_item->id]['bundle_groups'][$bundle_group->id]['group_title'] = $bundle_group->group_title;
+					$menuItemInfoByMID['mid'][$DAO_menu_item->id]['bundle_groups'][$bundle_group->id]['number_items_required'] = $bundle_group->number_items_required;
+					$menuItemInfoByMID['mid'][$DAO_menu_item->id]['bundle_groups'][$bundle_group->id]['number_servings_required'] = $bundle_group->number_servings_required;
 				}
 			}
 		}

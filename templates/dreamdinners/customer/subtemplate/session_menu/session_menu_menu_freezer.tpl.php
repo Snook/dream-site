@@ -7,7 +7,7 @@ foreach ($this->menu_items as $id => $item)
 	$otherSizeItem = $this->curItem[$id];
 	if ($mainItem->isVisible() || $otherSizeItem->isVisible())
 	{
-		if ($this->menu_view == 'session_menu_freezer' && $mainItem->isFreezer())
+		if ($this->menu_view == 'session_menu_freezer' && $mainItem->isMenuItem_SidesSweets())
 		{
 			$this->itemArray = $this->curItem;
 			$categoryLabel = (!empty($mainItem->is_store_special)) ? 'Pre-Assembled Add On Dinners' : $mainItem->subcategory_label;
