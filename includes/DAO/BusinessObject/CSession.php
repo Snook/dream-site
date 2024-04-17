@@ -204,7 +204,7 @@ class CSession extends DAO_Session
 		$DAO_store->active = 1;
 		$DAO_store->store_type = CStore::DISTRIBUTION_CENTER;
 		$DAO_store->find();
-		$defaultMaximum = 25;//overridden below if value fetched from store/DC > 0
+		$defaultMaximum = 15; //overridden below if value fetched from store/DC > 0
 
 		while ($DAO_store->fetch())
 		{
@@ -370,16 +370,16 @@ class CSession extends DAO_Session
 			switch ($date->format("N"))
 			{
 				case 2:
-					// Tuesday, close 102 hours prior
-					$thisSession->setCloseSchedulingTime(CSession::HOURS, 102);
+					// Tuesday, close 96 hours prior
+					$thisSession->setCloseSchedulingTime(CSession::HOURS, 96);
 					break;
 				case 3:
-					// Wednesday, close 72 hours prior
-					$thisSession->setCloseSchedulingTime(CSession::HOURS, 72);
+					// Wednesday, close 120 hours prior
+					$thisSession->setCloseSchedulingTime(CSession::HOURS, 120);
 					break;
 				case 4:
-					// Thursday, close 48 hours prior
-					$thisSession->setCloseSchedulingTime(CSession::HOURS, 48);
+					// Thursday, close 72 hours prior
+					$thisSession->setCloseSchedulingTime(CSession::HOURS, 72);
 					break;
 				case 5:
 					// Friday, close 72 hours prior
