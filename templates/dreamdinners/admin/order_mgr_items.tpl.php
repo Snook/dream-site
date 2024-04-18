@@ -29,28 +29,6 @@ function createSectionHeader($tpl, $categoryName)
 		return "</tbody><tr><th class='bg-green' colspan='15'>" . $categoryName . "</th></tr><tbody>";
 	}
 }
-
-//try to find entree id by menu item then by all the various sizes of that menu items
-function determineEntreeId($tpl, $categoryName, $planNode, $menuItemId)
-{
-	$entree_id = null;
-	if (array_key_exists($menuItemId, $tpl->menuInfo[$categoryName]))
-	{
-		$entree_id = $tpl->menuInfo[$categoryName][$menuItemId]['entree_id'];
-		if (!is_null($entree_id))
-		{
-			return $entree_id;
-		}
-	}
-
-	foreach ($planNode as $type => $menuItemId)
-	{
-		return determineEntreeId($tpl, $categoryName, $planNode, $menuItemId);
-	}
-
-	return $entree_id;
-}
-
 ?>
 
 	<ul class="nav nav-tabs" role="tablist">
@@ -103,12 +81,6 @@ function determineEntreeId($tpl, $categoryName, $planNode, $menuItemId)
 
 							foreach ($subArray as $planNode)
 							{
-								if (!$printedName)
-								{
-									$printedName = true;
-									echo createSectionHeader($this, $categoryName);
-								}
-
 								$amountRemaining = 0;
 								$printedQty = false;
 								$menuItemCount = 1;
@@ -214,6 +186,16 @@ function determineEntreeId($tpl, $categoryName, $planNode, $menuItemId)
 										continue;
 									}
 
+									if ($thisItem['is_hidden_everywhere'] && empty($this->orgQuantities[$thisItem['id']]))
+									{
+										continue;
+									}
+
+									if (!$printedName)
+									{
+										$printedName = true;
+										echo createSectionHeader($this, $categoryName);
+									}
 									?>
 									<tr class="inventory-row <?php echo $rowBackgroundClause ?>" data-orig-remaining="<?php echo $amountRemaining ?>" data-entree="<?php echo $thisItem['entree_id'] ?>" data-servings="<?php echo $thisItem['servings_per_item'] ?>">
 
@@ -240,7 +222,7 @@ function determineEntreeId($tpl, $categoryName, $planNode, $menuItemId)
 
 												if (!isset($this->bundleItems['bundle']) || (!array_key_exists($thisItem['id'], $this->bundleItems['bundle'])))
 												{
-													?>
+												?>
 												<?php } ?>
 											</td>
 										<?php } ?>

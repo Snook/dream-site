@@ -39,7 +39,7 @@
 					<?php } ?>
 				</div>
 				<div class="col-4 p-0">
-					<button class="btn btn-<?php if (!empty($cart_info_item_info["menu_item_category_id"] == '9')) { ?>cyan-dark<?php } else { ?>white<?php } ?> btn-block <?php if ($cart_info_item_info['is_visible']) { ?>btn-ripple add-to-cart<?php } ?>" data-menu_item_id="<?php echo $cart_info_item_info['menu_item_id']; ?>"><?php echo $cart_info_item_info['qty']; ?></button>
+					<button class="btn btn-<?php if ($cart_info_item_info["menu_item_category_id"] == '9') { ?>cyan-dark<?php } else { ?>white<?php } ?> btn-block <?php if ($cart_info_item_info['is_visible']) { ?>btn-ripple add-to-cart<?php } ?>" data-menu_item_id="<?php echo $cart_info_item_info['menu_item_id']; ?>"><?php echo $cart_info_item_info['qty']; ?></button>
 				</div>
 				<?php if ($this->cart_info['cart_info_array']['navigation_type'] != COrders::INTRO) { ?>
 					<div class="col-4 p-0">
