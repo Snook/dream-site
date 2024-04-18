@@ -1,5 +1,6 @@
 <?php
 $showCategoryLabel = false;
+$coreEflCount = 0;
 foreach ($this->menu_items as $id => $item)
 {
 	$this->assignRef('curItem', $item);
@@ -7,8 +8,17 @@ foreach ($this->menu_items as $id => $item)
 	$otherSizeItem = $this->curItem[$id];
 	if ($mainItem->isVisible() || $otherSizeItem->isVisible())
 	{
-		if ($this->menu_view == 'session_menu_freezer' && $mainItem->isMenuItem_SidesSweets())
+		if ($this->menu_view == 'session_menu_freezer' && $mainItem->isFreezer())
 		{
+			// only show 8 EFL items
+			if ($mainItem->isMenuItem_EFL())
+			{
+				if (++$coreEflCount <= 8)
+				{
+					continue;
+				}
+			}
+
 			$this->itemArray = $this->curItem;
 			$categoryLabel = (!empty($mainItem->is_store_special)) ? 'Pre-Assembled Add On Dinners' : $mainItem->subcategory_label;
 			?>
