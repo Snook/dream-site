@@ -81,12 +81,6 @@ function createSectionHeader($tpl, $categoryName)
 
 							foreach ($subArray as $planNode)
 							{
-								if (!$printedName)
-								{
-									$printedName = true;
-									echo createSectionHeader($this, $categoryName);
-								}
-
 								$amountRemaining = 0;
 								$printedQty = false;
 								$menuItemCount = 1;
@@ -195,6 +189,12 @@ function createSectionHeader($tpl, $categoryName)
 									if ($thisItem['is_hidden_everywhere'] && empty($this->orgQuantities[$thisItem['id']]))
 									{
 										continue;
+									}
+
+									if (!$printedName)
+									{
+										$printedName = true;
+										echo createSectionHeader($this, $categoryName);
 									}
 									?>
 									<tr class="inventory-row <?php echo $rowBackgroundClause ?>" data-orig-remaining="<?php echo $amountRemaining ?>" data-entree="<?php echo $thisItem['entree_id'] ?>" data-servings="<?php echo $thisItem['servings_per_item'] ?>">
