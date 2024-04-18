@@ -13354,6 +13354,20 @@ class COrders extends DAO_Orders
 			CLog::Record('E_ERROR: more than one menu result for this month');
 		}
 
+		/*
+        function getMenuItemDAO($order_by = 'FeaturedFirst',
+		$storeID = false,
+		$fullEntreesOnly = false,
+		$groupByEntreeID = false,
+		$excludeAddons = true,
+		$excludeChefTouchedSelections = true,
+		$excludeStoreSpecialsIfMenuIsGlobal = true,
+		 $joinUsersFavoritesFlag = false,
+		$inItemList = false,
+		$excludeCoreMenuItems = false)
+
+		*/
+
 		// get entrees
 		$DAO_menu = DAO_CFactory::create('menu', true);
 		$DAO_menu->id = $daoMenu->id;
@@ -13385,7 +13399,6 @@ class COrders extends DAO_Orders
 			$i = $DAO_menu_item->id;
 			$menuItemInfo[$DAO_menu_item->category][$i] = array();
 			$menuItemInfo[$DAO_menu_item->category][$i]['id'] = $i;
-			$menuItemInfo[$DAO_menu_item->category][$i]['DAO_menu_item'] = clone $DAO_menu_item;
 			$menuItemInfo[$DAO_menu_item->category][$i]['menu_item_name'] = $DAO_menu_item->menu_item_name;
 			$menuItemInfo[$DAO_menu_item->category][$i]['display_title'] = $DAO_menu_item->menu_item_name;
 			$menuItemInfo[$DAO_menu_item->category][$i]['menu_item_description'] = $DAO_menu_item->menu_item_description;

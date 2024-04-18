@@ -29,6 +29,28 @@ function createSectionHeader($tpl, $categoryName)
 		return "</tbody><tr><th class='bg-green' colspan='15'>" . $categoryName . "</th></tr><tbody>";
 	}
 }
+
+//try to find entree id by menu item then by all the various sizes of that menu items
+function determineEntreeId($tpl, $categoryName, $planNode, $menuItemId)
+{
+	$entree_id = null;
+	if (array_key_exists($menuItemId, $tpl->menuInfo[$categoryName]))
+	{
+		$entree_id = $tpl->menuInfo[$categoryName][$menuItemId]['entree_id'];
+		if (!is_null($entree_id))
+		{
+			return $entree_id;
+		}
+	}
+
+	foreach ($planNode as $type => $menuItemId)
+	{
+		return determineEntreeId($tpl, $categoryName, $planNode, $menuItemId);
+	}
+
+	return $entree_id;
+}
+
 ?>
 
 	<ul class="nav nav-tabs" role="tablist">
@@ -95,7 +117,6 @@ function createSectionHeader($tpl, $categoryName)
 								foreach ($planNode as $type => $menuItemId)
 								{
 									$thisItem = $this->menuInfo[$categoryName][$menuItemId];
-									$DAO_menu_item = $this->menuInfo[$categoryName][$menuItemId]['DAO_menu_item'];
 
 									$isDreamy = false;
 									$isStarterPackItem = false;
@@ -193,10 +214,6 @@ function createSectionHeader($tpl, $categoryName)
 										continue;
 									}
 
-									if ($DAO_menu_item->isHiddenEverywhere() && empty($this->orgQuantities[$DAO_menu_item->id]))
-									{
-										continue;
-									}
 									?>
 									<tr class="inventory-row <?php echo $rowBackgroundClause ?>" data-orig-remaining="<?php echo $amountRemaining ?>" data-entree="<?php echo $thisItem['entree_id'] ?>" data-servings="<?php echo $thisItem['servings_per_item'] ?>">
 
@@ -223,7 +240,7 @@ function createSectionHeader($tpl, $categoryName)
 
 												if (!isset($this->bundleItems['bundle']) || (!array_key_exists($thisItem['id'], $this->bundleItems['bundle'])))
 												{
-												?>
+													?>
 												<?php } ?>
 											</td>
 										<?php } ?>
