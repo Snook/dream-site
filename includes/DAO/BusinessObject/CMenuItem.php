@@ -734,7 +734,6 @@ class CMenuItem extends DAO_Menu_item
 	function buildMenuItemArray($DAO_store = false, $DAO_mark_up_multi = null)
 	{
 		$menuItemArray = $this->toArray();
-
 		$menuItemArray['menu_item_name_truncated'] = (strlen($this->menu_item_name) > 50 ? substr($this->menu_item_name, 0, 50) . "..." : $this->menu_item_name);
 		$menuItemArray['display_title'] = $this->menu_item_name;
 		$menuItemArray['category_id'] = $this->menu_item_category_id;
@@ -745,18 +744,9 @@ class CMenuItem extends DAO_Menu_item
 		$menuItemArray['pricing_type_info'] = $this->pricing_type_info;
 		$menuItemArray['excluded'] = isset($this->excluded) ? true : false;
 		$menuItemArray['is_visible'] = $this->is_visible;
+		$menuItemArray['is_hidden_everywhere'] = $this->isHiddenEverywhere();
 		$menuItemArray['show_on_pick_sheet'] = $this->show_on_pick_sheet;
 		$menuItemArray['show_on_order_form'] = $this->show_on_order_form;
-
-		if (isset($this->is_hidden_everywhere))
-		{
-			$menuItemArray['is_hidden_everywhere'] = $this->is_hidden_everywhere ? true : false;
-		}
-		else
-		{
-			$menuItemArray['is_hidden_everywhere'] = false;
-		}
-
 		$menuItemArray['parent_item'] = 0;
 		$menuItemArray['number_items_required'] = 0;
 		$menuItemArray['is_users_favorite'] = (!empty($this->favorite) && $this->favorite == 1 ? true : false);
