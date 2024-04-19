@@ -34,7 +34,7 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
-						<h1 class="font-weight-bold font-marker mt-2">Get Dream Dinners Shipped to Your Door</h1>
+						<h1 class="font-weight-bold font-have-heart-two mt-2">Get Dream Dinners Shipped to Your Door</h1>
 						<p class="text-uppercase mb-4">Real food made from scratch, so your life can feel a little easier.</p>
 						<p>Four easy, homemade meals prepped and ready to cook, most in less than 30 minutes. Order when you want, no subscription necessary. Enter your zip code to see if we can deliver to you. Great for travel or a gift for new baby, new home, mothers's day and more!</p>
 						<form action="/locations" method="post" class="form-shipping-search needs-validation" novalidate>
@@ -112,7 +112,7 @@
 				</div>
 				<div class="row">
 					<div class="col offset-md-2 col-md-4 mx-lg-auto">
-					<h2 class="font-weight-bold font-marker mt-2">Ready to start cooking?</h2>
+					<h2 class="font-weight-bold font-have-heart-two mt-2">Ready to start cooking?</h2>
 						<p class="text-uppercase mb-3">Enter you zip code to see the menu.</p>
 						<form action="/locations" method="post" class="form-shipping-search needs-validation" novalidate>
 							<div class="form-group mx-auto">
