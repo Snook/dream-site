@@ -4537,7 +4537,6 @@ class CUser extends DAO_User
 
 	function Authenticate($username, $password, $id = false, $oauth = false, $defeatLockoutCheck = false, $suppressUIfunction = false)
 	{
-
 		$username = trim($username);
 		$password = trim($password);
 
