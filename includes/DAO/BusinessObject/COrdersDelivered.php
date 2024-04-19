@@ -2276,6 +2276,18 @@ class COrdersDelivered extends COrders
 		);
 	}
 
+	function getPointsDiscountableAmount()
+	{
+		$maxDeductible = $this->subtotal_menu_items + $this->subtotal_home_store_markup + $this->subtotal_service_fee;
+
+		if ($maxDeductible > 5.00)
+		{
+			$maxDeductible = 5.00;
+		}
+
+		return $maxDeductible;
+	}
+
 	function getBoxes()
 	{
 		return $this->boxes;
