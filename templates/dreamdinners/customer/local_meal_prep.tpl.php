@@ -8,7 +8,7 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
-						<h1 class="font-weight-bold font-marker mt-2">No idea what to cook this week?</h1>
+						<h1 class="font-weight-bold font-have-heart-two mt-2">No idea what to cook this week?</h1>
 						<p class="text-uppercase mb-4">No problem.<br>We planned and prepped your meals for you!</p>
 						<a href="/locations" class="btn btn-lg btn-green">Order Now</a>
 					</div>
