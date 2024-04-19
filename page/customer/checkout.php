@@ -1041,7 +1041,9 @@ class checkout_validation
 				$Form->AddElement(array(
 					CForm::type => CForm::Money,
 					CForm::name => 'plate_points_discount',
-					CForm::length => 16,
+					CForm::min => 0,
+					CForm::max => $maxPointsDiscount,
+					CForm::step => 0.01,
 					CForm::onKeyUp => 'handlePlatePointsDiscount',
 					CForm::placeholder => 'Enter Amount',
 					CForm::autocomplete => false,
