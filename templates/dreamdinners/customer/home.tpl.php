@@ -21,7 +21,7 @@
 					<source src="<?php echo IMAGES_PATH; ?>/home_content/media/family_dinner.ogv?v=<?php echo JAVASCRIPT_CSS_VERSION; ?>" type="video/ogv" />
 				</video>
 				<div class="col-12 col-sm-9 col-md-8 col-lg-6 col-xl-4 ml-sm-5 p-4 position-absolute" style="bottom: 3rem; background-color: rgba(255,255,255,0.90)">
-					<h1 class="font-marker">Your Local Meal Kit Solution</h1>
+					<h1 class="font-have-heart-two">Your Local Meal Kit Solution</h1>
 					<p class="text-uppercase">Real food made from scratch, so your life can feel a little easier.</p>
 					<form action="/locations" method="post">
 						<div class="form-group mx-auto">
@@ -44,7 +44,7 @@
 			<header class="d-sm-none row mx-1">
 				<div class="col">
 					<img class="img-fluid" src="<?php echo IMAGES_PATH; ?>/home_content/media/family_dinner2.webp?v=<?php echo JAVASCRIPT_CSS_VERSION; ?>">
-					<h1 class="font-marker">Your Local Meal Kit Solution</h1>
+					<h1 class="font-have-heart-two">Your Local Meal Kit Solution</h1>
 					<p class="text-uppercase">Real food made from scratch, so your life can feel a little easier.</p>
 					<form action="/locations" method="post">
 						<div class="form-group mx-auto">
@@ -66,11 +66,11 @@
 			</header>
 		</section>-->
 
-		
+
 		<section>
 			<div class="container my-5">
 				<div class="col-lg-10 mx-lg-auto">
-					<h1 class="font-marker">Real food made from scratch, so your life can feel a little easier.</h1>
+					<h1 class="font-have-heart-two">Real food made from scratch, so your life can feel a little easier.</h1>
 					<p class="text-uppercase">We do all of the shopping, chopping, prepping, and clean up. Most of our meals cook in less than 30 minutes, leaving you more time to do the things you love.</p>
 					<form action="/locations" method="post">
 						<div class="form-group mx-auto">
@@ -248,7 +248,7 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
-						<h1 class="font-weight-bold font-marker mt-2">April Fan Favorites Bundle</h1>
+						<h1 class="font-weight-bold font-have-heart-two mt-2">April Fan Favorites Bundle</h1>
 						<p class="text-uppercase mb-4">Start your order with our April Fan Favorites bundle. These 4 dinners are our best-sellers on the April menu. Shipping menu items for the bundle may vary.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
@@ -267,7 +267,7 @@
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/apr24-breakfast-bundle-homepage-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
 					</div>
 					<div class="col-md-6 text-left p-5 my-5">
-						<h1 class="font-weight-bold font-marker mt-2">Spring Breakfast Bundle</h1>
+						<h1 class="font-weight-bold font-have-heart-two mt-2">Spring Breakfast Bundle</h1>
 						<p class="text-uppercase mb-4">Perfect for Mother's Day, bridal brunches, baby showers or a weekend brunch, our easy breakfast bundle is a tasty treat to brighten up your morning. Available at select locations, while supplies last. Not available for shipping.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
