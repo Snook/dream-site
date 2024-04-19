@@ -1549,20 +1549,6 @@ $(document).on('change', '#menus_dropdown', function (e) {
 	bounce('/nutritionals?menu=' + this.value);
 });
 
-// platepoints enroll
-$(document).on('click change', '#enroll_in_plate_points', function (e) {
-	set_req = false;
-	if ($(this).is(":checked"))
-	{
-		set_req = true;
-	}
-	$('#referral_source, #gender, #birthday_month, #birthday_year, #number_of_kids, #desired_homemade_meals_per_week, #number_feeding,  #number_of_adults, #contribute_income, #use_lists, #number_monthly_dine_outs').attr('required', set_req);
-	$('#prefer_daytime_sessions, #prefer_evening_sessions, #prefer_weekend_sessions').attr({
-		'data-checkbox_group_required': set_req,
-		'required': set_req
-	});
-});
-
 // handle share event
 $('[data-share-social]').each(function () {
 
