@@ -270,6 +270,21 @@ class COrdersDelivered extends COrders
 		return $this->grand_total;
 	}
 
+	function getBoxCount()
+	{
+		$boxCount = 0;
+
+		foreach($this->boxes AS $box_instance_id => $boxArray)
+		{
+			if (!empty($boxArray['box_instance']->is_complete))
+			{
+				$boxCount++;
+			}
+		}
+
+		return $boxCount;
+	}
+
 	public static function getMenuIDBasedOnBundle($order_id)
 	{
 		$menuIdRetriever = new DAO();
