@@ -280,6 +280,7 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 						break;
 					case 'limit_to_grand_total':
 					case 'limit_to_core':
+					case 'limit_to_core_and_efl':
 					case 'limit_to_finishing_touch':
 					case 'limit_to_mfy_fee':
 					case 'limit_to_recipe_id':
@@ -660,6 +661,14 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 			CForm::readonly => $couponOrders['hasOrders'],
 			CForm::value => 'limit_to_core',
 			CForm::label => 'Core menu'
+		));
+
+		$this->CouponForm->AddElement(array(
+			CForm::type => CForm::RadioButton,
+			CForm::name => "limit_coupon",
+			CForm::readonly => $couponOrders['hasOrders'],
+			CForm::value => 'limit_to_core_and_efl',
+			CForm::label => 'Core and EFL menu'
 		));
 
 		$this->CouponForm->AddElement(array(

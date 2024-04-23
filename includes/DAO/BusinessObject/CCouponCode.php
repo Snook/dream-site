@@ -1719,6 +1719,16 @@ class CCouponCode extends DAO_Coupon_code
 			}
 		}
 
+		if ($this->limit_to_core_and_efl)
+		{
+			$total = $Order->pcal_core_total + $Order->pcal_efl_total;
+
+			if ($this->discount_var > $total)
+			{
+				return $total;
+			}
+		}
+
 		if ($this->limit_to_finishing_touch)
 		{
 			if ($this->discount_var > $Order->pcal_sidedish_total)
@@ -1761,6 +1771,14 @@ class CCouponCode extends DAO_Coupon_code
 		if ($this->limit_to_core)
 		{
 			$base = $Order->pcal_core_total;
+			$discount = CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
+
+			return $discount;
+		}
+
+		if ($this->limit_to_core_and_efl)
+		{
+			$base = $Order->pcal_core_total + $Order->pcal_efl_total;
 			$discount = CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 
 			return $discount;
