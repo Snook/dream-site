@@ -1,4 +1,4 @@
-const limit_visible_efl = 10;
+const limit_visible_efl = 8;
 const limit_visible_sides = 20;
 
 $(document).ready(function () {
@@ -332,7 +332,7 @@ $(document).on('change', '.menu-editor-vis, .menu-editor-form, .menu-editor-pic'
 
 					bootbox.alert({
 						title: 'Notice',
-						message: '<p>You may only display a maximum of 10 Extended Fast Lane recipes on the customer facing menu.</p>',
+						message: '<p>You may only display a maximum of ' + limit_visible_efl + ' Extended Fast Lane recipes on the customer facing menu.</p>',
 						centerVertical: true
 					});
 				}
