@@ -310,7 +310,7 @@ $(document).on('change', '.menu-editor-vis, .menu-editor-form, .menu-editor-pic'
 
 					bootbox.alert({
 						title: 'Notice',
-						message: '<p>You may only display a maximum of 20 Sides &amp; Sweets recipes on the customer facing menu.</p>',
+						message: '<p>You may only display a maximum of ' + limit_visible_sides + ' Sides &amp; Sweets recipes on the customer facing menu.</p>',
 						centerVertical: true
 					});
 				}
