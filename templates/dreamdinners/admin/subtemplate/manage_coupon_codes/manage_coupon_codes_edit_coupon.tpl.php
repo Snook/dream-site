@@ -474,6 +474,10 @@
 		</div>
 
 		<div class="form-group col-md-6">
+			<?php echo $this->CouponForm['limit_coupon_html']['limit_to_core_and_efl']; ?>
+		</div>
+
+		<div class="form-group col-md-6">
 			<?php echo $this->CouponForm['limit_coupon_html']['limit_to_finishing_touch']; ?>
 		</div>
 

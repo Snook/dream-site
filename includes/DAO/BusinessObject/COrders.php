@@ -5204,6 +5204,7 @@ class COrders extends DAO_Orders
 		$supportsMOTM = !is_null($store) ? $store->supports_ltd_roundup : false;
 
 		$this->pcal_core_total = 0;
+		$this->pcal_efl_total = 0;
 		$this->pcal_preassembled_total = 0;
 		$this->pcal_sidedish_total = 0;
 
@@ -5224,6 +5225,20 @@ class COrders extends DAO_Orders
 					{
 						// old method
 						$this->pcal_core_total += $DAO_menu_item->store_price * ($qty - $DAO_menu_item->bundleItemCount);
+					}
+				}
+
+				if ($DAO_menu_item->isMenuItem_EFL())
+				{
+					// Newer dao object method
+					if (!empty($DAO_menu_item->DAO_order_item))
+					{
+						$this->pcal_efl_total += $DAO_menu_item->store_price * ($DAO_menu_item->DAO_order_item->item_count - $DAO_menu_item->DAO_order_item->bundle_item_count);
+					}
+					else
+					{
+						// old method
+						$this->pcal_efl_total += $DAO_menu_item->store_price * ($qty - $DAO_menu_item->bundleItemCount);
 					}
 				}
 
