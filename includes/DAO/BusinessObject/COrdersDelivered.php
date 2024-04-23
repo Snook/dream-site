@@ -2278,7 +2278,7 @@ class COrdersDelivered extends COrders
 
 	function getPointsDiscountableAmount()
 	{
-		$maxDeductible = $this->subtotal_menu_items + $this->subtotal_home_store_markup + $this->subtotal_service_fee;
+		$maxDeductible = parent::getPointsDiscountableAmount();
 
 		/*
 		if ($maxDeductible > 5.00)
