@@ -30,7 +30,7 @@
 				</div>
 			<?php } ?>
 
-			<form id="customer_create" name="customer_create" action="<?php echo HTTPS_BASE . $_SERVER["REQUEST_URI"];?>" method="post" class="needs-validation" novalidate>
+			<form id="customer_create" name="customer_create" method="post" class="needs-validation" novalidate>
 				<?php if (isset($this->form_account['hidden_html'])) echo $this->form_account['hidden_html'];?>
 
 				<div class="row">

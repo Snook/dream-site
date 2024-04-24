@@ -43,24 +43,6 @@ function handle_tc_delayed_payment()
 	});
 }
 
-function handle_platepoints_enrollment()
-{
-	$('#enroll_in_plate_points').on('click', function () {
-		set_req = false;
-		if ($(this).is(":checked"))
-		{
-			set_req = true;
-		}
-		$('#referral_source, #gender, #birthday_month, #birthday_year, #number_of_kids, #number_of_kids, #desired_homemade_meals_per_week, #number_of_adults, #contribute_income, #use_lists, #number_monthly_dine_outs').attr('data-dd_required', set_req).attr('required', set_req);
-		$('#prefer_daytime_sessions, #prefer_evening_sessions, #prefer_weekend_sessions').data('checkbox_group_required', set_req);
-		//$('#prefer_daytime_sessions, #prefer_evening_sessions, #prefer_weekend_sessions').data('checkbox_group_required', false).attr('required', false);
-	});
-	if (getQueryVariable('pp_enroll'))
-	{
-		$('#enroll_in_plate_points').prop('checked', true).triggerHandler('click');
-	}
-}
-
 function how_did_you_hear_init()
 {
 
@@ -315,7 +297,10 @@ $(function () {
 
 	how_did_you_hear_init();
 
-	handle_platepoints_enrollment();
+	if (getQueryVariable('pp_enroll'))
+	{
+		$('#enroll_in_plate_points').prop('checked', true).triggerHandler('click');
+	}
 
 	$("#birthday_year").mousedown(function (obj) {
 		if (obj.target[1])

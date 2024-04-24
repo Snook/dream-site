@@ -10,7 +10,7 @@
 				<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-tenders-in-a-snap-1920x837.webp" alt="Dinner in a Snap" class="img-fluid" />
 				<div class="row my-5">
 					<div class="col mb-4 text-center">
-						<h1 class="font-weight-bold font-marker font-size-extra-large mt-2">Your Colorado Meal Kit Solution</h1>
+						<h1 class="font-weight-bold font-have-heart-two font-size-extra-large mt-2">Your Colorado Meal Kit Solution</h1>
 						<h3>Real food made from scratch, so your life can feel just a little easier.</h3>
 					</div>
 				</div>
@@ -22,7 +22,7 @@
 					<div class="col-md-7 text-left">
 						<h3>New Guest Exclusive<br><strong>Buy 3 Dinners, Get 1 Free*</strong></h3>
 						<p>Place an order for 3 or more dinners, get a free medium Cashew Chicken and Noodles as our gift to you. </p>
-						<p>Use this code at checkout: <span class="font-weight-bold font-marker font-size-large">COLORADO</span></p>
+						<p>Use this code at checkout: <span class="font-weight-bold font-have-heart-two font-size-large">COLORADO</span></p>
 						<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
 					</div>
 					<div class="col-md-5 mb-6">
@@ -55,7 +55,7 @@
 			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 			<div class="container my-5">
 				<div class="" id="" role="tabpanel" aria-labelledby="">
-					<h2 class="font-weight-bold font-marker font-size-large mt-2 text-center">Choose Your Colorado Location</h2>
+					<h2 class="font-weight-bold font-have-heart-two font-size-large mt-2 text-center">Choose Your Colorado Location</h2>
 					<div class="row my-2">
 						<div class="col">
 							<div class="card-group">

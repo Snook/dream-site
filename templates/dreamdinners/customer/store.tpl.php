@@ -10,7 +10,7 @@
 			<div class="col text-center">
 				<h1><?php echo $this->DAO_store->store_name; ?> Meal Prep Store</h1>
 				<img src="<?php echo IMAGES_PATH; ?>/landing_pages/in-a-snap-chicken-tenders-1920x600.webp" alt="Dinner in a Snap" class="img-fluid" />
-				<h3 class="font-marker mt-2">We offer real food, made from scratch, so your life can feel a little easier.</h3>
+				<h3 class="font-have-heart-two mt-2">We offer real food, made from scratch, so your life can feel a little easier.</h3>
 			</div>
 		</div>
 		<?php include $this->loadTemplate('customer/subtemplate/store/store_navigation.tpl.php'); ?>
@@ -141,7 +141,7 @@
 									<h5 class="card-title">Chicken Enchiladas</h5>
 								</div>
 							</div>
-							
+
 					</div>
 				</div>
 				<div class="col-12 col-lg-6">
@@ -158,7 +158,7 @@
 									<h5 class="card-title">Crispy Salsa Ranch Chicken with Mexican Street Corn</h5>
 								</div>
 							</div>
-							
+
 					</div>
 				</div>
 			</div>
