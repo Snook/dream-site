@@ -36,7 +36,7 @@
 						<div class="text-center">
 							<h2 class="mt-5 mb-1 font-weight-bold text-center text-white">Exclusive May New Customer Offer</h2>
 							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/white-swash-320x12.webp" alt="swash">
-							<h3 class="mt-1 mb-4 font-weight-bold text-center text-white">Try Us Today with One of the Following Offers</h3>
+							<h3 class="mt-1 mb-5 font-weight-bold text-center text-white">Try Us Today with One of the Following Offers</h3>
 						</div>
 					</div>
 				</div>
@@ -85,7 +85,7 @@
 			<div class="container-fluid my-5 bg-green-light">
 				<div class="container">
 					<div class="row my-5">
-						<div class="col-md-5 text-center mt-4">
+						<div class="col-md-5 text-center mt-5">
 						  <h2 class="font-weight-bold font-have-heart-two font-size-extra-extra-large"><strong>MEALS IN A SNAP</strong></h2>
 						  <p>Our ready-to-cook meals are fully prepped with simple step-by-step instructions. Choose from options like grill, air fryer or instant pot that cook in under 30 minutes and fit into your busy life.</p>
 						  <form action="/locations" method="post">
@@ -160,7 +160,7 @@
 			<div class="container-fluid my-5 bg-cyan-dark">
 				<div class="container">
 					<div class="row my-5">
-						<div class="col-md-5 text-center mt-4">
+						<div class="col-md-5 text-center mt-5">
 						  <h2 class="font-weight-bold font-have-heart-two font-size-extra-extra-large"><strong>LOCALLY OWNED</strong></h2>
 						  <p>Our small business owners are here to serve you. Whether your meals are shipped, delivered locally or picked up at our community kitchen, they are ready to support you.</p>
 						  <form action="/locations" method="post">
@@ -209,7 +209,7 @@
 		<!-- Testimonials -->
 		<section>
 			<div class="container-fluid">
-				<div class="row">
+				<div class="row mt-4">
 					<div class="col text-center">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/customer-testimonials-1400x600.webp" alt="customer testimonials" class="img-fluid">
 					</div>
