@@ -1073,7 +1073,7 @@ class CCouponCode extends DAO_Coupon_code
 		}
 
 		// MINIMUM ITEMS
-		if (!empty($this->minimum_item_count) && $Order->menu_items_core_total_count < $this->minimum_item_count)
+		if (!empty($this->minimum_item_count) && ($Order->menu_items_core_total_count + $Order->menu_items_efl_total_count) < $this->minimum_item_count)
 		{
 			$errorArray[] = array(
 				'minimum_item_amount_not_met',
@@ -1601,7 +1601,7 @@ class CCouponCode extends DAO_Coupon_code
 		}
 
 		// MINIMUM ITEMS
-		if (!empty($this->minimum_item_count) && $Order->menu_items_core_total_count < $this->minimum_item_count)
+		if (!empty($this->minimum_item_count) && ($Order->menu_items_core_total_count + $Order->menu_items_efl_total_count) < $this->minimum_item_count)
 		{
 			$errorArray[] = array(
 				'minimum_item_amount_not_met',
