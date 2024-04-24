@@ -13,7 +13,7 @@
 						<a href="/locations" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/apr24-local-meal-prep-collage-957x657.webp" alt="April Menu" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/may24-local-meal-prep-collage-957x657.webp" alt="May Menu" class="img-fluid">
 					</div>
 
 				</div>

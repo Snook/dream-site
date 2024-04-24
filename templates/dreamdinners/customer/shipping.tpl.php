@@ -102,12 +102,12 @@
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/noodle-bowl-and-drink-600x350.webp" alt="Woman enjoying a noodle bowl" class="img-fluid">
 						<h3 class="font-weight-bold my-2">Fan Favorites Box</h3>
-						<p class="mb-4">Get four best-selling dinners from our April menu, including Savannah Grilled Chicken with Seasoned Onion Rings, Cheddar Filled Mini Meatloaves with Mashed Potatoes, Chicken Egg Roll Bowl, and Buttery Bombay Chicken with Jasmine Rice.</p>
+						<p class="mb-4">Get four best-selling dinners from our May menu, including Chicken Enchiladas, Sizzling Sirloin Fried Rice, Lemon Chicken Piccata over Orzo, and Buffalo Chicken Cavatappi.</p>
 					</div>
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/new-baby-600x350.webp" alt="hands around baby feet shaped like heart" class="img-fluid">
 						<h3 class="font-weight-bold my-2">New Baby Gift Box</h3>
-						<p class="mb-4">Congratulate your friends and family on their new addition with easy, quick dinners including Chicken Egg Roll Bowl, Savannah Grilled Chicken with Seasoned Onion Rings, Pesto Cheese Ravioli with Chicken and Walnuts, and Surf and Turf Yakisoba Noodles. Show your love with easy, homemade meals.</p>
+						<p class="mb-4">Congratulate your friends and family on their new addition with easy, quick dinners including Sizzling Sirloin Fried Rice, Slow Roasted Carolina BBQ Pork Tenderloin with Roasted Potato Wedges, Buffalo Chicken Cavatappi, and Chicken with Honey, Garlic, and Orange with Oven Roasted Broccoli. Show your love with easy, homemade meals.</p>
 					</div>
 				</div>
 				<div class="row">

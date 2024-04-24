@@ -4,7 +4,7 @@
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
 
 	<main role="main">
-		<section>
+		<!--<section>
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col text-center" style="max-height: 25rem; overflow: hidden;">
@@ -12,61 +12,38 @@
 					</div>
 				</div>
 			</div>
-		</section>
-		<!--<section class="container-fluid">
-			<header class="d-none d-sm-block row hero-double position-relative" style="min-height: 70vh;" role="banner">
-				<video class="hero-double__img" autoplay="" id="heroVideo" loop="" muted="" poster="<?php echo IMAGES_PATH; ?>/home_content/media/family_dinner2.webp?v=<?php echo JAVASCRIPT_CSS_VERSION; ?>">
-					<source src="<?php echo IMAGES_PATH; ?>/home_content/media/family_dinner.mp4?v=<?php echo JAVASCRIPT_CSS_VERSION; ?>" type="video/mp4" />
-					<source src="<?php echo IMAGES_PATH; ?>/home_content/media/family_dinner.webm?v=<?php echo JAVASCRIPT_CSS_VERSION; ?>" type="video/webm" />
-					<source src="<?php echo IMAGES_PATH; ?>/home_content/media/family_dinner.ogv?v=<?php echo JAVASCRIPT_CSS_VERSION; ?>" type="video/ogv" />
-				</video>
-				<div class="col-12 col-sm-9 col-md-8 col-lg-6 col-xl-4 ml-sm-5 p-4 position-absolute" style="bottom: 3rem; background-color: rgba(255,255,255,0.90)">
-					<h1 class="font-marker">Your Local Meal Kit Solution</h1>
-					<p class="text-uppercase">Real food made from scratch, so your life can feel a little easier.</p>
-					<form action="/locations" method="post">
-						<div class="form-group mx-auto">
-							<div class="input-group">
-								<!--<div class="input-group-prepend">
-									<div class="input-group-text">
-									Find a location near you
-									</div>
-								</div>-->
-								<!--<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
-								<div class="input-group-append">
-									<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-			</header>
-
-			<header class="d-sm-none row mx-1">
-				<div class="col">
-					<img class="img-fluid" src="<?php echo IMAGES_PATH; ?>/home_content/media/family_dinner2.webp?v=<?php echo JAVASCRIPT_CSS_VERSION; ?>">
-					<h1 class="font-marker">Your Local Meal Kit Solution</h1>
-					<p class="text-uppercase">Real food made from scratch, so your life can feel a little easier.</p>
-					<form action="/locations" method="post">
-						<div class="form-group mx-auto">
-							<div class="input-group">
-								<!--<div class="input-group-prepend">
-									<div class="input-group-text">
-									Find a location near you
-									</div>
-								</div>-->
-								<!--<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
-								<div class="input-group-append">
-									<button type="submit" value="Get Started" class="btn btn-primary">Get started</button>
-								</div>
-							</div>
-						</div>
-					</form>
-					<div class="border-top mt-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
-				</div>
-			</header>
 		</section>-->
-
-		
+		<section>
+			<div class="container-fluid">
+					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+					  <ol class="carousel-indicators">
+						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+					  </ol>
+					  <div class="carousel-inner">
+						<div class="carousel-item active">
+						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-guest-may24-free-shipping-delivery-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer">
+						</div>
+						<div class="carousel-item">
+						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/steak-tacos-in-a-snap-headers-1400x600.webp?auto=yes" alt="Dinner in a Snap Carne Asada Steak Tacos">
+						</div>
+						<div class="carousel-item">
+						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/travel-may24-1400x600.webp?auto=yes" alt="Travel with Dream Dinners">
+						</div>
+					  </div>
+					  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					  </a>
+					  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					  </a>
+					</div>
+			</div>
+		</section>
+	
 		<section>
 			<div class="container my-5">
 				<div class="col-lg-10 mx-lg-auto">
@@ -106,27 +83,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chimichangas-pan-featured-menu-item-400x400.webp" alt="Oven Baked Chimichangas" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sizzling-sirloin-fried-rice-featured-under-30min-400x400.webp" alt="Sizzling Sirloin Fried Rice" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Oven Baked Chimichangas</h5>
+									<h5 class="card-title">Sizzling Sirloin Fried Rice</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/baked-penne-kid-pick-featured-menu-item-400x400.webp" alt="Baked Penne Chicken Alfredo" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-enchiladas-featured-pan-400x400.webp" alt="Chicken Enchiladas" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Baked Penne Chicken Alfredo</h5>
+									<h5 class="card-title">Chicken Enchiladas</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-costoletta-air-fryer-featured-menu-item-400x400.webp" alt="Chicken Costoletta with Almond Green Beans" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/maple-bourbon-chicken-featured-instant-pot-400x400.webp" alt="Maple Bourbon BBQ Chicken with Bacon" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Costoletta with Almond Green Beans</h5>
+									<h5 class="card-title">Maple Bourbon BBQ Chicken with Bacon &amp; Bacon Ranch Green Beans</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/surf-turf-yakisoba-30min-featured-menu-item-400x400.webp" alt="Surf and Turf Yakisoba Noodle Bowl" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/salsa-ranch-chicken-featured-kid-400x400.webp" alt="Crispy Salsa Ranch Chicken with Mexican Street Corn" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Surf and Turf Yakisoba Noodle Bowl</h5>
+									<h5 class="card-title">Crispy Salsa Ranch Chicken with Mexican Street Corn</h5>
 								</div>
 							</div>
 						</div>
@@ -248,12 +225,12 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
-						<h1 class="font-weight-bold font-marker mt-2">April Fan Favorites Bundle</h1>
-						<p class="text-uppercase mb-4">Start your order with our April Fan Favorites bundle. These 4 dinners are our best-sellers on the April menu. Shipping menu items for the bundle may vary.</p>
+						<h2 class="font-weight-bold mt-2">May Fan Favorites Bundle</h2>
+						<p class="text-uppercase mb-4">Start your order with our May Fan Favorites bundle. These 4 dinners are our best-sellers on the May menu and includes Chicken Enchiladas, Sizzling Sirloin Fried Rice, Lemon Chicken Piccata over Orzo, and  Buffalo Chicken Cavatappi. </p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/apr24-fan-fav-bundle-collage-957x657.webp" alt="Fan Favorites" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/may24-fan-fav-bundle-collage-957x657.webp" alt="Fan Favorites" class="img-fluid">
 					</div>
 
 				</div>
@@ -264,11 +241,11 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/apr24-breakfast-bundle-homepage-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/may24-homepage-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
 					</div>
 					<div class="col-md-6 text-left p-5 my-5">
-						<h1 class="font-weight-bold font-marker mt-2">Spring Breakfast Bundle</h1>
-						<p class="text-uppercase mb-4">Perfect for Mother's Day, bridal brunches, baby showers or a weekend brunch, our easy breakfast bundle is a tasty treat to brighten up your morning. Available at select locations, while supplies last. Not available for shipping.</p>
+						<h2 class="font-weight-bold mt-2">Kick Off Grill Season</h2>
+						<p class="text-uppercase mb-4">Fire up your grill and celebrate with our Steak Kabob Grill Pack. Everything you need for a Memorial Day BBQ with friends or a weeknight backyard dinner with the fam. Available at select locations, while supplies last. Not available for shipping.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 
@@ -276,111 +253,7 @@
 				</div>
 			</div>
 		</section>
-		<!-- How it works
-		<section>
-			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
-			<div class="container my-5">
-				<div class="row">
-					<div class="col">
-						<div class="text-center">
-							<h2 class="mt-5 mb-4 font-weight-bold">How Dream Dinners Works</h2>
-						</div>
-					</div>
-				</div>
-
-
-				<div class="" id="" role="tabpanel" aria-labelledby="">
-					<div class="row my-2">
-						<div class="col">
-							<div class="card-group">
-								<div class="card border-0 mx-1">
-									<img src="<?php echo IMAGES_PATH; ?>/landing_pages/order-online-circles-550x410.webp" alt="order online" class="img-fluid" />
-								</div>
-								<div class="card border-0 mx-1 text-left">
-									<div class="card-body py-5 px-5">
-										<h5 class="card-title pt-5">Choose from our monthly menu of 17 menu items and place your online order.</h5>
-										<p class="card-text">Start with as few as three dinners or plan for the entire month. We also have veggies, starches, breakfasts and desserts ready to add to your order in our Sides & Sweets freezer.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="" id="" role="tabpanel" aria-labelledby="">
-					<div class="row my-2">
-						<div class="col">
-							<div class="card-group">
-								<div class="card border-0 mx-1 order-md-2">
-									<img src="<?php echo IMAGES_PATH; ?>/landing_pages/prep-meals-circles-550x410.webp" alt="prep your meals" class="img-fluid" />
-								</div>
-								<div class="card border-0 mx-1 text-left">
-									<div class="card-body py-5 px-5">
-										<h5 class="card-title pt-5">Our dinners are prepped fresh and then frozen for your convenience.</h5>
-										<p class="card-text">You can choose to assemble in your local store for maximum customization or have our team assemble your dinners for you.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="" id="" role="tabpanel" aria-labelledby="">
-					<div class="row my-2">
-						<div class="col">
-							<div class="card-group">
-								<div class="card border-0 mx-1">
-									<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cook-at-home-circles-550x410.webp" alt="cook at home" class="img-fluid" />
-								</div>
-								<div class="card border-0 mx-1 text-left">
-									<div class="card-body py-5 px-5">
-										<h5 class="card-title pt-5">Your dinners are ready for you to cook at home.</h5>
-										<p class="card-text">We have options that cook in under 30 minutes and no-mess pan meals that go straight in the oven. Each recipe includes easy-to-follow cooking instructions to make things simple.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="" id="" role="tabpanel" aria-labelledby="">
-					<div class="row my-2">
-						<div class="col">
-							<div class="card-group">
-								<div class="card border-0 mx-1 order-md-2">
-									<img src="<?php echo IMAGES_PATH; ?>/landing_pages/fresh-flavors-circles-550x410.webp" alt="fresh flavors" class="img-fluid" />
-								</div>
-								<div class="card border-0 mx-1 text-left">
-									<div class="card-body py-5 px-5">
-										<h5 class="card-title pt-5">Our recipes are developed with the whole family in mind.</h5>
-										<p class="card-text">We offer a variety of proteins and flavor profiles to meet everyone’s needs without getting bored. Each month you will find your favorites mixed with some new flavors for you to try. </p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="" id="" role="tabpanel" aria-labelledby="">
-					<div class="row my-2">
-						<div class="col">
-							<div class="card-group">
-								<div class="card border-0 mx-1">
-									<img src="<?php echo IMAGES_PATH; ?>/landing_pages/eat-connect-circles-550x410.webp" alt="eat and connect together" class="img-fluid" />
-								</div>
-								<div class="card border-0 mx-1 text-left">
-									<div class="card-body py-5 px-5">
-										<h5 class="card-title pt-5">Our mission is to help you, your family and friends gather around the table over an easy, homemade meal.</h5>
-										<p class="card-text">With our ready-to-cook meals, you will spend less time in the kitchen and  more time connecting with the ones you love. </p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row my-2">
-					<div class="col text-center">
-						<a href="/locations" class="btn btn-lg btn-primary">Get started</a>
-					</div>
-				</div>
-			</div>
-		</section> -->
+		
 
 		<!-- Instagram -->
 		<section>
