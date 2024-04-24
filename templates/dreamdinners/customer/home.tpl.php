@@ -14,7 +14,7 @@
 			</div>
 		</section>-->
 		<section>
-			<div class="container-fluid">
+			<div class="container"">
 					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 					  <ol class="carousel-indicators">
 						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -48,7 +48,7 @@
 		<section>
 			<div class="container my-5">
 				<div class="col-lg-10 mx-lg-auto">
-					<h1 class="font-have-heart-two">Real food made from scratch, so your life can feel a little easier.</h1>
+					<h1 class="font-weight-bold font-have-heart-two font-size-extra-extra-large">Real food made from scratch, so your life can feel a little easier.</h1>
 					<p class="text-uppercase">We do all of the shopping, chopping, prepping, and clean up. Most of our meals cook in less than 30 minutes, leaving you more time to do the things you love.</p>
 					<form action="/locations" method="post">
 						<div class="form-group mx-auto">

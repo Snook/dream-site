@@ -104,7 +104,7 @@
 						</div>
 					</form>
 						</div>
-						<div class="col-md-7 mb-6">
+						<div class="col-md-7 text-right">
 							<div>
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/air-fryer-mom-cooking-stovetop-2-images.webp" alt="Air Fryer Chicken Tenders and mom cooking on the stove" class="img-fluid" />
 							</div>
@@ -179,7 +179,7 @@
 						</div>
 					</form>
 						</div>
-						<div class="col-md-7">
+						<div class="col-md-7 text-right">
 							<div>
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/locally-owned-instore-2-images.webp" alt="Local Store" class="img-fluid" />
 							</div>
@@ -192,7 +192,7 @@
 			<div class="container-fluid my-5">
 				<div class="container">
 					<div class="row my-5">
-						<div class="col-md-7">
+						<div class="col-md-7 text-left">
 							<div>
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/1044_slow_roasted_carolina_bbq_pork_tenderloin_458x344.webp" alt="Slow Roasted Carolina BBQ Pork Tenderloin" class="img-fluid" />
 							</div>
