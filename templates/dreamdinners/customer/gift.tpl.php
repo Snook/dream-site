@@ -7,7 +7,7 @@
 				<div class="container-fluid my-5">
 					<div class="row hero-double">
 						<div class="col-md-6 text-left p-5 my-5">
-							<h1 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">Gift Dinners to Friends and Family</h1>
+							<h1 class="font-weight-bold mt-2">Gift Dinners to Friends and Family</h1>
 							<p class="text-uppercase mb-4">Show you care by gifting your family and friends both near and far with easy, delicious meals. The perfect gift for any occasion like welcoming a new baby, a birthday, housewarming, or sympathy. Take something off their plate by having dinner ready to cook and delivered to their door.</p>
 							<!--<a href="/gift-card-order" class="btn btn-lg btn-green">Purchase Gift Card</a>-->
 						</div>
