@@ -43,7 +43,7 @@
 					</div>
 			</div>
 		</section>
-	
+
 		<section>
 			<div class="container my-5">
 				<div class="col-lg-10 mx-lg-auto">
@@ -253,7 +253,6 @@
 				</div>
 			</div>
 		</section>
-		
 
 		<!-- Instagram -->
 		<section>
