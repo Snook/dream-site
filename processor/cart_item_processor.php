@@ -107,6 +107,8 @@ class processor_cart_item_processor extends CPageProcessor
 
 				if (!$validated)
 				{
+					CLog::RecordDebugTrace($message . "\r\n" . print_r($_POST, true), "PROCESSOR_CART_ITEM_PROCESSOR_UPDATE");
+
 					$resultCode = 3;
 					if (strpos($message, "exceed the number of servings") !== false)
 					{
