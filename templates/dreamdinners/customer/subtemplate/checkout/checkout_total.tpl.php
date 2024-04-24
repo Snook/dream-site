@@ -271,7 +271,7 @@
 
 		<?php if ($this->cart_info['session_info']['session_type_subtype'] == CSession::DELIVERY) { ?>
 			<div class="col">
-				<span class="text-muted font-size-small">*Delivery fee applies to orders delivered within 20 miles of the store. Orders may be canceled for any distance beyond 20 miles. If the store can accommodate an additional fee may be added to your order before delivery. <?php if (!empty($this->cart_info["storeObj"]->telephone_day) ){ ?>Contact the store at <?php echo $this->cart_info["storeObj"]->telephone_day ?> for additional information.<?php } ?></span>
+				<span class="text-muted font-size-small">*Delivery fee applies to orders delivered within 15 miles of the store. Orders may be canceled for any distance beyond 15 miles. If the store can accommodate an additional fee may be added to your order before delivery. <?php if (!empty($this->cart_info["storeObj"]->telephone_day) ){ ?>Contact the store at <?php echo $this->cart_info["storeObj"]->telephone_day ?> for additional information.<?php } ?></span>
 			</div>
 		<?php } ?>
 
