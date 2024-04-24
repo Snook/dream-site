@@ -78,9 +78,12 @@ class page_session_menu extends CPage
 		$result = $CartObj->cart_sanity_check('session_menu');
 		// This function can clear the cart or specific fields - should this be silent?
 
-		if ($result['status'] != 'all_good' && DEBUG)
+		if ($result['status'] != 'all_good')
 		{
-			$tpl->setDebugMsg($result['status'] . "<br />" . print_r($result['problem_list'], true));
+			if (DEBUG && (defined('SERVER_ENV') && (SERVER_ENV == 'DEV')))
+			{
+				$tpl->setDebugMsg($result['status'] . "<br />" . print_r($result['problem_list'], true));
+			}
 		}
 
 		$menu_view = 'session_menu';
