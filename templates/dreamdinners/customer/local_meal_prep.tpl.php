@@ -35,7 +35,7 @@
 					<div class="col">
 						<div class="text-center">
 							<h2 class="mt-5 mb-4 font-weight-bold text-center text-white">Exclusive May New Customer Offer</h2>
-							<h3 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">y</h3>
+							<h3 class="font-weight-bold font-have-heart-swashes font-size-extra-extra-large text-white">y</h3>
 							<h3 class="mt-5 mb-4 font-weight-bold text-center text-white">Try Us Today with One of the Following Offers</h3>
 						</div>
 					</div>
