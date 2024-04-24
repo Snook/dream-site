@@ -7,7 +7,7 @@
 				<div class="container-fluid my-5">
 					<div class="row hero-double">
 						<div class="col-md-6 text-left p-5 my-5">
-							<h1 class="class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">Gift Dinners to Friends and Family</h1>
+							<h1 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">Gift Dinners to Friends and Family</h1>
 							<p class="text-uppercase mb-4">Show you care by gifting your family and friends both near and far with easy, delicious meals. The perfect gift for any occasion like welcoming a new baby, a birthday, housewarming, or sympathy. Take something off their plate by having dinner ready to cook and delivered to their door.</p>
 							<!--<a href="/gift-card-order" class="btn btn-lg btn-green">Purchase Gift Card</a>-->
 						</div>
@@ -52,7 +52,7 @@
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dream-dinners-delivered-458x344.webp" alt="Dream Dinner Shipping" class="img-fluid" />
 								<div class="card-body">
 									<h5 class="card-title">Shipped to their Door</h5>
-									<p class="card-text">Show your love with four delicious, easy meals for them to enjoy. *Enter their zip code to see if we can ship to them.</p>
+									<p class="card-text">Show your love with four delicious, easy meals for them to enjoy. Enter their zip code to see if we can ship to them.</p>
 									<p><a href="/shipping" class="btn btn-primary">Ship a Box</a></p>
 								</div>
 							</div>
