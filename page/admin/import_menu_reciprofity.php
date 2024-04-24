@@ -680,7 +680,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 					}
 					else if (strtolower($fields[STATION_NUMBER]) == 'fl')
 					{
-						$targetItem->menu_label = 'Pre-Assembled';
+						$targetItem->menu_label = 'NULL';
 					}
 					else if ($targetItem->sales_mix >= 0.08)
 					{
@@ -693,7 +693,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				}
 				else if ($targetItem->menu_item_category_id == 4) // efl item
 				{
-					$targetItem->menu_label = 'Pre-Assembled';
+					$targetItem->menu_label = 'NULL';
 				}
 				else
 				{
@@ -1429,7 +1429,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 					}
 					else if (strtolower($fields[STATION_NUMBER]) == 'fl')
 					{
-						$targetItem->menu_label = 'Pre-Assembled';
+						$targetItem->menu_label = 'NULL';
 					}
 					else if ($targetItem->sales_mix >= 0.08)
 					{
@@ -1442,7 +1442,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				}
 				else if ($targetItem->menu_item_category_id == 4) // efl item
 				{
-					$targetItem->menu_label = 'Pre-Assembled';
+					$targetItem->menu_label = 'NULL';
 				}
 				else
 				{
@@ -1897,7 +1897,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 					}
 					else if (strtolower($fields[STATION_NUMBER]) == 'fl')
 					{
-						$targetItem->menu_label = 'Pre-Assembled';
+						$targetItem->menu_label = 'NULL';
 					}
 					else if ($targetItem->sales_mix >= 0.08)
 					{
@@ -1910,7 +1910,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 				}
 				else if ($targetItem->menu_item_category_id == 4) // efl item
 				{
-					$targetItem->menu_label = 'Pre-Assembled';
+					$targetItem->menu_label = 'NULL';
 				}
 				else
 				{

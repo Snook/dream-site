@@ -129,7 +129,7 @@ class CRecipe extends DAO_Recipe
 				'label' => 'Would order again'
 			),
 			'pre_assembled' => array(
-				'site_legend_enabled' => true,
+				'site_legend_enabled' => false,
 				'print_menu_legend_enabled' => false,
 				'meal_detail_enabled' => false,
 				'print_meal_detail_enabled' => false,

@@ -1052,7 +1052,7 @@ class CMenuItem extends DAO_Menu_item
 								$new_menu_item->is_store_special = 1;
 								$new_menu_item->station_number = 'null';
 								$new_menu_item->is_preassembled = 1;
-								$new_menu_item->menu_label = 'Pre-Assembled';
+								$new_menu_item->menu_label = 'null';
 								$new_menu_item->is_key_menu_push_item = 0;
 								$new_menu_item->is_visibility_controllable = 1;
 							}
