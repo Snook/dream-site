@@ -34,7 +34,7 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
-						<h1 class="font-weight-bold font-have-heart-two mt-2">Get Dream Dinners Shipped to Your Door</h1>
+						<h1 class="font-weight-bold font-marker mt-2">Get Dream Dinners Shipped to Your Door</h1>
 						<p class="text-uppercase mb-4">Real food made from scratch, so your life can feel a little easier.</p>
 						<p>Four easy, homemade meals prepped and ready to cook, most in less than 30 minutes. Order when you want, no subscription necessary. Enter your zip code to see if we can deliver to you. Great for travel or a gift for new baby, new home, mothers's day and more!</p>
 						<form action="/locations" method="post" class="form-shipping-search needs-validation" novalidate>
@@ -102,17 +102,17 @@
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/noodle-bowl-and-drink-600x350.webp" alt="Woman enjoying a noodle bowl" class="img-fluid">
 						<h3 class="font-weight-bold my-2">Fan Favorites Box</h3>
-						<p class="mb-4">Get four best-selling dinners from our April menu, including Savannah Grilled Chicken with Seasoned Onion Rings, Cheddar Filled Mini Meatloaves with Mashed Potatoes, Chicken Egg Roll Bowl, and Buttery Bombay Chicken with Jasmine Rice.</p>
+						<p class="mb-4">Get four best-selling dinners from our May menu, including Chicken Enchiladas, Sizzling Sirloin Fried Rice, Lemon Chicken Piccata over Orzo, and Buffalo Chicken Cavatappi.</p>
 					</div>
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/new-baby-600x350.webp" alt="hands around baby feet shaped like heart" class="img-fluid">
 						<h3 class="font-weight-bold my-2">New Baby Gift Box</h3>
-						<p class="mb-4">Congratulate your friends and family on their new addition with easy, quick dinners including Chicken Egg Roll Bowl, Savannah Grilled Chicken with Seasoned Onion Rings, Pesto Cheese Ravioli with Chicken and Walnuts, and Surf and Turf Yakisoba Noodles. Show your love with easy, homemade meals.</p>
+						<p class="mb-4">Congratulate your friends and family on their new addition with easy, quick dinners including Sizzling Sirloin Fried Rice, Slow Roasted Carolina BBQ Pork Tenderloin with Roasted Potato Wedges, Buffalo Chicken Cavatappi, and Chicken with Honey, Garlic, and Orange with Oven Roasted Broccoli. Show your love with easy, homemade meals.</p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col offset-md-2 col-md-4 mx-lg-auto">
-					<h2 class="font-weight-bold font-have-heart-two mt-2">Ready to start cooking?</h2>
+					<h2 class="font-weight-bold font-marker mt-2">Ready to start cooking?</h2>
 						<p class="text-uppercase mb-3">Enter you zip code to see the menu.</p>
 						<form action="/locations" method="post" class="form-shipping-search needs-validation" novalidate>
 							<div class="form-group mx-auto">

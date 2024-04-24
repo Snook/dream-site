@@ -10,7 +10,7 @@
 			<div class="col text-center">
 				<h1><?php echo $this->DAO_store->store_name; ?> Meal Prep Store</h1>
 				<img src="<?php echo IMAGES_PATH; ?>/landing_pages/in-a-snap-chicken-tenders-1920x600.webp" alt="Dinner in a Snap" class="img-fluid" />
-				<h3 class="font-have-heart-two mt-2">We offer real food, made from scratch, so your life can feel a little easier.</h3>
+				<h3 class="font-marker mt-2">We offer real food, made from scratch, so your life can feel a little easier.</h3>
 			</div>
 		</div>
 		<?php include $this->loadTemplate('customer/subtemplate/store/store_navigation.tpl.php'); ?>
@@ -130,35 +130,35 @@
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center mb-2">
 						<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chimichangas-pan-featured-menu-item-400x400.webp" alt="Oven Baked Chimichangas" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sizzling-sirloin-fried-rice-featured-under-30min-400x400.webp" alt="Sizzling Sirloin Fried Rice" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Oven Baked Chimichangas</h5>
+									<h5 class="card-title">Sizzling Sirloin Fried Rice</h5>
 								</div>
 							</div>
-						<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/baked-penne-kid-pick-featured-menu-item-400x400.webp" alt="Baked Penne Chicken Alfredo" class="img-fluid">
+							<div class="card border-0 pr-2">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-enchiladas-featured-pan-400x400.webp" alt="Chicken Enchiladas" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Baked Penne Chicken Alfredo</h5>
+									<h5 class="card-title">Chicken Enchiladas</h5>
 								</div>
 							</div>
-
+							
 					</div>
 				</div>
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-costoletta-air-fryer-featured-menu-item-400x400.webp" alt="Chicken Costoletta with Almond Green Beans" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/maple-bourbon-chicken-featured-instant-pot-400x400.webp" alt="Maple Bourbon BBQ Chicken with Bacon" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Costoletta with Almond Green Beans</h5>
+									<h5 class="card-title">Maple Bourbon BBQ Chicken with Bacon &amp; Bacon Ranch Green Beans</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/surf-turf-yakisoba-30min-featured-menu-item-400x400.webp" alt="Surf and Turf Yakisoba Noodle Bowl" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/salsa-ranch-chicken-featured-kid-400x400.webp" alt="Crispy Salsa Ranch Chicken with Mexican Street Corn" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Surf and Turf Yakisoba Noodle Bowl</h5>
+									<h5 class="card-title">Crispy Salsa Ranch Chicken with Mexican Street Corn</h5>
 								</div>
 							</div>
-
+							
 					</div>
 				</div>
 			</div>
