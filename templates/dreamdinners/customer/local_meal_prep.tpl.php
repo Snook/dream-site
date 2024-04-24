@@ -34,9 +34,9 @@
 				<div class="row">
 					<div class="col">
 						<div class="text-center">
-							<h2 class="mt-5 mb-4 font-weight-bold text-center text-white">Exclusive May New Customer Offer</h2>
-							<h3 class="font-weight-bold font-have-heart-swashes font-size-extra-extra-large text-white">y</h3>
-							<h3 class="mt-5 mb-4 font-weight-bold text-center text-white">Try Us Today with One of the Following Offers</h3>
+							<h2 class="mt-5 mb-1 font-weight-bold text-center text-white">Exclusive May New Customer Offer</h2>
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/white-swash-320x12.webp" alt="swash">
+							<h3 class="mt-1 mb-4 font-weight-bold text-center text-white">Try Us Today with One of the Following Offers</h3>
 						</div>
 					</div>
 				</div>
