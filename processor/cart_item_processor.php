@@ -107,6 +107,19 @@ class processor_cart_item_processor extends CPageProcessor
 
 				if (!$validated)
 				{
+					$usedVars = array(
+						'cartStoreID' => $cartStoreID,
+						'cartMenuID' => $cartMenuID,
+						'session_type' => $session_type,
+						'bundleID' => $bundleID,
+						'actualSessionType' => $actualSessionType,
+						'servingsInCart' => $servingsInCart,
+						'coreServingsInCart' => $coreServingsInCart,
+						'doBundle' => $doBundle
+					);
+
+					CLog::RecordDebugTrace($message . "\r\n" . print_r($usedVars, true) . "\r\n" . print_r($_POST, true), "PROCESSOR_CART_ITEM_PROCESSOR_UPDATE", 1, CLog::DEBUG, true);
+
 					$resultCode = 3;
 					if (strpos($message, "exceed the number of servings") !== false)
 					{
