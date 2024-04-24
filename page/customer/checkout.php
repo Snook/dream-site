@@ -731,9 +731,12 @@ class checkout_validation
 		$result = $Cart->cart_sanity_check();
 		// This function can clear the cart or specific fields - should this be silent?
 
-		if ($result['status'] != 'all_good' && DEBUG)
+		if ($result['status'] != 'all_good')
 		{
-			$tpl->setDebugMsg($result['status'] . "<br />" . print_r($result['problem_list'], true));
+			if (DEBUG && (defined('SERVER_ENV') && (SERVER_ENV == 'DEV')))
+			{
+				$tpl->setDebugMsg($result['status'] . "<br />" . print_r($result['problem_list'], true));
+			}
 		}
 
 		/*
