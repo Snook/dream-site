@@ -30,11 +30,12 @@
 		</section>
 		<!-- offer -->
 		<section class="bg-cyan-dark">
-			<div class="container my-5 mp-5">
+			<div class="container mp-5">
 				<div class="row">
 					<div class="col">
 						<div class="text-center">
 							<h2 class="mt-5 mb-4 font-weight-bold text-center text-white">Exclusive May New Customer Offer</h2>
+							<h3 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">y</h3>
 							<h3 class="mt-5 mb-4 font-weight-bold text-center text-white">Try Us Today with One of the Following Offers</h3>
 						</div>
 					</div>
@@ -84,7 +85,7 @@
 			<div class="container-fluid my-5 bg-green-light">
 				<div class="container">
 					<div class="row my-5">
-						<div class="col-md-5 text-center mt-5">
+						<div class="col-md-5 text-center mt-4">
 						  <h2 class="font-weight-bold font-have-heart-two font-size-extra-extra-large"><strong>MEALS IN A SNAP</strong></h2>
 						  <p>Our ready-to-cook meals are fully prepped with simple step-by-step instructions. Choose from options like grill, air fryer or instant pot that cook in under 30 minutes and fit into your busy life.</p>
 						  <form action="/locations" method="post">
@@ -159,7 +160,7 @@
 			<div class="container-fluid my-5 bg-cyan-dark">
 				<div class="container">
 					<div class="row my-5">
-						<div class="col-md-5 text-center mt-5">
+						<div class="col-md-5 text-center mt-4">
 						  <h2 class="font-weight-bold font-have-heart-two font-size-extra-extra-large"><strong>LOCALLY OWNED</strong></h2>
 						  <p>Our small business owners are here to serve you. Whether your meals are shipped, delivered locally or picked up at our community kitchen, they are ready to support you.</p>
 						  <form action="/locations" method="post">
@@ -196,7 +197,7 @@
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/1044_slow_roasted_carolina_bbq_pork_tenderloin_458x344.webp" alt="Slow Roasted Carolina BBQ Pork Tenderloin" class="img-fluid" />
 							</div>
 						</div>
-						<div class="col-md-5 text-center mt-5">
+						<div class="col-md-5 text-center mt-4">
 						  <h2 class="font-weight-bold font-have-heart-two font-size-extra-extra-large"><strong>DELICIOUS RECIPES</strong></h2>
 						  <p>Our monthly menu has a variety of tasty meals to fit your family’s needs. We assemble your meals just for you from fresh ingredients, then freeze them for optimal freshness. This means they are ready to cook and enjoy whenever you need them.</p>
 						  <a href="/browse-menu" class="btn btn-lg btn-primary btn-cyan-dark">VIEW MENU</a>
