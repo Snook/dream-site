@@ -1062,7 +1062,7 @@ class CTemplate extends Savant2
 	// Required scripts for all pages
 	function initOnload()
 	{
-		if (DEBUG || (defined('DD_SERVER_NAME') && (DD_SERVER_NAME != 'LIVE')))
+		if (DEBUG && (defined('DD_SERVER_NAME') && (DD_SERVER_NAME != 'LIVE')))
 		{
 			if ($msg = self::getDebugMsg())
 			{
