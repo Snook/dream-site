@@ -63,7 +63,7 @@ foreach ($this->sessions['info']['session_type'] AS $thisType => $count)
 				}
 				else
 				{ ?>
-					Select a delivery window from the list below. A store service fee may apply to this order. A delivery fee will apply. Fees will be displayed at checkout and may vary by location.
+					Select a delivery window from the list below. At checkout, a delivery fee applies to orders delivered within 15 miles of the store. Orders may be canceled for any distance beyond 15 miles. If the store can accommodate, an additional fee may be added to your order before delivery. Fees vary by location.
 				<?php
 				}
 				if ($this->has_meal_customization_sessions){

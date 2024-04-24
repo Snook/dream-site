@@ -915,7 +915,7 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::disabled => $disabledForm,
 				CForm::rows => '4',
 				CForm::cols => '40',
-				CForm::placeholder => 'Current Default Message: Select a delivery window from the list below. A store service fee may apply to this order. A delivery fee will apply. Fees will be displayed at checkout and may vary by location.',
+				CForm::placeholder => 'Current Default Message: Select a delivery window from the list below. At checkout, a delivery fee applies to orders delivered within 15 miles of the store. Orders may be canceled for any distance beyond 15 miles. If the store can accommodate, an additional fee may be added to your order before delivery. Fees vary by location.',
 				CForm::css_class => 'dd-strip-tags',
 				CForm::name => 'delivery_session_desc'
 			));
