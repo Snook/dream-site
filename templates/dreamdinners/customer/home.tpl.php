@@ -14,8 +14,8 @@
 			</div>
 		</section>-->
 		<section>
-			<div class="container my-2">
-				<div class="col-lg-12 mx-lg-auto">
+			<div class="container">
+				<div>
 					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 					  <ol class="carousel-indicators">
 						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
