@@ -29,7 +29,7 @@
 								</div>
 								<div class="card border-0 mx-1 text-left">
 									<div class="card-body py-5 px-5">
-										<h5 class="card-title pt-5">Choose from our monthly menu of 17 menu items and place your online order.</h5>
+										<h5 class="card-title pt-5">Choose from our monthly menu to place your online order.</h5>
 										<p class="card-text">Start with as few as three dinners or plan for the entire month. We also have veggies, starches, breakfasts and desserts ready to add to your order in our Sides & Sweets freezer.</p>
 									</div>
 								</div>
