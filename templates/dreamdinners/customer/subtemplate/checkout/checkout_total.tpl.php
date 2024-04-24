@@ -88,7 +88,7 @@
 						<p>Shipping Fee</p>
 					</div>
 					<div class="col-md-6 col-4 text-right">
-						<p><?php if ($this->cart_info["menuObj"]->isEnabled_ShippingDiscount($this->cart_info["storeObj"])) {?><span class="text-decoration-line-through">($ <?php echo CTemplate::moneyFormat($this->cart_info["orderObj"]->getBoxCount() * 19.99); ?></span><?php } ?>) $<span id="checkout_total-delivery_fee"><?php echo CTemplate::moneyFormat($this->cart_info['order_info']['subtotal_delivery_fee']);?></span></p>
+						<p><?php if ($this->cart_info["menuObj"]->isEnabled_ShippingDiscount($this->cart_info["storeObj"])) {?><span class="text-decoration-line-through">($ <?php echo CTemplate::moneyFormat($this->cart_info["orderObj"]->getBoxCount() * 14.99); ?></span><?php } ?>) $<span id="checkout_total-delivery_fee"><?php echo CTemplate::moneyFormat($this->cart_info['order_info']['subtotal_delivery_fee']);?></span></p>
 					</div>
 				</div>
 			<?php } else { ?>
