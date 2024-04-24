@@ -10,7 +10,7 @@
 				<!--<img src="<?php echo IMAGES_PATH; ?>/landing_pages/family-dinner-generational-cheers-1400x500.webp" alt="Family celebrating over a meal" class="img-fluid" />-->
 				<div class="row my-5">
 					<div class="col mb-4 text-center">
-						<h1 class="font-weight-bold font-have-heart-two font-size-extra-large mt-2">Friends Don't Let Friends Struggle With Dinner</h1>
+						<h1 class="font-weight-bold font-have-heart-two font-size-extra-extra-large mt-2">Friends Don't Let Friends Struggle With Dinner</h1>
 						<h3>Share your love of Dream Dinners with a special offer. If they tell us you referred them, you can earn referral Dinner Dollars.</h3>
 					</div>
 				</div>
@@ -47,7 +47,7 @@
 									<div class="card-body">
 										<h3>New Guest Store Exclusive:<br><strong>Buy 3 Dinners, Get 1 Free*</strong></h3>
 										<p>Place an order for 3 or more dinners, get a free medium Creamy Chicken Risotto as our gift to you. </p>
-										<p>Use this code at checkout: <span class="font-weight-bold font-have-heart-two font-size-large">SHARE</span></p>
+										<p>Use this code at checkout: <span class="font-weight-bold font-have-heart-two font-size-extra-large">SHARE</span></p>
 										<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
 									</div>
 								</div>
@@ -62,7 +62,7 @@
 									<div class="card-body">
 										<h3>New Guest Shipping Offer:<br><strong>Free Shipping*</strong></h3>
 										<p>Get free shipping on your first box of 4 medium dinners as a special offer just for you.</p>
-										<p>Use this code at checkout: <span class="font-weight-bold font-have-heart-two font-size-large">FREESHIP</span></p>
+										<p>Use this code at checkout: <span class="font-weight-bold font-have-heart-two font-size-extra-large">FREESHIP</span></p>
 										<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
 									</div>
 								</div>
