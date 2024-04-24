@@ -431,7 +431,7 @@
 		<div class="form-group col-md-6">
 			<div class="input-group">
 				<div class="input-group-prepend">
-					<label class="input-group-text font-size-small" for="minimum_order_amount">Minimum order grand total</label>
+					<label class="input-group-text font-size-small" for="minimum_order_amount">Order grand total</label>
 					<span class="input-group-text">$</span>
 				</div>
 				<?php echo $this->CouponForm['minimum_order_amount_html']; ?>
@@ -441,7 +441,7 @@
 		<div class="form-group col-md-6">
 			<div class="input-group">
 				<div class="input-group-prepend">
-					<label class="input-group-text font-size-small" for="minimum_servings_count">Minimum Servings</label>
+					<label class="input-group-text font-size-small" for="minimum_servings_count">Contribute to Minimum items</label>
 				</div>
 				<?php echo $this->CouponForm['minimum_servings_count_html']; ?>
 			</div>
@@ -450,7 +450,7 @@
 		<div class="form-group col-md-6">
 			<div class="input-group">
 				<div class="input-group-prepend">
-					<label class="input-group-text font-size-small" for="minimum_item_count">Minimum Core Items</label>
+					<label class="input-group-text font-size-small" for="minimum_item_count">Contribute to Minimum items</label>
 				</div>
 				<?php echo $this->CouponForm['minimum_item_count_html']; ?>
 			</div>
