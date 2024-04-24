@@ -177,6 +177,7 @@ class processor_cart_item_processor extends CPageProcessor
 						'coupon_code_discount_total' => $cartArrays['order_info']['coupon_code_discount_total'],
 						'subtotal_meal_customization_fee' => $cartArrays['order_info']['subtotal_meal_customization_fee'],
 						'total_items_price' => CTemplate::number_format($cartArrays['cart_info_array']['total_items_price']),
+						'cost_per_serving' => CTemplate::moneyFormat($cartArrays["orderObj"]->getAvgCostPerServing()),
 						'grand_total' => CTemplate::number_format($cartArrays["orderObj"]->grand_total)
 					));
 				}
@@ -190,6 +191,7 @@ class processor_cart_item_processor extends CPageProcessor
 						'coupon_code_discount_total' => $cartArrays['order_info']['coupon_code_discount_total'],
 						'subtotal_meal_customization_fee' => $cartArrays['order_info']['subtotal_meal_customization_fee'],
 						'total_items_price' => CTemplate::number_format($cartArrays['cart_info_array']['total_items_price']),
+						'cost_per_serving' => CTemplate::moneyFormat($cartArrays["orderObj"]->getAvgCostPerServing()),
 						'grand_total' => CTemplate::number_format($cartArrays["orderObj"]->grand_total)
 					));
 				}
@@ -209,6 +211,7 @@ class processor_cart_item_processor extends CPageProcessor
 				'coupon_code_discount_total' => $cartArrays['order_info']['coupon_code_discount_total'],
 				'subtotal_meal_customization_fee' => $cartArrays['order_info']['subtotal_meal_customization_fee'],
 				'total_items_price' => CTemplate::number_format($cartArrays['cart_info_array']['total_items_price']),
+				'cost_per_serving' => CTemplate::moneyFormat($cartArrays["orderObj"]->getAvgCostPerServing()),
 				'grand_total' => CTemplate::number_format($cartArrays["orderObj"]->grand_total),
 				'processor_message' => 'The item was successfully updated.'
 			));
