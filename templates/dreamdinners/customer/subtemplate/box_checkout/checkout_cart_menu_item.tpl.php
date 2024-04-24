@@ -17,7 +17,7 @@
 		<?php if (!$this->isEmptyFloat( $box['bundle']->price_shipping))  { ?>
 		<div class="row">
 			<div class="col pr-2">
-				Shipping <?php if ($this->cart_info["menuObj"]->isEnabled_ShippingDiscount($this->cart_info["storeObj"])) {?><span class="text-decoration-line-through">($19.99)</span><?php } ?> $<?php echo $box['bundle']->price_shipping;?>
+				Shipping <?php if ($this->cart_info["menuObj"]->isEnabled_ShippingDiscount($this->cart_info["storeObj"])) {?><span class="text-decoration-line-through">($14.99)</span><?php } ?> $<?php echo $box['bundle']->price_shipping;?>
 			</div>
 		</div>
 		<?php } ?>
