@@ -90,6 +90,7 @@ class COrders extends DAO_Orders
 	public $orderAddress = null;
 
 	public $menu_items_core_total_count;
+	public $menu_items_efl_total_count;
 
 	//calendar setup vars
 	public static $sessionInfo;
@@ -5042,6 +5043,7 @@ class COrders extends DAO_Orders
 		$totalPrice = 0;
 		$totalQty = 0;
 		$totalQtyCore = 0;
+		$totalQtyEFL = 0;
 		$servingsCount = 0;
 		$coreServingsCount = 0;
 
@@ -5124,9 +5126,14 @@ class COrders extends DAO_Orders
 
 				$totalQty += $qty * $DAO_menu_item->item_count_per_item;
 
-				if ($DAO_menu_item->menu_item_category_id == 1 || ($DAO_menu_item->menu_item_category_id == 4 && empty($DAO_menu_item->is_store_special)))
+				if ($DAO_menu_item->isMenuItem_Core())
 				{
 					$totalQtyCore += $qty * $DAO_menu_item->item_count_per_item;
+				}
+
+				if ($DAO_menu_item->isMenuItem_EFL())
+				{
+					$totalQtyEFL += $qty * $DAO_menu_item->item_count_per_item;
 				}
 
 				if ($DAO_menu_item->is_chef_touched)
@@ -5187,6 +5194,7 @@ class COrders extends DAO_Orders
 		$this->subtotal_menu_items = $totalPrice;
 		$this->menu_items_total_count = $totalQty;
 		$this->menu_items_core_total_count = $totalQtyCore;
+		$this->menu_items_efl_total_count = $totalQtyEFL;
 		$this->servings_total_count = $servingsCount;
 		$this->servings_core_total_count = $coreServingsCount;
 
