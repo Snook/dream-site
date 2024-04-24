@@ -5,6 +5,7 @@
 
 	<main role="main">
 	<section>
+		<!--<section>
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
@@ -18,122 +19,204 @@
 
 				</div>
 			</div>
-		</section>
-		<section>
-		<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
-			<div class="container">
-				<div class="row my-5">
-					<div class="col-md-5 mb-6">
-						<div>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/doreen_style_diary_450x448.webp" alt="Doreen Style Diary" class="img-fluid mb-3" />
-						</div>
-					</div>
-					<div class="col-md-7 text-left">
-					  <h2><strong>Family meals that are ready to cook and pick up at your convenience.</strong></h2>
-						<br>&nbsp;
-                      <ul>
-                        <li>Just start with 3 meals. No Subscription. Order as often as you want.</li>
-						<li>Delicious Meals Made Locally</li>
-                        <li>Just Thaw, Cook and Eat Together</li>
-                        <li>No Shopping, No Chopping, No Food Waste</li>
-						<li>Available in 2 Sizes: Medium serves 2-3, Large serves 4-6</li>
-                      </ul>
-					  <p class="my-3"><a href="/locations" class="btn btn-lg btn-green">Find a Location to See the Menu</a></p>
+		</section>-->
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col text-center" style="max-height: 25rem; overflow: hidden;">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dinner-reinvented-enchiladas-1400x600.webp" alt="Dinner Reinvented" class="img-fluid">
 					</div>
 				</div>
-			  </div>
+			</div>
+		</section>
+		<!-- offer -->
+		<section class="bg-cyan-dark">
+			<div class="container my-5 mp-5">
+				<div class="row">
+					<div class="col">
+						<div class="text-center">
+							<h2 class="mt-5 mb-4 font-weight-bold text-center text-white">Exclusive May New Customer Offer</h2>
+							<h3 class="mt-5 mb-4 font-weight-bold text-center text-white">Try Us Today with One of the Following Offers</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section>
+			<div class="container my-5">
+				<div class="" id="" role="tabpanel" aria-labelledby="">
+					<div class="row my-2">
+						<div class="col">
+							<div class="card-group">
+								<div class="card border-0 py-4 px-4 mx-1 text-left">
+									<div class="card-body text-center">
+										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/creamy-chicken-risotto-circle-458x344.webp" alt="Creamy Chicken Risotto" class="img-fluid mb-3" />
+									</div>
+									<div class="card-body">
+										<h3 class="font-weight-bold font-have-heart-two mt-2">FREE SHIPPING</h3>
+										<p>$14.99 Value </p>
+										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-large">SHIPONUS</span></p>
+										<!--<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>-->
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col">
+							<div class="card-group">
+								<div class="card border-0 py-4 px-4 mx-1 text-left">
+									<div class="card-body text-center">
+										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/shipping-doorstep-circle-458x344.webp" alt="Dream Dinners Shipping" class="img-fluid mb-3" />
+									</div>
+									<div class="card-body">
+										<h3 class="font-weight-bold font-have-heart-two mt-2">FREE DELIVERY</h3>
+										<p>Approx. $20 Value</p>
+										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-large">DELIVERFREE</span></p>
+										<!--<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>-->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</section>
 
+		<section>
+			<div class="container-fluid my-5 bg-green-light">
+				<div class="container">
+					<div class="row my-5">
+						<div class="col-md-7 text-center">
+						  <h2 class="font-weight-bold font-have-heart-two"><strong>MEALS IN A SNAP</strong></h2>
+							<br>&nbsp;
+						  <p>Our ready-to-cook meals are fully prepped with simple step-by-step instructions. Choose from options like grill, air fryer or instant pot that cook in under 30 minutes and fit into your busy life.</p>
+						  <form action="/locations" method="post">
+						<div class="form-group mx-auto">
+							<div class="input-group">
+								<!--<div class="input-group-prepend">
+									<div class="input-group-text">
+									Find a location near you
+									</div>
+								</div>-->
+								<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
+								<div class="input-group-append">
+									<button type="submit" value="Get Started" class="btn btn-primary">View Local Menu</button>
+								</div>
+							</div>
+						</div>
+					</form>
+						</div>
+						<div class="col-md-5 mb-6">
+							<div>
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/doreen_style_diary_450x448.webp" alt="Air Fryer Chicken Tenders and mom cooking on the stove" class="img-fluid mb-3" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Menu Highlights-->
+		<section>
+		<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
+			<div class="container my-5">
+				<div class="row">
+					<div class="col">
+						<div class="text-center">
+							<h2 class="mt-4 mb-4 font-weight-bold font-have-heart-two">ON THE MENU THIS MONTH</h2>
+						</div>
+					</div>
+				</div>
+
+				<div class="row my-5">
+					<div class="col">
+						<div class="card-group text-center mb-2">
+							<div class="card border-0 pr-4">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sizzling-sirloin-fried-rice-featured-under-30min-400x400.webp" alt="Sizzling Sirloin Fried Rice" class="img-fluid">
+								<div class="card-body">
+									<h5 class="card-title">Sizzling Sirloin Fried Rice</h5>
+								</div>
+							</div>
+							<div class="card border-0 pr-2">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-enchiladas-featured-pan-400x400.webp" alt="Chicken Enchiladas" class="img-fluid">
+								<div class="card-body">
+									<h5 class="card-title">Chicken Enchiladas</h5>
+								</div>
+							</div>
+							<div class="card border-0 pr-4">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/maple-bourbon-chicken-featured-instant-pot-400x400.webp" alt="Maple Bourbon BBQ Chicken with Bacon" class="img-fluid">
+								<div class="card-body">
+									<h5 class="card-title">Maple Bourbon BBQ Chicken with Bacon &amp; Bacon Ranch Green Beans</h5>
+								</div>
+							</div>
+							<div class="card border-0">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/salsa-ranch-chicken-featured-kid-400x400.webp" alt="Crispy Salsa Ranch Chicken with Mexican Street Corn" class="img-fluid">
+								<div class="card-body">
+									<h5 class="card-title">Crispy Salsa Ranch Chicken with Mexican Street Corn</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 		<section>
 			<div class="container-fluid my-5 bg-cyan-dark">
 				<div class="container">
-				<div class="row">
-					<div class="col">
-						<div class="text-center text-white">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/local-meal-prep-dinnertime-header-790x100.webp" alt="It's dinnertime somewhere" class="img-fluid" style="padding-top: 20px;">
-							<!-- <h2 class="my-4">It's dinnertime somewhere. </h2> -->
-							<p>Don't spend another day wondering what you are cooking tonight. Choose from our easy options.</p>
-							<div class="border-bottom mb-3 mx-5" style="border-color: #fff !important;"></div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col">
-						<div class="card-group text-center text-white">
-							<div class="card border-0" style="background-color: transparent !important;">
-								<i class="dd-icon icon-cooler font-size-extra-extra-large text-white m-4"></i>
-								<div class="card-body">
-									<h5 class="card-title">Pick Up</h5>
-									<p>Stop by our local store to pick up your dinners. Try some samples from our upcoming menu and let our personal meal planners help with all your dinnertime needs.</p>
-								</div>
-							</div>
-							<div class="card border-0" style="background-color: transparent !important;">
-								<i class="dd-icon icon-delivery font-size-extra-extra-large text-white m-4"></i>
-								<div class="card-body">
-									<h5 class="card-title">Home Delivery*</h5>
-									<p>For ultimate convenience, have your meals prepped at our local store and delivered to your door.</p>
-								</div>
-							</div>
-							<div class="card border-0" style="background-color: transparent !important;">
-								<i class="dd-icon icon-measuring_cup font-size-extra-extra-large text-white m-4"></i>
-								<div class="card-body">
-									<h5 class="card-title">Store Assembly*</h5>
-									<p>Visit our local store to customize and assemble your dinners. Try some samples from our upcoming menu and let our personal meal planners help with all your dinnertime needs.</p>
+					<div class="row my-5">
+						<div class="col-md-7 text-center">
+						  <h2 class="font-weight-bold font-have-heart-two"><strong>LOCALLY OWNED</strong></h2>
+							<br>&nbsp;
+						  <p>Our small business owners are here to serve you. Whether your meals are shipped, delivered locally or picked up at our community kitchen, they are ready to support you.</p>
+						  <form action="/locations" method="post">
+						<div class="form-group mx-auto">
+							<div class="input-group">
+								<!--<div class="input-group-prepend">
+									<div class="input-group-text">
+									Find a location near you
+									</div>
+								</div>-->
+								<input type="number" class="form-control" id="zip" name="zip" placeholder="Postal code">
+								<div class="input-group-append">
+									<button type="submit" value="Get Started" class="btn btn-primary">Find Local Delivery Options</button>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="row my-4 pb-4">
-					<div class="col text-center text-white">
-						<p><a href="/locations" class="btn btn-gray-dark text-white">Find a Location</a></p>
-						<p><i>*Available at participating locations.</i></p>
-
+					</form>
+						</div>
+						<div class="col-md-5 mb-6">
+							<div>
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/doreen_style_diary_450x448.webp" alt="Local Store" class="img-fluid mb-3" />
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</section>
+		<section>
+			<div class="container-fluid my-5">
+				<div class="container">
+					<div class="row my-5">
+						<div class="col-md-5 mb-6">
+							<div>
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/doreen_style_diary_450x448.webp" alt="Pork" class="img-fluid mb-3" />
+							</div>
+						</div>
+						<div class="col-md-7 text-center">
+						  <h2 class="font-weight-bold font-have-heart-two"><strong>DELICIOUS RECIPES</strong></h2>
+							<br>&nbsp;
+						  <p>Our monthly menu has a variety of tasty meals to fit your family’s needs. We assemble your meals just for you from fresh ingredients, then freeze them for optimal freshness. This means they are ready to cook and enjoy whenever you need them.</p>
+						  <a href="/browse-menu" class="btn btn-lg btn-primary btn-cyan-dark">VIEW MENU</a>
+						</div>
+					</div>
+				</div>
+			</div>
 		</section>
 		<!-- Testimonials -->
 		<section>
-			<div class="container-fluid my-5">
-				<div class="row px-2 px-lg-5 py-5">
-					<div class="col-lg-8 offset-lg-2 text-center">
-						<h2 class="text-center"><strong>Hear what our guests have to say...</strong></h2>
-						<div class="row my-4">
-							<div class="col">
-								<div class="card-group text-center">
-									<div class="card border-0 mx-1">
-										<div class="embed-responsive embed-responsive-16by9">
-											<iframe class="embed-responsive-item" loading="lazy" src="https://www.youtube.com/embed/IBMWQ1Z5sDw?rel=0&amp;controls=0" allowfullscreen></iframe>
-										</div>
-										<div class="card-body">
-											<h5 class="card-title">Kelly T.<br>Encinitas, CA</h5>
-										</div>
-									</div>
-									<div class="card border-0 mx-1">
-										<div class="embed-responsive embed-responsive-16by9">
-											<iframe class="embed-responsive-item" loading="lazy" src="https://www.youtube.com/embed/MrsU9fG2w3I?rel=0&amp;controls=0" allowfullscreen></iframe>
-										</div>
-										<div class="card-body">
-											<h5 class="card-title">Brittnie  B.<br>Missouri City, TX</h5>
-										</div>
-									</div>
-									<div class="card border-0 mx-1">
-										<div class="embed-responsive embed-responsive-16by9">
-											<iframe class="embed-responsive-item" loading="lazy" src="https://www.youtube.com/embed/iSh8gXjsT6w?rel=0&amp;controls=0" allowfullscreen></iframe>
-										</div>
-										<div class="card-body">
-											<h5 class="card-title">Ashley J.<br>Tucson, AZ</h5>
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col text-center" style="max-height: 25rem; overflow: hidden;">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/customer-testimonials-1400x600.webp" alt="customer testimonials" class="img-fluid">
 					</div>
 				</div>
-			</div>
 			</div>
 		</section>
 
