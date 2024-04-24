@@ -370,7 +370,7 @@
 					<td class="bgcolor_dark catagory_row" colspan="2">Shipping Settings</td>
 				</tr>
 				<tr>
-					<td class="bgcolor_light" style="text-align: right; width: 400px;">Default number of<br />Delivery Sessions:</td>
+					<td class="bgcolor_light" style="text-align: right; width: 400px;">Default number of<br />orders per day:</td>
 					<td class="bgcolor_light">
 						<div class="input-group">
 							<?php echo $this->form_store_details['default_delivered_sessions_html']; ?>
@@ -378,7 +378,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="bgcolor_light" style="text-align: right;">Delivery Fee - Large</td>
+					<td class="bgcolor_light" style="text-align: right;">Shipping Fee - Large</td>
 					<td class="bgcolor_light">
 						<div class="input-group">
 							<div class="input-group-prepend">
@@ -389,7 +389,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="bgcolor_light" style="text-align: right;">Delivery Fee - Medium</td>
+					<td class="bgcolor_light" style="text-align: right;">Shipping Fee - Medium</td>
 					<td class="bgcolor_light">
 						<div class="input-group">
 							<div class="input-group-prepend">
@@ -856,7 +856,7 @@
 			<?php } ?>
 			<?php if( isset( $this->form_store_details['door_dash_id_html'] ) ) { ?>
 				<tr>
-					<td class="bgcolor_light" style="text-align: right;">Door Dash Store ID</td>
+					<td class="bgcolor_light" style="text-align: right;">Door Dash Marketplace ID</td>
 					<td class="bgcolor_light"><?php echo $this->form_store_details['door_dash_id_html']; ?></td>
 				</tr>
 			<?php } ?>

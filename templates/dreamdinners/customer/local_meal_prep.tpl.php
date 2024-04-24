@@ -214,6 +214,11 @@
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/customer-testimonials-1400x600.webp" alt="customer testimonials" class="img-fluid">
 					</div>
 				</div>
+				<div class="row text-center">
+					<div>
+						<p>*Offer valid for new customers or customers that have not placed a Dream Dinners order in more than 6 months. Offer cannot be combined with Dinner Dollars, other coupons or offers. No cash value. Offer can be redeemed once per guest and is not transferrable. Valid only at participating locations. For local deliveries over 15 miles from the store location, an additional surcharge may charged prior to your delivery. Reach out to your local store to learn more. Offer expires July 31st.</p>
+					</div>
+				</div>
 			</div>
 		</section>
 
