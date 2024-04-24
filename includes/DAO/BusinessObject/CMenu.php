@@ -51,6 +51,37 @@ class CMenu extends DAO_Menu
 		}
 	}
 
+	function isEnabled_DeliveryDiscount($DAO_store)
+	{
+		return $this->isEnabled_ShippingDiscount($DAO_store);
+	}
+
+	function isEnabled_ShippingDiscount($DAO_store)
+	{
+		// always show on dev
+		if (defined('SERVER_ENV') && (SERVER_ENV != 'LIVE'))
+		{
+			return true;
+		}
+
+		$participatingStores = array();
+
+		// June or July 2024
+		if ($this->id == 274 || $this->id == 275)
+		{
+			if ($DAO_store && in_array($participatingStores, $DAO_store->id))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		return false;
+	}
+
 	function isEnabled_Markup()
 	{
 		if ($this->id >= 265)
