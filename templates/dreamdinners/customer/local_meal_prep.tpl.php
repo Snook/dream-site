@@ -22,7 +22,7 @@
 		</section>-->
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col text-center" style="max-height: 25rem; overflow: hidden;">
+					<div class="col text-center">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dinner-reinvented-enchiladas-1400x600.webp" alt="Dinner Reinvented" class="img-fluid">
 					</div>
 				</div>
@@ -47,14 +47,14 @@
 					<div class="row my-2">
 						<div class="col">
 							<div class="card-group">
-								<div class="card border-0 py-4 px-4 mx-1 text-left">
+								<div class="card border-0 py-4 px-4 mx-1 text-center">
 									<div class="card-body text-center">
 										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/creamy-chicken-risotto-circle-458x344.webp" alt="Creamy Chicken Risotto" class="img-fluid mb-3" />
 									</div>
 									<div class="card-body">
-										<h3 class="font-weight-bold font-have-heart-two mt-2">FREE SHIPPING</h3>
+										<h3 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-large">FREE SHIPPING</h3>
 										<p>$14.99 Value </p>
-										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-large">SHIPONUS</span></p>
+										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-extra-large">SHIPONUS</span></p>
 										<!--<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>-->
 									</div>
 								</div>
@@ -62,14 +62,14 @@
 						</div>
 						<div class="col">
 							<div class="card-group">
-								<div class="card border-0 py-4 px-4 mx-1 text-left">
+								<div class="card border-0 py-4 px-4 mx-1 text-center">
 									<div class="card-body text-center">
 										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/shipping-doorstep-circle-458x344.webp" alt="Dream Dinners Shipping" class="img-fluid mb-3" />
 									</div>
 									<div class="card-body">
-										<h3 class="font-weight-bold font-have-heart-two mt-2">FREE DELIVERY</h3>
+										<h3 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-large">FREE DELIVERY</h3>
 										<p>Approx. $20 Value</p>
-										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-large">DELIVERFREE</span></p>
+										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-extra-large">DELIVERFREE</span></p>
 										<!--<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>-->
 									</div>
 								</div>
@@ -84,9 +84,8 @@
 			<div class="container-fluid my-5 bg-green-light">
 				<div class="container">
 					<div class="row my-5">
-						<div class="col-md-7 text-center">
-						  <h2 class="font-weight-bold font-have-heart-two"><strong>MEALS IN A SNAP</strong></h2>
-							<br>&nbsp;
+						<div class="col-md-5 text-center mt-5">
+						  <h2 class="font-weight-bold font-have-heart-two font-size-extra-extra-large"><strong>MEALS IN A SNAP</strong></h2>
 						  <p>Our ready-to-cook meals are fully prepped with simple step-by-step instructions. Choose from options like grill, air fryer or instant pot that cook in under 30 minutes and fit into your busy life.</p>
 						  <form action="/locations" method="post">
 						<div class="form-group mx-auto">
@@ -104,9 +103,9 @@
 						</div>
 					</form>
 						</div>
-						<div class="col-md-5 mb-6">
+						<div class="col-md-7 mb-6">
 							<div>
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/doreen_style_diary_450x448.webp" alt="Air Fryer Chicken Tenders and mom cooking on the stove" class="img-fluid mb-3" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/doreen_style_diary_450x448.webp" alt="Air Fryer Chicken Tenders and mom cooking on the stove" class="img-fluid" />
 							</div>
 						</div>
 					</div>
@@ -120,7 +119,7 @@
 				<div class="row">
 					<div class="col">
 						<div class="text-center">
-							<h2 class="mt-4 mb-4 font-weight-bold font-have-heart-two">ON THE MENU THIS MONTH</h2>
+							<h2 class="mt-4 mb-4 font-weight-bold font-have-heart-two font-size-extra-extra-large">ON THE MENU THIS MONTH</h2>
 						</div>
 					</div>
 				</div>
@@ -161,9 +160,8 @@
 			<div class="container-fluid my-5 bg-cyan-dark">
 				<div class="container">
 					<div class="row my-5">
-						<div class="col-md-7 text-center">
-						  <h2 class="font-weight-bold font-have-heart-two"><strong>LOCALLY OWNED</strong></h2>
-							<br>&nbsp;
+						<div class="col-md-5 text-center mt-5">
+						  <h2 class="font-weight-bold font-have-heart-two font-size-extra-extra-large"><strong>LOCALLY OWNED</strong></h2>
 						  <p>Our small business owners are here to serve you. Whether your meals are shipped, delivered locally or picked up at our community kitchen, they are ready to support you.</p>
 						  <form action="/locations" method="post">
 						<div class="form-group mx-auto">
@@ -181,9 +179,9 @@
 						</div>
 					</form>
 						</div>
-						<div class="col-md-5 mb-6">
+						<div class="col-md-7">
 							<div>
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/doreen_style_diary_450x448.webp" alt="Local Store" class="img-fluid mb-3" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/doreen_style_diary_450x448.webp" alt="Local Store" class="img-fluid" />
 							</div>
 						</div>
 					</div>
@@ -194,14 +192,13 @@
 			<div class="container-fluid my-5">
 				<div class="container">
 					<div class="row my-5">
-						<div class="col-md-5 mb-6">
+						<div class="col-md-7">
 							<div>
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/doreen_style_diary_450x448.webp" alt="Pork" class="img-fluid mb-3" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/doreen_style_diary_450x448.webp" alt="Pork" class="img-fluid" />
 							</div>
 						</div>
-						<div class="col-md-7 text-center">
-						  <h2 class="font-weight-bold font-have-heart-two"><strong>DELICIOUS RECIPES</strong></h2>
-							<br>&nbsp;
+						<div class="col-md-5 text-center mt-5">
+						  <h2 class="font-weight-bold font-have-heart-two font-size-extra-extra-large"><strong>DELICIOUS RECIPES</strong></h2>
 						  <p>Our monthly menu has a variety of tasty meals to fit your family’s needs. We assemble your meals just for you from fresh ingredients, then freeze them for optimal freshness. This means they are ready to cook and enjoy whenever you need them.</p>
 						  <a href="/browse-menu" class="btn btn-lg btn-primary btn-cyan-dark">VIEW MENU</a>
 						</div>
@@ -213,7 +210,7 @@
 		<section>
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col text-center" style="max-height: 25rem; overflow: hidden;">
+					<div class="col text-center">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/customer-testimonials-1400x600.webp" alt="customer testimonials" class="img-fluid">
 					</div>
 				</div>
