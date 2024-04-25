@@ -12,11 +12,10 @@ if (defined("DISABLE_CRON") && DISABLE_CRON)
 
 try
 {
-	$DAO_users = DAO_CFactory::create('users');
-	$DAO_users->query("select * from users where is_deleted = 0");
+	$DAO_user = DAO_CFactory::create('user');
+	$DAO_user->query("select * from user where is_deleted = 0");
 
-
-	while ($DAO_users->fetch())
+	while ($DAO_user->fetch())
 	{
 		// Send to DailyStory
 
