@@ -36,7 +36,7 @@
 						<div class="text-center">
 							<h2 class="mt-5 mb-1 font-weight-bold text-center text-white">Exclusive May New Customer Offer</h2>
 							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/white-swash-320x12.webp" alt="swash">
-							<h3 class="mt-1 mb-5 font-weight-bold text-center text-white">Try Us Today with One of the Following Offers</h3>
+							<p class="mt-1 mb-5 font-weight-bold text-center text-white">Try Us Today with One of the Following Offers</p>
 						</div>
 					</div>
 				</div>
@@ -104,7 +104,7 @@
 						</div>
 					</form>
 						</div>
-						<div class="col-md-7 text-right">
+						<div class="col-md-7 mb-3 mt-3 text-right">
 							<div>
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/air-fryer-mom-cooking-stovetop-2-images.webp" alt="Air Fryer Chicken Tenders and mom cooking on the stove" class="img-fluid" />
 							</div>
@@ -179,7 +179,7 @@
 						</div>
 					</form>
 						</div>
-						<div class="col-md-7 text-right">
+						<div class="col-md-7 text-right mb-3 mt-3">
 							<div>
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/locally-owned-instore-2-images.webp" alt="Local Store" class="img-fluid" />
 							</div>
@@ -209,13 +209,14 @@
 		<!-- Testimonials -->
 		<section>
 			<div class="container-fluid">
+				<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 				<div class="row mt-4">
 					<div class="col text-center">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/customer-testimonials-1400x600.webp" alt="customer testimonials" class="img-fluid">
 					</div>
 				</div>
-				<div class="row text-center">
-					<div>
+				<div class="row mt-4">
+					<div class="col text-center">
 						<p>*Offer valid for new customers or customers that have not placed a Dream Dinners order in more than 6 months. Offer cannot be combined with Dinner Dollars, other coupons or offers. No cash value. Offer can be redeemed once per guest and is not transferrable. Valid only at participating locations. For local deliveries over 15 miles from the store location, an additional surcharge may charged prior to your delivery. Reach out to your local store to learn more. Offer expires July 31st.</p>
 					</div>
 				</div>

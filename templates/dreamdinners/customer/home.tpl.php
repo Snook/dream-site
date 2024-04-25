@@ -23,7 +23,7 @@
 					  </ol>
 					  <div class="carousel-inner">
 						<div class="carousel-item active">
-						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-guest-may24-free-shipping-delivery-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer">
+						  <a href="/local-meal-prep"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-guest-may24-free-shipping-delivery-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer"></a>
 						</div>
 						<div class="carousel-item">
 						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/steak-tacos-in-a-snap-headers-1400x600.webp?auto=yes" alt="Dinner in a Snap Carne Asada Steak Tacos">
@@ -48,8 +48,8 @@
 		<section>
 			<div class="container my-5">
 				<div class="col-lg-10 mx-lg-auto">
-					<h1 class="font-weight-bold font-have-heart-two font-size-extra-extra-large">Real food made from scratch, so your life can feel a little easier.</h1>
-					<p class="text-uppercase">We do all of the shopping, chopping, prepping, and clean up. Most of our meals cook in less than 30 minutes, leaving you more time to do the things you love.</p>
+					<h1 class="font-weight-bold font-have-heart-two font-size-extra-extra-large text-center">Real food made from scratch, so your life can feel a little easier</h1>
+					<p class="text-uppercase">We do all of the shopping, chopping, prepping, and clean up. Most of our meals cook in less than 30 minutes, leaving you more time to do the things you love. <br>Find your local options to get started.</p>
 					<form action="/locations" method="post">
 						<div class="form-group mx-auto">
 							<div class="input-group">
