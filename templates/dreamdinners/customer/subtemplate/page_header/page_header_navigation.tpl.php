@@ -11,10 +11,13 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 ?>
 <?php if (new DateTime() >= new DateTime('2024-04-01') && new DateTime() < new DateTime('2024-06-01')) { ?>
 	<?php if (!CUser::isLoggedIn() || CUser::getCurrentUser()->isNewBundleCustomer()) { ?>
-		<div class="alert alert-cyan text-uppercase alert-dismissible fade show" role="alert">
+		<div class="alert alert-cyan text-uppercase alert-dismissible fade show mb-0" role="alert">
 			<div class="row">
-				<div class="col-12 col-md-6 text-center text-md-right"><span class="font-weight-bold">New guest may exclusive!</span> Free shipping or free delivery (up to $20 value)</div>
-				<div class="col-12 col-md-6 text-center text-md-left">Free shipping code: <span class="font-weight-bold">SHIPONUS</span> Free home delivery code: <span class="font-weight-bold">DELIVERFREE</span></div>
+				<div class="col text-center">
+					<div class="d-block d-xl-inline"><span class="font-weight-bold">New guest may exclusive!</span></div>
+					<div class="d-block d-lg-inline">Free shipping code: <span class="font-weight-bold">SHIPONUS</span> OR</div>
+					<div class="d-block d-lg-inline">Free home delivery code: <span class="font-weight-bold">DELIVERFREE</span></div>
+				</div>
 			</div>
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
