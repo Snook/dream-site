@@ -58,18 +58,27 @@ class CMenu extends DAO_Menu
 
 	function isEnabled_ShippingDiscount($DAO_store)
 	{
-		// always show on dev
-		if (defined('SERVER_ENV') && (SERVER_ENV != 'LIVE'))
-		{
-			return true;
-		}
-
-		$participatingStores = array();
+		$optOutStores = array(
+			// Sacramento
+			108,
+			//  Lafayette
+			281,
+			//  Vacaville
+			286,
+			//  Bellaire Boulevard
+			264,
+			//  Torrance
+			241,
+			//  Redlands
+			229,
+			//  Arvada
+			63
+		);
 
 		// June or July 2024
 		if ($this->id == 274 || $this->id == 275)
 		{
-			if ($DAO_store && in_array($participatingStores, $DAO_store->id))
+			if (!in_array($optOutStores, $DAO_store->id))
 			{
 				return true;
 			}
@@ -179,7 +188,12 @@ class CMenu extends DAO_Menu
 		}
 
 		// Stores opting out of starter pack starting with October 2023
-		if ($this->id >= 266 && in_array($DAO_store->id, array(204, 103, 121, 96)))
+		if ($this->id >= 266 && in_array($DAO_store->id, array(
+				204,
+				103,
+				121,
+				96
+			)))
 		{
 			return false;
 		}
@@ -508,7 +522,7 @@ class CMenu extends DAO_Menu
 		), 'menu_item_sub_entree', false, false);
 
 		$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
-		if(!empty($this->id))
+		if (!empty($this->id))
 		{
 			$DAO_menu_to_menu_item->menu_id = $this->id;
 		}
