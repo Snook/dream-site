@@ -1171,6 +1171,21 @@ $(document).on('submit', '.needs-validation', function (e) {
 
 });
 
+$('[data-dismiss-session-alert]').on('closed.bs.alert', function () {
+	let key = $(this).data('dismiss-session-alert')
+	sessionStorage.setItem(key, true);
+});
+
+$('[data-dismiss-session-alert]').each(function (e) {
+	let key = $(this).data('dismiss-session-alert');
+	let data = sessionStorage.getItem(key);
+
+	if (!data)
+	{
+		$(this).showFlex();
+	}
+});
+
 $('.needs-validation').each(function (e) {
 	$(this).data('formHasChanged', $(this).find(":input:not(.formHasChanged-ignore)").serialize());
 });
