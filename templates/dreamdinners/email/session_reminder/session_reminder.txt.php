@@ -28,5 +28,5 @@ Enjoy!
  Dream Dinners
 
 
-Contact your local store: <?php echo HTTPS_BASE; ?>locations/<?php echo $this->DAO_store->id; ?>
+Contact your local store: <?php echo HTTPS_BASE; ?>location/<?php echo $this->DAO_store->id; ?>
 View Dream Dinners Policy, Terms and Conditions: <?php echo HTTPS_BASE; ?>terms
