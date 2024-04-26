@@ -115,7 +115,7 @@
 		</section>
 		<!-- Menu Highlights-->
 		<section>
-			<div class="container my-5">
+			<div class="container my-5"id="menu">
 				<div class="row">
 					<div class="col">
 						<div class="text-center">
@@ -157,7 +157,7 @@
 			</div>
 		</section>
 		<section>
-			<div class="container-fluid my-5 bg-cyan-dark">
+			<div class="container-fluid my-5 bg-cyan-dark" id="local">
 				<div class="container">
 					<div class="row my-5">
 						<div class="col-md-5 text-center mt-5">
