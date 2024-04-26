@@ -2113,6 +2113,16 @@ class CMenuItem extends DAO_Menu_item
 		return false;
 	}
 
+	function isVisibleAndNotHiddenEverywhere()
+	{
+		if ($this->isVisible() && !$this->isHiddenEverywhere())
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	function isVisible()
 	{
 		if (!empty($this->is_visible))
