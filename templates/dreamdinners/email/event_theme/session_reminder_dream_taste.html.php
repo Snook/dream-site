@@ -36,7 +36,7 @@
 			<p><b>Reschedule and Cancellation Policy</b><br/>
 				If you need to reschedule or cancel your order, contact us six days prior to your order date. Cancellations with six or more days’ notice will receive a full refund. Cancellations within five or fewer days’ notice will be subject to a 25% restocking fee.</p>
 
-			<p><a href="http://blog.dreamdinners.com">Dream Dinners Blog</a> | <a href="<?php echo HTTPS_BASE; ?>/locations/<?php echo $this->DAO_store->id; ?>">Contact your local store</a> | <a href="<?php echo HTTPS_BASE; ?>terms">View Terms and Conditions</a></p>
+			<p><a href="http://blog.dreamdinners.com">Dream Dinners Blog</a> | <a href="<?php echo HTTPS_BASE; ?>/location/<?php echo $this->DAO_store->id; ?>">Contact your local store</a> | <a href="<?php echo HTTPS_BASE; ?>terms">View Terms and Conditions</a></p>
 		</td>
 	</tr>
 </table>

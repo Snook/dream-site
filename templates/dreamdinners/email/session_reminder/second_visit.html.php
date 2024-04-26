@@ -6,7 +6,7 @@
  </tr>
  <tr>
   <td width="15%" align="right"><img src="<?php echo EMAIL_IMAGES_PATH?>/email/icons/phone-icon.gif" width="70" height="67" /></td>
-  <td width="85%" align="left">Let us know how we can serve you. <a href="<?php echo HTTPS_BASE?>locations/<?php echo $this->store_id?>">Contact us if you need help</a> with order changes, special food accommodations, or need to make other arrangements.</td>
+  <td width="85%" align="left">Let us know how we can serve you. <a href="<?php echo HTTPS_BASE?>location/<?php echo $this->store_id?>">Contact us if you need help</a> with order changes, special food accommodations, or need to make other arrangements.</td>
  </tr>
  <tr>
   <td width="15%" align="right"><img src="<?php echo EMAIL_IMAGES_PATH?>/email/icons/menu-icon.gif" width="70" height="67" /></td>

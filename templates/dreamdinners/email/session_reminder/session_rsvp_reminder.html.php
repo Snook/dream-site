@@ -44,7 +44,7 @@
 			<p><b>Not feeling well?</b><br/>
 				If you are experiencing a fever or other illness symptoms within 24 hours of your pick up or assembly session, please call to reschedule your visit.</p>
 
-			<p><a href="<?php echo HTTPS_BASE?>/locations/<?php echo $this->DAO_store->id?>">Contact your local store</a> | <a href="<?php echo HTTPS_BASE?>terms">View Terms and Conditions</a></p>
+			<p><a href="<?php echo HTTPS_BASE?>/location/<?php echo $this->DAO_store->id?>">Contact your local store</a> | <a href="<?php echo HTTPS_BASE?>terms">View Terms and Conditions</a></p>
 		</td>
 	</tr>
 </table>
