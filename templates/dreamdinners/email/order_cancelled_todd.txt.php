@@ -6,7 +6,7 @@ Your registration for a Taste of Dream Dinners party on <?php echo $this->dateTi
 location has been canceled.
 
 If you have any questions or concerns regarding this cancellation please contact your party host or the <?php echo $this->sessionInfo['store_name']?> location.
-<?php echo HTTPS_BASE?>locations/<?php echo $this->store_id?>
+<?php echo HTTPS_BASE?>location/<?php echo $this->store_id?>
 
 Thank you,
 Dream Dinners

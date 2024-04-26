@@ -93,50 +93,43 @@ class CMail
 		$this->cc_email = self::validateEmails($this->cc_email);
 		$this->bcc_email = self::validateEmails($this->bcc_email);
 
-		if (MAIL_TEST_MODE)
-		{
-			if (strstr($this->to_email, 'example.com'))
-			{
-				if (defined('MAIL_REDIRECT_EMAIL'))
-				{
-					$this->to_email = MAIL_REDIRECT_EMAIL;
-				}
-				else
-				{
-					$this->to_email = 'tester@dreamdinners.com';
-				}
-			}
-		}
-
 		$weHaveSome = strlen($this->to_email) + strlen($this->cc_email);
 
 		$headers = array();
 
-		if (!empty($this->from_name) && $this->from_name != 'Dream Dinners')
+		if (defined('DD_SERVER_NAME') && DD_SERVER_NAME != 'LIVE')
 		{
-			$headers['From'] = '"' . $this->from_name . ' (via Dream Dinners)" ';
+			$headers['From'] = 'Dream Dinners - ' . DD_SERVER_NAME;
+			$headers['From'] .= '<do-not-reply-' . DD_SERVER_NAME . '@dreamdinners.com>';
 		}
 		else
 		{
-			$headers['From'] = '"Dream Dinners" ';
-		}
+			if (!empty($this->from_name) && $this->from_name != 'Dream Dinners')
+			{
+				$headers['From'] = '"' . $this->from_name . ' (via Dream Dinners)" ';
+			}
+			else
+			{
+				$headers['From'] = '"Dream Dinners" ';
+			}
 
-		if (!empty($this->from_email) && strpos($this->from_email, '@dreamdinners.com'))
-		{
-			$headers['From'] .= '<' . $this->from_email . '>';
-		}
-		else
-		{
-			$headers['From'] .= '<do-not-reply@dreamdinners.com>';
-		}
+			if (!empty($this->from_email) && strpos($this->from_email, '@dreamdinners.com'))
+			{
+				$headers['From'] .= '<' . $this->from_email . '>';
+			}
+			else
+			{
+				$headers['From'] .= '<do-not-reply@dreamdinners.com>';
+			}
 
-		if ($this->reply_email)
-		{
-			$headers['Reply-To'] = $this->reply_email;
-		}
-		else if (!strpos($this->from_email, '@dreamdinners.com'))
-		{
-			$headers['Reply-To'] = $this->from_email;
+			if ($this->reply_email)
+			{
+				$headers['Reply-To'] = $this->reply_email;
+			}
+			else if (!strpos($this->from_email, '@dreamdinners.com'))
+			{
+				$headers['Reply-To'] = $this->from_email;
+			}
 		}
 
 		// was sending double To: headers

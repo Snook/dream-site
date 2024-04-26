@@ -5,7 +5,7 @@ foreach ($this->menu_items as $id => $item)
 	$this->assignRef('curItem', $item);
 	$mainItem = $this->curItem[key($this->curItem)];
 	$this->itemArray = $this->curItem;
-	if ($mainItem->isVisible())
+	if ($mainItem->isVisibleAndNotHiddenEverywhere())
 	{
 		if (!empty($this->DAO_bundle))
 		{
