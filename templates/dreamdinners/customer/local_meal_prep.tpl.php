@@ -69,7 +69,7 @@
 									</div>
 									<div class="card-body">
 										<h3 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">FREE DELIVERY</h3>
-										<p>Approx. $20 Value</p>
+										<p>Up to 15 miles from store location. Approx. $20 Value</p>
 										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-extra-large">DELIVERFREE</span></p>
 										<!--<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>-->
 									</div>
@@ -217,7 +217,7 @@
 				</div>
 				<div class="row mt-4">
 					<div class="col text-center">
-						<p>*Offer valid for new customers or customers that have not placed a Dream Dinners order in more than 6 months. Offer cannot be combined with Dinner Dollars, other coupons or offers. No cash value. Offer can be redeemed once per guest and is not transferrable. Valid only at participating locations. For local deliveries over 15 miles from the store location, an additional surcharge may charged prior to your delivery. Reach out to your local store to learn more. Offer expires July 31st.</p>
+						<p>Offer valid for new customers or customers that have not placed a Dream Dinners order in more than 6 months. Offer cannot be combined with Dinner Dollars, other coupons or offers. No cash value. Offer can be redeemed once per guest and is not transferrable. Offer expires July 31, 2024. Valid only at participating locations. For local deliveries over 15 miles from the store location, an additional surcharge may charged prior to your delivery. Reach out to your local store to learn more.</p>
 					</div>
 				</div>
 			</div>
