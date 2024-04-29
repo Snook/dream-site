@@ -1,27 +1,25 @@
-
 function reports_user_data_init()
 {
-	
+
 	init_filters();
 
 }
 
-
 function init_filters()
 {
 
-	$("#dfa_All").change(function(){
+	$("#dfa_All").change(function () {
 
 		if (this.checked)
 		{
-			$("[id^=df_]").each(function() {
+			$("[id^=df_]").each(function () {
 				$(this).prop('checked', true).change();
-			//	this.checked = true;
+				//	this.checked = true;
 			});
 		}
 		else
 		{
-			$("[id^=df_]").each(function() {
+			$("[id^=df_]").each(function () {
 				$(this).prop('checked', false).change();
 			});
 		}
@@ -35,12 +33,9 @@ function init_filters()
 			$.totalStorage(this.id, "0");
 		}
 
-
-
 	});
-	
-	
-	$('[id^="rf_"]').each(function(){
+
+	$('[id^="rf_"]').each(function () {
 
 		if ($.totalStorage(this.id) != null)
 		{
@@ -56,7 +51,7 @@ function init_filters()
 
 	});
 
-	$('[id^="rf_"]').bind("mouseup change", function(e){
+	$('[id^="rf_"]').bind("mouseup change", function (e) {
 
 		if (this.checked)
 		{
@@ -69,9 +64,7 @@ function init_filters()
 
 	});
 
-
-
-	$('[id^="df_"]').each(function(){
+	$('[id^="df_"]').each(function () {
 
 		if ($.totalStorage(this.id) != null)
 		{
@@ -87,7 +80,7 @@ function init_filters()
 
 	});
 
-	$('[id^="df_"]').bind("mouseup change", function(e){
+	$('[id^="df_"]').bind("mouseup change", function (e) {
 
 		if (this.checked)
 		{
@@ -100,7 +93,7 @@ function init_filters()
 
 	});
 
-	$("#dfa_All").each(function(){
+	$("#dfa_All").each(function () {
 
 		if ($.totalStorage(this.id) != null)
 		{
@@ -116,54 +109,48 @@ function init_filters()
 
 	});
 
-	$("[id^=guest_type]").bind("mouseup change", function(e){
+	$("[id^=guest_type]").bind("mouseup change", function (e) {
 
 		var selectedValue = "";
 		var selected = $("input[type='radio'][name='guest_type']:checked");
 		if (selected.length > 0)
-		    selectedValue = selected.val();
+		{
+			selectedValue = selected.val();
+		}
 
 		$.totalStorage('guest_type', selectedValue);
-		
+
+		$("#df_INSTRUCTIONS").attr('disabled', 'disabled');
+		$("#df_CUSTOMIZATIONS").attr('disabled', 'disabled');
+		$("#df_INSTRUCTIONS").prop("checked", false);
+		$("#df_CUSTOMIZATIONS").prop("checked", false);
+
 		if (selectedValue == "has_future_sessions")
 		{
 			$("#df_INSTRUCTIONS").attr('disabled', false);
 			$("#df_CUSTOMIZATIONS").attr('disabled', false);
-			$("#df_INSTRUCTIONS").prop( "checked", $.totalStorage('df_INSTRUCTIONS')  );
-			$("#df_CUSTOMIZATIONS").prop( "checked", $.totalStorage('df_CUSTOMIZATIONS')  );
+			$("#df_INSTRUCTIONS").prop("checked", $.totalStorage('df_INSTRUCTIONS'));
+			$("#df_CUSTOMIZATIONS").prop("checked", $.totalStorage('df_CUSTOMIZATIONS'));
 		}
-		else
-		{
-			$("#df_INSTRUCTIONS").attr('disabled', 'disabled');
-			$("#df_CUSTOMIZATIONS").attr('disabled', 'disabled');
-			$("#df_INSTRUCTIONS").prop( "checked", false );
-			$("#df_CUSTOMIZATIONS").prop( "checked", false );
-		}
-		
 	});
-
 
 	if ($.totalStorage('guest_type') != null)
 	{
-	    var $radios = $('input:radio[name=guest_type]');
-	    $radios.filter('[value='+ $.totalStorage('guest_type')  + ']').prop('checked', true);
-	    
+		var $radios = $('input:radio[name=guest_type]');
+		$radios.filter('[value=' + $.totalStorage('guest_type') + ']').prop('checked', true);
+
+		$("#df_INSTRUCTIONS").attr('disabled', 'disabled');
+		$("#df_CUSTOMIZATIONS").attr('disabled', 'disabled');
+		$("#df_INSTRUCTIONS").prop("checked", false);
+		$("#df_CUSTOMIZATIONS").prop("checked", false);
+
 		if ($.totalStorage('guest_type') == "has_future_sessions")
 		{
 			$("#df_INSTRUCTIONS").attr('disabled', false);
 			$("#df_CUSTOMIZATIONS").attr('disabled', false);
-			$("#df_INSTRUCTIONS").prop( "checked", $.totalStorage('df_INSTRUCTIONS')  );
-			$("#df_CUSTOMIZATIONS").prop( "checked", $.totalStorage('df_CUSTOMIZATIONS')  );
+			$("#df_INSTRUCTIONS").prop("checked", $.totalStorage('df_INSTRUCTIONS'));
+			$("#df_CUSTOMIZATIONS").prop("checked", $.totalStorage('df_CUSTOMIZATIONS'));
 		}
-		else
-		{
-			$("#df_INSTRUCTIONS").attr('disabled', 'disabled');
-			$("#df_CUSTOMIZATIONS").attr('disabled', 'disabled');
-			$("#df_INSTRUCTIONS").prop( "checked", false );
-			$("#df_CUSTOMIZATIONS").prop( "checked", false );
-		}
-
 	}
 
 }
-
