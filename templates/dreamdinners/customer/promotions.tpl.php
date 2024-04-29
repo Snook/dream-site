@@ -18,8 +18,67 @@
 	</header>
 
 	<main role="main">
+	<!-- offer -->
+		<section class="bg-cyan-dark">
+			<div class="container mp-5">
+				<div class="row">
+					<div class="col">
+						<div class="text-center">
+							<h2 class="mt-5 mb-1 font-weight-bold text-center text-white">Exclusive May New Customer Offer</h2>
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/white-swash-320x12.webp" alt="swash">
+							<p class="mt-1 mb-5 font-weight-bold text-center text-white">Try Us Today with One of the Following Offers</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section>
+			<div class="container my-5">
+				<div class="" id="" role="tabpanel" aria-labelledby="">
+					<div class="row my-2">
+						<div class="col">
+							<div class="card-group">
+								<div class="card border-0 py-4 px-4 mx-1 text-center">
+									<div class="card-body text-center">
+										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dream-dinners-delivered-458x344.webp" alt="Shipped to your door" class="img-fluid mb-3" />
+									</div>
+									<div class="card-body">
+										<h3 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">FREE SHIPPING</h3>
+										<p>$14.99 Value </p>
+										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-extra-large">SHIPONUS</span></p>
+										<!--<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>-->
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col">
+							<div class="card-group">
+								<div class="card border-0 py-4 px-4 mx-1 text-center">
+									<div class="card-body text-center">
+										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chelsee-hood-458x344.webp" alt="Dream Dinners Home Delivery" class="img-fluid mb-3" />
+									</div>
+									<div class="card-body">
+										<h3 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">FREE DELIVERY</h3>
+										<p>Approx. $20 Value</p>
+										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-extra-large">DELIVERFREE</span></p>
+										<!--<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>-->
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row mt-4">
+					<div class="col text-center">
+					<a href="/locations" class="btn btn-lg btn-green mb-5">Get Started</a>
+						<p>*Offer valid for new customers or customers that have not placed a Dream Dinners order in more than 6 months. Offer cannot be combined with Dinner Dollars, other coupons or offers. No cash value. Offer can be redeemed once per guest and is not transferrable. Valid only at participating locations. For local deliveries over 15 miles from the store location, an additional surcharge may charged prior to your delivery. Reach out to your local store to learn more. Offer expires July 31st.</p>
+					</div>
+				</div>
+					</div>
+				</div>
+			</div>
+		</section>
 		<section>
 			<div class="container-fluid my-5">
+			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 				<div class="row hero-double">
 					<div class="col-md-6 p-0">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/may24-homepage-collage-circles-957x657.webp" alt="Specials" class="img-fluid">

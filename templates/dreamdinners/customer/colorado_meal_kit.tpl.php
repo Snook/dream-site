@@ -158,7 +158,7 @@
 								</div>
 								<div class="card border-0 mx-1 text-left">
 									<div class="card-body py-5 px-5">
-										<h5 class="card-title pt-5">Choose from our monthly menu of 17 menu items and place your online order.</h5>
+										<h5 class="card-title pt-5">Choose from our monthly menu to place your online order.</h5>
 										<p class="card-text">Start with as few as three dinners or plan for the entire month. We also have veggies, starches, breakfasts and desserts ready to add to your order in our Sides & Sweets freezer.</p>
 									</div>
 								</div>
@@ -242,57 +242,6 @@
 			</div>
 		</section>
 
-		<!--<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
-		 Menu Highlights
-		<section>
-			<div class="container my-5">
-				<div class="row">
-					<div class="col">
-						<div class="text-center">
-							<h2 class="mt-4 mb-4 font-weight-bold">Meals Made In A Snap</h2>
-						</div>
-					</div>
-				</div>
-				<div class="row my-5">
-					<div class="col">
-						<div class="card-group text-center mb-2">
-							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-turkey-hand-pies-featured-kid-pick-400x400.webp" alt="Mini Turkey and Vegetable Hand Pies" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Mini Turkey and Vegetable Hand Pies</h5>
-								</div>
-							</div>
-							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-pizzaiola-featured-pan-meal-400x400.webp" alt="Chicken Pizzaiola" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Chicken Pizzaiola</h5>
-								</div>
-							</div>
-							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/italiano-chicken-orzo-featured-30min-less-400x400.webp" alt="Italiano Chicken and Orzo" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Italiano Chicken and Orzo</h5>
-								</div>
-							</div>
-							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/beef-bourguignon-featured-instant-pot-400x400.webp" alt="Beef Bourguignon" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Beef Bourguignon</h5>
-								</div>
-							</div>
-
-						</div>
-					</div>
-				</div>
-				<div>
-					<div class="col">
-						<div class="text-center">
-							<a href="/locations" class="btn btn-lg btn-primary">See Your Local Menu Options</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>-->
 		<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 		<!-- Testimonials -->
 		<section>
