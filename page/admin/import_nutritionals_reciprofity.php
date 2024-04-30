@@ -319,7 +319,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 
 			if ($expectedNumComps == 1 && empty($theseComps[0]))
 			{
-				throw new Exception("Serving Size string missing for {$thisRecipe->recipe_id}");
+			//	throw new Exception("Serving Size string missing for {$thisRecipe->recipe_id}");
 			}
 
 			// create the components
@@ -882,7 +882,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 
 			if ($expectedNumComps == 1 && empty($theseComps[0]))
 			{
-				throw new Exception("Serving Size string missing for {$thisRecipe->recipe_id}");
+			//	throw new Exception("Serving Size string missing for {$thisRecipe->recipe_id}");
 			}
 
 			// create the components
