@@ -57,7 +57,7 @@
 
 
 							<li><a href="/backoffice/order-history?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Order History</a></li>
-							<?php if ($this->store_supports_plate_points && $booking['dream_rewards_version'] != 3) { ?>
+							<?php if (false && $this->store_supports_plate_points && $booking['dream_rewards_version'] != 3) { ?>
 								<li><a href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>&amp;print_enrollment_form=true&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" target="_blank">PP Enroll Form</a></li>
 							<?php } ?>
 

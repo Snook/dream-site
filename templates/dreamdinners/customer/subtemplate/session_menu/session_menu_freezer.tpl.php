@@ -17,7 +17,7 @@
 
 	<div class="row mb-4">
 		<div class="col-md-8 offset-md-2 text-center">
-			These pre-assembled dinners and seasonal sides are only available at your store for a limited time. Items listed below are not customizable. Add them to your order today.
+			These seasonal sides, breakfast options and other delicious treats are only available at your store for a limited time. Items listed below are not customizable. Add them to your order today. 
 		</div>
 	</div>
 

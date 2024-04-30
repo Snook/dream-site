@@ -75,6 +75,23 @@
 					<?php } ?>
 				<?php } ?>
 
+				<!--<?php include $this->loadTemplateIfElse('customer/subtemplate/my_account/monthly/' . $this->monthlyDirectory . '/my_account_monthly.tpl.php', 'customer/subtemplate/my_account/monthly/default/my_account_monthly.tpl.php'); ?>-->
+
+				<div class="row mb-3">
+					<div class="col p-0">
+						<a class="btn btn-primary btn-lg btn-block" href="/session-menu" id="my_account_start">Start order</a>
+					</div>
+				</div>
+				<?php if (!$this->is_delivered_only) { ?>
+					<div class="row mb-2">
+						<?php foreach ($this->printMenus AS $calendar) { ?>
+							<div class="col-6">
+								<a class="btn btn-green-dark-extra btn-sm btn-block" href="/print?store=<?php echo $this->user->home_store_id; ?>&amp;menu=<?php echo $calendar['id']; ?>" target="_blank"><i class="dd-icon icon-print mr-2"></i> Print <?php echo $calendar['menu_name']; ?> Store Menu</a>
+							</div>
+						<?php } ?>
+					</div>
+				<?php } ?>
+			
 			</div>
 
 			<div class="col-md-6 mb-2">
@@ -172,24 +189,7 @@
 				</div>
 			<?php } ?>
 
-			<div class="col-md-6 mb-2">
-				<?php include $this->loadTemplateIfElse('customer/subtemplate/my_account/monthly/' . $this->monthlyDirectory . '/my_account_monthly.tpl.php', 'customer/subtemplate/my_account/monthly/default/my_account_monthly.tpl.php'); ?>
-
-				<div class="row mb-3">
-					<div class="col p-0">
-						<a class="btn btn-primary btn-lg btn-block" href="/session-menu" id="my_account_start">Start order</a>
-					</div>
-				</div>
-				<?php if (!$this->is_delivered_only) { ?>
-					<div class="row mb-2">
-						<?php foreach ($this->printMenus AS $calendar) { ?>
-							<div class="col-6">
-								<a class="btn btn-green-dark-extra btn-sm btn-block" href="/print?store=<?php echo $this->user->home_store_id; ?>&amp;menu=<?php echo $calendar['id']; ?>" target="_blank"><i class="dd-icon icon-print mr-2"></i> Print <?php echo $calendar['menu_name']; ?> Store Menu</a>
-							</div>
-						<?php } ?>
-					</div>
-				<?php } ?>
-			</div>
+			
 
 			<?php if (!$this->is_delivered_only) { ?>
 				<div class="col-xl-6 mb-2 bg-gray-light">
@@ -241,17 +241,6 @@
 							<h5 class="font-weight-semi-bold text-uppercase">You have donated $<?php echo CTemplate::moneyFormat(CUser::getCurrentUser()->LTD_MOTM_Lifetime_total); ?> by purchasing the Dream Dinners Foundation meal of the month</h5>
 							<p class="font-size-small font-italic">*Available at participating store locations.</p>
 						</div>
-					</div>
-				</div>
-			<?php } ?>
-
-			<?php if (false) { ?>
-				<div class="col-xl-6 mb-2 bg-cyan-dark py-2">
-					<div class="col-12 pt-4 text-center">
-						<i class="d-none d-lg-block dd-icon icon-mobile font-size-extra-large text-white mb-2"></i>
-						<h5 class="font-weight-bold text-uppercase text-white">OPT INTO DREAM DINNERS EMAIl &amp; TEXT MESSAGING</h5>
-						<p class="text-white">Get important Dream Dinners info in the palm of your hand like a reminder about your next order. Plus exciting offers, announcements and weekly thaw reminders.</p>
-						<a class="btn btn-gray-dark btn-block mb-3" href="/account">Edit Preferences to Opt In</a>
 					</div>
 				</div>
 			<?php } ?>

@@ -62,6 +62,42 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Have Heart One';
+  font-style: normal;
+  src: url('fonts/Have_Heart/TTF/Have-Heart-One.ttf') format('ttf');
+  src: url('fonts/Have_Heart/OTF/Have-Heart-One.otf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Have Heart Two';
+  font-style: normal;
+  src: url('fonts/Have_Heart/TTF/Have-Heart-Two.ttf') format('ttf');
+  src: url('fonts/Have_Heart/OTF/Have-Heart-Two.otf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Have Heart Swash';
+  font-style: normal;
+  src: url('fonts/Have_Heart/TTF/Have-Heart-Swash.ttf') format('ttf');
+  src: url('fonts/Have_Heart/OTF/Have-Heart-Swash.otf') format('opentype');
+  font-display: swap;
+}
+
 .font-marker {
   font-family: 'Permanent Marker', cursive;
+}
+
+.font-have-heart-one {
+  font-family: 'Have Heart One';
+}
+
+.font-have-heart-two {
+  font-family: 'Have Heart Two';
+}
+
+.font-have-heart-swash {
+  font-family: 'Have Heart Swash';
 }

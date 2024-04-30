@@ -1062,11 +1062,11 @@ class CTemplate extends Savant2
 	// Required scripts for all pages
 	function initOnload()
 	{
-		if (DEBUG || (defined('DD_SERVER_NAME') && (DD_SERVER_NAME != 'LIVE')))
+		if (DEBUG && (defined('SERVER_ENV') && (SERVER_ENV == 'DEV')))
 		{
 			if ($msg = self::getDebugMsg())
 			{
-				self::$head_onload_array[] = "modal_message( { size: 'extra-large', message: '" . str_replace("\n", " \\\n", $msg) . "' } );";
+				self::$head_onload_array[] = "modal_message( { size: 'extra-large', title: 'Testing environment debug message', message: '" . str_replace("\n", " \\\n", $msg) . "' } );";
 			}
 		}
 

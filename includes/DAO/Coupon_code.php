@@ -58,6 +58,7 @@ class DAO_Coupon_code extends DAO
 	public $use_TODD_rules;                     // int(1)
 	public $limit_to_grand_total;           // tinyint(1)
 	public $limit_to_core;           // tinyint(4)
+	public $limit_to_core_and_efl;           // tinyint(4)
 	public $limit_to_finishing_touch;        // int(1)
 	public $limit_to_mfy_fee;           // tinyint(4)
 	public $limit_to_delivery_fee;           // tinyint(4)

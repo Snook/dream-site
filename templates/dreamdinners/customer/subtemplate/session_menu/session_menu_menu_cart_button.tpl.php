@@ -21,9 +21,9 @@
 				<?php } ?>
 			<?php } else if ($this->order_type == COrders::FUNDRAISER || $this->order_type == COrders::DREAM_TASTE) { ?>
 				Select 3 dinners to complete your order.
-			<?php } else {
-				echo $this->standard_minimum_message;
-			} ?>
+			<?php } else { ?>
+				<?php echo $this->standard_minimum_message; ?>
+			<?php } ?>
 		</div>
 	</div>
 </div>

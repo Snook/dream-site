@@ -90,6 +90,7 @@ class COrders extends DAO_Orders
 	public $orderAddress = null;
 
 	public $menu_items_core_total_count;
+	public $menu_items_efl_total_count;
 
 	//calendar setup vars
 	public static $sessionInfo;
@@ -1853,7 +1854,7 @@ class COrders extends DAO_Orders
 			$coreItemsQuantityTotal = 0;
 			foreach ($this->items as $id => $itemInfo)
 			{
-				if ($itemInfo[1]->menu_item_category_id < 4 || ($itemInfo[1]->menu_item_category_id == 4 && $itemInfo[1]->is_store_special == 0))
+				if ($itemInfo[1]->contributesToMinimum())
 				{
 					$coreItemsQuantityTotal += ($itemInfo[1]->item_count_per_item * $itemInfo[0]);
 					$coreServingsTotal += ($itemInfo[1]->servings_per_item * $itemInfo[0]);
@@ -5042,6 +5043,7 @@ class COrders extends DAO_Orders
 		$totalPrice = 0;
 		$totalQty = 0;
 		$totalQtyCore = 0;
+		$totalQtyEFL = 0;
 		$servingsCount = 0;
 		$coreServingsCount = 0;
 
@@ -5124,9 +5126,14 @@ class COrders extends DAO_Orders
 
 				$totalQty += $qty * $DAO_menu_item->item_count_per_item;
 
-				if ($DAO_menu_item->menu_item_category_id == 1 || ($DAO_menu_item->menu_item_category_id == 4 && empty($DAO_menu_item->is_store_special)))
+				if ($DAO_menu_item->isMenuItem_Core())
 				{
 					$totalQtyCore += $qty * $DAO_menu_item->item_count_per_item;
+				}
+
+				if ($DAO_menu_item->isMenuItem_EFL())
+				{
+					$totalQtyEFL += $qty * $DAO_menu_item->item_count_per_item;
 				}
 
 				if ($DAO_menu_item->is_chef_touched)
@@ -5187,6 +5194,7 @@ class COrders extends DAO_Orders
 		$this->subtotal_menu_items = $totalPrice;
 		$this->menu_items_total_count = $totalQty;
 		$this->menu_items_core_total_count = $totalQtyCore;
+		$this->menu_items_efl_total_count = $totalQtyEFL;
 		$this->servings_total_count = $servingsCount;
 		$this->servings_core_total_count = $coreServingsCount;
 
@@ -5204,6 +5212,7 @@ class COrders extends DAO_Orders
 		$supportsMOTM = !is_null($store) ? $store->supports_ltd_roundup : false;
 
 		$this->pcal_core_total = 0;
+		$this->pcal_efl_total = 0;
 		$this->pcal_preassembled_total = 0;
 		$this->pcal_sidedish_total = 0;
 
@@ -5224,6 +5233,20 @@ class COrders extends DAO_Orders
 					{
 						// old method
 						$this->pcal_core_total += $DAO_menu_item->store_price * ($qty - $DAO_menu_item->bundleItemCount);
+					}
+				}
+
+				if ($DAO_menu_item->isMenuItem_EFL())
+				{
+					// Newer dao object method
+					if (!empty($DAO_menu_item->DAO_order_item))
+					{
+						$this->pcal_efl_total += $DAO_menu_item->store_price * ($DAO_menu_item->DAO_order_item->item_count - $DAO_menu_item->DAO_order_item->bundle_item_count);
+					}
+					else
+					{
+						// old method
+						$this->pcal_efl_total += $DAO_menu_item->store_price * ($qty - $DAO_menu_item->bundleItemCount);
 					}
 				}
 
@@ -10350,7 +10373,12 @@ class COrders extends DAO_Orders
 
 	function getAvgCostPerServing()
 	{
-		return $this->getFoodTotal() / $this->getServingsTotalCount();
+		if ($this->getFoodTotal() > 0)
+		{
+			return $this->getFoodTotal() / $this->getServingsTotalCount();
+		}
+
+		return 0;
 	}
 
 	function getAvgCostPerServingCore()

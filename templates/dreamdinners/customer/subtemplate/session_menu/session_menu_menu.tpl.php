@@ -5,7 +5,7 @@ foreach ($this->menu_items as $id => $item)
 	$this->assignRef('curItem', $item);
 	$mainItem = $this->curItem[key($this->curItem)];
 	$this->itemArray = $this->curItem;
-	if ($mainItem->isVisible())
+	if ($mainItem->isVisibleAndNotHiddenEverywhere())
 	{
 		if (!empty($this->DAO_bundle))
 		{
@@ -16,11 +16,11 @@ foreach ($this->menu_items as $id => $item)
 		}
 		else
 		{
-			if ($this->menu_view == 'session_menu' && $mainItem->isMenuItem_Core())
+			if ($this->menu_view == 'session_menu' && ($mainItem->isMenuItem_Core() || $mainItem->isMenuItem_EFL()))
 			{
 				include $this->loadTemplate('customer/subtemplate/session_menu/session_menu_menu_item.tpl.php');
 			}
-			else if ($this->menu_view == 'session_menu_freezer' && $mainItem->isFreezer())
+			else if ($this->menu_view == 'session_menu_freezer' && $mainItem->isMenuItem_SidesSweets())
 			{
 				include $this->loadTemplate('customer/subtemplate/session_menu/session_menu_menu_item.tpl.php');
 			}

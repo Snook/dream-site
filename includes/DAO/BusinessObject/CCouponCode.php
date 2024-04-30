@@ -1073,7 +1073,7 @@ class CCouponCode extends DAO_Coupon_code
 		}
 
 		// MINIMUM ITEMS
-		if (!empty($this->minimum_item_count) && $Order->menu_items_core_total_count < $this->minimum_item_count)
+		if (!empty($this->minimum_item_count) && ($Order->menu_items_core_total_count + $Order->menu_items_efl_total_count) < $this->minimum_item_count)
 		{
 			$errorArray[] = array(
 				'minimum_item_amount_not_met',
@@ -1601,7 +1601,7 @@ class CCouponCode extends DAO_Coupon_code
 		}
 
 		// MINIMUM ITEMS
-		if (!empty($this->minimum_item_count) && $Order->menu_items_core_total_count < $this->minimum_item_count)
+		if (!empty($this->minimum_item_count) && ($Order->menu_items_core_total_count + $Order->menu_items_efl_total_count) < $this->minimum_item_count)
 		{
 			$errorArray[] = array(
 				'minimum_item_amount_not_met',
@@ -1654,7 +1654,7 @@ class CCouponCode extends DAO_Coupon_code
 
 	/**
 	 * Calculates the price reduction from an order.
-	 * @return the dollar amount of the discount or false if the promo does
+	 * return the dollar amount of the discount or false if the promo does
 	 * not apply to the order.
 	 *    CES: 1-30-07 Added $markup override: if supplied use the passed in markup
 	 *    otherwise use the current store markup
@@ -1719,6 +1719,16 @@ class CCouponCode extends DAO_Coupon_code
 			}
 		}
 
+		if ($this->limit_to_core_and_efl)
+		{
+			$total = $Order->pcal_core_total + $Order->pcal_efl_total;
+
+			if ($this->discount_var > $total)
+			{
+				return $total;
+			}
+		}
+
 		if ($this->limit_to_finishing_touch)
 		{
 			if ($this->discount_var > $Order->pcal_sidedish_total)
@@ -1761,6 +1771,14 @@ class CCouponCode extends DAO_Coupon_code
 		if ($this->limit_to_core)
 		{
 			$base = $Order->pcal_core_total;
+			$discount = CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
+
+			return $discount;
+		}
+
+		if ($this->limit_to_core_and_efl)
+		{
+			$base = $Order->pcal_core_total + $Order->pcal_efl_total;
 			$discount = CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 
 			return $discount;

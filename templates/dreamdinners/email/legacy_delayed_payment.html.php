@@ -31,7 +31,7 @@
 <hr width="100%" size="1" noshade color="#666666" style="color: #666; height:1px; border: 0;"></td>
 </tr>
 <tr>
- <td><a href="http://blog.dreamdinners.com">Dream Dinners Blog</a> | <a href="<?php echo HTTPS_BASE?>locations/<?php echo $this->store_id?>">Contact your local store</a> |
+ <td><a href="http://blog.dreamdinners.com">Dream Dinners Blog</a> | <a href="<?php echo HTTPS_BASE?>location/<?php echo $this->store_id?>">Contact your local store</a> |
 <a href="<?php echo HTTPS_BASE?>terms">View Terms and Conditions</a></td>
 </tr>
 </table>

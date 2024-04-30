@@ -6733,6 +6733,7 @@ function calculateTotal()
 	let bundlesSubTotal = 0;
 	let productsSubTotal = 0;
 	let coreItemsSubtotal = 0;
+	let eflItemsSubtotal = 0;
 	let bundlesQty = 0;
 	let discounted_total = 0;
 	let creditContribution = 0;
@@ -6850,6 +6851,11 @@ function calculateTotal()
 					{
 						core_servings += itemQty * $(this).data('servings');
 						coreItemsSubtotal += itemQty * $(this).data('price');
+					}
+
+					if ($(this).data('menu_class') == 'Extended Fast Lane')
+					{
+						eflItemsSubtotal += itemQty * $(this).data('price');
 					}
 
 					if ($(this).data('pricing_type') == 'FULL')
@@ -7466,6 +7472,27 @@ function calculateTotal()
 		if (coupon.limit_to_core == '1')
 		{
 			let base = coreItemsSubtotal;
+
+			if (coupon.discount_method == 'FLAT')
+			{
+				if (base > coupon.discount_var)
+				{
+					couponDiscountVal = coupon.discount_var;
+				}
+				else
+				{
+					couponDiscountVal = formatAsMoney(base);
+				}
+			}
+			else if (coupon.discount_method == 'PERCENT')
+			{
+				couponDiscountVal = formatAsMoney(base * (coupon.discount_var / 100));
+			}
+		}
+
+		if (coupon.limit_to_core_and_efl == '1')
+		{
+			let base = coreItemsSubtotal + eflItemsSubtotal;
 
 			if (coupon.discount_method == 'FLAT')
 			{
