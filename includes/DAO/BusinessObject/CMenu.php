@@ -69,8 +69,6 @@ class CMenu extends DAO_Menu
 			264,
 			//  Torrance
 			241,
-			//  Redlands
-			229,
 			//  Arvada
 			63,
 			//  Blue Ash
