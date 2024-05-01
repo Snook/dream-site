@@ -441,7 +441,7 @@
 		<div class="form-group col-md-6">
 			<div class="input-group">
 				<div class="input-group-prepend">
-					<label class="input-group-text font-size-small" for="minimum_servings_count">Contribute to Minimum items</label>
+					<label class="input-group-text font-size-small" for="minimum_servings_count">Contribute to Minimum servings</label>
 				</div>
 				<?php echo $this->CouponForm['minimum_servings_count_html']; ?>
 			</div>
