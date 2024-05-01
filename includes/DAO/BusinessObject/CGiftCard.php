@@ -1439,7 +1439,7 @@ class CGiftCard extends DAO_Gift_card_transaction
 		$DAO_store->selectAdd("store.merchant_id");
 		$DAO_store->selectAdd("store.terminal_id");
 
-		if ($DAO_store->find())
+		if ($DAO_store->find(true))
 		{
 			CLog::RecordNew(CLog::DEBUG, "GC_DEBUG: Using store " . $DAO_store->id . " merchant  " . $DAO_store->merchant_id . " terminal " . $DAO_store->terminal_id . " in getStoreDetails");
 
