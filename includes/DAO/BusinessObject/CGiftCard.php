@@ -76,6 +76,8 @@ class CGiftCard extends DAO_Gift_card_transaction
 
 		if (!is_numeric($gift_card_number))
 		{
+			CLog::RecordNew(CLog::DEBUG, "GC_DEBUG: Non numeric entry in checkBalanceDebitGiftCard");
+
 			return "Invalid Card";
 		}
 
@@ -123,13 +125,15 @@ class CGiftCard extends DAO_Gift_card_transaction
 		{
 			case '01': //Declined
 				//echo "Declined<br />".$retarr['Response_Text']."<br />";
+				CLog::RecordNew(CLog::DEBUG, "GC_DEBUG: Declined response code in checkBalanceDebitGiftCard: {$retarr['Response_Code']} | {$retarr['Response_Text']}");
+
 				return "Invalid Card";
 			case '00': //Accepted
 				// echo "Your Gift Card Balance is: ".$retarr['Amount_Balance']."<br />";
 				return $retarr['Amount_Balance'];
 			default:
 			{
-				CLog::RecordNew(CLog::DEBUG, "GC_DEBUG: Unexpected responce code in checkBalanceDebitGiftCard: {$retarr['Response_Code']} | {$retarr['Response_Text']}");
+				CLog::RecordNew(CLog::DEBUG, "GC_DEBUG: Unexpected response code in checkBalanceDebitGiftCard: {$retarr['Response_Code']} | {$retarr['Response_Text']}");
 
 				return "Invalid Card";
 			}
