@@ -526,7 +526,7 @@
 			</tr>
 			<?php if (!empty($this->store_supports_store_specific_deposit)) { ?>
 				<tr>
-					<td class="bgcolor_light" style="text-align: right;">Delayed Payment Deposit Amount:<br /><span style="font-size:smaller;">($20 minimum, set to $0 to disable option)</span></td>
+					<td class="bgcolor_light" style="text-align: right;">Delayed Payment Deposit Amount:<br /><span style="font-size:smaller;">($20 minimum)</span></td>
 					<td class="bgcolor_light">
 						<div class="input-group">
 							<div class="input-group-prepend">
