@@ -28,35 +28,40 @@ require_once("CTemplate.inc");
 
 	function runSiteAdmin()
 	{
-	 	$this->runFranchiseOwner();
+	 	$this->runGiftCardBalance();
 	}
 
     function runFranchiseStaff()
     {
-		$this->runFranchiseOwner();
+		$this->runGiftCardBalance();
 	}
 
 	function runCustomer()
 	{
-		$this->runFranchiseOwner();
+		$this->runGiftCardBalance();
 	}
 
 	function runFranchiseManager()
 	{
-		$this->runFranchiseOwner();
+		$this->runGiftCardBalance();
 	}
 
 	function runOpsLead()
 	{
-		$this->runFranchiseOwner();
+		$this->runGiftCardBalance();
 	}
 
 	function runHomeOfficeManager()
 	{
-		$this->runFranchiseOwner();
+		$this->runGiftCardBalance();
 	}
 
-	function runFranchiseOwner()
+	 function runFranchiseOwner()
+	 {
+		 $this->runGiftCardBalance();
+	 }
+
+	function runGiftCardBalance()
 	{
 		header('Pragma: no-cache');
 		header("Cache-Control: no-store,no-cache, must-revalidate"); // HTTP/1.1

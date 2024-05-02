@@ -157,7 +157,8 @@ class page_admin_create_store extends CPageAdminOnly {
 		 	$Store->do_run_dream_rewards_cron_tasks = 1;
 		 	$Store->supports_free_assembly_promotion = 0;
 		 	$Store->supports_dream_rewards = 0;
-		 	$Store->supports_plate_points = 1;
+			$Store->supports_plate_points = 1;
+			$Store->supports_delayed_payment = 1;
 		 	$Store->supports_order_manager = 1;
 		 	$Store->ddu_id = str_replace("&", "and", $Store->store_name);
 

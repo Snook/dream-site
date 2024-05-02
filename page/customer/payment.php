@@ -303,7 +303,6 @@ class page_payment extends CPage
 				$Form->AddElement(array(
 					CForm::type => CForm::RadioButton,
 					CForm::name => "is_store_specific_flat_rate_delayed_payment",
-					CForm::label => 'Pay full balance now',
 					CForm::required => false,
 					CForm::label => 'Pay $' . CTemplate::moneyFormat($defaultDeposit) . ' deposit now with remaining balance automatically processed 5 days prior to visit',
 					CForm::value => '1'
@@ -645,7 +644,7 @@ class page_payment extends CPage
 		// recent session
 
 		$allowDelayedPayment = false;
-		if (($sessionObj->session_type == CSession::STANDARD || $sessionObj->isMadeForYou()) && !$Order->isNewIntroOffer())
+		if ($sessionObj->delayedPaymentEligible($OrderStore))
 		{
 			$allowDelayedPayment = true;
 		}

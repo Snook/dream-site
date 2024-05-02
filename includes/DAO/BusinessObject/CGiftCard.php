@@ -76,6 +76,8 @@ class CGiftCard extends DAO_Gift_card_transaction
 
 		if (!is_numeric($gift_card_number))
 		{
+			CLog::RecordNew(CLog::DEBUG, "GC_DEBUG: Non numeric entry in checkBalanceDebitGiftCard");
+
 			return "Invalid Card";
 		}
 
@@ -123,13 +125,15 @@ class CGiftCard extends DAO_Gift_card_transaction
 		{
 			case '01': //Declined
 				//echo "Declined<br />".$retarr['Response_Text']."<br />";
+				CLog::RecordNew(CLog::DEBUG, "GC_DEBUG: Declined response code in checkBalanceDebitGiftCard: {$retarr['Response_Code']} | {$retarr['Response_Text']}");
+
 				return "Invalid Card";
 			case '00': //Accepted
 				// echo "Your Gift Card Balance is: ".$retarr['Amount_Balance']."<br />";
 				return $retarr['Amount_Balance'];
 			default:
 			{
-				CLog::RecordNew(CLog::DEBUG, "GC_DEBUG: Unexpected responce code in checkBalanceDebitGiftCard: {$retarr['Response_Code']} | {$retarr['Response_Text']}");
+				CLog::RecordNew(CLog::DEBUG, "GC_DEBUG: Unexpected response code in checkBalanceDebitGiftCard: {$retarr['Response_Code']} | {$retarr['Response_Text']}");
 
 				return "Invalid Card";
 			}
@@ -1415,7 +1419,7 @@ class CGiftCard extends DAO_Gift_card_transaction
 			return $retVal;
 		}
 
-		$gcOrder = DAO_CFactory::create('store');
+		$DAO_store = DAO_CFactory::create('store', true);
 
 		if (!$storeId || empty($storeId))
 		{
@@ -1429,33 +1433,40 @@ class CGiftCard extends DAO_Gift_card_transaction
 			}
 		}
 
-		$gcOrder->id = $storeId;
+		$DAO_store->id = $storeId;
+		$DAO_store->active = 1;
+		$DAO_store->selectAdd();
+		$DAO_store->selectAdd("store.merchant_id");
+		$DAO_store->selectAdd("store.terminal_id");
 
-		$gcOrder->selectAdd();
-		$gcOrder->selectAdd("merchant_id");
-		$gcOrder->selectAdd("terminal_id");
-
-		$gcOrder->find();
-
-		while ($gcOrder->fetch())
+		if ($DAO_store->find(true))
 		{
-			if ($gcOrder->merchant_id)
+			CLog::RecordNew(CLog::DEBUG, "GC_DEBUG: Using store " . $DAO_store->id . " merchant  " . $DAO_store->merchant_id . " terminal " . $DAO_store->terminal_id . " in getStoreDetails");
+
+			if (!empty($DAO_store->merchant_id))
 			{
-				$retVal['merchantNumber'] = $gcOrder->merchant_id;
+				$retVal['merchantNumber'] = $DAO_store->merchant_id;
 			}
 			else
 			{
 				$retVal['merchantNumber'] = DEBIT_GIFT_CARD_MERCHANT_NUMBER;
 			}
-			if ($gcOrder->terminal_id)
+			if (!empty($DAO_store->terminal_id))
 			{
-				$retVal['terminalNumber'] = $gcOrder->terminal_id;
+				$retVal['terminalNumber'] = $DAO_store->terminal_id;
 			}
 			else
 			{
 				$retVal['terminalNumber'] = DEBIT_GIFT_CARD_TERMINAL_ID;
 			}
 		}
+		else
+		{
+			$retVal['merchantNumber'] = DEBIT_GIFT_CARD_MERCHANT_NUMBER;
+			$retVal['terminalNumber'] = DEBIT_GIFT_CARD_TERMINAL_ID;
+		}
+
+		CLog::RecordNew(CLog::DEBUG, "GC_DEBUG: Using retval merchant " . $retVal['merchantNumber'] . " terminal " . $retVal['terminalNumber'] . " in getStoreDetails");
 
 		return $retVal;
 	}

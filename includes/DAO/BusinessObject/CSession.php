@@ -2171,6 +2171,27 @@ class CSession extends DAO_Session
 		return ($tmpObj->N == 1);
 	}
 
+	function delayedPaymentEligible($DAO_store)
+	{
+		if (!$DAO_store->supportsDelayedPayment())
+		{
+			return false;
+		}
+
+		if (!$this->isStandard() && !$this->isMadeForYou())
+		{
+			return false;
+		}
+
+		$sessionTS = strtotime($this->session_start) - 518400; // allow delayed payment 6 days prior
+		if (strtotime("now") >= $sessionTS)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	function isStandard()
 	{
 		return ($this->session_type == CSession::STANDARD && empty($this->session_password));

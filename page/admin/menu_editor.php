@@ -45,7 +45,7 @@ class page_admin_menu_editor extends CPageAdminOnly
 
 		// Setup Menu Dropdown
 		$array_DAO_menu = DAO_CFactory::create('menu', true);
-		$array_DAO_menu->whereAdd("menu.global_menu_start_date >= DATE_FORMAT(NOW(),'%Y-%m-%d') OR ( menu.global_menu_start_date <= DATE_FORMAT(NOW(),'%Y-%m-%d') AND menu.global_menu_end_date >= DATE_FORMAT(NOW(),'%Y-%m-%d') )");
+		$array_DAO_menu->whereAdd("menu.global_menu_start_date >= DATE_FORMAT(NOW() - INTERVAL 1 MONTH,'%Y-%m-%d') OR ( menu.global_menu_start_date <= DATE_FORMAT(NOW(),'%Y-%m-%d') AND menu.global_menu_end_date >= DATE_FORMAT(NOW(),'%Y-%m-%d') )");
 		$array_DAO_menu->orderBy("menu.id DESC");
 		$array_DAO_menu->find_DAO_menu();
 

@@ -3405,16 +3405,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 			if ($sessionObj && $order_state != 'ACTIVE')
 			{
-
-				$sessionTS = strtotime($sessionObj->session_start) - 518400; // allow delayed payment 6 days prior
-				if (strtotime("now") < $sessionTS)
-				{
-					$tpl->assign('canDelayPayment', true);
-				}
-				else
-				{
-					$tpl->assign('canDelayPayment', false);
-				}
+				$tpl->assign('canDelayPayment', $sessionObj->delayedPaymentEligible($Store));
 
 				if (!isset($Form->DefaultValues['payment' . $i . '_is_store_specific_flat_rate_deposit_delayed_payment']))
 				{

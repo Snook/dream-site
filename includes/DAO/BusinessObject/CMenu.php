@@ -69,10 +69,12 @@ class CMenu extends DAO_Menu
 			264,
 			//  Torrance
 			241,
-			//  Redlands
-			229,
 			//  Arvada
-			63
+			63,
+			//  Blue Ash
+			91,
+			//  Parker
+			30
 		);
 
 		// June or July 2024

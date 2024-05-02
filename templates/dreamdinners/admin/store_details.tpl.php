@@ -524,7 +524,13 @@
 			<tr>
 				<td class="bgcolor_dark catagory_row" colspan="2">Financial Settings</td>
 			</tr>
-			<?php if (!empty($this->store_supports_store_specific_deposit)) { ?>
+			<?php if (!$this->DAO_store->isDistributionCenter()) { ?>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Delayed Payment Supported:</td>
+					<td class="bgcolor_light">
+						<?php echo $this->form_store_details['supports_delayed_payment_html']; ?>
+					</td>
+				</tr>
 				<tr>
 					<td class="bgcolor_light" style="text-align: right;">Delayed Payment Deposit Amount:<br /><span style="font-size:smaller;">($20 minimum)</span></td>
 					<td class="bgcolor_light">
@@ -536,18 +542,18 @@
 						</div>
 					</td>
 				</tr>
-			<?php } ?>
-			<tr>
-				<td class="bgcolor_light" style="text-align: right;">Delayed Payment Order Minimum<br /><span style="font-size:smaller;">($0.00 indicates no minimum)</span></td>
-				<td class="bgcolor_light">
-					<div class="input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text">$</span>
+				<tr>
+					<td class="bgcolor_light" style="text-align: right;">Delayed Payment Order Minimum<br /><span style="font-size:smaller;">($0.00 indicates no minimum)</span></td>
+					<td class="bgcolor_light">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">$</span>
+							</div>
+							<?php echo $this->form_store_details['delayed_payment_order_minimum_html']; ?>
 						</div>
-						<?php echo $this->form_store_details['delayed_payment_order_minimum_html']; ?>
-					</div>
-				</td>
-			</tr>
+					</td>
+				</tr>
+			<?php } ?>
 			<tr>
 				<td class="bgcolor_light" style="text-align: right;">Guest Home Delivery Fee:</td>
 				<td class="bgcolor_light">
