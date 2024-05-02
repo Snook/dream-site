@@ -478,7 +478,7 @@ class CStore extends DAO_Store
 
 	function supportsDelayedPayment()
 	{
-		if (empty($this->supports_delayed_payment))
+		if ($this->isDistributionCenter() || empty($this->supports_delayed_payment))
 		{
 			return false;
 		}
