@@ -644,7 +644,7 @@ class page_payment extends CPage
 		// recent session
 
 		$allowDelayedPayment = false;
-		if (!empty($StoreObj->default_delayed_payment_deposit) && ($sessionObj->isStandard() || $sessionObj->isMadeForYou()))
+		if ($OrderStore->supportsDelayedPayment() && ($sessionObj->isStandard() || $sessionObj->isMadeForYou()))
 		{
 			$allowDelayedPayment = true;
 		}

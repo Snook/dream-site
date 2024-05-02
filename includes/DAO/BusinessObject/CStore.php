@@ -476,6 +476,16 @@ class CStore extends DAO_Store
 		return true;
 	}
 
+	function supportsDelayedPayment()
+	{
+		if (empty($this->supports_delayed_payment))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	static function storeSupportsStoreSpecificDeposit($store_id, $menu_id = 0)
 	{
 		return true;

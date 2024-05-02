@@ -1060,24 +1060,25 @@ class page_admin_store_details extends CPageAdminOnly
 				CForm::value => "Save"
 			));
 
-			if (CStore::storeSupportsStoreSpecificDeposit($DAO_store->id))
-			{
-				$Form->AddElement(array(
-					CForm::type => CForm::Number,
-					CForm::disabled => $disabledForm,
-					CForm::name => "default_delayed_payment_deposit",
-					CForm::min => 20,
-					CForm::step => 0.01,
-					CForm::number => true,
-					CForm::required => true
-				));
-
-				$this->Template->assign('store_supports_store_specific_deposit', true);
-			}
+			$Form->AddElement(array(
+				CForm::type => CForm::CheckBox,
+				CForm::name => 'supports_delayed_payment',
+				CForm::label => 'Support Delayed Payment'
+			));
 
 			$Form->AddElement(array(
 				CForm::type => CForm::Number,
-				CForm::disabled => $disabledForm,
+				CForm::disabled => !$DAO_store->supportsDelayedPayment(),
+				CForm::name => "default_delayed_payment_deposit",
+				CForm::min => 20,
+				CForm::step => 0.01,
+				CForm::number => true,
+				CForm::required => true
+			));
+
+			$Form->AddElement(array(
+				CForm::type => CForm::Number,
+				CForm::disabled => !$DAO_store->supportsDelayedPayment(),
 				CForm::name => "delayed_payment_order_minimum",
 				CForm::min => 0,
 				CForm::step => 0.01,
@@ -1548,7 +1549,7 @@ class page_admin_store_details extends CPageAdminOnly
 						$storeUpdated->default_delayed_payment_deposit = 20;
 						$this->Template->setStatusMsg("Delayed Payment deposit must be at least $20. The deposit was set to $20.");
 					}
-					else
+					else if (isset($_POST['default_delayed_payment_deposit']))
 					{
 						$storeUpdated->default_delayed_payment_deposit = CGPC::do_clean($_POST['default_delayed_payment_deposit'], TYPE_NUM);
 					}
@@ -1557,7 +1558,7 @@ class page_admin_store_details extends CPageAdminOnly
 					{
 						$storeUpdated->delayed_payment_order_minimum = CGPC::do_clean($_POST['delayed_payment_order_minimum'], TYPE_NUM);
 					}
-					else
+					else if (isset($_POST['delayed_payment_order_minimum']))
 					{
 						$storeUpdated->delayed_payment_order_minimum = 0;
 					}

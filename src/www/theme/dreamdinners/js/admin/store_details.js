@@ -52,6 +52,19 @@ function store_details_init()
 		}
 	});
 
+	$(document).on('change', '#supports_delayed_payment', function (e) {
+
+		if($(this).is(':checked'))
+		{
+			$('#default_delayed_payment_deposit, #delayed_payment_order_minimum').prop({disabled: false})
+		}
+		else
+		{
+			$('#default_delayed_payment_deposit, #delayed_payment_order_minimum').prop({disabled: true})
+		}
+
+	});
+
 	$(document).on('focusout', '#social_twitter, #social_facebook, #social_instagram', function (e) {
 
 		if ($(this).val() == '')
