@@ -2032,14 +2032,17 @@ class CMenuItem extends DAO_Menu_item
 
 	function isWithinPriceTiers()
 	{
-		if ($this->store_price > $this->pricing_tiers[3][$this->pricing_type]->price)
+		if (!empty($this->pricing_tiers))
 		{
-			return false;
-		}
+			if (!empty($this->pricing_tiers[3][$this->pricing_type]) && $this->store_price > $this->pricing_tiers[3][$this->pricing_type]->price)
+			{
+				return false;
+			}
 
-		if ($this->store_price < $this->pricing_tiers[1][$this->pricing_type]->price)
-		{
-			return false;
+			if (!empty($this->pricing_tiers[1][$this->pricing_type]) && $this->store_price < $this->pricing_tiers[1][$this->pricing_type]->price)
+			{
+				return false;
+			}
 		}
 
 		return true;
