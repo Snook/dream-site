@@ -138,7 +138,7 @@
 															<i class="fas fa-exclamation-triangle text-danger" data-toggle="tooltip" data-placement="top" title="Price outside highest tier price<?php echo !empty($DAO_menu_item->pricing_tiers[3][$DAO_menu_item->pricing_type]->price) ? ' of ' . $DAO_menu_item->pricing_tiers[3][$DAO_menu_item->pricing_type]->price : ''; ?> and lowest tier price<?php echo !empty($DAO_menu_item->pricing_tiers[1][$DAO_menu_item->pricing_type]->price) ? ' of ' . $DAO_menu_item->pricing_tiers[1][$DAO_menu_item->pricing_type]->price : ''; ?>"></i>
 														</span>
 														<span class="ovr-alert-warning input-group-text collapse <?php if (!$DAO_menu_item->isRecommendedPricingFormat()) { ?>show<?php } ?>" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>">
-															<i class="fas fa-exclamation-circle text-warning" data-toggle="tooltip" data-placement="top" title="Recommended pricing ends with .49 or .99"></i>
+															<i class="fas fa-exclamation-circle text-warning" data-toggle="tooltip" data-placement="top" title="Best practice pricing ends with .49 or .99"></i>
 														</span>
 													</div>
 												</div>
@@ -220,7 +220,7 @@
 															<i class="fas fa-exclamation-triangle text-danger" data-toggle="tooltip" data-placement="top" title="Price outside highest tier price<?php echo !empty($DAO_menu_item->pricing_tiers[3][$DAO_menu_item->pricing_type]->price) ? ' of ' . $DAO_menu_item->pricing_tiers[3][$DAO_menu_item->pricing_type]->price : ''; ?> and lowest tier price<?php echo !empty($DAO_menu_item->pricing_tiers[1][$DAO_menu_item->pricing_type]->price) ? ' of ' . $DAO_menu_item->pricing_tiers[1][$DAO_menu_item->pricing_type]->price : ''; ?>"></i>
 														</span>
 														<span class="ovr-alert-warning input-group-text collapse <?php if (!$DAO_menu_item->isRecommendedPricingFormat()) { ?>show<?php } ?>" data-menu_item_id="<?php echo $DAO_menu_item->id; ?>">
-															<i class="fas fa-exclamation-circle text-warning" data-toggle="tooltip" data-placement="top" title="Recommended pricing ends with .49 or .99"></i>
+															<i class="fas fa-exclamation-circle text-warning" data-toggle="tooltip" data-placement="top" title="Best practice pricing ends with .49 or .99"></i>
 														</span>
 													</div>
 												</div>
@@ -433,7 +433,7 @@
 				<div class="col-7">
 					<ul class="list-unstyled">
 						<li><i class="fas fa-exclamation-triangle text-danger" data-toggle="tooltip" data-placement="top" title="Price outside highest and lowest tier prices"></i> Price outside highest and lowest tier prices</li>
-						<li><i class="fas fa-exclamation-circle text-warning" data-toggle="tooltip" data-placement="top" title="Recommended pricing ends with .49 or .99"></i> Recommended pricing ends with .49 or .99</li>
+						<li><i class="fas fa-exclamation-circle text-warning" data-toggle="tooltip" data-placement="top" title="Best practice pricing ends with .49 or .99"></i> Best practice pricing ends with .49 or .99</li>
 					</ul>
 				</div>
 			</div>
