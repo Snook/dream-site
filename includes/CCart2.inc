@@ -1899,21 +1899,16 @@ class CCart2
 
 	function addStoreCredit($Arr, $directStore = false)
 	{
-
-		if ($directStore)
-		{
-			// if direct store we need to build the payment array, the payment array is needed to determine whether the store credit already exists in the cart
-			$this->_PaymentArray = $this->_storage->retrieveAllPayments($this->_cart_contents_id);
-		}
+		// the payment array is needed to determine whether the store credit already exists in the cart
+		$this->_PaymentArray = $this->_storage->retrieveAllPayments($this->_cart_contents_id);
 
 		foreach ($Arr as $id => $SCPayment)
 		{
-
 			// check to see if the store credit is in the payment list
 			$canAdd = true;
 			foreach ($this->_PaymentArray as $data)
 			{
-				if ($data['payment_type'] == 'store_credit' && $data['paymentData']['store_credit_id'] == $id)
+				if ($data['payment_type'] == 'store_credit' && $data["paymentData"]["store_credit_id"] == $id)
 				{
 					$canAdd = false;
 					break;

@@ -362,7 +362,7 @@ $(function () {
 					$('[data-cart_box_id="' + box_instance_id + '"]').slideUp(function(e) {
 						$(this).remove();
 
-						$('.cart-total').text(json.data.total_items_price);
+						$('.cart-total').text(formatAsMoney(json.data.total_items_price));
 					});
 				}
 				else

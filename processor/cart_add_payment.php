@@ -114,7 +114,7 @@ class processor_cart_add_payment extends CPageProcessor
 		}
 
 		$cart = CCart2::instance(false);
-		$cart->addStoreCredit($Store_Credit_Array, false, true);
+		$cart->addStoreCredit($Store_Credit_Array);
 
 		$html = '<img id="remove-credits" src="' . IMAGES_PATH . '/icon/delete.png" alt="Remove" class="img_valign" data-tooltip="Remove Payment" /><span id="checkout_title-credits"> Store Credits</span>';
 		$html .= '<span class="value">(<span id="checkout_total_payment-credits">' . CTemplate::moneyFormat($totalCredit) . '</span>)</span>';
