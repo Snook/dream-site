@@ -2074,7 +2074,7 @@ class page_checkout extends CPage
 			CForm::readonly => ($Session->session_type == CSession::DELIVERED)
 		));
 
-		if ($Order->getSessionType() == CSession::DELIVERED)
+		if ($Order->isDelivered())
 		{
 			$Form->AddElement(array(
 				CForm::type => CForm::Tel,
@@ -2149,6 +2149,19 @@ class page_checkout extends CPage
 			CForm::name => 'shipping_address_note',
 			CForm::required => false
 		));
+
+		if ($Order->eligibleForDeliveryTip())
+		{
+			$Form->DefaultValues['delivery_tip'] = '10.00';
+			$Form->AddElement(array(
+				CForm::type => CForm::Number,
+				CForm::name => 'delivery_tip',
+				CForm::min => 0,
+				CForm::step => 0.01,
+				CForm::readonly => true,
+				CForm::required => false
+			));
+		}
 
 		// Gift Cards widgets
 		$Form->AddElement(array(

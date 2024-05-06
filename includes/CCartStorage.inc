@@ -673,6 +673,12 @@ class CCartStorage
 			$round_up_clause = "ltd_round_up_value = {$orderObj->ltd_round_up_value}";
 		}
 
+		$delivery_tip_clause = "delivery_tip = null";
+		if (isset($orderObj->delivery_tip) && is_numeric($orderObj->delivery_tip))
+		{
+			$delivery_tip_clause = "delivery_tip = {$orderObj->delivery_tip}";
+		}
+
 		$bundle_clause = "bundle_id = null";
 		if (!empty($orderObj->bundle_id) && is_numeric($orderObj->bundle_id))
 		{
@@ -746,6 +752,7 @@ class CCartStorage
 			$service_fee_clause,
 			service_fee_description = '{$orderObj->service_fee_description}',
 			$round_up_clause, 
+			$delivery_tip_clause,
 			$bundle_clause, 
 			$coupon_clause, 
 			$promo_clause, 
