@@ -23,6 +23,9 @@
 							<span class="input-group-text">Report</span>
 						</div>
 						<?php echo $this->form['marketing_report_html']; ?>
+						<div class="input-group-append collapse report-option option-multi-store-select">
+							<?php echo $this->form['multi_store_select_html']; ?>
+						</div>
 					</div>
 				</div>
 				<div class="form-group col-12 report-description font-size-medium-small"></div>
@@ -47,6 +50,7 @@
 						<?php echo $this->form['month_end_html']; ?>
 					</div>
 				</div>
+
 			</div>
 
 			<div class="form-row">

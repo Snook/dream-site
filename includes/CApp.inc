@@ -39,23 +39,25 @@ class CApp
 		$this->_template = new CTemplate();
 	}
 
-
 	function __construct()
 	{
 
 		//if (DEBUG)
 		//{
-			register_shutdown_function(function () {
-				$error = error_get_last();
-				if (null !== $error)
+		register_shutdown_function(function () {
+			$error = error_get_last();
+			if (null !== $error)
+			{
+				if (!in_array($error['type'], array(
+					2,
+					8
+				)))
 				{
-					if (!in_array($error['type'], array(2, 8)))
-					{
-						require_once("CLog.inc");
-						CLog::RecordNew('ERROR', "FATAL ERROR: " . print_r($error, true), "", "", true);
-					}
+					require_once("CLog.inc");
+					CLog::RecordNew('ERROR', "FATAL ERROR: " . print_r($error, true), "", "", true);
 				}
-			});
+			}
+		});
 		//}
 
 		self::$_instance = $this;
@@ -407,7 +409,6 @@ class CApp
 					$overrideValues = isset($this->_template->override_values) ? $this->_template->override_values : false;
 					$useLib1_8 = !empty($this->_template->useLib1_8) ? true : false;
 
-
 					writeExcelFile($fileName, $header, $rows, $showHeader, $titleRows, $colDescriptions, $headersAreEmbedded, $callbacks, $sectionHeader, false, $suppressLabelsDisplay, $overrideValues, $useLib1_8);
 				}
 			}
@@ -551,26 +552,25 @@ class CApp
 			return true;
 		}
 
-        if (strpos($processor, "reports_session_host") !== false)
-        {
-            return true;
-        }
+		if (strpos($processor, "reports_session_host") !== false)
+		{
+			return true;
+		}
 
-        if (strpos($processor, "reports_growth_dashboard") !== false)
-        {
-            return true;
-        }
+		if (strpos($processor, "reports_growth_dashboard") !== false)
+		{
+			return true;
+		}
 
-        if (strpos($processor, "reports_menu_skipping") !== false)
-        {
-            return true;
-        }
+		if (strpos($processor, "reports_menu_skipping") !== false)
+		{
+			return true;
+		}
 
 		if (strpos($processor, "reports_cornerstone_movement_contest") !== false)
 		{
 			return true;
 		}
-
 
 		return false;
 	}
@@ -648,10 +648,7 @@ class CApp
 			echo "Forbidden";
 			exit(0);
 		}
-
 	}
-
-
 
 	/* NOTE: This function was added to Support secure AJAX calls in the franchise administration
 	side of the code base. AJAX must authenticate just like any other page in our back end system
@@ -833,7 +830,14 @@ class CApp
 		$parts = parse_url($page); // parse params from bounce target
 
 		// vars to maintain through bounce
-		$conversionVars = array ('sfmc_sub', 'j', 'l', 'u', 'mid', 'jb');
+		$conversionVars = array(
+			'sfmc_sub',
+			'j',
+			'l',
+			'u',
+			'mid',
+			'jb'
+		);
 
 		if (isset($parts['query']))
 		{
@@ -842,7 +846,7 @@ class CApp
 			$isAdmin = (!empty($query['page']) && substr($query['page'], 0, 6) == 'admin_');
 
 			// remove parameters from get that are in the target so there are no duplicates
-			foreach ($query AS $key => $value)
+			foreach ($query as $key => $value)
 			{
 				unset($get_params[$key]);
 			}
@@ -1102,7 +1106,6 @@ class CApp
 		}
 	}
 
-
 	static function signupOrLoginToFreshDeskSupportPortalNew($request, $ts = false, $from_login = false, $dest_url = "support.dreamdinners.com")
 	{
 		if ((CUser::isLoggedIn() || $from_login) && defined('REMAUTHSTRNEW') && CUser::getCurrentUser()->user_type != CUser::CUSTOMER)
@@ -1111,7 +1114,8 @@ class CApp
 			$remoteauthkey = REMAUTHSTRNEW;
 
 			$redirectURL = $_REQUEST['redirect_uri'];
-			if( isset($redirectURL) && !empty($redirectURL) ){
+			if (isset($redirectURL) && !empty($redirectURL))
+			{
 
 				$nonce = $_REQUEST['nonce'];
 				$clientID = $_REQUEST['client_id'];
@@ -1119,19 +1123,23 @@ class CApp
 				$scope = $_REQUEST['scope'];
 				$state = $_REQUEST['state'];
 
-				$header = json_encode(['typ' => 'JWT', 'alg' => 'RS256']);
+				$header = json_encode([
+					'typ' => 'JWT',
+					'alg' => 'RS256'
+				]);
 				$encoded_header = str_replace('=', '', strtr(base64_encode($header), '+/', '-_'));
-
 
 				$email = CUser::getCurrentUser()->primary_email;
 				$firstName = CApp::getFreshDeskFirstName();
 
-				$payload = json_encode(['sub' => CUser::getCurrentUser()->id,
-										"given_name"=> $firstName,
-										"family_name"=> CUser::getCurrentUser()->lastname,
-										"email"=> $email,
-										"iat"=> time(),
-										"nonce"=> $nonce]);
+				$payload = json_encode([
+					'sub' => CUser::getCurrentUser()->id,
+					"given_name" => $firstName,
+					"family_name" => CUser::getCurrentUser()->lastname,
+					"email" => $email,
+					"iat" => time(),
+					"nonce" => $nonce
+				]);
 
 				$encoded_payload = str_replace('=', '', strtr(base64_encode($payload), '+/', '-_'));
 
@@ -1140,9 +1148,9 @@ class CApp
 				openssl_sign($dataToSign, $signature, $remoteauthkey, OPENSSL_ALGO_SHA256);
 				$encoded_signature = str_replace('=', '', strtr(base64_encode($signature), '+/', '-_'));
 
-				$data =  'client_id=' . $clientID;
-				$data .=  '&state=' . $state;
-				$data .=  '&id_token=' . $dataToSign . '.' . $encoded_signature;
+				$data = 'client_id=' . $clientID;
+				$data .= '&state=' . $state;
+				$data .= '&id_token=' . $dataToSign . '.' . $encoded_signature;
 
 				$redirect = $redirectURL . '?' . $data;
 
@@ -1154,7 +1162,6 @@ class CApp
 				$tpl = new CTemplate();
 				$tpl->assign("There was a problem accessing the Help Desk Portal");
 			}
-
 		}
 		else
 		{

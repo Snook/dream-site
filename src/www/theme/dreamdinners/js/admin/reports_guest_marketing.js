@@ -28,6 +28,11 @@ $(document).on('change', '#marketing_report', function (e) {
 			$('.option-date-end').showFlex();
 		}
 
+		if ($(this).find(':selected').data('multi-store-select'))
+		{
+			$('.option-multi-store-select').showFlex();
+		}
+
 	}
 
 });
