@@ -2262,9 +2262,12 @@ class CSessionToolsPDFDrawer
 		$this->pdf->SetXY($xPos + 13, $yStart);
 		$this->pdf->MultiCellTag(30, 4, "<h7b>Other:</h7b>", $this->showBorders, 'L');
 
-		$this->pdf->Rect($xPos + 47, $yStart, 3, 3, 'FD');
-		$this->pdf->SetXY($xPos + 50, $yStart);
-		$this->pdf->MultiCellTag(55, 4, "<h7b>Delayed Pay with Deposit if Qualifying</h7b>", $this->showBorders, 'L');
+		if ($this->data->storeInfo->supportsDelayedPayment())
+		{
+			$this->pdf->Rect($xPos + 47, $yStart, 3, 3, 'FD');
+			$this->pdf->SetXY($xPos + 50, $yStart);
+			$this->pdf->MultiCellTag(55, 4, "<h7b>Delayed Pay with Deposit if Qualifying</h7b>", $this->showBorders, 'L');
+		}
 
 		$yStart += 4;
 		if (empty($this->data->userInfo) || ($this->data->userInfo->platePointsData['status'] == "active" && !$this->data->userInfo->platePointsData['user_is_preferred']))
