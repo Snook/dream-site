@@ -324,15 +324,15 @@ class processor_location_search extends CPage
 						$results[$stateName] = array();
 					}
 
-					$results[$stateName][$DAO_store['id']] = $DAO_store;
+					$results[$stateName][$id] = $DAO_store;
 
 					if ($count == 1)
 					{
-						$results[$stateName][$DAO_store['id']]['checked'] = true;
+						$results[$stateName][$id]['checked'] = true;
 					}
 					else
 					{
-						$results[$stateName][$DAO_store['id']]['checked'] = false;
+						$results[$stateName][$id]['checked'] = false;
 					}
 				}
 
