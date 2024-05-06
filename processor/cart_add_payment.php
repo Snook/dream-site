@@ -27,6 +27,13 @@ class processor_cart_add_payment extends CPageProcessor
 				CAppUtil::processorMessageEcho($results_array);
 			}
 
+			if ($_POST['payment_type'] == 'delivery_tip' && isset($_POST['delivery_tip']))
+			{
+				$results_array = self::add_delivery_tip($_POST['delivery_tip']);
+
+				CAppUtil::processorMessageEcho($results_array);
+			}
+
 			if (isset($_POST['payment_type']) && $_POST['payment_type'] == 'gift_card')
 			{
 				$results_array = self::add_gift_card_payment();
@@ -335,6 +342,28 @@ class processor_cart_add_payment extends CPageProcessor
 			'processor_success' => true,
 			'result_code' => 1,
 			'processor_message' => 'Round Up applied to order.'
+		);
+
+		return $results_array;
+	}
+
+	static function add_delivery_tip($value)
+	{
+		$CartObj = CCart2::instance();
+		$Order = $CartObj->getOrder();
+
+		$Order->refresh(CUser::getCurrentUser());
+		$Order->recalculate();
+
+		$Order->addDeliveryTip($value);
+
+		$Order->recalculate();
+		$CartObj->addOrder($Order);
+
+		$results_array = array(
+			'processor_success' => true,
+			'result_code' => 1,
+			'processor_message' => 'Tip applied to order.'
 		);
 
 		return $results_array;

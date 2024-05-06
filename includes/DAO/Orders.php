@@ -60,6 +60,7 @@ class DAO_Orders extends DAO
 	public $fundraiser_id;         // int(11)
 	public $fundraiser_value;         // int(11)
 	public $ltd_round_up_value;        // decimal(2)
+	public $delivery_tip;        // decimal(2)
 	public $promo_code_id;                   // int(5)  multiple_key unsigned
 	public $session_discount_id;             // int(5)  multiple_key unsigned
 	public $session_discount_total;          // real(8)
