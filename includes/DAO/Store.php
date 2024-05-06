@@ -83,6 +83,8 @@ class DAO_Store extends DAO
 	public $supports_dream_rewards;            // int(1)  not_null unsigned
 	public $supports_free_assembly_promotion;// int(1)
 	public $supports_delivery;                // int(1)
+	public $supports_delivery_tip;                // int(1)
+	public $default_delivery_tip;             //decimal(6,2)
 	public $supports_delayed_payment;                // int(1)
 	public $supports_membership;            //int(1)
 	public $supports_new_memberships;        //int(1)

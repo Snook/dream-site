@@ -373,6 +373,23 @@ class COrders extends DAO_Orders
 		return $counting;
 	}
 
+	function eligibleForDeliveryTip()
+	{
+		$DAO_store = $this->getStoreObj();
+
+		if (empty($DAO_store))
+		{
+			return false;
+		}
+
+		if ($DAO_store->supportsDeliveryTip())
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	public static function std_round($myFloat, $d = 2)
 	{
 		//.005 does not always round up. if we add a tiny number, it will.
@@ -4936,6 +4953,24 @@ class COrders extends DAO_Orders
 		}
 
 		$this->ltd_round_up_value = $roundUpValue;
+	}
+
+	function addDeliveryTip($value)
+	{
+		if ($value == 0)
+		{
+			$this->delivery_tip = 0;
+
+			return;
+		}
+		else if (empty($value))
+		{
+			$this->delivery_tip = null;
+
+			return;
+		}
+
+		$this->delivery_tip = $value;
 	}
 
 	public function pullOutPromoItem()
@@ -9930,17 +9965,17 @@ class COrders extends DAO_Orders
 		$cmpGT = (int)($this->grand_total * 100);
 		if ($cmpSC < $cmpGT && (($paymentType == CPayment::CC && $paymentNumber) || isset($creditCardArray['reference'])))
 		{
-			$Payment = DAO_CFactory::create('payment');
-			$Payment->user_id = $this->user_id;
-			$Payment->store_id = $this->store_id;
+			$DAO_payment = DAO_CFactory::create('payment', true);
+			$DAO_payment->user_id = $this->user_id;
+			$DAO_payment->store_id = $this->store_id;
 
 			if (!isset($this->ltd_round_up_value) || !is_numeric($this->ltd_round_up_value))
 			{
 				$this->ltd_round_up_value = 0;
 			}
 
-			$Payment->total_amount = ($this->grand_total + $this->ltd_round_up_value) - $totalStoreCredit - $totalGiftcardCredit;
-			$Payment->is_delayed_payment = 0;
+			$DAO_payment->total_amount = ($this->grand_total + $this->ltd_round_up_value + $this->delivery_tip) - $totalStoreCredit - $totalGiftcardCredit;
+			$DAO_payment->is_delayed_payment = 0;
 
 			if ($delayed === 'false')
 			{
@@ -9949,22 +9984,22 @@ class COrders extends DAO_Orders
 
 			if ($delayed)
 			{
-				$Payment->is_delayed_payment = $delayed;
+				$DAO_payment->is_delayed_payment = $delayed;
 			}
 
-			$Payment->delayed_payment_status = CPayment::PENDING;
+			$DAO_payment->delayed_payment_status = CPayment::PENDING;
 
 			if (isset($creditCardArray['reference']))
 			{
-				$Payment->setCCInfo($paymentNumber, $paymentMonth, $paymentYear, $name, $address, $city, $state, $zip, $ccType, $securityCode);
-				$Payment->payment_type = "REF_" . $creditCardArray['reference'];
+				$DAO_payment->setCCInfo($paymentNumber, $paymentMonth, $paymentYear, $name, $address, $city, $state, $zip, $ccType, $securityCode);
+				$DAO_payment->payment_type = "REF_" . $creditCardArray['reference'];
 			}
 			else
 			{
-				$Payment->setCCInfo($paymentNumber, $paymentMonth, $paymentYear, $name, $address, $city, $state, $zip, $ccType, $securityCode, $saveCard);
+				$DAO_payment->setCCInfo($paymentNumber, $paymentMonth, $paymentYear, $name, $address, $city, $state, $zip, $ccType, $securityCode, $saveCard);
 			}
 
-			array_push($paymentArray, $Payment);
+			array_push($paymentArray, $DAO_payment);
 			// echo "<br />CREDIT CARD AMOUNT: ".$Payment->total_amount;
 		}
 
