@@ -189,7 +189,6 @@ class processor_cart_session_processor extends CPageProcessor
 						else
 						{
 							$CartObj->addNavigationType(CSession::ALL_STANDARD, true);
-							//$CartObj->addNavigationType(CSession::STANDARD, true);
 						}
 
 						$CartObj->removeDeliveryTip();
@@ -210,13 +209,11 @@ class processor_cart_session_processor extends CPageProcessor
 							{
 								$CartObj->addDeliveryTip($CartObj->getOrder()->getStoreObj()->default_delivery_tip, true);
 							}
-							//$CartObj->addNavigationType(CSession::DELIVERY, true);
 						}
 						else
 						{
 							$CartObj->addNavigationType(CSession::ALL_STANDARD, true);
 							$CartObj->removeDeliveryTip();
-							//$CartObj->addNavigationType(CSession::MADE_FOR_YOU, true);
 						}
 
 						$CartObj->removeBundleId();
