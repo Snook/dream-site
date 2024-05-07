@@ -41,8 +41,9 @@ class TransientDataStore extends DAO_Transient_data_store
 		{
 			$DAO_transient_data_store->data_reference = $data_reference;
 		}
+		$DAO_transient_data_store->limit($limit);
 
-		if ($DAO_transient_data_store->find())
+		if ($DAO_transient_data_store->find(true))
 		{
 			$result['data_class'] = $DAO_transient_data_store->data_class;
 			$result['id'] = $DAO_transient_data_store->id;
