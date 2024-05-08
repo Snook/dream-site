@@ -1,5 +1,5 @@
 <?php
-define('DEV', false);
+define('RENAME', true);
 define('DOWNLOAD', true);
 define('SEND', true);
 define('BACKUP', true);
@@ -21,9 +21,9 @@ require_once("CLog.inc");
 set_time_limit(100000);
 global $fullReport;
 
-if (DEV)
+if (SERVER_ENV == 'DEV')
 {
-	$tempDirectory = "C:\\Development\\Sites\\DreamSite\\Invoices\\";
+	$tempDirectory = "C:\\Development\\Invoices\\";
 }
 else
 {
@@ -31,13 +31,20 @@ else
 }
 
 $storeEmailAdditions = array(
-	'280' => 'ashley.knight@dreamdinners.com,evan.lee@dreamdinners.com',
+	'280' => 'deana.fulbright@dreamdinners.com',
 	//SJ
-	'244' => 'ashley.knight@dreamdinners.com,evan.lee@dreamdinners.com'
+	'244' => 'deana.fulbright@dreamdinners.com,melissa.dixon@dreamdinners.com',
 	//MC
+	'54' => 'deana.fulbright@dreamdinners.com,melissa.dixon@dreamdinners.com'
+	//WestSEattle
 );
-
 $syscoToDDStoreIDMap = array(
+
+	'891542' => 28,
+	// Clackamas
+	'669619' => 62,
+	// Tucson
+
 	'581934' => 193,
 	'614438' => 53,
 	'655743' => 62,
@@ -103,6 +110,7 @@ $syscoToDDStoreIDMap = array(
 
 	'163376' => 67,
 	'169137' => 80,
+	'181379' => 80,
 	'962605' => 229,
 	'165238' => 133,
 	'970871' => 241,
@@ -160,11 +168,23 @@ function sendReport($data)
 {
 	if (TEST_REPORT_DEST)
 	{
-		$sendMail = mail("ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com", "Nightly Sysco Invoice Routing Report", $data, 'From: <do-not-reply@dreamdinners.com>');
+		$sendMail = mail("ryan.snook@dreamdinners.com", "Nightly Sysco Invoice Routing Report", $data, 'From: <do-not-reply@dreamdinners.com>');
 	}
 	else
 	{
-		$sendMail = mail("ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com,ashley.knight@dreamdinners.com", "Nightly Sysco Invoice Routing Report", $data, 'From: <do-not-reply@dreamdinners.com>');
+		$sendMail = mail("ryan.snook@dreamdinners.com,deana.fulbright@dreamdinners.com", "Nightly Sysco Invoice Routing Report", $data, 'From: <do-not-reply@dreamdinners.com>');
+	}
+}
+
+function sendFailureNotice($data)
+{
+	if (TEST_REPORT_DEST)
+	{
+		$sendMail = mail("ryan.snook@dreamdinners.com", "Nightly Sysco Invoice Routing Failure", $data, 'From: <do-not-reply@dreamdinners.com>');
+	}
+	else
+	{
+		$sendMail = mail("ryan.snook@dreamdinners.com", "Nightly Sysco Invoice Routing Failure", $data, 'From: <do-not-reply@dreamdinners.com>');
 	}
 }
 
@@ -176,6 +196,18 @@ function isRoutingInvoice($fileName)
 	}
 
 	return false;
+}
+
+function isSimpleNameRoutingInvoice($fileName)
+{
+
+	if (strpos($fileName, ".") !== false)
+	{
+		// The variable contains a period.
+		return false;
+	}
+
+	return true;
 }
 
 function emptyLocalCache()
@@ -198,11 +230,13 @@ function emptyLocalCache()
 
 function sendInvoice($store_id, &$entry, $storeEmailAdditions)
 {
+
 	//Allow to all as of 8/15/2022
 	//	if (!in_array($store_id, array(85,159,200,244,280,28,291,127,274)))
 	//	{
 	//		return;
 	//	}
+
 	$storeDAO = DAO_CFactory::create('store');
 	$storeDAO->id = $store_id;
 	$storeDAO->find(true);
@@ -214,7 +248,7 @@ function sendInvoice($store_id, &$entry, $storeEmailAdditions)
 
 	if (TEST_DESTINATION)
 	{
-		$Mail->to_email = 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com';
+		$Mail->to_email = 'ryan.snook@dreamdinners.com';
 	}
 	else
 	{
@@ -235,7 +269,7 @@ function sendInvoice($store_id, &$entry, $storeEmailAdditions)
 		'name' => $entry['filename'],
 		'type' => 'text/csv',
 		'tmp_name' => $entry['path'],
-		error => 0,
+		'error' => 0,
 		'size' => $entry['file_size']
 	);
 
@@ -248,7 +282,7 @@ function sendInvoice($store_id, &$entry, $storeEmailAdditions)
 	return true;
 }
 
-define('SRC_DIR', "Sysco_FTP_Folder");
+define('SRC_DIR', "Reciprofity");
 
 function ftp_backup_folder_exists($conn_id, $folderName)
 {
@@ -268,18 +302,20 @@ function ftp_backup_folder_exists($conn_id, $folderName)
 
 try
 {
-
 	$fullReport = "";
 
-	$ftp_server = "ftp.box.com";
-	$ftp_user_name = "boxsupportagent@dreamdinners.com";
-	$ftp_user_pass = "Fj39chnhgiA1b9$";
-
 	// set up basic connection
-	$conn_id = ftp_connect($ftp_server);
+	$conn_id = ftp_connect(BOX_FTP_SERVER);
 
 	// login with username and password
-	$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+	$login_result = ftp_login($conn_id, BOX_FTP_USER, BOX_FTP_PASS);
+
+	if (!$login_result)
+	{
+		logstr("Was not able to connect and login to " . BOX_FTP_SERVER);
+		sendFailureNotice("Was not able to connect and login to " . BOX_FTP_SERVER);
+		exit;
+	}
 
 	// try to change the directory to
 	if (ftp_chdir($conn_id, SRC_DIR))
@@ -288,7 +324,7 @@ try
 	}
 	else
 	{
-		logstr("Couldn't change directory");
+		logstr("Couldn't change directory to:" . SRC_DIR);
 	}
 
 	ftp_set_option($conn_id, FTP_USEPASVADDRESS, false); // set ftp option
@@ -302,6 +338,30 @@ try
 	{
 		logstr("failure with ftp_pasv");
 		exit;
+	}
+
+	// get contents of the current directory
+	logstr("about to ftp_nlist");
+	$contentsForRename = ftp_nlist($conn_id, ".");
+	logstr("done with ftp_nlist");
+
+	if (SERVER_ENV == 'LIVE' && RENAME)
+	{
+		foreach ($contentsForRename as $pos => $thisFile)
+		{
+			if ($thisFile != "." && $thisFile != ".." && isSimpleNameRoutingInvoice($thisFile))
+			{
+				$new_file = 'SYSCO' . $thisFile . '.csv';
+				if (ftp_rename($conn_id, $thisFile, $new_file))
+				{
+					echo "successfully renamed $thisFile to $new_file\n";
+				}
+				else
+				{
+					echo "There was a problem while renaming $thisFile to $new_file\n";
+				}
+			}
+		}
 	}
 
 	// get contents of the current directory
@@ -413,7 +473,7 @@ try
 		}
 	}
 
-	if (BACKUP)
+	if (SERVER_ENV == 'LIVE' && BACKUP)
 	{
 
 		$subFolder = date("M_Y");
@@ -464,7 +524,7 @@ try
 	logstr("Sending of $countSentFiles files Completed Successfully", true);
 	logstr("downloading of $countDLFiles files Completed Successfully", true);
 	logstr("$countNoStoreFiles files encountered that did not map to a DreamDinners store id", true);
-	logstr("$countFiles encoutered.", true);
+	logstr("$countFiles encountered.", true);
 
 	emptyLocalCache();
 }
