@@ -1,6 +1,5 @@
 <?php
-define('DEV', false);
-define('RENANE', true);
+define('RENAME', true);
 define('DOWNLOAD', true);
 define('SEND', true);
 define('BACKUP', true);
@@ -22,7 +21,7 @@ require_once("CLog.inc");
 set_time_limit(100000);
 global $fullReport;
 
-if (DEV)
+if (SERVER_ENV == 'DEV')
 {
 	$tempDirectory = "C:\\Development\\Invoices\\";
 }
@@ -40,6 +39,12 @@ $storeEmailAdditions = array(
 	//WestSEattle
 );
 $syscoToDDStoreIDMap = array(
+
+	'891542' => 28,
+	// Clackamas
+	'669619' => 62,
+	// Tucson
+
 	'581934' => 193,
 	'614438' => 53,
 	'655743' => 62,
@@ -163,11 +168,11 @@ function sendReport($data)
 {
 	if (TEST_REPORT_DEST)
 	{
-		$sendMail = mail("ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com", "Nightly Sysco Invoice Routing Report", $data, 'From: <do-not-reply@dreamdinners.com>');
+		$sendMail = mail("ryan.snook@dreamdinners.com", "Nightly Sysco Invoice Routing Report", $data, 'From: <do-not-reply@dreamdinners.com>');
 	}
 	else
 	{
-		$sendMail = mail("ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com,deana.fulbright@dreamdinners.com", "Nightly Sysco Invoice Routing Report", $data, 'From: <do-not-reply@dreamdinners.com>');
+		$sendMail = mail("ryan.snook@dreamdinners.com,deana.fulbright@dreamdinners.com", "Nightly Sysco Invoice Routing Report", $data, 'From: <do-not-reply@dreamdinners.com>');
 	}
 }
 
@@ -175,11 +180,11 @@ function sendFailureNotice($data)
 {
 	if (TEST_REPORT_DEST)
 	{
-		$sendMail = mail("ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com", "Nightly Sysco Invoice Routing Failure", $data, 'From: <do-not-reply@dreamdinners.com>');
+		$sendMail = mail("ryan.snook@dreamdinners.com", "Nightly Sysco Invoice Routing Failure", $data, 'From: <do-not-reply@dreamdinners.com>');
 	}
 	else
 	{
-		$sendMail = mail("ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com", "Nightly Sysco Invoice Routing Failure", $data, 'From: <do-not-reply@dreamdinners.com>');
+		$sendMail = mail("ryan.snook@dreamdinners.com", "Nightly Sysco Invoice Routing Failure", $data, 'From: <do-not-reply@dreamdinners.com>');
 	}
 }
 
@@ -243,7 +248,7 @@ function sendInvoice($store_id, &$entry, $storeEmailAdditions)
 
 	if (TEST_DESTINATION)
 	{
-		$Mail->to_email = 'ryan.snook@dreamdinners.com,evan.lee@dreamdinners.com';
+		$Mail->to_email = 'ryan.snook@dreamdinners.com';
 	}
 	else
 	{
@@ -264,7 +269,7 @@ function sendInvoice($store_id, &$entry, $storeEmailAdditions)
 		'name' => $entry['filename'],
 		'type' => 'text/csv',
 		'tmp_name' => $entry['path'],
-		error => 0,
+		'error' => 0,
 		'size' => $entry['file_size']
 	);
 
@@ -345,7 +350,7 @@ try
 	$contentsForRename = ftp_nlist($conn_id, ".");
 	logstr("done with ftp_nlist");
 
-	if (RENAME)
+	if (SERVER_ENV == 'LIVE' && RENAME)
 	{
 		foreach ($contentsForRename as $pos => $thisFile)
 		{
@@ -473,7 +478,7 @@ try
 		}
 	}
 
-	if (BACKUP)
+	if (SERVER_ENV == 'LIVE' && BACKUP)
 	{
 
 		$subFolder = date("M_Y");
