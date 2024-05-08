@@ -302,23 +302,18 @@ function ftp_backup_folder_exists($conn_id, $folderName)
 
 try
 {
-
 	$fullReport = "";
 
-	$ftp_server = "ftp.box.com";
-	$ftp_user_name = "boxsupportagent@dreamdinners.com";
-	$ftp_user_pass = "Fj39chnhgiA1b9$";
-
 	// set up basic connection
-	$conn_id = ftp_connect($ftp_server);
+	$conn_id = ftp_connect(BOX_FTP_SERVER);
 
 	// login with username and password
-	$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+	$login_result = ftp_login($conn_id, BOX_FTP_USER, BOX_FTP_PASS);
 
 	if (!$login_result)
 	{
-		logstr("Was not able to connect and login to " . $ftp_server);
-		sendFailureNotice("Was not able to connect and login to " . $ftp_server);
+		logstr("Was not able to connect and login to " . BOX_FTP_SERVER);
+		sendFailureNotice("Was not able to connect and login to " . BOX_FTP_SERVER);
 		exit;
 	}
 
@@ -529,7 +524,7 @@ try
 	logstr("Sending of $countSentFiles files Completed Successfully", true);
 	logstr("downloading of $countDLFiles files Completed Successfully", true);
 	logstr("$countNoStoreFiles files encountered that did not map to a DreamDinners store id", true);
-	logstr("$countFiles encoutered.", true);
+	logstr("$countFiles encountered.", true);
 
 	emptyLocalCache();
 }

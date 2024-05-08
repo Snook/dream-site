@@ -339,6 +339,15 @@ define('REMAUTHSTRNEW', $privateKey);
 const GENIUS_TOKEN = "";
 const GENIUS_KEY = '';
 
+// Box.com Sysco Invoices
+const BOX_FTP_USER = '';
+const BOX_FTP_PASS = '';
+
+// Power BI
+const POWER_BI_CLIENT_ID = '';
+const POWER_BI_CLIENT_SECRET = '';
+const POWER_BI_TENANT_ID = '';
+
 // Salesforce
 const SFMC_AUTH_API_ENDPOINT = '';
 const SFMC_REST_API_ENDPOINT = '';
