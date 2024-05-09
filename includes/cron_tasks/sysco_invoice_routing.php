@@ -40,6 +40,8 @@ $storeEmailAdditions = array(
 );
 $syscoToDDStoreIDMap = array(
 
+	'231762' => 29,
+
 	'891542' => 28,
 	// Clackamas
 	'669619' => 62,
