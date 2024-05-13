@@ -70,17 +70,18 @@ class processor_admin_shipstation_manager extends CPageProcessor
 
 		if (!empty($_REQUEST['op']) && $_REQUEST['op'] == 'resend-order')
 		{
-			if(!empty($_REQUEST['order']) && is_numeric($_REQUEST['order'])){
+			if (!empty($_REQUEST['order']) && is_numeric($_REQUEST['order']))
+			{
 				//Send Updates to SS
-				$order = new COrdersDelivered();
-				$order->id = $_REQUEST['order'];
-				$order->find(true);
-				$order->orderShipping();
-				$order->orderAddress();
-				$result = ShipStationManager::getInstanceForOrder($order)->addUpdateOrder(new ShipStationOrderWrapper($order));
+				$DAO_orders = new COrdersDelivered();
+				$DAO_orders->id = $_REQUEST['order'];
+				$DAO_orders->find(true);
+				$DAO_orders->orderShipping();
+				$DAO_orders->orderAddress();
+				$result = ShipStationManager::getInstanceForOrder($DAO_orders)->addUpdateOrder(new ShipStationOrderWrapper($DAO_orders));
 				if ($result == false)
 				{
-					$errors = ShipStationManager::getInstanceForOrder($order)->getLastError();
+					$errors = ShipStationManager::getInstanceForOrder($DAO_orders)->getLastError();
 					CAppUtil::processorMessageEcho(array(
 						'processor_success' => false,
 						'processor_message' => 'Unable to resend order data to ShipStation.',
@@ -100,7 +101,9 @@ class processor_admin_shipstation_manager extends CPageProcessor
 						)
 					));
 				}
-			}else{
+			}
+			else
+			{
 				CAppUtil::processorMessageEcho(array(
 					'processor_success' => true,
 					'processor_message' => 'Invalid order number.',
@@ -114,26 +117,37 @@ class processor_admin_shipstation_manager extends CPageProcessor
 		if (!empty($_REQUEST['op']) && $_REQUEST['op'] == 'fetch-tracking-number')
 		{
 
-			if(!empty($_REQUEST['order']) && is_numeric($_REQUEST['order'])){
-				$order = new COrdersDelivered();
-				$order->id = $_REQUEST['order'];
-				$order->find(true);
+			if (!empty($_REQUEST['order']) && is_numeric($_REQUEST['order']))
+			{
+				$DAO_orders = DAO_CFactory::create('orders', true);
+				$DAO_orders->id = $_REQUEST['order'];
+				$DAO_orders->find_DAO_orders(true);
 
-				$shipmentWrapper = ShipStationManager::getInstanceForOrder($order)->getShipments(new ShipStationShipmentWrapper($order), false);
+				$shipmentWrapper = ShipStationManager::getInstanceForOrder($DAO_orders)->getShipments(new ShipStationShipmentWrapper($DAO_orders), false);
 				$result = $shipmentWrapper->storeShippingData();
-				if($result->isFailure()){
+				if ($result->isFailure())
+				{
 					$result->echoFailureMessages();
 					CAppUtil::processorMessageEcho(array(
 						'processor_success' => true,
 						'processor_message' => 'Error fetching Tracking Information from ShipStation.',
 						'dd_toasts' => $result->getFailureMessages()
 					));
-				}else{
-					$message = 'Updated tracking number for this order is '.$shipmentWrapper->getLatestTrackingNumber().'.';
+				}
+				else
+				{
 					$returned = $shipmentWrapper->getLatestTrackingNumber();
-					if(empty($returned)){
+					if (empty($returned))
+					{
 						$message = 'The Tracking Number is not yet available.';
 					}
+					else
+					{
+						$message = 'Updated tracking number for this order is ' . $shipmentWrapper->getLatestTrackingNumber() . '.';
+						//Send Tracking Email to Guest
+						CEmail::sendDeliveredShipmentTrackingEmail($DAO_orders);
+					}
+
 					CAppUtil::processorMessageEcho(array(
 						'processor_success' => true,
 						'processor_message' => 'Fetched Tracking Number from ShipStation',
@@ -143,7 +157,9 @@ class processor_admin_shipstation_manager extends CPageProcessor
 						)
 					));
 				}
-			}else{
+			}
+			else
+			{
 				CAppUtil::processorMessageEcho(array(
 					'processor_success' => true,
 					'processor_message' => 'Invalid order number.',
