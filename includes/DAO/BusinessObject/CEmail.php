@@ -121,6 +121,9 @@ class CEmail extends CMail
 
 		require_once('CMail.inc');
 
+		$contentsText = false;
+		$contentsHtml = false;
+
 		if ($sessionDetailArray['session_type'] == CSession::DREAM_TASTE)
 		{
 			if ($sessionDetailArray['session_type_string'] == 'friends_night_out')
