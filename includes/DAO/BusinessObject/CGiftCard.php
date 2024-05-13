@@ -1525,7 +1525,7 @@ class CGiftCard extends DAO_Gift_card_transaction
 
 		$subject = "Dream Dinners Card Orders Report for " . date("m-d-y");
 		$Mail = new CMail();
-		$Mail->to_email = "sarah@smarttransactions.com, geekifyinc@gmail.com";
+		$Mail->to_email = "info@smarttransactions.com, geekifyinc@gmail.com";
 		$Mail->cc_email = "ryan.snook@dreamdinners.com";
 		$Mail->subject = $subject;
 
