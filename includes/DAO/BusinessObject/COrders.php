@@ -2701,16 +2701,20 @@ class COrders extends DAO_Orders
 			// do not remove hidden bundle items or coupon item
 			if (empty($thisItem[1]->parentItemId) && (empty($this->coupon->menu_item_id) && $this->coupon->menu_item_id != $id))
 			{
-				$hiddenTest = DAO_CFactory::create('menu_item');
-				$hiddenTest->query("select mi.menu_item_name from menu_to_menu_item mmi
-					join menu_item mi on mmi.menu_item_id = mi.id
-					where mmi.menu_id = $menu_id
-					and mmi.store_id = {$this->store_id} and mmi.menu_item_id = $id and (mmi.is_visible = 0 or mmi.is_deleted = 1)");
+				$DAO_menu_item = DAO_CFactory::create('menu_item', true);
+				$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item', true);
+				$DAO_menu_to_menu_item->menu_id = $menu_id;
+				$DAO_menu_to_menu_item->store_id = $this->store_id;
+				$DAO_menu_to_menu_item->menu_item_id = $id;
+				$DAO_menu_to_menu_item->whereAdd("(menu_to_menu_item.is_visible = 0 OR menu_to_menu_item.is_hidden_everywhere = 1)");
+				$DAO_menu_item->joinAddWhereAsOn($DAO_menu_to_menu_item);
 
-				if ($hiddenTest->N != 0)
+				if ($DAO_menu_item->find(true))
 				{
-					$hiddenTest->fetch();
-					$removalList[$id] = $hiddenTest->menu_item_name;
+					if (!$DAO_menu_item->isVisibleAndNotHiddenEverywhere())
+					{
+						$removalList[$id] = $DAO_menu_item->menu_item_name;
+					}
 				}
 			}
 		}

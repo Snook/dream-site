@@ -11,7 +11,7 @@
 					<div class="input-group">
 						<input type="number" class="form-control" id="debit_gift_card_number" name="debit_gift_card_number" autocomplete="off" min="0" step="1" placeholder="Gift Card Number">
 						<div class="input-group-append">
-							<button id="giftCardBalance" class="btn btn-primary btn-block"">Check Balance</button>
+							<button type="button" id="giftCardBalance" class="btn btn-primary btn-block"">Check Balance</button>
 						</div>
 					</div>
 				</div>
@@ -26,7 +26,7 @@
 						</div>
 						<input type="number" class="form-control" id="debit_gift_card_amount" name="debit_gift_card_amount" min="0" step="0.01" placeholder="Amount">
 						<div class="input-group-append">
-							<button id="giftCardRedeem" class="btn btn-primary btn-block">Apply</button>
+							<button type="button" id="giftCardRedeem" class="btn btn-primary btn-block">Apply</button>
 						</div>
 					</div>
 				</div>

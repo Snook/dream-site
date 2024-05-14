@@ -1,4 +1,5 @@
 <?php
+require_once 'DAO/Transient_data_store.php';
 require_once 'includes/CLog.inc';
 
 /**
@@ -12,7 +13,7 @@ require_once 'includes/CLog.inc';
  * could be backed up by a file system, for example, or a database
  *
  */
-class TransientDataStore
+class TransientDataStore extends DAO_Transient_data_store
 {
 	const SHIPPING_RATE_CACHE = 'SHIPPING_RATE_CACHE';
 	const SHIPPING_SHIPMENT_CACHE = 'SHIPPING_SHIPMENT_CACHE';
@@ -27,50 +28,35 @@ class TransientDataStore
 	/**
 	 * @param $data_class enum (SHIPPING_RATE_CACHE,TAX_RATE_CACHE,SHIPPING_TRACKING_CACHE,SHIPPING_SHIP_NOTIFICATION_DONE,SHIPPING_SHIP_NOTIFICATION_NEW)
 	 * @param $data_reference
-	 * @param $limit number of rows to fetch
+	 * @param $limit      number of rows to fetch
 	 *
 	 * @return associative array (successful=>boolean, error_message=>string, data_class=string, data_id=long, data=blob,
 	 * expires=timestamp)
 	 */
 	public static function retrieveData($data_class, $data_reference = null, $limit = 1)
 	{
-		$db = self::connect();
-		$result = array();
-
-		$dataRefSearch = is_null($data_reference) ? '' : "and data_reference = '{$data_reference}'";
-
-		$sql = "select id, data_reference, data_class, data, expires, timestamp_created from transient_data_store where data_class = '{$data_class}' " . $dataRefSearch ." limit ".$limit;
-		$dbresult = mysqli_query($db, $sql);
-
-		if (!$dbresult)
+		$DAO_transient_data_store = DAO_CFactory::create('transient_data_store', true);
+		$DAO_transient_data_store->data_class = $data_class;
+		if (!is_null($data_reference))
 		{
-			$result['successful'] = false;
-			$result['error_message'] = "Error in " . __METHOD__ . ": " . mysqli_error($db) . "\n" . $sql;
-
-			CLog::RecordNew(CLog::ERROR, $result['error_message'], "", "", false);
-			mysqli_free_result($dbresult);
-			mysqli_close($db);
-
-			return $result;
+			$DAO_transient_data_store->data_reference = $data_reference;
 		}
+		$DAO_transient_data_store->limit($limit);
 
-		if ($row = mysqli_fetch_assoc($dbresult))
+		if ($DAO_transient_data_store->find(true))
 		{
-			$result['data_class'] = $row['data_class'];
-			$result['id'] = $row['id'];
-			$result['data'] = $row['data'];
-			$result['data_reference'] = $row['data_reference'];
-			$result['expires'] = $row['expires'];
-			$result['created'] = $row['timestamp_created'];
+			$result['data_class'] = $DAO_transient_data_store->data_class;
+			$result['id'] = $DAO_transient_data_store->id;
+			$result['data'] = $DAO_transient_data_store->data;
+			$result['data_reference'] = $DAO_transient_data_store->data_reference;
+			$result['expires'] = $DAO_transient_data_store->expires;
+			$result['created'] = $DAO_transient_data_store->timestamp_created;
 			$result['successful'] = true;
 		}
 		else
 		{
 			$result['successful'] = false;//no match
 		}
-
-		mysqli_free_result($dbresult);
-		mysqli_close($db);
 
 		return $result;
 	}
@@ -89,13 +75,15 @@ class TransientDataStore
 		$db = self::connect();
 		$result = array();
 
-		if( $forceUnique ){
+		if ($forceUnique)
+		{
 			//check if record with same data_class and data_reference already exists,
 			//if it does do not insert duplicate record
 			$sql = "select * from transient_data_store where data_class = '{$data_class}' and data_reference =  '{$data_reference}'";
 			$dbresult = mysqli_query($db, $sql);
 
-			if( $dbresult && mysqli_num_rows($dbresult) > 0){
+			if ($dbresult && mysqli_num_rows($dbresult) > 0)
+			{
 				$result['successful'] = true;
 				$result['message'] = "Matching record, no need to insert\n" . $sql;
 				mysqli_free_result($dbresult);
@@ -118,11 +106,11 @@ class TransientDataStore
 			$result['error_message'] = "Error in " . __METHOD__ . ": " . mysqli_error($db) . "\n" . $sql;
 
 			CLog::RecordNew(CLog::ERROR, $result['error_message'], "", "", false);
-
-		}else{
+		}
+		else
+		{
 			$result['successful'] = true;
 		}
-
 
 		mysqli_close($db);
 
@@ -132,7 +120,6 @@ class TransientDataStore
 	/**
 	 * @param $recordId
 	 * @param $data_class
-
 	 *
 	 * @return associative array (successful=>boolean, error_message=>string
 	 * @throws Exception
@@ -153,8 +140,9 @@ class TransientDataStore
 			$result['error_message'] = "Error in " . __METHOD__ . ": " . mysqli_error($db) . "\n" . $sql;
 
 			CLog::RecordNew(CLog::ERROR, $result['error_message'], "", "", false);
-
-		}else{
+		}
+		else
+		{
 			$result['successful'] = true;
 		}
 
@@ -186,6 +174,7 @@ class TransientDataStore
 			CLog::RecordNew(CLog::ERROR, $result['error_message'], "", "", false);
 
 			mysqli_close($db);
+
 			return $result;
 		}
 

@@ -10,6 +10,10 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 	 * @var CForm
 	 */
 	private $Form;
+	private $allowStoreSelect = false;
+	private $report_user_preferred = array(
+		'AllStores' => false
+	);
 
 	function __construct()
 	{
@@ -17,12 +21,38 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 		$this->cleanReportInputs();
 	}
 
+	function runSiteAdmin()
+	{
+		$this->allowStoreSelect = true;
+		$this->report_user_preferred['AllStores'] = true;
+		$this->guestMarketingReport();
+	}
+
 	function runHomeOfficeManager()
+	{
+		$this->allowStoreSelect = true;
+		$this->report_user_preferred['AllStores'] = true;
+		$this->guestMarketingReport();
+	}
+
+	function runHomeOfficeStaff()
+	{
+		$this->allowStoreSelect = true;
+		$this->report_user_preferred['AllStores'] = true;
+		$this->guestMarketingReport();
+	}
+
+	function runFranchiseOwner()
 	{
 		$this->guestMarketingReport();
 	}
 
-	function runSiteAdmin()
+	function runFranchiseManager()
+	{
+		$this->guestMarketingReport();
+	}
+
+	function runOpsLead()
 	{
 		$this->guestMarketingReport();
 	}
@@ -45,7 +75,8 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 						'data-month-start' => 'true',
 						'data-month-end' => 'false',
 						'data-date-start' => 'false',
-						'data-date-end' => 'false'
+						'data-date-end' => 'false',
+						'data-multi-store-select' => $this->allowStoreSelect
 					)
 				),
 				'report_guest_with_dinner_dollars' => array(
@@ -55,7 +86,19 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 						'data-month-start' => 'false',
 						'data-month-end' => 'false',
 						'data-date-start' => 'true',
-						'data-date-end' => 'true'
+						'data-date-end' => 'true',
+						'data-multi-store-select' => $this->allowStoreSelect
+					)
+				),
+				'report_user_preferred' => array(
+					'title' => 'Preferred Users',
+					'data' => array(
+						'data-description' => 'List of guests assigned for preferred user discounts.',
+						'data-month-start' => 'false',
+						'data-month-end' => 'false',
+						'data-date-start' => 'false',
+						'data-date-end' => 'false',
+						'data-multi-store-select' => $this->allowStoreSelect
 					)
 				)
 			)
@@ -65,6 +108,7 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 		$this->Form->DefaultValues['month_end'] = date("Y-m");
 		$this->Form->DefaultValues['datetime_start'] = date("Y-m-d");
 		$this->Form->DefaultValues['datetime_end'] = date("Y-m-d", strtotime('+1 year'));
+		$this->Form->DefaultValues['multi_store_select'] = $this->CurrentBackOfficeStore->id;
 
 		$this->Form->AddElement(array(
 			CForm::type => CForm::Hidden,
@@ -77,6 +121,14 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 			CForm::name => 'report_submit',
 			CForm::css_class => 'btn btn-primary btn-block',
 			CForm::value => '<i class="fas fa-download"></i> Download results'
+		));
+
+		$this->Form->addElement(array(
+			CForm::type => CForm::ButtonMultiStore,
+			CForm::name => 'multi_store_select',
+			CForm::text => 'Stores',
+			CForm::disabled => !$this->allowStoreSelect,
+			CForm::css_class => 'btn btn-primary'
 		));
 
 		$this->Form->AddElement(array(
@@ -111,8 +163,10 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 				case 'report_guest_with_dinner_dollars':
 					$this->exportGuestDinnerDollars();
 					break;
+				case 'report_user_preferred':
+					$this->exportUserPreferred();
+					break;
 			}
-
 		}
 	}
 
@@ -152,6 +206,7 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 
 			$DAO_store = DAO_CFactory::create('store', true);
 			$DAO_store->active = 1;
+			$DAO_store->whereAdd("store.id IN(" . $this->Form->value('multi_store_select') . ")");
 			$DAO_store->whereAdd("store.id = user.home_store_id");
 			$DAO_user->joinAddWhereAsOn($DAO_store, array(
 				'joinType' => 'INNER',
@@ -225,6 +280,7 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 				'useLinks' => false
 			), false, false, false);
 			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->whereAdd("store.id IN(" . $this->Form->value('multi_store_select') . ")");
 			$DAO_store->whereAdd("store.id = user.home_store_id");
 			$DAO_points_credits->joinAddWhereAsOn($DAO_store, array(
 				'joinType' => 'LEFT',
@@ -269,6 +325,78 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 		else
 		{
 			$this->Template->setErrorMsg('Report requires Date and Date End');
+		}
+	}
+
+	function exportUserPreferred()
+	{
+		if ($this->Form->value('multi_store_select') && $this->Form->value('multi_store_select'))
+		{
+			$DAO_user_preferred = DAO_CFactory::create('user_preferred', true);
+			$DAO_user_preferred->joinAddWhereAsOn(DAO_CFactory::create('user', true));
+			$DAO_user_preferred->joinAddWhereAsOn(DAO_CFactory::create('store', true), 'LEFT');
+			$DAO_user_preferred->whereAdd("user_preferred.store_id IN(" . $this->Form->value('multi_store_select') . ")");
+			if ($this->report_user_preferred['AllStores'])
+			{
+				$DAO_user_preferred->whereAdd("user_preferred.all_stores = 1", 'OR');
+			}
+			$DAO_user_preferred->orderBy("store.state_id, store.store_name, `user`.firstname");
+			$DAO_user_preferred->find();
+
+			$labels = array(
+				"User ID",
+				"First Name",
+				"Last Name",
+				"Primary Email",
+				"User Type",
+				"Type",
+				"Value",
+				"Start Date",
+				"Store Name",
+				"State",
+				"City"
+			);
+
+			if ($this->report_user_preferred['AllStores'])
+			{
+				$labels[] = "All Store";
+			}
+
+			$rows = array();
+
+			while ($DAO_user_preferred->fetch())
+			{
+				$rowData = array(
+					'id' => $DAO_user_preferred->user_id,
+					'firstname' => $DAO_user_preferred->DAO_user->firstname,
+					'lastname' => $DAO_user_preferred->DAO_user->lastname,
+					'primary_email' => $DAO_user_preferred->DAO_user->primary_email,
+					'user_type' => $DAO_user_preferred->DAO_user->user_type,
+					'preferred_type' => $DAO_user_preferred->preferred_type,
+					'preferred_value' => $DAO_user_preferred->preferred_value,
+					'user_preferred_start' => CSessionReports::reformatTime($DAO_user_preferred->user_preferred_start),
+					'store_name' => $DAO_user_preferred->DAO_store->store_name,
+					'state' => $DAO_user_preferred->DAO_store->state_id,
+					'city' => $DAO_user_preferred->DAO_store->city
+				);
+
+				if ($this->report_user_preferred['AllStores'])
+				{
+					$rowData['all_stores'] = $DAO_user_preferred->all_stores;
+				}
+
+				$rows[] = $rowData;
+			}
+
+			$_GET['export'] = 'csv';
+			$_GET['csvfilename'] = 'report_user_preferred';
+
+			$this->Template->assign('labels', $labels);
+			$this->Template->assign('rows', $rows);
+		}
+		else
+		{
+			$this->Template->setErrorMsg('Report requires Store selection');
 		}
 	}
 }

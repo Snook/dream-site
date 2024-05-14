@@ -9,7 +9,7 @@
 		<td width="300" align="right" style="padding: 5px"><a href="<?php echo HTTPS_BASE ?>my-account">My Account</a> | <a href="<?php echo HTTPS_BASE ?>how_it_works">How It Works</a></td>
 	</tr>
 	<tr bgcolor="#5c6670">
-		<td colspan="2" style="padding: 5px"><p align="center"><span style="color:#FFF; font-size:14pt; font-weight:bold;">Meal Prep Starter Pack - Order Confirmation</span></p></td>
+		<td colspan="2" style="padding: 5px"><p align="center"><span style="color:#FFF; font-size:14pt; font-weight:bold;">Order Confirmation</span></p></td>
 	</tr>
 </table>
 <table role="presentation" width="650" border="0" cellspacing="0" cellpadding="8">

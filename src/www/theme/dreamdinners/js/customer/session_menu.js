@@ -621,7 +621,7 @@ function update_cart(menu_item_id, action)
 				}
 
 				$('.coupon-code-total').text(json.coupon_code_discount_total);
-				$('.cart-total').text(json.grand_total);
+				$('.cart-total').text(formatAsMoney(json.grand_total));
 				$('.cost-per-serving').text(json.cost_per_serving);
 
 				if (order_type != 'INTRO')
@@ -1351,7 +1351,7 @@ $(function () {
 					{
 						coupon = json.coupon;
 
-						$('.cart-total').text(json.orderInfo.grand_total);
+						$('.cart-total').text(formatAsMoney(json.orderInfo.grand_total));
 
 						$('.add-coupon-code').prop('disabled', true);
 						$('.add-coupon-add').addClass('disabled');
@@ -1496,7 +1496,7 @@ $(function () {
 			success: function (json) {
 				if (json.processor_success)
 				{
-					$('.cart-total').text(json.orderInfo.grand_total);
+					$('.cart-total').text(formatAsMoney(json.orderInfo.grand_total));
 
 					// restore coupon input
 					$('.add-coupon-code').prop('disabled', false);

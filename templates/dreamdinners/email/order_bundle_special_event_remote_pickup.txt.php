@@ -1,5 +1,5 @@
 Dream Dinners
-Meal Prep Starter Pack Order Confirmation
+Order Confirmation
 
 Thank you for placing an order with Dream Dinners. We look forward to seeing you at the community pick up location during your scheduled pick up time.
 

@@ -116,7 +116,7 @@
 					<a href="/backoffice/reports-meal-prep-plus-site-wide">Meal Prep+ Subscriptions (All stores)</a><br/>
 					<a href="/backoffice/reports-national-entree-projection">Master Preorder Export</a><br/>
 					<a href="/backoffice/reports-menu-planning">Menu Planning Report</a><br/>
-					<a href="/backoffice/reports-guest-marketing">Guest Marking Reports</a><br/>
+					<a href="/backoffice/reports-guest-marketing">Guest Marketing Reports</a><br/>
 				</td>
 			</tr>
 		</table>

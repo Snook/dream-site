@@ -239,7 +239,6 @@ function submit_gift_card_purchase()
 	$("#gift_card_checkout").submit();
 }
 
-
 function submit_order()
 {
 	create_and_submit_form({
@@ -288,9 +287,6 @@ function editSaveAllPlatePointsCredits()
 	$('#plate_points_discount').val(formatAsMoney(maxPPDeduction));
 	editSavePlatePointsCredits(false);
 }
-
-
-
 
 function editSavePlatePointsCredits(force)
 {
@@ -357,8 +353,6 @@ function editSavePlatePointsCredits(force)
 					$("#checkout_total-points_discount_total").html(formatAsMoney(json.orderInfo.points_discount_total));
 					$("#checkout_total-membership_discount").html(formatAsMoney(json.orderInfo.membership_discount));
 
-
-
 					// calculate the balance
 					can_checkout();
 				}
@@ -418,7 +412,6 @@ function updateFinancials()
 	{
 		delivery_fee = Number($('#checkout_total-delivery_fee').html());
 	}
-
 
 	var totalTax = 0;
 	if ($('#checkout_total-tax').length)
@@ -501,7 +494,7 @@ function updateFinancials()
 	if (paymentsTotal > foodCost + service_fee + delivery_fee + bag_fee + totalTax)
 	{
 		//more store credit than food cost so we must cap the store credit that can be used
-		paymentsTotal = foodCost + service_fee + delivery_fee+ bag_fee + totalTax;
+		paymentsTotal = foodCost + service_fee + delivery_fee + bag_fee + totalTax;
 		$('[id^="checkout_total_payment-credits"]').html(formatAsMoney(paymentsTotal));
 	}
 
@@ -551,8 +544,8 @@ function updateFinancials()
 		isEditOrder = true;
 	}
 
-
-	if( isEditOrder ){
+	if (isEditOrder)
+	{
 		credit_card_food_total = $('#cc_amount_diff').html();
 
 	}
@@ -705,7 +698,6 @@ function remove_item_payment(settings)
 		remove_credit_card_reference(settings);
 	}
 
-
 	can_checkout();
 }
 
@@ -765,7 +757,6 @@ function remove_gift_card_purchase(settings)
 	});
 }
 
-
 function remove_dinner_dollars()
 {
 
@@ -820,8 +811,6 @@ function remove_dinner_dollars()
 	});
 }
 
-
-
 function remove_payment_coupon()
 {
 
@@ -848,7 +837,8 @@ function remove_payment_coupon()
 				// update coupon total
 				$('#checkout_title-coupon_code').html('');
 
-				if( json.is_edit_order !== 'undefined' && json.is_edit_order == true ) {
+				if (json.is_edit_order !== 'undefined' && json.is_edit_order == true)
+				{
 					location.reload();
 				}
 
@@ -953,7 +943,7 @@ function update_bag_opt_out()
 		data: {
 			processor: 'cart_bag_fee',
 			op: 'set_opt_out',
-			opt_out: opt_out,
+			opt_out: opt_out
 		},
 		success: function (json) {
 			if (json.processor_success)
@@ -970,13 +960,12 @@ function update_bag_opt_out()
 				else
 				{
 					bag_fee = default_bag_fee * number_bags_required;
-					let bagLabel = number_bags_required > 1 ? ' bags' :' bag';
-					let cbagLabel = number_bags_required > 1 ? ' Bags' :' Bag';
+					let bagLabel = number_bags_required > 1 ? ' bags' : ' bag';
+					let cbagLabel = number_bags_required > 1 ? ' Bags' : ' Bag';
 
-					$("#checkout_total-bag_fee_info").html('(' +number_bags_required +bagLabel+" * $" + formatAsMoney(default_bag_fee) + ')');
+					$("#checkout_total-bag_fee_info").html('(' + number_bags_required + bagLabel + " * $" + formatAsMoney(default_bag_fee) + ')');
 					$("#checkout_total-bag_fee").html(formatAsMoney(bag_fee));
 					$("#bag_text").html(number_bags_required + cbagLabel);
-
 
 				}
 
@@ -1001,7 +990,6 @@ function update_bag_opt_out()
 	});
 }
 
-
 function add_payment_coupon()
 {
 	var add_coupon_code = $('#add_coupon_code').val().toUpperCase();
@@ -1025,7 +1013,7 @@ function add_payment_coupon()
 				processor: 'cart_add_payment',
 				payment_type: 'coupon',
 				page: 'checkout',
-				coupon_code: add_coupon_code,
+				coupon_code: add_coupon_code
 			},
 			success: function (json) {
 				if (json.processor_success)
@@ -1039,12 +1027,12 @@ function add_payment_coupon()
 					// update subtotal
 					$('#sum_checkout_total-subtotal').html(json.orderInfo.grand_total);
 
-					if(typeof json.edit_order_diff !== 'undefined'){
+					if (typeof json.edit_order_diff !== 'undefined')
+					{
 						$('#cc_amount_diff').html(json.balance);
 						$('#original_order_total').html(json.originalOrderInfo.grand_total);
-						$('.edit-order-field').removeClass( "collapse" );
+						$('.edit-order-field').removeClass("collapse");
 					}
-
 
 					$('#checkout_total-tax').html(json.orderInfo.subtotal_all_taxes);
 
@@ -1215,6 +1203,7 @@ function getGiftCardNumberAndAmount()
 				do_add_gift_card(returnData);
 			},
 			cancel: function () {
+				$('#giftCardRedeem').removeClass('disabled');
 				return null;
 			}
 		});
@@ -1236,7 +1225,8 @@ function do_add_gift_card(transaction_data)
 		return;
 	}
 
-	if(transaction_data.gc_number){
+	if (transaction_data.gc_number)
+	{
 		transaction_data.gc_number = transaction_data.gc_number.trim();
 	}
 
@@ -1265,7 +1255,6 @@ function do_add_gift_card(transaction_data)
 
 		$('#debit_gift_card_number').data('processing', true);
 
-
 		$.ajax({
 			url: '/processor',
 			type: 'GET',
@@ -1279,6 +1268,7 @@ function do_add_gift_card(transaction_data)
 			success: function (json) {
 				if (json.processor_success)
 				{
+					$('#giftCardRedeem').removeClass('disabled');
 
 					if (json.card_balance == "Invalid Card")
 					{
@@ -1335,11 +1325,11 @@ function do_add_gift_card(transaction_data)
 									// show coupon row
 									$('#giftcard_container').slideDown();
 
-									if(typeof json.edit_order_html !== 'undefined' && json.edit_order_html != null){
+									if (typeof json.edit_order_html !== 'undefined' && json.edit_order_html != null)
+									{
 										//location.reload();
 										$('#edit-order-total-container').replaceWith(json.edit_order_html);
 									}
-
 
 									// calculate the balance
 									can_checkout();
@@ -1534,7 +1524,7 @@ function remove_payment(settings)
 
 				$(domObjectToRemove).slideUp();
 
-				if (settings.item == 'creditcard' )
+				if (settings.item == 'creditcard')
 				{
 					$(domObjectToRemove).remove();
 				}
@@ -1565,23 +1555,36 @@ function remove_payment(settings)
 
 function handleNewCardFormShown()
 {
-	$('[id^="cc_pay_id"]').prop({'disabled': true, 'checked' : false, 'required': false});
-	$('[id^="gc_pay_id"]').prop({'disabled': true, 'checked' : false, 'required': false});
-
+	$('[id^="cc_pay_id"]').prop({
+		'disabled': true,
+		'checked': false,
+		'required': false
+	});
+	$('[id^="gc_pay_id"]').prop({
+		'disabled': true,
+		'checked': false,
+		'required': false
+	});
 
 	requireCreditCardFields();
 }
 
 function handleNewCardFormHidden()
 {
-	$('[id^="cc_pay_id"]').prop({'disabled': false, 'required': true}).parents('form:first').removeClass('was-validated').find('.form-feedback').hide();
-	$('[id^="gc_pay_id"]').prop({'disabled': false, 'required': true}).parents('form:first').removeClass('was-validated').find('.form-feedback').hide();
-
+	$('[id^="cc_pay_id"]').prop({
+		'disabled': false,
+		'required': true
+	}).parents('form:first').removeClass('was-validated').find('.form-feedback').hide();
+	$('[id^="gc_pay_id"]').prop({
+		'disabled': false,
+		'required': true
+	}).parents('form:first').removeClass('was-validated').find('.form-feedback').hide();
 
 	doNotRequireCreditCardFields();
 }
 
-function handleOrderCustomizations(form){
+function handleOrderCustomizations(form)
+{
 	try
 	{
 		if (form.attr('id') == 'to_payment_or_checkout_form')
@@ -1611,7 +1614,7 @@ function handleOrderCustomizations(form){
 			}
 		}
 	}
-	catch(error)
+	catch (error)
 	{
 		//not worth failing over
 		console.log('Issue checking if meal customizations are selected')
@@ -1623,14 +1626,16 @@ function handleOrderCustomizations(form){
 function handleCardRefChange()
 {
 	var selectedRef = false;
-	$('[id^="cc_pay_id"]').each( function() {
-		if ($(this).is(':checked')) {
+	$('[id^="cc_pay_id"]').each(function () {
+		if ($(this).is(':checked'))
+		{
 			selectedRef = $(this).val();
 		}
 	});
 
-	$('[id^="gc_pay_id"]').each( function() {
-		if ($(this).is(':checked')) {
+	$('[id^="gc_pay_id"]').each(function () {
+		if ($(this).is(':checked'))
+		{
 			selectedRef = $(this).val();
 		}
 	});
@@ -1680,7 +1685,6 @@ function remove_credit_card_reference(settings)
 				else
 				{
 					// select add new card and expose - no refs left
-
 
 				}
 
@@ -1793,7 +1797,7 @@ function add_payment_credit_card()
 
 $(function () {
 
-	if( $('#apply-customization').length && default_meal_customization_to_selected == true)
+	if ($('#apply-customization').length && default_meal_customization_to_selected == true)
 	{
 		$('#apply-customization').click();
 	}
@@ -1802,9 +1806,7 @@ $(function () {
 		initMealCustomizationFields();
 	}
 
-
-
-	$("form").submit( function(e) {
+	$("form").submit(function (e) {
 
 		let canContinue = handleOrderCustomizations($(this));
 		if ($(this).data('was_submitted') === true || !canContinue)
@@ -1829,11 +1831,21 @@ $(function () {
 
 		if ($(this).val() == 'American Express')
 		{
-			$('#ccSecurityCode').prop({'min': '0', 'max': '9999', 'maxlength': '4', 'pattern': '^[0-9]{4}$'});
+			$('#ccSecurityCode').prop({
+				'min': '0',
+				'max': '9999',
+				'maxlength': '4',
+				'pattern': '^[0-9]{4}$'
+			});
 		}
 		else if ($(this).val() != '' && $(this).val() != null)
 		{
-			$('#ccSecurityCode').prop({'min': '0', 'max': '999', 'maxlength': '3', 'pattern': '^[0-9]{3}$'});
+			$('#ccSecurityCode').prop({
+				'min': '0',
+				'max': '999',
+				'maxlength': '3',
+				'pattern': '^[0-9]{3}$'
+			});
 		}
 	});
 
@@ -1974,14 +1986,15 @@ $(function () {
 
 	//Gift Card Add handler
 	$(document).on('click', '#giftCardBalance', function (e) {
-		get_gift_card_balance();
 		e.preventDefault();
+		get_gift_card_balance();
 	});
 
 	// Gift Card Button click
-	$(document).on('click', '#giftCardRedeem', function (e) {
-		add_payment_gift_card();
+	$(document).on('click', '#giftCardRedeem:not(.disabled)', function (e) {
 		e.preventDefault();
+		$(this).addClass('disabled');
+		add_payment_gift_card();
 	});
 
 	$(document).on('change', '#shipping_phone_number', function (e) {
@@ -2070,17 +2083,47 @@ $(function () {
 								{
 									$('#address_book_update_update').val(addy.id);
 
-									$('#shipping_firstname').valCheckDiff({value : addy.firstname, group : 'shipaddy'});
-									$('#shipping_lastname').valCheckDiff({value : addy.lastname, group : 'shipaddy'});
-									$('#shipping_address_line1').valCheckDiff({value : addy.address_line1, group : 'shipaddy'});
-									$('#shipping_address_line2').valCheckDiff({value : addy.address_line2, group : 'shipaddy'});
-									$('#shipping_city').valCheckDiff({value : addy.city, group : 'shipaddy'});
-									$('#shipping_state_id').valCheckDiff({value : addy.state_id, group : 'shipaddy'});
-									$('#shipping_address_note').valCheckDiff({value : addy.address_note, group : 'shipaddy'});
-									$('#shipping_phone_number').valCheckDiff({value : addy.telephone_1, group : 'shipaddy'});
-									$('#shipping_gift_email_address').valCheckDiff({value : addy.email_address, group : 'shipaddy'});
+									$('#shipping_firstname').valCheckDiff({
+										value: addy.firstname,
+										group: 'shipaddy'
+									});
+									$('#shipping_lastname').valCheckDiff({
+										value: addy.lastname,
+										group: 'shipaddy'
+									});
+									$('#shipping_address_line1').valCheckDiff({
+										value: addy.address_line1,
+										group: 'shipaddy'
+									});
+									$('#shipping_address_line2').valCheckDiff({
+										value: addy.address_line2,
+										group: 'shipaddy'
+									});
+									$('#shipping_city').valCheckDiff({
+										value: addy.city,
+										group: 'shipaddy'
+									});
+									$('#shipping_state_id').valCheckDiff({
+										value: addy.state_id,
+										group: 'shipaddy'
+									});
+									$('#shipping_address_note').valCheckDiff({
+										value: addy.address_note,
+										group: 'shipaddy'
+									});
+									$('#shipping_phone_number').valCheckDiff({
+										value: addy.telephone_1,
+										group: 'shipaddy'
+									});
+									$('#shipping_gift_email_address').valCheckDiff({
+										value: addy.email_address,
+										group: 'shipaddy'
+									});
 
-									$('#shipping_postal_code').valCheckDiff({value : addy.postal_code, group : 'shipaddy'});
+									$('#shipping_postal_code').valCheckDiff({
+										value: addy.postal_code,
+										group: 'shipaddy'
+									});
 								}
 								else
 								{
@@ -2126,19 +2169,19 @@ $(function () {
 
 	});
 
-	$(document).on('shown.bs.collapse', '#add_new_cc', function(e) {
+	$(document).on('shown.bs.collapse', '#add_new_cc', function (e) {
 		handleNewCardFormShown();
 	});
 
-	$(document).on('hidden.bs.collapse', '#add_new_cc', function(e) {
+	$(document).on('hidden.bs.collapse', '#add_new_cc', function (e) {
 		handleNewCardFormHidden();
 	});
 
-	$(document).on('change', '[id^="cc_pay_id"]', function(e) {
+	$(document).on('change', '[id^="cc_pay_id"]', function (e) {
 		handleCardRefChange();
 	});
 
-	$(document).on('change', '[id^="gc_pay_id"]', function(e) {
+	$(document).on('change', '[id^="gc_pay_id"]', function (e) {
 		handleCardRefChange();
 	});
 
@@ -2149,7 +2192,7 @@ $(function () {
 		let href = $(this).attr('href');
 
 		modal_message({
-			message : 'Menu item availability and taxes may be different for another delivery area. In order to change the zip code, we need to send you through the order process again.',
+			message: 'Menu item availability and taxes may be different for another delivery area. In order to change the zip code, we need to send you through the order process again.',
 			buttons: {
 				"Change Zip": function () {
 					bounce(href);
@@ -2234,28 +2277,37 @@ function handleMealCustomizationAccordion()
 
 function initMealCustomizationFields()
 {
-	if(typeof has_meal_customization_selected === 'undefined'){
+	if (typeof has_meal_customization_selected === 'undefined')
+	{
 		has_meal_customization_selected = false;
 	}
 	toggleMealCustomizationOptions(has_meal_customization_selected);
 }
 
-function toggleMealCustomizationOptions(on){
-	if(on){
+function toggleMealCustomizationOptions(on)
+{
+	if (on)
+	{
 		$('[data-user_pref_meal][type=checkbox]').removeAttr("disabled");
 		$('.customization-readonly-option').removeClass('text-gray-400')
-	}else{
+	}
+	else
+	{
 		$('[data-user_pref_meal][type=checkbox]').attr("disabled", true);
 		$('.customization-readonly-option').addClass('text-gray-400')
 	}
 }
 
-function toggleMealCustomizationMasterCheckbox(on){
-	if(on){
+function toggleMealCustomizationMasterCheckbox(on)
+{
+	if (on)
+	{
 		$('#apply-customization').prop('checked', true);
 		$('#apply-customization').attr('checked', true);
 		has_meal_customization_selected = true;
-	}else{
+	}
+	else
+	{
 		$('#apply-customization').prop('checked', false);
 		$('#apply-customization').attr('checked', true);
 		has_meal_customization_selected = false;
@@ -2263,7 +2315,8 @@ function toggleMealCustomizationMasterCheckbox(on){
 	}
 }
 
-function handleMealCustomizationMasterCheckbox(allow_customization){
+function handleMealCustomizationMasterCheckbox(allow_customization)
+{
 	has_meal_customization_selected = allow_customization;
 	toggleMealCustomizationOptions(allow_customization);
 
@@ -2282,9 +2335,12 @@ function handleMealCustomizationMasterCheckbox(allow_customization){
 			if (json.processor_success)
 			{
 				customization = json;
-				if(customization.opted_to_customize_recipes == true){
+				if (customization.opted_to_customize_recipes == true)
+				{
 					$('#customization-fee-row').show();
-				}else{
+				}
+				else
+				{
 					$('#customization-fee-row').hide();
 				}
 				$('#checkout_total-customization_fee').text(formatAsMoney(customization.cost));
@@ -2315,12 +2371,12 @@ $(document).on('click', '#apply-customization', function (e) {
 	handleMealCustomizationMasterCheckbox(allow_customization);
 });
 
-
-function preferenceChangeListener(pref, setting, user_id, callback){
+function preferenceChangeListener(pref, setting, user_id, callback)
+{
 
 	pref = pref.toUpperCase();
 
-	if(!pref.includes('MEAL'))
+	if (!pref.includes('MEAL'))
 	{
 		set_user_pref(pref, setting, user_id, callback);
 	}
@@ -2353,9 +2409,12 @@ function preferenceChangeListener(pref, setting, user_id, callback){
 				if (json.processor_success)
 				{
 
-					if(json.opted_to_customize_recipes == true){
+					if (json.opted_to_customize_recipes == true)
+					{
 						$('#customization-fee-row').show();
-					}else{
+					}
+					else
+					{
 						$('#customization-fee-row').hide();
 						//toggleMealCustomizationMasterCheckbox(false);
 					}
@@ -2363,7 +2422,8 @@ function preferenceChangeListener(pref, setting, user_id, callback){
 					$('#sum_checkout_total-subtotal').text(formatAsMoney(json.orderInfo.grand_total));
 					$('#credit_card_amount').text(formatAsMoney(json.orderInfo.grand_total));
 
-					if(typeof callback !== 'undefined'){
+					if (typeof callback !== 'undefined')
+					{
 						callback(json);
 					}
 

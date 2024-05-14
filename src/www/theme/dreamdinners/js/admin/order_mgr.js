@@ -7454,19 +7454,26 @@ function calculateTotal()
 			couponDiscountValIsServiceFee = true;
 		}
 
-		if (coupon.limit_to_delivery_fee == '1' && coupon.discount_method == 'FLAT')
+		if (coupon.limit_to_delivery_fee == '1')
 		{
 			let currentDeliveryFee = $("#subtotal_delivery_fee").val();
-			if (couponDiscountVal != currentDeliveryFee)
+
+			if (coupon.discount_method == 'FLAT')
 			{
-				if (parseFloat(couponDiscountVal) > parseFloat(currentDeliveryFee))
+				if (couponDiscountVal != currentDeliveryFee)
 				{
-					couponDiscountVal = currentDeliveryFee;
-					couponDiscountValIsDeliveryFee = true;
+					if (parseFloat(couponDiscountVal) > parseFloat(currentDeliveryFee))
+					{
+						couponDiscountVal = currentDeliveryFee;
+						couponDiscountValIsDeliveryFee = true;
+					}
 				}
 			}
-
-			//couponDiscountValIsDeliveryFee = true;
+			else
+			{
+				couponDiscountVal = formatAsMoney(currentDeliveryFee * (coupon.discount_var / 100));
+				couponDiscountValIsDeliveryFee = true;
+			}
 		}
 
 		if (coupon.limit_to_core == '1')

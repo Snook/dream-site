@@ -313,6 +313,7 @@ class CMenuItem extends DAO_Menu_item
 	 * Input a CMenuItem::PricingType and return an equivalent serving count
 	 *
 	 * @param $pricingType
+	 *
 	 * @return int numeric serving size, will return 0 if no match
 	 */
 	static public function translatePricingTypeToNumeric($pricingType)
@@ -336,6 +337,7 @@ class CMenuItem extends DAO_Menu_item
 	 * Input a CMenuItem::PricingType and return an equivalent serving range
 	 *
 	 * @param $pricingType
+	 *
 	 * @return string serving range, will return 0 if no match
 	 */
 	static public function translatePricingTypeToServes($pricingType)
@@ -495,7 +497,7 @@ class CMenuItem extends DAO_Menu_item
 		$this->display_description = stripslashes($this->menu_item_description); // legacy support
 		$this->category_id = $this->menu_item_category_id; // legacy support
 		$this->category_group = $this->categoryGroup();
- 		$this->category_group_id = $this->categoryGroupId();
+		$this->category_group_id = $this->categoryGroupId();
 		$this->is_freezer_menu = $this->isFreezer();
 		$this->is_visible = $this->isVisible();
 		$this->show_on_pick_sheet = $this->showOnPickSheet();
@@ -676,7 +678,7 @@ class CMenuItem extends DAO_Menu_item
 
 		$this->store_price_no_ltd = $this->store_price;
 
-		if(!empty($this->store_id) && empty($this->DAO_store))
+		if (!empty($this->store_id) && empty($this->DAO_store))
 		{
 			$this->DAO_store = DAO_CFactory::create('store', true);
 			$this->DAO_store->id = $this->store_id;
@@ -701,7 +703,7 @@ class CMenuItem extends DAO_Menu_item
 				// Restore the price
 				$this->store_price_no_ltd = $this->DAO_order_item->sub_total / $this->DAO_order_item->item_count;
 
-				if(!empty($this->DAO_recipe))
+				if (!empty($this->DAO_recipe))
 				{
 					// Restore the LTD price on the recipe object
 					$this->DAO_recipe->ltd_menu_item_value = ($this->DAO_order_item->discounted_subtotal - $this->DAO_order_item->sub_total) / $this->DAO_order_item->item_count;
@@ -715,7 +717,7 @@ class CMenuItem extends DAO_Menu_item
 				// Restore the price
 				$this->store_price_no_ltd = $this->DAO_order_item->sub_total / $this->DAO_order_item->item_count;
 
-				if(!empty($this->DAO_recipe))
+				if (!empty($this->DAO_recipe))
 				{
 					// Restore the LTD price on the recipe object
 					$this->DAO_recipe->ltd_menu_item_value = 0;
@@ -2028,6 +2030,39 @@ class CMenuItem extends DAO_Menu_item
 		return !$this->hasAvailableInventory();
 	}
 
+	function isWithinPriceTiers()
+	{
+		if (!empty($this->pricing_tiers))
+		{
+			if (!empty($this->pricing_tiers[3][$this->pricing_type]) && $this->store_price > $this->pricing_tiers[3][$this->pricing_type]->price)
+			{
+				return false;
+			}
+
+			if (!empty($this->pricing_tiers[1][$this->pricing_type]) && $this->store_price < $this->pricing_tiers[1][$this->pricing_type]->price)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	function isRecommendedPricingFormat()
+	{
+		list($dollars, $cents) = explode('.', $this->store_price);
+
+		if (!in_array($cents, array(
+			'49',
+			'99'
+		)))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	function isBundle()
 	{
 		if (!empty($this->is_bundle))
@@ -2081,7 +2116,7 @@ class CMenuItem extends DAO_Menu_item
 
 	function isHiddenEverywhere()
 	{
-		if(!empty($this->DAO_menu_to_menu_item))
+		if (!empty($this->DAO_menu_to_menu_item))
 		{
 			return $this->DAO_menu_to_menu_item->isHiddenEverywhere();
 		}

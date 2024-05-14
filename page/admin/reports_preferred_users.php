@@ -12,6 +12,7 @@ class page_admin_reports_preferred_users extends CPageAdminOnly
 {
 
 	private $currentStore = null;
+	private $allowAllOption = false;
 
 	function __construct()
 	{
@@ -42,32 +43,33 @@ class page_admin_reports_preferred_users extends CPageAdminOnly
 	function runFranchiseOwner()
 	{
 		$this->currentStore = CApp::forceLocationChoice();
-		$this->runSiteAdmin();
+		$this->runPreferredReport();
 	}
 
 	function runSiteAdmin()
 	{
-		$store = null;
-		$SessionReport = new CSessionReports();
-		$report_type_to_run = 1;
+		$this->allowAllOption = true;
+		$this->runPreferredReport();
+	}
+
+	function runPreferredReport()
+	{
 		$tpl = CApp::instance()->template();
 		$Form = new CForm();
 		$Form->Repost = false;
 		$Form->Bootstrap = true;
-		$total_count = 0;
-		$report_submitted = false;
 		if ($this->currentStore)
-		{ //fadmins
+		{
 			$store = $this->currentStore;
 		}
 		else
 		{
-			$Form->DefaultValues['store'] = null;  // alway have the first value...
+			$Form->DefaultValues['store'] = null;  // always have the first value...
 
 			$Form->addElement(array(
 				CForm::type => CForm::AdminStoreDropDown,
 				CForm::onChangeSubmit => true,
-				CForm::allowAllOption => false,
+				CForm::allowAllOption => $this->allowAllOption,
 				CForm::showInactiveStores => true,
 				CForm::name => 'store'
 			));
@@ -92,6 +94,9 @@ class page_admin_reports_preferred_users extends CPageAdminOnly
 					"Primary Email",
 					"User Type",
 					"All Stores",
+					"Store Name",
+					"State",
+					"City",
 					"Pref Type",
 					"Pref Value",
 					"Start Date"
@@ -137,28 +142,58 @@ class page_admin_reports_preferred_users extends CPageAdminOnly
 
 	function findUsers($store_id, $user_type)
 	{
-		$booking = DAO_CFactory::create("booking");
+		$DAO_user_preferred = DAO_CFactory::create('user_preferred', true);
 
-		$querystr = "Select `user`.id,`user`.lastname,`user`.firstname,`user`.primary_email," . "`user`.user_type,";
-
-		if ($user_type == CUser::SITE_ADMIN || $user_type == CUser::HOME_OFFICE_STAFF || $user_type == CUser::HOME_OFFICE_MANAGER)
+		if (is_numeric($store_id))
 		{
-			$querystr .= "user_preferred.all_stores,";
+			$DAO_user_preferred->store_id = $store_id;
 		}
 
-		$querystr .= "user_preferred.preferred_type,user_preferred.preferred_value,user_preferred.user_preferred_start";
-		$querystr .= " From user_preferred Inner Join `user` ON user_preferred.user_id = `user`.id Where user_preferred.store_id = '$store_id' ";
-		$querystr .= "and user_preferred.is_deleted = 0 and user.is_deleted= 0";
+		$DAO_user_preferred->joinAddWhereAsOn(DAO_CFactory::create('user', true));
+		$DAO_store = DAO_CFactory::create('store', true);
 
-		$booking->query($querystr);
-		$rows = array();
-		while ($booking->fetch())
+		if (!is_numeric($store_id))
 		{
-			$tarray = $booking->toArray();
-			//$tarray['timestamp_created'] = CSessionReports::reformatTime ($tarray['timestamp_created']);
-			$tarray['user_preferred_start'] = CSessionReports::reformatTime($tarray['user_preferred_start']);
-			$tarray['is_deleted'] = "";
-			$rows [] = $tarray;
+			$DAO_store->active = 1;
+		}
+
+		$DAO_user_preferred->joinAddWhereAsOn($DAO_store);
+		$DAO_user_preferred->orderBy("store.state_id, store.store_name, `user`.firstname");
+		$DAO_user_preferred->find();
+
+		$rows = array();
+		while ($DAO_user_preferred->fetch())
+		{
+			if ($user_type == CUser::SITE_ADMIN || $user_type == CUser::HOME_OFFICE_STAFF || $user_type == CUser::HOME_OFFICE_MANAGER)
+			{
+				$rows[] = array(
+					'id' => $DAO_user_preferred->user_id,
+					'firstname' => $DAO_user_preferred->DAO_user->firstname,
+					'lastname' => $DAO_user_preferred->DAO_user->lastname,
+					'primary_email' => $DAO_user_preferred->DAO_user->primary_email,
+					'user_type' => $DAO_user_preferred->DAO_user->user_type,
+					'all_stores' => $DAO_user_preferred->all_stores,
+					'store_name' => $DAO_user_preferred->DAO_store->store_name,
+					'state' => $DAO_user_preferred->DAO_store->state_id,
+					'city' => $DAO_user_preferred->DAO_store->city,
+					'preferred_type' => $DAO_user_preferred->preferred_type,
+					'preferred_value' => $DAO_user_preferred->preferred_value,
+					'user_preferred_start' => CSessionReports::reformatTime($DAO_user_preferred->user_preferred_start)
+				);
+			}
+			else
+			{
+				$rows[] = array(
+					'id' => $DAO_user_preferred->user_id,
+					'firstname' => $DAO_user_preferred->DAO_user->firstname,
+					'lastname' => $DAO_user_preferred->DAO_user->lastname,
+					'primary_email' => $DAO_user_preferred->DAO_user->primary_email,
+					'user_type' => $DAO_user_preferred->DAO_user->user_type,
+					'preferred_type' => $DAO_user_preferred->preferred_type,
+					'preferred_value' => $DAO_user_preferred->preferred_value,
+					'user_preferred_start' => CSessionReports::reformatTime($DAO_user_preferred->user_preferred_start)
+				);
+			}
 		}
 
 		return ($rows);
