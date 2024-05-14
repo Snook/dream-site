@@ -24,27 +24,27 @@
 					<div class="col">
 						<div class="card-group text-center">
 							<div class="card border-0 mx-1">
-								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Mothers-Day-Toolkit.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/mothers-day-toolkit-458x344.png" alt="Toolkit" class="img-fluid" /></a>
+								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Fathers-Day-ToolKit.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/happy-fathers-day-458x344.png" alt="Toolkit" class="img-fluid" /></a>
 								<div class="card-body">
-									<h5 class="card-title">Mother's Day Toolkit</h5>
+									<h5 class="card-title">Father's Day Toolkit</h5>
 									<p class="card-text">Activities, gifts, tips, and tricks to celebrate!</p>
-									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Mothers-Day-Toolkit.pdf" target="_blank" class="btn btn-primary">Download Toolkit</a></p>
+									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Fathers-Day-ToolKit.pdf" target="_blank" class="btn btn-primary">Download Toolkit</a></p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Mothers-Day-Placemat.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/mothers-day-placemat-458x344.png" alt="Placemat" class="img-fluid" /></a>
+								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Fathers-Day-Placemat.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/fathers-day-placemat-458x344.png" alt="Placemat" class="img-fluid" /></a>
 								<div class="card-body">
-									<h5 class="card-title">Mother's Day Placemat</h5>
+									<h5 class="card-title">Father's Day Placemat</h5>
 									<p class="card-text">Download and print a 11x17 fun activity placemat.</p>
-									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Mothers-Day-Placemat.pdf" target="_blank" class="btn btn-primary">Download Placemat</a></p>
+									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Fathers-Day-Placemat.pdf" target="_blank" class="btn btn-primary">Download Placemat</a></p>
 								</div>
 							</div>
 							<div class="card border-0 mx-1">
-								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Mothers-Day-Coupons.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/mothers-day-coupons-458x344.png" alt="Coupons" class="img-fluid" /></a>
+								<a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Fathers-Day-Coupons.pdf" target="_blank"><img src="<?php echo IMAGES_PATH; ?>/landing_pages/fathers-day-coupons-458x344.png" alt="Coupons" class="img-fluid" /></a>
 								<div class="card-body">
-									<h5 class="card-title">Mother's Day Coupons</h5>
-									<p class="card-text">Cut out one or more of these coupons as the perfect gift for mom.</p>
-									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Mothers-Day-Coupons.pdf" target="_blank" class="btn btn-primary">Download Coupons</a></p>
+									<h5 class="card-title">Father's Day Coupons</h5>
+									<p class="card-text">Cut out one or more of these coupons as the perfect gift for dad.</p>
+									<p><a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Fathers-Day-Coupons.pdf" target="_blank" class="btn btn-primary">Download Coupons</a></p>
 								</div>
 							</div>
 						</div>
