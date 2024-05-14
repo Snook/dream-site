@@ -1203,6 +1203,7 @@ function getGiftCardNumberAndAmount()
 				do_add_gift_card(returnData);
 			},
 			cancel: function () {
+				$('#giftCardRedeem').removeClass('disabled');
 				return null;
 			}
 		});
