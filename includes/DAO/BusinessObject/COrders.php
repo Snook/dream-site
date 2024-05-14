@@ -8387,7 +8387,7 @@ class COrders extends DAO_Orders
 		$newID = $this->findSession()->id;
 		$menuID = $this->findSession()->menu_id;
 
-		COrdersDigest::recordRescheduledOrder($this->id, $new_time, $this->store_id, $newID, $menuID, $new_type);
+		COrdersDigest::recordRescheduledOrder($this, $new_time, $this->store_id, $newID, $menuID, $new_type);
 
 		// Send email
 		$User = DAO_CFactory::create('user');

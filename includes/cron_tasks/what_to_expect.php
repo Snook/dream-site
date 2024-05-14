@@ -22,24 +22,72 @@ try
 	$DAO_booking->whereAdd("store.store_type = '" . CStore::FRANCHISE . "'");
 	if (defined('CRON_TEST_MODE') && CRON_TEST_MODE)
 	{
-		$DAO_booking->limit(10);
+		$DAO_booking->limit(2);
 	}
 	$DAO_booking->find_DAO_booking();
 
 	$totalCount = 0;
 
-	// Note: exception are handled, logged but not rethrown in the send_reminder_email function
 	while ($DAO_booking->fetch())
 	{
-		$DAO_booking->send_reminder_email();
-		$totalCount++;
+		if ($DAO_booking->DAO_orders->isShipping())
+		{
+			if ($DAO_booking->DAO_orders->id == $DAO_booking->DAO_user_digest->order_id_first_shipping)
+			{
+				$Mail = new CMail();
+				$Mail->to_name = $DAO_booking->DAO_user->firstname . ' ' . $DAO_booking->DAO_user->lastname;
+				$Mail->to_email = $DAO_booking->DAO_user->primary_email;
+				$Mail->from_email = $DAO_booking->DAO_store->email_address;
+				$Mail->subject = 'What to Expect with Your Dream Dinners Shipment';
+				$Mail->bodyHTML('shipping/shipping_what_to_expect.html.php', array('DAO_booking' => $DAO_booking));
+				$Mail->bodyText('shipping/shipping_what_to_expect.txt.php', array('DAO_booking' => $DAO_booking));
+				$Mail->template_name = 'shipping_what_to_expect';
+				$Mail->sendEmail();
+
+				$totalCount++;
+			}
+		}
+		else if ($DAO_booking->DAO_orders->isDelivery())
+		{
+			if ($DAO_booking->DAO_orders->id == $DAO_booking->DAO_user_digest->order_id_first_home_delivery)
+			{
+				$Mail = new CMail();
+				$Mail->to_name = $DAO_booking->DAO_user->firstname . ' ' . $DAO_booking->DAO_user->lastname;
+				$Mail->to_email = $DAO_booking->DAO_user->primary_email;
+				$Mail->from_email = $DAO_booking->DAO_store->email_address;
+				$Mail->subject = 'What to Expect with Your Dream Dinners Delivery';
+				$Mail->bodyHTML('what_to_expect_home_delivery.html.php', array('DAO_booking' => $DAO_booking));
+				$Mail->bodyText('what_to_expect_home_delivery.txt.php', array('DAO_booking' => $DAO_booking));
+				$Mail->template_name = 'what_to_expect_home_delivery';
+				$Mail->sendEmail();
+
+				$totalCount++;
+			}
+		}
+		else if ($DAO_booking->DAO_session->isPickUp() || $DAO_booking->DAO_session->isRemotePickup())
+		{
+			if ($DAO_booking->DAO_orders->id == $DAO_booking->DAO_user_digest->order_id_first_pick_up)
+			{
+				$Mail = new CMail();
+				$Mail->to_name = $DAO_booking->DAO_user->firstname . ' ' . $DAO_booking->DAO_user->lastname;
+				$Mail->to_email = $DAO_booking->DAO_user->primary_email;
+				$Mail->from_email = $DAO_booking->DAO_store->email_address;
+				$Mail->subject = 'What to Expect from Your Dream Dinners Pick Up Order';
+				$Mail->bodyHTML('what_to_expect_pickup.html.php', array('DAO_booking' => $DAO_booking));
+				$Mail->bodyText('what_to_expect_pickup.txt.php', array('DAO_booking' => $DAO_booking));
+				$Mail->template_name = 'what_to_expect_pickup';
+				$Mail->sendEmail();
+
+				$totalCount++;
+			}
+		}
 	}
 
-	CLog::RecordCronTask($totalCount, CLog::SUCCESS, CLog::WHAT_TO_EXPECT, " $totalCount what to expect emails processed.");
+	CLog::RecordCronTask($totalCount, CLog::SUCCESS, CLog::SESSION_REMINDERS, " $totalCount what to expect emails processed.");
 }
 catch (exception $e)
 {
-	CLog::RecordCronTask($totalCount, CLog::PARTIAL_FAILURE, CLog::WHAT_TO_EXPECT, "what_to_expect: Exception occurred: " . $e->getMessage());
+	CLog::RecordCronTask($totalCount, CLog::PARTIAL_FAILURE, CLog::SESSION_REMINDERS, "what_to_expect: Exception occurred: " . $e->getMessage());
 	CLog::RecordException($e);
 }
 

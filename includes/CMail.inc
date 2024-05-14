@@ -127,7 +127,7 @@ class CMail
 			}
 			else
 			{
-				$this->body_html = $contents;
+				$this->body_text = $contents;
 			}
 		}
 	}
