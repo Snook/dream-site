@@ -8,19 +8,6 @@
 
 		<form method="post">
 
-			<?php if (isset($this->form_array['store_html'])) { ?>
-				<div class="row mb-4">
-					<div class="col">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text">Store</span>
-							</div>
-							<?php echo $this->form_array['store_html']; ?>
-						</div>
-					</div>
-				</div>
-			<?php } ?>
-
 			<div class="row mb-3">
 				<?php if (isset($this->form_array['filter_html'])) { ?>
 					<div class="col">

@@ -7,9 +7,6 @@ require_once 'includes/DAO/BusinessObject/CBooking.php';
 
 class page_admin_dashboard_activity_log extends CPageAdminOnly
 {
-	private $currentStore = null;
-	private $multiStoreOwnerStores = false;
-
 	function __construct()
 	{
 		parent::__construct();
@@ -18,25 +15,21 @@ class page_admin_dashboard_activity_log extends CPageAdminOnly
 
 	function runEventCoordinator()
 	{
-		$this->currentStore = CApp::forceLocationChoice();
 		$this->runSiteAdmin();
 	}
 
 	function runFranchiseStaff()
 	{
-		$this->currentStore = CApp::forceLocationChoice();
 		$this->runSiteAdmin();
 	}
 
 	function runOpsSupport()
 	{
-		$this->currentStore = CApp::forceLocationChoice();
 		$this->runSiteAdmin();
 	}
 
 	function runOpsLead()
 	{
-		$this->currentStore = CApp::forceLocationChoice();
 		$this->runSiteAdmin();
 	}
 
@@ -52,18 +45,6 @@ class page_admin_dashboard_activity_log extends CPageAdminOnly
 
 	function runFranchiseOwner()
 	{
-		$theStores = array();
-		$hasMultipleStores = CUser::getCurrentUser()->isMultiStoreOwner($theStores);
-
-		if ($hasMultipleStores)
-		{
-			$this->multiStoreOwnerStores = $theStores;
-		}
-		else
-		{
-			$this->currentStore = CApp::forceLocationChoice();
-		}
-
 		$this->runSiteAdmin();
 	}
 
@@ -80,44 +61,16 @@ class page_admin_dashboard_activity_log extends CPageAdminOnly
 
 	function runSiteAdmin()
 	{
-		$tpl = CApp::instance()->template();
-
-		$tpl->assign('back', '/backoffice/main');
+		$this->Template->assign('back', '/backoffice/main');
 
 		if (!empty($_REQUEST['back']))
 		{
-			$tpl->assign('back', $_REQUEST['back']);
+			$this->Template->assign('back', $_REQUEST['back']);
 		}
-
-		//------------------------------------------------set up store and menu form
 
 		$storeForm = new CForm();
 		$storeForm->Repost = true;
 		$storeForm->Bootstrap = true;
-
-		if ($this->currentStore)
-		{
-			$currentStoreId = $this->currentStore;
-		}
-		else
-		{
-			$storeForm->DefaultValues['store'] = array_key_exists('store', $_GET) ? CGPC::do_clean($_GET['store'], TYPE_INT) : null;
-
-			$storeForm->addElement(array(
-				CForm::type => CForm::AdminStoreDropDown,
-				CForm::onChangeSubmit => true,
-				CForm::allowAllOption => true,
-				CForm::showInactiveStores => true,
-				CForm::name => 'store'
-			));
-
-			$currentStoreId = $storeForm->value('store');
-		}
-
-		if (CUser::getCurrentUser()->user_type == CUser::SITE_ADMIN)
-		{
-			CBrowserSession::instance()->setValue('default_store_id', $currentStoreId);
-		}
 
 		//main filter control
 		$filter = array_key_exists('filter', $_REQUEST) ? CGPC::do_clean($_REQUEST['filter'], TYPE_STR) : '';
@@ -131,7 +84,10 @@ class page_admin_dashboard_activity_log extends CPageAdminOnly
 		$options['CANCELLED'] = 'Order' . CForm::optGroupSeparator . 'Order Canceled';
 		$options[CStoreActivityLog::SIDES_ORDER] = 'Order' . CForm::optGroupSeparator . 'S&S Request Form';
 		$options['SESSION CREATED'] = 'Session' . CForm::optGroupSeparator . 'Session Created';
-		$options['INVENTORY'] = 'Inventory' . CForm::optGroupSeparator . 'Low Inventory';
+		if (!$this->CurrentBackOfficeStore->isDistributionCenter())
+		{
+			$options['INVENTORY'] = 'Inventory' . CForm::optGroupSeparator . 'Low Inventory';
+		}
 		// On hold for stores until what changed can be displayed
 		// This same statement in OrdersHelper.php
 		if (false)
@@ -146,6 +102,8 @@ class page_admin_dashboard_activity_log extends CPageAdminOnly
 			CForm::options => $options
 
 		));
+
+		$filter_sub_orderType = null;
 
 		if ($filter != 'SESSION CREATED' && $filter != 'RECIPE_UPDATED' && $filter != 'INVENTORY' && $filter != CStoreActivityLog::SIDES_ORDER)
 		{
@@ -197,21 +155,15 @@ class page_admin_dashboard_activity_log extends CPageAdminOnly
 
 		$dateToday = new DateTime();
 		$today = $dateToday->format('Y-m-d');
-		$activity = OrdersHelper::fetchStoreActivity($currentStoreId, $today, $historyDays, $filterArray, $filter_sub_orderType);
+		$activity = OrdersHelper::fetchStoreActivity($this->CurrentBackOfficeStore->id, $today, $historyDays, $filterArray, $filter_sub_orderType);
 
-		$tpl->assign('activity', $activity);
-		$tpl->assign('store', $currentStoreId);
-		$tpl->assign('days_back', $historyDays);
-		$tpl->assign('limit_to', $storeForm->DefaultValues['filter']);
+		$this->Template->assign('activity', $activity);
+		$this->Template->assign('store', $this->CurrentBackOfficeStore->id);
+		$this->Template->assign('days_back', $historyDays);
+		$this->Template->assign('limit_to', $storeForm->DefaultValues['filter']);
 
 		$formArray = $storeForm->render();
-		$tpl->assign('form_array', $formArray);
-	}
-
-	static function formatUserLink($item)
-	{
-		return ' <span data-tooltip="' . CUser::userTypeText($item['user_type']) . '"><a href="/backoffice/user_details?id=' . $item['user_id'] . '" target="_blank">' . $item['user'] . '</a></span>';
+		$this->Template->assign('form_array', $formArray);
 	}
 }
-
 ?>

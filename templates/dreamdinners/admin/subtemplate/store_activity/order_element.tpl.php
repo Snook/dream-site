@@ -1,6 +1,6 @@
 <div>
 	&#8226; <?php echo CTemplate::dateTimeFormat($item['time'], TIME, $this->store, CONCISE); ?>
-	<span data-tooltip="<?php echo CUser::userTypeText($item['user_type']); ?>"><a href="/backoffice/user_details?id=<?php echo $item['user_id']; ?>" target="_blank"><?php echo $item['user']; ?></a></span>
+	<a href="/backoffice/user_details?id=<?php echo $item['user_id']; ?>" data-toggle="tooltip" title="<?php echo CUser::userTypeText($item['user_type']); ?>" target="_blank"><?php echo $item['user']; ?></a>
 	<b><?php echo $item['type']; ?></b>
 	<?php echo (($item['order_type'] == 'WEB') ? 'Customer' : 'BackOffice'); ?>
 
@@ -8,23 +8,26 @@
 		$this->order_customization_json = $item['order_data']->order_customization;
 		$feeStr = "Customization Fee: $".$this->moneyFormat($item['order_data']->subtotal_meal_customization_fee)."<br>";
 		$feeStr .= "Total Customized Meals: ".$item['order_data']->total_customized_meal_count."<br><br>";?>
-		<i class="dd-icon icon-customize text-orange" style="font-size: 75%;" data-tooltip="<?php echo $feeStr; include $this->loadTemplate('admin/subtemplate/store_activity/data/order_customization_alert.tpl.php');?>"></i>
+		<i class="dd-icon icon-customize text-orange" data-toggle="tooltip" data-html="true" title="<?php echo $feeStr; include $this->loadTemplate('admin/subtemplate/store_activity/data/order_customization_alert.tpl.php');?>"></i>
 	<?php } ?>
 
 	<?php if (!empty($item['session_data'])) { // session data not available for initial order after it's been rescheduled ?>
-		<span class="type"><?php echo CCalendar::sessionTypeNote($item['session_data']['session_type_true']); ?></span>
+		<span class="type"><?php echo $item['session_data']->sessionTypeIcon(); ?></span>
 	<?php } ?>
 	Order <a href="/backoffice/order-mgr?order=<?php echo $item['order_id']; ?>" target="_blank"> <?php echo $item['order_id']; ?></a>
 	with <?php echo $item['item_count']; ?> items
 	<?php if (!empty($item['total_efl_item_count'])) { // show efl item count so store's know items are needed to be pulled from freezer ?>
 		<span class="badge badge-yellow badge-pill"><?php echo $item['total_efl_item_count']; ?> EFL item<?php echo (($item['total_efl_item_count'] > 1) ? 's' : ''); ?></span>
 	<?php } ?>
+	<?php if (!empty($item["order_data"]->pcal_sidedish_total_count)) { // show S&S item count so store's know items are needed to be pulled from freezer ?>
+		<span class="badge badge-cyan-light badge-pill"><?php echo $item["order_data"]->pcal_sidedish_total_count; ?> S&amp;S item<?php echo (($item["order_data"]->pcal_sidedish_total_count > 1) ? 's' : ''); ?></span>
+	<?php } ?>
 	for $<?php echo $item['total']; ?>
 	<?php if ($item['type'] == 'RESCHEDULED') { ?>
 		<span class="text-white-space-nowrap"><?php echo $item['date_string']; ?></span>
 	<?php } else if ($item['type'] == 'PLACED' || $item['type'] == 'SAVED') { ?>
-		<span class="text-white-space-nowrap"> for  <a href="/backoffice?session=<?php echo $item['session_data']['id']; ?>" target="_blank">
-				<?php echo CTemplate::dateTimeFormat($item["session_data"]["session_start"], NORMAL); ?> session </a></span>
+		<span class="text-white-space-nowrap"> for  <a href="/backoffice?session=<?php echo $item['session_data']->id; ?>" target="_blank">
+				<?php echo $item["session_data"]->sessionStartDateTime()->format("F j, Y - g:i A"); ?> session </a></span>
 	<?php } else if ($item['type'] == 'EDITED') { ?>
 		<button class="show_edit_notes astext" data-index="<?php echo $index; ?>">&bigtriangledown;</button>
 		<ul class="edit_note_content collapse list-unstyled px-3" data-index="<?php echo $index; ?>">

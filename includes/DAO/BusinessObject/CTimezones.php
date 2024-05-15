@@ -168,7 +168,7 @@ class CTimezones
 
 		if ($toolTipFormat)
 		{
-			$serverTime = CTemplate::dateTimeFormat($time, $toolTipFormat) . " (server)";
+			$serverTime = CTemplate::dateTimeFormat($time, $toolTipFormat) . " (Server Time)";
 		}
 
 		$LocallPHPTimeZone = self::$storeTimeZoneCache[$store_id];
@@ -207,7 +207,7 @@ class CTimezones
 
 		if ($toolTipFormat)
 		{
-			$retVal = "<span data-tooltip='$serverTime'>" . $retVal . "</span>";
+			$retVal = '<span data-toggle="tooltip" title="' . $serverTime . '">' . $retVal . '</span>';
 		}
 
 		return $retVal;
