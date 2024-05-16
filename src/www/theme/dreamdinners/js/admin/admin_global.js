@@ -829,7 +829,11 @@ function handle_helpdesk()
 
 		e.preventDefault();
 
-		var request_url = window.location.pathname + window.location.search;
+		//var request_url = window.location.pathname + window.location.search;
+
+		location.href = "mailto:support@dreamdinners.com?subject=Support Request: " + encodeURI(document.title) + "&body=%0D%0A%0D%0A%0D%0A%0D%0A%0D%0AProblem url: " + encodeURI(window.location.href) + "%0D%0ABrowser: " + encodeURI(window.navigator.userAgent);
+
+		return;
 
 		$.ajax({
 			url: '/processor',
