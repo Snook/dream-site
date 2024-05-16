@@ -604,27 +604,27 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 3, $_PosY + 5);
 		$this->MultiCellTag(38, 2.0, "<db2b>Serving size</db2b>", $showBorders, "L", 0);
 		$this->SetXY($_PosX + 3, $_PosY + 5);
-		$this->MultiCellTag(38, 2.0, "<db2>                      " . $entity['info']['serving'] . "</db2>", $showBorders, "L", 0);
+		$this->MultiCellTag(38, 2.0, "<db2>                      " . $entity['info']['serving'] . ((!empty($entity['info']['serving_weight'])) ? ' (' . $entity['info']['serving_weight'] . 'g)' : '') . "</db2>", $showBorders, "L", 0);
 		// Note: the 22 spaces in the line above are intentional and provide a way to draw over the previous rectangle and avoid the text collision.
 		// This could also be accomplished by concatenating the data and drawing in 1 rectangle.
 
 		if (false) // the old way
 		{
 			// Serving
-			$lines = $this->NbLines(34, "<db2b>" . $entity['info']['serving'] . "</db2b>");
+			$lines = $this->NbLines(34, "<db2b>" . $entity['info']['serving'] . ((!empty($entity['info']['serving_weight'])) ? ' (' . $entity['info']['serving_weight'] . 'g)' : '') . "</db2b>");
 			if ($lines <= 2)
 			{
 				$this->SetXY($_PosX + 3, $_PosY + 3.2);
 				$this->MultiCellTag(38, 2.0, "<db2b>Serving size</db2b>", $showBorders, "L", 0);
 				$this->SetXY($_PosX + 18, $_PosY + 3.2);
-				$this->MultiCellTag(22, 2.0, "<db2b>" . $entity['info']['serving'] . "</db2b>", $showBorders, "R", 0);
+				$this->MultiCellTag(22, 2.0, "<db2b>" . $entity['info']['serving'] . ((!empty($entity['info']['serving_weight'])) ? ' (' . $entity['info']['serving_weight'] . 'g)' : '') . "</db2b>", $showBorders, "R", 0);
 			}
 			else
 			{
 				$this->SetXY($_PosX + 3, $_PosY + 1);
 				$this->MultiCellTag(38, 2.0, "<db2b>Serving size</db2b>", $showBorders, "R", 0);
 				$this->SetXY($_PosX + 3, $_PosY + 3.2);
-				$this->MultiCellTag(38, 2.0, "<db2b>" . $entity['info']['serving'] . "</db2b>", $showBorders, "R", 0);
+				$this->MultiCellTag(38, 2.0, "<db2b>" . $entity['info']['serving'] . ((!empty($entity['info']['serving_weight'])) ? ' (' . $entity['info']['serving_weight'] . 'g)' : '') . "</db2b>", $showBorders, "R", 0);
 			}
 		}
 
@@ -960,7 +960,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 3, $_PosY + 3.2 + $yRelative);
 		$this->MultiCellTag(38, 2.0, "<db2b>Serving size</db2b>", $showBorders, "L", 0);
 		$this->SetXY($_PosX + 3, $_PosY + 3.2 + $yRelative);
-		$this->MultiCellTag(38, 2.0, "<db2>                      " . $entity['info']['serving'] . "</db2>", $showBorders, "L", 0);
+		$this->MultiCellTag(38, 2.0, "<db2>                      " . $entity['info']['serving'] . ((!empty($entity['info']['serving_weight'])) ? ' (' . $entity['info']['serving_weight'] . 'g)' : '') . "</db2>", $showBorders, "L", 0);
 
 		//Header Line
 		$this->SetLineWidth(1.5);

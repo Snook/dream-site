@@ -15,6 +15,7 @@ class DAO_Recipe_component extends DAO
     public $recipe_number;                       // int(11)  not_null unsigned
     public $component_number;                // int(4)  not_null unsigned
     public $serving;                         // string(64)
+	public $serving_weight;                // decimal(12,3)
     public $notes;                           // blob(65535)  blob
 	public $timestamp_updated;				// timestamp(19)  not_null unsigned zerofill binary timestamp
 	public $timestamp_created;				// timestamp(19)  not_null unsigned zerofill binary
