@@ -1706,11 +1706,11 @@ class CSessionToolsPDFDrawer
 
 			if (strlen($component['info']['serving']) >= 50)
 			{
-				$this->pdf->MultiCellTag(45, 2, "<t6>" . ucfirst($component['info']['serving']) . "</t6>", $this->showBorders, 'R');
+				$this->pdf->MultiCellTag(45, 2, "<t6>" . ucfirst($component['info']['serving']) . ((!empty($component['info']['serving_weight'])) ? ' (' . $component['info']['serving_weight'] . 'g)' : '') . "</t6>", $this->showBorders, 'R');
 			}
 			else
 			{
-				$this->pdf->MultiCellTag(45, 2, "<t8>" . ucfirst($component['info']['serving']) . "</t8>", $this->showBorders, 'R');
+				$this->pdf->MultiCellTag(45, 2, "<t8>" . ucfirst($component['info']['serving']) . ((!empty($component['info']['serving_weight'])) ? ' (' . $component['info']['serving_weight'] . 'g)' : '') . "</t8>", $this->showBorders, 'R');
 			}
 
 			$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN + 46, $component_ypos);

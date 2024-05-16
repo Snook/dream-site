@@ -151,7 +151,7 @@
 													Serving size
 												</div>
 												<div class="col text-right">
-													<div><?php echo ucfirst($thisComp['info']['serving']); ?></div>
+													<div><?php echo ucfirst($thisComp['info']['serving']) . ((!empty($thisComp['info']['serving_weight'])) ? ' (' . $thisComp['info']['serving_weight'] . 'g)' : ''); ?></div>
 												</div>
 											</div>
 										</td>

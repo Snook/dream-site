@@ -541,10 +541,11 @@ class CMenuItem extends DAO_Menu_item
 
 			foreach ($componentArray as $componentInfo)
 			{
-				list($recipe_component['component_number'], $recipe_component['serving'], $recipe_component['notes']) = explode(':::', $componentInfo);
+				list($recipe_component['component_number'], $recipe_component['serving'], $recipe_component['serving_weight'], $recipe_component['notes']) = explode(':::', $componentInfo);
 
 				$this->nutrition_array['component'][$recipe_component['component_number']]['info'] = array(
 					'serving' => $recipe_component['serving'],
+					'serving_weight' => $recipe_component['serving_weight'],
 					'notes' => $recipe_component['notes']
 				);
 			}
