@@ -4,22 +4,22 @@ include $this->loadTemplate('customer/subtemplate/checkout/checkout_meal_customi
 ?>
 
 <?php if ($this->supports_bag_fee) { ?>
-<div class="row mb-2">
-	<div class="col">
+	<div class="row mb-2">
+		<div class="col">
 
-		<h2 class="text-uppercase font-weight-bold font-size-medium-small text-left">Reusable Bags</h2>
-	</div>
-</div>
-<div class="row mb-2">
-	<div class="col">
-		<div id="bag_text" class="<?php echo ($this->opted_to_bring_bags ? 'collapse' : '') ?> font-size-medium-small text-left mb-2"><?php echo $this->numberBagsRequired;?> Bag<?php echo $this->numberBagsRequired>1?'s':'';?></div>
-		<div class="custom-control custom-checkbox">
-			<input type="checkbox" class="custom-control-input pl-3" id="opted_to_bring_bags" name="opted_to_bring_bags" <?php echo ($this->opted_to_bring_bags ? 'checked="checked"' : '') ?>>
-			<label class="custom-control-label" for="opted_to_bring_bags">I will bring my own bags/cooler</label>
+			<h2 class="text-uppercase font-weight-bold font-size-medium-small text-left">Reusable Bags</h2>
 		</div>
 	</div>
-</div>
-<br>
+	<div class="row mb-2">
+		<div class="col">
+			<div id="bag_text" class="<?php echo ($this->opted_to_bring_bags ? 'collapse' : '') ?> font-size-medium-small text-left mb-2"><?php echo $this->numberBagsRequired;?> Bag<?php echo $this->numberBagsRequired>1?'s':'';?></div>
+			<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="custom-control-input pl-3" id="opted_to_bring_bags" name="opted_to_bring_bags" <?php echo ($this->opted_to_bring_bags ? 'checked="checked"' : '') ?>>
+				<label class="custom-control-label" for="opted_to_bring_bags">I will bring my own bags/cooler</label>
+			</div>
+		</div>
+	</div>
+	<br>
 <?php } ?>
 
 <?php
@@ -128,6 +128,9 @@ if ($this->payment_enabled_gift_card)
 	<input type="hidden" name="opted_to_bring_bags_hidden" id="opted_to_bring_bags_hidden" value="" />
 </form>
 
-<?php if($this->should_allow_meal_customization) { ?>
-<p class="font-size-small font-italic">*Meal Customization: <?php echo OrdersCustomization::RECIPE_LEGAL; ?></p>
+<?php if ($this->cart_info["orderObj"]->isShipping()) { ?>
+	<p class="font-size-small font-italic">Note: Our delicious dishes are expertly crafted at our local assembly stores and delivered straight to your door. Unfortunately, we are unable to accommodate customizations or special requests at this time.</p>
+<?php } ?>
+<?php if ($this->should_allow_meal_customization) { ?>
+	<p class="font-size-small font-italic">*Meal Customization: <?php echo OrdersCustomization::RECIPE_LEGAL; ?></p>
 <?php } ?>
