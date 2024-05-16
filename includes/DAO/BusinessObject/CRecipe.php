@@ -294,6 +294,7 @@ class CRecipe extends DAO_Recipe
 		$DAO_recipe_comps->selectAdd();
 		$DAO_recipe_comps->selectAdd("recipe.recipe_id");
 		$DAO_recipe_comps->selectAdd("recipe_component.serving");
+		$DAO_recipe_comps->selectAdd("recipe_component.serving_weight");
 		$DAO_recipe_comps->selectAdd("nutrition_element.label");
 		$DAO_recipe_comps->selectAdd("nutrition_element.display_label");
 		$DAO_recipe_comps->selectAdd("nutrition_element.measure_label");
@@ -321,6 +322,7 @@ class CRecipe extends DAO_Recipe
 		$DAO_recipe->selectAdd("recipe_component.notes");
 		$DAO_recipe->selectAdd("recipe_component.component_number");
 		$DAO_recipe->selectAdd("recipe_component.serving");
+		$DAO_recipe->selectAdd("recipe_component.serving_weight");
 		$DAO_recipe->selectAdd("recipe_size.recipe_size");
 		$DAO_recipe->selectAdd("recipe_size.weight");
 		$DAO_recipe->selectAdd("recipe_size.cooking_time");
@@ -390,6 +392,7 @@ class CRecipe extends DAO_Recipe
 			r.*,
 			rc.notes,
 			rc.serving,
+			rc.serving_weight,
 			rs.recipe_size,
 			rs.weight,
 			rs.cooking_time,
@@ -427,7 +430,7 @@ class CRecipe extends DAO_Recipe
 	{
 		$nutsComponent_group_by = "mi.id, ne.label, nd.component_number";
 		$nutsInfo_group_by = "";
-		$nutsInfo_select_group = "rc.serving,";
+		$nutsInfo_select_group = "rc.serving, rc.serving_weight";
 
 		// if $sum_components then return all components summed as one
 		if ($sum_components)
@@ -483,6 +486,7 @@ class CRecipe extends DAO_Recipe
 			mi.servings_per_container_display,
 			r.*,
 			mi.menu_item_category_id,
+			rc.serving_weight,
 			rc.notes,
 			rc.component_number,
 			" . $nutsInfo_select_group . "
@@ -526,6 +530,7 @@ class CRecipe extends DAO_Recipe
 			}
 
 			$NutsArray[$nutsInfoObj->recipe_id]['component'][$nutsInfoObj->component_number]['serving'] = $nutsInfoObj->serving;
+			$NutsArray[$nutsInfoObj->recipe_id]['component'][$nutsInfoObj->component_number]['serving_weight'] = $nutsInfoObj->serving_weight;
 		}
 
 		if ($store)
