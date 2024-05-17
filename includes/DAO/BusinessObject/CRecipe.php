@@ -610,6 +610,7 @@ class CRecipe extends DAO_Recipe
 			'exclude_menu_item_category_core' => false,
 			'exclude_menu_item_category_efl' => true,
 			'exclude_menu_item_category_sides_sweets' => true,
+			'exclude_menu_item_is_bundle' => true,
 			'menu_to_menu_item_is_visible' => $visibleOnly
 		));
 
@@ -631,6 +632,7 @@ class CRecipe extends DAO_Recipe
 			'exclude_menu_item_category_core' => true,
 			'exclude_menu_item_category_efl' => false,
 			'exclude_menu_item_category_sides_sweets' => true,
+			'exclude_menu_item_is_bundle' => true,
 			'menu_to_menu_item_is_visible' => $visibleOnly
 		));
 
@@ -652,6 +654,7 @@ class CRecipe extends DAO_Recipe
 			'exclude_menu_item_category_core' => true,
 			'exclude_menu_item_category_efl' => true,
 			'exclude_menu_item_category_sides_sweets' => false,
+			'exclude_menu_item_is_bundle' => true,
 			'menu_to_menu_item_is_visible' => $visibleOnly
 		));
 
