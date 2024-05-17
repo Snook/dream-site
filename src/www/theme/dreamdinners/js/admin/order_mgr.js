@@ -750,6 +750,12 @@ function saveItems(saveDiscountsUponCompletion, activateOnSaveDiscountsCompletio
 		subtotal_delivery_fee = "0.00";
 	}
 
+	var delivery_tip = $("#delivery_tip").val();
+	if (isNaN(delivery_tip))
+	{
+		delivery_tip = "0.00";
+	}
+
 	var misc_food_subtotal_desc = $("#misc_food_subtotal_desc").val();
 	var misc_nonfood_subtotal_desc = $("#misc_nonfood_subtotal_desc").val();
 	var service_fee_description = $("#service_fee_description").val();
@@ -799,6 +805,7 @@ function saveItems(saveDiscountsUponCompletion, activateOnSaveDiscountsCompletio
 			misc_nonfood_subtotal_desc: misc_nonfood_subtotal_desc,
 			service_fee_description: service_fee_description,
 			subtotal_delivery_fee: subtotal_delivery_fee,
+			delivery_tip: delivery_tip,
 			manual_customization_fee: manual_customization_fee,
 			opted_to_customize: opted_to_customize,
 			meal_customization_fee: mealCustomizationFee,
@@ -1578,6 +1585,12 @@ function updateActiveOrder(payOnCompletion, go_to_confirm)
 		subtotal_delivery_fee = "0.00";
 	}
 
+	var delivery_tip = $("#delivery_tip").val();
+	if (isNaN(delivery_tip))
+	{
+		delivery_tip = "0.00";
+	}
+
 	var misc_food_subtotal_desc = $("#misc_food_subtotal_desc").val();
 	var misc_nonfood_subtotal_desc = $("#misc_nonfood_subtotal_desc").val();
 	var service_fee_description = $("#service_fee_description").val();
@@ -1636,6 +1649,7 @@ function updateActiveOrder(payOnCompletion, go_to_confirm)
 			misc_nonfood_subtotal: misc_nonfood_subtotal,
 			subtotal_service_fee: subtotal_service_fee,
 			subtotal_delivery_fee: subtotal_delivery_fee,
+			delivery_tip: delivery_tip,
 			misc_food_subtotal_desc: misc_food_subtotal_desc,
 			misc_nonfood_subtotal_desc: misc_nonfood_subtotal_desc,
 			service_fee_description: service_fee_description,
@@ -4044,6 +4058,18 @@ function HideLineItemsIfZero()
 		$('#DeliveryFeeRow').show();
 	}
 
+	var delivery_tip_org = Number($('#OEH_delivery_tip_org').html());
+	var delivery_tip = Number($('#OEH_delivery_tip').html());
+
+	if (delivery_tip_org == 0 && delivery_tip == 0)
+	{
+		$('#DeliveryTipRow').hideFlex();
+	}
+	else
+	{
+		$('#DeliveryTipRow').showFlex();
+	}
+
 	var serviceTaxOrg = Number($('#OEH_service_tax_subtotal_org').html());
 	var serviceTax = Number($('#OEH_service_tax_subtotal').html());
 
@@ -4236,6 +4262,7 @@ function ShowAllLineItems()
 {
 	$('#ServiceFeeRow').show();
 	$('#DeliveryFeeRow').show();
+	$('#DeliveryTipRow').showFlex();
 	$('#ServiceTaxRow').show();
 	$('#miscFoodRow').show();
 	$('#miscNonFoodRow').show();
@@ -8079,6 +8106,18 @@ function calculateTotal()
 	/*
 	 * end Round UP
 	 */
+
+	/*
+	* delivery_tip
+	 */
+	let delivery_tip = Number(0);
+	if ($('#subtotal_delivery_fee')[0])
+	{
+		delivery_tip = Number($('#delivery_tip').val());
+		$('#OEH_delivery_tip').html(formatAsMoney(delivery_tip));
+
+		newGrandTotal = Number((newGrandTotal * 1) + (delivery_tip * 1));
+	}
 
 	// -------------------------------------------------------------------- grand total
 	$('#OEH_grandtotal').html(formatAsMoney(newGrandTotal));

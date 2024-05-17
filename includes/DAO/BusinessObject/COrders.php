@@ -382,6 +382,11 @@ class COrders extends DAO_Orders
 			return false;
 		}
 
+		if ($this->delivery_tip > 0)
+		{
+			return true;
+		}
+
 		if ($DAO_store->supportsDeliveryTip())
 		{
 			return true;
@@ -2964,7 +2969,7 @@ class COrders extends DAO_Orders
 	{
 		$this->order_type = $type;
 
-		if ($this->order_type == self::DIRECT)
+		if ($this->isBackOfficeOrder())
 		{
 			$this->applyPremium = $applyPremium;
 		}
@@ -3571,7 +3576,7 @@ class COrders extends DAO_Orders
 		if (!empty($this->session))
 		{
 			//check for premium
-			if (($this->session->isQuickSix() || $this->order_type == self::DIRECT) && $this->applyPremium)
+			if (($this->session->isQuickSix() || $this->isBackOfficeOrder()) && $this->applyPremium)
 			{
 				$this->addPremium($Store->getPremium());
 			}
@@ -4738,7 +4743,7 @@ class COrders extends DAO_Orders
 			}
 		}
 
-		if (get_class($this) == 'COrdersDelivered')
+		if ($this->isShipping())
 		{
 			$this->subtotal_all_items = $this->subtotal_food_items_adjusted + $this->subtotal_products + $this->subtotal_delivery_fee;
 			$this->applyTax($fee_portion_of_points_credit, $hasServiceFeeCoupon, $hasDeliveryFeeCoupon);
@@ -4771,6 +4776,8 @@ class COrders extends DAO_Orders
 		$this->subtotal_all_items += $this->subtotal_bag_fee;
 
 		$this->subtotal_all_items += $this->subtotal_meal_customization_fee;
+
+		$this->subtotal_all_items += $this->delivery_tip;
 
 		$this->grand_total = $this->subtotal_all_items + $this->subtotal_all_taxes;
 
@@ -7578,14 +7585,14 @@ class COrders extends DAO_Orders
 
 	function isDelivery()
 	{
-		$Session = $this->findSession();
+		$DAO_session = $this->findSession();
 
-		if (empty($Session))
+		if (empty($DAO_session))
 		{
 			return false;
 		}
 
-		if ($Session->isMadeForYou() && $Session->session_type_subtype == CSession::DELIVERY || $Session->session_type_subtype == CSession::DELIVERY_PRIVATE)
+		if ($DAO_session->isDelivery())
 		{
 			return true;
 		}
@@ -7605,15 +7612,30 @@ class COrders extends DAO_Orders
 
 	function isShipping()
 	{
-		$Session = $this->findSession();
-		$Store = $this->getStore();
+		$DAO_session = $this->findSession();
+		$DAO_store = $this->getStore();
 
-		if (!empty($Session) && $Session->session_type == CSession::DELIVERED)
+		if (!empty($DAO_session) && $DAO_session->isShipping())
 		{
 			return true;
 		}
 
-		if (!empty($Store) && $Store->store_type == CStore::DISTRIBUTION_CENTER)
+		if (!empty($DAO_store) && $DAO_store->isDistributionCenter())
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function isBackOfficeOrder()
+	{
+		return $this->isDirectOrder();
+	}
+
+	function isDirectOrder()
+	{
+		if ($this->order_type == self::DIRECT)
 		{
 			return true;
 		}
@@ -8565,11 +8587,11 @@ class COrders extends DAO_Orders
 			throw new Exception('session not set for order');
 		}
 
-		$Customer = DAO_CFactory::create('user');
-		$Customer->id = $this->user_id;
-		$Customer->find(true);
+		$DAO_user = DAO_CFactory::create('user', true);
+		$DAO_user->id = $this->user_id;
+		$DAO_user->find(true);
 
-		if (CPointsUserHistory::userIsActiveInProgram($Customer))
+		if (CPointsUserHistory::userIsActiveInProgram($DAO_user))
 		{
 			$this->is_in_plate_points_program = 1;
 		}
@@ -8620,8 +8642,8 @@ class COrders extends DAO_Orders
 
 		//make sure order has not already been paid for
 
-		$Booking = DAO_CFactory::create('booking');
-		$Store = $this->getStore();
+		$DAO_booking = DAO_CFactory::create('booking');
+		$DAO_store = $this->getStore();
 
 		if ($useTransaction)
 		{
@@ -8630,23 +8652,21 @@ class COrders extends DAO_Orders
 
 		try
 		{
-
 			//add booking
-			if (($this->items || $this->products) && $this->session && (($this->order_type == self::DIRECT) || ($this->session->isOpen($Store) && $this->session->session_publish_state == CSession::PUBLISHED)))
+			if (($this->items || $this->products) && $this->session && ($this->isBackOfficeOrder() || ($this->session->isOpen($DAO_store) && $this->session->session_publish_state == CSession::PUBLISHED)))
 			{
-
 				$intro_capacity = $this->session->introductory_slots;
 				$standard_capacity = $this->session->available_slots;
 
-				$Booking->session_id = $this->session->id;
+				$DAO_booking->session_id = $this->session->id;
 				//$Booking->order_id = $this->id;
-				$Booking->user_id = $this->user_id;
-				$Booking->status = CBooking::HOLD;
+				$DAO_booking->user_id = $this->user_id;
+				$DAO_booking->status = CBooking::HOLD;
 
-				$Booking->booking_type = 'STANDARD';
+				$DAO_booking->booking_type = 'STANDARD';
 				if ($this->isNewIntroOffer())
 				{
-					$Booking->booking_type = 'INTRO';
+					$DAO_booking->booking_type = 'INTRO';
 				}
 
 				$this->updateTypeOfOrder();
@@ -8658,14 +8678,14 @@ class COrders extends DAO_Orders
 					$this->fundraiser_value = $fundraiserSessionPropObj->fundraiser_value;
 				}
 
-				$id = $Booking->insert();
+				$id = $DAO_booking->insert();
 				if (!$id)
 				{
-					throw new Exception ('booking insert failed : data error ' . $Booking->_lastError->getMessage());
+					throw new Exception ('booking insert failed : data error ' . $DAO_booking->_lastError->getMessage());
 				}
 
 				// user is placing a full order update session_rsvp for the same session if they have one
-				CSession::upgradeSessionRSVP($this->session->id, $this->user_id, $Booking->id);
+				CSession::upgradeSessionRSVP($this->session->id, $this->user_id, $DAO_booking->id);
 
 				//lock booking table
 				//to prevent this:
@@ -8678,12 +8698,10 @@ class COrders extends DAO_Orders
 				$actualAvailableStdSlots = 0;
 				$actualAvailableIntroSlots = 0;
 
-				if ($this->order_type != self::DIRECT)
+				if (!$this->isBackOfficeOrder())
 				{
-
 					$CapacityExists = false;
 					$BookingLocks = DAO_CFactory::create('booking');
-
 					$BookingLocks->query('SELECT status, booking_type FROM booking WHERE session_id=' . $this->session->id . " AND status != 'CANCELLED' AND status != 'RESCHEDULED' AND status != 'SAVED' AND is_deleted = 0 FOR UPDATE ");
 
 					//count active bookings
@@ -8691,7 +8709,7 @@ class COrders extends DAO_Orders
 					$IntroBookCnt = 0;
 					while ($BookingLocks->fetch())
 					{
-						if ($BookingLocks->status === CBooking::ACTIVE)
+						if ($BookingLocks->isActive())
 						{
 							if ($BookingLocks->booking_type == 'INTRO')
 							{
@@ -8704,7 +8722,7 @@ class COrders extends DAO_Orders
 						}
 					}
 
-					if ($Booking->booking_type == 'INTRO')
+					if ($DAO_booking->booking_type == 'INTRO')
 					{
 
 						$actualAvailableStdSlots = $standard_capacity - ($IntroBookCnt + $StdBookCnt);
@@ -8741,9 +8759,8 @@ class COrders extends DAO_Orders
 					}
 				}
 
-				if (($this->order_type == self::DIRECT) || $CapacityExists)
+				if ($this->isBackOfficeOrder() || $CapacityExists)
 				{
-
 					//save order
 					$inserted = $this->insert();
 					if (!$inserted)
@@ -8752,12 +8769,12 @@ class COrders extends DAO_Orders
 					}
 
 					//save booking
-					$Booking->order_id = $this->id;
-					$Booking->status = CBooking::ACTIVE;
-					$success = $Booking->update();
+					$DAO_booking->order_id = $this->id;
+					$DAO_booking->status = CBooking::ACTIVE;
+					$success = $DAO_booking->update();
 					if (!$success)
 					{
-						throw new Exception('data error ' . $Booking->_lastError->getMessage());
+						throw new Exception('data error ' . $DAO_booking->_lastError->getMessage());
 					}
 
 					////////////////////////
@@ -8786,7 +8803,7 @@ class COrders extends DAO_Orders
 							$ccPayment->payment_number = $origPayment->payment_number;
 							$ccPayment->credit_card_type = $origPayment->credit_card_type;
 
-							$rslt = $ccPayment->processByReference($Customer, $this, $Store, $ref_number, false);
+							$rslt = $ccPayment->processByReference($DAO_user, $this, $DAO_store, $ref_number, false);
 
 							if ($rslt['result'] != 'success')
 							{
@@ -8815,7 +8832,7 @@ class COrders extends DAO_Orders
 						}
 						else
 						{
-							$rslt = $ccPayment->processPayment($Customer, $this, $Store);
+							$rslt = $ccPayment->processPayment($DAO_user, $this, $DAO_store);
 
 							if ($rslt['result'] != 'success')
 							{
@@ -8846,7 +8863,6 @@ class COrders extends DAO_Orders
 					////////////////////////
 					try
 					{
-
 						$successfulGiftCardCount = 0;
 						foreach ($payments as $pay)
 						{
@@ -9001,7 +9017,7 @@ class COrders extends DAO_Orders
 				else
 				{ //full; delete HOLD booking //if ( $bookCnt < $capacity )
 					//delete the booking
-					$Booking->delete();
+					$DAO_booking->delete();
 					if ($useTransaction)
 					{
 						$this->query('COMMIT;');
@@ -9049,7 +9065,7 @@ class COrders extends DAO_Orders
 			$this->query('COMMIT;');
 		}
 
-		$this->postProcessActivatedOrder($Store, $Customer, true);
+		$this->postProcessActivatedOrder($DAO_store, $DAO_user, true);
 
 		return array(
 			'result' => 'success',
@@ -9078,7 +9094,6 @@ class COrders extends DAO_Orders
 
 	function processSavedOrder($payments, $useTransaction = true)
 	{
-
 		$additional_info = false;
 
 		CLog::RecordDebugTrace('COrders::processSavedOrder called for order: ' . $this->id, "TR_TRACING");
@@ -9090,11 +9105,11 @@ class COrders extends DAO_Orders
 
 		$warnOfOutstandingSavedOrdersOnFullSession = false;
 
-		$Customer = DAO_CFactory::create('user');
-		$Customer->id = $this->user_id;
-		$Customer->find(true);
+		$DAO_user = DAO_CFactory::create('user', true);
+		$DAO_user->id = $this->user_id;
+		$DAO_user->find(true);
 
-		if (CPointsUserHistory::userIsActiveInProgram($Customer))
+		if (CPointsUserHistory::userIsActiveInProgram($DAO_user))
 		{
 			$this->is_in_plate_points_program = 1;
 		}
@@ -9133,10 +9148,10 @@ class COrders extends DAO_Orders
 		//create confirmation number
 		$this->order_confirmation = self::generateConfirmationNum();
 
-		$Booking = DAO_CFactory::create('booking');
-		$Booking->order_id = $this->id;
-		$Booking->status = 'SAVED';
-		if (!$Booking->find(true))
+		$DAO_booking = DAO_CFactory::create('booking');
+		$DAO_booking->order_id = $this->id;
+		$DAO_booking->status = 'SAVED';
+		if (!$DAO_booking->find(true))
 		{
 			return array(
 				'result' => 'booking_not_found',
@@ -9144,7 +9159,7 @@ class COrders extends DAO_Orders
 			);
 		}
 
-		$Store = $this->getStore();
+		$DAO_store = $this->getStore();
 
 		if ($useTransaction)
 		{
@@ -9153,26 +9168,24 @@ class COrders extends DAO_Orders
 
 		try
 		{
-
 			//add booking
-			if (($this->items || $this->products) && $this->session && (($this->order_type == self::DIRECT) || ($this->session->isOpen($Store) && $this->session->session_publish_state == CSession::PUBLISHED)))
+			if (($this->items || $this->products) && $this->session && ($this->isBackOfficeOrder() || ($this->session->isOpen($DAO_store) && $this->session->session_publish_state == CSession::PUBLISHED)))
 			{
-
 				$intro_capacity = $this->session->introductory_slots;
 				$standard_capacity = $this->session->available_slots;
 
-				$Booking->booking_type = 'STANDARD';
+				$DAO_booking->booking_type = 'STANDARD';
 				if ($this->isNewIntroOffer())
 				{
-					$Booking->booking_type = 'INTRO';
+					$DAO_booking->booking_type = 'INTRO';
 				}
 
-				$Booking->status = CBooking::HOLD;
+				$DAO_booking->status = CBooking::HOLD;
 
 				$this->updateTypeOfOrder();
 
 				// user is placing a full order update session_rsvp for the same session if they have one
-				CSession::upgradeSessionRSVP($this->session->id, $this->user_id, $Booking->id);
+				CSession::upgradeSessionRSVP($this->session->id, $this->user_id, $DAO_booking->id);
 
 				//lock booking table
 				//to prevent this:
@@ -9193,7 +9206,7 @@ class COrders extends DAO_Orders
 				$savedIntroCount = 0;
 				while ($BookingLocks->fetch())
 				{
-					if ($BookingLocks->status === CBooking::ACTIVE)
+					if ($BookingLocks->isActive())
 					{
 						if ($BookingLocks->booking_type == 'INTRO')
 						{
@@ -9217,7 +9230,7 @@ class COrders extends DAO_Orders
 
 				$CapacityExistsAfterThisOrder = false;
 
-				if ($Booking->booking_type == 'INTRO')
+				if ($DAO_booking->booking_type == 'INTRO')
 				{
 					$introSlotsAvailable = ($intro_capacity - $IntroBookCnt > 0);
 					$anySlotAvailable = ($standard_capacity - ($IntroBookCnt + $StdBookCnt) > 0);
@@ -9277,16 +9290,16 @@ class COrders extends DAO_Orders
 					$warnOfOutstandingSavedOrdersOnFullSession = true;
 				}
 
-				if (($this->order_type == self::DIRECT) || $CapacityExists)
+				if ($this->isBackOfficeOrder() || $CapacityExists)
 				{
 
 					//save booking
-					$Booking->order_id = $this->id;
-					$Booking->status = CBooking::ACTIVE;
-					$success = $Booking->update();
+					$DAO_booking->order_id = $this->id;
+					$DAO_booking->status = CBooking::ACTIVE;
+					$success = $DAO_booking->update();
 					if (!$success)
 					{
-						throw new Exception('data error ' . $Booking->_lastError->getMessage());
+						throw new Exception('data error ' . $DAO_booking->_lastError->getMessage());
 					}
 
 					////////////////////////
@@ -9316,7 +9329,7 @@ class COrders extends DAO_Orders
 							$ccPayment->payment_number = $origPayment->payment_number;
 							$ccPayment->credit_card_type = $origPayment->credit_card_type;
 
-							$rslt = $ccPayment->processByReference($Customer, $this, $Store, $ref_number, false);
+							$rslt = $ccPayment->processByReference($DAO_user, $this, $DAO_store, $ref_number, false);
 
 							if ($rslt['result'] != 'success')
 							{
@@ -9343,7 +9356,7 @@ class COrders extends DAO_Orders
 						}
 						else
 						{
-							$rslt = $ccPayment->processPayment($Customer, $this, $Store);
+							$rslt = $ccPayment->processPayment($DAO_user, $this, $DAO_store);
 
 							if ($rslt['result'] != 'success')
 							{
@@ -9533,7 +9546,7 @@ class COrders extends DAO_Orders
 				else
 				{ //full; delete HOLD booking //if ( $bookCnt < $capacity )
 					//delete the booking
-					$Booking->delete();
+					$DAO_booking->delete();
 					if ($useTransaction)
 					{
 						$this->query('COMMIT;');
@@ -9581,7 +9594,7 @@ class COrders extends DAO_Orders
 			$this->query('COMMIT;');
 		}
 
-		$this->postProcessActivatedOrder($Store, $Customer);
+		$this->postProcessActivatedOrder($DAO_store, $DAO_user);
 
 		return array(
 			'result' => 'success',
@@ -9870,15 +9883,15 @@ class COrders extends DAO_Orders
 
 			foreach ($storeCreditArray as $storeCredit)
 			{
-				$storeCreditDAO = DAO_CFactory::create('store_credit');
-				$storeCreditDAO->id = $storeCredit;
-				if (!$storeCreditDAO->find(true))
+				$DAO_store_credit = DAO_CFactory::create('store_credit', true);
+				$DAO_store_credit->id = $storeCredit;
+				if (!$DAO_store_credit->find(true))
 				{
 					throw new Exception('Store Credit not found in processNewOrderGC()');
 				}
-				$storeCreditArrayDAO[$storeCreditDAO->id] = $storeCreditDAO;
+				$storeCreditArrayDAO[$DAO_store_credit->id] = $DAO_store_credit;
 
-				$totalStoreCredit += $storeCreditDAO->amount;
+				$totalStoreCredit += $DAO_store_credit->amount;
 			}
 			//echo "<br />TOTAL STORE CREDIT:".$totalStoreCredit;
 		}
@@ -10039,11 +10052,11 @@ class COrders extends DAO_Orders
 
 		CLog::Assert(false, "COrders::addPayment should not be used");
 
-		$Customer = DAO_CFactory::create('user');
-		$Customer->id = $this->user_id;
-		$Customer->find(true);
+		$DAO_user = DAO_CFactory::create('user', true);
+		$DAO_user->id = $this->user_id;
+		$DAO_user->find(true);
 
-		$Store = $this->getStore();
+		$DAO_store = $this->getStore();
 
 		try
 		{
@@ -10064,7 +10077,7 @@ class COrders extends DAO_Orders
 			if ($Payment->payment_type == CPayment::CC)
 			{
 				//processes cc payment with verisign
-				$rslt = $Payment->processPayment($Customer, $this, $Store);
+				$rslt = $Payment->processPayment($DAO_user, $this, $DAO_store);
 
 				if ($rslt['result'] != 'success')
 				{

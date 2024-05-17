@@ -1417,7 +1417,7 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 		if (!$isDeliveredStore)
 		{
-			$fieldlist =  "select s.id,
+			$fieldlist = "select s.id,
 				sum(oi.item_count - oi.bundle_item_count) as item_count,
 				sum(oi.pre_mark_up_sub_total - ((oi.pre_mark_up_sub_total / oi.item_count) * oi.bundle_item_count)) as item_total,
 				sum(if(mi.menu_item_category_id = 9, (oi.pre_mark_up_sub_total - ((oi.pre_mark_up_sub_total / oi.item_count) * oi.bundle_item_count)), 0)) as ft_total,
@@ -1608,7 +1608,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 			$newEntity = array_pad($newEntity, $nextPadAmount, 0);
 			$newEntity[] = $doorDashObj->doordashTaxes;
 			$newEntity[] = $doorDashObj->doordashRev + $doorDashObj->doordashTaxes;
-
 
 			$data[] = $newEntity;
 		}

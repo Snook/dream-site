@@ -19,7 +19,6 @@
 							<?php echo $this->cart_info['cart_info_array']['num_sides']; ?> Sides and Sweets
 						<?php }?>
 					<?php }?>
-
 				</div>
 				<div class="col-md-6 col-4 text-right">
 					<p>$<span id="checkout_total-food"><?php echo CTemplate::moneyFormat($this->cart_info["orderObj"]->getFoodTotal()); ?></span></p>
@@ -37,7 +36,6 @@
 				</div>
 			</div>
 		<?php } } ?>
-
 
 		<?php if( $this->allow_assembly_fee) { ?>
 			<?php if( !$this->isEmptyFloat( $this->cart_info['order_info']['subtotal_service_fee'] ) && $this->foodState == 'adequateFood' ) { ?>
@@ -72,7 +70,7 @@
 			<?php } ?>
 		<?php } ?>
 
-		<div class="row" id="customization-fee-row" style="<?php echo (($this->has_meal_customization_selected == true ) ? '': 'display:none;'  )?>">
+		<div class="row collapse <?php echo (($this->has_meal_customization_selected == true ) ? 'show': ''  )?>" id="customization-fee-row">
 			<div class="col-md-6 col-8 text-left">
 				<p>Customization Fee</p>
 			</div>
@@ -101,6 +99,17 @@
 					</div>
 				</div>
 			<?php } ?>
+		<?php } ?>
+
+		<?php if ($this->cart_info["orderObj"]->isDelivery()) { ?>
+			<div class="row row-delivery_tip collapse <?php if (!$this->isEmptyFloat($this->cart_info["orderObj"]->delivery_tip)) { ?>show<?php } ?>">
+				<div class="col-md-6 col-8 text-left">
+					<p>Driver Tip</p>
+				</div>
+				<div class="col-md-6 col-4 text-right">
+					<p>$<span class="checkout_total-delivery_tip"><?php echo CTemplate::moneyFormat($this->cart_info["orderObj"]->delivery_tip);?></span></p>
+				</div>
+			</div>
 		<?php } ?>
 
 		<?php if( !$this->isEmptyFloat( $this->cart_info['order_info']['volume_discount_total'] ) && $this->foodState == 'adequateFood' ) { ?>
@@ -176,7 +185,6 @@
 					<?php if($this->hide_remove_gift_card){?><?php }else{?>
 						<i id="remove-coupon" class="fas fa-trash-alt mr-2"></i><?php } ?><span id="checkout_title-coupon">Coupon (<span style="font-size:8pt;" id="checkout_title-coupon_code"><?php echo(!empty($this->cart_info['coupon']) ? $this->cart_info['coupon']['coupon_code_short_title'] : "") ?></span>)</span>
 				</p>
-
 			</div>
 			<div class="col-md-6 col-4 text-right">
 				<p>-$<span id="checkout_total-coupon"><?php echo CTemplate::moneyFormat($this->cart_info['order_info']['coupon_code_discount_total']);?></span></p>
@@ -257,13 +265,13 @@
 
 			<div class="row">
 				<div class="col-md-7 col-7 text-left">
-					<?php if($this->isEditDeliveredOrder && $this->delta_has_new_total){ ?>
+					<?php if ($this->isEditDeliveredOrder && $this->delta_has_new_total) { ?>
 						<p>New Total</p>
-					<?php }else if($this->isEditDeliveredOrder && !$this->delta_has_new_total){ ?>
+					<?php } else if($this->isEditDeliveredOrder && !$this->delta_has_new_total) { ?>
 						<p>Total</p>
-					<?php }else{ ?>
+					<?php } else { ?>
 						<p>Balance Due</p>
-					<?php }?>
+					<?php } ?>
 				</div>
 				<div class="col-md-5 col-5 text-right">
 					<?php if($this->isEditDeliveredOrder){ ?>
@@ -280,7 +288,7 @@
 
 		<?php } ?>
 
-		<?php if ($this->cart_info['session_info']['session_type_subtype'] == CSession::DELIVERY) { ?>
+		<?php if ($this->cart_info["orderObj"]->isDelivery()) { ?>
 			<div class="col">
 				<span class="text-muted font-size-small">*Delivery fee applies to orders delivered within 15 miles of the store. Orders may be canceled for any distance beyond 15 miles. If the store can accommodate an additional fee may be added to your order before delivery. <?php if (!empty($this->cart_info["storeObj"]->telephone_day) ){ ?>Contact the store at <?php echo $this->cart_info["storeObj"]->telephone_day ?> for additional information.<?php } ?></span>
 			</div>

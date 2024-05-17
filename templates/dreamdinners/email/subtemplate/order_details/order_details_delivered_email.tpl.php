@@ -370,6 +370,14 @@
 					</tr>
 				<?php } ?>
 
+				<?php if( !$this->isEmptyFloat( $this->orderInfo['delivery_tip'] )) { ?>
+					<tr>
+						<td align="right">Driver Tip:</td>
+						<td align="right"><?php echo $this->moneyFormat( $this->orderInfo['delivery_tip'] ) ?></td>
+						<td> </td>
+					</tr>
+				<?php } ?>
+
 				<tr>
 					<td align="right">Food Tax:</td>
 					<td align="right"><?php echo $this->moneyFormat( $this->orderInfo['subtotal_food_sales_taxes'] ) ?></td>

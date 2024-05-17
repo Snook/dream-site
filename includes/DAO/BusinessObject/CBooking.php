@@ -577,6 +577,56 @@ class CBooking extends DAO_Booking
 		return $theBooking['can_reschedule'] = true;
 	}
 
+	function isActive()
+	{
+		if ($this->status === self::ACTIVE)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function isCancelled()
+	{
+		if ($this->status === self::CANCELLED)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function isRescheduled()
+	{
+		if ($this->status === self::RESCHEDULED)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function isSaved()
+	{
+		if ($this->status === self::SAVED)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function isHold()
+	{
+		if ($this->status === self::HOLD)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	function isReschedulingLockedOut($store_id, $menu_id)
 	{
 		if (self::$isReschedulingLockedOut_StoreObj === null)

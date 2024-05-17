@@ -2083,15 +2083,19 @@ class CSession extends DAO_Session
 		return false;
 	}
 
-	function isDelivered()
+	function isShipping()
 	{
-
 		if (!empty($this->session_type) && $this->session_type === CSession::DELIVERED)
 		{
 			return true;
 		}
 
 		return false;
+	}
+
+	function isDelivered()
+	{
+		return $this->isShipping();
 	}
 
 	function isRemotePickup()

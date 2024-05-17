@@ -336,6 +336,13 @@
 					</tr>
 				<?php } ?>
 
+				<?php if (!$this->isEmptyFloat($this->orderInfo['delivery_tip'])) { ?>
+					<tr>
+						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Driver Tip</td>
+						<td align="right">$<span><?php echo $this->moneyFormat($this->orderInfo['delivery_tip']) ?></span></td>
+					</tr>
+				<?php } ?>
+
 				<?php if (!$this->isEmptyFloat($this->orderInfo['volume_discount_total'])) { ?>
 					<tr>
 						<td colspan="<?php echo ($displayStationNumber) ? '5' : '4'; ?>" class="text-right">Volume Reward</td>

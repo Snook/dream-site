@@ -68,6 +68,8 @@ Promo Code Discount (<?php echo $this->orderInfo['coupon_title']?>): -<?php echo
 Service Fees:			<?php echo $this->moneyFormat( $this->orderInfo['subtotal_service_fee'] ) ?><?php } ?>
 <?php if( !$this->isEmptyFloat( $this->orderInfo['subtotal_delivery_fee'] )) { ?>
 Delivery Fee:			<?php echo $this->moneyFormat( $this->orderInfo['subtotal_delivery_fee'] ) ?><?php } ?>
+<?php if( !$this->isEmptyFloat( $this->orderInfo['delivery_tip'] )) { ?>
+Driver Tip:			<?php echo $this->moneyFormat( $this->orderInfo['delivery_tip'] ) ?><?php } ?>
 
 Item Subtotal		$<?php echo $this->moneyFormat($this->orderInfo['subtotal_all_items']) . "\n" ?>
 Tax Subtotal		$<?php echo $this->moneyFormat($this->orderInfo['subtotal_all_taxes']) . "\n" ?>

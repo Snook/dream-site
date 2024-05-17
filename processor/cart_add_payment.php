@@ -27,9 +27,9 @@ class processor_cart_add_payment extends CPageProcessor
 				CAppUtil::processorMessageEcho($results_array);
 			}
 
-			if ($_POST['payment_type'] == 'delivery_tip' && isset($_POST['delivery_tip']))
+			if ($_POST['payment_type'] == 'delivery_tip' && isset($_POST['value']))
 			{
-				$results_array = self::add_delivery_tip($_POST['delivery_tip']);
+				$results_array = self::add_delivery_tip($_POST['value']);
 
 				CAppUtil::processorMessageEcho($results_array);
 			}
@@ -350,19 +350,21 @@ class processor_cart_add_payment extends CPageProcessor
 	static function add_delivery_tip($value)
 	{
 		$CartObj = CCart2::instance();
-		$Order = $CartObj->getOrder();
+		$DAO_orders = $CartObj->getOrder();
 
-		$Order->refresh(CUser::getCurrentUser());
-		$Order->recalculate();
+		$DAO_orders->refresh(CUser::getCurrentUser());
+		$DAO_orders->recalculate();
 
-		$Order->addDeliveryTip($value);
+		$DAO_orders->addDeliveryTip($value);
 
-		$Order->recalculate();
-		$CartObj->addOrder($Order);
+		$DAO_orders->recalculate();
+		$CartObj->addOrder($DAO_orders);
 
 		$results_array = array(
 			'processor_success' => true,
 			'result_code' => 1,
+			'delivery_tip' => $DAO_orders->delivery_tip,
+			'grand_total' => $DAO_orders->grand_total,
 			'processor_message' => 'Tip applied to order.'
 		);
 

@@ -2333,79 +2333,84 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			exit;
 		}
 
-		$OrderObj = DAO_CFactory::create('orders');
-		$OrderObj->id = $this->order_id;
-		$OrderObj->find(true);
+		$DAO_orders = DAO_CFactory::create('orders');
+		$DAO_orders->id = $this->order_id;
+		$DAO_orders->find(true);
 
-		$orgOrder = clone($OrderObj);
+		$org_DAO_orders = clone($DAO_orders);
 
-		$originalGrandTotalMinusTaxes = $OrderObj->grand_total - $OrderObj->subtotal_all_taxes;
+		$originalGrandTotalMinusTaxes = $DAO_orders->grand_total - $DAO_orders->subtotal_all_taxes;
 
-		$order_record = DAO_CFactory::create('edited_orders');
-		$order_record->setFrom($OrderObj->toArray());
-		$order_record->original_order_id = $this->order_id;
+		$DAO_edited_orders = DAO_CFactory::create('edited_orders');
+		$DAO_edited_orders->setFrom($DAO_orders->toArray());
+		$DAO_edited_orders->original_order_id = $this->order_id;
 
-		$order_record->order_revisions = $_POST['changeList'];
-		$order_record->order_revision_notes = $_POST['changeListStr'];
+		$DAO_edited_orders->order_revisions = $_POST['changeList'];
+		$DAO_edited_orders->order_revision_notes = $_POST['changeListStr'];
 
-		$order_record->insert();
+		$DAO_edited_orders->insert();
 
 		// $OrderObj->reconstruct(); ???
 
 		if (!empty($_POST['misc_food_subtotal']) && is_numeric($_POST['misc_food_subtotal']) && $_POST['misc_food_subtotal'] >= 0)
 		{
-			$OrderObj->misc_food_subtotal = $_POST['misc_food_subtotal'];
+			$DAO_orders->misc_food_subtotal = $_POST['misc_food_subtotal'];
 		}
 
 		if (!empty($_POST['misc_nonfood_subtotal']) && is_numeric($_POST['misc_nonfood_subtotal']) && $_POST['misc_nonfood_subtotal'] >= 0)
 		{
-			$OrderObj->misc_nonfood_subtotal = $_POST['misc_nonfood_subtotal'];
+			$DAO_orders->misc_nonfood_subtotal = $_POST['misc_nonfood_subtotal'];
 		}
 
 		if (!empty($_POST['subtotal_service_fee']) && is_numeric($_POST['subtotal_service_fee']) && $_POST['subtotal_service_fee'] >= 0)
 		{
-			$OrderObj->subtotal_service_fee = $_POST['subtotal_service_fee'];
+			$DAO_orders->subtotal_service_fee = $_POST['subtotal_service_fee'];
 		}
 
 		if (!empty($_POST['subtotal_delivery_fee']) && is_numeric($_POST['subtotal_delivery_fee']) && $_POST['subtotal_delivery_fee'] >= 0)
 		{
-			$OrderObj->subtotal_delivery_fee = $_POST['subtotal_delivery_fee'];
+			$DAO_orders->subtotal_delivery_fee = $_POST['subtotal_delivery_fee'];
+		}
+
+		if (!empty($_POST['delivery_tip']) && is_numeric($_POST['delivery_tip']) && $_POST['delivery_tip'] >= 0)
+		{
+			$DAO_orders->delivery_tip = $_POST['delivery_tip'];
 		}
 
 		if (!empty($_POST['misc_food_subtotal_desc']))
 		{
-			$OrderObj->misc_food_subtotal_desc = $_POST['misc_food_subtotal_desc'];
+			$DAO_orders->misc_food_subtotal_desc = $_POST['misc_food_subtotal_desc'];
 		}
 		else
 		{
-			$OrderObj->misc_food_subtotal_desc = 'null';
+			$DAO_orders->misc_food_subtotal_desc = 'null';
 		}
 
 		if (!empty($_POST['misc_nonfood_subtotal_desc']))
 		{
-			$OrderObj->misc_nonfood_subtotal_desc = $_POST['misc_nonfood_subtotal_desc'];
+			$DAO_orders->misc_nonfood_subtotal_desc = $_POST['misc_nonfood_subtotal_desc'];
 		}
 		else
 		{
-			$OrderObj->misc_nonfood_subtotal_desc = 'null';
+			$DAO_orders->misc_nonfood_subtotal_desc = 'null';
 		}
 
 		if (!empty($_POST['service_fee_description']))
 		{
-			$OrderObj->service_fee_description = $_POST['service_fee_description'];
+			$DAO_orders->service_fee_description = $_POST['service_fee_description'];
 		}
 		else
 		{
-			$OrderObj->service_fee_description = 'null';
+			$DAO_orders->service_fee_description = 'null';
 		}
 
-		$Session = $OrderObj->findSession(true);
+		$Session = $DAO_orders->findSession(true);
 
-		$OrderItems = DAO_CFactory::create('order_item');
+		$DAO_order_item = DAO_CFactory::create('order_item');
 		$adminUser = CUser::getCurrentUser()->id;
-		$OrderItems->query("update order_item set is_deleted = 1, edit_sequence_id = {$order_record->id}, updated_by = $adminUser where order_id = {$this->order_id} and is_deleted = 0");
+		$DAO_order_item->query("update order_item set is_deleted = 1, edit_sequence_id = {$DAO_edited_orders->id}, updated_by = $adminUser where order_id = {$this->order_id} and is_deleted = 0");
 
-		$OrderObj->refreshForEditing($Session->menu_id);
+		$DAO_orders->refreshForEditing($Session->menu_id);
 
 		$isIntro = false;
 		$introItems = array();
@@ -2436,44 +2441,44 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			$ltdOrderedMealsArray = json_decode($_POST['ltdOrderedMealsArray']);
 		}
 
-		$this->addMenuItemsToOrder($OrderObj, null, $items, $isIntro, $introItems, $subItems, $ltdOrderedMealsArray);
+		$this->addMenuItemsToOrder($DAO_orders, null, $items, $isIntro, $introItems, $subItems, $ltdOrderedMealsArray);
 
-		$OrderObj->insertEditedItems(false, false);
-		$OrderObj->recalculate(true, false);
+		$DAO_orders->insertEditedItems(false, false);
+		$DAO_orders->recalculate(true, false);
 
 		if (!empty($_POST['direct_order_discount']) && is_numeric($_POST['direct_order_discount']) && $_POST['direct_order_discount'] >= 0)
 		{
-			$OrderObj->addDiscount($_POST['direct_order_discount']);
+			$DAO_orders->addDiscount($_POST['direct_order_discount']);
 		}
 
 		if (!empty($_POST['dream_rewards_level']) && is_numeric($_POST['dream_rewards_level']) && $_POST['dream_rewards_level'] > 0)
 		{
-			$OrderObj->dream_rewards_level = $_POST['dream_rewards_level'];
+			$DAO_orders->dream_rewards_level = $_POST['dream_rewards_level'];
 		}
 
 		if (!empty($_POST['plate_points_discount']) && is_numeric($_POST['plate_points_discount']) && $_POST['plate_points_discount'] >= 0)
 		{
 
-			$pp_credit_adjust_summary = CPointsCredits::AdjustPointsForOrderEdit($orgOrder, $_POST['plate_points_discount']);
+			$pp_credit_adjust_summary = CPointsCredits::AdjustPointsForOrderEdit($org_DAO_orders, $_POST['plate_points_discount']);
 
-			$OrderObj->points_discount_total = $_POST['plate_points_discount'];
+			$DAO_orders->points_discount_total = $_POST['plate_points_discount'];
 		}
 
 		if (!empty($_POST['PUDSetting']))
 		{
 			if ($_POST['PUDSetting'] == "noUP")
 			{
-				$OrderObj->clearPreferred();
-				$OrderObj->user_preferred_id = 'null';
+				$DAO_orders->clearPreferred();
+				$DAO_orders->user_preferred_id = 'null';
 			}
 			else if ($_POST['PUDSetting'] == "activeUP")
 			{
 				$UPobj = DAO_CFactory::create('user_preferred');
-				$UPobj->user_id = $OrderObj->user_id;
-				if ($UPobj->findActive($OrderObj->store_id))
+				$UPobj->user_id = $DAO_orders->user_id;
+				if ($UPobj->findActive($DAO_orders->store_id))
 				{
 					$UPobj->fetch();
-					$OrderObj->addPreferred($UPobj);
+					$DAO_orders->addPreferred($UPobj);
 				}
 			}
 		}
@@ -2483,9 +2488,9 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 		{
 			if ($_POST['SessDiscSetting'] == "noSD")
 			{
-				$OrderObj->findSession()->session_discount_id = 0;
-				$OrderObj->session_discount_id = 'null';
-				$OrderObj->session_discount_total = 0;
+				$DAO_orders->findSession()->session_discount_id = 0;
+				$DAO_orders->session_discount_id = 'null';
+				$DAO_orders->session_discount_total = 0;
 				$suppressSessionDiscount = true;
 			}
 			else if ($_POST['SessDiscSetting'] == "activeSD")
@@ -2503,11 +2508,11 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			$suppressSessionDiscount = true;
 		}
 
-		$OrderObj->refreshForEditing($Session->menu_id);
-		$OrderObj->recalculate(true, $suppressSessionDiscount);
-		$OrderObj->update($orgOrder);
+		$DAO_orders->refreshForEditing($Session->menu_id);
+		$DAO_orders->recalculate(true, $suppressSessionDiscount);
+		$DAO_orders->update($org_DAO_orders);
 
-		COrdersDigest::recordEditedOrder($OrderObj, $originalGrandTotalMinusTaxes);
+		COrdersDigest::recordEditedOrder($DAO_orders, $originalGrandTotalMinusTaxes);
 
 		$token = CSRF::getNewToken('om_get_token');
 
@@ -2756,65 +2761,74 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 	{
 		CLog::RecordDebugTrace('order_mgr_processor::updateItems called for order: ' . $this->order_id);
 
-		$OrderObj = DAO_CFactory::create('orders');
-		$OrderObj->id = $this->order_id;
-		$OrderObj->find(true);
+		$DAO_orders = DAO_CFactory::create('orders');
+		$DAO_orders->id = $this->order_id;
+		$DAO_orders->find(true);
 
-		$orgOrder = $OrderObj->cloneObj();
+		$org_DAO_orders = $DAO_orders->cloneObj();
 
 		$orgPrices = array();
 
 		// original prices to be used if menu > 78
 		if ($this->orderState != 'NEW')
 		{
-			$orgPrices = $orgOrder->getOriginalPrices();
+			$orgPrices = $org_DAO_orders->getOriginalPrices();
 		}
 
 		if (isset($_POST['misc_food_subtotal']) && is_numeric($_POST['misc_food_subtotal']) && $_POST['misc_food_subtotal'] >= 0)
 		{
-			$OrderObj->misc_food_subtotal = $_POST['misc_food_subtotal'];
+			$DAO_orders->misc_food_subtotal = $_POST['misc_food_subtotal'];
 		}
 
 		if (isset($_POST['misc_nonfood_subtotal']) && is_numeric($_POST['misc_nonfood_subtotal']) && $_POST['misc_nonfood_subtotal'] >= 0)
 		{
-			$OrderObj->misc_nonfood_subtotal = $_POST['misc_nonfood_subtotal'];
+			$DAO_orders->misc_nonfood_subtotal = $_POST['misc_nonfood_subtotal'];
 		}
 
 		if (isset($_POST['subtotal_service_fee']) && is_numeric($_POST['subtotal_service_fee']) && $_POST['subtotal_service_fee'] >= 0)
 		{
-			$OrderObj->subtotal_service_fee = $_POST['subtotal_service_fee'];
+			$DAO_orders->subtotal_service_fee = $_POST['subtotal_service_fee'];
 		}
 
 		if (isset($_POST['subtotal_delivery_fee']) && is_numeric($_POST['subtotal_delivery_fee']) && $_POST['subtotal_delivery_fee'] >= 0)
 		{
-			$OrderObj->subtotal_delivery_fee = $_POST['subtotal_delivery_fee'];
+			$DAO_orders->subtotal_delivery_fee = $_POST['subtotal_delivery_fee'];
+		}
+
+		if (!empty($_POST['delivery_tip']))
+		{
+			$DAO_orders->delivery_tip = $_POST['delivery_tip'];
+		}
+		else
+		{
+			$DAO_orders->delivery_tip = 'null';
 		}
 
 		if (!empty($_POST['misc_food_subtotal_desc']))
 		{
-			$OrderObj->misc_food_subtotal_desc = $_POST['misc_food_subtotal_desc'];
+			$DAO_orders->misc_food_subtotal_desc = $_POST['misc_food_subtotal_desc'];
 		}
 		else
 		{
-			$OrderObj->misc_food_subtotal_desc = 'null';
+			$DAO_orders->misc_food_subtotal_desc = 'null';
 		}
 
 		if (!empty($_POST['misc_nonfood_subtotal_desc']))
 		{
-			$OrderObj->misc_nonfood_subtotal_desc = $_POST['misc_nonfood_subtotal_desc'];
+			$DAO_orders->misc_nonfood_subtotal_desc = $_POST['misc_nonfood_subtotal_desc'];
 		}
 		else
 		{
-			$OrderObj->misc_nonfood_subtotal_desc = 'null';
+			$DAO_orders->misc_nonfood_subtotal_desc = 'null';
 		}
 
 		if (!empty($_POST['service_fee_description']))
 		{
-			$OrderObj->service_fee_description = $_POST['service_fee_description'];
+			$DAO_orders->service_fee_description = $_POST['service_fee_description'];
 		}
 		else
 		{
-			$OrderObj->service_fee_description = 'null';
+			$DAO_orders->service_fee_description = 'null';
 		}
 
 		if (!empty($_POST['storeSupportsBagFees']) && $_POST['storeSupportsBagFees'] != 'false')
@@ -2822,60 +2836,60 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 
 			if (!empty($_POST['opted_to_bring_bags']) && $_POST['opted_to_bring_bags'] != 'false')
 			{
-				$OrderObj->subtotal_bag_fee = 0.00;
-				$OrderObj->total_bag_count = 0;
-				$OrderObj->opted_to_bring_bags = 1;
+				$DAO_orders->subtotal_bag_fee = 0.00;
+				$DAO_orders->total_bag_count = 0;
+				$DAO_orders->opted_to_bring_bags = 1;
 			}
 			else
 			{
 
 				if (!empty($_POST['bagFeeTotal']))
 				{
-					$OrderObj->subtotal_bag_fee = $_POST['bagFeeTotal'];
+					$DAO_orders->subtotal_bag_fee = $_POST['bagFeeTotal'];
 				}
 				else
 				{
-					$OrderObj->subtotal_bag_fee = 0.00;
+					$DAO_orders->subtotal_bag_fee = 0.00;
 				}
 
 				if (!empty($_POST['bagFeeCount']))
 				{
-					$OrderObj->total_bag_count = $_POST['bagFeeCount'];
+					$DAO_orders->total_bag_count = $_POST['bagFeeCount'];
 				}
 				else
 				{
-					$OrderObj->total_bag_count = 0;
+					$DAO_orders->total_bag_count = 0;
 				}
 			}
 		}
 		else
 		{
-			$OrderObj->subtotal_bag_fee = 0.00;
-			$OrderObj->total_bag_count = 0;
-			$OrderObj->opted_to_bring_bags = 'null';
+			$DAO_orders->subtotal_bag_fee = 0.00;
+			$DAO_orders->total_bag_count = 0;
+			$DAO_orders->opted_to_bring_bags = 'null';
 		}
 
 		if (!empty($_POST['opted_to_customize']) && $_POST['opted_to_customize'] == 'false')
 		{
-			$OrderObj->clearMealCustomizations();
+			$DAO_orders->clearMealCustomizations();
 		}
 		else if (!empty($_POST['opted_to_customize']) && $_POST['opted_to_customize'] == 'true')
 		{
-			$OrderObj->setAllowRecalculateMealCustomizationFeeClosedSession(true);
-			$OrderObj->opted_to_customize_recipes = 1;
-			$OrderObj->total_customized_meal_count = 0;
+			$DAO_orders->setAllowRecalculateMealCustomizationFeeClosedSession(true);
+			$DAO_orders->opted_to_customize_recipes = 1;
+			$DAO_orders->total_customized_meal_count = 0;
 
 			if ($_POST['manual_customization_fee'] == 'true')
 			{
-				$OrderObj->setShouldRecalculateMealCustomizationFee(false);
+				$DAO_orders->setShouldRecalculateMealCustomizationFee(false);
 			}
 			if (!empty($_POST['meal_customization_fee']))
 			{
-				$OrderObj->subtotal_meal_customization_fee = $_POST['meal_customization_fee'];
+				$DAO_orders->subtotal_meal_customization_fee = $_POST['meal_customization_fee'];
 			}
 			else
 			{
-				$OrderObj->subtotal_meal_customization_fee = 0.00;
+				$DAO_orders->subtotal_meal_customization_fee = 0.00;
 			}
 		}
 
@@ -2890,8 +2904,8 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 		$adminUser = CUser::getCurrentUser()->id;
 		$OrderItems->query("update order_item set is_deleted = 1, edit_sequence_id = 2, updated_by = $adminUser where order_id = {$this->order_id} and is_deleted = 0");
 
-		$SessionObj = $OrderObj->findSession(true);
-		$OrderObj->refreshForEditing($SessionObj->menu_id);
+		$SessionObj = $DAO_orders->findSession(true);
+		$DAO_orders->refreshForEditing($SessionObj->menu_id);
 
 		$isIntro = false;
 		$introItems = array();
@@ -2906,7 +2920,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 				$introItems = $_POST['intro_items'];
 			}
 
-			$OrderObj->type_of_order = COrders::INTRO;
+			$DAO_orders->type_of_order = COrders::INTRO;
 
 			$BookingUpdate->query("update booking set booking_type = 'INTRO' where order_id = {$this->order_id} and status = 'SAVED'");
 		}
@@ -2914,19 +2928,19 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 		{
 			$BookingUpdate->query("update booking set booking_type = 'STANDARD' where order_id = {$this->order_id} and status = 'SAVED'");
 
-			if ($OrderObj->findSession()->session_type == CSession::DREAM_TASTE)
+			if ($DAO_orders->findSession()->session_type == CSession::DREAM_TASTE)
 			{
-				$OrderObj->type_of_order = COrders::DREAM_TASTE;
+				$DAO_orders->type_of_order = COrders::DREAM_TASTE;
 			}
-			else if ($OrderObj->findSession()->session_type == CSession::FUNDRAISER)
+			else if ($DAO_orders->findSession()->session_type == CSession::FUNDRAISER)
 			{
 
-				$OrderObj->type_of_order = COrders::FUNDRAISER;
+				$DAO_orders->type_of_order = COrders::FUNDRAISER;
 			}
 			else
 			{
-				$OrderObj->type_of_order = COrders::STANDARD;
-				$OrderObj->bundle_id = 0;
+				$DAO_orders->type_of_order = COrders::STANDARD;
+				$DAO_orders->bundle_id = 0;
 			}
 		}
 
@@ -2942,19 +2956,19 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			$subItems = $_POST['sub_items'];
 		}
 
-		$this->addMenuItemsToOrder($OrderObj, $orgPrices, $items, $isIntro, $introItems, $subItems, $ltdOrderedMealsArray);
+		$this->addMenuItemsToOrder($DAO_orders, $orgPrices, $items, $isIntro, $introItems, $subItems, $ltdOrderedMealsArray);
 
-		$OrderObj->insertEditedItems(false, false);
-		$OrderObj->recalculate(true, false);
+		$DAO_orders->insertEditedItems(false, false);
+		$DAO_orders->recalculate(true, false);
 
-		if (empty($OrderObj->bundle_id))
+		if (empty($DAO_orders->bundle_id))
 		{
-			$OrderObj->bundle_id = 'null';
+			$DAO_orders->bundle_id = 'null';
 		}
 
-		$OrderObj->updateMinimumQualification();
+		$DAO_orders->updateMinimumQualification();
 
-		$OrderObj->update($orgOrder);
+		$DAO_orders->update($org_DAO_orders);
 
 		echo json_encode(array(
 			'processor_success' => true,
