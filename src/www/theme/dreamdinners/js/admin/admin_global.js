@@ -825,7 +825,7 @@ function handle_helpdesk()
 		$('#footerlinks').append('<div id="helpdesk">Dream Dinners Support</div>');
 	}
 
-	$('#helpdesk, #helpdesk_footer_link, #helpdesk_button, .helpdesk-popup').on('click', function (e) {
+	$('#helpdesk, #helpdesk_footer_link, #helpdesk_button, .helpdesk-popup').on('mousedown click', function (e) {
 
 		e.preventDefault();
 
