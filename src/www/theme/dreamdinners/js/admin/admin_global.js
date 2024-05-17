@@ -825,11 +825,17 @@ function handle_helpdesk()
 		$('#footerlinks').append('<div id="helpdesk">Dream Dinners Support</div>');
 	}
 
-	$('#helpdesk, #helpdesk_footer_link, #helpdesk_button, .helpdesk-popup').on('click', function (e) {
+	$('#helpdesk, #helpdesk_footer_link, #helpdesk_button, .helpdesk-popup').on('mousedown click', function (e) {
 
 		e.preventDefault();
 
-		var request_url = window.location.pathname + window.location.search;
+		//var request_url = window.location.pathname + window.location.search;
+		window.open(
+			"mailto:support@dreamdinners.com?subject=Support Request: " + encodeURIComponent(document.title) + "&body=%0D%0A%0D%0A%0D%0A%0D%0A%0D%0AProblem url: " + encodeURIComponent(window.location.href) + "%0D%0ABrowser: " + encodeURIComponent(window.navigator.userAgent),
+			'_blank' // <- This is what makes it open in a new window.
+		);
+
+		return;
 
 		$.ajax({
 			url: '/processor',
