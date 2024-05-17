@@ -1699,18 +1699,18 @@ class CSessionToolsPDFDrawer
 
 		foreach ($menuItemArray['entree']->nutrition_array['component'] as $component_id => $component)
 		{
-			$component_ypos = $yPos + ((++$component_count - 1) * 4) + 4;
+			$component_ypos = $yPos + ((++$component_count - 1) * 4) + 4 - .75;
 
 			$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN, $component_ypos);
 			$component['info']['serving'] = str_replace("&eacute;", "\xE9", $component['info']['serving']);
 
 			if (strlen($component['info']['serving']) >= 50)
 			{
-				$this->pdf->MultiCellTag(45, 2, "<t6>" . ucfirst($component['info']['serving']) . ((!empty($component['info']['serving_weight'])) ? ' (' . $component['info']['serving_weight'] . 'g)' : '') . "</t6>", $this->showBorders, 'R');
+				$this->pdf->MultiCellTag(45, 2.75, "<t6>" . ucfirst($component['info']['serving']) . ((!empty($component['info']['serving_weight'])) ? ' (' . $component['info']['serving_weight'] . 'g)' : '') . "</t6>", $this->showBorders, 'R');
 			}
 			else
 			{
-				$this->pdf->MultiCellTag(45, 2, "<t8>" . ucfirst($component['info']['serving']) . ((!empty($component['info']['serving_weight'])) ? ' (' . $component['info']['serving_weight'] . 'g)' : '') . "</t8>", $this->showBorders, 'R');
+				$this->pdf->MultiCellTag(45, 2.75, "<t8>" . ucfirst($component['info']['serving']) . ((!empty($component['info']['serving_weight'])) ? ' (' . $component['info']['serving_weight'] . 'g)' : '') . "</t8>", $this->showBorders, 'R');
 			}
 
 			$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN + 46, $component_ypos);

@@ -2528,6 +2528,7 @@ class CMenuItem extends DAO_Menu_item
 			{
 				$this->nutrition_array['component'][$DAO_recipe->component_number]['info'] = array(
 					'serving' => $DAO_recipe->serving,
+					'serving_weight' => $DAO_recipe->serving_weight,
 					'notes' => $DAO_recipe->notes
 				);
 			}
@@ -2751,6 +2752,7 @@ class CMenuItem extends DAO_Menu_item
 				{
 					$NutsArray[$DAO_recipe->component_number]['info'] = array(
 						'serving' => $DAO_recipe->serving,
+						'serving_weight' => $DAO_recipe->serving_weight,
 						'notes' => $DAO_recipe->notes
 					);
 				}
