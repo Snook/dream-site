@@ -430,7 +430,7 @@ class CRecipe extends DAO_Recipe
 	{
 		$nutsComponent_group_by = "mi.id, ne.label, nd.component_number";
 		$nutsInfo_group_by = "";
-		$nutsInfo_select_group = "rc.serving, rc.serving_weight";
+		$nutsInfo_select_group = "rc.serving, rc.serving_weight, ";
 
 		// if $sum_components then return all components summed as one
 		if ($sum_components)
