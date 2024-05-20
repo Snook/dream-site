@@ -32,7 +32,7 @@
 					<p><b>Prep time:</b> <?php echo $this->curItem['cooking_inst']['prep_time_half']; ?></p>
 				<?php } } ?>
 			<?php if (!empty($this->curItem['cooking_inst']['suggestions'])) { ?>
-				<h4>Serving Suggestions</h4>
+				<h4>Serving Suggestion</h4>
 				<p><?php echo $this->curItem['cooking_inst']['suggestions']; ?></p>
 			<?php } ?>
 		</div>
