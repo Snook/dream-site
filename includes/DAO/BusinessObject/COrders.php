@@ -107,9 +107,6 @@ class COrders extends DAO_Orders
 	const CALENDAR_NAME = 'sessionCalendar';
 	const QUANTITY_PREFIX = 'qty_'; //entrees
 
-	//
-	// constructor
-	//
 	function __construct($dataSelectTable = false)
 	{
 		parent::__construct($dataSelectTable);
@@ -4677,8 +4674,8 @@ class COrders extends DAO_Orders
 
 		$this->subtotal_products += $this->misc_nonfood_subtotal;
 
-		$storeObj = $this->getStore();
-		if (!empty($storeObj) && $storeObj->supports_bag_fee)
+		$DAO_store = $this->getStore();
+		if (!empty($DAO_store) && $DAO_store->supports_bag_fee)
 		{
 			if (!empty($this->opted_to_bring_bags))
 			{
@@ -4689,7 +4686,7 @@ class COrders extends DAO_Orders
 				$this->total_bag_count = self::getNumberBagsRequiredFromItems($this);
 			}
 
-			$this->subtotal_bag_fee = $this->total_bag_count * $storeObj->default_bag_fee;
+			$this->subtotal_bag_fee = $this->total_bag_count * $DAO_store->default_bag_fee;
 		}
 		else
 		{
@@ -4699,7 +4696,7 @@ class COrders extends DAO_Orders
 
 		if ($this->recalculateMealCustomizationFee)
 		{//Can pass in override so it should not be changed
-			if (!empty($storeObj) && $storeObj->supports_meal_customization)
+			if (!empty($DAO_store) && $DAO_store->supports_meal_customization)
 			{
 
 				if ($this->opted_to_customize_recipes == 1)
@@ -4714,10 +4711,10 @@ class COrders extends DAO_Orders
 						{
 							$sessionObj = $this->findSession(true);
 						}
-						$sessionOpenForCustomization = (empty($sessionObj) ? false : $sessionObj->isOpenForCustomization($storeObj));
+						$sessionOpenForCustomization = (empty($sessionObj) ? false : $sessionObj->isOpenForCustomization($DAO_store));
 						if ($sessionOpenForCustomization || $this->allowRecalculateMealCustomizationFeeClosedSession())
 						{
-							$this->total_customized_meal_count = self::getNumberOfCustomizableMealsFromItems($this, $storeObj->allow_preassembled_customization);
+							$this->total_customized_meal_count = self::getNumberOfCustomizableMealsFromItems($this, $DAO_store->allow_preassembled_customization);
 						}
 						else
 						{
@@ -4734,7 +4731,7 @@ class COrders extends DAO_Orders
 					$this->total_customized_meal_count = 0;
 				}
 
-				$this->subtotal_meal_customization_fee = $storeObj->customizationFeeForMealCount($this->total_customized_meal_count);
+				$this->subtotal_meal_customization_fee = $DAO_store->customizationFeeForMealCount($this->total_customized_meal_count);
 			}
 			else
 			{
@@ -4780,8 +4777,6 @@ class COrders extends DAO_Orders
 		$this->subtotal_all_items += $this->delivery_tip;
 
 		$this->grand_total = $this->subtotal_all_items + $this->subtotal_all_taxes;
-
-		return $this->grand_total;
 	}
 
 	/**
@@ -8685,7 +8680,7 @@ class COrders extends DAO_Orders
 				}
 
 				// user is placing a full order update session_rsvp for the same session if they have one
-				CSession::upgradeSessionRSVP($this->session->id, $this->user_id, $DAO_booking->id);
+				$this->session->upgradeRSVP($this->user_id, $DAO_booking->id);
 
 				//lock booking table
 				//to prevent this:
@@ -9185,7 +9180,7 @@ class COrders extends DAO_Orders
 				$this->updateTypeOfOrder();
 
 				// user is placing a full order update session_rsvp for the same session if they have one
-				CSession::upgradeSessionRSVP($this->session->id, $this->user_id, $DAO_booking->id);
+				$this->session->upgradeRSVP($this->user_id, $DAO_booking->id);
 
 				//lock booking table
 				//to prevent this:
@@ -9908,6 +9903,7 @@ class COrders extends DAO_Orders
 
 		$cmpSC = (int)($totalStoreCredit * 100) + (int)($totalGiftcardCredit * 100);
 		$cmpGT = (int)($this->grand_total * 100);
+
 		if ($cmpSC < $cmpGT && $paymentType == false)
 		{
 			// there is not enough store credit and gift card funds and no cc payment was provided
@@ -9959,7 +9955,6 @@ class COrders extends DAO_Orders
 		{
 			foreach ($giftCardArray as $thisGiftCard)
 			{
-
 				$currentFundingTotal += $thisGiftCard['gc_amount'];
 
 				$thisPayment = DAO_CFactory::create('payment');
@@ -9976,6 +9971,7 @@ class COrders extends DAO_Orders
 
 		$cmpSC = (int)($currentFundingTotal * 100);
 		$cmpGT = (int)($this->grand_total * 100);
+
 		if ($cmpSC < $cmpGT && (($paymentType == CPayment::CC && $paymentNumber) || isset($creditCardArray['reference'])))
 		{
 			$DAO_payment = DAO_CFactory::create('payment', true);
