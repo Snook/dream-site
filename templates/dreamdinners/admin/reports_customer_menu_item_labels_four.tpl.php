@@ -66,7 +66,7 @@ if ($this->success == true && $this->interface == 0)
 
 	$imageHeight = 16;
 
-	$ServingTitle = "<t1>SERVING SUGGESTIONS</t1>";
+	$ServingTitle = "<t1>SERVING SUGGESTION</t1>";
 
 	if (isset($this->store_name) && isset($this->store_phone))
 	{

@@ -2274,7 +2274,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		if (!empty($entity['serving_suggestions']))
 		{
 			$this->SetXY($_PosX + 3, $_PosY + 58);
-			$this->MultiCellTag($this->_Width * .8, $this->_Line_Height, "<t1>SERVING SUGGESTIONS</t1>", $showBorders, "L", 0);
+			$this->MultiCellTag($this->_Width * .8, $this->_Line_Height, "<t1>SERVING SUGGESTION</t1>", $showBorders, "L", 0);
 
 			$this->SetXY($_PosX + 3, $_PosY + 60.5);
 			$this->MultiCellTag(78, 3, "<t1b>" . $entity['serving_suggestions'] . "</t1b>", $showBorders, "L", 0);
