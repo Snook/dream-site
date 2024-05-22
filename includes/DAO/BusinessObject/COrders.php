@@ -9983,7 +9983,7 @@ class COrders extends DAO_Orders
 				$this->ltd_round_up_value = 0;
 			}
 
-			$DAO_payment->total_amount = ($this->grand_total + $this->ltd_round_up_value + $this->delivery_tip) - $totalStoreCredit - $totalGiftcardCredit;
+			$DAO_payment->total_amount = ($this->grand_total + $this->ltd_round_up_value) - $totalStoreCredit - $totalGiftcardCredit;
 			$DAO_payment->is_delayed_payment = 0;
 
 			if ($delayed === 'false')
