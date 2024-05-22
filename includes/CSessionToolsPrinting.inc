@@ -1528,7 +1528,7 @@ class CSessionToolsPDFDrawer
 		if (!empty($menuItemArray['entree']->serving_suggestions))
 		{
 			$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN + 10, $yPos + 6.8);
-			$this->pdf->MultiCellTag(146, 3, "<h8>Serving Suggestions: " . html_entity_decode($menuItemArray['entree']->serving_suggestions, ENT_QUOTES, 'WINDOWS-1252') . "</h8>", $this->showBorders, 'L');
+			$this->pdf->MultiCellTag(146, 3, "<h8>Serving Suggestion: " . html_entity_decode($menuItemArray['entree']->serving_suggestions, ENT_QUOTES, 'WINDOWS-1252') . "</h8>", $this->showBorders, 'L');
 		}
 
 		// ICONS
