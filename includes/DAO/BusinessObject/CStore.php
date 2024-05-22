@@ -211,8 +211,7 @@ class CStore extends DAO_Store
 		$DAO_session->whereAdd("session.session_password IS NULL OR session.session_password = ''");
 
 		$DAO_menu = DAO_CFactory::create('menu', true);
-		$DAO_menu->is_active = 1;
-		$DAO_menu->whereAdd("menu.global_menu_start_date >= DATE_FORMAT(NOW(),'%Y-%m-%d') OR ( menu.global_menu_start_date <= DATE_FORMAT(NOW(),'%Y-%m-%d') AND menu.global_menu_end_date >= DATE_FORMAT(NOW(),'%Y-%m-%d'))");
+		$DAO_menu->whereAdd_Menus();
 		$DAO_session->joinAddWhereAsOn($DAO_menu, 'INNER', false, false, false);
 		$DAO_session->orderBy("menu.id DESC");
 		$DAO_session->find();

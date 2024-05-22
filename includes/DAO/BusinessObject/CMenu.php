@@ -51,6 +51,16 @@ class CMenu extends DAO_Menu
 		}
 	}
 
+	function whereAdd_Menus($is_active = true, $number_of_past_months = 0)
+	{
+		if ($is_active)
+		{
+			$this->is_active = 1;
+		}
+
+		$this->whereAdd("menu.global_menu_start_date >= DATE_FORMAT(NOW(),'%Y-%m-%d') OR ( menu.global_menu_start_date <= DATE_FORMAT(NOW(),'%Y-%m-%d') AND menu.global_menu_end_date >= DATE_FORMAT(NOW() - INTERVAL " . $number_of_past_months . " MONTH,'%Y-%m-%d') )");
+	}
+
 	function isEnabled_DeliveryDiscount($DAO_store)
 	{
 		return $this->isEnabled_ShippingDiscount($DAO_store);
@@ -1451,7 +1461,7 @@ class CMenu extends DAO_Menu
 
 	static function getActiveMenuArray($thisMenuOnly = false)
 	{
-		$DAO_menu = DAO_CFactory::create('menu');
+		$DAO_menu = DAO_CFactory::create('menu', true);
 		$today = date('Y-m-d');
 
 		if ($thisMenuOnly)
