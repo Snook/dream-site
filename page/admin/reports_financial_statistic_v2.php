@@ -543,7 +543,7 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 					}
 				}
 
-				for ($x = 0; $x < 12; $x++)
+				for ($x = 0; $x < 13; $x++)
 				{
 					$columnDescs[$col] = array(
 						'align' => 'center',
@@ -733,7 +733,7 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 					}
 				}
 
-				$AdjustmentsColCount = 12;
+				$AdjustmentsColCount = 13;
 
 				if (!isset($unsetArray['referral_reward_taste']))
 				{
@@ -756,6 +756,7 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 						"Fundraising Dollars",
 						"LTD Meal Donations",
 						"Delivery Fees",
+						"Driver Tips",
 						"Taxable Discount Total",
 						"Adjusted Gross Revenue",
 						"Service Taxes",
@@ -772,10 +773,10 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 					$AdjustmentsColCount++;
 
-					for ($x = 0; $x < 15; $x++)
+					for ($x = 0; $x < 16; $x++)
 					{
 
-						if ($x == 6)
+						if ($x == 7)
 						{
 							$columnDescs[$colSecondChar . $col] = array(
 								'align' => 'center',
@@ -785,7 +786,7 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 							);
 							incrementColumn($thirdSecondChar, $colSecondChar, $col);
 						}
-						else if ($x == 7 || $x == 14)
+						else if ($x == 8 || $x == 15)
 						{
 							$columnDescs[$colSecondChar . $col] = array(
 								'align' => 'left',
@@ -814,6 +815,7 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 						"Scrip Certs",
 						"Fundraising Dollars",
 						"Delivery Fees",
+						"Driver Tips",
 						"Taxable Discount Total",
 						"Adjusted Gross Revenue",
 						"Service Taxes",
@@ -825,10 +827,10 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 						"Post Tax Total"
 					);
 
-					for ($x = 0; $x < 13; $x++)
+					for ($x = 0; $x < 14; $x++)
 					{
 
-						if ($x == 5)
+						if ($x == 6)
 						{
 							$columnDescs[$colSecondChar . $col] = array(
 								'align' => 'center',
@@ -838,7 +840,7 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 							);
 							incrementColumn($thirdSecondChar, $colSecondChar, $col);
 						}
-						else if ($x == 6 || $x == 13)
+						else if ($x == 7 || $x == 14)
 						{
 							$columnDescs[$colSecondChar . $col] = array(
 								'align' => 'left',

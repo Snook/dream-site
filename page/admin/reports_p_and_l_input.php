@@ -535,7 +535,7 @@ class page_admin_reports_p_and_l_input extends CPageAdminOnly
 
 	    $instance = new CStoreExpenses();
 	    $expenseData = $instance->findExpenseDataByMonth ($store_id, $day, $month, $year, $duration);
-	    CDreamReport::calculateFees ($rows, $store_id, $haspermanceoverride, $expenseData, $giftCertValues , $programdiscounts, $rows['fundraising_total'], $rows['ltd_menu_item_value'], $rows['subtotal_delivery_fee'], $rows['subtotal_bag_fee'], $DoorDashFees, $marketingFee, $royaltyFee, $storeInfo->grand_opening_date, $month, $year);
+	    CDreamReport::calculateFees ($rows, $store_id, $haspermanceoverride, $expenseData, $giftCertValues , $programdiscounts, $rows['fundraising_total'], $rows['ltd_menu_item_value'], $rows['subtotal_delivery_fee'], $rows['delivery_tip'], $rows['subtotal_bag_fee'], $DoorDashFees, $marketingFee, $royaltyFee, $storeInfo->grand_opening_date, $month, $year);
 
 
 	    if (empty($rows['grand_total'])) {$rows['grand_total'] = 0;}

@@ -297,7 +297,7 @@ class page_admin_reports_site_royalty_national extends CPageAdminOnly
 						$haspermanceoverride = true;
 					}
 
-					CDreamReport::calculateFees($row[$i], $storeid, $haspermanceoverride, $storeexpenseData, $giftCertDataStore, $progDataStore, $row[$i]['fundraiser_total'], $row[$i]['ltd_menu_item_value'], $row[$i]['subtotal_delivery_fee'], $row[$i]['subtotal_bag_fee'], $DoorDashFees, $marketingFee, $royaltyFee, $row[$i]['grand_opening_date'], $month, $year);
+					CDreamReport::calculateFees($row[$i], $storeid, $haspermanceoverride, $storeexpenseData, $giftCertDataStore, $progDataStore, $row[$i]['fundraiser_total'], $row[$i]['ltd_menu_item_value'], $row[$i]['subtotal_delivery_fee'], $row[$i]['delivery_tip'],  $row[$i]['subtotal_bag_fee'], $DoorDashFees, $marketingFee, $royaltyFee, $row[$i]['grand_opening_date'], $month, $year);
 					$temprows[$i]['home_office'] = $row[$i]['home_office_id'];
 					$temprows[$i]['gp_id'] = $row[$i]['gp_account_id'];
 					$temprows[$i]['grand_opening_date'] = $row[$i]['grand_opening_date'];
@@ -552,7 +552,7 @@ class page_admin_reports_site_royalty_national extends CPageAdminOnly
 						$haspermanceoverride = true;
 					}
 
-					CDreamReport::calculateFees($row[$i], $storeid, $haspermanceoverride, $storeexpenseData, $giftCertDataStore, $programDataStore, $row[$i]['fundraiser_total'], $row[$i]['ltd_menu_item_value'], $row[$i]['subtotal_delivery_fee'], $row[$i]['subtotal_bag_fee'], $DoorDashFees, $marketingFee, $royaltyFee, $row[$i]['grand_opening_date'], $month, $year);
+					CDreamReport::calculateFees($row[$i], $storeid, $haspermanceoverride, $storeexpenseData, $giftCertDataStore, $programDataStore, $row[$i]['fundraiser_total'], $row[$i]['ltd_menu_item_value'], $row[$i]['subtotal_delivery_fee'], $row[$i]['delivery_tip'], $row[$i]['subtotal_bag_fee'], $DoorDashFees, $marketingFee, $royaltyFee, $row[$i]['grand_opening_date'], $month, $year);
 
 					$row[$i]['marketing_total'] = $marketingFee;
 					$row[$i]['royalty_fee'] = $royaltyFee;

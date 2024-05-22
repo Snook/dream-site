@@ -16,16 +16,20 @@ class CDreamReport
 	const SHOWLEGACY = 0;
 	const SHOWNEWPLAN = 1;
 
-	static public $SCRIP_PERCENTAGE_SALE = .12;  // should be a constant
+	static public $SCRIP_PERCENTAGE_SALE = .12; // should be a constant
 
 	static function getOrderInfoByMonth($storeid, $Day, $Month, $Year, $interval, &$rows, $legacy, $partialPeriod = false)
 	{
 		$current_date = mktime(0, 0, 0, $Month, $Day, $Year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 
-		$sqlstr = "Select COUNT(promo_code_id) as promos, SUM(orders.menu_items_total_count) as dinners_sold, Sum(orders.subtotal_all_taxes) as sales_tax, " . "SUM(family_savings_discount) as family_savings_discount, SUM(grand_total) as grand_total, count(distinct booking.user_id) as distinct_users, " . "(sum(orders.session_discount_total) + sum(ifnull(orders.coupon_code_discount_total, 0)) + sum(ifnull(orders.promo_code_discount_total, 0)) + sum(orders.user_preferred_discount_total) +
-					sum(orders.direct_order_discount) + sum(orders.dream_rewards_discount) + sum(orders.points_discount_total)  + sum(orders.volume_discount_total) + sum(orders.bundle_discount))  as total_discounts, " . " count(distinct session.id) as total_sessions,  " . " count(booking.user_id) as standard_guests, SUM(subtotal_home_store_markup) as markup_total, SUM(fundraiser_value) as fundraising_total, SUM(ifnull(subtotal_ltd_menu_item_value,0)) as ltd_menu_item_value, 
-		SUM(ifnull(ltd_round_up_value,0)) as ltd_round_up_value, SUM(ifnull(subtotal_delivery_fee,0)) as subtotal_delivery_fee,  SUM(ifnull(subtotal_bag_fee,0)) as subtotal_bag_fee, ";
+		$sqlstr = "Select COUNT(promo_code_id) as promos, SUM(orders.menu_items_total_count) as dinners_sold, Sum(orders.subtotal_all_taxes) as sales_tax, 
+			SUM(family_savings_discount) as family_savings_discount, SUM(grand_total) as grand_total, count(distinct booking.user_id) as distinct_users, 
+			(sum(orders.session_discount_total) + sum(ifnull(orders.coupon_code_discount_total, 0)) + sum(ifnull(orders.promo_code_discount_total, 0)) + sum(orders.user_preferred_discount_total) +
+					sum(orders.direct_order_discount) + sum(orders.dream_rewards_discount) + sum(orders.points_discount_total) + sum(orders.volume_discount_total) + sum(orders.bundle_discount)) as total_discounts, 
+					 count(distinct session.id) as total_sessions, " . " count(booking.user_id) as standard_guests, SUM(subtotal_home_store_markup) as markup_total, SUM(fundraiser_value) as fundraising_total, 
+					 SUM(ifnull(subtotal_ltd_menu_item_value,0)) as ltd_menu_item_value, 
+		SUM(ifnull(ltd_round_up_value,0)) as ltd_round_up_value, SUM(ifnull(subtotal_delivery_fee,0)) as subtotal_delivery_fee, SUM(ifnull(delivery_tip,0)) as delivery_tip, SUM(ifnull(subtotal_bag_fee,0)) as subtotal_bag_fee, ";
 
 		if ($legacy == 0)
 		{
@@ -36,7 +40,7 @@ class CDreamReport
 			$sqlstr .= "0 as quicksix,count(orders.id) as standard";
 		}
 
-		$sqlstr .= " From session Inner Join booking ON session.id = booking.session_id Inner Join orders ON  booking.order_id = orders.id Where " . "session.store_id = '" . $storeid . "' AND " . 'booking.status = "ACTIVE" and booking.is_deleted = 0 AND session.is_deleted = 0 and session_publish_state != "SAVED"  and ' . "session.session_start >= '" . $current_date_sql . "' AND " . " session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ")";
+		$sqlstr .= " From session Inner Join booking ON session.id = booking.session_id Inner Join orders ON booking.order_id = orders.id Where " . "session.store_id = '" . $storeid . "' AND " . 'booking.status = "ACTIVE" and booking.is_deleted = 0 AND session.is_deleted = 0 and session_publish_state != "SAVED" and ' . "session.session_start >= '" . $current_date_sql . "' AND " . " session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ")";
 
 		if ($partialPeriod)
 		{
@@ -66,6 +70,7 @@ class CDreamReport
 			$rows['ltd_round_up_value'] = $arr['ltd_round_up_value'];
 			$rows['ltd_menu_item_value'] = $arr['ltd_menu_item_value'];
 			$rows['subtotal_delivery_fee'] = $arr['subtotal_delivery_fee'];
+			$rows['delivery_tip'] = $arr['delivery_tip'];
 			$rows['subtotal_bag_fee'] = $arr['subtotal_bag_fee'];
 		}
 	}
@@ -88,7 +93,10 @@ class CDreamReport
 
 		$sqlstr .= "SUM(order_item.item_count) as sumval, menu_item.pricing_type";
 
-		$sqlstr .= " from session Inner Join booking ON session.id = booking.session_id Inner Join orders ON  booking.order_id = orders.id  Inner Join order_item ON  orders.id = order_item.order_id  Inner Join menu_item ON  order_item.menu_item_id = menu_item.id Where " . "session.store_id = '" . $storeid . "' AND " . 'order_item.is_deleted = 0 and booking.status = "ACTIVE" and booking.is_deleted = 0 AND session.is_deleted = 0 and session_publish_state != "SAVED"  and ' . "session.session_start >= '" . $current_date_sql . "' AND " . " session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") " . "and menu_item.is_bundle = 0 and menu_item.is_side_dish = 0 and menu_item.is_menu_addon = 0 and menu_item.is_chef_touched = 0 and menu_item.is_kids_choice = 0";
+		$sqlstr .= " from session Inner Join booking ON session.id = booking.session_id Inner Join orders ON booking.order_id = orders.id 
+		 Inner Join order_item ON orders.id = order_item.order_id 
+		 Inner Join menu_item ON order_item.menu_item_id = menu_item.id 
+		 Where session.store_id = '" . $storeid . "' AND " . 'order_item.is_deleted = 0 and booking.status = "ACTIVE" and booking.is_deleted = 0 AND session.is_deleted = 0 and session_publish_state != "SAVED" and ' . "session.session_start >= '" . $current_date_sql . "' AND " . " session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") and menu_item.is_bundle = 0 and menu_item.is_side_dish = 0 and menu_item.is_menu_addon = 0 and menu_item.is_chef_touched = 0 and menu_item.is_kids_choice = 0";
 		if ($groupBy == 'WEEK')
 		{
 			$sqlstr .= " group by week_value, pricing_type order by week_value";
@@ -121,11 +129,14 @@ class CDreamReport
 
 		if ($legacy == CDreamReport::SHOWLEGACY)
 		{
-			$sqlstr = "Select count(distinct booking.user_id) as distinct_users, count(distinct session.id) as total_sessions, COUNT(promo_code_id) as promos, SUM(orders.menu_items_total_count) as dinners_sold, WEEK(session.session_start, 0) AS `week`,sum(grand_total) as total_sales,   " . " count(booking.user_id)as standard_guests,count(IF(orders.menu_items_total_count<=11, 1, NULL))as quicksix,count(IF(orders.menu_items_total_count>11, 1, NULL)) as standard " . "From session Inner Join booking ON session.id = booking.session_id Inner Join orders ON  booking.order_id = orders.id Where " . "session.store_id = '" . $storeid . "' AND " . 'booking.status = "ACTIVE" and  orders.is_deleted = 0 and booking.is_deleted = 0 AND session.is_deleted = 0 and session_publish_state != "SAVED"  and ' . "session.session_start >= '" . $current_date_sql . "' AND " . " session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ")" . " GROUP BY week Order BY week";
+			$sqlstr = "Select count(distinct booking.user_id) as distinct_users, count(distinct session.id) as total_sessions, COUNT(promo_code_id) as promos, 
+			SUM(orders.menu_items_total_count) as dinners_sold, WEEK(session.session_start, 0) AS `week`,sum(grand_total) as total_sales, 
+			 count(booking.user_id)as standard_guests,count(IF(orders.menu_items_total_count<=11, 1, NULL))as quicksix,count(IF(orders.menu_items_total_count>11, 1, NULL)) as standard 
+			 From session Inner Join booking ON session.id = booking.session_id Inner Join orders ON booking.order_id = orders.id Where " . "session.store_id = '" . $storeid . "' AND " . 'booking.status = "ACTIVE" and orders.is_deleted = 0 and booking.is_deleted = 0 AND session.is_deleted = 0 and session_publish_state != "SAVED" and ' . "session.session_start >= '" . $current_date_sql . "' AND " . " session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ")" . " GROUP BY week Order BY week";
 		}
 		else
 		{
-			$sqlstr = "Select  count(distinct booking.user_id) as distinct_users , count(distinct session.id) as total_sessions, COUNT(promo_code_id) as promos, 0 as quicksix, SUM(orders.menu_items_total_count) as dinners_sold, WEEK(session.session_start, 0) AS `week`,sum(grand_total) as total_sales,   " . " count(booking.user_id)as standard_guests, count(orders.id) as standard  " . "From session Inner Join booking ON session.id = booking.session_id Inner Join orders ON  booking.order_id = orders.id Where " . "session.store_id = '" . $storeid . "' AND " . 'booking.status = "ACTIVE" and orders.is_deleted = 0 and  booking.is_deleted = 0 AND session.is_deleted = 0 and session_publish_state != "SAVED"  and ' . "session.session_start >= '" . $current_date_sql . "' AND " . " session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ")" . " GROUP BY week Order BY week";
+			$sqlstr = "Select count(distinct booking.user_id) as distinct_users , count(distinct session.id) as total_sessions, COUNT(promo_code_id) as promos, 0 as quicksix, SUM(orders.menu_items_total_count) as dinners_sold, WEEK(session.session_start, 0) AS `week`,sum(grand_total) as total_sales, " . " count(booking.user_id)as standard_guests, count(orders.id) as standard " . "From session Inner Join booking ON session.id = booking.session_id Inner Join orders ON booking.order_id = orders.id Where " . "session.store_id = '" . $storeid . "' AND " . 'booking.status = "ACTIVE" and orders.is_deleted = 0 and booking.is_deleted = 0 AND session.is_deleted = 0 and session_publish_state != "SAVED" and ' . "session.session_start >= '" . $current_date_sql . "' AND " . " session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ")" . " GROUP BY week Order BY week";
 		}
 		$user = DAO_CFactory::create("session");
 		$user->query($sqlstr);
@@ -182,7 +193,7 @@ class CDreamReport
 		$current_date = mktime(0, 0, 0, $Month, $Day, $Year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 
-		$sqlstr = "Select count(IF(pricing_type='" . CMenuItem::FULL . "', 1, NULL))as FULL, count(IF(pricing_type='" . CMenuItem::LEGACY . "', 1, NULL))as LEGACY, count(IF(pricing_type='" . CMenuItem::HALF . "', 1, NULL))as HALF,SUM(family_savings_discount) as family_savings_discount, Sum(session_discount_total) as session_discount_total, Count(distinct session.id) as sessions, WEEK(session.session_start, 0) AS `week`,DAYNAME(session.session_start) AS nameofday, " . "MONTH(session.session_start) AS monthgrp,DAY(session.session_start) AS daygrp,YEAR(session.session_start) AS yeargrp,Concat(MONTH(session.session_start),'-',DAY(session.session_start),'-',YEAR(session.session_start)) AS datestamp, " . "Sum(orders.subtotal_menu_items) as menu_items_subtotal,Sum(orders.menu_items_total_count) as menu_items_total_count,Sum(orders.direct_order_discount) as direct_order, Sum(orders.dream_rewards_discount) as dream_rewards_discount," . "Sum(orders.subtotal_all_taxes) as sales_tax,count(orders.promo_code_id) as promos_issued, Sum(orders.volume_discount_total) as volume_discount_total, Sum(orders.promo_code_discount_total) as promo_code,Sum(orders.subtotal_home_store_markup) as home_store,Sum(orders.subtotal_premium_markup) as premium, " . "Sum(grand_total) as grand, Sum(orders.user_preferred_discount_total) as preferred_user, Sum(orders.subtotal_products) as subtotal_products, Sum(orders.misc_food_subtotal) as misc_food_subtotal, Sum(orders.misc_nonfood_subtotal) as misc_nonfood_subtotal, Sum(orders.subtotal_service_fee) as subtotal_service_fee, " . " count(IF(orders.menu_items_total_count<=11, 1, NULL))as quicksix,count(IF(orders.menu_items_total_count>11, 1, NULL)) as standard, count(booking.user_id)as standard_guests " . "From session Inner Join booking ON session.id = booking.session_id Inner Join orders ON  booking.order_id = orders.id Left Join promo_code ON promo_code.id = orders.promo_code_id Left Join menu_item ON menu_item.id = promo_code.promo_menu_item_id " . "Where session.store_id = '" . $storeid . "' AND " . 'booking.status = "ACTIVE" and booking.is_deleted = 0 AND session.is_deleted = 0 and session_publish_state != "SAVED"  and ' . "session.session_start >= '" . $current_date_sql . "' AND " . " session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ")" . " GROUP BY datestamp Order BY yeargrp, monthgrp,daygrp";
+		$sqlstr = "Select count(IF(pricing_type='" . CMenuItem::FULL . "', 1, NULL))as FULL, count(IF(pricing_type='" . CMenuItem::LEGACY . "', 1, NULL))as LEGACY, count(IF(pricing_type='" . CMenuItem::HALF . "', 1, NULL))as HALF,SUM(family_savings_discount) as family_savings_discount, Sum(session_discount_total) as session_discount_total, Count(distinct session.id) as sessions, WEEK(session.session_start, 0) AS `week`,DAYNAME(session.session_start) AS nameofday, " . "MONTH(session.session_start) AS monthgrp,DAY(session.session_start) AS daygrp,YEAR(session.session_start) AS yeargrp,Concat(MONTH(session.session_start),'-',DAY(session.session_start),'-',YEAR(session.session_start)) AS datestamp, " . "Sum(orders.subtotal_menu_items) as menu_items_subtotal,Sum(orders.menu_items_total_count) as menu_items_total_count,Sum(orders.direct_order_discount) as direct_order, Sum(orders.dream_rewards_discount) as dream_rewards_discount," . "Sum(orders.subtotal_all_taxes) as sales_tax,count(orders.promo_code_id) as promos_issued, Sum(orders.volume_discount_total) as volume_discount_total, Sum(orders.promo_code_discount_total) as promo_code,Sum(orders.subtotal_home_store_markup) as home_store,Sum(orders.subtotal_premium_markup) as premium, " . "Sum(grand_total) as grand, Sum(orders.user_preferred_discount_total) as preferred_user, Sum(orders.subtotal_products) as subtotal_products, Sum(orders.misc_food_subtotal) as misc_food_subtotal, Sum(orders.misc_nonfood_subtotal) as misc_nonfood_subtotal, Sum(orders.subtotal_service_fee) as subtotal_service_fee, " . " count(IF(orders.menu_items_total_count<=11, 1, NULL))as quicksix,count(IF(orders.menu_items_total_count>11, 1, NULL)) as standard, count(booking.user_id)as standard_guests " . "From session Inner Join booking ON session.id = booking.session_id Inner Join orders ON booking.order_id = orders.id Left Join promo_code ON promo_code.id = orders.promo_code_id Left Join menu_item ON menu_item.id = promo_code.promo_menu_item_id " . "Where session.store_id = '" . $storeid . "' AND " . 'booking.status = "ACTIVE" and booking.is_deleted = 0 AND session.is_deleted = 0 and session_publish_state != "SAVED" and ' . "session.session_start >= '" . $current_date_sql . "' AND " . " session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ")" . " GROUP BY datestamp Order BY yeargrp, monthgrp,daygrp";
 
 		// note: added subtotal_all_taxes and not subtotal_sales_food_taxes -- future when selling products
 		$user = DAO_CFactory::create("session");
@@ -206,7 +217,7 @@ class CDreamReport
 
 				$homestore = isset($arr['home_store']) ? $arr['home_store'] : 0;
 				$family_savings_discount = isset($arr['family_savings_discount']) ? $arr['family_savings_discount'] : 0;
-				$rows[$ts]['half_item_promos'] = $arr[CMenuItem::HALF];  // take half
+				$rows[$ts]['half_item_promos'] = $arr[CMenuItem::HALF]; // take half
 				$rows[$ts]['full_item_promos'] = $arr[CMenuItem::FULL] + $arr[CMenuItem::LEGACY];
 
 				$rows[$ts]['sales_tax'] = $arr['sales_tax'];
@@ -301,15 +312,15 @@ class CDreamReport
 		if ($byWeek)
 		{
 
-			$sqlstr2 = "Select  WEEK(s.session_start) as week,
+			$sqlstr2 = "Select WEEK(s.session_start) as week,
 							o.store_id as store_id,
 						 	count(DISTINCT o.id) as total_orders,
 							max(s.menu_id) as menu_id,
 						 	count( if (boo.order_id, if (boo.order_id <> o.id, 1 , null), null ) ) as in_store_orders
 						 From orders o
-							Inner Join booking b ON  b.order_id = o.id
-							Inner Join session s ON  b.session_id = s.id
-							left JOIN (select o2.id as order_id, o2.user_id as user_id, o2.timestamp_created as order_date  from orders o2
+							Inner Join booking b ON b.order_id = o.id
+							Inner Join session s ON b.session_id = s.id
+							left JOIN (select o2.id as order_id, o2.user_id as user_id, o2.timestamp_created as order_date from orders o2
 										where o2.timestamp_created >= '$current_date_sql' and
 										o2.timestamp_created < DATE_ADD(DATE_ADD('$current_date_sql', INTERVAL $interval), INTERVAL 7 DAY) and
 										o2.in_store_order = 1 ) as boo
@@ -319,7 +330,7 @@ class CDreamReport
 									boo.order_id <> o.id
 						Where
 							b.status = 'ACTIVE' and
-							b.is_deleted = 0  AND
+							b.is_deleted = 0 AND
 							s.session_start >= '$current_date_sql' AND
 							s.session_start <= DATE_ADD('$current_date_sql', INTERVAL $interval)and
 							o.servings_total_count > 35 and
@@ -350,16 +361,16 @@ class CDreamReport
 		{
 
 
-			$sqlstr = "Select  DAY(s.session_start) as day,
+			$sqlstr = "Select DAY(s.session_start) as day,
 							o.store_id as store_id,
 						 	count(DISTINCT o.id) as total_orders,
 							max(s.menu_id) as menu_id,
 						 	count( if (boo.order_id, if (boo.order_id <> o.id, 1 , null), null ) ) as in_store_orders,
 						 	Concat(MONTH(s.session_start),'-',DAY(s.session_start),'-',YEAR(s.session_start)) AS datestamp
 						 From orders o
-							Inner Join booking b ON  b.order_id = o.id
-							Inner Join session s ON  b.session_id = s.id
-							left JOIN (select o2.id as order_id, o2.user_id as user_id, o2.timestamp_created as order_date  from orders o2
+							Inner Join booking b ON b.order_id = o.id
+							Inner Join session s ON b.session_id = s.id
+							left JOIN (select o2.id as order_id, o2.user_id as user_id, o2.timestamp_created as order_date from orders o2
 										where o2.timestamp_created >= '$current_date_sql' and
 										o2.timestamp_created < DATE_ADD(DATE_ADD('$current_date_sql', INTERVAL $interval), INTERVAL 7 DAY) and
 										o2.in_store_order = 1 ) as boo
@@ -369,7 +380,7 @@ class CDreamReport
 									boo.order_id <> o.id
 						Where
 							b.status = 'ACTIVE' and
-							b.is_deleted = 0  AND
+							b.is_deleted = 0 AND
 							s.session_start >= '$current_date_sql' AND
 							s.session_start <= DATE_ADD('$current_date_sql', INTERVAL $interval)and
 							o.servings_total_count > 35 and
@@ -400,11 +411,11 @@ class CDreamReport
 		$sqlstr2 = "Select WEEK(session.session_start,0) as week, COUNT(orders.id) as total_orders, MONTH(session.session_start) AS
 			monthgrp,DAY(session.session_start) AS daygrp,YEAR(session.session_start) AS
 			yeargrp,Concat(MONTH(session.session_start),'-',DAY(session.session_start),'-',YEAR(session.session_start)) AS datestamp " .
-			"From session Inner Join booking ON session.id = booking.session_id Inner Join orders ON  booking.order_id = orders.id Where " ;
+			"From session Inner Join booking ON session.id = booking.session_id Inner Join orders ON booking.order_id = orders.id Where " ;
 
-		$sqlstr2 .=  "  session.store_id = '" . $storeid . "' AND orders.servings_total_count > 35 AND orders.is_TODD = 0 AND " .
-			'booking.status = "ACTIVE" and booking.is_deleted = 0 AND session.is_deleted = 0 and session_publish_state != "SAVED"  and ' .
-			" session.session_start >= '"  .  $current_date_sql . "' AND " . " session.session_start <= DATE_ADD('" .  $current_date_sql . "',INTERVAL " . $interval  . ")" ;
+		$sqlstr2 .= " session.store_id = '" . $storeid . "' AND orders.servings_total_count > 35 AND orders.is_TODD = 0 AND " .
+			'booking.status = "ACTIVE" and booking.is_deleted = 0 AND session.is_deleted = 0 and session_publish_state != "SAVED" and ' .
+			" session.session_start >= '" . $current_date_sql . "' AND " . " session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ")" ;
 
 			if ($byWeek == false)
 				$sqlstr2 .= " GROUP BY datestamp Order BY yeargrp, monthgrp,daygrp" ;
@@ -523,7 +534,7 @@ class CDreamReport
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 
 		$sqlstr = "Select count(distinct booking.user_id ) as booking_count From session ";
-		$sqlstr .= 'Inner Join booking ON session.id = booking.session_id Inner Join orders ON  booking.order_id = orders.id Where session.store_id = ' . $storeid . ' AND booking.status = "ACTIVE" and booking.is_deleted = 0 AND session.is_deleted = 0 and session_publish_state != "SAVED"';
+		$sqlstr .= 'Inner Join booking ON session.id = booking.session_id Inner Join orders ON booking.order_id = orders.id Where session.store_id = ' . $storeid . ' AND booking.status = "ACTIVE" and booking.is_deleted = 0 AND session.is_deleted = 0 and session_publish_state != "SAVED"';
 		$sqlstr .= " and session.session_start >= '" . $current_date_sql . "' AND " . " session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ")";
 		$object = DAO_CFactory::create("session");
 		$object->query($sqlstr);
@@ -574,14 +585,14 @@ class CDreamReport
 
 		$query = "select sum(innerQ.in_store_orders) as in_store_orders, sum(innerQ.total_orders) as total_forecasted
 			from
-			(Select  o.store_id as store_id, count(distinct o.id) as total_orders,  max(s.menu_id) as menu_id,
+			(Select o.store_id as store_id, count(distinct o.id) as total_orders, max(s.menu_id) as menu_id,
 			count( if (boo.order_id, if (boo.order_id <> o.id, 1 , null), null ) ) as in_store_orders From orders o
-				Inner Join booking b ON  b.order_id = o.id
-				Inner Join session s ON  b.session_id = s.id
-				left JOIN (select o2.id as order_id, o2.user_id as user_id, o2.timestamp_created as order_date  from orders o2 where o2.timestamp_created >= '$current_date_sql' and
+				Inner Join booking b ON b.order_id = o.id
+				Inner Join session s ON b.session_id = s.id
+				left JOIN (select o2.id as order_id, o2.user_id as user_id, o2.timestamp_created as order_date from orders o2 where o2.timestamp_created >= '$current_date_sql' and
 									o2.timestamp_created < DATE_ADD('$current_date_sql', $extendedIntervalClause) and o2.in_store_order = 1 ) as boo on boo.user_id = o.user_id
 									and DATE(boo.order_date) >= DATE(s.session_start) and DATE(boo.order_date) < DATE_ADD(DATE(s.session_start), INTERVAL 7 DAY) and boo.order_id <> o.id
-				Where  b.status = 'ACTIVE' and b.is_deleted = 0  AND s.session_start >= '$current_date_sql' AND
+				Where b.status = 'ACTIVE' and b.is_deleted = 0 AND s.session_start >= '$current_date_sql' AND
 									s.session_start <= DATE_ADD('$current_date_sql', $intervalClause)and o.servings_total_count > 35 and o.is_TODD = 0 and o.store_id = $storeid
 			GROUP BY o.store_id )
  			as innerQ";
@@ -601,11 +612,11 @@ class CDreamReport
 		$current_date = mktime(0, 0, 0, $Month, $Day, $Year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 
-		$sqlstr = "Select  count(id) as sessions, ";
+		$sqlstr = "Select count(id) as sessions, ";
 
 		if ($legacy == 0)
 		{
-			$sqlstr .= "count(session_class =  'STANDARD' OR NULL) as standard,count(session_class = 'QUICKSIX' OR NULL) as quicksix ";
+			$sqlstr .= "count(session_class = 'STANDARD' OR NULL) as standard,count(session_class = 'QUICKSIX' OR NULL) as quicksix ";
 		}
 		else
 		{
@@ -649,7 +660,7 @@ class CDreamReport
 		$sqlstr = "Select WEEK(session.session_start, 0) as week, count(id) as sessions, ";
 		if ($legacy == 0)
 		{
-			$sqlstr .= "count(session_class =  'STANDARD' OR NULL) as standard,count(session_class = 'QUICKSIX' OR NULL) as quicksix ";
+			$sqlstr .= "count(session_class = 'STANDARD' OR NULL) as standard,count(session_class = 'QUICKSIX' OR NULL) as quicksix ";
 		}
 		else
 		{
@@ -676,7 +687,7 @@ class CDreamReport
 		$current_date = mktime(0, 0, 0, $Month, $Day, $Year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 
-		$sqlstr = "Select DAYOFMONTH(session.session_start) as daymonth,WEEK(session.session_start, 0) as week,DAYNAME(session.session_start) as nameofday,MONTH(session.session_start) AS monthgrp,DAY(session.session_start) AS daygrp,YEAR(session.session_start) AS yeargrp, " . "Concat(MONTH(session.session_start), '-', DAY(session.session_start), '-' ,YEAR(session.session_start) ) as datestamp, " . "count(id) as sessions, " . "count(session_class =  'STANDARD' OR NULL) as standard,count(session_class = 'QUICKSIX' OR NULL) as quicksix " . "From session Where session.session_publish_state != 'SAVED' and session.is_deleted = 0 and " . "session.store_id = '" . $storeid . "' AND " . "session.session_start >= '" . $current_date_sql . "' AND " . " session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ")" . " group by yeargrp, monthgrp, daygrp";
+		$sqlstr = "Select DAYOFMONTH(session.session_start) as daymonth,WEEK(session.session_start, 0) as week,DAYNAME(session.session_start) as nameofday,MONTH(session.session_start) AS monthgrp,DAY(session.session_start) AS daygrp,YEAR(session.session_start) AS yeargrp, " . "Concat(MONTH(session.session_start), '-', DAY(session.session_start), '-' ,YEAR(session.session_start) ) as datestamp, " . "count(id) as sessions, " . "count(session_class = 'STANDARD' OR NULL) as standard,count(session_class = 'QUICKSIX' OR NULL) as quicksix " . "From session Where session.session_publish_state != 'SAVED' and session.is_deleted = 0 and " . "session.store_id = '" . $storeid . "' AND " . "session.session_start >= '" . $current_date_sql . "' AND " . " session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ")" . " group by yeargrp, monthgrp, daygrp";
 
 		$user = DAO_CFactory::create("session");
 
@@ -705,7 +716,7 @@ class CDreamReport
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 		$userArray = array();
 
-		$sqlstr = "Select  WEEK(session.session_start, 0) as weekid,  count(distinct booking.user_id) as user_count  " . "From session Inner Join booking ON session.id = booking.session_id Inner Join orders ON  booking.order_id = orders.id Where " . "session.store_id = '" . $storeid . "' AND " . 'booking.status = "ACTIVE" and booking.is_deleted = 0 AND session.is_deleted = 0 and session_publish_state != "SAVED"  and ' . "session.session_start >= '" . $current_date_sql . "' AND " . " session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ")" . "  group by weekid order by weekid";
+		$sqlstr = "Select WEEK(session.session_start, 0) as weekid, count(distinct booking.user_id) as user_count " . "From session Inner Join booking ON session.id = booking.session_id Inner Join orders ON booking.order_id = orders.id Where " . "session.store_id = '" . $storeid . "' AND " . 'booking.status = "ACTIVE" and booking.is_deleted = 0 AND session.is_deleted = 0 and session_publish_state != "SAVED" and ' . "session.session_start >= '" . $current_date_sql . "' AND " . " session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ")" . " group by weekid order by weekid";
 
 		// note: added subtotal_all_taxes and not subtotal_sales_food_taxes -- future when selling products
 		$session = DAO_CFactory::create("session");
@@ -726,15 +737,15 @@ class CDreamReport
 	{
 		$giftCertsArr = array();
 		$total_certs_used_array = array();
-		$gifttype = CPayment::GIFT_CERT;  // need to locate payment constant for htis
+		$gifttype = CPayment::GIFT_CERT; // need to locate payment constant for htis
 		$current_date = mktime(0, 0, 0, $Month, $Day, $Year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 
 		//$storeid = 98;
 		$varstr = "Select gift_cert_type, count(gift_cert_type) as certs_used,WEEK(session.session_start, 0) AS weekid from ";
-		$varstr .= " session Inner Join booking ON session.id = booking.session_id Inner Join orders ON  booking.order_id = orders.id  Inner Join payment ON orders.id = payment.order_id ";
-		$varstr .= " Where payment_type = '" . $gifttype . "' and session.store_id = '" . $storeid . "' AND booking.status = 'ACTIVE' and booking.is_deleted = 0  ";
-		$varstr .= " AND session.is_deleted = 0 and session_publish_state != 'SAVED'  and session.session_start >= '" . $current_date_sql . "' AND  session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") ";
+		$varstr .= " session Inner Join booking ON session.id = booking.session_id Inner Join orders ON booking.order_id = orders.id Inner Join payment ON orders.id = payment.order_id ";
+		$varstr .= " Where payment_type = '" . $gifttype . "' and session.store_id = '" . $storeid . "' AND booking.status = 'ACTIVE' and booking.is_deleted = 0 ";
+		$varstr .= " AND session.is_deleted = 0 and session_publish_state != 'SAVED' and session.session_start >= '" . $current_date_sql . "' AND session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") ";
 		$varstr .= " group by weekid, gift_cert_type order by weekid,gift_cert_type ";
 
 		$user = DAO_CFactory::create("session");
@@ -764,15 +775,15 @@ class CDreamReport
 	static function giftCertificatesByType($storeid, $Day, $Month, $Year, $interval)
 	{
 		$giftCertsArr = array();
-		$gifttype = CPayment::GIFT_CERT;  // need to locate payment constant for htis
+		$gifttype = CPayment::GIFT_CERT; // need to locate payment constant for htis
 		$current_date = mktime(0, 0, 0, $Month, $Day, $Year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 
 		//$storeid = 98;
 		$varstr = "Select gift_cert_type, count(gift_cert_type) ,SUM(payment.total_amount) as gift_cert from ";
-		$varstr .= " session Inner Join booking ON session.id = booking.session_id Inner Join orders ON  booking.order_id = orders.id  Inner Join payment ON orders.id = payment.order_id and payment.is_deleted = 0 ";
-		$varstr .= " Where payment_type = '" . $gifttype . "' and session.store_id = '" . $storeid . "' AND booking.status = 'ACTIVE' and booking.is_deleted = 0  ";
-		$varstr .= " AND session.is_deleted = 0 and session_publish_state != 'SAVED'  and session.session_start >= '" . $current_date_sql . "' AND  session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") ";
+		$varstr .= " session Inner Join booking ON session.id = booking.session_id Inner Join orders ON booking.order_id = orders.id Inner Join payment ON orders.id = payment.order_id and payment.is_deleted = 0 ";
+		$varstr .= " Where payment_type = '" . $gifttype . "' and session.store_id = '" . $storeid . "' AND booking.status = 'ACTIVE' and booking.is_deleted = 0 ";
+		$varstr .= " AND session.is_deleted = 0 and session_publish_state != 'SAVED' and session.session_start >= '" . $current_date_sql . "' AND session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") ";
 		$varstr .= " group by gift_cert_type ";
 		$user = DAO_CFactory::create("session");
 		$user->query($varstr);
@@ -805,7 +816,7 @@ class CDreamReport
 		$current_date = mktime(0, 0, 0, $Month, $Day, $Year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 
-		$varstr = "SELECT `session`.`id`,`booking`.`id`,`orders`.`id`,`payment`.`id`,`payment`.`payment_type`,`store_credit`.`id`," . "`store_credit`.`store_id`,`payment`.`total_amount` as amount,`store_credit`.`credit_type`,`store_credit`.`is_redeemed`" . " FROM " . "`session` Inner Join `booking` ON `session`.`id` = `booking`.`session_id` " . " Inner Join `orders` ON `booking`.`order_id` = `orders`.`id` " . " Inner Join `payment` ON `orders`.`id` = `payment`.`order_id` and payment.is_deleted = 0 " . " Inner Join `store_credit` ON `payment`.`store_credit_id` = `store_credit`.`id` " . " Where session.store_id = $storeid and payment_type = 'STORE_CREDIT' AND booking.status = 'ACTIVE' and booking.is_deleted = 0  " . " AND session.is_deleted = 0 and session_publish_state != 'SAVED'  and  ( session.session_start >= '" . $current_date_sql . "' AND  session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") )" . " and `store_credit`.`is_redeemed` = 1 and (`store_credit`.`credit_type` = 2 OR `store_credit`.`credit_type` = 3)";
+		$varstr = "SELECT `session`.`id`,`booking`.`id`,`orders`.`id`,`payment`.`id`,`payment`.`payment_type`,`store_credit`.`id`," . "`store_credit`.`store_id`,`payment`.`total_amount` as amount,`store_credit`.`credit_type`,`store_credit`.`is_redeemed`" . " FROM " . "`session` Inner Join `booking` ON `session`.`id` = `booking`.`session_id` " . " Inner Join `orders` ON `booking`.`order_id` = `orders`.`id` " . " Inner Join `payment` ON `orders`.`id` = `payment`.`order_id` and payment.is_deleted = 0 " . " Inner Join `store_credit` ON `payment`.`store_credit_id` = `store_credit`.`id` " . " Where session.store_id = $storeid and payment_type = 'STORE_CREDIT' AND booking.status = 'ACTIVE' and booking.is_deleted = 0 " . " AND session.is_deleted = 0 and session_publish_state != 'SAVED' and ( session.session_start >= '" . $current_date_sql . "' AND session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") )" . " and `store_credit`.`is_redeemed` = 1 and (`store_credit`.`credit_type` = 2 OR `store_credit`.`credit_type` = 3)";
 
 		$progArr = array();
 		$user = DAO_CFactory::create("session");
@@ -837,7 +848,7 @@ class CDreamReport
 			$storeFilter = " and session.store_id in ($storeList) ";
 		}
 
-		$varstr = "SELECT sum(`payment`.`total_amount`) as sumamount, count(store_credit.id) as amountprocessed, orders.store_id " . " FROM " . "`session` Inner Join `booking` ON `session`.`id` = `booking`.`session_id` " . " Inner Join `orders` ON `booking`.`order_id` = `orders`.`id` " . " Inner Join `payment` ON `orders`.`id` = `payment`.`order_id` " . " Inner Join `store_credit` ON `payment`.`store_credit_id` = `store_credit`.`id` " . " Where payment_type = 'STORE_CREDIT' AND booking.status = 'ACTIVE' and booking.is_deleted = 0  " . " AND session.is_deleted = 0 and session_publish_state != 'SAVED'  and  ( session.session_start >= '" . $current_date_sql . "' AND  session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") )" . " and `store_credit`.`is_redeemed` = 1 and (`store_credit`.`credit_type` = 2 OR `store_credit`.`credit_type` = 3) " . $storeFilter . " group by orders.store_id ";
+		$varstr = "SELECT sum(`payment`.`total_amount`) as sumamount, count(store_credit.id) as amountprocessed, orders.store_id " . " FROM " . "`session` Inner Join `booking` ON `session`.`id` = `booking`.`session_id` " . " Inner Join `orders` ON `booking`.`order_id` = `orders`.`id` " . " Inner Join `payment` ON `orders`.`id` = `payment`.`order_id` " . " Inner Join `store_credit` ON `payment`.`store_credit_id` = `store_credit`.`id` " . " Where payment_type = 'STORE_CREDIT' AND booking.status = 'ACTIVE' and booking.is_deleted = 0 " . " AND session.is_deleted = 0 and session_publish_state != 'SAVED' and ( session.session_start >= '" . $current_date_sql . "' AND session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") )" . " and `store_credit`.`is_redeemed` = 1 and (`store_credit`.`credit_type` = 2 OR `store_credit`.`credit_type` = 3) " . $storeFilter . " group by orders.store_id ";
 
 		$progArr = array();
 		$user = DAO_CFactory::create("session");
@@ -864,15 +875,15 @@ class CDreamReport
 		}
 
 		$giftCertsArr = array();
-		$gifttype = CPayment::GIFT_CERT;  // need to locate payment constant for htis
+		$gifttype = CPayment::GIFT_CERT; // need to locate payment constant for htis
 		$current_date = mktime(0, 0, 0, $Month, $Day, $Year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 
 		//$storeid = 98;
 		$varstr = "Select orders.store_id, gift_cert_type, count(gift_cert_type) ,SUM(payment.total_amount) as gift_cert from ";
-		$varstr .= " session Inner Join booking ON session.id = booking.session_id Inner Join orders ON  booking.order_id = orders.id  Inner Join payment ON orders.id = payment.order_id and payment.is_deleted = 0 ";
-		$varstr .= " Where payment_type = '" . $gifttype . "' AND booking.status = 'ACTIVE' and booking.is_deleted = 0  ";
-		$varstr .= " AND session.is_deleted = 0 and session_publish_state != 'SAVED'  and session.session_start >= '" . $current_date_sql . "' AND  session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") ";
+		$varstr .= " session Inner Join booking ON session.id = booking.session_id Inner Join orders ON booking.order_id = orders.id Inner Join payment ON orders.id = payment.order_id and payment.is_deleted = 0 ";
+		$varstr .= " Where payment_type = '" . $gifttype . "' AND booking.status = 'ACTIVE' and booking.is_deleted = 0 ";
+		$varstr .= " AND session.is_deleted = 0 and session_publish_state != 'SAVED' and session.session_start >= '" . $current_date_sql . "' AND session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") ";
 		$varstr .= $storeClause;
 		$varstr .= " group by store_id, gift_cert_type ";
 		$user = DAO_CFactory::create("session");
@@ -906,11 +917,11 @@ class CDreamReport
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 
 		// the other type would be null
-		$varstr = "SELECT session.id as session_id, count(`store_credit`.`id`) as amount_used, sum(`payment`.`total_amount`) as amount, " . " CASE when `customer_referral`.`origination_type_code` = 1 THEN 'IAF'  " . " WHEN `customer_referral`.`origination_type_code` = 4 then 'TODD'  " . " WHEN `customer_referral`.`origination_type_code` = 3 then 'DIRECT' " . " WHEN `customer_referral`.`origination_type_code`= 5 then 'DIRECT' " . " else 'DIRECT' END as ProgramType," .
+		$varstr = "SELECT session.id as session_id, count(`store_credit`.`id`) as amount_used, sum(`payment`.`total_amount`) as amount, " . " CASE when `customer_referral`.`origination_type_code` = 1 THEN 'IAF' " . " WHEN `customer_referral`.`origination_type_code` = 4 then 'TODD' " . " WHEN `customer_referral`.`origination_type_code` = 3 then 'DIRECT' " . " WHEN `customer_referral`.`origination_type_code`= 5 then 'DIRECT' " . " else 'DIRECT' END as ProgramType," .
 
-			"  session.session_start  " . " FROM " . "`session` Inner Join `booking` ON `session`.`id` = `booking`.`session_id` " . " Inner Join `orders` ON `booking`.`order_id` = `orders`.`id` " . " Inner Join `payment` ON `orders`.`id` = `payment`.`order_id` " . " Inner Join `store_credit` ON `payment`.`store_credit_id` = `store_credit`.`id` " . " left Join `customer_referral` ON `payment`.`store_credit_id` = `customer_referral`.`store_credit_id` " .
+			" session.session_start " . " FROM " . "`session` Inner Join `booking` ON `session`.`id` = `booking`.`session_id` " . " Inner Join `orders` ON `booking`.`order_id` = `orders`.`id` " . " Inner Join `payment` ON `orders`.`id` = `payment`.`order_id` " . " Inner Join `store_credit` ON `payment`.`store_credit_id` = `store_credit`.`id` " . " left Join `customer_referral` ON `payment`.`store_credit_id` = `customer_referral`.`store_credit_id` " .
 
-			" Where session.store_id = $storeid and payment_type = 'STORE_CREDIT' AND booking.status = 'ACTIVE' and booking.is_deleted = 0  " . " AND session.is_deleted = 0 and session_publish_state != 'SAVED'  and  ( session.session_start >= '" . $current_date_sql . "' AND  session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") )" . " and `store_credit`.is_deleted = 0 and `store_credit`.`is_redeemed` = 1 and (`store_credit`.`credit_type` = 2 OR `store_credit`.`credit_type` = 3)  group by session.id, ProgramType ";
+			" Where session.store_id = $storeid and payment_type = 'STORE_CREDIT' AND booking.status = 'ACTIVE' and booking.is_deleted = 0 " . " AND session.is_deleted = 0 and session_publish_state != 'SAVED' and ( session.session_start >= '" . $current_date_sql . "' AND session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") )" . " and `store_credit`.is_deleted = 0 and `store_credit`.`is_redeemed` = 1 and (`store_credit`.`credit_type` = 2 OR `store_credit`.`credit_type` = 3) group by session.id, ProgramType ";
 
 		$user = DAO_CFactory::create("session");
 		$user->query($varstr);
@@ -938,11 +949,11 @@ class CDreamReport
 		$current_date = mktime(0, 0, 0, $Month, $Day, $Year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 
-		$groupClause = " group by CONCAT(MONTH(session.session_start), ' ', YEAR(session.session_start)),  session.store_id, ProgramType ";
+		$groupClause = " group by CONCAT(MONTH(session.session_start), ' ', YEAR(session.session_start)), session.store_id, ProgramType ";
 
 		if ($isMenuMonth)
 		{
-			$groupClause = " group by session.menu_id,  session.store_id, ProgramType ";
+			$groupClause = " group by session.menu_id, session.store_id, ProgramType ";
 		}
 
 		// the other type would be null
@@ -959,7 +970,7 @@ class CDreamReport
 				Inner Join `store_credit` ON `payment`.`store_credit_id` = `store_credit`.`id`
 				left Join `customer_referral` ON `payment`.`store_credit_id` = `customer_referral`.`store_credit_id`
 				Where payment_type = 'STORE_CREDIT' AND booking.status = 'ACTIVE' and booking.is_deleted = 0
-				AND session.is_deleted = 0 and session_publish_state != 'SAVED'  and  ( session.session_start >= '$current_date_sql' AND  session.session_start <= DATE_ADD('$current_date_sql', INTERVAL  $interval) )
+				AND session.is_deleted = 0 and session_publish_state != 'SAVED' and ( session.session_start >= '$current_date_sql' AND session.session_start <= DATE_ADD('$current_date_sql', INTERVAL $interval) )
 				and `store_credit`.is_deleted = 0 and `store_credit`.`is_redeemed` = 1 and (`store_credit`.`credit_type` = 2 OR `store_credit`.`credit_type` = 3)
 				$groupClause ";
 
@@ -995,11 +1006,11 @@ class CDreamReport
 		$current_date = mktime(0, 0, 0, $Month, $Day, $Year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 
-		$varstr = "SELECT session.id as session_id, count(`store_credit`.`id`) as amount_used, sum(`payment`.`total_amount`) as amount, " . " CASE when `customer_referral`.`origination_type_code` = 1 THEN 'IAF'  " . " WHEN `customer_referral`.`origination_type_code` = 4 then 'TODD'  " . " WHEN `customer_referral`.`origination_type_code` = 3 then 'DIRECT' " . " WHEN `customer_referral`.`origination_type_code` = 5 then 'DIRECT' " . " else 'DIRECT' END as ProgramType," .
+		$varstr = "SELECT session.id as session_id, count(`store_credit`.`id`) as amount_used, sum(`payment`.`total_amount`) as amount, " . " CASE when `customer_referral`.`origination_type_code` = 1 THEN 'IAF' " . " WHEN `customer_referral`.`origination_type_code` = 4 then 'TODD' " . " WHEN `customer_referral`.`origination_type_code` = 3 then 'DIRECT' " . " WHEN `customer_referral`.`origination_type_code` = 5 then 'DIRECT' " . " else 'DIRECT' END as ProgramType," .
 
-			" DAYNAME(session.session_start) as nameofday, MONTH(session.session_start) AS monthgrp,DAY(session.session_start) AS daygrp,YEAR(session.session_start) AS yeargrp, session.session_start, Concat(MONTH(session.session_start),'-',DAY(session.session_start),'-',YEAR(session.session_start)) AS datestamp  " . " FROM " . "`session` Inner Join `booking` ON `session`.`id` = `booking`.`session_id` " . " Inner Join `orders` ON `booking`.`order_id` = `orders`.`id` " . " Inner Join `payment` ON `orders`.`id` = `payment`.`order_id` " . " Inner Join `store_credit` ON `payment`.`store_credit_id` = `store_credit`.`id` " . " Left Join `customer_referral` ON `payment`.`store_credit_id` = `customer_referral`.`store_credit_id` " .
+			" DAYNAME(session.session_start) as nameofday, MONTH(session.session_start) AS monthgrp,DAY(session.session_start) AS daygrp,YEAR(session.session_start) AS yeargrp, session.session_start, Concat(MONTH(session.session_start),'-',DAY(session.session_start),'-',YEAR(session.session_start)) AS datestamp " . " FROM " . "`session` Inner Join `booking` ON `session`.`id` = `booking`.`session_id` " . " Inner Join `orders` ON `booking`.`order_id` = `orders`.`id` " . " Inner Join `payment` ON `orders`.`id` = `payment`.`order_id` " . " Inner Join `store_credit` ON `payment`.`store_credit_id` = `store_credit`.`id` " . " Left Join `customer_referral` ON `payment`.`store_credit_id` = `customer_referral`.`store_credit_id` " .
 
-			" Where session.store_id = $storeid and payment_type = 'STORE_CREDIT' AND booking.status = 'ACTIVE' and booking.is_deleted = 0  " . " AND session.is_deleted = 0 and session_publish_state != 'SAVED'  and  ( session.session_start >= '" . $current_date_sql . "' AND  session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") )" . " and `store_credit`.`is_redeemed` = 1 and (`store_credit`.`credit_type` = 2 OR `store_credit`.`credit_type` = 3)  group by yeargrp, monthgrp, daygrp, ProgramType ";
+			" Where session.store_id = $storeid and payment_type = 'STORE_CREDIT' AND booking.status = 'ACTIVE' and booking.is_deleted = 0 " . " AND session.is_deleted = 0 and session_publish_state != 'SAVED' and ( session.session_start >= '" . $current_date_sql . "' AND session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") )" . " and `store_credit`.`is_redeemed` = 1 and (`store_credit`.`credit_type` = 2 OR `store_credit`.`credit_type` = 3) group by yeargrp, monthgrp, daygrp, ProgramType ";
 
 		$user = DAO_CFactory::create("session");
 		$user->query($varstr);
@@ -1030,9 +1041,9 @@ class CDreamReport
 		$current_date = mktime(0, 0, 0, $Month, $Day, $Year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 		$varstr = "Select gift_cert_type, count(gift_cert_type) as certs_used, DAYNAME(session.session_start) as nameofday,MONTH(session.session_start) AS monthgrp,DAY(session.session_start) AS daygrp,YEAR(session.session_start) AS yeargrp, session.session_start, SUM(payment.total_amount) as gift_cert, Concat(MONTH(session.session_start),'-',DAY(session.session_start),'-',YEAR(session.session_start)) AS datestamp from ";
-		$varstr .= " session Inner Join booking ON session.id = booking.session_id Inner Join orders ON  booking.order_id = orders.id  Inner Join payment ON orders.id = payment.order_id ";
-		$varstr .= " Where payment_type = '" . $gifttype . "' and session.store_id = '" . $storeid . "' AND booking.status = 'ACTIVE' and booking.is_deleted = 0  ";
-		$varstr .= " AND session.is_deleted = 0 and session_publish_state != 'SAVED'  and session.session_start >= '" . $current_date_sql . "' AND  session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") ";
+		$varstr .= " session Inner Join booking ON session.id = booking.session_id Inner Join orders ON booking.order_id = orders.id Inner Join payment ON orders.id = payment.order_id ";
+		$varstr .= " Where payment_type = '" . $gifttype . "' and session.store_id = '" . $storeid . "' AND booking.status = 'ACTIVE' and booking.is_deleted = 0 ";
+		$varstr .= " AND session.is_deleted = 0 and session_publish_state != 'SAVED' and session.session_start >= '" . $current_date_sql . "' AND session.session_start <= DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") ";
 		$varstr .= " group by yeargrp, monthgrp, daygrp, gift_cert_type ";
 		$user = DAO_CFactory::create("session");
 		$user->query($varstr);
@@ -1100,7 +1111,7 @@ class CDreamReport
 					//$food_cost = $element['total_cost'];
 					//if ($rows[$weekid]['total_sales'] > 0) {
 					//$calc = sprintf("%.3f",$element['total_cost']/$rows[$weekid]['total_sales']);
-					//$rows[$weekid]['food_avg'] =  $calc * 100;
+					//$rows[$weekid]['food_avg'] = $calc * 100;
 					//}
 				}
 				else if ($element['expense_type'] == CStoreExpenses::PROMOS || $element['expense_type'] == CStoreExpenses::EMPLOYEE)
@@ -1147,7 +1158,7 @@ class CDreamReport
 					}
 					//$labor_cost += $element['total_cost'];
 					//if ($rows[$weekid]['total_sales'] > 0)
-					//$rows[$weekid]['labor_avg']  =  sprintf("%.3f", $element['total_cost']/$rows[$weekid]['total_sales']) * 100;
+					//$rows[$weekid]['labor_avg'] = sprintf("%.3f", $element['total_cost']/$rows[$weekid]['total_sales']) * 100;
 				}
 
 				//if ($rows[$weekid]['total_sales'] > 0) {
@@ -1227,7 +1238,7 @@ class CDreamReport
 		}
 	}
 
-	static function calculateFees(&$rows, $storeid, $hasperformanceOverride, $expenseData, $giftCertValues, $programValues, $fundraising_total, $ltd_meal_total, $deliveryFeeTotal, $bagFeeTotal, $DoorDashCommissions, &$marketingFee, &$royaltyFee, $grandopeningdate, $month, $year)
+	static function calculateFees(&$rows, $storeid, $hasperformanceOverride, $expenseData, $giftCertValues, $programValues, $fundraising_total, $ltd_meal_total, $deliveryFeeTotal, $deliveryTipTotal, $bagFeeTotal, $DoorDashCommissions, &$marketingFee, &$royaltyFee, $grandopeningdate, $month, $year)
 	{
 		$grandtotal = isset($rows['grand_total']) ? $rows['grand_total'] : 0;
 		$salestax = isset($rows['sales_tax']) ? $rows['sales_tax'] : 0;
@@ -1281,9 +1292,10 @@ class CDreamReport
 		$pretaxAmount -= $fundraising_total;
 		$pretaxAmount -= $ltd_meal_total;
 		$pretaxAmount -= $deliveryFeeTotal;
+		$pretaxAmount -= $deliveryTipTotal;
 		//	$pretaxAmount -= $bagFeeTotal;
 		//	Note: all though we pass the bag fee subtotal in, it is currently subject to royalties and so not used here
-		// we'll elave it if the law or understanding changes.
+		// we'll leave it if the law or understanding changes.
 
 		$pretaxAmount -= $DoorDashCommissions;
 

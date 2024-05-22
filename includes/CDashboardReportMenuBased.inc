@@ -264,7 +264,7 @@ class CDashboardMenuBased
 			$expenseData = $instance->findExpenseDataByMonth($store, $day, $month, $year, $duration);
 
 			$royaltyFee = 0;
-			CDreamReport::calculateFees($rows, $store, $haspermanceoverride, $expenseData, $giftCertValues, $programdiscounts, $rows['fundraising_total'], $rows['ltd_menu_item_value'], $rows['subtotal_delivery_fee'], $rows['subtotal_bag_fee'], $DoorDashFees, $marketingFee, $royaltyFee, $storeobj->grand_opening_date, $month, $year);
+			CDreamReport::calculateFees($rows, $store, $haspermanceoverride, $expenseData, $giftCertValues, $programdiscounts, $rows['fundraising_total'], $rows['ltd_menu_item_value'], $rows['subtotal_delivery_fee'], $rows['delivery_tip'], $rows['subtotal_bag_fee'], $DoorDashFees, $marketingFee, $royaltyFee, $storeobj->grand_opening_date, $month, $year);
 			$rows['marketing_total'] = $marketingFee;
 			$rows['royalty'] = $royaltyFee;
 			$rows['total_fees'] = $royaltyFee + $marketingFee;

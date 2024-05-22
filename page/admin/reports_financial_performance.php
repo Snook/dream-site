@@ -1287,7 +1287,7 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
             $expenseData = $instance->findExpenseDataByMonth ($store_id, $day, $month, $year, $duration);
 
             CDreamReport::calculateFees ($tmpRows[$monthLabel], $store_id, $haspermanceoverride, $expenseData, $giftCertValues , $programdiscounts,
-            						$tmpRows[$monthLabel]['fundraising_total'], $tmpRows[$monthLabel]['ltd_item_donation_total'], $tmpRows[$monthLabel]['subtotal_delivery_fee'], $tmpRows[$monthLabel]['subtotal_bag_fee'], $DoorDashFees, $marketingFee, $royaltyFee, $thisStoreInfo->grand_opening_date, $month, $year);
+            						$tmpRows[$monthLabel]['fundraising_total'], $tmpRows[$monthLabel]['ltd_item_donation_total'], $tmpRows[$monthLabel]['subtotal_delivery_fee'], $tmpRows[$monthLabel]['delivery_tip'], $tmpRows[$monthLabel]['subtotal_bag_fee'], $DoorDashFees, $marketingFee, $royaltyFee, $thisStoreInfo->grand_opening_date, $month, $year);
 
             if ($thisStoreInfo->is_corporate_owned)
             {
@@ -1441,6 +1441,7 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
             	$rows[$session->store_id]['fundraising_total'],
             	$rows[$session->store_id]['ltd_menu_item_value'],
 				$rows[$session->store_id]['subtotal_delivery_fee'],
+				$rows[$session->store_id]['delivery_tip'],
 				$rows[$session->store_id]['subtotal_bag_fee'],
             	$marketingFee,
             	$royaltyFee,

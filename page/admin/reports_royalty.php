@@ -510,7 +510,7 @@ class page_admin_reports_royalty extends CPageAdminOnly
 
 			$instance = new CStoreExpenses();
 			$expenseData = $instance->findExpenseDataByMonth($store, $day, $month, $year, $duration);
-			CDreamReport::calculateFees($rows, $store, $haspermanceoverride, $expenseData, $giftCertValues, $programdiscounts, $rows['fundraising_total'], $rows['ltd_menu_item_value'], $rows['subtotal_delivery_fee'], $rows['subtotal_bag_fee'], $DoorDashFees, $marketingFee, $royaltyFee, $storeobj->grand_opening_date, $month, $year);
+			CDreamReport::calculateFees($rows, $store, $haspermanceoverride, $expenseData, $giftCertValues, $programdiscounts, $rows['fundraising_total'], $rows['ltd_menu_item_value'], $rows['subtotal_delivery_fee'], $rows['delivery_tip'],  $rows['subtotal_bag_fee'], $DoorDashFees, $marketingFee, $royaltyFee, $storeobj->grand_opening_date, $month, $year);
 
 			if ($storeIsDC)
 			{
