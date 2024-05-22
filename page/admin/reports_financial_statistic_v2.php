@@ -411,6 +411,7 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 						"MFY Fee",
 						"LTD Meal Donations",
 						"Delivery Fees",
+						"Driver Tip",
 						"Meal Prep+ Fees",
 						"Bag Fees",
 						"Meal Customization Fees"
@@ -486,6 +487,7 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 						"MFY Fee",
 						"LTD Meal Donations",
 						"Delivery Fees",
+						"Driver Tip",
 						"Meal Prep+ Fees",
 						"Bag Fees",
 						"Meal Customization Fees"
@@ -563,11 +565,11 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 					);
 					incrementColumn($thirdSecondChar, $colSecondChar, $col);
 
-					$sectionHeader['Items Sold'] = 19;
+					$sectionHeader['Items Sold'] = 20;
 				}
 				else
 				{
-					$sectionHeader['Items Sold'] = 18;
+					$sectionHeader['Items Sold'] = 19;
 				}
 
 				$labels = array_merge($labels, array("Door Dash Marketplace Sales"));
@@ -1058,10 +1060,10 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 		$query .= "0 as entree_total, 0 as core_mu_total, 0 as ft_total, 0 as ft_mu_total, ";
 
 		$query .= "sum(orders.misc_food_subtotal) as misc_food_subtotal, sum(orders.misc_nonfood_subtotal) as misc_nonfood_subtotal, sum(orders.subtotal_service_fee) as subtotal_service_fee,
-							 sum(ifnull(orders.subtotal_ltd_menu_item_value,0)) as ltd_meal_item_value_revenue, sum(ifnull(orders.subtotal_delivery_fee,0)) as subtotal_delivery_fee,
+							 sum(ifnull(orders.subtotal_ltd_menu_item_value,0)) as ltd_meal_item_value_revenue, sum(ifnull(orders.subtotal_delivery_fee,0)) as subtotal_delivery_fee, sum(ifnull(orders.delivery_tip,0)) as delivery_tip,
 							 0 as subtotal_membership_fee,  sum(ifnull(orders.subtotal_bag_fee,0)) as subtotal_bag_fee, sum(ifnull( orders.subtotal_meal_customization_fee, 0 )) AS subtotal_meal_customization_fee, sum(orders.subtotal_products - orders.misc_nonfood_subtotal) as enrollment_fee, 0.0 as door_dash_revenue, ";
 
-		$query .= "sum(orders.misc_food_subtotal + orders.misc_nonfood_subtotal + orders.subtotal_menu_items + orders.subtotal_home_store_markup + orders.subtotal_service_fee + orders.subtotal_delivery_fee + orders.subtotal_bag_fee + orders.subtotal_meal_customization_fee)
+		$query .= "sum(orders.misc_food_subtotal + orders.misc_nonfood_subtotal + orders.subtotal_menu_items + orders.subtotal_home_store_markup + orders.subtotal_service_fee + orders.subtotal_delivery_fee + orders.delivery_tip + orders.subtotal_bag_fee + orders.subtotal_meal_customization_fee)
 			+ sum(orders.subtotal_products - orders.misc_nonfood_subtotal) as gross_sales, ";
 
 		$query .= "sum(orders.session_discount_total) * -1 as session_discount_total,
@@ -1087,7 +1089,7 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 			$query .= "0.0 as door_dash_fees, 0.0 as sales_adjustments, '' as adj_comments, 0.0 as referral_reward_direct, 0.0 as referral_reward_iaf, 0.0 as referral_reward_taste, 0.0 as certs_voucher,
 						 0.0 as certs_donated, 0.0 as certs_scrip, sum(ifnull(orders.fundraiser_value, 0)) * -1 as fundraiser_value, 
-							sum(ifnull(orders.subtotal_ltd_menu_item_value,0)) * -1 as ltd_menu_item_value_2, sum(ifnull(orders.subtotal_delivery_fee, 0)) * -1 as subtotal_delivery_fee_2, 0.0 as subtotal_program_discounts, ";
+							sum(ifnull(orders.subtotal_ltd_menu_item_value,0)) * -1 as ltd_menu_item_value_2, sum(ifnull(orders.subtotal_delivery_fee, 0)) * -1 as subtotal_delivery_fee_2, sum(ifnull(orders.delivery_tip, 0)) * -1 as delivery_tip_2, 0.0 as subtotal_program_discounts, ";
 
 			$query .= "sum(orders.subtotal_all_items) as subtotal_all_items, sum(orders.subtotal_service_tax) as subtotal_service_tax, sum(orders.subtotal_delivery_tax) as subtotal_delivery_tax, sum(orders.subtotal_food_sales_taxes) as subtotal_food_sales_taxes,
 						sum(orders.subtotal_sales_taxes) as subtotal_sales_taxes, sum(orders.subtotal_bag_fee_tax) as subtotal_bag_fee_tax, sum(orders.subtotal_all_taxes) as subtotal_all_taxes, sum(orders.grand_total) as grand_total,
@@ -1097,7 +1099,7 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 		{
 
 			$query .= "0.0 as door_dash_fees, 0.0 as sales_adjustments, '' as adj_comments, 0.0 as referral_reward_direct, 0.0 as referral_reward_iaf, 0.0 as referral_reward_taste, 0.0 as certs_voucher,
-						 0.0 as certs_donated, 0.0 as certs_scrip, sum(ifnull(orders.fundraiser_value, 0)) * -1 as fundraiser_value, 0, sum(ifnull(orders.subtotal_delivery_fee, 0)) * -1 as subtotal_delivery_fee_2, 0.0 as subtotal_program_discounts, ";
+						 0.0 as certs_donated, 0.0 as certs_scrip, sum(ifnull(orders.fundraiser_value, 0)) * -1 as fundraiser_value, 0, sum(ifnull(orders.subtotal_delivery_fee, 0)) * -1 as subtotal_delivery_fee_2, sum(ifnull(orders.delivery_tip, 0)) * -1 as delivery_tip_2, 0.0 as subtotal_program_discounts, ";
 
 			$query .= "sum(orders.subtotal_all_items) as subtotal_all_items, sum(orders.subtotal_service_tax) as subtotal_service_tax, sum(orders.subtotal_delivery_tax) as subtotal_delivery_tax, sum(orders.subtotal_food_sales_taxes) as subtotal_food_sales_taxes,
 						sum(orders.subtotal_sales_taxes) as subtotal_sales_taxes, sum(orders.subtotal_bag_fee_tax) as subtotal_bag_fee_tax, sum(orders.subtotal_all_taxes) as subtotal_all_taxes, sum(orders.grand_total) as grand_total, ";
@@ -1894,7 +1896,7 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 		{
 			if ($data['session_type'] != 'Adjustment')
 			{
-				$data['subtotal_program_discounts'] = $data['referral_reward_direct'] + $data['referral_reward_iaf'] + (isset($data['referral_reward_taste']) ? $data['referral_reward_taste'] : 0) + $data['certs_voucher'] + $data['certs_donated'] + COrders::std_round($data['certs_scrip'] * .12) + $data['fundraiser_value'] + (isset($data['ltd_menu_item_value_2']) ? $data['ltd_menu_item_value_2'] : 0) + (isset($data['subtotal_delivery_fee_2']) ? $data['subtotal_delivery_fee_2'] : 0);
+				$data['subtotal_program_discounts'] = $data['referral_reward_direct'] + $data['referral_reward_iaf'] + (isset($data['referral_reward_taste']) ? $data['referral_reward_taste'] : 0) + $data['certs_voucher'] + $data['certs_donated'] + COrders::std_round($data['certs_scrip'] * .12) + $data['fundraiser_value'] + (isset($data['ltd_menu_item_value_2']) ? $data['ltd_menu_item_value_2'] : 0) + (isset($data['subtotal_delivery_fee_2']) ? $data['subtotal_delivery_fee_2'] : 0) + (isset($data['delivery_tip_2']) ? $data['delivery_tip_2'] : 0);
 
 				$data['subtotal_all_items'] = $data['subtotal_all_items'] + $data['subtotal_program_discounts'];
 				$data['certs_scrip'] = COrders::std_round($data['certs_scrip'] * .12);
