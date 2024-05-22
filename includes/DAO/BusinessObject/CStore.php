@@ -74,6 +74,10 @@ class CStore extends DAO_Store
 			'title' => 'Dishwasher'
 		)
 	);
+	/**
+	 * @var array
+	 */
+	private static $_AvailableSessionTypes = array();
 
 	private $_markupObj = null; //cache me
 	private $_markupFetched = false;
@@ -186,6 +190,57 @@ class CStore extends DAO_Store
 		return $store_short_url;
 	}
 
+	/*
+	 * Get the available session types for active menus
+	 *
+	 */
+	function getAvailableSessionTypes()
+	{
+		if (!empty(self::$_AvailableSessionTypes))
+		{
+			return self::$_AvailableSessionTypes;
+		}
+
+		$DAO_session = DAO_CFactory::create('session', true);
+		$DAO_session->selectAdd();
+		$DAO_session->selectAdd("DISTINCT CONCAT(session.session_type, '_', COALESCE(session.session_type_subtype, 'STANDARD')) AS session_type_id");
+		$DAO_session->store_id = $this->id;
+		$DAO_session->session_publish_state = CSession::PUBLISHED;
+		$DAO_session->whereAdd("session.session_type IN ('STANDARD', 'SPECIAL_EVENT')");
+		$DAO_session->whereAdd("COALESCE(session.session_type_subtype, 'STANDARD') IN ('STANDARD', 'DELIVERY')");
+		$DAO_session->whereAdd("session.session_password IS NULL OR session.session_password = ''");
+
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->is_active = 1;
+		$DAO_menu->whereAdd("menu.global_menu_start_date >= DATE_FORMAT(NOW(),'%Y-%m-%d') OR ( menu.global_menu_start_date <= DATE_FORMAT(NOW(),'%Y-%m-%d') AND menu.global_menu_end_date >= DATE_FORMAT(NOW(),'%Y-%m-%d'))");
+		$DAO_session->joinAddWhereAsOn($DAO_menu, 'INNER', false, false, false);
+		$DAO_session->orderBy("menu.id DESC");
+		$DAO_session->find();
+
+		while ($DAO_session->fetch())
+		{
+			switch ($DAO_session->session_type_id)
+			{
+				case 'STANDARD_STANDARD':
+					self::$_AvailableSessionTypes['ASSEMBLY'] = true;
+					break;
+				case 'SPECIAL_EVENT_STANDARD':
+					self::$_AvailableSessionTypes['PICK_UP'] = true;
+					break;
+				case 'SPECIAL_EVENT_DELIVERY':
+					self::$_AvailableSessionTypes['HOME_DELIVERY'] = true;
+					break;
+			}
+		}
+
+		return self::$_AvailableSessionTypes;
+	}
+
+	function hasAvailableSessionType($session_type)
+	{
+		return array_key_exists($session_type, $this->getAvailableSessionTypes());
+	}
+
 	function getStoreId()
 	{
 		if(!empty($this->DAO_short_url) && !empty($this->DAO_short_url->short_url))
@@ -227,7 +282,7 @@ class CStore extends DAO_Store
 	}
 
 	/*
-	 * Pass in store ID or fully loaded store object
+	 * Pass in store ID or fully loaded  store object
 	 */
 	static function getParentStoreID($store)
 	{

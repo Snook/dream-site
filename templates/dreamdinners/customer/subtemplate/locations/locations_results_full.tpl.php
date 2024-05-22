@@ -81,7 +81,19 @@
 									</div>
 
 									<?php if ($store["type"] != 'COMMUNITY_PICK_UP') { ?>
-										<?php if ($store["DAO_store"]->supports_delivery) { ?>
+										<?php if ($store["DAO_store"]->hasAvailableSessionType('ASSEMBLY')) { ?>
+											<div class="mt-1">
+												<i class="dd-icon icon-measuring_cup text-green font-size-medium-large align-bottom"></i> <span class="font-italic">Self Assembly Available!</span>
+											</div>
+										<?php } ?>
+
+										<?php if ($store["DAO_store"]->hasAvailableSessionType('PICK_UP')) { ?>
+											<div class="mt-1">
+												<i class="dd-icon icon-shop-front text-green font-size-medium-large align-bottom"></i> <span class="font-italic">Pick-Up Available!</span>
+											</div>
+										<?php } ?>
+
+										<?php if ($store["DAO_store"]->hasAvailableSessionType('HOME_DELIVERY')) { ?>
 											<div class="mt-1">
 												<i class="dd-icon icon-delivery text-green font-size-medium-large align-bottom"></i> <span class="font-italic">Home Delivery Available!</span>
 											</div>
