@@ -83,6 +83,55 @@ class CMail
 		}
 	}
 
+	function bodyHTML($template_path, $tokens, $fallback_template = false)
+	{
+		$this->bodyTemplate($template_path, $tokens, $fallback_template, 'html');
+	}
+
+	function bodyText($template_path, $tokens, $fallback_template = false)
+	{
+		$this->bodyTemplate($template_path, $tokens, $fallback_template, 'text');
+	}
+
+	function bodyTemplate($template_path, $tokens, $fallback_template = false, $type = 'html')
+	{
+		$CTemplate = new CTemplate();
+
+		if (is_array($tokens))
+		{
+			$CTemplate->assign('data', $tokens);
+		}
+		else if (is_object($tokens))
+		{
+			$CTemplate->assign(get_class($tokens), $tokens);
+		}
+
+		$file = $CTemplate->findFile('template', '/email/' . $template_path);
+
+		$contents = false;
+
+		if ($file)
+		{
+			$contents = $CTemplate->render('/email/' . $template_path);
+		}
+		else if ($fallback_template)
+		{
+			$contents = $CTemplate->render('/email/' . $fallback_template);
+		}
+
+		if ($contents)
+		{
+			if ($type == 'html')
+			{
+				$this->body_html = $contents;
+			}
+			else
+			{
+				$this->body_html = $contents;
+			}
+		}
+	}
+
 	/*
 	 * $this->from_name = null sends a generic from Dream Dinners
 	 */
@@ -192,7 +241,7 @@ class CMail
 				}
 				$fileextArr = explode('/', finfo_buffer(finfo_open(), base64_decode($base64), FILEINFO_MIME_TYPE));
 				$fileext = $fileextArr[1];
-				if(!empty($this->attachment['name']))
+				if (!empty($this->attachment['name']))
 				{
 					$name = $this->attachment['name'];
 				}
@@ -226,9 +275,6 @@ class CMail
 			$message .= "Content-Transfer-Encoding: 7bit\n\n";    // must be 8bit cause it could have ascii characters
 			$message .= $this->body_html . "\n\n";            // Encoding is diferent to help text only clients select the correct type.
 			$message .= "--$alt_seperator--\n\n";
-
-
-
 
 			$message .= "--$mixed_seperator\n";
 			$message .= "Content-Type: application/{$this->attachmentType}; name=\"" . $name . "\"\n";
