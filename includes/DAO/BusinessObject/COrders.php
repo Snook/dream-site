@@ -384,7 +384,7 @@ class COrders extends DAO_Orders
 			return true;
 		}
 
-		if ($DAO_store->supportsDeliveryTip())
+		if ($DAO_store->supportsDeliveryTip() && $this->isDelivery())
 		{
 			return true;
 		}
