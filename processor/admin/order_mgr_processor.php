@@ -3489,14 +3489,15 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 
 						$originalFee = $thisOrder->subtotal_service_fee;
 						$originalDeliveryFee = $thisOrder->subtotal_delivery_fee;
+						// TODO: will the fees be adjusted automatically
+
+						$orgOrder = clone($thisOrder);
+
 						$thisOrder->subtotal_delivery_fee = 0;
 						$thisOrder->subtotal_service_fee = 0;
 						$thisOrder->service_fee_description = "";
 						$thisOrder->delivery_tip = 0;
 
-						// TODO: will the fees be adjusted automatically
-
-						$orgOrder = clone($thisOrder);
 						$thisOrder->reconstruct(true);
 						$thisOrder->findSession(true);
 						$this->fullyRestoreBundleObject($thisOrder, $OrigSession);
@@ -3530,9 +3531,11 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 
 						$originalFee = $thisOrder->subtotal_service_fee;
 						$originalDeliveryFee = $thisOrder->subtotal_delivery_fee;
-						$thisOrder->delivery_tip = 0;
 
 						$orgOrder = clone($thisOrder);
+
+						$thisOrder->delivery_tip = 0;
+
 						$thisOrder->reconstruct(true);
 						$thisOrder->findSession(true);
 						$this->fullyRestoreBundleObject($thisOrder, $OrigSession);
