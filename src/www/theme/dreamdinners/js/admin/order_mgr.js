@@ -1045,6 +1045,19 @@ function Reschedule(org_session_id, transition_type, suppressEmail)
 								calculateTotal();
 							}
 								break;
+							case 'adj_delivery_tip':
+							{
+								if (!$("#delivery_tip").length)
+								{
+									// The current DOM has no delivery fee field so for now causea refresh
+									bounce(window.location.href);
+								}
+
+								$("#delivery_tip").val(json.client_ops[key]);
+								$("#OEH_delivery_tip_org").html(formatAsMoney(json.client_ops[key]));
+								calculateTotal();
+							}
+								break;
 							case 'require_delivery_address':
 							{
 								$("[id^='shipping_']").each(function () {
@@ -3473,8 +3486,7 @@ function doReschedule(id, sessionTime, transition_type)
 
 	dd_message({
 		title: 'Reschedule',
-		message: '<div style="text-align: center;"><div>From</div><div style="font-weight: bold;">' + curSessionDate + '</div><div>to</div><div style="font-weight: bold;">' + sessionTime + '</div>'
-			+ '<div style="margin-top:5px;"><input type="checkbox" name="reschedule_suppress_email" id="reschedule_suppress_email" />&nbsp;<label for="reschedule_suppress_email">Suppress Sending Reschedule Email to Guest</label></div>',
+		message: '<div style="text-align: center;"><div>From</div><div style="font-weight: bold;">' + curSessionDate + '</div><div>to</div><div style="font-weight: bold;">' + sessionTime + '</div>' + '<div style="margin-top:5px;"><input type="checkbox" name="reschedule_suppress_email" id="reschedule_suppress_email" />&nbsp;<label for="reschedule_suppress_email">Suppress Sending Reschedule Email to Guest</label></div>',
 		modal: true,
 		confirm: function () {
 			var suppressEmail = false;
@@ -3512,8 +3524,7 @@ function onRescheduleClick(id, sessionTime, isDiscounted, control_message)
 		{
 			dd_message({
 				title: 'Reschedule',
-				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Pick Up to an Assembly.</span><br /><br />The Service Fee will be removed. " +
-					"<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
+				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Pick Up to an Assembly.</span><br /><br />The Service Fee will be removed. " + "<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
 				modal: true,
 				div_id: "tononpreasm_div",
 				noOk: true,
@@ -3532,8 +3543,7 @@ function onRescheduleClick(id, sessionTime, isDiscounted, control_message)
 		{
 			dd_message({
 				title: 'Reschedule',
-				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Assembly to Pickup.</span><br /><br />The Service Fee will be applied. " +
-					"<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
+				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Assembly to Pickup.</span><br /><br />The Service Fee will be applied. " + "<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
 				modal: true,
 				div_id: "topreasm_div",
 				noOk: true,
@@ -3552,8 +3562,7 @@ function onRescheduleClick(id, sessionTime, isDiscounted, control_message)
 		{
 			dd_message({
 				title: 'Reschedule',
-				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Pick Up to Home Delivery.</span><br /><br />The Service Fee will be adjusted, the Delivery Fee will be added and a Delivery Address is now required." +
-					"<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments, Add the Delivery Address and Finalize to complete the Reschedule.</span>",
+				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Pick Up to Home Delivery.</span><br /><br />The Service Fee will be adjusted, the Delivery Fee will be added and a Delivery Address is now required." + "<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments, Add the Delivery Address and Finalize to complete the Reschedule.</span>",
 				modal: true,
 				div_id: "topreasm_div",
 				noOk: true,
@@ -3610,8 +3619,7 @@ function onRescheduleClick(id, sessionTime, isDiscounted, control_message)
 		{
 			dd_message({
 				title: 'Reschedule',
-				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Home Delivery to Assembly.</span><br /><br />The Delivery Fee, Service Fee, and Delivery Address will be removed." +
-					"<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
+				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Home Delivery to Assembly.</span><br /><br />The Delivery Fee, Service Fee, and Delivery Address will be removed." + "<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
 				modal: true,
 				div_id: "topreasm_div",
 				noOk: true,
@@ -3630,8 +3638,7 @@ function onRescheduleClick(id, sessionTime, isDiscounted, control_message)
 		{
 			dd_message({
 				title: 'Reschedule',
-				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Home Delivery to Pick Up.</span><br /><br />The Delivery Fee will be removed. The Service Fee will be adjusted. The Delivery Address will be removed." +
-					"<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
+				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Home Delivery to Pick Up.</span><br /><br />The Delivery Fee will be removed. The Service Fee will be adjusted. The Delivery Address will be removed." + "<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
 				modal: true,
 				div_id: "topreasm_div",
 				noOk: true,
@@ -3650,8 +3657,7 @@ function onRescheduleClick(id, sessionTime, isDiscounted, control_message)
 		{
 			dd_message({
 				title: 'Reschedule',
-				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Home Delivery to Community Pick Up.</span><br /><br />The Delivery Address will be removed and the Delivery Fee and Service Fee may be adjusted." +
-					"<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
+				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Home Delivery to Community Pick Up.</span><br /><br />The Delivery Address will be removed and the Delivery Fee and Service Fee may be adjusted." + "<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
 				modal: true,
 				div_id: "topreasm_div",
 				noOk: true,
@@ -3670,8 +3676,7 @@ function onRescheduleClick(id, sessionTime, isDiscounted, control_message)
 		{
 			dd_message({
 				title: 'Reschedule',
-				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Community Pick Up to Assembly.</span><br /><br />The Delivery Fee and Service Fee will be removed." +
-					"<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
+				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Community Pick Up to Assembly.</span><br /><br />The Delivery Fee and Service Fee will be removed." + "<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
 				modal: true,
 				div_id: "topreasm_div",
 				noOk: true,
@@ -3690,8 +3695,7 @@ function onRescheduleClick(id, sessionTime, isDiscounted, control_message)
 		{
 			dd_message({
 				title: 'Reschedule',
-				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Community Pick Up to Home Delivery.</span><br /><br />The Delivery Fee and Service Fee may be adjusted. The Delivery Address is now required." +
-					"<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments, Add the Delivery Address and Finalize to complete the Reschedule.</span>",
+				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Community Pick Up to Home Delivery.</span><br /><br />The Delivery Fee and Service Fee may be adjusted. The Delivery Address is now required." + "<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments, Add the Delivery Address and Finalize to complete the Reschedule.</span>",
 				modal: true,
 				div_id: "topreasm_div",
 				noOk: true,
@@ -3710,8 +3714,7 @@ function onRescheduleClick(id, sessionTime, isDiscounted, control_message)
 		{
 			dd_message({
 				title: 'Reschedule',
-				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Assembly to Community Pick Up.</span><br /><br />A Delivery Fee and Service Fee may be added." +
-					"<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
+				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Assembly to Community Pick Up.</span><br /><br />A Delivery Fee and Service Fee may be added." + "<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
 				modal: true,
 				div_id: "topreasm_div",
 				noOk: true,
@@ -3730,8 +3733,7 @@ function onRescheduleClick(id, sessionTime, isDiscounted, control_message)
 		{
 			dd_message({
 				title: 'Reschedule',
-				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Assembly to Home Delivery.</span><br /><br />The Service and Delivery Fees will be added. The Delivery Address is now required." +
-					"<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments, Add the Delivery Address and Finalize to complete the Reschedule.</span>",
+				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Assembly to Home Delivery.</span><br /><br />The Service and Delivery Fees will be added. The Delivery Address is now required." + "<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments, Add the Delivery Address and Finalize to complete the Reschedule.</span>",
 				modal: true,
 				div_id: "topreasm_div",
 				noOk: true,
@@ -3752,8 +3754,7 @@ function onRescheduleClick(id, sessionTime, isDiscounted, control_message)
 			sessionTime = 'Walk-In on ' + sessionTime;
 			dd_message({
 				title: 'Reschedule',
-				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Pick Up to Walk-in.</span><br /><br /> " +
-					"<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
+				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Pick Up to Walk-in.</span><br /><br /> " + "<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
 				modal: true,
 				div_id: "topreasm_div",
 				noOk: true,
@@ -3774,8 +3775,7 @@ function onRescheduleClick(id, sessionTime, isDiscounted, control_message)
 			sessionTime = 'Walk-In on ' + sessionTime;
 			dd_message({
 				title: 'Reschedule',
-				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Assembly to Walk-in.</span><br /><br /> " +
-					"<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
+				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Assembly to Walk-in.</span><br /><br /> " + "<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
 				modal: true,
 				div_id: "topreasm_div",
 				noOk: true,
@@ -3796,8 +3796,7 @@ function onRescheduleClick(id, sessionTime, isDiscounted, control_message)
 			sessionTime = 'Walk-In on ' + sessionTime;
 			dd_message({
 				title: 'Reschedule',
-				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Home Delivery to Walk-in.</span><br /><br />The Delivery Fee will be removed. The Service Fee will be adjusted. The Delivery Address will be removed." +
-					"<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
+				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Home Delivery to Walk-in.</span><br /><br />The Delivery Fee will be removed. The Service Fee will be adjusted. The Delivery Address will be removed." + "<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
 				modal: true,
 				div_id: "topreasm_div",
 				noOk: true,
@@ -3816,8 +3815,7 @@ function onRescheduleClick(id, sessionTime, isDiscounted, control_message)
 		{
 			dd_message({
 				title: 'Reschedule',
-				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Walk-in to Pickup.</span><br /><br />The Service Fee will be adjusted. " +
-					"<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
+				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Walk-in to Pickup.</span><br /><br />The Service Fee will be adjusted. " + "<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
 				modal: true,
 				div_id: "topreasm_div",
 				noOk: true,
@@ -3836,8 +3834,7 @@ function onRescheduleClick(id, sessionTime, isDiscounted, control_message)
 		{
 			dd_message({
 				title: 'Reschedule',
-				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Walk-in to Pick Up.</span><br /><br />The Service Fee will be adjusted. " +
-					"<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
+				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Walk-in to Pick Up.</span><br /><br />The Service Fee will be adjusted. " + "<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments and Finalize to complete the Reschedule.</span>",
 				modal: true,
 				div_id: "topreasm_div",
 				noOk: true,
@@ -3875,8 +3872,7 @@ function onRescheduleClick(id, sessionTime, isDiscounted, control_message)
 		{
 			dd_message({
 				title: 'Reschedule',
-				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Walk-in to Home Delivery.</span><br /><br />The Service Fee will be adjusted, the Delivery Fee will be added and a Delivery Address is now required." +
-					"<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments, Add the Delivery Address and Finalize to complete the Reschedule.</span>",
+				message: "<br /><span style='font-weight:bold;'>You are rescheduling from Walk-in to Home Delivery.</span><br /><br />The Service Fee will be adjusted, the Delivery Fee will be added and a Delivery Address is now required." + "<br /><br /><span style='color:red; font-weight:bold;'>After Rescheduling this Order, Please Review this Order, Adjust Payments, Add the Delivery Address and Finalize to complete the Reschedule.</span>",
 				modal: true,
 				div_id: "topreasm_div",
 				noOk: true,
@@ -3924,10 +3920,7 @@ function handle_delayed_payment()
 		return;
 	}
 
-	$('#payment1_is_store_specific_flat_rate_deposit_delayed_payment1, #payment1_is_store_specific_flat_rate_deposit_delayed_payment2, ' +
-		' #ref_payment1_is_store_specific_flat_rate_deposit_delayed1, #ref_payment1_is_store_specific_flat_rate_deposit_delayed2, ' +
-		' #payment2_is_store_specific_flat_rate_deposit_delayed_payment1, #payment2_is_store_specific_flat_rate_deposit_delayed_payment2, ' +
-		' #ref_payment2_is_store_specific_flat_rate_deposit_delayed1, #ref_payment2_is_store_specific_flat_rate_deposit_delayed2').on('click', function (e) {
+	$('#payment1_is_store_specific_flat_rate_deposit_delayed_payment1, #payment1_is_store_specific_flat_rate_deposit_delayed_payment2, ' + ' #ref_payment1_is_store_specific_flat_rate_deposit_delayed1, #ref_payment1_is_store_specific_flat_rate_deposit_delayed2, ' + ' #payment2_is_store_specific_flat_rate_deposit_delayed_payment1, #payment2_is_store_specific_flat_rate_deposit_delayed_payment2, ' + ' #ref_payment2_is_store_specific_flat_rate_deposit_delayed1, #ref_payment2_is_store_specific_flat_rate_deposit_delayed2').on('click', function (e) {
 
 		dd_message({
 			title: lang.en.tc.terms_and_conditions,
@@ -3943,18 +3936,14 @@ function handle_delayed_payment()
 
 					$(this).remove();
 
-					$('#payment1_is_store_specific_flat_rate_deposit_delayed_payment1, #payment1_is_store_specific_flat_rate_deposit_delayed_payment2, ' +
-						' #ref_payment1_is_store_specific_flat_rate_deposit_delayed1, #ref_payment1_is_store_specific_flat_rate_deposit_delayed2, ' +
-						' #payment2_is_store_specific_flat_rate_deposit_delayed_payment1, #payment2_is_store_specific_flat_rate_deposit_delayed_payment2, ' +
-						' #ref_payment2_is_store_specific_flat_rate_deposit_delayed1, #ref_payment2_is_store_specific_flat_rate_deposit_delayed2').off('click');
+					$('#payment1_is_store_specific_flat_rate_deposit_delayed_payment1, #payment1_is_store_specific_flat_rate_deposit_delayed_payment2, ' + ' #ref_payment1_is_store_specific_flat_rate_deposit_delayed1, #ref_payment1_is_store_specific_flat_rate_deposit_delayed2, ' + ' #payment2_is_store_specific_flat_rate_deposit_delayed_payment1, #payment2_is_store_specific_flat_rate_deposit_delayed_payment2, ' + ' #ref_payment2_is_store_specific_flat_rate_deposit_delayed1, #ref_payment2_is_store_specific_flat_rate_deposit_delayed2').off('click');
 
 					set_user_pref('TC_DELAYED_PAYMENT_AGREE', 1, user_id);
 
 				},
 				'Decline': function () {
 
-					$('#payment1_is_store_specific_flat_rate_deposit_delayed_payment0, #payment2_is_store_specific_flat_rate_deposit_delayed_payment0, ' +
-						'#ref_payment1_is_store_specific_flat_rate_deposit_delayed0, #ref_payment2_is_store_specific_flat_rate_deposit_delayed0').trigger('click');
+					$('#payment1_is_store_specific_flat_rate_deposit_delayed_payment0, #payment2_is_store_specific_flat_rate_deposit_delayed_payment0, ' + '#ref_payment1_is_store_specific_flat_rate_deposit_delayed0, #ref_payment2_is_store_specific_flat_rate_deposit_delayed0').trigger('click');
 
 					dd_message({
 						title: lang.en.tc.terms_and_conditions,
@@ -7636,8 +7625,7 @@ function calculateTotal()
 			if (preferredData.type == "FLAT")//Only allows ITEMS type
 			{
 
-				if ((preferredData.preferred_cap_type == 'ITEMS' && totalMealQuantity <= preferredCapRemaining) ||
-					preferredData.preferred_cap_type == 'NONE')
+				if ((preferredData.preferred_cap_type == 'ITEMS' && totalMealQuantity <= preferredCapRemaining) || preferredData.preferred_cap_type == 'NONE')
 				{
 					let cost = (wholeQty - PUDExcludedFullItemsCount) * preferredData.value;
 					let halfCost = Number(formatAsMoney(((halfQty - PUDExcludedHalfItemsCount) * (preferredData.value / 2))));
@@ -7690,9 +7678,7 @@ function calculateTotal()
 			}
 			else if (preferredData.type == "PERCENT")
 			{
-				if ((preferredData.preferred_cap_type == 'ITEMS' && totalMealQuantity <= preferredCapRemaining) ||
-					(preferredData.preferred_cap_type == 'SERVINGS' && servings <= preferredCapRemaining) ||
-					preferredData.preferred_cap_type == 'NONE')
+				if ((preferredData.preferred_cap_type == 'ITEMS' && totalMealQuantity <= preferredCapRemaining) || (preferredData.preferred_cap_type == 'SERVINGS' && servings <= preferredCapRemaining) || preferredData.preferred_cap_type == 'NONE')
 				{
 					let basis = pre_discounts_grand_total - addonsSubtotal - productsSubTotal;
 					if (preferredData.include_sides === '0')

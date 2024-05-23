@@ -3512,6 +3512,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 						$netChangeToRevenue = ($serviceFeeUpdate - $originalFee) + ($DeliveryFeeUpdate - $originalDeliveryFee);
 						$clientOperationsArray['adj_service_fee'] = $thisOrder->subtotal_service_fee;
 						$clientOperationsArray['adj_delivery_fee'] = $thisOrder->subtotal_delivery_fee;
+						$clientOperationsArray['adj_delivery_tip'] = $thisOrder->delivery_tip;
 						$clientOperationsArray['delete_delivery_address'] = true;
 						$clientOperationsArray['update_svc_fee_desc'] = $serviceFeeDescUpdate;
 
@@ -3547,6 +3548,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 						$netChangeToRevenue = ($serviceFeeUpdate - $originalFee) + ($DeliveryFeeUpdate - $originalDeliveryFee);
 						$clientOperationsArray['adj_service_fee'] = $thisOrder->subtotal_service_fee;
 						$clientOperationsArray['adj_delivery_fee'] = $thisOrder->subtotal_delivery_fee;
+						$clientOperationsArray['adj_delivery_tip'] = $thisOrder->delivery_tip;
 						$clientOperationsArray['delete_delivery_address'] = true;
 						$clientOperationsArray['update_svc_fee_desc'] = $serviceFeeDescUpdate;
 
