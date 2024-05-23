@@ -3492,6 +3492,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 						$thisOrder->subtotal_delivery_fee = 0;
 						$thisOrder->subtotal_service_fee = 0;
 						$thisOrder->service_fee_description = "";
+						$thisOrder->delivery_tip = 0;
 
 						// TODO: will the fees be adjusted automatically
 
@@ -3528,6 +3529,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 
 						$originalFee = $thisOrder->subtotal_service_fee;
 						$originalDeliveryFee = $thisOrder->subtotal_delivery_fee;
+						$thisOrder->delivery_tip = 0;
 
 						$orgOrder = clone($thisOrder);
 						$thisOrder->reconstruct(true);
