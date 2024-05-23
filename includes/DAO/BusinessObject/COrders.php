@@ -512,7 +512,8 @@ class COrders extends DAO_Orders
 						'order_type' => $DAO_booking->DAO_orders->order_type,
 						'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
 						'session_data' => clone $DAO_booking->DAO_session,
-						'order_data' => $DAO_booking->DAO_orders
+						'order_data' => $DAO_booking->DAO_orders,
+						'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
 					);
 
 					break;
@@ -537,7 +538,8 @@ class COrders extends DAO_Orders
 							'order_type' => $DAO_booking->DAO_orders->order_type,
 							'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
 							'session_data' => clone $DAO_booking->DAO_session,
-							'order_data' => clone $DAO_booking->DAO_orders
+							'order_data' => clone $DAO_booking->DAO_orders,
+							'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
 						);
 
 						// The first reschedule is actually the first booking row and so may have originally been in the SAVED state.  Check for time difference and insert
@@ -559,7 +561,8 @@ class COrders extends DAO_Orders
 								'order_type' => $DAO_booking->DAO_orders->order_type,
 								'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
 								'session_data' => clone $DAO_booking->DAO_session,
-								'order_data' => clone $DAO_booking->DAO_orders
+								'order_data' => clone $DAO_booking->DAO_orders,
+								'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
 							);
 
 							$retVal[0]['time'] = $DAO_booking->DAO_orders->timestamp_created;
@@ -586,7 +589,8 @@ class COrders extends DAO_Orders
 							'order_type' => $DAO_booking->DAO_orders->order_type,
 							'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
 							'session_data' => clone $DAO_booking->DAO_session,
-							'order_data' => clone $DAO_booking->DAO_orders
+							'order_data' => clone $DAO_booking->DAO_orders,
+							'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
 						);
 					}
 					break;
@@ -611,7 +615,8 @@ class COrders extends DAO_Orders
 							'order_type' => $DAO_booking->DAO_orders->order_type,
 							'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
 							'session_data' => clone $DAO_booking->DAO_session,
-							'order_data' => clone $DAO_booking->DAO_orders
+							'order_data' => clone $DAO_booking->DAO_orders,
+							'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
 						);
 					}
 
@@ -633,7 +638,8 @@ class COrders extends DAO_Orders
 							'order_type' => $DAO_booking->DAO_orders->order_type,
 							'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
 							'session_data' => clone $DAO_booking->DAO_session,
-							'order_data' => clone $DAO_booking->DAO_orders
+							'order_data' => clone $DAO_booking->DAO_orders,
+							'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
 						);
 					}
 
@@ -662,7 +668,8 @@ class COrders extends DAO_Orders
 						'order_type' => $DAO_booking->DAO_orders->order_type,
 						'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
 						'session_data' => clone $DAO_booking->DAO_session,
-						'order_data' => clone $DAO_booking->DAO_orders
+						'order_data' => clone $DAO_booking->DAO_orders,
+						'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
 					);
 
 					if (abs(strtotime($DAO_booking->timestamp_created) - strtotime($DAO_booking->DAO_orders->timestamp_created)) > 60 && $numFound == 1)
@@ -681,7 +688,8 @@ class COrders extends DAO_Orders
 							'order_type' => $DAO_booking->DAO_orders->order_type,
 							'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
 							'session_data' => clone $DAO_booking->DAO_session,
-							'order_data' => clone $DAO_booking->DAO_orders
+							'order_data' => clone $DAO_booking->DAO_orders,
+							'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
 						);
 					}
 
@@ -707,7 +715,8 @@ class COrders extends DAO_Orders
 							'order_type' => $DAO_booking->DAO_orders->order_type,
 							'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
 							'session_data' => clone $DAO_booking->DAO_session,
-							'order_data' => clone $DAO_booking->DAO_orders
+							'order_data' => clone $DAO_booking->DAO_orders,
+							'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
 						);
 					}
 
@@ -729,7 +738,8 @@ class COrders extends DAO_Orders
 							'order_type' => $DAO_booking->DAO_orders->order_type,
 							'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
 							'session_data' => clone $DAO_booking->DAO_session,
-							'order_data' => clone $DAO_booking->DAO_orders
+							'order_data' => clone $DAO_booking->DAO_orders,
+							'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
 						);
 					}
 
@@ -747,7 +757,8 @@ class COrders extends DAO_Orders
 						'order_type' => $DAO_booking->DAO_orders->order_type,
 						'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
 						'session_data' => clone $DAO_booking->DAO_session,
-						'order_data' => clone $DAO_booking->DAO_orders
+						'order_data' => clone $DAO_booking->DAO_orders,
+						'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
 					);
 
 					if (abs(strtotime($DAO_booking->timestamp_created) - strtotime($DAO_booking->DAO_orders->timestamp_created)) > 60 && $numFound == 1)
@@ -766,7 +777,8 @@ class COrders extends DAO_Orders
 							'order_type' => $DAO_booking->DAO_orders->order_type,
 							'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
 							'session_data' => clone $DAO_booking->DAO_session,
-							'order_data' => clone $DAO_booking->DAO_orders
+							'order_data' => clone $DAO_booking->DAO_orders,
+							'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
 						);
 					}
 

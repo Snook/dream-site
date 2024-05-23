@@ -2,6 +2,11 @@
 	&#8226; <?php echo CTemplate::dateTimeFormat($item['time'], TIME, $this->store, CONCISE); ?>
 	<a href="/backoffice/user_details?id=<?php echo $item['user_id']; ?>" data-toggle="tooltip" title="<?php echo CUser::userTypeText($item['user_type']); ?>" target="_blank"><?php echo $item['user']; ?></a>
 	<b><?php echo $item['type']; ?></b>
+
+	<?php if ($item["DAO_orders_digest"]->user_state == 'NEW') { ?>
+		<span class="badge badge-orange badge-pill">1<sup>st</sup> Order</span>
+	<?php } ?>
+
 	<?php echo (($item['order_type'] == 'WEB') ? 'Customer' : 'BackOffice'); ?>
 
 	<?php if (!empty($item['order_data']) && !empty($item['order_data']->opted_to_customize_recipes) && $item['order_data']->opted_to_customize_recipes == true) {
