@@ -399,6 +399,7 @@ class page_admin_reports_site_royalty_national extends CPageAdminOnly
 				"Fundraising",
 				"LTD Meal Donations",
 				"Delivery Fees",
+				"Delivery Tip",
 				"Door Dash Fees",
 				"Total Sales with Adjust/Disc",
 				"National Marketing Fee",

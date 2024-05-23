@@ -130,6 +130,14 @@ if (isset($this->report_submitted) && $this->report_submitted == TRUE)
 				echo '</tr>';
 			}
 
+			if (!empty($array_entity['delivery_tip']))
+			{
+				echo '<tr>';
+				echo '<td><b>Total Driver Tips:</b></td>';
+				echo '<td>(' . CSessionReports::formatCurrency($array_entity['delivery_tip']) . ')</td>';
+				echo '</tr>';
+			}
+
 			if (!empty($array_entity['door_dash_fees']))
 			{
 				echo '<tr>';
