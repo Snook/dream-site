@@ -32,7 +32,7 @@
 					<p><b>Prep time:</b> <?php echo $this->curItem['cooking_inst']['prep_time_half']; ?></p>
 				<?php } } ?>
 			<?php if (!empty($this->curItem['cooking_inst']['suggestions'])) { ?>
-				<h4>Serving Suggestions</h4>
+				<h4>Serving Suggestion</h4>
 				<p><?php echo $this->curItem['cooking_inst']['suggestions']; ?></p>
 			<?php } ?>
 		</div>
@@ -44,7 +44,7 @@
 				<?php foreach($this->curItem['nutrition_data'] as $thisCompNum => $thisComp) { ?>
 
 					<div style="width:250px;float:left;">
-						<h4><?php echo ucfirst($thisComp['info']['serving']); ?></h4>
+						<h4><?php echo ucfirst($thisComp['info']['serving']) . ((!empty($thisComp['info']['serving_weight'])) ? ' (' . $thisComp['info']['serving_weight'] . 'g)' : ''); ?></h4>
 						<?php if (!empty($thisComp['element']['Calories']['label'])) { ?><div><?php echo $thisComp['element']['Calories']['label']; ?>: <?php echo $thisComp['element']['Calories']['value']; ?></div><?php } ?>
 						<?php if (!empty($thisComp['info']['notes'])) { ?><p style="margin-top:20px;"><?php echo $thisComp['info']['notes']; ?></p><?php } ?>
 					</div>

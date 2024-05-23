@@ -578,7 +578,7 @@ class CMenu extends DAO_Menu
 		$DAO_nutrition_data->joinAddWhereAsOn($DAO_nutrition_element, 'LEFT', false, false, false);
 		$DAO_recipe_component->joinAddWhereAsOn($DAO_nutrition_data, 'LEFT', false, false, false);
 		// this will be decoded in CMenuItem::digestMenuItem()
-		$DAO_menu_item->selectAdd("GROUP_CONCAT(DISTINCT recipe_component.component_number, ':::' , recipe_component.serving, ':::' , recipe_component.notes SEPARATOR '|||') AS _recipe_component");
+		$DAO_menu_item->selectAdd("GROUP_CONCAT(DISTINCT recipe_component.component_number, ':::' , recipe_component.serving, ':::' , recipe_component.serving_weight, ':::' , recipe_component.notes SEPARATOR '|||') AS _recipe_component");
 		$DAO_menu_item->selectAdd("GROUP_CONCAT(DISTINCT nutrition_data.component_number, ':' , nutrition_data.value, ':' , IFNULL(nutrition_data.note_indicator, 'null'), ':' , nutrition_data.prefix, ':' , nutrition_element.label, ':' , nutrition_element.display_label, ':' , IFNULL(nutrition_element.measure_label, 'null'), ':' , IFNULL(nutrition_element.daily_value, 'null'), ':' , nutrition_element.do_display, ':' , IFNULL(nutrition_element.parent_element, 'null'), ':' , IFNULL(nutrition_element.sprintf, 'null'), ':' , nutrition_element.indent ORDER BY nutrition_element.display_order ASC) AS _recipe_component_nutrition_data");
 
 		$DAO_recipe->joinAddWhereAsOn($DAO_recipe_component, 'LEFT', false, false, false);

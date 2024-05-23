@@ -24,7 +24,7 @@ class page_nutritionals extends CPage
 				"Instant pot",
 				"Under 400",
 				"Ready in under 30",
-				"Instructional Video",
+				//"Instructional Video",
 				"Time to Prep*",
 				"Serving Size",
 				"Cal ",
@@ -65,9 +65,9 @@ class page_nutritionals extends CPage
 						$thisRow[] = !empty($recipe['info']['flag_crockpot']) ? 'X' : '';
 						$thisRow[] = !empty($recipe['info']['flag_instant_pot']) ? 'X' : '';
 						$thisRow[] = !empty($recipe['info']['flag_under_400']) ? 'X' : '';
-						$thisRow[] = !empty($recipe['info']['flag_no_added_salt']) ? 'X' : '';
+						//$thisRow[] = !empty($recipe['info']['flag_no_added_salt']) ? 'X' : '';
 						$thisRow[] = !empty($recipe['info']['flag_under_thirty']) ? 'X' : '';
-						$thisRow[] = !empty($recipe['info']['cooking_instruction_youtube_id']) ? 'http://youtu.be/' . $recipe['info']['cooking_instruction_youtube_id'] : '';
+						//$thisRow[] = !empty($recipe['info']['cooking_instruction_youtube_id']) ? 'http://youtu.be/' . $recipe['info']['cooking_instruction_youtube_id'] : '';
 						$thisRow[] = $recipe['info']['prep_time'];
 					}
 					else
@@ -85,7 +85,7 @@ class page_nutritionals extends CPage
 						$thisRow[] = "";
 					}
 
-					$thisRow[] = $component['serving'];
+					$thisRow[] = $component['serving'] . ((!empty($component['serving_weight'])) ? ' (' . $component['serving_weight'] . 'g)' : '');
 					$thisRow[] = CTemplate::formatDecimal($component['Calories']['value']) . $component['Calories']['measure_label'];
 					$thisRow[] = $component['Fat']['prefix']. CTemplate::formatDecimal($component['Fat']['value']) . $component['Fat']['measure_label'];
 					$thisRow[] = $component['Sat Fat']['prefix']. CTemplate::formatDecimal($component['Sat Fat']['value']) . $component['Sat Fat']['measure_label'];

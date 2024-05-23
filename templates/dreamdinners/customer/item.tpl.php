@@ -123,7 +123,7 @@
 							<?php } ?>
 
 							<?php if (!empty($this->menuItemArray['entree']->serving_suggestions)) { ?>
-								<h4 class="mt-4">Serving Suggestions</h4>
+								<h4 class="mt-4">Serving Suggestion</h4>
 								<p><?php echo $this->menuItemArray['entree']->serving_suggestions; ?></p>
 							<?php } ?>
 						</div>
@@ -151,7 +151,7 @@
 													Serving size
 												</div>
 												<div class="col text-right">
-													<div><?php echo ucfirst($thisComp['info']['serving']); ?></div>
+													<div><?php echo ucfirst($thisComp['info']['serving']) . ((!empty($thisComp['info']['serving_weight'])) ? ' (' . $thisComp['info']['serving_weight'] . 'g)' : ''); ?></div>
 												</div>
 											</div>
 										</td>

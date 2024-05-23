@@ -541,10 +541,11 @@ class CMenuItem extends DAO_Menu_item
 
 			foreach ($componentArray as $componentInfo)
 			{
-				list($recipe_component['component_number'], $recipe_component['serving'], $recipe_component['notes']) = explode(':::', $componentInfo);
+				list($recipe_component['component_number'], $recipe_component['serving'], $recipe_component['serving_weight'], $recipe_component['notes']) = explode(':::', $componentInfo);
 
 				$this->nutrition_array['component'][$recipe_component['component_number']]['info'] = array(
 					'serving' => $recipe_component['serving'],
+					'serving_weight' => $recipe_component['serving_weight'],
 					'notes' => $recipe_component['notes']
 				);
 			}
@@ -2527,6 +2528,7 @@ class CMenuItem extends DAO_Menu_item
 			{
 				$this->nutrition_array['component'][$DAO_recipe->component_number]['info'] = array(
 					'serving' => $DAO_recipe->serving,
+					'serving_weight' => $DAO_recipe->serving_weight,
 					'notes' => $DAO_recipe->notes
 				);
 			}
@@ -2750,6 +2752,7 @@ class CMenuItem extends DAO_Menu_item
 				{
 					$NutsArray[$DAO_recipe->component_number]['info'] = array(
 						'serving' => $DAO_recipe->serving,
+						'serving_weight' => $DAO_recipe->serving_weight,
 						'notes' => $DAO_recipe->notes
 					);
 				}

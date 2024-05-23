@@ -101,7 +101,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 
 			try
 			{
-				$uberObject = DAO_CFActory::create('menu_item');
+				$uberObject = DAO_CFActory::create('menu_item', true);
 				$uberObject->query('START TRANSACTION;');
 
 				$rows = CImportReciprofity::distillCSVImport($_FILES['base_menu_import'], $tpl, true);
@@ -167,7 +167,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 
 	private static function getMenuOptionsArray()
 	{
-		$Menu = DAO_CFactory::create('menu');
+		$Menu = DAO_CFactory::create('menu', true);
 		$Menu->query("SELECT
 			m.id,
 			m.menu_name,
@@ -197,28 +197,6 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 		return $menuArray;
 	}
 
-	private static function cookingMethod($method)
-	{
-		// temp until we have reliable entries that could be turned into enum
-		return $method;
-
-		switch ($method)
-		{
-			case 'stovetop':
-				return 'STOVETOP';
-				break;
-			case 'oven':
-				return 'OVEN';
-				break;
-			case 'grill':
-				return 'GRILL';
-				break;
-			default:
-				return '';
-				break;
-		}
-	}
-
 	private static function stickIt($fields, $labels, $tpl, $menu_id)
 	{
 		try
@@ -231,7 +209,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 				throw new Exception("Invalid Recipe ID: " . $fields['recipe_id']);
 			}
 
-			$thisNullRecipe = DAO_CFactory::create('recipe');
+			$thisNullRecipe = DAO_CFactory::create('recipe', true);
 			$thisNullRecipe->recipe_id = $fields['recipe_id'];
 			$thisNullRecipe->override_menu_id = 'null';
 
@@ -242,7 +220,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 				$orgNullRecipe = clone($thisNullRecipe);
 			}
 
-			$thisRecipe = DAO_CFactory::create('recipe');
+			$thisRecipe = DAO_CFactory::create('recipe', true);
 			$thisRecipe->recipe_id = $fields['recipe_id'];
 			$thisRecipe->override_menu_id = $menu_id;
 
@@ -283,7 +261,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 			$thisNullRecipe->ingredients = $thisRecipe->ingredients = CImportReciprofity::spellCheck('ingredient', trim(CImportReciprofity::charConversions($fields[INGREDIENTS]), '" '));
 			$thisNullRecipe->allergens = $thisRecipe->allergens = trim(CImportReciprofity::charConversions($fields[ALLERGENS]), '" ');
 			//$thisNullRecipe->cooking_instruction_youtube_id = $thisRecipe->cooking_instruction_youtube_id = trim(CImportReciprofity::charConversions($fields[CI_YOUTUBE_ID]), '" ');
-			$thisNullRecipe->cooking_method = $thisRecipe->cooking_method = trim(self::cookingMethod($fields[COOKING_METHOD]), '" ');
+			$thisNullRecipe->cooking_method = $thisRecipe->cooking_method = trim($fields[COOKING_METHOD], '" ');
 			$thisNullRecipe->ltd_menu_item_value = $thisRecipe->ltd_menu_item_value = ((!empty($fields[LTD_MOTM]) && $fields[LTD_MOTM] == "Yes") ? 1 : 0);
 
 			// update menu specific
@@ -319,7 +297,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 
 			if ($expectedNumComps == 1 && empty($theseComps[0]))
 			{
-			//	throw new Exception("Serving Size string missing for {$thisRecipe->recipe_id}");
+				//	throw new Exception("Serving Size string missing for {$thisRecipe->recipe_id}");
 			}
 
 			// create the components
@@ -328,8 +306,9 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 			// ------------------------ INSERT, UPDATE or DELETE menu specific components
 			$component_ids = array();
 			$exCompsArr = array();
-			$existingComps = DAO_CFactory::create('recipe_component');
-			$existingComps->query("SELECT * FROM recipe_component WHERE recipe_id = '" . $thisRecipeRowID . "' AND is_deleted = '0'");
+			$existingComps = DAO_CFactory::create('recipe_component', true);
+			$existingComps->recipe_id = $thisRecipeRowID;
+			$existingComps->find();
 
 			while ($existingComps->fetch())
 			{
@@ -354,6 +333,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 						$compObj->recipe_number = $fields['recipe_id'];
 						$compObj->recipe_id = $thisRecipeRowID;
 						$compObj->serving = $thisComp;
+						$compObj->serving_weight = $fields[SERVING_WEIGHT];
 						$compObj->component_number = $compCount;
 						$compObj->notes = (!empty($notesArr[$compCount - 1]) ? $notesArr[$compCount - 1] : "");
 						$compObj->hasBeenUpdated = true;
@@ -364,10 +344,11 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 					}
 					else
 					{
-						$compObj = DAO_CFactory::create('recipe_component');
+						$compObj = DAO_CFactory::create('recipe_component', true);
 						$compObj->recipe_number = $fields['recipe_id'];
 						$compObj->recipe_id = $thisRecipeRowID;
 						$compObj->serving = $thisComp;
+						$compObj->serving_weight = $fields[SERVING_WEIGHT];
 						$compObj->component_number = $compCount;
 						$compObj->notes = (!empty($notesArr[$compCount - 1]) ? $notesArr[$compCount - 1] : "");
 
@@ -385,7 +366,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 				{
 					$thisComp->delete();
 
-					$thisNutData = DAO_CFactory::create('nutrition_data');
+					$thisNutData = DAO_CFactory::create('nutrition_data', true);
 					$thisNutData->query("update nutrition_data set is_deleted = 0 where component_id = {$thisComp->id}");
 				}
 			}
@@ -394,7 +375,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 			$compCount = 1;
 			$null_component_ids = array();
 			$exNullCompsArr = array();
-			$existingNullComps = DAO_CFactory::create('recipe_component');
+			$existingNullComps = DAO_CFactory::create('recipe_component', true);
 			$existingNullComps->query("SELECT * FROM recipe_component WHERE recipe_id = '" . $thisNullRecipeRowID . "' AND is_deleted = '0'");
 
 			while ($existingNullComps->fetch())
@@ -420,6 +401,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 						$compObj->recipe_number = $fields['recipe_id'];
 						$compObj->recipe_id = $thisNullRecipeRowID;
 						$compObj->serving = $thisComp;
+						$compObj->serving_weight = $fields[SERVING_WEIGHT];
 						$compObj->component_number = $compCount;
 						$compObj->notes = ''; //(!empty($notesArr[$compCount - 1]) ? $notesArr[$compCount - 1] : "");
 						$compObj->hasBeenUpdated = true;
@@ -430,10 +412,11 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 					}
 					else
 					{
-						$compObj = DAO_CFactory::create('recipe_component');
+						$compObj = DAO_CFactory::create('recipe_component', true);
 						$compObj->recipe_number = $fields['recipe_id'];
 						$compObj->recipe_id = $thisNullRecipeRowID;
 						$compObj->serving = $thisComp;
+						$compObj->serving_weight = $fields[SERVING_WEIGHT];
 						$compObj->component_number = $compCount;
 						$compObj->notes = ''; //(!empty($notesArr[$compCount - 1]) ? $notesArr[$compCount - 1] : "");
 
@@ -500,7 +483,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 				$thisLabel = $ReciprofityToDDNutNameMap[trim($labels[$thisField])];
 				$theseNuts = explode("\n", $fields[$thisField]);
 
-				$thisNutElement = DAO_CFactory::create('nutrition_element');
+				$thisNutElement = DAO_CFactory::create('nutrition_element', true);
 				$thisNutElement->label = $thisLabel;
 
 				if (!$thisNutElement->find(true))
@@ -541,7 +524,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 						$inputHasAsterisk = "*";
 					}
 
-					$thisNutData = DAO_CFactory::create('nutrition_data');
+					$thisNutData = DAO_CFactory::create('nutrition_data', true);
 
 					if (!isset($component_ids[$compCount]))
 					{
@@ -585,7 +568,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 					}
 
 					// default recipe
-					$thisNutDataNull = DAO_CFactory::create('nutrition_data');
+					$thisNutDataNull = DAO_CFactory::create('nutrition_data', true);
 
 					if (!isset($null_component_ids[$compCount]))
 					{
@@ -770,7 +753,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 				throw new Exception("Invalid Recipe ID: " . $fields['recipe_id']);
 			}
 
-			$thisNullRecipe = DAO_CFactory::create('recipe');
+			$thisNullRecipe = DAO_CFactory::create('recipe', true);
 			$thisNullRecipe->recipe_id = $fields['recipe_id'];
 			$thisNullRecipe->override_menu_id = 'null';
 
@@ -781,7 +764,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 				$orgNullRecipe = clone($thisNullRecipe);
 			}
 
-			$thisRecipe = DAO_CFactory::create('recipe');
+			$thisRecipe = DAO_CFactory::create('recipe', true);
 			$thisRecipe->recipe_id = $fields['recipe_id'];
 			$thisRecipe->override_menu_id = $menu_id;
 
@@ -823,7 +806,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 			$thisNullRecipe->ingredients = $thisRecipe->ingredients = CImportReciprofity::spellCheck('ingredient', trim(CImportReciprofity::charConversions($fields[INGREDIENTS]), '" '));
 			$thisNullRecipe->allergens = $thisRecipe->allergens = trim(CImportReciprofity::charConversions($fields[ALLERGENS]), '" ');
 			//$thisNullRecipe->cooking_instruction_youtube_id = $thisRecipe->cooking_instruction_youtube_id = trim(CImportReciprofity::charConversions($fields[CI_YOUTUBE_ID]), '" ');
-			$thisNullRecipe->cooking_method = $thisRecipe->cooking_method = trim(self::cookingMethod($fields[COOKING_METHOD]), '" ');
+			$thisNullRecipe->cooking_method = $thisRecipe->cooking_method = trim($fields[COOKING_METHOD], '" ');
 			$thisNullRecipe->ltd_menu_item_value = $thisRecipe->ltd_menu_item_value = ((!empty($fields[LTD_MOTM]) && $fields[LTD_MOTM] == "Yes") ? 1 : 0);
 
 			// update menu specific
@@ -882,7 +865,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 
 			if ($expectedNumComps == 1 && empty($theseComps[0]))
 			{
-			//	throw new Exception("Serving Size string missing for {$thisRecipe->recipe_id}");
+				//	throw new Exception("Serving Size string missing for {$thisRecipe->recipe_id}");
 			}
 
 			// create the components
@@ -893,7 +876,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 
 			if (!empty($thisRecipeRowID))
 			{
-				$existingComps = DAO_CFactory::create('recipe_component');
+				$existingComps = DAO_CFactory::create('recipe_component', true);
 				$existingComps->query("SELECT * FROM recipe_component WHERE recipe_id = '" . $thisRecipeRowID . "' AND is_deleted = '0'");
 
 				while ($existingComps->fetch())
@@ -922,6 +905,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 						$compObj->recipe_number = $fields['recipe_id'];
 						$compObj->recipe_id = $thisRecipeRowID;
 						$compObj->serving = $thisComp;
+						$compObj->serving_weight = $fields[SERVING_WEIGHT];
 						$compObj->component_number = $compCount;
 						$compObj->notes = ''; //(!empty($notesArr[$compCount - 1]) ? $notesArr[$compCount - 1] : "");
 						$compObj->hasBeenUpdated = true;
@@ -944,9 +928,10 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 					}
 					else
 					{
-						$compObj = DAO_CFactory::create('recipe_component');
+						$compObj = DAO_CFactory::create('recipe_component', true);
 						$compObj->recipe_number = $fields['recipe_id'];
 						$compObj->serving = $thisComp;
+						$compObj->serving_weight = $fields[SERVING_WEIGHT];
 						$compObj->component_number = $compCount;
 						$compObj->notes = ''; //(!empty($notesArr[$compCount - 1]) ? $notesArr[$compCount - 1] : "");
 
@@ -974,7 +959,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 
 			if (!empty($thisNullRecipeRowID))
 			{
-				$existingNullComps = DAO_CFactory::create('recipe_component');
+				$existingNullComps = DAO_CFactory::create('recipe_component', true);
 				$existingNullComps->query("SELECT * FROM recipe_component WHERE recipe_id = '" . $thisNullRecipeRowID . "' AND is_deleted = '0'");
 
 				while ($existingNullComps->fetch())
@@ -1004,6 +989,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 						$compObj->recipe_number = $fields['recipe_id'];
 						$compObj->recipe_id = $thisNullRecipeRowID;
 						$compObj->serving = $thisComp;
+						$compObj->serving_weight = $fields[SERVING_WEIGHT];
 						$compObj->component_number = $compCount;
 						$compObj->notes = ''; //(!empty($notesArr[$compCount - 1]) ? $notesArr[$compCount - 1] : "");
 						$compObj->hasBeenUpdated = true;
@@ -1026,9 +1012,10 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 					}
 					else
 					{
-						$compObj = DAO_CFactory::create('recipe_component');
+						$compObj = DAO_CFactory::create('recipe_component', true);
 						$compObj->recipe_number = $fields['recipe_id'];
 						$compObj->serving = $thisComp;
+						$compObj->serving_weight = $fields[SERVING_WEIGHT];
 						$compObj->component_number = $compCount;
 						$compObj->notes = ' 	'; //(!empty($notesArr[$compCount - 1]) ? $notesArr[$compCount - 1] : "");
 
@@ -1118,7 +1105,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 				$theseNuts = explode("\n", $fields[$thisField]);
 
 				$fadminLabel = $reciProfityToFadminLabelMap[$thisLabel];
-				$thisNutElement = DAO_CFactory::create('nutrition_element');
+				$thisNutElement = DAO_CFactory::create('nutrition_element', true);
 				$thisNutElement->label = $fadminLabel;
 
 				if (!$thisNutElement->find(true))
@@ -1156,7 +1143,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 						$inputHasAsterisk = "*";
 					}
 
-					$thisNutData = DAO_CFactory::create('nutrition_data');
+					$thisNutData = DAO_CFactory::create('nutrition_data', true);
 
 					if (!isset($component_ids[$compCount]))
 					{
@@ -1206,7 +1193,7 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 					}
 
 					// default recipe
-					$thisDefaultNutData = DAO_CFactory::create('nutrition_data');
+					$thisDefaultNutData = DAO_CFactory::create('nutrition_data', true);
 
 					if ($thisNullRecipeRowID && $null_component_ids[$compCount] > 6)
 					{

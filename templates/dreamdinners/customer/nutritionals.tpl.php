@@ -83,7 +83,7 @@
 										</td>
 										<td rowspan="<?php echo count($recipe['component']); ?>" class="text-right"><?php echo $recipe['info']['prep_time']; ?></td>
 									<?php } ?>
-									<td class="text-right"><?php echo ucfirst($component['serving']); ?></td>
+									<td class="text-right"><?php echo ucfirst($component['serving']) . ((!empty($component['serving_weight'])) ? ' (' . $component['serving_weight'] . 'g)' : ''); ?></td>
 									<td><?php echo CTemplate::formatDecimal($component['Calories']['value']); ?><?php echo $component['Calories']['measure_label']; ?></td>
 									<td><?php echo $component['Fat']['prefix'] . CTemplate::formatDecimal($component['Fat']['value']); ?><?php echo $component['Fat']['measure_label']; ?></td>
 									<td><?php echo $component['Sat Fat']['prefix'] . CTemplate::formatDecimal($component['Sat Fat']['value']); ?><?php echo $component['Sat Fat']['measure_label']; ?></td>

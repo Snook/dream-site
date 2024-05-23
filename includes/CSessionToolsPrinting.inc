@@ -1528,7 +1528,7 @@ class CSessionToolsPDFDrawer
 		if (!empty($menuItemArray['entree']->serving_suggestions))
 		{
 			$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN + 10, $yPos + 6.8);
-			$this->pdf->MultiCellTag(146, 3, "<h8>Serving Suggestions: " . html_entity_decode($menuItemArray['entree']->serving_suggestions, ENT_QUOTES, 'WINDOWS-1252') . "</h8>", $this->showBorders, 'L');
+			$this->pdf->MultiCellTag(146, 3, "<h8>Serving Suggestion: " . html_entity_decode($menuItemArray['entree']->serving_suggestions, ENT_QUOTES, 'WINDOWS-1252') . "</h8>", $this->showBorders, 'L');
 		}
 
 		// ICONS
@@ -1699,18 +1699,18 @@ class CSessionToolsPDFDrawer
 
 		foreach ($menuItemArray['entree']->nutrition_array['component'] as $component_id => $component)
 		{
-			$component_ypos = $yPos + ((++$component_count - 1) * 4) + 4;
+			$component_ypos = $yPos + ((++$component_count - 1) * 4) + 4 - .75;
 
 			$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN, $component_ypos);
 			$component['info']['serving'] = str_replace("&eacute;", "\xE9", $component['info']['serving']);
 
 			if (strlen($component['info']['serving']) >= 50)
 			{
-				$this->pdf->MultiCellTag(45, 2, "<t6>" . ucfirst($component['info']['serving']) . "</t6>", $this->showBorders, 'R');
+				$this->pdf->MultiCellTag(45, 2.75, "<t6>" . ucfirst($component['info']['serving']) . ((!empty($component['info']['serving_weight'])) ? ' (' . $component['info']['serving_weight'] . 'g)' : '') . "</t6>", $this->showBorders, 'R');
 			}
 			else
 			{
-				$this->pdf->MultiCellTag(45, 2, "<t8>" . ucfirst($component['info']['serving']) . "</t8>", $this->showBorders, 'R');
+				$this->pdf->MultiCellTag(45, 2.75, "<t8>" . ucfirst($component['info']['serving']) . ((!empty($component['info']['serving_weight'])) ? ' (' . $component['info']['serving_weight'] . 'g)' : '') . "</t8>", $this->showBorders, 'R');
 			}
 
 			$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN + 46, $component_ypos);
