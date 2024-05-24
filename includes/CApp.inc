@@ -125,7 +125,7 @@ class CApp
 			}
 
 			// otherwise check the standard reporting server list and bail if not found
-			if (strpos($locationRequest, "admin_reports") === false && strpos($locationRequest, "admin_dashboard_new") === false && strpos($locationRequest, "admin_home_office") === false && strpos($locationRequest, "admin_dashboard_menu_based") === false && strpos($locationRequest, "admin_food_sales") === false && strpos($locationRequest, "admin_fundraiser") === false)
+			if (strpos($locationRequest, "admin_helpers") === false && strpos($locationRequest, "admin_reports") === false && strpos($locationRequest, "admin_dashboard_new") === false && strpos($locationRequest, "admin_home_office") === false && strpos($locationRequest, "admin_dashboard_menu_based") === false && strpos($locationRequest, "admin_food_sales") === false && strpos($locationRequest, "admin_fundraiser") === false)
 			{
 				if (strpos($locationRequest, "admin_login") === false)
 				{
