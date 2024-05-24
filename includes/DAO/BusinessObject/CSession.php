@@ -2178,7 +2178,7 @@ class CSession extends DAO_Session
 			return false;
 		}
 
-		if (!$this->isStandard() && !$this->isMadeForYou())
+		if (!$this->isStandard() && !$this->isStandardPrivate()  && !$this->isMadeForYou())
 		{
 			return false;
 		}
