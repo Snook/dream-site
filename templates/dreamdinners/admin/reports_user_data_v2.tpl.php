@@ -61,7 +61,7 @@ include $this->loadTemplate('admin/page_header_reports.tpl.php');
 							<div style="margin-left:10px;"><input type="checkbox" name="df_INSTRUCTIONS" id="df_INSTRUCTIONS" />&nbsp;<label for="df_INSTRUCTIONS">Special Instructions for Upcoming Sessions</label></div>
 							<div style="margin-left:10px;"><input type="checkbox" name="df_CUSTOMIZATIONS" id="df_CUSTOMIZATIONS" />&nbsp;<label for="df_CUSTOMIZATIONS">Meal Customizations for Upcoming Sessions</label></div>
 							<div style="margin-left:10px;"><input type="checkbox" name="df_USER_ACCOUNT_NOTE" id="df_USER_ACCOUNT_NOTE" />&nbsp;<label for="df_USER_ACCOUNT_NOTE">Account Notes</label></div>
-							<div style="margin-left:10px;"><input type="checkbox" name="df_TEXT_MESSAGE_OPT_IN" id="df_TEXT_MESSAGE_OPT_IN" />&nbsp;<label for="df_TEXT_MESSAGE_OPT_IN">Text Message Opt-In</label></div>
+							<div style="margin-left:10px;"><input type="checkbox" name="df_TEXT_MESSAGE_OPT_IN" id="df_TEXT_MESSAGE_OPT_IN" />&nbsp;<label for="df_TEXT_MESSAGE_OPT_IN">SMS Message Opt-In</label></div>
 							<div style="margin-left:10px;"><input type="checkbox" name="df_USER_SHARE_URL" id="df_USER_SHARE_URL" />&nbsp;<label for="df_USER_SHARE_URL">Share URL</label></div>
 
 						</div>

@@ -635,7 +635,7 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 					'width' => 'auto'
 				);
 				incrementColumn($thirdSecondChar, $colSecondChar, $col);
-				$labels = array_merge($labels, array("Text Message Opt-In"));
+				$labels = array_merge($labels, array("SMS Message Opt-In"));
 				$columnCount++;
 			}
 
