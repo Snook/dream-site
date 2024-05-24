@@ -15,6 +15,7 @@ class processor_admin_shipping_wh extends CPageProcessor
 	{
 		$this->mainProcessor();
 	}
+
 	function runFranchiseStaff()
 	{
 		$this->mainProcessor();
@@ -62,25 +63,23 @@ class processor_admin_shipping_wh extends CPageProcessor
 
 	function mainProcessor()
 	{
-
 		$rawJson = file_get_contents('php://input');
-		CLog::RecordNew(CLog::NOTICE, $rawJson, "", "", false);
+		CLog::RecordNew(CLog::NOTICE, $rawJson, "", "", true);
 
 		$hashedDataRef = hash('md5', $rawJson, false);
 
-		if(empty($rawJson)){
-
-			CLog::RecordNew(CLog::ERROR, "No data was provided by in call to shipping webhook handler",
-				"shipping_wh.php", 73, false);
+		if (empty($rawJson))
+		{
+			CLog::RecordNew(CLog::ERROR, "No data was provided by in call to shipping webhook handler", "shipping_wh.php", 73, false);
 			echo json_encode(array(
 				'processor_success' => false,
 				'processor_message' => 'No Data',
 				'processor_name' => 'processor_shipping_wh'
 			));
-
-		}else{
-			TransientDataStore::storeData(TransientDataStore::SHIPPING_SHIP_NOTIFICATION_NEW,
-				$hashedDataRef, $rawJson, 50,true);
+		}
+		else
+		{
+			TransientDataStore::storeData(TransientDataStore::SHIPPING_SHIP_NOTIFICATION_NEW, $hashedDataRef, $rawJson, 50, true);
 
 			echo json_encode(array(
 				'processor_success' => true,
@@ -90,4 +89,5 @@ class processor_admin_shipping_wh extends CPageProcessor
 		}
 	}
 }
+
 ?>
