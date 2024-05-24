@@ -370,25 +370,40 @@ class COrders extends DAO_Orders
 		return $counting;
 	}
 
-	function eligibleForDeliveryTip()
+	function eligibleForDeliveryTip($DAO_session = false)
 	{
 		$DAO_store = $this->getStoreObj();
 
+		// No store yet on the order, so can't check if a tip is supported
 		if (empty($DAO_store))
 		{
 			return false;
 		}
 
+		// The order already has a tip, so show the field
 		if ($this->delivery_tip > 0)
 		{
 			return true;
 		}
 
-		if ($DAO_store->supportsDeliveryTip() && $this->isDelivery())
+		if ($DAO_store->supportsDeliveryTip())
 		{
-			return true;
+			// We may be switching to a new session, check the passed in session to pre-check
+			if (!empty($DAO_session))
+			{
+				return $DAO_session->isDelivery();
+			}
+			// Not passing in a session so check the existing order's session
+			else if ($this->getSessionObj())
+			{
+				return $this->getSessionObj()->isDelivery();
+			}
+
+			// Store supports tip but an eligible session is required.
+			return false;
 		}
 
+		// Everything else failed so not eligible
 		return false;
 	}
 

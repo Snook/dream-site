@@ -205,7 +205,7 @@ class processor_cart_session_processor extends CPageProcessor
 						else if ($DAO_session->isDelivery())
 						{
 							$CartObj->addNavigationType(CSession::ALL_STANDARD, true);
-							if ($CartObj->getOrder()->eligibleForDeliveryTip())
+							if ($CartObj->getOrder()->eligibleForDeliveryTip($DAO_session))
 							{
 								$CartObj->addDeliveryTip($CartObj->getOrder()->getStoreObj()->default_delivery_tip, true);
 							}
