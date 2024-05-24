@@ -1,9 +1,4 @@
 <?php
-
-/**
- * @author Carl Samuelson
- */
-
 require_once("includes/CPageAdminOnly.inc");
 require_once('includes/DAO/BusinessObject/CSession.php');
 require_once('includes/CSessionReports.inc');
@@ -202,6 +197,7 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 			$sectionSwitches['df_CUSTOMIZATIONS'] = !empty($_POST['df_CUSTOMIZATIONS']);
 
 			$sectionSwitches['df_USER_ACCOUNT_NOTE'] = !empty($_POST['df_USER_ACCOUNT_NOTE']);
+			$sectionSwitches['df_TEXT_MESSAGE_OPT_IN'] = !empty($_POST['df_TEXT_MESSAGE_OPT_IN']);
 			$sectionSwitches['df_USER_SHARE_URL'] = !empty($_POST['df_USER_SHARE_URL']);
 
 			$innerOptionalColumns = "";
@@ -283,6 +279,11 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 				$innerOptionalColumns .= ", up.pvalue as user_account_notes";
 			}
 
+			if ($sectionSwitches['df_TEXT_MESSAGE_OPT_IN'])
+			{
+				$innerOptionalColumns .= ", up_text.pvalue as text_message_opt_in";
+			}
+
 			if ($sectionSwitches['df_USER_SHARE_URL'])
 			{
 				$innerOptionalColumns .= ", CONCAT('" . HTTPS_BASE . "share/', u.id) as user_share_url";
@@ -344,6 +345,11 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 				$innerQueryJoins .= " left join user_preferences as up on up.user_id = u.id and up.pkey = 'USER_ACCOUNT_NOTE'";
 			}
 
+			if ($sectionSwitches['df_TEXT_MESSAGE_OPT_IN'])
+			{
+				$innerQueryJoins .= " left join user_preferences as up_text on up_text.user_id = u.id and up_text.pkey = 'TEXT_MESSAGE_OPT_IN'";
+			}
+
 			$outerWhereClause = "";
 
 			switch ($_POST['guest_type'])
@@ -376,22 +382,22 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 					if ($store != "all")
 					{
 						$basicInnerWhereClause .= " and u.id in (select distinct od.user_id as total_in_store from orders_digest od where session_time < $nowDate
-											and session_time >= DATE_SUB($nowDate ,INTERVAL 45 DAY) and od.store_id = $store and od.is_deleted = 0
-											and od.user_id not in (
-												select DISTINCT od2.user_id as non_lost_guests from orders_digest od2 where od2.original_order_time < $nowDate
-											and od2.session_time > $nowDate and od2.store_id = $store and od2.is_deleted = 0 and od2.user_id in
-											(select distinct od.user_id from orders_digest od where session_time < $nowDate
-											and session_time >= DATE_SUB($nowDate ,INTERVAL 45 DAY) and od.store_id = $store and od.is_deleted = 0)))";
+							and session_time >= DATE_SUB($nowDate ,INTERVAL 45 DAY) and od.store_id = $store and od.is_deleted = 0
+							and od.user_id not in (
+								select DISTINCT od2.user_id as non_lost_guests from orders_digest od2 where od2.original_order_time < $nowDate
+							and od2.session_time > $nowDate and od2.store_id = $store and od2.is_deleted = 0 and od2.user_id in
+							(select distinct od.user_id from orders_digest od where session_time < $nowDate
+							and session_time >= DATE_SUB($nowDate ,INTERVAL 45 DAY) and od.store_id = $store and od.is_deleted = 0)))";
 					}
 					else
 					{
 						$basicInnerWhereClause .= " where u.id in (select distinct od.user_id as total_in_store from orders_digest od where session_time < $nowDate
-											and session_time >= DATE_SUB($nowDate ,INTERVAL 45 DAY) and od.is_deleted = 0
-											and od.user_id not in (
-												select DISTINCT od2.user_id as non_lost_guests from orders_digest od2 where od2.original_order_time < $nowDate
-											and od2.session_time > $nowDate and od2.is_deleted = 0 and od2.user_id in
-											(select distinct od.user_id from orders_digest od where session_time < $nowDate
-											and session_time >= DATE_SUB($nowDate ,INTERVAL 45 DAY) and od.is_deleted = 0)))";
+							and session_time >= DATE_SUB($nowDate ,INTERVAL 45 DAY) and od.is_deleted = 0
+							and od.user_id not in (
+								select DISTINCT od2.user_id as non_lost_guests from orders_digest od2 where od2.original_order_time < $nowDate
+							and od2.session_time > $nowDate and od2.is_deleted = 0 and od2.user_id in
+							(select distinct od.user_id from orders_digest od where session_time < $nowDate
+							and session_time >= DATE_SUB($nowDate ,INTERVAL 45 DAY) and od.is_deleted = 0)))";
 					}
 					break;
 			}
@@ -406,7 +412,7 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 
 			$lastMidnight = date("Y-m-d 00:00:00");
 
-			if (( $sectionSwitches['df_INSTRUCTIONS'] ||  $sectionSwitches['df_CUSTOMIZATIONS'] ) && $_POST['guest_type'] == 'has_future_sessions')
+			if (($sectionSwitches['df_INSTRUCTIONS'] || $sectionSwitches['df_CUSTOMIZATIONS']) && $_POST['guest_type'] == 'has_future_sessions')
 			{
 
 				$instructionsClause = '';
@@ -419,12 +425,11 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 				{
 					$customizationsClause = "GROUP_CONCAT( IF( o4.opted_to_customize_recipes, o4.id, NULL ) SEPARATOR '|' ) AS customization_orders, ";
 				}
-				$query = "select " . $instructionsClause . $customizationsClause .
-       						"oq2.* from ( " . $query . ") as oq2
-										left join booking b4 on b4.user_id = oq2.id and b4.status = 'ACTIVE'
-										join session s4 on s4.id = b4.session_id and s4.session_start > '$lastMidnight'
-										join orders o4 on o4.id = b4.order_id and o4.is_deleted = 0
-										group by oq2.id";
+				$query = "select " . $instructionsClause . $customizationsClause . "oq2.* from ( " . $query . ") as oq2
+					left join booking b4 on b4.user_id = oq2.id and b4.status = 'ACTIVE'
+					join session s4 on s4.id = b4.session_id and s4.session_start > '$lastMidnight'
+					join orders o4 on o4.id = b4.order_id and o4.is_deleted = 0
+					group by oq2.id";
 			}
 
 			$columnDescs = array();
@@ -623,6 +628,17 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 				$columnCount++;
 			}
 
+			if ($sectionSwitches['df_TEXT_MESSAGE_OPT_IN'])
+			{
+				$columnDescs[$thirdSecondChar . $colSecondChar . $col] = array(
+					'align' => 'left',
+					'width' => 'auto'
+				);
+				incrementColumn($thirdSecondChar, $colSecondChar, $col);
+				$labels = array_merge($labels, array("Text Message Opt-In"));
+				$columnCount++;
+			}
+
 			if ($sectionSwitches['df_USER_SHARE_URL'])
 			{
 				$columnDescs[$thirdSecondChar . $colSecondChar . $col] = array(
@@ -645,11 +661,11 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 				$columnCount++;
 			}
 
-			$UserObj = DAO_CFactory::create('user');
-			$UserObj->query($query);
+			$DAO_user = DAO_CFactory::create('user');
+			$DAO_user->query($query);
 
 			$exportAsExcel = true;
-			if ($UserObj->N > 400)
+			if ($DAO_user->N > 400)
 			{
 				$exportAsExcel = false;
 			}
@@ -666,9 +682,9 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 			);
 			$customization_order_ids = null;
 
-			while ($UserObj->fetch())
+			while ($DAO_user->fetch())
 			{
-				$thisGuest = $UserObj->toArray();
+				$thisGuest = $DAO_user->toArray();
 				$thisGuest['postal_code'] = "=\"" . $thisGuest['postal_code'] . "\"";
 				unset($thisGuest['future_orders']);
 				unset($thisGuest['total_orders']);
@@ -703,7 +719,7 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 					if (!empty($thisGuest['most_recent_session']))
 					{
 						$DAO_orders_digest = DAO_CFactory::create('orders_digest');
-						$DAO_orders_digest->user_id = $UserObj->id;
+						$DAO_orders_digest->user_id = $DAO_user->id;
 						$DAO_orders_digest->session_time = $thisGuest['most_recent_session'];
 
 						$thisGuest['most_recent_session'] = ($exportAsExcel ? PHPExcel_Shared_Date::stringToExcel($thisGuest['most_recent_session']) : date("n/j/Y g:i a", strtotime($thisGuest['most_recent_session'])));
@@ -747,12 +763,12 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 
 				if ($sectionSwitches['df_PROFILE_DATA'])
 				{
-					$IDs = explode("|", $UserObj->field_ids);
-					$Values = explode("|", $UserObj->field_values);
+					$IDs = explode("|", $DAO_user->field_ids);
+					$Values = explode("|", $DAO_user->field_values);
 
 					$thisDataSet = $profileDataTemplate;
 
-					if (!empty($UserObj->field_ids))
+					if (!empty($DAO_user->field_ids))
 					{
 						foreach ($IDs as $thisFieldID)
 						{
@@ -810,7 +826,7 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 
 				if ($sectionSwitches['df_MEMBERSHIP_STATUS'])
 				{
-					$thisGuest['membership_status'] = ($UserObj->hasCurrentMembership() ? "Yes" : "No");
+					$thisGuest['membership_status'] = ($DAO_user->hasCurrentMembership() ? "Yes" : "No");
 				}
 
 				$isInPlatePoints = false;
@@ -905,26 +921,25 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 				if ($sectionSwitches['df_INSTRUCTIONS'] && $_POST['guest_type'] == 'has_future_sessions')
 				{
 					$thisGuest['instructions'] = $instructions;
-
 				}
 
 				if ($sectionSwitches['df_CUSTOMIZATIONS'] && $_POST['guest_type'] == 'has_future_sessions')
 				{
 
-					if(!empty($customization_order_ids)){
+					if (!empty($customization_order_ids))
+					{
 						$orderIds = explode('|', $customization_order_ids);
 						$str = '';
-						foreach($orderIds as $orderId)
+						foreach ($orderIds as $orderId)
 						{
 							$order = new COrders();
 							$order->id = $orderId;
 							$order->find(true);
 							$customization = OrdersCustomization::initOrderCustomizationObj($order->order_customization);
-							$cust = $customization->getMealCustomizationObj()->toString(',',true,' with ');
-							if($cust != '')
+							$cust = $customization->getMealCustomizationObj()->toString(',', true, ' with ');
+							if ($cust != '')
 							{
-								$str .= 'Order ' .$orderId . ' has no added: ' . $cust . '.   ';
-
+								$str .= 'Order ' . $orderId . ' has no added: ' . $cust . '.   ';
 							}
 						}
 						$thisGuest['customizations'] = $str;
@@ -940,10 +955,10 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 				{
 					if (!$hasData)
 					{
-						if(array_key_exists($colNum,$profilePositionMap) && array_key_exists($profilePositionMap[$colNum], $thisRow) ){
+						if (array_key_exists($colNum, $profilePositionMap) && array_key_exists($profilePositionMap[$colNum], $thisRow))
+						{
 							unset($thisRow[$profilePositionMap[$colNum]]);
 						}
-
 					}
 				}
 			}
@@ -1039,8 +1054,6 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 				$labels = array_merge($labels, array("Meal Customizations"));
 				$columnCount++;
 			}
-
-
 
 			if ($storeDAO)
 			{
