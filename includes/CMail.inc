@@ -99,7 +99,7 @@ class CMail
 
 		if (is_array($tokens))
 		{
-			$CTemplate->assign('data', $tokens);
+			$CTemplate->assign($tokens);
 		}
 		else if (is_object($tokens))
 		{
