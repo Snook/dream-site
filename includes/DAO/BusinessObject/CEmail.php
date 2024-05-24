@@ -198,7 +198,7 @@ class CEmail extends CMail
 			$Mail = new CMail();
 
 			$Mail->from_name = $orderInfo['customer_name'];
-			$Mail->from_email = $orderInfo['customer_primary_email'];
+			$Mail->reply_email = $orderInfo['customer_primary_email'];
 			$Mail->to_name = $orderInfo['storeInfo']['store_name'];
 			$Mail->to_email = $orderInfo['storeInfo']['email_address'];
 			$Mail->subject = 'Alert - Special Request';
@@ -217,7 +217,7 @@ class CEmail extends CMail
 			$Mail = new CMail();
 
 			$Mail->from_name = $orderInfo['customer_name'];
-			$Mail->from_email = $orderInfo['customer_primary_email'];
+			$Mail->reply_email = $orderInfo['customer_primary_email'];
 			$Mail->to_name = $orderInfo['storeInfo']['store_name'];
 			$Mail->to_email = $orderInfo['storeInfo']['email_address'];
 			$Mail->subject = 'Alert - Home Delivery Order';
@@ -236,7 +236,7 @@ class CEmail extends CMail
 			$Mail = new CMail();
 
 			$Mail->from_name = $orderInfo['customer_name'];
-			$Mail->from_email = $orderInfo['customer_primary_email'];
+			$Mail->reply_email = $orderInfo['customer_primary_email'];
 			$Mail->to_name = $orderInfo['storeInfo']['store_name'];
 			$Mail->to_email = $orderInfo['storeInfo']['email_address'];
 			$Mail->subject = 'New Shipping Order - ' . $orderInfo['orderInfo']['orderAddress']['firstname'] . ' ' . $orderInfo['orderInfo']['orderAddress']['lastname'];
@@ -287,7 +287,6 @@ class CEmail extends CMail
 						$Mail->to_email = $storeObj->email_address;
 					}
 
-					$Mail->from_email = 'do-not-reply@dreamdinners.com';
 					$Mail->subject = 'Alert - ' . $userObj->firstname . ' ' . $userObj->lastname . ' placed an order ' . $orderObj->id . ' containing the ShiftSetGo Bundle.';
 					$Mail->body_html = CMail::mailMerge('shift_set_go_order_alert.html.php', $email_data);
 					$Mail->body_text = CMail::mailMerge('shift_set_go_order_alert.txt.php', $email_data);
@@ -306,7 +305,7 @@ class CEmail extends CMail
 			self::alertStoreSpecialInstructions($orderInfo);
 			self::alertStoreHomeDelivery($orderInfo);
 			self::alertStoreShippingOrder($orderInfo);
-			self::alertStoreCouponUsed($orderInfo);
+			//self::alertStoreCouponUsed($orderInfo);
 			self::alertOrderCustomizations($orderInfo);
 		}
 		else if (defined('STORE_NOTIFICATION_ALERT_TEST_EMAIL'))
@@ -315,7 +314,7 @@ class CEmail extends CMail
 			self::alertStoreSpecialInstructions($orderInfo);
 			self::alertStoreHomeDelivery($orderInfo);
 			self::alertStoreShippingOrder($orderInfo);
-			self::alertStoreCouponUsed($orderInfo);
+			//self::alertStoreCouponUsed($orderInfo);
 			self::alertOrderCustomizations($orderInfo);
 		}
 	}
@@ -328,7 +327,7 @@ class CEmail extends CMail
 			$Mail = new CMail();
 
 			$Mail->from_name = $orderInfo['customer_name'];
-			$Mail->from_email = $orderInfo['customer_primary_email'];
+			$Mail->reply_email = $orderInfo['customer_primary_email'];
 			$Mail->to_name = $orderInfo['storeInfo']['store_name'];
 			$Mail->to_email = $orderInfo['storeInfo']['email_address'];
 			$Mail->subject = 'Alert - Order Place with Customizations Selected';
@@ -365,21 +364,18 @@ class CEmail extends CMail
 			{
 				$Mail = new CMail();
 
-				$userObj = DAO_CFactory::create('user');
-				$userObj->id = $orderInfo['bookingInfo']['user_id'];
-				$userObj->find(true);
+				$DAO_user = DAO_CFactory::create('user');
+				$DAO_user->id = $orderInfo['bookingInfo']['user_id'];
+				$DAO_user->find(true);
 
 				$email_data = array(
-					'user' => $userObj,
+					'user' => $DAO_user,
 					'coupon_details' => $couponInfo,
 					'order_details' => $orderInfo
 				);
 
-				$Mail->to_name = $userObj->firstname . ' ' . $userObj->lastname;
-				$Mail->to_email = $userObj->primary_email;
-				$Mail->to_id = $userObj->id;
-				$Mail->from_email = $orderInfo['storeInfo']['email_address'];
-				$Mail->subject = 'Alert - ' . $userObj->firstname . ' ' . $userObj->lastname . ' used coupon ' . $couponInfo->coupon_code;
+				$Mail->to_email = $orderInfo['storeInfo']['email_address'];
+				$Mail->subject = 'Alert - ' . $DAO_user->firstname . ' ' . $DAO_user->lastname . ' used coupon ' . $couponInfo->coupon_code;
 				$Mail->body_html = CMail::mailMerge('order_coupon_used_alert.html.php', $email_data);
 				$Mail->body_text = CMail::mailMerge('order_coupon_used_alert.txt.php', $email_data);
 				$Mail->template_name = 'order_coupon_used_alert';
