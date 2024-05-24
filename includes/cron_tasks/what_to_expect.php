@@ -4,14 +4,14 @@ require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/CFactory.php");
 require_once("CLog.inc");
 
-$_DAYS_BEFORE = 3;
+$_DAYS_BEFORE = 1;
 
 try
 {
 	if (defined("DISABLE_CRON") && DISABLE_CRON)
 	{
-		CLog::Record("CRON: process_reminders called but cron is disabled");
-		CLog::RecordCronTask(1, CLog::FAILURE, CLog::SESSION_REMINDERS, "process_reminders called but cron is disabled.");
+		CLog::Record("CRON: what_to_expect called but cron is disabled");
+		CLog::RecordCronTask(1, CLog::FAILURE, CLog::SESSION_REMINDERS, "what_to_expect called but cron is disabled.");
 		exit;
 	}
 
@@ -35,26 +35,11 @@ try
 		$totalCount++;
 	}
 
-	$DAO_booking = DAO_CFactory::create('session_rsvp', true);
-	$DAO_booking->whereAdd("DATEDIFF(NOW(), session.session_start ) = -" . $_DAYS_BEFORE);
-	$DAO_booking->whereAdd("store.store_type = '" . CStore::FRANCHISE . "'");
-	if (defined('CRON_TEST_MODE') && CRON_TEST_MODE)
-	{
-		$DAO_booking->limit(10);
-	}
-	$DAO_booking->find_DAO_session_rsvp();
-
-	while ($DAO_booking->fetch())
-	{
-		$DAO_booking->send_reminder_email();
-		$totalCount++;
-	}
-
-	CLog::RecordCronTask($totalCount, CLog::SUCCESS, CLog::SESSION_REMINDERS, " $totalCount session reminder emails processed.");
+	CLog::RecordCronTask($totalCount, CLog::SUCCESS, CLog::WHAT_TO_EXPECT, " $totalCount what to expect emails processed.");
 }
 catch (exception $e)
 {
-	CLog::RecordCronTask($totalCount, CLog::PARTIAL_FAILURE, CLog::SESSION_REMINDERS, "process_reminders: Exception occurred: " . $e->getMessage());
+	CLog::RecordCronTask($totalCount, CLog::PARTIAL_FAILURE, CLog::WHAT_TO_EXPECT, "what_to_expect: Exception occurred: " . $e->getMessage());
 	CLog::RecordException($e);
 }
 
