@@ -9,7 +9,7 @@
 </table>
 <table role="presentation" width="600" align="center">
 	<tr>
-		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/delivered/in-a-snap-shipping-collage-600x300.jpg" width="600" height="300" alt="Dream Dinners"></td>
+		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/delivered/in-a-snap-shipping-collage-600x300.jpg" width="600" height="300" alt="Dream Dinners"></td>
 	</tr>
 </table>
 <table role="presentation" width="600" border="0" align="center" cellpadding="20" cellspacing="0">
