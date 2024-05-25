@@ -214,21 +214,37 @@ class COrdersDigest extends DAO_Orders_digest
 		}
 	}
 
-	static function updateUserDigestOrderCancelled($user_id, $session_time)
+	static function updateUserDigestOrderCancelled($DAO_orders_digest)
 	{
-		if (!empty($user_id) && is_numeric($user_id))
+		if (!empty($DAO_orders_digest->user_id) && is_numeric($DAO_orders_digest->user_id))
 		{
-			$userDigestDAO = DAO_CFactory::create('user_digest');
-			$userDigestDAO->user_id = $user_id;
-			if ($userDigestDAO->find(true))
+			$DAO_user_digest = DAO_CFactory::create('user_digest', true);
+			$DAO_user_digest->user_id = $DAO_orders_digest->user_id;
+
+			if ($DAO_user_digest->find(true))
 			{
-				if ($session_time == $userDigestDAO->first_session)
+				if ($DAO_orders_digest->session_time == $DAO_user_digest->first_session)
 				{
-					$userDigestDAO->first_session = 'null';
+					$DAO_user_digest->first_session = 'null';
 				}
 
-				$userDigestDAO->visit_count--;
-				$userDigestDAO->update();
+				if ($DAO_orders_digest->order_id == $DAO_user_digest->order_id_first_shipping)
+				{
+					$DAO_user_digest->order_id_first_shipping = 'null';
+				}
+
+				if ($DAO_orders_digest->order_id == $DAO_user_digest->order_id_first_home_delivery)
+				{
+					$DAO_user_digest->order_id_first_home_delivery = 'null';
+				}
+
+				if ($DAO_orders_digest->order_id == $DAO_user_digest->order_id_first_pick_up)
+				{
+					$DAO_user_digest->order_id_first_pick_up = 'null';
+				}
+
+				$DAO_user_digest->visit_count--;
+				$DAO_user_digest->update();
 			}
 		}
 	}
@@ -1053,18 +1069,18 @@ class COrdersDigest extends DAO_Orders_digest
 
 	static function recordCanceledOrder($order_id, $store_id, $menu_id, $grand_total, $fundraiser_value = 0, $ltd_meal_total = 0)
 	{
-		$orderDigest = DAO_CFactory::create('orders_digest');
+		$DAO_orders_digest = DAO_CFactory::create('orders_digest');
 
 		// TODO: don't throw here. Just email the details
-		$orderDigest->order_id = $order_id;
-		if (!$orderDigest->find(true))
+		$DAO_orders_digest->order_id = $order_id;
+		if (!$DAO_orders_digest->find(true))
 		{
 			throw new Exception("Error finding original order in COrderDigest::recordCanceledOrder");
 		}
 
 		//this may impact the user_state of orders placed after this one, if this was
 		//new or reacquired
-		if ($orderDigest->user_state == 'NEW' || $orderDigest->user_state == 'REACQUIRED')
+		if ($DAO_orders_digest->user_state == 'NEW' || $DAO_orders_digest->user_state == 'REACQUIRED')
 		{
 			if ($menu_id == false)
 			{
@@ -1073,7 +1089,7 @@ class COrdersDigest extends DAO_Orders_digest
 			}
 			else
 			{
-				$whichState = $orderDigest->user_state;
+				$whichState = $DAO_orders_digest->user_state;
 				$nextFutureOrder = DAO_CFactory::create('orders_digest');
 				$sql = "SELECT
 						od.order_id,
@@ -1084,7 +1100,7 @@ class COrdersDigest extends DAO_Orders_digest
 						JOIN orders o ON o.id = od.order_id
 						JOIN session s ON s.id = b.session_id 
 					WHERE
-						od.user_id = {$orderDigest->user_id} 
+						od.user_id = {$DAO_orders_digest->user_id} 
 						AND od.order_id <> $order_id 
 						AND od.is_deleted = 0 
 						AND s.menu_id >= $menu_id
@@ -1124,7 +1140,7 @@ class COrdersDigest extends DAO_Orders_digest
 		$balanceDue = self::calculateAndAddBalanceDue($order_id, $grand_total, true);
 
 		$sql = "update orders_digest set is_deleted = 1, balance_due = $balanceDue where order_id = $order_id and is_deleted = 0";
-		$orderDigest->query($sql);
+		$DAO_orders_digest->query($sql);
 
 		$BookingObj = DAO_CFactory::create('booking');
 		$BookingObj->query("select s.session_start, s.menu_id, s.id as session_id, o.grand_total, o.subtotal_all_taxes from booking b
@@ -1232,7 +1248,7 @@ class COrdersDigest extends DAO_Orders_digest
 			$FErevenueEvent->insert();
 		}
 
-		self::updateUserDigestOrderCancelled($orderDigest->user_id, $orderDigest->session_time);
+		self::updateUserDigestOrderCancelled($DAO_orders_digest);
 
 		self::updateLastActivityDate($store_id, date("Y-m-d H:i:s"));
 	}
