@@ -4,6 +4,8 @@ require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/CFactory.php");
 require_once("CLog.inc");
 
+$_DAYS_BEFORE = 3;
+
 try
 {
 	if (defined("DISABLE_CRON") && DISABLE_CRON)
@@ -15,7 +17,7 @@ try
 
 	$DAO_booking = DAO_CFactory::create('booking', true);
 	$DAO_booking->status = CBooking::ACTIVE;
-	$DAO_booking->whereAdd("DATEDIFF(NOW(), session.session_start ) = -3");
+	$DAO_booking->whereAdd("DATEDIFF(NOW(), session.session_start ) = -" . $_DAYS_BEFORE);
 	$DAO_booking->whereAdd("session.session_type_subtype <> '" . CSession::WALK_IN . "' OR session.session_type_subtype IS NULL");
 	$DAO_booking->whereAdd("store.store_type = '" . CStore::FRANCHISE . "'");
 	if (defined('CRON_TEST_MODE') && CRON_TEST_MODE)
@@ -34,7 +36,7 @@ try
 	}
 
 	$DAO_booking = DAO_CFactory::create('session_rsvp', true);
-	$DAO_booking->whereAdd("DATEDIFF(NOW(), session.session_start ) = -3");
+	$DAO_booking->whereAdd("DATEDIFF(NOW(), session.session_start ) = -" . $_DAYS_BEFORE);
 	$DAO_booking->whereAdd("store.store_type = '" . CStore::FRANCHISE . "'");
 	if (defined('CRON_TEST_MODE') && CRON_TEST_MODE)
 	{

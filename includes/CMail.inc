@@ -99,7 +99,7 @@ class CMail
 
 		if (is_array($tokens))
 		{
-			$CTemplate->assign('data', $tokens);
+			$CTemplate->assign($tokens);
 		}
 		else if (is_object($tokens))
 		{
@@ -127,7 +127,7 @@ class CMail
 			}
 			else
 			{
-				$this->body_html = $contents;
+				$this->body_text = $contents;
 			}
 		}
 	}

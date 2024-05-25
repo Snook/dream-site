@@ -9,7 +9,7 @@
 </table>
 <table role="presentation" width="600" align="center">
 	<tr>
-		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/delivered/in-a-snap-shipping-collage-600x300.jpg" width="600" height="300" alt="Dream Dinners"></td>
+		<td><img src="<?php echo EMAIL_IMAGES_PATH?>/email/delivered/in-a-snap-shipping-collage-600x300.jpg" width="600" height="300" alt="Dream Dinners"></td>
 	</tr>
 </table>
 <table role="presentation" width="600" border="0" align="center" cellpadding="20" cellspacing="0">
@@ -35,9 +35,9 @@
 			<p style="font-family:Arial, Helvetica, sans-serif; font-size: 16px; color: #444444;">Enjoy your dinners with your family! When you need more meals, place another order at DreamDinners.com, you can order extras of your favorites or try something new. Our menu changes monthly, with at least 17 delicious recipes to choose from.
 
 
-			
+
 	      <hr>
-			<p style="font-family:Arial, Helvetica, sans-serif; font-size: 16px; color: #444444;">If you have any questions, please reach out to us at <?php echo $this->DAO_orders->DAO_store->telephone_day; ?> or via email by replying.</p>
+			<p style="font-family:Arial, Helvetica, sans-serif; font-size: 16px; color: #444444;">If you have any questions, please reach out to us at <?php echo $this->DAO_booking->DAO_store->telephone_day; ?> or via email by replying.</p>
 			<p style="font-family:Arial, Helvetica, sans-serif; font-size: 16px; color: #444444;">&nbsp; </p>
 		</td>
 	</tr>

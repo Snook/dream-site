@@ -13,6 +13,9 @@ class DAO_User_digest extends DAO
     public $id;                             	// int(11)  not_null primary_key unsigned auto_increment
     public $user_id;                      	// int(11)
     public $first_session;              	 // date
+	public $order_id_first_pick_up;                      	// int(11)
+	public $order_id_first_shipping;                      	// int(11)
+	public $order_id_first_home_delivery;                      	// int(11)
 	public $dream_taste_third_order_invite;    	 // date
     public $visit_count;					// int
 	public $last_achievement_achieved_id;    	 // int

@@ -214,21 +214,37 @@ class COrdersDigest extends DAO_Orders_digest
 		}
 	}
 
-	static function updateUserDigestOrderCancelled($user_id, $session_time)
+	static function updateUserDigestOrderCancelled($DAO_orders_digest)
 	{
-		if (!empty($user_id) && is_numeric($user_id))
+		if (!empty($DAO_orders_digest->user_id) && is_numeric($DAO_orders_digest->user_id))
 		{
-			$userDigestDAO = DAO_CFactory::create('user_digest');
-			$userDigestDAO->user_id = $user_id;
-			if ($userDigestDAO->find(true))
+			$DAO_user_digest = DAO_CFactory::create('user_digest', true);
+			$DAO_user_digest->user_id = $DAO_orders_digest->user_id;
+
+			if ($DAO_user_digest->find(true))
 			{
-				if ($session_time == $userDigestDAO->first_session)
+				if ($DAO_orders_digest->session_time == $DAO_user_digest->first_session)
 				{
-					$userDigestDAO->first_session = 'null';
+					$DAO_user_digest->first_session = 'null';
 				}
 
-				$userDigestDAO->visit_count--;
-				$userDigestDAO->update();
+				if ($DAO_orders_digest->order_id == $DAO_user_digest->order_id_first_shipping)
+				{
+					$DAO_user_digest->order_id_first_shipping = 'null';
+				}
+
+				if ($DAO_orders_digest->order_id == $DAO_user_digest->order_id_first_home_delivery)
+				{
+					$DAO_user_digest->order_id_first_home_delivery = 'null';
+				}
+
+				if ($DAO_orders_digest->order_id == $DAO_user_digest->order_id_first_pick_up)
+				{
+					$DAO_user_digest->order_id_first_pick_up = 'null';
+				}
+
+				$DAO_user_digest->visit_count--;
+				$DAO_user_digest->update();
 			}
 		}
 	}
@@ -313,61 +329,113 @@ class COrdersDigest extends DAO_Orders_digest
 		return $types[0];
 	}
 
-	static function updateUserDigest($user_id, $session_time, $originalSessionTime = false)
+	static function updateUserDigest($DAO_orders, $session_time, $originalSessionTime = false)
 	{
-		if (!empty($user_id) && is_numeric($user_id))
+		if (!empty($DAO_orders->user_id) && is_numeric($DAO_orders->user_id))
 		{
-			$userDigestDAO = DAO_CFactory::create('user_digest');
-			$userDigestDAO->user_id = $user_id;
+			$DAO_user_digest = DAO_CFactory::create('user_digest', true);
+			$DAO_user_digest->user_id = $DAO_orders->user_id;
 
-			$customerOrderType = self::determineCustomerOrderType($user_id);
-			$totalDeliveredBoxesOrdered = self::determineTotalBoxesOrdered($user_id);
+			$customerOrderType = self::determineCustomerOrderType($DAO_orders->user_id);
+			$totalDeliveredBoxesOrdered = self::determineTotalBoxesOrdered($DAO_orders->user_id);
 
-			if ($userDigestDAO->find(true))
+			if ($DAO_user_digest->find(true))
 			{
-				$userDigestDAO->total_delivered_boxes = $totalDeliveredBoxesOrdered;
+				$org_DAO_user_digest = clone $DAO_user_digest;
+
+				$DAO_user_digest->total_delivered_boxes = $totalDeliveredBoxesOrdered;
+
 				if (!is_null($customerOrderType))
 				{
-					$userDigestDAO->customer_order_type = $customerOrderType;
+					$DAO_user_digest->customer_order_type = $customerOrderType;
 				}
-				if (empty($userDigestDAO->first_session))
+
+				if ($DAO_orders->isShipping())
 				{
-					$userDigestDAO->first_session = $session_time;
-					$userDigestDAO->visit_count = 1;
-					$userDigestDAO->update();
+					if (empty($DAO_user_digest->order_id_first_shipping))
+					{
+						$DAO_user_digest->order_id_first_shipping = $DAO_orders->id;
+						$DAO_user_digest->update($org_DAO_user_digest);
+					}
+				}
+				else if ($DAO_orders->isDelivery())
+				{
+					if (empty($DAO_user_digest->order_id_first_home_delivery))
+					{
+						$DAO_user_digest->order_id_first_home_delivery = $DAO_orders->id;
+						$DAO_user_digest->update($org_DAO_user_digest);
+					}
+				}
+				else if ($DAO_orders->DAO_session->isPickUp())
+				{
+					if (empty($DAO_user_digest->order_id_first_pick_up))
+					{
+						$DAO_user_digest->order_id_first_pick_up = $DAO_orders->id;
+						$DAO_user_digest->update($org_DAO_user_digest);
+					}
+				}
+
+				if (empty($DAO_user_digest->first_session))
+				{
+					$DAO_user_digest->first_session = $session_time;
+					$DAO_user_digest->visit_count = 1;
+					$DAO_user_digest->update($org_DAO_user_digest);
 				}
 				else
 				{
-					if ($originalSessionTime && $originalSessionTime == $userDigestDAO->first_session)
+					if ($originalSessionTime && $originalSessionTime == $DAO_user_digest->first_session)
 					{
 						// rescheduling the original first order
-						$userDigestDAO->first_session = $session_time;
-						$userDigestDAO->update();
+						$DAO_user_digest->first_session = $session_time;
+						$DAO_user_digest->update($org_DAO_user_digest);
 					}
-					else if (!$originalSessionTime && strtotime($userDigestDAO->first_session) > strtotime($session_time))
+					else if (!$originalSessionTime && strtotime($DAO_user_digest->first_session) > strtotime($session_time))
 					{
 						// otherwise a new session is placed for a time earlier than the original so it becomes the first session
-						$userDigestDAO->first_session = $session_time;
-						$userDigestDAO->update();
+						$DAO_user_digest->first_session = $session_time;
+						$DAO_user_digest->update($org_DAO_user_digest);
 					}
 					else if (!$originalSessionTime)
 					{
-						$userDigestDAO->visit_count++;
-						$userDigestDAO->update();
+						$DAO_user_digest->visit_count++;
+						$DAO_user_digest->update($org_DAO_user_digest);
 					}
 				}
 			}
 			else
 			{
-				$userDigestDAO->total_delivered_boxes = $totalDeliveredBoxesOrdered;
+				$DAO_user_digest->total_delivered_boxes = $totalDeliveredBoxesOrdered;
+
 				if (!is_null($customerOrderType))
 				{
-					$userDigestDAO->customer_order_type = $customerOrderType;
+					$DAO_user_digest->customer_order_type = $customerOrderType;
 				}
 
-				$userDigestDAO->first_session = $session_time;
-				$userDigestDAO->visit_count = 1;
-				$userDigestDAO->insert();
+				if ($DAO_orders->isShipping())
+				{
+					if (empty($DAO_user_digest->order_id_first_shipping))
+					{
+						$DAO_user_digest->order_id_first_shipping = $DAO_orders->id;
+					}
+				}
+				else if ($DAO_orders->isDelivery())
+				{
+					if (empty($DAO_user_digest->order_id_first_home_delivery))
+					{
+						$DAO_user_digest->order_id_first_home_delivery = $DAO_orders->id;
+					}
+				}
+				else if ($DAO_orders->DAO_session->isPickUp())
+				{
+					if (empty($DAO_user_digest->order_id_first_pick_up))
+					{
+						$DAO_user_digest->order_id_first_pick_up = $DAO_orders->id;
+					}
+				}
+
+				$DAO_user_digest->first_session = $session_time;
+				$DAO_user_digest->visit_count = 1;
+				$DAO_user_digest->insert();
 			}
 		}
 	}
@@ -735,38 +803,38 @@ class COrdersDigest extends DAO_Orders_digest
 		return 'EXISTING';
 	}
 
-	static function recordNewOrder($OrderObj, $storeObj)
+	static function recordNewOrder($DAO_orders, $storeObj)
 	{
-		$User = DAO_CFactory::create('user');
-		$User->id = $OrderObj->user_id;
+		$DAO_user = DAO_CFactory::create('user');
+		$DAO_user->id = $DAO_orders->user_id;
 
-		if ($User->find(true))
+		if ($DAO_user->find(true))
 		{
 			// need actual timestamp for accuracy
 			$tempOrderObj = DAO_CFactory::create('orders');
-			$tempOrderObj->id = $OrderObj->id;
+			$tempOrderObj->id = $DAO_orders->id;
 			$tempOrderObj->find(true);
 
-			$OrderObj->timestamp_created = $tempOrderObj->timestamp_created;
+			$DAO_orders->timestamp_created = $tempOrderObj->timestamp_created;
 
 			// In Store Flag Intercept Point
 			// called from all ordering methods - the flag already being set and therefore screened for # serving rules
 			// If the flag is true this figures out which order triggered to be true, this is recorded in OrdersDigest
 			$in_store_trigger_order = 'null';
 
-			if ($OrderObj->in_store_order)
+			if ($DAO_orders->in_store_order)
 			{
-				$inStoreStatusArray = $OrderObj->getOrderInStoreStatus();
+				$inStoreStatusArray = $DAO_orders->getOrderInStoreStatus();
 
 				$in_store_trigger_order = $inStoreStatusArray['in_store_trigger_order'];
 			}
 
-			$AddonTotal = self::calculateAddonSales($OrderObj->id);
-			$AddonTotal += ($OrderObj->misc_food_subtotal + $OrderObj->misc_nonfood_subtotal);
-			$AGRTotal = self::calculateAGRTotal($OrderObj->id, $OrderObj->grand_total, $OrderObj->subtotal_all_taxes, $OrderObj->fundraiser_value, $OrderObj->subtotal_ltd_menu_item_value, $OrderObj->subtotal_bag_fee);
+			$AddonTotal = self::calculateAddonSales($DAO_orders->id);
+			$AddonTotal += ($DAO_orders->misc_food_subtotal + $DAO_orders->misc_nonfood_subtotal);
+			$AGRTotal = self::calculateAGRTotal($DAO_orders->id, $DAO_orders->grand_total, $DAO_orders->subtotal_all_taxes, $DAO_orders->fundraiser_value, $DAO_orders->subtotal_ltd_menu_item_value, $DAO_orders->subtotal_bag_fee);
 
 			$session_type = 'STANDARD';
-			switch ($OrderObj->findSession()->session_type)
+			switch ($DAO_orders->findSession()->session_type)
 			{
 				case 'TODD':
 				case 'DREAM_TASTE':
@@ -783,33 +851,33 @@ class COrdersDigest extends DAO_Orders_digest
 			}
 
 			$orderType = 'REGULAR';
-			if ($OrderObj->is_TODD || $OrderObj->isDreamTaste())
+			if ($DAO_orders->is_TODD || $DAO_orders->isDreamTaste())
 			{
 				$orderType = 'TASTE';
 			}
-			else if ($OrderObj->isNewIntroOffer())
+			else if ($DAO_orders->isNewIntroOffer())
 			{
 				$orderType = 'INTRO';
 			}
 
-			if ($OrderObj->findSession()->session_type == 'FUNDRAISER')
+			if ($DAO_orders->findSession()->session_type == 'FUNDRAISER')
 			{
 				$orderType = 'FUNDRAISER';
 			}
 
 			$DAO_Order_digest = DAO_CFactory::create('orders_digest');
-			$session = $OrderObj->findSession();
+			$session = $DAO_orders->findSession();
 			$sessionTime = $session->session_start;
 			$sessionID = $session->id;
 			$menuID = $session->menu_id;
 
-			$userState = self::getUserStateAtOrderTime($OrderObj->user_id, $OrderObj->id, $OrderObj->timestamp_created, $menuID);
+			$userState = self::getUserStateAtOrderTime($DAO_orders->user_id, $DAO_orders->id, $DAO_orders->timestamp_created, $menuID);
 
-			$balanceDue = self::calculateAndAddBalanceDue($OrderObj->id, $OrderObj->grand_total);
+			$balanceDue = self::calculateAndAddBalanceDue($DAO_orders->id, $DAO_orders->grand_total);
 
 			if ($orderType == 'REGULAR' && ($session_type == 'STANDARD' || $session_type == 'MADE_FOR_YOU'))
 			{
-				$qualifying_order_id = $User->determineQualifyingOrderId($OrderObj);
+				$qualifying_order_id = $DAO_user->determineQualifyingOrderId($DAO_orders);
 
 				if (!empty($qualifying_order_id))
 				{
@@ -819,13 +887,13 @@ class COrdersDigest extends DAO_Orders_digest
 
 			$DAO_Order_digest->in_store_trigger_order = $in_store_trigger_order;
 
-			$DAO_Order_digest->order_id = $OrderObj->id;
-			$DAO_Order_digest->user_id = $OrderObj->user_id;
-			$DAO_Order_digest->store_id = $OrderObj->store_id;
+			$DAO_Order_digest->order_id = $DAO_orders->id;
+			$DAO_Order_digest->user_id = $DAO_orders->user_id;
+			$DAO_Order_digest->store_id = $DAO_orders->store_id;
 			$DAO_Order_digest->agr_total = $AGRTotal;
 			$DAO_Order_digest->addon_total = $AddonTotal;
 			$DAO_Order_digest->balance_due = $balanceDue;
-			$DAO_Order_digest->original_order_time = $OrderObj->timestamp_created;
+			$DAO_Order_digest->original_order_time = $DAO_orders->timestamp_created;
 			$DAO_Order_digest->session_id = $sessionID;
 			$DAO_Order_digest->session_time = $sessionTime;
 			$DAO_Order_digest->session_type = $session_type;
@@ -835,61 +903,61 @@ class COrdersDigest extends DAO_Orders_digest
 
 			$revenueEvent = DAO_CFactory::create('revenue_event');
 			$revenueEvent->event_type = 'ORDERED';
-			$revenueEvent->event_time = $OrderObj->timestamp_created;
-			$revenueEvent->store_id = $OrderObj->store_id;
-			$revenueEvent->menu_id = $OrderObj->findSession()->menu_id;
-			$revenueEvent->amount = $OrderObj->grand_total - $OrderObj->subtotal_all_taxes;
-			$revenueEvent->session_amount = $OrderObj->grand_total - $OrderObj->subtotal_all_taxes;
+			$revenueEvent->event_time = $DAO_orders->timestamp_created;
+			$revenueEvent->store_id = $DAO_orders->store_id;
+			$revenueEvent->menu_id = $DAO_orders->findSession()->menu_id;
+			$revenueEvent->amount = $DAO_orders->grand_total - $DAO_orders->subtotal_all_taxes;
+			$revenueEvent->session_amount = $DAO_orders->grand_total - $DAO_orders->subtotal_all_taxes;
 			// The session amount is for producing a session total - due to multiple possible reschedule events
 			// only 1 reschedule event can contain the revenue amount. On the intial order the session_amount is equal to the amount
 			// If rescheduled outside of the calendar month this will need to be adjusted
-			$revenueEvent->session_id = $OrderObj->findSession()->id;
-			$revenueEvent->final_session_id = $OrderObj->findSession()->id;
-			$revenueEvent->order_id = $OrderObj->id;
+			$revenueEvent->session_id = $DAO_orders->findSession()->id;
+			$revenueEvent->final_session_id = $DAO_orders->findSession()->id;
+			$revenueEvent->order_id = $DAO_orders->id;
 			$revenueEvent->positive_affected_month = date("Y-m-01", strtotime($sessionTime));
 			$revenueEvent->negative_affected_month = 'null';
 			$revenueEvent->insert();
 
-			if (!empty($OrderObj->fundraiser_value) and is_numeric($OrderObj->fundraiser_value))
+			if (!empty($DAO_orders->fundraiser_value) and is_numeric($DAO_orders->fundraiser_value))
 			{
 				$FE_revenueEvent = DAO_CFactory::create('revenue_event');
 				$FE_revenueEvent->event_type = 'FUNDRAISER_DOLLARS';
-				$FE_revenueEvent->event_time = $OrderObj->timestamp_created;
-				$FE_revenueEvent->store_id = $OrderObj->store_id;
-				$FE_revenueEvent->menu_id = $OrderObj->findSession()->menu_id;
-				$FE_revenueEvent->amount = $OrderObj->fundraiser_value * -1;
-				$FE_revenueEvent->session_amount = $OrderObj->fundraiser_value * -1;
+				$FE_revenueEvent->event_time = $DAO_orders->timestamp_created;
+				$FE_revenueEvent->store_id = $DAO_orders->store_id;
+				$FE_revenueEvent->menu_id = $DAO_orders->findSession()->menu_id;
+				$FE_revenueEvent->amount = $DAO_orders->fundraiser_value * -1;
+				$FE_revenueEvent->session_amount = $DAO_orders->fundraiser_value * -1;
 				// The session amount is for producing a session total - due to multiple possible reschedule events
 				// only 1 reschedule event can contain the revenue amount. On the intial order the session_amount is equal to the amount
 				// If rescheduled outside of the calendar month this will need to be adjusted
-				$FE_revenueEvent->session_id = $OrderObj->findSession()->id;
-				$FE_revenueEvent->final_session_id = $OrderObj->findSession()->id;
-				$FE_revenueEvent->order_id = $OrderObj->id;
+				$FE_revenueEvent->session_id = $DAO_orders->findSession()->id;
+				$FE_revenueEvent->final_session_id = $DAO_orders->findSession()->id;
+				$FE_revenueEvent->order_id = $DAO_orders->id;
 				$FE_revenueEvent->positive_affected_month = date("Y-m-01", strtotime($sessionTime));
 				$FE_revenueEvent->negative_affected_month = 'null';
 				$FE_revenueEvent->insert();
 			}
 
-			if (!empty($OrderObj->subtotal_ltd_menu_item_value) and is_numeric($OrderObj->subtotal_ltd_menu_item_value))
+			if (!empty($DAO_orders->subtotal_ltd_menu_item_value) and is_numeric($DAO_orders->subtotal_ltd_menu_item_value))
 			{
 				$FE_revenueEvent = DAO_CFactory::create('revenue_event');
 				$FE_revenueEvent->event_type = 'LTD_MEAL_DONATION';
-				$FE_revenueEvent->event_time = $OrderObj->timestamp_created;
-				$FE_revenueEvent->store_id = $OrderObj->store_id;
-				$FE_revenueEvent->menu_id = $OrderObj->findSession()->menu_id;
-				$FE_revenueEvent->amount = $OrderObj->subtotal_ltd_menu_item_value * -1;
-				$FE_revenueEvent->session_amount = $OrderObj->subtotal_ltd_menu_item_value * -1;
-				$FE_revenueEvent->session_id = $OrderObj->findSession()->id;
-				$FE_revenueEvent->final_session_id = $OrderObj->findSession()->id;
-				$FE_revenueEvent->order_id = $OrderObj->id;
+				$FE_revenueEvent->event_time = $DAO_orders->timestamp_created;
+				$FE_revenueEvent->store_id = $DAO_orders->store_id;
+				$FE_revenueEvent->menu_id = $DAO_orders->findSession()->menu_id;
+				$FE_revenueEvent->amount = $DAO_orders->subtotal_ltd_menu_item_value * -1;
+				$FE_revenueEvent->session_amount = $DAO_orders->subtotal_ltd_menu_item_value * -1;
+				$FE_revenueEvent->session_id = $DAO_orders->findSession()->id;
+				$FE_revenueEvent->final_session_id = $DAO_orders->findSession()->id;
+				$FE_revenueEvent->order_id = $DAO_orders->id;
 				$FE_revenueEvent->positive_affected_month = date("Y-m-01", strtotime($sessionTime));
 				$FE_revenueEvent->negative_affected_month = 'null';
 				$FE_revenueEvent->insert();
 			}
 
-			self::updateUserDigest($OrderObj->user_id, $sessionTime);
+			self::updateUserDigest($DAO_orders, $sessionTime);
 
-			self::updateLastActivityDate($OrderObj->store_id, $OrderObj->timestamp_created);
+			self::updateLastActivityDate($DAO_orders->store_id, $DAO_orders->timestamp_created);
 		}
 	}
 
@@ -899,10 +967,10 @@ class COrdersDigest extends DAO_Orders_digest
 		$StoreObj->query("update store set timestamp_last_activity = '$time' where id = $store_id");
 	}
 
-	static function recordRescheduledOrder($order_id, $new_time, $store_id, $newSessionID, $menuID, $new_type = 'STANDARD')
+	static function recordRescheduledOrder($DAO_orders, $new_time, $store_id, $newSessionID, $menuID, $new_type = 'STANDARD')
 	{
 		$orderDigest = DAO_CFactory::create('orders_digest');
-		$orderDigest->order_id = $order_id;
+		$orderDigest->order_id = $DAO_orders->id;
 		if (!$orderDigest->find(true))
 		{
 			throw new Exception("Error finding original order in COrderDigest::recordRescheduledOrder");
@@ -921,7 +989,7 @@ class COrdersDigest extends DAO_Orders_digest
 				break;
 		}
 
-		self::updateUserDigest($orderDigest->user_id, $new_time, $orderDigest->session_time);
+		self::updateUserDigest($DAO_orders, $new_time, $orderDigest->session_time);
 
 		$currentUserState = $orderDigest->user_state;
 		$newUserState = $currentUserState;
@@ -956,13 +1024,13 @@ class COrdersDigest extends DAO_Orders_digest
 		{
 			// Revenue Event management
 			$revEvent = DAO_CFactory::create('revenue_event');
-			$revEvent->query("update revenue_event set session_amount = 0 where order_id = $order_id and is_deleted = 0");
+			$revEvent->query("update revenue_event set session_amount = 0 where order_id = $DAO_orders->id and is_deleted = 0");
 
 			$BookingObj = DAO_CFactory::create('booking');
 			$BookingObj->query("select s.session_start, s.menu_id, s.id as session_id, o.grand_total, o.subtotal_all_taxes from booking b
 			 join session s on s.id = b.session_id
 			 join orders o on o.id = b.order_id
-			 where b.order_id = $order_id and b.status = '" . CBooking::ACTIVE . "'");
+			 where b.order_id = $DAO_orders->id and b.status = '" . CBooking::ACTIVE . "'");
 			$BookingObj->fetch();
 
 			$revenueEvent = DAO_CFactory::create('revenue_event');
@@ -974,26 +1042,26 @@ class COrdersDigest extends DAO_Orders_digest
 			$revenueEvent->session_amount = $BookingObj->grand_total - $BookingObj->subtotal_all_taxes;
 
 			$revenueEvent->session_id = $BookingObj->session_id;
-			$revenueEvent->order_id = $order_id;
+			$revenueEvent->order_id = $DAO_orders->id;
 			$revenueEvent->positive_affected_month = date("Y-m-01", $newTimeTS);
 			$revenueEvent->negative_affected_month = date("Y-m-01", $curSessionTimeTS);
 			$revenueEvent->insert();
 
 			// update final session
 			$revEvent2 = DAO_CFactory::create('revenue_event');
-			$revEvent2->query("update revenue_event set final_session_id = {$BookingObj->session_id} where order_id = $order_id and is_deleted = 0");
+			$revEvent2->query("update revenue_event set final_session_id = {$BookingObj->session_id} where order_id = $DAO_orders->id and is_deleted = 0");
 		}
 		else
 		{
 			$BookingObj = DAO_CFactory::create('booking');
 			$BookingObj->query("select b.session_id from booking b
-					where b.order_id = $order_id and b.status = '" . CBooking::ACTIVE . "'");
+					where b.order_id = $DAO_orders->id and b.status = '" . CBooking::ACTIVE . "'");
 			$BookingObj->fetch();
 
 			// update final session
 
 			$revEvent2 = DAO_CFactory::create('revenue_event');
-			$revEvent2->query("update revenue_event set final_session_id = {$BookingObj->session_id} where order_id = $order_id and is_deleted = 0");
+			$revEvent2->query("update revenue_event set final_session_id = {$BookingObj->session_id} where order_id = $DAO_orders->id and is_deleted = 0");
 		}
 
 		self::updateLastActivityDate($store_id, date("Y-m-d H:i:s"));
@@ -1001,18 +1069,18 @@ class COrdersDigest extends DAO_Orders_digest
 
 	static function recordCanceledOrder($order_id, $store_id, $menu_id, $grand_total, $fundraiser_value = 0, $ltd_meal_total = 0)
 	{
-		$orderDigest = DAO_CFactory::create('orders_digest');
+		$DAO_orders_digest = DAO_CFactory::create('orders_digest');
 
 		// TODO: don't throw here. Just email the details
-		$orderDigest->order_id = $order_id;
-		if (!$orderDigest->find(true))
+		$DAO_orders_digest->order_id = $order_id;
+		if (!$DAO_orders_digest->find(true))
 		{
 			throw new Exception("Error finding original order in COrderDigest::recordCanceledOrder");
 		}
 
 		//this may impact the user_state of orders placed after this one, if this was
 		//new or reacquired
-		if ($orderDigest->user_state == 'NEW' || $orderDigest->user_state == 'REACQUIRED')
+		if ($DAO_orders_digest->user_state == 'NEW' || $DAO_orders_digest->user_state == 'REACQUIRED')
 		{
 			if ($menu_id == false)
 			{
@@ -1021,7 +1089,7 @@ class COrdersDigest extends DAO_Orders_digest
 			}
 			else
 			{
-				$whichState = $orderDigest->user_state;
+				$whichState = $DAO_orders_digest->user_state;
 				$nextFutureOrder = DAO_CFactory::create('orders_digest');
 				$sql = "SELECT
 						od.order_id,
@@ -1032,7 +1100,7 @@ class COrdersDigest extends DAO_Orders_digest
 						JOIN orders o ON o.id = od.order_id
 						JOIN session s ON s.id = b.session_id 
 					WHERE
-						od.user_id = {$orderDigest->user_id} 
+						od.user_id = {$DAO_orders_digest->user_id} 
 						AND od.order_id <> $order_id 
 						AND od.is_deleted = 0 
 						AND s.menu_id >= $menu_id
@@ -1072,7 +1140,7 @@ class COrdersDigest extends DAO_Orders_digest
 		$balanceDue = self::calculateAndAddBalanceDue($order_id, $grand_total, true);
 
 		$sql = "update orders_digest set is_deleted = 1, balance_due = $balanceDue where order_id = $order_id and is_deleted = 0";
-		$orderDigest->query($sql);
+		$DAO_orders_digest->query($sql);
 
 		$BookingObj = DAO_CFactory::create('booking');
 		$BookingObj->query("select s.session_start, s.menu_id, s.id as session_id, o.grand_total, o.subtotal_all_taxes from booking b
@@ -1180,7 +1248,7 @@ class COrdersDigest extends DAO_Orders_digest
 			$FErevenueEvent->insert();
 		}
 
-		self::updateUserDigestOrderCancelled($orderDigest->user_id, $orderDigest->session_time);
+		self::updateUserDigestOrderCancelled($DAO_orders_digest);
 
 		self::updateLastActivityDate($store_id, date("Y-m-d H:i:s"));
 	}
