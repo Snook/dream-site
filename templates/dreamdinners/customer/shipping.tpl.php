@@ -112,12 +112,12 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6 text-center p-5 my-2">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/family-camping-458x344.webp" alt="Family camping" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/family-camping-600x350.webp" alt="Family camping" class="img-fluid">
 						<h3 class="font-weight-bold my-2">Vacation Ready Box</h3>
 						<p class="mb-4">Let us take care of your vacation meal planning with delicious, simple dinners including Kentucky Pork Chops with Bacon Ranch Green Beans, Charred Honey Lime Chicken with Mexican Street Corn, Penne with Chicken and Peanut Sauce, Pulled Pork BBQ Sandwiches with Seasoned Onion Rings. Plus, get a sweet morning treat with six of our Breakfast Scones.</p>
 					</div>
 					<div class="col-md-6 text-center p-5 my-2">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/woman-broken-leg-458x344.webp" alt="Woman with broken leg on couch" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/woman-broken-leg-600x350.webp" alt="Woman with broken leg on couch" class="img-fluid">
 						<h3 class="font-weight-bold my-2">Get Well Box</h3>
 						<p class="mb-4">Send your love when your friends and family aren’t feeling their best with easy, wholesome dinners including Mini Cheesy Broccoli & Chicken Pot Pies, Penne with Chicken and Peanut Sauce, Creamy Tortellini with Bacon and Peas, and Maple Pork Tenderloin with Cheddar Cornbread Muffins. Plus, six of our delicious Hope’s Cookies to help put a smile on their face.</p>
 					</div>

@@ -14,9 +14,9 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 		<div class="alert alert-cyan-drk text-white text-uppercase alert-dismissible fade collapse mb-0" role="alert" data-dismiss-session-alert="promotional-banner">
 			<div class="row">
 				<div class="col text-center">
-					<div class="d-block d-xl-inline"><span class="font-weight-bold text-white"><a href="/locations">New guest exclusive!</a></span></div>
-					<div class="d-block d-lg-inline">Free shipping code: <span class="font-weight-bold text-white"><a href="/shipping">SHIPONUS</a></span> OR</div>
-					<div class="d-block d-lg-inline">Free home delivery code: <span class="font-weight-bold text-white"><a href="/locations">DELIVERFREE</a></span></div>
+					<div class="d-block d-xl-inline"><span class="font-weight-bold text-white">New guest exclusive!</span></div>
+					<div class="d-block d-lg-inline">Free shipping code: <a href="/shipping"><span class="font-weight-bold text-white">SHIPONUS</span></a> OR</div>
+					<div class="d-block d-lg-inline">Free home delivery code: <a href="/locations"><span class="font-weight-bold text-white">DELIVERFREE</span></a></div>
 				</div>
 			</div>
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">

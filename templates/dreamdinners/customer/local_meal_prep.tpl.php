@@ -23,7 +23,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col text-center">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dinner-reinvented-enchiladas-1400x600.webp" alt="Dinner Reinvented" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dinner-reinvented-1400x400.webp" alt="Dinner Reinvented" class="img-fluid">
 					</div>
 				</div>
 			</div>
@@ -34,7 +34,7 @@
 				<div class="row">
 					<div class="col">
 						<div class="text-center">
-							<h2 class="mt-5 mb-1 font-weight-bold text-center text-white">Exclusive May New Customer Offer</h2>
+							<h2 class="mt-5 mb-1 font-weight-bold text-center text-white">Exclusive New Customer Offer</h2>
 							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/white-swash-320x12.webp" alt="swash">
 							<p class="mt-1 mb-5 font-weight-bold text-center text-white">Try Us Today with One of the Following Offers</p>
 						</div>
@@ -119,7 +119,7 @@
 				<div class="row">
 					<div class="col">
 						<div class="text-center">
-							<h2 class="mt-4 mb-4 font-weight-bold font-have-heart-two font-size-extra-extra-large">REATURED ON THE MENU THIS MONTH</h2>
+							<h2 class="mt-4 mb-4 font-weight-bold font-have-heart-two font-size-extra-extra-large">FEATURED ON THE MENU THIS MONTH</h2>
 						</div>
 					</div>
 				</div>
