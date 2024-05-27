@@ -28,7 +28,7 @@
 				</div>
 			</div>
 		</section>
-		<!-- offer -->
+		<!-- offer banner
 		<section class="bg-cyan-dark">
 			<div class="container mp-5">
 				<div class="row">
@@ -41,7 +41,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section>-->
 		<section>
 			<div class="container my-5">
 				<div class="" id="" role="tabpanel" aria-labelledby="">
