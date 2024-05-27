@@ -55,10 +55,11 @@
 			<p class="font-weight-bold text-uppercase pl-1">Quick Links</p>
 			<div class="list-group list-group-flush">
 				<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/locations">Order</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/locations">Locations</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/shipping">Shipping</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/browse-menu">Menu Preview</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/share">Share</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/my-account">My Account</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/locations">Store Locations</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/my-account">My Account</a>			
 				<?php if (defined('ENABLE_HELP_SEARCH') && ENABLE_HELP_SEARCH == true) { ?>
 					<a class="list-group-item bg-green-dark text-white py-0 help-search-launcher" href="#">Help</a>
 				<?php } ?>

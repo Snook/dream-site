@@ -14,7 +14,7 @@
 					</div>
 					<div class="col-md-6 p-0">
 						<figure>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/may24-original-meal-kit-collage-circles-957x657.webp" alt="May Menu" class="img-fluid">
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jun24-original-meal-kit-collage-circles-957x657.webp" alt="June Menu" class="img-fluid">
 						</figure>
 					</div>
 				</div>

@@ -24,7 +24,7 @@
 				<div class="row">
 					<div class="col">
 						<div class="text-center">
-							<h2 class="mt-5 mb-1 font-weight-bold text-center text-white">Exclusive May New Customer Offer</h2>
+							<h2 class="mt-5 mb-1 font-weight-bold text-center text-white">Exclusive New Customer Offer</h2>
 							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/white-swash-320x12.webp" alt="swash">
 							<p class="mt-1 mb-5 font-weight-bold text-center text-white">Try Us Today with One of the Following Offers</p>
 						</div>
@@ -77,15 +77,15 @@
 			</div>
 		</section>
 		<section>
-			<div class="container-fluid my-5">
 			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
+			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/may24-homepage-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jun24-homepage-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
 					</div>
 					<div class="col-md-6 text-left p-5 my-5">
-						<h2 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">Kick Off Grill Season</h2>
-						<p class="text-uppercase mb-4">Fire up your grill and celebrate with our Steak Kabob Grill Pack. Everything you need for a Memorial Day BBQ with friends or a weeknight backyard dinner with the fam. Available at select locations, while supplies last. Not available for shipping.</p>
+						<h2 class="font-weight-bold mt-2">Easy Breakfast Bundle</h2>
+						<p class="text-uppercase mb-4">Our Easy Breakfast Bundle lets you pick 3 delicious breakfast options like our Breakfast Frittata, French Toast Bake, and Breakfast Burritos in a variety of flavors to make your life a little easier this summer. Available at select locations, while supplies last. Not available for shipping.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 

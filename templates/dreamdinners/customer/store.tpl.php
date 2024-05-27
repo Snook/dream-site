@@ -130,15 +130,15 @@
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center mb-2">
 						<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sizzling-sirloin-fried-rice-featured-under-30min-400x400.webp" alt="Sizzling Sirloin Fried Rice" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/penne-chicekn-peanut-under30-teal-featured-menu-item-400x400.webp" alt="Penne with Chicken and Peanut Sauce" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Sizzling Sirloin Fried Rice</h5>
+									<h5 class="card-title">Penne with Chicken and Peanut Sauce</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-enchiladas-featured-pan-400x400.webp" alt="Chicken Enchiladas" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/peach-bourbon-chicken-travel-teal-featured-menu-item-400x400.webp" alt="Peach Bourbon Chicken" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Enchiladas</h5>
+									<h5 class="card-title">Peach Bourbon Chicken with Oven Roasted Broccoli</h5>
 								</div>
 							</div>
 
@@ -147,18 +147,17 @@
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/maple-bourbon-chicken-featured-instant-pot-400x400.webp" alt="Maple Bourbon BBQ Chicken with Bacon" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/teriyaki-burgers-grill-teal-featured-menu-item-400x400.webp" alt="Teriyaki Burgers" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Maple Bourbon BBQ Chicken with Bacon &amp; Bacon Ranch Green Beans</h5>
+									<h5 class="card-title">Teriyaki Burgers with Pineapple Salsa & Seasoned Steak Fries</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/salsa-ranch-chicken-featured-kid-400x400.webp" alt="Crispy Salsa Ranch Chicken with Mexican Street Corn" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-soft-taco-kid-pick-teal-featured-menu-item-400x400.webp" alt="Chicken Soft Tacos with Key Lime Corn" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Crispy Salsa Ranch Chicken with Mexican Street Corn</h5>
+									<h5 class="card-title">Chicken Soft Tacos with Key Lime Corn</h5>
 								</div>
 							</div>
-
 					</div>
 				</div>
 			</div>
