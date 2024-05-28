@@ -64,7 +64,7 @@ class processor_admin_shipping_wh extends CPageProcessor
 	function mainProcessor()
 	{
 		$rawJson = file_get_contents('php://input');
-		CLog::RecordNew(CLog::NOTICE, $rawJson, "", "", false);
+		CLog::RecordNew(CLog::NOTICE, $rawJson, "", "", true);
 
 		$hashedDataRef = hash('md5', $rawJson, false);
 
