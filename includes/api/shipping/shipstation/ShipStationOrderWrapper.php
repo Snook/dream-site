@@ -47,14 +47,6 @@ class ShipStationOrderWrapper
 		)
 	);
 
-	//dd store id to ss store id for manual order store in each shipstation instance
-	//from API ShipStationManager->listStores()
-	public static $ssStoreIds = array(
-		'313' => 198889,
-		'314' => 198821,
-		'315' => 199066
-	);
-
 	/**
 	 * ShipStationOrderWrapper constructor.
 	 *
@@ -286,7 +278,14 @@ class ShipStationOrderWrapper
 	{
 		if (!empty($storeId))
 		{
-			return $this->ssStoreIds[$storeId];
+			$DAO_store_to_api = DAO_CFactory::create('store_to_api', true);
+			$DAO_store_to_api->store_id = $storeId;
+			$DAO_store_to_api->api = 'SHIPSTATION';
+
+			if ($DAO_store_to_api->find(true))
+			{
+				return $DAO_store_to_api->api_storeId;
+			}
 		}
 
 		CLog::RecordNew(CLog::ERROR, "Error occurred in ShipStationOrderWrapper.translateDDStoreIdToSSStoreId for storeID = {$storeId};", "", "", true);

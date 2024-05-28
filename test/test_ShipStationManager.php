@@ -8,11 +8,21 @@ class test_ShipStationManager
 {
 	private static $instance = null;
 
-	private $storeInfo = array('313'=>array('ssName'=>'Cummings'),
-							   '314'=>array('ssName'=>'Camden'),
-							   '315'=>array('ssName'=>'Overland'));
-
-
+	private $storeInfo = array(
+		'313' => array('ssName' => 'Cummings'),
+		'314' => array('ssName' => 'Camden'),
+		'315' => array('ssName' => 'Overland'),
+		'316' => array('ssName' => 'Pasadena'),
+		'317' => array('ssName' => 'Midlothian'),
+		'318' => array('ssName' => 'Plainville'),
+		'319' => array('ssName' => 'La Mesa'),
+		'320' => array('ssName' => 'Belmont'),
+		'321' => array('ssName' => 'Austin'),
+		'322' => array('ssName' => 'Lancaster'),
+		'323' => array('ssName' => 'Phoenix'),
+		'324' => array('ssName' => 'Castle Rock'),
+		'325' => array('ssName' => 'Kennewick')
+	);
 
 	protected function __construct()
 	{
@@ -21,7 +31,7 @@ class test_ShipStationManager
 
 	public static function getInstance()
 	{
-		if (self::$instance == null )
+		if (self::$instance == null)
 		{
 			self::$instance = new test_ShipStationManager();
 		}
@@ -53,7 +63,6 @@ class test_ShipStationManager
 		}
 		echo PHP_EOL;
 		echo PHP_EOL;
-
 	}
 
 	public function echoAllShipstationCarriers()
@@ -119,7 +128,6 @@ class test_ShipStationManager
 		echo $orderId;
 		echo PHP_EOL;
 
-
 		$orderMap = new ShipStationOrderWrapper($order);
 
 		sleep(5);//Dont hammer API
@@ -147,14 +155,14 @@ class test_ShipStationManager
 		echo $orderId;
 		echo PHP_EOL;
 		sleep(5);//Dont hammer API
-		$result = ShipStationManager::getInstanceForOrder($order)->getOrders(array('orderNumber'=>'TEST_IGNORE_'.$orderId));
+		$result = ShipStationManager::getInstanceForOrder($order)->getOrders(array('orderNumber' => 'TEST_IGNORE_' . $orderId));
 		if ($result == false)
 		{
 			echo print_r(ShipStationManager::getInstanceForOrder($order)->getLastError(), true);
 		}
 		else
 		{
-			echo print_r($result,true);
+			echo print_r($result, true);
 		}
 
 		echo PHP_EOL;
@@ -172,7 +180,7 @@ class test_ShipStationManager
 		echo $orderId;
 		echo PHP_EOL;
 		sleep(5);//Dont hammer API
-		$shipmentWrapper = ShipStationManager::getInstanceForOrder($order)->getShipments(array('orderNumber'=>$orderId));
+		$shipmentWrapper = ShipStationManager::getInstanceForOrder($order)->getShipments(array('orderNumber' => $orderId));
 		echo $shipmentWrapper->getLatestTrackingNumber();
 
 		echo PHP_EOL;
@@ -189,11 +197,14 @@ class test_ShipStationManager
 		echo $orderId;
 		echo PHP_EOL;
 		sleep(5);//Dont hammer API
-		$shipmentWrapper = ShipStationManager::getInstanceForOrder($order)->getShipments(array('orderNumber'=>$orderId));
+		$shipmentWrapper = ShipStationManager::getInstanceForOrder($order)->getShipments(array('orderNumber' => $orderId));
 		$result = $shipmentWrapper->storeShippingData();
-		if($result->isFailure()){
+		if ($result->isFailure())
+		{
 			$result->echoFailureMessages();
-		}else{
+		}
+		else
+		{
 			$result->echoAllMessages();
 		}
 
@@ -202,7 +213,7 @@ class test_ShipStationManager
 	}
 }
 
-$test =  test_ShipStationManager::getInstance();
+$test = test_ShipStationManager::getInstance();
 $test->echoAllShipstationStoreId();
 //$test->echoAllShipstationCarriers();
 //$test->doUpsertShipstationOrder(3855722);
@@ -210,10 +221,7 @@ $test->echoAllShipstationStoreId();
 //$test->echoShipstationOrder(3855723);
 //$test->echoShipstationOrder(3855725);
 
-
 //$test->echoTrackingNumber(3641674);
 //$test->storeTrackingNumber(3641674);
-
-
 
 ?>
