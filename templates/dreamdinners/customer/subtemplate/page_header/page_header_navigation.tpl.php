@@ -9,14 +9,14 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 	$backNavigation = '?back='.urlencode($_SERVER['REQUEST_URI']);
 }
 ?>
-<?php if (new DateTime() >= new DateTime('2024-04-01') && new DateTime() < new DateTime('2024-06-01')) { ?>
+<?php if (new DateTime() >= new DateTime('2024-04-01') && new DateTime() < new DateTime('2024-06-30')) { ?>
 	<?php if (!CUser::isLoggedIn() || CUser::getCurrentUser()->isNewBundleCustomer()) { ?>
-		<div class="alert alert-cyan text-uppercase alert-dismissible fade collapse mb-0" role="alert" data-dismiss-session-alert="promotional-banner">
+		<div class="alert alert-cyan-dark text-white text-uppercase alert-dismissible fade collapse mb-0" role="alert" data-dismiss-session-alert="promotional-banner">
 			<div class="row">
 				<div class="col text-center">
-					<div class="d-block d-xl-inline"><span class="font-weight-bold">New guest may exclusive!</span></div>
-					<div class="d-block d-lg-inline">Free shipping code: <span class="font-weight-bold">SHIPONUS</span> OR</div>
-					<div class="d-block d-lg-inline">Free home delivery code: <span class="font-weight-bold">DELIVERFREE</span></div>
+					<div class="d-block d-xl-inline"><span class="font-weight-bold text-white">New guest exclusive!</span></div>
+					<div class="d-block d-lg-inline">Free shipping code: <a href="/shipping"><span class="font-weight-bold text-white">SHIPONUS</span></a> OR</div>
+					<div class="d-block d-lg-inline">Free home delivery code: <a href="/locations"><span class="font-weight-bold text-white">DELIVERFREE</span></a></div>
 				</div>
 			</div>
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -65,17 +65,17 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 				<div class="row bg-light">
 					<div class="col">
 						<ul class="navbar navbar-nav">
+							<li class="nav-item d-block d-lg-none d-xl-block">
+								<a class="nav-link" href="/locations">Locations</a>
+							</li>
+							<li class="nav-item d-block d-lg-none d-xl-block">
+								<a class="nav-link" href="/shipping">Shipping</a>
+							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="/browse-menu">Menu Preview</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="/how-it-works">How it works</a>
-							</li>
-							<li class="nav-item d-block d-lg-none d-xl-block">
-								<a class="nav-link" href="/session-menu">Order</a>
-							</li>
-							<li class="nav-item d-block d-lg-none d-xl-block">
-								<a class="nav-link" href="/share">Share</a>
 							</li>
 							<li class="nav-item d-block d-lg-none d-xl-block">
 								<a class="nav-link" href="/gift">Gift</a>
@@ -123,7 +123,7 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 								</div>
 							</li>
 							<li class="nav-item d-none d-lg-block ml-lg-4">
-								<a class="btn btn-primary btn-lg py-1 px-3 mt-4 mt-md-0 text-white-space-nowrap" href="/<?php echo $this->order_process_navigation_page; ?>">Get started</a>
+								<a class="btn btn-primary btn-lg py-1 px-3 mt-4 mt-md-0 text-white-space-nowrap" href="/<?php echo $this->order_process_navigation_page; ?>">Order Now</a>
 							</li>
 						</ul>
 					</div>
@@ -144,7 +144,8 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 	<a class="btn btn-primary btn-block mb-2" href="/session-menu">Order</a>
 	<a class="dropdown-item" href="/browse-menu">Menu Preview</a>
 	<a class="dropdown-item" href="/how-it-works">How It Works</a>
-	<a class="dropdown-item" href="/locations">Store Locations</a>
+	<a class="dropdown-item" href="/locations">Locations</a>
+	<a class="dropdown-item" href="/shipping">Shipping</a>
 	<a class="dropdown-item" href="/recipe-resources">Recipe Resources</a>
 	<a class="dropdown-item" href="/share">Share</a>
 	<a class="dropdown-item" href="/platepoints">PLATEPOINTS</a>

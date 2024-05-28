@@ -23,25 +23,25 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col text-center">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dinner-reinvented-enchiladas-1400x600.webp" alt="Dinner Reinvented" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dinner-reinvented-1400x400.webp" alt="Dinner Reinvented" class="img-fluid">
 					</div>
 				</div>
 			</div>
 		</section>
-		<!-- offer -->
+		<!-- offer banner
 		<section class="bg-cyan-dark">
 			<div class="container mp-5">
 				<div class="row">
 					<div class="col">
 						<div class="text-center">
-							<h2 class="mt-5 mb-1 font-weight-bold text-center text-white">Exclusive May New Customer Offer</h2>
+							<h2 class="mt-5 mb-1 font-weight-bold text-center text-white">Exclusive New Customer Offer</h2>
 							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/white-swash-320x12.webp" alt="swash">
 							<p class="mt-1 mb-5 font-weight-bold text-center text-white">Try Us Today with One of the Following Offers</p>
 						</div>
 					</div>
 				</div>
 			</div>
-		</section>
+		</section>-->
 		<section>
 			<div class="container my-5">
 				<div class="" id="" role="tabpanel" aria-labelledby="">
@@ -119,7 +119,7 @@
 				<div class="row">
 					<div class="col">
 						<div class="text-center">
-							<h2 class="mt-4 mb-4 font-weight-bold font-have-heart-two font-size-extra-extra-large">ON THE MENU THIS MONTH</h2>
+							<h2 class="mt-4 mb-4 font-weight-bold font-have-heart-two font-size-extra-extra-large">FEATURED ON THE MENU THIS MONTH</h2>
 						</div>
 					</div>
 				</div>
@@ -128,27 +128,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sizzling-sirloin-fried-rice-featured-under-30min-400x400.webp" alt="Sizzling Sirloin Fried Rice" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/penne-chicekn-peanut-under30-teal-featured-menu-item-400x400.webp" alt="Penne with Chicken and Peanut Sauce" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Sizzling Sirloin Fried Rice</h5>
+									<h5 class="card-title">Penne with Chicken and Peanut Sauce</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-enchiladas-featured-pan-400x400.webp" alt="Chicken Enchiladas" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/peach-bourbon-chicken-travel-teal-featured-menu-item-400x400.webp" alt="Peach Bourbon Chicken" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Enchiladas</h5>
+									<h5 class="card-title">Peach Bourbon Chicken with Oven Roasted Broccoli</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/maple-bourbon-chicken-featured-instant-pot-400x400.webp" alt="Maple Bourbon BBQ Chicken with Bacon" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/teriyaki-burgers-grill-teal-featured-menu-item-400x400.webp" alt="Teriyaki Burgers" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Maple Bourbon BBQ Chicken with Bacon &amp; Bacon Ranch Green Beans</h5>
+									<h5 class="card-title">Teriyaki Burgers with Pineapple Salsa & Seasoned Steak Fries</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/salsa-ranch-chicken-featured-kid-400x400.webp" alt="Crispy Salsa Ranch Chicken with Mexican Street Corn" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-soft-taco-kid-pick-teal-featured-menu-item-400x400.webp" alt="Chicken Soft Tacos with Key Lime Corn" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Crispy Salsa Ranch Chicken with Mexican Street Corn</h5>
+									<h5 class="card-title">Chicken Soft Tacos with Key Lime Corn</h5>
 								</div>
 							</div>
 						</div>
@@ -194,7 +194,7 @@
 					<div class="row my-5">
 						<div class="col-md-7 text-left">
 							<div>
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/1044_slow_roasted_carolina_bbq_pork_tenderloin_458x344.webp" alt="Slow Roasted Carolina BBQ Pork Tenderloin" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/1112-summer-mexican-chicken-power-bowl-458x344.webp" alt="Mexican Chicken Rice Bowl" class="img-fluid" />
 							</div>
 						</div>
 						<div class="col-md-5 text-center mt-4">

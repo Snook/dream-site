@@ -36,7 +36,7 @@
 					<div class="col-md-6 text-left p-5 my-5">
 						<h1 class="font-weight-bold font-have-heart-two font-size-extra-large mt-2">Get Dream Dinners Shipped to Your Door</h1>
 						<p class="text-uppercase mb-4">Real food made from scratch, so your life can feel a little easier.</p>
-						<p>Four easy, homemade meals prepped and ready to cook, most in less than 30 minutes. Order when you want, no subscription necessary. Enter your zip code to see if we can deliver to you. Great for travel or a gift for new baby, new home, mothers's day and more!</p>
+						<p>Four easy, homemade meals prepped and ready to cook, most in less than 30 minutes. Order when you want, no subscription necessary. Enter your zip code to see if we can deliver to you. Great for travel or a gift for new baby, new home, birthday and more!</p>
 						<form action="/locations" method="post" class="form-shipping-search needs-validation" novalidate>
 							<div class="form-group mx-auto">
 								<div class="input-group">
@@ -52,7 +52,7 @@
 						</form>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/may24-shipping-collage-957x657.webp" alt="April Menu" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jun24-shipping-collage-957x657.webp" alt="Shipping Menu" class="img-fluid">
 					</div>
 
 				</div>
@@ -101,13 +101,25 @@
 				<div class="row">
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/noodle-bowl-and-drink-600x350.webp" alt="Woman enjoying a noodle bowl" class="img-fluid">
-						<h3 class="font-weight-bold my-2">Fan Favorites Box</h3>
-						<p class="mb-4">Get four best-selling dinners from our May menu, including Chicken Enchiladas, Sizzling Sirloin Fried Rice, Lemon Chicken Piccata over Orzo, and Buffalo Chicken Cavatappi.</p>
+						<h3 class="font-weight-bold my-2">Summer Favorites Box</h3>
+						<p class="mb-4">Get four top rated meals from our June menu, including Charred Honey Lime Chicken with Mexican Street Corn, Kentucky Pork Chops with Bacon Ranch Green Beans, Peach Bourbon Chicken with Oven Roasted Broccoli, and Penne with Chicken and Peanut Sauce.</p>
 					</div>
 					<div class="col-md-6 text-center p-5 my-2">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/new-baby-600x350.webp" alt="hands around baby feet shaped like heart" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/new-baby-600x350.webp" alt="Couple with new baby and moving boxes" class="img-fluid">
 						<h3 class="font-weight-bold my-2">New Baby Gift Box</h3>
-						<p class="mb-4">Congratulate your friends and family on their new addition with easy, quick dinners including Sizzling Sirloin Fried Rice, Slow Roasted Carolina BBQ Pork Tenderloin with Roasted Potato Wedges, Buffalo Chicken Cavatappi, and Chicken with Honey, Garlic, and Orange with Oven Roasted Broccoli. Show your love with easy, homemade meals.</p>
+						<p class="mb-4">Congratulate your friends and family on their new addition with easy, quick dinners including Charred Honey Lime Chicken with Mexican Street Corn, Penne with Chicken and Peanut Sauce, Creamy Tortellini with Bacon and Peas, and Maple Pork Tenderloin with Cheddar Cornbread Muffins.</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 text-center p-5 my-2">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/family-camping-600x350.webp" alt="Family camping" class="img-fluid">
+						<h3 class="font-weight-bold my-2">Vacation Ready Box</h3>
+						<p class="mb-4">Let us take care of your vacation meal planning with delicious, simple dinners including Kentucky Pork Chops with Bacon Ranch Green Beans, Charred Honey Lime Chicken with Mexican Street Corn, Penne with Chicken and Peanut Sauce, Pulled Pork BBQ Sandwiches with Seasoned Onion Rings. Plus, get a sweet morning treat with six of our Breakfast Scones.</p>
+					</div>
+					<div class="col-md-6 text-center p-5 my-2">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/woman-broken-leg-600x350.webp" alt="Woman with broken leg on couch" class="img-fluid">
+						<h3 class="font-weight-bold my-2">Get Well Box</h3>
+						<p class="mb-4">Send your love when your friends and family aren’t feeling their best with easy, wholesome dinners including Chicken Soft Tacos with Key Lime Corn, Penne with Chicken and Peanut Sauce, Creamy Tortellini with Bacon and Peas, and Maple Pork Tenderloin with Cheddar Cornbread Muffins. Plus, six of our delicious Hope’s Cookies to help put a smile on their face.</p>
 					</div>
 				</div>
 			</div>

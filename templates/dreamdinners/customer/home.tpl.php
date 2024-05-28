@@ -14,7 +14,7 @@
 			</div>
 		</section>-->
 		<section>
-			<div class="container"">
+			<div class="container">
 					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 					  <ol class="carousel-indicators">
 						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -23,7 +23,7 @@
 					  </ol>
 					  <div class="carousel-inner">
 						<div class="carousel-item active">
-						  <a href="/local-meal-prep"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-guest-may24-free-shipping-delivery-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer"></a>
+						  <a href="/local-meal-prep"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-guest-june24-free-shipping-delivery-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer"></a>
 						</div>
 						<div class="carousel-item">
 						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/steak-tacos-in-a-snap-headers-1400x600.webp?auto=yes" alt="Dinner in a Snap Carne Asada Steak Tacos">
@@ -84,27 +84,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sizzling-sirloin-fried-rice-featured-under-30min-400x400.webp" alt="Sizzling Sirloin Fried Rice" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/penne-chicekn-peanut-under30-teal-featured-menu-item-400x400.webp" alt="Penne with Chicken and Peanut Sauce" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Sizzling Sirloin Fried Rice</h5>
+									<h5 class="card-title">Penne with Chicken and Peanut Sauce</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-enchiladas-featured-pan-400x400.webp" alt="Chicken Enchiladas" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/peach-bourbon-chicken-travel-teal-featured-menu-item-400x400.webp" alt="Peach Bourbon Chicken" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Enchiladas</h5>
+									<h5 class="card-title">Peach Bourbon Chicken with Oven Roasted Broccoli</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/maple-bourbon-chicken-featured-instant-pot-400x400.webp" alt="Maple Bourbon BBQ Chicken with Bacon" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/teriyaki-burgers-grill-teal-featured-menu-item-400x400.webp" alt="Teriyaki Burgers" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Maple Bourbon BBQ Chicken with Bacon &amp; Bacon Ranch Green Beans</h5>
+									<h5 class="card-title">Teriyaki Burgers with Pineapple Salsa & Seasoned Steak Fries</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/salsa-ranch-chicken-featured-kid-400x400.webp" alt="Crispy Salsa Ranch Chicken with Mexican Street Corn" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-soft-taco-kid-pick-teal-featured-menu-item-400x400.webp" alt="Chicken Soft Tacos with Key Lime Corn" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Crispy Salsa Ranch Chicken with Mexican Street Corn</h5>
+									<h5 class="card-title">Chicken Soft Tacos with Key Lime Corn</h5>
 								</div>
 							</div>
 						</div>
@@ -226,12 +226,12 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
-						<h2 class="font-weight-bold mt-2">May Fan Favorites Bundle</h2>
-						<p class="text-uppercase mb-4">Start your order with our May Fan Favorites bundle. These 4 dinners are our best-sellers on the May menu and includes Chicken Enchiladas, Sizzling Sirloin Fried Rice, Lemon Chicken Piccata over Orzo, and  Buffalo Chicken Cavatappi. </p>
+						<h2 class="font-weight-bold mt-2">June Grill Bundle</h2>
+						<p class="text-uppercase mb-4">Start your order with our June grill bundle. These 4 dinners are the perfect easy meal plan for the summer and includes Teriyaki Burgers with Pineapple Salsa with Seasoned Steak Fries, Charred Honey Lime Chicken with Mexican Street Corn, Kentucky Pork Chops with Bacon Ranch Green Beans, and Peach Bourbon Chicken with Oven Roasted Broccoli. Shipping grill bundle items may vary.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/may24-fan-fav-bundle-collage-957x657.webp" alt="Fan Favorites" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jun24-fan-fav-bundle-collage-957x657.webp" alt="Grill Bundle" class="img-fluid">
 					</div>
 
 				</div>
@@ -242,11 +242,11 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/may24-homepage-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jun24-homepage-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
 					</div>
 					<div class="col-md-6 text-left p-5 my-5">
-						<h2 class="font-weight-bold mt-2">Kick Off Grill Season</h2>
-						<p class="text-uppercase mb-4">Fire up your grill and celebrate with our Steak Kabob Grill Pack. Everything you need for a Memorial Day BBQ with friends or a weeknight backyard dinner with the fam. Available at select locations, while supplies last. Not available for shipping.</p>
+						<h2 class="font-weight-bold mt-2">Easy Breakfast Bundle</h2>
+						<p class="text-uppercase mb-4">Our Easy Breakfast Bundle lets you pick 3 delicious breakfast options like our Breakfast Frittata, French Toast Bake, and Breakfast Burritos in a variety of flavors to make your life a little easier this summer. Available at select locations, while supplies last. Not available for shipping.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 
@@ -254,7 +254,22 @@
 				</div>
 			</div>
 		</section>
+		<section>
+			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
+			<div class="container-fluid my-5">
+				<div class="row hero-double">
+					<div class="col-md-6 text-left p-5 my-5">
+						<h2 class="font-weight-bold mt-2">Share Easy Dinners with Your Friends</h2>
+						<p class="text-uppercase mb-4">You can earn rewards when you share Dream Dinners with your friends and family. They get the convenience of ready-to-cook dinners and you earn rewards.</p>
+						<a href="/share" class="btn btn-lg btn-green">Learn How</a>
+					</div>
+					<div class="col-md-6 p-0">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/friends-dinner-together-957x657.webp" alt="Friends Dinner" class="img-fluid">
+					</div>
 
+				</div>
+			</div>
+		</section>
 
 		<!-- Instagram -->
 		<section>

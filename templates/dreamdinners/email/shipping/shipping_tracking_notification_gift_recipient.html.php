@@ -4,7 +4,7 @@
 <body>
 <table role="presentation" width="500" border="0" align="center" cellpadding="5" cellspacing="0">
 	<tr>
-		<td align="center" style="padding: 10px"><a href="<?php echo HTTPS_SERVER; ?>"><img src="<?php echo EMAIL_IMAGES_PATH; ?>/email/style/dream_dinners_grey_325x75.png" alt="Dream Dinners" width="325" height="75"></a></td>
+		<td align="center" style="padding: 10px"><a href="<?php echo HTTPS_SERVER; ?>"><img src="<?php echo EMAIL_IMAGES_PATH; ?>/email/style/dream_dinners_logotype_darkgrey_300x28.png" alt="Dream Dinners" width="300" height="28"></a></td>
 	</tr>
 </table>
 <table role="presentation" width="500" align="center">
