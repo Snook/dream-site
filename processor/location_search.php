@@ -235,7 +235,7 @@ class processor_location_search extends CPage
 				{
 					$distance = distance($Zip->latitude, $Zip->longitude, $DAO_store->DAO_zipcodes->latitude, $DAO_store->DAO_zipcodes->longitude);
 
-					$allowed_distance = 50;
+					$allowed_distance = 45;
 
 					if ($DAO_store->id == 80 || $DAO_store->id == 28)
 					{
