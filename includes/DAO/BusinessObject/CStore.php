@@ -196,9 +196,9 @@ class CStore extends DAO_Store
 	 */
 	function getAvailableSessionTypes()
 	{
-		if (!empty(self::$_AvailableSessionTypes))
+		if (!empty(self::$_AvailableSessionTypes[$this->id]))
 		{
-			return self::$_AvailableSessionTypes;
+			return self::$_AvailableSessionTypes[$this->id];
 		}
 
 		$DAO_session = DAO_CFactory::create('session', true);
@@ -221,18 +221,18 @@ class CStore extends DAO_Store
 			switch ($DAO_session->session_type_id)
 			{
 				case 'STANDARD_STANDARD':
-					self::$_AvailableSessionTypes['ASSEMBLY'] = true;
+					self::$_AvailableSessionTypes[$this->id]['ASSEMBLY'] = true;
 					break;
 				case 'SPECIAL_EVENT_STANDARD':
-					self::$_AvailableSessionTypes['PICK_UP'] = true;
+					self::$_AvailableSessionTypes[$this->id]['PICK_UP'] = true;
 					break;
 				case 'SPECIAL_EVENT_DELIVERY':
-					self::$_AvailableSessionTypes['HOME_DELIVERY'] = true;
+					self::$_AvailableSessionTypes[$this->id]['HOME_DELIVERY'] = true;
 					break;
 			}
 		}
 
-		return self::$_AvailableSessionTypes;
+		return self::$_AvailableSessionTypes[$this->id];
 	}
 
 	function hasAvailableSessionType($session_type)
