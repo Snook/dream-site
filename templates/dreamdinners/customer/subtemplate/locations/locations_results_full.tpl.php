@@ -3,7 +3,7 @@
 	<form method="post" class="row">
 		<div class="col">
 			<h2 class="text-center mb-4">For the best value, visit a local store.</h2>
-			<?php if (!empty($this->zip_code)) { ?><p class="text-center">Search results for 30 miles around zip code <?php echo $this->zip_code; ?></p><?php } ?>
+			<?php if (!empty($this->zip_code)) { ?><p class="text-center">Search results for 45 miles around zip code <?php echo $this->zip_code; ?></p><?php } ?>
 			<?php foreach($this->store_results_array as $szState => $storArray ) { ?>
 				<?php $count = 1; foreach($storArray as $id => $store ) { $count++; ?>
 					<div class="row pb-4">
@@ -81,24 +81,25 @@
 									</div>
 
 									<?php if ($store["type"] != 'COMMUNITY_PICK_UP') { ?>
-										<?php if ($store["DAO_store"]->hasAvailableSessionType('ASSEMBLY')) { ?>
 											<div class="mt-1">
-												<i class="dd-icon icon-measuring_cup text-green font-size-medium-large align-bottom"></i> <span class="font-italic">Self Assembly Available!</span>
+												<span>AVAILABLE SERVICES</span>
 											</div>
-										<?php } ?>
-
 										<?php if ($store["DAO_store"]->hasAvailableSessionType('PICK_UP')) { ?>
-											<div class="mt-1">
-												<i class="dd-icon icon-shop-front text-green font-size-medium-large align-bottom"></i> <span class="font-italic">Pick-Up Available!</span>
+											<div class="mt-2">
+												<i class="dd-icon icon-shop-front text-green font-size-medium-large align-bottom"></i> <span class="font-italic">Store Pick Up</span>
 											</div>
 										<?php } ?>
 
 										<?php if ($store["DAO_store"]->hasAvailableSessionType('HOME_DELIVERY')) { ?>
 											<div class="mt-1">
-												<i class="dd-icon icon-delivery text-green font-size-medium-large align-bottom"></i> <span class="font-italic">Home Delivery Available!</span>
+												<i class="dd-icon icon-delivery text-green font-size-medium-large align-bottom"></i> <span class="font-italic">Home Delivery</span>
 											</div>
 										<?php } ?>
-
+										<?php if ($store["DAO_store"]->hasAvailableSessionType('ASSEMBLY')) { ?>
+											<div class="mt-1">
+												<i class="dd-icon icon-measuring_cup text-green font-size-medium-large align-bottom"></i> <span class="font-italic">Assembly In Store</span>
+											</div>
+										<?php } ?>
 										<div class="row mt-4">
 											<div class="col">
 												<a href="<?php echo $store["DAO_store"]->getPrettyUrl(); ?>/calendar" class="btn btn-primary w-100 btn-spinner">View store events</a>
