@@ -119,7 +119,7 @@
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/woman-broken-leg-600x350.webp" alt="Woman with broken leg on couch" class="img-fluid">
 						<h3 class="font-weight-bold my-2">Get Well Box</h3>
-						<p class="mb-4">Send your love when your friends and family aren’t feeling their best with easy, wholesome dinners including Mini Cheesy Broccoli & Chicken Pot Pies, Penne with Chicken and Peanut Sauce, Creamy Tortellini with Bacon and Peas, and Maple Pork Tenderloin with Cheddar Cornbread Muffins. Plus, six of our delicious Hope’s Cookies to help put a smile on their face.</p>
+						<p class="mb-4">Send your love when your friends and family aren’t feeling their best with easy, wholesome dinners including Chicken Soft Tacos with Key Lime Corn, Penne with Chicken and Peanut Sauce, Creamy Tortellini with Bacon and Peas, and Maple Pork Tenderloin with Cheddar Cornbread Muffins. Plus, six of our delicious Hope’s Cookies to help put a smile on their face.</p>
 					</div>
 				</div>
 			</div>

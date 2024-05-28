@@ -11,7 +11,7 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 ?>
 <?php if (new DateTime() >= new DateTime('2024-04-01') && new DateTime() < new DateTime('2024-06-30')) { ?>
 	<?php if (!CUser::isLoggedIn() || CUser::getCurrentUser()->isNewBundleCustomer()) { ?>
-		<div class="alert alert-cyan-drk text-white text-uppercase alert-dismissible fade collapse mb-0" role="alert" data-dismiss-session-alert="promotional-banner">
+		<div class="alert alert-cyan-dark text-white text-uppercase alert-dismissible fade collapse mb-0" role="alert" data-dismiss-session-alert="promotional-banner">
 			<div class="row">
 				<div class="col text-center">
 					<div class="d-block d-xl-inline"><span class="font-weight-bold text-white">New guest exclusive!</span></div>
