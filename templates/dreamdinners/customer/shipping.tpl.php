@@ -21,13 +21,47 @@
 
 	<main role="main">
 
-		<section>
+		<!--<section>
 			<div class="container-fluid">
 				<div class="row mb-5">
 					<div class="col text-center">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/crispy-shrimp-green-beans-in-a-snap-header-1920x600.webp" alt="Family making and eating a meal together" class="img-fluid" />
 					</div>
 				</div>
+			</div>
+		</section>-->
+		<section>
+			<div class="container">
+					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+					  <ol class="carousel-indicators">
+						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+					  </ol>
+					  <div class="carousel-inner">
+						<div class="carousel-item active">
+						  <a href="/local-meal-prep"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-guest-june24-free-shipping-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer"></a>
+						</div>
+						<div class="carousel-item">
+						  <a href="/locations"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/existing-guest-june24-shipping-1400x600.webp?auto=yes" alt="Summer Shipping"></a>
+						</div>
+						<div class="carousel-item">
+						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/summer-family-shipping-in-a-snap-collage-1400x600.webp?auto=yes" alt="Dinner in a Snap">
+						</div>
+						<div class="carousel-item">
+						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/travel-may24-1400x600.webp?auto=yes" alt="Travel with Dream Dinners">
+						</div>
+					  </div>
+					  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					  </a>
+					  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					  </a>
+					</div>
 			</div>
 		</section>
 		<section>
