@@ -118,15 +118,16 @@ class ShipStationManager extends ApiManager
 	 */
 	public static function getInstanceFromShipStationStore($shipstationStoreId)
 	{
-		foreach (ShipStationOrderWrapper::$ssStoreIds as $ddStoreId => $ssStoreId)
-		{
-			if ($ssStoreId == $shipstationStoreId)
-			{
-				$store = new CStore();
-				$store->id = $ddStoreId;
+		$DAO_store_to_api = DAO_CFactory::create('store_to_api', true);
+		$DAO_store_to_api->api_storeId = $shipstationStoreId;
+		$DAO_store_to_api->api = 'SHIPSTATION';
 
-				return self::getInstance($store);
-			}
+		if ($DAO_store_to_api->find(true))
+		{
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->id = $DAO_store_to_api->store_id;
+
+			return self::getInstance($DAO_store);
 		}
 
 		throw new Exception('ShipStationManager::getInstanceFromShipStationStore() -> Could not find a shipstation manager instance that matches the incoming ShipSations store ID of ' . $shipstationStoreId);

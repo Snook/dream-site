@@ -9,20 +9,23 @@ class EndpointConfig implements IEndpointConfig
 	private $apiSecret= '';
 	private $authorization= '';
 
-	function __construct($storeObj)
+	function __construct($DAO_store)
 	{
+		$DAO_store_to_api = DAO_CFactory::create('store_to_api', true);
+		$DAO_store_to_api->store_id = $DAO_store->id;
+		$DAO_store_to_api->api = 'SHIPSTATION';
 
-		if(defined('SHIPSTATION_API_ENDPOINT_'.$storeObj->id) && defined('SHIPSTATION_API_KEY_'.$storeObj->id) && defined('SHIPSTATION_API_SECRET_'.$storeObj->id))
+		if($DAO_store_to_api->find(true))
 		{
-			$this->setEndpoint(constant('SHIPSTATION_API_ENDPOINT_'.$storeObj->id));
-			$this->setApiKey(constant('SHIPSTATION_API_KEY_'.$storeObj->id));
-			$this->setApiSecret(constant('SHIPSTATION_API_SECRET_'.$storeObj->id)) ;
+			$this->setEndpoint($DAO_store_to_api->endpoint);
+			$this->setApiKey($DAO_store_to_api->key);
+			$this->setApiSecret($DAO_store_to_api->secret) ;
 			$this->setAuthorization('Basic ' . base64_encode($this->getApiKey() . ':' . $this->getApiSecret()));
 		}
 		else
 		{
 			//log ERROR - missing config
-			CLog::RecordNew(CLog::ERROR, 'ShipStation API is not configured correctly for store ID ' .$storeObj->id,"EndpointConfig.inc","29",true);
+			CLog::RecordNew(CLog::ERROR, 'ShipStation API is not configured correctly for store ID ' .$DAO_store->id,"EndpointConfig.inc","29",true);
 		}
 	}
 
