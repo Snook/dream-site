@@ -15,7 +15,7 @@ Your Dream Dinners will be ready for pick up soon! We are so excited to help you
 
 - Looking to use the grill or your air fryer. Scan the QR code on the cooking instructions to see alternate cooking methods.
 
-Enjoy your dinners with your family! When you need more meals, place another order at DreamDinners.com, you can order extras of your favorites or try something new. Our menu changes monthly, with at least 17 delicious recipes to choose from.
+Enjoy your dinners with your family! When you need more meals, place another order at <a href"https://dreamdinners.com/session-menu">DreamDinners.com</a>. Want more meals this month? You can order extras of your favorites, grab a few sides or sweets or try something new. Our menu changes monthly, with at least 17 delicious recipes to choose from.
 
 
 ---------------------------
