@@ -209,6 +209,7 @@ class CStore extends DAO_Store
 		$DAO_session->whereAdd("session.session_type IN ('STANDARD', 'SPECIAL_EVENT')");
 		$DAO_session->whereAdd("COALESCE(session.session_type_subtype, 'STANDARD') IN ('STANDARD', 'DELIVERY')");
 		$DAO_session->whereAdd("session.session_password IS NULL OR session.session_password = ''");
+		$DAO_session->whereAdd("session.session_start > NOW()");
 
 		$DAO_menu = DAO_CFactory::create('menu', true);
 		$DAO_menu->whereAdd_Menus();
