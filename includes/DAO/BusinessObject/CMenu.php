@@ -90,7 +90,7 @@ class CMenu extends DAO_Menu
 		// June or July 2024
 		if ($this->id == 274 || $this->id == 275)
 		{
-			if (!in_array($optOutStores, $DAO_store->id))
+			if (!in_array($DAO_store->id, $optOutStores))
 			{
 				return true;
 			}

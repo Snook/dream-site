@@ -2982,9 +2982,9 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			$bookingType = 'INTRO';
 		}
 
-		$sessionObj = DAO_CFactory::create('session');
-		$sessionObj->id = $this->targetSession;
-		if (!$sessionObj->find(true))
+		$DAO_session = DAO_CFactory::create('session');
+		$DAO_session->id = $this->targetSession;
+		if (!$DAO_session->find(true))
 		{
 			throw new Exception('The session cannot be found.', self::dd_general_exception_code);
 		}
@@ -3002,7 +3002,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 
 			$discountableAmount = $Order->getPointsDiscountableAmount();
 
-			if ($sessionObj->session_type == CSession::SPECIAL_EVENT && !$Order->isFreePromotionInEffectForSession($StoreObj, $sessionObj))
+			if ($DAO_session->session_type == CSession::SPECIAL_EVENT && !$Order->isFreePromotionInEffectForSession($StoreObj, $DAO_session))
 			{
 				$discountableAmount += 20;
 			}
@@ -3032,7 +3032,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			}
 		}
 
-		if (!empty($_REQUEST['cart_id']) && ($sessionObj->session_type == CSession::DREAM_TASTE || $sessionObj->session_type == CSession::FUNDRAISER))
+		if (!empty($_REQUEST['cart_id']) && ($DAO_session->session_type == CSession::DREAM_TASTE || $DAO_session->session_type == CSession::FUNDRAISER))
 		{
 			$Cart = CCart2::instance(true, $_REQUEST['cart_id']);
 			$Order = $Cart->getOrder();
@@ -3042,7 +3042,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			}
 		}
 
-		if (!empty($_REQUEST['cart_id']) && ($bookingType != 'INTRO' && $sessionObj->session_type != CSession::DREAM_TASTE && $sessionObj->session_type != CSession::FUNDRAISER))
+		if (!empty($_REQUEST['cart_id']) && ($bookingType != 'INTRO' && $DAO_session->session_type != CSession::DREAM_TASTE && $DAO_session->session_type != CSession::FUNDRAISER))
 		{
 			$Cart = CCart2::instance(true, $_REQUEST['cart_id']);
 			$Order = $Cart->getOrder();
@@ -3052,23 +3052,23 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			}
 		}
 
-		if ($sessionObj->store_id != $this->store_id)
+		if ($DAO_session->store_id != $this->store_id)
 		{
 			throw new Exception('The session does not belong to this store.', self::dd_general_exception_code);
 		}
 
-		$userObj = DAO_CFactory::create('user');
-		$userObj->id = $this->user_id;
-		if (!$userObj->find(true))
+		$DAO_user = DAO_CFactory::create('user');
+		$DAO_user->id = $this->user_id;
+		if (!$DAO_user->find(true))
 		{
 			throw new Exception('The user account could not be found.', self::dd_general_exception_code);
 		}
 
-		if ($sessionObj->session_type == CSession::DREAM_TASTE)
+		if ($DAO_session->session_type == CSession::DREAM_TASTE)
 		{
-			$dreamTasteProperties = CDreamTasteEvent::sessionProperties($sessionObj->id);
+			$dreamTasteProperties = CDreamTasteEvent::sessionProperties($DAO_session->id);
 
-			if (!$userObj->isEligibleForDreamTaste() && $userObj->id != $dreamTasteProperties->session_host)
+			if (!$DAO_user->isEligibleForDreamTaste() && $DAO_user->id != $dreamTasteProperties->session_host)
 			{
 				if (CUser::getCurrentUser()->user_type == CUser::SITE_ADMIN)
 				{
@@ -3088,43 +3088,48 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			}
 		}
 
-		$orderObj = DAO_CFactory::create('orders');
-		$orderObj->user_id = $this->user_id;
-		$orderObj->my_meals_rating_user_id = $this->user_id;
-		$orderObj->store_id = $this->store_id;
-		$orderObj->grand_total = 0;
-		$orderObj->subtotal_all_items = 0;
-		$orderObj->subtotal_all_taxes = 0;
-		$orderObj->menu_items_total_count = 0;
-		$orderObj->is_sampler = 0;
-		$orderObj->pcal_preassembled_total_count = 0;
-		$orderObj->pcal_sidedish_total_count = 0;
-		$orderObj->pcal_preassembled_total = 0;
-		$orderObj->pcal_sidedish_total = 0;
-		$orderObj->menu_program_id = 0;
-		$orderObj->is_deleted = 0;
-		$orderObj->product_items_total_count = 0;
-		$orderObj->order_type = 'DIRECT';
-		if ($userObj->dream_rewards_version == 3 && ($userObj->dream_reward_status == 1 || $userObj->dream_reward_status == 3))
+		$DAO_orders = DAO_CFactory::create('orders');
+		$DAO_orders->user_id = $this->user_id;
+		$DAO_orders->my_meals_rating_user_id = $this->user_id;
+		$DAO_orders->store_id = $this->store_id;
+		$DAO_orders->grand_total = 0;
+		$DAO_orders->subtotal_all_items = 0;
+		$DAO_orders->subtotal_all_taxes = 0;
+		$DAO_orders->menu_items_total_count = 0;
+		$DAO_orders->is_sampler = 0;
+		$DAO_orders->pcal_preassembled_total_count = 0;
+		$DAO_orders->pcal_sidedish_total_count = 0;
+		$DAO_orders->pcal_preassembled_total = 0;
+		$DAO_orders->pcal_sidedish_total = 0;
+		$DAO_orders->menu_program_id = 0;
+		$DAO_orders->is_deleted = 0;
+		$DAO_orders->product_items_total_count = 0;
+		$DAO_orders->order_type = 'DIRECT';
+		if ($DAO_user->dream_rewards_version == 3 && ($DAO_user->dream_reward_status == 1 || $DAO_user->dream_reward_status == 3))
 		{
-			$orderObj->is_in_plate_points_program = 1;
+			$DAO_orders->is_in_plate_points_program = 1;
 		}
 
-		$orderCustomizationWrapper = OrdersCustomization::getInstance($orderObj);
-		$mealCustomizationPrefObj = $orderCustomizationWrapper->mealCustomizationToObj($userObj);
-		$orderObj = $orderCustomizationWrapper->updateMealCustomization($mealCustomizationPrefObj,false);
+		$orderCustomizationWrapper = OrdersCustomization::getInstance($DAO_orders);
+		$mealCustomizationPrefObj = $orderCustomizationWrapper->mealCustomizationToObj($DAO_user);
+		$DAO_orders = $orderCustomizationWrapper->updateMealCustomization($mealCustomizationPrefObj,false);
 
-		$fundraiserSessionPropObj = CFundraiser::fundraiserEventSessionProperties($sessionObj);
+		if ($DAO_session->isWalkIn())
+		{
+			$DAO_orders->opted_to_customize_recipes = 0;
+		}
+
+		$fundraiserSessionPropObj = CFundraiser::fundraiserEventSessionProperties($DAO_session);
 		if (!empty($fundraiserSessionPropObj) && !empty($fundraiserSessionPropObj->fundraiser_id) && !empty($fundraiserSessionPropObj->fundraiser_value))
 		{
-			$orderObj->fundraiser_id = $fundraiserSessionPropObj->fundraiser_id;
-			$orderObj->fundraiser_value = $fundraiserSessionPropObj->fundraiser_value;
+			$DAO_orders->fundraiser_id = $fundraiserSessionPropObj->fundraiser_id;
+			$DAO_orders->fundraiser_value = $fundraiserSessionPropObj->fundraiser_value;
 		}
 
 		if (!empty($_REQUEST['special_inst']))
 		{
 			// note:: XSS and injection filtering has already occurred here and in javascript
-			$orderObj->order_user_notes = $_REQUEST['special_inst'];
+			$DAO_orders->order_user_notes = $_REQUEST['special_inst'];
 		}
 
 		$activePreferred = DAO_CFactory::create('user_preferred');
@@ -3132,49 +3137,49 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 		if ($activePreferred->findActive($this->store_id))
 		{
 			$activePreferred->fetch();
-			$orderObj->user_preferred_id = $activePreferred->id;
+			$DAO_orders->user_preferred_id = $activePreferred->id;
 		}
 
-		if (isset($sessionObj->session_discount_id) && $sessionObj->session_discount_id)
+		if (isset($DAO_session->session_discount_id) && $DAO_session->session_discount_id)
 		{
 			$activeSessionDiscount = DAO_CFactory::create('session_discount');
-			$activeSessionDiscount->id = $sessionObj->session_discount_id;
+			$activeSessionDiscount->id = $DAO_session->session_discount_id;
 			if ($activeSessionDiscount->find(true))
 			{
-				$orderObj->session_discount_id = $activeSessionDiscount->id;
+				$DAO_orders->session_discount_id = $activeSessionDiscount->id;
 			}
 		}
 
-		$orderObj->addSession($sessionObj);
+		$DAO_orders->addSession($DAO_session);
 
 		// new order so we need to add the markup and sales tax onject ids
-		$Store = $orderObj->getStore();
+		$Store = $DAO_orders->getStore();
 
 		$taxObj = $Store->getCurrentSalesTaxObj();
 
 		if ($taxObj)
 		{
-			$orderObj->sales_tax_id = $taxObj->id;
+			$DAO_orders->sales_tax_id = $taxObj->id;
 		}
 
-		$Markup = $Store->getMarkUpMultiObj($sessionObj->menu_id);
-		$orderObj->mark_up_multi_id = $Markup->id;
+		$Markup = $Store->getMarkUpMultiObj($DAO_session->menu_id);
+		$DAO_orders->mark_up_multi_id = $Markup->id;
 
-		$orderObj->addMarkup($Markup);
-		$orderObj->applyServiceFee();
-		$orderObj->applyDeliveryFee();
+		$DAO_orders->addMarkup($Markup);
+		$DAO_orders->applyServiceFee();
+		$DAO_orders->applyDeliveryFee();
 
 		$fullSessionWarningNeeded = false;
 
-		$activeRSVPs = $sessionObj->get_RSVP_count($this->user_id);
+		$activeRSVPs = $DAO_session->get_RSVP_count($this->user_id);
 
 		if ($enforceSlotAvailability)
 		{
-			if ($bookingType == CBooking::INTRO && $sessionObj->getRemainingIntroSlots() <= 0)
+			if ($bookingType == CBooking::INTRO && $DAO_session->getRemainingIntroSlots() <= 0)
 			{
 				throw new Exception('The session has no open slots for an introductory order. Please return to the Sessions and Menu Page and select a new session.', self::dd_general_exception_code);
 			}
-			else if ($sessionObj->getRemainingSlots() - $activeRSVPs <= 0)
+			else if ($DAO_session->getRemainingSlots() - $activeRSVPs <= 0)
 			{
 
 				throw new Exception('The session has no open slots for this order. Please return to the Sessions and Menu Page and select a new session.', self::dd_general_exception_code);
@@ -3184,28 +3189,28 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 		{
 			// warn if saving to a full session.
 
-			if ($bookingType == CBooking::INTRO && $sessionObj->getRemainingIntroSlots <= 0)
+			if ($bookingType == CBooking::INTRO && $DAO_session->getRemainingIntroSlots <= 0)
 			{
 				$fullSessionWarningNeeded = true;
 			}
-			else if ($sessionObj->getRemainingSlots() - $activeRSVPs <= 0)
+			else if ($DAO_session->getRemainingSlots() - $activeRSVPs <= 0)
 			{
 				$fullSessionWarningNeeded = true;
 			}
 		}
 
-		$orderObj->insert(true);
+		$DAO_orders->insert(true);
 
-		$bookingObj = DAO_CFactory::create('booking');
-		$bookingObj->user_id = $this->user_id;
-		$bookingObj->session_id = $this->targetSession;
-		$bookingObj->order_id = $orderObj->id;
-		$bookingObj->booking_type = $bookingType;
-		$bookingObj->status = CBooking::SAVED;
+		$DAO_booking = DAO_CFactory::create('booking', true);
+		$DAO_booking->user_id = $this->user_id;
+		$DAO_booking->session_id = $this->targetSession;
+		$DAO_booking->order_id = $DAO_orders->id;
+		$DAO_booking->booking_type = $bookingType;
+		$DAO_booking->status = CBooking::SAVED;
 
-		$bookingObj->insert();
+		$DAO_booking->insert();
 
-		$this->order_id = $orderObj->id;
+		$this->order_id = $DAO_orders->id;
 
 		return $fullSessionWarningNeeded;
 	}

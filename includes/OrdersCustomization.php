@@ -1,4 +1,5 @@
 <?php
+
 class OrdersCustomization
 {
 	private static $instance = null;
@@ -42,9 +43,11 @@ class OrdersCustomization
 	{
 		$customizations = self::$order->order_customization;
 		$oco = new OrderCustomizationObj();
-		if(!empty($customizations)){
+		if (!empty($customizations))
+		{
 			return self::initOrderCustomizationObj($customizations);
 		}
+
 		return $oco;
 	}
 
@@ -54,6 +57,7 @@ class OrdersCustomization
 	public function orderCustomizationToJson()
 	{
 		$customizations = $this->orderCustomizationToObj();
+
 		return json_encode($customizations);
 	}
 
@@ -63,11 +67,12 @@ class OrdersCustomization
 	public function mealCustomizationToJson()
 	{
 		$customizations = $this->mealCustomizationToObj();
+
 		return json_encode($customizations);
 	}
 
 	/**
-	 * @param $userObj will use the users defaults if not already available form the order,
+	 * @param $userObj      will use the users defaults if not already available form the order,
 	 *                      if not user then it will just return empty defaulst
 	 *
 	 * @return MealCustomizationObj
@@ -76,14 +81,17 @@ class OrdersCustomization
 	{
 		$customizations = self::$order->order_customization;
 
-		if(!empty($customizations)){
+		if (!empty($customizations))
+		{
 			$orderCustomizations = $this->initOrderCustomizationObj($customizations);
-			return $orderCustomizations->meal;
 
+			return $orderCustomizations->meal;
 		}
-		if(!is_null($userObj)){
+		if (!is_null($userObj))
+		{
 			return $userObj->getMealCustomizationPreferences();
 		}
+
 		return new MealCustomizationObj();
 	}
 
@@ -93,15 +101,16 @@ class OrdersCustomization
 	public function mealCustomizationToString()
 	{
 		$customizations = $this->mealCustomizationToObj();
+
 		return $customizations->toString('');
 	}
 
-	public function mealCustomizationToStringSelectedOnly($separator,$newLine = '<br>',$in_parans = true)
+	public function mealCustomizationToStringSelectedOnly($separator, $newLine = '<br>', $in_parans = true)
 	{
 		$customizations = $this->mealCustomizationToObj();
+
 		return $customizations->toString($separator, true, $newLine, $in_parans);
 	}
-
 
 	/**
 	 * @param      $updatedCustomizationsObj
@@ -111,7 +120,8 @@ class OrdersCustomization
 	 */
 	public function updateMealCustomization($updatedCustomizationsObj, $doPersist = true)
 	{
-		if(empty($updatedCustomizationsObj)){
+		if (empty($updatedCustomizationsObj))
+		{
 			return false;
 		}
 
@@ -119,10 +129,12 @@ class OrdersCustomization
 
 		//for each property that exist in update set into existing
 		$mealOpts = $updatedCustomizationsObj;
-		foreach ($mealOpts as $key => $value) {
+		foreach ($mealOpts as $key => $value)
+		{
 			$existingCustomizations->{$key} = $value;
 
-			if(!empty($mealOpts->{$key}->details)){
+			if (!empty($mealOpts->{$key}->details))
+			{
 				$existingCustomizations->{$key}->details = $value->details;
 			}
 		}
@@ -130,16 +142,16 @@ class OrdersCustomization
 		//save order customization
 		$this->setMealCustomization($existingCustomizations);
 
-		if(!empty(self::$order->id) && $doPersist){//Order may not have been created yet
+		if (!empty(self::$order->id) && $doPersist)
+		{//Order may not have been created yet
 			$orderObj = DAO_CFactory::create('orders');
-			$orderObj->query("update orders set order_customization = '" .self::$order->order_customization. "' 
-							where id = " .self::$order->id);
+			$orderObj->query("update orders set order_customization = '" . self::$order->order_customization . "' 
+							where id = " . self::$order->id);
 
 			$editOrderObj = DAO_CFactory::create('edited_orders');
-			$orderObj->query("update edited_orders set order_customization = '" .self::$order->order_customization. "' 
-							where original_order_id = " .self::$order->id);
+			$orderObj->query("update edited_orders set order_customization = '" . self::$order->order_customization . "' 
+							where original_order_id = " . self::$order->id);
 		}
-
 
 		return self::$order;
 	}
@@ -148,14 +160,15 @@ class OrdersCustomization
 	//This is handled through the cart on the front end
 	public function persistOrderCustomizationOnNewOrder()
 	{
-		if(!empty(self::$order->id) ){//Order may not have been created yet
+		if (!empty(self::$order->id))
+		{//Order may not have been created yet
 			$orderObj = DAO_CFactory::create('orders');
-			$orderObj->query("update orders set order_customization = '" .self::$order->order_customization. "' 
-							where id = " .self::$order->id);
+			$orderObj->query("update orders set order_customization = '" . self::$order->order_customization . "' 
+							where id = " . self::$order->id);
 
 			$editOrderObj = DAO_CFactory::create('edited_orders');
-			$orderObj->query("update edited_orders set order_customization = '" .self::$order->order_customization. "' 
-							where original_order_id = " .self::$order->id);
+			$orderObj->query("update edited_orders set order_customization = '" . self::$order->order_customization . "' 
+							where original_order_id = " . self::$order->id);
 		}
 	}
 
@@ -173,15 +186,18 @@ class OrdersCustomization
 	/**
 	 * @return bool
 	 */
-	public function hasMealCustomizationPreferencesSet(){
+	public function hasMealCustomizationPreferencesSet()
+	{
 		$existingCustomizations = self::mealCustomizationToObj();
 
 		//for each property that exist in update set into existing
-		foreach ($existingCustomizations as $key => $value) {
-			if(!empty($value) )
+		foreach ($existingCustomizations as $key => $value)
+		{
+			if (!empty($value))
 			{
 				$subvalue = $value->value;
-				if(!empty($subvalue) && $subvalue != CUser::UNANSWERED && $subvalue != CUser::OPTED_OUT){
+				if (!empty($subvalue) && $subvalue != CUser::UNANSWERED && $subvalue != CUser::OPTED_OUT)
+				{
 					return true;
 				}
 			}
@@ -189,18 +205,23 @@ class OrdersCustomization
 
 		return false;
 	}
+
 	/**
 	 * @param $mealCustomizationObj
+	 *
 	 * @return bool true if any are set7
 	 */
-	public static function determineIfMealCustomizationPreferencesSetOn($existingCustomizations){
+	public static function determineIfMealCustomizationPreferencesSetOn($existingCustomizations)
+	{
 
 		//for each property that exist in update set into existing
-		foreach ($existingCustomizations as $key => $value) {
-			if(!empty($value) )
+		foreach ($existingCustomizations as $key => $value)
+		{
+			if (!empty($value))
 			{
 				$subvalue = $value->value;
-				if(!empty($subvalue) && $subvalue != CUser::UNANSWERED && $subvalue != CUser::OPTED_OUT){
+				if (!empty($subvalue) && $subvalue != CUser::UNANSWERED && $subvalue != CUser::OPTED_OUT)
+				{
 					return true;
 				}
 			}
@@ -217,10 +238,12 @@ class OrdersCustomization
 		$existingCustomizations = self::orderCustomizationToObj();
 
 		//for each property that exist in update set into existing
-		foreach ($existingCustomizations->meal as $key => $data) {
-			if(!empty($data) )
+		foreach ($existingCustomizations->meal as $key => $data)
+		{
+			if (!empty($data))
 			{
-				switch ($data->type){
+				switch ($data->type)
+				{
 					case 'INPUT' :
 						$data->value = '';
 						break;
@@ -245,14 +268,17 @@ class OrdersCustomization
 	 *
 	 * @return StoreSettingsObj
 	 */
-	public function storeCustomizationSettingsToObj(){
+	public function storeCustomizationSettingsToObj()
+	{
 		$customizations = self::$order->order_customization;
 
-		if(!empty($customizations)){
+		if (!empty($customizations))
+		{
 			$orderCustomizations = $this->initOrderCustomizationObj($customizations);
-			return $orderCustomizations->storeSettings;
 
+			return $orderCustomizations->storeSettings;
 		}
+
 		return new StoreSettingsObj();;
 	}
 
@@ -273,7 +299,6 @@ class OrdersCustomization
 		$storeSettings = $existingCustomizations->getStoreSettingsObj();
 		$storeSettings->setAllowsMealCustomization($val);
 		$existingCustomizations->setStoreCustomizationSetting($storeSettings);
-
 
 		self::$order->order_customization = json_encode($existingCustomizations);
 	}
@@ -296,25 +321,29 @@ class OrdersCustomization
 	 *
 	 * @return OrderCustomizationObj
 	 */
-	public static function initOrderCustomizationObj($orderCustomizations){
+	public static function initOrderCustomizationObj($orderCustomizations)
+	{
 		$result = new OrderCustomizationObj();
 		$templateMealCustomization = new MealCustomizationObj();
 		$templateStoreSettings = new StoreSettingsObj();
-		if(!is_null($orderCustomizations))
+		if (!is_null($orderCustomizations))
 		{
 			$stdObt = json_decode($orderCustomizations);
-			if(!is_null($stdObt->meal)){
-				foreach( $stdObt->meal as $key => $value)
+			if (!is_null($stdObt->meal))
+			{
+				foreach ($stdObt->meal as $key => $value)
 				{
 					$templateMealCustomization->{$key}->value = $value->value;
 
-					if(property_exists($value, 'details')){
+					if (property_exists($value, 'details'))
+					{
 						$templateMealCustomization->{$key}->details = $value->details;
 					}
 				}
 			}
-			if(!is_null($stdObt->storeSettings)){
-				foreach( $stdObt->storeSettings as $key => $value)
+			if (!is_null($stdObt->storeSettings))
+			{
+				foreach ($stdObt->storeSettings as $key => $value)
 				{
 					$templateStoreSettings->{$key} = $value;
 				}
@@ -324,9 +353,7 @@ class OrdersCustomization
 		$result->meal = $templateMealCustomization;
 		$result->storeSettings = $templateStoreSettings;
 
-
 		return $result;
-
 	}
 
 	/**
@@ -337,11 +364,12 @@ class OrdersCustomization
 	 *
 	 * @return OrderCustomizationObj
 	 */
-	public static function initOrderCustomizationObjFromMealCustomizationObj($mealCustomizationsObj){
+	public static function initOrderCustomizationObjFromMealCustomizationObj($mealCustomizationsObj)
+	{
 		$result = new OrderCustomizationObj();
 		$result->meal = $mealCustomizationsObj;
-		return $result;
 
+		return $result;
 	}
 
 	/**
@@ -359,31 +387,35 @@ class OrdersCustomization
 		$result->meal = new MealCustomizationObj();
 		foreach ($arrayUserPreference as $key => $pref)
 		{
-			if(substr( $key, 0, 13 ) === "MEAL_EXCLUDE_"){
+			if (substr($key, 0, 13) === "MEAL_EXCLUDE_")
+			{
 				$result->meal->{$key}->value = $pref['value'];
 
 				$detailsKey = self::determineDetailsKey($key);
-				if(array_key_exists($detailsKey,$arrayUserPreference)){
+				if (array_key_exists($detailsKey, $arrayUserPreference))
+				{
 					$result->meal->{$key}->details = $arrayUserPreference[$detailsKey]['value'];
 				}
-
 			}
 		}
 
 		return $result;
 	}
 
-	public static function determineDetailsKey($key){
+	public static function determineDetailsKey($key)
+	{
 		$detailsKey = '';
-		if(substr( $key, 0, 13 ) === "MEAL_EXCLUDE_")
+		if (substr($key, 0, 13) === "MEAL_EXCLUDE_")
 		{
 			$detailsPrefName = substr($key, 13);
 			$detailsKey = "MEAL_" . $detailsPrefName . "_DETAILS";
 		}
+
 		return $detailsKey;
 	}
 
-	public static function createDefaultMealCustomizationObj(){
+	public static function createDefaultMealCustomizationObj()
+	{
 
 		return new MealCustomizationObj();
 	}
@@ -400,11 +432,13 @@ class OrderCustomizationObj
 		$this->storeSettings = new StoreSettingsObj();
 	}
 
-	public function getMealCustomizationObj(){
+	public function getMealCustomizationObj()
+	{
 		return $this->meal;
 	}
 
-	public function getStoreSettingsObj(){
+	public function getStoreSettingsObj()
+	{
 		return $this->storeSettings;
 	}
 
@@ -425,6 +459,7 @@ class StoreSettingsObj
 {
 	public $allowsPreAssembledCustomization = null;
 	public $allowsMealCustomization = null;
+
 	public function __construct()
 	{
 
@@ -439,13 +474,16 @@ class StoreSettingsObj
 	 *
 	 * @param $storeObj
 	 */
-	public function initFromCurrentStoreCustomizationSettings($storeObj){
+	public function initFromCurrentStoreCustomizationSettings($storeObj)
+	{
 		//set default from store
-		if(!is_null($storeObj)){
+		if (!is_null($storeObj))
+		{
 			$this->allowsPreAssembledCustomization = $storeObj->allow_preassembled_customization;
 			$this->allowsMealCustomization = $storeObj->supports_meal_customization;
 		}
 	}
+
 	/**
 	 * Allow default values to match current values set at store for, if nothing has been set
 	 *
@@ -455,13 +493,16 @@ class StoreSettingsObj
 	 *
 	 * @param $storeObj
 	 */
-	public function initFromCurrentStoreCustomizationSettingsIfNull($storeObj){
+	public function initFromCurrentStoreCustomizationSettingsIfNull($storeObj)
+	{
 		//set default from store
-		if(!is_null($storeObj) && is_null($this->allowsMealCustomization)){
+		if (!is_null($storeObj) && is_null($this->allowsMealCustomization))
+		{
 			$this->allowsMealCustomization = $storeObj->supports_meal_customization;
 		}
 
-		if(!is_null($storeObj) && is_null($this->allowsPreAssembledCustomization)){
+		if (!is_null($storeObj) && is_null($this->allowsPreAssembledCustomization))
+		{
 			$this->allowsPreAssembledCustomization = $storeObj->allow_preassembled_customization;
 		}
 	}
@@ -471,15 +512,16 @@ class StoreSettingsObj
 	 */
 	public function allowsPreAssembledCustomization()
 	{
-		if($this->allowsPreAssembledCustomization || $this->allowsPreAssembledCustomization === "1")
+		if ($this->allowsPreAssembledCustomization || $this->allowsPreAssembledCustomization === "1")
 		{
 			return true;
 		}
 
-		if(!$this->allowsPreAssembledCustomization || $this->allowsPreAssembledCustomization === "0")
+		if (!$this->allowsPreAssembledCustomization || $this->allowsPreAssembledCustomization === "0")
 		{
 			return false;
 		}
+
 		return $this->allowsPreAssembledCustomization;
 	}
 
@@ -496,15 +538,16 @@ class StoreSettingsObj
 	 */
 	public function allowsMealCustomization()
 	{
-		if($this->allowsMealCustomization || $this->allowsMealCustomization === "1")
+		if ($this->allowsMealCustomization || $this->allowsMealCustomization === "1")
 		{
 			return true;
 		}
 
-		if(!$this->allowsMealCustomization || $this->allowsMealCustomization === "0")
+		if (!$this->allowsMealCustomization || $this->allowsMealCustomization === "0")
 		{
 			return false;
 		}
+
 		return $this->allowsMealCustomization;
 	}
 
@@ -515,7 +558,6 @@ class StoreSettingsObj
 	{
 		$this->allowsMealCustomization = $allowsMealCustomization;
 	}
-
 
 }
 
@@ -546,14 +588,12 @@ class MealCustomizationObj
 		$this->MEAL_EXCLUDE_ONION_SPICES->type = 'CHECKBOX';
 		$this->MEAL_EXCLUDE_ONION_SPICES->information = 'Includes: granulated onion powder, dried onion flakes';
 
-
 		$this->MEAL_EXCLUDE_RAW_GARLIC = new stdClass();
 		$this->MEAL_EXCLUDE_RAW_GARLIC->value = CUser::UNANSWERED;
 		$this->MEAL_EXCLUDE_RAW_GARLIC->description = 'No Added Raw Garlic';
 		$this->MEAL_EXCLUDE_RAW_GARLIC->short = 'Raw Garlic';
 		$this->MEAL_EXCLUDE_RAW_GARLIC->type = 'CHECKBOX';
 		$this->MEAL_EXCLUDE_RAW_GARLIC->information = 'Includes: chopped or whole garlic cloves';
-
 
 		$this->MEAL_EXCLUDE_GARLIC_SPICES = new stdClass();
 		$this->MEAL_EXCLUDE_GARLIC_SPICES->value = CUser::UNANSWERED;
@@ -562,14 +602,12 @@ class MealCustomizationObj
 		$this->MEAL_EXCLUDE_GARLIC_SPICES->type = 'CHECKBOX';
 		$this->MEAL_EXCLUDE_GARLIC_SPICES->information = 'Includes: garlic salt, garlic powder, granulated garlic';
 
-
 		$this->MEAL_EXCLUDE_MUSHROOMS = new stdClass();
 		$this->MEAL_EXCLUDE_MUSHROOMS->value = CUser::UNANSWERED;
 		$this->MEAL_EXCLUDE_MUSHROOMS->description = 'No Added Mushrooms';
 		$this->MEAL_EXCLUDE_MUSHROOMS->short = 'Mushrooms';
 		$this->MEAL_EXCLUDE_MUSHROOMS->type = 'CHECKBOX';
 		$this->MEAL_EXCLUDE_MUSHROOMS->information = null;
-
 
 		$this->MEAL_EXCLUDE_OLIVES = new stdClass();
 		$this->MEAL_EXCLUDE_OLIVES->value = CUser::UNANSWERED;
@@ -578,14 +616,12 @@ class MealCustomizationObj
 		$this->MEAL_EXCLUDE_OLIVES->type = 'CHECKBOX';
 		$this->MEAL_EXCLUDE_OLIVES->information = null;
 
-
 		$this->MEAL_EXCLUDE_BACON = new stdClass();
 		$this->MEAL_EXCLUDE_BACON->value = CUser::UNANSWERED;
 		$this->MEAL_EXCLUDE_BACON->description = 'No Added Bacon';
 		$this->MEAL_EXCLUDE_BACON->short = 'Bacon';
 		$this->MEAL_EXCLUDE_BACON->type = 'CHECKBOX';
 		$this->MEAL_EXCLUDE_BACON->information = null;
-
 
 		$this->MEAL_EXCLUDE_CILANTRO = new stdClass();
 		$this->MEAL_EXCLUDE_CILANTRO->value = CUser::UNANSWERED;
@@ -602,52 +638,69 @@ class MealCustomizationObj
 		$this->MEAL_EXCLUDE_SPECIAL_REQUEST->information = 'Please contact your store if you would like to adjust you special request.';
 		$this->MEAL_EXCLUDE_SPECIAL_REQUEST->details = '';
 
-
 		//		$this->MEAL_EXCLUDE_CUSTOM = new stdClass();
-//		$this->MEAL_EXCLUDE_CUSTOM->value = CUser::UNANSWERED;
-//		$this->MEAL_EXCLUDE_CUSTOM->description = 'Custom';
-//		$this->MEAL_EXCLUDE_CUSTOM->type = 'INPUT';
+		//		$this->MEAL_EXCLUDE_CUSTOM->value = CUser::UNANSWERED;
+		//		$this->MEAL_EXCLUDE_CUSTOM->description = 'Custom';
+		//		$this->MEAL_EXCLUDE_CUSTOM->type = 'INPUT';
 	}
 
-	public function toString($separator = ', ', $selectedOnly = false, $newLine = '<br>', $in_parans = true, $prefix = 'No added: '){
+	public function toString($separator = ', ', $selectedOnly = false, $newLine = '<br>', $in_parans = true, $prefix = 'No added: ')
+	{
 		$result = '';
 		$details = '';
-		foreach ($this as $key => $value){
+		foreach ($this as $key => $value)
+		{
 
-			if($selectedOnly && $value->value == 'OPTED_IN'){
-				if(!empty($value->details)){
+			if ($selectedOnly && $value->value == 'OPTED_IN')
+			{
+				if (!empty($value->details))
+				{
 					$details .= $newLine . $value->short . ': ' . $value->details;
-				}else{
-					$result .= $value->short.$separator;
 				}
-			}else if(!$selectedOnly) {
-				if(property_exists($value, 'details')){
-					if(!empty($value->details)){
-						$details .= $newLine . $value->short . ': ' . $value->details;
-					}
-				}else{
-					$result .= $value->short.$separator;
+				else
+				{
+					$result .= $value->short . $separator;
 				}
 			}
-
+			else if (!$selectedOnly)
+			{
+				if (property_exists($value, 'details'))
+				{
+					if (!empty($value->details))
+					{
+						$details .= $newLine . $value->short . ': ' . $value->details;
+					}
+				}
+				else
+				{
+					$result .= $value->short . $separator;
+				}
+			}
 		}
 
-		$optionsStr = rtrim($result,$separator);
-		if($optionsStr != ''){
-			$optionsStr = $prefix.$optionsStr;
-		}else{;
+		$optionsStr = rtrim($result, $separator);
+		if ($optionsStr != '')
+		{
+			$optionsStr = $prefix . $optionsStr;
+		}
+		else
+		{
+			;
 			$pos = strpos($details, $newLine);
 
-			if ($pos !== false) {
+			if ($pos !== false)
+			{
 				$details = substr_replace($details, '', $pos, strlen($newLine));
 			}
 		}
 
-		$out = trim($optionsStr.$details);
+		$out = trim($optionsStr . $details);
 
-		if($out != '' && $in_parans){
-			$out = '('.$out.')';
+		if ($out != '' && $in_parans)
+		{
+			$out = '(' . $out . ')';
 		}
+
 		return $out;
 	}
 
