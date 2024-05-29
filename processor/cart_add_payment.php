@@ -27,6 +27,13 @@ class processor_cart_add_payment extends CPageProcessor
 				CAppUtil::processorMessageEcho($results_array);
 			}
 
+			if ($_POST['payment_type'] == 'delivery_tip' && isset($_POST['value']))
+			{
+				$results_array = self::add_delivery_tip($_POST['value']);
+
+				CAppUtil::processorMessageEcho($results_array);
+			}
+
 			if (isset($_POST['payment_type']) && $_POST['payment_type'] == 'gift_card')
 			{
 				$results_array = self::add_gift_card_payment();
@@ -335,6 +342,30 @@ class processor_cart_add_payment extends CPageProcessor
 			'processor_success' => true,
 			'result_code' => 1,
 			'processor_message' => 'Round Up applied to order.'
+		);
+
+		return $results_array;
+	}
+
+	static function add_delivery_tip($value)
+	{
+		$CartObj = CCart2::instance();
+		$DAO_orders = $CartObj->getOrder();
+
+		$DAO_orders->refresh(CUser::getCurrentUser());
+		$DAO_orders->recalculate();
+
+		$DAO_orders->addDeliveryTip($value);
+
+		$DAO_orders->recalculate();
+		$CartObj->addOrder($DAO_orders);
+
+		$results_array = array(
+			'processor_success' => true,
+			'result_code' => 1,
+			'delivery_tip' => $DAO_orders->delivery_tip,
+			'grand_total' => $DAO_orders->grand_total,
+			'processor_message' => 'Tip applied to order.'
 		);
 
 		return $results_array;

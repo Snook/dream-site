@@ -1590,6 +1590,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		$Form->DefaultValues['subtotal_service_fee'] = $this->originalOrder->subtotal_service_fee;
 		$Form->DefaultValues['service_fee_description'] = $this->originalOrder->service_fee_description;
 		$Form->DefaultValues['subtotal_delivery_fee'] = $this->originalOrder->subtotal_delivery_fee;
+		$Form->DefaultValues['delivery_tip'] = $this->originalOrder->delivery_tip;
 		$Form->DefaultValues['total_bag_count'] = (is_null($this->originalOrder->total_bag_count) ? 0 : $this->originalOrder->total_bag_count);
 		$Form->DefaultValues['subtotal_meal_customization_fee'] = (is_null($this->originalOrder->subtotal_meal_customization_fee) ? 0 : $this->originalOrder->subtotal_meal_customization_fee);
 
@@ -1736,6 +1737,26 @@ class page_admin_order_mgr extends CPageAdminOnly
 		else
 		{
 			$tpl->assign('orderOrStoreSupportDelivery', false);
+		}
+
+		if ($this->originalOrder->eligibleForDeliveryTip())
+		{
+			$tpl->assign('orderOrStoreSupportDeliveryTip', true);
+
+			$Form->AddElement(array(
+				CForm::type => CForm::Money,
+				CForm::name => 'delivery_tip',
+				CForm::dd_required => false,
+				CForm::org_value => $this->originalOrder->delivery_tip,
+				CForm::dd_type => 'fee_field',
+				CForm::onKeyUp => 'costInputFeesTab',
+				CForm::onChange => 'costInputFeesTab'
+
+			));
+		}
+		else
+		{
+			$tpl->assign('orderOrStoreSupportDeliveryTip', false);
 		}
 
 		$Form->AddElement(array(
@@ -2457,6 +2478,18 @@ class page_admin_order_mgr extends CPageAdminOnly
 					else
 					{
 						$this->originalOrder->subtotal_delivery_fee = $_POST['subtotal_delivery_fee'];
+					}
+				}
+
+				if (isset($_POST['delivery_tip']))
+				{
+					if (empty($_POST['delivery_tip']) || !is_numeric($_POST['delivery_tip']))
+					{
+						$this->originalOrder->delivery_tip = 0;
+					}
+					else
+					{
+						$this->originalOrder->delivery_tip = $_POST['delivery_tip'];
 					}
 				}
 

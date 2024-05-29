@@ -94,6 +94,22 @@
 				</div>
 			</div>
 		<?php } ?>
+		<?php if ($this->cart_info['orderObj']->eligibleForDeliveryTip()) { ?>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<h3 class="font-size-small text-uppercase font-weight-semi-bold">Driver Tip</h3>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">$</span>
+						</div>
+						<?php echo $this->form_payment['delivery_tip_html']; ?>
+						<div class="input-group-append">
+							<button type="button" class="btn btn-primary checkout-edit-delivery-tip">Edit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		<?php } ?>
 		<div class="form-row update_contact_row collapse">
 			<div class="form-group col-md-12">
 				<div class="custom-control custom-radio custom-control-inline">

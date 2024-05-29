@@ -413,6 +413,12 @@ function updateFinancials()
 		delivery_fee = Number($('#checkout_total-delivery_fee').html());
 	}
 
+	var delivery_tip = 0;
+	if ($('.checkout_total-delivery_tip').length)
+	{
+		delivery_tip = Number($('.checkout_total-delivery_tip').html());
+	}
+
 	var totalTax = 0;
 	if ($('#checkout_total-tax').length)
 	{
@@ -478,7 +484,7 @@ function updateFinancials()
 	}
 
 	var foodCost = prediscountFoodTotal - (couponDiscount + preferredDiscount + volumeDiscount + dreamRewardsDiscount + sessionDiscount + pointsDiscount + membershipDiscount);
-	var grand_total = Number(formatAsMoney(foodCost + giftCardCost + service_fee + delivery_fee + bag_fee + totalTax + customization_fee));
+	var grand_total = Number(formatAsMoney(foodCost + giftCardCost + service_fee + delivery_fee + delivery_tip + bag_fee + totalTax + customization_fee));
 
 	$('#sum_checkout_total-subtotal').html(formatAsMoney(grand_total));
 
@@ -491,10 +497,10 @@ function updateFinancials()
 		}
 	});
 
-	if (paymentsTotal > foodCost + service_fee + delivery_fee + bag_fee + totalTax)
+	if (paymentsTotal > foodCost + service_fee + delivery_fee + delivery_tip + bag_fee + totalTax)
 	{
 		//more store credit than food cost so we must cap the store credit that can be used
-		paymentsTotal = foodCost + service_fee + delivery_fee + bag_fee + totalTax;
+		paymentsTotal = foodCost + service_fee + delivery_fee + delivery_tip + bag_fee + totalTax;
 		$('[id^="checkout_total_payment-credits"]').html(formatAsMoney(paymentsTotal));
 	}
 
@@ -2365,6 +2371,68 @@ function handleMealCustomizationMasterCheckbox(allow_customization)
 		}
 	});
 }
+
+$(document).on('click', '.checkout-edit-delivery-tip:not(.disabled)', function (e) {
+	e.preventDefault();
+	let delivery_tip= ($('#delivery_tip').val() == '') ? 0 : $('#delivery_tip').val();
+
+	if (!$('#delivery_tip').data('editing'))
+	{
+		$('#delivery_tip').prop({readonly: false}).data('editing', true, 'org-val', delivery_tip);
+		$(this).text('Apply');
+	}
+	else
+	{
+		$('#delivery_tip').prop({readonly: true}).data('editing', false);
+		$(this).addClass('disabled').text('Updating');
+
+		$.ajax({
+			url: '/processor',
+			type: 'POST',
+			timeout: 20000,
+			dataType: 'json',
+			data: {
+				processor: 'cart_add_payment',
+				payment_type: 'delivery_tip',
+				value: delivery_tip
+			},
+			success: function (json) {
+				$('.checkout-edit-delivery-tip').removeClass('disabled').text('Edit');
+
+				if (json.processor_success)
+				{
+					$('.checkout_total-delivery_tip').text(formatAsMoney(json.delivery_tip));
+					$('#sum_checkout_total-subtotal, #credit_card_amount').text(formatAsMoney(json.grand_total));
+
+					if (json.delivery_tip > 0)
+					{
+						$('.row-delivery_tip').showFlex();
+					}
+					else
+					{
+						$('.row-delivery_tip').hideFlex();
+					}
+				}
+				else
+				{
+					modal_message({
+						title: 'Error',
+						message: json.processor_message
+					});
+				}
+
+				can_checkout();
+			},
+			error: function (objAJAXRequest, strError) {
+				modal_message({
+					title: 'Error',
+					message: 'Unexpected error: ' + strError
+				});
+			}
+		});
+	}
+
+});
 
 $(document).on('click', '#apply-customization', function (e) {
 	let allow_customization = $(this).prop('checked');

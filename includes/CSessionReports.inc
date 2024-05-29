@@ -671,18 +671,17 @@ class CSessionReports
 	{
 		$rows = array();
 		$rows['null'] = '--- Choose a Session ---';
-		$Session = DAO_CFactory::create("session");
-		$numSessions = $Session->findSessions($store);
-		while ($Session->fetch())
+		$DAO_session = DAO_CFactory::create("session");
+		while ($DAO_session->fetch())
 		{
-			$isClosed = $Session->session_publish_state;
-			$sessiondate = $Session->session_start;
+			$isClosed = $DAO_session->session_publish_state;
+			$sessiondate = $DAO_session->session_start;
 			$newtimestamp = $this->reformatTime($sessiondate);
 			if ($isClosed == "CLOSED")
 			{
 				$newtimestamp = $newtimestamp . " CLOSED";
 			}  // do we really care about cancelled sessions?
-			$rows [$Session->id] = $newtimestamp;
+			$rows [$DAO_session->id] = $newtimestamp;
 		}
 
 		return $rows;

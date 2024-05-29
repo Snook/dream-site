@@ -87,7 +87,12 @@ Bag Fees: <?php
 Customization Fee:<?php echo $this->moneyFormat( $this->orderInfo['subtotal_meal_customization_fee'] ) ?>
 <?php echo  $this->meal_customization_string ?><?php } ?>
 <?php if( !$this->isEmptyFloat( $this->orderInfo['subtotal_delivery_fee'] )) { ?>
-Delivery Fee:			<?php echo $this->moneyFormat( $this->orderInfo['subtotal_delivery_fee'] ) ?><?php } ?>
+Delivery Fee:			<?php echo $this->moneyFormat( $this->orderInfo['subtotal_delivery_fee'] ) ?>
+<?php } ?>
+
+<?php if( !$this->isEmptyFloat( $this->orderInfo['delivery_tip'] )) { ?>
+	Driver Tip:			<?php echo $this->moneyFormat( $this->orderInfo['delivery_tip'] ) ?>
+<?php } ?>
 
 Item Subtotal		$<?php echo $this->moneyFormat($this->orderInfo['subtotal_all_items']) . "\n" ?>
 Tax Subtotal		$<?php echo $this->moneyFormat($this->orderInfo['subtotal_all_taxes']) . "\n" ?>

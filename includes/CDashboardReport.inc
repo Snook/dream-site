@@ -88,7 +88,7 @@ class CDashboardNew
 			$foundentry = TRUE;
 
 			if (empty($rows['fundraising_total'])) $rows['fundraising_total'] = 0;
-			
+
 			$storeobj = DAO_CFactory::create("store");
 			$storeobj->id = $store;
 			$storeobj->selectAdd();
@@ -109,7 +109,7 @@ class CDashboardNew
 			$expenseData = $instance->findExpenseDataByMonth ($store, $day, $month, $year,  $duration);
 
 			$royaltyFee = 0;
-			CDreamReport::calculateFees ($rows, $store, $haspermanceoverride, $expenseData, $giftCertValues , $programdiscounts, $rows['fundraising_total'], $rows['ltd_menu_item_value'], $rows['subtotal_delivery_fee'], $rows['subtotal_bag_fee'],
+			CDreamReport::calculateFees ($rows, $store, $haspermanceoverride, $expenseData, $giftCertValues , $programdiscounts, $rows['fundraising_total'], $rows['ltd_menu_item_value'], $rows['subtotal_delivery_fee'], $rows['delivery_tip'], $rows['subtotal_bag_fee'],
 				0, $marketingFee, $royaltyFee, $storeobj->grand_opening_date, $month, $year);
 			$rows['marketing_total'] = $marketingFee;
 			$rows['royalty'] = $royaltyFee;
@@ -125,13 +125,13 @@ class CDashboardNew
 		else return $rows;
 
 	}
-	
-	
+
+
 	static function getOccupiedSessionCountForMonth($thisMonthNumber, $thisYear, $type = 'DREAM_TASTE', $filter = 'all_stores')
 	{
-		
+
 		$joinClause = "";
-		
+
 		if (is_numeric($filter))
 		{
 			$joinClause = "join store st on st.id = s.store_id and st.id = $filter" ;
@@ -148,21 +148,21 @@ class CDashboardNew
 		{
 			$joinClause = " join store on store.id = s.store_id and store.active = 1  and store.id <> 257 "; // remove the Pig";
 		}
-		
+
 		$Sessions = DAO_CFactory::create('session');
-		
+
 		$Sessions->query("select count(DISTINCT s.id) as occupied_count from session s
 		join booking b on b.session_id = s.id and b.`status` = 'ACTIVE' and b.is_deleted = 0
 		$joinClause
 		where MONTH(s.session_start) = $thisMonthNumber and YEAR(s.session_start) = $thisYear and s.session_type = '$type' and s.is_deleted = 0");
-		
+
 		$Sessions->fetch();
-		
+
 		if (empty($Sessions->occupied_count))
 			$Sessions->occupied_count = 0;
-		
+
 		return $Sessions->occupied_count;
-		
+
 	}
 
 	static function updateGuestMetrics($store_id, $thisMonthNumber, $thisYear)
@@ -257,7 +257,7 @@ class CDashboardNew
 				{
 				    $Metric->guest_count_new_fundraiser = $digest->total;
 				}
-				
+
 			}
 			else if ($digest->user_state == 'REACQUIRED')
 			{
@@ -296,7 +296,7 @@ class CDashboardNew
 				{
 				    $Metric->guest_count_existing_fundraiser = $digest->total;
 				}
-				
+
 			}
 		}
 
@@ -342,8 +342,8 @@ class CDashboardNew
 		$Metric->orders_count_fundraiser_existing_guests = $digest11->count_existing_fundraiser;
 		$Metric->orders_count_fundraiser_new_guests = $digest11->count_new_fundraiser;
 		$Metric->orders_count_fundraiser_reacquired_guests = $digest11->count_reaq_fundraiser;
-		
-		
+
+
 
 		//	get instore numbers
 		$currentMonthClause = "";
@@ -390,7 +390,7 @@ class CDashboardNew
 				"new_intro" => 0,
 				"new_taste" => 0,
 		        "new_fundraiser" => 0);
-		
+
 		while($digest2->fetch())
 		{
 			if ($digest2->user_state == 'NEW')
@@ -471,7 +471,7 @@ class CDashboardNew
 		$Metric->instore_signup_new_intro = $InStoreByUser['new_intro'];
 		$Metric->instore_signup_new_taste = $InStoreByUser['new_taste'];
 		$Metric->instore_signup_new_fundraiser = $InStoreByUser['new_fundraiser'];
-		
+
 
 		// Session type counts
 
@@ -492,7 +492,7 @@ class CDashboardNew
 		$Metric->sessions_count_mfy = $Sessions->mfy_count;
 		$Metric->sessions_count_taste = $Sessions->taste_count;
 		$Metric->sessions_count_fundraiser =  $Sessions->fundraiser_count;
-		
+
 		// Orders per session type
 		$digest4 = DAO_CFactory::create('orders_digest');
 		$digest4->query("select count(id) AS total,
@@ -510,7 +510,7 @@ class CDashboardNew
 		$Metric->orders_count_mfy = $digest4->mfy_count;
 		$Metric->orders_count_taste = $digest4->taste_count;
 		$Metric->orders_count_fundraiser = $digest4->fundraiser_count;
-		
+
 
 		// get avg servings
 
@@ -521,7 +521,7 @@ class CDashboardNew
 		        "reacquired_regular" => 0,
 				"reacquired_intro" => 0,
 				"reacquired_taste" => 0,
-		        "reacquired_fundraiser" => 0,		    
+		        "reacquired_fundraiser" => 0,
 				"new_regular" => 0,
 				"new_intro" => 0,
 				"new_taste" => 0,
@@ -582,7 +582,7 @@ class CDashboardNew
 				{
 				    $AvgServingsPerUser['reacquired_fundraiser'] = $digest3->servings;
 				}
-				
+
 			}
 			else if ($digest3->user_state == 'NEW')
 			{
@@ -626,7 +626,7 @@ class CDashboardNew
 		$Metric->avg_servings_per_guest_new_taste = (!empty($Metric->orders_count_taste_new_guests) ? $AvgServingsPerUser['new_taste'] / $Metric->orders_count_taste_new_guests : 0);
 		$Metric->avg_servings_per_guest_new_intro = (!empty($Metric->orders_count_intro_new_guests) ? $AvgServingsPerUser['new_intro'] / $Metric->orders_count_intro_new_guests : 0);
 		$Metric->avg_servings_per_guest_new_fundraiser = (!empty($Metric->orders_count_fundraiser_new_guests) ? $AvgServingsPerUser['new_fundraiser'] / $Metric->orders_count_fundraiser_new_guests : 0);
-		
+
 
 		// Converted Guests
 
@@ -662,7 +662,7 @@ class CDashboardNew
 		/*
 		 *
 		 * version 3
-           
+
            */
 		$digest5 = DAO_CFactory::create('orders_digest');
 
@@ -681,12 +681,12 @@ class CDashboardNew
 		$Metric->conversion_rate = ($totalNewGuest != 0 ?  $Metric->converted_guests / $totalNewGuest : 0);
 
 		$Metric->conversion_rate *= 100;
-		
+
 
 		/*
 		 *   New Version - review required prior to release
 		 *
-		
+
 		$digest5 = DAO_CFactory::create('orders_digest');
 
 
@@ -697,7 +697,7 @@ class CDashboardNew
                     		left join orders o2 on o2.id = od2.order_id
                     		where MONTH(od.session_time) = $thisMonthNumber and YEAR(od.session_time) = $thisYear and od.store_id = $store_id and od.is_deleted = 0 and od.user_state in ('REACQUIRED', 'NEW') and not isnull(od2.id) and o2.servings_total_count  >= 36
                     		group by od.order_id");
-        
+
 
 		$Metric->converted_guests = $digest5->N;
 
@@ -874,7 +874,7 @@ class CDashboardNew
 		$metricsArray["new_intro_to_date_orders"] = 0;
 		$metricsArray["new_taste_to_date_orders"] = 0;
 		$metricsArray["new_fundraiser_to_date_orders"] = 0;
-		
+
 		$totalGuests  = 0;
 
 
@@ -982,7 +982,7 @@ class CDashboardNew
 		$Metric->revenue_by_session_standard = 0;
 		$Metric->agr_by_session_fundraiser = 0;
 		$Metric->revenue_by_session_fundraiser = 0;
-		
+
 
 		$digest = DAO_CFactory::create('orders_digest');
 		$digest->query("select od.session_type as type, sum(od.agr_total) as sum_agr, sum(o.grand_total - o.subtotal_all_taxes) as revenue from orders_digest od
@@ -1024,7 +1024,7 @@ class CDashboardNew
 		$Metric->revenue_by_order_taste = 0;
 		$Metric->agr_by_order_fundraiser = 0;
 		$Metric->revenue_by_order_fundraiser = 0;
-		
+
 		$digest2 = DAO_CFactory::create('orders_digest');
 		$digest2->query("select od.order_type as type, sum(od.agr_total) as sum_agr, sum(o.grand_total - o.subtotal_all_taxes) as revenue  from orders_digest od
 				join orders o on o.id = od.order_id
@@ -1053,7 +1053,7 @@ class CDashboardNew
 			    $Metric->agr_by_order_fundraiser = $digest2->sum_agr;
 			    $Metric->revenue_by_order_fundraiser = $digest2->revenue;
 			}
-				
+
 		}
 
 		// get agr by user state
@@ -1177,8 +1177,8 @@ class CDashboardNew
 		$Metric->agr_by_guest_new_taste = $AgrByUser['new_taste'];
 		$Metric->agr_by_guest_new_intro = $AgrByUser['new_intro'];
 		$Metric->agr_by_guest_new_fundraiser = $AgrByUser['new_fundraiser'];
-		
-		
+
+
 		$Metric->revenue_by_guest_existing_regular = $RevenueByUser['existing_regular'];
 		$Metric->revenue_by_guest_existing_taste = $RevenueByUser['existing_taste'];
 		$Metric->revenue_by_guest_existing_intro = $RevenueByUser['existing_intro'];
@@ -1191,7 +1191,7 @@ class CDashboardNew
 		$Metric->revenue_by_guest_new_taste = $RevenueByUser['new_taste'];
 		$Metric->revenue_by_guest_new_intro = $RevenueByUser['new_intro'];
 		$Metric->revenue_by_guest_new_fundraiser = $RevenueByUser['new_fundraiser'];
-		
+
 		// average ticket all
 
 		$digest4 = DAO_CFactory::create('orders_digest');
@@ -1219,7 +1219,7 @@ class CDashboardNew
 
 		$Metric->avg_ticket_regular = $digest401->avg_ticket_reg;
 
-		
+
 		// average by user type and order
 		$AvgByUser = array("existing_regular" => 0,
 				"existing_taste" => 0,
@@ -1279,7 +1279,7 @@ class CDashboardNew
 				else if ($digest5->type == 'FUNDRAISER')
 				{
 				    $AvgByUser['reacquired_fundraiser'] = $digest5->avg_ticket;
-				}		
+				}
 			}
 			else if ($digest5->user_state == 'NEW')
 			{
@@ -1298,7 +1298,7 @@ class CDashboardNew
 				else if ($digest5->type == 'FUNDRAISER')
 				{
 				    $AvgByUser['new_fundraiser'] = $digest5->avg_ticket;
-				}	
+				}
 			}
 		}
 
@@ -1314,7 +1314,7 @@ class CDashboardNew
 		$Metric->avg_ticket_by_guest_new_taste = $AvgByUser['new_taste'];
 		$Metric->avg_ticket_by_guest_new_intro = $AvgByUser['new_intro'];
 		$Metric->avg_ticket_by_guest_new_fundraiser = $AvgByUser['new_fundraiser'];
-		
+
 
 		// total addon sales
 
@@ -1388,7 +1388,7 @@ class CDashboardNew
 				else if ($digest6->type == 'FUNDRAISER')
 				{
 				    $AddonByUser['reacquired_fundraiser'] = $digest6->sum_addon;
-				}	
+				}
 			}
 			else if ($digest6->user_state == 'NEW')
 			{
@@ -1423,7 +1423,7 @@ class CDashboardNew
 		$Metric->addon_sales_by_guest_new_taste = $AddonByUser['new_taste'];
 		$Metric->addon_sales_by_guest_new_intro = $AddonByUser['new_intro'];
 		$Metric->addon_sales_by_guest_new_fundraiser = $AddonByUser['new_fundraiser'];
-		
+
 		if ($Metrics_Exist)
 			$Metric->update();
 		else
@@ -1448,11 +1448,11 @@ class CDashboardNew
 		return false;
 
 	}
-	
-	
+
+
 	static function handleCalendarMonthBasedUpdate($store_id, $testDate = false)
 	{
-			
+
 		if ($testDate)
 		{
 			// for calendar based
@@ -1460,36 +1460,36 @@ class CDashboardNew
 			$thisYear = date("Y", strtotime($testDate));
 			$dayNum = date("j", strtotime($testDate));
 		}
-		else 
+		else
 		{
 			// for calendar based
 			$thisMonth = date("n");
 			$thisYear = date("Y");
 			$dayNum = date("j");
 		}
-		
-		
+
+
 		// CES 2-9-2018 :  Always calculate the previous month so that the retention count continues to reflect current month sales
 		// This should be changed back to the original logic (uncomment the line below) and a new section added that continues to update the
 		// retention count until the current month closes
 		//if ($dayNum < 8)
 		{
-		
+
 			$lastMonthTime = mktime(0,0,0, $thisMonth-1, 1, $thisYear);
 			$lastMonth = date("n", $lastMonthTime);
 			$lastMonthYear = date("Y", $lastMonthTime);
-			
+
 			if ($testDate)
 			{
 				echo "Cal-based prev month: " . $lastMonth."-".$lastMonthYear . "\r\n";
 			}
-			else 
+			else
 			{
 				self::updateAGRMetrics($store_id, $lastMonth, $lastMonthYear);
 				self::updateGuestMetrics($store_id, $lastMonth, $lastMonthYear);
 			}
 		}
-				
+
 		if ($testDate)
 		{
 			echo "Cal-based current month: " . $thisMonth."-".$thisYear . "\r\n";
@@ -1499,14 +1499,14 @@ class CDashboardNew
 			self::updateAGRMetrics($store_id, $thisMonth, $thisYear);
 			self::updateGuestMetrics($store_id, $thisMonth, $thisYear);
 		}
-		
+
 		$nextMonth = $thisMonth + 1;
 		if ($nextMonth > 12)
 		{
 			$nextMonth = 1;
 			$thisYear++;
 		}
-			
+
 		if ($testDate)
 		{
 			echo "Cal-based next month: " . $nextMonth."-".$thisYear . "\r\n";
@@ -1516,14 +1516,14 @@ class CDashboardNew
 			self::updateAGRMetrics($store_id, $nextMonth, $thisYear);
 			self::updateGuestMetrics($store_id, $nextMonth, $thisYear);
 		}
-		
+
 		$nextMonth++;
 		if ($nextMonth > 12)
 		{
 			$nextMonth = 1;
 			$thisYear++;
 		}
-		
+
 		if ($testDate)
 		{
 			echo "Cal-based future month: " . $nextMonth."-".$thisYear . "\r\n";
@@ -1533,55 +1533,55 @@ class CDashboardNew
 			self::updateAGRMetrics($store_id, $nextMonth, $thisYear);
 			self::updateGuestMetrics($store_id, $nextMonth, $thisYear);
 		}
-		
-		
+
+
 	}
-	
+
 	static function handleMenuMonthBasedUpdate($store_id, $testDate = false)
 	{
-		
+
 		if ($testDate)
 		{
-			
-			$now = date("Y-m-d", strtotime($testDate));		
+
+			$now = date("Y-m-d", strtotime($testDate));
 			$menuObj = new CMenu();
 			$menuObj->query("SELECT id, menu_start FROM menu WHERE '$now' <= global_menu_end_date ORDER BY id LIMIT 1");
 			$menuObj->fetch();
 			$curMenuID = $menuObj->id;
-				
+
 			list($start_date, $interval) = CMenu::getMenuStartandInterval($curMenuID);
-			
+
 			$firstOfCalendarMonthTS = strtotime($menuObj->menu_start);
 			$periodEndTS = strtotime(date("Y-m-08", strtotime($menuObj->menu_start)));
-			
+
 			$periodStartTS = strtotime($start_date);
 			if ($firstOfCalendarMonthTS < $periodStartTS)
 			{
 				$periodStartTS = $firstOfCalendarMonthTS;
 			}
-				
+
 		}
-		else 
+		else
 		{
-			$now = date("Y-m-d");		
+			$now = date("Y-m-d");
 			$menuObj = new CMenu();
 			$menuObj->query("SELECT id, menu_start FROM menu WHERE '$now' <= global_menu_end_date ORDER BY id LIMIT 1");
 			$menuObj->fetch();
 			$curMenuID = $menuObj->id;
-			
+
 			list($start_date, $interval) = CMenu::getMenuStartandInterval($curMenuID);
-				
+
 			$firstOfCalendarMonthTS = strtotime($menuObj->menu_start);
 			$periodEndTS = strtotime(date("Y-m-08", strtotime($menuObj->menu_start)));
-			
+
 			$periodStartTS = strtotime($start_date);
 			if ($firstOfCalendarMonthTS < $periodStartTS)
 			{
 				$periodStartTS = $firstOfCalendarMonthTS;
 			}
-				
+
 		}
-		
+
 		if ($testDate)
 		{
 			$time = strtotime($testDate);
@@ -1590,14 +1590,14 @@ class CDashboardNew
 		{
 			$time = time();
 		}
-		
+
 	//	$firstofCalendarStr = date("Y-m-d H:i:s", $firstOfCalendarMonthTS);
 	//	$periodEndStr = date("Y-m-d H:i:s", $periodEndTS);
 	//	$periodStartStr = date("Y-m-d H:i:s", $periodStartTS);
 	//	$timeStr = date("Y-m-d H:i:s", $time);
-		
+
 		// CES 2-9-2018 :  Always calculate the previous month so that the retention count continues to reflect current month sales
-		// This should be changed back to the original logic (uncomment the line below) and a new section added that continues to update the 
+		// This should be changed back to the original logic (uncomment the line below) and a new section added that continues to update the
 		// retention count until the current month closes
 		//if ($time >= $periodStartTS && $time < $periodEndTS)
 		{
@@ -1606,7 +1606,7 @@ class CDashboardNew
 			$tempMenuLMObj = DAO_CFactory::create('menu');
 			$tempMenuLMObj->query("select menu_start from menu where id = $lastMonthMenuID");
 			$tempMenuLMObj->fetch();
-		
+
 
 			if ($testDate)
 			{
@@ -1617,14 +1617,14 @@ class CDashboardNew
 				CDashboardMenuBased::updateAGRMetrics($store_id, $tempMenuLMObj->menu_start, $last_month_start_date, $last_month_interval);
 				CDashboardMenuBased::updateGuestMetrics($store_id, $tempMenuLMObj->menu_start, $last_month_start_date, $last_month_interval);
 			}
-		
-		
+
+
 		}
-		
+
 		$tempMenuObj = DAO_CFactory::create('menu');
 		$tempMenuObj->query("select menu_start from menu where id = $curMenuID");
 		$tempMenuObj->fetch();
-		
+
 		if ($testDate)
 		{
 			echo "Menu-based current month: " .  $tempMenuObj->menu_start . " | " . $start_date . " interval " . $interval . "\r\n";
@@ -1634,12 +1634,12 @@ class CDashboardNew
 			CDashboardMenuBased::updateAGRMetrics($store_id, $tempMenuObj->menu_start, $start_date, $interval);
 			CDashboardMenuBased::updateGuestMetrics($store_id, $tempMenuObj->menu_start, $start_date, $interval);
 		}
-		
+
 		$nextMonthID = $curMenuID + 1;
 		list($next_month_start_date, $next_month_interval) = CMenu::getMenuStartandInterval($nextMonthID);
 		$tempMenuObj->query("select menu_start from menu where id = $nextMonthID");
 		$tempMenuObj->fetch();
-		
+
 		if ($testDate)
 		{
 			echo "Menu-based next month: " .  $tempMenuObj->menu_start . " | " . $next_month_start_date . " interval " . $next_month_interval . "\r\n";
@@ -1649,12 +1649,12 @@ class CDashboardNew
 			CDashboardMenuBased::updateAGRMetrics($store_id, $tempMenuObj->menu_start, $next_month_start_date, $next_month_interval);
 			CDashboardMenuBased::updateGuestMetrics($store_id, $tempMenuObj->menu_start, $next_month_start_date, $next_month_interval);
 		}
-		
+
 		$nextMonthID = $nextMonthID + 1;
 		list($next_month_start_date, $next_month_interval) = CMenu::getMenuStartandInterval($nextMonthID);
 		$tempMenuObj->query("select menu_start from menu where id = $nextMonthID");
 		$tempMenuObj->fetch();
-		
+
 		if ($testDate)
 		{
 			echo "Menu-based future month: " .  $tempMenuObj->menu_start . " | " . $next_month_start_date . " interval " . $next_month_interval . "\r\n";
@@ -1664,7 +1664,7 @@ class CDashboardNew
 			CDashboardMenuBased::updateAGRMetrics($store_id, $tempMenuObj->menu_start, $next_month_start_date, $next_month_interval);
 			CDashboardMenuBased::updateGuestMetrics($store_id, $tempMenuObj->menu_start, $next_month_start_date, $next_month_interval);
 		}
-		
+
 	}
 
 	static function updateMetricsForStoreIfNeeded($store_id, $forceUpdate = false, $testDate = false)
@@ -1677,18 +1677,18 @@ class CDashboardNew
 
 		if ($lastActivity > $lastUpdate || $forceUpdate)
 		{
-			
+
 			if ($testDate)
 			{
 				echo "\r\n" . $testDate . "\r\n";
 			}
-			
+
 			self::handleCalendarMonthBasedUpdate($store_id, $testDate);
 			self::handleMenuMonthBasedUpdate($store_id, $testDate);
 			self::updateLastMetricsUpdateTimestamp($store_id);
-			
+
 			return true;
-		}			
+		}
 
 		return false;
 	}
@@ -1979,12 +1979,12 @@ class CDashboardNew
 		while ($thisMetricObj->fetch())
 		{
 			$didley = &$storeRanksArray[$thisMetricObj->store_id];
-			
+
 			if (empty($didley))
 			{
 				continue; // there was a metric for a now inactive store so skip it
 			}
-			
+
 			$didley->agr = $thisMetricObj->total_agr;
 			if ($lastVal != $thisMetricObj->total_agr)
 				++$rank;
@@ -2010,7 +2010,7 @@ class CDashboardNew
 			{
 				continue; // there was a metric for a now inactive store so skip it
 			}
-				
+
 			$didley->agr_percent_change = $thisMetricObj->delta;
 			if ($lastVal != $thisMetricObj->delta)
 				++$rank;
@@ -2041,7 +2041,7 @@ class CDashboardNew
 			{
 				continue; // there was a metric for a now inactive store so skip it
 			}
-				
+
 			$didley->in_store_signup = $thisMetricObj->sign_up_rate;
 			if ($lastVal != $thisMetricObj->sign_up_rate)
 				++$rank;
@@ -2063,7 +2063,7 @@ class CDashboardNew
 			{
 				continue; // there was a metric for a now inactive store so skip it
 			}
-				
+
 			$didley->guest_visits = $thisMetricObj->guest_count_total;
 			if ($lastVal != $thisMetricObj->guest_count_total)
 				++$rank;
@@ -2086,7 +2086,7 @@ class CDashboardNew
 			{
 				continue; // there was a metric for a now inactive store so skip it
 			}
-				
+
 			$didley->avg_visits_per_session = $thisMetricObj->avg_guests_per_session;
 			if ($lastVal != $thisMetricObj->avg_guests_per_session)
 				++$rank;
@@ -2108,7 +2108,7 @@ class CDashboardNew
 			{
 				continue; // there was a metric for a now inactive store so skip it
 			}
-				
+
 			$didley->avg_ticket = $thisMetricObj->avg_ticket_regular;
 			if ($lastVal != $thisMetricObj->avg_ticket_regular)
 				++$rank;
@@ -2143,7 +2143,7 @@ class CDashboardNew
 			{
 				continue; // there was a metric for a now inactive store so skip it
 			}
-				
+
 			$didley->addon_sales = $thisMetricObj->avg_addon_sales;
 			if ($lastVal != $thisMetricObj->avg_addon_sales)
 				++$rank;
@@ -2168,7 +2168,7 @@ class CDashboardNew
 			{
 				continue; // there was a metric for a now inactive store so skip it
 			}
-				
+
 			$didley->servings_per_guest = $thisMetricObj->avg_servings_per_guest_regular;
 			if ($lastVal != $thisMetricObj->avg_servings_per_guest_regular)
 				++$rank;
@@ -2191,7 +2191,7 @@ class CDashboardNew
 			{
 				continue; // there was a metric for a now inactive store so skip it
 			}
-				
+
 			$didley->converted_guests = $thisMetricObj->converted_percent;
 			if ($lastVal != $thisMetricObj->converted_percent)
 				++$rank;
@@ -2612,7 +2612,7 @@ class CDashboardNew
 		{
 			$lastYearTime = mktime(0,0,0, $thisMonth, 1, $thisYear - 1);
 		}
-		
+
 		if ($filter == 'single_store' && !empty($rows))
 		{
 			// 12 month store average
@@ -2621,7 +2621,7 @@ class CDashboardNew
 			foreach ($rows as $data)
 			{
 				$sum += $data['num_cancelled_orders'];
-				
+
 				if (isset($data['total_agr']) && $data['total_agr'] > 0)
 				{
 					$numMonths++;
@@ -2799,7 +2799,7 @@ class CDashboardNew
 		{
 			$lastYearTime = mktime(0,0,0, $thisMonth, 1, $thisYear - 1);
 		}
-		
+
 		$lastYear = date("Y-m-01", $lastYearTime);
 
 		$GuestMetrics = DAO_CFactory::create('dashboard_metrics_guests');
@@ -2939,7 +2939,7 @@ class CDashboardNew
 			}
 		}
 
-		
+
 		$GuestMetricsNat = DAO_CFactory::create('dashboard_metrics_guests');
 
 		if ($filter == 'single_store')
@@ -3314,7 +3314,7 @@ class CDashboardReportAggregation
 		$finalDate = $datesep[1] . '-' . $datesep[2]  . '-' . $datesep[0]  . ' '. $formatTime;
 		return $finalDate;
 	}
-	
+
 // Report: reports_site_store_details
 // Dashboard_report_age_class
 	function findStoreDetail (){
@@ -3795,7 +3795,7 @@ class CDashboardReportAggregation
 
 	// called internally only
 	// dashboard_report_cache_retention,dashboard_report_cache_log
-	
+
 	function BuildRetention(){
 		$sql = "SELECT `dashboard_report_cache_retention`.retention_percentage as retention,`dashboard_report_cache_retention`.`monthvar`,`dashboard_report_cache_retention`.`yearvar`" .
 
@@ -4040,7 +4040,7 @@ class CDashboardReport
 		$m_error_array[] = array($status, $message,$ds);
 	}
 
-	
+
 	// called internally only
 	//dashboard_report_cache_main, dashboard_report_cache_log, dashboard_report_cache_store_classification
 	function GenerateRetentionRanking ()
@@ -4090,7 +4090,7 @@ class CDashboardReport
 
 	 }
 
-	 
+
 	 // called internally only
 	 function fillDateVars ($datevar)
 	 {
@@ -4253,7 +4253,7 @@ class CDashboardReport
 	 }
 
 	 // called internally only
-	 
+
 	 function createRankingCache ()
 	 {
 		 $this->getAgeClass ();
@@ -4768,7 +4768,7 @@ class CDashboardReport
 
 	 // called internally only
 	 // dashboard_report_cache_main
-	 
+
 	function updateMainReportDataDiscountsB ( $lastyearresults=0 ) {
 		$success = true;
 
@@ -4823,7 +4823,7 @@ class CDashboardReport
 
 	// called internally only
 	// dashboard_report_cache_main
-	
+
 	function updateMainReportDataDiscountsA ( $lastyearresults=0 ) {
 
 		$success = true;
@@ -4870,7 +4870,7 @@ class CDashboardReport
 
 	// called internally only
 	// dashboard_report_cache_main
-	
+
 	function updateMainReportDataProgramDiscounts ( $lastyearresults=0 ) {
 
 		$success = true;
@@ -4922,8 +4922,8 @@ class CDashboardReport
 
 
 	}
-	
-	
+
+
 	// called internally only
 	// dashboard_report_cache_main
 	 function insertYearPlusData ()
@@ -4985,7 +4985,7 @@ class CDashboardReport
 
 	 // called internally only
 	 // dashboard_report_cache_instore
-	 
+
 	 function insertInStoreData ($currentmonthdate)
 	 {
 		$total_records_added = 0;
@@ -5052,7 +5052,7 @@ class CDashboardReport
 
 	 // called internally only
 	 // dashboard_report_cache_retention
-	 
+
     function insertRetentionData ($dashboard_report_retention_id, $starting)
      {
 

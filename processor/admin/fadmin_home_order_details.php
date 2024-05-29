@@ -290,7 +290,7 @@ class processor_admin_fadmin_home_order_details extends CPageProcessor
 				$history_tpl = new CTemplate();
 				$history_tpl->assign('orders_history', $historyArray);
 				$history_tpl->assign('storeInfo', array('id' => $Store->id));
-				$history_html = $history_tpl->fetch('admin/subtemplate/individual_order_history_container.tpl.php');
+				$history_html = $history_tpl->fetch('admin/subtemplate/individual_order_history.tpl.php');
 
 				echo json_encode(array(
 					'processor_success' => true,

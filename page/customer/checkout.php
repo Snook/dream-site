@@ -1238,20 +1238,20 @@ class page_checkout extends CPage
 
 		$canProvideNewDepositMechanisms = true;
 
-		list($Cart, $Order, $OrderStore) = checkout_validation::getAndValidateCart($tpl);
+		list($Cart, $DAO_orders, $OrderStore) = checkout_validation::getAndValidateCart($tpl);
 
 		// check for partial account
 		if ($User->isUserPartial())
 		{
 			// if they are not upgrading a current session_rsvp bounce them to account
-			if (!CSession::getSessionRSVP($Order->findSession()->id, $User->id))
+			if (!CSession::getSessionRSVP($DAO_orders->findSession()->id, $User->id))
 			{
 				$tpl->setErrorMsg('Please complete your profile information prior to checkout.');
 				CApp::bounce('/account');
 			}
 		}
 
-		$originalOrder = delivered_edit_order_mgr::initOriginalOrder($tpl, $Order, $Cart);
+		$originalOrder = delivered_edit_order_mgr::initOriginalOrder($tpl, $DAO_orders, $Cart);
 
 		// platepoints enrollment during checkout
 		$tpl->assign('can_enroll_in_platepoints', false);
@@ -1265,16 +1265,16 @@ class page_checkout extends CPage
 		$tpl->assign('payment_enabled_coupon', true);
 
 		//------------meal customization
-		$StoreObj = $Order->getStore();
-		$sessionObj = $Order->findSession();
+		$StoreObj = $DAO_orders->getStore();
+		$sessionObj = $DAO_orders->findSession();
 		$showCustomization = false;
 		$hasCustomizationOptionsSelected = false;
 		if ($OrderStore->supports_meal_customization && $sessionObj->isOpenForCustomization($StoreObj))
 		{ //Store allows
-			$customizableMealCount = COrders::getNumberOfCustomizableMealsFromItems($Order, $OrderStore->allow_preassembled_customization);
+			$customizableMealCount = COrders::getNumberOfCustomizableMealsFromItems($DAO_orders, $OrderStore->allow_preassembled_customization);
 			if ($customizableMealCount > 0)
 			{
-				$orderCustomizationPrefObj = json_decode($Order->order_customization);
+				$orderCustomizationPrefObj = json_decode($DAO_orders->order_customization);
 				if (empty($orderCustomizationPrefObj) || empty($orderCustomizationPrefObj->meal))
 				{
 					$mealCustomizationPrefObj = $User->getMealCustomizationPreferences();
@@ -1297,8 +1297,8 @@ class page_checkout extends CPage
 					$tpl->assign('meal_customization_preferences', null);
 				}
 
-				$tpl->assign('has_meal_customization_selected', ($Order->opted_to_customize_recipes ? true : false));
-				$tpl->assign('default_meal_customization_to_selected', ((is_null($Order->opted_to_customize_recipes) && $hasCustomizationOptionsSelected) ? true : false));
+				$tpl->assign('has_meal_customization_selected', ($DAO_orders->opted_to_customize_recipes ? true : false));
+				$tpl->assign('default_meal_customization_to_selected', ((is_null($DAO_orders->opted_to_customize_recipes) && $hasCustomizationOptionsSelected) ? true : false));
 			}
 		}
 
@@ -1306,7 +1306,7 @@ class page_checkout extends CPage
 		$tpl->assign('allow_preassembled_customization', $OrderStore->allow_preassembled_customization);
 
 		// ----------------------------------------------------validation
-		checkout_validation::validateCoupon($Order, $Cart, $tpl);
+		checkout_validation::validateCoupon($DAO_orders, $Cart, $tpl);
 
 		if ($this->runAsGuest)
 		{
@@ -1327,7 +1327,7 @@ class page_checkout extends CPage
 			CApp::instance()->template()->setStatusMsg('Editing an order for another user is not allowed. The cart has been emptied. Please start your order again.');
 			CApp::bounce('/session-menu');
 		}
-		else if (!$tpl->isEditDeliveredOrder && $Order->user_id != $currentUserId)
+		else if (!$tpl->isEditDeliveredOrder && $DAO_orders->user_id != $currentUserId)
 		{
 			//TODO: is it an error to have a previous and different user_id in the order/cart?
 			$Cart->clearAllPayments(true);
@@ -1336,14 +1336,14 @@ class page_checkout extends CPage
 
 		// -------------------------------------------------update order
 
-		$Order->user_id = $currentUserId;
-		$Order->refresh(CUser::getCurrentUser());
-		$Order->recalculate($tpl->isEditDeliveredOrder);
+		$DAO_orders->user_id = $currentUserId;
+		$DAO_orders->refresh(CUser::getCurrentUser());
+		$DAO_orders->recalculate($tpl->isEditDeliveredOrder);
 
-		$markup = $Order->getMarkup();
+		$markup = $DAO_orders->getMarkup();
 		if ($markup)
 		{
-			$defaultAssemblyFee = $Order->getMarkup()->assembly_fee;
+			$defaultAssemblyFee = $DAO_orders->getMarkup()->assembly_fee;
 		}
 		else
 		{
@@ -1351,7 +1351,7 @@ class page_checkout extends CPage
 		}
 
 		$tpl->assign('defaultAssemblyFee', $defaultAssemblyFee);
-		$Order->family_savings_discount_version = 2;
+		$DAO_orders->family_savings_discount_version = 2;
 
 		// --------------------------------------Validation
 		$validationResult = $Cart->validateForCheckout();
@@ -1380,14 +1380,14 @@ class page_checkout extends CPage
 			}
 		}
 
-		checkout_validation::validateFood($Order, $Cart, $tpl);
+		checkout_validation::validateFood($DAO_orders, $Cart, $tpl);
 
-		$tpl->assign('avgCostPerServingEntreeServings', $Order->servings_core_total_count);
-		$tpl->assign('avgCostPerServingEntreeCost', $Order->pcal_core_total);
+		$tpl->assign('avgCostPerServingEntreeServings', $DAO_orders->servings_core_total_count);
+		$tpl->assign('avgCostPerServingEntreeCost', $DAO_orders->pcal_core_total);
 		$tpl->assign('has_gift_card', false);
 
 		$tpl->assign('isGiftCardOnlyOrder', false);
-		$tpl->assign('store_id_of_order', !empty($Order->store_id) ? $Order->store_id : 0);
+		$tpl->assign('store_id_of_order', !empty($DAO_orders->store_id) ? $DAO_orders->store_id : 0);
 
 		if ($tpl->isEditDeliveredOrder && !$tpl->delta_has_new_total)
 		{
@@ -1401,9 +1401,9 @@ class page_checkout extends CPage
 		$Form->Repost = true;
 		$Form->Bootstrap = true;
 
-		list ($store_credit_total, $storeCreditsList) = $this->buildStoreCreditsForm($tpl, $Cart, $Order);
+		list ($store_credit_total, $storeCreditsList) = $this->buildStoreCreditsForm($tpl, $Cart, $DAO_orders);
 
-		if ($Order->isDreamTaste() || $Order->isFundraiser())
+		if ($DAO_orders->isDreamTaste() || $DAO_orders->isFundraiser())
 		{
 			$Cart->removeAllStoreCredit();
 		}
@@ -1430,7 +1430,7 @@ class page_checkout extends CPage
 
 			//compare totals
 			$oTotal = $originalOrder->grand_total * 100;
-			$nTotal = $Order->grand_total * 100;
+			$nTotal = $DAO_orders->grand_total * 100;
 
 			if ($oTotal != $nTotal)
 			{
@@ -1448,37 +1448,37 @@ class page_checkout extends CPage
 		$tpl->assign('totalSelectedCredits', $totalSelectedCredits);
 
 		//debit gift card processing
-		$sessionObj = $Order->findSession();
+		$sessionObj = $DAO_orders->findSession();
 
 		$action = COrders::getFullyQualifiedOrderTypeFromSession($sessionObj);
 		$action = empty($action) ? '' : $action . '<br>';
 		$tpl->assign('customerActionString', $action);
 
-		$refPaymentTypeDataArray = CPayment::getPaymentsStoredForReference(CUser::getCurrentUser()->id, $Order->store_id);
+		$refPaymentTypeDataArray = CPayment::getPaymentsStoredForReference(CUser::getCurrentUser()->id, $DAO_orders->store_id);
 		$tpl->assign('card_references', $refPaymentTypeDataArray);
 
 		//build payment form
-		self::buildPaymentForm($Form, null, $Order, $tpl);
+		self::buildPaymentForm($Form, null, $DAO_orders, $tpl);
 
 		$platePointsStatus = CPointsUserHistory::getPlatePointsStatus($StoreObj, $User);
 
 		$tpl->assign('canProvideNewDepositMechanisms', $canProvideNewDepositMechanisms);
 
-		checkout_validation::setupDinnerDollars($platePointsStatus, $Order, $tpl, $Form, $tpl->isEditDeliveredOrder);
+		checkout_validation::setupDinnerDollars($platePointsStatus, $DAO_orders, $tpl, $Form, $tpl->isEditDeliveredOrder);
 
-		$StoreDAO = $Order->getStore();
+		$StoreDAO = $DAO_orders->getStore();
 		$numberBagsRequired = 0;
 		$bagFeeItemizationNote = '';
 		if ($StoreDAO->supports_bag_fee)
 		{
-			$numberBagsRequired = COrders::getNumberBagsRequiredFromItems($Order);
+			$numberBagsRequired = COrders::getNumberBagsRequiredFromItems($DAO_orders);
 			$bagFeeItemizationNote = '(' . $numberBagsRequired . ' bag' . ($numberBagsRequired > 1 ? 's' : '') . ' * $' . $StoreDAO->default_bag_fee . ')';
 		}
 		$tpl->assign('bagFeeItemizationNote', $bagFeeItemizationNote);
 		$tpl->assign('numberBagsRequired', $numberBagsRequired);
 		$tpl->assign('supports_bag_fee', $StoreDAO->supports_bag_fee);
 		$tpl->assign('default_bag_fee', $StoreDAO->default_bag_fee);
-		$tpl->assign('opted_to_bring_bags', $Order->opted_to_bring_bags);
+		$tpl->assign('opted_to_bring_bags', $DAO_orders->opted_to_bring_bags);
 
 		$Form->AddElement(array(
 			CForm::type => CForm::Button,
@@ -1496,7 +1496,7 @@ class page_checkout extends CPage
 			CForm::css_class => "btn btn-primary btn-block btn-spinner btn-onclick-disable"
 		));
 
-		$Form->DefaultValues['special_insts'] = $Order->order_user_notes;
+		$Form->DefaultValues['special_insts'] = $DAO_orders->order_user_notes;
 
 		$Form->AddElement(array(
 			CForm::type => CForm::TextArea,
@@ -1522,41 +1522,41 @@ class page_checkout extends CPage
 				{
 					if (empty($_POST['opted_to_bring_bags']))
 					{
-						$numberBagsRequired = COrders::getNumberBagsRequiredFromItems($Order);
-						$Order->total_bag_count = $numberBagsRequired;
-						$Order->opted_to_bring_bags = 0;
+						$numberBagsRequired = COrders::getNumberBagsRequiredFromItems($DAO_orders);
+						$DAO_orders->total_bag_count = $numberBagsRequired;
+						$DAO_orders->opted_to_bring_bags = 0;
 					}
 					else
 					{
-						$Order->opted_to_bring_bags = 1;
-						$Order->total_bag_count = 0;
+						$DAO_orders->opted_to_bring_bags = 1;
+						$DAO_orders->total_bag_count = 0;
 					}
 				}
 				else
 				{
-					$Order->total_bag_count = 0;
+					$DAO_orders->total_bag_count = 0;
 				}
 
 				$instructions = $Form->value('special_insts');
-				$Order->order_user_notes = trim(strip_tags($instructions));
+				$DAO_orders->order_user_notes = trim(strip_tags($instructions));
 
 				if ($sessionObj->isDelivery() || $sessionObj->isDelivered())
 				{
-					$Order->orderAddress();
+					$DAO_orders->orderAddress();
 
 					$shipping_phone_number = $Form->value('shipping_phone_number');
 					$shipping_phone_number_new = $Form->value('shipping_phone_number_new');
 					$shipping_address_note = $Form->value('shipping_address_note');
 
-					$Order->orderAddress->firstname = $Form->value('shipping_firstname');
-					$Order->orderAddress->lastname = $Form->value('shipping_lastname');
-					$Order->orderAddress->address_line1 = $Form->value('shipping_address_line1');
-					$Order->orderAddress->address_line2 = $Form->value('shipping_address_line2');
-					$Order->orderAddress->city = $Form->value('shipping_city');
-					$Order->orderAddress->state_id = $Form->value('shipping_state_id');
-					$Order->orderAddress->postal_code = $Form->value('shipping_postal_code');
-					$Order->orderAddress->telephone_1 = (($shipping_phone_number == 'new') ? $shipping_phone_number_new : $shipping_phone_number);
-					$Order->orderAddress->address_note = trim(strip_tags($shipping_address_note));
+					$DAO_orders->orderAddress->firstname = $Form->value('shipping_firstname');
+					$DAO_orders->orderAddress->lastname = $Form->value('shipping_lastname');
+					$DAO_orders->orderAddress->address_line1 = $Form->value('shipping_address_line1');
+					$DAO_orders->orderAddress->address_line2 = $Form->value('shipping_address_line2');
+					$DAO_orders->orderAddress->city = $Form->value('shipping_city');
+					$DAO_orders->orderAddress->state_id = $Form->value('shipping_state_id');
+					$DAO_orders->orderAddress->postal_code = $Form->value('shipping_postal_code');
+					$DAO_orders->orderAddress->telephone_1 = (($shipping_phone_number == 'new') ? $shipping_phone_number_new : $shipping_phone_number);
+					$DAO_orders->orderAddress->address_note = trim(strip_tags($shipping_address_note));
 				}
 
 				if ($tpl->isEditDeliveredOrder && $originalOrder != null)
@@ -1581,7 +1581,7 @@ class page_checkout extends CPage
 
 					if ($tpl->delta_session)
 					{
-						$TargetSession = $Order->findSession(true);
+						$TargetSession = $DAO_orders->findSession(true);
 						$originalOrder->addSession($TargetSession);
 						$rescheduleResult = $originalOrder->reschedule($sessionObj->id, false, true);
 					}
@@ -1589,7 +1589,7 @@ class page_checkout extends CPage
 
 				if ($Cart->getNavigationType() == CTemplate::DELIVERED)
 				{
-					$sessionIsValid = CSession::isSessionValidForDeliveredOrder($Order->findSession()->id, $Order->getStore(), $Order->findSession()->menu_id, false, $Order->orderAddress->postal_code);
+					$sessionIsValid = CSession::isSessionValidForDeliveredOrder($DAO_orders->findSession()->id, $DAO_orders->getStore(), $DAO_orders->findSession()->menu_id, false, $DAO_orders->orderAddress->postal_code);
 					if (!$sessionIsValid)
 					{
 						$tpl->setStatusMsg('The delivery date you selected is unavailable. Please choose a new delivery date below.');
@@ -1597,10 +1597,10 @@ class page_checkout extends CPage
 					}
 				}
 
-				$Order->setOrderInStoreStatus();
-				$Order->setOrderMultiplierEligibility();
+				$DAO_orders->setOrderInStoreStatus();
+				$DAO_orders->setOrderMultiplierEligibility();
 
-				$totalAmount = $Order->grand_total;
+				$totalAmount = $DAO_orders->grand_total;
 				if ($tpl->isEditDeliveredOrder)
 				{
 					if ($tpl->delta_has_new_total)
@@ -1612,9 +1612,9 @@ class page_checkout extends CPage
 						$totalAmount = 0;
 					}
 				}
-				list($validationPassed, $StoreCreditArray, $giftCardArray, $creditCardArray) = checkout_validation::validateAndPreparePayments($Cart->getAllPayments(), $tpl, $totalAmount, $Order->store_id);
+				list($validationPassed, $StoreCreditArray, $giftCardArray, $creditCardArray) = checkout_validation::validateAndPreparePayments($Cart->getAllPayments(), $tpl, $totalAmount, $DAO_orders->store_id);
 
-				if ($Order->isDreamTaste() || $Order->isFundraiser())
+				if ($DAO_orders->isDreamTaste() || $DAO_orders->isFundraiser())
 				{
 					// no store credits can be used
 					$StoreCreditArray = array();
@@ -1630,7 +1630,7 @@ class page_checkout extends CPage
 						ShipStationManager::getInstanceForOrder($originalOrder)->addUpdateOrder(new ShipStationOrderWrapper($originalOrder));
 
 						//Boxes, Session have not changed so no update necessary
-						$Order = $originalOrder;
+						$DAO_orders = $originalOrder;
 						if ($rescheduleResult != null)
 						{
 							if ($rescheduleResult == 'success')
@@ -1651,14 +1651,14 @@ class page_checkout extends CPage
 						$paymentType = CPayment::GIFT_CARD;
 						$paymentsFromCart = $Cart->getNewGiftCardPayments();
 
-						$rslt = $Order->processEditOrder($originalOrder, $Cart, $tpl->delta_boxes_differences, $paymentsFromCart, $paymentType, $creditCardArray, $StoreCreditArray, $giftCardArray, true);
+						$rslt = $DAO_orders->processEditOrder($originalOrder, $Cart, $tpl->delta_boxes_differences, $paymentsFromCart, $paymentType, $creditCardArray, $StoreCreditArray, $giftCardArray, true);
 					}
 					else
 					{
 						$creditCardArray['ccNumber'] = str_replace("-", "", $creditCardArray['ccNumber']);
 
 						// finally charge the remaining balance to the credit card
-						$rslt = $Order->processNewOrderGC(CPayment::CC, $creditCardArray, $StoreCreditArray, $giftCardArray, true);
+						$rslt = $DAO_orders->processNewOrderGC(CPayment::CC, $creditCardArray, $StoreCreditArray, $giftCardArray, true);
 					}
 				}
 				else
@@ -1733,9 +1733,9 @@ class page_checkout extends CPage
 							$sendConfirmationEmail = false;
 						}
 						// if there is a gift card - the email function is informed and delivers the message
-						COrders::sendConfirmationEmail($theUser, $Order, $Order->getGiftCards(), $sendConfirmationEmail);
-						$theUser->setHomeStore($Order->store_id);
-						CCustomerReferral::updateAsOrderedIfEligible($theUser, $Order);
+						COrders::sendConfirmationEmail($theUser, $DAO_orders, $DAO_orders->getGiftCards(), $sendConfirmationEmail);
+						$theUser->setHomeStore($DAO_orders->store_id);
+						CCustomerReferral::updateAsOrderedIfEligible($theUser, $DAO_orders);
 						$Cart->emptyCart();
 					}
 					catch (exception $e)
@@ -1745,7 +1745,7 @@ class page_checkout extends CPage
 
 					// set a cookie so that analytics only records viewing the thank you page once
 					CBrowserSession::setValue('dd_thank_you', 'checkout', false, true, false);
-					CApp::bounce('/order-details?order=' . $Order->id, true);
+					CApp::bounce('/order-details?order=' . $DAO_orders->id, true);
 
 					break;
 
@@ -1796,22 +1796,22 @@ class page_checkout extends CPage
 			CApp::instance()->bounce('/order-submit?sc=true');
 		}
 
-		if ($Order)
+		if ($DAO_orders)
 		{
 			//build the order
-			$Order->refresh(CUser::getCurrentUser());
-			$Order->recalculate($tpl->isEditDeliveredOrder);
+			$DAO_orders->refresh(CUser::getCurrentUser());
+			$DAO_orders->recalculate($tpl->isEditDeliveredOrder);
 
-			$tpl->assign('orderInfo', $Order->toArray());
-			$tpl->assign('session_id', $Order->findSession()->id);
+			$tpl->assign('orderInfo', $DAO_orders->toArray());
+			$tpl->assign('session_id', $DAO_orders->findSession()->id);
 		}
 
-		$Coupon = $Order->getCoupon();
+		$Coupon = $DAO_orders->getCoupon();
 
 		// We must recheck validity of coupon since the ussr may have removed items, etc.. since coupon was added.
 		if ($Coupon)
 		{
-			if ($Order->isDelivered())
+			if ($DAO_orders->isDelivered())
 			{
 				if ($tpl->isEditDeliveredOrder)
 				{
@@ -1819,23 +1819,23 @@ class page_checkout extends CPage
 				}
 				else
 				{
-					$result = $Coupon->isValidForDelivered($Order, $Cart->getMenuId());
+					$result = $Coupon->isValidForDelivered($DAO_orders, $Cart->getMenuId());
 				}
 			}
 			else
 			{
-				$result = $Coupon->isValid($Order, $Cart->getMenuId());
+				$result = $Coupon->isValid($DAO_orders, $Cart->getMenuId());
 			}
 
 			if (!empty($result))
 			{
 				$Coupon = null;
-				$Order->removeCoupon();
-				$Order->recalculate();
+				$DAO_orders->removeCoupon();
+				$DAO_orders->recalculate();
 
 				$errorMessages = implode("<br />", $result);
 				$tpl->setErrorMsg("A promo code was removed for the following reasons:<br /> " . $errorMessages);
-				$Cart->addOrder($Order);
+				$Cart->addOrder($DAO_orders);
 			}
 		}
 
@@ -1857,8 +1857,8 @@ class page_checkout extends CPage
 			$tpl->assign('CC_error', true);
 		}
 
-		$tpl->assign('productCount', $Order->countProducts());
-		if ($Order->countItems() > 0)
+		$tpl->assign('productCount', $DAO_orders->countProducts());
+		if ($DAO_orders->countItems() > 0)
 		{
 			$tpl->assign('hasItems', true);
 		}
@@ -1878,68 +1878,69 @@ class page_checkout extends CPage
 			$couponDetails->limit_to_delivery_fee = false;
 		}
 		$tpl->assign('coupon', json_encode($couponDetails));
-		$tpl->assign('grand_total', $Order->grand_total);
+		$tpl->assign('grand_total', $DAO_orders->grand_total);
 
 		$tpl->assign('sticky_nav_bottom_disable', true);
 		$tpl->assign('cart_info', CUser::getCartIfExists());
 	}
 
-	static function buildPaymentForm($Form, $User = null, $Order = null, &$tpl = null)
+	static function buildPaymentForm($Form, $DAO_user = null, $DAO_orders = null, &$tpl = null)
 	{
 		require_once('DAO/BusinessObject/CPayment.php');
 
-		$Session = null;
-		if ($Order)
+		$DAO_session = null;
+		if ($DAO_orders)
 		{
-			$Session = $Order->findSession();
+			$DAO_session = $DAO_orders->findSession();
 		}
 
 		//set defaults
-		if (!$User)
+		if (!$DAO_user)
 		{
-			$User = CUser::getCurrentUser();
-			$User->getAddressBookArray(true);
+			$DAO_user = CUser::getCurrentUser();
+			$DAO_user->getAddressBookArray(true);
 		}
 
 		$DefaultContactNumber = false;
 		$DisableZipCode = false;
 
-		if (!empty($Order->orderAddress->address_line1))
+		if (!empty($DAO_orders->orderAddress->address_line1))
 		{
-			$shipping_address_note = $Order->orderAddress->address_note;
+			$shipping_address_note = $DAO_orders->orderAddress->address_note;
 
-			$Form->DefaultValues['shipping_firstname'] = $Order->orderAddress->firstname;
-			$Form->DefaultValues['shipping_lastname'] = $Order->orderAddress->lastname;
-			$Form->DefaultValues['shipping_phone_number'] = $Order->orderAddress->telephone_1;
-			$DefaultContactNumber = $Order->orderAddress->telephone_1;
-			$Form->DefaultValues['shipping_address_line1'] = $Order->orderAddress->address_line1;
-			$Form->DefaultValues['shipping_address_line2'] = $Order->orderAddress->address_line2;
-			$Form->DefaultValues['shipping_city'] = $Order->orderAddress->city;
-			$Form->DefaultValues['shipping_state_id'] = $Order->orderAddress->state_id;
-			$Form->DefaultValues['shipping_state'] = CStatesAndProvinces::GetName($Order->orderAddress->state_id);
-			$Form->DefaultValues['shipping_postal_code'] = $Order->orderAddress->postal_code;
+			$Form->DefaultValues['shipping_firstname'] = $DAO_orders->orderAddress->firstname;
+			$Form->DefaultValues['shipping_lastname'] = $DAO_orders->orderAddress->lastname;
+			$Form->DefaultValues['shipping_phone_number'] = $DAO_orders->orderAddress->telephone_1;
+			$DefaultContactNumber = $DAO_orders->orderAddress->telephone_1;
+			$Form->DefaultValues['shipping_address_line1'] = $DAO_orders->orderAddress->address_line1;
+			$Form->DefaultValues['shipping_address_line2'] = $DAO_orders->orderAddress->address_line2;
+			$Form->DefaultValues['shipping_city'] = $DAO_orders->orderAddress->city;
+			$Form->DefaultValues['shipping_state_id'] = $DAO_orders->orderAddress->state_id;
+			$Form->DefaultValues['shipping_state'] = CStatesAndProvinces::GetName($DAO_orders->orderAddress->state_id);
+			$Form->DefaultValues['shipping_postal_code'] = $DAO_orders->orderAddress->postal_code;
 			$Form->DefaultValues['shipping_address_note'] = trim(strip_tags($shipping_address_note));
-			$Form->DefaultValues['shipping_is_gift'] = $Order->orderAddress->is_gift;
-			$Form->DefaultValues['shipping_gift_email_address'] = $Order->orderAddress->email_address;
+			$Form->DefaultValues['shipping_is_gift'] = $DAO_orders->orderAddress->is_gift;
+			$Form->DefaultValues['shipping_gift_email_address'] = $DAO_orders->orderAddress->email_address;
+			$Form->DefaultValues['delivery_tip'] = $DAO_orders->delivery_tip;
 		}
-		else if ($Order->getSessionType() != CSession::DELIVERED)
+		else if (!$DAO_orders->isShipping())
 		{
-			$Addr = $User->getPrimaryAddress();
+			$Addr = $DAO_user->getPrimaryAddress();
 
 			if ($Addr)
 			{
 				$Form->DefaultValues['billing_address'] = $Addr->address_line1;
-				$Form->DefaultValues['billing_city'] = $Order->orderAddress->city;
-				$Form->DefaultValues['billing_state_id'] = $Order->orderAddress->state_id;
+				$Form->DefaultValues['billing_city'] = $DAO_orders->orderAddress->city;
+				$Form->DefaultValues['billing_state_id'] = $DAO_orders->orderAddress->state_id;
 				$Form->DefaultValues['billing_postal_code'] = $Addr->postal_code;
 			}
 
-			$dAddr = $User->getDeliveryAddressDefault();
+			$dAddr = $DAO_user->getDeliveryAddressDefault();
 
 			if (!empty($dAddr->id))
 			{
-				$Form->DefaultValues['shipping_firstname'] = $User->firstname;
-				$Form->DefaultValues['shipping_lastname'] = $User->lastname;
+				$Form->DefaultValues['shipping_firstname'] = $DAO_user->firstname;
+				$Form->DefaultValues['shipping_lastname'] = $DAO_user->lastname;
 				$Form->DefaultValues['shipping_phone_number'] = '';
 				$Form->DefaultValues['shipping_address_line1'] = $dAddr->address_line1;
 				$Form->DefaultValues['shipping_address_line2'] = $dAddr->address_line2;
@@ -1948,9 +1949,10 @@ class page_checkout extends CPage
 				$Form->DefaultValues['shipping_state'] = CStatesAndProvinces::GetName($dAddr->state_id);
 				//$Form->DefaultValues['shipping_postal_code'] = $dAddr->postal_code; // disabled to force guest to verify address
 				$Form->DefaultValues['shipping_address_note'] = $dAddr->address_note;
+				$Form->DefaultValues['delivery_tip'] = $DAO_orders->delivery_tip;
 			}
 		}
-		else if ($Order->getSessionType() == CSession::DELIVERED)
+		else if ($DAO_orders->isShipping())
 		{
 			$CartObj = CCart2::instance();
 
@@ -1967,13 +1969,13 @@ class page_checkout extends CPage
 		}
 
 		// Shipping Address
-		if ($Order->getSessionType() == CSession::DELIVERED && !empty($User->addressBook))
+		if ($DAO_orders->isShipping() && !empty($DAO_user->addressBook))
 		{
 			$addArray = array(
 				'null' => 'Address Book - New Contact'
 			);
 
-			foreach ($User->addressBook as $address)
+			foreach ($DAO_user->addressBook as $address)
 			{
 				$addArray[$address->id] = ((!empty($address->firstname) || !empty($address->lastname)) ? $address->firstname . ' ' . $address->lastname . ' - ' : $address->address_line1 . ', ') . $address->city . ', ' . $address->state_id . ' ' . $address->postal_code;
 			}
@@ -2071,10 +2073,10 @@ class page_checkout extends CPage
 			CForm::maxlength => 5,
 			CForm::required_msg => "Please enter a zip code.",
 			CForm::length => 16,
-			CForm::readonly => ($Session->session_type == CSession::DELIVERED)
+			CForm::readonly => ($DAO_session->session_type == CSession::DELIVERED)
 		));
 
-		if ($Order->getSessionType() == CSession::DELIVERED)
+		if ($DAO_orders->isDelivered())
 		{
 			$Form->AddElement(array(
 				CForm::type => CForm::Tel,
@@ -2104,12 +2106,12 @@ class page_checkout extends CPage
 		{
 			$userPhoneArray = array(
 				'' => 'Contact Number',
-				$User->telephone_1 => $User->telephone_1
+				$DAO_user->telephone_1 => $DAO_user->telephone_1
 			);
 
-			if (!empty($User->telephone_2))
+			if (!empty($DAO_user->telephone_2))
 			{
-				$userPhoneArray[$User->telephone_2] = $User->telephone_2;
+				$userPhoneArray[$DAO_user->telephone_2] = $DAO_user->telephone_2;
 			}
 
 			if ($DefaultContactNumber && !in_array($DefaultContactNumber, $userPhoneArray))
@@ -2149,6 +2151,18 @@ class page_checkout extends CPage
 			CForm::name => 'shipping_address_note',
 			CForm::required => false
 		));
+
+		if ($DAO_orders->eligibleForDeliveryTip())
+		{
+			$Form->AddElement(array(
+				CForm::type => CForm::Number,
+				CForm::name => 'delivery_tip',
+				CForm::min => 0,
+				CForm::step => 0.01,
+				CForm::readonly => true,
+				CForm::required => false
+			));
+		}
 
 		// Gift Cards widgets
 		$Form->AddElement(array(

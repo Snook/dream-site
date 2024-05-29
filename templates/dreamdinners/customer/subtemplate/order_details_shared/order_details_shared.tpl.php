@@ -128,6 +128,12 @@ if (isset($this->menuInfo['free_meal_item']))
 				<div class="col-3"><?php echo $this->moneyFormat($this->orderInfo['subtotal_delivery_fee']);?></div>
 			</div>
 		<?php } ?>
+		<?php if (!$this->isEmptyFloat($this->orderInfo["delivery_tip"])) { ?>
+			<div class="row">
+				<div class="col-9">Driver Tip</div>
+				<div class="col-3"><?php echo $this->moneyFormat($this->orderInfo['delivery_tip']);?></div>
+			</div>
+		<?php } ?>
 		<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_service_fee']) || $this->orderInfo['service_fee_description'] == "Free Assembly Promo") { ?>
 			<div class="row">
 				<div class="col-9">Service Fees</div>

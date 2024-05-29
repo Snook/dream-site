@@ -673,6 +673,12 @@ class CCartStorage
 			$round_up_clause = "ltd_round_up_value = {$orderObj->ltd_round_up_value}";
 		}
 
+		$delivery_tip_clause = "delivery_tip = null";
+		if (isset($orderObj->delivery_tip) && is_numeric($orderObj->delivery_tip))
+		{
+			$delivery_tip_clause = "delivery_tip = {$orderObj->delivery_tip}";
+		}
+
 		$bundle_clause = "bundle_id = null";
 		if (!empty($orderObj->bundle_id) && is_numeric($orderObj->bundle_id))
 		{
@@ -746,6 +752,7 @@ class CCartStorage
 			$service_fee_clause,
 			service_fee_description = '{$orderObj->service_fee_description}',
 			$round_up_clause, 
+			$delivery_tip_clause,
 			$bundle_clause, 
 			$coupon_clause, 
 			$promo_clause, 
@@ -961,7 +968,7 @@ class CCartStorage
 			$this->handleConnectionIssue();
 		}
 
-		$tempOrder = DAO_CFactory::create('orders');
+		$DAO_orders = DAO_CFactory::create('orders', true);
 
 		$result = mysqli_query($this->_db, "select * from dreamcart.cart_contents where id = $data_ref");
 		$this->checkResult($result, false);
@@ -979,46 +986,47 @@ class CCartStorage
 
 			if (!empty($navigation_type) && $navigation_type == CTemplate::DELIVERED)
 			{
-				$tempOrder = new COrdersDelivered();
+				$DAO_orders = new COrdersDelivered();
 			}
 			else
 			{
-				$tempOrder = DAO_CFactory::create('orders');
+				$DAO_orders = DAO_CFactory::create('orders');
 			}
 
-			$tempOrder->setMenuId($row["menu_id"]);
-			$tempOrder->user_id = $row["user_id"];
-			if(is_null($tempOrder->user_id )){
-				$tempOrder->user_id = CUser::getCurrentUser()->id;
+			$DAO_orders->setMenuId($row["menu_id"]);
+			$DAO_orders->user_id = $row["user_id"];
+			if(is_null($DAO_orders->user_id )){
+				$DAO_orders->user_id = CUser::getCurrentUser()->id;
 			}
-			$tempOrder->store_id = $row["store_id"];
-			$tempOrder->order_user_notes = $row["order_user_notes"];
-			$tempOrder->order_admin_notes = $row["order_admin_notes"];
-			$tempOrder->direct_order_discount = $row["direct_order_discount"];
-			$tempOrder->points_discount_total = $row["points_discount_total"];
-			$tempOrder->misc_food_subtotal = $row["misc_food_subtotal"];
-			$tempOrder->misc_food_subtotal_desc = $row["misc_food_subtotal_desc"];
-			$tempOrder->misc_nonfood_subtotal = $row["misc_nonfood_subtotal"];
-			$tempOrder->misc_nonfood_subtotal_desc = $row["misc_nonfood_subtotal_desc"];
-			$tempOrder->subtotal_service_fee = $row["subtotal_service_fee"];
-			$tempOrder->service_fee_description = $row["service_fee_description"];
-			$tempOrder->ltd_round_up_value = $row["ltd_round_up_value"];
-			$tempOrder->bundle_id = $row["bundle_id"];
-			$tempOrder->coupon_code_id = $row["coupon_code_id"];
-			$tempOrder->promo_code_id = $row["promo_code_id"];
-			$tempOrder->volume_discount_id = $row["volume_discount_id"];
-			$tempOrder->is_sampler = $row["is_sampler"];
-			$tempOrder->is_TODD = $row["is_TODD"];
+			$DAO_orders->store_id = $row["store_id"];
+			$DAO_orders->order_user_notes = $row["order_user_notes"];
+			$DAO_orders->order_admin_notes = $row["order_admin_notes"];
+			$DAO_orders->direct_order_discount = $row["direct_order_discount"];
+			$DAO_orders->points_discount_total = $row["points_discount_total"];
+			$DAO_orders->misc_food_subtotal = $row["misc_food_subtotal"];
+			$DAO_orders->misc_food_subtotal_desc = $row["misc_food_subtotal_desc"];
+			$DAO_orders->misc_nonfood_subtotal = $row["misc_nonfood_subtotal"];
+			$DAO_orders->misc_nonfood_subtotal_desc = $row["misc_nonfood_subtotal_desc"];
+			$DAO_orders->subtotal_service_fee = $row["subtotal_service_fee"];
+			$DAO_orders->service_fee_description = $row["service_fee_description"];
+			$DAO_orders->ltd_round_up_value = $row["ltd_round_up_value"];
+			$DAO_orders->delivery_tip = $row["delivery_tip"];
+			$DAO_orders->bundle_id = $row["bundle_id"];
+			$DAO_orders->coupon_code_id = $row["coupon_code_id"];
+			$DAO_orders->promo_code_id = $row["promo_code_id"];
+			$DAO_orders->volume_discount_id = $row["volume_discount_id"];
+			$DAO_orders->is_sampler = $row["is_sampler"];
+			$DAO_orders->is_TODD = $row["is_TODD"];
 			$hasAddedStoreCredit = $row["has_added_store_credit"];
-			$tempOrder->opted_to_bring_bags = $row["opted_to_bring_bags"];
-			$tempOrder->opted_to_customize_recipes = $row["opted_to_customize_recipes"];
+			$DAO_orders->opted_to_bring_bags = $row["opted_to_bring_bags"];
+			$DAO_orders->opted_to_customize_recipes = $row["opted_to_customize_recipes"];
 			$order_customizations = $row["order_customization"] ;
 			if(empty($order_customizations)){
 				$order_customizations =  CUser::getCurrentUser()->getOrderCustomizationPreferencesAsJson();
 			}
-			$tempOrder->order_customization = $order_customizations;
-			$tempOrder->subtotal_meal_customization_fee = $row["subtotal_meal_customization_fee"];
-			$tempOrder->total_customized_meal_count = $row["total_customized_meal_count"];
+			$DAO_orders->order_customization = $order_customizations;
+			$DAO_orders->subtotal_meal_customization_fee = $row["subtotal_meal_customization_fee"];
+			$DAO_orders->total_customized_meal_count = $row["total_customized_meal_count"];
 //			if($tempOrder->opted_to_customize_recipes){
 //				$tempOrder->subtotal_meal_customization_fee = 0.00;
 //				$tempOrder->total_customized_meal_count = 0;
@@ -1044,7 +1052,7 @@ class CCartStorage
 		}
 
 		return array(
-			$tempOrder,
+			$DAO_orders,
 			$menu_id,
 			$session_id,
 			$navigation_type,

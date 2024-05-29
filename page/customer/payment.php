@@ -413,9 +413,9 @@ class page_payment extends CPage
 		$canProvideNewDepositMechanisms = true;
 
 		///get order from cart
-		list($Cart, $Order, $OrderStore) = checkout_validation::getAndValidateCart($tpl);
+		list($Cart, $DAO_orders, $OrderStore) = checkout_validation::getAndValidateCart($tpl);
 		// -------------------------------------------------Edit Delivered Order
-		$originalOrder = delivered_edit_order_mgr::initOriginalOrder($tpl, $Order, $Cart);
+		$originalOrder = delivered_edit_order_mgr::initOriginalOrder($tpl, $DAO_orders, $Cart);
 
 		// Shipping address and Special Instructions are POSTED her from checkout.  Store in the cart
 		if (isset($_POST['shipping_address_line1']))
@@ -500,7 +500,7 @@ class page_payment extends CPage
 		if ($User->isUserPartial())
 		{
 			// if they are not upgrading a current session_rsvp bounce them to account
-			if (!CSession::getSessionRSVP($Order->findSession()->id, $User->id))
+			if (!CSession::getSessionRSVP($DAO_orders->findSession()->id, $User->id))
 			{
 				$tpl->setErrorMsg('Please complete your profile information prior to checkout.');
 				CApp::bounce('/account');
@@ -522,7 +522,7 @@ class page_payment extends CPage
 		// ----------------------------------------------------validation
 		if ($Cart->getNavigationType() == CTemplate::DELIVERED)
 		{
-			$sessionIsValid = CSession::isSessionValidForDeliveredOrder($Order->findSession()->id, $Order->getStore(), $Order->findSession()->menu_id, false, $Order->orderAddress->postal_code);
+			$sessionIsValid = CSession::isSessionValidForDeliveredOrder($DAO_orders->findSession()->id, $DAO_orders->getStore(), $DAO_orders->findSession()->menu_id, false, $DAO_orders->orderAddress->postal_code);
 			if (!$sessionIsValid)
 			{
 				$tpl->setStatusMsg('The delivery date you selected is unavailable. Please choose a new delivery date below.');
@@ -530,7 +530,7 @@ class page_payment extends CPage
 			}
 		}
 
-		checkout_validation::validateCoupon($Order, $Cart, $tpl);
+		checkout_validation::validateCoupon($DAO_orders, $Cart, $tpl);
 
 		if ($this->runAsGuest)
 		{
@@ -548,7 +548,7 @@ class page_payment extends CPage
 			$Cart->clearAllPayments(true);
 			$Cart->addUserId(CUser::getCurrentUser()->id);
 		}
-		else if (!$tpl->isEditDeliveredOrder && $Order->user_id != $currentUserId)
+		else if (!$tpl->isEditDeliveredOrder && $DAO_orders->user_id != $currentUserId)
 		{
 			//TODO: is it an error to have a previous and different user_id in the order/cart?
 			$Cart->clearAllPayments(true);
@@ -557,21 +557,21 @@ class page_payment extends CPage
 
 		// -------------------------------------------------update order
 
-		$Order->user_id = CUser::getCurrentUser()->id;
-		$Order->refresh(CUser::getCurrentUser());
-		$Order->recalculate();
+		$DAO_orders->user_id = CUser::getCurrentUser()->id;
+		$DAO_orders->refresh(CUser::getCurrentUser());
+		$DAO_orders->recalculate();
 
-		$defaultAssemblyFee = $Order->getMarkup()->assembly_fee;
+		$defaultAssemblyFee = $DAO_orders->getMarkup()->assembly_fee;
 		$tpl->assign('defaultAssemblyFee', $defaultAssemblyFee);
 
-		$Order->family_savings_discount_version = 2;
+		$DAO_orders->family_savings_discount_version = 2;
 
 		$DR_Ordering = false;
-		if (CUser::getCurrentUser()->canOrderOnlineWithDreamRewards($Order->store_id))
+		if (CUser::getCurrentUser()->canOrderOnlineWithDreamRewards($DAO_orders->store_id))
 		{
-			$Order->dream_rewards_level = CUser::getCurrentUser()->dream_reward_level;
-			$tpl->assign('DR_Online_Ordering_level', $Order->dream_rewards_level);
-			$Order->recalculate();
+			$DAO_orders->dream_rewards_level = CUser::getCurrentUser()->dream_reward_level;
+			$tpl->assign('DR_Online_Ordering_level', $DAO_orders->dream_rewards_level);
+			$DAO_orders->recalculate();
 			$DR_Ordering = true;
 		}
 		//$DR_Ordering = true;
@@ -585,17 +585,17 @@ class page_payment extends CPage
 			CApp::bounce('/session-menu');
 		}
 
-		checkout_validation::validateFood($Order, $Cart, $tpl);
+		checkout_validation::validateFood($DAO_orders, $Cart, $tpl);
 
-		$tpl->assign('avgCostPerServingEntreeServings', $Order->servings_core_total_count);
-		$tpl->assign('avgCostPerServingEntreeCost', $Order->pcal_core_total);
+		$tpl->assign('avgCostPerServingEntreeServings', $DAO_orders->servings_core_total_count);
+		$tpl->assign('avgCostPerServingEntreeCost', $DAO_orders->pcal_core_total);
 		$tpl->assign('has_gift_card', false);
 
 		$tpl->assign('isGiftCardOnlyOrder', false);
-		$tpl->assign('store_id_of_order', !empty($Order->store_id) ? $Order->store_id : 0);
+		$tpl->assign('store_id_of_order', !empty($DAO_orders->store_id) ? $DAO_orders->store_id : 0);
 
 		// TODD Observe Only
-		if ($Order->isTODD() && !$Order->isDreamTaste() && !$Order->isFundraiser())
+		if ($DAO_orders->isTODD() && !$DAO_orders->isDreamTaste() && !$DAO_orders->isFundraiser())
 		{
 			$tpl->setErrorMsg("This order is for attendance of a Taste of Dream Dinners session. Please select a session here.");
 			CApp::bounce('/session-menu');
@@ -626,9 +626,9 @@ class page_payment extends CPage
 		$tpl->assign('total_store_credit', $totalSelectedCredits);
 
 		//debit gift card processing
-		$sessionObj = $Order->findSession();
+		$DAO_session = $DAO_orders->findSession();
 
-		$action = COrders::getFullyQualifiedOrderTypeFromSession($sessionObj);
+		$action = COrders::getFullyQualifiedOrderTypeFromSession($DAO_session);
 		$action = empty($action) ? '' : $action . '<br>';
 		$tpl->assign('customerActionString', $action);
 
@@ -644,7 +644,7 @@ class page_payment extends CPage
 		// recent session
 
 		$allowDelayedPayment = false;
-		if ($sessionObj->delayedPaymentEligible($OrderStore))
+		if ($DAO_session->delayedPaymentEligible($OrderStore))
 		{
 			$allowDelayedPayment = true;
 		}
@@ -656,7 +656,7 @@ class page_payment extends CPage
 
 			//compare totals
 			$oTotal = $originalOrder->grand_total * 100;
-			$nTotal = $Order->grand_total * 100;
+			$nTotal = $DAO_orders->grand_total * 100;
 
 			if ($oTotal != $nTotal)
 			{
@@ -677,13 +677,13 @@ class page_payment extends CPage
 		}
 		else
 		{
-			$refPaymentTypeDataArray = CPayment::getPaymentsStoredForReference(CUser::getCurrentUser()->id, $Order->store_id);
+			$refPaymentTypeDataArray = CPayment::getPaymentsStoredForReference(CUser::getCurrentUser()->id, $DAO_orders->store_id);
 		}
 
 		$tpl->assign('card_references', $refPaymentTypeDataArray);
 
 		//build payment form
-		self::buildPaymentForm($Form, null, $Order, $Order->getStore(), $DR_Ordering, $hasCreditCardPayment, $allowDelayedPayment);
+		self::buildPaymentForm($Form, null, $DAO_orders, $DAO_orders->getStore(), $DR_Ordering, $hasCreditCardPayment, $allowDelayedPayment);
 
 		$platePointsStatus = CPointsUserHistory::getPlatePointsStatus($OrderStore, CUser::getCurrentUser());
 
@@ -713,19 +713,19 @@ class page_payment extends CPage
 
 		$tpl->assign('canProvideNewDepositMechanisms', $canProvideNewDepositMechanisms);
 
-		checkout_validation::setupDinnerDollars($platePointsStatus, $Order, $tpl, $Form);
+		checkout_validation::setupDinnerDollars($platePointsStatus, $DAO_orders, $tpl, $Form);
 
 		//------------meal customization
-		$StoreObj = $Order->getStore();
-		$sessionObj = $Order->findSession();
+		$DAO_store = $DAO_orders->getStore();
+		$DAO_session = $DAO_orders->findSession();
 		$showCustomization = false;
 		$hasCustomizationOptionsSelected = false;
-		if ($OrderStore->supports_meal_customization && $sessionObj->isOpenForCustomization($StoreObj))
+		if ($OrderStore->supports_meal_customization && $DAO_session->isOpenForCustomization($DAO_store))
 		{ //Store allows
-			$customizableMealCount = COrders::getNumberOfCustomizableMealsFromItems($Order, $OrderStore->allow_preassembled_customization);
+			$customizableMealCount = COrders::getNumberOfCustomizableMealsFromItems($DAO_orders, $OrderStore->allow_preassembled_customization);
 			if ($customizableMealCount > 0)
 			{
-				$orderCustomizationPrefObj = json_decode($Order->order_customization);
+				$orderCustomizationPrefObj = json_decode($DAO_orders->order_customization);
 				if (empty($orderCustomizationPrefObj) || empty($orderCustomizationPrefObj->meal))
 				{
 					$mealCustomizationPrefObj = $User->getMealCustomizationPreferences();
@@ -749,8 +749,8 @@ class page_payment extends CPage
 					$tpl->assign('meal_customization_preferences', null);
 				}
 
-				$tpl->assign('has_meal_customization_selected', ($Order->opted_to_customize_recipes ? true : false));
-				$tpl->assign('default_meal_customization_to_selected', ((is_null($Order->opted_to_customize_recipes) && $hasCustomizationOptionsSelected) ? true : false));
+				$tpl->assign('has_meal_customization_selected', ($DAO_orders->opted_to_customize_recipes ? true : false));
+				$tpl->assign('default_meal_customization_to_selected', ((is_null($DAO_orders->opted_to_customize_recipes) && $hasCustomizationOptionsSelected) ? true : false));
 
 			}
 		}
@@ -758,18 +758,18 @@ class page_payment extends CPage
 		$tpl->assign('should_allow_meal_customization', $showCustomization);
 		$tpl->assign('allow_preassembled_customization', $OrderStore->allow_preassembled_customization);
 
-		$StoreDAO = $Order->getStore();
+		$DAO_store = $DAO_orders->getStore();
 		$numberBagsRequired = 0;
 		$bagFeeItemizationNote = '';
-		if ($StoreDAO->supports_bag_fee)
+		if ($DAO_store->supports_bag_fee)
 		{
-			$numberBagsRequired = COrders::getNumberBagsRequiredFromItems($Order);
-			$bagFeeItemizationNote = '(' . $numberBagsRequired . ' bag' . ($numberBagsRequired > 1 ? 's' : '') . ' * $' . $StoreDAO->default_bag_fee . ')';
+			$numberBagsRequired = COrders::getNumberBagsRequiredFromItems($DAO_orders);
+			$bagFeeItemizationNote = '(' . $numberBagsRequired . ' bag' . ($numberBagsRequired > 1 ? 's' : '') . ' * $' . $DAO_store->default_bag_fee . ')';
 		}
 		$tpl->assign('bagFeeItemizationNote', $bagFeeItemizationNote);
 		$tpl->assign('numberBagsRequired', $numberBagsRequired);
-		$tpl->assign('supports_bag_fee', $StoreDAO->supports_bag_fee);
-		$tpl->assign('default_bag_fee', $StoreDAO->default_bag_fee);
+		$tpl->assign('supports_bag_fee', $DAO_store->supports_bag_fee);
+		$tpl->assign('default_bag_fee', $DAO_store->default_bag_fee);
 
 		$Form->AddElement(array(
 			CForm::type => CForm::Button,
@@ -792,14 +792,14 @@ class page_payment extends CPage
 				$xssFilter = new InputFilter();
 				$_POST = $xssFilter->process($_POST);
 
-				$Order->setOrderInStoreStatus();
-				$Order->setOrderMultiplierEligibility();
+				$DAO_orders->setOrderInStoreStatus();
+				$DAO_orders->setOrderMultiplierEligibility();
 
-				$Order->setStoreCustomizationOptions();
+				$DAO_orders->setStoreCustomizationOptions();
 
-				list($validationPassed, $StoreCreditArray, $giftCardArray, $creditCardArray) = checkout_validation::validateAndPreparePayments($Cart->getAllPayments(), $tpl, $Order->grand_total, $Order->store_id, true);
+				list($validationPassed, $StoreCreditArray, $giftCardArray, $creditCardArray) = checkout_validation::validateAndPreparePayments($Cart->getAllPayments(), $tpl, $DAO_orders->grand_total, $DAO_orders->store_id, true);
 
-				if ($Order->isDreamTaste() || $Order->isFundraiser())
+				if ($DAO_orders->isDreamTaste() || $DAO_orders->isFundraiser())
 				{
 					// no store credits can be used
 					$StoreCreditArray = array();
@@ -879,12 +879,12 @@ class page_payment extends CPage
 							$paymentType = ($paymentType . '_' . CPayment::GIFT_CARD);
 						}
 
-						$rslt = $Order->processEditOrder($originalOrder, $Cart, $tpl->delta_boxes_differences, $paymentsFromCart, $paymentType, $creditCardArray, $StoreCreditArray, $giftCardArray, true);
+						$rslt = $DAO_orders->processEditOrder($originalOrder, $Cart, $tpl->delta_boxes_differences, $paymentsFromCart, $paymentType, $creditCardArray, $StoreCreditArray, $giftCardArray, true);
 					}
 					else
 					{
 						// finally charge the remaining balance to the credit card
-						$rslt = $Order->processNewOrderGC(CPayment::CC, $creditCardArray, $StoreCreditArray, $giftCardArray, true);
+						$rslt = $DAO_orders->processNewOrderGC(CPayment::CC, $creditCardArray, $StoreCreditArray, $giftCardArray, true);
 					}
 				}
 				else
@@ -941,9 +941,9 @@ class page_payment extends CPage
 						$theUser = CUser::getCurrentUser();
 
 						// if there is a gift card - the email function is informed and delivers the message
-						COrders::sendConfirmationEmail($theUser, $Order, $Order->getGiftCards());
-						$theUser->setHomeStore($Order->store_id);
-						CCustomerReferral::updateAsOrderedIfEligible($theUser, $Order);
+						COrders::sendConfirmationEmail($theUser, $DAO_orders, $DAO_orders->getGiftCards());
+						$theUser->setHomeStore($DAO_orders->store_id);
+						CCustomerReferral::updateAsOrderedIfEligible($theUser, $DAO_orders);
 						$Cart->emptyCart();
 					}
 					catch (exception $e)
@@ -953,7 +953,7 @@ class page_payment extends CPage
 
 					// set a cookie so that analytics only records viewing the thank you page once
 					CBrowserSession::setValue('dd_thank_you', 'checkout', false, true, false);
-					CApp::bounce('/order-details?order=' . $Order->id, true);
+					CApp::bounce('/order-details?order=' . $DAO_orders->id, true);
 
 					break;
 
@@ -1005,39 +1005,39 @@ class page_payment extends CPage
 			CApp::instance()->bounce('/order-submit?sc=true');
 		}
 
-		if ($Order)
+		if ($DAO_orders)
 		{
 			//build the order
-			$Order->refresh(CUser::getCurrentUser());
-			$Order->recalculate();
+			$DAO_orders->refresh(CUser::getCurrentUser());
+			$DAO_orders->recalculate();
 
-			$tpl->assign('orderInfo', $Order->toArray());
-			$tpl->assign('session_id', $Order->findSession()->id);
+			$tpl->assign('orderInfo', $DAO_orders->toArray());
+			$tpl->assign('session_id', $DAO_orders->findSession()->id);
 		}
 
-		$Coupon = $Order->getCoupon();
+		$Coupon = $DAO_orders->getCoupon();
 
 		// We must recheck validity of coupon since the ussr may have removed items, etc.. since coupon was added.
 		if ($Coupon)
 		{
-			if ($Order->isDelivered())
+			if ($DAO_orders->isDelivered())
 			{
-				$result = $Coupon->isValidForDelivered($Order, $Cart->getMenuId());
+				$result = $Coupon->isValidForDelivered($DAO_orders, $Cart->getMenuId());
 			}
 			else
 			{
-				$result = $Coupon->isValid($Order, $Cart->getMenuId());
+				$result = $Coupon->isValid($DAO_orders, $Cart->getMenuId());
 			}
 
 			if (!empty($result))
 			{
 				$Coupon = null;
-				$Order->removeCoupon();
-				$Order->recalculate();
+				$DAO_orders->removeCoupon();
+				$DAO_orders->recalculate();
 
 				$errorMessages = implode("<br />", $result);
 				$tpl->setErrorMsg("A promo code was removed for the following reasons:<br /> " . $errorMessages);
-				$Cart->addOrder($Order);
+				$Cart->addOrder($DAO_orders);
 			}
 		}
 
@@ -1059,10 +1059,10 @@ class page_payment extends CPage
 			$tpl->assign('CC_error', true);
 		}
 
-		$this->setupCCIcons($Order, $tpl, false);
+		$this->setupCCIcons($DAO_orders, $tpl, false);
 
-		$tpl->assign('productCount', $Order->countProducts());
-		if ($Order->countItems() > 0)
+		$tpl->assign('productCount', $DAO_orders->countProducts());
+		if ($DAO_orders->countItems() > 0)
 		{
 			$tpl->assign('hasItems', true);
 		}
@@ -1082,7 +1082,7 @@ class page_payment extends CPage
 			$couponDetails->limit_to_delivery_fee = false;
 		}
 		$tpl->assign('coupon', json_encode($couponDetails));
-		$tpl->assign('grand_total', $Order->grand_total);
+		$tpl->assign('grand_total', $DAO_orders->grand_total);
 
 		$tpl->assign('sticky_nav_bottom_disable', true);
 		$tpl->assign('cart_info', CUser::getCartIfExists());

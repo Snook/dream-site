@@ -22,7 +22,6 @@ class page_admin_reports_royalty extends CPageAdminOnly
 		$this->cleanReportInputs();
 	}
 
-
 	function runHomeOfficeManager()
 	{
 		$this->runSiteAdmin();
@@ -40,13 +39,11 @@ class page_admin_reports_royalty extends CPageAdminOnly
 		$this->runSiteAdmin();
 	}
 
-
 	function runOpsLead()
 	{
 		$this->currentStore = CApp::forceLocationChoice();
 		$this->runSiteAdmin();
 	}
-
 
 	function runSiteAdmin()
 	{
@@ -335,8 +332,6 @@ class page_admin_reports_royalty extends CPageAdminOnly
 				$tpl->assign('print_view', true);
 			}
 
-
-
 			if ($report_type_to_run == 3)
 			{
 				$day = "01";
@@ -430,12 +425,10 @@ class page_admin_reports_royalty extends CPageAdminOnly
 
 		$storeIsDC = $storeobj->store_type == CStore::DISTRIBUTION_CENTER;
 
-
-		if ((($year == 2018 && $month >= 9) || $year > 2018) && !$storeIsDC )
+		if ((($year == 2018 && $month >= 9) || $year > 2018) && !$storeIsDC)
 		{
 			$needsSalesForceFee = true;
 		}
-
 
 		if ($year == 2017 && $month == 6)
 		{
@@ -447,12 +440,12 @@ class page_admin_reports_royalty extends CPageAdminOnly
 		{
 			$menuMonthStart = strtotime("2017-07-01");
 
-			$curMonthTS = mktime(0,0,0,$month,1, $year);
+			$curMonthTS = mktime(0, 0, 0, $month, 1, $year);
 
 			if ($curMonthTS >= $menuMonthStart)
 			{
 				// new method using menu month
-				$anchorDay = date("Y-m-01", mktime(0,0,0,$month,1, $year));
+				$anchorDay = date("Y-m-01", mktime(0, 0, 0, $month, 1, $year));
 				list($menu_start_date, $interval) = CMenu::getMenuStartandInterval(false, $anchorDay);
 				$start_date = strtotime($menu_start_date);
 				$year = date("Y", $start_date);
@@ -469,12 +462,12 @@ class page_admin_reports_royalty extends CPageAdminOnly
 		$DoorDashRevenue = CRoyaltyReport::getDoorDashRevenueByTimeSpan($year . "-" . $month . "-" . $day, $duration, $store);
 		$DoorDashFees = CRoyaltyReport::getDoorDashFeesByTimeSpan($year . "-" . $month . "-" . $day, $duration, $store);
 
-		$rows['grand_total']  += $ProductOrderMemebershipFeeRevenue;
-		$rows['total_sales']  += $ProductOrderMemebershipFeeRevenue;
-		$rows['grand_total']  += $DoorDashRevenue;
-		$rows['total_sales']  += $DoorDashRevenue;
+		$rows['grand_total'] += $ProductOrderMemebershipFeeRevenue;
+		$rows['total_sales'] += $ProductOrderMemebershipFeeRevenue;
+		$rows['grand_total'] += $DoorDashRevenue;
+		$rows['total_sales'] += $DoorDashRevenue;
 
-		if ((isset($rows['grand_total']) && $rows['grand_total'] > 0) || $store  == 57)
+		if ((isset($rows['grand_total']) && $rows['grand_total'] > 0) || $store == 57)
 		{
 			$foundentry = true;
 
@@ -499,7 +492,6 @@ class page_admin_reports_royalty extends CPageAdminOnly
 				$rows['subtotal_bag_fee'] = 0;
 			}
 
-
 			$performance = CRoyaltyReport::findPerformanceExceptions($year . "-" . $month . "-" . $day, $duration, $store);
 			$haspermanceoverride = false;
 			if (isset($performance[$store]))
@@ -516,13 +508,11 @@ class page_admin_reports_royalty extends CPageAdminOnly
 			// Finance Dept requested delivery fee be reported by calendar month so override here
 			//$rows['subtotal_delivery_fee'] = CRoyaltyReport::getDeliveryFeeByCalendarMonth($orgMonthRequest, $orgYearRequest, $store);
 
-
 			$instance = new CStoreExpenses();
 			$expenseData = $instance->findExpenseDataByMonth($store, $day, $month, $year, $duration);
-			CDreamReport::calculateFees($rows, $store, $haspermanceoverride, $expenseData, $giftCertValues, $programdiscounts, $rows['fundraising_total'], $rows['ltd_menu_item_value'], $rows['subtotal_delivery_fee'], $rows['subtotal_bag_fee'],
-				$DoorDashFees, $marketingFee, $royaltyFee, $storeobj->grand_opening_date, $month, $year);
+			CDreamReport::calculateFees($rows, $store, $haspermanceoverride, $expenseData, $giftCertValues, $programdiscounts, $rows['fundraising_total'], $rows['ltd_menu_item_value'], $rows['subtotal_delivery_fee'], $rows['delivery_tip'],  $rows['subtotal_bag_fee'], $DoorDashFees, $marketingFee, $royaltyFee, $storeobj->grand_opening_date, $month, $year);
 
-			if($storeIsDC)
+			if ($storeIsDC)
 			{
 				$marketingFee = 0;
 			}
@@ -532,7 +522,7 @@ class page_admin_reports_royalty extends CPageAdminOnly
 			$salesForceFee = 0;
 			if ($needsSalesForceFee)
 			{
-				$salesForceFee =  CRoyaltyReport::$SALESFORCE_MARKETING_FEE;
+				$salesForceFee = CRoyaltyReport::$SALESFORCE_MARKETING_FEE;
 			}
 
 			$rows['salesforce_fee'] = $salesForceFee;

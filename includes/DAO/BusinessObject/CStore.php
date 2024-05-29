@@ -907,6 +907,16 @@ class CStore extends DAO_Store
 		return true;
 	}
 
+	function supportsDeliveryTip()
+	{
+		if (!$this->supportsDelivery() || empty($this->supports_delivery_tip))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	static function storeSupportsMembership($store)
 	{
 		if (is_array($store) && isset($store['supports_membership']))

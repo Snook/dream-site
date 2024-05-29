@@ -63,9 +63,9 @@ class processor_cart_session_processor extends CPageProcessor
 				$CartObj = CCart2::instance();
 				$cart_session_type = $CartObj->getNavigationType();
 
-				$Session = DAO_CFactory::create('session');
-				$Session->id = $_POST['sid'];
-				if (!$Session->find(true))
+				$DAO_session = DAO_CFactory::create('session');
+				$DAO_session->id = $_POST['sid'];
+				if (!$DAO_session->find(true))
 				{
 					if ($testMode)
 					{
@@ -79,9 +79,9 @@ class processor_cart_session_processor extends CPageProcessor
 					));
 				}
 
-				if ($cart_session_type == CSession::INTRO && $Session->session_type != CSession::DREAM_TASTE)
+				if ($cart_session_type == CSession::INTRO && $DAO_session->session_type != CSession::DREAM_TASTE)
 				{
-					$numSlots = $Session->getRemainingIntroSlots();
+					$numSlots = $DAO_session->getRemainingIntroSlots();
 				}
 				else
 				{
@@ -92,9 +92,9 @@ class processor_cart_session_processor extends CPageProcessor
 					}
 
 					// capacity for RSVP determination
-					$activeRSVPs = $Session->get_RSVP_count($user_id);
+					$activeRSVPs = $DAO_session->get_RSVP_count($user_id);
 
-					$numSlots = $Session->getRemainingSlots() - $activeRSVPs;
+					$numSlots = $DAO_session->getRemainingSlots() - $activeRSVPs;
 				}
 
 				if ($numSlots <= 0)
@@ -111,12 +111,12 @@ class processor_cart_session_processor extends CPageProcessor
 					));
 				}
 
-				$StoreObj = DAO_CFactory::create('store');
-				$StoreObj->id = $Session->store_id;
-				$StoreObj->selectAdd('timezone_id');
-				$StoreObj->find(true);
+				$DAO_store = DAO_CFactory::create('store', true);
+				$DAO_store->id = $DAO_session->store_id;
+				$DAO_store->selectAdd('timezone_id');
+				$DAO_store->find(true);
 
-				if ($Session->session_publish_state != 'PUBLISHED' || !$Session->isOpen($StoreObj))
+				if ($DAO_session->session_publish_state != 'PUBLISHED' || !$DAO_session->isOpen($DAO_store))
 				{
 					if ($testMode)
 					{
@@ -130,7 +130,7 @@ class processor_cart_session_processor extends CPageProcessor
 					));
 				}
 
-				if (!empty($Session->session_password))
+				if (!empty($DAO_session->session_password))
 				{
 					if (empty($_POST['pwd']))
 					{
@@ -148,7 +148,7 @@ class processor_cart_session_processor extends CPageProcessor
 						));
 					}
 
-					if (trim($_POST['pwd']) !== trim($Session->session_password))
+					if (trim($_POST['pwd']) !== trim($DAO_session->session_password))
 					{
 						$this->logPasswordAccess(false);
 
@@ -169,58 +169,65 @@ class processor_cart_session_processor extends CPageProcessor
 
 				if (!$testMode)
 				{
-					$CartObj->addMenuId($Session->menu_id, true);
-					$CartObj->storeChangeEvent($Session->store_id, true);
+					$CartObj->addMenuId($DAO_session->menu_id, true);
+					$CartObj->storeChangeEvent($DAO_session->store_id, true);
 
 					if ($cart_session_type == CSession::INTRO)
 					{
 						// may need to update the bundle_id
-						$Bundle = CBundle::getActiveBundleForMenu($Session->menu_id, $StoreObj);
+						$Bundle = CBundle::getActiveBundleForMenu($DAO_session->menu_id, $DAO_store);
 						$CartObj->addBundleId($Bundle->id, true);
+						$CartObj->removeDeliveryTip();
 						$CartObj->addNavigationType(CSession::INTRO, true);
 					}
-					else if ($Session->session_type == CSession::STANDARD)
+					else if ($DAO_session->session_type == CSession::STANDARD)
 					{
-						if ($Session->isPrivate())
+						if ($DAO_session->isPrivate())
 						{
 							$CartObj->addNavigationType(CSession::EVENT, true);
 						}
 						else
 						{
 							$CartObj->addNavigationType(CSession::ALL_STANDARD, true);
-							//$CartObj->addNavigationType(CSession::STANDARD, true);
 						}
+
+						$CartObj->removeDeliveryTip();
 						$CartObj->removeBundleId();
 						$CartObj->removeMealCustomizationOptOut();
 					}
-					else if ($Session->isMadeForYou())
+					else if ($DAO_session->isMadeForYou())
 					{
-						if ($Session->isPrivate())
+						if ($DAO_session->isPrivate())
 						{
 							$CartObj->addNavigationType(CSession::EVENT, true);
+							$CartObj->removeDeliveryTip();
 						}
-						else if ($Session->isDelivery())
+						else if ($DAO_session->isDelivery())
 						{
 							$CartObj->addNavigationType(CSession::ALL_STANDARD, true);
-							//$CartObj->addNavigationType(CSession::DELIVERY, true);
+							if ($CartObj->getOrder()->eligibleForDeliveryTip($DAO_session))
+							{
+								$CartObj->addDeliveryTip($CartObj->getOrder()->getStoreObj()->default_delivery_tip, true);
+							}
 						}
 						else
 						{
 							$CartObj->addNavigationType(CSession::ALL_STANDARD, true);
-							//$CartObj->addNavigationType(CSession::MADE_FOR_YOU, true);
+							$CartObj->removeDeliveryTip();
 						}
 
 						$CartObj->removeBundleId();
 					}
-					else if ($Session->session_type == CSession::FUNDRAISER || $Session->session_type == CSession::DREAM_TASTE)
+					else if ($DAO_session->session_type == CSession::FUNDRAISER || $DAO_session->session_type == CSession::DREAM_TASTE)
 					{
-						$session = CSession::getSessionDetail($Session->id, false);
+						$session = CSession::getSessionDetail($DAO_session->id, false);
 						$CartObj->addBundleId($session['bundle_id'], true);
 						$CartObj->addNavigationType(CSession::EVENT, true);
+						$CartObj->removeDeliveryTip();
 						$CartObj->removeMealCustomizationOptOut();
 					}
 
-					$CartObj->addSessionId($Session->id, true);
+					$CartObj->addSessionId($DAO_session->id, true);
 				}
 
 				if ($testMode)
@@ -232,7 +239,7 @@ class processor_cart_session_processor extends CPageProcessor
 					'processor_success' => true,
 					'result_code' => 1,
 					'bounce_to' => '/checkout',
-					'result_day' => CTemplate::dateTimeFormat($Session->session_start, YEAR_MONTH_DAY),
+					'result_day' => CTemplate::dateTimeFormat($DAO_session->session_start, YEAR_MONTH_DAY),
 					'processor_message' => 'The session was successfully selected.'
 				));
 			}

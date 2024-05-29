@@ -152,21 +152,20 @@ class CCart2
 
 	private function initData()
 	{
-
 		$this->_PaymentArray = array();
 		$this->_registration_data = array();
 		$this->_gift_card_orders = array();
 		$this->_menu_items = array();
 		$this->_delivered_boxes = array();
 		$this->_products = array();
-		$this->_OrderObj = new COrders();
-
 		$this->_menu_id = null;
 		$this->_session_id = null;
 		$this->_navigation_type = null;
 		$this->_postal_code = null;
 		$this->_direct_invite = null;
 		$this->_edit_order_id = null;
+
+		$this->_OrderObj = DAO_CFactory::create('orders', true);
 		$this->_OrderObj->order_customization = null;
 		$this->_OrderObj->direct_order_discount = 0;
 		$this->_OrderObj->points_discount_total = 0;
@@ -177,7 +176,6 @@ class CCart2
 		$this->_OrderObj->is_sampler = 0;
 		$this->_OrderObj->is_TODD = 0;
 		$this->_OrderObj->opted_to_customize_recipes = null;
-
 		$this->_OrderObj->ltd_round_up_value = 0;
 
 		$this->_isFullyConstructed = true;
@@ -1255,6 +1253,16 @@ class CCart2
 		}
 	}
 
+	function addDeliveryTip($value, $directStore = false)
+	{
+		$this->_storage->storeOrderValue($this->_cart_contents_id, "delivery_tip", $value);
+
+		if (!$directStore)
+		{
+			$this->_OrderObj->delivery_tip = $value;
+		}
+	}
+
 	function addMenuId($menu_id, $directStore = false)
 	{
 		// guest is changing their session, they are no longer directly invited
@@ -2095,6 +2103,16 @@ class CCart2
 		}
 
 		$this->_storage->storeArray($this->_cart_contents_id, $newArray, "GIFT_CARDS");
+	}
+
+	function removeDeliveryTip()
+	{
+		if ($this->_isFullyConstructed)
+		{
+			$this->_OrderObj->delivery_tip = 0;
+		}
+
+		$this->_storage->storeOrderValue($this->_cart_contents_id, "delivery_tip", 0);
 	}
 
 	function removeBundleId()

@@ -57,6 +57,7 @@
 			</div>
 		</div>
 	<?php } ?>
+
 	<?php if ($this->orderOrStoreSupportDelivery) { ?>
 		<div class="row mt-2">
 			<div class="offset-8 col-4">
@@ -65,6 +66,19 @@
 						<div class="input-group-text">Delivery Fee $</div>
 					</div>
 					<?php echo $this->form_direct_order['subtotal_delivery_fee_html'] ?>
+				</div>
+			</div>
+		</div>
+	<?php } ?>
+
+	<?php if ($this->orderOrStoreSupportDeliveryTip) { ?>
+		<div class="row mt-2">
+			<div class="offset-8 col-4">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">Driver Tip $</div>
+					</div>
+					<?php echo $this->form_direct_order['delivery_tip_html'] ?>
 				</div>
 			</div>
 		</div>
@@ -147,5 +161,3 @@
 		<br>
 		<?php } ?>
 </div>
-
-

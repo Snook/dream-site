@@ -1278,131 +1278,131 @@ class CSession extends DAO_Session
 		return false;
 	}
 
-	static function sendRSVPemail($SessionObj, $UserObj)
+	static function sendRSVPemail($DAO_session, $DAO_user)
 	{
-		$StoreObj = DAO_CFactory::create('store');
-		$StoreObj->id = $SessionObj->store_id;
-		$StoreObj->find(true);
+		$DAO_store = DAO_CFactory::create('store');
+		$DAO_store->id = $DAO_session->store_id;
+		$DAO_store->find(true);
 
 		require_once('CMail.inc');
 		$Mail = new CMail();
 
 		$HTMLcontents = CMail::mailMerge('session_rsvp.html.php', array(
-			'session_info' => $SessionObj,
-			'store_info' => $StoreObj,
-			'user_info' => $UserObj
+			'session_info' => $DAO_session,
+			'store_info' => $DAO_store,
+			'user_info' => $DAO_user
 		));
 
 		$Txtcontents = CMail::mailMerge('session_rsvp.txt.php', array(
-			'session_info' => $SessionObj,
-			'store_info' => $StoreObj,
-			'user_info' => $UserObj
+			'session_info' => $DAO_session,
+			'store_info' => $DAO_store,
+			'user_info' => $DAO_user
 		));
 
-		$Mail->send(null, null, $UserObj->firstname . ' ' . $UserObj->lastname, $UserObj->primary_email, 'RSVP Confirmation', $HTMLcontents, $Txtcontents);
+		$Mail->send(null, null, $DAO_user->firstname . ' ' . $DAO_user->lastname, $DAO_user->primary_email, 'RSVP Confirmation', $HTMLcontents, $Txtcontents);
 	}
 
-	static function createSessionRSVP($SessionObj, $UserObj, $sendConfirmationEmail = true)
+	static function createSessionRSVP($DAO_session, $DAO_user, $sendConfirmationEmail = true)
 	{
-		if (is_numeric($SessionObj))
+		if (is_numeric($DAO_session))
 		{
-			$session_id = $SessionObj;
+			$session_id = $DAO_session;
 
-			$SessionObj = DAO_CFactory::create('session');
-			$SessionObj->id = $session_id;
-			$SessionObj->find(true);
+			$DAO_session = DAO_CFactory::create('session');
+			$DAO_session->id = $session_id;
+			$DAO_session->find(true);
 		}
 
-		if (is_numeric($UserObj))
+		if (is_numeric($DAO_user))
 		{
-			$user_id = $UserObj;
+			$user_id = $DAO_user;
 
-			$UserObj = DAO_CFactory::create('user');
-			$UserObj->id = $user_id;
-			$UserObj->find(true);
+			$DAO_user = DAO_CFactory::create('user');
+			$DAO_user->id = $user_id;
+			$DAO_user->find(true);
 		}
 
-		$SessionRSVP = DAO_CFactory::create('session_rsvp');
-		$SessionRSVP->user_id = $UserObj->id;
-		$SessionRSVP->session_id = $SessionObj->id;
-		if (!$SessionRSVP->find(true))
+		$DAO_session_rsvp = DAO_CFactory::create('session_rsvp');
+		$DAO_session_rsvp->user_id = $DAO_user->id;
+		$DAO_session_rsvp->session_id = $DAO_session->id;
+		if (!$DAO_session_rsvp->find(true))
 		{
-			$SessionRSVP->insert();
+			$DAO_session_rsvp->insert();
 
 			if ($sendConfirmationEmail)
 			{
-				CSession::sendRSVPemail($SessionObj, $UserObj);
+				CSession::sendRSVPemail($DAO_session, $DAO_user);
 			}
 		}
 
-		return $SessionRSVP;
+		return $DAO_session_rsvp;
 	}
 
 	static function getSessionRSVP($session_id, $user_id)
 	{
-		$SessionRSVP = DAO_CFactory::create('session_rsvp');
-		$SessionRSVP->user_id = $user_id;
-		$SessionRSVP->session_id = $session_id;
-		$SessionRSVP->upgrade_booking_id = 'NULL';
+		$DAO_session_rsvp = DAO_CFactory::create('session_rsvp');
+		$DAO_session_rsvp->user_id = $user_id;
+		$DAO_session_rsvp->session_id = $session_id;
+		$DAO_session_rsvp->upgrade_booking_id = 'NULL';
 
-		if (!$SessionRSVP->find(true))
+		if (!$DAO_session_rsvp->find(true))
 		{
 			return false;
 		}
 
-		return $SessionRSVP;
+		return $DAO_session_rsvp;
 	}
 
 	static function deleteSessionRSVP($session_id, $user_id = false)
 	{
-		$SessionRSVP = DAO_CFactory::create('session_rsvp');
+		$DAO_session_rsvp = DAO_CFactory::create('session_rsvp', true);
 		if ($user_id)
 		{
-			$SessionRSVP->user_id = $user_id;
+			$DAO_session_rsvp->user_id = $user_id;
 		}
-		$SessionRSVP->session_id = $session_id;
-		$SessionRSVP->find();
+		$DAO_session_rsvp->session_id = $session_id;
+		$DAO_session_rsvp->find();
 
-		while ($SessionRSVP->fetch())
+		while ($DAO_session_rsvp->fetch())
 		{
-			$SessionRSVP->delete();
+			$DAO_session_rsvp->delete();
 		}
 	}
 
-	static function upgradeSessionRSVP($session_id, $user_id, $booking_id)
+	function upgradeRSVP($user_id, $booking_id)
 	{
-		$SessionRSVP = DAO_CFactory::create('session_rsvp');
-		$SessionRSVP->user_id = $user_id;
-		$SessionRSVP->session_id = $session_id;
-		$SessionRSVP->upgrade_booking_id = 'NULL';
+		$DAO_session_rsvp = DAO_CFactory::create('session_rsvp', true);
+		$DAO_session_rsvp->user_id = $user_id;
+		$DAO_session_rsvp->session_id = $this->id;
+		$DAO_session_rsvp->upgrade_booking_id = 'NULL';
 
-		if ($SessionRSVP->find(true))
+		if ($DAO_session_rsvp->find(true))
 		{
-			$Org_SessionRSVP = clone $SessionRSVP;
+			$org_DAO_session_rsvp = clone $DAO_session_rsvp;
 
-			$SessionRSVP->upgrade_booking_id = $booking_id;
-			$SessionRSVP->update($Org_SessionRSVP);
+			$DAO_session_rsvp->upgrade_booking_id = $booking_id;
+			$DAO_session_rsvp->update($org_DAO_session_rsvp);
 		}
 	}
 
 	function getSessionRSVPArray()
 	{
-		$session_rsvp = DAO_CFactory::create('session_rsvp');
-		$session_rsvp->session_id = $this->id;
-		$session_rsvp->upgrade_booking_id = 'NULL';
-		$session_rsvp->find();
+		$DAO_session_rsvp = DAO_CFactory::create('session_rsvp', true);
+		$DAO_session_rsvp->session_id = $this->id;
+		$DAO_session_rsvp->upgrade_booking_id = 'NULL';
+		$DAO_session_rsvp->find();
 
 		$session_rsvp_array = array();
 
-		while ($session_rsvp->fetch())
+		while ($DAO_session_rsvp->fetch())
 		{
 			$user = DAO_CFactory::create('user');
-			$user->id = $session_rsvp->user_id;
+			$user->id = $DAO_session_rsvp->user_id;
 
 			if ($user->find(true))
 			{
-				$session_rsvp_array[$session_rsvp->id] = clone($session_rsvp);
-				$session_rsvp_array[$session_rsvp->id]->user = clone($user);
+				$session_rsvp_array[$DAO_session_rsvp->id] = clone($DAO_session_rsvp);
+				$session_rsvp_array[$DAO_session_rsvp->id]->user = clone($user);
 			}
 		}
 
@@ -1427,17 +1427,17 @@ class CSession extends DAO_Session
 		return true;
 	}
 
-	function isStandardSessionValid($storeObj)
+	function isStandardSessionValid($DAO_store)
 	{
-		$isOpen = $this->isOpen($storeObj);
+		$isOpen = $this->isOpen($DAO_store);
 		$hasSpace = $this->getRemainingSlots() > 0;
 
 		return $isOpen && $hasSpace;
 	}
 
-	function isIntroSessionValid($storeObj)
+	function isIntroSessionValid($DAO_store)
 	{
-		$isOpen = $this->isOpen($storeObj);
+		$isOpen = $this->isOpen($DAO_store);
 		$hasSpace = $this->getRemainingIntroSlots() > 0;
 
 		return $isOpen && $hasSpace;
@@ -1448,10 +1448,10 @@ class CSession extends DAO_Session
 	 * you can reschedule to any session occurring from 5 days from today or later
 	 * @return boolean
 	 */
-	function isOpenForRescheduling($storeObj)
+	function isOpenForRescheduling($DAO_store)
 	{
 
-		$today = CTimezones::getAdjustedTime($storeObj, mktime(0, 0, 0, date("n"), date("j"), date("Y")));
+		$today = CTimezones::getAdjustedTime($DAO_store, mktime(0, 0, 0, date("n"), date("j"), date("Y")));
 		// midnight this morning
 		$cutoff = $today + (86400 * 5);
 
@@ -1462,26 +1462,25 @@ class CSession extends DAO_Session
 	 *   If the session to be rescheduled is in the last month and the current date is greater than the 6th then the session cannot be resceheduled
 	 *
 	 */
-	function isReschedulingLockedOut($storeObj)
+	function isReschedulingLockedOut($DAO_store)
 	{
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->id = $this->menu_id;
+		$DAO_menu->find(true);
 
-		$MenuObj = DAO_CFactory::create('menu');
-		$MenuObj->id = $this->menu_id;
-		$MenuObj->find(true);
-
-		return !$MenuObj->areSessionsOrdersEditable($storeObj);
+		return !$DAO_menu->areSessionsOrdersEditable($DAO_store);
 	}
 
-	function isInThePast($storeObj = false)
+	function isInThePast($DAO_store = false)
 	{
-		if (!$storeObj)
+		if (!$DAO_store)
 		{
-			$storeObj = DAO_CFactory::create('store');
-			$storeObj->query("select id, timezone_id from store where id = {$this->store_id}");
-			$storeObj->fetch();
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->query("select id, timezone_id from store where id = {$this->store_id}");
+			$DAO_store->fetch();
 		}
 
-		$now = CTimezones::getAdjustedServerTimeWithTimeZoneID($storeObj->timezone_id);
+		$now = CTimezones::getAdjustedServerTimeWithTimeZoneID($DAO_store->timezone_id);
 
 		if (strtotime($this->session_start) <= $now)
 		{
@@ -1622,35 +1621,6 @@ class CSession extends DAO_Session
 		$interval = $startTS - $closeTS;
 
 		return $interval / 3600;
-	}
-
-	/**
-	 * @return This method will return all sessions from the current date on.
-	 * Passin useMonthPrior == false to not include the previous month
-	 * Find all sessions whether unpublished or published.. but not SAVED
-	 * @author Lynn Hook
-	 */
-	function findSessions($store_id, $useMonthPrior = true)
-	{
-		$current_date_sql = date("Y-m-d 00:00:00");
-		$this->selectAdd();
-		$this->selectAdd('id');
-		$this->selectAdd('session_start');
-		$this->selectAdd('session_publish_state');
-		$this->whereAdd("store_id = " . $store_id, 'AND');
-		$this->whereAdd("session_publish_state != 'SAVED'", 'AND');
-		if ($useMonthPrior)
-		{
-			$this->whereAdd("session_start >=  DATE_SUB('" . $current_date_sql . "', INTERVAL 1 MONTH)");
-		}
-		else
-		{
-			$this->whereAdd("session_start >= '" . $current_date_sql . "'");
-		}
-
-		$this->orderBy('session_start');
-
-		return $this->find();
 	}
 
 	static function parseSessionArrayByMenu($sessionArray, $optionsArray = false)
@@ -2088,15 +2058,19 @@ class CSession extends DAO_Session
 		return false;
 	}
 
-	function isDelivered()
+	function isShipping()
 	{
-
 		if (!empty($this->session_type) && $this->session_type === CSession::DELIVERED)
 		{
 			return true;
 		}
 
 		return false;
+	}
+
+	function isDelivered()
+	{
+		return $this->isShipping();
 	}
 
 	function isRemotePickup()
