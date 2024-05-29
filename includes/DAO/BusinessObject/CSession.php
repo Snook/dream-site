@@ -830,6 +830,11 @@ class CSession extends DAO_Session
 
 	function sessionTypeIcon($mute_closed = false)
 	{
+		if (empty($this->session_type_true))
+		{
+			$this->sessionTypeToText();
+		}
+
 		if ($mute_closed)
 		{
 			return CCalendar::sessionTypeNote($this->session_type_true, $this->isOpen());
