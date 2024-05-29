@@ -15,6 +15,29 @@
 									<?php } else { ?>
 										<h3 class="text-uppercase font-weight-bold text-center d-sm-none"><?php echo $store["DAO_store"]->store_name; ?> Store</h3>
 									<?php } ?>
+									<?php if ($store["type"] != 'COMMUNITY_PICK_UP') { ?>
+										<div class="row d-sm-none mb-3">
+											<div class="col-12 text-center text-uppercase font-weight-bold mb-2">Available services</div>
+											<?php if ($store["DAO_store"]->hasAvailableSessionType('PICK_UP')) { ?>
+												<div class="col text-center">
+													<i class="dd-icon icon-store-front text-green font-size-medium-large align-bottom"></i>
+													<div class="font-italic">Store Pick Up</div>
+												</div>
+											<?php } ?>
+											<?php if ($store["DAO_store"]->hasAvailableSessionType('HOME_DELIVERY')) { ?>
+												<div class="col text-center">
+													<i class="dd-icon icon-delivery text-green font-size-medium-large align-bottom"></i>
+													<div class="font-italic">Home Delivery</div>
+												</div>
+											<?php } ?>
+											<?php if ($store["DAO_store"]->hasAvailableSessionType('ASSEMBLY')) { ?>
+												<div class="col text-center">
+													<i class="dd-icon icon-measuring_cup text-green font-size-medium-large align-bottom"></i>
+													<div class="font-italic">Assemble In Store</div>
+												</div>
+											<?php } ?>
+										</div>
+									<?php } ?>
 									<div>
 										<?php if ($store["DAO_store"]->hasPublicAddress()) { ?>
 											<iframe
@@ -47,7 +70,30 @@
 										<h3 class="text-uppercase font-weight-bold d-none d-sm-block">Community Pick Up location</h3>
 										<div class="text-uppercase d-none d-sm-block mb-4"><?php echo $store["DAO_store_pickup_location"]->location_title; ?></div>
 									<?php } else { ?>
-										<h3 class="text-uppercase font-weight-bold d-none d-sm-block mb-4"><?php echo $store["DAO_store"]->store_name; ?> Store</h3>
+										<h3 class="text-uppercase font-weight-bold d-none d-sm-block mb-3"><?php echo $store["DAO_store"]->store_name; ?> Store</h3>
+									<?php } ?>
+									<?php if ($store["type"] != 'COMMUNITY_PICK_UP') { ?>
+										<div class="row d-none d-sm-flex mb-3">
+											<div class="col-12 text-center text-uppercase font-weight-bold mb-2">Available services</div>
+											<?php if ($store["DAO_store"]->hasAvailableSessionType('PICK_UP')) { ?>
+												<div class="col text-center">
+													<i class="dd-icon icon-store-front text-green font-size-medium-large align-bottom"></i>
+													<div class="font-italic">Store Pick Up</div>
+												</div>
+											<?php } ?>
+											<?php if ($store["DAO_store"]->hasAvailableSessionType('HOME_DELIVERY')) { ?>
+												<div class="col text-center">
+													<i class="dd-icon icon-delivery text-green font-size-medium-large align-bottom"></i>
+													<div class="font-italic">Home Delivery</div>
+												</div>
+											<?php } ?>
+											<?php if ($store["DAO_store"]->hasAvailableSessionType('ASSEMBLY')) { ?>
+												<div class="col text-center">
+													<i class="dd-icon icon-measuring_cup text-green font-size-medium-large align-bottom"></i>
+													<div class="font-italic">Assemble In Store</div>
+												</div>
+											<?php } ?>
+										</div>
 									<?php } ?>
 									<div class="row mb-2">
 										<div class="col">
@@ -81,25 +127,6 @@
 									</div>
 
 									<?php if ($store["type"] != 'COMMUNITY_PICK_UP') { ?>
-											<div class="mt-1">
-												<span>AVAILABLE SERVICES</span>
-											</div>
-										<?php if ($store["DAO_store"]->hasAvailableSessionType('PICK_UP')) { ?>
-											<div class="mt-2">
-												<i class="dd-icon icon-shop-front text-green font-size-medium-large align-bottom"></i> <span class="font-italic">Store Pick Up</span>
-											</div>
-										<?php } ?>
-
-										<?php if ($store["DAO_store"]->hasAvailableSessionType('HOME_DELIVERY')) { ?>
-											<div class="mt-1">
-												<i class="dd-icon icon-delivery text-green font-size-medium-large align-bottom"></i> <span class="font-italic">Home Delivery</span>
-											</div>
-										<?php } ?>
-										<?php if ($store["DAO_store"]->hasAvailableSessionType('ASSEMBLY')) { ?>
-											<div class="mt-1">
-												<i class="dd-icon icon-measuring_cup text-green font-size-medium-large align-bottom"></i> <span class="font-italic">Assembly In Store</span>
-											</div>
-										<?php } ?>
 										<div class="row mt-4">
 											<div class="col">
 												<a href="<?php echo $store["DAO_store"]->getPrettyUrl(); ?>/calendar" class="btn btn-primary w-100 btn-spinner">View store events</a>

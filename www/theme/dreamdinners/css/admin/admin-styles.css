@@ -17986,7 +17986,7 @@ A VERTICAL event
 
 @font-face {
   font-family: "ddicon";
-  src: url("fonts/ddicon.ttf?x75ygv") format("truetype"), url("fonts/ddicon.woff?x75ygv") format("woff"), url("fonts/ddicon.svg?x75ygv#ddicon") format("svg");
+  src: url("fonts/ddicon.ttf?cggugv") format("truetype"), url("fonts/ddicon.woff?cggugv") format("woff"), url("fonts/ddicon.svg?cggugv#ddicon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -18012,6 +18012,10 @@ A VERTICAL event
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-store-front:before {
+  content: "\e95e";
 }
 
 .icon-person:before {
@@ -37284,7 +37288,7 @@ A VERTICAL event
 
 @font-face {
   font-family: "ddicon";
-  src: url("fonts/ddicon.ttf?x75ygv") format("truetype"), url("fonts/ddicon.woff?x75ygv") format("woff"), url("fonts/ddicon.svg?x75ygv#ddicon") format("svg");
+  src: url("fonts/ddicon.ttf?cggugv") format("truetype"), url("fonts/ddicon.woff?cggugv") format("woff"), url("fonts/ddicon.svg?cggugv#ddicon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -37310,6 +37314,10 @@ A VERTICAL event
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-store-front:before {
+  content: "\e95e";
 }
 
 .icon-person:before {
