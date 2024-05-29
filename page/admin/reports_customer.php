@@ -916,7 +916,7 @@ class page_admin_reports_customer extends CPageAdminOnly
 
 		if ($sectionSwitches['contact_info'])
 		{
-			$selectStr .= ", u.telephone_1, u.telephone_1_type, u.telephone_1_call_time, u.telephone_2, u.telephone_2_type, u.telephone_2_call_time, user_pref_text.pvalue as text_message_opt_in ";
+			$selectStr .= ", u.telephone_1, u.telephone_1_type, u.telephone_1_call_time, u.telephone_2, u.telephone_2_type, u.telephone_2_call_time,  if(user_pref_text.pvalue is not null, user_pref_text.pvalue, 'UNANSWERED') as text_message_opt_in ";
 			$colcount += 6;
 		}
 

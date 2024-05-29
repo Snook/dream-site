@@ -281,7 +281,7 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 
 			if ($sectionSwitches['df_TEXT_MESSAGE_OPT_IN'])
 			{
-				$innerOptionalColumns .= ", up_text.pvalue as text_message_opt_in";
+				$innerOptionalColumns .= ", if(up_text.pvalue is not null, up_text.pvalue, 'UNANSWERED') as text_message_opt_in";
 			}
 
 			if ($sectionSwitches['df_USER_SHARE_URL'])
