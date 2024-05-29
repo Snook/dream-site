@@ -231,7 +231,7 @@
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
 						<h2 class="font-weight-bold mt-2">June Grill Bundle</h2>
-						<p class="text-uppercase mb-4">Start your order with our June grill bundle. These 4 dinners are the perfect easy meal plan for the summer and includes Teriyaki Burgers with Pineapple Salsa with Seasoned Steak Fries, Charred Honey Lime Chicken with Mexican Street Corn, Kentucky Pork Chops with Bacon Ranch Green Beans, and Peach Bourbon Chicken with Oven Roasted Broccoli. Shipping grill bundle items may vary.</p>
+						<p class="text-uppercase mb-4">Start your order with our June grill bundle. These 4 dinners are the perfect easy meal plan for the summer. Bundle includes Teriyaki Burgers with Pineapple Salsa with Seasoned Steak Fries, Charred Honey Lime Chicken with Mexican Street Corn, Kentucky Pork Chops with Bacon Ranch Green Beans, and Peach Bourbon Chicken with Oven Roasted Broccoli. Shipping grill bundle items may vary.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 					<div class="col-md-6 p-0">
