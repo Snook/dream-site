@@ -427,7 +427,7 @@ class COrdersDigest extends DAO_Orders_digest
 						$DAO_user_digest->order_id_first_home_delivery = $DAO_orders->id;
 					}
 				}
-				else if ($DAO_orders->DAO_session->isPickUp())
+				else if ($DAO_session->isPickUp())
 				{
 					if (empty($DAO_user_digest->order_id_first_pick_up))
 					{
