@@ -26,6 +26,7 @@ try
 		$DAO_booking->status = CBooking::ACTIVE;
 		$DAO_session = DAO_CFactory::create('session', true);
 		$DAO_session->session_type = CSession::SPECIAL_EVENT;
+		$DAO_session->whereAdd("session.session_type = '" . CSession::SPECIAL_EVENT . "' OR session.session_type = '" . CSession::DELIVERED . "'");
 		$DAO_booking->joinAddWhereAsOn($DAO_session);
 		$DAO_booking->joinAddWhereAsOn(DAO_CFactory::create('orders', true));
 		$DAO_booking->orderBy('session.session_start ASC');
@@ -38,7 +39,7 @@ try
 				$DAO_user_digest->order_id_first_pick_up = $DAO_booking->order_id;
 			}
 
-			if (empty($DAO_user_digest->order_id_first_shipping) && $DAO_booking->DAO_orders->isShipping())
+			if (empty($DAO_user_digest->order_id_first_shipping) && $DAO_booking->DAO_session->isShipping())
 			{
 				$DAO_user_digest->order_id_first_shipping = $DAO_booking->order_id;
 			}
