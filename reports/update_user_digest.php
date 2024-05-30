@@ -50,9 +50,11 @@ try
 		}
 
 		$DAO_user_digest->update($org_DAO_user_digest);
+
+		echo "Completed row " . $DAO_user_digest->id . ".\n";
 	}
 
-	echo "Completed.\n";
+	echo "All Done.\n";
 
 }
 catch (exception $e)
