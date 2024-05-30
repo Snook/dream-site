@@ -52,6 +52,8 @@ try
 		$DAO_user_digest->update($org_DAO_user_digest);
 	}
 
+	echo "Completed.\n";
+
 }
 catch (exception $e)
 {
