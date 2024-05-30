@@ -1,5 +1,5 @@
-<div class="row mb-4">
-	<div class="col-md-12">
+<div class="row mb-4 bg-cyan-extra-light">
+	<div class="col-md-12 mt-3">
 		<?php if ($this->cart_info['sessionObj']->isDelivery()) { ?>
 			<h2 class="text-uppercase font-weight-bold font-size-medium-small text-left mb-4">Home Delivery Address</h2>
 		<?php } else { ?>
@@ -98,6 +98,7 @@
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<h3 class="font-size-small text-uppercase font-weight-semi-bold">Driver Tip</h3>
+					<div class="text-muted font-size-small">(Paid directly to the delivery driver)</div>
 					<div class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">$</span>
