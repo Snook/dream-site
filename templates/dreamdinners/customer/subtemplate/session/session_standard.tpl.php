@@ -18,7 +18,8 @@
 					<?php if (!empty($this->sessions['info']['session_type'][CSession::MADE_FOR_YOU])) { ?>
 						<a class="border nav-item nav-link font-weight-bold text-uppercase <?php if (!$ActiveTabSet) {echo "active"; $ActiveTabSet='SPECIAL_EVENT';}?>" id="nav-SPECIAL_EVENT-tab"
 						   data-urlpush="true" data-toggle="tab" data-target="#nav-SPECIAL_EVENT"
-						   href="/session?tab=SPECIAL_EVENT" role="tab" aria-controls="nav-SPECIAL_EVENT" aria-selected="true">View</br>Store Pick Up Times</a>
+						   href="/session?tab=SPECIAL_EVENT" role="tab" aria-controls="nav-SPECIAL_EVENT" aria-selected="true">
+							<i class="dd-icon icon-store-front text-green font-size-medium-large align-bottom"></i> View</br>Store Pick Up Times</a>
 					<?php } ?>
 					<?php if (!empty($this->sessions['info']['session_type'][CSession::REMOTE_PICKUP])) { ?>
 						<a class="border nav-item nav-link font-weight-bold text-uppercase <?php if (!$ActiveTabSet) {echo "active"; $ActiveTabSet='REMOTE_PICKUP';}?>" id="nav-REMOTE_PICKUP-tab"

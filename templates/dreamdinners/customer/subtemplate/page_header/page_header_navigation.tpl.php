@@ -1,8 +1,4 @@
 <?php
-//check optional template parameter to conditionally determine nav for Order and Get Started
-if (empty($this->order_process_navigation_page)) {
-	$this->order_process_navigation_page = 'locations';
-}
 $backNavigation = '';
 if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 {
@@ -123,7 +119,7 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 								</div>
 							</li>
 							<li class="nav-item d-none d-lg-block ml-lg-4">
-								<a class="btn btn-primary btn-lg py-1 px-3 mt-4 mt-md-0 text-white-space-nowrap" href="/<?php echo $this->order_process_navigation_page; ?>">Order Now</a>
+								<a class="btn btn-primary btn-lg py-1 px-3 mt-4 mt-md-0 text-white-space-nowrap" href="/session-menu">Order Now</a>
 							</li>
 						</ul>
 					</div>
