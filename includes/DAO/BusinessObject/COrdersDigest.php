@@ -331,6 +331,8 @@ class COrdersDigest extends DAO_Orders_digest
 
 	static function updateUserDigest($DAO_orders, $session_time, $originalSessionTime = false)
 	{
+		$DAO_session = $DAO_orders->getSessionObj();
+
 		if (!empty($DAO_orders->user_id) && is_numeric($DAO_orders->user_id))
 		{
 			$DAO_user_digest = DAO_CFactory::create('user_digest', true);
@@ -366,7 +368,7 @@ class COrdersDigest extends DAO_Orders_digest
 						$DAO_user_digest->update($org_DAO_user_digest);
 					}
 				}
-				else if ($DAO_orders->DAO_session->isPickUp())
+				else if ($DAO_session->isPickUp())
 				{
 					if (empty($DAO_user_digest->order_id_first_pick_up))
 					{
