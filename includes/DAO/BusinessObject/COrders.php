@@ -7480,6 +7480,18 @@ class COrders extends DAO_Orders
 		return (!$this->isNewIntroOffer() && !$this->isTODD() && !$this->isDreamTaste() && !$this->isFundraiser());
 	}
 
+	function isPickUp()
+	{
+		$DAO_session = $this->findSession();
+
+		if (empty($DAO_session))
+		{
+			return false;
+		}
+
+		return $DAO_session->isPickUp();
+	}
+
 	function isMadeForYou()
 	{
 		$Session = $this->findSession();
