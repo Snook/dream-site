@@ -28,7 +28,6 @@ try
 		$DAO_session->session_type = CSession::SPECIAL_EVENT;
 		$DAO_session->whereAdd("session.session_type = '" . CSession::SPECIAL_EVENT . "' OR session.session_type = '" . CSession::DELIVERED . "'");
 		$DAO_booking->joinAddWhereAsOn($DAO_session);
-		$DAO_booking->joinAddWhereAsOn(DAO_CFactory::create('orders', true));
 		$DAO_booking->orderBy('session.session_start ASC');
 		$DAO_booking->find();
 
