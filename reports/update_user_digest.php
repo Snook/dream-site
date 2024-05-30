@@ -25,7 +25,6 @@ try
 		$DAO_booking->user_id = $DAO_user_digest->user_id;
 		$DAO_booking->status = CBooking::ACTIVE;
 		$DAO_session = DAO_CFactory::create('session', true);
-		$DAO_session->session_type = CSession::SPECIAL_EVENT;
 		$DAO_session->whereAdd("session.session_type = '" . CSession::SPECIAL_EVENT . "' OR session.session_type = '" . CSession::DELIVERED . "'");
 		$DAO_booking->joinAddWhereAsOn($DAO_session);
 		$DAO_booking->orderBy('session.session_start ASC');
