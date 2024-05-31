@@ -2700,7 +2700,7 @@ class COrders extends DAO_Orders
 		foreach ($this->items as $id => $thisItem)
 		{
 			// do not remove hidden bundle items or coupon item
-			if (empty($thisItem[1]->parentItemId) && (empty($this->coupon->menu_item_id) && $this->coupon->menu_item_id != $id))
+			if (empty($thisItem[1]->parentItemId) && (!empty($this->coupon) && empty($this->coupon->menu_item_id) && $this->coupon->menu_item_id != $id))
 			{
 				$DAO_menu_item = DAO_CFactory::create('menu_item', true);
 				$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item', true);

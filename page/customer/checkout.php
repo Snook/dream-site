@@ -788,49 +788,53 @@ class checkout_validation
 	public static function validateCoupon($DAO_orders, $Cart, $tpl)
 	{
 		$DAO_coupon_code = $DAO_orders->getCoupon();
-		$MenuItems = $DAO_orders->getItems();
 
-		$DAO_coupon_code = CCouponCode::isCodeValid($DAO_coupon_code->coupon_code, $DAO_orders, $DAO_orders->getMenuId());
-
-		if (gettype($DAO_coupon_code) !== "object" || get_class($DAO_coupon_code) !== 'CCouponCode')
+		if(!empty($DAO_coupon_code))
 		{
-			$DAO_orders->removeCoupon();
-			$DAO_orders->recalculate();
-			$Cart->addOrder($DAO_orders);
-		}
+			$MenuItems = $DAO_orders->getItems();
 
-		if (!empty($DAO_coupon_code->limit_to_recipe_id) && !empty($DAO_coupon_code->menu_item_id))
-		{
-			// menu_item coupon was added but the item isn't in the cart
-			if (empty($MenuItems[$DAO_coupon_code->menu_item_id]))
+			$DAO_coupon_code = CCouponCode::isCodeValid($DAO_coupon_code->coupon_code, $DAO_orders, $DAO_orders->getMenuId());
+
+			if (gettype($DAO_coupon_code) !== "object" || get_class($DAO_coupon_code) !== 'CCouponCode')
 			{
-				// clear coupon codes
 				$DAO_orders->removeCoupon();
 				$DAO_orders->recalculate();
 				$Cart->addOrder($DAO_orders);
 			}
-		}
 
-		if ($DAO_orders->isDreamTaste() || $DAO_orders->isFundraiser())
-		{
-			$TasteEventProperties = CDreamTasteEvent::sessionProperties($DAO_orders->getSessionId());
-
-			if (empty($TasteEventProperties->customer_coupon_eligible))
+			if (!empty($DAO_coupon_code->limit_to_recipe_id) && !empty($DAO_coupon_code->menu_item_id))
 			{
-				// clear coupon codes
-				$DAO_orders->removeCoupon();
-				$DAO_orders->recalculate();
-				$Cart->addOrder($DAO_orders);
-
-				$tpl->assign('payment_enabled_coupon', false);
-			}
-			else
-			{
-				$tpl->assign('payment_enabled_coupon', true);
+				// menu_item coupon was added but the item isn't in the cart
+				if (empty($MenuItems[$DAO_coupon_code->menu_item_id]))
+				{
+					// clear coupon codes
+					$DAO_orders->removeCoupon();
+					$DAO_orders->recalculate();
+					$Cart->addOrder($DAO_orders);
+				}
 			}
 
-			$tpl->assign('payment_enabled_store_credit', false);
-			$tpl->assign('payment_enabled_gift_card', true);
+			if ($DAO_orders->isDreamTaste() || $DAO_orders->isFundraiser())
+			{
+				$TasteEventProperties = CDreamTasteEvent::sessionProperties($DAO_orders->getSessionId());
+
+				if (empty($TasteEventProperties->customer_coupon_eligible))
+				{
+					// clear coupon codes
+					$DAO_orders->removeCoupon();
+					$DAO_orders->recalculate();
+					$Cart->addOrder($DAO_orders);
+
+					$tpl->assign('payment_enabled_coupon', false);
+				}
+				else
+				{
+					$tpl->assign('payment_enabled_coupon', true);
+				}
+
+				$tpl->assign('payment_enabled_store_credit', false);
+				$tpl->assign('payment_enabled_gift_card', true);
+			}
 		}
 	}
 

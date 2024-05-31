@@ -4,7 +4,7 @@
 			<div class="col-6">
 				<h2 class="text-uppercase font-weight-semi-bold text-size-medium text-left">Cart</h2>
 			</div>
-			<?php if (!$this->read_only_cart) { ?>
+			<?php if (empty($this->read_only_cart)) { ?>
 			<div class="col-6">
 				<p class="text-right">
 					<button class="btn btn-primary btn-sm font-size-small clear-cart"><i class="fas fa-minus-circle mr-2"></i>Clear Cart</button>
@@ -16,7 +16,7 @@
 		<?php if (!$this->isGiftCardOnlyOrder) { ?>
 			<div class="row mb-4">
 				<div class="col-xl-6">
-					<?php if ($this->read_only_cart) {?>
+					<?php if (!empty($this->read_only_cart)) {?>
 						<div class="btn btn-green-dark btn-block disabled" style="opacity:.85;">
 							Dream Dinners <?php echo $this->cart_info['store_info']['store_name']; ?>
 						</div>
@@ -32,7 +32,7 @@
 					<?php } ?>
 				</div>
 				<div class="col-xl-6 mt-2 mt-xl-0">
-					<?php if ($this->read_only_cart) {?>
+					<?php if (!empty($this->read_only_cart)) {?>
 						<div class="btn btn-green-dark btn-block disabled" style="opacity:.85;">
 							<?php echo $this->customerActionString .CTemplate::dateTimeFormat($this->cart_info['session_info']['session_start'], VERBOSE_DATE_NO_YEAR_W_COMMA) . " at " . CTemplate::dateTimeFormat($this->cart_info['session_info']['session_start'], SIMPLE_TIME); ?>
 						</div>
@@ -52,7 +52,7 @@
 
 		<div class="row">
 			<div class="col">
-				<?php if ($this->read_only_cart) {?>
+				<?php if (!empty($this->read_only_cart)) {?>
 					<a  class="btn btn-green-dark btn-block disabled" style="opacity:.85;">
 				<?php }else{?>
 					<a href="/session-menu" class="btn btn-primary btn-block">

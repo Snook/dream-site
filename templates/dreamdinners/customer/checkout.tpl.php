@@ -18,10 +18,9 @@
 <?php $this->setScriptVar('default_bag_fee = ' . $this->default_bag_fee . ';'); ?>
 <?php $this->setScriptVar('supports_bag_fee = ' . ($this->supports_bag_fee ? "true" : "false") . ';'); ?>
 <?php $this->setScriptVar('number_bags_required = ' . $this->numberBagsRequired . ';'); ?>
-<?php $this->setScriptVar('has_meal_customization_selected = ' . ($this->has_meal_customization_selected ? "true" : "false"). ';'); ?>
-<?php $this->setScriptVar('default_meal_customization_to_selected = ' . ($this->default_meal_customization_to_selected ? "true" : "false"). ';'); ?>
+<?php $this->setScriptVar('has_meal_customization_selected = ' . (!empty($this->has_meal_customization_selected ) ? "true" : "false") . ';'); ?>
+<?php $this->setScriptVar('default_meal_customization_to_selected = ' . (!empty($this->default_meal_customization_to_selected) ? "true" : "false") . ';'); ?>
 <?php $this->setScriptVar('meal_customization_preferences = ' . (empty($this->meal_customization_preferences_json) ? '{}' : $this->meal_customization_preferences_json). ';'); ?>
-<?php $this->setScriptVar('scroll = "' . $this->scroll . '";'); ?>
 <?php $this->assign('no_cache', true); ?>
 <?php $this->assign('page_title', 'Checkout');?>
 <?php $this->assign('logout_navigation_page', '?back=/checkout'); ?>
