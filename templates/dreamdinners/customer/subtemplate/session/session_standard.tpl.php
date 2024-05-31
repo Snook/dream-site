@@ -24,7 +24,8 @@
 					<?php if (!empty($this->sessions['info']['session_type'][CSession::REMOTE_PICKUP])) { ?>
 						<a class="border nav-item nav-link font-weight-bold text-uppercase <?php if (!$ActiveTabSet) {echo "active"; $ActiveTabSet='REMOTE_PICKUP';}?>" id="nav-REMOTE_PICKUP-tab"
 						   data-urlpush="true" data-toggle="tab" data-target="#nav-REMOTE_PICKUP"
-						   href="/session?tab=REMOTE_PICKUP" role="tab" aria-controls="nav-REMOTE_PICKUP" aria-selected="true">View</br>Community Pick Up Times</a>
+						   href="/session?tab=REMOTE_PICKUP" role="tab" aria-controls="nav-REMOTE_PICKUP" aria-selected="true">
+							<i class="dd-icon icon-community-pick-up font-size-medium-large align-bottom"></i> View</br>Community Pick Up Times</a>
 					<?php } ?>
 					<?php if (!empty($this->sessions['info']['session_type'][CSession::STANDARD])) { ?>
 						<a class="border nav-item nav-link font-weight-bold text-uppercase <?php if (!$ActiveTabSet) {echo "active"; $ActiveTabSet='STANDARD';}?>" id="nav-STANDARD-tab"
