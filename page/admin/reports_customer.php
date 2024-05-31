@@ -460,7 +460,8 @@ class page_admin_reports_customer extends CPageAdminOnly
 						"Primary Call Time",
 						"Secondary Telephone",
 						"Secondary Telephone Type",
-						"Secondary Call Time"
+						"Secondary Call Time",
+						"SMS Message Opt-In"
 					));
 
 					$columnDescs[$thirdSecondChar . $colSecondChar . $col] = array('align' => 'center');
@@ -915,7 +916,7 @@ class page_admin_reports_customer extends CPageAdminOnly
 
 		if ($sectionSwitches['contact_info'])
 		{
-			$selectStr .= ", u.telephone_1, u.telephone_1_type, u.telephone_1_call_time, u.telephone_2, u.telephone_2_type, u.telephone_2_call_time ";
+			$selectStr .= ", u.telephone_1, u.telephone_1_type, u.telephone_1_call_time, u.telephone_2, u.telephone_2_type, u.telephone_2_call_time,  if(user_pref_text.pvalue is not null, user_pref_text.pvalue, 'UNANSWERED') as text_message_opt_in ";
 			$colcount += 6;
 		}
 
@@ -1049,6 +1050,12 @@ class page_admin_reports_customer extends CPageAdminOnly
 		if ($sectionSwitches['phys_add'])
 		{
 			$fromStr .= " Left Join address a ON u.id = a.user_id and a.location_type = 'BILLING' and a.is_deleted = 0 ";
+		}
+
+		if ($sectionSwitches['contact_info'])
+		{
+			$fromStr .= " left join user_preferences as user_pref_text on user_pref_text.user_id = u.id and user_pref_text.pkey = 'TEXT_MESSAGE_OPT_IN' ";
+			$colcount++;
 		}
 
 		if ($sectionSwitches['add_user_info'])
