@@ -785,33 +785,42 @@ class checkout_validation
 		);
 	}
 
-	public static function validateCoupon($Order, $Cart, $tpl)
+	public static function validateCoupon($DAO_orders, $Cart, $tpl)
 	{
-		$Coupon = $Order->getCoupon();
-		$MenuItems = $Order->getItems();
+		$DAO_coupon_code = $DAO_orders->getCoupon();
+		$MenuItems = $DAO_orders->getItems();
 
-		if (!empty($Coupon->limit_to_recipe_id) && !empty($Coupon->menu_item_id))
+		$DAO_coupon_code = CCouponCode::isCodeValid($DAO_coupon_code->coupon_code, $DAO_orders, $DAO_orders->getMenuId());
+
+		if (gettype($DAO_coupon_code) !== "object" || get_class($DAO_coupon_code) !== 'CCouponCode')
+		{
+			$DAO_orders->removeCoupon();
+			$DAO_orders->recalculate();
+			$Cart->addOrder($DAO_orders);
+		}
+
+		if (!empty($DAO_coupon_code->limit_to_recipe_id) && !empty($DAO_coupon_code->menu_item_id))
 		{
 			// menu_item coupon was added but the item isn't in the cart
-			if (empty($MenuItems[$Coupon->menu_item_id]))
+			if (empty($MenuItems[$DAO_coupon_code->menu_item_id]))
 			{
 				// clear coupon codes
-				$Order->removeCoupon();
-				$Order->recalculate();
-				$Cart->addOrder($Order);
+				$DAO_orders->removeCoupon();
+				$DAO_orders->recalculate();
+				$Cart->addOrder($DAO_orders);
 			}
 		}
 
-		if ($Order->isDreamTaste() || $Order->isFundraiser())
+		if ($DAO_orders->isDreamTaste() || $DAO_orders->isFundraiser())
 		{
-			$TasteEventProperties = CDreamTasteEvent::sessionProperties($Order->getSessionId());
+			$TasteEventProperties = CDreamTasteEvent::sessionProperties($DAO_orders->getSessionId());
 
 			if (empty($TasteEventProperties->customer_coupon_eligible))
 			{
 				// clear coupon codes
-				$Order->removeCoupon();
-				$Order->recalculate();
-				$Cart->addOrder($Order);
+				$DAO_orders->removeCoupon();
+				$DAO_orders->recalculate();
+				$Cart->addOrder($DAO_orders);
 
 				$tpl->assign('payment_enabled_coupon', false);
 			}
