@@ -377,7 +377,7 @@ class CCouponCode extends DAO_Coupon_code
 			}
 
 			$DAO_session = $Order->findSession();
-			if (!empty($DAO_session) && !$DAO_session->isMadeForYou())
+			if (!empty($DAO_session) && !$DAO_session->isDelivery())
 			{
 				return array('not_valid_for_standard_order');
 			}
