@@ -856,7 +856,7 @@ function remove_payment_coupon()
 				$('#checkout_total-coupon').html('0.00');
 
 				// hide coupon row
-				$('#row-coupon').slideUp();
+				$('#row-coupon').hideFlex();
 
 				var couponCodeVal = $('#add_coupon_code').val().toUpperCase();
 

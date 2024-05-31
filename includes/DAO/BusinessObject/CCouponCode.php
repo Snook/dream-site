@@ -330,7 +330,7 @@ class CCouponCode extends DAO_Coupon_code
 	/*
 	* 	Returns the DAO couponCodeObject if valid else returns an array of string error codes
 	*/
-	static function isCodeValid($actualCouponCode, $Order, $menu_id, $editedOrder = false, $orgOrderTime = null, $orgOrderID = null)
+	static function isCodeValid($actualCouponCode, $DAO_orders, $menu_id, $editedOrder = false, $orgOrderTime = null, $orgOrderID = null)
 	{
 		$DAO_coupon_code = DAO_CFactory::create('coupon_code');
 		$DAO_coupon_code->coupon_code = trim($actualCouponCode);
@@ -341,15 +341,14 @@ class CCouponCode extends DAO_Coupon_code
 			return array('code_does_not_exist');
 		}
 
-		$DAO_coupon_code->calculate($Order, $Order->getMarkUp());
+		$DAO_coupon_code->calculate($DAO_orders, $DAO_orders->getMarkUp());
 
 		if (!empty($DAO_coupon_code->limit_to_mfy_fee))
 		{
-
-			$DAO_coupon_code->discount_var = $Order->subtotal_service_fee;
+			$DAO_coupon_code->discount_var = $DAO_orders->subtotal_service_fee;
 
 			$storeObj = DAO_CFactory::create('store');
-			$storeObj->query("select supports_free_assembly_promotion from store where id = {$Order->store_id}");
+			$storeObj->query("select supports_free_assembly_promotion from store where id = {$DAO_orders->store_id}");
 			$storeObj->fetch();
 
 			if (!$storeObj->supports_free_assembly_promotion)
@@ -357,7 +356,7 @@ class CCouponCode extends DAO_Coupon_code
 				return array('free_mfy_not_supported');
 			}
 
-			$DAO_session = $Order->findSession();
+			$DAO_session = $DAO_orders->findSession();
 
 			// session may not be available yet when coupon is added, imperative that coupon is revalidated at checkout
 			if (!empty($DAO_session))
@@ -371,12 +370,15 @@ class CCouponCode extends DAO_Coupon_code
 
 		if (!empty($DAO_coupon_code->limit_to_delivery_fee))
 		{
-			if ($DAO_coupon_code->discount_var > $Order->subtotal_delivery_fee && !is_null($Order->subtotal_delivery_fee))
+			if ($DAO_coupon_code->discount_method == CCouponCode::FLAT)
 			{
-				$DAO_coupon_code->discount_var = $Order->subtotal_delivery_fee;
+				if ($DAO_coupon_code->discount_var > $DAO_orders->subtotal_delivery_fee && !is_null($DAO_orders->subtotal_delivery_fee))
+				{
+					$DAO_coupon_code->discount_var = $DAO_orders->subtotal_delivery_fee;
+				}
 			}
 
-			$DAO_session = $Order->findSession();
+			$DAO_session = $DAO_orders->findSession();
 			if (!empty($DAO_session) && !$DAO_session->isDelivery())
 			{
 				return array('not_valid_for_standard_order');
@@ -388,14 +390,14 @@ class CCouponCode extends DAO_Coupon_code
 			if ($DAO_coupon_code->coupon_code == 'HOSTESS')
 			{
 				// override price of coupon, discount equal to the bundle price
-				$bundle = $Order->getBundleObj();
+				$bundle = $DAO_orders->getBundleObj();
 				$DAO_coupon_code->discount_var = $bundle->price;
 
 				// For Corp Store Price increase Hack
 				if ($menu_id > 176 && $menu_id <= 184)
 				{
 					$storeObj = DAO_CFactory::create('store');
-					$storeObj->query("select is_corporate_owned from store where id = {$Order->store_id}");
+					$storeObj->query("select is_corporate_owned from store where id = {$DAO_orders->store_id}");
 					$storeObj->fetch();
 
 					if ($storeObj->is_corporate_owned)
@@ -405,7 +407,7 @@ class CCouponCode extends DAO_Coupon_code
 				}
 
 				// if this is a dream taste, the hostess discount is equal to the cost of the dream taste bundle
-				$DAO_session = $Order->findSession();
+				$DAO_session = $DAO_orders->findSession();
 				if ($DAO_coupon_code->coupon_code == 'HOSTESS' && $DAO_session->session_type == CSession::DREAM_TASTE)
 				{
 					$DAO_coupon_code->discount_var = $bundle->price;
@@ -427,7 +429,7 @@ class CCouponCode extends DAO_Coupon_code
 			return $DAO_coupon_code;
 		}
 
-		$validationResult = $DAO_coupon_code->isValid($Order, $menu_id, $orgOrderTime, $orgOrderID);
+		$validationResult = $DAO_coupon_code->isValid($DAO_orders, $menu_id, $orgOrderTime, $orgOrderID);
 
 		if (empty($validationResult))
 		{
