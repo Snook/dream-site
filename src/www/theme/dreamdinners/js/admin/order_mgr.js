@@ -8097,7 +8097,7 @@ function calculateTotal()
 	* delivery_tip
 	 */
 	let delivery_tip = Number(0);
-	if ($('#subtotal_delivery_fee')[0])
+	if ($('#delivery_tip')[0])
 	{
 		delivery_tip = Number($('#delivery_tip').val());
 		$('#OEH_delivery_tip').html(formatAsMoney(delivery_tip));
