@@ -59,18 +59,18 @@ class CBooking extends DAO_Booking
 		$this->joinAddWhereAsOn($DAO_orders);
 
 		$DAO_user_created_by = DAO_CFactory::create('user', true);
-		$DAO_user_created_by->whereAdd("user_created_by.id=booking.created_by");
+		$DAO_user_created_by->whereAdd("user_orders_created_by.id=orders.created_by");
 		$this->joinAddWhereAsOn($DAO_user_created_by, array(
 			'joinType' => 'LEFT',
 			'useLinks' => false
-		), 'user_created_by');
+		), 'user_orders_created_by');
 
 		$DAO_user_updated_by = DAO_CFactory::create('user', true);
-		$DAO_user_updated_by->whereAdd("user_updated_by.id=booking.updated_by");
+		$DAO_user_updated_by->whereAdd("user_orders_updated_by.id=orders.updated_by");
 		$this->joinAddWhereAsOn($DAO_user_updated_by, array(
 			'joinType' => 'LEFT',
 			'useLinks' => false
-		), 'user_updated_by');
+		), 'user_orders_updated_by');
 
 		return parent::find($n);
 	}
