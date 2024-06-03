@@ -648,6 +648,9 @@ function formatAsMoney(mnt)
 		mnt = 0;
 	}
 
+	// Remove commas
+	mnt = parseFloat(mnt.replace(/,/g, ''))
+
 	mnt -= 0;
 	mnt = (Math.round(mnt * 100)) / 100;
 	return (mnt == Math.floor(mnt)) ? mnt + '.00'
