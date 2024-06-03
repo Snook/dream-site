@@ -46,31 +46,19 @@ class CBooking extends DAO_Booking
 			throw new Exception("When creating this object, second parameter in DAO_CFactory::create() needs to be 'true'");
 		}
 
+		// Join session
 		$DAO_session = DAO_CFactory::create('session', true);
 		$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('menu', true));
 		$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('store', true));
 		$this->joinAddWhereAsOn($DAO_session);
+		// Join user
 		$DAO_user = DAO_CFactory::create('user', true);
 		$DAO_user->joinAddWhereAsOn(DAO_CFactory::create('user_digest', true), 'LEFT');
 		$this->joinAddWhereAsOn($DAO_user);
-
+		// Join orders
 		$DAO_orders = DAO_CFactory::create('orders', true);
 		$DAO_orders->joinAddWhereAsOn(DAO_CFactory::create('orders_digest', true), 'LEFT');
 		$this->joinAddWhereAsOn($DAO_orders);
-
-		$DAO_user_created_by = DAO_CFactory::create('user', true);
-		$DAO_user_created_by->whereAdd("user_orders_created_by.id=orders.created_by");
-		$this->joinAddWhereAsOn($DAO_user_created_by, array(
-			'joinType' => 'LEFT',
-			'useLinks' => false
-		), 'user_orders_created_by');
-
-		$DAO_user_updated_by = DAO_CFactory::create('user', true);
-		$DAO_user_updated_by->whereAdd("user_orders_updated_by.id=orders.updated_by");
-		$this->joinAddWhereAsOn($DAO_user_updated_by, array(
-			'joinType' => 'LEFT',
-			'useLinks' => false
-		), 'user_orders_updated_by');
 
 		return parent::find($n);
 	}

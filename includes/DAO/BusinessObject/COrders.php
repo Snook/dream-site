@@ -172,12 +172,21 @@ class COrders extends DAO_Orders
 
 	function fetch_DAO_order_item_Array()
 	{
+		$this->total_count_core_item = 0;
+		$this->total_count_core_serving = 0;
+
+		$this->total_count_efl_item = 0;
+		$this->total_count_efl_serving = 0;
+
+		$this->total_count_side_item = 0;
+		$this->total_count_side_serving = 0;
+
 		$DAO_menu = DAO_CFactory::create('menu', true);
-		$DAO_menu->id = $this->DAO_menu->id;
+		$DAO_menu->id = $this->getMenuId();
 		$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
 			'join_order_item_order_id' => array($this->id),
 			'join_order_item_order' => 'INNER',
-			'menu_to_menu_item_store_id' => $this->DAO_store->id,
+			'menu_to_menu_item_store_id' => $this->getStoreId(),
 			'exclude_menu_item_category_core' => false,
 			'exclude_menu_item_category_efl' => false,
 			'exclude_menu_item_category_sides_sweets' => false
@@ -186,6 +195,22 @@ class COrders extends DAO_Orders
 		while ($DAO_menu_item->fetch())
 		{
 			$this->DAO_order_item_Array[$DAO_menu_item->id] = clone $DAO_menu_item;
+
+			if ($DAO_menu_item->isMenuItem_Core())
+			{
+				$this->total_count_core_item += $DAO_menu_item->DAO_order_item->item_count;
+				$this->total_count_core_serving += $DAO_menu_item->DAO_order_item->item_count * $DAO_menu_item->servings_per_item;
+			}
+			else if ($DAO_menu_item->isMenuItem_EFL())
+			{
+				$this->total_count_efl_item += $DAO_menu_item->DAO_order_item->item_count;
+				$this->total_count_efl_serving += $DAO_menu_item->DAO_order_item->item_count * $DAO_menu_item->servings_per_item;
+			}
+			else if ($DAO_menu_item->isMenuItem_SidesSweets())
+			{
+				$this->total_count_side_item += $DAO_menu_item->DAO_order_item->item_count;
+				$this->total_count_side_serving += $DAO_menu_item->DAO_order_item->item_count * $DAO_menu_item->servings_per_item;
+			}
 		}
 	}
 
@@ -509,14 +534,70 @@ class COrders extends DAO_Orders
 		return false;
 	}
 
+	function calculate_DAO_order_item_Array()
+	{
+		$this->total_item_count_core = 0;
+		$this->total_serving_count_core = 0;
+		$this->total_count_efl_item = 0;
+		$this->total_serving_count_efl = 0;
+		$this->total_item_count_side = 0;
+		$this->total_serving_count_side = 0;
+
+		foreach ($this->DAO_order_item_Array as $DAO_menu_item)
+		{
+			if ($DAO_menu_item->isMenuItem_Core())
+			{
+				$this->total_item_count_core += $DAO_menu_item->DAO_order_item->item_count;
+				$this->total_serving_count_core += $DAO_menu_item->DAO_order_item->item_count * $DAO_menu_item->servings_per_item;
+			}
+			else if ($DAO_menu_item->isMenuItem_EFL())
+			{
+				$this->total_count_efl_item += $DAO_menu_item->DAO_order_item->item_count;
+				$this->total_serving_count_efl += $DAO_menu_item->DAO_order_item->item_count * $DAO_menu_item->servings_per_item;
+			}
+			else if ($DAO_menu_item->isMenuItem_SidesSweets())
+			{
+				$this->total_item_count_side += $DAO_menu_item->DAO_order_item->item_count;
+				$this->total_serving_count_side += $DAO_menu_item->DAO_order_item->item_count * $DAO_menu_item->servings_per_item;
+			}
+		}
+	}
+
 	public static function getOrderHistory($order_id, $returnBooking = true, $returnSessionDetails = false)
 	{
 		$retVal = array();
 
 		$DAO_booking = DAO_CFactory::create('booking', true);
 		$DAO_booking->order_id = $order_id;
+
+		$DAO_session = DAO_CFactory::create('session', true);
+		$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('menu', true));
+		$DAO_session->joinAddWhereAsOn(DAO_CFactory::create('store', true));
+		$DAO_booking->joinAddWhereAsOn($DAO_session);
+		$DAO_user = DAO_CFactory::create('user', true);
+		$DAO_user->joinAddWhereAsOn(DAO_CFactory::create('user_digest', true), 'LEFT');
+		$DAO_booking->joinAddWhereAsOn($DAO_user);
+
+		$DAO_orders = DAO_CFactory::create('orders', true);
+		$DAO_orders->joinAddWhereAsOn(DAO_CFactory::create('orders_digest', true), 'LEFT');
+		$DAO_booking->joinAddWhereAsOn($DAO_orders);
+
+		$DAO_user_created_by = DAO_CFactory::create('user', true);
+		$DAO_user_created_by->whereAdd("user_orders_created_by.id=orders.created_by");
+		$DAO_booking->joinAddWhereAsOn($DAO_user_created_by, array(
+			'joinType' => 'LEFT',
+			'useLinks' => false
+		), 'user_orders_created_by');
+
+		$DAO_user_updated_by = DAO_CFactory::create('user', true);
+		$DAO_user_updated_by->whereAdd("user_orders_updated_by.id=orders.updated_by");
+		$DAO_booking->joinAddWhereAsOn($DAO_user_updated_by, array(
+			'joinType' => 'LEFT',
+			'useLinks' => false
+		), 'user_orders_updated_by');
+
 		$DAO_booking->orderBy('booking.id ASC');
-		$DAO_booking->find_DAO_booking();
+		$DAO_booking->find();
 
 		$numFound = $DAO_booking->N;
 
@@ -525,6 +606,8 @@ class COrders extends DAO_Orders
 
 		while ($DAO_booking->fetch())
 		{
+			$DAO_booking->DAO_orders->fetch_DAO_order_item_Array();
+
 			switch ($DAO_booking->status)
 			{
 				case CBooking::SAVED:
@@ -544,7 +627,7 @@ class COrders extends DAO_Orders
 						'servings' => $DAO_booking->DAO_orders->servings_total_count,
 						'order_id' => $DAO_booking->DAO_orders->id,
 						'order_type' => $DAO_booking->DAO_orders->order_type,
-						'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
+						'total_efl_item_count' => $DAO_booking->DAO_orders->total_count_efl_item,
 						'session_data' => clone $DAO_booking->DAO_session,
 						'order_data' => $DAO_booking->DAO_orders,
 						'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
@@ -570,7 +653,7 @@ class COrders extends DAO_Orders
 							'servings' => $DAO_booking->DAO_orders->servings_total_count,
 							'order_id' => $DAO_booking->DAO_orders->id,
 							'order_type' => $DAO_booking->DAO_orders->order_type,
-							'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
+							'total_efl_item_count' => $DAO_booking->DAO_orders->total_count_efl_item,
 							'session_data' => clone $DAO_booking->DAO_session,
 							'order_data' => clone $DAO_booking->DAO_orders,
 							'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
@@ -593,7 +676,7 @@ class COrders extends DAO_Orders
 								'servings' => "-",
 								'order_id' => $DAO_booking->DAO_orders->id,
 								'order_type' => $DAO_booking->DAO_orders->order_type,
-								'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
+								'total_efl_item_count' => $DAO_booking->DAO_orders->total_count_efl_item,
 								'session_data' => clone $DAO_booking->DAO_session,
 								'order_data' => clone $DAO_booking->DAO_orders,
 								'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
@@ -621,7 +704,7 @@ class COrders extends DAO_Orders
 							'servings' => $DAO_booking->DAO_orders->servings_total_count,
 							'order_id' => $DAO_booking->DAO_orders->id,
 							'order_type' => $DAO_booking->DAO_orders->order_type,
-							'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
+							'total_efl_item_count' => $DAO_booking->DAO_orders->total_count_efl_item,
 							'session_data' => clone $DAO_booking->DAO_session,
 							'order_data' => clone $DAO_booking->DAO_orders,
 							'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
@@ -647,7 +730,7 @@ class COrders extends DAO_Orders
 							'servings' => $DAO_booking->DAO_orders->servings_total_count,
 							'order_id' => $DAO_booking->DAO_orders->id,
 							'order_type' => $DAO_booking->DAO_orders->order_type,
-							'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
+							'total_efl_item_count' => $DAO_booking->DAO_orders->total_count_efl_item,
 							'session_data' => clone $DAO_booking->DAO_session,
 							'order_data' => clone $DAO_booking->DAO_orders,
 							'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
@@ -670,7 +753,7 @@ class COrders extends DAO_Orders
 							'servings' => $DAO_booking->DAO_orders->servings_total_count,
 							'order_id' => $DAO_booking->DAO_orders->id,
 							'order_type' => $DAO_booking->DAO_orders->order_type,
-							'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
+							'total_efl_item_count' => $DAO_booking->DAO_orders->total_count_efl_item,
 							'session_data' => clone $DAO_booking->DAO_session,
 							'order_data' => clone $DAO_booking->DAO_orders,
 							'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
@@ -700,7 +783,7 @@ class COrders extends DAO_Orders
 						'servings' => $DAO_booking->DAO_orders->servings_total_count,
 						'order_id' => $DAO_booking->DAO_orders->id,
 						'order_type' => $DAO_booking->DAO_orders->order_type,
-						'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
+						'total_efl_item_count' => $DAO_booking->DAO_orders->total_count_efl_item,
 						'session_data' => clone $DAO_booking->DAO_session,
 						'order_data' => clone $DAO_booking->DAO_orders,
 						'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
@@ -720,7 +803,7 @@ class COrders extends DAO_Orders
 							'servings' => "-",
 							'order_id' => $DAO_booking->DAO_orders->id,
 							'order_type' => $DAO_booking->DAO_orders->order_type,
-							'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
+							'total_efl_item_count' => $DAO_booking->DAO_orders->total_count_efl_item,
 							'session_data' => clone $DAO_booking->DAO_session,
 							'order_data' => clone $DAO_booking->DAO_orders,
 							'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
@@ -747,7 +830,7 @@ class COrders extends DAO_Orders
 							'servings' => $DAO_booking->DAO_orders->servings_total_count,
 							'order_id' => $DAO_booking->DAO_orders->id,
 							'order_type' => $DAO_booking->DAO_orders->order_type,
-							'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
+							'total_efl_item_count' => $DAO_booking->DAO_orders->total_count_efl_item,
 							'session_data' => clone $DAO_booking->DAO_session,
 							'order_data' => clone $DAO_booking->DAO_orders,
 							'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
@@ -770,7 +853,7 @@ class COrders extends DAO_Orders
 							'servings' => $DAO_booking->DAO_orders->servings_total_count,
 							'order_id' => $DAO_booking->DAO_orders->id,
 							'order_type' => $DAO_booking->DAO_orders->order_type,
-							'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
+							'total_efl_item_count' => $DAO_booking->DAO_orders->total_count_efl_item,
 							'session_data' => clone $DAO_booking->DAO_session,
 							'order_data' => clone $DAO_booking->DAO_orders,
 							'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
@@ -789,7 +872,7 @@ class COrders extends DAO_Orders
 						'servings' => $DAO_booking->DAO_orders->servings_total_count,
 						'order_id' => $DAO_booking->DAO_orders->id,
 						'order_type' => $DAO_booking->DAO_orders->order_type,
-						'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
+						'total_efl_item_count' => $DAO_booking->DAO_orders->total_count_efl_item,
 						'session_data' => clone $DAO_booking->DAO_session,
 						'order_data' => clone $DAO_booking->DAO_orders,
 						'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
@@ -809,7 +892,7 @@ class COrders extends DAO_Orders
 							'servings' => "-",
 							'order_id' => $DAO_booking->DAO_orders->id,
 							'order_type' => $DAO_booking->DAO_orders->order_type,
-							'total_efl_item_count' => $DAO_booking->DAO_orders->pcal_preassembled_total_count,
+							'total_efl_item_count' => $DAO_booking->DAO_orders->total_count_efl_item,
 							'session_data' => clone $DAO_booking->DAO_session,
 							'order_data' => clone $DAO_booking->DAO_orders,
 							'DAO_orders_digest' => clone $DAO_booking->DAO_orders_digest
@@ -11187,6 +11270,13 @@ class COrders extends DAO_Orders
 		$Mail->send(null, null, $orderInfo['sessionInfo']['store_name'], $orderInfo['sessionInfo']['email_address'], 'Delayed Payment Failure', $contentsHtml, $contentsText, '', '', $user->id, 'admin_order_delayed_declined');
 		// TODO: revert to real email addresses
 
+	}
+
+	public function getStoreId()
+	{
+		$DAO_store = $this->getStore();
+
+		return $DAO_store->id;
 	}
 
 	public function getStore()
