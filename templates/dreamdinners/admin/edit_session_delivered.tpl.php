@@ -23,12 +23,6 @@
 				<div class="col-md-4 text-center">
 					<?php echo $this->form_create_session['open_close_submit_html']; ?>
 				</div>
-				<div class="col-md-4 text-center">
-					<?php echo $this->form_create_session['submit_delete_html']; ?>
-					<?php if (!$this->canDelete) { ?>
-						<div>Note: Sessions that have active orders cannot be deleted and the date and time cannot be edited. You must first reschedule or cancel all orders placed against the <a href="/backoffice?session=<?php echo $this->form_create_session['id']; ?>">session</a>.</div>
-					<?php } ?>
-				</div>
 			</div>
 
 		</form>
