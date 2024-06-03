@@ -176,7 +176,7 @@ class CStoreActivityLog extends DAO_Store_activity_log
 	 * @return mixed
 	 * @throws Exception
 	 */
-	private static function determineStoreActivityTypeId($activityType, $activitySubType)
+	public static function determineStoreActivityTypeId($activityType, $activitySubType)
 	{
 		if (is_null($activityType))
 		{
