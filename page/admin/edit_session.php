@@ -78,6 +78,11 @@ class page_admin_edit_session extends CPageAdminOnly
 		$Store->id = $Session->store_id;
 		$Store->find(true);
 
+		if ($Store->isDistributionCenter())
+		{
+			CApp::bounce('/backoffice/edit-session-delivered?session=' . $Session->id);
+		}
+
 		$Store->getStorePickupLocations();
 
 		$tpl->assign('allowsMealCustomization', $Store->supports_meal_customization);
