@@ -107,6 +107,13 @@ class COrders extends DAO_Orders
 	const CALENDAR_NAME = 'sessionCalendar';
 	const QUANTITY_PREFIX = 'qty_'; //entrees
 
+	public $total_count_core_item = 0;
+	public $total_count_core_serving = 0;
+	public $total_count_efl_item = 0;
+	public $total_count_efl_serving = 0;
+	public $total_count_side_item = 0;
+	public $total_count_side_serving = 0;
+
 	function __construct($dataSelectTable = false)
 	{
 		parent::__construct($dataSelectTable);
@@ -536,29 +543,31 @@ class COrders extends DAO_Orders
 
 	function calculate_DAO_order_item_Array()
 	{
-		$this->total_item_count_core = 0;
-		$this->total_serving_count_core = 0;
+		$this->total_count_core_item = 0;
+		$this->total_count_core_serving = 0;
+
 		$this->total_count_efl_item = 0;
-		$this->total_serving_count_efl = 0;
-		$this->total_item_count_side = 0;
-		$this->total_serving_count_side = 0;
+		$this->total_count_efl_serving = 0;
+
+		$this->total_count_side_item = 0;
+		$this->total_count_side_serving = 0;
 
 		foreach ($this->DAO_order_item_Array as $DAO_menu_item)
 		{
 			if ($DAO_menu_item->isMenuItem_Core())
 			{
-				$this->total_item_count_core += $DAO_menu_item->DAO_order_item->item_count;
-				$this->total_serving_count_core += $DAO_menu_item->DAO_order_item->item_count * $DAO_menu_item->servings_per_item;
+				$this->total_count_core_item += $DAO_menu_item->DAO_order_item->item_count;
+				$this->total_count_core_serving += $DAO_menu_item->DAO_order_item->item_count * $DAO_menu_item->servings_per_item;
 			}
 			else if ($DAO_menu_item->isMenuItem_EFL())
 			{
 				$this->total_count_efl_item += $DAO_menu_item->DAO_order_item->item_count;
-				$this->total_serving_count_efl += $DAO_menu_item->DAO_order_item->item_count * $DAO_menu_item->servings_per_item;
+				$this->total_count_efl_serving += $DAO_menu_item->DAO_order_item->item_count * $DAO_menu_item->servings_per_item;
 			}
 			else if ($DAO_menu_item->isMenuItem_SidesSweets())
 			{
-				$this->total_item_count_side += $DAO_menu_item->DAO_order_item->item_count;
-				$this->total_serving_count_side += $DAO_menu_item->DAO_order_item->item_count * $DAO_menu_item->servings_per_item;
+				$this->total_count_side_item += $DAO_menu_item->DAO_order_item->item_count;
+				$this->total_count_side_serving += $DAO_menu_item->DAO_order_item->item_count * $DAO_menu_item->servings_per_item;
 			}
 		}
 	}
@@ -5146,6 +5155,13 @@ class COrders extends DAO_Orders
 		$this->pcal_preassembled_total_count = 0;
 		$this->pcal_sidedish_total_count = 0;
 
+		$this->total_count_core_item = 0;
+		$this->total_count_core_serving = 0;
+		$this->total_count_efl_item = 0;
+		$this->total_count_efl_serving = 0;
+		$this->total_count_side_item = 0;
+		$this->total_count_side_serving = 0;
+
 		$totalPrice = 0;
 		$totalQty = 0;
 		$totalQtyCore = 0;
@@ -5235,11 +5251,23 @@ class COrders extends DAO_Orders
 				if ($DAO_menu_item->isMenuItem_Core())
 				{
 					$totalQtyCore += $qty * $DAO_menu_item->item_count_per_item;
+
+					$this->total_count_core_item += $DAO_menu_item->item_count_per_item;
+					$this->total_count_core_serving += $qty * $DAO_menu_item->servings_per_item;
 				}
 
 				if ($DAO_menu_item->isMenuItem_EFL())
 				{
 					$totalQtyEFL += $qty * $DAO_menu_item->item_count_per_item;
+
+					$this->total_count_efl_item += $DAO_menu_item->item_count_per_item;
+					$this->total_count_efl_serving += $qty * $DAO_menu_item->servings_per_item;
+				}
+
+				if ($DAO_menu_item->isMenuItem_SidesSweets())
+				{
+					$this->total_count_side_item += $DAO_menu_item->item_count_per_item;
+					$this->total_count_side_serving += $qty * $DAO_menu_item->servings_per_item;
 				}
 
 				if ($DAO_menu_item->is_chef_touched)
