@@ -47,7 +47,7 @@ class CStoreActivityLog extends DAO_Store_activity_log
 	 *
 	 * @throws Exception
 	 */
-	public static function addEvent($store_id, $description, $date, $store_activity_type_id = null, $compositeKey = null)
+	public static function addEvent($store_id, $description, $date = false, $store_activity_type_id = null, $compositeKey = null)
 	{
 		if (is_null($store_activity_type_id))
 		{
@@ -57,7 +57,14 @@ class CStoreActivityLog extends DAO_Store_activity_log
 		$activity_log_DAO = DAO_CFactory::create('store_activity_log', true);
 		$activity_log_DAO->store_id = $store_id;
 		$activity_log_DAO->store_activity_type_id = $store_activity_type_id;
-		$activity_log_DAO->date = $date;
+		if ($date)
+		{
+			$activity_log_DAO->date = $date;
+		}
+		else
+		{
+			$activity_log_DAO->date = date('Y-m-d H:i:s');
+		}
 		$activity_log_DAO->description = $description;
 		$activity_log_DAO->comp_key = $compositeKey;
 
