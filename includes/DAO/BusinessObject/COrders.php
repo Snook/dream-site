@@ -114,6 +114,8 @@ class COrders extends DAO_Orders
 	public $total_count_side_item = 0;
 	public $total_count_side_serving = 0;
 
+	private $DAO_order_item_Array = array();
+
 	function __construct($dataSelectTable = false)
 	{
 		parent::__construct($dataSelectTable);
@@ -582,6 +584,20 @@ class COrders extends DAO_Orders
 			'useLinks' => false
 		), 'user_orders_updated_by');
 
+		$DAO_user_created_by = DAO_CFactory::create('user', true);
+		$DAO_user_created_by->whereAdd("user_created_by.id=booking.created_by");
+		$DAO_booking->joinAddWhereAsOn($DAO_user_created_by, array(
+			'joinType' => 'LEFT',
+			'useLinks' => false
+		), 'user_created_by');
+
+		$DAO_user_updated_by = DAO_CFactory::create('user', true);
+		$DAO_user_updated_by->whereAdd("user_updated_by.id=booking.updated_by");
+		$DAO_booking->joinAddWhereAsOn($DAO_user_updated_by, array(
+			'joinType' => 'LEFT',
+			'useLinks' => false
+		), 'user_updated_by');
+
 		$DAO_booking->orderBy('booking.id ASC');
 		$DAO_booking->find();
 
@@ -592,7 +608,10 @@ class COrders extends DAO_Orders
 
 		while ($DAO_booking->fetch())
 		{
-			$DAO_booking->DAO_orders->fetch_DAO_order_item_Array();
+			if ($DAO_booking->isActive() || $DAO_booking->isSaved())
+			{
+				$DAO_booking->DAO_orders->fetch_DAO_order_item_Array();
+			}
 
 			switch ($DAO_booking->status)
 			{
@@ -681,8 +700,8 @@ class COrders extends DAO_Orders
 							'session' => $DAO_booking->DAO_session->session_start,
 							'action' => "Rescheduled from " . CTemplate::dateTimeFormat($lastObject->DAO_session->session_start) . " to  " . CTemplate::dateTimeFormat($DAO_booking->DAO_session->session_start),
 							'date_string' => "Rescheduled from " . CTemplate::dateTimeFormat($lastObject->DAO_session->session_start) . " to  " . CTemplate::dateTimeFormat($DAO_booking->DAO_session->session_start),
-							'user' => $lastObject->DAO_user_orders_updated_by->firstname . ' ' . $lastObject->DAO_user_orders_updated_by->lastname,
-							'user_id' =>$lastObject->DAO_user_orders_updated_by->id,
+							'user' => $lastObject->DAO_user_updated_by->firstname . ' ' . $lastObject->DAO_user_updated_by->lastname,
+							'user_id' =>$lastObject->DAO_user_updated_by->id,
 							'user_type' => $lastObject->DAO_user_orders_updated_by->user_type,
 							'type' => 'RESCHEDULED',
 							'total' => $DAO_booking->DAO_orders->grand_total,
@@ -707,9 +726,9 @@ class COrders extends DAO_Orders
 							'session' => $DAO_booking->DAO_session->session_start,
 							'action' => "Rescheduled from " . CTemplate::dateTimeFormat($lastObject->DAO_session->session_start) . " to  " . CTemplate::dateTimeFormat($DAO_booking->DAO_session->session_start),
 							'date_string' => "from " . CTemplate::dateTimeFormat($lastObject->DAO_session->session_start) . " to  " . CTemplate::dateTimeFormat($DAO_booking->DAO_session->session_start),
-							'user' => $lastObject->DAO_user_orders_updated_by->firstname . ' ' . $lastObject->DAO_user_orders_updated_by->lastname,
-							'user_id' =>$lastObject->DAO_user_orders_updated_by->id,
-							'user_type' => $lastObject->DAO_user_orders_updated_by->user_type,
+							'user' => $lastObject->DAO_user_updated_by->firstname . ' ' . $lastObject->DAO_user_updated_by->lastname,
+							'user_id' =>$lastObject->DAO_user_updated_by->id,
+							'user_type' => $lastObject->DAO_user_updated_by->user_type,
 							'type' => 'RESCHEDULED',
 							'total' => $DAO_booking->DAO_orders->grand_total,
 							'item_count' => $DAO_booking->DAO_orders->menu_items_total_count,
@@ -807,9 +826,9 @@ class COrders extends DAO_Orders
 							'session' => $DAO_booking->DAO_session->session_start,
 							'action' => "Rescheduled from " . CTemplate::dateTimeFormat($lastObject->DAO_session->session_start) . " to  " . CTemplate::dateTimeFormat($DAO_booking->DAO_session->session_start),
 							'date_string' => "from " . CTemplate::dateTimeFormat($lastObject->DAO_session->session_start) . " to  " . CTemplate::dateTimeFormat($DAO_booking->DAO_session->session_start),
-							'user' => $DAO_booking->DAO_user_orders_updated_by->firstname . ' ' . $DAO_booking->DAO_user_orders_updated_by->lastname,
-							'user_id' => $DAO_booking->DAO_user_orders_updated_by->id,
-							'user_type' => $DAO_booking->DAO_user_orders_updated_by->user_type,
+							'user' => $DAO_booking->DAO_user_updated_by->firstname . ' ' . $DAO_booking->DAO_user_updated_by->lastname,
+							'user_id' => $DAO_booking->DAO_user_updated_by->id,
+							'user_type' => $DAO_booking->DAO_user_updated_by->user_type,
 							'type' => 'RESCHEDULED',
 							'total' => $DAO_booking->DAO_orders->grand_total,
 							'item_count' => $DAO_booking->DAO_orders->menu_items_total_count,
