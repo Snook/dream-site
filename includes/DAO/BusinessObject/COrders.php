@@ -555,10 +555,9 @@ class COrders extends DAO_Orders
 	{
 		$retVal = array();
 
-		$bookingObj = DAO_CFactory::create('booking');
-		$bookingObj->query("select b.*, CONCAT(u1.firstname, ' ', u1.lastname) as creator, u1.user_type as creator_user_type, u2.user_type as updator_user_type,
-							CONCAT(u2.firstname, ' ',u2.lastname) as updator, 	u1.id as creator_id, u2.id as updator_id, s.session_start ,
-       						s.id as session_id
+		$DAO_booking = DAO_CFactory::create('booking');
+		$DAO_booking->query("select b.*, CONCAT(u1.firstname, ' ', u1.lastname) as creator, u1.user_type as creator_user_type, u2.user_type as updator_user_type,
+							CONCAT(u2.firstname, ' ',u2.lastname) as updator, 	u1.id as creator_id, u2.id as updator_id, s.session_start
 									from booking b
 									left join user u1 on b.created_by = u1.id
 									left join user u2 on b.updated_by = u2.id
@@ -566,10 +565,10 @@ class COrders extends DAO_Orders
 									where b.order_id = $order_id and b.is_deleted = 0
 									order by b.id asc");
 
-		$numFound = $bookingObj->N;
+		$numFound = $DAO_booking->N;
 
-		$orderObj = DAO_CFactory::create('orders');
-		$orderObj->query("select 
+		$DAO_orders = DAO_CFactory::create('orders');
+		$DAO_orders->query("select 
 							o.id, 
 							o.store_id, 
 							o.grand_total, 
@@ -577,9 +576,9 @@ class COrders extends DAO_Orders
 							o.menu_items_total_count,
 							o.opted_to_customize_recipes,
 							o.total_customized_meal_count,
-       						o.subtotal_meal_customization_fee,
-       						o.order_customization,
-       						od.user_state AS digest_user_state,
+							o.subtotal_meal_customization_fee,
+							o.order_customization,
+							od.user_state AS digest_user_state,
 							CONCAT(u1.firstname, ' ', u1.lastname) as creator,
 							CONCAT(u2.firstname, ' ',u2.lastname) as updator,
 							u1.id as creator_id, 
@@ -599,48 +598,48 @@ class COrders extends DAO_Orders
 							and o.is_deleted = 0
 							group by o.id");
 
-		$orderObj->fetch();
+		$DAO_orders->fetch();
 
 		$hasFoundFirstReschedule = false;
 		$lastObject = null;
 
-		while ($bookingObj->fetch())
+		while ($DAO_booking->fetch())
 		{
 			$sessionData = null;
 			$DAO_session = null;
-			if ($returnSessionDetails && !empty($bookingObj->session_id))
+			if ($returnSessionDetails && !empty($DAO_booking->session_id))
 			{
-				$sessionData = CSession::getSessionDetail($bookingObj->session_id, false);
+				$sessionData = CSession::getSessionDetail($DAO_booking->session_id, false);
 				$DAO_session = DAO_CFactory::create('session', true);
-				$DAO_session->id = $bookingObj->session_id;
+				$DAO_session->id = $DAO_booking->session_id;
 				$DAO_session->find_DAO_session(true);
 			}
 
-			switch ($bookingObj->status)
+			switch ($DAO_booking->status)
 			{
 				case CBooking::SAVED:
 
 					CLog::ASSERT($numFound == 1, "There should only be 1 saved booking per order");
 
 					$retVal[] = array(
-						'time' => $bookingObj->timestamp_created,
-						'session' => $bookingObj->session_start,
+						'time' => $DAO_booking->timestamp_created,
+						'session' => $DAO_booking->session_start,
 						'action' => "Order Saved",
-						'user' => $bookingObj->creator,
-						'user_id' => $bookingObj->creator_id,
-						'user_type' => $bookingObj->creator_user_type,
+						'user' => $DAO_booking->creator,
+						'user_id' => $DAO_booking->creator_id,
+						'user_type' => $DAO_booking->creator_user_type,
 						'type' => 'SAVED',
-						'total' => $orderObj->grand_total,
-						'item_count' => $orderObj->menu_items_total_count,
-						'servings' => $orderObj->servings_total_count,
-						'order_id' => $orderObj->id,
-						'order_type' => $orderObj->order_type,
-						'digest_user_state' => $orderObj->digest_user_state,
-						'total_efl_item_count' => $orderObj->total_efl_item_count,
-						'total_side_item_count' => $orderObj->total_side_item_count,
+						'total' => $DAO_orders->grand_total,
+						'item_count' => $DAO_orders->menu_items_total_count,
+						'servings' => $DAO_orders->servings_total_count,
+						'order_id' => $DAO_orders->id,
+						'order_type' => $DAO_orders->order_type,
+						'digest_user_state' => $DAO_orders->digest_user_state,
+						'total_efl_item_count' => $DAO_orders->total_efl_item_count,
+						'total_side_item_count' => $DAO_orders->total_side_item_count,
 						'session_data' => $sessionData,
-						'DAO_session' => $DAO_session,
-						'order_data' => $orderObj
+						'DAO_session' => clone $DAO_session,
+						'order_data' => $DAO_orders
 					);
 
 					break;
@@ -651,52 +650,52 @@ class COrders extends DAO_Orders
 					{
 
 						$retVal[] = array(
-							'time' => $bookingObj->timestamp_created,
-							'session' => $bookingObj->session_start,
+							'time' => $DAO_booking->timestamp_created,
+							'session' => $DAO_booking->session_start,
 							'action' => "Order Placed",
-							'user' => $bookingObj->creator,
-							'user_id' => $bookingObj->creator_id,
-							'user_type' => $bookingObj->creator_user_type,
+							'user' => $DAO_booking->creator,
+							'user_id' => $DAO_booking->creator_id,
+							'user_type' => $DAO_booking->creator_user_type,
 							'type' => 'PLACED',
-							'total' => $orderObj->grand_total,
-							'item_count' => $orderObj->menu_items_total_count,
-							'servings' => $orderObj->servings_total_count,
-							'order_id' => $orderObj->id,
-							'order_type' => $orderObj->order_type,
-							'digest_user_state' => $orderObj->digest_user_state,
-							'total_efl_item_count' => $orderObj->total_efl_item_count,
-							'total_side_item_count' => $orderObj->total_side_item_count,
+							'total' => $DAO_orders->grand_total,
+							'item_count' => $DAO_orders->menu_items_total_count,
+							'servings' => $DAO_orders->servings_total_count,
+							'order_id' => $DAO_orders->id,
+							'order_type' => $DAO_orders->order_type,
+							'digest_user_state' => $DAO_orders->digest_user_state,
+							'total_efl_item_count' => $DAO_orders->total_efl_item_count,
+							'total_side_item_count' => $DAO_orders->total_side_item_count,
 							'session_data' => $sessionData,
-							'DAO_session' => $DAO_session,
-							'order_data' => $orderObj
+							'DAO_session' => clone $DAO_session,
+							'order_data' => $DAO_orders
 						);
 
 						// The first reschedule is actually the first booking row and so may have originally been in the SAVED state.  Check for time difference and insert
 						// saved event if so.
 
-						if (abs(strtotime($bookingObj->timestamp_created) - strtotime($orderObj->timestamp_created)) > 60 && $numFound > 1)
+						if (abs(strtotime($DAO_booking->timestamp_created) - strtotime($DAO_orders->timestamp_created)) > 60 && $numFound > 1)
 						{
 							$retVal[] = array(
-								'time' => $bookingObj->timestamp_created,
+								'time' => $DAO_booking->timestamp_created,
 								'action' => 'Order saved',
-								'user' => $bookingObj->creator,
-								'user_id' => $bookingObj->creator_id,
-								'user_type' => $bookingObj->creator_user_type,
+								'user' => $DAO_booking->creator,
+								'user_id' => $DAO_booking->creator_id,
+								'user_type' => $DAO_booking->creator_user_type,
 								'type' => 'SAVED',
 								'total' => "-",
 								'item_count' => "-",
 								'servings' => "-",
-								'order_id' => $orderObj->id,
-								'order_type' => $orderObj->order_type,
-								'digest_user_state' => $orderObj->digest_user_state,
-								'total_efl_item_count' => $orderObj->total_efl_item_count,
-								'total_side_item_count' => $orderObj->total_side_item_count,
+								'order_id' => $DAO_orders->id,
+								'order_type' => $DAO_orders->order_type,
+								'digest_user_state' => $DAO_orders->digest_user_state,
+								'total_efl_item_count' => $DAO_orders->total_efl_item_count,
+								'total_side_item_count' => $DAO_orders->total_side_item_count,
 								'session_data' => $sessionData,
-								'DAO_session' => $DAO_session,
-								'order_data' => $orderObj
+								'DAO_session' => clone $DAO_session,
+								'order_data' => $DAO_orders
 							);
 
-							$retVal[0]['time'] = $orderObj->timestamp_created;
+							$retVal[0]['time'] = $DAO_orders->timestamp_created;
 						}
 
 						$hasFoundFirstReschedule = true;
@@ -706,24 +705,24 @@ class COrders extends DAO_Orders
 
 						$retVal[] = array(
 							'time' => $lastObject->timestamp_updated,
-							'session' => $bookingObj->session_start,
-							'action' => "Rescheduled from " . CTemplate::dateTimeFormat($lastObject->session_start) . " to  " . CTemplate::dateTimeFormat($bookingObj->session_start),
-							'date_string' => "Rescheduled from " . CTemplate::dateTimeFormat($lastObject->session_start) . " to  " . CTemplate::dateTimeFormat($bookingObj->session_start),
+							'session' => $DAO_booking->session_start,
+							'action' => "Rescheduled from " . CTemplate::dateTimeFormat($lastObject->session_start) . " to  " . CTemplate::dateTimeFormat($DAO_booking->session_start),
+							'date_string' => "Rescheduled from " . CTemplate::dateTimeFormat($lastObject->session_start) . " to  " . CTemplate::dateTimeFormat($DAO_booking->session_start),
 							'user' => $lastObject->updator,
 							'user_id' => $lastObject->updator_id,
 							'user_type' => $lastObject->updator_user_type,
 							'type' => 'RESCHEDULED',
-							'total' => $orderObj->grand_total,
-							'item_count' => $orderObj->menu_items_total_count,
-							'servings' => $orderObj->servings_total_count,
-							'order_id' => $orderObj->id,
-							'order_type' => $orderObj->order_type,
-							'digest_user_state' => $orderObj->digest_user_state,
-							'total_efl_item_count' => $orderObj->total_efl_item_count,
-							'total_side_item_count' => $orderObj->total_side_item_count,
+							'total' => $DAO_orders->grand_total,
+							'item_count' => $DAO_orders->menu_items_total_count,
+							'servings' => $DAO_orders->servings_total_count,
+							'order_id' => $DAO_orders->id,
+							'order_type' => $DAO_orders->order_type,
+							'digest_user_state' => $DAO_orders->digest_user_state,
+							'total_efl_item_count' => $DAO_orders->total_efl_item_count,
+							'total_side_item_count' => $DAO_orders->total_side_item_count,
 							'session_data' => $sessionData,
-							'DAO_session' => $DAO_session,
-							'order_data' => $orderObj
+							'DAO_session' => clone $DAO_session,
+							'order_data' => $DAO_orders
 						);
 					}
 					break;
@@ -734,24 +733,24 @@ class COrders extends DAO_Orders
 					{
 						$retVal[] = array(
 							'time' => $lastObject->timestamp_updated,
-							'session' => $bookingObj->session_start,
-							'action' => "Rescheduled from " . CTemplate::dateTimeFormat($lastObject->session_start) . " to  " . CTemplate::dateTimeFormat($bookingObj->session_start),
-							'date_string' => "from " . CTemplate::dateTimeFormat($lastObject->session_start) . " to  " . CTemplate::dateTimeFormat($bookingObj->session_start),
+							'session' => $DAO_booking->session_start,
+							'action' => "Rescheduled from " . CTemplate::dateTimeFormat($lastObject->session_start) . " to  " . CTemplate::dateTimeFormat($DAO_booking->session_start),
+							'date_string' => "from " . CTemplate::dateTimeFormat($lastObject->session_start) . " to  " . CTemplate::dateTimeFormat($DAO_booking->session_start),
 							'user' => $lastObject->updator,
 							'user_id' => $lastObject->updator_id,
 							'user_type' => $lastObject->updator_user_type,
 							'type' => 'RESCHEDULED',
-							'total' => $orderObj->grand_total,
-							'item_count' => $orderObj->menu_items_total_count,
-							'servings' => $orderObj->servings_total_count,
-							'order_id' => $orderObj->id,
-							'order_type' => $orderObj->order_type,
-							'digest_user_state' => $orderObj->digest_user_state,
-							'total_efl_item_count' => $orderObj->total_efl_item_count,
-							'total_side_item_count' => $orderObj->total_side_item_count,
+							'total' => $DAO_orders->grand_total,
+							'item_count' => $DAO_orders->menu_items_total_count,
+							'servings' => $DAO_orders->servings_total_count,
+							'order_id' => $DAO_orders->id,
+							'order_type' => $DAO_orders->order_type,
+							'digest_user_state' => $DAO_orders->digest_user_state,
+							'total_efl_item_count' => $DAO_orders->total_efl_item_count,
+							'total_side_item_count' => $DAO_orders->total_side_item_count,
 							'session_data' => $sessionData,
-							'DAO_session' => $DAO_session,
-							'order_data' => $orderObj
+							'DAO_session' => clone $DAO_session,
+							'order_data' => $DAO_orders
 						);
 					}
 
@@ -759,34 +758,34 @@ class COrders extends DAO_Orders
 					{
 
 						$retVal[] = array(
-							'time' => $orderObj->timestamp_created,
-							'session' => $bookingObj->session_start,
+							'time' => $DAO_orders->timestamp_created,
+							'session' => $DAO_booking->session_start,
 							'action' => "Order Placed",
-							'user' => $bookingObj->creator,
-							'user_id' => $bookingObj->creator_id,
-							'user_type' => $bookingObj->creator_user_type,
+							'user' => $DAO_booking->creator,
+							'user_id' => $DAO_booking->creator_id,
+							'user_type' => $DAO_booking->creator_user_type,
 							'type' => 'PLACED',
-							'total' => $orderObj->grand_total,
-							'item_count' => $orderObj->menu_items_total_count,
-							'servings' => $orderObj->servings_total_count,
-							'order_id' => $orderObj->id,
-							'order_type' => $orderObj->order_type,
-							'digest_user_state' => $orderObj->digest_user_state,
-							'total_efl_item_count' => $orderObj->total_efl_item_count,
-							'total_side_item_count' => $orderObj->total_side_item_count,
+							'total' => $DAO_orders->grand_total,
+							'item_count' => $DAO_orders->menu_items_total_count,
+							'servings' => $DAO_orders->servings_total_count,
+							'order_id' => $DAO_orders->id,
+							'order_type' => $DAO_orders->order_type,
+							'digest_user_state' => $DAO_orders->digest_user_state,
+							'total_efl_item_count' => $DAO_orders->total_efl_item_count,
+							'total_side_item_count' => $DAO_orders->total_side_item_count,
 							'session_data' => $sessionData,
-							'DAO_session' => $DAO_session,
-							'order_data' => $orderObj
+							'DAO_session' => clone $DAO_session,
+							'order_data' => $DAO_orders
 						);
 					}
 
 					$storeObj = DAO_CFactory::create('store');
 
-					$storeObj->query("select timezone_id from store where id = {$orderObj->store_id}");
+					$storeObj->query("select timezone_id from store where id = {$DAO_orders->store_id}");
 					$storeObj->fetch();
 					$todayTS = CTimezones::getAdjustedServerTime($storeObj);
 
-					if ($todayTS < strtotime($bookingObj->session_start))
+					if ($todayTS < strtotime($DAO_booking->session_start))
 					{
 						$descStr = "Current Status: Pending";
 					}
@@ -802,39 +801,39 @@ class COrders extends DAO_Orders
 						'user_id' => "-",
 						'user_type' => "",
 						'type' => 'CURRENT',
-						'total' => $orderObj->grand_total,
-						'item_count' => $orderObj->menu_items_total_count,
-						'servings' => $orderObj->servings_total_count,
-						'order_id' => $orderObj->id,
-						'order_type' => $orderObj->order_type,
-						'digest_user_state' => $orderObj->digest_user_state,
-						'total_efl_item_count' => $orderObj->total_efl_item_count,
-						'total_side_item_count' => $orderObj->total_side_item_count,
+						'total' => $DAO_orders->grand_total,
+						'item_count' => $DAO_orders->menu_items_total_count,
+						'servings' => $DAO_orders->servings_total_count,
+						'order_id' => $DAO_orders->id,
+						'order_type' => $DAO_orders->order_type,
+						'digest_user_state' => $DAO_orders->digest_user_state,
+						'total_efl_item_count' => $DAO_orders->total_efl_item_count,
+						'total_side_item_count' => $DAO_orders->total_side_item_count,
 						'session_data' => $sessionData,
-						'DAO_session' => $DAO_session,
-						'order_data' => $orderObj
+						'DAO_session' => clone $DAO_session,
+						'order_data' => $DAO_orders
 					);
 
-					if (abs(strtotime($bookingObj->timestamp_created) - strtotime($orderObj->timestamp_created)) > 60 && $numFound == 1)
+					if (abs(strtotime($DAO_booking->timestamp_created) - strtotime($DAO_orders->timestamp_created)) > 60 && $numFound == 1)
 					{
 						$retVal[] = array(
-							'time' => $bookingObj->timestamp_created,
+							'time' => $DAO_booking->timestamp_created,
 							'action' => 'Order saved',
-							'user' => $bookingObj->creator,
-							'user_id' => $bookingObj->creator_id,
-							'user_type' => $bookingObj->creator_user_type,
+							'user' => $DAO_booking->creator,
+							'user_id' => $DAO_booking->creator_id,
+							'user_type' => $DAO_booking->creator_user_type,
 							'type' => 'SAVED',
 							'total' => "-",
 							'item_count' => "-",
 							'servings' => "-",
-							'order_id' => $orderObj->id,
-							'order_type' => $orderObj->order_type,
-							'digest_user_state' => $orderObj->digest_user_state,
-							'total_efl_item_count' => $orderObj->total_efl_item_count,
-							'total_side_item_count' => $orderObj->total_side_item_count,
+							'order_id' => $DAO_orders->id,
+							'order_type' => $DAO_orders->order_type,
+							'digest_user_state' => $DAO_orders->digest_user_state,
+							'total_efl_item_count' => $DAO_orders->total_efl_item_count,
+							'total_side_item_count' => $DAO_orders->total_side_item_count,
 							'session_data' => $sessionData,
-							'DAO_session' => $DAO_session,
-							'order_data' => $orderObj
+							'DAO_session' => clone $DAO_session,
+							'order_data' => $DAO_orders
 						);
 					}
 
@@ -846,24 +845,24 @@ class COrders extends DAO_Orders
 					{
 						$retVal[] = array(
 							'time' => $lastObject->timestamp_updated,
-							'session' => $bookingObj->session_start,
-							'action' => "Rescheduled from " . CTemplate::dateTimeFormat($lastObject->session_start) . " to  " . CTemplate::dateTimeFormat($bookingObj->session_start),
-							'date_string' => "from " . CTemplate::dateTimeFormat($lastObject->session_start) . " to  " . CTemplate::dateTimeFormat($bookingObj->session_start),
+							'session' => $DAO_booking->session_start,
+							'action' => "Rescheduled from " . CTemplate::dateTimeFormat($lastObject->session_start) . " to  " . CTemplate::dateTimeFormat($DAO_booking->session_start),
+							'date_string' => "from " . CTemplate::dateTimeFormat($lastObject->session_start) . " to  " . CTemplate::dateTimeFormat($DAO_booking->session_start),
 							'user' => $lastObject->updator,
 							'user_id' => $lastObject->updator_id,
 							'user_type' => $lastObject->updator_user_type,
 							'type' => 'RESCHEDULED',
-							'total' => $orderObj->grand_total,
-							'item_count' => $orderObj->menu_items_total_count,
-							'servings' => $orderObj->servings_total_count,
-							'order_id' => $orderObj->id,
-							'order_type' => $orderObj->order_type,
-							'digest_user_state' => $orderObj->digest_user_state,
-							'total_efl_item_count' => $orderObj->total_efl_item_count,
-							'total_side_item_count' => $orderObj->total_side_item_count,
+							'total' => $DAO_orders->grand_total,
+							'item_count' => $DAO_orders->menu_items_total_count,
+							'servings' => $DAO_orders->servings_total_count,
+							'order_id' => $DAO_orders->id,
+							'order_type' => $DAO_orders->order_type,
+							'digest_user_state' => $DAO_orders->digest_user_state,
+							'total_efl_item_count' => $DAO_orders->total_efl_item_count,
+							'total_side_item_count' => $DAO_orders->total_side_item_count,
 							'session_data' => $sessionData,
-							'DAO_session' => $DAO_session,
-							'order_data' => $orderObj
+							'DAO_session' => clone $DAO_session,
+							'order_data' => $DAO_orders
 						);
 					}
 
@@ -871,74 +870,74 @@ class COrders extends DAO_Orders
 					{
 
 						$retVal[] = array(
-							'time' => $orderObj->timestamp_created,
-							'session' => $bookingObj->session_start,
+							'time' => $DAO_orders->timestamp_created,
+							'session' => $DAO_booking->session_start,
 							'action' => "Order Placed",
-							'user' => $bookingObj->creator,
-							'user_id' => $bookingObj->creator_id,
-							'user_type' => $bookingObj->creator_user_type,
+							'user' => $DAO_booking->creator,
+							'user_id' => $DAO_booking->creator_id,
+							'user_type' => $DAO_booking->creator_user_type,
 							'type' => 'PLACED',
-							'total' => $orderObj->grand_total,
-							'item_count' => $orderObj->menu_items_total_count,
-							'servings' => $orderObj->servings_total_count,
-							'order_id' => $orderObj->id,
-							'order_type' => $orderObj->order_type,
-							'digest_user_state' => $orderObj->digest_user_state,
-							'total_efl_item_count' => $orderObj->total_efl_item_count,
-							'total_side_item_count' => $orderObj->total_side_item_count,
+							'total' => $DAO_orders->grand_total,
+							'item_count' => $DAO_orders->menu_items_total_count,
+							'servings' => $DAO_orders->servings_total_count,
+							'order_id' => $DAO_orders->id,
+							'order_type' => $DAO_orders->order_type,
+							'digest_user_state' => $DAO_orders->digest_user_state,
+							'total_efl_item_count' => $DAO_orders->total_efl_item_count,
+							'total_side_item_count' => $DAO_orders->total_side_item_count,
 							'session_data' => $sessionData,
-							'DAO_session' => $DAO_session,
-							'order_data' => $orderObj
+							'DAO_session' => clone $DAO_session,
+							'order_data' => $DAO_orders
 						);
 					}
 
 					$retVal[] = array(
-						'time' => $bookingObj->timestamp_updated,
+						'time' => $DAO_booking->timestamp_updated,
 						'action' => "Order Cancelled",
-						'user' => $bookingObj->updator,
-						'user_id' => $bookingObj->updator_id,
-						'user_type' => $bookingObj->updator_user_type,
-						'total' => $orderObj->grand_total,
+						'user' => $DAO_booking->updator,
+						'user_id' => $DAO_booking->updator_id,
+						'user_type' => $DAO_booking->updator_user_type,
+						'total' => $DAO_orders->grand_total,
 						'type' => 'CANCELLED',
-						'item_count' => $orderObj->menu_items_total_count,
-						'servings' => $orderObj->servings_total_count,
-						'order_id' => $orderObj->id,
-						'order_type' => $orderObj->order_type,
-						'digest_user_state' => $orderObj->digest_user_state,
-						'total_efl_item_count' => $orderObj->total_efl_item_count,
-						'total_side_item_count' => $orderObj->total_side_item_count,
+						'item_count' => $DAO_orders->menu_items_total_count,
+						'servings' => $DAO_orders->servings_total_count,
+						'order_id' => $DAO_orders->id,
+						'order_type' => $DAO_orders->order_type,
+						'digest_user_state' => $DAO_orders->digest_user_state,
+						'total_efl_item_count' => $DAO_orders->total_efl_item_count,
+						'total_side_item_count' => $DAO_orders->total_side_item_count,
 						'session_data' => $sessionData,
-						'DAO_session' => $DAO_session,
-						'order_data' => $orderObj
+						'DAO_session' => clone $DAO_session,
+						'order_data' => $DAO_orders
 					);
 
-					if (abs(strtotime($bookingObj->timestamp_created) - strtotime($orderObj->timestamp_created)) > 60 && $numFound == 1)
+					if (abs(strtotime($DAO_booking->timestamp_created) - strtotime($DAO_orders->timestamp_created)) > 60 && $numFound == 1)
 					{
 						$retVal[] = array(
-							'time' => $bookingObj->timestamp_created,
+							'time' => $DAO_booking->timestamp_created,
 							'action' => 'Order saved',
-							'user' => $bookingObj->creator,
-							'user_id' => $bookingObj->creator_id,
-							'user_type' => $bookingObj->creator_user_type,
+							'user' => $DAO_booking->creator,
+							'user_id' => $DAO_booking->creator_id,
+							'user_type' => $DAO_booking->creator_user_type,
 							'type' => 'SAVED',
 							'total' => "-",
 							'item_count' => "-",
 							'servings' => "-",
-							'order_id' => $orderObj->id,
-							'order_type' => $orderObj->order_type,
-							'digest_user_state' => $orderObj->digest_user_state,
-							'total_efl_item_count' => $orderObj->total_efl_item_count,
-							'total_side_item_count' => $orderObj->total_side_item_count,
+							'order_id' => $DAO_orders->id,
+							'order_type' => $DAO_orders->order_type,
+							'digest_user_state' => $DAO_orders->digest_user_state,
+							'total_efl_item_count' => $DAO_orders->total_efl_item_count,
+							'total_side_item_count' => $DAO_orders->total_side_item_count,
 							'session_data' => $sessionData,
-							'DAO_session' => $DAO_session,
-							'order_data' => $orderObj
+							'DAO_session' => clone $DAO_session,
+							'order_data' => $DAO_orders
 						);
 					}
 
 					break;
 			}
 
-			$lastObject = clone($bookingObj);
+			$lastObject = clone($DAO_booking);
 		}
 
 		$editedOrders = DAO_CFactory::create('edited_orders');
@@ -952,7 +951,7 @@ class COrders extends DAO_Orders
 			$sessionData = null;
 			if ($returnSessionDetails)
 			{
-				$sessionData = CSession::getSessionDetail($bookingObj->session_id, false);
+				$sessionData = CSession::getSessionDetail($DAO_booking->session_id, false);
 			}
 
 			$entry = array(
@@ -967,9 +966,9 @@ class COrders extends DAO_Orders
 				'servings' => $editedOrders->servings_total_count,
 				'notes' => $editedOrders->order_revision_notes,
 				'order_id' => $editedOrders->original_order_id,
-				'order_type' => $orderObj->order_type,
+				'order_type' => $DAO_orders->order_type,
 				'session_data' => $sessionData,
-				'order_data' => $orderObj
+				'order_data' => $DAO_orders
 			);
 
 			$retVal[] = $entry;
@@ -977,9 +976,9 @@ class COrders extends DAO_Orders
 
 		usort($retVal, 'history_sort_backwards');
 
-		$currentGrandTotal = $orderObj->grand_total;
-		$currentItemCount = $orderObj->menu_items_total_count;
-		$currentServingsCount = $orderObj->servings_total_count;
+		$currentGrandTotal = $DAO_orders->grand_total;
+		$currentItemCount = $DAO_orders->menu_items_total_count;
+		$currentServingsCount = $DAO_orders->servings_total_count;
 
 		foreach ($retVal as &$thisEntry)
 		{
@@ -1006,7 +1005,7 @@ class COrders extends DAO_Orders
 		{
 			return array(
 				$retVal,
-				$bookingObj
+				$DAO_booking
 			);
 		}
 		else
