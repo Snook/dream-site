@@ -638,7 +638,7 @@ class COrders extends DAO_Orders
 						'total_efl_item_count' => $DAO_orders->total_efl_item_count,
 						'total_side_item_count' => $DAO_orders->total_side_item_count,
 						'session_data' => $sessionData,
-						'DAO_session' => clone $DAO_session,
+						'DAO_session' => $DAO_session,
 						'order_data' => $DAO_orders
 					);
 
@@ -666,7 +666,7 @@ class COrders extends DAO_Orders
 							'total_efl_item_count' => $DAO_orders->total_efl_item_count,
 							'total_side_item_count' => $DAO_orders->total_side_item_count,
 							'session_data' => $sessionData,
-							'DAO_session' => clone $DAO_session,
+							'DAO_session' => $DAO_session,
 							'order_data' => $DAO_orders
 						);
 
@@ -691,7 +691,7 @@ class COrders extends DAO_Orders
 								'total_efl_item_count' => $DAO_orders->total_efl_item_count,
 								'total_side_item_count' => $DAO_orders->total_side_item_count,
 								'session_data' => $sessionData,
-								'DAO_session' => clone $DAO_session,
+								'DAO_session' => $DAO_session,
 								'order_data' => $DAO_orders
 							);
 
@@ -721,7 +721,7 @@ class COrders extends DAO_Orders
 							'total_efl_item_count' => $DAO_orders->total_efl_item_count,
 							'total_side_item_count' => $DAO_orders->total_side_item_count,
 							'session_data' => $sessionData,
-							'DAO_session' => clone $DAO_session,
+							'DAO_session' => $DAO_session,
 							'order_data' => $DAO_orders
 						);
 					}
@@ -749,7 +749,7 @@ class COrders extends DAO_Orders
 							'total_efl_item_count' => $DAO_orders->total_efl_item_count,
 							'total_side_item_count' => $DAO_orders->total_side_item_count,
 							'session_data' => $sessionData,
-							'DAO_session' => clone $DAO_session,
+							'DAO_session' => $DAO_session,
 							'order_data' => $DAO_orders
 						);
 					}
@@ -774,7 +774,7 @@ class COrders extends DAO_Orders
 							'total_efl_item_count' => $DAO_orders->total_efl_item_count,
 							'total_side_item_count' => $DAO_orders->total_side_item_count,
 							'session_data' => $sessionData,
-							'DAO_session' => clone $DAO_session,
+							'DAO_session' => $DAO_session,
 							'order_data' => $DAO_orders
 						);
 					}
@@ -810,7 +810,7 @@ class COrders extends DAO_Orders
 						'total_efl_item_count' => $DAO_orders->total_efl_item_count,
 						'total_side_item_count' => $DAO_orders->total_side_item_count,
 						'session_data' => $sessionData,
-						'DAO_session' => clone $DAO_session,
+						'DAO_session' => $DAO_session,
 						'order_data' => $DAO_orders
 					);
 
@@ -832,7 +832,7 @@ class COrders extends DAO_Orders
 							'total_efl_item_count' => $DAO_orders->total_efl_item_count,
 							'total_side_item_count' => $DAO_orders->total_side_item_count,
 							'session_data' => $sessionData,
-							'DAO_session' => clone $DAO_session,
+							'DAO_session' => $DAO_session,
 							'order_data' => $DAO_orders
 						);
 					}
@@ -861,7 +861,7 @@ class COrders extends DAO_Orders
 							'total_efl_item_count' => $DAO_orders->total_efl_item_count,
 							'total_side_item_count' => $DAO_orders->total_side_item_count,
 							'session_data' => $sessionData,
-							'DAO_session' => clone $DAO_session,
+							'DAO_session' => $DAO_session,
 							'order_data' => $DAO_orders
 						);
 					}
@@ -886,7 +886,7 @@ class COrders extends DAO_Orders
 							'total_efl_item_count' => $DAO_orders->total_efl_item_count,
 							'total_side_item_count' => $DAO_orders->total_side_item_count,
 							'session_data' => $sessionData,
-							'DAO_session' => clone $DAO_session,
+							'DAO_session' => $DAO_session,
 							'order_data' => $DAO_orders
 						);
 					}
@@ -907,7 +907,7 @@ class COrders extends DAO_Orders
 						'total_efl_item_count' => $DAO_orders->total_efl_item_count,
 						'total_side_item_count' => $DAO_orders->total_side_item_count,
 						'session_data' => $sessionData,
-						'DAO_session' => clone $DAO_session,
+						'DAO_session' => $DAO_session,
 						'order_data' => $DAO_orders
 					);
 
@@ -929,7 +929,7 @@ class COrders extends DAO_Orders
 							'total_efl_item_count' => $DAO_orders->total_efl_item_count,
 							'total_side_item_count' => $DAO_orders->total_side_item_count,
 							'session_data' => $sessionData,
-							'DAO_session' => clone $DAO_session,
+							'DAO_session' => $DAO_session,
 							'order_data' => $DAO_orders
 						);
 					}
