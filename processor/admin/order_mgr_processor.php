@@ -1052,7 +1052,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 
 		echo json_encode(array(
 			'processor_success' => true,
-			'processor_message' => 'Related Orders retrieval Success.',
+			'processor_message' => 'Related Orders retrieval Succes.',
 			'data' => $data
 		));
 	}
@@ -1598,9 +1598,9 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			exit;
 		}
 
-		$DAO_user = DAO_CFactory::create('user');
-		$DAO_user->id = $this->user_id;
-		if (!$DAO_user->find(true))
+		$userObj = DAO_CFactory::create('user');
+		$userObj->id = $this->user_id;
+		if (!$userObj->find(true))
 		{
 			echo json_encode(array(
 				'processor_success' => false,
@@ -1609,25 +1609,25 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			exit;
 		}
 
-		$DAO_orders = DAO_CFactory::create('orders');
-		$DAO_orders->id = $this->order_id;
-		$DAO_orders->find(true);
+		$OrderObj = DAO_CFactory::create('orders');
+		$OrderObj->id = $this->order_id;
+		$OrderObj->find(true);
 
-		$org_DAO_orders = clone($DAO_orders);
+		$orgOrderObj = clone($OrderObj);
 
-		$DAO_session = $DAO_orders->findSession(true);
-		$DAO_orders->reconstruct();
+		$Session = $OrderObj->findSession(true);
+		$OrderObj->reconstruct();
 
-		if ($DAO_user->dream_rewards_version == 3 && ($DAO_user->dream_reward_status == 1 || $DAO_user->dream_reward_status == 3))
+		if ($userObj->dream_rewards_version == 3 && ($userObj->dream_reward_status == 1 || $userObj->dream_reward_status == 3))
 		{
-			$DAO_orders->is_in_plate_points_program = 1;
+			$OrderObj->is_in_plate_points_program = 1;
 		}
 
-		if (!empty($DAO_orders->bundle_id) && $DAO_orders->type_of_order == 'INTRO')
+		if (!empty($OrderObj->bundle_id) && $OrderObj->type_of_order == 'INTRO')
 		{
-			$activeBundle = CBundle::getActiveBundleForMenu($DAO_session->menu_id, $DAO_session->store_id);
+			$activeBundle = CBundle::getActiveBundleForMenu($Session->menu_id, $Session->store_id);
 
-			$items = $DAO_orders->getItems();
+			$items = $OrderObj->getItems();
 			$selectedBIs = array();
 			foreach ($items as $id => $data)
 			{
@@ -1638,17 +1638,17 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 				}
 			}
 
-			$DAO_orders->addBundle($activeBundle, $selectedBIs, true);
+			$OrderObj->addBundle($activeBundle, $selectedBIs, true);
 		}
 
-		if ($DAO_session->session_type == CSession::DREAM_TASTE)
+		if ($Session->session_type == CSession::DREAM_TASTE)
 		{
 
-			$dreamEventProperties = CDreamTasteEvent::sessionProperties($DAO_session->id);
+			$dreamEventProperties = CDreamTasteEvent::sessionProperties($Session->id);
 
-			$DAO_bundle = DAO_CFactory::create('bundle');
-			$DAO_bundle->id = $dreamEventProperties->bundle_id;
-			if (!$DAO_bundle->find(true))
+			$theBundle = DAO_CFactory::create('bundle');
+			$theBundle->id = $dreamEventProperties->bundle_id;
+			if (!$theBundle->find(true))
 			{
 				throw new Exception('Bundle not found for the selected session.');
 			}
@@ -1657,58 +1657,58 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 
 			$isCorporateStore = false;
 
-			$DAO_store = DAO_CFactory::create('store');
-			$DAO_store->query("select is_corporate_owned from store where id = {$DAO_session->store_id}");
-			$DAO_store->fetch();
+			$storeObj = DAO_CFactory::create('store');
+			$storeObj->query("select is_corporate_owned from store where id = {$Session->store_id}");
+			$storeObj->fetch();
 
-			if ($DAO_store->is_corporate_owned)
+			if ($storeObj->is_corporate_owned)
 			{
 				$isCorporateStore = true;
 			}
 
-			if ($isCorporateStore && $DAO_session->menu_id <= 184)
+			if ($isCorporateStore && $Session->menu_id <= 184)
 			{
-				if ($DAO_bundle->bundle_type == CBundle::DREAM_TASTE)
+				if ($theBundle->bundle_type == CBundle::DREAM_TASTE)
 				{
-					$DAO_bundle->price = 34.99;
+					$theBundle->price = 34.99;
 				}
 			}
 
 			$selectedBIs = array();
-			foreach ($DAO_orders->getItems() as $k => $v)
+			foreach ($OrderObj->getItems() as $k => $v)
 			{
 				$selectedBIs[$k] = $v[0];
 			}
 
-			$DAO_orders->addTasteBundle($DAO_bundle, $selectedBIs, true);
+			$OrderObj->addTasteBundle($theBundle, $selectedBIs, true);
 		}
 
-		if ($DAO_session->session_type == CSession::FUNDRAISER)
+		if ($Session->session_type == CSession::FUNDRAISER)
 		{
 
-			$fundraiserEventProperties = CFundraiser::fundraiserEventSessionProperties($DAO_session);
+			$fundraiserEventProperties = CFundraiser::fundraiserEventSessionProperties($Session);
 
-			$DAO_bundle = DAO_CFactory::create('bundle');
-			$DAO_bundle->id = $fundraiserEventProperties->bundle_id;
-			if (!$DAO_bundle->find(true))
+			$theBundle = DAO_CFactory::create('bundle');
+			$theBundle->id = $fundraiserEventProperties->bundle_id;
+			if (!$theBundle->find(true))
 			{
 				throw new Exception('Bundle not found for the selected session.');
 			}
 
 			$selectedBIs = array();
-			foreach ($DAO_orders->getItems() as $k => $v)
+			foreach ($OrderObj->getItems() as $k => $v)
 			{
 				$selectedBIs[$k] = $v[0];
 			}
 
-			$DAO_orders->addTasteBundle($DAO_bundle, $selectedBIs, true);
+			$OrderObj->addTasteBundle($theBundle, $selectedBIs, true);
 		}
 
-		$DAO_orders->refreshForEditing($DAO_session->menu_id);
+		$OrderObj->refreshForEditing($Session->menu_id);
 
-		if ($DAO_session->isDelivery())
+		if ($Session->isDelivery())
 		{
-			$DAO_orders->orderAddress();
+			$OrderObj->orderAddress();
 		}
 
 		// Recheck allowed PLATEPOINTS and cap if necessary
@@ -1721,22 +1721,22 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			$maxDeduction = 0;
 		}
 
-		if ($DAO_orders->points_discount_total > $maxDeduction)
+		if ($OrderObj->points_discount_total > $maxDeduction)
 		{
-			$DAO_orders->points_discount_total = $maxDeduction;
+			$OrderObj->points_discount_total = $maxDeduction;
 		}
 
-		$userIsOnHold = ($DAO_orders->points_discount_total > 0 && $DAO_orders->membership_discount > 0);
+		$userIsOnHold = ($OrderObj->points_discount_total > 0 && $OrderObj->membership_discount > 0);
 
-		$DAO_orders->setShouldRecalculateMealCustomizationFee(false)->recalculate(true, false, false, $userIsOnHold);
+		$OrderObj->recalculate(true, false, false, $userIsOnHold);
 
-		$DAO_orders->setOrderInStoreStatus();
-		$DAO_orders->setOrderMultiplierEligibility();
+		$OrderObj->setOrderInStoreStatus();
+		$OrderObj->setOrderMultiplierEligibility();
 
-		$DAO_orders->setStoreCustomizationOptions();
+		$OrderObj->setStoreCustomizationOptions();
 
-		$DAO_orders->timestamp_created = date('Y-m-d H:i:s');
-		$DAO_orders->update($org_DAO_orders, true);
+		$OrderObj->timestamp_created = date('Y-m-d H:i:s');
+		$OrderObj->update($orgOrderObj, true);
 
 		$use_store_credits = false;
 		if (!empty($_REQUEST['use_store_credits']))
@@ -1749,32 +1749,32 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			$store_credit_amount = isset($_REQUEST['store_credits_amount']) ? $_REQUEST['store_credits_amount'] : 0;
 
 			// ---------------------------------------------Build Store Credits array and checkbox
-			$DAO_store_credit = DAO_CFactory::create('store_credit');
-			$DAO_store_credit->user_id = $DAO_orders->user_id;
-			$DAO_store_credit->store_id = $DAO_orders->store_id;
-			$DAO_store_credit->is_redeemed = 0;
-			$DAO_store_credit->is_deleted = 0;
-			$DAO_store_credit->is_expired = 0;
+			$Store_Credit = DAO_CFactory::create('store_credit');
+			$Store_Credit->user_id = $OrderObj->user_id;
+			$Store_Credit->store_id = $OrderObj->store_id;
+			$Store_Credit->is_redeemed = 0;
+			$Store_Credit->is_deleted = 0;
+			$Store_Credit->is_expired = 0;
 
-			$DAO_store_credit->find();
+			$Store_Credit->find();
 
 			$Store_Credit_Array = array();
 			$Store_Credits_Total = 0;
 
-			while ($DAO_store_credit->fetch())
+			while ($Store_Credit->fetch())
 			{
 
-				$Store_Credit_Array[$DAO_store_credit->id] = array(
-					'Source' => $DAO_store_credit->credit_card_number,
-					'Amount' => $DAO_store_credit->amount,
-					'Date_Redeemed' => $DAO_store_credit->timestamp_created,
-					'DAO_Obj' => clone($DAO_store_credit)
+				$Store_Credit_Array[$Store_Credit->id] = array(
+					'Source' => $Store_Credit->credit_card_number,
+					'Amount' => $Store_Credit->amount,
+					'Date_Redeemed' => $Store_Credit->timestamp_created,
+					'DAO_Obj' => clone($Store_Credit)
 				);
 
-				$Store_Credits_Total += $DAO_store_credit->amount;
+				$Store_Credits_Total += $Store_Credit->amount;
 			}
 
-			$this->processStoreCredits($store_credit_amount, $Store_Credit_Array, $DAO_orders);
+			$this->processStoreCredits($store_credit_amount, $Store_Credit_Array, $OrderObj);
 		}
 
 		$payments = array();
@@ -1878,19 +1878,19 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			//check if user has billing address, if not then create one from address info entered
 			if (!empty($addr) && !empty($state_id) && !empty($city) && !empty($zip))
 			{
-				$billingAddr = $DAO_user->getPrimaryBillingAddress();
+				$billingAddr = $userObj->getPrimaryBillingAddress();
 				if (is_null($billingAddr->id))
 				{
 					//add billing address
 					$addressData = array();
 
-					$addressData['shipping_firstname'] = $DAO_user->firstname;
-					$addressData['shipping_lastname'] = $DAO_user->lastname;
+					$addressData['shipping_firstname'] = $userObj->firstname;
+					$addressData['shipping_lastname'] = $userObj->lastname;
 					$addressData['shipping_address_line1'] = $addr;
 					$addressData['shipping_city'] = $city;
 					$addressData['shipping_state_id'] = $state_id;
 					$addressData['shipping_postal_code'] = $zip;
-					CAddress::addToAddressBook($addressData, $DAO_user->id, CAddress::BILLING, true);
+					CAddress::addToAddressBook($addressData, $userObj->id, CAddress::BILLING, true);
 				}
 			}
 		}
@@ -1951,9 +1951,9 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 		$payments[] = $paymentObj;
 
 		// Last second check for inventory
-		if (!$DAO_orders->verifyAdequateInventory())
+		if (!$OrderObj->verifyAdequateInventory())
 		{
-			$itemsOversold = $DAO_orders->getInvExceptionItemsString();
+			$itemsOversold = $OrderObj->getInvExceptionItemsString();
 
 			echo json_encode(array(
 				'processor_success' => false,
@@ -1965,31 +1965,31 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 		try
 		{
 
-			$DAO_orders->allowOverrideOfServiceFee = true;
-			$DAO_orders->allowOverrideOfDeliveryFee = true;
+			$OrderObj->allowOverrideOfServiceFee = true;
+			$OrderObj->allowOverrideOfDeliveryFee = true;
 
-			$rslt = $DAO_orders->processNewOrderDirectOrder($payments, empty($storeCredits) ? false : $storeCredits, empty($giftCardArray) ? false : $giftCardArray, true);
+			$rslt = $OrderObj->processNewOrderDirectOrder($payments, empty($storeCredits) ? false : $storeCredits, empty($giftCardArray) ? false : $giftCardArray, true);
 
 			switch ($rslt['result'])
 			{
 				case 'success':
 
-					$DAO_orders->query("update orders set order_confirmation = '{$DAO_orders->order_confirmation}' where id = {$DAO_orders->id}");
+					$OrderObj->query("update orders set order_confirmation = '{$OrderObj->order_confirmation}' where id = {$OrderObj->id}");
 
-					$DAO_orders->removeInitialInventory($DAO_orders->findSession()->menu_id);
+					$OrderObj->removeInitialInventory($OrderObj->findSession()->menu_id);
 
-					$DAO_user->setHomeStore($DAO_orders->store_id);
+					$userObj->setHomeStore($OrderObj->store_id);
 					// Increment DreamRewards Status if Appropriate
 
-					CCustomerReferral::updateAsOrderedIfEligible($DAO_user, $DAO_orders);
+					CCustomerReferral::updateAsOrderedIfEligible($userObj, $OrderObj);
 
-					if ($DAO_orders->isBundleOrder() && !$DAO_orders->isDreamTaste() && !$DAO_orders->isFundraiser())
+					if ($OrderObj->isBundleOrder() && !$OrderObj->isDreamTaste() && !$OrderObj->isFundraiser())
 					{
-						CEmail::sendBundleConfirmationEmail($DAO_user, $DAO_orders);
+						CEmail::sendBundleConfirmationEmail($userObj, $OrderObj);
 					}
 					else
 					{
-						COrders::sendConfirmationEmail($DAO_user, $DAO_orders);
+						COrders::sendConfirmationEmail($userObj, $OrderObj);
 					}
 
 					$token = false;
@@ -2002,7 +2002,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 					echo json_encode(array(
 						'processor_success' => true,
 						'processor_message' => 'The payment was saved and the order booked.',
-						'order_id' => $DAO_orders->id,
+						'order_id' => $OrderObj->id,
 						'warnOfOutstandingSavedOrdersOnFullSession' => $rslt['warnOfOutstandingSavedOrdersOnFullSession'],
 						'payment2token' => $token
 					));
@@ -2744,7 +2744,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 
 		$OrderObj->refreshForEditing($OrderObj->findSession()->menu_id);
 		$OrderObj->setAllowRecalculateMealCustomizationFeeClosedSession(true);
-		$OrderObj->setShouldRecalculateMealCustomizationFee(false)->recalculate(true, $suppressSessionDiscount);
+		$OrderObj->recalculate(true, $suppressSessionDiscount);
 		$OrderObj->update($orgOrder);
 
 		$token = CSRF::getNewToken('om_payment');
@@ -2885,7 +2885,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 			}
 			if (!empty($_POST['meal_customization_fee']))
 			{
-				$DAO_orders->subtotal_meal_customization_fee = $_POST["meal_customization_fee"];
+				$DAO_orders->subtotal_meal_customization_fee = $_POST['meal_customization_fee'];
 			}
 			else
 			{
@@ -2959,7 +2959,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 		$this->addMenuItemsToOrder($DAO_orders, $orgPrices, $items, $isIntro, $introItems, $subItems, $ltdOrderedMealsArray);
 
 		$DAO_orders->insertEditedItems(false, false);
-		$DAO_orders->setShouldRecalculateMealCustomizationFee(false)->recalculate(true, false);
+		$DAO_orders->recalculate(true, false);
 
 		if (empty($DAO_orders->bundle_id))
 		{
@@ -3126,7 +3126,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 
 		$orderCustomizationWrapper = OrdersCustomization::getInstance($DAO_orders);
 		$mealCustomizationPrefObj = $orderCustomizationWrapper->mealCustomizationToObj($DAO_user);
-		$DAO_orders = $orderCustomizationWrapper->updateMealCustomization($mealCustomizationPrefObj, false);
+		$DAO_orders = $orderCustomizationWrapper->updateMealCustomization($mealCustomizationPrefObj,false);
 
 		if ($DAO_session->isWalkIn())
 		{
@@ -3900,8 +3900,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 						// If it's a new MotM item then we need to update the price here
 
 						$menuItemInfo->override_price = COrders::getStorePrice($OrderObj->findMarkUp(), $menuItemInfo, 1);
-						if (!empty($orgPrices) && !is_null($orgPrices[$menuItemInfo->id]))
-						{
+						if(!empty($orgPrices) && !is_null($orgPrices[$menuItemInfo->id])){
 							$menuItemInfo->override_price = $orgPrices[$menuItemInfo->id];
 						}
 					}
