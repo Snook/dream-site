@@ -32,7 +32,7 @@
 		<span class="text-white-space-nowrap"><?php echo $item['date_string']; ?></span>
 	<?php } else if ($item['type'] == 'PLACED' || $item['type'] == 'SAVED') { ?>
 		<span class="text-white-space-nowrap"> for  <a href="/backoffice?session=<?php echo $item['DAO_session']->id; ?>" target="_blank">
-				<?php echo $item["DAO_session"]->sessionStartDateTime()->format("F j, Y - g:i A"); ?> session </a></span>
+				<?php echo (!empty($item["DAO_session"])) ? $item["DAO_session"]->sessionStartDateTime()->format("F j, Y - g:i A") : '' ?> session </a></span>
 	<?php } else if ($item['type'] == 'EDITED') { ?>
 		<button class="show_edit_notes astext" data-index="<?php echo $index; ?>">&bigtriangledown;</button>
 		<ul class="edit_note_content collapse list-unstyled px-3" data-index="<?php echo $index; ?>">
