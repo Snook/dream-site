@@ -3079,6 +3079,8 @@ class COrders extends DAO_Orders
 	function setShouldRecalculateMealCustomizationFee($val)
 	{
 		$this->recalculateMealCustomizationFee = $val;
+
+		return $this;
 	}
 
 	function shouldRecalculateMealCustomizationFee($val)
@@ -3089,6 +3091,8 @@ class COrders extends DAO_Orders
 	function setAllowRecalculateMealCustomizationFeeClosedSession($val)
 	{
 		$this->allowClosedMealCustomizeSessionRecalculate = $val;
+
+		return $this;
 	}
 
 	function allowRecalculateMealCustomizationFeeClosedSession()
