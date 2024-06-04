@@ -3,7 +3,7 @@
 	<form method="post" class="row">
 		<div class="col">
 			<h2 class="text-center mb-4">For the best value, visit a local store.</h2>
-			<?php if (!empty($this->zip_code)) { ?><p class="text-center">Search results for 45 miles around zip code <?php echo $this->zip_code; ?></p><?php } ?>
+			<?php if (!empty($this->zip_code)) { ?><p class="text-center">Search results for 30 miles around zip code <?php echo $this->zip_code; ?></p><?php } ?>
 			<?php foreach($this->store_results_array as $szState => $storArray ) { ?>
 				<?php $count = 1; foreach($storArray as $id => $store ) { $count++; ?>
 					<div class="row pb-4">
