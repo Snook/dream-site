@@ -793,7 +793,14 @@ class checkout_validation
 		{
 			$MenuItems = $DAO_orders->getItems();
 
-			$DAO_coupon_code = CCouponCode::isCodeValid($DAO_coupon_code->coupon_code, $DAO_orders, $DAO_orders->getMenuId());
+			if ($DAO_orders->isShipping())
+			{
+				$DAO_coupon_code = CCouponCode::isCodeValidForDelivered($DAO_coupon_code->coupon_code, $DAO_orders, $DAO_orders->getMenuId());
+			}
+			else
+			{
+				$DAO_coupon_code = CCouponCode::isCodeValid($DAO_coupon_code->coupon_code, $DAO_orders, $DAO_orders->getMenuId());
+			}
 
 			if (gettype($DAO_coupon_code) !== "object" || get_class($DAO_coupon_code) !== 'CCouponCode')
 			{
