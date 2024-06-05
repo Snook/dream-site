@@ -1018,7 +1018,7 @@ class CTemplate extends Savant2
 
 				self::setScript('head', 'https://assets.sitescdn.net/ytag/ytag.min.js', true, false, false); //yext tracking
 			}
-			self::setScript('foot', 'https://addevent.com/libs/atc/1.6.1/atc.min.js', true, true); // add to calendar function
+			//self::setScript('foot', 'https://addevent.com/libs/atc/1.6.1/atc.min.js', true, true); // add to calendar function
 
 			if ((defined('DEBUG') && (DEBUG == true)) || CBrowserSession::getValue('FAUID'))
 			{
