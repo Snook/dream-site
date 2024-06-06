@@ -4599,17 +4599,21 @@ class page_admin_order_mgr extends CPageAdminOnly
 		}
 		else
 		{
-			if (empty($args['subtotal_meal_customization_fee']) || !is_numeric($args['subtotal_meal_customization_fee']))
-			{
-				$order->subtotal_meal_customization_fee = 0.00;
-				$order->total_customized_meal_count = 0;
-				$order->opted_to_customize_recipes = 0;
-				$customizations = OrdersCustomization::getInstance($order);
-				$customizations->unsetAllMealCustomizations();
-				$order->order_customization = $customizations->orderCustomizationToJson();
-			}
-			else
-			{
+			/*
+			 *  Commented out, stores can enter $0
+			 *
+			 */
+			//if (empty($args['subtotal_meal_customization_fee']) || !is_numeric($args['subtotal_meal_customization_fee']))
+			//{
+			//	$order->subtotal_meal_customization_fee = 0.00;
+			//	$order->total_customized_meal_count = 0;
+			//	$order->opted_to_customize_recipes = 0;
+			//	$customizations = OrdersCustomization::getInstance($order);
+			//	$customizations->unsetAllMealCustomizations();
+			//	$order->order_customization = $customizations->orderCustomizationToJson();
+			//}
+			//else
+			//{
 				//Entered Value is different then previous value, prefer entered value
 				if (isset($args['subtotal_meal_customization_fee']) && $args['subtotal_meal_customization_fee'] != $order->subtotal_meal_customization_fee)
 				{
@@ -4627,7 +4631,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				}
 				$order->opted_to_customize_recipes = 1;
 				$order->total_customized_meal_count = $order::getNumberOfCustomizableMealsFromItems($order, $order->getStore()->allow_preassembled_customization);
-			}
+			//}
 		}
 	}
 
