@@ -801,14 +801,17 @@ class CDashboardNew
 		$Metric->lost_guests_at_45_days = $digest10->total_in_store - $digest9->non_lost_guests;
 
 		$digest11 = DAO_CFactory::create('orders_digest');
-		$digest11->query("select sum(o.servings_total_count) as total_servings, sum(o.menu_items_total_count) as total_items from orders_digest od
+		$digest11->query("select sum(o.servings_total_count) as total_servings, sum(o.menu_items_total_count) as total_items, COUNT(DISTINCT box_instance.id) AS total_boxes  
+						from orders_digest od
                         join orders o on o.id = od.order_id
-                        where MONTH(od.session_time) = $thisMonthNumber and YEAR(od.session_time) = $thisYear and od.store_id = $store_id and od.is_deleted = 0 ");
+						LEFT JOIN box_instance ON box_instance.order_id = od.order_id AND box_instance.is_complete = 1 AND box_instance.is_deleted = 0
+					 	where MONTH(od.session_time) = $thisMonthNumber and YEAR(od.session_time) = $thisYear and od.store_id = $store_id and od.is_deleted = 0 ");
 
 		$digest11->fetch();
 
 		$Metric->total_servings_sold = $digest11->total_servings;
 		$Metric->total_items_sold = $digest11->total_items;
+		$Metric->total_boxes_sold = $digest11->total_boxes;
 
 		if ($Metrics_Exist)
 		{

@@ -2787,24 +2787,26 @@ class CDashboardMenuBased
 
 		foreach ($storeRanksArray as $id => $rankObj)
 		{
-
-			$class = get_class($rankObj);
-
-			if ($class && $class == "DAO_Dashboard_metrics_rankings_by_menu")
+			if (!empty($rankObj))
 			{
+				$class = get_class($rankObj);
 
-				if (!empty($rankObj->id))
+				if ($class && $class == "DAO_Dashboard_metrics_rankings_by_menu")
 				{
-					$rankObj->update();
+
+					if (!empty($rankObj->id))
+					{
+						$rankObj->update();
+					}
+					else
+					{
+						$rankObj->insert();
+					}
 				}
 				else
 				{
-					$rankObj->insert();
-				}
-			}
-			else
-			{
 
+				}
 			}
 		}
 
