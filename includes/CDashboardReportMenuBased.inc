@@ -1135,6 +1135,20 @@ class CDashboardMenuBased
 		$Metric->avg_servings_per_guest_new_fundraiser = (!empty($Metric->orders_count_fundraiser_new_guests) ? $AvgServingsPerUser['new_fundraiser'] / $Metric->orders_count_fundraiser_new_guests : 0);
 		$Metric->avg_servings_per_guest_new_delivered = (!empty($Metric->orders_count_delivered_new_guests) ? $AvgServingsPerUser['new_delivered'] / $Metric->orders_count_delivered_new_guests : 0);
 
+		$digest11 = DAO_CFactory::create('orders_digest');
+		$digest11->query("select sum(o.servings_total_count) as total_servings, sum(o.menu_items_total_count) as total_items, COUNT(DISTINCT box_instance.id) AS total_boxes 
+							from orders_digest od
+							join orders o on o.id = od.order_id
+							LEFT JOIN box_instance ON box_instance.order_id = od.order_id AND box_instance.is_complete = 1 AND box_instance.is_deleted = 0
+							where  od.session_time >= '$startDate' and od.session_time < DATE_ADD('$startDate', INTERVAL $interval DAY)
+								and od.store_id = $store_id and od.is_deleted = 0 ");
+
+		$digest11->fetch();
+
+		$Metric->total_servings_sold = $digest11->total_servings;
+		$Metric->total_items_sold = $digest11->total_items;
+		$Metric->total_boxes_sold = $digest11->total_boxes;
+
 		if (!$isDistributionCenter)
 		{
 
@@ -1232,17 +1246,6 @@ class CDashboardMenuBased
 			$digest10->fetch();
 
 			$Metric->lost_guests_at_45_days = $digest10->total_in_store - $digest9->non_lost_guests;
-
-			$digest11 = DAO_CFactory::create('orders_digest');
-			$digest11->query("select sum(o.servings_total_count) as total_servings, sum(o.menu_items_total_count) as total_items from orders_digest od
-							join orders o on o.id = od.order_id
-							where  od.session_time >= '$startDate' and od.session_time < DATE_ADD('$startDate', INTERVAL $interval DAY)
-								and od.store_id = $store_id and od.is_deleted = 0 ");
-
-			$digest11->fetch();
-
-			$Metric->total_servings_sold = $digest11->total_servings;
-			$Metric->total_items_sold = $digest11->total_items;
 
 			// retention count
 			$digest12 = DAO_CFactory::create('orders_digest');

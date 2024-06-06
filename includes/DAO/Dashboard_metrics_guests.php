@@ -56,6 +56,7 @@ class DAO_Dashboard_metrics_guests extends DAO
     public $avg_servings_per_guest_new_fundraiser;			// real(8)
     public $total_servings_sold;                // int(10)
 	public $total_items_sold;                // int(10)
+	public $total_boxes_sold;                // int(10)
     public $converted_guests;                // int(8)
     public $conversion_rate;			      // real(6)
     public $one_month_drop_off;              // int(8)
