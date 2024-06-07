@@ -1,5 +1,5 @@
-<?php $this->setScript('foot', SCRIPT_PATH . '/admin/reports_guest_marketing.min.js'); ?>
-<?php $this->assign('page_title','Guest Marketing'); ?>
+<?php $this->setScript('foot', SCRIPT_PATH . '/admin/reports_guest.min.js'); ?>
+<?php $this->assign('page_title','Guest Reports'); ?>
 <?php $this->assign('topnav','guests'); ?>
 
 <?php //include $this->loadTemplate('admin/subtemplate/page_header/page_header.tpl.php'); ?>
@@ -9,11 +9,11 @@
 
 		<div class="row my-4">
 			<div class="col text-center">
-				<h1><a href="/backoffice/reports-guest-marketing">Guest Marketing Reports</a></h1>
+				<h1><a href="/backoffice/reports-guest">Guest Reports</a></h1>
 			</div>
 		</div>
 
-		<form method="post" action="/backoffice/reports-guest-marketing">
+		<form method="post" action="/backoffice/reports-guest">
 			<?php echo $this->form['hidden_html'];  ?>
 
 			<div class="form-row">
@@ -22,7 +22,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Report</span>
 						</div>
-						<?php echo $this->form['marketing_report_html']; ?>
+						<?php echo $this->form['guest_report_html']; ?>
 						<div class="input-group-append collapse report-option option-multi-store-select">
 							<?php echo $this->form['multi_store_select_html']; ?>
 						</div>

@@ -1,4 +1,4 @@
-$(document).on('change', '#marketing_report', function (e) {
+$(document).on('change', '#guest_report', function (e) {
 
 	$('.report-submit, .report-option').hideFlex();
 	$('.report-description').html('');
