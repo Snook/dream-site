@@ -4586,52 +4586,48 @@ class page_admin_order_mgr extends CPageAdminOnly
 	}
 
 	//Set customization values so that the Order->recalculate function will generate the correct totals
-	public static function adjustMealCustomizationOnOrder(&$order, $args)
+	public static function adjustMealCustomizationOnOrder(&$DAO_orders, $args)
 	{
-		if (!empty($args['opted_to_customize_recipes']))//name is reversed
+		if (CStore::storeSupportsMealCustomization($DAO_orders->getStoreObj()))
 		{
-			$order->subtotal_meal_customization_fee = 0.00;
-			$order->total_customized_meal_count = 0;
-			$order->opted_to_customize_recipes = 0;
-			$customizations = OrdersCustomization::getInstance($order);
-			$customizations->unsetAllMealCustomizations();
-			$order->order_customization = $customizations->orderCustomizationToJson();
-		}
-		else
-		{
-			/*
-			 *  Commented out, stores can enter $0
-			 *
-			 */
-			//if (empty($args['subtotal_meal_customization_fee']) || !is_numeric($args['subtotal_meal_customization_fee']))
-			//{
-			//	$order->subtotal_meal_customization_fee = 0.00;
-			//	$order->total_customized_meal_count = 0;
-			//	$order->opted_to_customize_recipes = 0;
-			//	$customizations = OrdersCustomization::getInstance($order);
-			//	$customizations->unsetAllMealCustomizations();
-			//	$order->order_customization = $customizations->orderCustomizationToJson();
-			//}
-			//else
-			//{
+			if (!empty($args['opted_to_customize_recipes']))//name is reversed
+			{
+				$DAO_orders->subtotal_meal_customization_fee = 0.00;
+				$DAO_orders->total_customized_meal_count = 0;
+				$DAO_orders->opted_to_customize_recipes = 0;
+				$customizations = OrdersCustomization::getInstance($DAO_orders);
+				$customizations->unsetAllMealCustomizations();
+				$DAO_orders->order_customization = $customizations->orderCustomizationToJson();
+			}
+			else
+			{
 				//Entered Value is different then previous value, prefer entered value
-				if (isset($args['subtotal_meal_customization_fee']) && $args['subtotal_meal_customization_fee'] != $order->subtotal_meal_customization_fee)
+				if (isset($args['subtotal_meal_customization_fee']) && $args['subtotal_meal_customization_fee'] != $DAO_orders->subtotal_meal_customization_fee)
 				{
-					$order->subtotal_meal_customization_fee = $args['subtotal_meal_customization_fee'];
+					$DAO_orders->subtotal_meal_customization_fee = $args['subtotal_meal_customization_fee'];
 					if ($args['manual_customization_fee'] == 'true')
 					{
-						$order->setShouldRecalculateMealCustomizationFee(false);
+						$DAO_orders->setShouldRecalculateMealCustomizationFee(false);
 					}
-					$customizations = OrdersCustomization::getInstance($order);
-					$order->order_customization = $customizations->orderCustomizationToJson();
+					$customizations = OrdersCustomization::getInstance($DAO_orders);
+					$DAO_orders->order_customization = $customizations->orderCustomizationToJson();
 				}
 				else if ($args['manual_customization_fee'] == 'true')
 				{
-					$order->setShouldRecalculateMealCustomizationFee(false);
+					$DAO_orders->setShouldRecalculateMealCustomizationFee(false);
 				}
-				$order->opted_to_customize_recipes = 1;
-				$order->total_customized_meal_count = $order::getNumberOfCustomizableMealsFromItems($order, $order->getStore()->allow_preassembled_customization);
-			//}
+				$DAO_orders->opted_to_customize_recipes = 1;
+				$DAO_orders->total_customized_meal_count = $DAO_orders::getNumberOfCustomizableMealsFromItems($DAO_orders, $DAO_orders->getStore()->allow_preassembled_customization);
+			}
+		}
+		else
+		{
+			$DAO_orders->subtotal_meal_customization_fee = 0.00;
+			$DAO_orders->total_customized_meal_count = 0;
+			$DAO_orders->opted_to_customize_recipes = 0;
+			$customizations = OrdersCustomization::getInstance($DAO_orders);
+			$customizations->unsetAllMealCustomizations();
+			$DAO_orders->order_customization = $customizations->orderCustomizationToJson();
 		}
 	}
 
