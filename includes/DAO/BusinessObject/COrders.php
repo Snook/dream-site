@@ -3601,7 +3601,7 @@ class COrders extends DAO_Orders
 	 * based on the reconstituted fields: $session, $store_id, etc.
 	 * @return 'closed' if the session is now closed
 	 */
-	function refresh($customer, $menu_id = false)
+	function refresh($DAO_user, $menu_id = false)
 	{
 
 		// must have a menu id
@@ -3619,11 +3619,11 @@ class COrders extends DAO_Orders
 			}
 		}
 
-		if ($customer && $customer->id)
+		if ($DAO_user && $DAO_user->id)
 		{
 
 			//if the user_id is set, make sure it matches the customer passed in
-			if ($this->user_id && ($this->user_id !== $customer->id))
+			if ($this->user_id && ($this->user_id !== $DAO_user->id))
 			{
 				CCart2::instance()->emptyCart();
 				CApp::instance()->template()->setStatusMsg('The current cart held items for another user. The cart has been emptied. Please start your order again.');
@@ -3632,7 +3632,7 @@ class COrders extends DAO_Orders
 
 			//check for preferred customer
 			$UP = DAO_CFactory::create('user_preferred');
-			$UP->user_id = $customer->id;
+			$UP->user_id = $DAO_user->id;
 			$UP->findActive($this->store_id);
 
 			if ($UP->N == 0)
@@ -10840,7 +10840,7 @@ class COrders extends DAO_Orders
 		$Mail = new CMail();
 
 		$isDeliveredOrder = false;
-		if (get_class($order) == "COrdersDelivered")
+		if ($order->isShipping())
 		{
 			$isDeliveredOrder = true;
 		}
@@ -11981,12 +11981,12 @@ class COrders extends DAO_Orders
 	/**
 	 * returns    array('orderInfo'=>$orderArray, 'menuInfo'=>$menuInfo, 'paymentInfo'=>$PaymentInfo,'sessionInfo'=>$sessionData,'customer_name'=>$customerName, 'bookingStatus'=>$booking->status, 'storeInfo'=>$storeInfo);
 	 */
-	static public function buildOrderDetailArrays($User, $Order, $viewing_user_type = null, $flatItemsList = false, $getBundleList = false, $allowDeletedSession = false, $isDelivered = false, $orderBy = 'FeaturedFirst')
+	static public function buildOrderDetailArrays($DAO_user, $DAO_orders, $viewing_user_type = null, $flatItemsList = false, $getBundleList = false, $allowDeletedSession = false, $isDelivered = false, $orderBy = 'FeaturedFirst')
 	{
 		$booking = DAO_CFactory::create('booking');
 		$session = DAO_CFactory::create('session');
 
-		$booking->order_id = $Order->id;
+		$booking->order_id = $DAO_orders->id;
 		$booking->whereAdd();
 
 		// get the most recent booking row for this order
@@ -11994,7 +11994,7 @@ class COrders extends DAO_Orders
 
 		if (!$booking->find(true))
 		{
-			throw new Exception('Booking not found in buildOrderDetailArrays(); OrderID = ' . $Order->id);
+			throw new Exception('Booking not found in buildOrderDetailArrays(); OrderID = ' . $DAO_orders->id);
 		}
 
 		$session->id = $booking->session_id;
@@ -12011,21 +12011,21 @@ class COrders extends DAO_Orders
 
 		$menu_id = $session->menu_id;
 
-		$customerName = $User->getName();
+		$customerName = $DAO_user->getName();
 
-		$user_type = isset($viewing_user_type) ? $viewing_user_type : $User->user_type;
+		$user_type = isset($viewing_user_type) ? $viewing_user_type : $DAO_user->user_type;
 
 		// ---------------------------------- get payment info.. might be 1 to n records...
 
 		$cancelled = ($booking->status == CBooking::CANCELLED);
 
-		$PaymentInfo = self::buildPaymentInfoArray($booking->order_id, $user_type, $session->session_start, $cancelled, $isDelivered);
+		$PaymentInfo = self::buildPaymentInfoArray($booking->order_id, $user_type, $session->session_start, $cancelled, $DAO_orders->isShipping());
 
 		// --------------------------------- get store name
 		$Store = DAO_CFactory::create('store');
 		$Store->id = $session->store_id;
 		$Store->find(true);
-		$Order->store = clone $Store;
+		$DAO_orders->store = clone $Store;
 		$storeInfo = $Store->toArray();
 		$storeInfo['map'] = $Store->generateMapLink();
 		$storeInfo['linear_address'] = $Store->generateLinearAddress();
@@ -12034,18 +12034,18 @@ class COrders extends DAO_Orders
 
 		$promo = null;
 		//look for promo code
-		if ($Order->family_savings_discount_version == 2 && !empty($Order->promo_code_id))
+		if ($DAO_orders->family_savings_discount_version == 2 && !empty($DAO_orders->promo_code_id))
 		{
-			$promo = $Order->getPromo();
+			$promo = $DAO_orders->getPromo();
 		}
 
 		$coupon = null;
 		$freemeal = null;
 		$hasServiceFeeCoupon = false;
 		//look for promo code
-		if (!empty($Order->coupon_code_id))
+		if (!empty($DAO_orders->coupon_code_id))
 		{
-			$coupon = $Order->getCoupon();
+			$coupon = $DAO_orders->getCoupon();
 			if ($coupon->discount_method == CCouponCode::FREE_MEAL && $coupon->menu_item_id)
 			{
 				$freemeal = $coupon;
@@ -12062,17 +12062,17 @@ class COrders extends DAO_Orders
 		$canEditDeliveredOrder = false;
 		if ($session->session_type == CSession::DELIVERED)
 		{
-			$menuInfo = COrdersDelivered::buildOrderItemsArray($Order, $promo, $freemeal, $flatItemsList);
-			$canEditDeliveredOrder = COrdersDelivered::canEditDeliveredOrder($Order);
+			$menuInfo = COrdersDelivered::buildOrderItemsArray($DAO_orders, $promo, $freemeal, $flatItemsList);
+			$canEditDeliveredOrder = COrdersDelivered::canEditDeliveredOrder($DAO_orders);
 		}
 		else
 		{
-			$menuInfo = self::buildOrderItemsArray($Order, $promo, $freemeal, $flatItemsList, $orderBy);
+			$menuInfo = self::buildOrderItemsArray($DAO_orders, $promo, $freemeal, $flatItemsList, $orderBy);
 		}
 
 		$menuInfo['menu_id'] = $menu_id;
 		$menuInfo['markup_discount_scalar'] = 1.0;
-		if ($Order->family_savings_discount_version != 2)
+		if ($DAO_orders->family_savings_discount_version != 2)
 		{
 			if (isset($Store) && $Store)
 			{
@@ -12088,13 +12088,13 @@ class COrders extends DAO_Orders
 			}
 		}
 
-		$orderArray = $Order->toArray();
+		$orderArray = $DAO_orders->toArray();
 
-		$orderArray['orderAddress'] = $Order->orderAddress()->toArray();
+		$orderArray['orderAddress'] = $DAO_orders->orderAddress()->toArray();
 
-		if ($isDelivered)
+		if ($DAO_orders->isShipping())
 		{
-			$orderArray['orderShipping'] = $Order->orderShipping()->toArray();
+			$orderArray['orderShipping'] = $DAO_orders->orderShipping()->toArray();
 		}
 
 		$foodPortionOfPPCredit = 0;
@@ -12102,23 +12102,23 @@ class COrders extends DAO_Orders
 
 		if ($orderArray['points_discount_total'] > 0)
 		{
-			$Order->getPointCredits($foodPortionOfPPCredit, $feePortionOfPPCredit, true, false, $hasServiceFeeCoupon);
+			$DAO_orders->getPointCredits($foodPortionOfPPCredit, $feePortionOfPPCredit, true, false, $hasServiceFeeCoupon);
 		}
 
 		$orderArray['points_discount_total_food'] = $foodPortionOfPPCredit;
 		$orderArray['points_discount_total_fee'] = $feePortionOfPPCredit;
 
-		$coupon = $Order->getCoupon();
+		$coupon = $DAO_orders->getCoupon();
 		if ($coupon)
 		{
 			$orderArray['coupon_title'] = $coupon->coupon_code_short_title;
 		}
 
-		if ($Order->family_savings_discount_version != 2 && $Order->isFamilySavingsOrder($menuInfo))
+		if ($DAO_orders->family_savings_discount_version != 2 && $DAO_orders->isFamilySavingsOrder($menuInfo))
 		{
 			// Calculate and add average per serving cost
 			$numberServings = self::countServings($menuInfo);
-			$adjustedSubTotal = $Order->subtotal_menu_items + $Order->subtotal_home_store_markup - $Order->family_savings_discount - $Order->subtotal_menu_item_mark_down + $Order->subtotal_ltd_menu_item_value;
+			$adjustedSubTotal = $DAO_orders->subtotal_menu_items + $DAO_orders->subtotal_home_store_markup - $DAO_orders->family_savings_discount - $DAO_orders->subtotal_menu_item_mark_down + $DAO_orders->subtotal_ltd_menu_item_value;
 			$orderArray['average_per_serving_cost'] = $numberServings != 0 ? $adjustedSubTotal / $numberServings : 0;
 			$orderArray['number_servings'] = $numberServings;
 		}
@@ -12173,10 +12173,10 @@ class COrders extends DAO_Orders
 		}
 
 		$BundleInfo = array();
-		if (!empty($Order->bundle_id) && $Order->bundle_id > 0)
+		if (!empty($DAO_orders->bundle_id) && $DAO_orders->bundle_id > 0)
 		{
 			$Bundle = DAO_CFactory::create('bundle');
-			$Bundle->id = $Order->bundle_id;
+			$Bundle->id = $DAO_orders->bundle_id;
 			$Bundle->find(true);
 
 			$relocatedBundleItems = array();
@@ -12245,7 +12245,7 @@ class COrders extends DAO_Orders
 
 			if ($flatItemsList)
 			{
-				$menuInfo['itemList'][$Order->bundle_id] = array(
+				$menuInfo['itemList'][$DAO_orders->bundle_id] = array(
 					'qty' => 1,
 					'price' => $Bundle->price,
 					'isBundle' => true,
@@ -12259,7 +12259,7 @@ class COrders extends DAO_Orders
 			}
 			else
 			{
-				$menuInfo[$Bundle->bundle_name][$Order->bundle_id] = array(
+				$menuInfo[$Bundle->bundle_name][$DAO_orders->bundle_id] = array(
 					'qty' => 1,
 					'price' => $Bundle->price,
 					'pricing_type' => 'HALF',
@@ -12285,7 +12285,7 @@ class COrders extends DAO_Orders
 				else
 				{
 					// if the order is delivered and it's a side, use the servings_per_container_display to calculate total serving average
-					if ($isDelivered && $itemData['servings_per_item'] == 1 && !empty($itemData['servings_per_container_display']))
+					if ($DAO_orders->isShipping() && $itemData['servings_per_item'] == 1 && !empty($itemData['servings_per_container_display']))
 					{
 						$totalQualifyingServings += ($itemData['servings_per_container_display'] * $itemData['qty']);
 					}
@@ -12298,16 +12298,16 @@ class COrders extends DAO_Orders
 				}
 			}
 
-			if ($totalCTSCost > 0 && !empty($Order->subtotal_food_sales_taxes))
+			if ($totalCTSCost > 0 && !empty($DAO_orders->subtotal_food_sales_taxes))
 			{
-				$pretax = $Order->grand_total - $Order->subtotal_food_sales_taxes;
+				$pretax = $DAO_orders->grand_total - $DAO_orders->subtotal_food_sales_taxes;
 				$CTSPotionOfPretax = $totalCTSCost / $pretax;
-				$CTSPotionOfTax = $Order->subtotal_food_sales_taxes * $CTSPotionOfPretax;
+				$CTSPotionOfTax = $DAO_orders->subtotal_food_sales_taxes * $CTSPotionOfPretax;
 
 				$totalCTSCost += $CTSPotionOfTax;
 			}
 
-			$totalCost = $Order->grand_total - $totalCTSCost;
+			$totalCost = $DAO_orders->grand_total - $totalCTSCost;
 
 			if ($totalQualifyingServings > 0)
 			{

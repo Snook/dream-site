@@ -173,10 +173,13 @@
 				$payment_text_decor = 'color:#808080;';
 			}
 
-			if($payment['payment_type'] == 'REFUND_CASH' || $payment['payment_type'] == 'REFUND' || $payment['payment_type'] == 'REFUND_STORE_CREDIT' || $payment['payment_type'] == 'REFUND_GIFT_CARD')
+			if (is_array($payment))
 			{
-				$payment_text_decor = 'color:#808080;';
-				$is_refund = 'refund_';
+				if($payment['payment_type'] == 'REFUND_CASH' || $payment['payment_type'] == 'REFUND' || $payment['payment_type'] == 'REFUND_STORE_CREDIT' || $payment['payment_type'] == 'REFUND_GIFT_CARD')
+				{
+					$payment_text_decor = 'color:#808080;';
+					$is_refund = 'refund_';
+				}
 			}
 
 			if (is_array($payment))

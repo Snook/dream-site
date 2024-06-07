@@ -4045,12 +4045,71 @@ function calculateTotal()
 
 	if (couponDiscountMethod == 'PERCENT')
 	{
-		var newDiscountAmount = Math.floor(pre_discounts_grand_total * (couponDiscountVar));
-		newDiscountAmount /= 100;
+		let CouponCodeStr = $('#coupon_code').val();
+		var newDiscountAmount = 0;
+		try
+		{
+			//this method correctly handles rounding in a way that matches server side
+			let formatterUSD = new Intl.NumberFormat('en-US', {
+				minimumFractionDigits: 2,
+				maximumFractionDigits: 2
+			});
+			if (CouponCodeStr == 'VOLUME')
+			{
+				newDiscountAmount = formatterUSD.format(coreItemsSubtotal * (couponDiscountVar / 100))
+			}
+			else
+			{
+				newDiscountAmount = formatterUSD.format(pre_discounts_grand_total * (couponDiscountVar / 100))
+			}
+		}
+		catch (e)
+		{
+			//original way which lead to off-by-one issue compared to server's method of rounding
+			if (CouponCodeStr == 'VOLUME')
+			{
+				newDiscountAmount = Math.floor(coreItemsSubtotal * (couponDiscountVar));
+			}
+			else
+			{
+				newDiscountAmount = Math.floor(pre_discounts_grand_total * (couponDiscountVar));
+			}
+
+			newDiscountAmount /= 100;
+		}
+
 		$('#couponValue').val(newDiscountAmount);
 	}
 
-	var couponDiscountVal = Number(0);
+	if (couponlimitedToFT)
+	{
+		if (couponDiscountMethod == 'FLAT')
+		{
+			let newDiscountVal = sideDishSubTotal;
+
+			if (newDiscountVal > couponDiscountVar)
+			{
+				newDiscountAmount = couponDiscountVar;
+			}
+			else
+			{
+				newDiscountAmount = newDiscountVal;
+			}
+		}
+
+		if (couponDiscountMethod == 'PERCENT')
+		{
+			let newDiscountVal = sideDishSubTotal;
+
+			var newDiscountAmount = Math.floor(newDiscountVal * (couponDiscountVar));
+
+			newDiscountAmount /= 100;
+		}
+
+		$('#couponValue').val(newDiscountAmount);
+	}
+
+	let couponDiscountVal = Number(0);
 	couponDiscount = $('#couponValue');
 
 	if (couponDiscount.length)
@@ -4062,19 +4121,129 @@ function calculateTotal()
 		couponDiscountVal = couponDiscount.val();
 	}
 
-	var couponDiscountValIsDeliveryFee = false;
+	let couponDiscountValIsServiceFee = false;
+	let couponDiscountValIsDeliveryFee = false;
 
-	if (typeof coupon != 'undefined' && coupon.limit_to_delivery_fee == '1' && coupon.discount_method == 'FLAT')
+	if (typeof coupon != 'undefined')
 	{
-		var currentDeliveryFee = $("#subtotal_delivery_fee").val();
-		if (couponDiscountVal != currentDeliveryFee)
+		if (coupon.limit_to_mfy_fee == '1' && coupon.discount_method == 'FLAT')
 		{
-			couponDiscountVal = currentDeliveryFee;
-			$('#couponValue').val(couponDiscountVal);
+			let currentServiceFee = $("#subtotal_service_fee").val();
+			if (couponDiscountVal != currentServiceFee)
+			{
+				couponDiscountVal = currentServiceFee;
+			}
 
+			couponDiscountValIsServiceFee = true;
 		}
 
-		couponDiscountValIsDeliveryFee = true;
+		if (coupon.limit_to_delivery_fee == '1')
+		{
+			let currentDeliveryFee = $("#subtotal_delivery_fee").val();
+
+			if (coupon.discount_method == 'FLAT')
+			{
+				if (couponDiscountVal != currentDeliveryFee)
+				{
+					if (parseFloat(couponDiscountVal) > parseFloat(currentDeliveryFee))
+					{
+						couponDiscountVal = currentDeliveryFee;
+						couponDiscountValIsDeliveryFee = true;
+					}
+				}
+			}
+			else
+			{
+				couponDiscountVal = formatAsMoney(currentDeliveryFee * (coupon.discount_var / 100));
+				couponDiscountValIsDeliveryFee = true;
+			}
+		}
+
+		if (coupon.limit_to_core == '1')
+		{
+			let base = coreItemsSubtotal;
+
+			if (coupon.discount_method == 'FLAT')
+			{
+				if (base > coupon.discount_var)
+				{
+					couponDiscountVal = coupon.discount_var;
+				}
+				else
+				{
+					couponDiscountVal = formatAsMoney(base);
+				}
+			}
+			else if (coupon.discount_method == 'PERCENT')
+			{
+				couponDiscountVal = formatAsMoney(base * (coupon.discount_var / 100));
+			}
+		}
+
+		if (coupon.limit_to_core_and_efl == '1')
+		{
+			let base = coreItemsSubtotal + eflItemsSubtotal;
+
+			if (coupon.discount_method == 'FLAT')
+			{
+				if (base > coupon.discount_var)
+				{
+					couponDiscountVal = coupon.discount_var;
+				}
+				else
+				{
+					couponDiscountVal = formatAsMoney(base);
+				}
+			}
+			else if (coupon.discount_method == 'PERCENT')
+			{
+				couponDiscountVal = formatAsMoney(base * (coupon.discount_var / 100));
+			}
+		}
+
+		if (coupon.limit_to_finishing_touch == '1')
+		{
+			let base = sideDishSubTotal;
+
+			if (coupon.discount_method == 'FLAT')
+			{
+				if (base > coupon.discount_var)
+				{
+					couponDiscountVal = coupon.discount_var;
+				}
+				else
+				{
+					couponDiscountVal = formatAsMoney(base);
+				}
+			}
+			else if (coupon.discount_method == 'PERCENT')
+			{
+				couponDiscountVal = formatAsMoney(base * (coupon.discount_var / 100));
+			}
+		}
+
+		if (coupon.limit_to_recipe_id == '1')
+		{
+			let prc_str = $('#prc_' + coupon.menu_item_id).text();
+
+			if (coupon.discount_method == 'FLAT')
+			{
+				if (prc_str > coupon.discount_var)
+				{
+					couponDiscountVal = formatAsMoney(prc_str - coupon.discount_var);
+				}
+				else
+				{
+					couponDiscountVal = formatAsMoney(prc_str);
+				}
+			}
+			else if (coupon.discount_method == 'PERCENT')
+			{
+				couponDiscountVal = formatAsMoney(prc_str * (coupon.discount_var / 100));
+			}
+		}
+
+		$('#couponValue').val(couponDiscountVal);
 	}
 
 	if (couponDiscountVal)

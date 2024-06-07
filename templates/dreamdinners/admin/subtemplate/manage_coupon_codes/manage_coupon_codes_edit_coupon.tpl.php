@@ -458,15 +458,24 @@
 
 	</div>
 
-	<div class="form-row mb-3 collapse section-store_coupon">
+	<div class="form-row mb-3 collapse section-store_coupon section-delivered_coupon">
 
 		<div class="col-12">
-			<h4 class="pb-0">Limit to food or fees</h4>
-			<p class="font-size-small">What portion of the total this coupon discounts</p>
+			<h4 class="pb-0">Apply to total</h4>
+			<p class="font-size-small">Apply discount to total</p>
 		</div>
 
 		<div class="form-group col-md-12">
 			<?php echo $this->CouponForm['limit_coupon_html']['limit_to_grand_total']; ?>
+		</div>
+
+	</div>
+
+	<div class="form-row mb-3 collapse section-store_coupon">
+
+		<div class="col-12">
+			<h4 class="pb-0">Limit to food</h4>
+			<p class="font-size-small">What portion of the food this coupon discounts</p>
 		</div>
 
 		<div class="form-group col-md-6">
@@ -482,13 +491,6 @@
 		</div>
 
 		<div class="form-group col-md-6">
-			<?php echo $this->CouponForm['limit_coupon_html']['limit_to_mfy_fee']; ?>
-		</div>
-
-		<div class="form-group col-md-6">
-			<?php echo $this->CouponForm['limit_coupon_html']['limit_to_delivery_fee']; ?>
-		</div>
-		<div class="form-group col-md-6">
 
 			<div class="input-group">
 				<?php echo $this->CouponForm['limit_coupon_html']['limit_to_recipe_id']; ?>
@@ -496,6 +498,22 @@
 					<?php echo $this->CouponForm['recipe_id_html']; ?>
 				</div>
 			</div>
+		</div>
+	</div>
+
+	<div class="form-row mb-3 collapse section-store_coupon section-delivered_coupon">
+
+		<div class="col-12">
+			<h4 class="pb-0">Limit to fees</h4>
+			<p class="font-size-small">What portion of the fees this coupon discounts</p>
+		</div>
+
+		<div class="form-group col-md-6 collapse section-store_coupon">
+			<?php echo $this->CouponForm['limit_coupon_html']['limit_to_mfy_fee']; ?>
+		</div>
+
+		<div class="form-group col-md-6 collapse section-store_coupon section-delivered_coupon">
+			<?php echo $this->CouponForm['limit_coupon_html']['limit_to_delivery_fee']; ?>
 		</div>
 	</div>
 

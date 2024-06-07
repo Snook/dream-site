@@ -300,31 +300,58 @@ class CCouponCode extends DAO_Coupon_code
 	/*
 * 	Returns the DAO couponCodeObject if valid else returns an array of string error codes
 */
-	static function isCodeValidForDelivered($actualCouponCode, $Order, $menu_id, $editedOrder = false, $orgOrderTime = null, $orgOrderID = null)
+	static function isCodeValidForDelivered($actualCouponCode, $DAO_orders, $menu_id, $editedOrder = false, $orgOrderTime = null, $orgOrderID = null)
 	{
-		$daoCode = DAO_CFactory::create('coupon_code');
-		$daoCode->coupon_code = trim($actualCouponCode);
+		$DAO_coupon_code = DAO_CFactory::create('coupon_code');
+		$DAO_coupon_code->coupon_code = trim($actualCouponCode);
 
-		$daoCode->query("select * from coupon_code where coupon_code = '{$daoCode->coupon_code}' and is_deleted = 0 and is_delivered_coupon = 1 order by id desc limit 1");
+		$DAO_coupon_code->query("select * from coupon_code where coupon_code = '{$DAO_coupon_code->coupon_code}' and is_deleted = 0 and is_delivered_coupon = 1 order by id desc limit 1");
 
-		if (!$daoCode->fetch(true))
+		if (!$DAO_coupon_code->fetch(true))
 		{
 			return array('code_does_not_exist');
 		}
 
-		if (!empty($daoCode->limit_to_delivery_fee))
-		{
-			$daoCode->discount_var = $Order->subtotal_delivery_fee;
-		}
+		$DAO_coupon_code->calculate($DAO_orders, $DAO_orders->getMarkUp());
 
-		$validationResult = $daoCode->isValidForDelivered($Order, $menu_id, $orgOrderTime, $orgOrderID);
+		$validationResult = $DAO_coupon_code->isValidForDelivered($DAO_orders, $menu_id, $orgOrderTime, $orgOrderID);
 
 		if (empty($validationResult))
 		{
-			return $daoCode;
+			return $DAO_coupon_code;
 		}
 
 		return $validationResult;
+	}
+
+	function isShippingCoupon()
+	{
+		if (!empty($this->is_delivered_coupon))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function isStoreCoupon()
+	{
+		if (!empty($this->is_store_coupon))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function isProductCoupon()
+	{
+		if (!empty($this->is_product_coupon))
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 	/*
@@ -1661,14 +1688,14 @@ class CCouponCode extends DAO_Coupon_code
 	 *    otherwise use the current store markup
 	 *    ability to non-current markup added for order editing
 	 */
-	function calculate($Order, $markup = false)
+	function calculate($DAO_orders, $markup = false)
 	{
-		if (!$Order)
+		if (!$DAO_orders)
 		{
 			return false;
 		}
 
-		if ($Order->getMenuID() && $Order->getMenuID() < 221)
+		if ($DAO_orders->getMenuID() && $DAO_orders->getMenuID() < 221)
 		{
 			if ($this->coupon_code == 'GNOINTRO15')
 			{
@@ -1676,8 +1703,8 @@ class CCouponCode extends DAO_Coupon_code
 			}
 		}
 
-		$DAO_session = $Order->findSession();
-		$DAO_bundle = $Order->getBundleObj();
+		$DAO_session = $DAO_orders->findSession();
+		$DAO_bundle = $DAO_orders->getBundleObj();
 
 		// if this is a dream taste, the hostess discount is equal to the cost of the dream taste bundle
 		if ($this->coupon_code == 'HOSTESS' && $DAO_session->session_type == CSession::DREAM_TASTE)
@@ -1688,20 +1715,20 @@ class CCouponCode extends DAO_Coupon_code
 		switch ($this->discount_method)
 		{
 			case self::FLAT:
-				return $this->_calculateFlat($Order, $markup);
+				return $this->_calculateFlat($DAO_orders, $markup);
 
 			case self::PERCENT:
-				return $this->_calculatePercent($Order, $markup);
+				return $this->_calculatePercent($DAO_orders, $markup);
 
 			case self::FREE_MEAL:
-				return $this->_calculateFreeMeal($Order, $markup);
+				return $this->_calculateFreeMeal($DAO_orders, $markup);
 
 			case self::BONUS_CREDIT:
 				//Do nuttin
-				return $Order->coupon_code_discount_total;
+				return $DAO_orders->coupon_code_discount_total;
 
 			case self::FREE_MENU_ITEM:
-				return $this->_calculateFreeMenuItem($Order, $markup);
+				return $this->_calculateFreeMenuItem($DAO_orders, $markup);
 
 			default:
 				throw new Exception('unrecognized promo type');
@@ -1710,19 +1737,19 @@ class CCouponCode extends DAO_Coupon_code
 		return false;
 	}
 
-	function _calculateFlat($Order, $markup)
+	function _calculateFlat($DAO_orders, $markup)
 	{
 		if ($this->limit_to_core)
 		{
-			if ($this->discount_var > $Order->pcal_core_total)
+			if ($this->discount_var > $DAO_orders->pcal_core_total)
 			{
-				return $Order->pcal_core_total;
+				return $DAO_orders->pcal_core_total;
 			}
 		}
 
 		if ($this->limit_to_core_and_efl)
 		{
-			$total = $Order->pcal_core_total + $Order->pcal_efl_total;
+			$total = $DAO_orders->pcal_core_total + $DAO_orders->pcal_efl_total;
 
 			if ($this->discount_var > $total)
 			{
@@ -1732,31 +1759,31 @@ class CCouponCode extends DAO_Coupon_code
 
 		if ($this->limit_to_finishing_touch)
 		{
-			if ($this->discount_var > $Order->pcal_sidedish_total)
+			if ($this->discount_var > $DAO_orders->pcal_sidedish_total)
 			{
-				return $Order->pcal_sidedish_total;
+				return $DAO_orders->pcal_sidedish_total;
 			}
 		}
 
 		if ($this->limit_to_mfy_fee)
 		{
-			if ($this->discount_var > $Order->subtotal_service_fee)
+			if ($this->discount_var > $DAO_orders->subtotal_service_fee)
 			{
-				return $Order->subtotal_service_fee;
+				return $DAO_orders->subtotal_service_fee;
 			}
 		}
 
 		if ($this->limit_to_delivery_fee)
 		{
-			if ($this->discount_var > $Order->subtotal_delivery_fee && !is_null($Order->subtotal_delivery_fee))
+			if ($this->discount_var > $DAO_orders->subtotal_delivery_fee && !is_null($DAO_orders->subtotal_delivery_fee))
 			{
-				return $Order->subtotal_delivery_fee;
+				return $DAO_orders->subtotal_delivery_fee;
 			}
 		}
 
 		if ($this->limit_to_recipe_id)
 		{
-			$base = $this->_calculateDiscountedRecipe($Order);
+			$base = $this->_calculateDiscountedRecipe($DAO_orders);
 
 			if ($this->discount_var > $base)
 			{
@@ -1767,11 +1794,11 @@ class CCouponCode extends DAO_Coupon_code
 		return $this->discount_var;
 	}
 
-	function _calculatePercent($Order, $markup)
+	function _calculatePercent($DAO_orders, $markup)
 	{
 		if ($this->limit_to_core)
 		{
-			$base = $Order->pcal_core_total;
+			$base = $DAO_orders->pcal_core_total;
 			$discount = CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 
 			return $discount;
@@ -1779,7 +1806,7 @@ class CCouponCode extends DAO_Coupon_code
 
 		if ($this->limit_to_core_and_efl)
 		{
-			$base = $Order->pcal_core_total + $Order->pcal_efl_total;
+			$base = $DAO_orders->pcal_core_total + $DAO_orders->pcal_efl_total;
 			$discount = CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 
 			return $discount;
@@ -1787,7 +1814,7 @@ class CCouponCode extends DAO_Coupon_code
 
 		if ($this->limit_to_finishing_touch)
 		{
-			$base = $Order->pcal_sidedish_total;
+			$base = $DAO_orders->pcal_sidedish_total;
 			$discount = CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 
 			return $discount;
@@ -1795,7 +1822,7 @@ class CCouponCode extends DAO_Coupon_code
 
 		if ($this->limit_to_mfy_fee)
 		{
-			$base = $Order->subtotal_service_fee;
+			$base = $DAO_orders->subtotal_service_fee;
 			$discount = CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 
 			return $discount;
@@ -1803,7 +1830,7 @@ class CCouponCode extends DAO_Coupon_code
 
 		if ($this->limit_to_delivery_fee)
 		{
-			$base = $Order->subtotal_delivery_fee;
+			$base = $DAO_orders->subtotal_delivery_fee;
 			$discount = CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 
 			return $discount;
@@ -1811,14 +1838,14 @@ class CCouponCode extends DAO_Coupon_code
 
 		if ($this->limit_to_recipe_id)
 		{
-			$base = $this->_calculateDiscountedRecipe($Order);
+			$base = $this->_calculateDiscountedRecipe($DAO_orders);
 			$discount = CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 
 			return $discount;
 		}
 
 		//TODO: sanity checks
-		$base = $Order->subtotal_menu_items + $Order->subtotal_home_store_markup - $Order->bundle_discount - $Order->family_savings_discount - $Order->promo_code_discount_total - $Order->volume_discount_total;
+		$base = $DAO_orders->subtotal_menu_items + $DAO_orders->subtotal_home_store_markup - $DAO_orders->bundle_discount - $DAO_orders->family_savings_discount - $DAO_orders->promo_code_discount_total - $DAO_orders->volume_discount_total;
 		$base = COrders::std_round($base);
 		$discount = COrders::std_round(($base * ($this->discount_var)) / 100);
 

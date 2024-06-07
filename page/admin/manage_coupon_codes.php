@@ -715,7 +715,7 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 			CForm::name => "limit_coupon",
 			CForm::readonly => $couponOrders['hasOrders'],
 			CForm::value => 'limit_to_delivery_fee',
-			CForm::label => 'Limit to Delivery fee'
+			CForm::label => 'Limit to Delivery fee<div class="font-size-small text-muted">*Applies to Delivery or Shipping</div>'
 		));
 
 		$this->CouponForm->addElement(array(

@@ -265,6 +265,26 @@ class COrdersDelivered extends COrders
 		}
 		$this->applyTax(0, $hasServiceFeeCoupon, $hasDeliveryFeeCoupon);
 
+		if ($hasServiceFeeCoupon)
+		{
+			$this->subtotal_all_items = $this->subtotal_food_items_adjusted + $this->subtotal_products - $fee_portion_of_points_credit + $this->subtotal_delivery_fee;
+		}
+		else if ($hasDeliveryFeeCoupon)
+		{
+			$discount = $this->coupon->calculate($this);
+			$delFee = $this->subtotal_delivery_fee;
+			if (!is_null($discount) && $discount > 0)
+			{
+				$delFee = $this->subtotal_delivery_fee - $discount;
+			}
+
+			$this->subtotal_all_items = $this->subtotal_food_items_adjusted + $this->subtotal_products - $fee_portion_of_points_credit + $this->subtotal_service_fee + $delFee;
+		}
+		else
+		{
+			$this->subtotal_all_items = $this->subtotal_food_items_adjusted + $this->subtotal_products + $this->subtotal_service_fee - $fee_portion_of_points_credit + $this->subtotal_delivery_fee;
+		}
+
 		$this->grand_total = $this->subtotal_all_items + $this->subtotal_all_taxes;
 
 		return $this->grand_total;
@@ -479,15 +499,11 @@ class COrdersDelivered extends COrders
 		//get coupon
 		if (!empty($this->coupon_code_id) && is_numeric($this->coupon_code_id))
 		{
-			$couponCode = DAO_CFactory::Create('coupon_code');
+			$couponCode = DAO_CFactory::create('coupon_code');
 			$couponCode->id = $this->coupon_code_id;
 			$found = $couponCode->find(true);
 			if ($found)
 			{
-				if (!empty($couponCode->limit_to_delivery_fee))
-				{
-					$couponCode->discount_var = $this->subtotal_delivery_fee;
-				}
 				$this->addCoupon($couponCode);
 			}
 			else
@@ -640,13 +656,13 @@ class COrdersDelivered extends COrders
 		}
 	}
 
-	function refresh($customer, $menu_id = false)
+	function refresh($DAO_user, $menu_id = false)
 	{
 
-		if ($customer && $customer->id)
+		if ($DAO_user && $DAO_user->id)
 		{
 			//if the user_id is set, make sure it matches the customer passed in
-			if ($this->user_id && ($this->user_id !== $customer->id))
+			if ($this->user_id && ($this->user_id !== $DAO_user->id))
 			{
 				CCart2::instance()->emptyCart();
 				CApp::instance()->template()->setStatusMsg('The current cart held items for another user. The cart has been emptied. Please start your order again.');
@@ -665,18 +681,14 @@ class COrdersDelivered extends COrders
 		//get coupon
 		if (isset($this->coupon_code_id) && $this->coupon_code_id)
 		{
-			$couponCode = DAO_CFactory::Create('coupon_code');
-			$couponCode->id = $this->coupon_code_id;
-			$found = $couponCode->find(true);
+			$DAO_coupon_code = DAO_CFactory::Create('coupon_code');
+			$DAO_coupon_code->id = $this->coupon_code_id;
+			$found = $DAO_coupon_code->find(true);
 			if ($found)
 			{
+				$DAO_coupon_code->calculate($this);
 
-				if (!empty($couponCode->limit_to_delivery_fee))
-				{
-					$couponCode->discount_var = $this->subtotal_delivery_fee;
-				}
-
-				$this->addCoupon($couponCode);
+				$this->addCoupon($DAO_coupon_code);
 			}
 		}
 

@@ -60,7 +60,7 @@ class processor_admin_orderMgrCouponCodeProcessorDelivered extends CPageProcesso
 			{
 				if (isset($parts[1]))
 				{
-			    	 $values[$parts[0]] = $parts[1];
+					$values[$parts[0]] = $parts[1];
 				}
 				else
 				{
@@ -73,12 +73,12 @@ class processor_admin_orderMgrCouponCodeProcessorDelivered extends CPageProcesso
 		$daoStore->id = $values['store_id'];
 		$daoStore->find(true);
 
-		$User = null;
+		$DAO_user = null;
 		if (isset($_REQUEST['user_id']) && is_numeric($_REQUEST['user_id']))
 		{
-			$User = DAO_CFactory::create('user');
-			$User->id = $_REQUEST['user_id'];
-			if (!$User->find(true))
+			$DAO_user = DAO_CFactory::create('user');
+			$DAO_user->id = $_REQUEST['user_id'];
+			if (!$DAO_user->find(true))
 			{
 				echo json_encode(array(
 					'processor_success' => false,
@@ -88,17 +88,17 @@ class processor_admin_orderMgrCouponCodeProcessorDelivered extends CPageProcesso
 			}
 		}
 
-		list($Order, $SessionObj) = self::buildOrderFromArray($daoStore, $values, $User);
+		list($DAO_orders, $DAO_session) = self::buildOrderFromArray($daoStore, $values, $DAO_user);
 
-        $menu_id = $SessionObj->menu_id;
+		$menu_id = $DAO_session->menu_id;
 
-		$Order->user_id = $User->id;
-		$Order->id = $_REQUEST['order_id'];
+		$DAO_orders->user_id = $DAO_user->id;
+		$DAO_orders->id = $_REQUEST['order_id'];
 
 		$orgOrderObj = null;
 		if (isset($_REQUEST['order_state']) && $_REQUEST['order_state'] != 'ACTIVE')
 		{
-			$orgOrderObj = clone($Order);
+			$orgOrderObj = clone($DAO_orders);
 		}
 
 		if (isset($_REQUEST['op']) && $_REQUEST['op'] == 'remove')
@@ -122,7 +122,7 @@ class processor_admin_orderMgrCouponCodeProcessorDelivered extends CPageProcesso
 		}
 
 		// TODO: check for valid store id
-		if (!$Order)
+		if (!$DAO_orders)
 		{
 			echo json_encode(array(
 				'processor_success' => false,
@@ -131,7 +131,7 @@ class processor_admin_orderMgrCouponCodeProcessorDelivered extends CPageProcesso
 			exit;
 		}
 
-		if (isset($Order->needToReviewCart) && $Order->needToReviewCart)
+		if (isset($DAO_orders->needToReviewCart) && $DAO_orders->needToReviewCart)
 		{
 			echo json_encode(array(
 				'processor_success' => false,
@@ -140,12 +140,12 @@ class processor_admin_orderMgrCouponCodeProcessorDelivered extends CPageProcesso
 			exit;
 		}
 
-		$Order->refresh($User);
-		$Order->recalculate(true);
+		$DAO_orders->refresh($DAO_user);
+		$DAO_orders->recalculate(true);
 
 		if (isset($_REQUEST['op']) && $_REQUEST['op'] != 'remove')
 		{
-			$couponValidation = CCouponCode::isCodeValidForDelivered($couponCode, $Order, $menu_id, true, $OrgOrderTime, $OrgOrderID);
+			$couponValidation = CCouponCode::isCodeValidForDelivered($couponCode, $DAO_orders, $menu_id, true, $OrgOrderTime, $OrgOrderID);
 
 			if (gettype($couponValidation) !== "object" || get_class($couponValidation) !== 'CCouponCode')
 			{
@@ -167,25 +167,24 @@ class processor_admin_orderMgrCouponCodeProcessorDelivered extends CPageProcesso
 				$codeDAO = $couponValidation;
 			}
 
-			$Order->addCoupon($codeDAO);
+			$DAO_orders->addCoupon($codeDAO);
 		}
 		else
 		{
-			$Order->coupon_code_id = 'null';
-			$Order->coupon_code_discount_total = 0;
+			$DAO_orders->coupon_code_id = 'null';
+			$DAO_orders->coupon_code_discount_total = 0;
 		}
 
-		$Order->refresh($User, $menu_id);
+		$DAO_orders->refresh($DAO_user, $menu_id);
 
-		$Order->family_savings_discount = 0;
-		$Order->menu_program_id = 1;
+		$DAO_orders->family_savings_discount = 0;
+		$DAO_orders->menu_program_id = 1;
 
-
-		$Order->recalculate(true);
+		$DAO_orders->recalculate(true);
 
 		if (isset($_REQUEST['order_state']) && $_REQUEST['order_state'] != 'ACTIVE')
 		{
-		//	$Order->update($orgOrderObj);
+			//	$Order->update($orgOrderObj);
 		}
 
 		$entreeServings = 0;
@@ -197,7 +196,7 @@ class processor_admin_orderMgrCouponCodeProcessorDelivered extends CPageProcesso
 			'processor_success' => true,
 			'processor_message' => 'The coupon code was attached.',
 			'validation_errors' => false,
-			'coupon_code_discount_total' => $Order->coupon_code_discount_total,
+			'coupon_code_discount_total' => $DAO_orders->coupon_code_discount_total,
 			'discount_method' => (isset($codeDAO) ? $codeDAO->discount_method : ""),
 			'coupon' => (isset($codeDAO) ? $codeDAO : ""),
 			'code_id' => (isset($codeDAO) ? $codeDAO->id : ""),
@@ -288,7 +287,7 @@ class processor_admin_orderMgrCouponCodeProcessorDelivered extends CPageProcesso
 		}
 		$items = array();
 
-		foreach($array as $k => $v)
+		foreach ($array as $k => $v)
 		{
 			if (strpos($k, "qty_") === 0)
 			{
@@ -354,13 +353,12 @@ class processor_admin_orderMgrCouponCodeProcessorDelivered extends CPageProcesso
 
 		$Order->points_discount_total = 0;
 
-        if (!empty($array['subtotal_delivery_fee']))
-        {
-            $Order->subtotal_service_fee = $array['subtotal_delivery_fee'];
-        }
+		if (!empty($array['subtotal_delivery_fee']))
+		{
+			$Order->subtotal_delivery_fee = $array['subtotal_delivery_fee'];
+		}
 
-
-        return array(
+		return array(
 			$Order,
 			$Session
 		);
