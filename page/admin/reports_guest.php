@@ -244,25 +244,25 @@ class page_admin_reports_guest extends CPageAdminOnly
 			$DAO_dashboard_metrics_agr_by_menu->find();
 
 			$labels = array(
-				'menu_id',
-				'menu_name',
-				'store_id',
-				'store_type',
-				'state_id',
-				'city',
-				'store_name',
-				'total_agr',
-				'total_agr_month_start',
-				'avg_ticket_all',
-				'orders_count_all',
-				'orders_count_additional',
-				'total_items_sold',
-				'total_boxes_sold',
-				'avg_items_per_order',
-				'guest_count_total',
-				'guest_count_new',
-				'guest_count_reacquired',
-				'guest_count_existing'
+				'Menu ID',
+				'Menu Date',
+				'Store ID',
+				'Store Type',
+				'State',
+				'City',
+				'Store Name',
+				'Total AGR',
+				'Total AGR Month Start',
+				'Average Ticket',
+				'Total Orders',
+				'Total Additional Orders',
+				'Total Items Sold',
+				'Total Boxes Sold',
+				'Average Items Per Order',
+				'Guest Total',
+				'New Guest Total',
+				'Reacquired Guest Total',
+				'Existing Guest Total'
 			);
 
 			$rows = array();
@@ -293,7 +293,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 			}
 
 			$_GET['export'] = 'csv';
-			$_GET['csvfilename'] = 'report_power_bi';
+			$_GET['csvfilename'] = 'report_power_bi-created-' . date("Y-m-d");;
 
 			$this->Template->assign('labels', $labels);
 			$this->Template->assign('rows', $rows);
@@ -378,7 +378,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 			}
 
 			$_GET['export'] = 'csv';
-			$_GET['csvfilename'] = 'report_guest_birthdays';
+			$_GET['csvfilename'] = 'report_guest_birthdays-created-' . date("Y-m-d");;
 
 			$this->Template->assign('labels', $labels);
 			$this->Template->assign('rows', $rows);
@@ -451,7 +451,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 			}
 
 			$_GET['export'] = 'csv';
-			$_GET['csvfilename'] = 'guest_with_dinner_dollars';
+			$_GET['csvfilename'] = 'guest_with_dinner_dollars-created-' . date("Y-m-d");;
 
 			$this->Template->assign('labels', $labels);
 			$this->Template->assign('rows', $rows);
@@ -523,7 +523,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 			}
 
 			$_GET['export'] = 'csv';
-			$_GET['csvfilename'] = 'report_user_preferred';
+			$_GET['csvfilename'] = 'report_user_preferred-created-' . date("Y-m-d");;
 
 			$this->Template->assign('labels', $labels);
 			$this->Template->assign('rows', $rows);
