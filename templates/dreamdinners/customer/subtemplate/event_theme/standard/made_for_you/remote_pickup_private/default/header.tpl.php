@@ -4,7 +4,6 @@
 			<div class="col">
 				<h3><?php echo $this->session['session_host_informal_name']; ?>'s Pick Up Event</h3>
 				<p>You’re invited to a special pick up event hosted by <?php echo $this->session['session_host_informal_name']; ?>. Order your perfectly prepped dinners from our menu below. We will assemble them for your family at our local assembly kitchen and you simply pick up your dinners at <?php echo $this->session['session_host_informal_name']; ?>'s community pick up location on <?php echo CTemplate::dateTimeFormat($this->session['session_start'], VERBOSE); ?>.</p>
-				<p class="font-italic text-muted">Note: A store fee may be added at checkout for this private event.</p>
 			</div>
 		</div>
 		<?php if (!empty($this->session['session_details'])) { ?>
