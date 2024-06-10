@@ -2953,6 +2953,16 @@ class COrders extends DAO_Orders
 		return $retVal;
 	}
 
+	function hasOptedToCustomize()
+	{
+		if (!empty($this->opted_to_customize_recipes))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	function hasSubscriptionProduct()
 	{
 
