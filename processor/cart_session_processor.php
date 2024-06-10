@@ -214,6 +214,11 @@ class processor_cart_session_processor extends CPageProcessor
 							$CartObj->removeDeliveryTip();
 						}
 
+						if (!$DAO_session->isOpenForCustomization($DAO_store))
+						{
+							$CartObj->removeMealCustomizationOptOut();
+						}
+
 						$CartObj->removeBundleId();
 					}
 					else if ($DAO_session->session_type == CSession::FUNDRAISER || $DAO_session->session_type == CSession::DREAM_TASTE)
