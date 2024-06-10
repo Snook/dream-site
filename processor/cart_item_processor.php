@@ -198,6 +198,8 @@ class processor_cart_item_processor extends CPageProcessor
 			}
 			catch (Exception $e)
 			{
+				CLog::RecordException($e);
+
 				CAppUtil::processorMessageEcho(array(
 					'processor_success' => false,
 					'result_code' => 3,
