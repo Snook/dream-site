@@ -288,6 +288,26 @@ class CBox extends DAO_Box
 		return $this->box_bundle_2_obj;
 	}
 
+	function isShippingFixed()
+	{
+		if ($this->box_type == CBox::DELIVERED_FIXED)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function isShippingCustom()
+	{
+		if ($this->box_type == CBox::DELIVERED_CUSTOM)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	/**
 	 * @throws Exception
 	 */

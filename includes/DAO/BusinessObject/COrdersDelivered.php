@@ -579,8 +579,8 @@ class COrdersDelivered extends COrders
 							if ($removeItemsFromInventory)
 							{
 								//subtract from inventory
-								$invItem = DAO_CFactory::create('menu_item_inventory');
-								$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold +  " . " $servingQty where mii.recipe_id = {$menu_item->recipe_id}
+								$DAO_menu_item_inventory = DAO_CFactory::create('menu_item_inventory');
+								$DAO_menu_item_inventory->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold +  $servingQty where mii.recipe_id = {$menu_item->recipe_id}
 								    and mii.store_id = $parentStoreId and mii.menu_id = $menu_id and mii.is_deleted = 0");
 							}
 						}
@@ -2127,8 +2127,8 @@ class COrdersDelivered extends COrders
 									// INVENTORY TOUCH POINT 5
 
 									//subtract from inventory
-									$invItem = DAO_CFactory::create('menu_item_inventory');
-									$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold +  " . " $servingQty where mii.recipe_id = {$menu_item->recipe_id} and
+									$DAO_menu_item_inventory = DAO_CFactory::create('menu_item_inventory');
+									$DAO_menu_item_inventory->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold + $servingQty where mii.recipe_id = {$menu_item->recipe_id} and
 								                mii.store_id = $parentStoreId and mii.menu_id = $menu_id and mii.is_deleted = 0");
 								}
 							}
@@ -2941,8 +2941,8 @@ class COrdersDelivered extends COrders
 							// INVENTORY TOUCH POINT 3
 
 							//subtract from inventory
-							$invItem = DAO_CFactory::create('menu_item_inventory');
-							$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold +  " . " $servingQty where mii.recipe_id = {$menu_item->recipe_id}
+							$DAO_menu_item_inventory = DAO_CFactory::create('menu_item_inventory');
+							$DAO_menu_item_inventory->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold + $servingQty where mii.recipe_id = {$menu_item->recipe_id}
 								and mii.store_id = $parentStoreId and mii.menu_id = $menu_id and mii.is_deleted = 0");
 						}
 						catch (exception $exc)
