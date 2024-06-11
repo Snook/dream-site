@@ -23,7 +23,7 @@ class page_session extends CPage
 	function runSessionPage($tpl)
 	{
 		$CartObj = CCart2::instance();
-		$OrderObj = $CartObj->getOrder();
+		$DAO_orders = $CartObj->getOrder();
 
 		$referral_is_intro = false;
 
@@ -220,10 +220,10 @@ class page_session extends CPage
 
 			$CartObj->addMenuId($session['menu_id']);
 
-			if (isset($OrderObj) && $OrderObj->store_id != $session['store_id'])
+			if (isset($DAO_orders) && $DAO_orders->store_id != $session['store_id'])
 			{
 				$CartObj->storeChangeEvent($session['store_id']);
-				$OrderObj = $CartObj->getOrder();
+				$DAO_orders = $CartObj->getOrder();
 			}
 
 			$CartObj->addSessionId($session['id']);
@@ -251,33 +251,33 @@ class page_session extends CPage
 			}
 
 			$order_id = $_REQUEST['reschedule'];
-			$OrderObj = DAO_CFactory::create('orders');
-			$OrderObj->id = $order_id;
-			if (!$OrderObj->find(true))
+			$DAO_orders = DAO_CFactory::create('orders');
+			$DAO_orders->id = $order_id;
+			if (!$DAO_orders->find(true))
 			{
 				throw new Exception("Order not found in Customer Reschedule.");
 			}
 
-			$bookingObj = DAO_CFactory::create('booking');
-			$bookingObj->order_id = $order_id;
-			$bookingObj->status = 'ACTIVE';
-			if (!$bookingObj->find(true))
+			$DAO_booking = DAO_CFactory::create('booking');
+			$DAO_booking->order_id = $order_id;
+			$DAO_booking->status = 'ACTIVE';
+			if (!$DAO_booking->find(true))
 			{
 				throw new Exception("Booking not found in Customer Reschedule.");
 			}
 
-			$current_session_id = $bookingObj->session_id;
-			$sessionObj = DAO_CFactory::create('session');
-			$sessionObj->id = $current_session_id;
-			if (!$sessionObj->find(true))
+			$current_session_id = $DAO_booking->session_id;
+			$DAO_session = DAO_CFactory::create('session');
+			$DAO_session->id = $current_session_id;
+			if (!$DAO_session->find(true))
 			{
 				throw new Exception("Session not found in Customer Reschedule.");
 			}
 
-			$store_id = $OrderObj->store_id;
-			$storeObj = DAO_CFactory::create('store');
-			$storeObj->id = $store_id;
-			if (!$storeObj->find(true))
+			$store_id = $DAO_orders->store_id;
+			$DAO_store = DAO_CFactory::create('store');
+			$DAO_store->id = $store_id;
+			if (!$DAO_store->find(true))
 			{
 				throw new Exception("Store not found in Customer Reschedule.");
 			}
@@ -285,7 +285,7 @@ class page_session extends CPage
 			$isInReschedulingMode = true;
 
 			$cantRescheduleReason = "";
-			$approval = $OrderObj->can_customer_reschedule($cantRescheduleReason, $storeObj->timezone_id, $sessionObj->session_start, $sessionObj->session_type, 'ACTIVE', $sessionObj->session_type_subtype);
+			$approval = $DAO_orders->can_customer_reschedule($cantRescheduleReason, $DAO_store->timezone_id, $DAO_session->session_start, $DAO_session->session_type, 'ACTIVE', $DAO_session->session_type_subtype);
 
 			if ($approval !== true)
 			{
@@ -297,9 +297,9 @@ class page_session extends CPage
 			{
 
 				// TODO:   validate the crap out of the target
-				$TargetSession = DAO_CFactory::create('session');
-				$TargetSession->id = $_POST["target"];
-				if (!$TargetSession->find(true))
+				$target_DAO_session = DAO_CFactory::create('session');
+				$target_DAO_session->id = $_POST["target"];
+				if (!$target_DAO_session->find(true))
 				{
 					throw new Exception("Request for target session failed");
 				}
@@ -307,14 +307,14 @@ class page_session extends CPage
 				$canReschedule = true;
 				$isPrivate = "'0'";
 
-				if (!empty($TargetSession->session_password) && $TargetSession->session_type != CSession::MADE_FOR_YOU)
+				if (!empty($target_DAO_session->session_password) && $target_DAO_session->session_type != CSession::MADE_FOR_YOU)
 				{
 					$isPrivate = "'1'";
 
-					if (empty($_POST["new_session_password"]) || $_POST["new_session_password"] != $TargetSession->session_password)
+					if (empty($_POST["new_session_password"]) || $_POST["new_session_password"] != $target_DAO_session->session_password)
 					{
 						$tpl->setErrorMsg('The password is incorrect.');
-						$tpl->assign('initer', "setNewSessionDateTime({$TargetSession->id}, $isPrivate)");
+						$tpl->assign('initer', "setNewSessionDateTime({$target_DAO_session->id}, $isPrivate)");
 						$canReschedule = false;
 					}
 				}
@@ -322,15 +322,15 @@ class page_session extends CPage
 				if ($canReschedule)
 				{
 
-					$OrderObj->addSession($TargetSession);
+					$DAO_orders->addSession($target_DAO_session);
 
-					$result = $OrderObj->reschedule($sessionObj->id, false);
+					$result = $DAO_orders->reschedule($DAO_session->id, false);
 
 					if ($result === 'success')
 					{
 						// success
 						$tpl->setStatusMsg('Your order has been rescheduled.');
-						CApp::bounce("/order-details?order=" . $OrderObj->id);
+						CApp::bounce("/order-details?order=" . $DAO_orders->id);
 					}
 					else if ($result === 'closed')
 					{
@@ -347,15 +347,15 @@ class page_session extends CPage
 				}
 			}
 
-			$menuInfo = CMenu::getMenuInfo($sessionObj->menu_id);
+			$menuInfo = CMenu::getMenuInfo($DAO_session->menu_id);
 			$request_date = strtotime($menuInfo['menu_start']);
 
 			$tempArr = array(
-				'cart_info_array' => array('session_type' => $sessionObj->session_type),
+				'cart_info_array' => array('session_type' => $DAO_session->session_type),
 				array('session_info' => array('id' => $current_session_id))
 			);
 
-			$sessionsArray = CSession::getMonthlySessionInfoArray($storeObj, $request_date, $sessionObj->menu_id, $tempArr, true, true, $sessionObj, false, false, true, true);
+			$sessionsArray = CSession::getMonthlySessionInfoArray($DAO_store, $request_date, $DAO_session->menu_id, $tempArr, true, true, $DAO_session, false, false, true, true, $DAO_orders->hasOptedToCustomize());
 			$tpl->assign('menu_info', $menuInfo);
 			$tpl->assign('sessions', $sessionsArray);
 			$tpl->assign('isInReschedulingMode', $isInReschedulingMode);
@@ -367,7 +367,7 @@ class page_session extends CPage
 
 		$tpl->assign('isInReschedulingMode', $isInReschedulingMode);
 
-		$OrderStore = $OrderObj->getStore();
+		$OrderStore = $DAO_orders->getStore();
 
 		$store_id_in_cart = $CartObj->getStoreId();
 		$menu_id_in_cart = $CartObj->getMenuId();

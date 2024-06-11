@@ -7,7 +7,7 @@
 			<?php if ($DAO_menu_item->isOutOfStock()) { ?>
 				<span class="text-white title">Sold out</span>
 			<?php } else { ?>
-				<?php if (!empty($this->box_info->box_type) && $this->box_info->box_type == CBox::DELIVERED_FIXED) { ?>
+				<?php if ($this->box_info->isShippingFixed()) { ?>
 					<span class="text-white title">Included</span>
 					<i class="fas fa-check float-right text-dark pt-1 d-print-none"></i>
 				<?php } else { ?>

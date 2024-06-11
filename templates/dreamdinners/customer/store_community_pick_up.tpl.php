@@ -1,7 +1,6 @@
 <?php $this->setPreload(IMAGES_PATH . "/stores/store-landing.jpg", "image"); ?>
 <?php $this->assign('page_title', htmlspecialchars($this->DAO_store->store_name) . " - Community Pick Up locations"); ?>
 <?php $this->assign('canonical_url', $this->DAO_store->getPrettyUrl(true) . '/community-pick-up'); ?>
-<?php $this->assign('order_process_navigation_page', 'session-menu'); ?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
 
 	<header class="container my-5">

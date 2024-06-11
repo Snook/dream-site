@@ -70,7 +70,7 @@
 			<?php } ?>
 		<?php } ?>
 
-		<div class="row collapse <?php echo (($this->has_meal_customization_selected == true ) ? 'show': ''  )?>" id="customization-fee-row">
+		<div class="row collapse <?php echo ((!empty($this->has_meal_customization_selected)) ? 'show': ''  )?>" id="customization-fee-row">
 			<div class="col-md-6 col-8 text-left">
 				<p>Customization Fee</p>
 			</div>
@@ -182,7 +182,7 @@
 		<div id="row-coupon" class="row <?php echo ((!empty($this->cart_info['coupon']) && $this->foodState == 'adequateFood') ? '' : 'collapse') ?>">
 			<div class="col-md-6 col-8 text-left">
 				<p>
-					<?php if($this->hide_remove_gift_card){?><?php }else{?>
+					<?php if (!empty($this->hide_remove_gift_card)) { ?><?php } else { ?>
 						<i id="remove-coupon" class="fas fa-trash-alt mr-2"></i><?php } ?><span id="checkout_title-coupon">Coupon (<span style="font-size:8pt;" id="checkout_title-coupon_code"><?php echo(!empty($this->cart_info['coupon']) ? $this->cart_info['coupon']['coupon_code_short_title'] : "") ?></span>)</span>
 				</p>
 			</div>

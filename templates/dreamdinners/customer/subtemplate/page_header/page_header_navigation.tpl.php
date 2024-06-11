@@ -1,8 +1,4 @@
 <?php
-//check optional template parameter to conditionally determine nav for Order and Get Started
-if (empty($this->order_process_navigation_page)) {
-	$this->order_process_navigation_page = 'locations';
-}
 $backNavigation = '';
 if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 {
@@ -14,7 +10,7 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 		<div class="alert alert-cyan-dark text-white text-uppercase alert-dismissible fade collapse mb-0" role="alert" data-dismiss-session-alert="promotional-banner">
 			<div class="row">
 				<div class="col text-center">
-					<div class="d-block d-xl-inline"><span class="font-weight-bold text-white">New guest exclusive!</span></div>
+					<div class="d-block d-xl-inline"><span class="font-weight-bold text-white">NEW TO DREAM DINNERS OR HAVEN'T ORDERED IN A WHILE? TRY US WITH THIS EXCLUSIVE OFFER!</span></div>
 					<div class="d-block d-lg-inline">Free shipping code: <a href="/shipping"><span class="font-weight-bold text-white">SHIPONUS</span></a> OR</div>
 					<div class="d-block d-lg-inline">Free home delivery code: <a href="/locations"><span class="font-weight-bold text-white">DELIVERFREE</span></a></div>
 				</div>
@@ -123,7 +119,7 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 								</div>
 							</li>
 							<li class="nav-item d-none d-lg-block ml-lg-4">
-								<a class="btn btn-primary btn-lg py-1 px-3 mt-4 mt-md-0 text-white-space-nowrap" href="/<?php echo $this->order_process_navigation_page; ?>">Order Now</a>
+								<a class="btn btn-primary btn-lg py-1 px-3 mt-4 mt-md-0 text-white-space-nowrap" href="/session-menu">Order Now</a>
 							</li>
 						</ul>
 					</div>

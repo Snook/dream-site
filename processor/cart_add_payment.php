@@ -374,28 +374,28 @@ class processor_cart_add_payment extends CPageProcessor
 	static function add_coupon_code($couponCode)
 	{
 		$CartObj = CCart2::instance();
-		$Order = $CartObj->getOrder();
+		$DAO_orders = $CartObj->getOrder();
 		$menu_id = $CartObj->getMenuId();
 		$editOrderId = $CartObj->getEditOrderId();
 
-		if (CUser::isloggedIn() && empty($Order->user_id))
+		if (CUser::isloggedIn() && empty($DAO_orders->user_id))
 		{
-			$Order->user_id = CUser::getCurrentUser()->id;
+			$DAO_orders->user_id = CUser::getCurrentUser()->id;
 		}
 
-		$Order->refresh(CUser::getCurrentUser());
-		$Order->recalculate();
+		$DAO_orders->refresh(CUser::getCurrentUser());
+		$DAO_orders->recalculate();
 
-		if ($Order->isDelivered())
+		if ($DAO_orders->isDelivered())
 		{
-			$codeDAO = CCouponCode::isCodeValidForDelivered($couponCode, $Order, $menu_id);
+			$DAO_coupon_code = CCouponCode::isCodeValidForDelivered($couponCode, $DAO_orders, $menu_id);
 		}
 		else
 		{
-			$codeDAO = CCouponCode::isCodeValid($couponCode, $Order, $menu_id);
+			$DAO_coupon_code = CCouponCode::isCodeValid($couponCode, $DAO_orders, $menu_id);
 		}
 
-		if (gettype($codeDAO) !== "object" || get_class($codeDAO) !== 'CCouponCode')
+		if (gettype($DAO_coupon_code) !== "object" || get_class($DAO_coupon_code) !== 'CCouponCode')
 		{
 
 			$isLoggedin = false;
@@ -405,7 +405,7 @@ class processor_cart_add_payment extends CPageProcessor
 			}
 
 			$errors = '';
-			foreach ($codeDAO as $thisError)
+			foreach ($DAO_coupon_code as $thisError)
 			{
 				if ($thisError == 'user_not_existing' && !$isLoggedin)
 				{
@@ -429,23 +429,23 @@ class processor_cart_add_payment extends CPageProcessor
 			$cart_update = false;
 			$menu_item_id = false;
 			$totalQty = false;
-			if (isset($codeDAO) && $codeDAO->limit_to_recipe_id)
+			if (isset($DAO_coupon_code) && $DAO_coupon_code->limit_to_recipe_id)
 			{
-				$codeDAO->calculate($Order, $Order->getMarkUp());
+				$DAO_coupon_code->calculate($DAO_orders, $DAO_orders->getMarkUp());
 
 				$DAO_menu = DAO_CFactory::create('menu');
 				$DAO_menu->id = $menu_id;
 				$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
-					'menu_to_menu_item_store_id' => $Order->getStoreObj()->id,
+					'menu_to_menu_item_store_id' => $DAO_orders->getStoreObj()->id,
 					'exclude_menu_item_category_core' => false,
 					'exclude_menu_item_category_efl' => false,
 					'exclude_menu_item_category_sides_sweets' => false,
-					'menu_item_id_list' => $codeDAO->menu_item_id
+					'menu_item_id_list' => $DAO_coupon_code->menu_item_id
 				));
 
 				if ($DAO_menu_item->find(true))
 				{
-					$totalQty = $Order->addCouponMenuItem($DAO_menu_item);
+					$totalQty = $DAO_orders->addCouponMenuItem($DAO_menu_item);
 
 					$tpl = new CTemplate();
 					$tpl->assign('menu_item', $DAO_menu_item);
@@ -461,29 +461,29 @@ class processor_cart_add_payment extends CPageProcessor
 				}
 			}
 
-			$Order->addCoupon($codeDAO);
+			$DAO_orders->addCoupon($DAO_coupon_code);
 
-			$CartObj->addOrder($Order);
+			$CartObj->addOrder($DAO_orders);
 
-			$Order->recalculate();
-			$OrderCoupon = $Order->getCoupon();
+			$DAO_orders->recalculate();
+			$OrderCoupon = $DAO_orders->getCoupon();
 
 			$couponDetails = new stdClass();
 			$couponDetails->coupon_code_short_title = $OrderCoupon->coupon_code_short_title;
 			$couponDetails->limit_to_mfy_fee = $OrderCoupon->limit_to_mfy_fee;
 			$couponDetails->limit_to_delivery_fee = $OrderCoupon->limit_to_delivery_fee;
-			$couponDetails->coupon_code_discount_total = $Order->coupon_code_discount_total;
+			$couponDetails->coupon_code_discount_total = $DAO_orders->coupon_code_discount_total;
 
 			$results_array = array(
 				'processor_success' => true,
 				'result_code' => 1,
 				'processor_message' => 'Coupon applied to order.',
 				'coupon' => $couponDetails,
-				'coupon_title' => $codeDAO->coupon_code_short_title,
+				'coupon_title' => $DAO_coupon_code->coupon_code_short_title,
 				'cart_update' => $cart_update,
 				'menu_item_id' => $menu_item_id,
 				'qty_in_cart' => $totalQty,
-				'orderInfo' => $Order->toArray()
+				'orderInfo' => $DAO_orders->toArray()
 			);
 
 			if ($bounce_to)
@@ -503,7 +503,7 @@ class processor_cart_add_payment extends CPageProcessor
 
 				$sumNewGiftCardPayment = $CartObj->getNewGiftCardPaymentTotal();
 
-				$totalPriceDiff = $Order->grand_total - $sumNewGiftCardPayment - $originalOrder->grand_total;
+				$totalPriceDiff = $DAO_orders->grand_total - $sumNewGiftCardPayment - $originalOrder->grand_total;
 				$results_array['balance'] = CTemplate::moneyFormat($totalPriceDiff);
 				$results_array['originalOrderInfo'] = $originalOrder->toArray();
 				$results_array['edit_order_diff'] = true;

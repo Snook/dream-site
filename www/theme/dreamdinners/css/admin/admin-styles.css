@@ -17986,7 +17986,7 @@ A VERTICAL event
 
 @font-face {
   font-family: "ddicon";
-  src: url("fonts/ddicon.ttf?cggugv") format("truetype"), url("fonts/ddicon.woff?cggugv") format("woff"), url("fonts/ddicon.svg?cggugv#ddicon") format("svg");
+  src: url("fonts/ddicon.ttf?t8k73e") format("truetype"), url("fonts/ddicon.woff?t8k73e") format("woff"), url("fonts/ddicon.svg?t8k73e#ddicon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -18012,6 +18012,10 @@ A VERTICAL event
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-community-pick-up:before {
+  content: "\e95f";
 }
 
 .icon-store-front:before {
@@ -37288,7 +37292,7 @@ A VERTICAL event
 
 @font-face {
   font-family: "ddicon";
-  src: url("fonts/ddicon.ttf?cggugv") format("truetype"), url("fonts/ddicon.woff?cggugv") format("woff"), url("fonts/ddicon.svg?cggugv#ddicon") format("svg");
+  src: url("fonts/ddicon.ttf?t8k73e") format("truetype"), url("fonts/ddicon.woff?t8k73e") format("woff"), url("fonts/ddicon.svg?t8k73e#ddicon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -37314,6 +37318,10 @@ A VERTICAL event
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-community-pick-up:before {
+  content: "\e95f";
 }
 
 .icon-store-front:before {

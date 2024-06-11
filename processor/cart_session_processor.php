@@ -16,7 +16,6 @@ class processor_cart_session_processor extends CPageProcessor
 
 	function logPasswordAccess($succeeded)
 	{
-
 		$PostVars = print_r($_POST, true);
 
 		if ($succeeded)
@@ -31,7 +30,6 @@ class processor_cart_session_processor extends CPageProcessor
 
 	function runPublic()
 	{
-
 		$testMode = false;
 		if (isset($_POST['test']))
 		{
@@ -214,6 +212,11 @@ class processor_cart_session_processor extends CPageProcessor
 						{
 							$CartObj->addNavigationType(CSession::ALL_STANDARD, true);
 							$CartObj->removeDeliveryTip();
+						}
+
+						if (!$DAO_session->isOpenForCustomization($DAO_store))
+						{
+							$CartObj->removeMealCustomizationOptOut();
 						}
 
 						$CartObj->removeBundleId();

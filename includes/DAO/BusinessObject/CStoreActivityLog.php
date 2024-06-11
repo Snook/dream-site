@@ -3,10 +3,8 @@ require_once 'DAO/Store_activity_log.php';
 require_once 'DAO/Store_activity_type.php';
 require_once('includes/CTemplate.inc');
 
-
 class CStoreActivityLog extends DAO_Store_activity_log
 {
-
 	//Activity Type
 	const GENERIC = 'GENERIC';
 	const INVENTORY = 'INVENTORY';
@@ -24,20 +22,16 @@ class CStoreActivityLog extends DAO_Store_activity_log
 	const SUBTYPE_NORMAL = 'NORMAL';
 	const SUBTYPE_HIGH = 'HIGH';
 	//Orders
-	const SUBTYPE_ADDED= 'ADDED';
+	const SUBTYPE_ADDED = 'ADDED';
 	const SUBTYPE_MODIFIED = 'MODIFIED';
 	const SUBTYPE_PLACED = 'PLACED';
-	const SUBTYPE_CANCELLED= 'CANCELLED';
-	const SUBTYPE_SIDES_FORM= 'SIDES';
+	const SUBTYPE_CANCELLED = 'CANCELLED';
+	const SUBTYPE_SIDES_FORM = 'SIDES';
 	//Session
-	const SUBTYPE_CREATED= 'CREATED';
+	const SUBTYPE_CREATED = 'CREATED';
 	const SUBTYPE_DELETED = 'DELETED';
 
 	const TEST_ALERT_ONLY = false;
-
-
-
-
 
 	function __construct()
 	{
@@ -53,19 +47,26 @@ class CStoreActivityLog extends DAO_Store_activity_log
 	 *
 	 * @throws Exception
 	 */
-	public static function addEvent($store_id, $description, $date, $store_activity_type_id = null, $compositeKey = null){
-
-		if(is_null($store_activity_type_id)){
-			$store_activity_type_id = self::determineStoreActivityType(CStoreActivityLog::GENERIC,CStoreActivityLog::SUBTYPE_GENERIC);
+	public static function addEvent($store_id, $description, $date = false, $store_activity_type_id = null, $compositeKey = null)
+	{
+		if (is_null($store_activity_type_id))
+		{
+			$store_activity_type_id = self::determineStoreActivityTypeId(CStoreActivityLog::GENERIC, CStoreActivityLog::SUBTYPE_GENERIC);
 		}
 
-		$activity_log_DAO = DAO_CFactory::create('store_activity_log');
+		$activity_log_DAO = DAO_CFactory::create('store_activity_log', true);
 		$activity_log_DAO->store_id = $store_id;
 		$activity_log_DAO->store_activity_type_id = $store_activity_type_id;
-		$activity_log_DAO->date = $date;
+		if ($date)
+		{
+			$activity_log_DAO->date = $date;
+		}
+		else
+		{
+			$activity_log_DAO->date = date('Y-m-d H:i:s');
+		}
 		$activity_log_DAO->description = $description;
 		$activity_log_DAO->comp_key = $compositeKey;
-
 
 		$activity_log_DAO->insert();
 	}
@@ -75,15 +76,14 @@ class CStoreActivityLog extends DAO_Store_activity_log
 	 *
 	 * @param $store_id
 	 * @param $start  'yyyy-mm-dd hh:mm:ss'
-	 * @param $end 'yyyy-mm-dd hh:mm:ss'
+	 * @param $end    'yyyy-mm-dd hh:mm:ss'
 	 *
 	 * @return array matching records
 	 * @throws Exception
 	 */
-	public static function fetchAllEventsInTimeframe($store_id, $start, $end){
-
-
-		$activity_log_DAO = DAO_CFactory::create('store_activity_log');
+	public static function fetchAllEventsInTimeframe($store_id, $start, $end)
+	{
+		$activity_log_DAO = DAO_CFactory::create('store_activity_log', true);
 		$query = "select *
 		from store_activity_log 
 		where date >= '$start' and date <= '$end'
@@ -114,22 +114,19 @@ class CStoreActivityLog extends DAO_Store_activity_log
 	 * @return bool if a match is found
 	 * @throws Exception
 	 */
-	public static function doesKeyExist($compositeKey){
+	public static function doesKeyExist($compositeKey)
+	{
+		$DAO_store_activity_log = DAO_CFactory::create('store_activity_log', true);
+		$DAO_store_activity_log->comp_key = $compositeKey;
+		$DAO_store_activity_log->find();
 
-
-		$activity_log_DAO = DAO_CFactory::create('store_activity_log');
-		$query = "select *
-		from store_activity_log 
-		where comp_key = '$compositeKey'
-		and is_deleted = 0";
-		$activity_log_DAO->query($query);
-
-		return $activity_log_DAO->N > 0;
+		return $DAO_store_activity_log->N > 0;
 	}
 
 	/**
 	 *
 	 * Return events in timeframe from a specified starting date to N number of days before that date.
+	 *
 	 * @param $store_id
 	 * @param $store_activity_type_id
 	 * @param $startingDate
@@ -138,8 +135,8 @@ class CStoreActivityLog extends DAO_Store_activity_log
 	 * @return array
 	 * @throws Exception
 	 */
-	public static function fetchSpecificEventsInTimeframe($store_id,$store_activity_type_id, $startingDate, $daysBack){
-
+	public static function fetchSpecificEventsInTimeframe($store_id, $store_activity_type_id, $startingDate, $daysBack)
+	{
 		//Handle Order/Booking
 		$dateRangeClause = "  ( date >= '$startingDate 00:00:01' and date <= '$startingDate 23:59:59')";
 		if ($daysBack > 1)
@@ -147,8 +144,7 @@ class CStoreActivityLog extends DAO_Store_activity_log
 			$dateRangeClause = "  ( date >= DATE_SUB('" . $startingDate . "', INTERVAL " . $daysBack . " DAY) and date <= '$startingDate 23:59:59')";
 		}
 
-
-		$activity_log_DAO = DAO_CFactory::create('store_activity_log');
+		$activity_log_DAO = DAO_CFactory::create('store_activity_log', true);
 		$query = "select *
 		from store_activity_log 
 		where $dateRangeClause
@@ -158,7 +154,6 @@ class CStoreActivityLog extends DAO_Store_activity_log
 		$activity_log_DAO->query($query);
 
 		$retVal = array();
-
 
 		while ($activity_log_DAO->fetch())
 		{
@@ -182,7 +177,7 @@ class CStoreActivityLog extends DAO_Store_activity_log
 	 *
 	 * Return the id of the matching Store Activty Type for the passed activity type/subtype
 	 *
-	 * @param $activityType string
+	 * @param $activityType    string
 	 * @param $activitySubType string
 	 *
 	 * @return mixed
@@ -190,23 +185,27 @@ class CStoreActivityLog extends DAO_Store_activity_log
 	 */
 	public static function determineStoreActivityTypeId($activityType, $activitySubType)
 	{
-
-		$id = null;
-		if(is_null($activityType)){
+		if (is_null($activityType))
+		{
 			$activityType = CStoreActivityLog::GENERIC;
 		}
-		if(is_null($activitySubType)){
+		if (is_null($activitySubType))
+		{
 			$activitySubType = CStoreActivityLog::SUBTYPE_GENERIC;
 		}
-		$activity_type_DAO = DAO_CFactory::create('store_activity_type');
+
+		$activity_type_DAO = DAO_CFactory::create('store_activity_type', true);
 		$activity_type_DAO->type = $activityType;
 		$activity_type_DAO->subtype = $activitySubType;
 
 		if ($activity_type_DAO->find(true))
 		{
 			$id = $activity_type_DAO->id;
-		}else{
-			$id = self::determineStoreActivityTypeId(CStoreActivityLog::GENERIC,CStoreActivityLog::SUBTYPE_GENERIC);
+		}
+		else
+		{
+			// Return Generic if no match found
+			$id = self::determineStoreActivityTypeId(CStoreActivityLog::GENERIC, CStoreActivityLog::SUBTYPE_GENERIC);
 		}
 
 		return $id;
@@ -227,11 +226,18 @@ class CStoreActivityLog extends DAO_Store_activity_log
 
 		if ($activity_type_DAO->find(true))
 		{
-			return [$activity_type_DAO->type,$activity_type_DAO->subtype];
-		}else{
-			return [null,null];
+			return array(
+				$activity_type_DAO->type,
+				$activity_type_DAO->subtype
+			);
 		}
-
+		else
+		{
+			return array(
+				null,
+				null
+			);
+		}
 	}
 
 	/**
@@ -243,7 +249,8 @@ class CStoreActivityLog extends DAO_Store_activity_log
 	 * @param $templateText
 	 * @param $templateHtml
 	 */
-	public static function sendStoreAlertEmail($store_name, $primary_email, $subject, $templateText, $templateHtml){
+	public static function sendStoreAlertEmail($store_name, $primary_email, $subject, $templateText, $templateHtml)
+	{
 		require_once 'CMail.inc';
 
 		$Mail = new CMail();
@@ -260,14 +267,12 @@ class CStoreActivityLog extends DAO_Store_activity_log
 			$Mail->to_email = $primary_email;
 		}
 
-
 		$Mail->subject = $subject;
 		$Mail->body_html = $templateHtml;
 		$Mail->body_text = $templateText;
 		$Mail->template_name = '';
 
 		$Mail->sendEmail();
-
 	}
 
 	static function renderTemplate($filename, $tokens)
@@ -281,5 +286,4 @@ class CStoreActivityLog extends DAO_Store_activity_log
 		return $contents;
 	}
 }
-
 ?>

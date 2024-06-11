@@ -4,7 +4,7 @@ require_once('includes/DAO/BusinessObject/CSession.php');
 require_once('includes/CSessionReports.inc');
 require_once('includes/DAO/BusinessObject/CStoreExpenses.php');
 
-class page_admin_reports_guest_marketing extends CPageAdminOnly
+class page_admin_reports_guest extends CPageAdminOnly
 {
 	/**
 	 * @var CForm
@@ -25,39 +25,39 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 	{
 		$this->allowStoreSelect = true;
 		$this->report_user_preferred['AllStores'] = true;
-		$this->guestMarketingReport();
+		$this->guestReport();
 	}
 
 	function runHomeOfficeManager()
 	{
 		$this->allowStoreSelect = true;
 		$this->report_user_preferred['AllStores'] = true;
-		$this->guestMarketingReport();
+		$this->guestReport();
 	}
 
 	function runHomeOfficeStaff()
 	{
 		$this->allowStoreSelect = true;
 		$this->report_user_preferred['AllStores'] = true;
-		$this->guestMarketingReport();
+		$this->guestReport();
 	}
 
 	function runFranchiseOwner()
 	{
-		$this->guestMarketingReport();
+		$this->guestReport();
 	}
 
 	function runFranchiseManager()
 	{
-		$this->guestMarketingReport();
+		$this->guestReport();
 	}
 
 	function runOpsLead()
 	{
-		$this->guestMarketingReport();
+		$this->guestReport();
 	}
 
-	function guestMarketingReport()
+	function guestReport()
 	{
 		$this->Form = new CForm();
 		$this->Form->Repost = true;
@@ -65,9 +65,20 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 
 		$this->Form->AddElement(array(
 			CForm::type => CForm::DropDown,
-			CForm::name => 'marketing_report',
+			CForm::name => 'guest_report',
 			CForm::options => array(
 				'' => 'Select Report',
+				'report_power_bi' => array(
+					'title' => 'Power BI Dashboard Export',
+					'data' => array(
+						'data-description' => 'Power BI dashboard data export',
+						'data-month-start' => 'true',
+						'data-month-end' => 'true',
+						'data-date-start' => 'false',
+						'data-date-end' => 'false',
+						'data-multi-store-select' => $this->allowStoreSelect
+					)
+				),
 				'report_guest_birthdays' => array(
 					'title' => 'Guest Birthdays',
 					'data' => array(
@@ -155,8 +166,11 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 
 		if ($this->Form->value('report_submit'))
 		{
-			switch ($this->Form->value('marketing_report'))
+			switch ($this->Form->value('guest_report'))
 			{
+				case 'report_power_bi':
+					$this->exportPowerBi();
+					break;
 				case 'report_guest_birthdays':
 					$this->exportGuestBirthdays();
 					break;
@@ -167,6 +181,126 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 					$this->exportUserPreferred();
 					break;
 			}
+		}
+	}
+
+	function exportPowerBi()
+	{
+		if ($this->Form->value('month_start') && $this->Form->value('month_end'))
+		{
+			$DAO_menu = DAO_CFactory::create('menu', true);
+			$DAO_menu->whereAdd("menu.menu_start >= '" . $this->Form->value('month_start') . "-01'");
+			$DAO_menu->whereAdd("menu.menu_start <= '" . $this->Form->value('month_end') . "-01'");
+			$DAO_menu->find();
+
+			$menuIdArray = array();
+
+			while ($DAO_menu->fetch())
+			{
+				$menuIdArray[] = $DAO_menu->id;
+			}
+
+			$DAO_dashboard_metrics_agr_by_menu = DAO_CFactory::create('dashboard_metrics_agr_by_menu', true);
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd();
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("menu.id AS menu_id");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("menu.menu_name");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("dashboard_metrics_agr_by_menu.store_id");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("store.store_type");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("store.state_id");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("store.city");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("store.store_name");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("dashboard_metrics_agr_by_menu.total_agr");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("IFNULL(dashboard_metrics_agr_snapshots.agr_menu_month, 0) AS total_agr_month_start");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("IFNULL(dashboard_metrics_agr_by_menu.avg_ticket_all, 0) AS avg_ticket_all");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("dashboard_metrics_guests_by_menu.orders_count_all");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("(dashboard_metrics_guests_by_menu.orders_count_additional_new_guests + dashboard_metrics_guests_by_menu.orders_count_additional_existing_guests + dashboard_metrics_guests_by_menu.orders_count_additional_reacquired_guests) AS orders_count_additional");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("dashboard_metrics_guests_by_menu.total_items_sold");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("dashboard_metrics_guests_by_menu.total_boxes_sold");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("IFNULL(ROUND((dashboard_metrics_guests_by_menu.total_items_sold /dashboard_metrics_guests_by_menu.orders_count_all), 2), 0)   AS avg_items_per_order");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("dashboard_metrics_guests_by_menu.guest_count_total");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("(dashboard_metrics_guests_by_menu.guest_count_new_intro + dashboard_metrics_guests_by_menu.guest_count_new_taste + dashboard_metrics_guests_by_menu.guest_count_new_regular + dashboard_metrics_guests_by_menu.guest_count_new_delivered + dashboard_metrics_guests_by_menu.guest_count_new_additional + dashboard_metrics_guests_by_menu.guest_count_new_fundraiser) AS guest_count_new");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("(dashboard_metrics_guests_by_menu.guest_count_reacquired_intro + dashboard_metrics_guests_by_menu.guest_count_reacquired_taste + dashboard_metrics_guests_by_menu.guest_count_reacquired_regular + dashboard_metrics_guests_by_menu.guest_count_reacquired_delivered + dashboard_metrics_guests_by_menu.guest_count_reacquired_additional + dashboard_metrics_guests_by_menu.guest_count_reacquired_fundraiser) AS guest_count_reacquired");
+			$DAO_dashboard_metrics_agr_by_menu->selectAdd("(dashboard_metrics_guests_by_menu.guest_count_existing_intro + dashboard_metrics_guests_by_menu.guest_count_existing_taste + dashboard_metrics_guests_by_menu.guest_count_existing_regular + dashboard_metrics_guests_by_menu.guest_count_existing_delivered + dashboard_metrics_guests_by_menu.guest_count_existing_additional + dashboard_metrics_guests_by_menu.guest_count_existing_fundraiser) AS guest_count_existing");
+			$DAO_dashboard_metrics_guests_by_menu = DAO_CFactory::create('dashboard_metrics_guests_by_menu', true);
+			$DAO_dashboard_metrics_guests_by_menu->whereAdd("dashboard_metrics_agr_by_menu.date = dashboard_metrics_guests_by_menu.date AND dashboard_metrics_guests_by_menu.store_id = dashboard_metrics_agr_by_menu.store_id");
+			$DAO_dashboard_metrics_agr_by_menu->joinAddWhereAsOn($DAO_dashboard_metrics_guests_by_menu, array(
+				'joinType' => 'INNER',
+				'useLinks' => false
+			), false, false, false);
+			$DAO_dashboard_metrics_agr_snapshots = DAO_CFactory::create('dashboard_metrics_agr_snapshots', true);
+			$DAO_dashboard_metrics_agr_snapshots->whereAdd("dashboard_metrics_agr_snapshots.date = dashboard_metrics_agr_by_menu.date AND dashboard_metrics_agr_snapshots.`month` = dashboard_metrics_agr_by_menu.date AND dashboard_metrics_agr_snapshots.store_id = dashboard_metrics_agr_by_menu.store_id");
+			$DAO_dashboard_metrics_agr_by_menu->joinAddWhereAsOn($DAO_dashboard_metrics_agr_snapshots, array(
+				'joinType' => 'LEFT',
+				'useLinks' => false
+			), false, false, false);
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->whereAdd("store.id IN(" . $this->Form->value('multi_store_select') . ")");
+			$DAO_dashboard_metrics_agr_by_menu->joinAddWhereAsOn($DAO_store);
+			$DAO_menu = DAO_CFactory::create('menu', true);
+			$DAO_menu->whereAdd("menu.menu_start = dashboard_metrics_agr_by_menu.date");
+			$DAO_menu->whereAdd("menu.id IN(" . implode(',', $menuIdArray) . ")");
+			$DAO_dashboard_metrics_agr_by_menu->joinAddWhereAsOn($DAO_menu);
+			$DAO_dashboard_metrics_agr_by_menu->orderBy("menu.id DESC, store.store_type, store.state_id, store.city, store.store_name");
+			$DAO_dashboard_metrics_agr_by_menu->find();
+
+			$labels = array(
+				'Menu ID',
+				'Menu Date',
+				'Store ID',
+				'Store Type',
+				'State',
+				'City',
+				'Store Name',
+				'Total AGR',
+				'Total AGR Month Start',
+				'Average Ticket',
+				'Total Orders',
+				'Total Additional Orders',
+				'Total Items Sold',
+				'Total Boxes Sold',
+				'Average Items Per Order',
+				'Guest Total',
+				'New Guest Total',
+				'Reacquired Guest Total',
+				'Existing Guest Total'
+			);
+
+			$rows = array();
+
+			while ($DAO_dashboard_metrics_agr_by_menu->fetch())
+			{
+				$rows[] = array(
+					$DAO_dashboard_metrics_agr_by_menu->menu_id,
+					$DAO_dashboard_metrics_agr_by_menu->menu_name,
+					$DAO_dashboard_metrics_agr_by_menu->store_id,
+					$DAO_dashboard_metrics_agr_by_menu->store_type,
+					$DAO_dashboard_metrics_agr_by_menu->state_id,
+					$DAO_dashboard_metrics_agr_by_menu->city,
+					$DAO_dashboard_metrics_agr_by_menu->store_name,
+					$DAO_dashboard_metrics_agr_by_menu->total_agr,
+					$DAO_dashboard_metrics_agr_by_menu->total_agr_month_start,
+					$DAO_dashboard_metrics_agr_by_menu->avg_ticket_all,
+					$DAO_dashboard_metrics_agr_by_menu->orders_count_all,
+					$DAO_dashboard_metrics_agr_by_menu->orders_count_additional,
+					$DAO_dashboard_metrics_agr_by_menu->total_items_sold,
+					$DAO_dashboard_metrics_agr_by_menu->total_boxes_sold,
+					$DAO_dashboard_metrics_agr_by_menu->avg_items_per_order,
+					$DAO_dashboard_metrics_agr_by_menu->guest_count_total,
+					$DAO_dashboard_metrics_agr_by_menu->guest_count_new,
+					$DAO_dashboard_metrics_agr_by_menu->guest_count_reacquired,
+					$DAO_dashboard_metrics_agr_by_menu->guest_count_existing
+				);
+			}
+
+			$_GET['export'] = 'csv';
+			$_GET['csvfilename'] = 'report_power_bi-created-' . date("Y-m-d");;
+
+			$this->Template->assign('labels', $labels);
+			$this->Template->assign('rows', $rows);
+		}
+		else
+		{
+			$this->Template->setErrorMsg('Report requires Month and Month End selections');
 		}
 	}
 
@@ -244,7 +378,7 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 			}
 
 			$_GET['export'] = 'csv';
-			$_GET['csvfilename'] = 'report_guest_birthdays';
+			$_GET['csvfilename'] = 'report_guest_birthdays-created-' . date("Y-m-d");;
 
 			$this->Template->assign('labels', $labels);
 			$this->Template->assign('rows', $rows);
@@ -317,7 +451,7 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 			}
 
 			$_GET['export'] = 'csv';
-			$_GET['csvfilename'] = 'guest_with_dinner_dollars';
+			$_GET['csvfilename'] = 'guest_with_dinner_dollars-created-' . date("Y-m-d");;
 
 			$this->Template->assign('labels', $labels);
 			$this->Template->assign('rows', $rows);
@@ -389,7 +523,7 @@ class page_admin_reports_guest_marketing extends CPageAdminOnly
 			}
 
 			$_GET['export'] = 'csv';
-			$_GET['csvfilename'] = 'report_user_preferred';
+			$_GET['csvfilename'] = 'report_user_preferred-created-' . date("Y-m-d");;
 
 			$this->Template->assign('labels', $labels);
 			$this->Template->assign('rows', $rows);

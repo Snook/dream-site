@@ -18,22 +18,26 @@
 					<?php if (!empty($this->sessions['info']['session_type'][CSession::MADE_FOR_YOU])) { ?>
 						<a class="border nav-item nav-link font-weight-bold text-uppercase <?php if (!$ActiveTabSet) {echo "active"; $ActiveTabSet='SPECIAL_EVENT';}?>" id="nav-SPECIAL_EVENT-tab"
 						   data-urlpush="true" data-toggle="tab" data-target="#nav-SPECIAL_EVENT"
-						   href="/session?tab=SPECIAL_EVENT" role="tab" aria-controls="nav-SPECIAL_EVENT" aria-selected="true">View</br>Store Pick Up Times</a>
+						   href="/session?tab=SPECIAL_EVENT" role="tab" aria-controls="nav-SPECIAL_EVENT" aria-selected="true">
+							<i class="dd-icon icon-store-front font-size-medium-large align-bottom"></i> View</br>Store Pick Up Times</a>
 					<?php } ?>
 					<?php if (!empty($this->sessions['info']['session_type'][CSession::REMOTE_PICKUP])) { ?>
 						<a class="border nav-item nav-link font-weight-bold text-uppercase <?php if (!$ActiveTabSet) {echo "active"; $ActiveTabSet='REMOTE_PICKUP';}?>" id="nav-REMOTE_PICKUP-tab"
 						   data-urlpush="true" data-toggle="tab" data-target="#nav-REMOTE_PICKUP"
-						   href="/session?tab=REMOTE_PICKUP" role="tab" aria-controls="nav-REMOTE_PICKUP" aria-selected="true">View</br>Community Pick Up Times</a>
+						   href="/session?tab=REMOTE_PICKUP" role="tab" aria-controls="nav-REMOTE_PICKUP" aria-selected="true">
+							<i class="dd-icon icon-community-pick-up font-size-medium-large align-bottom"></i> View</br>Community Pick Up Times</a>
 					<?php } ?>
 					<?php if (!empty($this->sessions['info']['session_type'][CSession::STANDARD])) { ?>
 						<a class="border nav-item nav-link font-weight-bold text-uppercase <?php if (!$ActiveTabSet) {echo "active"; $ActiveTabSet='STANDARD';}?>" id="nav-STANDARD-tab"
 						   data-urlpush="true" data-toggle="tab" data-target="#nav-STANDARD"
-						   href="/session?tab=STANDARD" role="tab" aria-controls="nav-STANDARD" aria-selected="true">View</br>In-Store Assembly Times</a>
+						   href="/session?tab=STANDARD" role="tab" aria-controls="nav-STANDARD" aria-selected="true">
+							<i class="dd-icon icon-measuring_cup font-size-medium-large align-bottom"></i> View</br>In-Store Assembly Times</a>
 					<?php } ?>
 					<?php if (!empty($this->sessions['info']['session_type'][CSession::DELIVERY])) { ?>
 						<a class="border nav-item nav-link font-weight-bold text-uppercase <?php if (!$ActiveTabSet) {echo "active"; $ActiveTabSet='DELIVERY';}?>" id="nav-DELIVERY-tab"
 						   data-urlpush="true" data-toggle="tab" data-target="#nav-DELIVERY"
-						   href="/session?tab=DELIVERY" role="tab" aria-controls="nav-DELIVERY" aria-selected="true">View</br>Home Delivery Times</a>
+						   href="/session?tab=DELIVERY" role="tab" aria-controls="nav-DELIVERY" aria-selected="true">
+							<i class="dd-icon icon-delivery font-size-medium-large align-bottom"></i> View</br>Home Delivery Times</a>
 					<?php } ?>
 				</div>
 			</nav>

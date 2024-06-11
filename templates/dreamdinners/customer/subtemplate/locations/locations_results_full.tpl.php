@@ -3,7 +3,7 @@
 	<form method="post" class="row">
 		<div class="col">
 			<h2 class="text-center mb-4">For the best value, visit a local store.</h2>
-			<?php if (!empty($this->zip_code)) { ?><p class="text-center">Search results for 45 miles around zip code <?php echo $this->zip_code; ?></p><?php } ?>
+			<?php if (!empty($this->zip_code)) { ?><p class="text-center">Search results for 30 miles around zip code <?php echo $this->zip_code; ?></p><?php } ?>
 			<?php foreach($this->store_results_array as $szState => $storArray ) { ?>
 				<?php $count = 1; foreach($storArray as $id => $store ) { $count++; ?>
 					<div class="row pb-4">
@@ -68,7 +68,8 @@
 								<div class="col-12 col-sm-5 col-md-6 mt-4 mt-sm-0">
 									<?php if ($store["type"] == 'COMMUNITY_PICK_UP') { ?>
 										<h3 class="text-uppercase font-weight-bold d-none d-sm-block">Community Pick Up location</h3>
-										<div class="text-uppercase d-none d-sm-block mb-4"><?php echo $store["DAO_store_pickup_location"]->location_title; ?></div>
+										<div class="text-uppercase mb-2"><?php echo $store["DAO_store_pickup_location"]->location_title; ?></div>
+										<div class="font-size-small mb-4">Provided by the <?php echo $store["DAO_store_pickup_location"]->DAO_store->store_name; ?> store</div>
 									<?php } else { ?>
 										<h3 class="text-uppercase font-weight-bold d-none d-sm-block mb-3"><?php echo $store["DAO_store"]->store_name; ?> Store</h3>
 									<?php } ?>
