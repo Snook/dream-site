@@ -1,7 +1,7 @@
 <?php $this->setCSS(CSS_PATH . '/admin/jquery/jsTree/default/style.css'); ?>
 <?php $this->setScript('head', SCRIPT_PATH . '/admin/vendor/jstree.min.js'); ?>
-<?php $this->setScript('head', SCRIPT_PATH . '/admin/reports_payment.js'); ?>
-<?php $this->setScript('head', SCRIPT_PATH . '/admin/store_tree.js');
+<?php $this->setScript('head', SCRIPT_PATH . '/admin/reports_payment.min.js'); ?>
+<?php $this->setScript('head', SCRIPT_PATH . '/admin/store_tree.min.js');
 
 $this->setScriptVar('isFranchiseAccess = ' . (CUser::getCurrentUser()->isFranchiseAccess() ? 'true' : 'false') . ';');
 
