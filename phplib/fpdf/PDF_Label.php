@@ -543,7 +543,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		}
 		else
 		{
-			$tStr = $openStyleTag . $label . $closeStyleTag . ' <db2>' . $element['prefix'] . CTemplate::formatDecimal($element['value']) . $element['measure_label'] . $suffix . '</db2>';
+			$tStr = $openStyleTag . $label . $closeStyleTag . '<db2> ' . $element['prefix'] . CTemplate::formatDecimal($element['value']) . $element['measure_label'] . $suffix . '</db2>';
 			$this->MultiCellTag($this->_Width, $overrideLineHeight, $tStr, $showBorders, $alignment, $fill);
 		}
 	}
