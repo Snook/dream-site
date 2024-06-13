@@ -2973,7 +2973,7 @@ class COrdersDelivered extends COrders
 		$orderInfo['membership'] = $user->getMembershipStatus($order->id);
 
 		$contentsText = CMail::mailMerge('shipping/shipping_session_rescheduled.txt.php', $orderInfo);
-		$contentsHtml = CMail::mailMerge('shipping/shipping_session_rescheduled', $orderInfo);
+		$contentsHtml = CMail::mailMerge('shipping/shipping_session_rescheduled.html.php', $orderInfo);
 
 		$fromEmail = empty($orderInfo['storeInfo']['email_address']) ? null : $orderInfo['storeInfo']['email_address'];
 
