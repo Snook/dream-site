@@ -16,6 +16,7 @@ if ($order['session_type_subtype'] == CSession::WALK_IN) {
 	</div>
 </div>
 <div class="row my-1 mb-4">
+	<?php if (false) { // disabled add to calendar ?>
 	<div class="col-4 col-md-4">
 		<div class="btn-group btn-block">
 			<div class="addeventatc btn btn-primary" data-styling="none" aria-haspopup="true" aria-expanded="false">
@@ -44,6 +45,7 @@ if ($order['session_type_subtype'] == CSession::WALK_IN) {
 			</div>
 		</div>
 	</div>
+	<?php } ?>
 	<?php if ($order['session_type'] !== CSession::DELIVERED) { ?>
 		<div class="col-4 col-md-4">
 			<a class="btn btn-primary btn-block" href="/my-events?sid=<?php echo $order['session_id']; ?>">
