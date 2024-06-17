@@ -711,6 +711,11 @@ class CTemplate extends Savant2
 	 */
 	static function formatDateTime($format = 'Y-m-d H:i:s', $timeStamp = false, $StoreObj = false, $modify = false)
 	{
+		if ($timeStamp === null)
+		{
+			return null;
+		}
+
 		try
 		{
 			$dateTime = new DateTime();

@@ -50,6 +50,34 @@ define('TV_OFFER_REFERRAL_SOURCE', 14);
 
 class CUserData extends DAO_User_data
 {
+	const BIRTH_MONTH_FIELD_ID = 1; // 4500 total, 1054 no store, 8 duplicates to clean up
+	const NUMBER_KIDS_FIELD_ID = 2; // 4100 total,  990 no store, 10 dupes to clean up
+	const FAVORITE_MEAL_FIELD_ID = 3; // 436 total, 10 no store, no dupes -xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const WHY_WORKS_FIELD_ID = 4;        // 1312 total, 4 no store, no dupes -xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const GUEST_EMPLOYER_FIELD_ID = 5;    // 2346 total, 8 no store, 1 dupe -xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const UPCOMING_EVENTS_FIELD_ID = 6;  // 727 total, 9 no store, 7 dupes -xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const MISC_NOTES_FIELD_ID = 7;    // 12,741 total, 93 no store, 28 dupes
+	const FAMILY_SIZE_FIELD_ID = 10;    // 4305 total, 1002 no store, 9 dupes
+	const SPOUSE_EMPLOYER_FIELD_ID = 11;  // 1099 total, 6 no store, no dupes -xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const BIRTH_YEAR_FIELD_ID = 15;        //	1340 total, 981 no store, 1 dupe - must delete the "none" answers
+	const GUEST_CARRY_OVER_NOTE = 16;    // 15,807 total, 0 no store, a few dupes
+	const CONTRIBUTE_INCOME = 17; // 343 total, all no store, no dupes
+	const USE_LISTS = 18;  // 326 total, all no store, no dupes
+	const NUMBER_NIGHTS_OUT = 20; // (per week) 348 total, all no store, no dupes
+	const PREFER_DAYTIME_SESSIONS_FIELD_ID = 21;
+	const PREFER_EVENING_SESSIONS_FIELD_ID = 22;
+	const PREFER_WEEKEND_SESSIONS_FIELD_ID = 23;
+	const NUMBER_NIGHTS_OUT_PER_MONTH = 24; // (per month)
+	const HOW_MANY_PEOPLE_FEEDING_FIELD_ID = 25;
+	const DESIRED_HOMEMADE_MEALS_PER_WEEK_FIELD_ID = 26;
+
+	const DD_ANNIVERSARY_FIELD_ID = 9;  // not used
+	const COOK_AT_HOME = 19; // OBSOLETE
+
+	const AAA_REFERRED_FIELD_ID = 8;
+	const EXPORTED_FOR_REDBOOK = 12;
+	const REFERRAL_SOURCE_NOTES = 13;
+	const TV_OFFER_REFERRAL_SOURCE = 14;
 
 	static function monthArray()
 	{
@@ -396,7 +424,7 @@ class CUserData extends DAO_User_data
 			CForm::dd_required => $ddRequired,
 			CForm::required_msg => "Please select use of lists.",
 			CForm::options => array(
-				'' => 'Use lists',
+				'' => 'use lists',
 				'yes' => 'Yes',
 				'no' => 'No'
 			)
@@ -820,13 +848,13 @@ class CUserData extends DAO_User_data
 
 	static function saveBirthdayForPlatePoint($month, $year, $User)
 	{
-		if (isset($month)  && isset($year))
+		if (isset($month) && isset($year))
 		{
 
-//			$fieldNames = array(
-//				1 => 'birthday_month',
-//				15 => 'birthday_year'
-//			);
+			//			$fieldNames = array(
+			//				1 => 'birthday_month',
+			//				15 => 'birthday_year'
+			//			);
 
 			$UData = DAO_CFactory::create('user_data');
 			$UData->user_id = $User->id;
