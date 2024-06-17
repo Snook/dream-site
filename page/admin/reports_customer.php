@@ -1146,7 +1146,8 @@ class page_admin_reports_customer extends CPageAdminOnly
 		{
 			if ($supportsCorporateCrate && !empty($tarray['secondary_email']))
 			{
-				$domain = array_pop(explode("@", $tarray['secondary_email']));
+				$array = explode("@", $tarray['secondary_email']);
+				$domain = array_pop($array);
 
 				if (isset($clientData[$domain]))
 				{
@@ -1665,6 +1666,10 @@ class page_admin_reports_customer extends CPageAdminOnly
 			{
 				if ($sectionSwitches['order_type'])
 				{
+					if ($sessionSubTypes == CSession::DELIVERED)
+					{
+						$sessionTypes = 'SHIPPING';
+					}
 
 					if ($sessionSubTypes == CSession::DELIVERY)
 					{
