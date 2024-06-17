@@ -3258,6 +3258,46 @@ class CUser extends DAO_User
 		return false;
 	}
 
+	function get_Booking_Last()
+	{
+		$DAO_booking = DAO_CFactory::create('booking', true);
+		$DAO_booking->user_id =  $this->id;
+		$DAO_booking->status = CBooking::ACTIVE;
+		$DAO_orders = DAO_CFactory::create('orders', true);
+		$DAO_booking->joinAddWhereAsOn($DAO_orders);
+		$DAO_session = DAO_CFactory::create('session', true);
+		$DAO_session->whereAdd("session.session_start < NOW()");
+		$DAO_booking->joinAddWhereAsOn($DAO_session);
+		$DAO_booking->orderBy("session_start");
+		$DAO_booking->limit(1);
+		if ($DAO_booking->find(true))
+		{
+			return $DAO_booking;
+		}
+
+		return null;
+	}
+
+	function get_Booking_Next()
+	{
+		$DAO_booking = DAO_CFactory::create('booking', true);
+		$DAO_booking->user_id =  $this->id;
+		$DAO_booking->status = CBooking::ACTIVE;
+		$DAO_orders = DAO_CFactory::create('orders', true);
+		$DAO_booking->joinAddWhereAsOn($DAO_orders);
+		$DAO_session = DAO_CFactory::create('session', true);
+		$DAO_session->whereAdd("session.session_start > NOW()");
+		$DAO_booking->joinAddWhereAsOn($DAO_session);
+		$DAO_booking->orderBy("session_start");
+		$DAO_booking->limit(1);
+		if ($DAO_booking->find(true))
+		{
+			return $DAO_booking;
+		}
+
+		return null;
+	}
+
 	function getMembershipsArray($getCurrentMembership = false, $getPastMemberships = false, $getFutureMembership = false, $setCurrent = false)
 	{
 		$currentMenuID = CMenu::getCurrentMenuId();
