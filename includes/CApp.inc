@@ -1225,7 +1225,7 @@ function pageNotFound($errno, $errstr, $errfile, $errline)
 	if ($errno == E_ERROR || $errno == E_WARNING)
 	{
 		CLog::RecordNew(CLog::DEBUG, $GLOBALS['domainConfig']['theme'] . ' 404 Not Found: ' . $_SERVER['REQUEST_URI']);
-		CApp::bounce('404.php');
+		CApp::bounce('/not-found');
 	}
 }
 
