@@ -3051,11 +3051,11 @@ class CUser extends DAO_User
 		{
 			$org_DAO_user = clone $DAO_user;
 
-			if ($DAO_user->DAO_store->store_type == CStore::FRANCHISE)
+			if ($DAO_user->DAO_store->isFranchise())
 			{
 				$DAO_user->home_store_id = $DAO_user->DAO_store->id;
 			}
-			else if ($DAO_user->DAO_store->store_type == CStore::DISTRIBUTION_CENTER)
+			else if ($DAO_user->DAO_store->isDistributionCenter())
 			{
 				$DAO_user->distribution_center_id = $DAO_user->DAO_store->id;
 			}

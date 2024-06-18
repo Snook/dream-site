@@ -3044,6 +3044,18 @@ class CStore extends DAO_Store
 		}
 	}
 
+	function isFranchise()
+	{
+		if ($this->store_type == CStore::FRANCHISE)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	function isDistributionCenter()
 	{
 		if ($this->store_type == CStore::DISTRIBUTION_CENTER)
