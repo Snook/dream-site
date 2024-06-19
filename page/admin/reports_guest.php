@@ -84,7 +84,6 @@ class page_admin_reports_guest extends CPageAdminOnly
 						'data-multi-store-select' => $this->allowStoreSelect
 					)
 				),
-				/*
 				'driver-tip' => array(
 					'title' => 'Driver Tip Report',
 					'data' => array(
@@ -96,7 +95,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 						'data-multi-store-select' => $this->allowStoreSelect
 					)
 				),
-				*/
+				/*
 				'guest-details' => array(
 					'title' => 'Guest Details',
 					'data' => array(
@@ -108,6 +107,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 						'data-multi-store-select' => $this->allowStoreSelect
 					)
 				),
+				*/
 				'guest-birthdays' => array(
 					'title' => 'Guest Birthdays',
 					'data' => array(
