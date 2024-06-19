@@ -2670,6 +2670,20 @@ class CUser extends DAO_User
 		);
 	}
 
+	function hasMultiStoreAccess()
+	{
+		if (!$this->isFranchiseAccess())
+		{
+			return true;
+		}
+
+		$DAO_user_to_store = DAO_CFactory::create('user_to_store', true);
+		$DAO_user_to_store->user_id = $this->id;
+		$DAO_user_to_store->find();
+
+		return $DAO_user_to_store->N > 1;
+	}
+
 	function isFranchiseAccess()
 	{
 

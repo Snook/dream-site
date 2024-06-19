@@ -20,34 +20,37 @@ class page_admin_reports_guest extends CPageAdminOnly
 
 	function runSiteAdmin()
 	{
-		$this->allowStoreSelect = true;
+		$this->allowStoreSelect = $this->CurrentUser->hasMultiStoreAccess();
 		$this->guestReport();
 	}
 
 	function runHomeOfficeManager()
 	{
-		$this->allowStoreSelect = true;
+		$this->allowStoreSelect = $this->CurrentUser->hasMultiStoreAccess();
 		$this->guestReport();
 	}
 
 	function runHomeOfficeStaff()
 	{
-		$this->allowStoreSelect = true;
+		$this->allowStoreSelect = $this->CurrentUser->hasMultiStoreAccess();
 		$this->guestReport();
 	}
 
 	function runFranchiseOwner()
 	{
+		$this->allowStoreSelect = $this->CurrentUser->hasMultiStoreAccess();
 		$this->guestReport();
 	}
 
 	function runFranchiseManager()
 	{
+		$this->allowStoreSelect = $this->CurrentUser->hasMultiStoreAccess();
 		$this->guestReport();
 	}
 
 	function runOpsLead()
 	{
+		$this->allowStoreSelect = $this->CurrentUser->hasMultiStoreAccess();
 		$this->guestReport();
 	}
 
