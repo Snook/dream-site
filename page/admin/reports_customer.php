@@ -1188,11 +1188,6 @@ class page_admin_reports_customer extends CPageAdminOnly
 
 			array_splice($tarray, $colcount, count($tarray));
 
-			if ($tarray["id"] == 773021)
-			{
-				$break = true;
-			}
-
 			$tempDate = $tarray['sessions_attended'];
 			$tempDateArray = explode(",", $tarray['sessions_attended']);
 
