@@ -48,6 +48,12 @@ class page_admin_reports_guest extends CPageAdminOnly
 		$this->guestReport();
 	}
 
+	function runFranchiseLead()
+	{
+		$this->allowStoreSelect = $this->CurrentUser->hasMultiStoreAccess();
+		$this->guestReport();
+	}
+
 	function runOpsLead()
 	{
 		$this->allowStoreSelect = $this->CurrentUser->hasMultiStoreAccess();
