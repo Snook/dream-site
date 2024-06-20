@@ -88,6 +88,16 @@ class CBooking extends DAO_Booking
 		);
 	}
 
+	function get_DAO_orders()
+	{
+		return $this->DAO_orders;
+	}
+
+	function get_DAO_session()
+	{
+		return $this->DAO_session;
+	}
+
 	static public function getBookingCancellationReasonDisplayString($reasonEnum)
 	{
 		if (empty($reasonEnum))

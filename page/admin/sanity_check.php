@@ -42,7 +42,7 @@ class page_admin_sanity_check extends CPageAdminOnly {
 		$year = $currentMenuStartElements[0];
 		$month = intval($currentMenuStartElements[1]) - 1;
 		$obj = new stdClass();
-		$obj->store = 244;
+		$obj->store = 175;
 		$obj->session_type_all = 'on';
 		$obj->page = 'admin_reports_entree';
 		$obj->pickDate='3';
@@ -59,12 +59,12 @@ class page_admin_sanity_check extends CPageAdminOnly {
 	function doSetupForDashboard($tpl,$firstMenu)
 	{
 		$obj = new stdClass();
-		$obj->store_id = 244;
+		$obj->store_id = 175;
 		$obj->monthMode = 'current';
 		$obj->curMonthStr = $firstMenu['menu_start'];
 		$obj->override_month = $firstMenu['menu_start'];
 		$obj->report_type = 'dt_single_store';
-		$obj->store = 244;
+		$obj->store = 175;
 		$obj->hide_inactive = 'on';
 
 		$JSON = json_encode($obj,JSON_UNESCAPED_SLASHES);
@@ -79,7 +79,7 @@ class page_admin_sanity_check extends CPageAdminOnly {
 		$year = $currentMenuStartElements[0];
 		$month = intval($currentMenuStartElements[1]) - 1;
 		$obj = new stdClass();
-		$obj->store = 244;
+		$obj->store = 175;
 		$obj->export = '';
 		$obj->month = $month;
 		$obj->year = $year;

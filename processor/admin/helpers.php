@@ -66,8 +66,6 @@ class processor_admin_helpers extends CPageProcessor
 		// Multiple store selector
 		if (!empty($_POST['op']) && $_POST['op'] == 'multi_store_select')
 		{
-			$tpl = new CTemplate();
-
 			$store_id_array = array();
 
 			if (!empty($_POST['store_id']))
@@ -75,9 +73,38 @@ class processor_admin_helpers extends CPageProcessor
 				$store_id_array = explode(',', $_POST['store_id']);
 			}
 
-			$tpl->assign('store_id_array', $store_id_array);
+			$DAO_store = DAO_CFactory::create('store', true);
+			$DAO_store->joinAddWhereAsOn(DAO_CFactory::create('state_province', true));
+			if ($this->CurrentUser->isFranchiseAccess())
+			{
+				$DAO_user_to_store = DAO_CFactory::create('user_to_store', true);
+				$DAO_user_to_store->user_id = $this->CurrentUser->id;
+				$DAO_store->joinAddWhereAsOn($DAO_user_to_store);
+			}
+			$DAO_store->orderBy("store.state_id, store.city, store.store_name");
+			$DAO_store->find();
 
-			$store_select = $tpl->fetch('admin/subtemplate/helpers/multi_store_select.tpl.php');
+			$storeArray = array();
+
+			while ($DAO_store->fetch())
+			{
+				$storeArray[$DAO_store->DAO_state_province->state_name]['stores'][$DAO_store->id] = clone $DAO_store;
+
+				if (empty($storeArray[$DAO_store->DAO_state_province->state_name]['info']['has_active']) || !array_key_exists('has_active', $storeArray[$DAO_store->DAO_state_province->state_name]['info']))
+				{
+					$storeArray[$DAO_store->DAO_state_province->state_name]['info']['has_active'] = false;
+				}
+
+				if (empty($storeArray[$DAO_store->DAO_state_province->state_name]['info']['has_active']) && $DAO_store->isActive())
+				{
+					$storeArray[$DAO_store->DAO_state_province->state_name]['info']['has_active'] = true;
+				}
+			}
+
+			$this->Template->assign('store_id_array', $store_id_array);
+			$this->Template->assign('store_array', $storeArray);
+
+			$store_select = $this->Template->fetch('admin/subtemplate/helpers/multi_store_select.tpl.php');
 
 			CAppUtil::processorMessageEcho(array(
 				'processor_success' => true,

@@ -5176,6 +5176,16 @@ class COrders extends DAO_Orders
 		}
 	}
 
+	function getOrderCustomizationString()
+	{
+		if (empty($this->opted_to_customize_recipes))
+		{
+			return null;
+		}
+
+		return OrdersCustomization::initOrderCustomizationObj($this->order_customization)->getMealCustomizationObj()->toString(',', true, ' with ');
+	}
+
 	public function getMealCustomizationJson()
 	{
 		$customizationWrapper = OrdersCustomization::getInstance($this);

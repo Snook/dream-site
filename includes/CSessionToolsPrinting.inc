@@ -949,7 +949,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->MultiCellTag($width, 6, "<t14b>{$box_name}</t14b>", $this->showBorders, 'L');
 	}
 
-	protected function printHeader_Intro($x, $y, $includeQRcode = false, $qrData)
+	protected function printHeader_Intro($x, $y, $includeQRcode = false, $qrData = false)
 	{
 		$width = 140;
 

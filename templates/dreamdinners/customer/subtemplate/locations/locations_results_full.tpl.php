@@ -15,7 +15,7 @@
 									<?php } else { ?>
 										<h3 class="text-uppercase font-weight-bold text-center d-sm-none"><?php echo $store["DAO_store"]->store_name; ?> Store</h3>
 									<?php } ?>
-									<?php if ($store["type"] != 'COMMUNITY_PICK_UP') { ?>
+									<?php if ($store["DAO_store"]->hasAvailableSessionType(array('PICK_UP', 'HOME_DELIVERY', 'ASSEMBLY')) && $store["type"] != 'COMMUNITY_PICK_UP') { ?>
 										<div class="row d-sm-none mb-3">
 											<div class="col-12 text-center text-uppercase font-weight-bold mb-2">Available services</div>
 											<?php if ($store["DAO_store"]->hasAvailableSessionType('PICK_UP')) { ?>
@@ -73,7 +73,7 @@
 									<?php } else { ?>
 										<h3 class="text-uppercase font-weight-bold d-none d-sm-block mb-3"><?php echo $store["DAO_store"]->store_name; ?> Store</h3>
 									<?php } ?>
-									<?php if ($store["type"] != 'COMMUNITY_PICK_UP') { ?>
+									<?php if ($store["DAO_store"]->hasAvailableSessionType(array('PICK_UP', 'HOME_DELIVERY', 'ASSEMBLY')) && $store["type"] != 'COMMUNITY_PICK_UP') { ?>
 										<div class="row d-none d-sm-flex mb-3">
 											<div class="col-12 text-center text-uppercase font-weight-bold mb-2">Available services</div>
 											<?php if ($store["DAO_store"]->hasAvailableSessionType('PICK_UP')) { ?>

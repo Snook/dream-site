@@ -18,7 +18,7 @@ if (!empty($_GET))
 	{
 		if (strpos($k, '<') !== false)
 		{
-			header('location:404.php');
+			header('/not-found');
 			exit();
 		}
 	}

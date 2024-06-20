@@ -2670,6 +2670,20 @@ class CUser extends DAO_User
 		);
 	}
 
+	function hasMultiStoreAccess()
+	{
+		if (!$this->isFranchiseAccess())
+		{
+			return true;
+		}
+
+		$DAO_user_to_store = DAO_CFactory::create('user_to_store', true);
+		$DAO_user_to_store->user_id = $this->id;
+		$DAO_user_to_store->find();
+
+		return $DAO_user_to_store->N > 1;
+	}
+
 	function isFranchiseAccess()
 	{
 
@@ -3051,11 +3065,11 @@ class CUser extends DAO_User
 		{
 			$org_DAO_user = clone $DAO_user;
 
-			if ($DAO_user->DAO_store->store_type == CStore::FRANCHISE)
+			if ($DAO_user->DAO_store->isFranchise())
 			{
 				$DAO_user->home_store_id = $DAO_user->DAO_store->id;
 			}
-			else if ($DAO_user->DAO_store->store_type == CStore::DISTRIBUTION_CENTER)
+			else if ($DAO_user->DAO_store->isDistributionCenter())
 			{
 				$DAO_user->distribution_center_id = $DAO_user->DAO_store->id;
 			}
@@ -3256,6 +3270,115 @@ class CUser extends DAO_User
 		}
 
 		return false;
+	}
+
+	function get_Booking_Last()
+	{
+		$DAO_booking = DAO_CFactory::create('booking', true);
+		$DAO_booking->user_id = $this->id;
+		$DAO_booking->status = CBooking::ACTIVE;
+		$DAO_orders = DAO_CFactory::create('orders', true);
+		$DAO_booking->joinAddWhereAsOn($DAO_orders);
+		$DAO_session = DAO_CFactory::create('session', true);
+		$DAO_session->whereAdd("session.session_start < NOW()");
+		$DAO_booking->joinAddWhereAsOn($DAO_session);
+		$DAO_booking->orderBy("session_start");
+		$DAO_booking->limit(1);
+		if ($DAO_booking->find(true))
+		{
+			return $DAO_booking;
+		}
+
+		return null;
+	}
+
+	function get_Booking_Next()
+	{
+		$DAO_booking = DAO_CFactory::create('booking', true);
+		$DAO_booking->user_id = $this->id;
+		$DAO_booking->status = CBooking::ACTIVE;
+		$DAO_orders = DAO_CFactory::create('orders', true);
+		$DAO_booking->joinAddWhereAsOn($DAO_orders);
+		$DAO_session = DAO_CFactory::create('session', true);
+		$DAO_session->whereAdd("session.session_start > NOW()");
+		$DAO_booking->joinAddWhereAsOn($DAO_session);
+		$DAO_booking->orderBy("session_start");
+		$DAO_booking->limit(1);
+		if ($DAO_booking->find(true))
+		{
+			return $DAO_booking;
+		}
+
+		return null;
+	}
+
+	function get_JSON_UserDataValue($key)
+	{
+		if (!empty($this->json_user_data))
+		{
+			$userData = json_decode($this->json_user_data);
+
+			if (property_exists($userData, $key))
+			{
+				return $userData->{$key};
+			}
+		}
+
+		return null;
+	}
+
+	function get_JSON_UserPreferenceValue($key)
+	{
+		if (!empty($this->json_user_preferences))
+		{
+			$userPref = json_decode($this->json_user_preferences);
+
+			if (property_exists($userPref, $key))
+			{
+				return $userPref->{$key};
+			}
+		}
+
+		return null;
+	}
+
+	function getPreferenceValue($key)
+	{
+		$perferenceArray = $this->getPreferenceArray();
+
+		if (array_key_exists($key, $perferenceArray))
+		{
+			return $perferenceArray[$key]['value'];
+		}
+
+		return null;
+	}
+
+	function getPreferenceArray()
+	{
+		if (!empty($this->preferences))
+		{
+			return $this->preferences;
+		}
+
+		$DAO_user_preferences = DAO_CFactory::create('user_preferences', true);
+		$DAO_user_preferences->user_id = $this->id;
+
+		if ($DAO_user_preferences->find())
+		{
+			while ($DAO_user_preferences->fetch())
+			{
+				$this->preferences[$DAO_user_preferences->pkey] = array(
+					'value' => $DAO_user_preferences->pvalue,
+					'timestamp_updated' => $DAO_user_preferences->timestamp_updated,
+					'timestamp_created' => $DAO_user_preferences->timestamp_created,
+					'created_by' => $DAO_user_preferences->created_by,
+					'updated_by' => $DAO_user_preferences->updated_by
+				);
+			}
+		}
+
+		return $this->preferences;
 	}
 
 	function getMembershipsArray($getCurrentMembership = false, $getPastMemberships = false, $getFutureMembership = false, $setCurrent = false)
@@ -6319,6 +6442,11 @@ class CUser extends DAO_User
 		return false;
 	}
 
+	function getShareURL()
+	{
+		return HTTPS_BASE . 'share/' . $this->id;
+	}
+
 	function getShippingAddress()
 	{
 		if ($this->id)
@@ -6334,6 +6462,28 @@ class CUser extends DAO_User
 		}
 
 		return false;
+	}
+
+	function getDaysInactive()
+	{
+		if ($this->get_Booking_Next() !== null)
+		{
+			return 0;
+		}
+		else if ($this->get_Booking_Last() !== null)
+		{
+			$origin = new DateTimeImmutable($this->get_Booking_Last()->get_DAO_session()->session_start);
+			$target = new DateTimeImmutable();
+			$interval = $origin->diff($target);
+			return $interval->format('%a');
+		}
+		else
+		{
+			$origin = new DateTimeImmutable($this->timestamp_created);
+			$target = new DateTimeImmutable();
+			$interval = $origin->diff($target);
+			return $interval->format('%a');
+		}
 	}
 
 	function getDeliveredAddressDefault()

@@ -467,6 +467,25 @@ class CTemplate extends Savant2
 		}
 	}
 
+	function downloadReport($fileName, $rows, $labels = false, $type = 'xlsx', $show_header = true)
+	{
+		$this->assign('report_data_array', array(
+			'file_name' => $fileName . '-created-' . date("Y-m-d"),
+			'file_type' => $type,
+			'labels' => $labels,
+			'rows' => $rows,
+			'show_header' => $show_header,
+			'title_rows' => false,
+			'col_descriptions' => false,
+			'headers_embedded' => false,
+			'call_backs' => false,
+			'section_header' => false,
+			'override_values' => false,
+			'useLib1_8' => false,
+			'suppress_labels_display' => false
+		));
+	}
+
 	function assignBackBtn($defaultUrl = '/')
 	{
 		if (array_key_exists('back', $_REQUEST) && $_REQUEST['back'])
@@ -692,6 +711,11 @@ class CTemplate extends Savant2
 	 */
 	static function formatDateTime($format = 'Y-m-d H:i:s', $timeStamp = false, $StoreObj = false, $modify = false)
 	{
+		if ($timeStamp === null)
+		{
+			return null;
+		}
+
 		try
 		{
 			$dateTime = new DateTime();

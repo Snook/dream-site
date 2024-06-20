@@ -543,7 +543,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		}
 		else
 		{
-			$tStr = $openStyleTag . $label . $closeStyleTag . ' <db2>' . $element['prefix'] . CTemplate::formatDecimal($element['value']) . $element['measure_label'] . $suffix . '</db2>';
+			$tStr = $openStyleTag . $label . $closeStyleTag . '<db2> ' . $element['prefix'] . CTemplate::formatDecimal($element['value']) . $element['measure_label'] . $suffix . '</db2>';
 			$this->MultiCellTag($this->_Width, $overrideLineHeight, $tStr, $showBorders, $alignment, $fill);
 		}
 	}
@@ -1868,7 +1868,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 	}
 
 	// Print a label
-	function Four_Up_Add_Finishing_Touch_PDF_Label($title, $inst_title, $instructions = false, $serving_suggestion = false, $prep_time = false, $showBorders = 0, $overrideLineHeight = 3.45, $pushDown = 0, $storeName = false, $storePhone = false, $entity)
+	function Four_Up_Add_Finishing_Touch_PDF_Label($entity, $title, $inst_title, $instructions = false, $serving_suggestion = false, $prep_time = false, $showBorders = 0, $overrideLineHeight = 3.45, $pushDown = 0, $storeName = false, $storePhone = false)
 	{
 		// We are in a new page, then we must add a page
 		if (($this->_COUNTX == 0) && ($this->_COUNTY == 0))

@@ -460,7 +460,11 @@ class CSession extends DAO_Session
 
 	function sessionTypeToText()
 	{
-		if ($this->isWalkIn())
+		if ($this->isShipping())
+		{
+			$this->session_type_true = CSession::DELIVERED;
+		}
+		else if ($this->isWalkIn())
 		{
 			$this->session_type_true = CSession::WALK_IN;
 		}
@@ -494,6 +498,8 @@ class CSession extends DAO_Session
 
 		switch ($this->session_type_true)
 		{
+			case CSession::DELIVERED:
+				return $this->session_type_desc = "Shipping";
 			case CSession::DELIVERY:
 				return $this->session_type_desc = "Delivery";
 			case CSession::DELIVERY_PRIVATE:
@@ -585,6 +591,15 @@ class CSession extends DAO_Session
 
 		switch ($session_type_switch)
 		{
+			case CSession::DELIVERED:
+				return array(
+					$this->session_type_title = "Shipping",
+					$this->session_type_title_public = "Shipping",
+					$this->session_type_title_short = "SHP",
+					$this->session_type_fadmin_acronym = "SHP",
+					$this->session_type_string = "shipping"
+				);
+				break;
 			case CSession::DELIVERY:
 				return array(
 					$this->session_type_title = "Home Delivery",

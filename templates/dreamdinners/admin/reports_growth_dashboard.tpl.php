@@ -2,6 +2,7 @@
 <?php $this->setCSS(CSS_PATH . '/admin/admin-dashboard-reports-new.css'); ?>
 <?php $this->assign('topnav', 'reports'); ?>
 <?php $this->assign('page_title', 'Growth Dashboard');
+$this->setScript('head', SCRIPT_PATH . '/admin/dashboard.min.js');
 $this->setScript('head', SCRIPT_PATH . '/admin/reports_embedded_excel.min.js');
 $this->setOnload('reports_embedded_excel_init();');?>
 
