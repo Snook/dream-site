@@ -6,7 +6,8 @@
 		<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center">
 			<h2>Select your new time</h2>
 			<p>If you would like to reschedule your order sooner or do not see a new time that works for you, don't hesitate to get in touch with your store to see if they can help you.</p>
-			<p>Dream Dinners [store name]: [phone] | [store email]</p>
+			<p class="mb-0">Dream Dinners <?php echo $this->DAO_store->store_name; ?>: <?php echo $this->DAO_store->telephone_day; ?></p>
+			<p><a href="mailto:<?php echo $this->DAO_store->email_address; ?>"><?php echo $this->DAO_store->email_address; ?></a></p>
 		</div>
 		<div class="col-6 col-sm-3 p-0 order-3 order-sm-3 text-right">
 
