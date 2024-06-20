@@ -244,6 +244,11 @@ class CStore extends DAO_Store
 		{
 			return false;
 		}
+		else if (is_array($session_type))
+		{
+			$diff = array_diff_key(array_flip($session_type), $sessionTypesArray);
+			return count($diff) === 0;
+		}
 		else if ($session_type)
 		{
 			return array_key_exists($session_type, $sessionTypesArray);
