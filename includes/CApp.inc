@@ -342,6 +342,24 @@ class CApp
 			//render the template
 			$this->_template->assign('form_login', $LoginForm->Render());
 
+			if (isset($this->_template->report_data_array))
+			{
+				$reportDataArray = $this->_template->report_data_array;
+
+				switch ($reportDataArray['file_type'])
+				{
+					case 'csv':
+						require_once('CSV.inc');
+						$csvObj = new CSV();
+						$csvObj->writeCSVFile($reportDataArray['file_name'], $reportDataArray['labels'], $reportDataArray['rows'], $reportDataArray['show_header'], $reportDataArray['title_rows'], $reportDataArray['col_descriptions']);
+						exit;
+					case 'xlsx':
+						require_once('ExcelExport.inc');
+						writeExcelFile($reportDataArray['file_name'], $reportDataArray['labels'], $reportDataArray['rows'], $reportDataArray['show_header'], $reportDataArray['title_rows'], $reportDataArray['col_descriptions'], $reportDataArray['headers_embedded'], $reportDataArray['call_backs'], $reportDataArray['section_header'], false, $reportDataArray['suppress_labels_display'], $reportDataArray['override_values'], $reportDataArray['useLib1_8']);
+						exit;
+				}
+			}
+
 			if ((array_key_exists('export', $_GET) !== false))
 			{
 				if ($_GET['export'] == 'csv')
@@ -1207,7 +1225,7 @@ function pageNotFound($errno, $errstr, $errfile, $errline)
 	if ($errno == E_ERROR || $errno == E_WARNING)
 	{
 		CLog::RecordNew(CLog::DEBUG, $GLOBALS['domainConfig']['theme'] . ' 404 Not Found: ' . $_SERVER['REQUEST_URI']);
-		CApp::bounce('404.php');
+		CApp::bounce('/not-found');
 	}
 }
 

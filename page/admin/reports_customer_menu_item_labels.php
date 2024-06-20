@@ -28,7 +28,7 @@ class page_admin_reports_customer_menu_item_labels extends CPageAdminOnly
 		$this->DATE_FORMAT_TOOLTIP = str_replace('{1}', $dateFormattedS, $this->DATE_FORMAT_TOOLTIP);
 	}
 
-	private function sortArrayByMenuItem($a, $b)
+	private static function sortArrayByMenuItem($a, $b)
 	{
 		$strCmpStr = strcmp($a["menu_item"], $b["menu_item"]);
 

@@ -236,9 +236,27 @@ class CStore extends DAO_Store
 		return self::$_AvailableSessionTypes[$this->id];
 	}
 
-	function hasAvailableSessionType($session_type)
+	function hasAvailableSessionType($session_type = false)
 	{
-		return array_key_exists($session_type, $this->getAvailableSessionTypes());
+		$sessionTypesArray = $this->getAvailableSessionTypes();
+
+		if (empty($sessionTypesArray))
+		{
+			return false;
+		}
+		else if (is_array($session_type))
+		{
+			$diff = array_diff_key(array_flip($session_type), $sessionTypesArray);
+			return count($diff) === 0;
+		}
+		else if ($session_type)
+		{
+			return array_key_exists($session_type, $sessionTypesArray);
+		}
+		else
+		{
+			return true;
+		}
 	}
 
 	function getStoreId()
@@ -3035,6 +3053,18 @@ class CStore extends DAO_Store
 	function isShowToCustomer()
 	{
 		if (!empty($this->show_on_customer_site))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	function isFranchise()
+	{
+		if ($this->store_type == CStore::FRANCHISE)
 		{
 			return true;
 		}

@@ -373,7 +373,7 @@ class CBrowserSession extends DAO_Browser_sessions
 				CStore::setUpFranchiseStore($DAO_store->id);
 			}
 
-			self::setCurrentStore($DAO_store->id);
+			//self::setCurrentStore($DAO_store->id);
 
 			$copy = clone(self::instance());
 			self::instance()->current_store_id = $DAO_store->id;

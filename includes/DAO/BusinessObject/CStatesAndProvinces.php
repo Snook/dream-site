@@ -1,9 +1,10 @@
 <?php
+require_once 'DAO/State_province.php';
 
 /**
  * A collection of static methods for getting the list of states and abbreviations
  */
-class CStatesAndProvinces
+class CStatesAndProvinces extends DAO_State_province
 {
 
 	static private $_countries = null;

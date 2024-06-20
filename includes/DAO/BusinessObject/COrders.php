@@ -2953,6 +2953,16 @@ class COrders extends DAO_Orders
 		return $retVal;
 	}
 
+	function hasOptedToCustomize()
+	{
+		if (!empty($this->opted_to_customize_recipes))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	function hasSubscriptionProduct()
 	{
 
@@ -5164,6 +5174,16 @@ class COrders extends DAO_Orders
 			$this->coupon_code_id = null;
 			$this->coupon_code_discount_total = 0;
 		}
+	}
+
+	function getOrderCustomizationString()
+	{
+		if (empty($this->opted_to_customize_recipes))
+		{
+			return null;
+		}
+
+		return OrdersCustomization::initOrderCustomizationObj($this->order_customization)->getMealCustomizationObj()->toString(',', true, ' with ');
 	}
 
 	public function getMealCustomizationJson()

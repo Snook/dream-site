@@ -76,7 +76,7 @@ class page_admin_access_page_override extends CPageAdminOnly {
 
 			if (count($updatelist) > 0)
 			{
-				$explodedlist = implode($updatelist, ",");
+				$explodedlist = implode(",", $updatelist);
 
 				$sql = "update access_control_page_user set access_control_page_user.is_deleted = 1 where access_control_page_user.id in ($explodedlist)";
 				$obj = DAO_CFactory::create("access_control_page_user");

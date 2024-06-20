@@ -1146,7 +1146,8 @@ class page_admin_reports_customer extends CPageAdminOnly
 		{
 			if ($supportsCorporateCrate && !empty($tarray['secondary_email']))
 			{
-				$domain = array_pop(explode("@", $tarray['secondary_email']));
+				$array = explode("@", $tarray['secondary_email']);
+				$domain = array_pop($array);
 
 				if (isset($clientData[$domain]))
 				{
@@ -1298,6 +1299,10 @@ class page_admin_reports_customer extends CPageAdminOnly
 										$sepSessionTypes[$counter] = 'DELIVERY';
 									}
 
+									if ($sepSessionSubTypes[$counter] == 'STANDARD')
+									{
+										$sepSessionTypes[$counter] = 'ASSEMBLY';
+									}
 									if ($sepSessionSubTypes[$counter] == 'WALK_IN')
 									{
 										$sepSessionTypes[$counter] = 'WALK-IN';
@@ -1319,6 +1324,10 @@ class page_admin_reports_customer extends CPageAdminOnly
 											$tempArr[$counter]['order_type'] = 'PICK UP';
 										}
 									}
+									else if ($sepSessionTypes[$counter] == 'DELIVERED')
+									{
+										$tempArr[$counter]['order_type'] = 'SHIPPING';
+									}
 									else if ($sepSessionTypes[$counter] == 'DELIVERY')
 									{
 										if ($sepOrderTypes[$counter] == 'INTRO')
@@ -1328,6 +1337,17 @@ class page_admin_reports_customer extends CPageAdminOnly
 										else
 										{
 											$tempArr[$counter]['order_type'] = 'DELIVERY';
+										}
+									}
+									else if ($sepSessionTypes[$counter] == 'STANDARD')
+									{
+										if ($sepOrderTypes[$counter] == 'INTRO')
+										{
+											$tempArr[$counter]['order_type'] = 'ASSEMBLY - STARTER PACK';
+										}
+										else
+										{
+											$tempArr[$counter]['order_type'] = 'ASSEMBLY';
 										}
 									}
 									else if ($sepSessionTypes[$counter] == 'WALK-IN')
@@ -1576,7 +1596,6 @@ class page_admin_reports_customer extends CPageAdminOnly
 
 						if ($sectionSwitches['order_type'])
 						{
-
 							if ($sessionSubTypes == CSession::DELIVERY)
 							{
 								$sessionTypes = 'DELIVERY';
@@ -1598,6 +1617,10 @@ class page_admin_reports_customer extends CPageAdminOnly
 									$tarray['order_type'] = 'PICK UP';
 								}
 							}
+							if ($sessionTypes == CSession::DELIVERED)
+							{
+								$tarray['order_type'] = 'SHIPPING';
+							}
 							if ($sessionTypes == 'DELIVERY')
 							{
 								if ($tarray['order_type'] == 'INTRO')
@@ -1607,6 +1630,17 @@ class page_admin_reports_customer extends CPageAdminOnly
 								else
 								{
 									$tarray['order_type'] = 'DELIVERY';
+								}
+							}
+							if ($sessionTypes == CSession::STANDARD)
+							{
+								if ($tarray['order_type'] == COrders::INTRO)
+								{
+									$tarray['order_type'] = 'ASSEMBLY - STARTER PACK';
+								}
+								else
+								{
+									$tarray['order_type'] = 'ASSEMBLY';
 								}
 							}
 							if ($sessionTypes == CSession::WALK_IN)
@@ -1665,7 +1699,6 @@ class page_admin_reports_customer extends CPageAdminOnly
 			{
 				if ($sectionSwitches['order_type'])
 				{
-
 					if ($sessionSubTypes == CSession::DELIVERY)
 					{
 						$sessionTypes = 'DELIVERY';
@@ -1686,6 +1719,10 @@ class page_admin_reports_customer extends CPageAdminOnly
 						{
 							$tarray['order_type'] = 'PICK UP';
 						}
+					}
+					if ($sessionTypes == CSession::DELIVERED)
+					{
+						$tarray['order_type'] = 'SHIPPING';
 					}
 					if ($sessionTypes == 'DELIVERY')
 					{

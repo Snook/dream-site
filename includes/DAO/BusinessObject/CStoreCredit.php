@@ -278,9 +278,9 @@ class CStoreCredit extends DAO_Store_credit
 	 *
 	 * Lookup the dinner dollar history for a given user
 	 *
-	 * @param  int   $user_id
-	 * @param string $limitType [month|rowcount] - default is month
-	 * @param mixed  $limit  int for number of month or total rows, or mysql limit range e.g. '10,30'. Used for paging. Default is 3
+	 * @param int    $user_id
+	 * @param string $limitType        [month|rowcount] - default is month
+	 * @param mixed  $limit            int for number of month or total rows, or mysql limit range e.g. '10,30'. Used for paging. Default is 3
 	 * @param int    $totalCreditValue passed by reference used to return total dollars available, if needed.
 	 *
 	 * @return array [timestamp,timestamp_updated,expires,amount,state,events,unique_events,orders]
@@ -291,9 +291,10 @@ class CStoreCredit extends DAO_Store_credit
 
 		$limitClauseMonth = '';
 		$limitClauseRowCount = '';
-		switch ($limitType) {
+		switch ($limitType)
+		{
 			case 'month':
-				$limitClauseMonth = " and pc.timestamp_created >= DATE_FORMAT(CURDATE(), '%Y-%m-01') - INTERVAL ".$limit." MONTH ";
+				$limitClauseMonth = " and pc.timestamp_created >= DATE_FORMAT(CURDATE(), '%Y-%m-01') - INTERVAL " . $limit . " MONTH ";
 				break;
 			case 'rowcount':
 				$limitClauseRowCount = " limit " . $limit;
@@ -307,23 +308,22 @@ class CStoreCredit extends DAO_Store_credit
 									left join points_to_points_credits ppc on ppc.points_credit_id = pc.id
 									left join points_user_history puh on puh.id = ppc.points_user_history_id AND puh.is_deleted = '0'
 									where pc.user_id = $user_id and pc.is_deleted = 0 and pc.dollar_value > 0
-									" .$limitClauseMonth. "
+									" . $limitClauseMonth . "
 									group by pc.id
-									order by pc.timestamp_created desc " .$limitClauseRowCount;
+									order by pc.timestamp_created desc " . $limitClauseRowCount;
 		$creditsObj->query($q);
 		// DD EXP DATE DISPLAY 4
 		while ($creditsObj->fetch())
 		{
 			$orders = $creditsObj->orders;
-			$orders_arr = explode (",", $orders);
+			$orders_arr = explode(",", $orders);
 			$orders_arr = array_unique($orders_arr);
 			$uniqueOrders = implode(', ', $orders_arr);
 
 			$events = $creditsObj->events;
-			$events_arr = explode (",", $events);
+			$events_arr = explode(",", $events);
 			$events_arr = array_unique($events_arr);
-			$uniqueEvents= implode(', ', $events_arr);
-
+			$uniqueEvents = implode(', ', $events_arr);
 
 			$rows[$creditsObj->id] = array(
 				"timestamp" => $creditsObj->timestamp_created,
@@ -345,7 +345,6 @@ class CStoreCredit extends DAO_Store_credit
 		$totalCreditValue = $totalCredit;
 
 		return $rows;
-
 	}
 
 	static function getActiveCreditByUser($user_id, $filterOutGiftCardCredit = false, $retrieveRedeemedAndExpiredCredits = false)
@@ -600,42 +599,6 @@ class CStoreCredit extends DAO_Store_credit
 
 		CUserHistory::recordUserEvent($this->user_id, $this->store_id, 'null', 400, 'null', 'null', "Store Credit ID {$this->id} expired.");
 	}
-
-	function expire_credit_warn()
-	{
-
-		try
-		{
-			$Mail = new CMail();
-
-			$data = array('szName' => $this->fullname);
-
-			if ($this->origination_type_code == 4)
-			{
-				$contentsText = CMail::mailMerge('credit_expire_todd.txt.php', $data, false);
-				$contentsHtml = CMail::mailMerge('credit_expire_todd.html.php', $data, false);
-				$subject = "Taste of Dream Dinners Store Credit Expiring Soon";
-			}
-			else
-			{
-				$contentsText = CMail::mailMerge('invite_friends_credit_expire.txt.php', $data, false);
-				$contentsHtml = CMail::mailMerge('invite_friends_credit_expire.html.php', $data, false);
-				$subject = "Dream Dinners Store Credit Expiring Soon";
-			}
-
-			$Mail->send(null, $this->store_email, $this->fullname, $this->primary_email, $subject, $contentsHtml, $contentsText, '', '', $this->user_id, 'credit_expiring');
-
-			$DAO_credit = DAO_CFactory::create('store_credit');
-			$DAO_credit->query("update store_credit set was_sent_60_day_warning = 1 where id = {$this->id}");
-		}
-		catch (exception $e)
-		{
-			// Don't let one bad apple ruin the whole bunch
-			// on the other hand a systemic problem will cause a lot of exceptions (thousands)
-			CLog::RecordException($e);
-		}
-	}
-
 }
 
 ?>

@@ -291,7 +291,7 @@ if ($this->success == true && $this->interface == 0)
 
 		if ($isFinishingTouch)
 		{
-			$pdf->Four_Up_Add_Finishing_Touch_PDF_Label($txt1, $txt2, $txt3, $txt4, $entity['prep_time'], $showBorders, $overrideLineHeight, 0, $entity['store_name'], $entity['store_phone'], $entity);
+			$pdf->Four_Up_Add_Finishing_Touch_PDF_Label($entity, $txt1, $txt2, $txt3, $txt4, $entity['prep_time'], $showBorders, $overrideLineHeight, 0, $entity['store_name'], $entity['store_phone']);
 		}
 		else
 		{

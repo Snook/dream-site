@@ -31,7 +31,7 @@ function trendingRowCallback($sheet, $data, $row, $bottomRightExtent)
 			),
 			'font' => array( 'bold' => true)
 		);
-		
+
 		$sheet->getStyle("A$row:$bottomRightExtent")->applyFromArray($styleArray);
 	}
 }
@@ -73,18 +73,18 @@ class page_admin_reports_trending_new extends CPageAdminOnly
     function exportXLSX($tpl, $title)
 	{
 		$rows = array();
-		
-		
+
+
 		if ($this->isSingleStoreView)
 		{
 			$sectionHeader = array(" " => 1,
 									 "Sales" => 6,
 									"Guest Count" => 2,
 									"Orders" => 4,
-									Servings => 2,
+									"Servings" => 2,
 									"In-Store Sign Ups / Conversion Rate" => 5);
-				
-			
+
+
 			$labels = array(// "# of Open Stores",
 							"Month",
 							"Total Sales (AGR)",
@@ -110,17 +110,17 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 							"All Guests %",
 							"Conv. Rate");
 		}
-		else 
+		else
 		{
-			
+
 			$sectionHeader = array(" " => 2,
 				"Sales" => 8,
 				"Guest Count" => 3,
 				"Orders" => 4,
 				Servings => 2,
 				"In-Store Sign Ups / Conversion Rate" => 5);
-					
-			
+
+
 			$labels = array("# of Open Stores",
 						"Month",
 						"Total Sales (AGR)",
@@ -145,9 +145,9 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 						"Existing Guests %",
 						"All Guests %",
 						"Conv. Rate");
-				
+
 		}
-		
+
 
 		$tpl->assign("labels", $labels);
 
@@ -155,72 +155,72 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 		$colSecondChar = '';
 		$thirdSecondChar = '';
 		$colDesc = array();
-		
+
 		if (!$this->isSingleStoreView)
 		{
 			// number stores
 			$columnDescs[$col] = array('align' => 'center', 'width' => '10');
 			incrementColumn($thirdSecondChar, $colSecondChar, $col);
 		}
-		
+
 		// month
 		$columnDescs[$col] = array('align' => 'center', 'width' => 'auto', 'type' => 'datetime');
 		incrementColumn($thirdSecondChar, $colSecondChar, $col);
-		
+
 		// total AGR
 		$columnDescs[$col] = array('align' => 'center', 'width' => 'auto', 'type' => 'currency', 'decor' => 'left_border');
 		incrementColumn($thirdSecondChar, $colSecondChar, $col);
-		
+
 		if (!$this->isSingleStoreView)
 		{
 			// average per store AGR
 			$columnDescs[$col] = array('align' => 'center', 'width' => '12', 'type' => 'currency');
 			incrementColumn($thirdSecondChar, $colSecondChar, $col);
 		}
-		
+
 		// percent change
 		$columnDescs[$col] = array('align' => 'center', 'width' => '10', 'type' => 'percent');
 		incrementColumn($thirdSecondChar, $colSecondChar, $col);
-		
+
 		// sides and sweet sales
 		$columnDescs[$col] = array('align' => 'center', 'width' => '12', 'type' => 'currency', 'decor' => 'left_border');
 		incrementColumn($thirdSecondChar, $colSecondChar, $col);
-		
+
 		// percent S & S of total AGR
 		$columnDescs[$col] = array('align' => 'center', 'width' => '10', 'type' => 'percent');
 		incrementColumn($thirdSecondChar, $colSecondChar, $col);
-		
-		
+
+
 		if (!$this->isSingleStoreView)
 		{
 			// sides and sweets sales per store AGR
 			$columnDescs[$col] = array('align' => 'center', 'width' => '10', 'type' => 'currency');
 			incrementColumn($thirdSecondChar, $colSecondChar, $col);
 		}
-		
+
 		// Average ticket
 		$columnDescs[$col] = array('align' => 'center', 'width' => '12', 'type' => 'currency', 'decor' => 'left_border');
 		incrementColumn($thirdSecondChar, $colSecondChar, $col);
-		
+
 		// Average ticket excluding taste and intro
 		$columnDescs[$col] = array('align' => 'center', 'width' => '12', 'type' => 'currency');
 		incrementColumn($thirdSecondChar, $colSecondChar, $col);
-		
+
 		// Unique guests
 		$columnDescs[$col] = array('align' => 'center', 'width' => '10', 'type' => 'number_w_parens', 'decor' => 'left_border');
 		incrementColumn($thirdSecondChar, $colSecondChar, $col);
-		
+
 		if (!$this->isSingleStoreView)
 		{
 			// Average Guest per store
 			$columnDescs[$col] = array('align' => 'center', 'width' => '10', 'type' => ' number');
 			incrementColumn($thirdSecondChar, $colSecondChar, $col);
 		}
-		
+
 		// percent change of guest count
 		$columnDescs[$col] = array('align' => 'center', 'width' => '10', 'type' => 'percent');
 		incrementColumn($thirdSecondChar, $colSecondChar, $col);
-		
+
 		// Order count
 		$columnDescs[$col] = array('align' => 'center', 'width' => '10', 'type' => 'number_w_parens', 'decor' => 'left_border');
 		incrementColumn($thirdSecondChar, $colSecondChar, $col);
@@ -239,7 +239,7 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 		// Average servings per guest
 		$columnDescs[$col] = array('align' => 'center', 'width' => '10', 'type' => 'number');
 		incrementColumn($thirdSecondChar, $colSecondChar, $col);
-		
+
 		// new guest in-store rate
 		$columnDescs[$col] = array('align' => 'center', 'width' => '10', 'type' => 'percent_as_int', 'decor' => 'left_border');
 		incrementColumn($thirdSecondChar, $colSecondChar, $col);
@@ -255,13 +255,13 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 		// Converion Rate
 		$columnDescs[$col] = array('align' => 'center', 'width' => 'auto', 'type' => 'percent_as_int');
 		incrementColumn($thirdSecondChar, $colSecondChar, $col);
-		
-		
+
+
 		$tpl->assign('col_descriptions', $columnDescs);
 		$tpl->assign('sectionHeader', $sectionHeader);
-		
 
-		foreach ($tpl->store_performance_data as $thisRow) 
+
+		foreach ($tpl->store_performance_data as $thisRow)
 		{
 			if ($this->isSingleStoreView)
 			{
@@ -282,14 +282,14 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 					CTemplate::number_format($thisRow['guests_per_session'], 1, ""),
 					CTemplate::number_format($thisRow['total_servings_sold'], 0, ""),
 					CTemplate::number_format($thisRow['avg_servings_per_guest'], 1, ""),
-					
+
 					CTemplate::divide_and_format($thisRow['instore_signup_new'], $thisRow['guest_count_new'], 2),
 					CTemplate::divide_and_format($thisRow['instore_signup_reacquired'], $thisRow['guest_count_reacquired'], 2),
 					CTemplate::divide_and_format($thisRow['instore_signup_existing'], $thisRow['guest_count_existing'], 2),
 					CTemplate::divide_and_format($thisRow['instore_signup_total'], $thisRow['guest_count_total'], 2),
 					CTemplate::number_format($thisRow['conversion_rate'] / 100, 2, ""));
-						
-					
+
+
 			}
 			else
 			{
@@ -318,11 +318,11 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 					CTemplate::divide_and_format($thisRow['instore_signup_existing'], $thisRow['guest_count_existing'], 2),
 					CTemplate::divide_and_format($thisRow['instore_signup_total'], $thisRow['guest_count_total'], 2),
 					CTemplate::number_format($thisRow['conversion_rate'] / 100, 2, ""));
-				
+
 			}
 		}
-		
-		
+
+
 		if ($this->isSingleStoreView)
 		{
 			$avgRow = 4 + count($rows);
@@ -376,16 +376,16 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 				"=AVERAGE(W5:W17)",
 				"=AVERAGE(X5:X17)");
 		}
-		
+
 		$callbacks = array('row_callback' => 'trendingRowCallback');
 		$tpl->assign('excel_callbacks', $callbacks);
-		
-		
+
+
 		$titleRows[] = array("", $title);
 		$titleRows[] = array("", "Report Run On", date("F j, Y, g:i:a"));
-		
+
 		$tpl->assign('title_rows', $titleRows);
-		
+
 
 		$tpl->assign('rows', $rows);
 
@@ -440,14 +440,14 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 			$Form->AddElement(array(CForm::type=> CForm::RadioButton,
 					CForm::name => "report_type",
 					CForm::value => 'dt_stores_by_region'));
-			
+
 			$Form->AddElement(array(CForm::type=> CForm::CheckBox,
 				CForm::name => "select_inactive_stores"));
-			
+
 			$Form->AddElement(array(CForm::type=> CForm::CheckBox,
 				CForm::name => "use_cal_month"));
-				
-				
+
+
 			$tradeAreaArr = array(0 => 'Select a Region');
 			$tradeAreaObj = DAO_CFactory::create('trade_area');
 			$tradeAreaObj->is_active = 1;
@@ -500,17 +500,17 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 		$titleString = "Rolling 13-Month Business Analysis Report";
 		$tpl->assign('titleString', $titleString);
 
-		
+
 		if (isset($_POST['select_inactive_stores']))
 		{
 			$this->includeInactiveStores = true;
 		}
-		
+
 		if (isset($_POST['use_cal_month']))
 		{
 			$this->useCalendarMonth = true;
 		}
-		
+
 
 		if (!$hadError)
 		{
@@ -521,18 +521,18 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 
 			if ($this->isOwnerView || $reportType == 'dt_single_store')
 			{
-				
+
 				$this->isSingleStoreView = true;
-				
+
 				$storeInfo = DAO_CFactory::create('store');
 				$storeInfo->query("select store_name, city, state_id from store where id = $store" );
 				$storeInfo->fetch();
-				
+
 				if ($this->useCalendarMonth)
 				{
 					$titleString = "Calendar Month-based Rolling 13-Month Business Analysis Report for <br />" . $storeInfo->store_name . " " . $storeInfo->city . ", " . $storeInfo->state_id;
 				}
-				else 
+				else
 				{
 					$titleString = "Menu Month-based Rolling 13-Month Business Analysis Report for <br />" . $storeInfo->store_name . " " . $storeInfo->city . ", " . $storeInfo->state_id;
 				}
@@ -552,7 +552,7 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 			}
 			else if ($reportType == 'dt_corp_stores')
 			{
-				
+
 				if ($this->useCalendarMonth)
 				{
 					$titleString = "Calendar Month-based Rolling 13-Month Business Analysis Report for Corporate Stores";
@@ -561,7 +561,7 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 				{
 					$titleString = "Menu Month-based Rolling 13-Month Business Analysis Report for Corporate Stores";
 				}
-				
+
 				$tpl->assign('titleString', $titleString);
 
 				$StorePerformanceData =  CTrendingReportNew::getAGRTrendingDataHomeOfficeRollup('corp_stores', 0, $this->includeInactiveStores, $this->useCalendarMonth );
@@ -587,7 +587,7 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 				{
 					$titleString = "Menu Month-based Rolling 13-Month Business Analysis Report for Franchise Stores";
 				}
-				
+
 				$tpl->assign('titleString', $titleString);
 
 				$StorePerformanceData =  CTrendingReportNew::getAGRTrendingDataHomeOfficeRollup('non_corp_stores', 0, $this->includeInactiveStores, $this->useCalendarMonth);
@@ -614,7 +614,7 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 				{
 					$titleString = "Menu Month-based Rolling 13-Month Business Analysis Report for All Stores";
 				}
-				
+
 				$tpl->assign('titleString', $titleString);
 
 				$StorePerformanceData =  CTrendingReportNew::getAGRTrendingDataHomeOfficeRollup('all_stores', 0, $this->includeInactiveStores, $this->useCalendarMonth);
@@ -648,7 +648,7 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 				{
 					$titleString = "Menu Month-based Rolling 13-Month Business Analysis Report for Stores the $regionName Region";
 				}
-				
+
 				$tpl->assign('titleString', $titleString);
 
 				$StorePerformanceData =  CTrendingReportNew::getAGRTrendingDataHomeOfficeRollup('region', $trade_area_id, $this->includeInactiveStores, $this->useCalendarMonth);
@@ -674,7 +674,7 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 		}
 
 		$tpl->assign('store', $store);
-		
+
 		$formArray = $Form->render();
 		$tpl->assign('form_array', $formArray);
 

@@ -3,6 +3,7 @@
 
 <?php $this->assign('topnav', 'reports'); ?>
 <?php $this->assign('page_title', 'Business Analysis Report'); ?>
+<?php $this->setScript('head', SCRIPT_PATH . '/admin/dashboard.min.js'); ?>
 <?php $this->setScript('head', SCRIPT_PATH . '/admin/reports_trending_new.min.js'); ?>
 
 <?php $this->setOnload('trending_report_init();'); ?>
@@ -33,7 +34,6 @@ return; }
 
 <div style="background-color:#d0d0d0; border:2px; black solid; text-align:center; font-weight:bold; font-size:14pt; margin:0px; padding:5px;">
 <span style="color:green;"><?php echo $this->titleString; ?></span>
-
 </div>
 <div style="text-align:center; margin-bottom:10px;"><h2></h2></div>
 

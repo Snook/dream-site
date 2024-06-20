@@ -9,6 +9,7 @@
 			<button type="button" class="btn btn-primary btn-sm" data-multi_store_select_filter="none"><i class="far fa-check-square"></i> None</button>
 		</div>
 	</div>
+	<?php if (!$this->UserCurrent->isFranchiseAccess()) { ?>
 	<div class="row my-2">
 		<div class="col-3 align-self-center font-weight-bold text-right">
 			Active
@@ -38,29 +39,30 @@
 			<button type="button" class="btn btn-primary btn-sm" data-multi_store_select_filter="dist-none"><i class="far fa-check-square"></i> None</button>
 		</div>
 	</div>
+	<?php } ?>
 	<div class="row mt-4">
 		<div class="col">
 			<form id="multi_store_select_form">
 				<ul class="list-unstyled">
-					<?php foreach (CStore::getListOfStores(false) AS $state => $stateArray) { ?>
+					<?php foreach ($this->store_array AS $state => $stateArray) { ?>
 						<li class="mb-2" data-state_name="<?php echo $state; ?>"><div class="font-weight-bold mb-2"><?php echo str_replace("_", " ", $state); ?></div>
 							<ul class="list-unstyled ml-4">
-								<?php foreach ($stateArray['stores'] AS $store) { ?>
+								<?php foreach ($stateArray['stores'] AS $DAO_store) { ?>
 									<li>
 										<div class="custom-control custom-control-inline custom-checkbox">
 											<input class="custom-control-input"
-												   id="storeSelect[<?php echo $store['id']; ?>]"
-												   name="storeSelect[<?php echo $store['id']; ?>]"
-												   value="<?php echo $store['id']; ?>"
-												   data-franchise_id="<?php echo $store['franchise_id']; ?>"
-												   data-active="<?php echo $store['active']; ?>"
-												   data-show_on_customer_site="<?php echo $store['show_on_customer_site']; ?>"
-												   data-store_type="<?php echo $store['store_type']; ?>"
+												   id="storeSelect[<?php echo $DAO_store->id; ?>]"
+												   name="storeSelect[<?php echo $DAO_store->id; ?>]"
+												   value="<?php echo $DAO_store->id; ?>"
+												   data-franchise_id="<?php echo $DAO_store->franchise_id; ?>"
+												   data-active="<?php echo $DAO_store->active; ?>"
+												   data-show_on_customer_site="<?php echo $DAO_store->show_on_customer_site; ?>"
+												   data-store_type="<?php echo $DAO_store->store_type; ?>"
 												   type="checkbox"
-											<?php echo (!empty($this->store_id_array) && in_array($store['id'], $this->store_id_array)) ? 'checked="checked"' : ''; ?> />
-											<label class="custom-control-label <?php if (empty($store['active'])) { ?>text-muted<?php } else { ?>font-weight-bold<?php } ?>" for="storeSelect[<?php echo $store['id']; ?>]">
-												<?php echo $store['store_name']; ?>
-												<?php if (empty($store['active']) && !empty($store['show_on_customer_site'])) { ?>
+											<?php echo (!empty($this->store_id_array) && in_array($DAO_store->id, $this->store_id_array)) ? 'checked="checked"' : ''; ?> />
+											<label class="custom-control-label <?php if ($DAO_store->isActive()) { ?>font-weight-bold<?php } else { ?>text-muted<?php } ?>" for="storeSelect[<?php echo $DAO_store->id; ?>]">
+												<?php echo $DAO_store->store_name; ?>
+												<?php if ($DAO_store->isComingSoon()) { ?>
 													<span class="text-orange font-weight-bold">(Coming soon)</span>
 												<?php } ?>
 											</label>

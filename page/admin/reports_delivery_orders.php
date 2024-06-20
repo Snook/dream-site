@@ -243,7 +243,7 @@
 	    	{
 				$columnDescs = array();
 
-				if ($store == all)
+				if ($store == 'all')
 				{
 					$labels = array("Home Office ID", "Store Name", "User State", "User ID", "Account Last Name", "Account First Name", "Account Email",  "Order ID", "Delivery Fee","Order Total","Session Start", "Contact First Name", "Contact Last Name", "Contact Number",
 									"Delivery Address Line 1", "Delivery Address Line 2", "Delivery City", "Delivery State", "Delivery Postal Code", "Delivery Notes");

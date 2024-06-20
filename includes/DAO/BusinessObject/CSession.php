@@ -460,7 +460,11 @@ class CSession extends DAO_Session
 
 	function sessionTypeToText()
 	{
-		if ($this->isWalkIn())
+		if ($this->isShipping())
+		{
+			$this->session_type_true = CSession::DELIVERED;
+		}
+		else if ($this->isWalkIn())
 		{
 			$this->session_type_true = CSession::WALK_IN;
 		}
@@ -494,6 +498,8 @@ class CSession extends DAO_Session
 
 		switch ($this->session_type_true)
 		{
+			case CSession::DELIVERED:
+				return $this->session_type_desc = "Shipping";
 			case CSession::DELIVERY:
 				return $this->session_type_desc = "Delivery";
 			case CSession::DELIVERY_PRIVATE:
@@ -585,6 +591,15 @@ class CSession extends DAO_Session
 
 		switch ($session_type_switch)
 		{
+			case CSession::DELIVERED:
+				return array(
+					$this->session_type_title = "Shipping",
+					$this->session_type_title_public = "Shipping",
+					$this->session_type_title_short = "SHP",
+					$this->session_type_fadmin_acronym = "SHP",
+					$this->session_type_string = "shipping"
+				);
+				break;
 			case CSession::DELIVERY:
 				return array(
 					$this->session_type_title = "Home Delivery",
@@ -2653,7 +2668,7 @@ class CSession extends DAO_Session
 		return $sessionInfoArray;
 	}
 
-	static function getMonthlySessionInfoArray($Store, $date = false, $menu_id = false, $cart_info = false, $open_only = false, $excludeSavedSessions = false, $rescheduleSessionObj = false, $get_bookings = false, $date_is_anchor = false, $excludeFull = false, $excludeWalkIn = false)
+	static function getMonthlySessionInfoArray($DAO_store, $date = false, $menu_id = false, $cart_info = false, $open_only = false, $excludeSavedSessions = false, $rescheduleSessionObj = false, $get_bookings = false, $date_is_anchor = false, $excludeFull = false, $excludeWalkIn = false, $customizeOnly = false)
 	{
 		$session_type_limit = false;
 
@@ -2669,15 +2684,15 @@ class CSession extends DAO_Session
 			}
 		}
 
-		$Sessions = DAO_CFactory::create('session');
-		$Sessions->store_id = $Store->id;
+		$DAO_session = DAO_CFactory::create('session');
+		$DAO_session->store_id = $DAO_store->id;
 		if ($excludeWalkIn)
 		{
-			$Sessions->whereAdd("session.session_type_subtype IS NULL OR session.session_type_subtype != '" . CSession::WALK_IN . "'");
+			$DAO_session->whereAdd("session.session_type_subtype IS NULL OR session.session_type_subtype != '" . CSession::WALK_IN . "'");
 		}
 		if ($excludeSavedSessions)
 		{
-			$Sessions->whereAdd("session.session_publish_state = '" . CSession::PUBLISHED . "'");
+			$DAO_session->whereAdd("session.session_publish_state = '" . CSession::PUBLISHED . "'");
 		}
 
 		if (!$date)
@@ -2726,57 +2741,62 @@ class CSession extends DAO_Session
 			else
 			{
 				$optionsArray = false;
-				$Sessions->menu_id = $menu_id;
+				$DAO_session->menu_id = $menu_id;
 			}
 
-			$Sessions->findSessionsByMenu($optionsArray);
+			$DAO_session->findSessionsByMenu($optionsArray);
 		}
 		else
 		{
 			list($rangeStart, $rangeEnd) = CCalendar::calculateExpandedMonthRange($curMonthStartTS);
 
-			$Sessions->findSessionByCalendarRange($Store->id, $rangeStart, $rangeEnd);
+			$DAO_session->findSessionByCalendarRange($DAO_store->id, $rangeStart, $rangeEnd);
 
 			$sessionInfoArray['sessions'] = self::getDatesFromRange($rangeStart, $rangeEnd);
 		}
 
 		$sessionsIDArray = array();
 
-		while ($Sessions->fetch())
+		while ($DAO_session->fetch())
 		{
+			if ($customizeOnly && !$DAO_session->isOpenForCustomization($DAO_store))
+			{
+				continue;
+			}
+
 			// sessions with open slots only
-			if ($excludeFull && $Sessions->getRemainingSlots() <= 0)
+			if ($excludeFull && $DAO_session->getRemainingSlots() <= 0)
 			{
 				continue;
 			}
 
-			if ($excludeWalkIn && $Sessions->session_type_subtype == CSession::WALK_IN)
+			if ($excludeWalkIn && $DAO_session->session_type_subtype == CSession::WALK_IN)
 			{
 				continue;
 			}
 
-			if (!$Store->storeSupportsIntroOrders($Sessions->menu_id))
+			if (!$DAO_store->storeSupportsIntroOrders($DAO_session->menu_id))
 			{
-				$Sessions->introductory_slots = 0;
-				$Sessions->remaining_intro_slots = 0;
+				$DAO_session->introductory_slots = 0;
+				$DAO_session->remaining_intro_slots = 0;
 			}
 
 			// open sessions only
 			if ($open_only)
 			{
-				if (!$Sessions->isOpen($Store)) // this strictly checks for whether or not we have passed the lockout time for a store (usually 24 hours prior to session start) ...
+				if (!$DAO_session->isOpen($DAO_store)) // this strictly checks for whether or not we have passed the lockout time for a store (usually 24 hours prior to session start) ...
 				{
 					continue;
 				}
 
 				// ... so also check for a session_publish_state of PUBLISHED or SAVED
-				if ($Sessions->session_publish_state != 'SAVED' && $Sessions->session_publish_state != 'PUBLISHED')
+				if ($DAO_session->session_publish_state != 'SAVED' && $DAO_session->session_publish_state != 'PUBLISHED')
 				{
 					continue;
 				}
 			}
 
-			if ($rescheduleSessionObj && !$Sessions->isOpenForRescheduling($Store))
+			if ($rescheduleSessionObj && !$DAO_session->isOpenForRescheduling($DAO_store))
 			{
 				continue;
 			}
@@ -2788,30 +2808,30 @@ class CSession extends DAO_Session
 				switch ($rescheduleSessionObj->session_type)
 				{
 					case CSession::STANDARD:
-						if ($Sessions->session_type != CSession::STANDARD)
+						if ($DAO_session->session_type != CSession::STANDARD)
 						{
 							$includeSession = false;
 						}
 						break;
 					case CSession::MADE_FOR_YOU:
-						if ($Sessions->session_type != CSession::MADE_FOR_YOU)
+						if ($DAO_session->session_type != CSession::MADE_FOR_YOU)
 						{
 							$includeSession = false;
 						}
-						else if ($Sessions->session_type_subtype == CSession::DELIVERY || $Sessions->session_type_subtype == CSession::REMOTE_PICKUP || $Sessions->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE)
+						else if ($DAO_session->session_type_subtype == CSession::DELIVERY || $DAO_session->session_type_subtype == CSession::REMOTE_PICKUP || $DAO_session->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE)
 						{
 							// NOTE: FUTURE TODO:  if the source is MFY and is remote pickup and the target is remote AND the location is identical we could allow it.
 							$includeSession = false;
 						}
 						break;
 					case CSession::DREAM_TASTE:
-						if ($Sessions->session_type != CSession::DREAM_TASTE)
+						if ($DAO_session->session_type != CSession::DREAM_TASTE)
 						{
 							$includeSession = false;
 						}
 						break;
 					case CSession::FUNDRAISER:
-						if ($Sessions->session_type != CSession::FUNDRAISER)
+						if ($DAO_session->session_type != CSession::FUNDRAISER)
 						{
 							$includeSession = false;
 						}
@@ -2824,7 +2844,7 @@ class CSession extends DAO_Session
 				}
 			}
 
-			if ($excludeSavedSessions && $Sessions->session_publish_state == 'SAVED')
+			if ($excludeSavedSessions && $DAO_session->session_publish_state == 'SAVED')
 			{
 				continue;
 			}
@@ -2832,19 +2852,19 @@ class CSession extends DAO_Session
 			// the cart is looking for intro only slots
 			if (!empty($session_type_limit) && $session_type_limit == CSession::INTRO)
 			{
-				if (!$Sessions->isIntroSessionValid($Store))
+				if (!$DAO_session->isIntroSessionValid($DAO_store))
 				{
 					continue;
 				}
 
-				if ($Sessions->isPrivate())
+				if ($DAO_session->isPrivate())
 				{
 					continue;
 				}
 
 				if (defined('ENABLE_CUSTOMER_INTRO_MFY') && ENABLE_CUSTOMER_INTRO_MFY != true)
 				{
-					if ($Sessions->isMadeForYou())
+					if ($DAO_session->isMadeForYou())
 					{
 						continue;
 					}
@@ -2855,12 +2875,12 @@ class CSession extends DAO_Session
 			if (!empty($session_type_limit) && $session_type_limit == CSession::ALL_STANDARD)
 			{
 
-				if (!$Sessions->isStandardSessionValid($Store))
+				if (!$DAO_session->isStandardSessionValid($DAO_store))
 				{
 					continue;
 				}
 
-				if ($Sessions->isDreamTaste() || $Sessions->isPrivate() || $Sessions->isFundraiser())
+				if ($DAO_session->isDreamTaste() || $DAO_session->isPrivate() || $DAO_session->isFundraiser())
 				{
 					continue;
 				}
@@ -2869,17 +2889,17 @@ class CSession extends DAO_Session
 			// the cart is looking for standard sessions
 			if (!empty($session_type_limit) && $session_type_limit == CSession::STANDARD)
 			{
-				if (!$Sessions->isStandard())
+				if (!$DAO_session->isStandard())
 				{
 					continue;
 				}
 
-				if (!$Sessions->isStandardSessionValid($Store))
+				if (!$DAO_session->isStandardSessionValid($DAO_store))
 				{
 					continue;
 				}
 
-				if ($Sessions->isPrivate())
+				if ($DAO_session->isPrivate())
 				{
 					continue;
 				}
@@ -2888,22 +2908,22 @@ class CSession extends DAO_Session
 			// the cart is looking for made for you sessions
 			if (!empty($session_type_limit) && $session_type_limit == CSession::MADE_FOR_YOU)
 			{
-				if (!$Sessions->isMadeForYou())
+				if (!$DAO_session->isMadeForYou())
 				{
 					continue;
 				}
 
-				if ($Sessions->isDelivery())
+				if ($DAO_session->isDelivery())
 				{
 					continue;
 				}
 
-				if ($Sessions->isPrivate())
+				if ($DAO_session->isPrivate())
 				{
 					continue;
 				}
 
-				if (!$Sessions->isStandardSessionValid($Store))
+				if (!$DAO_session->isStandardSessionValid($DAO_store))
 				{
 					continue;
 				}
@@ -2912,22 +2932,22 @@ class CSession extends DAO_Session
 			// the cart is looking for made for you sessions that are delivery only
 			if (!empty($session_type_limit) && $session_type_limit == CSession::DELIVERY)
 			{
-				if (!$Sessions->isMadeForYou())
+				if (!$DAO_session->isMadeForYou())
 				{
 					continue;
 				}
 
-				if (!$Sessions->isDelivery())
+				if (!$DAO_session->isDelivery())
 				{
 					continue;
 				}
 
-				if ($Sessions->isPrivate())
+				if ($DAO_session->isPrivate())
 				{
 					continue;
 				}
 
-				if (!$Sessions->isStandardSessionValid($Store))
+				if (!$DAO_session->isStandardSessionValid($DAO_store))
 				{
 					continue;
 				}
@@ -2936,22 +2956,22 @@ class CSession extends DAO_Session
 			// the cart is looking for made for you sessions that are delivered only
 			if (!empty($session_type_limit) && $session_type_limit == CSession::DELIVERED)
 			{
-				if (!$Sessions->isMadeForYou())
+				if (!$DAO_session->isMadeForYou())
 				{
 					continue;
 				}
 
-				if (!$Sessions->isDelivered())
+				if (!$DAO_session->isDelivered())
 				{
 					continue;
 				}
 
-				if ($Sessions->isPrivate())
+				if ($DAO_session->isPrivate())
 				{
 					continue;
 				}
 
-				if (!$Sessions->isStandardSessionValid($Store))
+				if (!$DAO_session->isStandardSessionValid($DAO_store))
 				{
 					continue;
 				}
@@ -2960,22 +2980,22 @@ class CSession extends DAO_Session
 			// the cart is looking for event sessions
 			if (!empty($session_type_limit) && $session_type_limit == CSession::EVENT)
 			{
-				if ((!$Sessions->isDreamTaste() && !$Sessions->isPrivate() && !$Sessions->isFundraiser()))
+				if ((!$DAO_session->isDreamTaste() && !$DAO_session->isPrivate() && !$DAO_session->isFundraiser()))
 				{
 					continue;
 				}
 
-				if ($Sessions->isMadeForYou() && !$Sessions->isPrivate())
+				if ($DAO_session->isMadeForYou() && !$DAO_session->isPrivate())
 				{
 					continue;
 				}
 			}
 
-			$date = date('Y-m-d', strtotime($Sessions->session_start));
+			$date = date('Y-m-d', strtotime($DAO_session->session_start));
 
-			$sessionInfoArray['sessions'][$date]['sessions'][$Sessions->id] = $Sessions->id;
+			$sessionInfoArray['sessions'][$date]['sessions'][$DAO_session->id] = $DAO_session->id;
 
-			$sessionsIDArray[$Sessions->id] = $Sessions->id;
+			$sessionsIDArray[$DAO_session->id] = $DAO_session->id;
 		}
 
 		// query to get each session details
@@ -3067,7 +3087,7 @@ class CSession extends DAO_Session
 						$sessionInfoArray['info']['session_type'][CSession::ALL_STANDARD] += 1;
 					}
 
-					if ($Store->storeSupportsIntroOrders($sessionInfo['menu_id']))
+					if ($DAO_store->storeSupportsIntroOrders($sessionInfo['menu_id']))
 					{
 						if (!empty($sessionInfo['remaining_intro_slots']) && ($sessionInfo['session_type'] == CSession::MADE_FOR_YOU || $sessionInfo['session_type'] == CSession::STANDARD))
 						{
@@ -3087,7 +3107,7 @@ class CSession extends DAO_Session
 				$sessionInfoArray['sessions'][$date]['info']['has_available_sessions'] = true;
 			}
 
-			if (!empty($Store->id) && $date < date('Y-m-d', CTimezones::getAdjustedServerTime($Store)))
+			if (!empty($DAO_store->id) && $date < date('Y-m-d', CTimezones::getAdjustedServerTime($DAO_store)))
 			{
 				$sessionInfoArray['sessions'][$date]['info']['is_past'] = true;
 			}
