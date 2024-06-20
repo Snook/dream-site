@@ -236,7 +236,7 @@ class CStore extends DAO_Store
 		return self::$_AvailableSessionTypes[$this->id];
 	}
 
-	function hasAvailableSessionType($session_type)
+	function hasAvailableSessionType($session_type = false)
 	{
 		$sessionTypesArray = $this->getAvailableSessionTypes();
 
@@ -244,8 +244,14 @@ class CStore extends DAO_Store
 		{
 			return false;
 		}
-
-		return array_key_exists($session_type, $sessionTypesArray);
+		else if ($session_type)
+		{
+			return array_key_exists($session_type, $sessionTypesArray);
+		}
+		else
+		{
+			return true;
+		}
 	}
 
 	function getStoreId()
