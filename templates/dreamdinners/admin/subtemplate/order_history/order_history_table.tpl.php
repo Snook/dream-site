@@ -59,7 +59,7 @@
 						<?php if( !$is_delivered ){ ?><a href="/print?order=<?php echo $order['order_id']; ?>&amp;freezer=true" class="btn btn-primary btn-sm" target="_blank">Freezer Sheet</a><?php } ?>
 						<a href="/print?order=<?php echo $order['order_id']; ?>&amp;nutrition=true" class="btn btn-primary btn-sm" target="_blank">Nutritionals</a>
 
-						<?php if (array_key_exists($order['idmenu'] + 1, $this->active_menus)) { ?>
+						<?php if (is_array($this->active_menus) && array_key_exists($order['idmenu'] + 1, $this->active_menus)) { ?>
 							<a href="/print?order=<?php echo $order['order_id']; ?>&amp;core=true" class="btn btn-primary btn-sm" target="_blank">Next Month's Menu</a>
 						<?php } ?>
 					<?php } ?>
