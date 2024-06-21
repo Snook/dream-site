@@ -28,22 +28,30 @@
 
 		static function getCorporateCrateDomainFromEmail($email)
 		{
-			$mailParts = explode("@", trim($email));
-			$domain = $mailParts[1];
+			if ($email)
+			{
+				$mailParts = explode("@", trim($email));
+				$domain = $mailParts[1];
 
-			return $domain;
+				return $domain;
+			}
+
+			return false;
 		}
 
 		static function isEmailAddressCorporateCrateEligible($email)
 		{
 			$domain = self::getCorporateCrateDomainFromEmail($email);
 
-			$corpClients = DAO_CFactory::create('corporate_crate_client');
-			$corpClients->query("select id from corporate_crate_client where triggering_domain = '$domain' and is_active = 1");
-
-			if ($corpClients->N > 0)
+			if ($domain)
 			{
-				return true;
+				$corpClients = DAO_CFactory::create('corporate_crate_client');
+				$corpClients->query("select id from corporate_crate_client where triggering_domain = '$domain' and is_active = 1");
+
+				if ($corpClients->N > 0)
+				{
+					return true;
+				}
 			}
 
 			return false;
@@ -67,20 +75,25 @@
 		{
 			$domain = self::getCorporateCrateDomainFromEmail($email);
 
-			if (!empty(self::$corporate_crate_client[$domain]))
+			if ($domain)
 			{
-				return self::$corporate_crate_client[$domain];
+				if (!empty(self::$corporate_crate_client[$domain]))
+				{
+					return self::$corporate_crate_client[$domain];
+				}
+
+				$corpClients = DAO_CFactory::create('corporate_crate_client');
+				$corpClients->query("select * from corporate_crate_client where triggering_domain = '$domain'");
+
+				if (!$corpClients->fetch())
+				{
+					return false;
+				}
+
+				return self::$corporate_crate_client[$corpClients->triggering_domain] = $corpClients;
 			}
 
-			$corpClients = DAO_CFactory::create('corporate_crate_client');
-			$corpClients->query("select * from corporate_crate_client where triggering_domain = '$domain'");
-
-			if (!$corpClients->fetch())
-			{
-				return false;
-			}
-
-			return self::$corporate_crate_client[$corpClients->triggering_domain] = $corpClients;
+			return false;
 		}
 
 	}
