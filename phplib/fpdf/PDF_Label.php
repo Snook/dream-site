@@ -1710,7 +1710,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		}
 	}
 
-	function Add_Finishing_Touch_PDF_Label($title, $inst_title, $instructions = false, $serving_suggestion = false, $prep_time = false, $showBorders = 0, $overrideLineHeight = 3.45, $pushDown = 0, $storeName = false, $storePhone = false, $entity)
+	function Add_Finishing_Touch_PDF_Label($entity, $title, $inst_title, $instructions = false, $serving_suggestion = false, $prep_time = false, $showBorders = 0, $overrideLineHeight = 3.45, $pushDown = 0, $storeName = false, $storePhone = false)
 	{
 		// We are in a new page, then we must add a page
 		if (($this->_COUNTX == 0) && ($this->_COUNTY == 0))
