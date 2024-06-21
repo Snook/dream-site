@@ -480,7 +480,7 @@
 							<div class="font-size-extra-small ml-3">- Pre-Assembled</div>
 						<?php } ?>
 						<?php if (!empty($this->order_has_meal_customization)) { ?>
-						<?php if ($item['is_freezer_menu'] == true || $item['is_chef_touched'] == true || ($item['is_preassembled'] == true && !$this->store_allows_preassembled_customization)) { ?>
+						<?php if (!empty($item['is_freezer_menu']) || !empty($item['is_chef_touched']) || (!empty($item['is_preassembled']) && !$this->store_allows_preassembled_customization)) { ?>
 						<div class="font-size-extra-small ml-3 text-danger"">- Not Customizable</div>
 		<?php } ?>
 		<?php } ?>

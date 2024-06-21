@@ -852,7 +852,7 @@ class CSessionToolsPDFDrawer
 		}
 
 		$this->pdf->SetXY(40, $y + 1.5);
-		$this->pdf->MultiCellTag($width, 6, "<t14>Welcome</t14> <t14b>{$salutation}</t14b>", $this->showBorders, 'L');
+		$this->pdf->MultiCellTag($width, 6, "<t14>Welcome </t14><t14b>{$salutation}</t14b>", $this->showBorders, 'L');
 
 		$this->pdf->SetXY(40, $y + 7.5);
 		$this->pdf->MultiCellTag($width - 30, 4, "<t11>" . iconv('UTF-8', 'windows-1252', $this->data->menuInfo[$menu_id]->marketingMessage) . "</t11>", $this->showBorders, 'L');
@@ -869,7 +869,7 @@ class CSessionToolsPDFDrawer
 		}
 
 		$this->pdf->SetXY($x, $y + 1.5);
-		$this->pdf->MultiCellTag($width, 6, "<t14>Welcome</t14> <t14b>{$salutation}</t14b>", $this->showBorders, 'L');
+		$this->pdf->MultiCellTag($width, 6, "<t14>Welcome </t14><t14b>{$salutation}</t14b>", $this->showBorders, 'L');
 
 		// Guest ID
 		$this->pdf->SetXY($x, $y + 7);
@@ -1792,7 +1792,7 @@ class CSessionToolsPDFDrawer
 
 		// Description
 		$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN + 10, $yPos + 3.65);
-		$this->pdf->MultiCellTag(146, 3, ((!empty($menuItemArray['entree']->menu_label)) ? '<h8b>' . $menuItemArray['entree']->menu_label . ':</h8b> ' : '') . "<h8>" . html_entity_decode($menuItemArray['entree']->menu_item_description, ENT_QUOTES, 'WINDOWS-1252') . "</h8> <t8>(" . number_format($menuItemArray['entree']->nutrition_array['component'][1]['element']['Calories']['value']) . " cal)</t8>", $this->showBorders, 'L');
+		$this->pdf->MultiCellTag(146, 3, ((!empty($menuItemArray['entree']->menu_label)) ? '<h8b>' . $menuItemArray['entree']->menu_label . ':</h8b> ' : '') . "<h8>" . html_entity_decode($menuItemArray['entree']->menu_item_description, ENT_QUOTES, 'WINDOWS-1252') . "</h8><t8> (" . number_format($menuItemArray['entree']->nutrition_array['component'][1]['element']['Calories']['value']) . " cal)</t8>", $this->showBorders, 'L');
 		//$this->pdf->MultiCellTag(146, 3, "<h8>" . html_entity_decode($menuItemArray['entree']->menu_item_description, ENT_QUOTES, 'WINDOWS-1252') . "</h8>", $this->showBorders, 'L');
 
 		// ICONS
@@ -1873,7 +1873,7 @@ class CSessionToolsPDFDrawer
 
 		// Description
 		$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN + 10, $yPos + 3.65);
-		$this->pdf->MultiCellTag(146, 3, "<h8>" . html_entity_decode($menuItemArray['entree']->menu_item_description, ENT_QUOTES, 'WINDOWS-1252') . "</h8> <t8>(" . number_format($menuItemArray['entree']->nutrition_array['component'][1]['element']['Calories']['value']) . " cal)</t8>", $this->showBorders, 'L');
+		$this->pdf->MultiCellTag(146, 3, "<h8>" . html_entity_decode($menuItemArray['entree']->menu_item_description, ENT_QUOTES, 'WINDOWS-1252') . "</h8><t8> (" . number_format($menuItemArray['entree']->nutrition_array['component'][1]['element']['Calories']['value']) . " cal)</t8>", $this->showBorders, 'L');
 		//$this->pdf->MultiCellTag(146, 3, "<h8>" . html_entity_decode($menuItemArray['entree']->menu_item_description, ENT_QUOTES, 'WINDOWS-1252') . "</h8>", $this->showBorders, 'L');
 
 		// ICONS

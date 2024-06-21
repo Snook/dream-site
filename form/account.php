@@ -563,7 +563,7 @@ class form_account
 		return $Form;
 	}
 
-	static function _saveForm($Form, $User, $adminAdd = false, $suppressBounce = false, $suppressEmail = false, $SFICurrentValues = false, $fadminStoreID = false, $isConvertingFromPartial = false, $billingAddrRequired = true, $noAddress = false)
+	static function _saveForm($Form, $DAO_user, $adminAdd = false, $suppressBounce = false, $suppressEmail = false, $SFICurrentValues = false, $fadminStoreID = false, $isConvertingFromPartial = false, $billingAddrRequired = true, $noAddress = false)
 	{
 		$error = false;
 
@@ -575,7 +575,7 @@ class form_account
 			$tpl = CApp::instance()->template();
 
 			//set the fields in the data object from the form
-			$original = clone($User);
+			$original = clone($DAO_user);
 			$vals = $Form->values();
 
 			// Try and make proper case
@@ -598,16 +598,16 @@ class form_account
 			// so just catch the name and set it explicitly.
 			$lastname = $vals['lastname'];
 
-			$User->setFrom($vals);
+			$DAO_user->setFrom($vals, '%s', true);
 
 			if ($lastname == "Null")
 			{
-				$User->lastname = $lastname;
+				$DAO_user->lastname = $lastname;
 			}
 
 			// Check for required fields
 
-			if (!$adminAdd && empty($User->id) && (!$_POST['customers_terms'] || ($_POST['customers_terms'] != 1 && $_POST['customers_terms'] != 'on')))
+			if (!$adminAdd && empty($DAO_user->id) && (!$_POST['customers_terms'] || ($_POST['customers_terms'] != 1 && $_POST['customers_terms'] != 'on')))
 			{
 				$tpl->setErrorMsg('Please read the terms and conditions and indicate that you have read them by checking the checkbox.');
 				$error = true;
@@ -737,7 +737,7 @@ class form_account
 					$tpl->setErrorMsg('Passwords do not match. Please enter your password again.');
 					$error = true;
 				}
-				if (!empty($User->id) && $User->user_type != CUser::GUEST && $User->user_type != CUser::CUSTOMER && strlen($szPassword) < 10)
+				if (!empty($DAO_user->id) && $DAO_user->user_type != CUser::GUEST && $DAO_user->user_type != CUser::CUSTOMER && strlen($szPassword) < 10)
 				{
 					$tpl->setErrorMsg('Passwords for Store and Home Office personel must be at least 10 characters long.');
 					$error = true;
@@ -752,18 +752,18 @@ class form_account
 				{
 					$hasLetter = true;
 				}
-				if (!empty($User->id) && $User->user_type != CUser::GUEST && $User->user_type != CUser::CUSTOMER && !$hasNumber)
+				if (!empty($DAO_user->id) && $DAO_user->user_type != CUser::GUEST && $DAO_user->user_type != CUser::CUSTOMER && !$hasNumber)
 				{
 					$tpl->setErrorMsg('Passwords for Store and Home Office personel must contain at least 1 number.');
 					$error = true;
 				}
-				if (!empty($User->id) && $User->user_type != CUser::GUEST && $User->user_type != CUser::CUSTOMER && !$hasLetter)
+				if (!empty($DAO_user->id) && $DAO_user->user_type != CUser::GUEST && $DAO_user->user_type != CUser::CUSTOMER && !$hasLetter)
 				{
 					$tpl->setErrorMsg('Passwords for Store and Home Office personel must contain at least 1 letter.');
 					$error = true;
 				}
 
-				if (!empty($User->id) && $User->user_type != CUser::GUEST && $User->user_type != CUser::CUSTOMER && !CPasswordPolicy::passwordPassesUniquenessRules($User->id, $szPassword))
+				if (!empty($DAO_user->id) && $DAO_user->user_type != CUser::GUEST && $DAO_user->user_type != CUser::CUSTOMER && !CPasswordPolicy::passwordPassesUniquenessRules($DAO_user->id, $szPassword))
 				{
 					$tpl->setErrorMsg('The password must be different than the last 4 passwords used.');
 					$error = true;
@@ -778,7 +778,7 @@ class form_account
 				$error = true;
 			}
 
-			if (!$suppressEmail && empty($User->id) && !isset($szPassword))
+			if (!$suppressEmail && empty($DAO_user->id) && !isset($szPassword))
 			{
 				$tpl->setErrorMsg('You must enter a password.');
 				$error = true;
@@ -840,14 +840,14 @@ class form_account
 			//insert or update
 			if (!$error)
 			{
-				$isTrulyNewUser = empty($User->id);
+				$isTrulyNewUser = empty($DAO_user->id);
 				$updatingPartial = false;
 
 				$platePointsEnrollmentMessage = "";
 
 				// check with pimary_email for partial account
 				// if it exists then update user and insert user_login and address
-				if ($User->partial_account_exists())
+				if ($DAO_user->partial_account_exists())
 				{
 					$isTrulyNewUser = false;
 					$updatingPartial = true;
@@ -856,27 +856,27 @@ class form_account
 				if ($isTrulyNewUser)
 				{
 					/// INSERT
-					if (!$User->exists() || $suppressEmail)
+					if (!$DAO_user->exists() || $suppressEmail)
 					{
 						if ($suppressEmail)
 						{
 							$szPassword = CUser::getRandomPwd();
 						}
 
-						$rslt = $User->insert($szPassword, CUser::CUSTOMER, 'YES');
+						$rslt = $DAO_user->insert($szPassword, CUser::CUSTOMER, 'YES');
 
 						$customer_referral_id = false;
 						if ($rslt !== false)
 						{
 							if (!$noAddress)
 							{
-								$rslt = self::_saveAddresses($Form, $User);
+								$rslt = self::_saveAddresses($Form, $DAO_user);
 							}
 
 							//PLATEPOINTS enrollee?
 							if (isset($_POST['enroll_in_plate_points']))
 							{
-								$enrollment_success = CPointsUserHistory::handleEvent($User, CPointsUserHistory::OPT_IN);
+								$enrollment_success = CPointsUserHistory::handleEvent($DAO_user, CPointsUserHistory::OPT_IN);
 
 								if ($enrollment_success)
 								{
@@ -898,18 +898,18 @@ class form_account
 							// agree to delayed payment preference
 							if (!empty($_POST['tc_delayed_payment']))
 							{
-								$User->setUserPreference(CUser::TC_DELAYED_PAYMENT_AGREE, 1);
+								$DAO_user->setUserPreference(CUser::TC_DELAYED_PAYMENT_AGREE, 1);
 							}
 
 							if (!empty($_POST['sms_opt_in']))
 							{
-								$User->setUserPreference(CUser::TEXT_MESSAGE_OPT_IN, 'OPTED_IN');
+								$DAO_user->setUserPreference(CUser::TEXT_MESSAGE_OPT_IN, 'OPTED_IN');
 							}
 
 							// Agree to Dream Dinners T&C, should be true here anyhow
 							if (!empty($_POST['customers_terms']))
 							{
-								$User->setUserPreference(CUser::TC_DREAM_DINNERS_AGREE, 1);
+								$DAO_user->setUserPreference(CUser::TC_DREAM_DINNERS_AGREE, 1);
 							}
 
 							// -------------------------------------------------referral handling ----------------
@@ -950,7 +950,7 @@ class form_account
 												// TODO: if the org type - 6 (shared link) then we also need to update the email address and name of the invited guest
 
 												$RefObj->referral_status = 2;
-												$RefObj->referred_user_id = $User->id;
+												$RefObj->referred_user_id = $DAO_user->id;
 												$RefObj->update();
 												$customer_referral_id = $RefObj->id;
 
@@ -961,7 +961,7 @@ class form_account
 											else
 											{
 												// the passed in user does not match the referral row so just create a direct referral
-												list($customer_referral_id, $new_origination_id) = CCustomerReferral::newDirectReferralFromRegistrationForm($User, $bind_customer_referral, $referring_customer_name);
+												list($customer_referral_id, $new_origination_id) = CCustomerReferral::newDirectReferralFromRegistrationForm($DAO_user, $bind_customer_referral, $referring_customer_name);
 												// direct referral has user_id so remove cookies
 												CBrowserSession::setValue('RSV2_Origination_code', false);
 												CBrowserSession::setValue('Inviting_user_id', false);
@@ -971,7 +971,7 @@ class form_account
 									else
 									{
 										// referral row not found so just create a direct referral
-										list($customer_referral_id, $new_origination_id) = CCustomerReferral::newDirectReferralFromRegistrationForm($User, $bind_customer_referral, $referring_customer_name);
+										list($customer_referral_id, $new_origination_id) = CCustomerReferral::newDirectReferralFromRegistrationForm($DAO_user, $bind_customer_referral, $referring_customer_name);
 										// direct referral has user_id so remove cookies
 										CBrowserSession::setValue('RSV2_Origination_code', false);
 										CBrowserSession::setValue('Inviting_user_id', false);
@@ -980,7 +980,7 @@ class form_account
 								else
 								{
 									// referral cookie not found so add direct referral
-									list($customer_referral_id, $new_origination_id) = CCustomerReferral::newDirectReferralFromRegistrationForm($User, $bind_customer_referral, $referring_customer_name);
+									list($customer_referral_id, $new_origination_id) = CCustomerReferral::newDirectReferralFromRegistrationForm($DAO_user, $bind_customer_referral, $referring_customer_name);
 									// direct referral has user_id so remove cookies
 									CBrowserSession::setValue('RSV2_Origination_code', false);
 									CBrowserSession::setValue('Inviting_user_id', false);
@@ -989,10 +989,10 @@ class form_account
 
 							if ($rslt !== false)
 							{
-								CUserReferralSource::insertSources($User->id, $arSources, $inviting_user_id, $customer_referral_id);
+								CUserReferralSource::insertSources($DAO_user->id, $arSources, $inviting_user_id, $customer_referral_id);
 								// -------------------------------------------------end referral handling ----------------
 
-								CUserData::saveSFIFormElementsNew($Form, $User, $SFICurrentValues);
+								CUserData::saveSFIFormElementsNew($Form, $DAO_user, $SFICurrentValues);
 
 								// check profile data for birthday month and if it is current
 								// award the guest. All existing guests would have been rewarded 7 days before the month start
@@ -1000,13 +1000,13 @@ class form_account
 								{
 									$month = $Form->value('birthday_month');
 
-									if (CPointsUserHistory::isElgibleForBirthdayRewardAtEnrollment($User->home_store_id, $month, $User->id))
+									if (CPointsUserHistory::isElgibleForBirthdayRewardAtEnrollment($DAO_user->home_store_id, $month, $DAO_user->id))
 									{
 
 										$metaData = CPointsUserHistory::getEventMetaData(CPointsUserHistory::BIRTHDAY_MONTH);
 										$eventComment = 'Earned $' . $metaData['credit'] . ' birthday Dinner Dollars!';
 
-										$enrollment_success = CPointsUserHistory::handleEvent($User, CPointsUserHistory::BIRTHDAY_MONTH, array(
+										$enrollment_success = CPointsUserHistory::handleEvent($DAO_user, CPointsUserHistory::BIRTHDAY_MONTH, array(
 											'comments' => $eventComment,
 											'year' => date('Y'),
 											'month' => $month
@@ -1023,14 +1023,14 @@ class form_account
 								if ($suppressEmail)
 								{
 									$login = DAO_CFactory::create('user_login');
-									$login->user_id = $User->id;
+									$login->user_id = $DAO_user->id;
 									$login->find(true);
-									$msg = 'The account has been created. Account ID ' . $User->id . '. The generated user name for login is <b>' . $login->ul_username . '</b>. The generated password is <b>' . $szPassword . '</b>.';
+									$msg = 'The account has been created. Account ID ' . $DAO_user->id . '. The generated user name for login is <b>' . $login->ul_username . '</b>. The generated password is <b>' . $szPassword . '</b>.';
 									$tpl->setStatusMsg($msg . $platePointsEnrollmentMessage);
 								}
 								else
 								{
-									$tpl->setToastMsg(array('message' => 'The account has been created. Account ID ' . $User->id . '. ' . $platePointsEnrollmentMessage));
+									$tpl->setToastMsg(array('message' => 'The account has been created. Account ID ' . $DAO_user->id . '. ' . $platePointsEnrollmentMessage));
 								}
 							}
 							else
@@ -1041,7 +1041,7 @@ class form_account
 							if (!$suppressEmail && !$enrollment_success)
 							{
 								//send email
-								CUser::sendConfirmationEmail($User);
+								CUser::sendConfirmationEmail($DAO_user);
 							}
 
 							//forward to confirmation page
@@ -1049,7 +1049,7 @@ class form_account
 							{
 								if ($adminAdd)
 								{
-									CApp::instance()->bounce(self::$forwardTo . '?id=' . $User->id, true);
+									CApp::instance()->bounce(self::$forwardTo . '?id=' . $DAO_user->id, true);
 								}
 								else
 								{
@@ -1083,11 +1083,11 @@ class form_account
 					// CES : don't update - this shouldn't be editable so data can't be massaged after the fact
 					// CUserReferralSource::insertSources( $User->id, $arSources );
 
-					$emailAddressChanged = $User->hasPrimaryEmailChanged();
+					$emailAddressChanged = $DAO_user->hasPrimaryEmailChanged();
 
-					if ($emailAddressChanged && !empty($User->primary_email) && !$updatingPartial)
+					if ($emailAddressChanged && !empty($DAO_user->primary_email) && !$updatingPartial)
 					{
-						if ($User->exists())
+						if ($DAO_user->exists())
 						{
 							$tpl->setErrorMsg('An account with that email address is already registered.');
 							$error = true;
@@ -1096,18 +1096,18 @@ class form_account
 						}
 					}
 
-					if ($emailAddressChanged && CCorporateCrateClient::isEmailAddressCorporateCrateEligible($User->primary_email))
+					if ($emailAddressChanged && CCorporateCrateClient::isEmailAddressCorporateCrateEligible($DAO_user->primary_email))
 					{
-						$User->secondary_email = $User->primary_email;
+						$DAO_user->secondary_email = $DAO_user->primary_email;
 					}
 
 					if ($updatingPartial)
 					{
-						$rslt = $User->convert_partial($Form->value('password'));
+						$rslt = $DAO_user->convert_partial($Form->value('password'));
 					}
 					else
 					{
-						$rslt = $User->update($original);
+						$rslt = $DAO_user->update($original);
 					}
 
 					// Customer is changing their own account
@@ -1116,20 +1116,20 @@ class form_account
 						if (($rslt !== false) && array_key_exists('password', $Form->values()) && $Form->value('password'))
 						{
 							//$User->resetPwd($User->primary_email, $Form->value('password'));
-							$User->updatePassword($Form->value('password'));
+							$DAO_user->updatePassword($Form->value('password'));
 						}
 					}
 					else
 					{
 						if (($rslt !== false) && array_key_exists('password', $Form->values()) && $Form->value('password'))
 						{
-							$User->updatePassword($Form->value('password'));
+							$DAO_user->updatePassword($Form->value('password'));
 						}
 					}
 
 					if ($rslt !== false)
 					{
-						$rslt = self::_saveAddresses($Form, $User);
+						$rslt = self::_saveAddresses($Form, $DAO_user);
 
 						// -------------------------------------------------referral handling ----------------
 						// ---------------- this repeated in create section - consider moving to shared function
@@ -1168,7 +1168,7 @@ class form_account
 										if ($RefObj->referral_status < 2)
 										{
 											$RefObj->referral_status = 2;
-											$RefObj->referred_user_id = $User->id;
+											$RefObj->referred_user_id = $DAO_user->id;
 											$RefObj->update();
 											$customer_referral_id = $RefObj->id;
 
@@ -1179,7 +1179,7 @@ class form_account
 										else
 										{
 											// the passed in user does not match the referral row so just create a direct referral
-											list($customer_referral_id, $new_origination_id) = CCustomerReferral::newDirectReferralFromRegistrationForm($User, $bind_customer_referral, $referring_customer_name);
+											list($customer_referral_id, $new_origination_id) = CCustomerReferral::newDirectReferralFromRegistrationForm($DAO_user, $bind_customer_referral, $referring_customer_name);
 											// direct referral has user_id so remove cookies
 											CBrowserSession::setValue('RSV2_Origination_code', false);
 											CBrowserSession::setValue('Inviting_user_id', false);
@@ -1189,7 +1189,7 @@ class form_account
 								else
 								{
 									// referral row not found so just create a direct referral
-									list($customer_referral_id, $new_origination_id) = CCustomerReferral::newDirectReferralFromRegistrationForm($User, $bind_customer_referral, $referring_customer_name);
+									list($customer_referral_id, $new_origination_id) = CCustomerReferral::newDirectReferralFromRegistrationForm($DAO_user, $bind_customer_referral, $referring_customer_name);
 									// direct referral has user_id so remove cookies
 									CBrowserSession::setValue('RSV2_Origination_code', false);
 									CBrowserSession::setValue('Inviting_user_id', false);
@@ -1198,7 +1198,7 @@ class form_account
 							else
 							{
 								// passed in and email but no cookie so create a new direct referral
-								list($customer_referral_id, $new_origination_id) = CCustomerReferral::newDirectReferralFromRegistrationForm($User, $bind_customer_referral, $referring_customer_name);
+								list($customer_referral_id, $new_origination_id) = CCustomerReferral::newDirectReferralFromRegistrationForm($DAO_user, $bind_customer_referral, $referring_customer_name);
 								// direct referral has user_id so remove cookies
 								CBrowserSession::setValue('RSV2_Origination_code', false);
 								CBrowserSession::setValue('Inviting_user_id', false);
@@ -1207,15 +1207,15 @@ class form_account
 
 						if ($rslt !== false)
 						{
-							CUserReferralSource::insertSources($User->id, $arSources, $inviting_user_id, $customer_referral_id);
+							CUserReferralSource::insertSources($DAO_user->id, $arSources, $inviting_user_id, $customer_referral_id);
 							// -------------------------------------------------end referral handling ----------------
 
-							CUserData::saveSFIFormElementsNew($Form, $User, $SFICurrentValues);
+							CUserData::saveSFIFormElementsNew($Form, $DAO_user, $SFICurrentValues);
 
 							//PLATEPOINTS enrollee?
 							if (isset($_POST['enroll_in_plate_points']))
 							{
-								$enrollment_success = CPointsUserHistory::handleEvent($User, CPointsUserHistory::OPT_IN);
+								$enrollment_success = CPointsUserHistory::handleEvent($DAO_user, CPointsUserHistory::OPT_IN);
 
 								if ($enrollment_success)
 								{
@@ -1241,9 +1241,9 @@ class form_account
 								{
 									$month = $Form->value('birthday_month');
 
-									if (CPointsUserHistory::isElgibleForBirthdayRewardAtEnrollment($User->home_store_id, $month, $User->id))
+									if (CPointsUserHistory::isElgibleForBirthdayRewardAtEnrollment($DAO_user->home_store_id, $month, $DAO_user->id))
 									{
-										$enrollment_success = CPointsUserHistory::handleEvent($User, CPointsUserHistory::BIRTHDAY_MONTH);
+										$enrollment_success = CPointsUserHistory::handleEvent($DAO_user, CPointsUserHistory::BIRTHDAY_MONTH);
 									}
 								}
 							}
@@ -1277,7 +1277,7 @@ class form_account
 
 						if (!$adminAdd && !$enrollment_success)
 						{
-							CUser::sendAccountChangedEmail($User);
+							CUser::sendAccountChangedEmail($DAO_user);
 						}
 
 						//forward to confirmation page
@@ -1285,7 +1285,7 @@ class form_account
 						{
 							if ($adminAdd)
 							{
-								CApp::instance()->bounce(self::$forwardTo . '?id=' . $User->id, true);
+								CApp::instance()->bounce(self::$forwardTo . '?id=' . $DAO_user->id, true);
 							}
 							else
 							{
