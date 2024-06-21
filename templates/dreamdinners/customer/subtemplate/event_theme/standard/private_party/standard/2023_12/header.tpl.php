@@ -4,7 +4,10 @@
 		<p>Join me at a Private Party to simplify your mealtime and get prepped family-style dinners to cook at home. Dream Dinners will take care of all of the shopping, chopping, and clean up. All you have to do is relax and enjoy some extra time with your friends and family.</p>
 		<div class="row m-2 p-3 bg-gray">
 			<div class="col text-center font-weight-bold">
-				<p><?php echo CTemplate::dateTimeFormat($this->session['session_start'], VERBOSE); ?></p>
+				<p class="font-weight-bold">
+					<?php echo CTemplate::dateTimeFormat($this->session['session_start'], VERBOSE); ?>
+					to <?php echo CTemplate::dateTimeFormat($this->session['session_end'], TIME_ONLY); ?>
+				</p>
 				<?php if (!empty($this->session['session_host_informal_name'])) { ?>
 					<p>Hosted by <?php echo $this->session['session_host_informal_name']; ?></p>
 				<?php } ?>
