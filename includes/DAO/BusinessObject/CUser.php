@@ -3065,6 +3065,10 @@ class CUser extends DAO_User
 		{
 			$org_DAO_user = clone $DAO_user;
 
+			// Requested reporting update, update Home Store even if distribution center
+			// Leaving following if/else in case this is reverted and to still log the distribution_center_id.
+			$DAO_user->home_store_id = $DAO_user->DAO_store->id;
+
 			if ($DAO_user->DAO_store->isFranchise())
 			{
 				$DAO_user->home_store_id = $DAO_user->DAO_store->id;
