@@ -3062,6 +3062,11 @@ class CStore extends DAO_Store
 		}
 	}
 
+	function isShowPrintMenuPreAssembledLabel()
+	{
+		return !empty($this->show_print_menu_pre_assembled_label);
+	}
+
 	function isFranchise()
 	{
 		if ($this->store_type == CStore::FRANCHISE)

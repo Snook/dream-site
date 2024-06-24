@@ -822,6 +822,23 @@ class CMenuItem extends DAO_Menu_item
 		}
 	}
 
+	function menuLabel($DAO_store = false)
+	{
+		if (!empty($this->menu_label))
+		{
+			return $this->menu_label;
+		}
+		else if ($DAO_store)
+		{
+			if ($DAO_store->isShowPrintMenuPreAssembledLabel() && $this->isMenuItem_Core_Preassembled())
+			{
+				return 'Pre-Assembled';
+			}
+		}
+
+		return false;
+	}
+
 	static function validateItemForOrder($item_id, $quantity, $store_id, $menu_id, $nav_type, $bundle_id = false, $actualSessionType = false, $numberServingsInCart = 0, $numberCoreServingsInCart = 0, $doBundle = false)
 	{
 		$bundleClause = "";

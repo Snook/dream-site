@@ -79,6 +79,7 @@ class DAO_Store extends DAO
 	public $hide_carryover_notes;            // int(1)  not_null
 	public $hide_fadmin_home_dashboard;        // int(1)  not_null
 	public $receive_low_inv_alert;        // int(1)  not_null
+	public $show_print_menu_pre_assembled_label;        // int(1)  not_null
 	public $supports_plate_points;            // int(1)  not_null unsigned
 	public $supports_dream_rewards;            // int(1)  not_null unsigned
 	public $supports_free_assembly_promotion;// int(1)
