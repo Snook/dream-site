@@ -822,6 +822,8 @@ class CMenuItem extends DAO_Menu_item
 		}
 	}
 
+
+
 	function menuLabel($DAO_store = false)
 	{
 		if (!empty($this->menu_label))
@@ -1938,10 +1940,42 @@ class CMenuItem extends DAO_Menu_item
 		return $available;
 	}
 
-	function allowsMealCustomization($storeObj)
+	function customizationAvailable($DAO_store)
+	{
+		if ($this->isMenuItem_Core_Assemble())
+		{
+			if ($DAO_store->hasAvailableSessionType(array('ASSEMBLY')))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		return false;
+	}
+
+	function customization_Not_Available($DAO_store)
+	{
+		if ($this->isMenuItem_EFL())
+		{
+			return true;
+		}
+
+		if ($this->isMenuItem_Core_Preassembled() && !$DAO_store->isAllowedCustomization_PreAssembled())
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function allowsMealCustomization($DAO_store)
 	{
 
-		if (!empty($storeObj) && $storeObj->supports_meal_customization)
+		if (!empty($DAO_store) && $DAO_store->supportsMealCustomization())
 		{
 			if ($this->isMenuItem_Core())
 			{
@@ -1949,7 +1983,7 @@ class CMenuItem extends DAO_Menu_item
 				{
 					return true;
 				}
-				if ($this->isMenuItem_Core_Preassembled() && $storeObj->allow_preassembled_customization)
+				if ($this->isMenuItem_Core_Preassembled() && $DAO_store->isAllowedCustomization_PreAssembled())
 				{
 					return true;
 				}

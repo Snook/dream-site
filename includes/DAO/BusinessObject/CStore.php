@@ -3062,6 +3062,11 @@ class CStore extends DAO_Store
 		}
 	}
 
+	function isAllowedCustomization_PreAssembled()
+	{
+		return !empty($this->allow_preassembled_customization);
+	}
+
 	function isShowPrintMenuPreAssembledLabel()
 	{
 		return !empty($this->show_print_menu_pre_assembled_label);
