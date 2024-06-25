@@ -32,7 +32,6 @@
 			</div>
 
 			<div class="form-row">
-
 				<div class="form-group col-md-6 collapse report-option option-month-start">
 					<div class="input-group">
 						<div class="input-group-prepend">
@@ -41,7 +40,6 @@
 						<?php echo $this->form['month_start_html']; ?>
 					</div>
 				</div>
-
 				<div class="form-group col-md-6 collapse report-option option-month-end">
 					<div class="input-group">
 						<div class="input-group-prepend">
@@ -50,7 +48,6 @@
 						<?php echo $this->form['month_end_html']; ?>
 					</div>
 				</div>
-
 			</div>
 
 			<div class="form-row">
@@ -59,17 +56,54 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Date</span>
 						</div>
-						<?php echo $this->form['datetime_start_html']; ?>
+						<?php echo $this->form['date_start_html']; ?>
 					</div>
 				</div>
-
 				<div class="form-group col-md-6 collapse report-option option-date-end">
 					<div class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">Date End</span>
 						</div>
+						<?php echo $this->form['date_end_html']; ?>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="form-group col-md-6 collapse report-option option-datetime-start">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Date Time</span>
+						</div>
+						<?php echo $this->form['datetime_start_html']; ?>
+					</div>
+				</div>
+				<div class="form-group col-md-6 collapse report-option option-datetime-end">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Date Time End</span>
+						</div>
 						<?php echo $this->form['datetime_end_html']; ?>
 					</div>
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="form-group col-md-6 collapse report-option-group">
+					<p>Guest status</p>
+					<ul class="list-unstyled">
+						<li class="collapse report-option option-query-with-sessions"><?php echo $this->form['query_with_sessions_html']; ?></li>
+						<li class="collapse report-option option-query-without-sessions"><?php echo $this->form['query_without_sessions_html']; ?></li>
+					</ul>
+				</div>
+				<div class="form-group col-md-6 collapse report-option-group">
+					<p>Report details</p>
+					<ul class="list-unstyled">
+						<li class="collapse report-option option-filter-guest-info"><?php echo $this->form['filter_guest_info_html']; ?></li>
+						<li class="collapse report-option option-filter-guest-orders"><?php echo $this->form['filter_guest_orders_html']; ?></li>
+						<li class="collapse report-option option-filter-guest-loyalty"><?php echo $this->form['filter_guest_loyalty_html']; ?></li>
+						<li class="collapse report-option option-filter-guest-additional-info"><?php echo $this->form['filter_guest_additional_info_html']; ?></li>
+					</ul>
 				</div>
 			</div>
 
