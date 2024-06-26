@@ -244,7 +244,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 			CForm::type => CForm::RadioButton,
 			CForm::name => "query_set",
 			CForm::value => 'query_all_guests',
-			CForm::label => 'All guests'
+			CForm::label => 'Accounts created in date range'
 		));
 
 		/* Result filters */
@@ -347,6 +347,12 @@ class page_admin_reports_guest extends CPageAdminOnly
 				$DAO_user->whereAdd("user.timestamp_created >= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_start')) . "'");
 				$DAO_user->whereAdd("user.timestamp_created <= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_end')) . "'");
 				$DAO_user->whereAdd("user_digest.visit_count < '1' OR user_digest.visit_count IS NULL");
+			}
+
+			if ($this->Form->value('query_set') == 'query_all_guests')
+			{
+				$DAO_user->whereAdd("user.timestamp_created >= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_start')) . "'");
+				$DAO_user->whereAdd("user.timestamp_created <= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_end')) . "'");
 			}
 
 			$DAO_user->groupBy("user.id");
