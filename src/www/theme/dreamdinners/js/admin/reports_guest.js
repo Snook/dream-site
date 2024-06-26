@@ -53,6 +53,11 @@ $(document).on('change', '#guest_report', function (e) {
 			$('.option-query-without-sessions').showFlex();
 		}
 
+		if ($(this).find(':selected').data('query-all-guests'))
+		{
+			$('.option-query-all-guests').showFlex();
+		}
+
 		if ($(this).find(':selected').data('filter-guest-info'))
 		{
 			$('.option-filter-guest-info').showFlex();

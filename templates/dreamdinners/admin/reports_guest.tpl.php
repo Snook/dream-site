@@ -90,10 +90,11 @@
 
 			<div class="form-row">
 				<div class="form-group col-md-6 collapse report-option-group">
-					<p>Guest status</p>
+					<p>Guest set</p>
 					<ul class="list-unstyled">
-						<li class="collapse report-option option-query-with-sessions"><?php echo $this->form['query_with_sessions_html']; ?></li>
-						<li class="collapse report-option option-query-without-sessions"><?php echo $this->form['query_without_sessions_html']; ?></li>
+						<li class="collapse report-option option-query-with-sessions"><?php echo $this->form["query_set_html"]["query_with_sessions"]; ?></li>
+						<li class="collapse report-option option-query-without-sessions"><?php echo $this->form["query_set_html"]["query_without_sessions"]; ?></li>
+						<li class="collapse report-option option-query-all-guests"><?php echo $this->form["query_set_html"]["query_all_guests"]; ?></li>
 					</ul>
 				</div>
 				<div class="form-group col-md-6 collapse report-option-group">

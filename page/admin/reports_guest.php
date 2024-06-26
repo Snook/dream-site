@@ -77,8 +77,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 		$this->Form->DefaultValues['date_end'] = date("Y-m-d", strtotime("last day of this month"));
 		$this->Form->DefaultValues['datetime_start'] = date("Y-m-d");
 		$this->Form->DefaultValues['datetime_end'] = date("Y-m-d", strtotime('+1 year'));
-		$this->Form->DefaultValues['query_with_sessions'] = true;
-		$this->Form->DefaultValues['query_without_sessions'] = false;
+		$this->Form->DefaultValues['query_set'] = 'query_with_sessions';
 		$this->Form->DefaultValues['filter_guest_info'] = true;
 		$this->Form->DefaultValues['multi_store_select'] = $this->CurrentBackOfficeStore->id;
 
@@ -125,6 +124,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 						'data-datetime-end' => 'false',
 						'data-query-with-sessions' => 'true',
 						'data-query-without-sessions' => 'true',
+						'data-query-all-guests' => 'true',
 						'data-filter-guest-info' => 'true',
 						'data-filter-guest-orders' => 'true',
 						'data-filter-guest-loyalty' => 'true',
@@ -227,15 +227,24 @@ class page_admin_reports_guest extends CPageAdminOnly
 
 		/* Query options */
 		$this->Form->AddElement(array(
-			CForm::type => CForm::CheckBox,
-			CForm::name => 'query_with_sessions',
+			CForm::type => CForm::RadioButton,
+			CForm::name => "query_set",
+			CForm::value => 'query_with_sessions',
 			CForm::label => 'Guests with sessions scheduled in date range'
 		));
 
 		$this->Form->AddElement(array(
-			CForm::type => CForm::CheckBox,
-			CForm::name => 'query_without_sessions',
-			CForm::label => 'New guests without sessions scheduled in date range'
+			CForm::type => CForm::RadioButton,
+			CForm::name => "query_set",
+			CForm::value => 'query_without_sessions',
+			CForm::label => 'Accounts created without sessions in date range'
+		));
+
+		$this->Form->AddElement(array(
+			CForm::type => CForm::RadioButton,
+			CForm::name => "query_set",
+			CForm::value => 'query_all_guests',
+			CForm::label => 'All guests'
 		));
 
 		/* Result filters */
@@ -302,8 +311,8 @@ class page_admin_reports_guest extends CPageAdminOnly
 			$DAO_user->selectAdd("JSON_OBJECTAGG(user_preferences.pkey, user_preferences.pvalue) as json_user_preferences");
 			*/
 
-			$DAO_user->selectAdd("GROUP_CONCAT(DISTINCT user_data.user_data_field_id, ':' , user_data.user_data_value) as json_user_data");
-			$DAO_user->selectAdd("GROUP_CONCAT(DISTINCT user_preferences.pkey, ':' , user_preferences.pvalue) as json_user_preferences");
+			$DAO_user->selectAdd("GROUP_CONCAT(DISTINCT user_data.user_data_field_id, '::|::' , user_data.user_data_value SEPARATOR ';;|;;') as json_user_data");
+			$DAO_user->selectAdd("GROUP_CONCAT(DISTINCT user_preferences.pkey, '::|::' , user_preferences.pvalue SEPARATOR ';;|;;') as json_user_preferences");
 
 			$DAO_store = DAO_CFactory::create('store', true);
 			$DAO_store->whereAdd("store.id IN(" . $this->Form->value('multi_store_select') . ")");
@@ -316,6 +325,29 @@ class page_admin_reports_guest extends CPageAdminOnly
 			$DAO_user->joinAddWhereAsOn(DAO_CFactory::create('user_digest', true), 'LEFT');
 			$DAO_user->joinAddWhereAsOn(DAO_CFactory::create('user_data', true), 'LEFT');
 			$DAO_user->joinAddWhereAsOn(DAO_CFactory::create('user_preferences', true), 'LEFT');
+
+			if ($this->Form->value('query_set') == 'query_with_sessions')
+			{
+				$DAO_booking = DAO_CFactory::create('booking', true);
+				$DAO_booking->status = CBooking::ACTIVE;
+				$DAO_session = DAO_CFactory::create('session', true);
+				$DAO_session->whereAdd("session.session_start >= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_start')) . "' AND session.session_start <= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_end')) . "'");
+				$DAO_booking->joinAddWhereAsOn($DAO_session, 'INNER', false, false, false);
+				$DAO_user->joinAddWhereAsOn($DAO_booking, 'INNER', false, false, false);
+				/* PHP8
+				$DAO_session->whereAdd("session.session_start >= '" . CTemplate::formatDateTime(timeStamp: $this->Form->value('date_start')) . "'");
+				$DAO_session->whereAdd("session.session_start <= '" . CTemplate::formatDateTime(timeStamp: $this->Form->value('date_end')) . "'");
+				$DAO_booking->joinAddWhereAsOn($DAO_session, joinSubDAO: false);
+				$DAO_user->joinAddWhereAsOn($DAO_booking, joinSubDAO: false);
+				*/
+			}
+
+			if ($this->Form->value('query_set') == 'query_without_sessions')
+			{
+				$DAO_user->whereAdd("user.timestamp_created >= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_start')) . "'");
+				$DAO_user->whereAdd("user.timestamp_created <= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_end')) . "'");
+				$DAO_user->whereAdd("user_digest.visit_count < '1' OR user_digest.visit_count IS NULL");
+			}
 
 			$DAO_user->groupBy("user.id");
 			$DAO_user->orderBy("store.store_type, store.state_id, store.city, store.store_name, user.lastname, user.firstname");
@@ -388,7 +420,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 				$rows[$rowCount] = array(
 					"User ID" => $DAO_user->id,
 					"First Name" => $DAO_user->firstname,
-					"Last Name" => $DAO_user->lastnam
+					"Last Name" => $DAO_user->lastname
 				);
 
 				if (!empty($this->Form->value('filter_guest_info')))
@@ -417,12 +449,12 @@ class page_admin_reports_guest extends CPageAdminOnly
 				{
 					$rows[$rowCount] = array_merge($rows[$rowCount], array(
 						"Number Days Inactive" => $DAO_user->getDaysInactive(),
-						"Last Session" => false,
-						"Last Session Type" => false,
-						"Next Session" => false,
-						"Next Session Type" => false,
-						"Next Special Instructions" => false,
-						"Next Meal Customizations" => false
+						"Last Session" => ($DAO_user->get_Booking_Last() ? $DAO_user->get_Booking_Last()->get_DAO_session()->session_start : ''),
+						"Last Session Type" => ($DAO_user->get_Booking_Last() ? $DAO_user->get_Booking_Last()->get_DAO_session()->sessionTypeToText() : ''),
+						"Next Session" => ($DAO_user->get_Booking_Next() ? $DAO_user->get_Booking_Next()->get_DAO_session()->session_start : ''),
+						"Next Session Type" => ($DAO_user->get_Booking_Next() ? $DAO_user->get_Booking_Next()->get_DAO_session()->sessionTypeToText() : ''),
+						"Next Special Instructions" => ($DAO_user->get_Booking_Next() ? $DAO_user->get_Booking_Next()->get_DAO_orders()->order_user_notes : ''),
+						"Next Meal Customizations" => ($DAO_user->get_Booking_Next() ? $DAO_user->get_Booking_Next()->get_DAO_orders()->getOrderCustomizationString() : '')
 						/* PHP8
 						"Last Session" => CTemplate::formatDateTime('Y-m-d h:i A', $DAO_user->get_Booking_Last()?->get_DAO_session()?->session_start),
 						"Last Session Type" => $DAO_user->get_Booking_Last()?->get_DAO_session()?->sessionTypeToText(),

@@ -3286,7 +3286,7 @@ class CUser extends DAO_User
 		$DAO_session = DAO_CFactory::create('session', true);
 		$DAO_session->whereAdd("session.session_start < NOW()");
 		$DAO_booking->joinAddWhereAsOn($DAO_session);
-		$DAO_booking->orderBy("session_start");
+		$DAO_booking->orderBy("session_start DESC");
 		$DAO_booking->limit(1);
 		if ($DAO_booking->find(true))
 		{
@@ -3306,7 +3306,7 @@ class CUser extends DAO_User
 		$DAO_session = DAO_CFactory::create('session', true);
 		$DAO_session->whereAdd("session.session_start > NOW()");
 		$DAO_booking->joinAddWhereAsOn($DAO_session);
-		$DAO_booking->orderBy("session_start");
+		$DAO_booking->orderBy("session_start ASC");
 		$DAO_booking->limit(1);
 		if ($DAO_booking->find(true))
 		{
@@ -3320,6 +3320,21 @@ class CUser extends DAO_User
 	{
 		if (!empty($this->json_user_data))
 		{
+			foreach (explode(';;|;;', $this->json_user_data) as $pref)
+			{
+				list($pkey, $pvalue) = explode('::|::', $pref);
+
+				if ($pkey == $key)
+				{
+					return $pvalue;
+				}
+			}
+		}
+
+		return null;
+		/* PHP8
+		if (!empty($this->json_user_data))
+		{
 			$userData = json_decode($this->json_user_data);
 
 			if (property_exists($userData, $key))
@@ -3329,10 +3344,26 @@ class CUser extends DAO_User
 		}
 
 		return null;
+		*/
 	}
 
 	function get_JSON_UserPreferenceValue($key)
 	{
+		if (!empty($this->json_user_preferences))
+		{
+			foreach (explode(';;|;;', $this->json_user_preferences) as $pref)
+			{
+				list($pkey, $pvalue) = explode('::|::', $pref);
+
+				if ($pkey == $key)
+				{
+					return $pvalue;
+				}
+			}
+		}
+
+		return null;
+		/* PHP8
 		if (!empty($this->json_user_preferences))
 		{
 			$userPref = json_decode($this->json_user_preferences);
@@ -3344,6 +3375,7 @@ class CUser extends DAO_User
 		}
 
 		return null;
+		*/
 	}
 
 	function getPreferenceValue($key)
@@ -6476,15 +6508,23 @@ class CUser extends DAO_User
 		}
 		else if ($this->get_Booking_Last() !== null)
 		{
+			/* PHP8
 			$origin = new DateTimeImmutable($this->get_Booking_Last()->get_DAO_session()->session_start);
 			$target = new DateTimeImmutable();
+			*/
+			$origin = new DateTime($this->get_Booking_Last()->get_DAO_session()->session_start);
+			$target = new DateTime();
 			$interval = $origin->diff($target);
 			return $interval->format('%a');
 		}
 		else
 		{
+			/* PHP8
 			$origin = new DateTimeImmutable($this->timestamp_created);
 			$target = new DateTimeImmutable();
+			*/
+			$origin = new DateTime($this->timestamp_created);
+			$target = new DateTime();
 			$interval = $origin->diff($target);
 			return $interval->format('%a');
 		}
