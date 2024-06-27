@@ -237,7 +237,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 			CForm::type => CForm::RadioButton,
 			CForm::name => "query_set",
 			CForm::value => 'query_without_sessions',
-			CForm::label => 'Accounts created without sessions in date range'
+			CForm::label => 'Accounts created in date range without sessions'
 		));
 
 		$this->Form->AddElement(array(
