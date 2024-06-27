@@ -304,6 +304,8 @@ class page_admin_reports_guest extends CPageAdminOnly
 	{
 		if ($this->Form->value('date_start') && $this->Form->value('date_end'))
 		{
+
+
 			$DAO_user = DAO_CFactory::create('user', true);
 
 			/* PHP8
@@ -360,11 +362,25 @@ class page_admin_reports_guest extends CPageAdminOnly
 
 			$DAO_user->find();
 
-			$labels = array(
+			$labels = array();
+
+			$multiStoreArray = explode(',', $this->Form->value('multi_store_select'));
+			if (count($multiStoreArray) > 1)
+			{
+				$labels = array_merge($labels, array(
+					"Store ID",
+					"Store Type",
+					"Store City",
+					"Store State",
+					"Store Name"
+				));
+			}
+
+			$labels = array_merge($labels, array(
 				"User ID",
 				"First Name",
 				"Last Name"
-			);
+			));
 
 			if (!empty($this->Form->value('filter_guest_info')))
 			{
@@ -423,11 +439,24 @@ class page_admin_reports_guest extends CPageAdminOnly
 
 			while ($DAO_user->fetch())
 			{
-				$rows[$rowCount] = array(
+				$rows[$rowCount] = array();
+
+				if (count($multiStoreArray) > 1)
+				{
+					$rows[$rowCount] = array_merge($rows[$rowCount], array(
+						"Store ID" => $DAO_user->DAO_store->id,
+						"Store Type" => $DAO_user->DAO_store->store_type,
+						"Store City" => $DAO_user->DAO_store->city,
+						"Store State" => $DAO_user->DAO_store->state_id,
+						"Store Name" => $DAO_user->DAO_store->store_name
+					));
+				}
+
+				$rows[$rowCount] = array_merge($rows[$rowCount], array(
 					"User ID" => $DAO_user->id,
 					"First Name" => $DAO_user->firstname,
 					"Last Name" => $DAO_user->lastname
-				);
+				));
 
 				if (!empty($this->Form->value('filter_guest_info')))
 				{
