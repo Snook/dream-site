@@ -332,12 +332,12 @@ class page_admin_reports_guest extends CPageAdminOnly
 				$DAO_booking = DAO_CFactory::create('booking', true);
 				$DAO_booking->status = CBooking::ACTIVE;
 				$DAO_session = DAO_CFactory::create('session', true);
-				$DAO_session->whereAdd("session.session_start >= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_start')) . "' AND session.session_start <= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_end')) . "'");
+				$DAO_session->whereAdd("session.session_start >= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_start')) . "' AND session.session_start <= '" . CTemplate::formatDateTime('Y-m-d 23:59:59', $this->Form->value('date_end')) . "'");
 				$DAO_booking->joinAddWhereAsOn($DAO_session, 'INNER', false, false, false);
 				$DAO_user->joinAddWhereAsOn($DAO_booking, 'INNER', false, false, false);
 				/* PHP8
 				$DAO_session->whereAdd("session.session_start >= '" . CTemplate::formatDateTime(timeStamp: $this->Form->value('date_start')) . "'");
-				$DAO_session->whereAdd("session.session_start <= '" . CTemplate::formatDateTime(timeStamp: $this->Form->value('date_end')) . "'");
+				$DAO_session->whereAdd("session.session_start <= '" . CTemplate::formatDateTime(format: 'Y-m-d 23:59:59', timeStamp: $this->Form->value('date_end')) . "'");
 				$DAO_booking->joinAddWhereAsOn($DAO_session, joinSubDAO: false);
 				$DAO_user->joinAddWhereAsOn($DAO_booking, joinSubDAO: false);
 				*/
@@ -346,14 +346,14 @@ class page_admin_reports_guest extends CPageAdminOnly
 			if ($this->Form->value('query_set') == 'query_without_sessions')
 			{
 				$DAO_user->whereAdd("user.timestamp_created >= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_start')) . "'");
-				$DAO_user->whereAdd("user.timestamp_created <= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_end')) . "'");
+				$DAO_user->whereAdd("user.timestamp_created <= '" . CTemplate::formatDateTime('Y-m-d 23:59:59', $this->Form->value('date_end')) . "'");
 				$DAO_user->whereAdd("user_digest.visit_count < '1' OR user_digest.visit_count IS NULL");
 			}
 
 			if ($this->Form->value('query_set') == 'query_all_guests')
 			{
 				$DAO_user->whereAdd("user.timestamp_created >= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_start')) . "'");
-				$DAO_user->whereAdd("user.timestamp_created <= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_end')) . "'");
+				$DAO_user->whereAdd("user.timestamp_created <= '" . CTemplate::formatDateTime('Y-m-d 23:59:59', $this->Form->value('date_end')) . "'");
 			}
 
 			$DAO_user->groupBy("user.id");
