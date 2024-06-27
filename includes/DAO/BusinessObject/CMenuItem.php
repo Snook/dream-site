@@ -905,19 +905,6 @@ class CMenuItem extends DAO_Menu_item
 			);
 		}
 
-		if (!$bundle_id && ($nav_type == CTemplate::MADE_FOR_YOU || $nav_type == CTemplate::STANDARD || $nav_type == CTemplate::SPECIAL_EVENT))
-		{
-			if ($visibleAndInventoryTest->is_store_special && CURRENT_PLATE_POINTS_VERSION > 1 && $numberCoreServingsInCart < 36)
-			{
-				return array(
-					false,
-					"Store Specials cannot be added until you have 36 servings from the Core Menu."
-				);
-			}
-		}
-
-		// TODO: Could add inventory test here but this will require checking cart for possible other sizes of the same recipe and that quantity be included in test
-
 		return array(
 			true,
 			"Success"

@@ -730,7 +730,7 @@ function update_cart(menu_item_id, action)
 				$('.btn-spinning').removeClass('btn-spinning');
 				$('.ld-spin').remove();
 
-				var err_message = "Error Adding item to cart. If you continue to receive this message please contact your store.";
+				var err_message = "Error adding item to cart. If you continue to receive this message please contact your store.";
 				if (json.result_code == 5)
 				{
 					err_message = "You have added the number of dinners allowed for this special event or session type. Please remove a dinner from your cart to add this dinner.";
