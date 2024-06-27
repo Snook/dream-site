@@ -346,6 +346,9 @@ class CUser extends DAO_User
 		return true;
 	}
 
+	/* PHP8
+	function isUserStaff(): bool
+	*/
 	static function isUserStaff()
 	{
 		if (!empty(self::getCurrentUser()->user_type) && (self::getCurrentUser()->user_type != self::CUSTOMER && self::getCurrentUser()->user_type != self::GUEST))
@@ -356,6 +359,17 @@ class CUser extends DAO_User
 		return false;
 	}
 
+	/* PHP8
+	function accountStatus(): string
+	*/
+	function accountStatus()
+	{
+		return !empty($this->is_deleted) ? 'Deleted' : 'Active';
+	}
+
+	/* PHP8
+	function userTypeText($user_type): string
+	*/
 	static function userTypeText($user_type)
 	{
 		switch ($user_type)
@@ -6515,6 +6529,7 @@ class CUser extends DAO_User
 			$origin = new DateTime($this->get_Booking_Last()->get_DAO_session()->session_start);
 			$target = new DateTime();
 			$interval = $origin->diff($target);
+
 			return $interval->format('%a');
 		}
 		else
@@ -6526,6 +6541,7 @@ class CUser extends DAO_User
 			$origin = new DateTime($this->timestamp_created);
 			$target = new DateTime();
 			$interval = $origin->diff($target);
+
 			return $interval->format('%a');
 		}
 	}

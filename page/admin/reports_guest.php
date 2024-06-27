@@ -304,8 +304,6 @@ class page_admin_reports_guest extends CPageAdminOnly
 	{
 		if ($this->Form->value('date_start') && $this->Form->value('date_end'))
 		{
-
-
 			$DAO_user = DAO_CFactory::create('user', true);
 
 			/* PHP8
@@ -327,6 +325,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 			$DAO_user->joinAddWhereAsOn(DAO_CFactory::create('user_digest', true), 'LEFT');
 			$DAO_user->joinAddWhereAsOn(DAO_CFactory::create('user_data', true), 'LEFT');
 			$DAO_user->joinAddWhereAsOn(DAO_CFactory::create('user_preferences', true), 'LEFT');
+			$DAO_user->joinAddWhereAsOn(DAO_CFactory::create('user_referral_source', true), 'LEFT');
 
 			if ($this->Form->value('query_set') == 'query_with_sessions')
 			{
@@ -360,7 +359,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 			$DAO_user->groupBy("user.id");
 			$DAO_user->orderBy("store.store_type, store.state_id, store.city, store.store_name, user.lastname, user.firstname");
 
-			$DAO_user->find();
+			$DAO_user->find_includeDeleted();
 
 			$labels = array();
 
@@ -378,6 +377,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 
 			$labels = array_merge($labels, array(
 				"User ID",
+				"Account Status",
 				"First Name",
 				"Last Name"
 			));
@@ -398,7 +398,6 @@ class page_admin_reports_guest extends CPageAdminOnly
 					"City",
 					"State",
 					"Postal Code",
-					"Account Status",
 					"User Account Notes",
 					"Account Created"
 				));
@@ -422,8 +421,9 @@ class page_admin_reports_guest extends CPageAdminOnly
 				$labels = array_merge($labels, array(
 					"PLATEPOINTS Status",
 					"User Share URL",
-					"Referral Type",
-					"Referral Data"
+					"Referral Source",
+					"Referral Data",
+					"Referral Customer ID"
 				));
 			}
 
@@ -454,6 +454,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 
 				$rows[$rowCount] = array_merge($rows[$rowCount], array(
 					"User ID" => $DAO_user->id,
+					"Account Status" => $DAO_user->accountStatus(),
 					"First Name" => $DAO_user->firstname,
 					"Last Name" => $DAO_user->lastname
 				));
@@ -474,7 +475,6 @@ class page_admin_reports_guest extends CPageAdminOnly
 						"City" => $DAO_user->DAO_address->city,
 						"State" => $DAO_user->DAO_address->state_id,
 						"Postal Code" => $DAO_user->DAO_address->postal_code,
-						"Account Status" => false,
 						"User Account Notes" => $DAO_user->get_JSON_UserPreferenceValue(CUser::USER_ACCOUNT_NOTE),
 						"Account Created" => $DAO_user->timestamp_created,
 					));
@@ -506,8 +506,9 @@ class page_admin_reports_guest extends CPageAdminOnly
 					$rows[$rowCount] = array_merge($rows[$rowCount], array(
 						"PLATEPOINTS Status" => $DAO_user->getPlatePointsStatus(),
 						"User Share URL" => $DAO_user->getShareURL(),
-						"Referral Type" => false,
-						"Referral Data" => false
+						"Referral Source" => $DAO_user->DAO_user_referral_source->source,
+						"Referral Data" => $DAO_user->DAO_user_referral_source->meta,
+						"Referral Customer ID" =>  $DAO_user->DAO_user_referral_source->customer_referral_id
 					));
 				}
 
