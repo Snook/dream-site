@@ -246,17 +246,15 @@ class CStore extends DAO_Store
 		}
 		else if (is_array($session_type))
 		{
-			$diff = array_diff_key(array_flip($session_type), $sessionTypesArray);
-			return count($diff) === 0;
+			$intersection = array_intersect_key($sessionTypesArray, array_flip($session_type));
+			return !empty($intersection);
 		}
 		else if ($session_type)
 		{
 			return array_key_exists($session_type, $sessionTypesArray);
 		}
-		else
-		{
-			return true;
-		}
+
+		return false;
 	}
 
 	function getStoreId()
