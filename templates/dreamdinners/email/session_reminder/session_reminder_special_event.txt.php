@@ -9,8 +9,8 @@ It's almost time to pick up your meals. We're looking forward to seeing you when
  Tips
  - Add on a few of our delicious sides, breakfast and sweets <?php echo HTTPS_BASE; ?>freezer from our Sides and Sweets Freezer.
  - Place your next order online. <?php echo HTTPS_BASE; ?>session-menu
- - Be on time.
- - Bring your cooler
+ - Please arrive during your designated pick up window.
+ - Bring your cooler.
 
 ---------------------------------------------------
 

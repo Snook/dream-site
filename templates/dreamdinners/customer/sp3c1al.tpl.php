@@ -1,33 +1,54 @@
 <?php CBrowserSession::nofollow(); ?>
-<?php $this->assign('page_title', 'Spin to Win June 2023');?>
-<?php $this->assign('page_description','Spin to win a special prize.'); ?>
-<?php $this->assign('page_keywords','seasonal gift'); ?>
+<?php $this->assign('page_title', 'This or That');?>
+<?php $this->assign('page_description','Recipe of what you voted on.'); ?>
+<?php $this->assign('page_keywords','recipe, voting, this or that'); ?>
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
 
 	<header class="container my-5">
 		<div class="row">
-			<div class="col-6 col-sm-3 p-0 order-2 order-sm-1">
-
-			</div>
-			<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center">
-				<h1>Summer Spin to Win June</h1>
-			</div>
-			<div class="col-6 col-sm-3 p-0 order-3 order-sm-3 text-right">
-
+			<div class="col-12 text-center">
+				<h1>Summer Berry Campfire Cobbler</h1>
 			</div>
 		</div>
 	</header>
 
 	<main role="main">
 		<section>
-			<div class="container text-center">
-			<!--embed will auto display here based on wisepop settings-->
-				<div id="wisepopdd"></div>
-				<p class="text-center font-weight-bold">This promotion ends June 30, 2023. Each guest gets 2 chances to view the prize wheel for an entry.</p>
-				<p class="text-center text-small">*Offer is only valid at participating locations. One prize per an order and not transferrable; this code may only be used by the account associated with this email address. No cash redemption permitted. Not available for guests that have a preferred guest account. Not valid combined with any other offers or promotions. All prizes must be redeemed in conjunction with a qualifying order in the valid redemption month. Coupon code cannot be used towards events or promotional orders including the Meal Prep Starter Pack.<br><br>
-				Guests must bring a printed copy or show a screenshot of the email at their next pick up or assembly session to redeem their prize. For home delivery orders, guest should forward a copy of their prize email to redeem their prize.
-				</p>
-
+			<div class="container-fluid my-5 bg-cyan-dark">
+				<div class="container">
+					<div class="row my-5">
+						<div class="col-md-6 mb-3 mt-5">
+							<div>
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/campfire-cobblers-511x634.webp" alt="Campfire Cobblers" class="img-fluid" />
+							</div>
+						</div>
+						<div class="col-md-6 text-center mt-5">
+						  <img src="<?php echo IMAGES_PATH; ?>/landing_pages/great-pick-text.webp" alt="Great Pick" class="img-fluid" />
+						  <h2 class="font-weight-bold text-white">Download your Summer Berry Campfire Cobbler Recipe here.</h2>
+						  <a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Summer-Berry-Cobbler.pdf" target="_blank" class="btn btn-lg btn-green mb-5">Download Recipe</a>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</section>
+		<section>
+			<div class="container-fluid my-5">
+				<div class="container">
+					<div class="row my-5">
+						<div class="col-md-6 text-center mt-4">
+						  <h2 class="font-weight-bold font-have-heart-two font-size-extra-extra-large"><strong>Pairs Well With</strong></h2>
+							<h3>Bacon Popper Chicken with Summer Grilled Vegetables</h3>
+							<p>Perfect to cook in the oven or on the grill. Chicken breasts are topped with a cream cheese mixture & bacon then served with Summer Grilled Vegetables. Keep it simple or make it spicy with optional jalapenos.</p>
+						  <a href="/session_menu" class="btn btn-lg btn-primary btn-cyan-dark">ORDER NOW</a>
+						</div>
+						<div class="col-md-6 text-left">
+							<div>
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/1133-bacon-popper-chicken-circle-458x344.webp" alt="Bacon Popper Chicken" class="img-fluid" />
+							</div>
+						</div>
+					</div>	
+				</div>
 			</div>
 		</section>
 	</main>

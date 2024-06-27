@@ -4,7 +4,7 @@
 	<td><ol>
 		<li>Add on a few of our delicious sides, breakfast and sweets <a href="<?php echo HTTPS_BASE; ?>freezer">from our Sides and Sweets Freezer.</a></li>
 		<li><a href="<?php echo HTTPS_BASE; ?>session-menu">Place your next order online.</a></li>
-	 	<li>Be on time.</li>
+	 	<li>Please arrive during your designated pick up window.</li>
 		<li>Bring your cooler.</li></ol>
 	</td>
 </tr>

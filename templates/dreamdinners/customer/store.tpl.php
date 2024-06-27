@@ -149,39 +149,38 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="row mb-2 no-gutters">
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center mb-2">
 						<div class="card border-0 pr-4">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/penne-chicekn-peanut-under30-teal-featured-menu-item-400x400.webp" alt="Penne with Chicken and Peanut Sauce" class="img-fluid">
-							<div class="card-body">
-								<h5 class="card-title">Penne with Chicken and Peanut Sauce</h5>
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/steak-fajitas-30min-featured-menu-item-400x400.webp" alt="Steak and Chicken Fajitas" class="img-fluid">
+								<div class="card-body">
+									<h5 class="card-title">Steak and Chicken Fajitas</h5>
+								</div>
 							</div>
-						</div>
-						<div class="card border-0 pr-2">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/peach-bourbon-chicken-travel-teal-featured-menu-item-400x400.webp" alt="Peach Bourbon Chicken" class="img-fluid">
-							<div class="card-body">
-								<h5 class="card-title">Peach Bourbon Chicken with Oven Roasted Broccoli</h5>
+							<div class="card border-0 pr-2">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/charhouse-chicken-travel-firendly-featured-menu-item-400x400.webp" alt="Charhouse Chicken Sandwich" class="img-fluid">
+								<div class="card-body">
+									<h5 class="card-title">Charhouse Chicken Sandwich</h5>
+								</div>
 							</div>
-						</div>
 
 					</div>
 				</div>
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center">
 						<div class="card border-0 pr-4">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/teriyaki-burgers-grill-teal-featured-menu-item-400x400.webp" alt="Teriyaki Burgers" class="img-fluid">
-							<div class="card-body">
-								<h5 class="card-title">Teriyaki Burgers with Pineapple Salsa & Seasoned Steak Fries</h5>
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/al-pastor-tacos-grill-featured-menu-item-400x400.webp" alt="Al Pastor Pork Street Tacos" class="img-fluid">
+								<div class="card-body">
+									<h5 class="card-title">Al Pastor Pork Street Tacos</h5>
+								</div>
 							</div>
-						</div>
-						<div class="card border-0">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-soft-taco-kid-pick-teal-featured-menu-item-400x400.webp" alt="Chicken Soft Tacos with Key Lime Corn" class="img-fluid">
-							<div class="card-body">
-								<h5 class="card-title">Chicken Soft Tacos with Key Lime Corn</h5>
+							<div class="card border-0">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pulled-pork-mac-kid-pick-featured-menu-item-400x400.webp" alt="Pulled Pork Mac N Cheese Bowl" class="img-fluid">
+								<div class="card-body">
+									<h5 class="card-title">Pulled Pork Mac N Cheese Bowl</h5>
+								</div>
 							</div>
-						</div>
 					</div>
 				</div>
 			</div>
