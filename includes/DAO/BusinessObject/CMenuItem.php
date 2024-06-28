@@ -1956,6 +1956,11 @@ class CMenuItem extends DAO_Menu_item
 			return false;
 		}
 
+		if (!$DAO_store->hasAvailableSessionType(array('ASSEMBLY')) && !$DAO_store->isAllowedCustomization_PreAssembled())
+		{
+			return false;
+		}
+
 		if ($this->isMenuItem_EFL())
 		{
 			return true;
