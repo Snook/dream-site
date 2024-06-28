@@ -237,7 +237,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 			CForm::type => CForm::RadioButton,
 			CForm::name => "query_set",
 			CForm::value => 'query_without_sessions',
-			CForm::label => 'Accounts created in date with no orders'
+			CForm::label => 'Accounts created in date range with no orders'
 		));
 
 		$this->Form->AddElement(array(
@@ -325,18 +325,19 @@ class page_admin_reports_guest extends CPageAdminOnly
 			$DAO_user->joinAddWhereAsOn(DAO_CFactory::create('user_digest', true), 'LEFT');
 			$DAO_user->joinAddWhereAsOn(DAO_CFactory::create('user_data', true), 'LEFT');
 			$DAO_user->joinAddWhereAsOn(DAO_CFactory::create('user_preferences', true), 'LEFT');
+			$DAO_user->joinAddWhereAsOn(DAO_CFactory::create('user_referral_source', true), 'LEFT');
 
 			if ($this->Form->value('query_set') == 'query_with_sessions')
 			{
 				$DAO_booking = DAO_CFactory::create('booking', true);
 				$DAO_booking->status = CBooking::ACTIVE;
 				$DAO_session = DAO_CFactory::create('session', true);
-				$DAO_session->whereAdd("session.session_start >= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_start')) . "' AND session.session_start <= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_end')) . "'");
+				$DAO_session->whereAdd("session.session_start >= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_start')) . "' AND session.session_start <= '" . CTemplate::formatDateTime('Y-m-d 23:59:59', $this->Form->value('date_end')) . "'");
 				$DAO_booking->joinAddWhereAsOn($DAO_session, 'INNER', false, false, false);
 				$DAO_user->joinAddWhereAsOn($DAO_booking, 'INNER', false, false, false);
 				/* PHP8
 				$DAO_session->whereAdd("session.session_start >= '" . CTemplate::formatDateTime(timeStamp: $this->Form->value('date_start')) . "'");
-				$DAO_session->whereAdd("session.session_start <= '" . CTemplate::formatDateTime(timeStamp: $this->Form->value('date_end')) . "'");
+				$DAO_session->whereAdd("session.session_start <= '" . CTemplate::formatDateTime(format: 'Y-m-d 23:59:59', timeStamp: $this->Form->value('date_end')) . "'");
 				$DAO_booking->joinAddWhereAsOn($DAO_session, joinSubDAO: false);
 				$DAO_user->joinAddWhereAsOn($DAO_booking, joinSubDAO: false);
 				*/
@@ -345,26 +346,41 @@ class page_admin_reports_guest extends CPageAdminOnly
 			if ($this->Form->value('query_set') == 'query_without_sessions')
 			{
 				$DAO_user->whereAdd("user.timestamp_created >= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_start')) . "'");
-				$DAO_user->whereAdd("user.timestamp_created <= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_end')) . "'");
+				$DAO_user->whereAdd("user.timestamp_created <= '" . CTemplate::formatDateTime('Y-m-d 23:59:59', $this->Form->value('date_end')) . "'");
 				$DAO_user->whereAdd("user_digest.visit_count < '1' OR user_digest.visit_count IS NULL");
 			}
 
 			if ($this->Form->value('query_set') == 'query_all_guests')
 			{
 				$DAO_user->whereAdd("user.timestamp_created >= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_start')) . "'");
-				$DAO_user->whereAdd("user.timestamp_created <= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_end')) . "'");
+				$DAO_user->whereAdd("user.timestamp_created <= '" . CTemplate::formatDateTime('Y-m-d 23:59:59', $this->Form->value('date_end')) . "'");
 			}
 
 			$DAO_user->groupBy("user.id");
 			$DAO_user->orderBy("store.store_type, store.state_id, store.city, store.store_name, user.lastname, user.firstname");
 
-			$DAO_user->find();
+			$DAO_user->find_includeDeleted();
 
-			$labels = array(
+			$labels = array();
+
+			$multiStoreArray = explode(',', $this->Form->value('multi_store_select'));
+			if (count($multiStoreArray) > 1)
+			{
+				$labels = array_merge($labels, array(
+					"Store ID",
+					"Store Type",
+					"Store City",
+					"Store State",
+					"Store Name"
+				));
+			}
+
+			$labels = array_merge($labels, array(
 				"User ID",
+				"Account Status",
 				"First Name",
 				"Last Name"
-			);
+			));
 
 			if (!empty($this->Form->value('filter_guest_info')))
 			{
@@ -382,7 +398,6 @@ class page_admin_reports_guest extends CPageAdminOnly
 					"City",
 					"State",
 					"Postal Code",
-					"Account Status",
 					"User Account Notes",
 					"Account Created"
 				));
@@ -406,8 +421,9 @@ class page_admin_reports_guest extends CPageAdminOnly
 				$labels = array_merge($labels, array(
 					"PLATEPOINTS Status",
 					"User Share URL",
-					"Referral Type",
-					"Referral Data"
+					"Referral Source",
+					"Referral Data",
+					"Referral Customer ID"
 				));
 			}
 
@@ -423,11 +439,25 @@ class page_admin_reports_guest extends CPageAdminOnly
 
 			while ($DAO_user->fetch())
 			{
-				$rows[$rowCount] = array(
+				$rows[$rowCount] = array();
+
+				if (count($multiStoreArray) > 1)
+				{
+					$rows[$rowCount] = array_merge($rows[$rowCount], array(
+						"Store ID" => $DAO_user->DAO_store->id,
+						"Store Type" => $DAO_user->DAO_store->store_type,
+						"Store City" => $DAO_user->DAO_store->city,
+						"Store State" => $DAO_user->DAO_store->state_id,
+						"Store Name" => $DAO_user->DAO_store->store_name
+					));
+				}
+
+				$rows[$rowCount] = array_merge($rows[$rowCount], array(
 					"User ID" => $DAO_user->id,
+					"Account Status" => $DAO_user->accountStatus(),
 					"First Name" => $DAO_user->firstname,
 					"Last Name" => $DAO_user->lastname
-				);
+				));
 
 				if (!empty($this->Form->value('filter_guest_info')))
 				{
@@ -445,7 +475,6 @@ class page_admin_reports_guest extends CPageAdminOnly
 						"City" => $DAO_user->DAO_address->city,
 						"State" => $DAO_user->DAO_address->state_id,
 						"Postal Code" => $DAO_user->DAO_address->postal_code,
-						"Account Status" => false,
 						"User Account Notes" => $DAO_user->get_JSON_UserPreferenceValue(CUser::USER_ACCOUNT_NOTE),
 						"Account Created" => $DAO_user->timestamp_created,
 					));
@@ -477,8 +506,9 @@ class page_admin_reports_guest extends CPageAdminOnly
 					$rows[$rowCount] = array_merge($rows[$rowCount], array(
 						"PLATEPOINTS Status" => $DAO_user->getPlatePointsStatus(),
 						"User Share URL" => $DAO_user->getShareURL(),
-						"Referral Type" => false,
-						"Referral Data" => false
+						"Referral Source" => $DAO_user->DAO_user_referral_source->source,
+						"Referral Data" => $DAO_user->DAO_user_referral_source->meta,
+						"Referral Customer ID" =>  $DAO_user->DAO_user_referral_source->customer_referral_id
 					));
 				}
 
@@ -708,7 +738,8 @@ class page_admin_reports_guest extends CPageAdminOnly
 
 			$DAO_user->selectAdd();
 			$DAO_user->selectAdd("user.id");
-			$DAO_user->selectAdd("CONCAT(`user`.firstname,' ',`user`.lastname) as `name`");
+			$DAO_user->selectAdd("user.firstname");
+			$DAO_user->selectAdd("user.lastname");
 			$DAO_user->selectAdd("user.primary_email");
 			$DAO_user->selectAdd("store.store_name");
 			$DAO_user->selectAdd("store.state_id");
@@ -748,7 +779,8 @@ class page_admin_reports_guest extends CPageAdminOnly
 
 			$labels = array(
 				'User ID',
-				'First and Last',
+				'First name',
+				'Last name',
 				'Primary Email',
 				'Store Name',
 				'State',
@@ -762,7 +794,8 @@ class page_admin_reports_guest extends CPageAdminOnly
 			{
 				$rows[] = array(
 					$DAO_user->id,
-					$DAO_user->name,
+					$DAO_user->firstname,
+					$DAO_user->lastname,
 					$DAO_user->primary_email,
 					$DAO_user->store_name,
 					$DAO_user->state_id,
