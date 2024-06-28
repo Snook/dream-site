@@ -8,6 +8,7 @@ class processor_admin_manage_box extends CPageProcessor
 	{
 		// autoclean will mess up a json array
 		$this->inputTypeMap['stores'] = TYPE_NOCLEAN;
+		$this->doGenericInputCleaning = false;
 	}
 
 	function runSiteAdmin()
