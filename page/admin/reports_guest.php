@@ -382,7 +382,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 				"Last Name"
 			));
 
-			if (!empty($this->Form->value('filter_guest_info')))
+			if ($this->Form->value('filter_guest_info'))
 			{
 				$labels = array_merge($labels, array(
 					"Email Address",
@@ -403,7 +403,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 				));
 			}
 
-			if (!empty($this->Form->value('filter_guest_orders')))
+			if ($this->Form->value('filter_guest_orders'))
 			{
 				$labels = array_merge($labels, array(
 					"Number Days Inactive",
@@ -416,7 +416,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 				));
 			}
 
-			if (!empty($this->Form->value('filter_guest_loyalty')))
+			if ($this->Form->value('filter_guest_loyalty'))
 			{
 				$labels = array_merge($labels, array(
 					"PLATEPOINTS Status",
@@ -427,7 +427,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 				));
 			}
 
-			if (!empty($this->Form->value('filter_guest_additional_info')))
+			if ($this->Form->value('filter_guest_additional_info'))
 			{
 				$labels = array_merge($labels, array(
 					"Carryover Notes"
