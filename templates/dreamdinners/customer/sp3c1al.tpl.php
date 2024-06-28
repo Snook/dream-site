@@ -19,7 +19,7 @@
 					<div class="row my-5">
 						<div class="col-md-6 mb-3 mt-5">
 							<div>
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/campfire-cobblers-511x634.webp" alt="Campfire Cobblers" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/campfire-cobblers-475x450.webp" alt="Campfire Cobblers" class="img-fluid" />
 							</div>
 						</div>
 						<div class="col-md-6 text-center mt-5">

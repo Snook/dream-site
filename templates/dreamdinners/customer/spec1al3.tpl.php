@@ -7,7 +7,7 @@
 	<header class="container my-5">
 		<div class="row">
 			<div class="col-12 text-center">
-				<h1>Carmel Apple Campfire Cobbler</h1>
+				<h1>Caramel Apple Campfire Cobbler</h1>
 			</div>
 		</div>
 	</header>
@@ -19,13 +19,13 @@
 					<div class="row my-5">
 						<div class="col-md-6 mb-3 mt-5">
 							<div>
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/campfire-cobblers-511x634.webp" alt="Campfire Cobblers" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/campfire-cobblers-475x450.webp" alt="Campfire Cobblers" class="img-fluid" />
 							</div>
 						</div>
 						<div class="col-md-6 text-center mt-5">
 						  <img src="<?php echo IMAGES_PATH; ?>/landing_pages/great-pick-text.webp" alt="Great Pick" class="img-fluid" />
-						  <h2 class="font-weight-bold text-white">Download your Carmel Apple Campfire Cobbler Recipe here.</h2>
-						  <a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Carmel-Apple-Cobbler.pdf" target="_blank" class="btn btn-lg btn-green mb-5">Download Recipe</a>
+						  <h2 class="font-weight-bold text-white">Download your Caramel Apple Campfire Cobbler Recipe here.</h2>
+						  <a href="https://dreamdinners.com/web_resources/media/Dream-Dinners-Caramel-Apple-Cobbler.pdf" target="_blank" class="btn btn-lg btn-green mb-5">Download Recipe</a>
 						</div>
 						
 					</div>

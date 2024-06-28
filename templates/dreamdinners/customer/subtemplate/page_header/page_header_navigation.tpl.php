@@ -10,9 +10,9 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 		<div class="alert alert-cyan-dark text-white text-uppercase alert-dismissible fade collapse mb-0" role="alert" data-dismiss-session-alert="promotional-banner">
 			<div class="row">
 				<div class="col text-center">
-					<div class="d-block d-xl-inline"><span class="text-white">NEW TO DREAM DINNERS OR HAVEN'T ORDERED IN A WHILE? TRY US WITH THIS EXCLUSIVE OFFER!</span></div>
-					<div class="d-block d-lg-inline">Free shipping code: <a href="/shipping"><span class="font-weight-bold text-white">SHIPONUS</span></a> OR</div>
-					<div class="d-block d-lg-inline">$15 OFF STORE ORDER: <a href="/locations"><span class="font-weight-bold text-white">15FORU</span></a></div>
+					<div class="d-block d-xl-inline"><span class="text-white">NEW TO DREAM DINNERS OR HAVEN'T ORDERED IN A WHILE? TRY US WITH THIS EXCLUSIVE OFFER! </span></div>
+					<div class="d-block d-lg-inline">$15 OFF ANY ORDER AT A LOCAL STORE: CODE <a href="/locations"><span class="font-weight-bold text-white">15FORU</span></a> OR</div>
+					<div class="d-block d-lg-inline">Free shipping: Code <a href="/shipping"><span class="font-weight-bold text-white">SHIPONUS</span></a></div>
 				</div>
 			</div>
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
