@@ -1929,6 +1929,11 @@ class CMenuItem extends DAO_Menu_item
 
 	function customizationAvailable($DAO_store)
 	{
+		if ($this->isBundle())
+		{
+			return false;
+		}
+
 		if ($this->isMenuItem_Core_Assemble())
 		{
 			if ($DAO_store->hasAvailableSessionType(array('ASSEMBLY')))
@@ -1946,6 +1951,11 @@ class CMenuItem extends DAO_Menu_item
 
 	function customization_Not_Available($DAO_store)
 	{
+		if ($this->isBundle())
+		{
+			return false;
+		}
+
 		if ($this->isMenuItem_EFL())
 		{
 			return true;
