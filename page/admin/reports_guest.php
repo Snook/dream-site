@@ -738,7 +738,8 @@ class page_admin_reports_guest extends CPageAdminOnly
 
 			$DAO_user->selectAdd();
 			$DAO_user->selectAdd("user.id");
-			$DAO_user->selectAdd("CONCAT(`user`.firstname,' ',`user`.lastname) as `name`");
+			$DAO_user->selectAdd("user.firstname");
+			$DAO_user->selectAdd("user.lastname");
 			$DAO_user->selectAdd("user.primary_email");
 			$DAO_user->selectAdd("store.store_name");
 			$DAO_user->selectAdd("store.state_id");
@@ -778,7 +779,8 @@ class page_admin_reports_guest extends CPageAdminOnly
 
 			$labels = array(
 				'User ID',
-				'First and Last',
+				'First name',
+				'Last name',
 				'Primary Email',
 				'Store Name',
 				'State',
@@ -792,7 +794,8 @@ class page_admin_reports_guest extends CPageAdminOnly
 			{
 				$rows[] = array(
 					$DAO_user->id,
-					$DAO_user->name,
+					$DAO_user->firstname,
+					$DAO_user->lastname,
 					$DAO_user->primary_email,
 					$DAO_user->store_name,
 					$DAO_user->state_id,
