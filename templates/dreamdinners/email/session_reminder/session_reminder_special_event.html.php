@@ -15,7 +15,7 @@
 	<tr>
 		<td>
 			<p>Dear <?php echo $this->DAO_user->firstname; ?>, <br /><br />
-			  It's almost time to pick up your meals. We're looking forward to seeing you when it's convenient during your pick up window on <b><?php echo $this->DAO_session->sessionStartDateTime()->format("F j, Y - g:i A"); ?> to <?php echo $this->DAO_session->sessionEndDateTime()->format("g:i A"); ?></b>at our <b><?php echo $this->DAO_store->store_name; ?></b> location.</p>
+			  It's almost time to pick up your meals. We're looking forward to seeing you when it's convenient during your pick up window on <b><?php echo $this->DAO_session->sessionStartDateTime()->format("F j, Y - g:i A"); ?> to <?php echo $this->DAO_session->sessionEndDateTime()->format("g:i A"); ?></b> at our <b><?php echo $this->DAO_store->store_name; ?></b> location.</p>
 
 			<?php if ($this->DAO_user_digest->visit_count == 1) { ?>
 				<?php include $this->loadTemplate('email/session_reminder/session_tips.html.php'); ?>

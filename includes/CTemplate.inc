@@ -709,7 +709,7 @@ class CTemplate extends Savant2
 	/**
 	 * @throws Exception
 	 */
-	static function formatDateTime($format = 'Y-m-d H:i:s', $timeStamp = false, $StoreObj = false, $modify = false)
+	static function formatDateTime($format = 'Y-m-d H:i:s', $timeStamp = false, $DAO_store = false, $modify = false)
 	{
 		if ($timeStamp === null)
 		{
@@ -732,14 +732,14 @@ class CTemplate extends Savant2
 				}
 			}
 
-			if ($StoreObj)
+			if ($DAO_store)
 			{
-				$timeZone = DAO_CFactory::create('timezones');
-				$timeZone->id = $StoreObj->timezone_id;
+				$DAO_timezones = DAO_CFactory::create('timezones');
+				$DAO_timezones->id = $DAO_store->timezone_id;
 
-				if ($timeZone->find(true))
+				if ($DAO_timezones->find(true))
 				{
-					$dateTime->setTimezone(new DateTimeZone($timeZone->tz_name));
+					$dateTime->setTimezone(new DateTimeZone($DAO_timezones->tz_name));
 				}
 			}
 

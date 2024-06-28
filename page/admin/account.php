@@ -260,7 +260,7 @@ class page_admin_account extends CPageAdminOnly {
 
 		if (!empty($_POST["submit_account"]))
 		{
-			if ($User->is_partial_account)
+		if ($User->is_partial_account)
 			{
 				if (!isset($_POST['convertToFull']))
 				{
