@@ -100,23 +100,35 @@
 			</tr>
 			<tr>
 				<td>
-					<a href="/backoffice/reports-cornerstone-movement-contest">Cornerstone Movement Contest Report</a><br/>
-					<a href="/backoffice/reports-food-and-labor-costs">Food and Labor Costs</a><br/>
-					<a href="/backoffice/performance-override">Performance Override Form</a><br/>
-					<a href="/backoffice/reports-site-royalty-national">Royalty Report by Store</a><br/>
-					<a href="/backoffice/reports-store-contact-information?format=store&amp;export=xlsx">Store Contact Information - Active</a><br/>
-					<a href="/backoffice/reports-store-contact-information?format=owner&amp;active=1&amp;export=xlsx">Entity Contact Information - Active</a><br/>
-					<a href="/backoffice/reports-store-contact-information?format=owner&amp;active=0&amp;export=xlsx">Entity Contact Information - Inactive</a><br/>
-					<a href="/backoffice/reports-my-meals">My Meals Ratings</a><br/>
-					<a href="/backoffice/reports-my-meals-comments">My Meals Comments</a><br/>
-					<a href="/backoffice/food-testing">Food Testing Manager</a><br/>
-					<a href="/backoffice/food-testing-survey">Food Testing Store Surveys</a><br/>
-					<a href="/backoffice/reports-menu-skipping">Menu Skipping Report</a><br/>
-					<a href="/backoffice/reports-door-dash-import">Door Dash Report & Import</a><br/>
-					<a href="/backoffice/reports-meal-prep-plus-site-wide">Meal Prep+ Subscriptions (All stores)</a><br/>
-					<a href="/backoffice/reports-national-entree-projection">Master Preorder Export</a><br/>
-					<a href="/backoffice/reports-menu-planning">Menu Planning Report</a><br/>
-					<a href="/backoffice/reports-guest">Guest Reports</a><br/>
+					<ul class="list-unstyled">
+						<li><a href="/backoffice/reports-cornerstone-movement-contest">Cornerstone Movement Contest Report</a></li>
+						<li><a href="/backoffice/reports-food-and-labor-costs">Food and Labor Costs</a></li>
+						<li><a href="/backoffice/performance-override">Performance Override Form</a></li>
+						<li><a href="/backoffice/reports-site-royalty-national">Royalty Report by Store</a></li>
+						<li><a href="/backoffice/reports-store-contact-information?format=store&amp;export=xlsx">Store Contact Information - Active</a></li>
+						<li><a href="/backoffice/reports-store-contact-information?format=owner&amp;active=1&amp;export=xlsx">Entity Contact Information - Active</a></li>
+						<li><a href="/backoffice/reports-store-contact-information?format=owner&amp;active=0&amp;export=xlsx">Entity Contact Information - Inactive</a></li>
+						<li><a href="/backoffice/reports-my-meals">My Meals Ratings</a></li>
+						<li><a href="/backoffice/reports-my-meals-comments">My Meals Comments</a></li>
+						<li><a href="/backoffice/food-testing">Food Testing Manager</a></li>
+						<li><a href="/backoffice/food-testing-survey">Food Testing Store Surveys</a></li>
+						<li><a href="/backoffice/reports-menu-skipping">Menu Skipping Report</a></li>
+						<li><a href="/backoffice/reports-door-dash-import">Door Dash Report & Import</a></li>
+						<li><a href="/backoffice/reports-meal-prep-plus-site-wide">Meal Prep+ Subscriptions (All stores)</a></li>
+						<li><a href="/backoffice/reports-national-entree-projection">Master Preorder Export</a></li>
+						<li><a href="/backoffice/reports-menu-planning">Menu Planning Report</a></li>
+						<li>
+							<a href="/backoffice/reports-guest">Guest Reports</a>
+							<ul>
+								<li><a href="/backoffice/reports-guest?report=power-bi">Power BI Dashboard Export</a></li>
+								<li><a href="/backoffice/reports-guest?report=driver-tip">Driver Tip Report</a></li>
+								<li><a href="/backoffice/reports-guest?report=guest-details">Guest Details</a></li>
+								<li><a href="/backoffice/reports-guest?report=guest-birthdays">Guest Birthdays</a></li>
+								<li><a href="/backoffice/reports-guest?report=guest-with-dinner-dollars">Guests with Expiring Dinner Dollars</a></li>
+								<li><a href="/backoffice/reports-guest?report=preferred-user">Preferred Users</a></li>
+							</ul>
+						</li>
+					</ul>
 				</td>
 			</tr>
 		</table>
