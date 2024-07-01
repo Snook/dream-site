@@ -1215,7 +1215,6 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 
 				try
 				{
-
 					// PlatePoints Discount
 					if (isset($_POST['plate_points_discount']))
 					{
@@ -1289,7 +1288,7 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 							// INVENTORY TOUCH POINT 17
 							//subtract from inventory
 							$invItem = DAO_CFactory::create('menu_item_inventory');
-							$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold -  " . " $servingQty where mii.recipe_id = {$order_item->recipe_id} and mii.store_id = $parentStoreId and mii.menu_id = {$Session->menu_id} and mii.is_deleted = 0");
+							$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold - $servingQty where mii.recipe_id = {$order_item->recipe_id} and mii.store_id = $parentStoreId and mii.menu_id = {$this->originalOrder->getMenuId()} and mii.is_deleted = 0");
 						}
 						catch (exception $exc)
 						{

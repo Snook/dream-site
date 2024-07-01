@@ -6835,7 +6835,7 @@ class COrders extends DAO_Orders
 						{
 							//subtract from inventory
 							$invItem = DAO_CFactory::create('menu_item_inventory');
-							$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold +  " . " $servingQty where mii.recipe_id = {$DAO_menu_item->recipe_id}
+							$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold +  $servingQty where mii.recipe_id = {$DAO_menu_item->recipe_id}
 								    and mii.store_id = {$this->store_id} and mii.menu_id = $menu_id and mii.is_deleted = 0");
 						}
 					}
