@@ -8,6 +8,19 @@
 					<?php echo (!empty($mainItem->menu_label)) ? '<span class="font-weight-bold">' . $mainItem->menu_label . '</span>' : ''; ?> <?php echo $mainItem->menu_item_description; ?>
 				</div>
 			</div>
+			<?php if ($mainItem->customizationAvailable($mainItem->DAO_store)) { ?>
+				<div class="row mt-2">
+					<div class="col font-size-small font-italic">
+						*Personally customize at an assembly session.
+					</div>
+				</div>
+			<?php } else if ($mainItem->customization_Not_Available($mainItem->DAO_store)) { ?>
+				<div class="row mt-2">
+					<div class="col font-size-small font-italic">
+						*Store customization options not available.
+					</div>
+				</div>
+			<?php } ?>
 			<?php if (!empty($mainItem->DAO_food_survey->rating) || !empty($mainItem->DAO_food_survey_comments->comment)) { ?>
 				<div class="row mt-2 bg-gray mx-1 py-2">
 					<div class="col font-size-small">

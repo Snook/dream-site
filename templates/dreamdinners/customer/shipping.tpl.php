@@ -41,10 +41,10 @@
 					  </ol>
 					  <div class="carousel-inner">
 						<div class="carousel-item active">
-						  <a href="/local-meal-prep"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-guest-june24-free-shipping-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer"></a>
+						  <a href="/local-meal-prep"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-guest-july24-free-shipping-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer"></a>
 						</div>
 						<div class="carousel-item">
-						  <a href="/locations"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/existing-guest-june24-shipping-1400x600.webp?auto=yes" alt="Summer Shipping"></a>
+						  <a href="/locations"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/existing-guest-july24-shipping-1400x600.webp?auto=yes" alt="Summer Shipping"></a>
 						</div>
 						<div class="carousel-item">
 						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/summer-family-shipping-in-a-snap-collage-1400x600.webp?auto=yes" alt="Dinner in a Snap">
@@ -86,7 +86,7 @@
 						</form>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jun24-shipping-collage-957x657.webp" alt="Shipping Menu" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jul24-shipping-collage-957x657.webp" alt="Shipping Menu" class="img-fluid">
 					</div>
 
 				</div>
@@ -134,26 +134,26 @@
 				<div class="col-sm-12 text-center"><h2 class="mb-1 mt-4 font-weight-bold">Order In a Snap</h2></div>
 				<div class="row">
 					<div class="col-md-6 text-center p-5 my-2">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/noodle-bowl-and-drink-600x350.webp" alt="Woman enjoying a noodle bowl" class="img-fluid">
-						<h3 class="font-weight-bold my-2">Summer Favorites Box</h3>
-						<p class="mb-4">Get four top rated meals from our June menu, including Charred Honey Lime Chicken with Mexican Street Corn, Kentucky Pork Chops with Bacon Ranch Green Beans, Peach Bourbon Chicken with Oven Roasted Broccoli, and Penne with Chicken and Peanut Sauce.</p>
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/family-grilling-600x350.webp" alt="Family eating outside" class="img-fluid">
+						<h3 class="font-weight-bold my-2">Grill Box</h3>
+						<p class="mb-4">The perfect easy meal plan for summer including Sweet Cider BBQ Chicken with Oven Roasted Broccoli, Terracotta Chicken with Pita & Hummus, Campfire Grilled Pork Chops with Sweet Potato Fries, and Al Pastor Pork Street Tacos.</p>
 					</div>
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/new-baby-600x350.webp" alt="Couple with new baby and moving boxes" class="img-fluid">
 						<h3 class="font-weight-bold my-2">New Baby Gift Box</h3>
-						<p class="mb-4">Congratulate your friends and family on their new addition with easy, quick dinners including Charred Honey Lime Chicken with Mexican Street Corn, Penne with Chicken and Peanut Sauce, Creamy Tortellini with Bacon and Peas, and Maple Pork Tenderloin with Cheddar Cornbread Muffins.</p>
+						<p class="mb-4">Congratulate your friends and family on their new addition with easy, quick dinners including Chicken Paella, Chicken Yakitori with Jasmine Rice, Campfire Grilled Pork Chops with Sweet Potato Fries, and Sweet Cider BBQ Chicken with Oven Roasted Broccoli.</p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/family-camping-600x350.webp" alt="Family camping" class="img-fluid">
 						<h3 class="font-weight-bold my-2">Vacation Ready Box</h3>
-						<p class="mb-4">Let us take care of your vacation meal planning with delicious, simple dinners including Kentucky Pork Chops with Bacon Ranch Green Beans, Charred Honey Lime Chicken with Mexican Street Corn, Penne with Chicken and Peanut Sauce, Pulled Pork BBQ Sandwiches with Seasoned Onion Rings. Plus, get a sweet morning treat with six of our Breakfast Scones.</p>
+						<p class="mb-4">Let us take care of your vacation meal planning with delicious, simple dinners including Terracotta Chicken with Pita & Hummus, Summer Grilled BBQ Chicken Pizza, Campfire Grilled Pork Chops with Sweet Potato Fries, and Steak & Chicken Fajitas. Plus, get a sweet morning treat with six of our Breakfast Scones.</p>
 					</div>
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/woman-broken-leg-600x350.webp" alt="Woman with broken leg on couch" class="img-fluid">
 						<h3 class="font-weight-bold my-2">Get Well Box</h3>
-						<p class="mb-4">Send your love when your friends and family aren’t feeling their best with easy, wholesome dinners including Chicken Soft Tacos with Key Lime Corn, Penne with Chicken and Peanut Sauce, Creamy Tortellini with Bacon and Peas, and Maple Pork Tenderloin with Cheddar Cornbread Muffins. Plus, six of our delicious Hope’s Cookies to help put a smile on their face.</p>
+						<p class="mb-4">Send your love when your friends and family aren’t feeling their best with easy, wholesome dinners including Sweet Cider BBQ Chicken with Oven Roasted Broccoli, Terracotta Chicken with Pita & Hummus, Chicken Yakitori with Jasmine Rice, and Steak & Chicken Fajitas. Plus, six of our delicious Hope’s Cookies to help put a smile on their face.</p>
 					</div>
 				</div>
 			</div>

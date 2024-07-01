@@ -885,6 +885,12 @@ class page_admin_store_details extends CPageAdminOnly
 			$Form->AddElement(array(
 				CForm::type => CForm::CheckBox,
 				CForm::disabled => $disabledForm,
+				CForm::name => 'show_print_menu_pre_assembled_label'
+			));
+
+			$Form->AddElement(array(
+				CForm::type => CForm::CheckBox,
+				CForm::disabled => $disabledForm,
 				CForm::name => 'dream_taste_opt_out'
 			));
 

@@ -822,6 +822,25 @@ class CMenuItem extends DAO_Menu_item
 		}
 	}
 
+
+
+	function menuLabel($DAO_store = false)
+	{
+		if (!empty($this->menu_label))
+		{
+			return $this->menu_label;
+		}
+		else if ($DAO_store)
+		{
+			if ($DAO_store->isShowPrintMenuPreAssembledLabel() && $this->isMenuItem_Core_Preassembled())
+			{
+				return 'Pre-Assembled';
+			}
+		}
+
+		return false;
+	}
+
 	static function validateItemForOrder($item_id, $quantity, $store_id, $menu_id, $nav_type, $bundle_id = false, $actualSessionType = false, $numberServingsInCart = 0, $numberCoreServingsInCart = 0, $doBundle = false)
 	{
 		$bundleClause = "";
@@ -1908,10 +1927,57 @@ class CMenuItem extends DAO_Menu_item
 		return $available;
 	}
 
-	function allowsMealCustomization($storeObj)
+	function customizationAvailable($DAO_store)
+	{
+		if ($this->isBundle())
+		{
+			return false;
+		}
+
+		if ($this->isMenuItem_Core_Assemble())
+		{
+			if ($DAO_store->hasAvailableSessionType(array('ASSEMBLY')))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		return false;
+	}
+
+	function customization_Not_Available($DAO_store)
+	{
+		if ($this->isBundle())
+		{
+			return false;
+		}
+
+		if (!$DAO_store->hasAvailableSessionType(array('ASSEMBLY')) && !$DAO_store->supportsMealCustomization())
+		{
+			return false;
+		}
+
+		if ($this->isMenuItem_EFL())
+		{
+			return true;
+		}
+
+		if ($this->isMenuItem_Core_Preassembled() && !$DAO_store->isAllowedCustomization_PreAssembled())
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function allowsMealCustomization($DAO_store)
 	{
 
-		if (!empty($storeObj) && $storeObj->supports_meal_customization)
+		if (!empty($DAO_store) && $DAO_store->supportsMealCustomization())
 		{
 			if ($this->isMenuItem_Core())
 			{
@@ -1919,7 +1985,7 @@ class CMenuItem extends DAO_Menu_item
 				{
 					return true;
 				}
-				if ($this->isMenuItem_Core_Preassembled() && $storeObj->allow_preassembled_customization)
+				if ($this->isMenuItem_Core_Preassembled() && $DAO_store->isAllowedCustomization_PreAssembled())
 				{
 					return true;
 				}

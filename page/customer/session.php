@@ -358,6 +358,7 @@ class page_session extends CPage
 			$sessionsArray = CSession::getMonthlySessionInfoArray($DAO_store, $request_date, $DAO_session->menu_id, $tempArr, true, true, $DAO_session, false, false, true, true, $DAO_orders->hasOptedToCustomize());
 			$tpl->assign('menu_info', $menuInfo);
 			$tpl->assign('sessions', $sessionsArray);
+			$tpl->assign('DAO_store', $DAO_store);
 			$tpl->assign('isInReschedulingMode', $isInReschedulingMode);
 			$tpl->assign('current_session_id', $current_session_id);
 			$tpl->assign('current_order_id', $order_id);

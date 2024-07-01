@@ -2,11 +2,13 @@
 	<div class="col-12 col-lg-6">
 		<h3>Community Pick Up Event</h3>
 		<p>At this community pick up event, we will bring your Dream Dinners to you at your local pick up location. Order your perfectly prepped dinners from our menu below. We will assemble them for your family at our local assembly kitchen and you simply pick up your dinners at the community pick up location on <?php echo CTemplate::dateTimeFormat($this->session['session_start'], VERBOSE); ?>.</p>
-		<p>Note: A store fee may be added at checkout for this community event.</p>
 		<div class="row m-2 p-3 bg-gray">
 			<div class="col text-center">
 				<p class="font-weight-bold">Community Pick Up Location Details</p>
-				<p class="font-weight-bold"><?php echo CTemplate::dateTimeFormat($this->session['session_start'], VERBOSE); ?></p>
+				<p class="font-weight-bold">
+					<?php echo CTemplate::dateTimeFormat($this->session['session_start'], VERBOSE); ?>
+					to <?php echo CTemplate::dateTimeFormat($this->session['session_end'], TIME_ONLY); ?>
+				</p>
 				<p class="font-weight-bold mb-0"><?php echo $this->session['session_title']; ?></p>
 				<p class="font-weight-bold mb-0"><?php echo $this->session['session_remote_location']->address_line1; ?><?php echo (!empty($this->session['session_remote_location']->address_line2)) ? ' ' . $this->session['session_remote_location']->address_line2 : ''; ?> <?php echo $this->session['session_remote_location']->city; ?>, <?php echo $this->session['session_remote_location']->state_id; ?> <?php echo $this->session['session_remote_location']->postal_code; ?></p>
 			</div>

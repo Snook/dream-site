@@ -516,7 +516,11 @@
 			</tr>
 			<tr>
 				<td class="bgcolor_light" style="text-align: right;">Receive Low Item Inventory Alert:</td>
-				<td class="bgcolor_light"><?php echo $this->form_store_details['receive_low_inv_alert_html']; ?><div style="color: #cc4444;font-style:italic;"></div></td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['receive_low_inv_alert_html']; ?></td>
+			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Show "Pre-Assembled" label on print menu:</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['show_print_menu_pre_assembled_label_html']; ?></td>
 			</tr>
 		</table>
 

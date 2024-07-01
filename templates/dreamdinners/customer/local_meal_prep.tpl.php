@@ -23,7 +23,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col text-center">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dinner-reinvented-1400x400.webp" alt="Dinner Reinvented" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/meals-in-a-snap-1400x400.webp" alt="Meals In A Snap" class="img-fluid">
 					</div>
 				</div>
 			</div>
@@ -68,9 +68,9 @@
 										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chelsee-hood-458x344.webp" alt="Dream Dinners Home Delivery" class="img-fluid mb-3" />
 									</div>
 									<div class="card-body">
-										<h3 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">FREE DELIVERY</h3>
-										<p>Up to 15 miles from store location. Approx. $20 Value</p>
-										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-extra-large">DELIVERFREE</span></p>
+										<h3 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">$15 OFF First Order</h3>
+										<p>Choose from pick up, in-store assembly or home delivery. Options vary by participating location.</p>
+										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-extra-large">15FORU</span></p>
 										<!--<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>-->
 									</div>
 								</div>
@@ -128,27 +128,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/penne-chicekn-peanut-under30-teal-featured-menu-item-400x400.webp" alt="Penne with Chicken and Peanut Sauce" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/steak-fajitas-30min-featured-menu-item-400x400.webp" alt="Steak and Chicken Fajitas" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Penne with Chicken and Peanut Sauce</h5>
+									<h5 class="card-title">Steak and Chicken Fajitas</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/peach-bourbon-chicken-travel-teal-featured-menu-item-400x400.webp" alt="Peach Bourbon Chicken" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/charhouse-chicken-travel-firendly-featured-menu-item-400x400.webp" alt="Charhouse Chicken Sandwich" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Peach Bourbon Chicken with Oven Roasted Broccoli</h5>
+									<h5 class="card-title">Charhouse Chicken Sandwich</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/teriyaki-burgers-grill-teal-featured-menu-item-400x400.webp" alt="Teriyaki Burgers" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/al-pastor-tacos-grill-featured-menu-item-400x400.webp" alt="Al Pastor Pork Street Tacos" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Teriyaki Burgers with Pineapple Salsa & Seasoned Steak Fries</h5>
+									<h5 class="card-title">Al Pastor Pork Street Tacos</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-soft-taco-kid-pick-teal-featured-menu-item-400x400.webp" alt="Chicken Soft Tacos with Key Lime Corn" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pulled-pork-mac-kid-pick-featured-menu-item-400x400.webp" alt="Pulled Pork Mac N Cheese Bowl" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Soft Tacos with Key Lime Corn</h5>
+									<h5 class="card-title">Pulled Pork Mac N Cheese Bowl</h5>
 								</div>
 							</div>
 						</div>
@@ -194,7 +194,7 @@
 					<div class="row my-5">
 						<div class="col-md-7 text-left">
 							<div>
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/1112-summer-mexican-chicken-power-bowl-458x344.webp" alt="Mexican Chicken Rice Bowl" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/1018-chicken-paella-458x344.webp" alt="Chicken Paella" class="img-fluid" />
 							</div>
 						</div>
 						<div class="col-md-5 text-center mt-4">
@@ -217,7 +217,7 @@
 				</div>
 				<div class="row mt-4">
 					<div class="col text-center">
-						<p class="font-italic">Offer valid for new customers or customers that have not placed a Dream Dinners order in more than 6 months. Offer cannot be combined with Dinner Dollars, other coupons or offers. No cash value. Offer can be redeemed once per guest and is not transferrable. Offer expires July 31, 2024. Valid only at participating locations. For local deliveries over 15 miles from the store location, an additional surcharge may be charged prior to your delivery. Reach out to your local store to learn more.</p>
+						<p class="font-italic">Offer valid for new customers or customers that have not placed a Dream Dinners order in more than 6 months. Offer cannot be combined with Dinner Dollars, other coupons or offers. No cash value. Offer can be redeemed once per guest and is not transferrable. Offer expires July 31, 2024. Valid only at participating locations. Reach out to your local store to learn more.</p>
 					</div>
 				</div>
 			</div>

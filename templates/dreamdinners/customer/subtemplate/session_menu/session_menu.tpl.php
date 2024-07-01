@@ -140,7 +140,7 @@
 	</div>
 
 	<div class="row mt-3">
-		<p class="text-center font-italic">Due to ongoing food shortages, we sometimes make substitutions to various ingredients. These substitutions can affect our nutritional information and may cause slight changes to what is listed for each recipe.</p>
+		<p class="text-center font-italic">Your local store may make substitutions to various ingredients based on availability. These substitutions can affect our nutritional information and may cause slight changes to what is listed for each recipe.</p>
 	</div>
 
 	<?php if ($this->order_type == COrders::STANDARD || $this->order_type == COrders::MADE_FOR_YOU || $this->order_type == COrders::INTRO) { ?>

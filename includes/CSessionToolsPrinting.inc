@@ -1285,7 +1285,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->SetXY($xPos, $yPos);
 		if ($showLabel)
 		{
-			$this->pdf->MultiCellTag(120, 4, (($menuItemArray && !empty($menuItemArray['entree']->menu_label)) ? '<t9lg>' . $menuItemArray['entree']->menu_label . '</t9lg> ' : '') . "<t8gr>" . $rating . " of 5</t8gr>", $this->showBorders, 'L');
+			$this->pdf->MultiCellTag(120, 4, (($menuItemArray && $menuItemArray['entree']->menuLabel($this->data->storeInfo)) ? '<t9lg>' . $menuItemArray['entree']->menuLabel($this->data->storeInfo) . '</t9lg> ' : '') . "<t8gr>" . $rating . " of 5</t8gr>", $this->showBorders, 'L');
 		}
 		else
 		{
@@ -1294,9 +1294,9 @@ class CSessionToolsPDFDrawer
 
 		$star_xPos = $xPos + 11.5;
 
-		if ($menuItemArray && !empty($menuItemArray['entree']->menu_label) && $showLabel)
+		if ($menuItemArray && $menuItemArray['entree']->menuLabel($this->data->storeInfo) && $showLabel)
 		{
-			$strlen_star = strlen($menuItemArray['entree']->menu_label) * 1.9;
+			$strlen_star = strlen($menuItemArray['entree']->menuLabel($this->data->storeInfo)) * 1.9;
 
 			$star_xPos = $star_xPos + $strlen_star;
 		}
@@ -1369,10 +1369,10 @@ class CSessionToolsPDFDrawer
 		}
 
 
-		if (!empty($menuItemArray['entree']->menu_label))
+		if ($menuItemArray['entree']->menuLabel($this->data->storeInfo))
 		{
 			$this->pdf->SetXY($cellLeftMargin, $RatingyPos + .25);
-			$this->pdf->MultiCellTag(76, 3, "<t9lg>" . $menuItemArray['entree']->menu_label . "</t9lg>", $this->showBorders, 'L');
+			$this->pdf->MultiCellTag(76, 3, "<t9lg>" . $menuItemArray['entree']->menuLabel($this->data->storeInfo) . "</t9lg>", $this->showBorders, 'L');
 		}
 
 
@@ -1792,7 +1792,7 @@ class CSessionToolsPDFDrawer
 
 		// Description
 		$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN + 10, $yPos + 3.65);
-		$this->pdf->MultiCellTag(146, 3, ((!empty($menuItemArray['entree']->menu_label)) ? '<h8b>' . $menuItemArray['entree']->menu_label . ':</h8b> ' : '') . "<h8>" . html_entity_decode($menuItemArray['entree']->menu_item_description, ENT_QUOTES, 'WINDOWS-1252') . "</h8><t8> (" . number_format($menuItemArray['entree']->nutrition_array['component'][1]['element']['Calories']['value']) . " cal)</t8>", $this->showBorders, 'L');
+		$this->pdf->MultiCellTag(146, 3, (($menuItemArray['entree']->menuLabel($this->data->storeInfo)) ? '<h8b>' . $menuItemArray['entree']->menuLabel($this->data->storeInfo) . ':</h8b> ' : '') . "<h8>" . html_entity_decode($menuItemArray['entree']->menu_item_description, ENT_QUOTES, 'WINDOWS-1252') . "</h8><t8> (" . number_format($menuItemArray['entree']->nutrition_array['component'][1]['element']['Calories']['value']) . " cal)</t8>", $this->showBorders, 'L');
 		//$this->pdf->MultiCellTag(146, 3, "<h8>" . html_entity_decode($menuItemArray['entree']->menu_item_description, ENT_QUOTES, 'WINDOWS-1252') . "</h8>", $this->showBorders, 'L');
 
 		// ICONS

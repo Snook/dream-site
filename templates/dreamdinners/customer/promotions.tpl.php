@@ -58,9 +58,9 @@
 										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chelsee-hood-458x344.webp" alt="Dream Dinners Home Delivery" class="img-fluid mb-3" />
 									</div>
 									<div class="card-body">
-										<h3 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">FREE DELIVERY</h3>
-										<p>Up to 15 miles from store location. Approx. $20 Value</p>
-										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-extra-large">DELIVERFREE</span></p>
+										<h3 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">$15 OFF First Order</h3>
+										<p>Choose from pick up, in-store assembly or home delivery. Options vary by participating location.</p>
+										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-extra-large">15FORU</span></p>
 										<!--<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>-->
 									</div>
 								</div>
@@ -69,7 +69,7 @@
 						<div class="row mt-4">
 					<div class="col text-center">
 					<a href="/locations" class="btn btn-lg btn-green mb-5">Get Started</a>
-						<p class="font-italic">Offer valid for new customers or customers that have not placed a Dream Dinners order in more than 6 months. Offer cannot be combined with Dinner Dollars, other coupons or offers. No cash value. Offer can be redeemed once per guest and is not transferrable. Offer expires July 31, 2024. Valid only at participating locations. For local deliveries over 15 miles from the store location, an additional surcharge may be charged prior to your delivery. Reach out to your local store to learn more.</p>
+						<p class="font-italic">Offer valid for new customers or customers that have not placed a Dream Dinners order in more than 6 months. Offer cannot be combined with Dinner Dollars, other coupons or offers. No cash value. Offer can be redeemed once per guest and is not transferrable. Offer expires July 31, 2024. Valid only at participating locations. Reach out to your local store to learn more.</p>
 					</div>
 				</div>
 					</div>
@@ -81,11 +81,11 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jun24-homepage-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/july24-homepage-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
 					</div>
 					<div class="col-md-6 text-left p-5 my-5">
-						<h2 class="font-weight-bold mt-2">Easy Breakfast Bundle</h2>
-						<p class="text-uppercase mb-4">Our Easy Breakfast Bundle lets you pick 3 delicious breakfast options like our Breakfast Frittata, French Toast Bake, and Breakfast Burritos in a variety of flavors to make your life a little easier this summer. Available at select locations, while supplies last. Not available for shipping.</p>
+						<h2 class="font-weight-bold mt-2">July Breakfast Bundle</h2>
+						<p class="text-uppercase mb-4">Our July Breakfast Bundle lets you pick 3 delicious breakfast options like our Breakfast Frittata, French Toast Bake, and Breakfast Sandwich in a variety of flavors to make your life a little easier this summer. Available at select locations, while supplies last. Not available for shipping.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 

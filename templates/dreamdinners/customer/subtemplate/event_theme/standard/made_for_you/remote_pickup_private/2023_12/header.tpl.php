@@ -18,7 +18,10 @@
 		<div class="row m-2 p-3 bg-gray">
 			<div class="col text-center">
 				<p class="font-weight-bold">Pick Up Location Details</p>
-				<p class="font-weight-bold"><?php echo CTemplate::dateTimeFormat($this->session['session_start'], VERBOSE); ?></p>
+				<p class="font-weight-bold">
+					<?php echo CTemplate::dateTimeFormat($this->session['session_start'], VERBOSE); ?>
+					to <?php echo CTemplate::dateTimeFormat($this->session['session_end'], TIME_ONLY); ?>
+				</p>
 				<p class="font-weight-bold">Hosted by <?php echo $this->session['session_host_informal_name']; ?><br>
 					<?php echo $this->session['session_remote_location']->address_line1; ?><?php echo (!empty($this->session['session_remote_location']->address_line2)) ? ' ' . $this->session['session_remote_location']->address_line2 : ''; ?> <?php echo $this->session['session_remote_location']->city; ?>, <?php echo $this->session['session_remote_location']->state_id; ?> <?php echo $this->session['session_remote_location']->postal_code; ?></p>
 			</div>
