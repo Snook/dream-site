@@ -3462,17 +3462,16 @@ class COrders extends DAO_Orders
 	 */
 	function refreshForEditing($menu_id = false)
 	{
-
 		//add markup
-		$Store = $this->getStore();
-		$markup = null;
+		$DAO_store = $this->getStore();
+		$DAO_mark_up_multi = null;
 		if ($this->family_savings_discount_version == 2)
 		{
 			if (!empty($this->mark_up_multi_id))
 			{
-				$markup = DAO_CFactory::create('mark_up_multi');
-				$markup->id = $this->mark_up_multi_id;
-				if (!$markup->find_includeDeleted(true))
+				$DAO_mark_up_multi = DAO_CFactory::create('mark_up_multi');
+				$DAO_mark_up_multi->id = $this->mark_up_multi_id;
+				if (!$DAO_mark_up_multi->find_includeDeleted(true))
 				{
 					throw new Exception('markup not found when setting up order editor for order:' . $this->originalOrder->id);
 				}
@@ -3482,18 +3481,22 @@ class COrders extends DAO_Orders
 		{
 			if (!empty($this->markup_id))
 			{
-				$markup = DAO_CFactory::create('mark_up');
-				$markup->id = $this->markup_id;
-				if (!$markup->find_includeDeleted(true))
+				$DAO_mark_up_multi = DAO_CFactory::create('mark_up');
+				$DAO_mark_up_multi->id = $this->markup_id;
+				if (!$DAO_mark_up_multi->find_includeDeleted(true))
 				{
 					throw new Exception('markup not found when setting up order editor for order:' . $this->originalOrder->id);
 				}
 			}
 		}
-		$this->addMarkup($markup);
+
+		$this->addMarkup($DAO_mark_up_multi);
 
 		//get tax
-		$this->addSalesTax($Store->getCurrentSalesTaxObj());
+		if (is_object($DAO_store))
+		{
+			$this->addSalesTax($DAO_store->getCurrentSalesTaxObj());
+		}
 
 		//get promo
 		if (isset($this->promo_code_id) && $this->promo_code_id != 0)
