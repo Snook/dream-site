@@ -5,7 +5,7 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 	$backNavigation = '?back='.urlencode($_SERVER['REQUEST_URI']);
 }
 ?>
-<?php if (new DateTime() >= new DateTime('2024-04-01') && new DateTime() < new DateTime('2024-06-30')) { ?>
+<?php if (new DateTime() >= new DateTime('2024-04-01') && new DateTime() < new DateTime('2024-07-31')) { ?>
 	<?php if (!CUser::isLoggedIn() || CUser::getCurrentUser()->isNewBundleCustomer()) { ?>
 		<div class="alert alert-cyan-dark text-white text-uppercase alert-dismissible fade collapse mb-0" role="alert" data-dismiss-session-alert="promotional-banner">
 			<div class="row">
