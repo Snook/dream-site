@@ -1961,14 +1961,17 @@ class CMenuItem extends DAO_Menu_item
 			return false;
 		}
 
-		if ($this->isMenuItem_EFL())
+		if ($DAO_store->supportsMealCustomization())
 		{
-			return true;
-		}
+			if ($this->isMenuItem_EFL())
+			{
+				return true;
+			}
 
-		if ($this->isMenuItem_Core_Preassembled() && !$DAO_store->isAllowedCustomization_PreAssembled())
-		{
-			return true;
+			if ($this->isMenuItem_Core_Preassembled() && !$DAO_store->isAllowedCustomization_PreAssembled())
+			{
+				return true;
+			}
 		}
 
 		return false;
