@@ -26,12 +26,12 @@
 <p>Your store needs to take the following actions to remove their contact information from 3rd party platforms, to ensure you do not contact them again:</p>
 <ul>
 	<li>Remove the guest from SMS/MMS Texting applications</li>
-	<li>Unsubscribe the guest from Vertical Response</li>
+	<li>Unsubscribe and make Inactive the guest from your email marketing platform.</li>
 	<li>Remove them from your store mailbox, employees mailbox, and your own accounts Outlook contacts if you have received or sent them emails from those accounts.</li>
 	<li>Remove them from any email lists stored on your devices – such as in Excel files.</li>
 	<li>Remove them from any phone contacts if you have them stored in a phone address book.</li>
 </ul>
-<p>Home office will make their account inactive in BackOffice and Salesforce. Please reach out to support if you have any questions or concerns.</p>
+<p>Home office will make their account inactive in BackOffice. Please reach out to support if you have any questions or concerns.</p>
 </td>
 </tr>
 </table>
