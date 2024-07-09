@@ -4810,49 +4810,24 @@ class COrders extends DAO_Orders
 			$this->total_bag_count = 0;
 		}
 
+		$this->total_customized_meal_count = self::getNumberOfCustomizableMealsFromItems($this, $DAO_store->allow_preassembled_customization);
+
 		if ($this->recalculateMealCustomizationFee)
 		{//Can pass in override so it should not be changed
 			if (!empty($DAO_store) && $DAO_store->supports_meal_customization)
 			{
-
 				if ($this->opted_to_customize_recipes == 1)
 				{
-					//Do they have any customizations configured
-					$customization = OrdersCustomization::getInstance($this);
-
-					if ($customization->hasMealCustomizationPreferencesSet())
-					{
-						$sessionObj = $this->getSessionObj();
-						if (empty($sessionObj))
-						{
-							$sessionObj = $this->findSession(true);
-						}
-						$sessionOpenForCustomization = (empty($sessionObj) ? false : $sessionObj->isOpenForCustomization($DAO_store));
-						if ($sessionOpenForCustomization || $this->allowRecalculateMealCustomizationFeeClosedSession())
-						{
-							$this->total_customized_meal_count = self::getNumberOfCustomizableMealsFromItems($this, $DAO_store->allow_preassembled_customization);
-						}
-						else
-						{
-							$this->total_customized_meal_count = 0;
-						}
-					}
-					else
-					{
-						$this->total_customized_meal_count = 0;
-					}
+					$this->subtotal_meal_customization_fee = $DAO_store->customizationFeeForMealCount($this->total_customized_meal_count);
 				}
 				else
 				{
-					$this->total_customized_meal_count = 0;
+					$this->subtotal_meal_customization_fee = 0;
 				}
-
-				$this->subtotal_meal_customization_fee = $DAO_store->customizationFeeForMealCount($this->total_customized_meal_count);
 			}
 			else
 			{
 				$this->subtotal_meal_customization_fee = 0;
-				$this->total_customized_meal_count = 0;
 			}
 		}
 
