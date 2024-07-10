@@ -2877,19 +2877,19 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 		{
 			$DAO_orders->setAllowRecalculateMealCustomizationFeeClosedSession(true);
 			$DAO_orders->opted_to_customize_recipes = 1;
-			$DAO_orders->total_customized_meal_count = 0;
 
 			if ($_POST['manual_customization_fee'] == 'true')
 			{
 				$DAO_orders->setShouldRecalculateMealCustomizationFee(false);
-			}
-			if (!empty($_POST['meal_customization_fee']))
-			{
-				$DAO_orders->subtotal_meal_customization_fee = $_POST["meal_customization_fee"];
-			}
-			else
-			{
-				$DAO_orders->subtotal_meal_customization_fee = 0.00;
+
+				if (!empty($_POST['meal_customization_fee']))
+				{
+					$DAO_orders->subtotal_meal_customization_fee = $_POST["meal_customization_fee"];
+				}
+				else
+				{
+					$DAO_orders->subtotal_meal_customization_fee = 0.00;
+				}
 			}
 		}
 
@@ -2959,7 +2959,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 		$this->addMenuItemsToOrder($DAO_orders, $orgPrices, $items, $isIntro, $introItems, $subItems, $ltdOrderedMealsArray);
 
 		$DAO_orders->insertEditedItems(false, false);
-		$DAO_orders->setShouldRecalculateMealCustomizationFee(false)->recalculate(true, false);
+		$DAO_orders->recalculate(true, false);
 
 		if (empty($DAO_orders->bundle_id))
 		{

@@ -960,7 +960,7 @@ class page_admin_reports_customer_menu_item_labels extends CPageAdminOnly
 					$order_info[$count]['lastname'] = $DAO_booking->DAO_user->lastname;
 					$order_info[$count]['meal_customization'] = '';
 					$customization = OrdersCustomization::initOrderCustomizationObj($DAO_booking->DAO_orders->order_customization);
-					if ($DAO_booking->DAO_orders->total_customized_meal_count && !is_null($customization) && ($DAO_menu_item->is_preassembled == false || ($DAO_menu_item->is_preassembled == true && $DAO_booking->DAO_store->allow_preassembled_customization)))
+					if ($DAO_booking->DAO_orders->hasOptedToCustomize() && !is_null($customization) && ($DAO_menu_item->is_preassembled == false || ($DAO_menu_item->is_preassembled == true && $DAO_booking->DAO_store->allow_preassembled_customization)))
 					{
 						$order_info[$count]['meal_customization'] = $customization->getMealCustomizationObj()->toString(',', true, '<br>', false);
 					}
