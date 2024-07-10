@@ -12,10 +12,10 @@ Guest Details:
 Your store needs to take the following actions to remove their contact information from 3rd party platforms, to ensure you do not contact them again:
 
  - Remove the guest from SMS/MMS Texting applications
- - Unsubscribe the guest from Vertical Response
+ - Unsubscribe and make Inactive the guest from your email marketing platform.
  - Remove them from your store mailbox, employees mailbox, and your own accounts Outlook contacts if you have received or sent them emails from those accounts.
  - Remove them from any email lists stored on your devices – such as in Excel files.
  - Remove them from any phone contacts if you have them stored in a phone address book.
  - Remove them or destroy any paper contact forms you have with their information.
 
-Home office will take care of their account in BackOffice and Salesforce. Please reach out to support if you have any questions or concerns.
+Home office will take care of their account in BackOffice. Please reach out to support if you have any questions or concerns.
