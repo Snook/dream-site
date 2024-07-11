@@ -1639,6 +1639,7 @@ class CMenu extends DAO_Menu
 		}
 		$DAO_menu->orderBy('menu.id DESC');
 		$DAO_menu->limit($x_number_of_menus);
+		$DAO_menu->find();
 
 		$menuArray = array();
 		while ($DAO_menu->fetch())
