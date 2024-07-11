@@ -89,7 +89,7 @@ class page_recipe_resources extends CPage
 		$activeMenus = CMenu::getLastXMenus(3, true);
 
 		// Because the query above sorts newest to oldest, we want to change the sort to oldest to newest
-		rsort($activeMenus);
+		$activeMenus = array_reverse($activeMenus);
 
 		$activeMenuArray = array();
 
