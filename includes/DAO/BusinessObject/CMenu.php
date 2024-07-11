@@ -1632,19 +1632,18 @@ class CMenu extends DAO_Menu
 
 	static function getLastXMenus($x_number_of_menus = 10, $active_only = false)
 	{
-		$active_only_query = "";
+		$DAO_menu = DAO_CFactory::create('menu', true);
 		if ($active_only)
 		{
-			$active_only_query = " AND is_active = '1' ";
+			$DAO_menu->active = 1;
 		}
-		$menu = DAO_CFactory::create('menu');
-		$menu->query("SELECT * FROM menu WHERE is_deleted = '0' " . $active_only_query . "
-			ORDER BY id DESC
-			LIMIT " . $x_number_of_menus);
+		$DAO_menu->orderBy('menu.id DESC');
+		$DAO_menu->limit($x_number_of_menus);
+
 		$menuArray = array();
-		while ($menu->fetch())
+		while ($DAO_menu->fetch())
 		{
-			$menuArray[$menu->id] = clone($menu);
+			$menuArray[$DAO_menu->id] = clone($DAO_menu);
 		}
 
 		return $menuArray;
