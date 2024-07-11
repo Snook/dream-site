@@ -86,10 +86,7 @@ class page_recipe_resources extends CPage
 			$tpl->assign('search_results', $search_results);
 		}
 
-		$activeMenus = CMenu::getLastXMenus(3, true);
-
-		// Because the query above sorts newest to oldest, we want to change the sort to oldest to newest
-		$activeMenus = array_reverse($activeMenus);
+		$activeMenus = CMenu::getLastXMenus(3, true, 'ASC');
 
 		$activeMenuArray = array();
 

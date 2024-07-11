@@ -1630,7 +1630,7 @@ class CMenu extends DAO_Menu
 		return $retVal;
 	}
 
-	static function getLastXMenus($x_number_of_menus = 10, $active_only = false)
+	static function getLastXMenus($x_number_of_menus = 10, $active_only = false, $sort = 'DESC')
 	{
 		$DAO_menu = DAO_CFactory::create('menu', true);
 		if ($active_only)
@@ -1645,6 +1645,12 @@ class CMenu extends DAO_Menu
 		while ($DAO_menu->fetch())
 		{
 			$menuArray[$DAO_menu->id] = clone($DAO_menu);
+		}
+
+		// Because the query above sorts newest to oldest, we want to change the sort to oldest to newest
+		if ($sort == 'ASC')
+		{
+			$menuArray = array_reverse($menuArray);
 		}
 
 		return $menuArray;
