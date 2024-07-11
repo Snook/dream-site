@@ -4810,7 +4810,10 @@ class COrders extends DAO_Orders
 			$this->total_bag_count = 0;
 		}
 
-		$this->total_customized_meal_count = self::getNumberOfCustomizableMealsFromItems($this, $DAO_store->allow_preassembled_customization);
+		if (!empty($DAO_store))
+		{
+			$this->total_customized_meal_count = self::getNumberOfCustomizableMealsFromItems($this, $DAO_store->allow_preassembled_customization);
+		}
 
 		if ($this->recalculateMealCustomizationFee)
 		{//Can pass in override so it should not be changed
