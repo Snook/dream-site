@@ -60,27 +60,6 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 
 			$corporateCrateClientArray = array();
 
-			/*
-			foreach (DAO_CFactory::create('coupon_code')->table() as $key => $value)
-			{
-				switch ($key)
-				{
-					case 'updated_by':
-					case 'created_by':
-					case 'is_deleted':
-					case 'timestamp_created':
-					case 'timestamp_updated':
-						break;
-					default:
-						if (!isset($_POST[$key]))
-						{
-							$DAO_coupon_code->$key = 'NULL';
-						}
-						break;
-				}
-			}
-			*/
-
 			foreach ($_POST as $key => $couponValue)
 			{
 				// clean up any extra spaces
