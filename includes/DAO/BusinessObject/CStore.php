@@ -987,7 +987,7 @@ class CStore extends DAO_Store
 
 	function storeIsClosing($DAO_menu)
 	{
-		$applicableStoreIds = array(37, 73, 76, 105, 103, 121);
+		$applicableStoreIds = array(37, 73, 76, 105, 103, 121, 286);
 
 		if(in_array($this->id, $applicableStoreIds))
 		{
