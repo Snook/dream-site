@@ -1000,7 +1000,11 @@ class CMenuItem extends DAO_Menu_item
 				$test_DAO_menu_to_menu_item->menu_id = $DAO_recipe->override_menu_id;
 				$test_DAO_menu_to_menu_item->store_id = 'NULL';
 				$test_DAO_menu_item = DAO_CFactory::create('menu_item', true);
+				$test_DAO_menu_item->recipe_id = $DAO_recipe->recipe_id;
 				$test_DAO_menu_to_menu_item->joinAddWhereAsOn($test_DAO_menu_item);
+				$test_DAO_menu_to_menu_item->groupBy("menu_item.entree_id");
+				$test_DAO_menu_to_menu_item->orderBy("menu_item.entree_id DESC");
+				$test_DAO_menu_to_menu_item->limit(1);
 				$test_DAO_menu_to_menu_item->find(true);
 
 				// get the source menu item to be duplicated
