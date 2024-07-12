@@ -56,28 +56,9 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 
 		if (!empty($_POST['submit']))
 		{
-			$coupon = DAO_CFactory::create('coupon_code');
+			$DAO_coupon_code = DAO_CFactory::create('coupon_code');
 
 			$corporateCrateClientArray = array();
-
-			foreach (DAO_CFactory::create('coupon_code')->table() as $key => $value)
-			{
-				switch ($key)
-				{
-					case 'updated_by':
-					case 'created_by':
-					case 'is_deleted':
-					case 'timestamp_created':
-					case 'timestamp_updated':
-						break;
-					default:
-						if (!isset($_POST[$key]))
-						{
-							$coupon->$key = 'NULL';
-						}
-						break;
-				}
-			}
 
 			foreach ($_POST as $key => $couponValue)
 			{
@@ -87,13 +68,13 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 				switch ($key)
 				{
 					case 'limit_coupon':
-						$coupon->$couponValue = 1;
+						$DAO_coupon_code->$couponValue = 1;
 						break;
 					case 'valid_timespan_start':
-						$coupon->$key = $couponValue . ' 00:00:00';
+						$DAO_coupon_code->$key = $couponValue . ' 00:00:00';
 						break;
 					case 'valid_timespan_end':
-						$coupon->$key = $couponValue . ' 23:59:59';
+						$DAO_coupon_code->$key = $couponValue . ' 23:59:59';
 						break;
 					case 'valid_corporate_crate_client_id':
 						$client_id = substr($key, 32, -1);
@@ -102,31 +83,31 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 					case 'multi_store_select':
 						if (!empty($_POST['is_store_specific']))
 						{
-							$coupon->is_store_specific_ids = explode(',', $couponValue);
+							$DAO_coupon_code->is_store_specific_ids = explode(',', $couponValue);
 						}
 						break;
 					case 'is_store_specific':
 						if (empty($_POST['multi_store_select']))
 						{
-							$coupon->$key = 0;
+							$DAO_coupon_code->$key = 0;
 						}
 						else
 						{
-							$coupon->$key = $couponValue;
+							$DAO_coupon_code->$key = $couponValue;
 						}
 						break;
 					case 'recipe_id_pricing_type':
 						if (empty($_POST['recipe_id']))
 						{
-							$coupon->recipe_id_pricing_type = 'NULL';
+							$DAO_coupon_code->recipe_id_pricing_type = 'NULL';
 						}
 						else
 						{
-							$coupon->$key = $couponValue;
+							$DAO_coupon_code->$key = $couponValue;
 						}
 						break;
 					default:
-						$coupon->$key = $couponValue;
+						$DAO_coupon_code->$key = $couponValue;
 						break;
 				}
 			}
@@ -135,16 +116,16 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 			{
 				if (in_array('ALL', $corporateCrateClientArray))
 				{
-					$coupon->valid_corporate_crate_client_id = 'ALL';
+					$DAO_coupon_code->valid_corporate_crate_client_id = 'ALL';
 				}
 				else
 				{
-					$coupon->valid_corporate_crate_client_id = implode(',', $corporateCrateClientArray);
+					$DAO_coupon_code->valid_corporate_crate_client_id = implode(',', $corporateCrateClientArray);
 				}
 			}
 			else
 			{
-				$coupon->valid_corporate_crate_client_id = null;
+				$DAO_coupon_code->valid_corporate_crate_client_id = null;
 			}
 
 			// do insert/update
@@ -153,39 +134,39 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 
 			if ($_POST['id'] == 'new_coupon')
 			{
-				$existingCheck = DAO_CFactory::create('coupon_code');
-				$existingCheck->coupon_code = $coupon->coupon_code;
-				$existingCheck->find();
+				$existing_DAO_coupon_code = DAO_CFactory::create('coupon_code');
+				$existing_DAO_coupon_code->coupon_code = $DAO_coupon_code->coupon_code;
+				$existing_DAO_coupon_code->find();
 
-				if (!empty($existingCheck->N))
+				if (!empty($existing_DAO_coupon_code->N))
 				{
-					$this->Template->SetErrorMsg('Coupon code ' . $existingCheck->coupon_code . ' already exists.');
+					$this->Template->SetErrorMsg('Coupon code ' . $existing_DAO_coupon_code->coupon_code . ' already exists.');
 				}
 				else
 				{
 					$couponUpsert = true;
-					$coupon->insert();
+					$DAO_coupon_code->insert();
 				}
 			}
 			else
 			{
-				$orgCoupon = CCouponCode::getCouponDetails($coupon->id);
+				$orgCoupon = CCouponCode::getCouponDetails($DAO_coupon_code->id);
 
 				$orgCouponStoreSpecificIds = $orgCoupon->is_store_specific_ids;
 
-				$existingCheck = DAO_CFactory::create('coupon_code');
-				$existingCheck->coupon_code = $coupon->coupon_code;
-				$existingCheck->whereAdd("id != " . $coupon->id);
-				$existingCheck->find();
+				$existing_DAO_coupon_code = DAO_CFactory::create('coupon_code');
+				$existing_DAO_coupon_code->coupon_code = $DAO_coupon_code->coupon_code;
+				$existing_DAO_coupon_code->whereAdd("id != " . $DAO_coupon_code->id);
+				$existing_DAO_coupon_code->find();
 
-				if (!empty($existingCheck->N))
+				if (!empty($existing_DAO_coupon_code->N))
 				{
-					$this->Template->SetErrorMsg('Coupon code ' . $existingCheck->coupon_code . ' already exists.');
+					$this->Template->SetErrorMsg('Coupon code ' . $existing_DAO_coupon_code->coupon_code . ' already exists.');
 				}
 				else
 				{
 					$couponUpsert = true;
-					$coupon->update($orgCoupon);
+					$DAO_coupon_code->update($orgCoupon);
 				}
 			}
 
@@ -193,10 +174,10 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 			if ($couponUpsert)
 			{
 				// not is_store_specific, delete any that exist
-				if (empty($coupon->is_store_specific))
+				if (empty($DAO_coupon_code->is_store_specific))
 				{
 					$couponStore = DAO_CFactory::create('coupon_to_store');
-					$couponStore->coupon_code_id = $coupon->id;
+					$couponStore->coupon_code_id = $DAO_coupon_code->id;
 					$couponStore->find();
 
 					while ($couponStore->fetch())
@@ -207,28 +188,28 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 				else
 				{
 					// add new IDs
-					$newStoreIDs = array_diff($coupon->is_store_specific_ids, $orgCouponStoreSpecificIds);
+					$newStoreIDs = array_diff($DAO_coupon_code->is_store_specific_ids, $orgCouponStoreSpecificIds);
 
 					if (!empty($newStoreIDs))
 					{
 						foreach ($newStoreIDs as $store_id)
 						{
 							$couponToStore = DAO_CFactory::create('coupon_to_store');
-							$couponToStore->coupon_code_id = $coupon->id;
+							$couponToStore->coupon_code_id = $DAO_coupon_code->id;
 							$couponToStore->store_id = $store_id;
 							$couponToStore->insert();
 						}
 					}
 
 					// remove old IDs
-					$oldStoreIDs = array_diff($orgCouponStoreSpecificIds, $coupon->is_store_specific_ids);
+					$oldStoreIDs = array_diff($orgCouponStoreSpecificIds, $DAO_coupon_code->is_store_specific_ids);
 
 					if (!empty($oldStoreIDs))
 					{
 						foreach ($oldStoreIDs as $store_id)
 						{
 							$couponToStore = DAO_CFactory::create('coupon_to_store');
-							$couponToStore->coupon_code_id = $coupon->id;
+							$couponToStore->coupon_code_id = $DAO_coupon_code->id;
 							$couponToStore->store_id = $store_id;
 							$couponToStore->find();
 
@@ -249,10 +230,10 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 
 		if ($editCoupon)
 		{
-			$coupon = CCouponCode::getCouponDetails($editCoupon);
+			$DAO_coupon_code = CCouponCode::getCouponDetails($editCoupon);
 
 			$orders = DAO_CFactory::create('orders');
-			$orders->coupon_code_id = $coupon->id;
+			$orders->coupon_code_id = $DAO_coupon_code->id;
 
 			$booking = DAO_CFactory::create('booking');
 			$booking->joinAddWhereAsOn($orders);
@@ -273,9 +254,9 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 					case 'valid_timespan_start':
 					case 'valid_timespan_end':
 					case 'remiss_cutoff_date':
-						if (!empty($coupon->{$key}))
+						if (!empty($DAO_coupon_code->{$key}))
 						{
-							$this->CouponForm->DefaultValues[$key] = CTemplate::formatDateTime('Y-m-d', $coupon->{$key}); // remove seconds to reduce form complexity
+							$this->CouponForm->DefaultValues[$key] = CTemplate::formatDateTime('Y-m-d', $DAO_coupon_code->{$key}); // remove seconds to reduce form complexity
 						}
 						break;
 					case 'limit_to_grand_total':
@@ -285,20 +266,20 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 					case 'limit_to_mfy_fee':
 					case 'limit_to_recipe_id':
 					case 'limit_to_delivery_fee':
-						if (!empty($coupon->{$key}))
+						if (!empty($DAO_coupon_code->{$key}))
 						{
 							$this->CouponForm->DefaultValues['limit_coupon'] = $key;
 						}
 						break;
 					default:
-						$this->CouponForm->DefaultValues[$key] = $coupon->{$key};
+						$this->CouponForm->DefaultValues[$key] = $DAO_coupon_code->{$key};
 						break;
 				}
 			}
 
-			if (!empty($coupon->is_store_specific))
+			if (!empty($DAO_coupon_code->is_store_specific))
 			{
-				$this->CouponForm->DefaultValues['multi_store_select'] = implode(',', $coupon->is_store_specific_ids);
+				$this->CouponForm->DefaultValues['multi_store_select'] = implode(',', $DAO_coupon_code->is_store_specific_ids);
 			}
 
 			$this->Template->assign('couponOrders', $couponOrders);
@@ -326,15 +307,15 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 		{
 			$couponArray = CCouponCode::getCouponDetailsArray();
 
-			foreach ($couponArray as $coupon)
+			foreach ($couponArray as $DAO_coupon_code)
 			{
-				if ($coupon->valid_timespan_end <= CTemplate::unix_to_mysql_timestamp(time()))
+				if ($DAO_coupon_code->valid_timespan_end <= CTemplate::unix_to_mysql_timestamp(time()))
 				{
-					$couponArray['expired'][$coupon->id] = clone($coupon);
+					$couponArray['expired'][$DAO_coupon_code->id] = clone($DAO_coupon_code);
 				}
 				else
 				{
-					$couponArray['current'][$coupon->id] = clone($coupon);
+					$couponArray['current'][$DAO_coupon_code->id] = clone($DAO_coupon_code);
 				}
 			}
 
@@ -699,7 +680,7 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 		$this->CouponForm->addElement(array(
 			CForm::type => CForm::ButtonHidden,
 			CForm::name => 'recipe_id',
-			CForm::text => ((!empty($coupon->recipe_id)) ? $coupon->recipe->recipe_name . ' (' . CMenuItem::translatePricingType($coupon->recipe_id_pricing_type, true) . ')' : '<i class="fas fa-search font-size-medium-small"></i>'),
+			CForm::text => ((!empty($DAO_coupon_code->recipe_id)) ? $DAO_coupon_code->recipe->recipe_name . ' (' . CMenuItem::translatePricingType($DAO_coupon_code->recipe_id_pricing_type, true) . ')' : '<i class="fas fa-search font-size-medium-small"></i>'),
 			CForm::disabled => empty($limit_to_recipe_id),
 			CForm::readonly => $couponOrders['hasOrders'],
 			CForm::css_class => 'btn btn-primary ' . ($couponOrders['hasOrders'] ? 'disabled' : '')

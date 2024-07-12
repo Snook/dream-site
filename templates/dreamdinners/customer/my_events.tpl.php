@@ -55,7 +55,7 @@
 						<div class="card-body bg-orange text-white text-center py-4">
 							<p class="card-text mb-0">Host a Dream Dinners</p>
 							<h5 class="card-title">Fundraiser</h5>
-							<p class="font-size-small">Raise money for your organization! Attendees will receive meals for their family to enjoy and your organization will receive a $10 donation for each order placed.</p>
+							<p class="font-size-small">Raise money for your organization! Our pick up and in-store fundraisers make it easy for families to support your cause and take home dinner. </p>
 							<p class="font-size-small">Contact your store to schedule your fundraiser event.</p>
 						</div>
 					</div>

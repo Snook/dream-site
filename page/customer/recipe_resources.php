@@ -86,15 +86,13 @@ class page_recipe_resources extends CPage
 			$tpl->assign('search_results', $search_results);
 		}
 
-		$activeMenus = CMenu::getLastXMenus(3, true);
-
-		asort($activeMenus);
+		$activeMenus = CMenu::getLastXMenus(3, true, 'ASC');
 
 		$activeMenuArray = array();
 
-		foreach ($activeMenus as $activeMenuId => $activeMenu)
+		foreach ($activeMenus as $DAO_menu)
 		{
-			$activeMenuArray[$activeMenu->id] = CMenu::buildPreviewMenuArray(null, $activeMenuId, 'NameAZ');
+			$activeMenuArray[$DAO_menu->id] = CMenu::buildPreviewMenuArray(null, $DAO_menu->id, 'NameAZ');
 		}
 
 		$tpl->assign('activeMenus', $activeMenuArray);
