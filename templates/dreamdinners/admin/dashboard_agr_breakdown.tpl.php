@@ -30,7 +30,6 @@
 		<td class="value_delimited" style="text-align:center; width:20%;">$<?php echo CTemplate::number_format($this->curMonthAGRMetrics['avg_ticket_all'], 2);?></td>
 		<td class="value_delimited" style="text-align:center; width:20%;">$<?php echo CTemplate::number_format($this->curMonthAGRMetrics['addon_sales_total'], 2);?>
 			 &nbsp;(<?php echo CTemplate::divide_and_format((float)$this->curMonthAGRMetrics['addon_sales_total'] * 100, $this->curMonthAGRMetrics['total_agr'], 2);?>%)</td>
-		</td>
 		<td class="value_delimited" style="text-align:center; width:20%;">$<?php echo CTemplate::divide_and_format($this->curMonthAGRMetrics['addon_sales_total'], $this->curMonthGuestMetrics['total_to_date_orders'], 2);?></td>
   </tr>
 
