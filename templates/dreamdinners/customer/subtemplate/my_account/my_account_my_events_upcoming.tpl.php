@@ -11,7 +11,7 @@
 					<div>Invite Friends</div>
 				</a>
 			</div>
-			<?php if (false && $event['session_type'] != CSession::STANDARD && $event['session_type'] != CSession::MADE_FOR_YOU) { ?>
+			<?php if ($event['session_type'] == CSession::DREAM_TASTE) { ?>
 			<div class="col-12 col-md-4 mt-2 mt-xl-0">
 				<a class="btn btn-primary btn-block" target="_blank" href="/print?<?php echo strtolower($event['session_type_true']); ?>_event_pdf=<?php echo $event['id']; ?>">
 					<i class="dd-icon icon-print font-size-extra-large"></i>

@@ -1874,7 +1874,7 @@ class COrders extends DAO_Orders
 		{
 			foreach ($this->products as $id => $thisProduct)
 			{
-				if ($id == TODD_FREE_ATTENDANCE_PRODUCT_ID)
+				if ($id == COrders::TODD_FREE_ATTENDANCE_PRODUCT_ID)
 				{
 					unset($this->products[$id]);
 				}
@@ -6809,7 +6809,7 @@ class COrders extends DAO_Orders
 						{
 							//subtract from inventory
 							$invItem = DAO_CFactory::create('menu_item_inventory');
-							$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold +  " . " $servingQty where mii.recipe_id = {$DAO_menu_item->recipe_id}
+							$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold +  $servingQty where mii.recipe_id = {$DAO_menu_item->recipe_id}
 								    and mii.store_id = {$this->store_id} and mii.menu_id = $menu_id and mii.is_deleted = 0");
 						}
 					}
@@ -12192,7 +12192,7 @@ class COrders extends DAO_Orders
 
 							if (is_numeric($id) && $item['qty'] && isset($item['bundle_id']) && $item['bundle_id'] > 0)
 							{
-								$item['qty'] = $item['qty'] - 1;
+								$item['qty'] = (int)$item['qty'] - 1;
 								$BundleItems[$id] = $menuInfo[$categoryName][$id];
 
 								if ($item['qty'] == 0)
@@ -12281,7 +12281,7 @@ class COrders extends DAO_Orders
 			if ($totalCTSCost > 0 && !empty($Order->subtotal_food_sales_taxes))
 			{
 				$pretax = $Order->grand_total - $Order->subtotal_food_sales_taxes;
-				$CTSPotionOfPretax = $totalCTSCost / $pretax;
+				$CTSPotionOfPretax = $totalCTSCost / ($pretax ?: 1);
 				$CTSPotionOfTax = $Order->subtotal_food_sales_taxes * $CTSPotionOfPretax;
 
 				$totalCTSCost += $CTSPotionOfTax;

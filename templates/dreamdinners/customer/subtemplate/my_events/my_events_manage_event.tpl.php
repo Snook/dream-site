@@ -12,7 +12,7 @@
 	</div>
 	<div class="col-12 col-md-6">
 		<div class="row justify-content-end">
-			<?php if ($this->usersFuturePastEvents['manageEvent']['session_type'] != CSession::STANDARD) { ?>
+			<?php if ($this->usersFuturePastEvents['manageEvent']['session_type'] == CSession::DREAM_TASTE) { ?>
 				<div class="col-12 col-md-4 offset-md-4 mt-2 mt-md-0">
 					<a class="btn btn-primary btn-block py-4" target="_blank" href="/print?<?php echo strtolower($this->usersFuturePastEvents['manageEvent']['session_type_true']); ?>_event_pdf=<?php echo $this->usersFuturePastEvents['manageEvent']['id']; ?>">
 						<i class="dd-icon icon-print font-size-extra-large"></i>
