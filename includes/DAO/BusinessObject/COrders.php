@@ -3112,9 +3112,9 @@ class COrders extends DAO_Orders
 	/**
 	 * Add a menu item to an order
 	 */
-	function addMenuItem($menu_item_obj, $quantity, $isPromoItem = false, $isCouponFreeMeal = false, $isDiscountedRecipe = false)
+	function addMenuItem($DAO_menu_item, $quantity, $isPromoItem = false, $isCouponFreeMeal = false, $isDiscountedRecipe = false)
 	{
-		if (!$menu_item_obj->id)
+		if (!$DAO_menu_item->id)
 		{
 			return;
 		}
@@ -3131,52 +3131,52 @@ class COrders extends DAO_Orders
 
 		if ($isPromoItem)
 		{
-			$menu_item_obj->isPromo = true;
+			$DAO_menu_item->isPromo = true;
 		}
 
 		if ($isCouponFreeMeal)
 		{
-			$menu_item_obj->isFreeMeal = true;
+			$DAO_menu_item->isFreeMeal = true;
 		}
 
 		//keep em sorted
-		if (array_key_exists($menu_item_obj->id, $this->items))
+		if (array_key_exists($DAO_menu_item->id, $this->items))
 		{
-			$currentQty = $this->items[$menu_item_obj->id][0];
+			$currentQty = $this->items[$DAO_menu_item->id][0];
 
-			$isCurrentlyPromo = isset($this->items[$menu_item_obj->id][1]->isPromo) && $this->items[$menu_item_obj->id][1]->isPromo;
-			$isCurrentlyCouponFreeMeal = isset($this->items[$menu_item_obj->id][1]->isFreeMeal) && $this->items[$menu_item_obj->id][1]->isFreeMeal;
+			$isCurrentlyPromo = isset($this->items[$DAO_menu_item->id][1]->isPromo) && $this->items[$DAO_menu_item->id][1]->isPromo;
+			$isCurrentlyCouponFreeMeal = isset($this->items[$DAO_menu_item->id][1]->isFreeMeal) && $this->items[$DAO_menu_item->id][1]->isFreeMeal;
 
-			if (!empty($this->items[$menu_item_obj->id][1]->parentItemId))
+			if (!empty($this->items[$DAO_menu_item->id][1]->parentItemId))
 			{
-				$menu_item_obj->parentItemId = $this->items[$menu_item_obj->id][1]->parentItemId;
+				$DAO_menu_item->parentItemId = $this->items[$DAO_menu_item->id][1]->parentItemId;
 			}
 
-			if (!empty($this->items[$menu_item_obj->id][1]->bundleItemCount))
+			if (!empty($this->items[$DAO_menu_item->id][1]->bundleItemCount))
 			{
-				$menu_item_obj->bundleItemCount = $this->items[$menu_item_obj->id][1]->bundleItemCount;
+				$DAO_menu_item->bundleItemCount = $this->items[$DAO_menu_item->id][1]->bundleItemCount;
 			}
 
-			$this->items[$menu_item_obj->id] = array(
+			$this->items[$DAO_menu_item->id] = array(
 				$quantity + $currentQty,
-				$menu_item_obj
+				clone $DAO_menu_item
 			);
 
 			if ($isCurrentlyPromo)
 			{
-				$this->items[$menu_item_obj->id][1]->isPromo = true;
+				$this->items[$DAO_menu_item->id][1]->isPromo = true;
 			}
 
 			if ($isCurrentlyCouponFreeMeal)
 			{
-				$this->items[$menu_item_obj->id][1]->isFreeMeal = true;
+				$this->items[$DAO_menu_item->id][1]->isFreeMeal = true;
 			}
 		}
 		else
 		{
-			$this->items[$menu_item_obj->id] = array(
+			$this->items[$DAO_menu_item->id] = array(
 				$quantity,
-				$menu_item_obj
+				clone $DAO_menu_item
 			);
 		}
 	}
