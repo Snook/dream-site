@@ -10458,94 +10458,72 @@ class COrders extends DAO_Orders
 			$store_id = $this->DAO_store->parent_store_id;
 		}
 
-		$OrderItem = DAO_CFactory::create('order_item', true);
-		$OrderItem->query("select
-				mmi.menu_id,
-				mmi.override_price,
-				mimd.markdown_value,
-				mimd.id as markdown_id,
-				oi.*
-				from order_item oi
-				left join menu_to_menu_item mmi on mmi.menu_item_id = oi.menu_item_id and mmi.store_id = {$store_id} and mmi.is_deleted = 0
-				left join menu_item_mark_down mimd on mimd.id = oi.menu_item_mark_down_id
-				where oi.order_id = {$this->id}
-				and oi.is_deleted = 0");
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->id = $this->getMenuId();
+		$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
+			'join_order_item_order_id' => array($this->id),
+			'join_order_item_order' => 'INNER',
+			'menu_to_menu_item_store_id' => $store_id,
+			'exclude_menu_item_category_core' => false,
+			'exclude_menu_item_category_efl' => false,
+			'exclude_menu_item_category_sides_sweets' => false
+		));
 
-		while ($OrderItem->fetch())
+		while ($DAO_menu_item->fetch())
 		{
-			$DAO_menu = DAO_CFactory::create('menu', true);
-			$DAO_menu->id = $OrderItem->menu_id;
-			$MenuItem = $DAO_menu->findMenuItemDAO(array(
-				'menu_item_id_list' => $OrderItem->menu_item_id,
-				'join_order_item_order_id' => array($this->id),
-				'join_order_item_order' => 'INNER',
-				'menu_to_menu_item_store_id' => $store_id,
-				'exclude_menu_item_category_core' => false,
-				'exclude_menu_item_category_efl' => false,
-				'exclude_menu_item_category_sides_sweets' => false
-			));
-
-			if (!$MenuItem->fetch())
+			if (!empty($DAO_menu_item->DAO_order_item->parent_menu_item_id))
 			{
-				throw new Exception("Menu item not found: " . $OrderItem->menu_item_id);
+				$DAO_menu_item->parentItemId = $DAO_menu_item->DAO_order_item->parent_menu_item_id;
+				$DAO_menu_item->bundleItemCount = $DAO_menu_item->DAO_order_item->bundle_item_count;
+			}
+
+			if (!empty($DAO_menu_item->DAO_order_item->bundle_id))
+			{
+				$DAO_menu_item->bundle_id = $DAO_menu_item->DAO_order_item->bundle_id;
+			}
+
+			if (!empty($DAO_menu_item->DAO_menu_item_mark_down->id))
+			{
+				$DAO_menu_item->markdown_id = $DAO_menu_item->DAO_menu_item_mark_down->id;
+				$DAO_menu_item->markdown_value = $DAO_menu_item->DAO_menu_item_mark_down->markdown_value;
+
+				$DAO_menu_item->override_price = $DAO_menu_item->DAO_order_item->sub_total / $DAO_menu_item->DAO_order_item->item_count;
+
+				// if not marked down just set the override price to current override price (see below) The price will later be forced to the price in effect at the time
+				// of the original order
+				// However if a mark down is present we restore the original prices as the value is calculated on the fly in a few places.
+				$DAO_menu_item->order_item_ltd_menu_item = false;
+			}
+			else if (!empty($DAO_menu_item->DAO_order_item->discounted_subtotal))
+			{
+				// must be the LTD meal donation if not mark down
+				// using round to get to an even dollar amount if the precision has drifted
+				$DAO_menu_item->ltd_menu_item_value = round($DAO_menu_item->DAO_order_item->discounted_subtotal - $DAO_menu_item->DAO_order_item->sub_total) / $DAO_menu_item->DAO_order_item->item_count;
+				$DAO_menu_item->override_price = $DAO_menu_item->DAO_order_item->discounted_subtotal / $DAO_menu_item->DAO_order_item->item_count;
+				$DAO_menu_item->order_item_ltd_menu_item = true;
 			}
 			else
 			{
+				$DAO_menu_item->markdown_id = false;
+				$DAO_menu_item->markdown_value = 0;
 
-				if (!empty($OrderItem->parent_menu_item_id))
+				if ($useOriginalPricing)
 				{
-					$MenuItem->parentItemId = $OrderItem->parent_menu_item_id;
-					$MenuItem->bundleItemCount = $OrderItem->bundle_item_count;
-				}
+					$DAO_menu_item->override_price = $DAO_menu_item->DAO_order_item->sub_total / $DAO_menu_item->DAO_order_item->item_count;
 
-				if (!empty($OrderItem->bundle_id))
-				{
-					$MenuItem->bundle_id = $OrderItem->bundle_id;
-				}
-
-				if (!empty($OrderItem->markdown_id))
-				{
-					$MenuItem->markdown_id = $OrderItem->markdown_id;
-					$MenuItem->markdown_value = $OrderItem->markdown_value;
-
-					$MenuItem->override_price = $OrderItem->sub_total / $OrderItem->item_count;
-
-					// if not marked down just set the override price to current override price (see below) The price will later be forced to the price in effect at the time
-					// of the original order
-					// However if a mark down is present we restore the original prices as the value is calculated on the fly in a few places.
-					$MenuItem->order_item_ltd_menu_item = false;
-				}
-				else if (!empty($OrderItem->discounted_subtotal))
-				{
-					// must be the LTD meal donation if not mark down
-					// using round to get to an even dollar amount if the precision has drifted
-					$MenuItem->ltd_menu_item_value = round($OrderItem->discounted_subtotal - $OrderItem->sub_total) / $OrderItem->item_count;
-					$MenuItem->override_price = $OrderItem->discounted_subtotal / $OrderItem->item_count;
-					$MenuItem->order_item_ltd_menu_item = true;
+					// Refresh store_price if using original price
+					$DAO_menu_item->getStorePrice();
 				}
 				else
 				{
-					$MenuItem->markdown_id = false;
-					$MenuItem->markdown_value = 0;
-
-					if ($useOriginalPricing)
-					{
-						$MenuItem->override_price = $OrderItem->sub_total / $OrderItem->item_count;
-
-						// Refresh store_price if using original price
-						$MenuItem->getStorePrice();
-					}
-					else
-					{
-						$MenuItem->override_price = $OrderItem->override_price;
-					}
-
-					$MenuItem->order_item_ltd_menu_item = false;
+					$DAO_menu_item->override_price = $DAO_menu_item->DAO_menu_to_menu_item->override_price;
 				}
 
-				$this->addMenuItem($MenuItem, $OrderItem->item_count);
-				$totalItemQty += $OrderItem->item_count;
+				$DAO_menu_item->order_item_ltd_menu_item = false;
 			}
+
+			$this->addMenuItem($DAO_menu_item, $DAO_menu_item->DAO_order_item->item_count);
+			$totalItemQty += $DAO_menu_item->DAO_order_item->item_count;
 		}
 
 		return $totalItemQty;
