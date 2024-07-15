@@ -635,7 +635,7 @@ class CBox extends DAO_Box
 
 	static private function hasInventoryForCustomBox($inArray, $servingsReqd, $itemsReqd)
 	{
-		$servingsPerItem = $servingsReqd / $itemsReqd;
+		$servingsPerItem = $servingsReqd / ($itemsReqd ?: 1);
 		$servingsAvailable = 0;
 
 		foreach ($inArray as $id => $remainingServings)
