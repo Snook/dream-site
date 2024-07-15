@@ -189,31 +189,37 @@ class InputFilter
 				$tagLeft = substr($fromSpace, strlen($attr));
 				$currentSpace = strpos($tagLeft, ' ');
 			}
-			$tagFound = in_array(strtolower($tagName), $this->tagsArray);
-			if ((!$tagFound && $this->tagsMethod) || ($tagFound && !$this->tagsMethod))
+
+			if (is_array($this->tagsArray))
 			{
-				if (!$isCloseTag)
+				$tagFound = in_array(strtolower($tagName), $this->tagsArray);
+
+				if ((!$tagFound && $this->tagsMethod) || ($tagFound && !$this->tagsMethod))
 				{
-					$attrSet = $this->filterAttr($attrSet);
-					$preTag .= '<' . $tagName;
-					for ($i = 0; $i < count($attrSet); $i++)
+					if (!$isCloseTag)
 					{
-						$preTag .= ' ' . $attrSet[$i];
-					}
-					if (strpos($fromTagOpen, "</" . $tagName))
-					{
-						$preTag .= '>';
+						$attrSet = $this->filterAttr($attrSet);
+						$preTag .= '<' . $tagName;
+						for ($i = 0; $i < count($attrSet); $i++)
+						{
+							$preTag .= ' ' . $attrSet[$i];
+						}
+						if (strpos($fromTagOpen, "</" . $tagName))
+						{
+							$preTag .= '>';
+						}
+						else
+						{
+							$preTag .= ' />';
+						}
 					}
 					else
 					{
-						$preTag .= ' />';
+						$preTag .= '</' . $tagName . '>';
 					}
 				}
-				else
-				{
-					$preTag .= '</' . $tagName . '>';
-				}
 			}
+
 			$postTag = substr($postTag, ($tagLength + 2));
 			$tagOpen_start = strpos($postTag, '<');
 		}

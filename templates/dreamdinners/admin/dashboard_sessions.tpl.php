@@ -28,32 +28,32 @@
 		<td class="value_delimited" style="text-align:center;"><?php echo ($this->curMonthGuestMetrics['sessions_count_mfy'] );?></td>
 		<td class="value_delimited" style="text-align:center;"><?php echo ($this->curMonthGuestMetrics['orders_count_mfy']);?></td>
 		<td class="value_delimited" style="text-align:center;" ><?php echo CTemplate::divide_and_format(($this->curMonthGuestMetrics['orders_count_mfy'] ), ($this->curMonthGuestMetrics['sessions_count_mfy']), 2);?></td>
-		<td class="value_delimited" style="text-align:center;" >$<?php echo CTemplate::number_format(($this->curMonthAGRMetrics['agr_by_session_mfy'] -  $this->curMonthAGRMetrics['agr_by_session_mfy_community_pickup'] - $this->curMonthAGRMetrics['agr_by_session_mfy_walk_in'] - $this->curMonthAGRMetrics['agr_by_session_mfy_delivery']), 2);?>
-																&nbsp;(<?php echo CTemplate::divide_and_format(($this->curMonthAGRMetrics['agr_by_session_mfy'] -  $this->curMonthAGRMetrics['agr_by_session_mfy_community_pickup'] - $this->curMonthAGRMetrics['agr_by_session_mfy_walk_in'] - $this->curMonthAGRMetrics['agr_by_session_mfy_delivery']) * 100, $this->curMonthAGRMetrics['total_agr'], 2);?>%)</td>
+		<td class="value_delimited" style="text-align:center;" >$<?php echo CTemplate::number_format(((float)$this->curMonthAGRMetrics['agr_by_session_mfy'] -  (float)$this->curMonthAGRMetrics['agr_by_session_mfy_community_pickup'] - (float)$this->curMonthAGRMetrics['agr_by_session_mfy_walk_in'] - (float)$this->curMonthAGRMetrics['agr_by_session_mfy_delivery']), 2);?>
+																&nbsp;(<?php echo CTemplate::divide_and_format(((float)$this->curMonthAGRMetrics['agr_by_session_mfy'] -  (float)$this->curMonthAGRMetrics['agr_by_session_mfy_community_pickup'] - (float)$this->curMonthAGRMetrics['agr_by_session_mfy_walk_in'] - (float)$this->curMonthAGRMetrics['agr_by_session_mfy_delivery']) * 100, (float)$this->curMonthAGRMetrics['total_agr'], 2);?>%)</td>
 	</tr>
 	<tr>
 		<td class="label_delimited" style="text-align:right">Community Pick Up</td>
 		<td class="value_delimited" style="text-align:center;"><?php echo $this->curMonthGuestMetrics['sessions_count_mfy_community_pickup'];?></td>
 		<td class="value_delimited" style="text-align:center;"><?php echo $this->curMonthGuestMetrics['orders_count_mfy_community_pickup'];?></td>
 		<td class="value_delimited" style="text-align:center;" ><?php echo CTemplate::divide_and_format($this->curMonthGuestMetrics['orders_count_mfy_community_pickup'], $this->curMonthGuestMetrics['sessions_count_mfy_community_pickup'], 2);?></td>
-		<td class="value_delimited" style="text-align:center;" >$<?php echo CTemplate::number_format($this->curMonthAGRMetrics['agr_by_session_mfy_community_pickup'], 2);?>
-																&nbsp;(<?php echo CTemplate::divide_and_format($this->curMonthAGRMetrics['agr_by_session_mfy_community_pickup'] * 100, $this->curMonthAGRMetrics['total_agr'], 2);?>%)</td>
+		<td class="value_delimited" style="text-align:center;" >$<?php echo CTemplate::number_format((float)$this->curMonthAGRMetrics['agr_by_session_mfy_community_pickup'], 2);?>
+																&nbsp;(<?php echo CTemplate::divide_and_format((float)$this->curMonthAGRMetrics['agr_by_session_mfy_community_pickup'] * 100, (float)$this->curMonthAGRMetrics['total_agr'], 2);?>%)</td>
 	</tr>
 	<tr>
 		<td class="label_delimited" style="text-align:right">Walk-In</td>
 		<td class="value_delimited" style="text-align:center;"><?php echo $this->curMonthGuestMetrics['sessions_count_mfy_walk_in'];?></td>
 		<td class="value_delimited" style="text-align:center;"><?php echo $this->curMonthGuestMetrics['orders_count_mfy_walk_in'];?></td>
 		<td class="value_delimited" style="text-align:center;" ><?php echo CTemplate::divide_and_format($this->curMonthGuestMetrics['orders_count_mfy_walk_in'], $this->curMonthGuestMetrics['sessions_count_mfy_walk_in'], 2);?></td>
-		<td class="value_delimited" style="text-align:center;" >$<?php echo CTemplate::number_format($this->curMonthAGRMetrics['agr_by_session_mfy_walk_in'], 2);?>
-																&nbsp;(<?php echo CTemplate::divide_and_format($this->curMonthAGRMetrics['agr_by_session_mfy_walk_in'] * 100, $this->curMonthAGRMetrics['total_agr'], 2);?>%)</td>
+		<td class="value_delimited" style="text-align:center;" >$<?php echo CTemplate::number_format((float)$this->curMonthAGRMetrics['agr_by_session_mfy_walk_in'], 2);?>
+																&nbsp;(<?php echo CTemplate::divide_and_format((float)$this->curMonthAGRMetrics['agr_by_session_mfy_walk_in'] * 100, (float)$this->curMonthAGRMetrics['total_agr'], 2);?>%)</td>
 	</tr>
 	<tr>
 		<td class="label_delimited" style="text-align:right">Home Delivery</td>
 		<td class="value_delimited" style="text-align:center;"><?php echo $this->curMonthGuestMetrics['sessions_count_mfy_delivery'];?></td>
 		<td class="value_delimited" style="text-align:center;"><?php echo $this->curMonthGuestMetrics['orders_count_mfy_delivery'];?></td>
 		<td class="value_delimited" style="text-align:center;" ><?php echo CTemplate::divide_and_format($this->curMonthGuestMetrics['orders_count_mfy_delivery'], $this->curMonthGuestMetrics['sessions_count_mfy_delivery'], 2);?></td>
-		<td class="value_delimited" style="text-align:center;" >$<?php echo CTemplate::number_format($this->curMonthAGRMetrics['agr_by_session_mfy_delivery'], 2);?>
-																&nbsp;(<?php echo CTemplate::divide_and_format($this->curMonthAGRMetrics['agr_by_session_mfy_delivery'] * 100, $this->curMonthAGRMetrics['total_agr'], 2);?>%)</td>
+		<td class="value_delimited" style="text-align:center;" >$<?php echo CTemplate::number_format((float)$this->curMonthAGRMetrics['agr_by_session_mfy_delivery'], 2);?>
+																&nbsp;(<?php echo CTemplate::divide_and_format((float)$this->curMonthAGRMetrics['agr_by_session_mfy_delivery'] * 100, (float)$this->curMonthAGRMetrics['total_agr'], 2);?>%)</td>
 	</tr>
 	<tr>
 		<td class="label_delimited" style="text-align:right">Workshops</td>

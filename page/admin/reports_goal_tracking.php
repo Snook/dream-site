@@ -479,7 +479,7 @@ class page_admin_reports_goal_tracking extends CPageAdminOnly
 					if (!$Sessions->first_standard)
 					{
 						// no first standard session so check if this is it
-						if ($Sessions->booking_type == STANDARD && ($Sessions->session_type == CSession::STANDARD || $Sessions->session_type == CSession::SPECIAL_EVENT))
+						if ($Sessions->booking_type == CBooking::STANDARD && ($Sessions->session_type == CSession::STANDARD || $Sessions->session_type == CSession::SPECIAL_EVENT))
 						{
 							$Sessions->first_standard = $Sessions->session_id;
 						}

@@ -234,7 +234,18 @@ class CUserPreferred extends DAO_User_preferred
 			}
 
 			usort($itemSortedByCosts, function ($a, $b) {
-				return $a->override_price < $b->override_price;
+				if ($a->override_price < $b->override_price)
+				{
+					return -1; // Less than
+				}
+				else if ($a->override_price > $b->override_price)
+				{
+					return 1;  // Greater than
+				}
+				else
+				{
+					return 0;  // Equal
+				}
 			});
 
 			$markup = null;

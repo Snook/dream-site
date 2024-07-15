@@ -90,7 +90,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 	function runOrderManager()
 	{
 
-		ini_set('memory_limit', '64M');
+		ini_set('memory_limit', '128M');
 		set_time_limit(1800);
 		$tpl = CApp::instance()->template();
 

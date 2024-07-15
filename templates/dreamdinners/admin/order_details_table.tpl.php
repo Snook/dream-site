@@ -592,7 +592,7 @@
 				<?php echo $this->isEmptyFloat($this->orderInfo['family_savings_discount']) ? 'Order Subtotal' : 'Discounted Order Subtotal' ?>
 				<?php echo (!$this->isEmptyFloat($this->orderInfo['misc_food_subtotal']) || !$this->isEmptyFloat($this->orderInfo['misc_nonfood_subtotal']) ? '( includes misc )' : ''); ?></td>
 			<td align="right">
-				$<span id="DO_item_subtotal"><?php echo $this->moneyFormat($this->orderInfo['subtotal_menu_items'] + $this->orderInfo['subtotal_products'] + $this->orderInfo['misc_food_subtotal'] + $this->orderInfo['subtotal_home_store_markup'] - $this->orderInfo['subtotal_menu_item_mark_down'] - ($this->isEmptyFloat($this->orderInfo['family_savings_discount']) ? 0 : $this->orderInfo['family_savings_discount']) - ($this->isEmptyFloat($this->orderInfo['bundle_discount']) ? 0 : $this->orderInfo['bundle_discount'])); ?></span><span id="DO_nonFoodTotal" class="collapse"><?php echo $this->orderInfo['subtotal_products'] ?></span>
+				$<span id="DO_item_subtotal"><?php echo $this->moneyFormat((float)$this->orderInfo['subtotal_menu_items'] + (float)$this->orderInfo['subtotal_products'] + (float)$this->orderInfo['misc_food_subtotal'] + (float)$this->orderInfo['subtotal_home_store_markup'] - (float)$this->orderInfo['subtotal_menu_item_mark_down'] - ((float)$this->isEmptyFloat((float)$this->orderInfo['family_savings_discount']) ? 0 : (float)$this->orderInfo['family_savings_discount']) - ((float)$this->isEmptyFloat((float)$this->orderInfo['bundle_discount']) ? 0 : (float)$this->orderInfo['bundle_discount'])); ?></span><span id="DO_nonFoodTotal" class="collapse"><?php echo $this->orderInfo['subtotal_products'] ?></span>
 			</td>
 		</tr>
 
