@@ -439,7 +439,7 @@ class processor_admin_orderMgrCouponCodeProcessor extends CPageProcessor
 
 					$menuItemInfo->query($query);
 					$menuItemInfo->fetch();
-					$Order->addMenuItem(clone($menuItemInfo), 1, true);
+					$Order->addMenuItem($menuItemInfo, 1, true);
 				}
 			}
 		}
@@ -478,7 +478,7 @@ class processor_admin_orderMgrCouponCodeProcessor extends CPageProcessor
 
 					$DAO_menu_item->find(true);
 
-					$Order->addMenuItem(clone($DAO_menu_item), 1, false, ($DAO_coupon_code->discount_method == CCouponCode::FREE_MEAL), !empty($DAO_coupon_code->limit_to_recipe_id));
+					$Order->addMenuItem($DAO_menu_item, 1, false, ($DAO_coupon_code->discount_method == CCouponCode::FREE_MEAL), !empty($DAO_coupon_code->limit_to_recipe_id));
 				}
 			}
 		}
@@ -545,12 +545,12 @@ class processor_admin_orderMgrCouponCodeProcessor extends CPageProcessor
 						{
 							$subItemInfo->parentItemId = $menuItemInfo->id;
 							$subItemInfo->bundleItemCount = $subqty;
-							$Order->addMenuItem(clone($subItemInfo), $subqty);
+							$Order->addMenuItem($subItemInfo, $subqty);
 						}
 					}
 				}
 
-				$Order->addMenuItem(clone($menuItemInfo), abs($array[self::QUANTITY_PREFIX . $menuItemInfo->id]));
+				$Order->addMenuItem($menuItemInfo, abs($array[self::QUANTITY_PREFIX . $menuItemInfo->id]));
 			}
 		}
 

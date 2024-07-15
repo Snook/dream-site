@@ -31,7 +31,7 @@ try {
 	$menuItemInfo->query($query);
 	while ($menuItemInfo->fetch())
 	{
-		$OrderObj->addMenuItem(clone($menuItemInfo), 1);
+		$OrderObj->addMenuItem($menuItemInfo, 1);
 	}
 
 	$doaStore =  DAO_CFactory::create('store');
@@ -69,7 +69,7 @@ try {
 	$menuItemInfo->query($query);
 	while ($menuItemInfo->fetch())
 	{
-		$OrderObj->addMenuItem(clone($menuItemInfo), 1);
+		$OrderObj->addMenuItem($menuItemInfo, 1);
 	}
 
 	$doaStore =  DAO_CFactory::create('store');
@@ -111,7 +111,7 @@ try {
 				$menuItemInfo->order_item_ltd_menu_item = true;
 			}
 
-			$OrderObj->addMenuItem(clone($menuItemInfo), 1);
+			$OrderObj->addMenuItem($menuItemInfo, 1);
 		}
 
 	$doaStore =  DAO_CFactory::create('store');
@@ -154,7 +154,7 @@ try {
 				$menuItemInfo->order_item_ltd_menu_item = true;
 			}
 
-			$OrderObj->addMenuItem(clone($menuItemInfo), 1);
+			$OrderObj->addMenuItem($menuItemInfo, 1);
 		}
 
 	$doaStore =  DAO_CFactory::create('store');
@@ -191,7 +191,7 @@ try {
 	$menuItemInfo->query($query);
 		while ($menuItemInfo->fetch())
 		{
-			$OrderObj->addMenuItem(clone($menuItemInfo), 1);
+			$OrderObj->addMenuItem($menuItemInfo, 1);
 		}
 
 	$doaStore =  DAO_CFactory::create('store');
