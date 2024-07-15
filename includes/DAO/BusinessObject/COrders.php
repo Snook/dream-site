@@ -12281,7 +12281,7 @@ class COrders extends DAO_Orders
 			if ($totalCTSCost > 0 && !empty($Order->subtotal_food_sales_taxes))
 			{
 				$pretax = $Order->grand_total - $Order->subtotal_food_sales_taxes;
-				$CTSPotionOfPretax = $totalCTSCost / $pretax;
+				$CTSPotionOfPretax = $totalCTSCost / ($pretax ?: 1);
 				$CTSPotionOfTax = $Order->subtotal_food_sales_taxes * $CTSPotionOfPretax;
 
 				$totalCTSCost += $CTSPotionOfTax;
