@@ -998,7 +998,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			$tpl->assignAndFormatMetricDollars('previousAGRDelta', $previousAGRDelta);
 			$tpl->assignAndFormatMetricPercent('previousAGRDeltaPercent', $previousAGRDeltaPercent);
 
-			$curMonthlastYearAGRDelta = $curMonthrollup['total_agr'] - $curMonthLastYearrollup['total_agr'];
+			$curMonthlastYearAGRDelta = (float)$curMonthrollup['total_agr'] - (float)$curMonthLastYearrollup['total_agr'];
 			$curMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(($curMonthrollup['total_agr'] - $curMonthLastYearrollup['total_agr']) * 100, $curMonthLastYearrollup['total_agr'], 2);
 			$tpl->assignAndFormatMetricDollars('curMonthlastYearAGRDelta', $curMonthlastYearAGRDelta);
 			$tpl->assignAndFormatMetricPercent('curMonthlastYearAGRDeltaPercent', $curMonthlastYearAGRDeltaPercent);
