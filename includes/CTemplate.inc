@@ -558,12 +558,12 @@ class CTemplate extends Savant2
 
 	static function divide_and_format($dividend, $divisor, $decimals, $sep = ",")
 	{
-		if ($divisor == 0)
+		if (empty($divisor) || $divisor < 1)
 		{
 			return self::number_format(0, $decimals, $sep);
 		}
 
-		return self::number_format((float)$dividend / ((float)$divisor ?: 1), $decimals, '.', $sep);
+		return self::number_format((float)$dividend / (float)$divisor, $decimals, '.', $sep);
 	}
 
 	static function moneyFormat($dollarAmount)
