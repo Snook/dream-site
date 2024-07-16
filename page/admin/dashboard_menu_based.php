@@ -999,17 +999,17 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			$tpl->assignAndFormatMetricPercent('previousAGRDeltaPercent', $previousAGRDeltaPercent);
 
 			$curMonthlastYearAGRDelta = (float)$curMonthrollup['total_agr'] - (float)$curMonthLastYearrollup['total_agr'];
-			$curMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(($curMonthrollup['total_agr'] - $curMonthLastYearrollup['total_agr']) * 100, $curMonthLastYearrollup['total_agr'], 2);
+			$curMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(((float)$curMonthrollup['total_agr'] - (float)$curMonthLastYearrollup['total_agr']) * 100, $curMonthLastYearrollup['total_agr'], 2);
 			$tpl->assignAndFormatMetricDollars('curMonthlastYearAGRDelta', $curMonthlastYearAGRDelta);
 			$tpl->assignAndFormatMetricPercent('curMonthlastYearAGRDeltaPercent', $curMonthlastYearAGRDeltaPercent);
 
 			$nextMonthlastYearAGRDelta = $nextMonthrollup['total_agr'] - $nextMonthLastYearrollup['total_agr'];
-			$nextMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(($nextMonthrollup['total_agr'] - $nextMonthLastYearrollup['total_agr']) * 100, $nextMonthLastYearrollup['total_agr'], 2);
+			$nextMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(((float)$nextMonthrollup['total_agr'] - (float)$nextMonthLastYearrollup['total_agr']) * 100, $nextMonthLastYearrollup['total_agr'], 2);
 			$tpl->assignAndFormatMetricDollars('nextMonthlastYearAGRDelta', $nextMonthlastYearAGRDelta);
 			$tpl->assignAndFormatMetricPercent('nextMonthlastYearAGRDeltaPercent', $nextMonthlastYearAGRDeltaPercent);
 
 			$distantMonthlastYearAGRDelta = $distMonthrollup['total_agr'] - $distantMonthLastYearrollup['total_agr'];
-			$distantMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(($distMonthrollup['total_agr'] - $distantMonthLastYearrollup['total_agr']) * 100, $distantMonthLastYearrollup['total_agr'], 2);
+			$distantMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(((float)$distMonthrollup['total_agr'] - (float)$distantMonthLastYearrollup['total_agr']) * 100, $distantMonthLastYearrollup['total_agr'], 2);
 			$tpl->assignAndFormatMetricDollars('distantMonthlastYearAGRDelta', $distantMonthlastYearAGRDelta);
 			$tpl->assignAndFormatMetricPercent('distantMonthlastYearAGRDeltaPercent', $distantMonthlastYearAGRDeltaPercent);
 		}
