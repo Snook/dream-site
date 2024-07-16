@@ -192,7 +192,7 @@
 					<span class="btn btn-primary valid_timespan_end_max">Max Dec 31, 2037</span>
 				</div>
 			</div>
-			<div class="form-text">The date the coupon can no longer be entered</div>
+			<div class="form-text">The last day the coupon can be used, coupon will end on this date mm/dd/yyyy 11:59:59 PM</div>
 		</div>
 
 	</div>

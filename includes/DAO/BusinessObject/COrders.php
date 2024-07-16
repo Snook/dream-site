@@ -10470,6 +10470,13 @@ class COrders extends DAO_Orders
 
 		while ($DAO_menu_item->fetch())
 		{
+			$DAO_menu_item->parentItemId = 'NULL';
+			$DAO_menu_item->bundleItemCount = 0;
+			$DAO_menu_item->bundle_id = 'NULL';
+			$DAO_menu_item->ltd_menu_item_value = 0;
+			$DAO_menu_item->markdown_id = false;
+			$DAO_menu_item->markdown_value = 0;
+
 			if (!empty($DAO_menu_item->DAO_order_item->parent_menu_item_id))
 			{
 				$DAO_menu_item->parentItemId = $DAO_menu_item->DAO_order_item->parent_menu_item_id;
