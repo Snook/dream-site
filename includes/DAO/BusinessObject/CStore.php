@@ -1530,7 +1530,7 @@ class CStore extends DAO_Store
 
 			if ($get_inactive_stores)
 			{
-				if ($storeObj->store_type == CStore::DISTRIBUTION_CENTER)
+				if ($storeObj->isDistributionCenter())
 				{
 					if (!empty($storeObj->active))
 					{
@@ -1566,7 +1566,7 @@ class CStore extends DAO_Store
 			}
 			else
 			{
-				if ($storeObj->store_type == CStore::DISTRIBUTION_CENTER)
+				if ($storeObj->isDistributionCenter())
 				{
 					$retVal .= "<li data-jstree='{\"type\":\"active_dist_ctr\"}' id='tree_store_id-" . $storeObj->id . "'><a href='javascript:onTitleClick();'>" . $storeObj->city . ' - ' . $storeObj->store_name . '</a></li>';
 				}
@@ -2953,7 +2953,7 @@ class CStore extends DAO_Store
 	/**
 	 * inserts a new sales tax record
 	 */
-	function setCurrentSalesTax($current_food_tax, $current_product_tax, $current_service_tax, $current_enrollment_tax, $current_delivery_tax = 0.0, $current_bag_fee_tax = 0.0)
+	function setCurrentSalesTax($current_food_tax, $current_product_tax, $current_service_tax, $current_enrollment_tax, $current_delivery_tax = 0.0, $current_bag_fee_tax = 0.0): void
 	{
 
 		list($id, $food_tax, $total_tax, $service_tax, $enrollment_tax, $delivery_tax, $bag_fee_tax) = $this->getCurrentSalesTax();
@@ -2984,7 +2984,7 @@ class CStore extends DAO_Store
 		}
 	}
 
-	function hasPublicAddress()
+	function hasPublicAddress(): bool
 	{
 		if ($this->id == 91 || $this->id == 121)
 		{
@@ -2994,7 +2994,7 @@ class CStore extends DAO_Store
 		return true;
 	}
 
-	function hasRemotePickupLocations()
+	function hasRemotePickupLocations(): bool
 	{
 		$this->getStorePickupLocations();
 
@@ -3014,7 +3014,7 @@ class CStore extends DAO_Store
 		return false;
 	}
 
-	function isOpen()
+	function isOpen(): bool
 	{
 		if ($this->isActive() && $this->isShowToCustomer() && !$this->isComingSoon())
 		{
@@ -3026,7 +3026,7 @@ class CStore extends DAO_Store
 		}
 	}
 
-	function isComingSoon()
+	function isComingSoon(): bool
 	{
 		if ($this->isShowToCustomer() && !$this->isActive())
 		{
@@ -3036,7 +3036,7 @@ class CStore extends DAO_Store
 		return false;
 	}
 
-	function isActive()
+	function isActive(): bool
 	{
 		if (!empty($this->active))
 		{
@@ -3048,7 +3048,7 @@ class CStore extends DAO_Store
 		}
 	}
 
-	function isShowToCustomer()
+	function isShowToCustomer(): bool
 	{
 		if (!empty($this->show_on_customer_site))
 		{
@@ -3060,19 +3060,19 @@ class CStore extends DAO_Store
 		}
 	}
 
-	function isAllowedCustomization_PreAssembled()
+	function isAllowedCustomization_PreAssembled(): bool
 	{
 		return !empty($this->allow_preassembled_customization);
 	}
 
-	function isShowPrintMenuPreAssembledLabel()
+	function isShowPrintMenuPreAssembledLabel(): bool
 	{
 		return !empty($this->show_print_menu_pre_assembled_label);
 	}
 
-	function isFranchise()
+	function isFranchise(): bool
 	{
-		if ($this->store_type == CStore::FRANCHISE)
+		if ($this->store_type == self::FRANCHISE)
 		{
 			return true;
 		}
@@ -3082,9 +3082,9 @@ class CStore extends DAO_Store
 		}
 	}
 
-	function isDistributionCenter()
+	function isDistributionCenter(): bool
 	{
-		if ($this->store_type == CStore::DISTRIBUTION_CENTER)
+		if ($this->store_type == self::DISTRIBUTION_CENTER)
 		{
 			return true;
 		}
@@ -3094,7 +3094,7 @@ class CStore extends DAO_Store
 		}
 	}
 
-	function isCorporateOwned()
+	function isCorporateOwned(): bool
 	{
 		if (!empty($this->is_corporate_owned))
 		{
@@ -3106,28 +3106,28 @@ class CStore extends DAO_Store
 
 
 
-	function generateAddressLinear()
+	function generateAddressLinear(): string
 	{
 		$this->address_linear = $this->address_line1 . (!empty($this->address_line2) ? " " . $this->address_line2 : "") . ", " . $this->city  . ", " . $this->state_id . " " .  $this->postal_code . (!empty($this->usps_adc) ? "-" . $this->usps_adc : "");
 
 		return $this->address_linear;
 	}
 
-	function generateAddressWithBreaks()
+	function generateAddressWithBreaks(): string
 	{
 		$this->address_with_breaks = $this->address_line1 . (!empty($this->address_line2) ? " " . $this->address_line2 : "") . "\n" . $this->city  . ", " . $this->state_id . " " .  $this->postal_code . (!empty($this->usps_adc) ? "-" . $this->usps_adc : "");
 
 		return $this->address_with_breaks;
 	}
 
-	function generateAddressHTML()
+	function generateAddressHTML(): string
 	{
 		$this->address_html = nl2br($this->generateAddressWithBreaks());
 
 		return $this->address_html;
 	}
 
-	function generateMapLink()
+	function generateMapLink(): string
 	{
 		$this->map_link = 'https://maps.google.com/maps?q=' . urlencode($this->generateLinearAddress()) . '&iwloc=A&hl=en';
 
@@ -3137,7 +3137,7 @@ class CStore extends DAO_Store
 	/**
 	 * Returns an array of supported credit card types for this store
 	 */
-	function getCreditCardTypes()
+	function getCreditCardTypes(): array
 	{
 		require_once 'CPayment.php';
 

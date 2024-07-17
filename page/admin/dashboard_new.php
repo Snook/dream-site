@@ -415,7 +415,7 @@ class page_admin_dashboard_new extends CPageAdminOnly
 			$storeInfo->fetch();
 			$titleString = "Dashboard Report for<br />" . $currentMonthStr . "<br />" . $storeInfo->store_name . " " . $storeInfo->city . ", " . $storeInfo->state_id;
 
-			if ($storeInfo->store_type == CStore::DISTRIBUTION_CENTER)
+			if ($storeInfo->isDistributionCenter())
 			{
 				$includes_delivered_revenue = true;
 			}

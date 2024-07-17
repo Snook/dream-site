@@ -246,7 +246,7 @@ class processor_session_type extends CPage
 			CApp::bounce('/locations');
 		}
 		// store is set to distribution center they shouldn't be here
-		else if ($DAO_store->store_type == CStore::DISTRIBUTION_CENTER)
+		else if ($DAO_store->isDistributionCenter())
 		{
 			CApp::bounce('/locations');
 		}

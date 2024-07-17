@@ -8,14 +8,13 @@
  */
 class CPage
 {
+	protected object|null $CurrentUser = null;
+	protected ?array $CurrentFutureMenus = null;
+	protected ?array $CurrentFutureMenusDelivered = null;
 
-	protected $CurrentUser = null;
-	protected $CurrentFutureMenus = null;
-	protected $CurrentFutureMenusDelivered = null;
+	protected object|null $Template = null;
 
-	protected $Template = null;
-
-	public $use_GPC = false;
+	public bool $use_GPC = false;
 
 	function __construct()
 	{
@@ -103,7 +102,4 @@ class CPage
 	{
 		$this->runCustomer();
 	}
-
 }
-
-?>

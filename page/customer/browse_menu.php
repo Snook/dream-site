@@ -27,7 +27,7 @@ class page_browse_menu extends CPage
 
 		foreach ($activeMenus as $activeMenuId => $activeMenu)
 		{
-			$activeMenuArray[$activeMenu['id']] = CMenu::buildPreviewMenuArray(null, $activeMenuId);
+			$activeMenuArray[$activeMenu['id']] = CMenu::buildPreviewMenuArray($activeMenuId);
 		}
 
 		// check to see if there are any active delivered stores

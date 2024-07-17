@@ -555,7 +555,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			$storeInfo->fetch();
 			$titleString = "Dashboard Report for " . $currentMonthStr . " " . $storeInfo->store_name . " " . $storeInfo->city . ", " . $storeInfo->state_id;
 
-			if ($storeInfo->store_type == CStore::DISTRIBUTION_CENTER)
+			if ($storeInfo->isDistributionCenter())
 			{
 				$tpl->assign('showDeliveredRows', true);
 			}

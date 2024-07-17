@@ -912,7 +912,7 @@ class CPayment extends DAO_Payment
 			require_once 'includes/payment/PayPalProcess.php';
 			$process = new PayPalProcess();
 
-			if (!empty($StoreObj->store_type) && $StoreObj->store_type == CStore::DISTRIBUTION_CENTER)
+			if ($StoreObj->isDistributionCenter())
 			{
 				$process->setIsDeliveredPayment();
 			}

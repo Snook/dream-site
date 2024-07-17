@@ -15,7 +15,7 @@ class page_sitemap extends CPage
 
 		foreach ($activeMenus as $activeMenuId => $activeMenu)
 		{
-			$menuItemInfo = CMenu::buildPreviewMenuArray(null, $activeMenuId, 'NameAZ');
+			$menuItemInfo = CMenu::buildPreviewMenuArray($activeMenuId, 'NameAZ');
 
 			$activeMenuArray[] = array(
 				'id' => $activeMenu['id'],
