@@ -118,7 +118,7 @@
 				</div>
 				<?php echo $this->CouponForm['coupon_code_short_title_html']; ?>
 			</div>
-			<div class="form-text">Displays on customer website and receipts</div>
+			<div class="form-text">Displays on customer website and receipts (Limit 36 characters)</div>
 		</div>
 		<div class="form-group col-md-6">
 			<div class="input-group">
@@ -127,7 +127,7 @@
 				</div>
 				<?php echo $this->CouponForm['coupon_code_title_html']; ?>
 			</div>
-			<div class="form-text">Displays on customer website and receipts</div>
+			<div class="form-text">Displays on customer website and receipts (Limit 80 characters)</div>
 		</div>
 		<div class="form-group col-md-12">
 			<div class="input-group">
