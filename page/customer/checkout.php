@@ -1950,8 +1950,8 @@ class page_checkout extends CPage
 			if ($Addr)
 			{
 				$Form->DefaultValues['billing_address'] = $Addr->address_line1;
-				$Form->DefaultValues['billing_city'] = $DAO_orders->orderAddress->city;
-				$Form->DefaultValues['billing_state_id'] = $DAO_orders->orderAddress->state_id;
+				$Form->DefaultValues['billing_city'] = $DAO_orders->orderAddress?->city;
+				$Form->DefaultValues['billing_state_id'] = $DAO_orders->orderAddress?->state_id;
 				$Form->DefaultValues['billing_postal_code'] = $Addr->postal_code;
 			}
 
