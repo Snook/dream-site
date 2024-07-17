@@ -1261,7 +1261,7 @@ function errorHandler($errno, $errstr, $errfile, $errline)
 				break;
 			case E_USER_WARNING:
 			case E_WARNING:
-				CLog::RecordNew(CLog::WARNING, $errstr, $errfile, $errline);
+				CLog::RecordNew(type: CLog::WARNING, szDescription: $errstr, szOptionalFile: $errfile, szOptionalLine: $errline, template: $tpl);
 				if ($tpl)
 				{
 					$tpl->setDebugMsg("<PRE><b>WARNING</b> [$errno] $errstr<br />\n</PRE><PRE> Warning in line $errline of file $errfile</PRE>");
