@@ -7,7 +7,10 @@ require_once("includes/CCart2.inc");
 
 class processor_cart_add_payment extends CPageProcessor
 {
-	function runPublic()
+	/**
+	 * @throws Exception
+	 */
+	function runPublic(): void
 	{
 		header('Content-type: application/json');
 
@@ -34,21 +37,21 @@ class processor_cart_add_payment extends CPageProcessor
 				CAppUtil::processorMessageEcho($results_array);
 			}
 
-			if (isset($_POST['payment_type']) && $_POST['payment_type'] == 'gift_card')
+			if ($_POST['payment_type'] == 'gift_card')
 			{
 				$results_array = self::add_gift_card_payment();
 
 				CAppUtil::processorMessageEcho($results_array);
 			}
 
-			if (isset($_POST['payment_type']) && $_POST['payment_type'] == 'credit_card')
+			if ($_POST['payment_type'] == 'credit_card')
 			{
 				$results_array = self::add_credit_card_payment();
 
 				CAppUtil::processorMessageEcho($results_array);
 			}
 
-			if (isset($_POST['payment_type']) && $_POST['payment_type'] == 'all_store_credit')
+			if ($_POST['payment_type'] == 'all_store_credit')
 			{
 				$results_array = self::add_all_store_credit();
 
@@ -71,9 +74,11 @@ class processor_cart_add_payment extends CPageProcessor
 		}
 	}
 
-	static function add_all_store_credit()
+	/**
+	 * @throws Exception
+	 */
+	static function add_all_store_credit(): array
 	{
-
 		$sc_user_id = CUser::getCurrentUser()->id;
 
 		if (!$sc_user_id)
@@ -109,7 +114,7 @@ class processor_cart_add_payment extends CPageProcessor
 		while ($Store_Credit->fetch())
 		{
 			$Store_Credit_Array[$Store_Credit->id] = array(
-				'source' => (isset($Store_Credit->credit_card_number) ? $Store_Credit->credit_card_number : "none"),
+				'source' => ($Store_Credit->credit_card_number ?? "none"),
 				'total_amount' => $Store_Credit->amount,
 				'credit_type' => $Store_Credit->credit_type,
 				'store_credit_id' => $Store_Credit->id,
@@ -135,14 +140,15 @@ class processor_cart_add_payment extends CPageProcessor
 		);
 	}
 
-	static function add_credit_card_payment()
+	/**
+	 * @throws Exception
+	 */
+	static function add_credit_card_payment(): array
 	{
-
 		$validation_result = CPayment::validateCC($_POST['card_type'], $_POST['card_number'], $_POST['exp_month'], $_POST['exp_year'], $_POST['security_code']);
 
 		if ($validation_result)
 		{
-			$errorMessage = "";
 			switch ($validation_result)
 			{
 				case 'invalidtype':
@@ -231,7 +237,7 @@ class processor_cart_add_payment extends CPageProcessor
 		);
 	}
 
-	static function add_gift_card_payment()
+	static function add_gift_card_payment(): array
 	{
 		if (empty($_POST['card_number']) || !is_numeric($_POST['card_number']))
 		{
@@ -271,7 +277,7 @@ class processor_cart_add_payment extends CPageProcessor
 			'total_amount' => $_POST['amount']
 		);
 		$tempDataArray = array('card_number' => $_POST['card_number']);
-		$cart->addPayment($Arr, $tempDataArray, false);
+		$cart->addPayment($Arr, $tempDataArray);
 		$editOrderId = $cart->getEditOrderId();
 
 		$tpl = new CTemplate();
@@ -295,7 +301,6 @@ class processor_cart_add_payment extends CPageProcessor
 			$nTotal = $order_subtotal * 100;
 
 			$tpl->assign('delta_has_new_total', false);
-			$new_gc_amount = floatval($new_gc_amount) * 100;
 			if ($oTotal != $nTotal)
 			{
 				$totalDiff = ($nTotal - $oTotal);
@@ -305,7 +310,7 @@ class processor_cart_add_payment extends CPageProcessor
 				$totalDiff = $totalDiff / 100;
 				$tpl->assign('delta_total_diff', $totalDiff);
 				$tpl->assign('delta_has_new_total', true);
-				$tpl->assign('delta_is_refund', ($totalDiff >= 0 ? false : true));
+				$tpl->assign('delta_is_refund', !($totalDiff >= 0));
 			}
 
 			$tpl->assign('delta_original_total', $original_order_subtotal);
@@ -325,7 +330,7 @@ class processor_cart_add_payment extends CPageProcessor
 		);
 	}
 
-	static function add_ltd_round_up($roundUpValue)
+	static function add_ltd_round_up($roundUpValue): array
 	{
 		$CartObj = CCart2::instance();
 		$Order = $CartObj->getOrder();
@@ -338,16 +343,14 @@ class processor_cart_add_payment extends CPageProcessor
 		$Order->recalculate();
 		$CartObj->addOrder($Order);
 
-		$results_array = array(
+		return array(
 			'processor_success' => true,
 			'result_code' => 1,
 			'processor_message' => 'Round Up applied to order.'
 		);
-
-		return $results_array;
 	}
 
-	static function add_delivery_tip($value)
+	static function add_delivery_tip($value): array
 	{
 		$CartObj = CCart2::instance();
 		$DAO_orders = $CartObj->getOrder();
@@ -360,18 +363,19 @@ class processor_cart_add_payment extends CPageProcessor
 		$DAO_orders->recalculate();
 		$CartObj->addOrder($DAO_orders);
 
-		$results_array = array(
+		return array(
 			'processor_success' => true,
 			'result_code' => 1,
 			'delivery_tip' => $DAO_orders->delivery_tip,
 			'grand_total' => $DAO_orders->grand_total,
 			'processor_message' => 'Tip applied to order.'
 		);
-
-		return $results_array;
 	}
 
-	static function add_coupon_code($couponCode)
+	/**
+	 * @throws Exception
+	 */
+	static function add_coupon_code($couponCode): array
 	{
 		$CartObj = CCart2::instance();
 		$DAO_orders = $CartObj->getOrder();
@@ -429,11 +433,11 @@ class processor_cart_add_payment extends CPageProcessor
 			$cart_update = false;
 			$menu_item_id = false;
 			$totalQty = false;
-			if (isset($DAO_coupon_code) && $DAO_coupon_code->limit_to_recipe_id)
+			if ($DAO_coupon_code->limit_to_recipe_id)
 			{
 				$DAO_coupon_code->calculate($DAO_orders, $DAO_orders->getMarkUp());
 
-				$DAO_menu = DAO_CFactory::create('menu');
+				$DAO_menu = DAO_CFactory::create('menu', true);
 				$DAO_menu->id = $menu_id;
 				$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
 					'menu_to_menu_item_store_id' => $DAO_orders->getStoreObj()->id,
@@ -445,18 +449,25 @@ class processor_cart_add_payment extends CPageProcessor
 
 				if ($DAO_menu_item->find(true))
 				{
-					$totalQty = $DAO_orders->addCouponMenuItem($DAO_menu_item);
-
-					$tpl = new CTemplate();
-					$tpl->assign('menu_item', $DAO_menu_item);
-					$tpl->assign('cart_info', CUser::getCartIfExists());
-
-					$menu_item_id = $DAO_menu_item->id;
-					$cart_update = $tpl->fetch('customer/subtemplate/session_menu/session_menu_menu_cart_item.tpl.php');
-
-					if (!empty($_POST['page']) && $_POST['page'] == 'checkout')
+					if ($DAO_menu_item->recipe_id == $DAO_coupon_code->recipe_id)
 					{
-						$bounce_to = '/checkout';
+						$totalQty = $DAO_orders->addCouponMenuItem($DAO_menu_item);
+
+						$tpl = new CTemplate();
+						$tpl->assign('menu_item', $DAO_menu_item);
+						$tpl->assign('cart_info', CUser::getCartIfExists());
+
+						$menu_item_id = $DAO_menu_item->id;
+						$cart_update = $tpl->fetch('customer/subtemplate/session_menu/session_menu_menu_cart_item.tpl.php');
+
+						if (!empty($_POST['page']) && $_POST['page'] == 'checkout')
+						{
+							$bounce_to = '/checkout';
+						}
+					}
+					else
+					{
+						CLog::RecordDebugTrace("Coupon ID: " . $DAO_coupon_code->id . " Order Id:" . $DAO_orders->id ."\r\n" . print_r($_POST, true), "COUPON_CODE_RECIPE_MISMATCH", 1, CLog::DEBUG, true);
 					}
 				}
 			}
@@ -513,5 +524,3 @@ class processor_cart_add_payment extends CPageProcessor
 		return $results_array;
 	}
 }
-
-?>
