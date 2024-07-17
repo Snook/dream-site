@@ -198,7 +198,7 @@ class processor_admin_status extends CPageProcessor
 	    $someFailures = false;
 	    $allFailed = true;
 
-	    while($row = mysqli_fetch_array($res, MYSQL_ASSOC))
+	    while($row = mysqli_fetch_array($res, MYSQLI_ASSOC))
 	    {
 
 	        $allFailed = false;
