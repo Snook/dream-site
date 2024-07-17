@@ -6,10 +6,10 @@ require_once('phplib/phpqrcode/qrlib.php');
 
 class CSessionToolsData
 {
-	public $menu_id = false;
-	public $menu_id_next = false;
-	public $store_id = false;
-	public $user_id = false;
+	public int|bool $menu_id = false;
+	public int|bool $menu_id_next = false;
+	public int|bool $store_id = false;
+	public int|bool $user_id = false;
 
 	public $storeInfo = false;
 	public $menuInfo = false;
@@ -82,7 +82,10 @@ class CSessionToolsData
 		$this->menuInfo[$this->menu_id_next]->marketingMessage = $this->marketingMessage($this->menuInfo[$this->menu_id_next]);
 	}
 
-	function loadUserData($booking)
+	/**
+	 * @throws Exception
+	 */
+	function loadUserData($booking): void
 	{
 		$this->user_id = $booking['user_id'];
 
@@ -119,7 +122,7 @@ class CSessionToolsData
 		$this->menuInfo[$this->menu_id_next]->marketingMessage = $this->marketingMessage($this->menuInfo[$this->menu_id_next]);
 	}
 
-	function marketingMessage($menuInfo)
+	function marketingMessage($menuInfo): ?string
 	{
 		// get month for menu for determining which messages are displayed
 		$month = date('M', strtotime($menuInfo->menu_name));
@@ -282,9 +285,11 @@ class CSessionToolsData
 		{
 			return "Turn your favorite Dream Dinners into easy, homemade appetizers for all your holiday entertaining.";
 		}
+
+		return null;
 	}
 
-	function loadMenuData($booking = false, $next_month = false, $user_id = false)
+	function loadMenuData($booking = false, $next_month = false, $user_id = false): void
 	{
 		$is_visible_only = true;
 
@@ -356,7 +361,7 @@ class CSessionToolsData
 		}
 	}
 
-	function loadBundleMenuData($bundle_type = 'TV_OFFER')
+	function loadBundleMenuData($bundle_type = 'TV_OFFER'): void
 	{
 		$this->bundleInfo = CBundle::getBundleInfoByMenuAndType($this->menu_id, $bundle_type);
 
@@ -390,7 +395,7 @@ class CSessionToolsData
 		$this->menuItems = $menuItems;
 	}
 
-	private function formulateStandardMinimumMessage($minimum)
+	private function formulateStandardMinimumMessage($minimum): string
 	{
 
 		if ($minimum->getMinimumType() == COrderMinimum::ITEM)
@@ -441,12 +446,15 @@ class CSessionToolsData
 		return '';
 	}
 
-	function loadOrderedItemData($order_ids)
+	/**
+	 * @throws Exception
+	 */
+	function loadOrderedItemData(array $order_ids): void
 	{
 		$DAO_menu = DAO_CFactory::create('menu');
 		$DAO_menu->id = $this->menu_id;
 		$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
-			'menu_to_menu_item_store_id' => $this->store_id,
+			'menu_to_menu_item_store_id' => $this->storeInfo->isDistributionCenter() ? $this->storeInfo->parent_store_id : $this->storeInfo->id,
 			'join_order_item_order_id' => $order_ids,
 			'join_order_item_order' => 'INNER',
 			'exclude_menu_item_category_core' => false,
@@ -476,95 +484,6 @@ class CSessionToolsData
 		}
 
 		$this->orderItems = $menuItems;
-	}
-
-	function loadOrderedItemDataDelivered($order_ids)
-	{
-		$order_ids = implode(',', $order_ids);
-
-		$DAO_menu = DAO_CFactory::create('menu');
-		$DAO_menu->id = $this->menu_id;
-		$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
-			'menu_to_menu_item_store_id' => $this->store_id,
-			'join_order_item_order_id' => $order_ids,
-			'join_order_item_order' => 'INNER',
-			'exclude_menu_item_category_core' => false,
-			'exclude_menu_item_category_efl' => false,
-			'exclude_menu_item_category_sides_sweets' => false,
-			'groupBy' => 'order_item.id'
-		));
-
-		$orderItems = DAO_CFactory::create('order_item');
-
-		$q = "SELECT
-    		oi.id as item_id,
-			b.id AS booking_id,
-			b.order_id,
-			b.user_id,
-			b.session_id,
-			oi.menu_item_id,
-			bu.menu_id,
-			r.recipe_id,
-			mi.pricing_type,
-			mi.menu_item_category_id,
-			oi.item_count,
-			r.recipe_name,
-			r.ltd_menu_item_value,
-			r.cooking_method,
-			b.`status`,
-			b.booking_type,
-			fs.rating,
-			fs.would_order_again as favorite,
-			mi.prep_time,
-			mi.serving_suggestions,
-			mi.best_prepared_by,
-       		oi.box_instance_id,
-       		oi.bundle_id,
-       		box.title
-			FROM booking AS b
-			INNER JOIN order_item AS oi ON oi.order_id = b.order_id AND oi.is_deleted = '0'
-			INNER JOIN menu_item AS mi ON mi.id = oi.menu_item_id AND mi.is_deleted = '0'
-			INNER JOIN box_instance AS bi ON bi.id = oi.box_instance_id AND bi.is_deleted = '0' # moved this line up 
-			INNER JOIN bundle bu on bu.id = bi.bundle_id # get the bundle from box_instance
-			INNER JOIN recipe AS r ON r.override_menu_id = bu.menu_id AND r.recipe_id = mi.recipe_id AND r.is_deleted = '0' # then join menu on the bundle’s menu id
-			LEFT JOIN box AS box ON box.id = bi.box_id AND box.is_deleted = '0'
-			LEFT JOIN food_survey AS fs ON fs.user_id = b.user_id AND fs.recipe_id = r.recipe_id AND fs.is_active = '1' AND fs.is_deleted = '0'
-			WHERE b.order_id IN (" . $order_ids . ")
-			AND b.status = '" . CBooking::ACTIVE . "'
-			AND b.is_deleted = '0'";
-		$orderItems->query($q);
-		$this->boxes = array();
-		while ($orderItems->fetch())
-		{
-			$item = array();
-			$item['item_id'] = $orderItems->item_id;
-			$item['recipe_id'] = $orderItems->recipe_id;
-			$item['recipe_name'] = $orderItems->recipe_name;
-			$item['ltd_menu_item_value'] = $orderItems->ltd_menu_item_value;
-			$item['cooking_method'] = $orderItems->cooking_method;
-			$item['rating'] = $orderItems->rating;
-			$item['favorite'] = $orderItems->favorite;
-			$item['prep_time'] = $orderItems->prep_time;
-			$item['serving_suggestions'] = $orderItems->serving_suggestions;
-			$item['best_prepared_by'] = $orderItems->best_prepared_by;
-			$item['menu_item_category_id'] = $orderItems->menu_item_category_id;
-			$item[$orderItems->pricing_type] = $orderItems->item_count;
-			if (array_key_exists($orderItems->title, $this->boxes))
-			{
-				//add to box
-				$this->boxes[$orderItems->title][] = $item;
-			}
-			else
-			{
-				//create box and add item
-				$this->boxes[$orderItems->title] = array();
-				$this->boxes[$orderItems->title][] = $item;
-			}
-
-			// track all recipes used
-			$this->recipeIds[$orderItems->recipe_id] = $orderItems->recipe_id;
-			$this->menuItemIds[$orderItems->menu_item_id] = $orderItems->menu_item_id;
-		}
 	}
 }
 
@@ -639,15 +558,15 @@ class CSessionToolsPDF extends FPDF_MULTICELLTAG
 class CSessionToolsPDFDrawer
 {
 	const kHEADER_ROW_HEIGHT = 13;
-	const kKEADER_ROW_Y = 26;
+	const kHEADER_ROW_Y = 26;
 
 	private $data = null;
 
 	private $pdf = null;
 
-	private $showBorders = false; // for debugging
+	private bool $showBorders = false; // for debugging
 
-	public $color = array(
+	public array $color = array(
 
 		// #512B1B
 		'brown' => array(
@@ -767,12 +686,12 @@ class CSessionToolsPDFDrawer
 		$this->pdf->SetStyle("pt8b", "arial", "B", 7.5, "255,255,255");
 	}
 
-	public function setData($inData)
+	public function setData($inData): void
 	{
 		$this->data = $inData;
 	}
 
-	protected function printLogo($x, $y, $w, $h, $menu_id, $printMonth = false)
+	protected function printLogo($x, $y, $w, $h, $menu_id, $printMonth = false): void
 	{
 		$colorSelect = 0;
 		$logoX = $x;
@@ -807,7 +726,7 @@ class CSessionToolsPDFDrawer
 		}
 	}
 
-	protected function printLogo_RecipeExpert($x, $y, $w, $h, $menu_id, $printMonth = false)
+	protected function printLogo_RecipeExpert($x, $y, $w, $h, $menu_id, $printMonth = false): void
 	{
 		$colorSelect = 0;
 
@@ -841,7 +760,7 @@ class CSessionToolsPDFDrawer
 		}
 	}
 
-	protected function printHeader($x, $y, $menu_id)
+	protected function printHeader($x, $y, $menu_id): void
 	{
 		$width = 140;
 
@@ -858,7 +777,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->MultiCellTag($width - 30, 4, "<t11>" . iconv('UTF-8', 'windows-1252', $this->data->menuInfo[$menu_id]->marketingMessage) . "</t11>", $this->showBorders, 'L');
 	}
 
-	protected function printMenuToolHeader($x, $y, $menu_id)
+	protected function printMenuToolHeader($x, $y, $menu_id): void
 	{
 		$width = 140;
 
@@ -876,13 +795,13 @@ class CSessionToolsPDFDrawer
 		$this->pdf->MultiCellTag(70, 4, "<h8>Email: {$this->data->userInfo->primary_email}</h8>", $this->showBorders, 'L');
 	}
 
-	protected function printHeader_RecipeExpert($x, $y, $menu_id)
+	protected function printHeader_RecipeExpert($x, $y, $menu_id): void
 	{
 		$this->pdf->SetXY(40, $y + 2);
 		$this->pdf->MultiCellTag(140, 6, "<t14>Recipe Expert</t14>", $this->showBorders, 'L');
 	}
 
-	protected function printHeader_Freezer($x, $y, $menu_id)
+	protected function printHeader_Freezer($x, $y, $menu_id): void
 	{
 		$width = 140;
 
@@ -913,7 +832,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->MultiCellTag($width - 29, 3, "<t9>Next Session Date/Time: " . (!empty($this->data->userInfo->nextSession[0]->session_start) ? CTemplate::dateTimeFormat($this->data->userInfo->nextSession[0]->session_start, VERBOSE) : '') . "</t9>", $this->showBorders, 'L');
 	}
 
-	protected function printHeader_Nutritional($x, $y, $menu_id)
+	protected function printHeader_Nutritional($x, $y, $menu_id): void
 	{
 		$width = 140;
 
@@ -941,7 +860,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->MultiCellTag($width - 30, 4, "<t11>With Dream Dinners, healthy eating is easy for everyone.</t11>", $this->showBorders, 'L');
 	}
 
-	protected function printHeaderBox_Nutritional($x, $y, $box_name)
+	protected function printHeaderBox_Nutritional($x, $y, $box_name): void
 	{
 		$width = 140;
 
@@ -949,7 +868,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->MultiCellTag($width, 6, "<t14b>{$box_name}</t14b>", $this->showBorders, 'L');
 	}
 
-	protected function printHeader_Intro($x, $y, $includeQRcode = false, $qrData = false)
+	protected function printHeader_Intro($x, $y, $includeQRcode = false, $qrData = false): void
 	{
 		$width = 140;
 
@@ -964,7 +883,7 @@ class CSessionToolsPDFDrawer
 		}
 	}
 
-	protected function printHeader_DreamTaste($x, $y, $menu_id)
+	protected function printHeader_DreamTaste($x, $y, $menu_id): void
 	{
 		$width = 140;
 
@@ -992,18 +911,18 @@ class CSessionToolsPDFDrawer
 		$this->pdf->Line(112.5, $y + 18, 150, $y + 18);
 	}
 
-	function printMenuToolHeaderRow()
+	function printMenuToolHeaderRow(): void
 	{
 		$width = CSessionToolsPDF::kPAGE_WIDTH - (CSessionToolsPDF::kLEFT_MARGIN * 2);
 
 		$this->pdf->SetFillColor($this->color['new_gray']['r'], $this->color['new_gray']['g'], $this->color['new_gray']['b']);
 
-		$this->pdf->Rect(CSessionToolsPDF::kLEFT_MARGIN, self::kKEADER_ROW_Y, $width, 1, 'F');
+		$this->pdf->Rect(CSessionToolsPDF::kLEFT_MARGIN, self::kHEADER_ROW_Y, $width, 1, 'F');
 	}
 
-	function printMenuToolHeaderRow_RecipeExpert()
+	function printMenuToolHeaderRow_RecipeExpert(): void
 	{
-		$ypos = self::kKEADER_ROW_Y;
+		$ypos = self::kHEADER_ROW_Y;
 
 		$width = CSessionToolsPDF::lPAGE_WIDTH - (CSessionToolsPDF::kLEFT_MARGIN * 2);
 
@@ -1048,9 +967,9 @@ class CSessionToolsPDFDrawer
 		$this->pdf->MultiCellTag(30, 3.5, "<h8w>Packaging</h8w>", $this->showBorders, 'L');
 	}
 
-	function printMenuToolHeaderRow_Nutritional($offset = 14)
+	function printMenuToolHeaderRow_Nutritional($offset = 14): void
 	{
-		$ypos = self::kKEADER_ROW_Y + $offset;
+		$ypos = self::kHEADER_ROW_Y + $offset;
 
 		$width = CSessionToolsPDF::kPAGE_WIDTH - (CSessionToolsPDF::kLEFT_MARGIN * 2);
 
@@ -1107,45 +1026,45 @@ class CSessionToolsPDFDrawer
 		$this->pdf->RotatedText("<h8w>Potassium</h8w>", 90);
 	}
 
-	function printMenuToolHeaderRow_Freezer()
+	function printMenuToolHeaderRow_Freezer(): void
 	{
 		$width = CSessionToolsPDF::kPAGE_WIDTH - (CSessionToolsPDF::kLEFT_MARGIN * 2);
 
 		$this->pdf->SetFillColor($this->color['new_gray']['r'], $this->color['new_gray']['g'], $this->color['new_gray']['b']);
 
-		$this->pdf->Rect(CSessionToolsPDF::kLEFT_MARGIN, self::kKEADER_ROW_Y, $width, 1, 'F');
+		$this->pdf->Rect(CSessionToolsPDF::kLEFT_MARGIN, self::kHEADER_ROW_Y, $width, 1, 'F');
 
-		$this->pdf->RoundedRect(153, self::kKEADER_ROW_Y - 9, 28, 10, 4, '12', 'F');
-		$this->pdf->RoundedRect(180, self::kKEADER_ROW_Y - 9, 28, 10, 4, '12', 'F');
+		$this->pdf->RoundedRect(153, self::kHEADER_ROW_Y - 9, 28, 10, 4, '12', 'F');
+		$this->pdf->RoundedRect(180, self::kHEADER_ROW_Y - 9, 28, 10, 4, '12', 'F');
 
-		$this->pdf->SetXY(152, self::kKEADER_ROW_Y - 7.5);
+		$this->pdf->SetXY(152, self::kHEADER_ROW_Y - 7.5);
 		$this->pdf->MultiCellTag(30, 3.5, "<tmwb>My Meals or</tmwb>", $this->showBorders, 'C');
 
-		$this->pdf->SetXY(152, self::kKEADER_ROW_Y - 3.5);
+		$this->pdf->SetXY(152, self::kHEADER_ROW_Y - 3.5);
 		$this->pdf->MultiCellTag(30, 3.5, "<tmwb>Need to Rate</tmwb>", $this->showBorders, 'C');
 
-		$this->pdf->SetXY(179, self::kKEADER_ROW_Y - 5.5);
+		$this->pdf->SetXY(179, self::kHEADER_ROW_Y - 5.5);
 		$this->pdf->MultiCellTag(30, 3.5, "<tmwb>Quantity</tmwb>", $this->showBorders, 'C');
 	}
 
-	function printMenuToolHeaderRow_Intro()
+	function printMenuToolHeaderRow_Intro(): void
 	{
 		$this->pdf->SetFillColor($this->color['new_grey']['r'], $this->color['new_grey']['g'], $this->color['new_grey']['b']);
 
-		$this->pdf->RoundedRect(10, self::kKEADER_ROW_Y + 1, 56, 16, 1, '1234', 'F');
-		$this->pdf->RoundedRect(79, self::kKEADER_ROW_Y + 1, 56, 16, 1, '1234', 'F');
-		$this->pdf->RoundedRect(149, self::kKEADER_ROW_Y + 1, 56, 16, 1, '1234', 'F');
+		$this->pdf->RoundedRect(10, self::kHEADER_ROW_Y + 1, 56, 16, 1, '1234', 'F');
+		$this->pdf->RoundedRect(79, self::kHEADER_ROW_Y + 1, 56, 16, 1, '1234', 'F');
+		$this->pdf->RoundedRect(149, self::kHEADER_ROW_Y + 1, 56, 16, 1, '1234', 'F');
 
-		$this->pdf->SetXY(13, self::kKEADER_ROW_Y + 3.5);
+		$this->pdf->SetXY(13, self::kHEADER_ROW_Y + 3.5);
 		$this->pdf->MultiCellTag(50, 3.5, "<tmwb>STEP 1</tmwb>", $this->showBorders, 'C');
 
-		$this->pdf->SetXY(13, self::kKEADER_ROW_Y + 7.5);
+		$this->pdf->SetXY(13, self::kHEADER_ROW_Y + 7.5);
 		$this->pdf->MultiCellTag(50, 3.5, "<t9w>Complete the form below or go online to dreamdinners.com</t9w>", $this->showBorders, 'C');
 
-		$this->pdf->SetXY(82, self::kKEADER_ROW_Y + 3.5);
+		$this->pdf->SetXY(82, self::kHEADER_ROW_Y + 3.5);
 		$this->pdf->MultiCellTag(50, 3.5, "<tmwb>STEP 2</tmwb>", $this->showBorders, 'C');
 
-		$this->pdf->SetXY(82, self::kKEADER_ROW_Y + 7.5);
+		$this->pdf->SetXY(82, self::kHEADER_ROW_Y + 7.5);
 		if ($this->data->menu_id < 253)
 		{
 			$this->pdf->MultiCellTag(50, 3.5, "<t9w>Choose 3 Lrg or 6 Med dinners (or a combination of both), to try.</t9w>", $this->showBorders, 'C');
@@ -1155,13 +1074,13 @@ class CSessionToolsPDFDrawer
 			$this->pdf->MultiCellTag(50, 3.5, "<t9w>Choose 2 Lrg or 4 Med dinners (or a combination of both), to try.</t9w>", $this->showBorders, 'C');
 		}
 
-		$this->pdf->SetXY(152, self::kKEADER_ROW_Y + 3.5);
+		$this->pdf->SetXY(152, self::kHEADER_ROW_Y + 3.5);
 		$this->pdf->MultiCellTag(50, 3.5, "<tmwb>STEP 3</tmwb>", $this->showBorders, 'C');
 
-		$this->pdf->SetXY(152, self::kKEADER_ROW_Y + 7.5);
+		$this->pdf->SetXY(152, self::kHEADER_ROW_Y + 7.5);
 		$this->pdf->MultiCellTag(50, 3.5, "<t9w>Visit our store to pick up your meals. Take home & enjoy!</t9w>", $this->showBorders, 'C');
 
-		$yPos = self::kKEADER_ROW_Y + 27;
+		$yPos = self::kHEADER_ROW_Y + 27;
 
 		$width = CSessionToolsPDF::kPAGE_WIDTH - (CSessionToolsPDF::kLEFT_MARGIN * 2);
 
@@ -1188,35 +1107,35 @@ class CSessionToolsPDFDrawer
 		$this->pdf->MultiCellTag(12, 3.5, "<tmwb>Lrg</tmwb>", $this->showBorders, 'C');
 	}
 
-	function printMenuToolHeaderRow_DreamTaste()
+	function printMenuToolHeaderRow_DreamTaste(): void
 	{
 		$this->pdf->SetFillColor($this->color['new_grey']['r'], $this->color['new_grey']['g'], $this->color['new_grey']['b']);
 
-		$this->pdf->RoundedRect(10, self::kKEADER_ROW_Y + 1, 56, 16, 1, '1234', 'F');
-		$this->pdf->RoundedRect(79, self::kKEADER_ROW_Y + 1, 56, 16, 1, '1234', 'F');
-		$this->pdf->RoundedRect(149, self::kKEADER_ROW_Y + 1, 56, 16, 1, '1234', 'F');
+		$this->pdf->RoundedRect(10, self::kHEADER_ROW_Y + 1, 56, 16, 1, '1234', 'F');
+		$this->pdf->RoundedRect(79, self::kHEADER_ROW_Y + 1, 56, 16, 1, '1234', 'F');
+		$this->pdf->RoundedRect(149, self::kHEADER_ROW_Y + 1, 56, 16, 1, '1234', 'F');
 
-		$this->pdf->SetXY(13, self::kKEADER_ROW_Y + 3.5);
+		$this->pdf->SetXY(13, self::kHEADER_ROW_Y + 3.5);
 		$this->pdf->MultiCellTag(50, 3.5, "<tmwb>STEP 1</tmwb>", $this->showBorders, 'C');
 
-		$this->pdf->SetXY(13, self::kKEADER_ROW_Y + 7.5);
+		$this->pdf->SetXY(13, self::kHEADER_ROW_Y + 7.5);
 		$this->pdf->MultiCellTag(50, 3.5, "<t9w>Complete the form below or go online to dreamdinners.com</t9w>", $this->showBorders, 'C');
 
-		$this->pdf->SetXY(82, self::kKEADER_ROW_Y + 3.5);
+		$this->pdf->SetXY(82, self::kHEADER_ROW_Y + 3.5);
 		$this->pdf->MultiCellTag(50, 3.5, "<tmwb>STEP 2</tmwb>", $this->showBorders, 'C');
 
-		$this->pdf->SetXY(82, self::kKEADER_ROW_Y + 7.5);
+		$this->pdf->SetXY(82, self::kHEADER_ROW_Y + 7.5);
 		$this->pdf->MultiCellTag(50, 3.5, "<t9w>Choose 3 medium dinners for just $" . $this->data->bundleInfo->price . " for your family to try.</t9w>", $this->showBorders, 'C');
 
-		$this->pdf->SetXY(152, self::kKEADER_ROW_Y + 3.5);
+		$this->pdf->SetXY(152, self::kHEADER_ROW_Y + 3.5);
 		$this->pdf->MultiCellTag(50, 3.5, "<tmwb>STEP 3</tmwb>", $this->showBorders, 'C');
 
-		$this->pdf->SetXY(152, self::kKEADER_ROW_Y + 7.5);
+		$this->pdf->SetXY(152, self::kHEADER_ROW_Y + 7.5);
 		$this->pdf->MultiCellTag(50, 3.5, "<t9w>Visit our store to pick up your meals. Take home & enjoy!</t9w>", $this->showBorders, 'C');
 
 		$this->pdf->SetFillColor($this->color['new_gray']['r'], $this->color['new_gray']['g'], $this->color['new_gray']['b']);
 
-		$yPos = self::kKEADER_ROW_Y + 27;
+		$yPos = self::kHEADER_ROW_Y + 27;
 
 		$width = CSessionToolsPDF::kPAGE_WIDTH - (CSessionToolsPDF::kLEFT_MARGIN * 2);
 
@@ -1238,7 +1157,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->MultiCellTag(30, 3.5, "<tmwb>Med Dinners</tmwb>", $this->showBorders, 'C');
 	}
 
-	function printRatingsStars($xPos, $yPos, $width, $rating, $backGroundIsDark = false)
+	function printRatingsStars($xPos, $yPos, $width, $rating, $backGroundIsDark = false): void
 	{
 		$height = $width;
 		$unrating = 5 - $rating;
@@ -1269,7 +1188,7 @@ class CSessionToolsPDFDrawer
 		}
 	}
 
-	function printRatingsValue($xPos, $yPos, $width, $rating, $backGroundIsDark = false, $menuItemArray = false, $showLabel = true)
+	function printRatingsValue($xPos, $yPos, $width, $rating, $backGroundIsDark = false, $menuItemArray = false, $showLabel = true): void
 	{
 		$height = $width;
 
@@ -1304,7 +1223,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->Image($stars_image_path, $star_xPos, $yPos + .25, $width, $height);
 	}
 
-	function printMenuToolRow($menuItemArray, $yPos, $count, $globalRating, $includeFooterHr = false)
+	function printMenuToolRow($menuItemArray, $yPos, $count, $globalRating, $includeFooterHr = false): void
 	{
 		$this->showBorders = 0;
 
@@ -1409,7 +1328,7 @@ class CSessionToolsPDFDrawer
 
 	}
 
-	function printMenuToolRow_RecipeExpert($menuItemArray, $yPos, $count, $row_height)
+	function printMenuToolRow_RecipeExpert($menuItemArray, $yPos, $count, $row_height): void
 	{
 		if ($count % 2 == 0)
 		{
@@ -1472,7 +1391,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->MultiCellTag(18, 3, "<h9>" . $menuItemArray['packaging'] . "</h9>", $this->showBorders, 'C');
 	}
 
-	function printMenuToolRow_Freezer($menuItemArray, $yPos, $count, $globalRating)
+	function printMenuToolRow_Freezer($menuItemArray, $yPos, $count, $globalRating): float|int
 	{
 		$backGroundIsDark = true;
 
@@ -1637,7 +1556,7 @@ class CSessionToolsPDFDrawer
 		return $yPosDelta;
 	}
 
-	function calculateFreezerSheetRowHeight($orderItem)
+	function calculateFreezerSheetRowHeight($orderItem): float|int
 	{
 		$quantityData = (!empty($orderItem['entree']->DAO_order_item->item_count) ? $orderItem['entree']->DAO_order_item->item_count : false);
 
@@ -1665,7 +1584,7 @@ class CSessionToolsPDFDrawer
 		return $rows;
 	}
 
-	function printMenuToolRow_Nutritional($menuItemArray, $yPos, $count, $row_height)
+	function printMenuToolRow_Nutritional($menuItemArray, $yPos, $count, $row_height): void
 	{
 		$backGroundIsDark = true;
 
@@ -1759,7 +1678,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->SetDrawColor(0);
 	}
 
-	function printMenuToolRow_Intro($menuItemArray, $yPos, $count, $globalRating)
+	function printMenuToolRow_Intro($menuItemArray, $yPos, $count, $globalRating): void
 	{
 		$backGroundIsDark = true;
 
@@ -1840,7 +1759,7 @@ class CSessionToolsPDFDrawer
 
 	}
 
-	function printMenuToolRow_DreamTaste($menuItemArray, $yPos, $count, $globalRating)
+	function printMenuToolRow_DreamTaste($menuItemArray, $yPos, $count, $globalRating): void
 	{
 		$backGroundIsDark = true;
 
@@ -1915,13 +1834,13 @@ class CSessionToolsPDFDrawer
 		$this->pdf->MultiCellTag(10, 4, "<t9>Med</t9>", $this->showBorders, 'L');
 	}
 
-	function printRecipeExpertKey($yPos)
+	function printRecipeExpertKey($yPos): void
 	{
 		$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN, $yPos);
 		$this->pdf->MultiCellTag(CSessionToolsPDF::lPAGE_WIDTH - (CSessionToolsPDF::kLEFT_MARGIN * 2), 4, "<t9>Flavor Profile Key:     As - Asian     A - American     C - Classic Comfort     I - Italian     M - Mexican</t9>", $this->showBorders, 'C');
 	}
 
-	function printMenuNotes($yPos, $includePrintedOn = false, $includeQRcode = false, $qrData = null)
+	function printMenuNotes($yPos, $includePrintedOn = false, $includeQRcode = false, $qrData = null): void
 	{
 
 		$printedNote = '';
@@ -1948,7 +1867,7 @@ class CSessionToolsPDFDrawer
 
 	}
 
-	function printMenuNotes_Intro($yPos)
+	function printMenuNotes_Intro($yPos): void
 	{
 		$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN + 2, $yPos);
 		$this->pdf->RotatedText("<h8>Foods prepared at Dream Dinners may contain allergens introduced during the assembly process. Potential food</h8>", 90);
@@ -1960,7 +1879,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->RotatedText("<h8>Meal Prep Starter Pack is available to new guests only.</h8>", 90);
 	}
 
-	function printMenuNotes_DreamTaste($yPos)
+	function printMenuNotes_DreamTaste($yPos): void
 	{
 		$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN + 2, $yPos);
 		$this->pdf->RotatedText("<h8>Foods prepared at Dream Dinners may contain allergens introduced during the assembly process. Potential food</h8>", 90);
@@ -1975,7 +1894,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->RotatedText("<h8>by invitation only.</h8>", 90);
 	}
 
-	function printStoreSummary_Freezer($yPos)
+	function printStoreSummary_Freezer($yPos): void
 	{
 		$streetAddress = $this->data->storeInfo->address_line1;
 		if (!empty($this->data->storeInfo->address_line2))
@@ -1991,7 +1910,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->RotatedText("<h8>{$this->data->storeInfo->store_name} - {$addressLine} - {$contactLine}</h8>", 90);
 	}
 
-	function printIconLegend($yPos, $xPos, $addFavoriteStar = false)
+	function printIconLegend($yPos, $xPos, $addFavoriteStar = false): void
 	{
 		$x_offset = 0;
 		$count = 0;
@@ -2032,7 +1951,7 @@ class CSessionToolsPDFDrawer
 		}
 	}
 
-	function printLeftTabbedContainer($xPos, $yPos, $width, $height, $title = false, $text_rotate = 90, $text_y_offset = 0)
+	function printLeftTabbedContainer($xPos, $yPos, $width, $height, $title = false, $text_rotate = 90, $text_y_offset = 0): void
 	{
 		$this->pdf->SetFillColor($this->color['new_gray']['r'], $this->color['new_gray']['g'], $this->color['new_gray']['b']);
 
@@ -2054,7 +1973,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->SetLineWidth(0.2);
 	}
 
-	function printPlatePointsSummary($xPos, $yPos)
+	function printPlatePointsSummary($xPos, $yPos): void
 	{
 		if ($this->data->userInfo->platePointsData['status'] != 'active')
 		{
@@ -2067,7 +1986,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->MultiCellTag(70, 4, "<h8>$$formatedCredit Available Dinner Dollars</h8>", $this->showBorders, 'L');
 	}
 
-	function printMembershipSummary($yPos, $xPos)
+	function printMembershipSummary($yPos, $xPos): void
 	{
 		if ($this->data->userInfo->membershipData['status'] != CUser::MEMBERSHIP_STATUS_CURRENT)
 		{
@@ -2092,7 +2011,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->MultiCellTag(70, 4, "<h8>Total Saved: $$formatedCredit</h8>", $this->showBorders, 'L');
 	}
 
-	function printNewAccountInfo($yPos, $xPos)
+	function printNewAccountInfo($yPos, $xPos): void
 	{
 		$this->printLeftTabbedContainer($xPos, $yPos, 88, 44, "<pt8b>GUEST INFO</pt8b>", 90, 12);
 
@@ -2141,7 +2060,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->SetDrawColor(0);
 	}
 
-	function printNewAccountInfo_Menu($yPos, $xPos)
+	function printNewAccountInfo_Menu($yPos, $xPos): void
 	{
 		// Rect hides welcome message
 		$this->pdf->SetFillColor(255, 255, 255);
@@ -2173,7 +2092,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->SetDrawColor(0);
 	}
 
-	function printSessionAndPaymentSummary($yPos, $xPos, $count)
+	function printSessionAndPaymentSummary($yPos, $xPos, $count): void
 	{
 		// background
 		$this->pdf->SetLineWidth(.5);
@@ -2350,7 +2269,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->SetDrawColor(0);
 	}
 
-	function printNewAccountSessionAndPaymentSummary($yPos, $xPos)
+	function printNewAccountSessionAndPaymentSummary($yPos, $xPos): void
 	{
 		$this->printLeftTabbedContainer($xPos, $yPos, 88, 44, "<pt8b>PAYMENT</pt8b>", 90, 10);
 
@@ -2395,7 +2314,7 @@ class CSessionToolsPDFDrawer
 		$this->pdf->SetDrawColor(0);
 	}
 
-	function printStoreSummary($yPos, $includePrintedOn = false, $align = 'C', $includeStoreName = true)
+	function printStoreSummary($yPos, $includePrintedOn = false, $align = 'C', $includeStoreName = true): void
 	{
 		$streetAddress = $this->data->storeInfo->address_line1;
 		if (!empty($this->data->storeInfo->address_line2))
@@ -2430,7 +2349,7 @@ class CSessionToolsPDFDrawer
 		}
 	}
 
-	function printThisMonthsMenuPDF()
+	function printThisMonthsMenuPDF(): void
 	{
 		$this->pdf->AddPage();
 
@@ -2441,7 +2360,7 @@ class CSessionToolsPDFDrawer
 		$this->printPlatePointsSummary(40, 10);
 		$this->printMenuToolHeaderRow();
 
-		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
+		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kHEADER_ROW_Y;
 		$count = 0;
 		foreach ($this->data->menuItems as $rid => $menuItemArray)
 		{
@@ -2469,7 +2388,7 @@ class CSessionToolsPDFDrawer
 		$this->printStoreSummary(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 15.5, false, 'L', false);
 	}
 
-	function printNextMonthsMenuPDF()
+	function printNextMonthsMenuPDF(): void
 	{
 		$this->pdf->AddPage();
 
@@ -2480,7 +2399,7 @@ class CSessionToolsPDFDrawer
 		$this->printPlatePointsSummary(40, 10);
 		$this->printMenuToolHeaderRow();
 
-		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
+		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kHEADER_ROW_Y;
 		$count = 0;
 		foreach ($this->data->menuItems_Next as $rid => $menuItemArray)
 		{
@@ -2508,7 +2427,7 @@ class CSessionToolsPDFDrawer
 		$this->printStoreSummary(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 15.5, false, 'L', false);
 	}
 
-	function printFreezerListPDF()
+	function printFreezerListPDF(): void
 	{
 		$this->pdf->AddPage();
 
@@ -2516,7 +2435,7 @@ class CSessionToolsPDFDrawer
 		$this->printHeader_Freezer(CSessionToolsPDF::kHORZ_CENTER, 6, $this->data->menu_id);
 		$this->printMenuToolHeaderRow_Freezer();
 
-		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
+		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kHEADER_ROW_Y;
 		$count = 0;
 		$menu_items_per_page = 17;
 
@@ -2566,7 +2485,7 @@ class CSessionToolsPDFDrawer
 
 	}
 
-	function printFreezerList_Notes($xPos, $yPos)
+	function printFreezerList_Notes($xPos, $yPos): void
 	{
 
 		$this->pdf->SetFillColor(255, 255, 255);
@@ -2584,91 +2503,53 @@ class CSessionToolsPDFDrawer
 		$this->pdf->Rect($xPos, $yPos + 20.5, CSessionToolsPDF::kPAGE_WIDTH - $xPos - 8, CSessionToolsPDF::kPAGE_HEIGHT - $yPos - 45);
 	}
 
-	function printNutritionalPDF()
+	function printNutritionalPDF(): void
 	{
-		if ($this->data->storeInfo->store_type == CStore::DISTRIBUTION_CENTER)
+		$this->pdf->AddPage();
+
+		$this->printLogo(CSessionToolsPDF::kLEFT_MARGIN, CSessionToolsPDF::kTOP_MARGIN, 31.8, false, $this->data->menu_id, true);
+		$this->printHeader_Nutritional(CSessionToolsPDF::kHORZ_CENTER, 6, $this->data->menu_id);
+		$this->printMenuToolHeaderRow_Nutritional(14);
+
+		$yPos = 41.5; //self::kHEADER_ROW_HEIGHT + self::kHEADER_ROW_Y;
+		$count = 0;
+
+		if (!empty($this->data->orderItems[$this->data->userInfo->orderInfo['orderInfo']['id']]))
 		{
-			//for each box - print page
-
-			foreach ($this->data->boxes as $boxTitle => $items)
+			foreach ($this->data->orderItems[$this->data->userInfo->orderInfo['orderInfo']['id']] as $orderItem)
 			{
-				$this->pdf->AddPage();
+				$num_components = count($orderItem['entree']->nutrition_array['component']);
 
-				$this->printLogo(CSessionToolsPDF::kLEFT_MARGIN, CSessionToolsPDF::kTOP_MARGIN, 31.8, false, $this->data->menu_id, true);
-				$this->printHeader_Nutritional(CSessionToolsPDF::kHORZ_CENTER, 6, $this->data->menu_id);
-				$this->printHeaderBox_Nutritional(CSessionToolsPDF::kHORZ_CENTER, 18, $boxTitle);
-				$this->printMenuToolHeaderRow_Nutritional(20);
+				$row_height = ($num_components * 4) + 5;
 
-				$yPos = 48.5; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
-				$count = 0;
-
-				foreach ($items as $key => $orderItem)
+				if (!empty($orderItem['entree']->nutrition_array['component'][1]['info']['notes']))
 				{
-					$num_components = count($this->data->nutritionalItems[$orderItem['recipe_id']]['component']);
-
-					$row_height = ($num_components * 4) + 5;
-
-					if (!empty($this->data->nutritionalItems[$orderItem['recipe_id']]['info']['notes']))
-					{
-						$row_height += 4;
-					}
-
-					$this->printMenuToolRow_Nutritional($orderItem, $yPos, $count++, $row_height);
-
-					$yPos += $row_height;
+					$row_height += 4;
 				}
 
-				$this->printNutritional_Notes(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 20);
+				$this->printMenuToolRow_Nutritional($orderItem, $yPos, $count++, $row_height);
+
+				$yPos += $row_height;
 			}
 		}
-		else
-		{
-			$this->pdf->AddPage();
 
-			$this->printLogo(CSessionToolsPDF::kLEFT_MARGIN, CSessionToolsPDF::kTOP_MARGIN, 31.8, false, $this->data->menu_id, true);
-			$this->printHeader_Nutritional(CSessionToolsPDF::kHORZ_CENTER, 6, $this->data->menu_id);
-			$this->printMenuToolHeaderRow_Nutritional(14);
-
-			$yPos = 41.5; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
-			$count = 0;
-
-			if (!empty($this->data->orderItems[$this->data->userInfo->orderInfo['orderInfo']['id']]))
-			{
-				foreach ($this->data->orderItems[$this->data->userInfo->orderInfo['orderInfo']['id']] as $orderItem)
-				{
-					$num_components = count($orderItem['entree']->nutrition_array['component']);
-
-					$row_height = ($num_components * 4) + 5;
-
-					if (!empty($orderItem['entree']->nutrition_array['component'][1]['info']['notes']))
-					{
-						$row_height += 4;
-					}
-
-					$this->printMenuToolRow_Nutritional($orderItem, $yPos, $count++, $row_height);
-
-					$yPos += $row_height;
-				}
-			}
-
-			$this->printNutritional_Notes(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 20);
-		}
+		$this->printNutritional_Notes(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 20);
 	}
 
-	function printNutritional_Notes($yPos)
+	function printNutritional_Notes($yPos): void
 	{
 		$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN, $yPos);
 		$this->pdf->MultiCellTag(CSessionToolsPDF::kPAGE_WIDTH - 16, 4, "<t8>Nutritional information is per serving unless otherwise stated and are based on standard formulations. For example, if one Large dinner was divided into 6 equal portions, the nutritional information is accurate for one portion. Variations may occur due to manufacture/supplier alterations and individual assembly and preparation.</t8>", $this->showBorders, 'C');
 	}
 
-	function printReceipt($customerOnly)
+	function printReceipt($customerOnly): void
 	{
 		$this->pdf->AddPage();
 		$this->printLogo(CSessionToolsPDF::kLEFT_MARGIN, CSessionToolsPDF::kTOP_MARGIN, 31.8, false, $this->data->menu_id);
 	}
 
 	/* Generic pages */
-	function printGenericRecipeExpertPDF()
+	function printGenericRecipeExpertPDF(): void
 	{
 		$this->pdf->AddPage('L');
 
@@ -2679,7 +2560,7 @@ class CSessionToolsPDFDrawer
 		$this->printMenuToolHeaderRow_RecipeExpert();
 		$this->printRecipeExpertKey(CSessionToolsPDF::lPAGE_HEIGHT - 8);
 
-		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
+		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kHEADER_ROW_Y;
 		$count = 0;
 		foreach ($this->data->menuItems as $rid => $menuItemArray)
 		{
@@ -2718,7 +2599,7 @@ class CSessionToolsPDFDrawer
 		}
 	}
 
-	function printGenericCoreMenuPDF()
+	function printGenericCoreMenuPDF(): void
 	{
 		$this->pdf->AddPage();
 
@@ -2729,7 +2610,7 @@ class CSessionToolsPDFDrawer
 		$this->printNewAccountInfo_Menu(CSessionToolsPDF::kTOP_MARGIN, CSessionToolsPDF::kLEFT_MARGIN + 30);
 		$this->printMenuToolHeaderRow();
 
-		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
+		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kHEADER_ROW_Y;
 		$count = 0;
 		foreach ($this->data->menuItems as $rid => $menuItemArray)
 		{
@@ -2765,13 +2646,13 @@ class CSessionToolsPDFDrawer
 		$this->printStoreSummary(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 15.5, false, 'L', false);
 	}
 
-	function printTextMessageReminders($xPos, $yPos)
+	function printTextMessageReminders($xPos, $yPos): void
 	{
 		$this->pdf->SetXY($xPos, $yPos);
 		$this->pdf->MultiCellTag(CSessionToolsPDF::kPAGE_WIDTH - (CSessionToolsPDF::kLEFT_MARGIN * 2) - 7, 3, "<h8>Sign up to receive weekly text thaw reminders, session reminders and exclusive promotions. Log in to your account on DreamDinners.com to select your text message preferences. *Up to 12Msgs/Month. Reply <h8b>STOP</h8b> to cancel, <h8b>HELP</h8b> for help. Msg & data rates may apply.</h8>", $this->showBorders, 'L');
 	}
 
-	function printGenericFreezerListPDF()
+	function printGenericFreezerListPDF(): void
 	{
 		$this->pdf->AddPage();
 
@@ -2783,7 +2664,7 @@ class CSessionToolsPDFDrawer
 		//$this->printTextMessageReminders(14, CSessionToolsPDF::kPAGE_HEIGHT - 15);
 		$this->printStoreSummary_Freezer(CSessionToolsPDF::kTOP_MARGIN + 264);
 
-		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
+		$yPos = 27.5; //self::kHEADER_ROW_HEIGHT + self::kHEADER_ROW_Y;
 		$count = 0;
 		$menu_items_per_page = 17;
 
@@ -2826,7 +2707,7 @@ class CSessionToolsPDFDrawer
 		}
 	}
 
-	function printGenericNutritionPDF()
+	function printGenericNutritionPDF(): void
 	{
 		$this->pdf->AddPage();
 
@@ -2834,7 +2715,7 @@ class CSessionToolsPDFDrawer
 		$this->printHeader_Nutritional(CSessionToolsPDF::kHORZ_CENTER, 6, $this->data->menu_id);
 		$this->printMenuToolHeaderRow_Nutritional(14);
 
-		$yPos = 41.5; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
+		$yPos = 41.5; //self::kHEADER_ROW_HEIGHT + self::kHEADER_ROW_Y;
 		$count = 0;
 		foreach ($this->data->menuItems as $rid => $menuItem)
 		{
@@ -2860,7 +2741,7 @@ class CSessionToolsPDFDrawer
 		$this->printNutritional_Notes(CSessionToolsPDF::kTOP_MARGIN + CSessionToolsPDF::kPAGE_HEIGHT - 20);
 	}
 
-	function printGenericIntroMenuPDF()
+	function printGenericIntroMenuPDF(): void
 	{
 		$this->pdf->AddPage();
 
@@ -2868,7 +2749,7 @@ class CSessionToolsPDFDrawer
 		$this->printHeader_Intro(CSessionToolsPDF::kHORZ_CENTER, 6, true, $this->data);
 		$this->printMenuToolHeaderRow_Intro();
 
-		$yPos = 27.5 + 27; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
+		$yPos = 27.5 + 27; //self::kHEADER_ROW_HEIGHT + self::kHEADER_ROW_Y;
 		$count = 0;
 		foreach ($this->data->menuItems as $rid => $menuItem)
 		{
@@ -2902,7 +2783,7 @@ class CSessionToolsPDFDrawer
 		$this->printMenuNotes_Intro(CSessionToolsPDF::kTOP_MARGIN + 266);
 	}
 
-	function printGenericDreamTasteMenuPDF()
+	function printGenericDreamTasteMenuPDF(): void
 	{
 		$this->pdf->AddPage();
 
@@ -2910,7 +2791,7 @@ class CSessionToolsPDFDrawer
 		$this->printHeader_DreamTaste(CSessionToolsPDF::kHORZ_CENTER, 6, $this->data->menu_id);
 		$this->printMenuToolHeaderRow_DreamTaste();
 
-		$yPos = 27.5 + 27; //self::kHEADER_ROW_HEIGHT + self::kKEADER_ROW_Y;
+		$yPos = 27.5 + 27; //self::kHEADER_ROW_HEIGHT + self::kHEADER_ROW_Y;
 		$count = 0;
 		foreach ($this->data->menuItems as $rid => $menuItem)
 		{
@@ -2934,7 +2815,7 @@ class CSessionToolsPDFDrawer
 		$this->printMenuNotes_DreamTaste(CSessionToolsPDF::kTOP_MARGIN + 266);
 	}
 
-	function getStoreMenuQrCodePath($store_id, $menu_id, $forceQrRegen = false)
+	function getStoreMenuQrCodePath($store_id, $menu_id, $forceQrRegen = false): string
 	{
 		$path = ASSETS_PATH . '/pdf_label/qrcode/qr-store-menu-' . $store_id . '-' . $menu_id . '.png';
 
@@ -2946,7 +2827,7 @@ class CSessionToolsPDFDrawer
 		return $path;
 	}
 
-	function output($target = 'print')
+	function output($target = 'print'): void
 	{
 		$this->pdf->output();
 	}
