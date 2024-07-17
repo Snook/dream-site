@@ -664,8 +664,8 @@ class page_admin_publish_sessions extends CPageAdminOnly
 				}
 			}
 			// Also publish any previously saved sessions
-			$timeSpanStartasSQLDate = date("Y-m-d H:i:s", $timeSpanStart);
-			$timeSpanEndasSQLDate = date("Y-m-d H:i:s", $timeSpanEnd + 86400);
+			$timeSpanStartasSQLDate = date("Y-m-d H:i:s", (int)$timeSpanStart);
+			$timeSpanEndasSQLDate = date("Y-m-d H:i:s", (int)$timeSpanEnd + 86400);
 			$DAO_session = DAO_CFactory::create('session');
 			$DAO_session->whereAdd("session_publish_state = 'SAVED' and $currentMenu = menu_id and store_id = $currentStore and session_start >= '$timeSpanStartasSQLDate' and session_start <= '$timeSpanEndasSQLDate'");
 			$DAO_session->find();
