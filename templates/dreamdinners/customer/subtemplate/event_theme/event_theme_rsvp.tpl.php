@@ -85,25 +85,24 @@
 			</button>
 		</div>
 	</div>
-</div>
 
-<?php if (!empty($this->session['dream_taste_can_rsvp_upgrade'])) { ?>
-	<div class="col-lg-6 p-0">
-		<div class="card m-2">
-			<div class="card-header font-weight-bold text-center">
-				RSVP &amp; Upgrade
-			</div>
-			<div class="card-body text-center">
-				<i class="dd-icon icon-group font-size-extra-large text-green"></i>
-				<p class="card-text">We are extending an opportunity for you to receive a one-time special offer. Upgrade your order to receive <span class="font-weight-bold">three additional medium-size meals</span> for only $<?php echo $this->session['dream_taste_price']; ?>. There is no obligation. Choose your extra meals today!</p>
-			</div>
-			<div class="card-footer">
-				<button class="btn btn-primary btn-block rsvp_upgrade_btn">
-					View menu items
-				</button>
+	<?php if (!empty($this->session['dream_taste_can_rsvp_upgrade'])) { ?>
+		<div class="col-lg-6 p-0">
+			<div class="card m-2">
+				<div class="card-header font-weight-bold text-center">
+					RSVP &amp; Upgrade
+				</div>
+				<div class="card-body text-center">
+					<i class="dd-icon icon-group font-size-extra-large text-green"></i>
+					<p class="card-text">We are extending an opportunity for you to receive a one-time special offer. Upgrade your order to receive <span class="font-weight-bold">three additional medium-size meals</span> for only $<?php echo $this->session['dream_taste_price']; ?>. There is no obligation. Choose your extra meals today!</p>
+				</div>
+				<div class="card-footer">
+					<button class="btn btn-primary btn-block rsvp_upgrade_btn">
+						View menu items
+					</button>
+				</div>
 			</div>
 		</div>
-	</div>
-<?php } ?>
+	<?php } ?>
 
 </div>
