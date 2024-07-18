@@ -3,6 +3,9 @@
 class page_start_new_test_order extends CPage
 {
 
+	/**
+	 * @throws Exception
+	 */
 	function getRandomStandardSessionNoFail($menu_id, $store_id)
 	{
 
@@ -30,6 +33,9 @@ class page_start_new_test_order extends CPage
 		return false;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function fillCartWithRandomItemsNoFail($CartObj, $menu_id, $store_id)
 	{
 		$items = DAO_CFactory::create('menu_item');
@@ -121,5 +127,3 @@ class page_start_new_test_order extends CPage
 		CApp::bounce("/checkout");
 	}
 }
-
-?>

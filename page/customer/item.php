@@ -68,5 +68,3 @@ class page_item extends CPage
 		}
 	}
 }
-
-?>

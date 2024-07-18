@@ -555,7 +555,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			$storeInfo->fetch();
 			$titleString = "Dashboard Report for " . $currentMonthStr . " " . $storeInfo->store_name . " " . $storeInfo->city . ", " . $storeInfo->state_id;
 
-			if ($storeInfo->store_type == CStore::DISTRIBUTION_CENTER)
+			if ($storeInfo->isDistributionCenter())
 			{
 				$tpl->assign('showDeliveredRows', true);
 			}
@@ -993,23 +993,23 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 		else if (!$hadError)
 		{
 
-			$previousAGRDelta = $curMonthrollup['total_agr'] - $prevMonthrollup['total_agr'];
-			$previousAGRDeltaPercent = CTemplate::divide_and_format(($curMonthrollup['total_agr'] - $prevMonthrollup['total_agr']) * 100, $prevMonthrollup['total_agr'], 2);
+			$previousAGRDelta = (float)$curMonthrollup['total_agr'] - (float)$prevMonthrollup['total_agr'];
+			$previousAGRDeltaPercent = CTemplate::divide_and_format(((float)$curMonthrollup['total_agr'] - (float)$prevMonthrollup['total_agr']) * 100, $prevMonthrollup['total_agr'], 2);
 			$tpl->assignAndFormatMetricDollars('previousAGRDelta', $previousAGRDelta);
 			$tpl->assignAndFormatMetricPercent('previousAGRDeltaPercent', $previousAGRDeltaPercent);
 
-			$curMonthlastYearAGRDelta = $curMonthrollup['total_agr'] - $curMonthLastYearrollup['total_agr'];
-			$curMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(($curMonthrollup['total_agr'] - $curMonthLastYearrollup['total_agr']) * 100, $curMonthLastYearrollup['total_agr'], 2);
+			$curMonthlastYearAGRDelta = (float)$curMonthrollup['total_agr'] - (float)$curMonthLastYearrollup['total_agr'];
+			$curMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(((float)$curMonthrollup['total_agr'] - (float)$curMonthLastYearrollup['total_agr']) * 100, $curMonthLastYearrollup['total_agr'], 2);
 			$tpl->assignAndFormatMetricDollars('curMonthlastYearAGRDelta', $curMonthlastYearAGRDelta);
 			$tpl->assignAndFormatMetricPercent('curMonthlastYearAGRDeltaPercent', $curMonthlastYearAGRDeltaPercent);
 
-			$nextMonthlastYearAGRDelta = $nextMonthrollup['total_agr'] - $nextMonthLastYearrollup['total_agr'];
-			$nextMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(($nextMonthrollup['total_agr'] - $nextMonthLastYearrollup['total_agr']) * 100, $nextMonthLastYearrollup['total_agr'], 2);
+			$nextMonthlastYearAGRDelta = (float)$nextMonthrollup['total_agr'] - (float)$nextMonthLastYearrollup['total_agr'];
+			$nextMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(((float)$nextMonthrollup['total_agr'] - (float)$nextMonthLastYearrollup['total_agr']) * 100, $nextMonthLastYearrollup['total_agr'], 2);
 			$tpl->assignAndFormatMetricDollars('nextMonthlastYearAGRDelta', $nextMonthlastYearAGRDelta);
 			$tpl->assignAndFormatMetricPercent('nextMonthlastYearAGRDeltaPercent', $nextMonthlastYearAGRDeltaPercent);
 
-			$distantMonthlastYearAGRDelta = $distMonthrollup['total_agr'] - $distantMonthLastYearrollup['total_agr'];
-			$distantMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(($distMonthrollup['total_agr'] - $distantMonthLastYearrollup['total_agr']) * 100, $distantMonthLastYearrollup['total_agr'], 2);
+			$distantMonthlastYearAGRDelta = (float)$distMonthrollup['total_agr'] - (float)$distantMonthLastYearrollup['total_agr'];
+			$distantMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(((float)$distMonthrollup['total_agr'] - (float)$distantMonthLastYearrollup['total_agr']) * 100, $distantMonthLastYearrollup['total_agr'], 2);
 			$tpl->assignAndFormatMetricDollars('distantMonthlastYearAGRDelta', $distantMonthlastYearAGRDelta);
 			$tpl->assignAndFormatMetricPercent('distantMonthlastYearAGRDeltaPercent', $distantMonthlastYearAGRDeltaPercent);
 		}

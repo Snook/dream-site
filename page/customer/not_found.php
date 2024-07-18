@@ -8,4 +8,3 @@ class page_not_found extends CPage {
 
 	}
 }
-?>

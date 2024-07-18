@@ -57,5 +57,3 @@ class page_home extends CPage
 		$this->detectAndHandleSharedLink();
 	}
 }
-
-?>

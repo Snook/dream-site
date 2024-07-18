@@ -1770,7 +1770,7 @@ class page_admin_order_mgr_test extends CPageAdminOnly
 							}
 							else
 							{
-								$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold -  " . " $servingQty where mii.recipe_id = {$order_item->recipe_id} and mii.store_id = $tempStoreID and mii.menu_id = {$Session->menu_id} and mii.is_deleted = 0");
+								$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold -  $servingQty where mii.recipe_id = {$order_item->recipe_id} and mii.store_id = $tempStoreID and mii.menu_id = {$Session->menu_id} and mii.is_deleted = 0");
 							}
 						}
 						catch (exception $exc)

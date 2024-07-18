@@ -90,7 +90,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 	function runOrderManager()
 	{
 
-		ini_set('memory_limit', '64M');
+		ini_set('memory_limit', '128M');
 		set_time_limit(1800);
 		$tpl = CApp::instance()->template();
 
@@ -990,16 +990,16 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 							if (isset($items[$menu_item['id']]))
 							{
-								$addRemaining = ($items[$menu_item['id']][0] * $menu_item['servings_per_item']);
-								$initialCount = $items[$menu_item['id']][0];
+								$addRemaining = ($items[$menu_item['id']][1]->DAO_order_item->item_count * $menu_item['servings_per_item']);
+								$initialCount = $items[$menu_item['id']][1]->DAO_order_item->item_count;
 
-								if (isset($items[$menu_item['id']][1]->bundleItemCount) && $items[$menu_item['id']][1]->bundleItemCount > 0)
+								if (isset($items[$menu_item['id']][1]->DAO_order_item->bundle_item_count) && $items[$menu_item['id']][1]->DAO_order_item->bundle_item_count > 0)
 								{
-									$Form->DefaultValues[$qtyName] = $items[$menu_item['id']][0] - $items[$menu_item['id']][1]->bundleItemCount;
+									$Form->DefaultValues[$qtyName] = $items[$menu_item['id']][1]->DAO_order_item->item_count - $items[$menu_item['id']][1]->DAO_order_item->bundle_item_count;
 								}
 								else
 								{
-									$Form->DefaultValues[$qtyName] = $items[$menu_item['id']][0];
+									$Form->DefaultValues[$qtyName] = $items[$menu_item['id']][1]->DAO_order_item->item_count;
 								}
 
 								if ($this->orderState != 'SAVED')
@@ -1015,7 +1015,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 										$reduceTo = intval($EntreeToInventoryMap[$menu_item['entree_id']]['org_remaining'] / $menu_item['servings_per_item']);
 
 										$Form->DefaultValues[$qtyName] = $reduceTo;
-										$items[$menu_item['id']][0] = $reduceTo;
+										$items[$menu_item['id']][1]->DAO_order_item->item_count = $reduceTo;
 
 										$inventoryErrorMsg .= "<span style ='color:red'>Entrees: " . $menu_item['display_title'] . " was adjusted from " . $initialCount . " to $reduceTo.</span><br /><br >";
 									}
@@ -4311,7 +4311,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		$newPayment = DAO_CFactory::create('payment');
 		$newPayment->user_id = $this->originalOrder->user_id;
 		$newPayment->store_id = $this->originalOrder->store_id;
-		$newPayment->total_amount = payment1_cc_total_amount;
+		$newPayment->total_amount = $_POST['payment2_cc_total_amount'];
 		$newPayment->order_id = $this->originalOrder->id;
 		$newPayment->is_delayed_payment = 0;
 		$newPayment->is_escrip_customer = 0;

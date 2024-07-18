@@ -17,6 +17,9 @@ class CMenu extends DAO_Menu
 		parent::__construct();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function find_DAO_menu($n = false)
 	{
 		if ($this->_query["data_select"] === "*")
@@ -213,6 +216,9 @@ class CMenu extends DAO_Menu
 		return true;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function getLastMenuID()
 	{
 		$DAO_menu = DAO_CFactory::create("menu");
@@ -223,6 +229,9 @@ class CMenu extends DAO_Menu
 		return $DAO_menu->id;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function getCurrentMenu()
 	{
 		$DAO_menu = DAO_CFactory::create('menu', true);
@@ -245,7 +254,10 @@ class CMenu extends DAO_Menu
 		return self::$curMenuId;
 	}
 
-	static function menuExists($menu_id)
+	/**
+	 * @throws Exception
+	 */
+	static function menuExists($menu_id): bool
 	{
 		$testObj = DAO_CFactory::create('menu');
 		$testObj->id = $menu_id;
@@ -259,6 +271,9 @@ class CMenu extends DAO_Menu
 		return false;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function getAllMenus()
 	{
 		$menuArray = array();
@@ -277,6 +292,9 @@ class CMenu extends DAO_Menu
 
 	/*
 	 * For testing cart for validity
+	 */
+	/**
+	 * @throws Exception
 	 */
 	static function isMenuIDCurrentInCustomerView($menu_id)
 	{
@@ -311,6 +329,9 @@ class CMenu extends DAO_Menu
 		return false;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function getMenuStartandInterval($menu_id = false, $date = false)
 	{
 		$menuObj = DAO_CFactory::create('menu');
@@ -344,6 +365,9 @@ class CMenu extends DAO_Menu
 		);
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function storeSpecificMenuExists($menu_id, $store_id)
 	{
 		$testMenuToMenuItem = DAO_CFactory::create('menu_to_menu_item');
@@ -353,6 +377,9 @@ class CMenu extends DAO_Menu
 		return $testMenuToMenuItem->count() > 0;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function getStorePricingForMenu($menu_id, $store_id)
 	{
 		$daoMenuItem = DAO_CFactory::create('menu_to_menu_item');
@@ -382,7 +409,6 @@ class CMenu extends DAO_Menu
 		$markup = null;
 		while ($daoMenuItem->fetch())
 		{
-			$price = 0;
 			if (isset($daoMenuItem->override_price))
 			{
 				$price = $daoMenuItem->override_price;
@@ -395,7 +421,7 @@ class CMenu extends DAO_Menu
 					{
 						$markup = $storeObj->getMarkUpMultiObj($menu_id);
 					}
-					$price = CTemplate::moneyFormat(COrders::getItemMarkupMultiSubtotal($markup, $daoMenuItem, 1));
+					$price = CTemplate::moneyFormat(COrders::getItemMarkupMultiSubtotal($markup, $daoMenuItem));
 				}
 				else
 				{
@@ -408,6 +434,9 @@ class CMenu extends DAO_Menu
 		return $menuItemInfo;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function getWeeksArrayForMenu($menu_id)
 	{
 		$retVal = array();
@@ -457,6 +486,7 @@ class CMenu extends DAO_Menu
 	 * Creates a CMenuItem object for fetching the items on this menu.
 	 * The menu's id must be set before calling this function.
 	 * @return CMenuItem
+	 * @throws Exception
 	 */
 	function findMenuItemDAO($optionsArray = false)
 	{
@@ -515,7 +545,7 @@ class CMenu extends DAO_Menu
 		if (!empty($optionsArray['join_order_item_order_id']))
 		{
 			$DAO_order_item = DAO_CFactory::create('order_item', true);
-			$DAO_order_item->whereAdd("order_id IN (" . implode(',', $optionsArray['join_order_item_order_id']) . ")");
+			$DAO_order_item->whereAdd("order_item.order_id IN (" . implode(',', $optionsArray['join_order_item_order_id']) . ")");
 			$DAO_booking = DAO_CFactory::create('booking', true);
 			$DAO_booking->joinAddWhereAsOn(DAO_CFactory::create('session', true), $optionsArray['join_order_item_order']);
 			$DAO_order_item->joinAddWhereAsOn($DAO_booking, $optionsArray['join_order_item_order']);
@@ -811,12 +841,13 @@ class CMenu extends DAO_Menu
 	}
 
 	/**
+	 * @throws Exception
 	 * @deprecated getMenuItemDAO() has been changed to object findMenuItemDAO()
 	 *
 	 * object setup helper for migration
 	 *
 	 */
-	function getMenuItemDAO($order_by = 'FeaturedFirst', $storeID = false, $pricingType = false, $groupByEntreeID = false, $excludeAddons = true, $excludeChefTouchedSelections = true, $excludeStoreSpecialsIfMenuIsGlobal = true, $joinUsersFavoritesFlag = false, $inItemList = false, $excludeCoreMenuItems = false, $retrieveWeeklyProjections = false, $visibleOnly = false)
+	function getMenuItemDAO($order_by = 'FeaturedFirst', $storeID = false, $pricingType = false, $groupByEntreeID = false, $excludeAddons = true, $excludeChefTouchedSelections = true, $excludeStoreSpecialsIfMenuIsGlobal = true, $joinUsersFavoritesFlag = false, $inItemList = false, $excludeCoreMenuItems = false, $retrieveWeeklyProjections = false, $visibleOnly = false): ?CMenuItem
 	{
 		$defaultOptionsArray = array(
 			'menu_item_id_list' => $inItemList,
@@ -838,14 +869,16 @@ class CMenu extends DAO_Menu
 	}
 
 	/**
-	 * @param $menu_select can be a menu id or 'next' for next month's menu
+	 * @param $menu_select
+	 * can be a menu id or 'next' for next month's menu
 	 *
 	 * @return array(    $menuOptions[id]['menu_name']
 	 *                    $menuOptions[id]['startdate']
 	 *                    $menuOptions[id]['enddate'],
 	 *                    $menuItemInfo
+	 * @throws Exception
 	 */
-	public static function buildPreviewMenuArray($storeObj = null, $menu_select = null, $order_by = 'FeaturedFirst')
+	public static function buildPreviewMenuArray($menu_select = null, $order_by = 'FeaturedFirst'): array
 	{
 		//fetch the menu for the month
 		$daoMenu = DAO_CFactory::create('menu');
@@ -931,6 +964,9 @@ class CMenu extends DAO_Menu
 		return $menuItemInfo;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function getFutureFTPickups($storeID)
 	{
 		$tempStoreObj = DAO_CFactory::create('store');
@@ -953,6 +989,9 @@ class CMenu extends DAO_Menu
 		return $tempArray;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function getFutureFTPickupsPerItem($storeID, $recipeID)
 	{
 		$tempStoreObj = DAO_CFactory::create('store');
@@ -977,6 +1016,7 @@ class CMenu extends DAO_Menu
 
 	/**
 	 * Build TODD Menu array for session menu selection
+	 * @throws Exception
 	 */
 	static function getTODDMenuMenbuItemIDsForSession($session_id)
 	{
@@ -995,6 +1035,7 @@ class CMenu extends DAO_Menu
 
 	/**
 	 * Build Menu Addon array for drop down
+	 * @throws Exception
 	 */
 	static function buildMenuAddonArray($storeObj, $menu_id, $overrideStoreSpecificMenu = false)
 	{
@@ -1049,7 +1090,7 @@ class CMenu extends DAO_Menu
 			$menuItemInfo[$daoMenuItem->category][$i]['item_count_per_item'] = $daoMenuItem->item_count_per_item;
 			$menuItemInfo[$daoMenuItem->category][$i]['entree_id'] = $daoMenuItem->entree_id;
 			$menuItemInfo[$daoMenuItem->category][$i]['is_optional'] = $daoMenuItem->is_optional;
-			$menuItemInfo[$daoMenuItem->category][$i]['excluded'] = isset($daoMenuItem->excluded) ? true : false;
+			$menuItemInfo[$daoMenuItem->category][$i]['excluded'] = isset($daoMenuItem->excluded);
 			// addons are not currently in use ... but provide default numbers in case it is
 			$menuItemInfo[$daoMenuItem->category][$i]['initial_inventory'] = 9999;
 			$menuItemInfo[$daoMenuItem->category][$i]['override_inventory'] = 9999;
@@ -1058,7 +1099,7 @@ class CMenu extends DAO_Menu
 			// if not set it should dedault to true
 			if (isset($daoMenuItem->is_visible))
 			{
-				$menuItemInfo[$daoMenuItem->category][$i]['is_visible'] = $daoMenuItem->is_visible ? true : false;
+				$menuItemInfo[$daoMenuItem->category][$i]['is_visible'] = (bool)$daoMenuItem->is_visible;
 			}
 			else
 			{
@@ -1066,7 +1107,7 @@ class CMenu extends DAO_Menu
 			}
 			$menuItemInfo[$daoMenuItem->category][$i]['is_price_controllable'] = $daoMenuItem->is_price_controllable;
 			$menuItemInfo[$daoMenuItem->category][$i]['is_visibility_controllable'] = $daoMenuItem->is_visibility_controllable;
-			$menuItemInfo[$daoMenuItem->category][$i]['override_price'] = isset($daoMenuItem->override_price) ? $daoMenuItem->override_price : null;
+			$menuItemInfo[$daoMenuItem->category][$i]['override_price'] = $daoMenuItem->override_price ?? null;
 			if (isset($daoMenuItem->override_price))
 			{
 				$menuItemInfo[$daoMenuItem->category][$i]['price'] = $daoMenuItem->override_price;
@@ -1079,7 +1120,7 @@ class CMenu extends DAO_Menu
 					{
 						$markup = $storeObj->getMarkUpMultiObj($menu_id);
 					}
-					$menuItemInfo[$daoMenuItem->category][$i]['price'] = CTemplate::moneyFormat(COrders::getItemMarkupMultiSubtotal($markup, $daoMenuItem, 1));
+					$menuItemInfo[$daoMenuItem->category][$i]['price'] = CTemplate::moneyFormat(COrders::getItemMarkupMultiSubtotal($markup, $daoMenuItem));
 				}
 			}
 		}
@@ -1093,6 +1134,7 @@ class CMenu extends DAO_Menu
 
 	/**
 	 * Build Chef Touched Selections
+	 * @throws Exception
 	 */
 	static function buildCTSArray($storeObj, $menu_id, $overrideMarkup = null)
 	{
@@ -1123,6 +1165,7 @@ class CMenu extends DAO_Menu
 
 	/**
 	 * Build Chef Touched Selections
+	 * @throws Exception
 	 */
 	static function buildExtendedFastLaneArray($storeObj, $menu_id, $overrideStoreSpecificMenu = false)
 	{
@@ -1176,10 +1219,10 @@ class CMenu extends DAO_Menu
 			$menuItemInfo[$daoMenuItem->category][$i]['item_count_per_item'] = $daoMenuItem->item_count_per_item;
 			$menuItemInfo[$daoMenuItem->category][$i]['entree_id'] = $daoMenuItem->entree_id;
 			$menuItemInfo[$daoMenuItem->category][$i]['is_optional'] = $daoMenuItem->is_optional;
-			$menuItemInfo[$daoMenuItem->category][$i]['excluded'] = isset($daoMenuItem->excluded) ? true : false;
-			$menuItemInfo[$daoMenuItem->category][$i]['initial_inventory'] = isset($daoMenuItem->initial_inventory) ? $daoMenuItem->initial_inventory : 9999;
-			$menuItemInfo[$daoMenuItem->category][$i]['override_inventory'] = isset($daoMenuItem->override_inventory) ? $daoMenuItem->override_inventory : 9999;
-			$menuItemInfo[$daoMenuItem->category][$i]['number_sold'] = isset($daoMenuItem->number_sold) ? $daoMenuItem->number_sold : 0;
+			$menuItemInfo[$daoMenuItem->category][$i]['excluded'] = isset($daoMenuItem->excluded);
+			$menuItemInfo[$daoMenuItem->category][$i]['initial_inventory'] = $daoMenuItem->initial_inventory ?? 9999;
+			$menuItemInfo[$daoMenuItem->category][$i]['override_inventory'] = $daoMenuItem->override_inventory ?? 9999;
+			$menuItemInfo[$daoMenuItem->category][$i]['number_sold'] = $daoMenuItem->number_sold ?? 0;
 			$menuItemInfo[$daoMenuItem->category][$i]['recipe_id'] = $daoMenuItem->recipe_id;
 			$menuItemInfo[$daoMenuItem->category][$i]['subcategory_label'] = $daoMenuItem->subcategory_label;
 			$menuItemInfo[$daoMenuItem->category][$i]['show_on_pick_sheet'] = !empty($daoMenuItem->show_on_pick_sheet) ? 1 : 0;
@@ -1190,7 +1233,7 @@ class CMenu extends DAO_Menu
 			// if not set it should dedault to true
 			if (isset($daoMenuItem->is_visible))
 			{
-				$menuItemInfo[$daoMenuItem->category][$i]['is_visible'] = $daoMenuItem->is_visible ? true : false;
+				$menuItemInfo[$daoMenuItem->category][$i]['is_visible'] = (bool)$daoMenuItem->is_visible;
 			}
 			else
 			{
@@ -1198,7 +1241,7 @@ class CMenu extends DAO_Menu
 			}
 			if (isset($daoMenuItem->is_hidden_everywhere))
 			{
-				$menuItemInfo[$daoMenuItem->category][$i]['is_hidden_everywhere'] = $daoMenuItem->is_hidden_everywhere ? true : false;
+				$menuItemInfo[$daoMenuItem->category][$i]['is_hidden_everywhere'] = (bool)$daoMenuItem->is_hidden_everywhere;
 			}
 			else
 			{
@@ -1206,7 +1249,7 @@ class CMenu extends DAO_Menu
 			}
 			$menuItemInfo[$daoMenuItem->category][$i]['is_price_controllable'] = $daoMenuItem->is_price_controllable;
 			$menuItemInfo[$daoMenuItem->category][$i]['is_visibility_controllable'] = $daoMenuItem->is_visibility_controllable;
-			$menuItemInfo[$daoMenuItem->category][$i]['override_price'] = isset($daoMenuItem->override_price) ? $daoMenuItem->override_price : null;
+			$menuItemInfo[$daoMenuItem->category][$i]['override_price'] = $daoMenuItem->override_price ?? null;
 			if (isset($daoMenuItem->override_price))
 			{
 				$menuItemInfo[$daoMenuItem->category][$i]['price'] = $daoMenuItem->override_price;
@@ -1219,7 +1262,7 @@ class CMenu extends DAO_Menu
 					{
 						$markup = $storeObj->getMarkUpMultiObj($menu_id);
 					}
-					$menuItemInfo[$daoMenuItem->category][$i]['price'] = CTemplate::moneyFormat(COrders::getItemMarkupMultiSubtotal($markup, $daoMenuItem, 1));
+					$menuItemInfo[$daoMenuItem->category][$i]['price'] = CTemplate::moneyFormat(COrders::getItemMarkupMultiSubtotal($markup, $daoMenuItem));
 				}
 			}
 
@@ -1290,7 +1333,7 @@ class CMenu extends DAO_Menu
 		$month = date("n", $anchorDateOfThisMenu);
 		$year = date("Y", $anchorDateOfThisMenu);
 
-		$cutOff = mktime(0, 0, 0, $month + 1, 7, $year);
+		$cutOff = mktime(0, 0, 0, (int)$month + 1, 7, $year);
 
 		$currentUserID = CUser::getCurrentUser()->id;
 		$allowedUserArray = array(
@@ -1307,6 +1350,10 @@ class CMenu extends DAO_Menu
 	}
 
 	// get menu by Y-m-01  (anchor date)
+
+	/**
+	 * @throws Exception
+	 */
 	static function getMenuByAnchorDate($Ymd)
 	{
 		$Menu = DAO_CFactory::create('menu');
@@ -1317,6 +1364,10 @@ class CMenu extends DAO_Menu
 	}
 
 	// get menu by Y-m-d
+
+	/**
+	 * @throws Exception
+	 */
 	static function getMenuByDate($Ymd)
 	{
 		$DAO_menu = DAO_CFactory::create('menu');
@@ -1330,6 +1381,9 @@ class CMenu extends DAO_Menu
 
 	/*
 	 * Get any month greater than or equal to the current month by abbreviated month string
+	 */
+	/**
+	 * @throws Exception
 	 */
 	static function getMenuByMonthAbbr($month = false)
 	{
@@ -1351,6 +1405,10 @@ class CMenu extends DAO_Menu
 	}
 
 	//gets menu ids that will be included in timeframe +/- a range, default range is +/- 1 month
+
+	/**
+	 * @throws Exception
+	 */
 	static function getMenuIdsInDateRange($YmdStart, $YmdEnd, $range = '1 months')
 	{
 
@@ -1370,10 +1428,14 @@ class CMenu extends DAO_Menu
 			$ids[] = $Menu->id;
 		}
 
-		return implode($ids, ',');
+		return implode(',', $ids);
 	}
 
 	// get menu by Y-m-01  (anchor date)
+
+	/**
+	 * @throws Exception
+	 */
 	static function getMenuIDByAnchorDate($Ymd)
 	{
 		$Menu = DAO_CFactory::create('menu');
@@ -1383,6 +1445,9 @@ class CMenu extends DAO_Menu
 		return $Menu->id;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function getMenuInfo($menu_id)
 	{
 		$menuObj = DAO_CFactory::create('menu');
@@ -1392,6 +1457,9 @@ class CMenu extends DAO_Menu
 		return $menuObj->toArray();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function getMenuShortNameById($menu_id)
 	{
 		$menuObj = DAO_CFactory::create('menu');
@@ -1404,6 +1472,9 @@ class CMenu extends DAO_Menu
 		return $menuNameParts[0];
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function getSpecificMenuArray($ids)
 	{
 		$instance = DAO_CFactory::create('menu');
@@ -1459,6 +1530,9 @@ class CMenu extends DAO_Menu
 		return $retVal;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function getActiveMenuArray($thisMenuOnly = false)
 	{
 		$DAO_menu = DAO_CFactory::create('menu', true);
@@ -1523,6 +1597,9 @@ class CMenu extends DAO_Menu
 		return $retVal;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function getActiveMenuArrayIDs()
 	{
 		$menuArray = self::getActiveMenuArray();
@@ -1530,7 +1607,10 @@ class CMenu extends DAO_Menu
 		return array_keys($menuArray);
 	}
 
-	static function getCurrentAndFutureDeliveredMenuObj()
+	/**
+	 * @throws Exception
+	 */
+	static function getCurrentAndFutureDeliveredMenuObj(): array
 	{
 		$date = CTemplate::formatDateTime('Y-m-d');
 
@@ -1552,7 +1632,10 @@ class CMenu extends DAO_Menu
 		return $deliveredMenuArray;
 	}
 
-	static function getCurrentAndFutureMenuObj($modify = false)
+	/**
+	 * @throws Exception
+	 */
+	static function getCurrentAndFutureMenuObj($modify = false): array
 	{
 		$date = CTemplate::formatDateTime('Y-m-d');
 
@@ -1578,7 +1661,10 @@ class CMenu extends DAO_Menu
 		return $menuArray;
 	}
 
-	static function getCurrentAndFutureMenuArray()
+	/**
+	 * @throws Exception
+	 */
+	static function getCurrentAndFutureMenuArray(): array
 	{
 		$instance = DAO_CFactory::create('menu');
 		$today = date('Y-m-d');
@@ -1611,6 +1697,9 @@ class CMenu extends DAO_Menu
 		return $retVal;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function getCurrentAndFutureMenuArrayOld()
 	{
 		$instance = DAO_CFactory::create('menu');
@@ -1630,27 +1719,40 @@ class CMenu extends DAO_Menu
 		return $retVal;
 	}
 
-	static function getLastXMenus($x_number_of_menus = 10, $active_only = false)
+	/**
+	 * @throws Exception
+	 */
+	static function getLastXMenus($x_number_of_menus = 10, $active_only = false, $sort = 'DESC')
 	{
-		$active_only_query = "";
+		$DAO_menu = DAO_CFactory::create('menu', true);
 		if ($active_only)
 		{
-			$active_only_query = " AND is_active = '1' ";
+			$DAO_menu->active = 1;
 		}
-		$menu = DAO_CFactory::create('menu');
-		$menu->query("SELECT * FROM menu WHERE is_deleted = '0' " . $active_only_query . "
-			ORDER BY id DESC
-			LIMIT " . $x_number_of_menus);
+		$DAO_menu->orderBy('menu.id DESC');
+		$DAO_menu->limit($x_number_of_menus);
+		$DAO_menu->find();
+
 		$menuArray = array();
-		while ($menu->fetch())
+		while ($DAO_menu->fetch())
 		{
-			$menuArray[$menu->id] = clone($menu);
+			$menuArray[$DAO_menu->id] = clone($DAO_menu);
+		}
+
+		// Because the query above sorts newest to oldest, we want to change the sort to oldest to newest
+		if ($sort == 'ASC')
+		{
+			$menuArray = array_reverse($menuArray);
 		}
 
 		return $menuArray;
 	}
 
 	// Use in conjunction with getActiveMenuArray - you must pass in the last active menu to be sure that menus left with display_as_coming_soon set to true are not inadverdently returned
+
+	/**
+	 * @throws Exception
+	 */
 	static function getComingSoonMenuArray($greaterThanMenuID)
 	{
 		$instance = DAO_CFactory::create('menu');
@@ -1697,6 +1799,9 @@ class CMenu extends DAO_Menu
 		return $retVal;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function getNextMenuTimestamp($currentMenuID)
 	{
 		$menuObj = DAO_CFactory::create('menu');
@@ -1707,13 +1812,15 @@ class CMenu extends DAO_Menu
 			return false;
 		}
 		$menuObj->fetch();
-		$timeStamp = strtotime($menuObj->menu_start);
 
-		return $timeStamp;
+		return strtotime($menuObj->menu_start);
 	}
 
 	// assumes $this is fully formed and uses the menu_start column to find the next menu in chronological sequence and
 	// return the menu id if found or false if not.
+	/**
+	 * @throws Exception
+	 */
 	function getNextMenuID()
 	{
 		if ($this->menu_start)
@@ -1743,6 +1850,9 @@ class CMenu extends DAO_Menu
 		return $this->find();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function isTimeStampLegalForMenu($inTimeStamp)
 	{
 		if (!empty($this->menu_start))
@@ -1767,6 +1877,9 @@ class CMenu extends DAO_Menu
 		return false;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function getValidMenuRange(&$tsBegin, &$tsEnd)
 	{
 		// STEP 1: GET GLOBAL MENU END DATES
@@ -1774,7 +1887,7 @@ class CMenu extends DAO_Menu
 		// End date for given month/year
 		$dtMenuEndCurrent = $this->getGlobalMenuEndDate($this->menu_start);
 		// End date for given month/year minus one (this determines the beginning)
-		list($szYear, $szMonth, $szDay) = explode('-', $this->menu_start);
+		list($szYear, $szMonth,) = explode('-', $this->menu_start);
 		$szYear = (int)$szYear;
 		$szMonth = ((int)$szMonth) - 1;
 		if ($szMonth < 1)
@@ -1807,13 +1920,17 @@ class CMenu extends DAO_Menu
 		{
 			$menuStartTS = strtotime($this->menu_start);
 			$daysInMonth = date('t', $menuStartTS);
-			$endofValidPeriod = $menuStartTS + (86400 * ($daysInMonth + 10));
-			$endofValidPeriod -= 10;  // drop 10 seconds to ensure we dont end up on day 7
+			$endofValidPeriod = $menuStartTS + (86400 * ((int)$daysInMonth + 10));
+			$endofValidPeriod -= 10;  // drop 10 seconds to ensure we don't end up on day 7
 		}
 		$tsEnd = $endofValidPeriod;
 	}
 
 	// get array of menus and information about them
+
+	/**
+	 * @throws Exception
+	 */
 	static function menuInfoArray($selected_date = false, $active_only = false, $sort = 'DESC', $num_past_months = 12, $require_menu_items = false)
 	{
 		$todaysMonth = date("n");
@@ -1897,11 +2014,14 @@ class CMenu extends DAO_Menu
 	// (note: day (DD) usually defaults to 01 and is basically not used here)
 	//
 	// ==================================================================================
+	/**
+	 * @throws Exception
+	 */
 	static function getGlobalMenuEndDate($szDate)
 	{
 		$bError = false;
 		$result = '';
-		list($szYear, $szMonth, $szDay) = explode('-', $szDate);
+		list($szYear, $szMonth,) = explode('-', $szDate);
 		$iYear = (int)$szYear;
 		$iMonth = (int)$szMonth;
 		// sanity check month
@@ -1932,5 +2052,3 @@ class CMenu extends DAO_Menu
 		return $result;
 	}
 }
-
-?>

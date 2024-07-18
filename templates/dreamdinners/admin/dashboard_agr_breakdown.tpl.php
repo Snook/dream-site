@@ -11,26 +11,25 @@
 	</tr>
 	<tr>
 		<td  colspan="2" class="label_delimited" style="text-align:right; width:20%;"><span data-help="dashboard-gross_revenue_breakdown-totals">Totals</span></td>
-    	<td class="value_delimited" style="text-align:center; width:20%;">$<?php echo CTemplate::number_format($this->curMonthAGRMetrics['revenue_by_guest_existing_taste'] +
-    																										$this->curMonthAGRMetrics['revenue_by_guest_existing_intro'] +
-    																										$this->curMonthAGRMetrics['revenue_by_guest_existing_regular'] +
-																											$this->curMonthAGRMetrics['revenue_by_guest_existing_additional'] +
-                                                                                                            $this->curMonthAGRMetrics['revenue_by_guest_existing_fundraiser'] +
-																									    		$this->curMonthAGRMetrics['revenue_by_guest_reacquired_taste'] +
-																									    		$this->curMonthAGRMetrics['revenue_by_guest_reacquired_intro'] +
-																									    		$this->curMonthAGRMetrics['revenue_by_guest_reacquired_regular'] +
-																												$this->curMonthAGRMetrics['revenue_by_guest_reacquired_additional'] +
-                                                                                                                $this->curMonthAGRMetrics['revenue_by_guest_reacquired_fundraiser'] +
-																									    		$this->curMonthAGRMetrics['revenue_by_guest_new_taste'] +
-																									    		$this->curMonthAGRMetrics['revenue_by_guest_new_intro'] +
-																									    		$this->curMonthAGRMetrics['revenue_by_guest_new_regular'] +
-																												$this->curMonthAGRMetrics['revenue_by_guest_new_additional'] +
-                                                                                                                $this->curMonthAGRMetrics['revenue_by_guest_new_fundraiser'] +
-																													$this->curMonthAGRMetrics['agr_from_door_dash'], 2);?></td>
+    	<td class="value_delimited" style="text-align:center; width:20%;">$<?php echo CTemplate::number_format((float)$this->curMonthAGRMetrics['revenue_by_guest_existing_taste'] +
+				(float)$this->curMonthAGRMetrics['revenue_by_guest_existing_intro'] +
+				(float)$this->curMonthAGRMetrics['revenue_by_guest_existing_regular'] +
+				(float)$this->curMonthAGRMetrics['revenue_by_guest_existing_additional'] +
+				(float)$this->curMonthAGRMetrics['revenue_by_guest_existing_fundraiser'] +
+				(float)$this->curMonthAGRMetrics['revenue_by_guest_reacquired_taste'] +
+				(float)$this->curMonthAGRMetrics['revenue_by_guest_reacquired_intro'] +
+				(float)$this->curMonthAGRMetrics['revenue_by_guest_reacquired_regular'] +
+				(float)$this->curMonthAGRMetrics['revenue_by_guest_reacquired_additional'] +
+				(float)$this->curMonthAGRMetrics['revenue_by_guest_reacquired_fundraiser'] +
+				(float)$this->curMonthAGRMetrics['revenue_by_guest_new_taste'] +
+				(float)$this->curMonthAGRMetrics['revenue_by_guest_new_intro'] +
+				(float)$this->curMonthAGRMetrics['revenue_by_guest_new_regular'] +
+				(float)$this->curMonthAGRMetrics['revenue_by_guest_new_additional'] +
+				(float)$this->curMonthAGRMetrics['revenue_by_guest_new_fundraiser'] +
+				(float)$this->curMonthAGRMetrics['agr_from_door_dash'], 2);?></td>
 		<td class="value_delimited" style="text-align:center; width:20%;">$<?php echo CTemplate::number_format($this->curMonthAGRMetrics['avg_ticket_all'], 2);?></td>
 		<td class="value_delimited" style="text-align:center; width:20%;">$<?php echo CTemplate::number_format($this->curMonthAGRMetrics['addon_sales_total'], 2);?>
-			 &nbsp;(<?php echo CTemplate::divide_and_format($this->curMonthAGRMetrics['addon_sales_total'] * 100, $this->curMonthAGRMetrics['total_agr'], 2);?>%)</td>
-		</td>
+			 &nbsp;(<?php echo CTemplate::divide_and_format((float)$this->curMonthAGRMetrics['addon_sales_total'] * 100, $this->curMonthAGRMetrics['total_agr'], 2);?>%)</td>
 		<td class="value_delimited" style="text-align:center; width:20%;">$<?php echo CTemplate::divide_and_format($this->curMonthAGRMetrics['addon_sales_total'], $this->curMonthGuestMetrics['total_to_date_orders'], 2);?></td>
   </tr>
 

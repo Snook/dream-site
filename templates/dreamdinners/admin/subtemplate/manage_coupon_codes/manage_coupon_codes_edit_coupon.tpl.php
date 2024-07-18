@@ -118,7 +118,7 @@
 				</div>
 				<?php echo $this->CouponForm['coupon_code_short_title_html']; ?>
 			</div>
-			<div class="form-text">Displays on customer website and receipts</div>
+			<div class="form-text">Displays on customer website and receipts (Limit 36 characters)</div>
 		</div>
 		<div class="form-group col-md-6">
 			<div class="input-group">
@@ -127,7 +127,7 @@
 				</div>
 				<?php echo $this->CouponForm['coupon_code_title_html']; ?>
 			</div>
-			<div class="form-text">Displays on customer website and receipts</div>
+			<div class="form-text">Displays on customer website and receipts (Limit 80 characters)</div>
 		</div>
 		<div class="form-group col-md-12">
 			<div class="input-group">
@@ -192,7 +192,7 @@
 					<span class="btn btn-primary valid_timespan_end_max">Max Dec 31, 2037</span>
 				</div>
 			</div>
-			<div class="form-text">The date the coupon can no longer be entered</div>
+			<div class="form-text">The last day the coupon can be used, coupon will end on this date mm/dd/yyyy 11:59:59 PM</div>
 		</div>
 
 	</div>

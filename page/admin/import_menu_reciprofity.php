@@ -1256,7 +1256,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 							$new_DAO_menu_to_menu_item->override_price = $DAO_pricing->price;
 						}
 
-						if ($DAO_menu_to_menu_item->DAO_menu_item->isMenuItem_Core() || $DAO_store->store_type == CStore::DISTRIBUTION_CENTER)
+						if ($DAO_menu_to_menu_item->DAO_menu_item->isMenuItem_Core() || $DAO_store->isDistributionCenter())
 						{
 							$new_DAO_menu_to_menu_item->is_visible = 1;
 						}

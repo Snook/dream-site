@@ -85,7 +85,7 @@ class page_admin_reports_royalty extends CPageAdminOnly
 			$supports_LTD = true;
 		}
 
-		$tpl->assign('isDC', ($storeObj->store_type == CStore::DISTRIBUTION_CENTER));
+		$tpl->assign('isDC', ($storeObj->isDistributionCenter()));
 
 		$day = 0;
 		$month = 0;
@@ -423,7 +423,7 @@ class page_admin_reports_royalty extends CPageAdminOnly
 		$storeobj->selectAdd('supports_ltd_roundup');
 		$storeobj->find(true);
 
-		$storeIsDC = $storeobj->store_type == CStore::DISTRIBUTION_CENTER;
+		$storeIsDC = $storeobj->isDistributionCenter();
 
 		if ((($year == 2018 && $month >= 9) || $year > 2018) && !$storeIsDC)
 		{

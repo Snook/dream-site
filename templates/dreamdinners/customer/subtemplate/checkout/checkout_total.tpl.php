@@ -37,7 +37,7 @@
 			</div>
 		<?php } } ?>
 
-		<?php if( $this->allow_assembly_fee) { ?>
+		<?php if(!empty($this->allow_assembly_fee)) { ?>
 			<?php if( !$this->isEmptyFloat( $this->cart_info['order_info']['subtotal_service_fee'] ) && $this->foodState == 'adequateFood' ) { ?>
 				<div class="row">
 					<div class="col-md-6 col-8 text-left">

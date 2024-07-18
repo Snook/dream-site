@@ -194,6 +194,9 @@ class page_checkout_gift_card extends CPage
 		));
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runPublic()
 	{
 
@@ -259,6 +262,9 @@ class page_checkout_gift_card extends CPage
 		$this->runCustomer();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runCustomer()
 	{
 		// -------------------------------------Setup
@@ -493,6 +499,9 @@ class page_checkout_gift_card extends CPage
 		$tpl->assign('arCardIcons', $arCardIcons);
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function processGiftCardOrder($GCIDList, $tpl, $retrieveCCData, $guestEmail, $guestID = null, $order_id = null, $creditCardArray = null)
 	{
 		$giftCardObjArray = array();
@@ -524,8 +533,8 @@ class page_checkout_gift_card extends CPage
 				list($validationPassed, $StoreCreditArray, $giftCardArray, $creditCardArray) = checkout_validation::validateAndPreparePayments(array(), $tpl, $giftcardTotal, false);
 			}
 
-			$creditCardArray['city'] =  isset($_POST['billing_city']) ? $_POST['billing_city'] : false;;
-			$creditCardArray['state_id'] =  isset($_POST['billing_state_id']) ? $_POST['billing_state_id'] : false;;
+			$creditCardArray['city'] = $_POST['billing_city'] ?? false;
+			$creditCardArray['state_id'] = $_POST['billing_state_id'] ?? false;
 
 			// if called by script - (CSRF mitigation should help prevent that) then the CSC maybe absent which defeats the validation - for now let's check here but consider moving to checkout_validation::doCreditCardValidation
 			if (empty($creditCardArray['ccSecurityCode']) || !is_numeric($creditCardArray['ccSecurityCode']))
@@ -716,5 +725,3 @@ class page_checkout_gift_card extends CPage
 		return $hadError;
 	}
 }
-
-?>

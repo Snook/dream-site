@@ -870,7 +870,7 @@ class COrdersDelivered extends COrders
 
 			// delete original order items after moving them to edited_order_items
 			$order_item = DAO_CFactory::create('order_item');
-			$order_item->query("SELECT oi.*, mi.servings_per_item, mi.is_chef_touched, mi.recipe_id FROM order_item oi " . " JOIN menu_item mi ON mi.id = oi.menu_item_id WHERE oi.order_id = " . $originalOrder->id . " AND oi.is_deleted = 0");
+			$order_item->query("SELECT oi.*, mi.servings_per_item, mi.is_chef_touched, mi.recipe_id FROM order_item oi  JOIN menu_item mi ON mi.id = oi.menu_item_id WHERE oi.order_id = " . $originalOrder->id . " AND oi.is_deleted = 0");
 
 			$boxInstanceArray = array();
 			while ($order_item->fetch())
@@ -899,7 +899,7 @@ class COrdersDelivered extends COrders
 					// INVENTORY TOUCH POINT 17
 					//subtract from inventory
 					$invItem = DAO_CFactory::create('menu_item_inventory');
-					$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold -  " . " $servingQty where mii.recipe_id = {$order_item->recipe_id} and mii.store_id = $parentStoreId and mii.menu_id = {$OrigSession->menu_id} and mii.is_deleted = 0");
+					$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold -  $servingQty where mii.recipe_id = {$order_item->recipe_id} and mii.store_id = $parentStoreId and mii.menu_id = {$this->getMenuId()} and mii.is_deleted = 0");
 				}
 				catch (exception $exc)
 				{
@@ -2078,8 +2078,7 @@ class COrdersDelivered extends COrders
 
 	function handleItemsInserts()
 	{
-
-		$menu_id = $this->session->menu_id;
+		$menu_id = $this->getMenuId();
 
 		$parentStoreId = CStore::getParentStoreID($this->session->store_id);
 
@@ -3130,12 +3129,8 @@ class COrdersDelivered extends COrders
 			$session = DAO_CFactory::create('session');
 			$session->query("select menu_id, store_id, session_start from session where id = {$booking->session_id} ");
 			$session->fetch();
-			$menu_id = false;
 
-			if (!empty($session->menu_id))
-			{
-				$menu_id = $session->menu_id;
-			}
+			$menu_id = $this->getMenuId();
 			// add items back into inventory - (reduce number sold)
 
 			$parentStoreID = CStore::getParentStoreID($this->store_id);
@@ -3143,7 +3138,7 @@ class COrdersDelivered extends COrders
 			$sessionIsInPast = $session->isInThePast();
 
 			$order_item = DAO_CFactory::create('order_item');
-			$order_item->query("SELECT oi.*, mi.servings_per_item, mi.is_chef_touched, mi.recipe_id FROM order_item oi " . " JOIN menu_item mi ON mi.id = oi.menu_item_id WHERE oi.is_deleted = 0 AND oi.order_id = " . $this->id);
+			$order_item->query("SELECT oi.*, mi.servings_per_item, mi.is_chef_touched, mi.recipe_id FROM order_item oi JOIN menu_item mi ON mi.id = oi.menu_item_id WHERE oi.is_deleted = 0 AND oi.order_id = " . $this->id);
 
 			while ($order_item->fetch() && $menu_id)
 			{
@@ -3167,7 +3162,7 @@ class COrdersDelivered extends COrders
 
 						//subtract from inventory
 						$invItem = DAO_CFactory::create('menu_item_inventory');
-						$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold - " . " $servingQty where mii.recipe_id = {$order_item->recipe_id} and mii.store_id = $parentStoreID and mii.menu_id = $menu_id and mii.is_deleted = 0");
+						$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold - $servingQty where mii.recipe_id = {$order_item->recipe_id} and mii.store_id = $parentStoreID and mii.menu_id = $menu_id and mii.is_deleted = 0");
 					}
 				}
 				catch (exception $exc)

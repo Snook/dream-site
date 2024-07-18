@@ -9,8 +9,8 @@ class page_admin_reports_guest extends CPageAdminOnly
 	/**
 	 * @var CForm
 	 */
-	private $Form;
-	private $allowStoreSelect = false;
+	private CForm $Form;
+	private bool $allowStoreSelect = false;
 
 	function __construct()
 	{
@@ -18,49 +18,73 @@ class page_admin_reports_guest extends CPageAdminOnly
 		$this->cleanReportInputs();
 	}
 
-	function runSiteAdmin()
+	/**
+	 * @throws exception
+	 */
+	function runSiteAdmin(): void
 	{
 		$this->allowStoreSelect = $this->CurrentUser->hasMultiStoreAccess();
 		$this->guestReport();
 	}
 
-	function runHomeOfficeManager()
+	/**
+	 * @throws exception
+	 */
+	function runHomeOfficeManager(): void
 	{
 		$this->allowStoreSelect = $this->CurrentUser->hasMultiStoreAccess();
 		$this->guestReport();
 	}
 
-	function runHomeOfficeStaff()
+	/**
+	 * @throws exception
+	 */
+	function runHomeOfficeStaff(): void
 	{
 		$this->allowStoreSelect = $this->CurrentUser->hasMultiStoreAccess();
 		$this->guestReport();
 	}
 
-	function runFranchiseOwner()
+	/**
+	 * @throws exception
+	 */
+	function runFranchiseOwner(): void
 	{
 		$this->allowStoreSelect = $this->CurrentUser->hasMultiStoreAccess();
 		$this->guestReport();
 	}
 
-	function runFranchiseManager()
+	/**
+	 * @throws exception
+	 */
+	function runFranchiseManager(): void
 	{
 		$this->allowStoreSelect = $this->CurrentUser->hasMultiStoreAccess();
 		$this->guestReport();
 	}
 
-	function runFranchiseLead()
+	/**
+	 * @throws exception
+	 */
+	function runFranchiseLead(): void
 	{
 		$this->allowStoreSelect = $this->CurrentUser->hasMultiStoreAccess();
 		$this->guestReport();
 	}
 
-	function runOpsLead()
+	/**
+	 * @throws exception
+	 */
+	function runOpsLead(): void
 	{
 		$this->allowStoreSelect = $this->CurrentUser->hasMultiStoreAccess();
 		$this->guestReport();
 	}
 
-	function guestReport()
+	/**
+	 * @throws exception
+	 */
+	function guestReport(): void
 	{
 		$this->Form = new CForm();
 		$this->Form->Repost = true;
@@ -300,25 +324,23 @@ class page_admin_reports_guest extends CPageAdminOnly
 		}
 	}
 
-	function export_User_Details()
+	/**
+	 * @throws Exception
+	 */
+	function export_User_Details(): void
 	{
 		if ($this->Form->value('date_start') && $this->Form->value('date_end'))
 		{
 			$DAO_user = DAO_CFactory::create('user', true);
 
-			/* PHP8
 			$DAO_user->selectAdd("JSON_OBJECTAGG(user_data.user_data_field_id, user_data.user_data_value) as json_user_data");
 			$DAO_user->selectAdd("JSON_OBJECTAGG(user_preferences.pkey, user_preferences.pvalue) as json_user_preferences");
-			*/
-
-			$DAO_user->selectAdd("GROUP_CONCAT(DISTINCT user_data.user_data_field_id, '::|::' , user_data.user_data_value SEPARATOR ';;|;;') as json_user_data");
-			$DAO_user->selectAdd("GROUP_CONCAT(DISTINCT user_preferences.pkey, '::|::' , user_preferences.pvalue SEPARATOR ';;|;;') as json_user_preferences");
 
 			$DAO_store = DAO_CFactory::create('store', true);
 			$DAO_store->whereAdd("store.id IN(" . $this->Form->value('multi_store_select') . ")");
 			$DAO_user->joinAddWhereAsOn($DAO_store);
 
-			$DAO_address = DAO_CFactory::create('address', true);;
+			$DAO_address = DAO_CFactory::create('address', true);
 			$DAO_address->location_type = CAddress::BILLING;
 			$DAO_user->joinAddWhereAsOn($DAO_address, 'LEFT');
 
@@ -332,15 +354,10 @@ class page_admin_reports_guest extends CPageAdminOnly
 				$DAO_booking = DAO_CFactory::create('booking', true);
 				$DAO_booking->status = CBooking::ACTIVE;
 				$DAO_session = DAO_CFactory::create('session', true);
-				$DAO_session->whereAdd("session.session_start >= '" . CTemplate::formatDateTime('Y-m-d H:i:s', $this->Form->value('date_start')) . "' AND session.session_start <= '" . CTemplate::formatDateTime('Y-m-d 23:59:59', $this->Form->value('date_end')) . "'");
-				$DAO_booking->joinAddWhereAsOn($DAO_session, 'INNER', false, false, false);
-				$DAO_user->joinAddWhereAsOn($DAO_booking, 'INNER', false, false, false);
-				/* PHP8
 				$DAO_session->whereAdd("session.session_start >= '" . CTemplate::formatDateTime(timeStamp: $this->Form->value('date_start')) . "'");
-				$DAO_session->whereAdd("session.session_start <= '" . CTemplate::formatDateTime(format: 'Y-m-d 23:59:59', timeStamp: $this->Form->value('date_end')) . "'");
+				$DAO_session->whereAdd("session.session_start <= '" . CTemplate::formatDateTime(timeStamp: $this->Form->value('date_end')) . "'", format: 'Y-m-d 23:59:59');
 				$DAO_booking->joinAddWhereAsOn($DAO_session, joinSubDAO: false);
 				$DAO_user->joinAddWhereAsOn($DAO_booking, joinSubDAO: false);
-				*/
 			}
 
 			if ($this->Form->value('query_set') == 'query_without_sessions')
@@ -484,20 +501,12 @@ class page_admin_reports_guest extends CPageAdminOnly
 				{
 					$rows[$rowCount] = array_merge($rows[$rowCount], array(
 						"Number Days Inactive" => $DAO_user->getDaysInactive(),
-						"Last Session" => ($DAO_user->get_Booking_Last() ? $DAO_user->get_Booking_Last()->get_DAO_session()->session_start : ''),
-						"Last Session Type" => ($DAO_user->get_Booking_Last() ? $DAO_user->get_Booking_Last()->get_DAO_session()->sessionTypeToText() : ''),
-						"Next Session" => ($DAO_user->get_Booking_Next() ? $DAO_user->get_Booking_Next()->get_DAO_session()->session_start : ''),
-						"Next Session Type" => ($DAO_user->get_Booking_Next() ? $DAO_user->get_Booking_Next()->get_DAO_session()->sessionTypeToText() : ''),
-						"Next Special Instructions" => ($DAO_user->get_Booking_Next() ? $DAO_user->get_Booking_Next()->get_DAO_orders()->order_user_notes : ''),
-						"Next Meal Customizations" => ($DAO_user->get_Booking_Next() ? $DAO_user->get_Booking_Next()->get_DAO_orders()->getOrderCustomizationString() : '')
-						/* PHP8
 						"Last Session" => CTemplate::formatDateTime('Y-m-d h:i A', $DAO_user->get_Booking_Last()?->get_DAO_session()?->session_start),
 						"Last Session Type" => $DAO_user->get_Booking_Last()?->get_DAO_session()?->sessionTypeToText(),
 						"Next Session" => CTemplate::formatDateTime('Y-m-d h:i A', $DAO_user->get_Booking_Next()?->get_DAO_session()?->session_start),
 						"Next Session Type" => $DAO_user->get_Booking_Next()?->get_DAO_session()?->sessionTypeToText(),
 						"Next Special Instructions" => $DAO_user->get_Booking_Next()?->get_DAO_orders()->order_user_notes,
 						"Next Meal Customizations" => $DAO_user->get_Booking_Next()?->get_DAO_orders()->getOrderCustomizationString(),
-						*/
 					));
 				}
 
@@ -526,7 +535,11 @@ class page_admin_reports_guest extends CPageAdminOnly
 		}
 	}
 
-	function export_Bookings_DriverTips()
+	/**
+	 * @throws Exception
+	 * @noinspection DuplicatedCode
+	 */
+	function export_Bookings_DriverTips(): void
 	{
 		if ($this->Form->value('month_start') && $this->Form->value('month_end'))
 		{
@@ -586,8 +599,8 @@ class page_admin_reports_guest extends CPageAdminOnly
 				$rows[] = array(
 					'Menu ID' => $DAO_booking->DAO_menu->id,
 					'Menu Date' => $DAO_booking->DAO_menu->menu_name,
-					'Store ID' => $DAO_booking->store_id,
-					'State' => $DAO_booking->DAO_store->id,
+					'Store ID' => $DAO_booking->DAO_store->id,
+					'State' => $DAO_booking->DAO_store->state_id,
 					'City' => $DAO_booking->DAO_store->city,
 					'Store Name' => $DAO_booking->DAO_store->store_name,
 					'User ID' => $DAO_booking->DAO_user->id,
@@ -604,7 +617,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 				);
 			}
 
-			$this->Template->downloadReport('report_power_bi', $rows, $labels);
+			$this->Template->downloadReport('report_driver_tip', $rows, $labels);
 		}
 		else
 		{
@@ -612,7 +625,11 @@ class page_admin_reports_guest extends CPageAdminOnly
 		}
 	}
 
-	function export_DashboardMetrics()
+	/**
+	 * @throws Exception
+	 * @noinspection DuplicatedCode
+	 */
+	function export_DashboardMetrics(): void
 	{
 		if ($this->Form->value('month_start') && $this->Form->value('month_end'))
 		{
@@ -728,7 +745,10 @@ class page_admin_reports_guest extends CPageAdminOnly
 		}
 	}
 
-	function export_User_Birthdays()
+	/**
+	 * @throws Exception
+	 */
+	function export_User_Birthdays(): void
 	{
 		if ($this->Form->value('month_start'))
 		{
@@ -812,7 +832,10 @@ class page_admin_reports_guest extends CPageAdminOnly
 		}
 	}
 
-	function export_PointsCredits()
+	/**
+	 * @throws Exception
+	 */
+	function export_PointsCredits(): void
 	{
 		if ($this->Form->value('datetime_start') && $this->Form->value('datetime_end'))
 		{
@@ -881,7 +904,10 @@ class page_admin_reports_guest extends CPageAdminOnly
 		}
 	}
 
-	function export_UserPreferred()
+	/**
+	 * @throws Exception
+	 */
+	function export_UserPreferred(): void
 	{
 		if ($this->Form->value('multi_store_select') && $this->Form->value('multi_store_select'))
 		{
@@ -939,7 +965,11 @@ class page_admin_reports_guest extends CPageAdminOnly
 		}
 	}
 
-	function getMonthStartEndIdArray()
+	/**
+	 * @throws Exception
+	 * @noinspection DuplicatedCode
+	 */
+	function getMonthStartEndIdArray(): array
 	{
 		$DAO_menu = DAO_CFactory::create('menu', true);
 		$DAO_menu->whereAdd("menu.menu_start >= '" . $this->Form->value('month_start') . "-01'");
@@ -956,5 +986,3 @@ class page_admin_reports_guest extends CPageAdminOnly
 		return $menuIdArray;
 	}
 }
-
-?>

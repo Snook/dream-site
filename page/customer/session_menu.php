@@ -24,6 +24,9 @@ class page_session_menu extends CPage
 		$this->runSessionMenuPage($tpl);
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runSessionMenuPage($tpl)
 	{
 		CTemplate::noCache();
@@ -581,5 +584,3 @@ class page_session_menu extends CPage
 		return $minimumMessage;
 	}
 }
-
-?>

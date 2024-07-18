@@ -1723,7 +1723,7 @@ class CDashboardMenuBased
 			}
 			else if ($digest->type == 'MADE_FOR_YOU')
 			{
-				$Metric->agr_by_session_mfy = $digest->sum_agr - $sales['subtotal_delivery_fee'];
+				$Metric->agr_by_session_mfy = $digest->sum_agr - ($sales['subtotal_delivery_fee'] ?? 0);
 				$Metric->revenue_by_session_mfy = $digest->revenue;
 				$Metric->agr_by_session_mfy_walk_in = $digest->sum_walk_in_agr;
 				$Metric->agr_by_session_mfy_community_pickup = $digest->sum_community_agr;

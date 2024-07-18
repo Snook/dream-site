@@ -980,7 +980,7 @@ function SetXY($x, $y)
 	$this->SetX($x);
 }
 
-function Output($name='', $dest='')
+function Output($name='', $dest=''): string
 {
 	// Output PDF to some destination
 	if($this->state<3)

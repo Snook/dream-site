@@ -6,6 +6,9 @@ require_once('processor/cart_session_processor.php');
 class page_session extends CPage
 {
 
+	/**
+	 * @throws Exception
+	 */
 	function runPublic()
 	{
 		$tpl = CApp::instance()->template();
@@ -13,6 +16,9 @@ class page_session extends CPage
 		$this->runSessionPage($tpl);
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runCustomer()
 	{
 		$tpl = CApp::instance()->template();
@@ -20,6 +26,9 @@ class page_session extends CPage
 		$this->runSessionPage($tpl);
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runSessionPage($tpl)
 	{
 		$CartObj = CCart2::instance();
@@ -432,5 +441,3 @@ class page_session extends CPage
 		$tpl->assign('cart_info', $cart_info);
 	}
 }
-
-?>
