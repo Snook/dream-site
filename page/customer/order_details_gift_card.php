@@ -43,5 +43,3 @@ class page_order_details_gift_card extends CPage
 		self::runPage();
 	}
 }
-
-?>

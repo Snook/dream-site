@@ -19,6 +19,9 @@ class page_browse_menu extends CPage
 		$this->runBrowseMenuPage($tpl);
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runBrowseMenuPage($tpl)
 	{
 		$activeMenus = CMenu::getActiveMenuArray();
@@ -51,5 +54,3 @@ class page_browse_menu extends CPage
 		$tpl->assign('activeMenus', $activeMenuArray);
 	}
 }
-
-?>

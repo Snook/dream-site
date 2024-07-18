@@ -19,16 +19,19 @@ class page_cart_watcher extends CPage {
 		}
 	}
 
+	/**
+	 * @throws exception
+	 */
 	function runCartWatcher() {
-	    
+
 	    $tpl = CApp::instance()->template();
-	    
+
 	    $Form = new CForm();
 	    $Form->Repost = true;
-	    
+
 	    $Form->DefaultValues['attach_method'] = 'MINE';
-	    
-	    	    
+
+
 	    $Form->AddElement(array(
 	        CForm::type => CForm::RadioButton,
 	        CForm::name => "attach_method",
@@ -37,7 +40,7 @@ class page_cart_watcher extends CPage {
 	        CForm::label => 'Mine',
 	        CForm::label_css_class => 'custom-control-label'
 	    ));
-	    
+
 	    $Form->AddElement(array(
 	        CForm::type => CForm::RadioButton,
 	        CForm::name => "attach_method",
@@ -46,7 +49,7 @@ class page_cart_watcher extends CPage {
 	        CForm::label => 'Cart ID',
 	        CForm::label_css_class => 'custom-control-label'
 	    ));
-	    
+
 	    $Form->AddElement(array(
 	        CForm::type => CForm::RadioButton,
 	        CForm::name => "attach_method",
@@ -55,7 +58,7 @@ class page_cart_watcher extends CPage {
 	        CForm::label => 'User ID',
 	        CForm::label_css_class => 'custom-control-label'
 	    ));
-	    
+
 	    $Form->AddElement(array(
 	        CForm::type => CForm::Text,
 	        CForm::name => "user_id",
@@ -67,7 +70,7 @@ class page_cart_watcher extends CPage {
 	        CForm::xss_filter => true,
 	        CForm::css_class => "form-control"
 	    ));
-	    
+
 	    $Form->AddElement(array(
 	        CForm::type => CForm::Text,
 	        CForm::name => "cart_id",
@@ -79,10 +82,8 @@ class page_cart_watcher extends CPage {
 	        CForm::xss_filter => true,
 	        CForm::css_class => "form-control"
 	    ));
-	    
-	    
+
+
 	    $tpl->assign('form', $Form->Render());
 	}
 }
-
-?>

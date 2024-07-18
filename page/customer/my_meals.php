@@ -155,5 +155,3 @@ class page_my_meals extends CPage
 		}
 	}
 }
-
-?>

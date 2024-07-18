@@ -11,6 +11,9 @@ class page_resend_egift extends CPage {
             $this->run();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function run() {
 
 		$tpl = CApp::instance()->template();
@@ -66,6 +69,3 @@ class page_resend_egift extends CPage {
 
 
 }
-
-
-?>

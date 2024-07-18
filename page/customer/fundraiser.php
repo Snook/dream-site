@@ -6,6 +6,9 @@ require_once('includes/DAO/BusinessObject/CMenu.php');
 class page_fundraiser extends CPage
 {
 
+	/**
+	 * @throws Exception
+	 */
 	function runPublic()
 	{
 		if (!empty($_GET['id']) && is_numeric($_GET['id']) || CTemplate::isAlphaNumHyphen($_GET['id']))
@@ -87,4 +90,3 @@ class page_fundraiser extends CPage
 		}
 	}
 }
-?>

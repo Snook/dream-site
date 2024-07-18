@@ -6,4 +6,3 @@ class page_share extends CPage {
 
 	}
 }
-?>

@@ -389,6 +389,9 @@ class page_payment extends CPage
 		$tpl->assign('isGiftCardOnlyOrder', false);
 	}
 
+	/**
+	 * @throws exception
+	 */
 	function runCustomer()
 	{
 		// -------------------------------------Setup
@@ -977,7 +980,7 @@ class page_payment extends CPage
 		{
 			$GiftCardPaymentsTempArray = array();
 			$FinalGCPayments = array();
-			if (isset($_POST['giftCardPayments']) && !empty($_POST['giftCardPayments']))
+			if (!empty($_POST['giftCardPayments']))
 			{
 				$GiftCardPaymentsTempArray = explode("|", $_POST['giftCardPayments']);
 
@@ -1155,5 +1158,3 @@ class page_payment extends CPage
 	}
 
 }
-
-?>

@@ -458,6 +458,9 @@ class checkout_validation
 		return 0;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function validateAndPreparePayments($payments, $tpl, $totalFundsNeeded, $store_id)
 	{
 
@@ -591,16 +594,16 @@ class checkout_validation
 			}
 			else
 			{
-				$CC_Data['ccType'] = isset($_POST['ccType']) ? $_POST['ccType'] : false;
-				$CC_Data['ccNumber'] = isset($_POST['ccNumber']) ? $_POST['ccNumber'] : false;
-				$CC_Data['ccMonth'] = isset($_POST['ccMonth']) ? $_POST['ccMonth'] : false;
-				$CC_Data['ccYear'] = isset($_POST['ccYear']) ? $_POST['ccYear'] : false;
-				$CC_Data['ccNameOnCard'] = isset($_POST['ccNameOnCard']) ? $_POST['ccNameOnCard'] : false;
-				$CC_Data['billing_address'] = isset($_POST['billing_address']) ? $_POST['billing_address'] : false;
+				$CC_Data['ccType'] = $_POST['ccType'] ?? false;
+				$CC_Data['ccNumber'] = $_POST['ccNumber'] ?? false;
+				$CC_Data['ccMonth'] = $_POST['ccMonth'] ?? false;
+				$CC_Data['ccYear'] = $_POST['ccYear'] ?? false;
+				$CC_Data['ccNameOnCard'] = $_POST['ccNameOnCard'] ?? false;
+				$CC_Data['billing_address'] = $_POST['billing_address'] ?? false;
 				$CC_Data['city'] = false;
 				$CC_Data['state_id'] = false;
-				$CC_Data['billing_postal_code'] = isset($_POST['billing_postal_code']) ? $_POST['billing_postal_code'] : false;
-				$CC_Data['ccSecurityCode'] = isset($_POST['ccSecurityCode']) ? $_POST['ccSecurityCode'] : false;
+				$CC_Data['billing_postal_code'] = $_POST['billing_postal_code'] ?? false;
+				$CC_Data['ccSecurityCode'] = $_POST['ccSecurityCode'] ?? false;
 
 				if (!empty($_POST['is_delayed_payment']))
 				{
@@ -668,6 +671,10 @@ class checkout_validation
 	}
 
 	//Checks to see if the edit order card can still be edited
+
+	/**
+	 * @throws Exception
+	 */
 	private static function checkCartForEditOrder($orderId, &$tpl, $should_load_cart = false)
 	{
 		$tpl->assign('isEditDeliveredOrder', false);
@@ -845,6 +852,9 @@ class checkout_validation
 		}
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	public static function validateFood(&$Order, $Cart, $tpl)
 	{
 		if (!$Order->verifyAdequateInventory())
@@ -1234,6 +1244,9 @@ class page_checkout extends CPage
 		$tpl->assign('isGiftCardOnlyOrder', false);
 	}
 
+	/**
+	 * @throws exception
+	 */
 	function runCustomer()
 	{
 		// -------------------------------------Setup
@@ -1904,6 +1917,9 @@ class page_checkout extends CPage
 		$tpl->assign('cart_info', CUser::getCartIfExists());
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function buildPaymentForm($Form, $DAO_user = null, $DAO_orders = null, &$tpl = null)
 	{
 		require_once('DAO/BusinessObject/CPayment.php');
@@ -2203,6 +2219,9 @@ class page_checkout extends CPage
 		));
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function buildStoreCreditsForm($tpl, $Cart, $Order)
 	{
 
@@ -2273,7 +2292,7 @@ class page_checkout extends CPage
 			));
 
 			$Store_Credit_Array[$Store_Credit->id] = array(
-				'source' => (isset($Store_Credit->credit_card_number) ? $Store_Credit->credit_card_number : "none"),
+				'source' => ($Store_Credit->credit_card_number ?? "none"),
 				'total_amount' => $Store_Credit->amount,
 				'credit_type' => $Store_Credit->credit_type,
 				'store_credit_id' => $Store_Credit->id,
@@ -2305,5 +2324,3 @@ class page_checkout extends CPage
 	}
 
 }
-
-?>

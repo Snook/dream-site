@@ -16,6 +16,9 @@ class page_account extends CPage
 
 	private $userHasAIFReferral = false;
 
+	/**
+	 * @throws Exception
+	 */
 	function runPublic()
 	{
 		CApp::forceSecureConnection();
@@ -134,6 +137,9 @@ class page_account extends CPage
 		$tpl->assign('hasReferralSource', false);
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runCustomer()
 	{
 		CApp::forceSecureConnection();
@@ -268,5 +274,3 @@ class page_account extends CPage
 		$tpl->assign('user', $User);
 	}
 }
-
-?>

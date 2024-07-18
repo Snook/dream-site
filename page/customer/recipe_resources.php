@@ -3,6 +3,9 @@
 class page_recipe_resources extends CPage
 {
 
+	/**
+	 * @throws Exception
+	 */
 	function runPublic()
 	{
 		$req_search = CGPC::do_clean(((!empty($_REQUEST['q']) && is_string($_REQUEST['q'])) ? substr($_REQUEST['q'], 0, 255) : false), TYPE_NOHTML, true);
@@ -98,5 +101,3 @@ class page_recipe_resources extends CPage
 		$tpl->assign('activeMenus', $activeMenuArray);
 	}
 }
-
-?>

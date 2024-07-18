@@ -19,4 +19,3 @@ class page_login extends CPage {
 		CApp::forceSecureConnection();
 	}
 }
-?>

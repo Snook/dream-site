@@ -20,4 +20,3 @@ class page_gift_card_cart extends CPage
 		$tpl->assign('cart_info', CUser::getCartIfExists(true));
 	}
 }
-?>
