@@ -3165,8 +3165,6 @@ class CSession extends DAO_Session
 
 	function getRemoteLocation()
 	{
-		$this->remote_location = null;
-
 		if ($this->isRemotePickup())
 		{
 			$location = DAO_CFactory::create('store_pickup_location');
@@ -3182,10 +3180,10 @@ class CSession extends DAO_Session
 				$location->contact_user->find(true);
 			}
 
-			$this->remote_location = clone $location;
+			return $location;
 		}
 
-		return $this->remote_location;
+		return null;
 	}
 
 	function fetchFadminAcronym()
