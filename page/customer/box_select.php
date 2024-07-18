@@ -21,6 +21,9 @@ class page_box_select extends CPage
 		$this->runBoxSelectPage($tpl);
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runBoxSelectPage($tpl)
 	{
 		$CartObj = CCart2::instance();
@@ -69,5 +72,3 @@ class page_box_select extends CPage
 		$tpl->assign('cart_info', CUser::getCartIfExists());
 	}
 }
-
-?>

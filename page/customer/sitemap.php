@@ -4,6 +4,9 @@ require_once 'DAO/BusinessObject/CMenu.php';
 class page_sitemap extends CPage
 {
 
+	/**
+	 * @throws Exception
+	 */
 	function runPublic()
 	{
 
@@ -15,7 +18,7 @@ class page_sitemap extends CPage
 
 		foreach ($activeMenus as $activeMenuId => $activeMenu)
 		{
-			$menuItemInfo = CMenu::buildPreviewMenuArray(null, $activeMenuId, 'NameAZ');
+			$menuItemInfo = CMenu::buildPreviewMenuArray($activeMenuId, 'NameAZ');
 
 			$activeMenuArray[] = array(
 				'id' => $activeMenu['id'],
@@ -43,5 +46,3 @@ class page_sitemap extends CPage
 		$tpl->assign('activeMenus', $activeMenuArray);
 	}
 }
-
-?>

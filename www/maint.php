@@ -30,6 +30,8 @@ if (file_exists("../includes/CApp.inc"))
 	}
 
 	// if config file message, add it to array
+	$maintenance_messages = array();
+
 	if (defined('MAINT_PAGE_MESSAGE'))
 	{
 		$maintenance_messages[]['message'] = MAINT_PAGE_MESSAGE;
@@ -51,8 +53,6 @@ if (file_exists("../includes/CApp.inc"))
 
 		if (!empty($result->num_rows))
 		{
-			$maintenance_messages = array();
-
 			while ($row = $result->fetch_assoc())
 			{
 				if ($row['audience'] == 'SITE_WIDE' || $row['audience'] == 'CUSTOMER')
@@ -307,6 +307,9 @@ if (file_exists("../includes/CApp.inc"))
 																</tbody>
 															</table>
 															<div class="space-y-3">
+																<?php foreach ($maintenance_messages as $message) { ?>
+																	<p class="text-gray-700" style="line-height: 24px; font-size: 16px; color: #4a5568; width: 100%; margin: 0;" align="left"><?php echo $message["message"]; ?></p>
+																<?php } ?>
 																<p class="text-gray-700" style="line-height: 24px; font-size: 16px; color: #4a5568; width: 100%; margin: 0;" align="left">We apologize for any inconvenience!</p>
 																<table class="s-3 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
 																	<tbody>

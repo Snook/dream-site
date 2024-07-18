@@ -2,6 +2,9 @@
 
 class page_new_password extends CPage
 {
+	/**
+	 * @throws exception
+	 */
 	function runPublic()
 	{
 		$tpl = CApp::instance()->template();
@@ -173,5 +176,3 @@ class page_new_password extends CPage
 		}
 	}
 }
-
-?>

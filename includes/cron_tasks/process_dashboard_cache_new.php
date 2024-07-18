@@ -57,5 +57,3 @@ catch (exception $e)
 	CLog::RecordCronTask($StoreCount, CLog::PARTIAL_FAILURE, CLog::DASHBOARDCACHING, "process_dashboard_cache_new: Exception occurred: " . $e->getMessage());
 	CLog::RecordException($e);
 }
-
-?>

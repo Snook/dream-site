@@ -261,11 +261,11 @@ class CMenuItem extends DAO_Menu_item
 	{
 		if ($this->servings_per_container_display >= 6)
 		{
-			$this->pricing_type_info['pricing_type_serves_display'] = ($this->servings_per_container_display - 2) . '-' . $this->servings_per_container_display;
+			$this->pricing_type_info['pricing_type_serves_display'] = ((int)$this->servings_per_container_display - 2) . '-' . $this->servings_per_container_display;
 		}
 		else if ($this->servings_per_container_display >= 2)
 		{
-			$this->pricing_type_info['pricing_type_serves_display'] = ($this->servings_per_container_display - 1) . '-' . $this->servings_per_container_display;
+			$this->pricing_type_info['pricing_type_serves_display'] = ((int)$this->servings_per_container_display - 1) . '-' . $this->servings_per_container_display;
 		}
 		else
 		{

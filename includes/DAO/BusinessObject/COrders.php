@@ -1874,7 +1874,7 @@ class COrders extends DAO_Orders
 		{
 			foreach ($this->products as $id => $thisProduct)
 			{
-				if ($id == TODD_FREE_ATTENDANCE_PRODUCT_ID)
+				if ($id == COrders::TODD_FREE_ATTENDANCE_PRODUCT_ID)
 				{
 					unset($this->products[$id]);
 				}
@@ -3112,10 +3112,9 @@ class COrders extends DAO_Orders
 	/**
 	 * Add a menu item to an order
 	 */
-	function addMenuItem($menu_item_obj, $quantity, $isPromoItem = false, $isCouponFreeMeal = false, $isDiscountedRecipe = false)
+	function addMenuItem($DAO_menu_item, $quantity, $isPromoItem = false, $isCouponFreeMeal = false, $isDiscountedRecipe = false)
 	{
-
-		if (!$menu_item_obj->id)
+		if (!$DAO_menu_item->id)
 		{
 			return;
 		}
@@ -3132,52 +3131,52 @@ class COrders extends DAO_Orders
 
 		if ($isPromoItem)
 		{
-			$menu_item_obj->isPromo = true;
+			$DAO_menu_item->isPromo = true;
 		}
 
 		if ($isCouponFreeMeal)
 		{
-			$menu_item_obj->isFreeMeal = true;
+			$DAO_menu_item->isFreeMeal = true;
 		}
 
 		//keep em sorted
-		if (array_key_exists($menu_item_obj->id, $this->items))
+		if (array_key_exists($DAO_menu_item->id, $this->items))
 		{
-			$currentQty = $this->items[$menu_item_obj->id][0];
+			$currentQty = $this->items[$DAO_menu_item->id][0];
 
-			$isCurrentlyPromo = isset($this->items[$menu_item_obj->id][1]->isPromo) && $this->items[$menu_item_obj->id][1]->isPromo;
-			$isCurrentlyCouponFreeMeal = isset($this->items[$menu_item_obj->id][1]->isFreeMeal) && $this->items[$menu_item_obj->id][1]->isFreeMeal;
+			$isCurrentlyPromo = isset($this->items[$DAO_menu_item->id][1]->isPromo) && $this->items[$DAO_menu_item->id][1]->isPromo;
+			$isCurrentlyCouponFreeMeal = isset($this->items[$DAO_menu_item->id][1]->isFreeMeal) && $this->items[$DAO_menu_item->id][1]->isFreeMeal;
 
-			if (!empty($this->items[$menu_item_obj->id][1]->parentItemId))
+			if (!empty($this->items[$DAO_menu_item->id][1]->parentItemId))
 			{
-				$menu_item_obj->parentItemId = $this->items[$menu_item_obj->id][1]->parentItemId;
+				$DAO_menu_item->parentItemId = $this->items[$DAO_menu_item->id][1]->parentItemId;
 			}
 
-			if (!empty($this->items[$menu_item_obj->id][1]->bundleItemCount))
+			if (!empty($this->items[$DAO_menu_item->id][1]->bundleItemCount))
 			{
-				$menu_item_obj->bundleItemCount = $this->items[$menu_item_obj->id][1]->bundleItemCount;
+				$DAO_menu_item->bundleItemCount = $this->items[$DAO_menu_item->id][1]->bundleItemCount;
 			}
 
-			$this->items[$menu_item_obj->id] = array(
+			$this->items[$DAO_menu_item->id] = array(
 				$quantity + $currentQty,
-				$menu_item_obj
+				clone $DAO_menu_item
 			);
 
 			if ($isCurrentlyPromo)
 			{
-				$this->items[$menu_item_obj->id][1]->isPromo = true;
+				$this->items[$DAO_menu_item->id][1]->isPromo = true;
 			}
 
 			if ($isCurrentlyCouponFreeMeal)
 			{
-				$this->items[$menu_item_obj->id][1]->isFreeMeal = true;
+				$this->items[$DAO_menu_item->id][1]->isFreeMeal = true;
 			}
 		}
 		else
 		{
-			$this->items[$menu_item_obj->id] = array(
+			$this->items[$DAO_menu_item->id] = array(
 				$quantity,
-				$menu_item_obj
+				clone $DAO_menu_item
 			);
 		}
 	}
@@ -4803,16 +4802,14 @@ class COrders extends DAO_Orders
 			}
 
 			$this->subtotal_bag_fee = $this->total_bag_count * $DAO_store->default_bag_fee;
+
+			$this->total_customized_meal_count = self::getNumberOfCustomizableMealsFromItems($this, $DAO_store->allow_preassembled_customization);
 		}
 		else
 		{
 			$this->subtotal_bag_fee = 0;
 			$this->total_bag_count = 0;
-		}
-
-		if (!empty($DAO_store))
-		{
-			$this->total_customized_meal_count = self::getNumberOfCustomizableMealsFromItems($this, $DAO_store->allow_preassembled_customization);
+			$this->total_customized_meal_count = 0;
 		}
 
 		if ($this->recalculateMealCustomizationFee)
@@ -6813,7 +6810,7 @@ class COrders extends DAO_Orders
 						{
 							//subtract from inventory
 							$invItem = DAO_CFactory::create('menu_item_inventory');
-							$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold +  " . " $servingQty where mii.recipe_id = {$DAO_menu_item->recipe_id}
+							$invItem->query("update menu_item_inventory mii set mii.number_sold = mii.number_sold +  $servingQty where mii.recipe_id = {$DAO_menu_item->recipe_id}
 								    and mii.store_id = {$this->store_id} and mii.menu_id = $menu_id and mii.is_deleted = 0");
 						}
 					}
@@ -10461,94 +10458,79 @@ class COrders extends DAO_Orders
 			$store_id = $this->DAO_store->parent_store_id;
 		}
 
-		$OrderItem = DAO_CFactory::create('order_item', true);
-		$OrderItem->query("select
-				mmi.menu_id,
-				mmi.override_price,
-				mimd.markdown_value,
-				mimd.id as markdown_id,
-				oi.*
-				from order_item oi
-				left join menu_to_menu_item mmi on mmi.menu_item_id = oi.menu_item_id and mmi.store_id = {$store_id} and mmi.is_deleted = 0
-				left join menu_item_mark_down mimd on mimd.id = oi.menu_item_mark_down_id
-				where oi.order_id = {$this->id}
-				and oi.is_deleted = 0");
+		$DAO_menu = DAO_CFactory::create('menu', true);
+		$DAO_menu->id = $this->getMenuId();
+		$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
+			'join_order_item_order_id' => array($this->id),
+			'join_order_item_order' => 'INNER',
+			'menu_to_menu_item_store_id' => $store_id,
+			'exclude_menu_item_category_core' => false,
+			'exclude_menu_item_category_efl' => false,
+			'exclude_menu_item_category_sides_sweets' => false
+		));
 
-		while ($OrderItem->fetch())
+		while ($DAO_menu_item->fetch())
 		{
-			$DAO_menu = DAO_CFactory::create('menu', true);
-			$DAO_menu->id = $OrderItem->menu_id;
-			$MenuItem = $DAO_menu->findMenuItemDAO(array(
-				'menu_item_id_list' => $OrderItem->menu_item_id,
-				'join_order_item_order_id' => array($this->id),
-				'join_order_item_order' => 'INNER',
-				'menu_to_menu_item_store_id' => $store_id,
-				'exclude_menu_item_category_core' => false,
-				'exclude_menu_item_category_efl' => false,
-				'exclude_menu_item_category_sides_sweets' => false
-			));
+			$DAO_menu_item->parentItemId = 'NULL';
+			$DAO_menu_item->bundleItemCount = 0;
+			$DAO_menu_item->bundle_id = 'NULL';
+			$DAO_menu_item->ltd_menu_item_value = 0;
+			$DAO_menu_item->markdown_id = false;
+			$DAO_menu_item->markdown_value = 0;
 
-			if (!$MenuItem->fetch())
+			if (!empty($DAO_menu_item->DAO_order_item->parent_menu_item_id))
 			{
-				throw new Exception("Menu item not found: " . $OrderItem->menu_item_id);
+				$DAO_menu_item->parentItemId = $DAO_menu_item->DAO_order_item->parent_menu_item_id;
+				$DAO_menu_item->bundleItemCount = $DAO_menu_item->DAO_order_item->bundle_item_count;
+			}
+
+			if (!empty($DAO_menu_item->DAO_order_item->bundle_id))
+			{
+				$DAO_menu_item->bundle_id = $DAO_menu_item->DAO_order_item->bundle_id;
+			}
+
+			if (!empty($DAO_menu_item->DAO_menu_item_mark_down->id))
+			{
+				$DAO_menu_item->markdown_id = $DAO_menu_item->DAO_menu_item_mark_down->id;
+				$DAO_menu_item->markdown_value = $DAO_menu_item->DAO_menu_item_mark_down->markdown_value;
+
+				$DAO_menu_item->override_price = $DAO_menu_item->DAO_order_item->sub_total / $DAO_menu_item->DAO_order_item->item_count;
+
+				// if not marked down just set the override price to current override price (see below) The price will later be forced to the price in effect at the time
+				// of the original order
+				// However if a mark down is present we restore the original prices as the value is calculated on the fly in a few places.
+				$DAO_menu_item->order_item_ltd_menu_item = false;
+			}
+			else if (!empty($DAO_menu_item->DAO_order_item->discounted_subtotal))
+			{
+				// must be the LTD meal donation if not mark down
+				// using round to get to an even dollar amount if the precision has drifted
+				$DAO_menu_item->ltd_menu_item_value = round($DAO_menu_item->DAO_order_item->discounted_subtotal - $DAO_menu_item->DAO_order_item->sub_total) / $DAO_menu_item->DAO_order_item->item_count;
+				$DAO_menu_item->override_price = $DAO_menu_item->DAO_order_item->discounted_subtotal / $DAO_menu_item->DAO_order_item->item_count;
+				$DAO_menu_item->order_item_ltd_menu_item = true;
 			}
 			else
 			{
+				$DAO_menu_item->markdown_id = false;
+				$DAO_menu_item->markdown_value = 0;
 
-				if (!empty($OrderItem->parent_menu_item_id))
+				if ($useOriginalPricing)
 				{
-					$MenuItem->parentItemId = $OrderItem->parent_menu_item_id;
-					$MenuItem->bundleItemCount = $OrderItem->bundle_item_count;
-				}
+					$DAO_menu_item->override_price = $DAO_menu_item->DAO_order_item->sub_total / $DAO_menu_item->DAO_order_item->item_count;
 
-				if (!empty($OrderItem->bundle_id))
-				{
-					$MenuItem->bundle_id = $OrderItem->bundle_id;
-				}
-
-				if (!empty($OrderItem->markdown_id))
-				{
-					$MenuItem->markdown_id = $OrderItem->markdown_id;
-					$MenuItem->markdown_value = $OrderItem->markdown_value;
-
-					$MenuItem->override_price = $OrderItem->sub_total / $OrderItem->item_count;
-
-					// if not marked down just set the override price to current override price (see below) The price will later be forced to the price in effect at the time
-					// of the original order
-					// However if a mark down is present we restore the original prices as the value is calculated on the fly in a few places.
-					$MenuItem->order_item_ltd_menu_item = false;
-				}
-				else if (!empty($OrderItem->discounted_subtotal))
-				{
-					// must be the LTD meal donation if not mark down
-					// using round to get to an even dollar amount if the precision has drifted
-					$MenuItem->ltd_menu_item_value = round($OrderItem->discounted_subtotal - $OrderItem->sub_total) / $OrderItem->item_count;
-					$MenuItem->override_price = $OrderItem->discounted_subtotal / $OrderItem->item_count;
-					$MenuItem->order_item_ltd_menu_item = true;
+					// Refresh store_price if using original price
+					$DAO_menu_item->getStorePrice();
 				}
 				else
 				{
-					$MenuItem->markdown_id = false;
-					$MenuItem->markdown_value = 0;
-
-					if ($useOriginalPricing)
-					{
-						$MenuItem->override_price = $OrderItem->sub_total / $OrderItem->item_count;
-
-						// Refresh store_price if using original price
-						$MenuItem->getStorePrice();
-					}
-					else
-					{
-						$MenuItem->override_price = $OrderItem->override_price;
-					}
-
-					$MenuItem->order_item_ltd_menu_item = false;
+					$DAO_menu_item->override_price = $DAO_menu_item->DAO_menu_to_menu_item->override_price;
 				}
 
-				$this->addMenuItem($MenuItem, $OrderItem->item_count);
-				$totalItemQty += $OrderItem->item_count;
+				$DAO_menu_item->order_item_ltd_menu_item = false;
 			}
+
+			$this->addMenuItem(clone $DAO_menu_item, $DAO_menu_item->DAO_order_item->item_count);
+			$totalItemQty += $DAO_menu_item->DAO_order_item->item_count;
 		}
 
 		return $totalItemQty;
@@ -12218,7 +12200,7 @@ class COrders extends DAO_Orders
 
 							if (is_numeric($id) && $item['qty'] && isset($item['bundle_id']) && $item['bundle_id'] > 0)
 							{
-								$item['qty'] = $item['qty'] - 1;
+								$item['qty'] = (int)$item['qty'] - 1;
 								$BundleItems[$id] = $menuInfo[$categoryName][$id];
 
 								if ($item['qty'] == 0)
@@ -12307,7 +12289,7 @@ class COrders extends DAO_Orders
 			if ($totalCTSCost > 0 && !empty($Order->subtotal_food_sales_taxes))
 			{
 				$pretax = $Order->grand_total - $Order->subtotal_food_sales_taxes;
-				$CTSPotionOfPretax = $totalCTSCost / $pretax;
+				$CTSPotionOfPretax = $totalCTSCost / ($pretax ?: 1);
 				$CTSPotionOfTax = $Order->subtotal_food_sales_taxes * $CTSPotionOfPretax;
 
 				$totalCTSCost += $CTSPotionOfTax;

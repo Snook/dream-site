@@ -12,12 +12,18 @@ require_once('includes/class.inputfilter_clean.php');
 class page_gift_card_order extends CPage
 {
 
+	/**
+	 * @throws exception
+	 */
 	function runPublic()
 	{
 		CApp::forceSecureConnection();
 		$this->run();
 	}
 
+	/**
+	 * @throws exception
+	 */
 	function run()
 	{
 		$tpl = CApp::instance()->template();
@@ -458,5 +464,3 @@ class page_gift_card_order extends CPage
 	}
 
 }
-
-?>

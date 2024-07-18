@@ -179,7 +179,7 @@ class COrdersDigest extends DAO_Orders_digest
 				$this_amount = array_shift($amounts);
 				$thisDelayed = array_shift($isDelayed);
 				$thisDelayedStatus = array_shift($delayedStatus);
-				$this_amount = $this_amount + .000000001;
+				$this_amount = (float)$this_amount + .000000001;
 
 				$this_amount = intval($this_amount * 100);
 				switch ($thisType)

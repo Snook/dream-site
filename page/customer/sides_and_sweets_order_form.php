@@ -80,6 +80,9 @@ class page_sides_and_sweets_order_form extends CPage
 		CApp::forceLogin($back);
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runCustomer()
 	{
 		$tpl = CApp::instance()->template();
@@ -238,4 +241,3 @@ class page_sides_and_sweets_order_form extends CPage
 	}
 
 }
-?>

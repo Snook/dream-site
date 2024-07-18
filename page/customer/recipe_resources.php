@@ -3,9 +3,12 @@
 class page_recipe_resources extends CPage
 {
 
+	/**
+	 * @throws Exception
+	 */
 	function runPublic()
 	{
-		$req_search = CGPC::do_clean((!empty($_REQUEST['q']) ? substr($_REQUEST['q'], 0, 255) : false), TYPE_NOHTML, true);
+		$req_search = CGPC::do_clean(((!empty($_REQUEST['q']) && is_string($_REQUEST['q'])) ? substr($_REQUEST['q'], 0, 255) : false), TYPE_NOHTML, true);
 		$req_page = CGPC::do_clean((empty($_REQUEST['p']) ? 1 : $_REQUEST['p']), TYPE_INT, true);
 		$req_video_only = CGPC::do_clean((!empty($_REQUEST['video']) ? $_REQUEST['video'] : false), TYPE_BOOL, true);
 
@@ -92,11 +95,9 @@ class page_recipe_resources extends CPage
 
 		foreach ($activeMenus as $DAO_menu)
 		{
-			$activeMenuArray[$DAO_menu->id] = CMenu::buildPreviewMenuArray(null, $DAO_menu->id, 'NameAZ');
+			$activeMenuArray[$DAO_menu->id] = CMenu::buildPreviewMenuArray($DAO_menu->id, 'NameAZ');
 		}
 
 		$tpl->assign('activeMenus', $activeMenuArray);
 	}
 }
-
-?>

@@ -16,6 +16,9 @@ class page_account_signup extends CPage
 
 	private $userHasAIFReferral = false;
 
+	/**
+	 * @throws Exception
+	 */
 	function runPublic()
 	{
 		CApp::forceSecureConnection();
@@ -105,5 +108,3 @@ class page_account_signup extends CPage
 		CApp::instance()->bounce('/account', true);
 	}
 }
-
-?>

@@ -267,11 +267,12 @@ class CLog
 	 *
 	 ********************************************************************/
 
-	static function RecordNew($type, $szDescription, $szOptionalFile = "", $szOptionalLine = "", $notifyAdmin = false)
+	static function RecordNew($type, $szDescription, $szOptionalFile = "", $szOptionalLine = "", $notifyAdmin = false, $template = false)
 	{
 
 		$log = self::$_instance;
 
+		$szHint = "";
 		$szDesc = '';
 		if ($szDescription)
 		{
@@ -284,6 +285,11 @@ class CLog
 		if ($szOptionalLine)
 		{
 			$szDesc .= '::' . $szOptionalLine;
+		}
+
+		if ($template)
+		{
+			$szHint = $template->page;
 		}
 
 		$user = CUser::getCurrentUser();
@@ -317,8 +323,8 @@ class CLog
 		CLog::instance()->connect();
 		$utils = new DB_Common();
 
-		$szInsert = "INSERT into " . DB_LOG_DATABASE . "." . CLog::getEventLogTable() . " (user_id, ip_address, timestamp_created, admin_notify, description, log_type, is_dfl_access )
-						VALUES ($user_id, '" . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '') . "', now(), " . ($notifyAdmin ? "1" : "0") . ", " . $utils->quoteSmart($szDesc) . ", '$type', 0);";
+		$szInsert = "INSERT into " . DB_LOG_DATABASE . "." . CLog::getEventLogTable() . " (user_id, ip_address, timestamp_created, admin_notify, event_hint, description, log_type, is_dfl_access )
+						VALUES ($user_id, '" . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '') . "', now(), " . ($notifyAdmin ? "1" : "0") . ", " . $utils->quoteSmart($szHint) . ", " . $utils->quoteSmart($szDesc) . ", '$type', 0);";
 
 		if (!self::$_db)
 		{

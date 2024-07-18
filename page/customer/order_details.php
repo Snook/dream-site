@@ -16,6 +16,9 @@ class page_order_details extends CPage
 		self::runPage();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function runPage()
 	{
 		$tpl = CApp::instance()->template();
@@ -274,5 +277,3 @@ class page_order_details extends CPage
 		$tpl->assign('store_VR_code', (empty($OrderDetailsArray['storeInfo']['vertical_response_code']) ? false : $OrderDetailsArray['storeInfo']['vertical_response_code']));
 	}
 }
-
-?>

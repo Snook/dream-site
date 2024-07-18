@@ -19,6 +19,9 @@ class page_browse_menu extends CPage
 		$this->runBrowseMenuPage($tpl);
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runBrowseMenuPage($tpl)
 	{
 		$activeMenus = CMenu::getActiveMenuArray();
@@ -27,7 +30,7 @@ class page_browse_menu extends CPage
 
 		foreach ($activeMenus as $activeMenuId => $activeMenu)
 		{
-			$activeMenuArray[$activeMenu['id']] = CMenu::buildPreviewMenuArray(null, $activeMenuId);
+			$activeMenuArray[$activeMenu['id']] = CMenu::buildPreviewMenuArray($activeMenuId);
 		}
 
 		// check to see if there are any active delivered stores
@@ -51,5 +54,3 @@ class page_browse_menu extends CPage
 		$tpl->assign('activeMenus', $activeMenuArray);
 	}
 }
-
-?>

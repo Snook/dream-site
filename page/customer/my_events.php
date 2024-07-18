@@ -9,6 +9,9 @@ class page_my_events extends CPage
 		CApp::forceLogin('/my-events');
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runCustomer()
 	{
 	    ini_set('memory_limit','512M');
@@ -36,4 +39,3 @@ class page_my_events extends CPage
 		$tpl->assign('usersFuturePastEvents', $usersFuturePastEvents);
 	}
 }
-?>

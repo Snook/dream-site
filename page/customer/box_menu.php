@@ -22,6 +22,9 @@ class page_box_menu extends CPage
 		$this->runBoxItemsPage($tpl);
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runBoxItemsPage()
 	{
 		if (!empty($_POST['view_box']) && is_numeric($_POST['view_box']) && !empty($_POST['view_bundle']) && is_numeric($_POST['view_bundle']))
@@ -124,4 +127,3 @@ class page_box_menu extends CPage
 		$this->Template->setScriptVar('let box_info = ' . json_encode($boxInfoJS, JSON_FORCE_OBJECT) . ';');
 	}
 }
-?>

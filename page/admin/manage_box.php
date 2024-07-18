@@ -17,7 +17,7 @@ class page_admin_manage_box extends CPageAdminOnly
 
 		$this->Template->setScript('foot', SCRIPT_PATH . '/admin/manage_box.min.js');
 		$this->Template->assign('page_title', 'Manage Shipping Boxes');
-		$this->Template->assign('topnav', (($this->CurrentBackOfficeStore->store_type == CStore::DISTRIBUTION_CENTER) ? 'store' : 'tools'));
+		$this->Template->assign('topnav', (($this->CurrentBackOfficeStore->isDistributionCenter()) ? 'store' : 'tools'));
 
 		$this->ManagerForm = new CForm();
 		$this->ManagerForm->Repost = true;
