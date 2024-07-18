@@ -1,4 +1,5 @@
 <?php
+require_once("CApp.inc");
 
 /**
  * CPage member functions are called by CApp based on the user's access level.
@@ -16,6 +17,9 @@ class CPage
 
 	public bool $use_GPC = false;
 
+	/**
+	 * @throws Exception
+	 */
 	function __construct()
 	{
 		$this->CurrentUser = CUser::getCurrentUser();
