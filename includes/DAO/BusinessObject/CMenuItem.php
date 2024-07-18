@@ -976,22 +976,48 @@ class CMenuItem extends DAO_Menu_item
 		{
 			$retVal = array();
 
-			$uberObject = new DAO();
-			$uberObject->query('START TRANSACTION;');
+			$DAO_transaction = new DAO();
+			$DAO_transaction->query('START TRANSACTION;');
 
-			$DAO_menu = DAO_CFactory::create('menu');
+			$DAO_menu = DAO_CFactory::create('menu', true);
 			$DAO_menu->id = $targetMenu;
 
 			// get the source menu item to be duplicated
-			$DAO_menu_item = DAO_CFactory::create('menu_item');
-			$DAO_menu_item->id = $itemToDuplicate;
-			$DAO_menu_item->orderBy("FullFirst");
+			$entree_DAO_menu_item = DAO_CFactory::create('menu_item', true);
+			$entree_DAO_menu_item->id = $itemToDuplicate;
+			$entree_DAO_menu_item->orderBy("FullFirst");
+
+			// get the latest import for this item
+			if ($entree_DAO_menu_item->find(true))
+			{
+				$DAO_recipe = DAO_CFactory::create('recipe', true);
+				$DAO_recipe->recipe_id = $entree_DAO_menu_item->recipe_id;
+				$DAO_recipe->orderBy("recipe.override_menu_id DESC");
+				$DAO_recipe->limit(1);
+				$DAO_recipe->find(true);
+
+				$test_DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item', true);
+				$test_DAO_menu_to_menu_item->menu_id = $DAO_recipe->override_menu_id;
+				$test_DAO_menu_to_menu_item->store_id = 'NULL';
+				$test_DAO_menu_item = DAO_CFactory::create('menu_item', true);
+				$test_DAO_menu_item->recipe_id = $DAO_recipe->recipe_id;
+				$test_DAO_menu_to_menu_item->joinAddWhereAsOn($test_DAO_menu_item);
+				$test_DAO_menu_to_menu_item->groupBy("menu_item.entree_id");
+				$test_DAO_menu_to_menu_item->orderBy("menu_item.entree_id DESC");
+				$test_DAO_menu_to_menu_item->limit(1);
+				$test_DAO_menu_to_menu_item->find(true);
+
+				// get the source menu item to be duplicated
+				$DAO_menu_item = DAO_CFactory::create('menu_item', true);
+				$DAO_menu_item->id = $test_DAO_menu_to_menu_item->DAO_menu_item->entree_id;
+				$DAO_menu_item->orderBy("FullFirst");
+			}
 
 			// check tha the source menu exists
 			if ($DAO_menu_item->find(true))
 			{
 				// get all sizes for source menu item to be duplicated
-				$DAO_menu_item_by_entree = DAO_CFactory::create('menu_item');
+				$DAO_menu_item_by_entree = DAO_CFactory::create('menu_item', true);
 				$DAO_menu_item_by_entree->entree_id = $DAO_menu_item->id;
 				$DAO_menu_item_by_entree->orderBy("FullFirst");
 				$DAO_menu_item_by_entree->find();
@@ -1001,32 +1027,30 @@ class CMenuItem extends DAO_Menu_item
 				{
 					// check if this item has already been copied
 					// test that this item has not been duplicated yet for the target month
-					$test_DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
+					$test_DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item', true);
 					$test_DAO_menu_to_menu_item->menu_id = $DAO_menu->id;
 					$test_DAO_menu_to_menu_item->store_id = 'NULL';
-					$test_DAO_menu_item = DAO_CFactory::create('menu_item');
+					$test_DAO_menu_item = DAO_CFactory::create('menu_item', true);
 					$test_DAO_menu_item->copied_from = $DAO_menu_item_by_entree->id;
 					$test_DAO_menu_to_menu_item->joinAddWhereAsOn($test_DAO_menu_item);
-					$test_DAO_menu_to_menu_item->selectAdd();
-					$test_DAO_menu_to_menu_item->selectAdd("menu_to_menu_item.*");
 
 					// it has been copied, reset the source item to be duplicated to this copied item
 					if ($test_DAO_menu_to_menu_item->find(true))
 					{
 						// get the menu item to be duplicated
-						$DAO_menu_item = DAO_CFactory::create('menu_item');
+						$DAO_menu_item = DAO_CFactory::create('menu_item', true);
 						$DAO_menu_item->id = $test_DAO_menu_to_menu_item->menu_item_id;
 						$DAO_menu_item->orderBy("FullFirst");
 					}
 
 					// get the source menu for the item being copied
-					$DAO_source_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
+					$DAO_source_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item', true);
 					$DAO_source_menu_to_menu_item->menu_item_id = $DAO_menu_item->id;
 					$DAO_source_menu_to_menu_item->store_id = 'NULL';
 					$DAO_source_menu_to_menu_item->find(true);
 
 					// get all sizes for menu item to be duplicated
-					$DAO_menu_item_by_entree = DAO_CFactory::create('menu_item');
+					$DAO_menu_item_by_entree = DAO_CFactory::create('menu_item', true);
 					$DAO_menu_item_by_entree->entree_id = $DAO_menu_item->id;
 					$DAO_menu_item_by_entree->orderBy("FullFirst");
 					$DAO_menu_item_by_entree->find();
@@ -1041,14 +1065,12 @@ class CMenuItem extends DAO_Menu_item
 
 						// check if this item has already been copied
 						// test that this item has not been duplicated yet for the target month
-						$test_DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
+						$test_DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item', true);
 						$test_DAO_menu_to_menu_item->menu_id = $DAO_menu->id;
 						$test_DAO_menu_to_menu_item->store_id = 'NULL';
-						$test_DAO_menu_item = DAO_CFactory::create('menu_item');
+						$test_DAO_menu_item = DAO_CFactory::create('menu_item', true);
 						$test_DAO_menu_item->copied_from = $new_menu_item->id;
 						$test_DAO_menu_to_menu_item->joinAddWhereAsOn($test_DAO_menu_item);
-						$test_DAO_menu_to_menu_item->selectAdd();
-						$test_DAO_menu_to_menu_item->selectAdd("menu_to_menu_item.*");
 
 						// it has not been copied, insert otherwise use as the entree id
 						if (!$test_DAO_menu_to_menu_item->find())
@@ -1099,7 +1121,7 @@ class CMenuItem extends DAO_Menu_item
 						}
 
 						// global menu
-						$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
+						$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item', true);
 						$DAO_menu_to_menu_item->store_id = 'null';
 						$DAO_menu_to_menu_item->menu_id = $DAO_menu->id;
 						$DAO_menu_to_menu_item->menu_item_id = $new_menu_item->id;
@@ -1113,7 +1135,7 @@ class CMenuItem extends DAO_Menu_item
 						}
 
 						// store menu
-						$DAO_menu_to_menu_item_store = DAO_CFactory::create('menu_to_menu_item');
+						$DAO_menu_to_menu_item_store = DAO_CFactory::create('menu_to_menu_item', true);
 						$DAO_menu_to_menu_item_store->store_id = $store_id;
 						$DAO_menu_to_menu_item_store->menu_id = $DAO_menu->id;
 						$DAO_menu_to_menu_item_store->menu_item_id = $new_menu_item->id;
@@ -1125,14 +1147,12 @@ class CMenuItem extends DAO_Menu_item
 							if (!$DAO_menu->isEnabled_Markup() || !$DAO_menu->isEnabled_Markup_Sides())
 							{
 								// Look for the last price this sold for at the store and set the override to that
-								$last_price_DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
+								$last_price_DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item', true);
 								$last_price_DAO_menu_to_menu_item->store_id = $store_id;
-								$last_price_DAO_menu_item = DAO_CFactory::create('menu_item');
+								$last_price_DAO_menu_item = DAO_CFactory::create('menu_item', true);
 								$last_price_DAO_menu_item->recipe_id = $new_menu_item->recipe_id;
 								$last_price_DAO_menu_item->pricing_type = $new_menu_item->pricing_type;
 								$last_price_DAO_menu_to_menu_item->joinAddWhereAsOn($last_price_DAO_menu_item);
-								$last_price_DAO_menu_to_menu_item->selectAdd();
-								$last_price_DAO_menu_to_menu_item->selectAdd("menu_to_menu_item.*");
 								$last_price_DAO_menu_to_menu_item->orderBy("menu_to_menu_item.menu_id DESC");
 								$last_price_DAO_menu_to_menu_item->limit("1");
 
@@ -1148,7 +1168,7 @@ class CMenuItem extends DAO_Menu_item
 						}
 
 						// inventory
-						$DAO_menu_item_inventory = DAO_CFactory::create('menu_item_inventory');
+						$DAO_menu_item_inventory = DAO_CFactory::create('menu_item_inventory', true);
 						$DAO_menu_item_inventory->menu_id = $DAO_menu->id;
 						$DAO_menu_item_inventory->store_id = $store_id;
 						$DAO_menu_item_inventory->recipe_id = $new_menu_item->recipe_id;
@@ -1163,7 +1183,7 @@ class CMenuItem extends DAO_Menu_item
 
 						// create nutritional data for target menu
 						// check if recipe exists for the target menu
-						$DAO_recipe_test = DAO_CFactory::create('recipe');
+						$DAO_recipe_test = DAO_CFactory::create('recipe', true);
 						$DAO_recipe_test->override_menu_id = $DAO_menu->id;
 						$DAO_recipe_test->recipe_id = $new_menu_item->recipe_id;
 
@@ -1171,7 +1191,7 @@ class CMenuItem extends DAO_Menu_item
 						if (!$DAO_recipe_test->find())
 						{
 							// check if recipe exists from the source menu
-							$DAO_recipe = DAO_CFactory::create('recipe');
+							$DAO_recipe = DAO_CFactory::create('recipe', true);
 							$DAO_recipe->override_menu_id = $DAO_source_menu_to_menu_item->menu_id;
 							$DAO_recipe->recipe_id = $new_menu_item->recipe_id;
 
@@ -1186,7 +1206,7 @@ class CMenuItem extends DAO_Menu_item
 									$newRecipe->insert();
 								}
 
-								$components = DAO_CFactory::create('recipe_component');
+								$components = DAO_CFactory::create('recipe_component', true);
 								$components->recipe_id = $DAO_recipe->id;
 								$components->find();
 
@@ -1196,7 +1216,7 @@ class CMenuItem extends DAO_Menu_item
 									$newComponent->recipe_id = $newRecipe->id;
 									$newComponent->insert();
 
-									$exData = DAO_CFactory::create('nutrition_data');
+									$exData = DAO_CFactory::create('nutrition_data', true);
 									$exData->component_id = $components->id;
 									$exData->find();
 
@@ -1222,13 +1242,13 @@ class CMenuItem extends DAO_Menu_item
 			}
 
 			//	throw new Exception("forced out!");
-			$uberObject->query('COMMIT;');
+			$DAO_transaction->query('COMMIT;');
 
 			return $retVal;
 		}
 		catch (Exception $e)
 		{
-			$uberObject->query('ROLLBACK;');
+			$DAO_transaction->query('ROLLBACK;');
 
 			return false;
 		}
@@ -1263,14 +1283,14 @@ class CMenuItem extends DAO_Menu_item
 
 		$curMonthIDs = array();
 
-		$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
+		$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item', true);
 		$DAO_menu_to_menu_item->store_id = $store_id;
 		$DAO_menu_to_menu_item->menu_id = $menu_id;
 
 		$DAO_menu_to_menu_item->selectAdd();
 		$DAO_menu_to_menu_item->selectAdd("DISTINCT (menu_item.recipe_id) as recipe_id");
 
-		$DAO_menu_item = DAO_CFactory::create('menu_item');
+		$DAO_menu_item = DAO_CFactory::create('menu_item', true);
 		$DAO_menu_item->is_bundle = 0;
 
 		$DAO_menu_to_menu_item->joinAddWhereAsOn($DAO_menu_item, 'INNER', false, false, false);
