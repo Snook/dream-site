@@ -3182,7 +3182,7 @@ class CSession extends DAO_Session
 				$location->contact_user->find(true);
 			}
 
-			$this->remote_location = $location;
+			$this->remote_location = clone $location;
 		}
 
 		return $this->remote_location;
