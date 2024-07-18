@@ -2225,26 +2225,27 @@ class CDashboardNew
 			$lastVal = $thisMetricObj->converted_percent;
 		}
 
-		foreach ($storeRanksArray as $id => $rankObj)
+		foreach ($storeRanksArray as $rankObj)
 		{
-
-			$class = get_class($rankObj);
-
-			if ($class && $class == "DAO_Dashboard_metrics_rankings")
+			if (is_object($rankObj))
 			{
+				$class = get_class($rankObj);
 
-				if (!empty($rankObj->id))
+				if ($class && $class == "DAO_Dashboard_metrics_rankings")
 				{
-					$rankObj->update();
+					if (!empty($rankObj->id))
+					{
+						$rankObj->update();
+					}
+					else
+					{
+						$rankObj->insert();
+					}
 				}
 				else
 				{
-					$rankObj->insert();
-				}
-			}
-			else
-			{
 
+				}
 			}
 		}
 	}
