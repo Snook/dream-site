@@ -622,6 +622,8 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 						);
 					}
 
+					/*
+					// Disable holiday theme creation
 					// create holiday theme
 					if ($date_str_m == '11' || $date_str_m == '12')
 					{
@@ -658,6 +660,7 @@ class page_admin_import_bundles_reciprofity extends CPageAdminOnly
 							);
 						}
 					}
+					*/
 				}
 				else
 				{
