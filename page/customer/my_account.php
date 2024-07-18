@@ -15,6 +15,9 @@ class page_my_account extends CPage {
 		CApp::forceLogin('/my-account');
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runCustomer() {
 
 		CApp::forceSecureConnection();
@@ -161,4 +164,3 @@ class page_my_account extends CPage {
 
 	}
 }
-?>

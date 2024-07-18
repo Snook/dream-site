@@ -33,4 +33,3 @@ class page_signout extends CPage
 	}
 
 }
-?>

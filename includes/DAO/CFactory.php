@@ -20,9 +20,9 @@ class DAO_CFactory
 	{
 	}
 
-	//This is a list of dataobjects that have subclasses
+	//This is a list of data objects that have subclasses
 
-	static $subclasses = array(
+	static array $subclasses = array(
 		'CAddress' => 'DAO_Address',
 		'CBooking' => 'DAO_Booking',
 		'CBox' => 'DAO_Box',
@@ -81,10 +81,9 @@ class DAO_CFactory
 	/**
 	 * $objName is of the format: 'tablename' or 'DAO_Tablename'
 	 */
-	static function create($objName, $dataSelectTable = false)
+	static function create($objName, $dataSelectTable = false): object
 	{
-
-		//add the prefix if it aint there
+		//add the prefix if it isn't there
 		$filename = str_replace('DAO_', '', $objName);
 		$filename = ucfirst($filename);
 		$objName = 'DAO_' . $filename;
@@ -126,7 +125,6 @@ class DAO_CFactory
 
 		return $rtn;
 	}
-
 }
 
 ?>

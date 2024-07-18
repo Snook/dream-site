@@ -9,11 +9,11 @@ require_once("includes/CSessionToolsPrinting.inc");
 
 class page_print extends CPage
 {
-
-	function runPublic()
+	/**
+	 * @throws Exception
+	 */
+	function runPublic(): void
 	{
-		$tpl = CApp::instance()->template();
-
 		$req_menu = CGPC::do_clean((!empty($_REQUEST['menu']) ? $_REQUEST['menu'] : false), TYPE_INT);
 		$req_store = CGPC::do_clean((!empty($_REQUEST['store']) ? $_REQUEST['store'] : false), TYPE_INT);
 
@@ -22,14 +22,14 @@ class page_print extends CPage
 			$active_menus = CMenu::getActiveMenuArray();
 			if (!array_key_exists($req_menu, $active_menus))
 			{
-				$tpl->setErrorMsg('Requested menu not found, please contact support.');
+				$this->Template->setErrorMsg('Requested menu not found, please contact support.');
 				CApp::bounce();
 			}
 
 			$storeInfo = CStore::getStoreAndOwnerInfo($req_store);
 			if (!$storeInfo)
 			{
-				$tpl->setErrorMsg('Requested store not found, please contact support.');
+				$this->Template->setErrorMsg('Requested store not found, please contact support.');
 				CApp::bounce();
 			}
 
@@ -39,7 +39,7 @@ class page_print extends CPage
 			$docSetPrinter->setData($docSetData);
 			if (!empty($_GET['intro']) && $_GET['intro'] == 'true')
 			{
-				$docSetData->loadBundleMenuData('TV_OFFER');
+				$docSetData->loadBundleMenuData();
 				$docSetPrinter->printGenericIntroMenuPDF();
 			}
 			else if (!empty($_GET['nutrition']) && $_GET['nutrition'] == 'true')
@@ -64,10 +64,11 @@ class page_print extends CPage
 		CApp::forceLogin();
 	}
 
-	function runCustomer()
+	/**
+	 * @throws Exception
+	 */
+	function runCustomer(): void
 	{
-		$tpl = CApp::instance()->template();
-
 		// Generated PDF requested
 		$req_fundraiser_event_pdf = CGPC::do_clean((!empty($_REQUEST['fundraiser_event_pdf']) ? $_REQUEST['fundraiser_event_pdf'] : false), TYPE_INT);
 		$req_dream_taste_event_pdf = CGPC::do_clean((!empty($_REQUEST['dream_taste_event_pdf']) ? $_REQUEST['dream_taste_event_pdf'] : false), TYPE_INT);
@@ -79,14 +80,14 @@ class page_print extends CPage
 		$active_menus = CMenu::getActiveMenuArray();
 		if (!empty($req_menu) && !array_key_exists($req_menu, $active_menus) && empty($req_order) && empty($req_pick_up_event_pdf) && empty($req_fundraiser_event_pdf) && empty($req_dream_taste_event_pdf))
 		{
-			$tpl->setErrorMsg('Requested menu not found, please contact support.');
+			$this->Template->setErrorMsg('Requested menu not found, please contact support.');
 			CApp::bounce();
 		}
 
 		$storeInfo = CStore::getStoreAndOwnerInfo($req_store);
 		if (!$storeInfo && empty($req_order) && empty($req_pick_up_event_pdf) && empty($req_fundraiser_event_pdf) && empty($req_dream_taste_event_pdf))
 		{
-			$tpl->setErrorMsg('Requested store not found, please contact support.');
+			$this->Template->setErrorMsg('Requested store not found, please contact support.');
 			CApp::bounce();
 		}
 
@@ -115,7 +116,7 @@ class page_print extends CPage
 			$docSetPrinter->setData($docSetData);
 			if (!empty($_GET['intro']) && $_GET['intro'] == 'true')
 			{
-				$docSetData->loadBundleMenuData('TV_OFFER');
+				$docSetData->loadBundleMenuData();
 				$docSetPrinter->printGenericIntroMenuPDF();
 			}
 			else if (!empty($_GET['nutrition']) && $_GET['nutrition'] == 'true')
@@ -160,7 +161,7 @@ class page_print extends CPage
 
 				$session_info_array = CSession::getSessionDetailArray($booking->session_id);
 
-				foreach ($session_info_array as $session_id => $sessionArray)
+				foreach ($session_info_array as $sessionArray)
 				{
 					$docSetData = new CSessionToolsData($booking->menu_id, $booking->store_id);
 					$docSetData->loadStaticData();
@@ -168,14 +169,7 @@ class page_print extends CPage
 
 					$session_orders[] = $booking->order_id;
 
-					if ($docSetData->storeInfo->store_type == CStore::DISTRIBUTION_CENTER)
-					{
-						$docSetData->loadOrderedItemDataDelivered($session_orders);
-					}
-					else
-					{
-						$docSetData->loadOrderedItemData($session_orders);
-					}
+					$docSetData->loadOrderedItemData($session_orders);
 
 					$booking = $sessionArray['bookings'][$booking->booking_id];
 
@@ -185,10 +179,9 @@ class page_print extends CPage
 
 						if (!empty($_GET['core']) && $_GET['core'] == 'true')
 						{
-
 							if (!empty($_GET['cur']) && $_GET['cur'] == 'true')
 							{
-								$docSetData->loadMenuData($booking, false);
+								$docSetData->loadMenuData($booking);
 								$docSetPrinter->printThisMonthsMenuPDF();
 							}
 							else
@@ -215,7 +208,7 @@ class page_print extends CPage
 			}
 			else
 			{
-				$tpl->setErrorMsg('Requested menu not found, please contact support.');
+				$this->Template->setErrorMsg('Requested menu not found, please contact support.');
 				CApp::bounce();
 			}
 		}
@@ -223,5 +216,3 @@ class page_print extends CPage
 		CApp::bounce();
 	}
 }
-
-?>

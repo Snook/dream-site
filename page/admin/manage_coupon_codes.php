@@ -145,7 +145,12 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 				else
 				{
 					$couponUpsert = true;
-					$DAO_coupon_code->insert();
+					$result = $DAO_coupon_code->insert();
+
+					if (!$result)
+					{
+						$this->Template->setErrorMsg('Error adding coupon code to database');
+					}
 				}
 			}
 			else
@@ -391,12 +396,14 @@ class page_admin_manage_coupon_codes extends CPageAdminOnly
 		$this->CouponForm->addElement(array(
 			CForm::type => CForm::Text,
 			CForm::required => true,
+			CForm::maxlength => 80,
 			CForm::name => 'coupon_code_title'
 		));
 
 		$this->CouponForm->addElement(array(
 			CForm::type => CForm::Text,
 			CForm::required => true,
+			CForm::maxlength => 36,
 			CForm::name => 'coupon_code_short_title'
 		));
 

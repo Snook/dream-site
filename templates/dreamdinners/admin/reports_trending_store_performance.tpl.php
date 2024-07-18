@@ -17,7 +17,7 @@
     <td class="label_delimited" style="text-align:right;"><?php echo CTemplate::dateTimeFormat($thisRow['date'], VERBOSE_MONTH_YEAR)?></td>
     <td class="value_delimited" style="text-align:center;">$<?php echo CTemplate::number_format($thisRow['total_agr'], 2)?></td>
     <td class="value_delimited" style="text-align:center;">$<?php echo CTemplate::number_format($thisRow['prev_agr'], 2)?></td>
-    <td class="value_delimited" style="text-align:center;"><?php echo (($thisRow['diff'] < 0) ?  "-$" . CTemplate::number_format(abs($thisRow['diff']), 2) : "$" . CTemplate::number_format($thisRow['diff'], 2))?></td>
+    <td class="value_delimited" style="text-align:center;"><?php echo (($thisRow['diff'] < 0) ?  "-$" . CTemplate::number_format(abs((float)$thisRow['diff']), 2) : "$" . CTemplate::number_format($thisRow['diff'], 2))?></td>
     <td class="value_delimited" style="text-align:center;"><?php echo CTemplate::number_format($thisRow['percent_diff'] * 100, 2)?>%</td>
     <td class="value_delimited" style="text-align:center;">$<?php echo CTemplate::number_format($thisRow['avg_ticket_regular'], 2)?></td>
     <td class="value_delimited" style="text-align:center;"><?php echo CTemplate::number_format($thisRow['orders_per_session'], 2)?></td>

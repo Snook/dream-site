@@ -1,4 +1,5 @@
 <?php
+require_once("CApp.inc");
 
 /**
  * CPage member functions are called by CApp based on the user's access level.
@@ -8,15 +9,17 @@
  */
 class CPage
 {
+	protected object|null $CurrentUser = null;
+	protected ?array $CurrentFutureMenus = null;
+	protected ?array $CurrentFutureMenusDelivered = null;
 
-	protected $CurrentUser = null;
-	protected $CurrentFutureMenus = null;
-	protected $CurrentFutureMenusDelivered = null;
+	protected object|null $Template = null;
 
-	protected $Template = null;
+	public bool $use_GPC = false;
 
-	public $use_GPC = false;
-
+	/**
+	 * @throws Exception
+	 */
 	function __construct()
 	{
 		$this->CurrentUser = CUser::getCurrentUser();
@@ -103,7 +106,4 @@ class CPage
 	{
 		$this->runCustomer();
 	}
-
 }
-
-?>

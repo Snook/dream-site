@@ -381,7 +381,7 @@ class CUserPreferred extends DAO_User_preferred
 		else
 		{
 			//error: can't calculate if there are no items
-			CLog::RecordNew(CLog::WARNING, 'CUserPreferred->calculateDiscountTotal no items on the order so discount not calculated', "", "", false);
+			//CLog::RecordNew(CLog::WARNING, 'CUserPreferred->calculateDiscountTotal no items on the order so discount not calculated', "", "", false);
 
 			return null;
 		}

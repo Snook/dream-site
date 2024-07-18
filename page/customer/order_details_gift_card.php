@@ -6,12 +6,12 @@ require_once('includes/DAO/BusinessObject/CGiftCard.php');
 class page_order_details_gift_card extends CPage
 {
 
-	function runPublic()
+	function runPublic(): void
 	{
 		self::runPage();
 	}
 
-	static function runPage()
+	static function runPage(): void
 	{
 		$tpl = CApp::instance()->template();
 
@@ -38,10 +38,8 @@ class page_order_details_gift_card extends CPage
 		}
 	}
 
-	function runCustomer()
+	function runCustomer(): void
 	{
 		self::runPage();
 	}
 }
-
-?>

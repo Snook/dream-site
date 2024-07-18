@@ -2595,10 +2595,9 @@ class CCart2
 	/**
 	 * Retrieve an order object from the cart
 	 */
-	function getOrder()
+	function getOrder(): object
 	{
-
-		if (isset($this->_OrderObj) && isset($this->_OrderObj->store_id) && !empty(CUser::getCurrentUser()->id))
+		if (isset($this->_OrderObj->store_id) && !empty(CUser::getCurrentUser()->id))
 		{
 			$DAO_store = DAO_CFactory::create('store', true);
 			$DAO_store->id = $this->getStoreId();
@@ -2624,10 +2623,10 @@ class CCart2
 		return $this->_OrderObj;
 	}
 
-	function getStoreId()
+	function getStoreId(): int|bool
 	{
 
-		if (isset($this->_OrderObj) && isset($this->_OrderObj->store_id))
+		if (isset($this->_OrderObj->store_id))
 		{
 			return $this->_OrderObj->store_id;
 		}
@@ -2635,7 +2634,7 @@ class CCart2
 		return false;
 	}
 
-	function emptyCartCompletely()
+	function emptyCartCompletely(): void
 	{
 		if (!empty($this->_cart_contents_id))
 		{
@@ -2663,7 +2662,7 @@ class CCart2
 	/**
 	 * Remove cart id from cookie, and remove cart row from db
 	 */
-	function emptyCart($do_not_disconnect = false)
+	function emptyCart($do_not_disconnect = false): void
 	{
 
 		if (empty($this->_gift_card_orders) && !$do_not_disconnect)
@@ -2685,7 +2684,7 @@ class CCart2
 		}
 	}
 
-	private function disconnectTemporaryCart()
+	private function disconnectTemporaryCart(): void
 	{
 		$key = CBrowserSession::getCartKey();
 
@@ -2710,7 +2709,7 @@ class CCart2
 		}
 	}
 
-	private function establishTemporaryCart()
+	private function establishTemporaryCart(): void
 	{
 
 		CLog::Assert($this->_cart_contents_id == null, "establishTemporaryCart with non-null cart contents id");
@@ -2736,7 +2735,7 @@ class CCart2
 		}
 	}
 
-	private function connectTemporaryCartToContents($key = false)
+	private function connectTemporaryCartToContents($key = false): int|null
 	{
 		if ($this->_cart_contents_id)
 		{

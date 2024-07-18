@@ -7,5 +7,3 @@ class page_error extends CPage {
 
 	}
 }
-
-?>

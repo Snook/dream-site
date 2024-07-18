@@ -6,6 +6,9 @@ require_once('DAO/BusinessObject/CStatesAndProvinces.php');
 class page_locations extends CPage
 {
 
+	/**
+	 * @throws exception
+	 */
 	function runPublic()
 	{
 		parent::runPublic();
@@ -134,5 +137,3 @@ class page_locations extends CPage
 		$tpl->assign('locations_form', $Form->Render());
 	}
 }
-
-?>

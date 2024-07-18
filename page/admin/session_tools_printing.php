@@ -81,7 +81,10 @@ class page_admin_session_tools_printing extends CPageAdminOnly
 		$this->runSessionToolsPrinting();
 	}
 
-	function runSessionToolsPrinting()
+	/**
+	 * @throws Exception
+	 */
+	function runSessionToolsPrinting(): void
 	{
 		ini_set('memory_limit', '128M');
 
@@ -264,14 +267,7 @@ class page_admin_session_tools_printing extends CPageAdminOnly
 
 						if ((!empty($_GET['freezer']) && $_GET['freezer'] == 'true') || (!empty($_GET['nutrition']) && $_GET['nutrition'] == 'true'))
 						{
-							if ($docSetData->storeInfo->store_type == CStore::DISTRIBUTION_CENTER)
-							{
-								$docSetData->loadOrderedItemDataDelivered($session_orders);
-							}
-							else
-							{
-								$docSetData->loadOrderedItemData($session_orders);
-							}
+							$docSetData->loadOrderedItemData($session_orders);
 						}
 
 						foreach ($bookings as $bid => $booking)

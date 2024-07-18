@@ -10,7 +10,7 @@ class FPDF_MULTICELLTAG extends FPDF
 	var $wt_DataInfo;//parsed string data info
 	var $wt_DataExtraInfo;//data extra INFO
 
-	function _wt_Reset_Datas()
+	function _wt_Reset_Datas(): void
 	{
 		$this->wt_Current_Tag = "";
 		$this->wt_DataInfo = array();
@@ -32,14 +32,14 @@ class FPDF_MULTICELLTAG extends FPDF
 
 	/**
 	 * Sets current tag to specified style
+	 *
 	 * @param        $tag - tag name
 	 *                    $family - text font family
 	 *                    $style - text style
 	 *                    $size - text size
 	 *                    $color - text color
-	 * @return    nothing
 	 */
-	function SetStyle($tag, $family, $style, $size, $color)
+	function SetStyle($tag, $family, $style, $size, $color): void
 	{
 
 		if ($tag == "ttags")
@@ -139,10 +139,10 @@ class FPDF_MULTICELLTAG extends FPDF
 	 * Sets current tag style as the current settings
 	 * - if the tag name is not in the tag list then de "DEFAULT" tag is saved.
 	 * This includes a fist call of the function SaveCurrentStyle()
+	 *
 	 * @param        $tag - tag name
-	 * @return    nothing
 	 */
-	function ApplyStyle($tag)
+	function ApplyStyle($tag): void
 	{
 
 		//use case insensitive tags
@@ -185,10 +185,8 @@ class FPDF_MULTICELLTAG extends FPDF
 
 	/**
 	 * Save the current settings as a tag default style under the DEFAUTLT tag name
-	 * @param none
-	 * @return    nothing
 	 */
-	function SaveCurrentStyle()
+	function SaveCurrentStyle(): void
 	{
 		//*
 		$this->TagStyle['DEFAULT']['family'] = $this->FontFamily;;
@@ -201,7 +199,9 @@ class FPDF_MULTICELLTAG extends FPDF
 
 	/**
 	 * Divides $this->wt_DataInfo and returnes a line from this variable
+	 *
 	 * @param        $w - Width of the text
+	 *
 	 * @return     $aLine = array() -> contains informations to draw a line
 	 */
 	function MakeLine($w)
@@ -401,18 +401,14 @@ class FPDF_MULTICELLTAG extends FPDF
 				array_shift($aDataInfo);
 			}
 
-			if ($val['text'] == $str)
-			{
-			}
-
 			//we have a partial result
-			array_push($aLine, array(
+			$aLine[] = array(
 				'text' => $str,
 				'tag' => $val['tag'],
-				'href' => $val['href'],
+				'href' => array_key_exists('href', $val) ? $val['href'] : null,
 				'width' => $s_width,
 				'spaces' => $spaces
-			));
+			);
 
 			if ($return_result)
 			{
@@ -458,6 +454,7 @@ class FPDF_MULTICELLTAG extends FPDF
 
 	/**
 	 * Draws a MultiCell with TAG recognition parameters
+	 *
 	 * @param        $w - with of the cell
 	 *                  $h - height of the cell
 	 *                  $pStr - string to be printed
@@ -466,11 +463,9 @@ class FPDF_MULTICELLTAG extends FPDF
 	 *                  $fill - fill
 	 *
 	 * These paramaters are the same and have the same behavior as at Multicell function
-	 * @return     nothing
 	 */
-	function MultiCellTag($w, $h, $pStr, $border = 0, $align = 'J', $fill = 0)
+	function MultiCellTag($w, $h, $pStr, $border = 0, $align = 'J', $fill = 0): void
 	{
-
 		//save the current style settings, this will be the default in case of no style is specified
 		$this->SaveCurrentStyle();
 		$this->_wt_Reset_Datas();
@@ -584,8 +579,10 @@ class FPDF_MULTICELLTAG extends FPDF
 
 	/**
 	 * This method returns the number of lines that will a text ocupy on the specified width
+	 *
 	 * @param        $w - with of the cell
 	 *                  $pStr - string to be printed
+	 *
 	 * @return     $nb_lines - number of lines
 	 */
 	function NbLines($w, $pStr)
@@ -633,13 +630,13 @@ class FPDF_MULTICELLTAG extends FPDF
 
 	/**
 	 * Draws a line returned from MakeLine function
+	 *
 	 * @param        $w - with of the cell
 	 *                  $h - height of the cell
 	 *                  $aTxt - array from MakeLine
 	 *                  $align - text align
-	 * @return     nothing
 	 */
-	function PrintLine($w, $h, $aTxt, $align = 'J')
+	function PrintLine($w, $h, $aTxt, $align = 'J'): void
 	{
 
 		if ($w == 0)

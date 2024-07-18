@@ -25,4 +25,3 @@ class page_platepoints extends CPage {
 		$tpl->assign('user_is_preferred', $User->isUserPreferred());
 	}
 }
-?>

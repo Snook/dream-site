@@ -1,4 +1,5 @@
 <?php
+require_once("CApp.inc");
 
 /**
  * CPage member functions are called by CApp based on the user's access level.
@@ -32,6 +33,10 @@ abstract class CPageAdminOnly
 	}
 
 	//CES: ACCESS_CHANGE
+
+	/**
+	 * @throws Exception
+	 */
 	function __construct()
 	{
 		$this->CurrentBackOfficeStore = CBrowserSession::getCurrentFadminStoreObj();

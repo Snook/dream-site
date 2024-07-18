@@ -374,6 +374,7 @@ class processor_location_search extends CPage
 				$results[$DAO_store->id] = $DAO_store->toArray();
 				$results[$DAO_store->id]['DAO_store'] = clone $DAO_store;
 				$results[$DAO_store->id]['map_link'] = $DAO_store->generateMapLink();
+				$results[$DAO_store->id]['type'] = 'STORE';
 				// $results[$store->id]['linear_address'] = $store->generateLinearAddress();
 				$results[$DAO_store->id]['image_name'] = $DAO_store->getStoreImageName();
 				$results[$DAO_store->id]['coming_soon'] = $DAO_store->isComingSoon();

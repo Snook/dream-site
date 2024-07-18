@@ -1,4 +1,5 @@
 <?php
+require_once("CApp.inc");
 
 /**
  * CPageProcessor is meant to be a protected AJAX script .. protected by authentication.
@@ -17,6 +18,9 @@ class CPageProcessor
 
 	public $use_GPC = false;
 
+	/**
+	 * @throws Exception
+	 */
 	function __construct()
 	{
 		$this->CurrentBackOfficeStore = CBrowserSession::getCurrentFadminStoreObj();
@@ -24,7 +28,7 @@ class CPageProcessor
 		$this->CurrentFutureMenus = CMenu::getCurrentAndFutureMenuObj();
 		$this->CurrentFutureMenusDelivered = CMenu::getCurrentAndFutureDeliveredMenuObj();
 
-		$this->Template = CApp::instance()->template();
+		$this->Template = CApp::instance()?->template();
 		if (isset($this->Template))
 		{
 			$this->Template->assign('UserCurrent', $this->CurrentUser);

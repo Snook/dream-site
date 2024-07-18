@@ -136,6 +136,8 @@ function addToolTip($user_id){
 	$User->query($sql);
 	//$User->find();
 	$order_id = '';
+	$order_date = '';
+	$session_time = '';
 	while ($User->fetch())
 	{
 		$session_time = CTemplate::dateTimeFormat($User->session_start, NORMAL);

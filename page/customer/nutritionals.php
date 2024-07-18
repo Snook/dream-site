@@ -105,6 +105,9 @@ class page_nutritionals extends CPage
 		return $retVal;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runPublic()
 	{
 		$show = array(
@@ -262,5 +265,3 @@ class page_nutritionals extends CPage
 		}
 	}
 }
-
-?>

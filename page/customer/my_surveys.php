@@ -1,12 +1,15 @@
 <?php
 class page_my_surveys extends CPage {
 
-	function runPublic()
+	function runPublic(): void
 	{
 		CApp::forceLogin('/my-surveys');
 	}
 
-	function runCustomer()
+	/**
+	 * @throws Exception
+	 */
+	function runCustomer(): void
 	{
 		$tpl = CApp::instance()->template();
 		$User = CUser::getCurrentUser();
@@ -85,14 +88,14 @@ class page_my_surveys extends CPage {
 		{
 			// preview mode for home office reviewing the survey
 			$recipe = array(
-				title => '{Dinner Title}',
-				id => '',
-				food_testing_id => '',
-				food_testing_survey_id => '',
-				timestamp_received => '',
-				timestamp_completed => '',
-				timestamp_updated => '',
-				timestamp_created => ''
+				'title' => '{Dinner Title}',
+				'id' => '',
+				'food_testing_id' => '',
+				'food_testing_survey_id' => '',
+				'timestamp_received' => '',
+				'timestamp_completed' => '',
+				'timestamp_updated' => '',
+				'timestamp_created' => ''
 			);
 
 			$tpl->assign('recipe', $recipe);
@@ -144,4 +147,3 @@ class page_my_surveys extends CPage {
 		$tpl->assign('userTestRecipes', $UserTestRecipes);
 	}
 }
-?>
