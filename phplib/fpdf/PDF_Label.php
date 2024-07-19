@@ -1760,13 +1760,13 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 3, $_PosY + 23 + $pushDown);
 		$this->MultiCellTag($this->_Width - $rPadding, $overrideLineHeight, $instructions, $showBorders, "L", 0);
 
-
-		$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"),VERBOSE_MONTH_YEAR);
-		if($entity['show_long_date']){
-			$dateFormatted =  CTemplate::dateTimeFormat(date("Y-m-d H:i:s"),MONTH_DAY_YEAR);
+		$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), VERBOSE_MONTH_YEAR);
+		if ($entity['show_long_date'])
+		{
+			$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), MONTH_DAY_YEAR);
 		}
 		$this->SetXY($_PosX + 53, $_PosY + 5.5);
-		$this->MultiCellTag($this->_Width * .5 - $rPadding, $this->_Line_Height, "<t7h>Assembled " . $dateFormatted. "</t7h>", $showBorders, "R", 0);
+		$this->MultiCellTag($this->_Width * .5 - $rPadding, $this->_Line_Height, "<t7h>Assembled " . $dateFormatted . "</t7h>", $showBorders, "R", 0);
 
 		if (!empty($entity['best_prepared_by']))
 		{
@@ -1868,7 +1868,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 	}
 
 	// Print a label
-	function Four_Up_Add_Finishing_Touch_PDF_Label($entity, $title, $inst_title, $instructions = false, $serving_suggestion = false, $prep_time = false, $showBorders = 0, $overrideLineHeight = 3.45, $pushDown = 0, $storeName = false, $storePhone = false)
+	function Four_Up_Add_Finishing_Touch_PDF_Label($entity, $title, $inst_title, $instructions = false, $serving_suggestion = false, $prep_time = false, $showBorders = 0, $overrideLineHeight = 3.45, $pushDown = 0, $storeName = false, $storePhone = false): void
 	{
 		// We are in a new page, then we must add a page
 		if (($this->_COUNTX == 0) && ($this->_COUNTY == 0))
@@ -1897,9 +1897,10 @@ class PDF_Label extends FPDF_MULTICELLTAG
 			$this->MultiCellTag($this->_Width, $this->_Line_Height, '<t1b>Prep Time ' . $prep_time . '</t1b>', $showBorders, "L", 0);
 		}
 
-		$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"),VERBOSE_MONTH_YEAR);
-		if($entity['show_long_date']){
-			$dateFormatted =  CTemplate::dateTimeFormat(date("Y-m-d H:i:s"),MONTH_DAY_YEAR);
+		$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), VERBOSE_MONTH_YEAR);
+		if ($entity['show_long_date'])
+		{
+			$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), MONTH_DAY_YEAR);
 		}
 
 		$this->SetXY($_PosX + 61, $_PosY + 10);
@@ -1909,6 +1910,53 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		{
 			$this->SetXY($_PosX + 61, $_PosY + 14);
 			$this->MultiCellTag($this->_Width * .4, $this->_Line_Height, "<tftb>" . $entity['best_prepared_by'] . "</tftb>", $showBorders, "R", 0);
+		}
+
+		if (!empty($entity['instructions_air_fryer']) || !empty($entity['instructions_crock_pot']) || !empty($entity['instructions_instant_pot']) || !empty($entity['instructions_grill']))
+		{
+			$alternate_instruction_type = array();
+
+			if(!empty($entity['instructions_air_fryer']))
+			{
+				$alternate_instruction_type[] = 'air fryer';
+			}
+
+			if (!empty($entity['instructions_crock_pot']))
+			{
+				$alternate_instruction_type[] = 'crock-pot';
+			}
+
+			if (!empty($entity['instructions_instant_pot']))
+			{
+				$alternate_instruction_type[] = 'instant pot';
+			}
+
+			if (!empty($entity['instructions_grill']))
+			{
+				$alternate_instruction_type[] = 'grill';
+			}
+
+			if (empty($alternate_instruction_type))
+			{
+				$alternate_instruction_string = 'alternate';
+			}
+			else
+			{
+				// get the last item off the array
+				$last = array_pop($alternate_instruction_type);
+				// comma separate the rest of the items and then append the last item from the previous function
+				if (count($alternate_instruction_type) > 0)
+				{
+					$alternate_instruction_string = implode(', ', $alternate_instruction_type) . ' or ' . $last;
+				}
+				else
+				{
+					$alternate_instruction_string = $last;
+				}
+			}
+
+			$this->SetXY($_PosX + 3, $_PosY + 31);
+			$this->MultiCellTag($this->_Width, $this->_Line_Height, "<t1>*Scan the QR code to get " . $alternate_instruction_string . " instructions*</t1>", $showBorders, "L", 0);
 		}
 
 		$instructions = trim(preg_replace('/\t+/', '', $instructions));
@@ -2002,14 +2050,15 @@ class PDF_Label extends FPDF_MULTICELLTAG
 			$shortDate = $menuItemArray['session_start'];
 			if (array_key_exists('order_id', $menuItemArray))
 			{
-				$shortDate = CTemplate::dateTimeFormat($menuItemArray['session_start_database'],CONCISE_NO_SECONDS);
+				$shortDate = CTemplate::dateTimeFormat($menuItemArray['session_start_database'], CONCISE_NO_SECONDS);
 				$assemble_verbiage = 'Ordered for ';
 			}
 			else
 			{
-				$shortDate = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"),VERBOSE_MONTH_YEAR);
-				if($menuItemArray['show_long_date']){
-					$shortDate =  CTemplate::dateTimeFormat(date("Y-m-d H:i:s"),MONTH_DAY_YEAR);
+				$shortDate = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), VERBOSE_MONTH_YEAR);
+				if ($menuItemArray['show_long_date'])
+				{
+					$shortDate = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), MONTH_DAY_YEAR);
 				}
 			}
 
@@ -2116,7 +2165,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		{
 			$alternate_instruction_type = array();
 
-			if(!empty($menuItemArray['instructions_air_fryer']))
+			if (!empty($menuItemArray['instructions_air_fryer']))
 			{
 				$alternate_instruction_type[] = 'air fryer';
 			}
