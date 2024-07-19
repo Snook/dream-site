@@ -12,6 +12,8 @@ try
 {
 	$dateSpans = array(
 		'2024-07-01',
+		'2024-08-01',
+		'2024-09-01'
 	);
 
 	echo "staring rebuild\r\n";
