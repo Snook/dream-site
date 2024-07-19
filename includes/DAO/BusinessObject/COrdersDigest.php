@@ -861,7 +861,8 @@ class COrdersDigest extends DAO_Orders_digest
 			{
 				$orderType = 'INTRO';
 			}
-			else if ($DAO_orders->findSession()->isFundraiser())
+
+			if ($DAO_orders->findSession()->isFundraiser())
 			{
 				$orderType = 'FUNDRAISER';
 			}
