@@ -1965,7 +1965,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		{
 			$pushDown += 5;
 		}
-		$this->SetXY($_PosX + 3, $_PosY + 31 + $pushDown);
+		$this->SetXY($_PosX + 3, $_PosY + 35 + $pushDown);
 		$this->MultiCellTag($this->_Width, $overrideLineHeight, $instructions, $showBorders, "L", 0);
 
 		if (!empty($entity['recipe_id']))
