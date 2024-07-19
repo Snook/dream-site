@@ -853,7 +853,7 @@ class COrdersDigest extends DAO_Orders_digest
 			}
 
 			$orderType = 'REGULAR';
-			if ($DAO_orders->is_TODD || $DAO_orders->isDreamTaste())
+			if ($DAO_orders->findSession()->isDreamTaste())
 			{
 				$orderType = 'TASTE';
 			}
@@ -861,8 +861,7 @@ class COrdersDigest extends DAO_Orders_digest
 			{
 				$orderType = 'INTRO';
 			}
-
-			if ($DAO_orders->findSession()->session_type == 'FUNDRAISER')
+			else if ($DAO_orders->findSession()->isFundraiser())
 			{
 				$orderType = 'FUNDRAISER';
 			}
