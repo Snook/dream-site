@@ -42,11 +42,6 @@ try
 
 		while ($DAO_store->fetch())
 		{
-			if ($DAO_store->id = 82)
-			{
-				$test = 'test';
-			}
-
 			CDashboardMenuBased::updateAGRMetrics($DAO_store->id, $thisDate, $start_date, $interval);
 			CDashboardMenuBased::updateGuestMetrics($DAO_store->id, $thisDate, $start_date, $interval);
 			//CDashboardMenuBased::updateAGRMetrics(119, $thisDate, $start_date, $interval);
