@@ -4,7 +4,7 @@
 	<b><?php echo $item['type']; ?></b>
 
 	<?php if ($item["digest_user_state"] == 'NEW') { ?>
-		<span class="badge badge-orange badge-pill">1<sup>st</sup> Order</span>
+		<span class="badge badge-orange badge-pill">New Guest</span>
 	<?php } ?>
 
 	<?php echo (($item['order_type'] == 'WEB') ? 'Customer' : 'BackOffice'); ?>

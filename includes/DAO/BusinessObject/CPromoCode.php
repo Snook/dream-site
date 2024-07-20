@@ -78,14 +78,14 @@
 
 		}
 
-
 		/**
 		 * Calculates the price reduction from an order.
 		 * @return the dollar amount of the discount or false if the promo does
 		 * not apply to the order.
-		 *	CES: 1-30-07 Added $markup override: if supplied use the passed in markup
-		 *	otherwise use the current store markup
-		 *	ability to non-current markup added for order editing
+		 *    CES: 1-30-07 Added $markup override: if supplied use the passed in markup
+		 *    otherwise use the current store markup
+		 *    ability to non-current markup added for order editing
+		 * @throws Exception
 		 */
 		function calculate($Order, $markup = false) {
 			if ( !$Order )

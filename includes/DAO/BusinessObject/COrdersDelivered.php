@@ -1147,6 +1147,7 @@ class COrdersDelivered extends COrders
 	/**
 	 * @return 'invalidPayment', 'invalidCC', 'session full', 'closed', 'failed', 'success'
 	 * Process order with multiple payments, passing in an array of payment objects
+	 * @throws Exception
 	 */
 	function processOrder($payments, $useTransaction = true)
 	{
@@ -1604,6 +1605,7 @@ class COrdersDelivered extends COrders
 	 * 4) Generates a warning message if other saved orders exist and no capacity remains
 	 *
 	 *
+	 * @throws Exception
 	 */
 
 	function processSavedOrder($payments, $useTransaction = true)
@@ -2467,6 +2469,7 @@ class COrdersDelivered extends COrders
 	 *
 	 * This functions differently than reschedule() since a Saved order does not occupy a slot.
 	 * We don't need to do the fancy locking etc. until the order is Activated
+	 * @throws Exception
 	 */
 	function rescheduleSavedOrder($target_session_id, $Booking, $Order = false)
 	{
@@ -2556,6 +2559,7 @@ class COrdersDelivered extends COrders
 
 	/**
 	 * @return 'session full', 'closed', 'failed', 'success'
+	 * @throws Exception
 	 */
 	function reschedule($orignal_schedule_id, $fadmin_rules = true, $suppress_email = false)
 	{
@@ -2959,7 +2963,7 @@ class COrdersDelivered extends COrders
 		}
 	}
 
-	static public function sendRescheduleEmail($user, $order, $origSessionTime)
+	static public function sendRescheduleEmail($user, $order, $origSessionTime): void
 	{
 		require_once('CMail.inc');
 		$Mail = new CMail();
@@ -3226,7 +3230,7 @@ class COrdersDelivered extends COrders
 		CEmail::alertStoreInstructions($orderInfo);
 	}
 
-	static public function sendCancelEmail($user, $order)
+	static public function sendCancelEmail($user, $order): void
 	{
 		require_once('CMail.inc');
 		$Mail = new CMail();

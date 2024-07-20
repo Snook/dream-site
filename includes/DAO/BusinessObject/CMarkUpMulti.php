@@ -42,7 +42,10 @@ class CMarkUpMulti extends DAO_Mark_up_multi
 	 *
 	 * @param menu_id, the menu of the current order. If false, it will only return a mark up that has no
 	 * menu_id_start value
-	 **/
+	 * *
+	 *
+	 * @throws Exception
+	 */
 	function findActive($menu_id = false)
 	{
 		if (!$this->store_id)

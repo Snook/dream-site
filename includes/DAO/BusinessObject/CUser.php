@@ -1656,6 +1656,7 @@ class CUser extends DAO_User
 	 * @param $menu_id
 	 *
 	 * @return bool true if the customer already has a minimum order
+	 * @throws Exception
 	 */
 	public function hasMinimumQualifyingOrderDefined($store_id, $menu_id)
 	{
@@ -1702,6 +1703,7 @@ class CUser extends DAO_User
 	 *
 	 * @return bool true if qualifying order was found and updated, false if qualifying order
 	 * was not found to update, or one already exists
+	 * @throws Exception
 	 */
 	public function establishMonthlyMinimumQualifyingOrder($menu_id, $store_id)
 	{
@@ -1759,6 +1761,7 @@ class CUser extends DAO_User
 	 * @param $store_id
 	 *
 	 * @return null|int order id of Qualifying order if one exists
+	 * @throws Exception
 	 */
 	public function fetchMinimumQualifyingOrderId($menu_id, $store_id)
 	{
@@ -1802,6 +1805,7 @@ class CUser extends DAO_User
 	 * @param $orderObj A hydrated order object which contains store/menu data.
 	 *
 	 * @return null|mediumint Order Id of the qualifying order that proceeded this order
+	 * @throws Exception
 	 */
 	public function determineQualifyingOrderId($orderObj)
 	{
@@ -1854,6 +1858,7 @@ class CUser extends DAO_User
 	 *
 	 * @return boolean true if this order is greater than or equal to configured minimum for this
 	 *                 user/store/menu combination
+	 * @throws Exception
 	 */
 	public function doesOrderMeetMinimum($orderObj)
 	{
@@ -6384,7 +6389,9 @@ class CUser extends DAO_User
 	/**
 	 * Get associated address record and call find
 	 * @return DataObject
-	 **/
+	 *
+	 * @throws Exception
+	 */
 
 	function getPrimaryAddress()
 	{
