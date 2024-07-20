@@ -2963,7 +2963,7 @@ class COrdersDelivered extends COrders
 		}
 	}
 
-	static public function sendRescheduleEmail($user, $order, $origSessionTime)
+	static public function sendRescheduleEmail($user, $order, $origSessionTime): void
 	{
 		require_once('CMail.inc');
 		$Mail = new CMail();
@@ -3230,7 +3230,7 @@ class COrdersDelivered extends COrders
 		CEmail::alertStoreInstructions($orderInfo);
 	}
 
-	static public function sendCancelEmail($user, $order)
+	static public function sendCancelEmail($user, $order): void
 	{
 		require_once('CMail.inc');
 		$Mail = new CMail();
