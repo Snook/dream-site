@@ -2658,8 +2658,8 @@ class CSessionReports
 			case "y":
 				$newDate1 = substr($date1, 0, 10);
 				$newDate2 = substr($date2, 0, 10);
-				list($year1, $month1, $day1) = split('-', $newDate1);
-				list($year2, $month2, $day2) = split('-', $newDate2);
+				list($year1, $month1, $day1) = explode('-', $newDate1);
+				list($year2, $month2, $day2) = explode('-', $newDate2);
 
 				$time1 = (date('H', $date1) * 3600) + (date('i', $date1) * 60) + (date('s', $date1) * 1);
 				$time2 = (date('H', $date2) * 3600) + (date('i', $date2) * 60) + (date('s', $date2) * 1);

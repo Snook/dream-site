@@ -2,7 +2,6 @@
 require_once('includes/CPageAdminOnly.inc');
 require_once('includes/DAO/BusinessObject/CSession.php');
 require_once('includes/CSessionReports.inc');
-require_once('includes/CReportsSiteAdmin.inc');
 
 class page_admin_reports_store_contact_information extends CPageAdminOnly {
 

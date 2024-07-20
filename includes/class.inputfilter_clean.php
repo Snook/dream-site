@@ -332,28 +332,20 @@ class InputFilter
 
 	function quoteSmart($source, &$connection)
 	{
-		if (get_magic_quotes_gpc())
-		{
-			$source = stripslashes($source);
-		}
-		$source = $this->escapeString($source, $connection);
-
-		return $source;
+		return $this->escapeString($source, $connection);
 	}
 
 	function escapeString($string, &$connection)
 	{
 		if (version_compare(phpversion(), "4.3.0", "<"))
 		{
-			mysql_escape_string($string);
+			mysqli_escape_string($string);
 		}
 		else
 		{
-			mysql_real_escape_string($string);
+			mysqli_real_escape_string($string);
 		}
 
 		return $string;
 	}
 }
-
-?>

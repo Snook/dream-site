@@ -4053,7 +4053,7 @@ class CDashboardReport
 		$sql = "SELECT `dashboard_report_cache_main`.`transaction_totals`,`dashboard_report_cache_main`.`store_id`,`dashboard_report_cache_main`.`monthvalue`,`dashboard_report_cache_main`.`yearvalue`, " . " `dashboard_report_cache_store_classification`.`dashboard_report_age_class_id`,`dashboard_report_cache_store_classification`.`trade_area_id`" . " FROM `dashboard_report_cache_main` Inner Join `dashboard_report_cache_log` ON `dashboard_report_cache_main`.`dashboard_report_cache_log_id` = `dashboard_report_cache_log`.`id`" . " Inner Join `dashboard_report_cache_store_classification` ON `dashboard_report_cache_main`.`store_id` = `dashboard_report_cache_store_classification`.`store_id`" . " WHERE `dashboard_report_cache_log`.`active` =  '1' and `dashboard_report_cache_main`.`dashboard_report_cache_log_id` = `dashboard_report_cache_store_classification`.`dashboard_report_cache_log_id`" . " and `dashboard_report_cache_main`.`is_historical` = 0 order by `store_id`, `yearvalue`, monthvalue";
 
 		$obj = DAO_CFactory::create("dashboard_report_age_class");
-		$rslt = $obj->query($varstr);
+		$rslt = $obj->query($sql);
 		if ($rslt == 0)
 		{
 			$success = false;
