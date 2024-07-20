@@ -8,10 +8,12 @@ class CFoodSurvey extends DAO_Food_survey {
 	 * Returns an array of ratings a user has made
 	 *
 	 * @param object $User
-	 * @param array $limitRecipesArray: array of recipe ids to search
+	 * @param array  $limitRecipesArray : array of recipe ids to search
+	 *
 	 * @return array:
+	 * @throws Exception
 	 */
-	static function getUsersRatedRecipes($User, $limitRecipesArray = false)
+	static function getUsersRatedRecipes($User, $limitRecipesArray = false): array
 	{
 		$recipes = '';
 		$recipesIn = '';
@@ -59,12 +61,14 @@ class CFoodSurvey extends DAO_Food_survey {
 	 * @param int $recipe_id
 	 * @param int $recipe_version
 	 * @param int $rating
-	 * @param int $store_id: recorded to capture if store is relevant
-	 * @param int $menu_id: optional finer rating control
-	 * @param int $would_order_again: vip food survey
-	 * @param int $vip_submission_id: vip food survey
+	 * @param int $store_id          : recorded to capture if store is relevant
+	 * @param int $menu_id           : optional finer rating control
+	 * @param int $would_order_again : vip food survey
+	 * @param int $vip_submission_id : vip food survey
+	 *
+	 * @throws Exception
 	 */
-	static function addMyMealsRating($User, $recipe_id, $recipe_version, $rating, $store_id = false, $menu_id = false)
+	static function addMyMealsRating($User, $recipe_id, $recipe_version, $rating, $store_id = false, $menu_id = false): array
 	{
 		$hasPreviouslyRated = false;
 
@@ -142,7 +146,9 @@ class CFoodSurvey extends DAO_Food_survey {
 	 * @param int $recipe_id
 	 * @param int $recipe_version
 	 * @param int $set_favorite
-	 * @param int $menu_id: optional finer rating control
+	 * @param int $menu_id : optional finer rating control
+	 *
+	 * @throws Exception
 	 */
 	static function addMyMealsFavorite($User, $recipe_id, $recipe_version, $set_favorite, $menu_id = false, $store_id = false)
 	{
@@ -187,11 +193,13 @@ class CFoodSurvey extends DAO_Food_survey {
 
 	/**
 	 *
-	 * @param int $User
-	 * @param int $recipe_id
-	 * @param int $recipe_version
+	 * @param int    $User
+	 * @param int    $recipe_id
+	 * @param int    $recipe_version
 	 * @param string $comment
-	 * @param int $menu_id: optional finer rating control
+	 * @param int    $menu_id : optional finer rating control
+	 *
+	 * @throws Exception
 	 */
 	static function addMyMealsReview($User, $recipe_id, $recipe_version, $comment, $menu_id = false)
 	{
@@ -245,11 +253,13 @@ class CFoodSurvey extends DAO_Food_survey {
 
 	/**
 	 *
-	 * @param int $User
-	 * @param int $recipe_id
-	 * @param int $recipe_version
+	 * @param int    $User
+	 * @param int    $recipe_id
+	 * @param int    $recipe_version
 	 * @param string $comment
-	 * @param int $menu_id: optional finer rating control
+	 * @param int    $menu_id : optional finer rating control
+	 *
+	 * @throws Exception
 	 */
 	static function addMyMealsPersonalNote($User, $recipe_id, $recipe_version, $comment, $menu_id = false)
 	{

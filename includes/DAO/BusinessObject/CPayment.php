@@ -642,6 +642,7 @@ class CPayment extends DAO_Payment
 	 * Processes the a credit or debit using the passed in reference number.
 	 * Inserts "$this" if successful
 	 * @return $rslt
+	 * @throws Exception
 	 */
 	public function processByReference($CustomerObj, $OrderObj, $StoreObj, $refNum, $doInsertPayment = true)
 	{
@@ -765,6 +766,7 @@ class CPayment extends DAO_Payment
 	 * @return 'illegal_amount', 'success', 'communicationError', 'transactionDecline',
 	 *  'noConnection', 'configurationError', 'noMerchantAccountFound', 'storeCreditCreateFailed'
 	 * and the new store credit id if successful
+	 * @throws Exception
 	 */
 	public static function processPaymentToStoreCredit($cc_number, $cvv2_number, $amount, $ccMonth, $ccYear, $CustomerObj, $StoreObj)
 	{
@@ -896,6 +898,7 @@ class CPayment extends DAO_Payment
 	/**
 	 * Processes the initial credit card payment
 	 * @return $rslt
+	 * @throws Exception
 	 */
 	public function processPayment($CustomerObj, $OrderObj, $StoreObj)
 	{
@@ -1034,6 +1037,7 @@ class CPayment extends DAO_Payment
 	 * Processes a new credit card credit - the amount to credit is passed in.
 	 * The CC# is required since this method will not reference a previous transaction
 	 * @return $rslt
+	 * @throws Exception
 	 */
 	public function processNewCredit($CustomerObj, $OrderObj, $StoreObj)
 	{
@@ -1157,6 +1161,7 @@ class CPayment extends DAO_Payment
 	/**
 	 * Processes a credit card credit by referencing the original cc payment and credit the entire amount
 	 * @return $rslt
+	 * @throws Exception
 	 */
 	public function processCredit($amount = false)
 	{

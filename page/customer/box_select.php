@@ -7,14 +7,10 @@ require_once('includes/CLog.inc');
 class page_box_select extends CPage
 {
 
-	function runPublic()
-	{
-		$tpl = CApp::instance()->template();
-
-		$this->runBoxSelectPage($tpl);
-	}
-
-	function runCustomer()
+	/**
+	 * @throws Exception
+	 */
+	function runPublic(): void
 	{
 		$tpl = CApp::instance()->template();
 
@@ -24,7 +20,17 @@ class page_box_select extends CPage
 	/**
 	 * @throws Exception
 	 */
-	function runBoxSelectPage($tpl)
+	function runCustomer(): void
+	{
+		$tpl = CApp::instance()->template();
+
+		$this->runBoxSelectPage($tpl);
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	function runBoxSelectPage($tpl): void
 	{
 		$CartObj = CCart2::instance();
 
