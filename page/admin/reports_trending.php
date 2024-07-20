@@ -2,32 +2,28 @@
 include("includes/CPageAdminOnly.inc");
 require_once("includes/CDashboardReport.inc");
 
-
 function timesort($a, $b)
 {
 	$atime = strtotime($a['date']);
 	$btime = strtotime($b['date']);
 
 	if ($atime == $btime)
+	{
 		return 0;
+	}
 
 	return ($atime < $btime) ? -1 : 1;
-
-
 }
 
 function dollarFormatter($inNumber)
 {
 	return "$" . number_format($inNumber, 0);
-
 }
 
 function yLabelFormat($inNumber)
 {
 	return "$" . number_format($inNumber, 0);
-
 }
-
 
 class page_admin_reports_trending extends CPageAdminOnly
 {
@@ -40,73 +36,69 @@ class page_admin_reports_trending extends CPageAdminOnly
 		$this->cleanReportInputs();
 	}
 
-	function runFranchiseStaff()
+	function runFranchiseStaff(): void
 	{
 		CApp::bounce('/backoffice/access-error');
 	}
 
-	function runEventCoordinator()
+	function runEventCoordinator(): void
 	{
-	    $this->currentStore = CApp::forceLocationChoice();
+		$this->currentStore = CApp::forceLocationChoice();
 		$this->renderChart();
 	}
 
-	function runFranchiseLead()
+	function runFranchiseLead(): void
 	{
 		CApp::bounce('/backoffice/access-error');
 	}
 
-	function runFranchiseManager()
+	function runFranchiseManager(): void
 	{
 		$this->currentStore = CApp::forceLocationChoice();
 
 		$this->renderChart();
 	}
 
-	function runOpsLead()
+	function runOpsLead(): void
 	{
 		$this->currentStore = CApp::forceLocationChoice();
 
 		$this->renderChart();
 	}
 
-	function runFranchiseOwner()
+	function runFranchiseOwner(): void
 	{
 		$this->currentStore = CApp::forceLocationChoice();
 
 		$this->renderChart();
 	}
 
-	function runHomeOfficeStaff()
+	function runHomeOfficeStaff(): void
 	{
 		CApp::bounce('/backoffice/access-error');
 	}
 
-	function runHomeOfficeManager()
+	function runHomeOfficeManager(): void
 	{
 		$this->renderChart();
 	}
 
-	function runSiteAdmin()
+	function runSiteAdmin(): void
 	{
 		$this->renderChart();
 	}
 
-
-	function grabLastYearGuestCounts($store_id)
+	function grabLastYearGuestCounts($store_id): array
 	{
 		$retVal = array();
 
 		$thisMonth = date("n");
 		$thisYear = date("Y");
-		$thisMonthTime = mktime(0,0,0, $thisMonth, 1, $thisYear - 1);
-
+		$thisMonthTime = mktime(0, 0, 0, $thisMonth, 1, $thisYear - 1);
 
 		$thisMonthDate = date("Y-m-01", $thisMonthTime);
-		$lastYearTime = mktime(0,0,0, $thisMonth-1, 1, $thisYear - 2);
+		$lastYearTime = mktime(0, 0, 0, $thisMonth - 1, 1, $thisYear - 2);
 		$lastYear = date("Y-m-01", $lastYearTime);
-
-
 
 		$GuestMetrics = DAO_CFactory::create('dashboard_metrics_guests');
 
@@ -123,72 +115,91 @@ class page_admin_reports_trending extends CPageAdminOnly
 		}
 
 		return $retVal;
-
 	}
 
-
-	function exportXLSX($tpl)
+	function exportXLSX($tpl): void
 	{
 		$rows = array();
 
-		$_GET['csvfilename'] = str_replace(array(",", "<br />"), array("-", "  "), $tpl->titleString) . " " . CTemplate::dateTimeFormat(date("Y-m-d H:i:s", time()));
+		$_GET['csvfilename'] = str_replace(array(
+				",",
+				"<br />"
+			), array(
+				"-",
+				"  "
+			), $tpl->titleString) . " " . CTemplate::dateTimeFormat(date("Y-m-d H:i:s", time()));
 
-		$tpl->assign("labels", array_pad(array("Month", "Adj. Gross Revenue", "Last Year Adj. Gross Revenue", "$ Change", "% Change", "Average Ticket", "Avg. Orders / Session", "Unique Orders", "Unique Guests",
-				 "% New to Total Guests", "Ex. Guest Count", "Ex. Guest Sign up %", "New Guest Count", "New Guest Sign up %", "Reacquired Guest Count",
-				 "Reacquired Guest Sign up %", "45 Day Lost Guest", "Total Canceled Orders", "Avg. Servings per Guest", "Average Annual Visits"), 18 , ""));
+		$tpl->assign("labels", array_pad(array(
+			"Month",
+			"Adj. Gross Revenue",
+			"Last Year Adj. Gross Revenue",
+			"$ Change",
+			"% Change",
+			"Average Ticket",
+			"Avg. Orders / Session",
+			"Unique Orders",
+			"Unique Guests",
+			"% New to Total Guests",
+			"Ex. Guest Count",
+			"Ex. Guest Sign up %",
+			"New Guest Count",
+			"New Guest Sign up %",
+			"Reacquired Guest Count",
+			"Reacquired Guest Sign up %",
+			"45 Day Lost Guest",
+			"Total Canceled Orders",
+			"Avg. Servings per Guest",
+			"Average Annual Visits"
+		), 18, ""));
 
-
-		$colDesc = array("A" => array('width' => 20, 'type' => 'y_axis_labels'),
-						"B" => array('type' => 'currency'),
-						"C" => array('type' => 'currency'),
-						"D" => array('type' => 'currency'),
-						"E" => array('type' => 'percent'),
-						"F" => array('type' => 'currency'),
-						"J" => array('type' => 'percent'),
-						"L" => array('type' => 'percent'),
-						"N" => array('type' => 'percent'),
-						"P" => array('type' => 'percent'));
+		$colDesc = array(
+			"A" => array(
+				'width' => 20,
+				'type' => 'y_axis_labels'
+			),
+			"B" => array('type' => 'currency'),
+			"C" => array('type' => 'currency'),
+			"D" => array('type' => 'currency'),
+			"E" => array('type' => 'percent'),
+			"F" => array('type' => 'currency'),
+			"J" => array('type' => 'percent'),
+			"L" => array('type' => 'percent'),
+			"N" => array('type' => 'percent'),
+			"P" => array('type' => 'percent')
+		);
 
 		$tpl->assign('col_descriptions', $colDesc);
 
-
-
-		foreach ($tpl->store_performance_data as $thisRow) {
-			$rows[] = array_pad(array(CTemplate::dateTimeFormat($thisRow['date'], VERBOSE_MONTH_YEAR),
-									 CTemplate::number_format($thisRow['total_agr'], 2, ""),
-					CTemplate::number_format($thisRow['prev_agr'], 2, ""),
-					CTemplate::number_format($thisRow['diff'], 2, ""),
-					CTemplate::number_format($thisRow['percent_diff'], 4, ""),
-					CTemplate::number_format($thisRow['avg_ticket_regular'], 2, ""),
-					CTemplate::number_format($thisRow['orders_per_session'], 2, ""),
-					$thisRow['orders_count_all'],
-					$thisRow['guest_count_total'],
-					CTemplate::number_format($thisRow['percent_new'], 4, ""),
-					$thisRow['guest_count_existing'],
-					(!empty($thisRow['guest_count_existing']) ? CTemplate::number_format(( $thisRow['instore_signup_existing'] / $thisRow['guest_count_existing']), 4, "") : 0),
-					$thisRow['guest_count_new'],
-					(!empty($thisRow['guest_count_new']) ? CTemplate::number_format(( $thisRow['instore_signup_new'] / $thisRow['guest_count_new']), 4, "") : 0),
-					$thisRow['guest_count_reacquired'],
-					(!empty($thisRow['guest_count_reacquired']) ? CTemplate::number_format(( $thisRow['instore_signup_reacquired'] / $thisRow['guest_count_reacquired']), 4, "") : 0),
-					$thisRow['lost_guests_at_45_days'],
-					$thisRow['num_cancelled_orders'],
-					CTemplate::number_format($thisRow['avg_servings_per_guest_regular'], 2, ""),
-					CTemplate::number_format($thisRow['average_annual_regular_visits'], 2, "")), 17 , "");
+		foreach ($tpl->store_performance_data as $thisRow)
+		{
+			$rows[] = array_pad(array(
+				CTemplate::dateTimeFormat($thisRow['date'], VERBOSE_MONTH_YEAR),
+				CTemplate::number_format($thisRow['total_agr'], 2, ""),
+				CTemplate::number_format($thisRow['prev_agr'], 2, ""),
+				CTemplate::number_format($thisRow['diff'], 2, ""),
+				CTemplate::number_format($thisRow['percent_diff'], 4, ""),
+				CTemplate::number_format($thisRow['avg_ticket_regular'], 2, ""),
+				CTemplate::number_format($thisRow['orders_per_session'], 2, ""),
+				$thisRow['orders_count_all'],
+				$thisRow['guest_count_total'],
+				CTemplate::number_format($thisRow['percent_new'], 4, ""),
+				$thisRow['guest_count_existing'],
+				(!empty($thisRow['guest_count_existing']) ? CTemplate::number_format(($thisRow['instore_signup_existing'] / $thisRow['guest_count_existing']), 4, "") : 0),
+				$thisRow['guest_count_new'],
+				(!empty($thisRow['guest_count_new']) ? CTemplate::number_format(($thisRow['instore_signup_new'] / $thisRow['guest_count_new']), 4, "") : 0),
+				$thisRow['guest_count_reacquired'],
+				(!empty($thisRow['guest_count_reacquired']) ? CTemplate::number_format(($thisRow['instore_signup_reacquired'] / $thisRow['guest_count_reacquired']), 4, "") : 0),
+				$thisRow['lost_guests_at_45_days'],
+				$thisRow['num_cancelled_orders'],
+				CTemplate::number_format($thisRow['avg_servings_per_guest_regular'], 2, ""),
+				CTemplate::number_format($thisRow['average_annual_regular_visits'], 2, "")
+			), 17, "");
 		}
 
-
-
-
-
 		$tpl->assign('rows', $rows);
-
-
-
-
-
 	}
 
-	function renderChart()
+	function renderChart(): void
 	{
 
 		CApp::forceSecureConnection();
@@ -208,35 +219,47 @@ class page_admin_reports_trending extends CPageAdminOnly
 		if ($userType == CUser::HOME_OFFICE_STAFF || $userType == CUser::HOME_OFFICE_MANAGER || $userType == CUser::SITE_ADMIN)
 		{
 			$showStoreSelector = true;
-			$Form->DefaultValues['store'] = array_key_exists('store', $_GET)? $_GET['store'] : '';
-			$Form->addElement(array(CForm::type=> CForm::AdminStoreDropDown,
-					CForm::onChange => 'selectStoreTR',
-					CForm::allowAllOption => false,
-					CForm::showInactiveStores => false,
-					CForm::name => 'store'));
+			$Form->DefaultValues['store'] = array_key_exists('store', $_GET) ? $_GET['store'] : '';
+			$Form->addElement(array(
+				CForm::type => CForm::AdminStoreDropDown,
+				CForm::onChange => 'selectStoreTR',
+				CForm::allowAllOption => false,
+				CForm::showInactiveStores => false,
+				CForm::name => 'store'
+			));
 			$store = $Form->value('store');
 
 			$Form->DefaultValues['report_type'] = 'dt_single_store';
 
-			$Form->AddElement(array(CForm::type=> CForm::RadioButton,
-					CForm::name => "report_type",
-					CForm::value => 'dt_single_store'));
+			$Form->AddElement(array(
+				CForm::type => CForm::RadioButton,
+				CForm::name => "report_type",
+				CForm::value => 'dt_single_store'
+			));
 
-			$Form->AddElement(array(CForm::type=> CForm::RadioButton,
-					CForm::name => "report_type",
-					CForm::value => 'dt_corp_stores'));
+			$Form->AddElement(array(
+				CForm::type => CForm::RadioButton,
+				CForm::name => "report_type",
+				CForm::value => 'dt_corp_stores'
+			));
 
-			$Form->AddElement(array(CForm::type=> CForm::RadioButton,
-					CForm::name => "report_type",
-					CForm::value => 'dt_non_corp_stores'));
+			$Form->AddElement(array(
+				CForm::type => CForm::RadioButton,
+				CForm::name => "report_type",
+				CForm::value => 'dt_non_corp_stores'
+			));
 
-			$Form->AddElement(array(CForm::type=> CForm::RadioButton,
-					CForm::name => "report_type",
-					CForm::value => 'dt_all_stores'));
+			$Form->AddElement(array(
+				CForm::type => CForm::RadioButton,
+				CForm::name => "report_type",
+				CForm::value => 'dt_all_stores'
+			));
 
-			$Form->AddElement(array(CForm::type=> CForm::RadioButton,
-					CForm::name => "report_type",
-					CForm::value => 'dt_stores_by_region'));
+			$Form->AddElement(array(
+				CForm::type => CForm::RadioButton,
+				CForm::name => "report_type",
+				CForm::value => 'dt_stores_by_region'
+			));
 
 			$tradeAreaArr = array(0 => 'Select a Region');
 			$tradeAreaObj = DAO_CFactory::create('trade_area');
@@ -247,36 +270,33 @@ class page_admin_reports_trending extends CPageAdminOnly
 				$tradeAreaArr[$tradeAreaObj->id] = $tradeAreaObj->region;
 			}
 
-			$Form->addElement(array(CForm::type=> CForm::DropDown,
-					CForm::allowAllOption => false,
-					CForm::name => 'trade_area',
-					CForm::options => $tradeAreaArr));
-
-
-
+			$Form->addElement(array(
+				CForm::type => CForm::DropDown,
+				CForm::allowAllOption => false,
+				CForm::name => 'trade_area',
+				CForm::options => $tradeAreaArr
+			));
 		}
-		else if ( $this->currentStore )
+		else if ($this->currentStore)
 		{
 			$store = $this->currentStore;
 		}
 
 		$tpl->assign('showStoreSelector', $showStoreSelector);
 
-
 		$reportType = $Form->value('report_type');
 
-		$Form->AddElement(array(CForm::type=> CForm::Hidden,
-				CForm::name => "store_id",
-				CForm::value => $store));
-
+		$Form->AddElement(array(
+			CForm::type => CForm::Hidden,
+			CForm::name => "store_id",
+			CForm::value => $store
+		));
 
 		$is_exporting = false;
 		if (isset($_REQUEST['export']) && $_REQUEST['export'] == "xlsx")
 		{
 			$is_exporting = true;
 		}
-
-
 
 		if ($reportType == 'dt_single_store' && empty($store))
 		{
@@ -287,25 +307,28 @@ class page_admin_reports_trending extends CPageAdminOnly
 		$titleString = "Calendar Month-based Trending Report";
 		$tpl->assign('titleString', $titleString);
 
-
 		if (!$hadError)
 		{
 			if ($is_exporting)
-				CLog::RecordReport("Trending Report Export (export xlsx)", "Store: $store" );
+			{
+				CLog::RecordReport("Trending Report Export (export xlsx)", "Store: $store");
+			}
 			else
-				CLog::RecordReport("Trending Report", "Store: $store" );
+			{
+				CLog::RecordReport("Trending Report", "Store: $store");
+			}
 
 			if (empty($reportType) || $reportType == 'dt_single_store')
 			{
 				$currentMonthStr = date("M Y");
 
 				$storeInfo = DAO_CFactory::create('store');
-				$storeInfo->query("select store_name, city, state_id from store where id = $store" );
+				$storeInfo->query("select store_name, city, state_id from store where id = $store");
 				$storeInfo->fetch();
 				$titleString = "$currentMonthStr Calendar Month-based Trending Report for <br />" . $storeInfo->store_name . " " . $storeInfo->city . ", " . $storeInfo->state_id;
 				$tpl->assign('titleString', $titleString);
 
-				$StorePerformanceData =  CDashboardNew::getAGRTrendingDataForStore($store, $is_exporting);
+				$StorePerformanceData = CDashboardNew::getAGRTrendingDataForStore($store, $is_exporting);
 				CDashboardNew::addGuestTrendingDataForStore($store, $StorePerformanceData, $is_exporting);
 				CDashboardNew::addcancelledOrdersForStore($store, $StorePerformanceData, $is_exporting);
 
@@ -313,14 +336,12 @@ class page_admin_reports_trending extends CPageAdminOnly
 				CDashboardNew::addGuestTrendingDataRollups($store, $rollups);
 				CDashboardNew::addcancelledOrdersRollups($store, $rollups, $StorePerformanceData);
 
-
 				$tpl->assign('store_performance_data', $StorePerformanceData);
 
 				$tpl->assign('rollups', $rollups);
 				$tpl->assign('curReportType', 'single_store');
 
 				uasort($StorePerformanceData, 'timesort');
-
 			}
 			else if ($reportType == 'dt_corp_stores')
 			{
@@ -329,15 +350,13 @@ class page_admin_reports_trending extends CPageAdminOnly
 				$titleString = "$currentMonthStr Calendar Month-based Trending Report for <br /> Corporate Stores";
 				$tpl->assign('titleString', $titleString);
 
-				$StorePerformanceData =  CDashboardNew::getAGRTrendingDataHomeOfficeRollup('corp_stores', 0, $is_exporting );
-				CDashboardNew::addGuestTrendingHomeofficeRollups($StorePerformanceData, 'corp_stores', 0, $is_exporting );
+				$StorePerformanceData = CDashboardNew::getAGRTrendingDataHomeOfficeRollup('corp_stores', 0, $is_exporting);
+				CDashboardNew::addGuestTrendingHomeofficeRollups($StorePerformanceData, 'corp_stores', 0, $is_exporting);
 				CDashboardNew::addCancelledOrders($StorePerformanceData, 'corp_stores', 0, $is_exporting);
-
 
 				$rollups = CDashboardNew::getAGRTrendingDataRollup(false, 'corp_stores', 0, $is_exporting);
 				CDashboardNew::addGuestTrendingDataRollups(false, $rollups, 'corp_stores', 0, $is_exporting);
 				CDashboardNew::addcancelledOrdersRollups($store, $rollups, null, 'corp_stores', $is_exporting);
-
 
 				$tpl->assign('store_performance_data', $StorePerformanceData);
 				$tpl->assign('curReportType', 'corp_stores');
@@ -348,7 +367,6 @@ class page_admin_reports_trending extends CPageAdminOnly
 
 				// for hashing the image name
 				$store = 'corp_stores';
-
 			}
 			else if ($reportType == 'dt_non_corp_stores')
 			{
@@ -357,15 +375,13 @@ class page_admin_reports_trending extends CPageAdminOnly
 				$titleString = "$currentMonthStr Calendar Month-based Trending Report for <br /> Franchise Stores";
 				$tpl->assign('titleString', $titleString);
 
-				$StorePerformanceData =  CDashboardNew::getAGRTrendingDataHomeOfficeRollup('non_corp_stores', 0, $is_exporting);
-				CDashboardNew::addGuestTrendingHomeofficeRollups($StorePerformanceData, 'non_corp_stores', 0, $is_exporting );
+				$StorePerformanceData = CDashboardNew::getAGRTrendingDataHomeOfficeRollup('non_corp_stores', 0, $is_exporting);
+				CDashboardNew::addGuestTrendingHomeofficeRollups($StorePerformanceData, 'non_corp_stores', 0, $is_exporting);
 				CDashboardNew::addCancelledOrders($StorePerformanceData, 'non_corp_stores', 0, $is_exporting);
-
 
 				$rollups = CDashboardNew::getAGRTrendingDataRollup(false, 'non_corp_stores', 0, $is_exporting);
 				CDashboardNew::addGuestTrendingDataRollups(false, $rollups, 'non_corp_stores', 0, $is_exporting);
 				CDashboardNew::addcancelledOrdersRollups($store, $rollups, null, 'non_corp_stores', $is_exporting);
-
 
 				$tpl->assign('store_performance_data', $StorePerformanceData);
 				$tpl->assign('curReportType', 'non_corp_stores');
@@ -376,8 +392,6 @@ class page_admin_reports_trending extends CPageAdminOnly
 
 				// for hashing the image name
 				$store = 'non_corp_stores';
-
-
 			}
 			else if ($reportType == 'dt_all_stores')
 			{
@@ -386,10 +400,9 @@ class page_admin_reports_trending extends CPageAdminOnly
 				$titleString = "$currentMonthStr Calendar Month-based Trending Report for <br /> All Stores";
 				$tpl->assign('titleString', $titleString);
 
-				$StorePerformanceData =  CDashboardNew::getAGRTrendingDataHomeOfficeRollup('all_stores', 0, $is_exporting);
+				$StorePerformanceData = CDashboardNew::getAGRTrendingDataHomeOfficeRollup('all_stores', 0, $is_exporting);
 				CDashboardNew::addGuestTrendingHomeofficeRollups($StorePerformanceData, 'all_stores', 0, $is_exporting);
 				CDashboardNew::addCancelledOrders($StorePerformanceData, 'all_stores', 0, $is_exporting);
-
 
 				$rollups = CDashboardNew::getAGRTrendingDataRollup(false, 'all_stores', 0, $is_exporting);
 				CDashboardNew::addGuestTrendingDataRollups(false, $rollups, 'all_stores', 0, $is_exporting);
@@ -404,14 +417,11 @@ class page_admin_reports_trending extends CPageAdminOnly
 
 				// for hashing the image name
 				$store = 'all_stores';
-
-
 			}
 			else if ($reportType == 'dt_stores_by_region')
 			{
 
 				$trade_area_id = $Form->value('trade_area');
-
 
 				$regionName = $tradeAreaArr[$trade_area_id];
 
@@ -420,16 +430,13 @@ class page_admin_reports_trending extends CPageAdminOnly
 				$titleString = "$currentMonthStr Calendar Month-based Trending Report for <br /> Stores the $regionName Region";
 				$tpl->assign('titleString', $titleString);
 
-				$StorePerformanceData =  CDashboardNew::getAGRTrendingDataHomeOfficeRollup('region', $trade_area_id, $is_exporting);
+				$StorePerformanceData = CDashboardNew::getAGRTrendingDataHomeOfficeRollup('region', $trade_area_id, $is_exporting);
 				CDashboardNew::addGuestTrendingHomeofficeRollups($StorePerformanceData, 'region', $trade_area_id, $is_exporting);
 				CDashboardNew::addCancelledOrders($StorePerformanceData, 'region', $trade_area_id, $is_exporting);
 
-
-
 				$rollups = CDashboardNew::getAGRTrendingDataRollup(false, 'region', $trade_area_id, $is_exporting);
 				CDashboardNew::addGuestTrendingDataRollups(false, $rollups, 'region', $trade_area_id, $is_exporting);
-				CDashboardNew::addcancelledOrdersRollups($store, $rollups,  null, 'region', $is_exporting);
-
+				CDashboardNew::addcancelledOrdersRollups($store, $rollups, null, 'region', $is_exporting);
 
 				$tpl->assign('store_performance_data', $StorePerformanceData);
 				$tpl->assign('curReportType', 'region');
@@ -440,145 +447,160 @@ class page_admin_reports_trending extends CPageAdminOnly
 
 				// for hashing the image name
 				$store = 'region';
-
 			}
 
+			if ($is_exporting)
+			{
 
-		if ($is_exporting)
-		{
+				$this->exportXLSX($tpl);
 
-			$this->exportXLSX($tpl);
-			return;
-		}
-
-
-		foreach($StorePerformanceData as $date => $data)
-		{
-			$months[] = date("M y", strtotime($date));
-			$mags[] = $data['total_agr'];
-			$prevmags[] = $data['prev_agr'];
-			$guestCounts[] = $data['guest_count_total'];
-			$prevGuestCount[] = $data['guest_count_new'];
-		}
-
-		//$prevGuestCount = $this->grabLastYearGuestCounts($store);
-
-//------------------------------------------------------------- AGR graph
-		$hasGD = false;
-		if (function_exists('imagetypes'))
-			$hasGD = true;
-
-		$tpl->assign('hasGD',$hasGD);
-
-		if ($hasGD)
-		{
-
-
-			try {
-				require_once ('jpgraph/jpgraph.php');
-				require_once ('jpgraph/jpgraph_line.php');
-				require_once( 'jpgraph/jpgraph_utils.inc.php');
-
-
-// caclulate trendline
-				$datax = array(1,2,3,4,5,6,7,8,9,10,11,12);
-				// Instantiate the linear regression class
-				$linreg = new LinearRegression($datax, $mags);
-				// Get the basic statistics
-				list( $stderr, $corr ) = $linreg->GetStat();
-				// Get a set of estimated y-value for x-values in range [0,20]
-				list($xd, $yd) = $linreg->GetY(1,12);
-
-				$graph = new Graph(1000,250);
-				$graph->SetScale("textlin");
-
-				$theme_class=new DreamDinnersTheme;
-
-				$graph->SetTheme($theme_class);
-				$graph->img->SetAntiAliasing(true);
-				$graph->title->Set('Adjusted Gross Revenue');
-				$graph->SetBox(false);
-
-				$graph->img->SetAntiAliasing();
-
-				$graph->yaxis->HideZeroLabel();
-				$graph->yaxis->HideLine(false);
-				$graph->yaxis->HideTicks(false,false);
-
-				$graph->xgrid->Show();
-				$graph->xgrid->SetLineStyle("solid");
-				$graph->xaxis->SetTickLabels($months);
-				$graph->xgrid->SetColor('#E3E3E3');
-
-
-				$graph->yaxis->SetLabelFormatCallback('yLabelFormat');
-
-			//	$graph->xaxis->title->Set('X Axis');
-			//	$graph->yaxis->title->Set('Y Axis');
-
-				//$graph->SetBackgroundGradient('silver','green', 2, GRAD_PLOT);
-				/* $graph->SetBackgroundImage("tiger_bkg.png",BGIMG_FILLPLOT); */
-
-				// Create the first line
-				$p1 = new LinePlot($mags);
-				$graph->Add($p1);
-				$p1->SetColor("#008800");
-				$p1->SetLegend('Current Year');
-				//$p1->SetFillColor("#6495ED");
-				$p1->value->Show();
-				///$p1->value->SetFormat("%d");
-				$p1->value->SetFormatCallback('dollarFormatter');
-				$p1->value->SetColor('#008800');
-
-
-				// Create the second line
-				$p2 = new LinePlot($prevmags);
-				$graph->Add($p2);
-				$p2->SetColor("#B22222");
-				$p2->SetLegend('Previous Year');
-				//$p2->SetFillColor("#B22222");
-				$p2->value->Show();
-				$p2->value->SetFormatCallback('dollarFormatter');
-				$p2->value->SetColor('#B22222');
-
-
-				$graph->legend->SetFrameWeight(1);
-				$graph->SetMarginColor(array(222,214,203));
-				//$graph->SetMarginColor('#DED6CB');
-
-				//add trendline
-
-				// Create the regression line
-				$lplot = new LinePlot($yd);
-
-				// Add the pltos to the line
-				$graph->Add($lplot);
-				$lplot->SetWeight(2);
-				$lplot->SetColor("blue");
-
-				// Output line
-				$gdImgHandler = $graph->Stroke(_IMG_HANDLER);
-
-
-				// create file name
-				$agrName = "AGR_" + $store;
-				$agrName = md5($agrName) . ".png";
-				$tpl->assign("agr_image_path", IMAGES_PATH . "/charts/agr/" . $agrName);
-				$agrPath = APP_BASE . "www/theme/" . THEME . "/images/charts/agr/" . $agrName;
-
-				$graph->img->Stream($agrPath);
-
-			} catch (Exception $e) {
-				CLog::RecordNew(CLog::DEBUG, $e->getMessage(), "", "", true );
+				return;
 			}
 
-		//------------------------------------------------------------------------Guest Count Graph
-				try {
+			foreach ($StorePerformanceData as $date => $data)
+			{
+				$months[] = date("M y", strtotime($date));
+				$mags[] = $data['total_agr'];
+				$prevmags[] = $data['prev_agr'];
+				$guestCounts[] = $data['guest_count_total'];
+				$prevGuestCount[] = $data['guest_count_new'];
+			}
+
+			//$prevGuestCount = $this->grabLastYearGuestCounts($store);
+
+			//------------------------------------------------------------- AGR graph
+			$hasGD = false;
+			if (function_exists('imagetypes'))
+			{
+				$hasGD = true;
+			}
+
+			$tpl->assign('hasGD', $hasGD);
+
+			if ($hasGD)
+			{
+
+
+				try
+				{
+					require_once('jpgraph/jpgraph.php');
+					require_once('jpgraph/jpgraph_line.php');
+					require_once('jpgraph/jpgraph_utils.inc.php');
+
+					// caclulate trendline
+					$datax = array(
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12
+					);
+					// Instantiate the linear regression class
+					$linreg = new LinearRegression($datax, $mags);
+					// Get the basic statistics
+					list($stderr, $corr) = $linreg->GetStat();
+					// Get a set of estimated y-value for x-values in range [0,20]
+					list($xd, $yd) = $linreg->GetY(1, 12);
+
+					$graph = new Graph(1000, 250);
+					$graph->SetScale("textlin");
+
+					$theme_class = new DreamDinnersTheme;
+
+					$graph->SetTheme($theme_class);
+					$graph->img->SetAntiAliasing(true);
+					$graph->title->Set('Adjusted Gross Revenue');
+					$graph->SetBox(false);
+
+					$graph->img->SetAntiAliasing();
+
+					$graph->yaxis->HideZeroLabel();
+					$graph->yaxis->HideLine(false);
+					$graph->yaxis->HideTicks(false, false);
+
+					$graph->xgrid->Show();
+					$graph->xgrid->SetLineStyle("solid");
+					$graph->xaxis->SetTickLabels($months);
+					$graph->xgrid->SetColor('#E3E3E3');
+
+					$graph->yaxis->SetLabelFormatCallback('yLabelFormat');
+
+					//	$graph->xaxis->title->Set('X Axis');
+					//	$graph->yaxis->title->Set('Y Axis');
+
+					//$graph->SetBackgroundGradient('silver','green', 2, GRAD_PLOT);
+					/* $graph->SetBackgroundImage("tiger_bkg.png",BGIMG_FILLPLOT); */
+
+					// Create the first line
+					$p1 = new LinePlot($mags);
+					$graph->Add($p1);
+					$p1->SetColor("#008800");
+					$p1->SetLegend('Current Year');
+					//$p1->SetFillColor("#6495ED");
+					$p1->value->Show();
+					///$p1->value->SetFormat("%d");
+					$p1->value->SetFormatCallback('dollarFormatter');
+					$p1->value->SetColor('#008800');
+
+					// Create the second line
+					$p2 = new LinePlot($prevmags);
+					$graph->Add($p2);
+					$p2->SetColor("#B22222");
+					$p2->SetLegend('Previous Year');
+					//$p2->SetFillColor("#B22222");
+					$p2->value->Show();
+					$p2->value->SetFormatCallback('dollarFormatter');
+					$p2->value->SetColor('#B22222');
+
+					$graph->legend->SetFrameWeight(1);
+					$graph->SetMarginColor(array(
+						222,
+						214,
+						203
+					));
+					//$graph->SetMarginColor('#DED6CB');
+
+					//add trendline
+
+					// Create the regression line
+					$lplot = new LinePlot($yd);
+
+					// Add the pltos to the line
+					$graph->Add($lplot);
+					$lplot->SetWeight(2);
+					$lplot->SetColor("blue");
+
+					// Output line
+					$gdImgHandler = $graph->Stroke(_IMG_HANDLER);
+
+					// create file name
+					$agrName = "AGR_" . $store;
+					$agrName = md5($agrName) . ".png";
+					$tpl->assign("agr_image_path", IMAGES_PATH . "/charts/agr/" . $agrName);
+					$agrPath = APP_BASE . "www/theme/" . THEME . "/images/charts/agr/" . $agrName;
+
+					$graph->img->Stream($agrPath);
+				}
+				catch (Exception $e)
+				{
+					CLog::RecordNew(CLog::DEBUG, $e->getMessage(), "", "", true);
+				}
+
+				//------------------------------------------------------------------------Guest Count Graph
+				try
+				{
 					// Setup the graph
-					$graph2 = new Graph(1000,250);
+					$graph2 = new Graph(1000, 250);
 					$graph2->SetScale("textlin");
 
-					$theme_class2=new DreamDinnersTheme;
+					$theme_class2 = new DreamDinnersTheme;
 
 					$graph2->SetTheme($theme_class2);
 					$graph2->img->SetAntiAliasing(true);
@@ -589,7 +611,7 @@ class page_admin_reports_trending extends CPageAdminOnly
 
 					$graph2->yaxis->HideZeroLabel();
 					$graph2->yaxis->HideLine(false);
-					$graph2->yaxis->HideTicks(false,false);
+					$graph2->yaxis->HideTicks(false, false);
 					$graph2->yaxis->SetColor('#008800');
 					$graph2->yaxis->SetTitle("Unique Guests");
 					$graph2->yaxis->SetTitleMargin(35);
@@ -599,7 +621,6 @@ class page_admin_reports_trending extends CPageAdminOnly
 					$graph2->xaxis->SetTickLabels($months);
 
 					$graph2->xgrid->SetColor('#E3E3E3');
-
 
 					// Create the first line
 					$p3 = new LinePlot($guestCounts);
@@ -611,29 +632,27 @@ class page_admin_reports_trending extends CPageAdminOnly
 					$p3->value->SetFormat('%d');
 					$p3->value->SetColor('#008800');
 
-	/*
-					$graph2->SetYScale(0,'lin');
+					/*
+									$graph2->SetYScale(0,'lin');
 
-					$graph2->ynaxis[0]->HideZeroLabel();
-					$graph2->ynaxis[0]->HideLine(false);
-					$graph2->ynaxis[0]->HideTicks(false,false);
-					$graph2->ynaxis[0]->SetColor('#B22222');
-					$graph2->ynaxis[0]->SetTitle("New Guests");
-					$graph2->ynaxis[0]->SetTitleMargin(35);
-					$graph2->ynaxis[0]->title->SetColor('#B22222');
-	*/
+									$graph2->ynaxis[0]->HideZeroLabel();
+									$graph2->ynaxis[0]->HideLine(false);
+									$graph2->ynaxis[0]->HideTicks(false,false);
+									$graph2->ynaxis[0]->SetColor('#B22222');
+									$graph2->ynaxis[0]->SetTitle("New Guests");
+									$graph2->ynaxis[0]->SetTitleMargin(35);
+									$graph2->ynaxis[0]->title->SetColor('#B22222');
+					*/
 
 					$graph2->SetY2Scale('lin');
 
 					$graph2->y2axis->HideZeroLabel();
 					$graph2->y2axis->HideLine(false);
-					$graph2->y2axis->HideTicks(false,false);
+					$graph2->y2axis->HideTicks(false, false);
 					$graph2->y2axis->SetColor('#B22222');
 					$graph2->y2axis->SetTitle("New Guests");
 					$graph2->y2axis->SetTitleMargin(35);
 					$graph2->y2axis->title->SetColor('#B22222');
-
-
 
 					// Create the second line
 					$p4 = new LinePlot($prevGuestCount);
@@ -646,7 +665,11 @@ class page_admin_reports_trending extends CPageAdminOnly
 					$p4->value->SetColor('#B22222');
 
 					$graph2->legend->SetFrameWeight(2);
-					$graph2->SetMarginColor(array(222,214,203));
+					$graph2->SetMarginColor(array(
+						222,
+						214,
+						203
+					));
 					//$graph2->SetMarginColor('#DED6CB');
 
 					// Output line
@@ -661,27 +684,22 @@ class page_admin_reports_trending extends CPageAdminOnly
 					$guestPath = APP_BASE . "www/theme/" . THEME . "/images/charts/guests/" . $guestName;
 
 					$graph2->img->Stream($guestPath);
-
-				} catch (Exception $e) {
-					CLog::RecordNew(CLog::DEBUG, $e->getMessage(), "", "", true );
+				}
+				catch (Exception $e)
+				{
+					CLog::RecordNew(CLog::DEBUG, $e->getMessage(), "", "", true);
 				}
 			}
 			else
 			{
 				$tpl->assign("guest_image_path", IMAGES_PATH . "/charts/guests/guests_placeholder.png");
 				$tpl->assign("agr_image_path", IMAGES_PATH . "/charts/agr/agr_placeholder.png");
-
 			}
-
-
 		}
 
 		$formArray = $Form->render();
 		$tpl->assign('store', $store);
 
 		$tpl->assign('form_array', $formArray);
-
-
 	}
 }
-?>
