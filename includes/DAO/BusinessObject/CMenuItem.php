@@ -2075,7 +2075,7 @@ class CMenuItem extends DAO_Menu_item
 		{
 			return ($this->getRemainingServings() < 1);
 		}
-		else
+		else if ($this->pricing_type)
 		{
 			return match ($this->pricing_type)
 			{
@@ -2083,6 +2083,8 @@ class CMenuItem extends DAO_Menu_item
 				CMenuItem::HALF => $this->getRemainingServings() < 3,
 			};
 		}
+
+		return false;
 	}
 
 	function isOutOfStock_ThisType()
