@@ -2069,22 +2069,16 @@ class CMenuItem extends DAO_Menu_item
 		}
 	}
 
-	function isOutOfStock($deductCart = false): bool
+	function isOutOfStock()
 	{
 		if ($this->isMenuItem_SidesSweets())
 		{
 			return ($this->getRemainingServings() < 1);
 		}
-		else if ($this->pricing_type)
+		else
 		{
-			return match ($this->pricing_type)
-			{
-				CMenuItem::FULL => $this->getRemainingServings() < 6,
-				CMenuItem::HALF => $this->getRemainingServings() < 3,
-			};
+			return ($this->getRemainingServings() < 3);
 		}
-
-		return false;
 	}
 
 	function isOutOfStock_ThisType()
