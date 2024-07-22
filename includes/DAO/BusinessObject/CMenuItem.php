@@ -2089,7 +2089,7 @@ class CMenuItem extends DAO_Menu_item
 		}
 	}
 
-	function isOutOfStock($deductCart = false): bool
+	function isOutOfStock()
 	{
 		if ($this->isMenuItem_SidesSweets())
 		{
@@ -2097,11 +2097,7 @@ class CMenuItem extends DAO_Menu_item
 		}
 		else
 		{
-			return match ($this->pricing_type)
-			{
-				CMenuItem::FULL => $this->getRemainingServings() < 6,
-				CMenuItem::HALF => $this->getRemainingServings() < 3,
-			};
+			return ($this->getRemainingServings() < 3);
 		}
 	}
 
