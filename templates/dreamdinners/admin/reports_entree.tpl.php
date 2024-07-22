@@ -12,7 +12,7 @@ include $this->loadTemplate('admin/reports_form.tpl.php');
 $this->setScript('foot', SCRIPT_PATH . '/admin/entree_report.min.js');
 ?>
 
-<script src="<?= SCRIPT_PATH ?>/admin/misc.js"></script>
+	<script src="<?= SCRIPT_PATH ?>/admin/misc.js"></script>
 <?php
 $zeroItemsAreHiddenByDefault = CBrowserSession::instance()->getValue('hide_zero_qty_items', true);
 $displayProp = CTemplate::isOldIE() ? "block" : "table-row";
@@ -20,81 +20,81 @@ $initialZeroItemDisplay = $zeroItemsAreHiddenByDefault ? "none" : $displayProp;
 $rowCounter = 0;
 ?>
 
-<script type="text/javascript">
-var zerosAreHidden = <?=($zeroItemsAreHiddenByDefault ? "true" : "false")?>;
+	<script type="text/javascript">
+		var zerosAreHidden = <?=($zeroItemsAreHiddenByDefault ? "true" : "false")?>;
 
-function showHideZeros()
-{
-	var displayProp = "table-row";
-	if( navigator.appName.indexOf( "Microsoft" ) != -1 )
-	{
-		displayProp = "block";
-	}
-
-	var trows=document.getElementsByTagName('tr');
-
-	if (zerosAreHidden)
-		for(var j=0;j<trows.length;j++)
+		function showHideZeros()
 		{
-			if (trows[j].id.search('hz_') == 0)
+			var displayProp = "table-row";
+			if( navigator.appName.indexOf( "Microsoft" ) != -1 )
 			{
-				trows[j].style.display = displayProp;
+				displayProp = "block";
 			}
+
+			var trows=document.getElementsByTagName('tr');
+
+			if (zerosAreHidden)
+				for(var j=0;j<trows.length;j++)
+				{
+					if (trows[j].id.search('hz_') == 0)
+					{
+						trows[j].style.display = displayProp;
+					}
+				}
+			else
+				for(var j=0;j<trows.length;j++)
+				{
+					if (trows[j].id.search('hz_') == 0)
+					{
+						trows[j].style.display = "none";
+					}
+				}
+
+			zerosAreHidden = !zerosAreHidden;
+
+			var shouldHideZeros = 0;
+			if (zerosAreHidden)
+				shouldHideZeros = 1;
+			var current_date = new Date;
+			var cookie_year = current_date.getFullYear ( ) + 1;
+			var cookie_month = current_date.getMonth ( );
+			var cookie_day = current_date.getDate ( );
+
+			set_cookie('hide_zero_qty_items', shouldHideZeros, cookie_year, cookie_month, cookie_day);
+
 		}
-	else
-		for(var j=0;j<trows.length;j++)
-		{
-			if (trows[j].id.search('hz_') == 0)
-			{
-				trows[j].style.display = "none";
-			}
-		}
 
-		zerosAreHidden = !zerosAreHidden;
-
-		var shouldHideZeros = 0;
-		if (zerosAreHidden)
-			shouldHideZeros = 1;
-		var current_date = new Date;
-		var cookie_year = current_date.getFullYear ( ) + 1;
-		var cookie_month = current_date.getMonth ( );
-		var cookie_day = current_date.getDate ( );
-
-		set_cookie('hide_zero_qty_items', shouldHideZeros, cookie_year, cookie_month, cookie_day);
-
-}
-
-</script>
+	</script>
 
 <?php if (isset($this->table_data) && count($this->table_data) > 0) { ?>
-<script type="text/javascript">
-function externalLink()
-{
-	var sWinHTML = document.getElementById('printer').innerHTML;
-	var winprint=window.open("","");
-	winprint.document.open();
-	winprint.document.write("<html><link href='<?= CSS_PATH ?>/admin/admin-styles-reports.css' rel='stylesheet' type='text/css' /><link href='<?= CSS_PATH ?>/admin/admin-styles.css' rel='stylesheet' type='text/css' /><link href='<?= CSS_PATH ?>/admin/print.css' rel='stylesheet' type='text/css' /><body onload='window.print();' bgcolor='#537686'><title>Dream Dinners | Entree Report</title><table bgcolor='#FFFFFF'><tr><td>");
-	winprint.document.write("<div><div style='margin: 10px; '>");
-	winprint.document.write("<h2>Entree Report</h2>");
-	winprint.document.write("<table class='report' width='100%' border='0' cellpadding='0' cellspacing='0'><tr><td align='center'><h3><?= $this->timeSpanStr;?></h3></td></tr><tr><td align='center'>Session Types Included: <?= $this->sessionFilterStr; ?></td></tr></table>");
-	winprint.document.write(sWinHTML);
-	winprint.document.write("</div></div></td></tr></table></body></html>");
-	winprint.document.close();
-	winprint.focus();
+	<script type="text/javascript">
+		function externalLink()
+		{
+			var sWinHTML = document.getElementById('printer').innerHTML;
+			var winprint=window.open("","");
+			winprint.document.open();
+			winprint.document.write("<html><link href='<?= CSS_PATH ?>/admin/admin-styles-reports.css' rel='stylesheet' type='text/css' /><link href='<?= CSS_PATH ?>/admin/admin-styles.css' rel='stylesheet' type='text/css' /><link href='<?= CSS_PATH ?>/admin/print.css' rel='stylesheet' type='text/css' /><body onload='window.print();' bgcolor='#537686'><title>Dream Dinners | Entree Report</title><table bgcolor='#FFFFFF'><tr><td>");
+			winprint.document.write("<div><div style='margin: 10px; '>");
+			winprint.document.write("<h2>Entree Report</h2>");
+			winprint.document.write("<table class='report' width='100%' border='0' cellpadding='0' cellspacing='0'><tr><td align='center'><h3><?= $this->timeSpanStr;?></h3></td></tr><tr><td align='center'>Session Types Included: <?= $this->sessionFilterStr; ?></td></tr></table>");
+			winprint.document.write(sWinHTML);
+			winprint.document.write("</div></div></td></tr></table></body></html>");
+			winprint.document.close();
+			winprint.focus();
 
-}
-</script>
+		}
+	</script>
 <?php } ?>
 
 <?php if ($this->report_submitted == true) { ?>
-<table class='report' width='100%' border='0' cellpadding='0' cellspacing='0' >
-<tr>
-	<td align="center"><h3><?php echo $this->timeSpanStr; ?></h3></td>
-</tr>
-<tr>
-	<td align="center">Session Types Included: <?php echo $this->sessionFilterStr; ?></td>
-</tr>
-</table>
+	<table class='report' width='100%' border='0' cellpadding='0' cellspacing='0' >
+		<tr>
+			<td align="center"><h3><?php echo $this->timeSpanStr; ?></h3></td>
+		</tr>
+		<tr>
+			<td align="center">Session Types Included: <?php echo $this->sessionFilterStr; ?></td>
+		</tr>
+	</table>
 <?php } ?>
 
 <?php
@@ -131,16 +131,16 @@ if ($this->report_submitted == true)
 		//echo '<td class="headers" >&nbsp;</td>';
 		echo '</tr>';
 
-	/*
+		/*
 
-�	Total Entrees Sold
-�	Total Servings Sold
-�	Total Sides Sold
-�	% 3-Serving Dinners (see note1)
-�	% 6-Serving Dinners (see note1)
-�	Average No. Dinners per Order (see note1)
-�	% of Orders 72 servings or more  (see note1)
- */
+	�	Total Entrees Sold
+	�	Total Servings Sold
+	�	Total Sides Sold
+	�	% 3-Serving Dinners (see note1)
+	�	% 6-Serving Dinners (see note1)
+	�	Average No. Dinners per Order (see note1)
+	�	% of Orders 72 servings or more  (see note1)
+	 */
 
 
 		$sides_sold = 0;
@@ -226,35 +226,35 @@ if ($this->report_submitted == true)
 
 		echo '<tr>';
 		echo '<td align="left" width="200"><b>' . '% Small Dinners:</b></td>';
-		echo '<td align="right">' . CTemplate::number_format(($total_2Serv / ($total_2Serv + $total_3Serv + $total_4Serv + $total_6Serv)) * 100, 2) . '%</td>';
+		echo '<td align="right">' . CTemplate::number_format(($total_2Serv / (($total_2Serv + $total_3Serv + $total_4Serv + $total_6Serv) ?: 1)) * 100, 2) . '%</td>';
 		echo '<td >&nbsp;</td>';
 		echo '<td >&nbsp;</td>';
 		echo '</tr>';
 
 		echo '<tr>';
 		echo '<td align="left" width="200"><b>' . '% Medium (3) Dinners:</b></td>';
-		echo '<td align="right">' . CTemplate::number_format(($total_3Serv / ($total_2Serv + $total_3Serv + $total_4Serv + $total_6Serv)) * 100, 2) . '%</td>';
+		echo '<td align="right">' . CTemplate::number_format(($total_3Serv / (($total_2Serv + $total_3Serv + $total_4Serv + $total_6Serv) ?: 1)) * 100, 2) . '%</td>';
 		echo '<td >&nbsp;</td>';
 		echo '<td >&nbsp;</td>';
 		echo '</tr>';
 
 		echo '<tr>';
 		echo '<td align="left" width="200"><b>' . '% Medium (4) Dinners:</b></td>';
-		echo '<td align="right">' . CTemplate::number_format(($total_4Serv / ($total_2Serv + $total_3Serv + $total_4Serv + $total_6Serv)) * 100, 2) . '%</td>';
+		echo '<td align="right">' . CTemplate::number_format(($total_4Serv / (($total_2Serv + $total_3Serv + $total_4Serv + $total_6Serv) ?: 1)) * 100, 2) . '%</td>';
 		echo '<td >&nbsp;</td>';
 		echo '<td >&nbsp;</td>';
 		echo '</tr>';
 
 		echo '<tr>';
 		echo '<td width="200"><b>% Large Dinners:</b></td>';
-		echo '<td align="right" >' . CTemplate::number_format(($total_6Serv / ($total_2Serv + $total_3Serv + $total_4Serv + $total_6Serv)) * 100, 2)  . '%</td>';
+		echo '<td align="right" >' . CTemplate::number_format(($total_6Serv / (($total_2Serv + $total_3Serv + $total_4Serv + $total_6Serv) ?: 1)) * 100, 2)  . '%</td>';
 		echo '<td >&nbsp;</td>';
 		echo '<td >&nbsp;</td>';
 		echo '</tr>';
 
 		echo '<tr>';
 		echo '<td width="200"><b>Average No. Dinners per Order:</b></td>';
-		echo '<td align="right" >' . CTemplate::number_format($total_items_sold / $this->total_order_count, 2) . '</td>';
+		echo '<td align="right" >' . CTemplate::number_format($total_items_sold / ($this->total_order_count  ?: 1), 2) . '</td>';
 		echo '<td >&nbsp;</td>';
 		echo '<td >&nbsp;</td>';
 		echo '</tr>';
@@ -297,7 +297,7 @@ if ($this->report_submitted == true)
 
 			echo '<td class="subheaders" align="center"><b>Sales Mix</b></td>';
 			echo '<td class="subheaders" align="center"><b>Total Servings</b></td>';
-						echo '<td class="subheaders" align="center"><b>Remaining Servings</b></td>';
+			echo '<td class="subheaders" align="center"><b>Remaining Servings</b></td>';
 
 			echo '<td class="subheaders" bgcolor="LightGrey" align="center"><b>Total Dinners for Ordering</b></td>';
 			if(CStore::isCoreTestStoreAcrossMenus($this->store, $this->menu_ids))
@@ -305,7 +305,9 @@ if ($this->report_submitted == true)
 				echo '<td class="subheaders" align="center"><b>Retail Price <br />Sm</b></td>';
 				echo '<td class="subheaders" align="center"><b>Retail Price <br />Md (3)</b></td>';
 				echo '<td class="subheaders" align="center"><b>Retail Price <br />Md (4)</b></td>';
-			}else{
+			}
+			else
+			{
 				echo '<td class="subheaders" align="center"><b>Retail Price <br />Md</b></td>';
 			}
 			echo '<td class="subheaders" align="center"><b>Retail Price <br />Lrg</b></td>';
@@ -379,16 +381,16 @@ if ($this->report_submitted == true)
 
 						$total_pro_large += $entity['promo_full'];
 						$total_pro_med += $entity['promo_half'];
-?>
+						?>
 						<td class="subheaders" align="left" style="padding-left: 2px; max-width:200px; width:200px; overflow:hidden;" data-tooltip="<?php echo $entity['menu_name']; ?>"><?php echo $entity['menu_name']; ?></td>
 						<?php if(CStore::isCoreTestStoreAcrossMenus($this->store, $this->menu_ids))
-						{ ?>
-							<td class="subheaders" align="center" style="padding-right: 0px;" width="40"><?php echo CTemplate::number_format($entity['two'] , 0);  ?></td>
-							<td class="subheaders" align="center" style="padding-right: 0px;" width="40"><?php echo CTemplate::number_format($entity['medium'] + $entity['promo_half'], 0);  ?></td>
-							<td class="subheaders" align="center" style="padding-right: 0px;" width="40"><?php echo CTemplate::number_format($entity['four'] , 0);  ?></td>
-						<?php }else{ ?>
-							<td class="subheaders" align="center" style="padding-right: 0px;" width="40"><?php echo CTemplate::number_format($entity['medium'] + $entity['promo_half'], 0);  ?></td>
-						<?php } ?>
+					{ ?>
+						<td class="subheaders" align="center" style="padding-right: 0px;" width="40"><?php echo CTemplate::number_format($entity['two'] , 0);  ?></td>
+						<td class="subheaders" align="center" style="padding-right: 0px;" width="40"><?php echo CTemplate::number_format($entity['medium'] + $entity['promo_half'], 0);  ?></td>
+						<td class="subheaders" align="center" style="padding-right: 0px;" width="40"><?php echo CTemplate::number_format($entity['four'] , 0);  ?></td>
+					<?php }else{ ?>
+						<td class="subheaders" align="center" style="padding-right: 0px;" width="40"><?php echo CTemplate::number_format($entity['medium'] + $entity['promo_half'], 0);  ?></td>
+					<?php } ?>
 						<td class="subheaders" align="center" style="padding-right: 0px;" width="40"><?php echo CTemplate::number_format($entity['large'] + $entity['promo_full'], 0);?></td>
 
 						<td class="subheaders" align="center" style="padding-right: 0px;" width="40"><?php echo (($category == "Specials" && $entity['station_number'] == 0) ? 'FL' : $entity['station_number']); ?></td>
@@ -398,13 +400,13 @@ if ($this->report_submitted == true)
 						<td class="subheaders" bgcolor="LightGrey" align="right" style="padding-right: 10px;" width="40"><?php echo CTemplate::number_format($entity['total_dinners_for_ordering'], 1); ?></td>
 
 						<?php if(CStore::isCoreTestStoreAcrossMenus($this->store, $this->menu_ids))
-						{ ?>
-							<td class="subheaders" align="center" style="padding: 2px;" width="40"><?php if (!empty($entity['two_price'])) echo "$" . $entity['two_price']; ?></td>
-							<td class="subheaders" align="center" style="padding: 2px;" width="40"><?php if (!empty($entity['half_price'])) echo "$" . $entity['half_price']; ?></td>
-							<td class="subheaders" align="center" style="padding: 2px;" width="40"><?php if (!empty($entity['four_price'])) echo "$" . $entity['four_price']; ?></td>
-						<?php }else{ ?>
-							<td class="subheaders" align="center" style="padding: 2px;" width="40"><?php if (!empty($entity['half_price'])) echo "$" . $entity['half_price']; ?></td>
-						<?php } ?>
+					{ ?>
+						<td class="subheaders" align="center" style="padding: 2px;" width="40"><?php if (!empty($entity['two_price'])) echo "$" . $entity['two_price']; ?></td>
+						<td class="subheaders" align="center" style="padding: 2px;" width="40"><?php if (!empty($entity['half_price'])) echo "$" . $entity['half_price']; ?></td>
+						<td class="subheaders" align="center" style="padding: 2px;" width="40"><?php if (!empty($entity['four_price'])) echo "$" . $entity['four_price']; ?></td>
+					<?php }else{ ?>
+						<td class="subheaders" align="center" style="padding: 2px;" width="40"><?php if (!empty($entity['half_price'])) echo "$" . $entity['half_price']; ?></td>
+					<?php } ?>
 						<td class="subheaders" align="center" style="padding: 2px;" width="40"><?php if (!empty($entity['full_price'])) echo "$" . $entity['full_price']; ?></td>
 
 						<td class="subheaders" align="right" style="padding: 2px;" width="40">$<?php echo CTemplate::number_format($entity['item_revenue'], 2); ?></td>
@@ -414,45 +416,45 @@ if ($this->report_submitted == true)
 
 
 						</tr>
-<?php
+						<?php
 						$counter++;
 						$oldMenuID = $curMenuID;
 					}
 				}
 			}
-?>
+			?>
 			<tr>
 
-			<td class="headers" align="left" ><b>Standard Sub Totals:</b></td>
-			<?php if(CStore::isCoreTestStoreAcrossMenus($this->store, $this->menu_ids))
-			{ ?>
-				<td class="headers" align="center" width="60"><?php echo CTemplate::number_format($total_2Serv , 0);?></td>
-				<td class="headers" align="center" width="50"><?php echo CTemplate::number_format($total_3Serv + $total_pro_large, 0); ?></td>
-				<td class="headers" align="center" width="60"><?php echo CTemplate::number_format($total_4Serv , 0);?></td>
-			<?php }else{ ?>
-				<td class="headers" align="center" width="50"><?php echo CTemplate::number_format($total_3Serv + $total_pro_large, 0); ?></td>
-			<?php } ?>
+				<td class="headers" align="left" ><b>Standard Sub Totals:</b></td>
+				<?php if(CStore::isCoreTestStoreAcrossMenus($this->store, $this->menu_ids))
+				{ ?>
+					<td class="headers" align="center" width="60"><?php echo CTemplate::number_format($total_2Serv , 0);?></td>
+					<td class="headers" align="center" width="50"><?php echo CTemplate::number_format($total_3Serv + $total_pro_large, 0); ?></td>
+					<td class="headers" align="center" width="60"><?php echo CTemplate::number_format($total_4Serv , 0);?></td>
+				<?php }else{ ?>
+					<td class="headers" align="center" width="50"><?php echo CTemplate::number_format($total_3Serv + $total_pro_large, 0); ?></td>
+				<?php } ?>
 				<td class="headers" align="center" width="50"><?php echo CTemplate::number_format($total_6Serv + $total_pro_large, 0); ?></td>
 
 				<td class="headers" align="center" width="50">-</td>
-			<td class="headers" align="center" width="60"><?php echo CTemplate::number_format($total_items_sold, 0); ?></td>
+				<td class="headers" align="center" width="60"><?php echo CTemplate::number_format($total_items_sold, 0); ?></td>
 
-			<td class="headers" align="center" width="60"><?php echo CTemplate::number_format($total_servings, 0); ?></td>
-			<td class="headers" align="center" width="50">-</td>
-			<td class="headers" align="center" width="60"><?php echo $total_orders; ?></td>
-			<?php if(CStore::isCoreTestStoreAcrossMenus($this->store, $this->menu_ids))
-			{ ?>
+				<td class="headers" align="center" width="60"><?php echo CTemplate::number_format($total_servings, 0); ?></td>
+				<td class="headers" align="center" width="50">-</td>
+				<td class="headers" align="center" width="60"><?php echo $total_orders; ?></td>
+				<?php if(CStore::isCoreTestStoreAcrossMenus($this->store, $this->menu_ids))
+				{ ?>
+					<td class="headers" align="center" width="50">-</td>
+					<td class="headers" align="center" width="50">-</td>
+				<?php } ?>
 				<td class="headers" align="center" width="50">-</td>
 				<td class="headers" align="center" width="50">-</td>
-			<?php } ?>
-			<td class="headers" align="center" width="50">-</td>
-			<td class="headers" align="center" width="50">-</td>
-			<td class="headers" align="center" width="50">-</td>
-			<td class="headers" align="center" width="50">-</td>
+				<td class="headers" align="center" width="50">-</td>
+				<td class="headers" align="center" width="50">-</td>
 			</tr>
-<?php
+			<?php
 			if (isset($this->numBundles[$menu_entity])) {
-			echo '<tr><td border=0>&nbsp;</td></tr>';
+				echo '<tr><td border=0>&nbsp;</td></tr>';
 
 				echo "<tr><td colspan='14'><table class='report' width='100%' border='0' cellpadding='0' cellspacing='0' >";
 
@@ -472,7 +474,7 @@ if ($this->report_submitted == true)
 			}
 			else
 			{
-			echo '<tr><td border=0>&nbsp;</td></tr>';
+				echo '<tr><td border=0>&nbsp;</td></tr>';
 
 				echo "<tr><td colspan='14'><table class='report' width='100%' border='0' cellpadding='0' cellspacing='0' >";
 

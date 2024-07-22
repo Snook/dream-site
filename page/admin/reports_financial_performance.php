@@ -1377,17 +1377,18 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 	{
 
 
-		$dataArr["mark_up %"] = CTemplate::divide_and_format($dataArr["mark_up"] * 100, $dataArr["gross_sales"], 2);
-		$dataArr["total_discounts %"] = CTemplate::divide_and_format($dataArr["total_discounts"] * 100, $dataArr["gross_sales"], 2);
-		$dataArr["cost_of_goods_and_services %"] = CTemplate::divide_and_format($dataArr["cost_of_goods_and_services"] * 100, $dataArr["adjusted_gross_revenue"], 2);
-		$dataArr["employee_wages %"] = CTemplate::divide_and_format($dataArr["employee_wages"] * 100, $dataArr["adjusted_gross_revenue"], 2);
-		$dataArr["bank_card_merchant_fees %"] = CTemplate::divide_and_format($dataArr["bank_card_merchant_fees"] * 100, $dataArr["adjusted_gross_revenue"], 2);
-		$dataArr["kitchen_and_office_supplies %"] = CTemplate::divide_and_format($dataArr["kitchen_and_office_supplies"] * 100, $dataArr["adjusted_gross_revenue"], 2);
-		$dataArr["total_marketing_and_advertising_expense %"] = CTemplate::divide_and_format($dataArr["total_marketing_and_advertising_expense"] * 100, $dataArr["adjusted_gross_revenue"], 2);
-		$dataArr["rent_expense %"] = CTemplate::divide_and_format($dataArr["rent_expense"] * 100, $dataArr["adjusted_gross_revenue"], 2);
-		$dataArr["repairs_and_maintenance %"] = CTemplate::divide_and_format($dataArr["repairs_and_maintenance"] * 100, $dataArr["adjusted_gross_revenue"], 2);
-		$dataArr["utilities %"] = CTemplate::divide_and_format($dataArr["utilities"] * 100, $dataArr["adjusted_gross_revenue"], 2);
-		$dataArr["other_expenses %"] = CTemplate::divide_and_format($dataArr["other_expenses"] * 100, $dataArr["adjusted_gross_revenue"], 2);
+		$dataArr["mark_up %"] = CTemplate::divide_and_format((float)$dataArr["mark_up"] * 100, $dataArr["gross_sales"], 2);
+		$dataArr["total_discounts %"] = CTemplate::divide_and_format((float)$dataArr["total_discounts"] * 100, $dataArr["gross_sales"], 2);
+
+		$dataArr["cost_of_goods_and_services %"] = CTemplate::divide_and_format((float)$dataArr["cost_of_goods_and_services"] * 100, $dataArr["adjusted_gross_revenue"], 2);
+		$dataArr["employee_wages %"] = CTemplate::divide_and_format((float)$dataArr["employee_wages"] * 100, $dataArr["adjusted_gross_revenue"], 2);
+		$dataArr["bank_card_merchant_fees %"] = CTemplate::divide_and_format((float)$dataArr["bank_card_merchant_fees"] * 100, $dataArr["adjusted_gross_revenue"], 2);
+		$dataArr["kitchen_and_office_supplies %"] = CTemplate::divide_and_format((float)$dataArr["kitchen_and_office_supplies"] * 100, $dataArr["adjusted_gross_revenue"], 2);
+		$dataArr["total_marketing_and_advertising_expense %"] = CTemplate::divide_and_format((float)$dataArr["total_marketing_and_advertising_expense"] * 100, $dataArr["adjusted_gross_revenue"], 2);
+		$dataArr["rent_expense %"] = CTemplate::divide_and_format((float)$dataArr["rent_expense"] * 100, $dataArr["adjusted_gross_revenue"], 2);
+		$dataArr["repairs_and_maintenance %"] = CTemplate::divide_and_format((float)$dataArr["repairs_and_maintenance"] * 100, $dataArr["adjusted_gross_revenue"], 2);
+		$dataArr["utilities %"] = CTemplate::divide_and_format((float)$dataArr["utilities"] * 100, $dataArr["adjusted_gross_revenue"], 2);
+		$dataArr["other_expenses %"] = CTemplate::divide_and_format((float)$dataArr["other_expenses"] * 100, $dataArr["adjusted_gross_revenue"], 2);
 	}
 
 	function getOrderInfoByMonthRange($startMonth, $endMonth, &$rows, $store_id, &$headerRow)
