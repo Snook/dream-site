@@ -782,11 +782,11 @@ class CTemplate extends Savant2
 		// Check to see if date str is a date str else it might be already be a timestamp
 		if (!strtotime($dateStr))
 		{
-			$timeStamp = $dateStr;
+			$timeStamp = (int)$dateStr;
 		}
 		else
 		{
-			$timeStamp = strtotime($dateStr);
+			$timeStamp = (int)strtotime($dateStr);
 		}
 
 		$formatStr = "";
