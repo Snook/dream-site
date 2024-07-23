@@ -368,7 +368,7 @@ class page_admin_publish_sessions extends CPageAdminOnly
 		$start_date = mktime(0, 0, 0, $startMonth, 1, $startYear);
 		$start_date_sql = date("Y-m-d", $start_date);
 
-		$Menu->whereAdd("menu.menu_start >= '$start_date_sql'");
+		$Menu->whereAdd("menu.menu_start >= '$start_date_sql' AND menu.id < 278");
 		$Menu->orderBy("menu.menu_start");
 
 		$Menu->find(true);
@@ -411,12 +411,6 @@ class page_admin_publish_sessions extends CPageAdminOnly
 		else
 		{
 			$storeMenuForm->DefaultValues['menus'] = $defaultMonth;
-		}
-
-		if ($defaultMonth >= 278)
-		{
-			$tpl->setStatusMsg('This menu is not available for editing yet.');
-			CApp::bounce('/backoffice');
 		}
 
 		$storeMenuForm->AddElement(array(
