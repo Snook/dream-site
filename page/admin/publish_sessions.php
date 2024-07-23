@@ -413,6 +413,12 @@ class page_admin_publish_sessions extends CPageAdminOnly
 			$storeMenuForm->DefaultValues['menus'] = $defaultMonth;
 		}
 
+		if ($defaultMonth >= 278)
+		{
+			$tpl->setStatusMsg('This menu is not available for editing yet.');
+			CApp::bounce('/backoffice');
+		}
+
 		$storeMenuForm->AddElement(array(
 			CForm::type => CForm::DropDown,
 			CForm::onChangeSubmit => true,
