@@ -23,7 +23,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col text-center">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/meals-in-a-snap-1400x400.webp" alt="Meals In A Snap" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dinner-reinvented-pubstyle-chicken-1400x400.webp" alt="Dinner Reinvented" class="img-fluid">
 					</div>
 				</div>
 			</div>
@@ -49,13 +49,10 @@
 						<div class="col">
 							<div class="card-group">
 								<div class="card border-0 py-4 px-4 mx-1 text-center">
-									<div class="card-body text-center">
-										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dream-dinners-delivered-458x344.webp" alt="Shipped to your door" class="img-fluid mb-3" />
-									</div>
 									<div class="card-body">
-										<h3 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">FREE SHIPPING</h3>
-										<p>$14.99 Value </p>
-										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-extra-large">SHIPONUS</span></p>
+										<h3 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">$15 OFF Your First Order</h3>
+										<p>Choose from pick up, in-store assembly, home delivery or shipping. Options vary by participating locations.</p>
+										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-extra-large">15NEW24</span></p>
 										<!--<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>-->
 									</div>
 								</div>
@@ -67,12 +64,7 @@
 									<div class="card-body text-center">
 										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chelsee-hood-458x344.webp" alt="Dream Dinners Home Delivery" class="img-fluid mb-3" />
 									</div>
-									<div class="card-body">
-										<h3 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">$15 OFF First Order</h3>
-										<p>Choose from pick up, in-store assembly or home delivery. Options vary by participating location.</p>
-										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-extra-large">15FORU</span></p>
-										<!--<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>-->
-									</div>
+									
 								</div>
 							</div>
 						</div>
@@ -128,27 +120,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/steak-fajitas-30min-featured-menu-item-400x400.webp" alt="Steak and Chicken Fajitas" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pubstyle-chicken-30min-teal-featured-400x400.webp" alt="Pub Style Chicken with Mashed Potatoes" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Steak and Chicken Fajitas</h5>
+									<h5 class="card-title">Pub Style Chicken with Mashed Potatoes</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/charhouse-chicken-travel-firendly-featured-menu-item-400x400.webp" alt="Charhouse Chicken Sandwich" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/arroz-con-pollo-featured-pan-meal-teal-400x400.webp" alt="Arroz Con Pollo" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Charhouse Chicken Sandwich</h5>
+									<h5 class="card-title">Arroz Con Pollo</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/al-pastor-tacos-grill-featured-menu-item-400x400.webp" alt="Al Pastor Pork Street Tacos" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/italiano-chicken-orzo-featured-instant-pot-400x400.webp" alt="Italiano Chicken and Orzo" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Al Pastor Pork Street Tacos</h5>
+									<h5 class="card-title">Italiano Chicken and Orzo</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pulled-pork-mac-kid-pick-featured-menu-item-400x400.webp" alt="Pulled Pork Mac N Cheese Bowl" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/creamy-buffalo-chicken-sandwich-featured-new-teal-400x400.webp" alt="Creamy Buffalo Chicken Sandwiches" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Pulled Pork Mac N Cheese Bowl</h5>
+									<h5 class="card-title">Creamy Buffalo Chicken Sandwiches</h5>
 								</div>
 							</div>
 						</div>
@@ -194,7 +186,7 @@
 					<div class="row my-5">
 						<div class="col-md-7 text-left">
 							<div>
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/1018-chicken-paella-458x344.webp" alt="Chicken Paella" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/arroz_con_pollo_458x344.webp" alt="Arroz Con Pollo" class="img-fluid" />
 							</div>
 						</div>
 						<div class="col-md-5 text-center mt-4">
@@ -217,7 +209,7 @@
 				</div>
 				<div class="row mt-4">
 					<div class="col text-center">
-						<p class="font-italic">Offer valid for new customers or customers that have not placed a Dream Dinners order in more than 6 months. Offer cannot be combined with Dinner Dollars, other coupons or offers. No cash value. Offer can be redeemed once per guest and is not transferrable. Offer expires July 31, 2024. Valid only at participating locations. Reach out to your local store to learn more.</p>
+						<p class="font-italic">Offer valid for new customers or customers that have not placed a Dream Dinners order in more than 12 months. Offer cannot be combined with Dinner Dollars, other coupons or offers. No cash value. Offer can be redeemed once per guest and is not transferrable. Offer expires August 31, 2024. Valid only at participating locations.</p>
 					</div>
 				</div>
 			</div>
