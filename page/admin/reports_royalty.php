@@ -398,7 +398,7 @@ class page_admin_reports_royalty extends CPageAdminOnly
 		}
 	}
 
-	static function createRoyaltyArray($store_id, $day, $month, $year, $duration)
+	static function createRoyaltyArray($store_id, $day, $month, $year, $duration = false)
 	{
 
 		$orgMonthRequest = $month;
@@ -567,5 +567,3 @@ class page_admin_reports_royalty extends CPageAdminOnly
 		}
 	}
 }
-
-?>
