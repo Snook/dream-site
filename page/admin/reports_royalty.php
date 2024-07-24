@@ -398,7 +398,7 @@ class page_admin_reports_royalty extends CPageAdminOnly
 		}
 	}
 
-	static function createRoyaltyArray($store, $day, $month, $year, $duration)
+	static function createRoyaltyArray($store_id, $day, $month, $year, $duration)
 	{
 
 		$orgMonthRequest = $month;
@@ -410,20 +410,20 @@ class page_admin_reports_royalty extends CPageAdminOnly
 		$isMenuMonthBased = false;
 		$needsSalesForceFee = false;
 
-		$storeobj = DAO_CFactory::create("store");
-		$storeobj->id = $store;
-		$storeobj->selectAdd();
-		$storeobj->selectAdd('store_name');
-		$storeobj->selectAdd('id AS store_id');
-		$storeobj->selectAdd('home_office_id');
-		$storeobj->selectAdd('store_type');
-		$storeobj->selectAdd('city');
-		$storeobj->selectAdd('state_id');
-		$storeobj->selectAdd('grand_opening_date');
-		$storeobj->selectAdd('supports_ltd_roundup');
-		$storeobj->find(true);
+		$DAO_store = DAO_CFactory::create("store");
+		$DAO_store->id = $store_id;
+		$DAO_store->selectAdd();
+		$DAO_store->selectAdd('store_name');
+		$DAO_store->selectAdd('id AS store_id');
+		$DAO_store->selectAdd('home_office_id');
+		$DAO_store->selectAdd('store_type');
+		$DAO_store->selectAdd('city');
+		$DAO_store->selectAdd('state_id');
+		$DAO_store->selectAdd('grand_opening_date');
+		$DAO_store->selectAdd('supports_ltd_roundup');
+		$DAO_store->find(true);
 
-		$storeIsDC = $storeobj->isDistributionCenter();
+		$storeIsDC = $DAO_store->isDistributionCenter();
 
 		if ((($year == 2018 && $month >= 9) || $year > 2018) && !$storeIsDC)
 		{
@@ -457,17 +457,18 @@ class page_admin_reports_royalty extends CPageAdminOnly
 			}
 		}
 
-		CDreamReport::getOrderInfoByMonth($store, $day, $month, $year, $duration, $rows, 1);
-		$ProductOrderMemebershipFeeRevenue = CDreamReport::getMembershipFeeRevenue($store, $day, $month, $year, $duration);
-		$DoorDashRevenue = CRoyaltyReport::getDoorDashRevenueByTimeSpan($year . "-" . $month . "-" . $day, $duration, $store);
-		$DoorDashFees = CRoyaltyReport::getDoorDashFeesByTimeSpan($year . "-" . $month . "-" . $day, $duration, $store);
+		CDreamReport::getOrderInfoByMonth($store_id, $day, $month, $year, $duration, $rows, 1);
+		$ProductOrderMemebershipFeeRevenue = CDreamReport::getMembershipFeeRevenue($store_id, $day, $month, $year, $duration);
+		$DoorDashRevenue = CRoyaltyReport::getDoorDashRevenueByTimeSpan($year . "-" . $month . "-" . $day, $duration, $store_id);
+		$DoorDashFees = CRoyaltyReport::getDoorDashFeesByTimeSpan($year . "-" . $month . "-" . $day, $duration, $store_id);
 
+		$rows['membership_fees'] = CDreamReport::getMembershipFeeRevenue($store_id, $day, $month, $year, $duration);
 		$rows['grand_total'] += $ProductOrderMemebershipFeeRevenue;
 		$rows['total_sales'] += $ProductOrderMemebershipFeeRevenue;
 		$rows['grand_total'] += $DoorDashRevenue;
 		$rows['total_sales'] += $DoorDashRevenue;
 
-		if ((isset($rows['grand_total']) && $rows['grand_total'] > 0) || $store == 57)
+		if ((isset($rows['grand_total']) && $rows['grand_total'] > 0) || $store_id == 57)
 		{
 			$foundentry = true;
 
@@ -492,15 +493,15 @@ class page_admin_reports_royalty extends CPageAdminOnly
 				$rows['subtotal_bag_fee'] = 0;
 			}
 
-			$performance = CRoyaltyReport::findPerformanceExceptions($year . "-" . $month . "-" . $day, $duration, $store);
+			$performance = CRoyaltyReport::findPerformanceExceptions($year . "-" . $month . "-" . $day, $duration, $store_id);
 			$haspermanceoverride = false;
-			if (isset($performance[$store]))
+			if (isset($performance[$store_id]))
 			{
 				$haspermanceoverride = true;
 			}
 
-			$giftCertValues = CDreamReport::giftCertificatesByType($store, $day, $month, $year, $duration);
-			$programdiscounts = CDreamReport::ProgramDiscounts($store, $day, $month, $year, $duration);
+			$giftCertValues = CDreamReport::giftCertificatesByType($store_id, $day, $month, $year, $duration);
+			$programdiscounts = CDreamReport::ProgramDiscounts($store_id, $day, $month, $year, $duration);
 
 			$royaltyFee = 0;
 			$marketingFee = 0;
@@ -509,8 +510,8 @@ class page_admin_reports_royalty extends CPageAdminOnly
 			//$rows['subtotal_delivery_fee'] = CRoyaltyReport::getDeliveryFeeByCalendarMonth($orgMonthRequest, $orgYearRequest, $store);
 
 			$instance = new CStoreExpenses();
-			$expenseData = $instance->findExpenseDataByMonth($store, $day, $month, $year, $duration);
-			CDreamReport::calculateFees($rows, $store, $haspermanceoverride, $expenseData, $giftCertValues, $programdiscounts, $rows['fundraising_total'], $rows['ltd_menu_item_value'], $rows['subtotal_delivery_fee'], $rows['delivery_tip'],  $rows['subtotal_bag_fee'], $DoorDashFees, $marketingFee, $royaltyFee, $storeobj->grand_opening_date, $month, $year);
+			$expenseData = $instance->findExpenseDataByMonth($store_id, $day, $month, $year, $duration);
+			CDreamReport::calculateFees($rows, $store_id, $haspermanceoverride, $expenseData, $giftCertValues, $programdiscounts, $rows['fundraising_total'], $rows['ltd_menu_item_value'], $rows['subtotal_delivery_fee'], $rows['delivery_tip'], $rows['subtotal_bag_fee'], $DoorDashFees, $marketingFee, $royaltyFee, $DAO_store->grand_opening_date, $month, $year);
 
 			if ($storeIsDC)
 			{
@@ -529,13 +530,13 @@ class page_admin_reports_royalty extends CPageAdminOnly
 			$rows['total_fees'] = $royaltyFee + $marketingFee + $salesForceFee;
 
 			$rows['grand_total_less_taxes'] = $rows['grand_total'] - $rows['sales_tax'];
-			$rows['store_name'] = $storeobj->store_name;
-			$rows['store_id'] = $storeobj->store_id;
-			$rows['home_office_id'] = $storeobj->home_office_id;
-			$rows['city'] = $storeobj->city;
-			$rows['state_id'] = $storeobj->state_id;
+			$rows['store_name'] = $DAO_store->store_name;
+			$rows['store_id'] = $DAO_store->store_id;
+			$rows['home_office_id'] = $DAO_store->home_office_id;
+			$rows['city'] = $DAO_store->city;
+			$rows['state_id'] = $DAO_store->state_id;
 
-			if (!$storeobj->supports_ltd_roundup)
+			if (!$DAO_store->supports_ltd_roundup)
 			{
 				unset($rows['ltd_round_up_value']);
 			}
