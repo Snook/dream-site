@@ -678,7 +678,7 @@ class page_admin_reports_trending extends CPageAdminOnly
 					// Stroke image to a file and browser
 
 					// create file name
-					$guestName = "GUEST_" + $store;
+					$guestName = "GUEST_" . $store;
 					$guestName = md5($guestName) . ".png";
 					$tpl->assign("guest_image_path", IMAGES_PATH . "/charts/guests/" . $guestName);
 					$guestPath = APP_BASE . "www/theme/" . THEME . "/images/charts/guests/" . $guestName;
