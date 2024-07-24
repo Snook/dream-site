@@ -55,4 +55,3 @@ else
 	$app = new CApp();
 	$app->run(DEFAULT_PAGE);
 }
-?>

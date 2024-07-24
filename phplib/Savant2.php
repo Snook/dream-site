@@ -576,7 +576,7 @@ class Savant2 {
 	*
 	* Searches a series of paths for a given file.
 	*
-	* @param array $type The type of paths to search (template, plugin,
+	* @param string $type The type of paths to search (template, plugin,
 	* or filter).
 	*
 	* @param string $file The file name to look for.
