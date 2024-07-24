@@ -945,8 +945,8 @@ include $this->loadTemplate('admin/page_header.tpl.php');  ?>
 
 				<input type="hidden" id="nonTasteSessionCount" name="nonTasteSessionCount" value="<?php echo $allNonTasteSessionCount;?>" />
 				<input type="hidden" id="isCurrentMonth" name="isCurrentMonth" value="<?php echo ($this->isCurrentMonth ? "true" : "false");?>" />
-				<input type="hidden" id="guestCountTotalMinusTaste" name="guestCountTotalMinusTaste" value="<?php echo $allAllCountTotalMinusTaste;?>" />
-				<input type="hidden" id="allFTTotalMinusTaste" name="allFTTotalMinusTaste" value="<?php echo $allFTTotalMinusTaste;?>" />
+				<input type="hidden" id="guestCountTotalMinusTaste" name="guestCountTotalMinusTaste" value="<?php echo $allAllCountTotalMinusTaste ?: 0;?>" />
+				<input type="hidden" id="allFTTotalMinusTaste" name="allFTTotalMinusTaste" value="<?php echo $allFTTotalMinusTaste ?: 0;?>" />
 
 			</div>
 		</div>
