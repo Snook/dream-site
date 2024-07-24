@@ -755,6 +755,8 @@ class page_admin_edit_session_delivered extends CPageAdminOnly
 				}
 				else
 				{
+					CLog::RecordIntense('session could not be saved: ' . $Session->_query_string, 'ryan.snook@dreamdinners.com');
+
 					$tpl->setErrorMsg('The session could not be saved');
 				}
 			}
