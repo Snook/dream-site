@@ -36,12 +36,10 @@
 					  <ol class="carousel-indicators">
 						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
 						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
 					  </ol>
 					  <div class="carousel-inner">
 						<div class="carousel-item active">
-						  <a href="/local-meal-prep"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-guest-aug24-15off-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer"></a>
+						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-customer-aug24-15off-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer">
 						</div>
 						<div class="carousel-item">
 						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/summer-family-shipping-in-a-snap-collage-1400x600.webp?auto=yes" alt="Dinner in a Snap">

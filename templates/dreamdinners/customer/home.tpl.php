@@ -20,17 +20,13 @@
 						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
 						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
 					  </ol>
 					  <div class="carousel-inner">
 						<div class="carousel-item active">
-						  <a href="/local-meal-prep"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-guest-july24-free-shipping-dollars-off-store-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer"></a>
+						  <a href="/local-meal-prep"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-customer-aug24-15off-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer"></a>
 						</div>
 						<div class="carousel-item">
-						  <a href="/session-menu"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/existing-guest-june24-delivery-1400x600.webp?auto=yes" alt="Summer home delivery"></a>
-						</div>
-						<div class="carousel-item">
-						  <a href="/locations"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/existing-guest-july24-shipping-1400x600.webp?auto=yes" alt="Summer shipping"></a>
+						  <a href="/session-menu"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/back-to-school-1400x600.webp?auto=yes" alt="Back to School"></a>
 						</div>
 						<div class="carousel-item">
 						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/travel-may24-1400x600.webp?auto=yes" alt="Travel with Dream Dinners">
