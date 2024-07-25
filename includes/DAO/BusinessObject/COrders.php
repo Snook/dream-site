@@ -4875,7 +4875,7 @@ class COrders extends DAO_Orders
 
 		$this->subtotal_all_items += $this->subtotal_meal_customization_fee;
 
-		$this->subtotal_all_items += $this->delivery_tip;
+		$this->subtotal_all_items += (float)$this->delivery_tip;
 
 		$this->grand_total = $this->subtotal_all_items + $this->subtotal_all_taxes;
 	}
