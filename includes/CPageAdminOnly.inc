@@ -85,9 +85,7 @@ abstract class CPageAdminOnly
 	function runPublic()
 	{
 		//bump back to the main menu
-		$back = $_SERVER['QUERY_STRING'];
-		$url = "/backoffice/login?back=" . urlEncode($back);
-		CApp::bounce($url);
+		CApp::bounce("/backoffice/login");
 		exit;
 	}
 
