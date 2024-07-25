@@ -85,6 +85,7 @@ class CUserPreferred extends DAO_User_preferred
 	 *          ->remainingObj: If hasBeenMet == FALSE, then this will return how many item/servings the
 	 *                            preferred discount can apply to
 	 *                            Obj->type, Obj->countRemaining
+	 * @throws Exception
 	 */
 	static function hasCapacityBeenMet($orderObj)
 	{

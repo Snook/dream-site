@@ -608,26 +608,6 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		// Note: the 22 spaces in the line above are intentional and provide a way to draw over the previous rectangle and avoid the text collision.
 		// This could also be accomplished by concatenating the data and drawing in 1 rectangle.
 
-		if (false) // the old way
-		{
-			// Serving
-			$lines = $this->NbLines(34, "<db2b>" . $entity['info']['serving'] . ((!empty($entity['info']['serving_weight'])) ? ' (' . $entity['info']['serving_weight'] . 'g)' : '') . "</db2b>");
-			if ($lines <= 2)
-			{
-				$this->SetXY($_PosX + 3, $_PosY + 3.2);
-				$this->MultiCellTag(38, 2.0, "<db2b>Serving size</db2b>", $showBorders, "L", 0);
-				$this->SetXY($_PosX + 18, $_PosY + 3.2);
-				$this->MultiCellTag(22, 2.0, "<db2b>" . $entity['info']['serving'] . ((!empty($entity['info']['serving_weight'])) ? ' (' . $entity['info']['serving_weight'] . 'g)' : '') . "</db2b>", $showBorders, "R", 0);
-			}
-			else
-			{
-				$this->SetXY($_PosX + 3, $_PosY + 1);
-				$this->MultiCellTag(38, 2.0, "<db2b>Serving size</db2b>", $showBorders, "R", 0);
-				$this->SetXY($_PosX + 3, $_PosY + 3.2);
-				$this->MultiCellTag(38, 2.0, "<db2b>" . $entity['info']['serving'] . ((!empty($entity['info']['serving_weight'])) ? ' (' . $entity['info']['serving_weight'] . 'g)' : '') . "</db2b>", $showBorders, "R", 0);
-			}
-		}
-
 		//Header Line
 		$this->SetLineWidth(1.5);
 		$this->Line($_PosX + 4.5, $_PosY + 8.5, $_PosX + 39.5, $_PosY + 8.5);
@@ -1667,33 +1647,6 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 3, $_PosY + 74.5);
 		$this->MultiCellTag(63, 2.25, "<asbl>" . strtoupper($Store->store_name . ", " . $Store->address_line1 . ((!empty($Store->address_line2)) ? ', ' . $Store->address_line2 : '') . ", " . $Store->city . ", " . $Store->state_id . " " . $Store->postal_code) . "</asbl>", $showBorders, "L", 0);
 
-		// barcode generate
-		/* DISABLED 1/24/2017 for transition to Corporate Crate */
-		if (false && !empty($entity['info']['upc']))
-		{
-			$barcodePath = ASSETS_PATH . '/pdf_label/barcode/' . $entity['info']['upc'] . '.png';
-
-			if (!file_exists($barcodePath)) // only generate if not generated before
-			{
-				require_once('Barcode2.php');
-				$image = Image_Barcode2::draw($entity['info']['upc'], Image_Barcode2::BARCODE_UPCA, Image_Barcode2::IMAGE_PNG, false, 30, 1);
-				$upc = imagepng($image, $barcodePath);
-			}
-
-			// barcode embed
-			$this->SetXY($_PosX + 66.5, $_PosY + 66);
-			$this->Image($barcodePath, $this->GetX(), $this->GetY(), 34);
-			/*
-	 		// test fpdf generated barcode?
-
-			require_once("fpdf/PDF_EAN13.php");
-
-			$barcode = new PDF_EAN13();
-
-			$barcode->UPC_A($_PosX + 69, $_PosY + 56, $entity['info']['upc']);
-			*/
-		}
-
 		$this->_COUNTX++;
 
 		if ($this->_COUNTX == $this->_X_Number)
@@ -1760,13 +1713,13 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 3, $_PosY + 23 + $pushDown);
 		$this->MultiCellTag($this->_Width - $rPadding, $overrideLineHeight, $instructions, $showBorders, "L", 0);
 
-
-		$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"),VERBOSE_MONTH_YEAR);
-		if($entity['show_long_date']){
-			$dateFormatted =  CTemplate::dateTimeFormat(date("Y-m-d H:i:s"),MONTH_DAY_YEAR);
+		$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), VERBOSE_MONTH_YEAR);
+		if ($entity['show_long_date'])
+		{
+			$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), MONTH_DAY_YEAR);
 		}
 		$this->SetXY($_PosX + 53, $_PosY + 5.5);
-		$this->MultiCellTag($this->_Width * .5 - $rPadding, $this->_Line_Height, "<t7h>Assembled " . $dateFormatted. "</t7h>", $showBorders, "R", 0);
+		$this->MultiCellTag($this->_Width * .5 - $rPadding, $this->_Line_Height, "<t7h>Assembled " . $dateFormatted . "</t7h>", $showBorders, "R", 0);
 
 		if (!empty($entity['best_prepared_by']))
 		{
@@ -1867,8 +1820,64 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		}
 	}
 
+	function hasAlternateInstructions($entity): bool
+	{
+		if (!empty($entity['instructions_air_fryer']) || !empty($entity['instructions_crock_pot']) || !empty($entity['instructions_instant_pot']) || !empty($entity['instructions_grill']))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function getAlternateInstructionString($entity)
+	{
+		$alternate_instruction_type = array();
+
+		if(!empty($entity['instructions_air_fryer']))
+		{
+			$alternate_instruction_type[] = 'air fryer';
+		}
+
+		if (!empty($entity['instructions_crock_pot']))
+		{
+			$alternate_instruction_type[] = 'crock-pot';
+		}
+
+		if (!empty($entity['instructions_instant_pot']))
+		{
+			$alternate_instruction_type[] = 'instant pot';
+		}
+
+		if (!empty($entity['instructions_grill']))
+		{
+			$alternate_instruction_type[] = 'grill';
+		}
+
+		if (empty($alternate_instruction_type))
+		{
+			$alternate_instruction_string = 'alternate';
+		}
+		else
+		{
+			// get the last item off the array
+			$last = array_pop($alternate_instruction_type);
+			// comma separate the rest of the items and then append the last item from the previous function
+			if (count($alternate_instruction_type) > 0)
+			{
+				$alternate_instruction_string = implode(', ', $alternate_instruction_type) . ' or ' . $last;
+			}
+			else
+			{
+				$alternate_instruction_string = $last;
+			}
+		}
+
+		return $alternate_instruction_string;
+	}
+
 	// Print a label
-	function Four_Up_Add_Finishing_Touch_PDF_Label($entity, $title, $inst_title, $instructions = false, $serving_suggestion = false, $prep_time = false, $showBorders = 0, $overrideLineHeight = 3.45, $pushDown = 0, $storeName = false, $storePhone = false)
+	function Four_Up_Add_Finishing_Touch_PDF_Label($entity, $title, $inst_title, $instructions = false, $serving_suggestion = false, $prep_time = false, $showBorders = 0, $overrideLineHeight = 3.45, $pushDown = 0, $storeName = false, $storePhone = false): void
 	{
 		// We are in a new page, then we must add a page
 		if (($this->_COUNTX == 0) && ($this->_COUNTY == 0))
@@ -1897,9 +1906,10 @@ class PDF_Label extends FPDF_MULTICELLTAG
 			$this->MultiCellTag($this->_Width, $this->_Line_Height, '<t1b>Prep Time ' . $prep_time . '</t1b>', $showBorders, "L", 0);
 		}
 
-		$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"),VERBOSE_MONTH_YEAR);
-		if($entity['show_long_date']){
-			$dateFormatted =  CTemplate::dateTimeFormat(date("Y-m-d H:i:s"),MONTH_DAY_YEAR);
+		$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), VERBOSE_MONTH_YEAR);
+		if ($entity['show_long_date'])
+		{
+			$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), MONTH_DAY_YEAR);
 		}
 
 		$this->SetXY($_PosX + 61, $_PosY + 10);
@@ -1911,13 +1921,19 @@ class PDF_Label extends FPDF_MULTICELLTAG
 			$this->MultiCellTag($this->_Width * .4, $this->_Line_Height, "<tftb>" . $entity['best_prepared_by'] . "</tftb>", $showBorders, "R", 0);
 		}
 
+		if ($this->hasAlternateInstructions($entity))
+		{
+			$this->SetXY($_PosX + 3, $_PosY + 31);
+			$this->MultiCellTag($this->_Width, $this->_Line_Height, "<t1>*Scan the QR code to get " . $this->getAlternateInstructionString($entity) . " instructions*</t1>", $showBorders, "L", 0);
+		}
+
 		$instructions = trim(preg_replace('/\t+/', '', $instructions));
 		$pushDown = 0;
 		if ($this->NbLines($this->_Width, $instructions) < 4)
 		{
 			$pushDown += 5;
 		}
-		$this->SetXY($_PosX + 3, $_PosY + 31 + $pushDown);
+		$this->SetXY($_PosX + 3, $_PosY + 35 + $pushDown);
 		$this->MultiCellTag($this->_Width, $overrideLineHeight, $instructions, $showBorders, "L", 0);
 
 		if (!empty($entity['recipe_id']))
@@ -2002,14 +2018,15 @@ class PDF_Label extends FPDF_MULTICELLTAG
 			$shortDate = $menuItemArray['session_start'];
 			if (array_key_exists('order_id', $menuItemArray))
 			{
-				$shortDate = CTemplate::dateTimeFormat($menuItemArray['session_start_database'],CONCISE_NO_SECONDS);
+				$shortDate = CTemplate::dateTimeFormat($menuItemArray['session_start_database'], CONCISE_NO_SECONDS);
 				$assemble_verbiage = 'Ordered for ';
 			}
 			else
 			{
-				$shortDate = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"),VERBOSE_MONTH_YEAR);
-				if($menuItemArray['show_long_date']){
-					$shortDate =  CTemplate::dateTimeFormat(date("Y-m-d H:i:s"),MONTH_DAY_YEAR);
+				$shortDate = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), VERBOSE_MONTH_YEAR);
+				if ($menuItemArray['show_long_date'])
+				{
+					$shortDate = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), MONTH_DAY_YEAR);
 				}
 			}
 
@@ -2112,51 +2129,10 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 3, $_PosY + $yOff);
 		$this->MultiCellTag($this->_Width * .6, $this->_Line_Height, $servingType, $showBorders, "L", 0);
 
-		if (!empty($menuItemArray['instructions_air_fryer']) || !empty($menuItemArray['instructions_crock_pot']) || !empty($menuItemArray['instructions_instant_pot']) || !empty($menuItemArray['instructions_grill']))
+		if ($this->hasAlternateInstructions($menuItemArray))
 		{
-			$alternate_instruction_type = array();
-
-			if(!empty($menuItemArray['instructions_air_fryer']))
-			{
-				$alternate_instruction_type[] = 'air fryer';
-			}
-
-			if (!empty($menuItemArray['instructions_crock_pot']))
-			{
-				$alternate_instruction_type[] = 'crock-pot';
-			}
-
-			if (!empty($menuItemArray['instructions_instant_pot']))
-			{
-				$alternate_instruction_type[] = 'instant pot';
-			}
-
-			if (!empty($menuItemArray['instructions_grill']))
-			{
-				$alternate_instruction_type[] = 'grill';
-			}
-
-			if (empty($alternate_instruction_type))
-			{
-				$alternate_instruction_string = 'alternate';
-			}
-			else
-			{
-				// get the last item off the array
-				$last = array_pop($alternate_instruction_type);
-				// comma separate the rest of the items and then append the last item from the previous function
-				if (count($alternate_instruction_type) > 0)
-				{
-					$alternate_instruction_string = implode(', ', $alternate_instruction_type) . ' or ' . $last;
-				}
-				else
-				{
-					$alternate_instruction_string = $last;
-				}
-			}
-
 			$this->SetXY($_PosX + 3, $_PosY + 4 + $yOff);
-			$this->MultiCellTag($this->_Width, $this->_Line_Height, "<t1>*Scan the QR code to get " . $alternate_instruction_string . " instructions*</t1>", $showBorders, "L", 0);
+			$this->MultiCellTag($this->_Width, $this->_Line_Height, "<t1>*Scan the QR code to get " . $this->getAlternateInstructionString($menuItemArray) . " instructions*</t1>", $showBorders, "L", 0);
 		}
 
 		if (!empty($menuItemArray['recipe_id']))

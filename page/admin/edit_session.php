@@ -74,6 +74,12 @@ class page_admin_edit_session extends CPageAdminOnly
 		$Menu->id = $Session->menu_id;
 		$Menu->find(true);
 
+		if ($Menu->id >= 278)
+		{
+			$tpl->setStatusMsg('This menu is not available for editing yet.');
+			CApp::bounce('/backoffice');
+		}
+
 		$Store = DAO_CFactory::create('store');
 		$Store->id = $Session->store_id;
 		$Store->find(true);

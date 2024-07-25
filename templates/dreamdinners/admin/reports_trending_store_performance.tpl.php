@@ -18,12 +18,12 @@
     <td class="value_delimited" style="text-align:center;">$<?php echo CTemplate::number_format($thisRow['total_agr'], 2)?></td>
     <td class="value_delimited" style="text-align:center;">$<?php echo CTemplate::number_format($thisRow['prev_agr'], 2)?></td>
     <td class="value_delimited" style="text-align:center;"><?php echo (($thisRow['diff'] < 0) ?  "-$" . CTemplate::number_format(abs((float)$thisRow['diff']), 2) : "$" . CTemplate::number_format($thisRow['diff'], 2))?></td>
-    <td class="value_delimited" style="text-align:center;"><?php echo CTemplate::number_format($thisRow['percent_diff'] * 100, 2)?>%</td>
+    <td class="value_delimited" style="text-align:center;"><?php echo CTemplate::number_format((float)$thisRow['percent_diff'] * 100, 2)?>%</td>
     <td class="value_delimited" style="text-align:center;">$<?php echo CTemplate::number_format($thisRow['avg_ticket_regular'], 2)?></td>
     <td class="value_delimited" style="text-align:center;"><?php echo CTemplate::number_format($thisRow['orders_per_session'], 2)?></td>
     <td class="value_delimited" style="text-align:center;"><?php echo $thisRow['orders_count_all']?></td>
     <td class="value_delimited" style="text-align:center;"><?php echo $thisRow['guest_count_total']?></td>
-    <td class="value_delimited" style="text-align:center;"><?php echo CTemplate::number_format($thisRow['percent_new'] * 100, 2)?>%</td>
+    <td class="value_delimited" style="text-align:center;"><?php echo CTemplate::number_format((float)$thisRow['percent_new'] * 100, 2)?>%</td>
    </tr>
    <?php  } ?>
 
@@ -33,12 +33,12 @@
     <td class="space_right_delimited" style="text-align:center;">$<?php echo CTemplate::number_format( $this->rollups['store_avg']['total_agr'], 2)?></td>
     <td class="space_right_delimited" style="text-align:center;">$<?php echo CTemplate::number_format( $this->rollups['store_avg']['prev_agr'], 2)?></td>
     <td class="space_right_delimited" style="text-align:center;">$<?php echo CTemplate::number_format( $this->rollups['store_avg']['diff'], 2)?></td>
-    <td class="space_right_delimited" style="text-align:center;"><?php echo CTemplate::number_format( $this->rollups['store_avg']['percent_diff'] * 100, 2)?>%</td>
+    <td class="space_right_delimited" style="text-align:center;"><?php echo CTemplate::number_format( (float)$this->rollups['store_avg']['percent_diff'] * 100, 2)?>%</td>
     <td class="space_right_delimited" style="text-align:center;">$<?php echo CTemplate::number_format( $this->rollups['store_avg']['avg_ticket_regular'], 2)?></td>
     <td class="space_right_delimited" style="text-align:center;"><?php echo CTemplate::number_format( $this->rollups['store_avg']['orders_per_session'], 2)?></td>
     <td class="space_right_delimited" style="text-align:center;"><?php echo CTemplate::number_format( $this->rollups['store_avg']['orders_count_all'], 2)?></td>
     <td class="space_right_delimited" style="text-align:center;"><?php echo CTemplate::number_format( $this->rollups['store_avg']['guest_count_total'], 2)?></td>
-    <td class="space_right_delimited" style="text-align:center;"><?php echo CTemplate::number_format( $this->rollups['store_avg']['percent_new']  * 100, 2)?>%</td>
+    <td class="space_right_delimited" style="text-align:center;"><?php echo CTemplate::number_format( (float)$this->rollups['store_avg']['percent_new']  * 100, 2)?>%</td>
    </tr>
    <?php } ?>
 
@@ -47,12 +47,12 @@
     <td class="space_right_delimited" style="text-align:center;">$<?php echo CTemplate::number_format( $this->rollups['national_avg']['total_agr'], 2)?></td>
     <td class="space_right_delimited" style="text-align:center;">$<?php echo CTemplate::number_format( $this->rollups['national_avg']['prev_agr'], 2)?></td>
     <td class="space_right_delimited" style="text-align:center;">$<?php echo CTemplate::number_format( $this->rollups['national_avg']['diff'], 2)?></td>
-    <td class="space_right_delimited" style="text-align:center;"><?php echo CTemplate::number_format( $this->rollups['national_avg']['percent_diff'] * 100, 2)?>%</td>
+    <td class="space_right_delimited" style="text-align:center;"><?php echo CTemplate::number_format( (float)$this->rollups['national_avg']['percent_diff'] * 100, 2)?>%</td>
     <td class="space_right_delimited" style="text-align:center;">$<?php echo CTemplate::number_format( $this->rollups['national_avg']['avg_ticket_regular'], 2)?></td>
     <td class="space_right_delimited" style="text-align:center;"><?php echo CTemplate::number_format( $this->rollups['national_avg']['orders_per_session'], 2)?></td>
     <td class="space_right_delimited" style="text-align:center;"><?php echo CTemplate::number_format( $this->rollups['national_avg']['orders_count_all'], 2)?></td>
     <td class="space_right_delimited" style="text-align:center;"><?php echo CTemplate::number_format( $this->rollups['national_avg']['guest_count_total'], 2)?></td>
-    <td class="space_right_delimited" style="text-align:center;"><?php echo CTemplate::number_format( $this->rollups['national_avg']['percent_new'] * 100, 2)?>%</td>
+    <td class="space_right_delimited" style="text-align:center;"><?php echo CTemplate::number_format( (float)$this->rollups['national_avg']['percent_new'] * 100, 2)?>%</td>
   </tr>
 
 </table>

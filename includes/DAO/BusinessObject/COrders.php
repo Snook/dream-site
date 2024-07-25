@@ -2194,6 +2194,7 @@ class COrders extends DAO_Orders
 	 * @param int    $limitQuery : Limit how many resuts to return
 	 *
 	 * @return array
+	 * @throws Exception
 	 */
 	static function getUsersOrders($User, $limitQuery = false, $since = false, $menu_id = false, $since_ordered = false, $type_of_order_array = false, $ordering_direction = 'asc', $timeSpanCap = false, $active_only = false, $verify_freezer_inventory = false)
 	{
@@ -2453,6 +2454,7 @@ class COrders extends DAO_Orders
 	 * @param int    $limitQuery : Limit how many results to return
 	 *
 	 * @return array
+	 * @throws Exception
 	 */
 	static function fetchOrdersForStore($storeId, $limitQuery = false, $since = false, $lastModified = false, $menu_id = false, $since_ordered = false, $type_of_order_array = false, $ordering_direction = 'desc', $timeSpanCap = false, $active_only = false)
 	{
@@ -2699,6 +2701,7 @@ class COrders extends DAO_Orders
 	 * @param string $since       : limit query by time
 	 *
 	 * @return array: array ( array, array )
+	 * @throws Exception
 	 */
 	static function getMenuItemsForOrder($ordersArray, $foodSearch = false, $since = false)
 	{
@@ -3612,6 +3615,7 @@ class COrders extends DAO_Orders
 	 * After calling unserialize or building a new order, use this function to (re)apply any price adjustments: tax,preferred,mark_up, etc.
 	 * based on the reconstituted fields: $session, $store_id, etc.
 	 * @return 'closed' if the session is now closed
+	 * @throws Exception
 	 */
 	function refresh($DAO_user, $menu_id = false)
 	{
@@ -4802,13 +4806,19 @@ class COrders extends DAO_Orders
 			}
 
 			$this->subtotal_bag_fee = $this->total_bag_count * $DAO_store->default_bag_fee;
-
-			$this->total_customized_meal_count = self::getNumberOfCustomizableMealsFromItems($this, $DAO_store->allow_preassembled_customization);
 		}
 		else
 		{
 			$this->subtotal_bag_fee = 0;
 			$this->total_bag_count = 0;
+		}
+
+		if (!empty($DAO_store))
+		{
+			$this->total_customized_meal_count = self::getNumberOfCustomizableMealsFromItems($this, $DAO_store->allow_preassembled_customization);
+		}
+		else
+		{
 			$this->total_customized_meal_count = 0;
 		}
 
@@ -4865,7 +4875,7 @@ class COrders extends DAO_Orders
 
 		$this->subtotal_all_items += $this->subtotal_meal_customization_fee;
 
-		$this->subtotal_all_items += $this->delivery_tip;
+		$this->subtotal_all_items += (float)$this->delivery_tip;
 
 		$this->grand_total = $this->subtotal_all_items + $this->subtotal_all_taxes;
 	}
@@ -8284,6 +8294,7 @@ class COrders extends DAO_Orders
 	 * We don't need to do the fancy locking etc. until the order is Activated
 	 *
 	 *
+	 * @throws Exception
 	 */
 	function rescheduleSavedOrder($target_session_id, $Booking, $Order = false)
 	{
@@ -8382,6 +8393,7 @@ class COrders extends DAO_Orders
 
 	/**
 	 * @return 'session full', 'closed', 'failed', 'success'
+	 * @throws Exception
 	 */
 	function reschedule($orginal_schedule_id, $fadmin_rules = true, $suppress_email = false)
 	{
@@ -8704,6 +8716,7 @@ class COrders extends DAO_Orders
 	/**
 	 * @return 'invalidPayment', 'invalidCC', 'session full', 'closed', 'failed', 'success'
 	 * Process order with multiple payments, passing in an array of payment objects
+	 * @throws Exception
 	 */
 	function processOrder($payments, $useTransaction = true)
 	{
@@ -9217,6 +9230,7 @@ class COrders extends DAO_Orders
 	 * 4) Generates a warning message if other saved orders exist and no capacity remains
 	 *
 	 *
+	 * @throws Exception
 	 */
 
 	function processSavedOrder($payments, $useTransaction = true)
@@ -9828,6 +9842,7 @@ class COrders extends DAO_Orders
 	 * Payment type may be null as payment may be through store credit only
 	 *
 	 * @return 'invalidCC', 'session full', 'closed', 'failed', 'success'
+	 * @throws Exception
 	 */
 	function processNewOrderDirectOrder($PaymentArray, $storeCreditArray = false, $giftCardArray = false, $orderIsSaved = false)
 	{
@@ -9975,6 +9990,7 @@ class COrders extends DAO_Orders
 	 * Payment type may be null as payment may be through store credit only
 	 *
 	 * @return 'invalidCC', 'session full', 'closed', 'failed', 'success'
+	 * @throws Exception
 	 */
 	function processNewOrderGC($paymentType, $creditCardArray, $storeCreditArray = false, $giftCardArray = false, $useTransaction = true)
 	{
@@ -10822,7 +10838,7 @@ class COrders extends DAO_Orders
 		}
 	}
 
-	static public function sendConfirmationEmail($user, $order, $includeGiftCardMessage = false, $delayedTransaction = false, $shouldSendGiftMessage = true)
+	static public function sendConfirmationEmail($user, $order, $includeGiftCardMessage = false, $delayedTransaction = false, $shouldSendGiftMessage = true): void
 	{
 		require_once('CMail.inc');
 		$Mail = new CMail();
@@ -11160,12 +11176,15 @@ class COrders extends DAO_Orders
 		$Mail->send(null, $fromEmail, $user->firstname . ' ' . $user->lastname, $user->primary_email, $subject, $contentsHtml, $contentsText, '', '', $user->id, 'order');
 	}
 
-	static public function sendDelayedPaymentEmail($user, $order)
+	static public function sendDelayedPaymentEmail($user, $order): void
 	{
-		return self::sendConfirmationEmail($user, $order, false, true);
+		self::sendConfirmationEmail($user, $order, false, true);
 	}
 
-	static public function sendCancelEmail($user, $order)
+	/**
+	 * @throws Exception
+	 */
+	static public function sendCancelEmail($user, $order): void
 	{
 		require_once('CMail.inc');
 		$Mail = new CMail();
@@ -11219,7 +11238,10 @@ class COrders extends DAO_Orders
 		$Mail->send(null, $fromEmail, $user->firstname . ' ' . $user->lastname, $user->primary_email, $subject, $contentsHtml, $contentsText, '', '', $user->id, 'order_cancelled');
 	}
 
-	static public function sendCancelRetryEmail($user, $order)
+	/**
+	 * @throws Exception
+	 */
+	static public function sendCancelRetryEmail($user, $order): void
 	{
 		require_once('CMail.inc');
 		$Mail = new CMail();
@@ -11246,7 +11268,10 @@ class COrders extends DAO_Orders
 		$Mail->send(null, $fromEmail, $user->firstname . ' ' . $user->lastname, $user->primary_email, 'Order Canceled', $contentsHtml, $contentsText, '', '', $user->id, 'order_cancelled');
 	}
 
-	static public function sendRescheduleEmail($user, $order, $origSessionTime)
+	/**
+	 * @throws Exception
+	 */
+	static public function sendRescheduleEmail($user, $order, $origSessionTime): void
 	{
 		require_once('CMail.inc');
 		$Mail = new CMail();
@@ -12289,7 +12314,7 @@ class COrders extends DAO_Orders
 			if ($totalCTSCost > 0 && !empty($DAO_orders->subtotal_food_sales_taxes))
 			{
 				$pretax = $DAO_orders->grand_total - $DAO_orders->subtotal_food_sales_taxes;
-				$CTSPotionOfPretax = $totalCTSCost / ($pretax ?: 1);
+				$CTSPotionOfPretax = $totalCTSCost / ($pretax ? : 1);
 				$CTSPotionOfTax = $DAO_orders->subtotal_food_sales_taxes * $CTSPotionOfPretax;
 
 				$totalCTSCost += $CTSPotionOfTax;
@@ -13218,6 +13243,7 @@ class COrders extends DAO_Orders
 	 *                    $menuOptions[id]['startdate']
 	 *                    $menuOptions[id]['enddate'],
 	 *                    $menuItemInfo
+	 * @throws Exception
 	 */
 	public static function buildIntroMenuPlanArrays($storeObj, $menu_select = null)
 	{
@@ -13370,6 +13396,7 @@ class COrders extends DAO_Orders
 	 *                    $menuOptions[id]['startdate']
 	 *                    $menuOptions[id]['enddate'],
 	 *                    $menuItemInfo
+	 * @throws exception
 	 */
 	public static function buildNewPricingMenuPlanArrays($storeObj, $menu_select = null, $order_by = 'FeaturedFirst', $excludeMenuAddons = true, $excludeChefTouchedSelections = true, $reorderCategories = false, $excludeStoreSpecialsIfMenuIsGlobal = true, $alsoReturnFlatList = false, $returnWeeklyProjections = false)
 	{
@@ -13528,6 +13555,7 @@ class COrders extends DAO_Orders
 	 *                    $menuOptions[id]['startdate']
 	 *                    $menuOptions[id]['enddate'],
 	 *                    $menuItemInfo
+	 * @throws Exception
 	 */
 	function buildOrderEditMenuPlanArrays($menu_select = null, $markup = null, $isNewPricePlan = false, $storeObj = false, $orderBy = 'FeaturedFirst')
 	{

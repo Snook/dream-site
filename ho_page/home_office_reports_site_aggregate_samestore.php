@@ -7,7 +7,6 @@
 require_once("includes/CPageAdminOnly.inc");
 require_once ('includes/DAO/BusinessObject/CSession.php');
 require_once ('includes/CSessionReports.inc');
-require_once ('includes/CReportsSiteAdmin.inc');
 
 class page_admin_home_office_reports_site_aggregate_samestore extends CPageAdminOnly {
     function runHomeOfficeStaff()
@@ -60,7 +59,7 @@ class page_admin_home_office_reports_site_aggregate_samestore extends CPageAdmin
 
                 if ($proid > 0) {
 
-			
+
 					$sql2 = "SELECT concat(`user`.`lastname`, ',' ,`user`.`firstname`) as RegionManager,`store_coach`.`store_id` FROM `store_coach` Inner Join `coach` ON `store_coach`.`coach_id` = `coach`.`id` Inner Join `user` ON `coach`.`user_id` = `user`.`id` where `store_coach`.`is_deleted` = 0 and `coach`.`active` = 1 and user.is_deleted = 0";
 					$obj2 = DAO_CFactory::create("store_coach");
 					$obj2->query($sql2);
@@ -74,12 +73,12 @@ class page_admin_home_office_reports_site_aggregate_samestore extends CPageAdmin
 
 					$sql = "select id, `aggregatecache`.`aggregatecacherecordid`, `aggregatecache`.yearindicator, `aggregatecache`.`home_office_id`, " .
 					" `aggregatecache`.`store_name`,`aggregatecache`.`city`,`aggregatecache`.`state_id`, " .
-					" `aggregatecache`.`Gross_Sales_Less_Taxes`,`aggregatecache`.`Adjustments`, " . 
+					" `aggregatecache`.`Gross_Sales_Less_Taxes`,`aggregatecache`.`Adjustments`, " .
 					" `aggregatecache`.`Discounts`,`aggregatecache`.`Adjusted_Sales`, " .
 					" `aggregatecache`.`grand_opening_date`,`aggregatecache`.`Details` from dreamcache.`aggregatecache` 
 					where aggregatecacherecordid = $proid order by yearindicator asc";
 				  $obj = DAO_CFactory::create("_dreamsite_version");
-                    
+
 //echo "<br /><br />" . $sql . "<br /><br />";
 //exit;
 $obj->query($sql);
@@ -111,7 +110,7 @@ $obj->query($sql);
 
 				//	print_r($rows);
 				//	exit;
-					
+
 		//    echo "rows:" .count($rows) . "<br />";
                     $str = "Year, Home Office ID, Store Name, City, State, Gross Sales Less Taxes, Adjustments, Discounts, Adjusted Sales, Grand Opening Date, Details, Regional Manager";
                     $labels = explode(",", $str);
@@ -131,12 +130,12 @@ $obj->query($sql);
                                     $temp = array_slice($element[$keys[0]], 2, 13, true);  // Lori doesn't want 2008 records wihtout 2007 histroy
                                     $rows[] = $temp;
                                 }
-                            } 
+                            }
 							else
 							{
                                 $prevyear = $curyear-1;
 /*
-								if (!empty($element[$curyear]['Gross_Sales_Less_Taxes']) && !empty($element[$prevyear]['Gross_Sales_Less_Taxes'])) 
+								if (!empty($element[$curyear]['Gross_Sales_Less_Taxes']) && !empty($element[$prevyear]['Gross_Sales_Less_Taxes']))
 								{
 
 									 $temp1 = array_slice($element[$curyear], 2, 13, true);
@@ -147,7 +146,7 @@ $obj->query($sql);
 								}
 */
 
-								if ($element[$curyear]['Gross_Sales_Less_Taxes'] != 0 && $element[$prevyear]['Gross_Sales_Less_Taxes'] != 0) 
+								if ($element[$curyear]['Gross_Sales_Less_Taxes'] != 0 && $element[$prevyear]['Gross_Sales_Less_Taxes'] != 0)
 								{
 
 									 $temp1 = array_slice($element[$curyear], 2, 13, true);

@@ -133,6 +133,8 @@ class COffsitelocation extends DAO_Store_pickup_location
 
 	/**
 	 * @param $session_id
+	 *
+	 * @throws Exception
 	 */
 	static function generatePDF($session_id)
 	{

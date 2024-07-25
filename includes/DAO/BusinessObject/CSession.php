@@ -1156,6 +1156,7 @@ class CSession extends DAO_Session
 	 * Determines whether a session is open or closed
 	 * $storeObj can be just passed in as $storeObj->timezone_id
 	 * @return boolean
+	 * @throws Exception
 	 */
 	function isOpen($storeObj = false)
 	{
@@ -1190,6 +1191,7 @@ class CSession extends DAO_Session
 	 * Determines whether a session is open or closed for Customization
 	 * $storeObj can be just passed in as $storeObj->timezone_id
 	 * @return boolean
+	 * @throws Exception
 	 */
 	function isOpenForCustomization($storeObj = false)
 	{
@@ -1254,6 +1256,7 @@ class CSession extends DAO_Session
 	 * even if now closed for customization
 	 *
 	 * @return boolean
+	 * @throws Exception
 	 */
 	function allowedCustomization($storeObj)
 	{
@@ -3165,8 +3168,6 @@ class CSession extends DAO_Session
 
 	function getRemoteLocation()
 	{
-		$this->remote_location = null;
-
 		if ($this->isRemotePickup())
 		{
 			$location = DAO_CFactory::create('store_pickup_location');
@@ -3182,10 +3183,10 @@ class CSession extends DAO_Session
 				$location->contact_user->find(true);
 			}
 
-			$this->remote_location = $location;
+			return $location;
 		}
 
-		return $this->remote_location;
+		return null;
 	}
 
 	function fetchFadminAcronym()

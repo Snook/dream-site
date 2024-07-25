@@ -382,6 +382,7 @@ class COrderMinimum extends DAO_Order_minimum
 	 * @param int    $store_id  - menu_id of menu that this minimum applies to (optional)
 	 * @param int    $menu_id   - store_id of the store this applies to (optional)
 	 *
+	 * @throws Exception
 	 */
 	static function inferMinimumType($orderType, $store_id = null, $menu_id = null)
 	{
@@ -481,6 +482,8 @@ class COrderMinimum extends DAO_Order_minimum
 	 *
 	 * @param $lastMenuId
 	 * @param $nextMenuId
+	 *
+	 * @throws Exception
 	 */
 	static function carryForwardMinimums($lastMenuId, $nextMenuId)
 	{

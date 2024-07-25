@@ -822,8 +822,6 @@ class CMenuItem extends DAO_Menu_item
 		}
 	}
 
-
-
 	function menuLabel($DAO_store = false)
 	{
 		if (!empty($this->menu_label))
@@ -944,7 +942,7 @@ class CMenuItem extends DAO_Menu_item
 		return $this->remaining_servings;
 	}
 
-	static function releasePerMenuItemLock($item_id)
+	static function releasePerMenuItemLock($item_id): void
 	{
 		$QObj = new DAO();
 		$QObj->query("SELECT RELEASE_LOCK('lock_for_$item_id')");
@@ -1457,8 +1455,9 @@ class CMenuItem extends DAO_Menu_item
 	 *                    $menuOptions[id]['startdate']
 	 *                    $menuOptions[id]['enddate'],
 	 *                    $menuItemInfo
+	 * @throws Exception
 	 */
-	public static function getMenuItems($menu_id)
+	public static function getMenuItems($menu_id): array
 	{
 		$DAO_menu = DAO_CFactory::create('menu');
 		$DAO_menu->id = $menu_id;
@@ -1506,7 +1505,7 @@ class CMenuItem extends DAO_Menu_item
 
 	/**
 	 */
-	public static function getMenuItemsArray($menu_id)
+	public static function getMenuItemsArray($menu_id): array
 	{
 		//fetch the menu for the month
 		$daoMenu = DAO_CFactory::create('menu');

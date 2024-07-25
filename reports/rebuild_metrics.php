@@ -11,15 +11,9 @@ set_time_limit(3600 * 24);
 try
 {
 	$dateSpans = array(
-		'2023-10-01',
-		'2023-11-01',
-		'2023-12-01',
-		'2024-01-01',
-		'2024-02-01',
-		'2024-03-01',
-		'2024-04-01',
-		'2024-05-01',
-		'2024-06-01',
+		'2024-07-01',
+		'2024-08-01',
+		'2024-09-01'
 	);
 
 	echo "staring rebuild\r\n";
@@ -39,21 +33,23 @@ try
 
 		list($start_date, $interval) = CMenu::getMenuStartandInterval($curMenuID);
 
-		$storeObj = DAO_CFactory::create('store');
-		$storeObj->query("select id from store where store_type = 'DISTRIBUTION_CENTER' and active = 1");
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->active = 1;
+		$DAO_store->store_type = CStore::FRANCHISE;
+		$DAO_store->find();
 
 		CLog::RecordCronTask(1, CLog::SUCCESS, CLog::DASHBOARDCACHING, "Historical Metrics cached for " . $thisDate);
 
 		$doneList = "";
 
-		while ($storeObj->fetch())
+		while ($DAO_store->fetch())
 		{
-			CDashboardMenuBased::updateAGRMetrics($storeObj->id, $thisDate, $start_date, $interval);
-			CDashboardMenuBased::updateGuestMetrics($storeObj->id, $thisDate, $start_date, $interval);
+			CDashboardMenuBased::updateAGRMetrics($DAO_store->id, $thisDate, $start_date, $interval);
+			CDashboardMenuBased::updateGuestMetrics($DAO_store->id, $thisDate, $start_date, $interval);
 			//CDashboardMenuBased::updateAGRMetrics(119, $thisDate, $start_date, $interval);
 			//CDashboardMenuBased::updateGuestMetrics(119, $thisDate, $start_date, $interval);
 
-			$doneList .= $storeObj->id . ", ";
+			$doneList .= $DAO_store->id . ", ";
 			echo $doneList . " done\r";
 			//CLog::RecordCronTask(1, CLog::SUCCESS, CLog::DASHBOARDCACHING, "Historical Metrics cached for " . $storeObj->id);
 		}

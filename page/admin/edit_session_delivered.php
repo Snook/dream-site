@@ -509,7 +509,7 @@ class page_admin_edit_session_delivered extends CPageAdminOnly
 				$Session->session_lead = 'null';
 			}
 
-			$Session->session_class = $Session->session_type;
+			$Session->session_class = CSession::STANDARD;
 			if ($Session->session_type == CSession::DREAM_TASTE)
 			{
 				$Session->session_class = CSession::TODD;

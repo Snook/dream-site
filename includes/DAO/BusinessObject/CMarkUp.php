@@ -32,9 +32,13 @@
 
 		/**
 		 * This function returns active rows for the store.
+		 *
 		 * @param menu_id, the menu of the current order. If false, it will only return a mark up that has no
 		 * menu_id_start value
-		 **/
+		 * *
+		 *
+		 * @throws Exception
+		 */
 		function findActive($menu_id = false) {
 
 			if ( !$this->store_id)

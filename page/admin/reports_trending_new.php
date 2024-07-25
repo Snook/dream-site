@@ -117,7 +117,7 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 				"Sales" => 8,
 				"Guest Count" => 3,
 				"Orders" => 4,
-				Servings => 2,
+				'Servings' => 2,
 				"In-Store Sign Ups / Conversion Rate" => 5);
 
 

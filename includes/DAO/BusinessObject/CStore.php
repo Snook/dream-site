@@ -2242,6 +2242,7 @@ class CStore extends DAO_Store
 	/**
 	 * Returns the current mark up price,
 	 * @return array of (value, type, start) the current markup price for this store
+	 * @throws Exception
 	 */
 	function getMarkUp($menuId)
 	{
@@ -2342,6 +2343,7 @@ class CStore extends DAO_Store
 	/**
 	 * Returns the current mark up price,
 	 * @return markup data object
+	 * @throws Exception
 	 */
 	function getMarkUpObj($menuId)
 	{
@@ -2376,6 +2378,7 @@ class CStore extends DAO_Store
 	/**
 	 * Returns the current mark up price,
 	 * @return markup data object
+	 * @throws Exception
 	 */
 	function getMarkUpMultiObj($menuId)
 	{
@@ -2597,6 +2600,7 @@ class CStore extends DAO_Store
 	/**
 	 * Returns the current premium for this store,
 	 * @return array of (value, type) the current premium for this store
+	 * @throws Exception
 	 */
 	function getPremium()
 	{
@@ -2618,6 +2622,7 @@ class CStore extends DAO_Store
 	/**
 	 * Returns the current premium data object,
 	 * @return premium data object
+	 * @throws Exception
 	 */
 	function getPremiumObj()
 	{

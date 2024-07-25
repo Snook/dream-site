@@ -297,6 +297,7 @@ class CProductPayment extends DAO_Product_payment
 	/**
 	 * Processes the initial credit card payment
 	 * @return $rslt
+	 * @throws Exception
 	 */
 	public function processPayment($CustomerObj, $StoreObj, $OrderObj)
 	{
@@ -701,11 +702,11 @@ class CProductPayment extends DAO_Product_payment
 		return $retVal;
 	}
 
-
 	/**
 	 * Processes the a credit or debit using the passed in reference number.
 	 * Inserts "$this" if successful
 	 * @return $rslt
+	 * @throws Exception
 	 */
 	public function processByReference($CustomerObj, $OrderObj, $StoreObj, $refNum)
 	{
@@ -777,11 +778,11 @@ class CProductPayment extends DAO_Product_payment
 		}
 	}
 
-
 	/**
 	 * Processes a new credit card credit - the amount to credit is passed in.
 	 * The CC# is required since this method will not reference a previous transaction
 	 * @return $rslt
+	 * @throws Exception
 	 */
 	public function processNewCredit($CustomerObj, $OrderObj, $StoreObj)
 	{
@@ -855,6 +856,7 @@ class CProductPayment extends DAO_Product_payment
 	/**
 	 * Processes a credit card credit by referencing the original cc payment and credit the entire amount
 	 * @return $rslt
+	 * @throws Exception
 	 */
 	public function processCredit($amount = false)
 	{
