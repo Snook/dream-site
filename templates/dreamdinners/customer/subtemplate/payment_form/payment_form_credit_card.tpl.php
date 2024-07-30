@@ -170,7 +170,7 @@
 
 <?php if (!$this->isGiftCardOnlyOrder && !$this->User->hasEnrolledInPlatePoints() && !$this->isPreferred){ ?>
 <div class="row mb-4">
-	<div class="col">
+	<div class="col bg-cyan-extra-light">
 	<div class="form-row">
 		<div class="col-md-9 col-9">
 			<h2 class="font-weight-bold font-size-medium-small">Enroll in PlatePoints</h2>
