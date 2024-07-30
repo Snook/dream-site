@@ -720,6 +720,11 @@ class CEmail extends CMail
 
 	static function sendDeliveredShipmentTrackingEmail($DAO_orders)
 	{
+		if ($DAO_orders->DAO_user->id == 935871)
+		{
+			return false;
+		}
+
 		$Mail = new CMail();
 		$Mail->to_email = $DAO_orders->DAO_user->primary_email;
 		if ($DAO_orders->DAO_orders_address->isGift())
