@@ -71,12 +71,15 @@
 		</div>
 
 		<?php
-		$total_items = count($this->cart_info['item_info']);
-		foreach ($this->cart_info['item_info'] as $id => $item)
+		if (is_array($this->cart_info['item_info']))
 		{
-			$total_items--;
-			$this->assignRef('curItem', $item);
-			include $this->loadTemplate('customer/subtemplate/checkout/checkout_cart_menu_item.tpl.php');
+			$total_items = count($this->cart_info['item_info']);
+			foreach ($this->cart_info['item_info'] as $id => $item)
+			{
+				$total_items--;
+				$this->assignRef('curItem', $item);
+				include $this->loadTemplate('customer/subtemplate/checkout/checkout_cart_menu_item.tpl.php');
+			}
 		}
 		?>
 
