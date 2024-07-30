@@ -121,35 +121,17 @@ class TransientDataStore extends DAO_Transient_data_store
 	 * @param $recordId
 	 * @param $data_class
 	 *
-	 * @return associative array (successful=>boolean, error_message=>string
 	 * @throws Exception
 	 */
-	public static function updateDataClass($recordId, $data_class)
+	public static function updateDataClass($recordId, $data_class): void
 	{
-		$db = self::connect();
-		$result = array();
+		$DAO_transient_data_store = DAO_CFactory::create('transient_data_store', true);
+		$DAO_transient_data_store->id = $recordId;
+		$DAO_transient_data_store->find(true);
 
-		//Set up an expiration date
-
-		$sql = "update transient_data_store set data_class = '{$data_class}' where id = {$recordId}";
-		$dbresult = mysqli_query($db, $sql);
-
-		if (!$dbresult)
-		{
-			$result['successful'] = false;
-			$result['error_message'] = "Error in " . __METHOD__ . ": " . mysqli_error($db) . "\n" . $sql;
-
-			CLog::RecordNew(CLog::ERROR, $result['error_message'], "", "", false);
-		}
-		else
-		{
-			$result['successful'] = true;
-		}
-
-		//mysqli_free_result($dbresult);
-		mysqli_close($db);
-
-		return $result;
+		$org_DAO_transient_data_store = clone $DAO_transient_data_store;
+		$DAO_transient_data_store->data_class = $data_class;
+		$DAO_transient_data_store->update($org_DAO_transient_data_store);
 	}
 
 	/**
