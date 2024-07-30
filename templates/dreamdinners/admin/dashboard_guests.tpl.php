@@ -130,7 +130,7 @@ if ($this->curMonthGuestMetrics['instore_signup_new_fundraiser'] > $this->curMon
 		<td class="value_delimited" style="text-align:center; border-right:gray 1px solid;"><?php echo $this->curMonthGuestMetrics['existing_fundraiser_to_date_orders']?></td>
 		<td class="value_delimited" style="text-align:center;"><?php echo $this->curMonthGuestMetrics['guest_count_existing_fundraiser']?></td>
 		<td class="value_delimited" style="text-align:center;"><?php echo CTemplate::divide_and_format((int)$this->curMonthGuestMetrics['orders_count_fundraiser_existing_guests'] * 100, $this->curMonthGuestMetrics['orders_count_all'], 2);?>%</td>
-		<td class="value_delimited" style="text-align:center; border-right:gray 1px solid;"><?php echo CTemplate::divide_and_format($this->curMonthGuestMetrics['instore_signup_existing_fundraiser'] * 100, $this->curMonthGuestMetrics['existing_fundraiser_to_date_orders'], 2);?>%</td>
+		<td class="value_delimited" style="text-align:center; border-right:gray 1px solid;"><?php echo CTemplate::divide_and_format((int)$this->curMonthGuestMetrics['instore_signup_existing_fundraiser'] * 100, $this->curMonthGuestMetrics['existing_fundraiser_to_date_orders'], 2);?>%</td>
 		<td class="value_delimited" style="text-align:center;"><?php echo $this->curMonthGuestMetrics['instore_signup_existing_fundraiser']?></td>
 		<td class="value_delimited" style="text-align:center;"><?php echo CTemplate::number_format($this->curMonthGuestMetrics['avg_servings_per_guest_existing_fundraiser'], 2);?></td>
 	</tr>
@@ -210,7 +210,7 @@ if ($this->curMonthGuestMetrics['instore_signup_new_fundraiser'] > $this->curMon
 		<td class="value_delimited" style="text-align:center; border-right:gray 1px solid;"><?php echo $this->curMonthGuestMetrics['orders_count_delivered_reacquired_guests'];?></td>
 		<td class="value_delimited" style="text-align:center; border-right:gray 1px solid;"><?php echo $this->curMonthGuestMetrics['reacquired_delivered_to_date_orders']?></td>
 		<td class="value_delimited" style="text-align:center;"><?php echo $this->curMonthGuestMetrics['guest_count_reacquired_delivered']?></td>
-		<td class="value_delimited" style="text-align:center;"><?php echo CTemplate::divide_and_format($this->curMonthGuestMetrics['orders_count_delivered_reacquired_guests'] * 100, $this->curMonthGuestMetrics['orders_count_all'], 2);?>%</td>
+		<td class="value_delimited" style="text-align:center;"><?php echo CTemplate::divide_and_format((int)$this->curMonthGuestMetrics['orders_count_delivered_reacquired_guests'] * 100, $this->curMonthGuestMetrics['orders_count_all'], 2);?>%</td>
 		<td class="value_delimited" style="text-align:center; border-right:gray 1px solid;">n/a</td>
 		<td class="value_delimited" style="text-align:center;">n/a</td>
 		<td class="value_delimited" style="text-align:center;"><?php echo CTemplate::number_format($this->curMonthGuestMetrics['avg_servings_per_guest_reacquired_delivered'], 2);?></td>
