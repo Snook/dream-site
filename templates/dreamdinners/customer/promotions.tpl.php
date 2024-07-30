@@ -26,7 +26,7 @@
 						<div class="text-center">
 							<h2 class="mt-5 mb-1 font-weight-bold text-center text-white">Exclusive New Customer Offer</h2>
 							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/white-swash-320x12.webp" alt="swash">
-							<p class="mt-1 mb-5 font-weight-bold text-center text-white">Try Us Today with One of the Following Offers</p>
+							<p class="mt-1 mb-5 font-weight-bold text-center text-white">Try Us Today. We Know You'll Love Us!</p>
 						</div>
 					</div>
 				</div>
