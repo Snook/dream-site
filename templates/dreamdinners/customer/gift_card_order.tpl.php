@@ -32,9 +32,9 @@
 
 			<!-- Media type Selection -->
 			<div id="media_type_div_expanded">
-				<div class="card-group">
+				<div class="card-group justify-content-around">
 
-					<?php if (!empty($this->card_designs['info']['num_physical'])) { ?>
+					<?php if ($this->physical_cards_enabled && !empty($this->card_designs['info']['num_physical'])) { ?>
 						<div class="card p-0 mb-4 <?php if (!empty($this->card_designs['info']['num_virtual'])) { ?>col-md-4 offset-md-1<?php } else { ?>col-md-4 offset-md-4<?php } ?>" id="phys_div">
 							<img class="card-img-top <?php if (!empty($this->card_designs['info']['num_physical'])) { ?>choose_media<?php } ?>" id="physical_card_img" src="<?php echo IMAGES_PATH?>/gift_cards/traditional-gift-card-500x317.png" alt="Traditional gift card">
 							<div class="card-body">
@@ -47,7 +47,7 @@
 						</div>
 					<?php } ?>
 
-					<?php if (!empty($this->card_designs['info']['num_physical']) && !empty($this->card_designs['info']['num_virtual'])) { ?>
+					<?php if ($this->physical_cards_enabled && !empty($this->card_designs['info']['num_physical']) && !empty($this->card_designs['info']['num_virtual'])) { ?>
 						<div class="col-md-2 text-center">
 							<h2 class="mt-md-6 pt-md-5">Or</h2>
 						</div>
@@ -79,29 +79,30 @@
 					<iframe id='emb_lgc_store' src='https://dreamdinners.localgiftcards.com/?emb_tpl=1&tpl_orr=ffffff-1a1716-00804e-21b78e-dce1c3-b6aa8a-1a1716-cfd7da-3c534f-008999-e2e1c1-5f5b45-d8e588-a69666-e6d273-bb9120-c8cda6-8c9568-d2da9b-96a559-d3dd91-aba471-ede483-b8aa9d-b65' data-emb-tpl='1' data-emb-tpl-orr='ffffff-1a1716-00804e-21b78e-dce1c3-b6aa8a-1a1716-cfd7da-3c534f-008999-e2e1c1-5f5b45-d8e588-a69666-e6d273-bb9120-c8cda6-8c9568-d2da9b-96a559-d3dd91-aba471-ede483-b8aa9d-b65' style='width:790px; height:900px; display:block; border:0px; scrolling:auto; frameborder:0; margin:30px auto; padding:0px;'>Iframes must be supported by your browser to view this site.</iframe>
 				</div>
 			<?php } else { ?>
+				<?php if ($this->physical_cards_enabled) { ?>
+					<!-- Physical Design Selection -->
+					<div id="phys_design_type_div_expanded" class="collapse">
+						<?php if (!empty($this->card_designs['designs'])) { ?>
+							<h6>Select a card design:</h6>
 
-				<!-- Physical Design Selection -->
-				<div id="phys_design_type_div_expanded" class="collapse">
-					<?php if (!empty($this->card_designs['designs'])) { ?>
-						<h6>Select a card design:</h6>
-
-						<div class="card-deck">
-							<?php foreach ($this->card_designs['designs'] as $id => $design_data) { ?>
-								<?php if ($design_data['supports_physical']) { ?>
-									<div class="card p-0 col-md-4 m-md-4" id="td_<?php echo $id?>">
-										<img class="card-img-top choose_design" id="di_<?php echo $id?>" data-design_id="<?php echo $id?>" src="<?php echo IMAGES_PATH?>/gift_cards/<?php echo $design_data['image_path']?>" alt="<?php echo $design_data['title']?>">
-										<div class="card-body">
-											<h5 class="card-title" for="cd_<?php echo $id?>"><?php echo $design_data['title']?></h5>
+							<div class="card-deck">
+								<?php foreach ($this->card_designs['designs'] as $id => $design_data) { ?>
+									<?php if ($design_data['supports_physical']) { ?>
+										<div class="card p-0 col-md-4 m-md-4" id="td_<?php echo $id?>">
+											<img class="card-img-top choose_design" id="di_<?php echo $id?>" data-design_id="<?php echo $id?>" src="<?php echo IMAGES_PATH?>/gift_cards/<?php echo $design_data['image_path']?>" alt="<?php echo $design_data['title']?>">
+											<div class="card-body">
+												<h5 class="card-title" for="cd_<?php echo $id?>"><?php echo $design_data['title']?></h5>
+											</div>
+											<div class="card-footer p-0">
+												<button id="cd_<?php echo $id?>" data-design_id="<?php echo $id?>" class="btn btn-primary btn-block choose_design">Select</button>
+											</div>
 										</div>
-										<div class="card-footer p-0">
-											<button id="cd_<?php echo $id?>" data-design_id="<?php echo $id?>" class="btn btn-primary btn-block choose_design">Select</button>
-										</div>
-									</div>
+									<?php } ?>
 								<?php } ?>
-							<?php } ?>
-						</div>
-					<?php } ?>
-				</div>
+							</div>
+						<?php } ?>
+					</div>
+				<?php } ?>
 			<?php } ?>
 
 			<!-- Virtual Design Selection -->
