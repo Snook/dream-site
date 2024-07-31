@@ -20,17 +20,13 @@
 						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
 						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
 					  </ol>
 					  <div class="carousel-inner">
 						<div class="carousel-item active">
-						  <a href="/local-meal-prep"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-guest-july24-free-shipping-dollars-off-store-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer"></a>
+						  <a href="/local-meal-prep"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-customer-aug24-15off-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer"></a>
 						</div>
 						<div class="carousel-item">
-						  <a href="/session-menu"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/existing-guest-june24-delivery-1400x600.webp?auto=yes" alt="Summer home delivery"></a>
-						</div>
-						<div class="carousel-item">
-						  <a href="/locations"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/existing-guest-july24-shipping-1400x600.webp?auto=yes" alt="Summer shipping"></a>
+						  <a href="/session-menu"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/back-to-school-1400x600.webp?auto=yes" alt="Back to School"></a>
 						</div>
 						<div class="carousel-item">
 						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/travel-may24-1400x600.webp?auto=yes" alt="Travel with Dream Dinners">
@@ -88,27 +84,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/steak-fajitas-30min-featured-menu-item-400x400.webp" alt="Steak and Chicken Fajitas" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pubstyle-chicken-30min-teal-featured-400x400.webp" alt="Pub Style Chicken with Mashed Potatoes" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Steak and Chicken Fajitas</h5>
+									<h5 class="card-title">Pub Style Chicken with Mashed Potatoes</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/charhouse-chicken-travel-firendly-featured-menu-item-400x400.webp" alt="Charhouse Chicken Sandwich" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/arroz-con-pollo-featured-pan-meal-teal-400x400.webp" alt="Arroz Con Pollo" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Charhouse Chicken Sandwich</h5>
+									<h5 class="card-title">Arroz Con Pollo</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/al-pastor-tacos-grill-featured-menu-item-400x400.webp" alt="Al Pastor Pork Street Tacos" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/italiano-chicken-orzo-featured-instant-pot-400x400.webp" alt="Italiano Chicken and Orzo" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Al Pastor Pork Street Tacos</h5>
+									<h5 class="card-title">Italiano Chicken and Orzo</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pulled-pork-mac-kid-pick-featured-menu-item-400x400.webp" alt="Pulled Pork Mac N Cheese Bowl" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/creamy-buffalo-chicken-sandwich-featured-new-teal-400x400.webp" alt="Creamy Buffalo Chicken Sandwiches" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Pulled Pork Mac N Cheese Bowl</h5>
+									<h5 class="card-title">Creamy Buffalo Chicken Sandwiches</h5>
 								</div>
 							</div>
 						</div>
@@ -230,12 +226,12 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
-						<h2 class="font-weight-bold mt-2">July Grill Bundle</h2>
-						<p class="text-uppercase mb-4">Start your order with our July grill bundle. These 4 dinners are the perfect easy meal plan for the summer. Bundle includes Sweet Cider BBQ Chicken with Oven Roasted Broccoli, Campfire Grilled Pork Chops with Sweet Potato Fries, Terracotta Chicken with Pita &amp; Hummus, and Texas Roadhouse Burgers with Salt &amp; Pepper Fries. Shipping menu items may vary.</p>
+						<h2 class="font-weight-bold mt-2">August Fan Favorites</h2>
+						<p class="text-uppercase mb-4">Start your order with our August Fan Favorites Bundle. These 4 dinners are the perfect easy weeknight meal plan. Bundle includes Pub Style Chicken with Mashed Potatoes, Chateau Chicken with Almond Butter Sauce and Orzo, Cashew Chicken and Noodles, and Old Fashioned Meatloaf. Shipping menu items may vary.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/july24-fan-fav-bundle-collage-957x657.webp" alt="Grill Bundle" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/aug24-fan-fav-bundle-collage-957x657.webp" alt="Grill Bundle" class="img-fluid">
 					</div>
 
 				</div>
@@ -246,11 +242,11 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/july24-homepage-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/aug24-back-to-school-bundle-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
 					</div>
 					<div class="col-md-6 text-left p-5 my-5">
-						<h2 class="font-weight-bold mt-2">July Breakfast Bundle</h2>
-						<p class="text-uppercase mb-4">Our July Breakfast Bundle lets you pick 3 delicious breakfast options like our Breakfast Frittata, French Toast Bake, and Breakfast Sandwich in a variety of flavors to make your life a little easier this summer. Available at select locations, while supplies last. Not available for shipping.</p>
+						<h2 class="font-weight-bold mt-2">Back to School Bundle</h2>
+						<p class="text-uppercase mb-4">Get ready to head back to school with these quick and easy kid picks. Our bundle includes BBQ Chip Chicken Tenders with Crispy Shoestring Fries, Italian Stuffed Shells and Chicken Carbonara Bake. Available at select locations, while supplies last. Not available for shipping.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 

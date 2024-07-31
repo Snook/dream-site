@@ -153,15 +153,15 @@
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center mb-2">
 						<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/steak-fajitas-30min-featured-menu-item-400x400.webp" alt="Steak and Chicken Fajitas" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pubstyle-chicken-30min-teal-featured-400x400.webp" alt="Pub Style Chicken with Mashed Potatoes" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Steak and Chicken Fajitas</h5>
+									<h5 class="card-title">Pub Style Chicken with Mashed Potatoes</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/charhouse-chicken-travel-firendly-featured-menu-item-400x400.webp" alt="Charhouse Chicken Sandwich" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/arroz-con-pollo-featured-pan-meal-teal-400x400.webp" alt="Arroz Con Pollo" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Charhouse Chicken Sandwich</h5>
+									<h5 class="card-title">Arroz Con Pollo</h5>
 								</div>
 							</div>
 
@@ -170,15 +170,15 @@
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center">
 						<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/al-pastor-tacos-grill-featured-menu-item-400x400.webp" alt="Al Pastor Pork Street Tacos" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/italiano-chicken-orzo-featured-instant-pot-400x400.webp" alt="Italiano Chicken and Orzo" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Al Pastor Pork Street Tacos</h5>
+									<h5 class="card-title">Italiano Chicken and Orzo</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pulled-pork-mac-kid-pick-featured-menu-item-400x400.webp" alt="Pulled Pork Mac N Cheese Bowl" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/creamy-buffalo-chicken-sandwich-featured-new-teal-400x400.webp" alt="Creamy Buffalo Chicken Sandwiches" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Pulled Pork Mac N Cheese Bowl</h5>
+									<h5 class="card-title">Creamy Buffalo Chicken Sandwiches</h5>
 								</div>
 							</div>
 					</div>

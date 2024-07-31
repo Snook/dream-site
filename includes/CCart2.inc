@@ -821,7 +821,7 @@ class CCart2
 			{
 				if(array_key_exists($DAO_menu_item->id, $outerArray['mitems']))
 				{
-					$Order->addMenuItem(clone($DAO_menu_item), $outerArray['mitems'][$DAO_menu_item->id]);
+					$Order->addMenuItem($DAO_menu_item, $outerArray['mitems'][$DAO_menu_item->id]);
 				}
 			}
 
@@ -853,7 +853,7 @@ class CCart2
 
 				if ($PromoMenuItem->fetch())
 				{
-					$Order->addMenuItem(clone($PromoMenuItem), 1, true);
+					$Order->addMenuItem($PromoMenuItem, 1, true);
 				}
 			}
 
@@ -880,7 +880,7 @@ class CCart2
 
 				if ($FreeMealMenuItem->fetch())
 				{
-					$Order->addMenuItem(clone($FreeMealMenuItem), 1, false, true);
+					$Order->addMenuItem($FreeMealMenuItem, 1, false, true);
 				}
 			} // free meal
 

@@ -3676,7 +3676,7 @@ class page_admin_order_mgr_test extends CPageAdminOnly
 						if ($menuItemInfo->fetch())
 						{
 
-							$OrderObj->addMenuItem(clone($menuItemInfo), 1, true);
+							$OrderObj->addMenuItem($menuItemInfo, 1, true);
 						}
 					}
 				}
@@ -3706,7 +3706,7 @@ class page_admin_order_mgr_test extends CPageAdminOnly
 						$menuItemInfo->query($query);
 						if ($menuItemInfo->fetch())
 						{
-							$OrderObj->addMenuItem(clone($menuItemInfo), 1, false, true);
+							$OrderObj->addMenuItem($menuItemInfo, 1, false, true);
 						}
 					}
 				}
@@ -3799,14 +3799,14 @@ class page_admin_order_mgr_test extends CPageAdminOnly
 						{
 							$subItemInfo->parentItemId = $menuItemInfo->id;
 							$subItemInfo->bundleItemCount = $subqty;
-							$OrderObj->addMenuItem(clone($subItemInfo), $subqty);
+							$OrderObj->addMenuItem($subItemInfo, $subqty);
 						}
 					}
 				}
 
 				if ($qty)
 				{
-					$OrderObj->addMenuItem(clone($menuItemInfo), $qty);
+					$OrderObj->addMenuItem($menuItemInfo, $qty);
 				}
 			}
 		}

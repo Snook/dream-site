@@ -1580,7 +1580,7 @@ class COrders extends DAO_Orders
 
 		while ($DAO_menu_item->fetch())
 		{
-			$this->addMenuItem(clone($DAO_menu_item), $selectedItems[$DAO_menu_item->id]);
+			$this->addMenuItem($DAO_menu_item, $selectedItems[$DAO_menu_item->id]);
 		}
 	}
 
@@ -1656,7 +1656,7 @@ class COrders extends DAO_Orders
 
 		while ($DAO_menu_item->fetch())
 		{
-			$this->addMenuItem(clone($DAO_menu_item), $selectedItems[$DAO_menu_item->id]);
+			$this->addMenuItem($DAO_menu_item, $selectedItems[$DAO_menu_item->id]);
 		}
 	}
 
@@ -1746,7 +1746,7 @@ class COrders extends DAO_Orders
 
 			while ($DAO_menu_item->fetch())
 			{
-				$this->addMenuItem(clone($DAO_menu_item), 1);
+				$this->addMenuItem($DAO_menu_item, 1);
 			}
 		}
 	}
@@ -3184,16 +3184,16 @@ class COrders extends DAO_Orders
 		}
 	}
 
-	function addCouponMenuItem($menu_item_obj, $addQtyIfExists = false)
+	function addCouponMenuItem($DAO_menu_item, $addQtyIfExists = false)
 	{
-		if (!$menu_item_obj->id)
+		if (!$DAO_menu_item->id)
 		{
 			return;
 		}
 
-		if (array_key_exists($menu_item_obj->id, $this->items))
+		if (array_key_exists($DAO_menu_item->id, $this->items))
 		{
-			$currentQty = $this->items[$menu_item_obj->id][0];
+			$currentQty = $this->items[$DAO_menu_item->id][0];
 
 			if ($addQtyIfExists)
 			{
@@ -3204,18 +3204,18 @@ class COrders extends DAO_Orders
 				$totalQty = $currentQty;
 			}
 
-			$this->items[$menu_item_obj->id] = array(
+			$this->items[$DAO_menu_item->id] = array(
 				$totalQty,
-				$menu_item_obj
+				clone $DAO_menu_item
 			);
 		}
 		else
 		{
 			$totalQty = 1;
 
-			$this->items[$menu_item_obj->id] = array(
+			$this->items[$DAO_menu_item->id] = array(
 				$totalQty,
-				$menu_item_obj
+				clone $DAO_menu_item
 			);
 		}
 
@@ -10545,7 +10545,7 @@ class COrders extends DAO_Orders
 				$DAO_menu_item->order_item_ltd_menu_item = false;
 			}
 
-			$this->addMenuItem(clone $DAO_menu_item, $DAO_menu_item->DAO_order_item->item_count);
+			$this->addMenuItem($DAO_menu_item, $DAO_menu_item->DAO_order_item->item_count);
 			$totalItemQty += $DAO_menu_item->DAO_order_item->item_count;
 		}
 

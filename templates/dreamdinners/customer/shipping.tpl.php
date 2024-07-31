@@ -36,22 +36,17 @@
 					  <ol class="carousel-indicators">
 						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
 						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
 					  </ol>
 					  <div class="carousel-inner">
 						<div class="carousel-item active">
-						  <a href="/local-meal-prep"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-guest-july24-free-shipping-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer"></a>
-						</div>
-						<div class="carousel-item">
-						  <a href="/locations"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/existing-guest-july24-shipping-1400x600.webp?auto=yes" alt="Summer Shipping"></a>
+						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-customer-aug24-15off-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer">
 						</div>
 						<div class="carousel-item">
 						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/summer-family-shipping-in-a-snap-collage-1400x600.webp?auto=yes" alt="Dinner in a Snap">
 						</div>
-						<div class="carousel-item">
+						<!--<div class="carousel-item">
 						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/travel-may24-1400x600.webp?auto=yes" alt="Travel with Dream Dinners">
-						</div>
+						</div>-->
 					  </div>
 					  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
 						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -70,7 +65,7 @@
 					<div class="col-md-6 text-left p-5 my-5">
 						<h1 class="font-weight-bold font-have-heart-two font-size-extra-large mt-2">Get Dream Dinners Shipped to Your Door</h1>
 						<p class="text-uppercase mb-4">Real food made from scratch, so your life can feel a little easier.</p>
-						<p>Four easy, homemade meals prepped and ready to cook, most in less than 30 minutes. Order when you want, no subscription necessary. Enter your zip code to see if we can deliver to you. Great for travel or a gift for new baby, new home, birthday and more!</p>
+						<p>Easy, homemade meals prepped and ready to cook, most in less than 30 minutes. Order when you want, no subscription necessary. Enter your zip code to see if we can deliver to you.</p>
 						<form action="/locations" method="post" class="form-shipping-search needs-validation" novalidate>
 							<div class="form-group mx-auto">
 								<div class="input-group">
@@ -86,7 +81,7 @@
 						</form>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jul24-shipping-collage-957x657.webp" alt="Shipping Menu" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/aug24-shipping-collage-957x657.webp" alt="Shipping Menu" class="img-fluid">
 					</div>
 
 				</div>
@@ -134,26 +129,26 @@
 				<div class="col-sm-12 text-center"><h2 class="mb-1 mt-4 font-weight-bold">Order In a Snap</h2></div>
 				<div class="row">
 					<div class="col-md-6 text-center p-5 my-2">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/family-grilling-600x350.webp" alt="Family eating outside" class="img-fluid">
-						<h3 class="font-weight-bold my-2">Grill Box</h3>
-						<p class="mb-4">The perfect easy meal plan for summer including Sweet Cider BBQ Chicken with Oven Roasted Broccoli, Terracotta Chicken with Pita & Hummus, Campfire Grilled Pork Chops with Sweet Potato Fries, and Al Pastor Pork Street Tacos.</p>
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/back-to-school-600x350.webp" alt="Family eating outside" class="img-fluid">
+						<h3 class="font-weight-bold my-2">Back to School Box</h3>
+						<p class="mb-4">The perfect meal plan for back to school including Cashew Chicken with Noodles, Arroz con Pollo, Chicken Pizzaiola, and Old Fashioned Meatloaf.</p>
 					</div>
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/new-baby-600x350.webp" alt="Couple with new baby and moving boxes" class="img-fluid">
 						<h3 class="font-weight-bold my-2">New Baby Gift Box</h3>
-						<p class="mb-4">Congratulate your friends and family on their new addition with easy, quick dinners including Chicken Paella, Chicken Yakitori with Jasmine Rice, Campfire Grilled Pork Chops with Sweet Potato Fries, and Sweet Cider BBQ Chicken with Oven Roasted Broccoli.</p>
+						<p class="mb-4">Congratulate your friends and family on their new addition with easy, quick dinners including Cashew Chicken with Noodles, Chateau Chicken with Almond Butter Sauce with Orzo, Backyard BBQ Chicken with Bacon Ranch Green Beans, and Pub Style Chicken with Mashed Potatoes.</p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 text-center p-5 my-2">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/family-camping-600x350.webp" alt="Family camping" class="img-fluid">
-						<h3 class="font-weight-bold my-2">Vacation Ready Box</h3>
-						<p class="mb-4">Let us take care of your vacation meal planning with delicious, simple dinners including Terracotta Chicken with Pita & Hummus, Summer Grilled BBQ Chicken Pizza, Campfire Grilled Pork Chops with Sweet Potato Fries, and Steak & Chicken Fajitas. Plus, get a sweet morning treat with six of our Breakfast Scones.</p>
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/noodle-bowl-and-drink-600x350.webp" alt="Family camping" class="img-fluid">
+						<h3 class="font-weight-bold my-2">Fan Favorites Box Box</h3>
+						<p class="mb-4">Let us take care of your meal planning with delicious, dinners including Pub Style Chicken with Mashed Potatoes, Old Fashioned Meatloaf, Cashew Chicken with Noodles, and Chateau Chicken with Almond Butter Sauce with Orzo.</p>
 					</div>
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/woman-broken-leg-600x350.webp" alt="Woman with broken leg on couch" class="img-fluid">
 						<h3 class="font-weight-bold my-2">Get Well Box</h3>
-						<p class="mb-4">Send your love when your friends and family aren’t feeling their best with easy, wholesome dinners including Sweet Cider BBQ Chicken with Oven Roasted Broccoli, Terracotta Chicken with Pita & Hummus, Chicken Yakitori with Jasmine Rice, and Steak & Chicken Fajitas. Plus, six of our delicious Hope’s Cookies to help put a smile on their face.</p>
+						<p class="mb-4">Send your love when your friends and family aren’t feeling their best with easy, wholesome dinners including Cashew Chicken with Noodles, Arroz con Pollo, Backyard BBQ Chicken with Bacon Ranch Green Beans, Italiano Chicken and Orzo.</p>
 					</div>
 				</div>
 			</div>

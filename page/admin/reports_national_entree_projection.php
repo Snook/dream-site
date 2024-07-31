@@ -352,7 +352,7 @@ class page_admin_reports_national_entree_projection extends CPageAdminOnly
 						$two_serving = 0;
 						$four_serving = 0;
 						$full_or_six_serving = 0;
-						$med_or_three_serving = o;
+						$med_or_three_serving = 0;
 
 						$numSizes = count($menuInfoArray[$recipe_id]['sizes']);
 						//TODO: 2-4-6 will require additional rules - for now just assume a count of 2 = 70% half and 30% full

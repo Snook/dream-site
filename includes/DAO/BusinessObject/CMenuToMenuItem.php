@@ -23,7 +23,7 @@ class CMenuToMenuItem extends DAO_Menu_to_menu_item
 
 		if ($res)
 		{
-			$this->getStorePrice();
+			 $this->getStorePrice();
 		}
 
 		return $res;
@@ -38,7 +38,7 @@ class CMenuToMenuItem extends DAO_Menu_to_menu_item
 		{
 			$this->store_price = $this->override_price;
 		}
-		else if (!empty($this->DAO_store) && !empty($this->menu_id))
+		else if (!empty($this->DAO_store) && !empty($this->menu_id) && !is_null($this->DAO_menu_item))
 		{
 			$this->getDAO_menu();
 

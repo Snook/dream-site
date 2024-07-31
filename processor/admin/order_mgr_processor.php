@@ -3820,7 +3820,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 					$menuItemInfo->query($query);
 					if ($menuItemInfo->fetch())
 					{
-						$OrderObj->addMenuItem(clone($menuItemInfo), 1, false, true);
+						$OrderObj->addMenuItem($menuItemInfo, 1, false, true);
 					}
 				}
 			}
@@ -3878,7 +3878,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 						{
 							$subItemInfo->parentItemId = $menuItemInfo->id;
 							$subItemInfo->bundleItemCount = $subqty;
-							$OrderObj->addMenuItem(clone($subItemInfo), $subqty);
+							$OrderObj->addMenuItem($subItemInfo, $subqty);
 						}
 					}
 				}
@@ -3910,7 +3910,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 						$menuItemInfo->order_item_ltd_menu_item = false;
 					}
 
-					$OrderObj->addMenuItem(clone($menuItemInfo), $qty);
+					$OrderObj->addMenuItem($menuItemInfo, $qty);
 				}
 			}
 		}
