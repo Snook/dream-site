@@ -123,7 +123,7 @@ class page_admin_create_session extends CPageAdminOnly
 				throw new Exception("Error retrieving menu during Session create: $menu_id");
 			}
 
-			if ($Menu->id >= 278)
+			if ($Menu->id >= 279)
 			{
 				$tpl->setStatusMsg('This menu is not available for editing yet.');
 				CApp::bounce('/backoffice');
