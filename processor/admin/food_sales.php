@@ -65,7 +65,6 @@ class processor_admin_food_sales extends CPageProcessor
 
 		$itemNames = array();
 
-		$storeClause = "";
 		if (is_array($store))
 		{
 			$storeClause = " and st.id in (" . implode(",", $store) . ") ";
@@ -90,7 +89,7 @@ class processor_admin_food_sales extends CPageProcessor
 				Inner Join `session` ON `booking`.`session_id` = `session`.`id`
 				Inner Join `user` ON `booking`.`user_id` = `user`.`id`
 				where booking.is_deleted = 0 and `booking`.status = 'ACTIVE'
-				and  session_publish_state != 'SAVED'  and store_id in (" . implode(",", $store) . ")
+				and  session_publish_state != 'SAVED' $storeClause
 				and menu_id >= $menu_id
 				group by user_id");
 
@@ -99,7 +98,10 @@ class processor_admin_food_sales extends CPageProcessor
 				$curGuestsOfMenu[] = $booking2->user_id;
 			}
 
-			$omitUserList = "AND u.id NOT IN(" .  implode(',', $curGuestsOfMenu) . ")";
+			if (!empty($curGuestsOfMenu))
+			{
+				$omitUserList = "AND u.id NOT IN(" .  implode(',', $curGuestsOfMenu) . ")";
+			}
 		}
 
 		$DAO_Retriever->query("select
