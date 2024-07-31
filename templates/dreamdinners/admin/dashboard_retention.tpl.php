@@ -14,7 +14,7 @@
     <td class="value_delimited" style="text-align:center;"><?php echo $this->curMonthGuestMetrics['converted_guests'];?></td>
     <td class="value_delimited" style="text-align:center;"><?php echo CTemplate::number_format($this->curMonthGuestMetrics['conversion_rate'], 2);?>%</td>
     <td class="value_delimited" style="text-align:center;"><?php echo CTemplate::divide_and_format($this->curMonthGuestMetrics['retention_count'] * 100, $this->curMonthGuestMetrics['existing_regular_to_date_orders'], 2);?>%
-    ( <?php echo CTemplate::divide_and_format($this->curMonthGuestMetrics['retention_count'], $this->curMonthGuestMetrics['guest_count_existing_regular'], 2);?>% )
+    ( <?php echo CTemplate::divide_and_format($this->curMonthGuestMetrics['retention_count'] * 100, $this->curMonthGuestMetrics['guest_count_existing_regular'], 2);?>% )
 
     </td>
     <td class="value_delimited" style="text-align:center;"><?php echo $this->curMonthGuestMetrics['lost_guests_at_45_days'];?></td>
