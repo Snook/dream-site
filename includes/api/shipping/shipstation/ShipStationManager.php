@@ -655,7 +655,7 @@ class ShipStationManager extends ApiManager
 							CEmail::sendDeliveredShipmentTrackingEmail($DAO_orders);
 						}
 					}
-					else if ($ssorder->trackingNumber == $DAO_orders->DAO_orders_shipping->tracking_number)
+					else if (!empty($ssorder->trackingNumber) && $ssorder->trackingNumber == $DAO_orders->DAO_orders_shipping->tracking_number)
 					{
 						$setShippingOnAll = true;
 					}
