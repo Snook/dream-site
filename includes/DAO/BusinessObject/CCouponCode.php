@@ -721,12 +721,15 @@ class CCouponCode extends DAO_Coupon_code
 		return $errorArray;
 	}
 
-	function isValid($Order, $menu_id, $orgOrderTime = null, $orgOrderID = null)
+	/**
+	 * @throws Exception
+	 */
+	function isValid($DAO_orders, $menu_id, $orgOrderTime = null, $orgOrderID = null): array
 	{
 		$errorArray = array();
 
 		// ORDER
-		if (!isset($Order))
+		if (!isset($DAO_orders))
 		{
 			$errorArray[] = 'no_order';
 
@@ -751,34 +754,34 @@ class CCouponCode extends DAO_Coupon_code
 			$errorArray[] = 'only_valid_for_product_membership';
 		}
 
-		if ($Order->isNewIntroOffer() && !$this->valid_for_order_type_intro)
+		if ($DAO_orders->isNewIntroOffer() && !$this->valid_for_order_type_intro)
 		{
 			$errorArray[] = 'bundle_order_not_eligible';
 		}
 
-		if ($Order->isDreamTaste() && !$this->valid_for_order_type_dream_taste)
+		if ($DAO_orders->isDreamTaste() && !$this->valid_for_order_type_dream_taste)
 		{
 			$errorArray[] = 'todd_order_not_eligible';
 		}
 
-		if ($Order->menu_program_id == 1 && !$this->valid_for_standard_menu)
+		if ($DAO_orders->menu_program_id == 1 && !$this->valid_for_standard_menu)
 		{
 			$errorArray[] = 'not_valid_for_standard_menu';
 		}
 
-		if ($Order->menu_program_id > 1 && !$this->valid_for_DFL_menu)
+		if ($DAO_orders->menu_program_id > 1 && !$this->valid_for_DFL_menu)
 		{
 			$errorArray[] = 'not_valid_for_DFL_menu';
 		}
 
-		if ($Order->points_discount_total > 0 && !$this->valid_with_plate_points_credits)
+		if ($DAO_orders->points_discount_total > 0 && !$this->valid_with_plate_points_credits)
 		{
 			$errorArray[] = 'not_valid_with_points_credits';
 		}
 
-		if ($Order->menu_program_id > 1 && $this->valid_for_DFL_menu && $Order->menu_program_id != $this->valid_DFL_menu)
+		if ($DAO_orders->menu_program_id > 1 && $this->valid_for_DFL_menu && $DAO_orders->menu_program_id != $this->valid_DFL_menu)
 		{
-			if ($Order->menu_program_id == 2)
+			if ($DAO_orders->menu_program_id == 2)
 			{
 				$errorArray[] = 'not_valid_for_Diabetic_menu';
 			}
@@ -789,19 +792,19 @@ class CCouponCode extends DAO_Coupon_code
 		}
 
 		// check for store exclusion
-		if (!CCouponCodeProgram::isCodeAcceptedByStore($Order->store_id, $this->coupon_code))
+		if (!CCouponCodeProgram::isCodeAcceptedByStore($DAO_orders->store_id, $this->coupon_code))
 		{
 			$errorArray[] = 'excluded_by_store';
 		}
 
 		$defeatTODDRulesForNow = false;
-		if ($Order->user_id)
+		if ($DAO_orders->user_id)
 		{
-			$user_id = $Order->user_id;
+			$user_id = $DAO_orders->user_id;
 
 			// GET HISTORICAL DATA
-			$orders = DAO_CFactory::create('orders');
-			$orders->query("select 
+			$past_DAO_orders = DAO_CFactory::create('orders');
+			$past_DAO_orders->query("select 
 				orders.id as 'order_id', 
 				orders.is_TODD, 
 				orders.timestamp_created, 
@@ -819,25 +822,25 @@ class CCouponCode extends DAO_Coupon_code
 			$nonTODDorderCount = 0;
 			$TODDOrder = false;
 			$historicalData = array();
-			while ($orders->fetch())
+			while ($past_DAO_orders->fetch())
 			{
-				if ($orders->booking_status == 'ACTIVE' && $orders->order_id != $orgOrderID)
+				if ($past_DAO_orders->booking_status == 'ACTIVE' && $past_DAO_orders->order_id != $orgOrderID)
 				{
-					$historicalData[$orders->order_id] = array(
-						'booking_status' => $orders->booking_status,
-						"coupon_id" => $orders->coupon_code_id,
-						'order_time' => $orders->timestamp_created
+					$historicalData[$past_DAO_orders->order_id] = array(
+						'booking_status' => $past_DAO_orders->booking_status,
+						"coupon_id" => $past_DAO_orders->coupon_code_id,
+						'order_time' => $past_DAO_orders->timestamp_created
 					);
-					if ($orders->is_TODD)
+					if ($past_DAO_orders->is_TODD)
 					{
-						$TODDOrder = $orders->order_id;
+						$TODDOrder = $past_DAO_orders->order_id;
 					}
 					else
 					{
 						$nonTODDorderCount++;
 					}
 
-					$sessionStartTS = strtotime($orders->session_start);
+					$sessionStartTS = strtotime($past_DAO_orders->session_start);
 					if ($sessionStartTS > $lastSession)
 					{
 						$lastSession = $sessionStartTS;
@@ -948,12 +951,11 @@ class CCouponCode extends DAO_Coupon_code
 		$timeSpanError = null;
 
 		//First adjust time span to local store time
-		$storeObj = DAO_CFactory::create('store');
-		$storeObj->query("select timezone_id from store where id = {$Order->store_id}");
-		if ($storeObj->N > 0)
+		$DAO_store = DAO_CFactory::create('store', true);
+		$DAO_store->id = $DAO_orders->store_id;
+		if ($DAO_store->find(true))
 		{
-			$storeObj->fetch();
-			$now = date("Y-m-d H:i:s", CTimezones::getAdjustedTime($storeObj, $now));
+			$now = date("Y-m-d H:i:s", CTimezones::getAdjustedTime($DAO_store, $now));
 			$now = strtotime($now);
 		}
 
@@ -992,15 +994,16 @@ class CCouponCode extends DAO_Coupon_code
 		}
 
 		//Session Date
-		$session = $Order->findSession();
-		if (!empty($session) && !empty($session->session_start))
+		$DAO_session = $DAO_orders->findSession();
+
+		if (!empty($DAO_session) && !empty($DAO_session->session_start))
 		{
-			if (!empty($this->valid_session_timespan_start) && strtotime($session->session_start) < strtotime($this->valid_session_timespan_start))
+			if (!empty($this->valid_session_timespan_start) && strtotime($DAO_session->session_start) < strtotime($this->valid_session_timespan_start))
 			{
 				$errorArray[] = 'coupon_session_is_before_valid_range';
 			}
 
-			if (!empty($this->valid_session_timespan_end) && strtotime($session->session_start) > (strtotime($this->valid_session_timespan_end) + 86400))
+			if (!empty($this->valid_session_timespan_end) && strtotime($DAO_session->session_start) > (strtotime($this->valid_session_timespan_end) + 86400))
 			{
 				$errorArray[] = 'coupon_session_is_after_valid_range';
 			}
@@ -1017,30 +1020,27 @@ class CCouponCode extends DAO_Coupon_code
 			$errorArray[] = 'coupon_menu_is_past';
 		}
 
-		// SESSION TYPE
-		$session = $Order->findSession();
-
 		// session may not be available yet when coupon is added, imperative that coupon is revalidated at checkout
-		if (!empty($session))
+		if (!empty($DAO_session))
 		{
-			$test = $session->isStandard();
+			$test = $DAO_session->isStandard();
 
-			if ($session->isStandard() && !$this->valid_for_session_type_standard)
+			if ($DAO_session->isStandard() && !$this->valid_for_session_type_standard)
 			{
 				$errorArray[] = 'not_valid_for_standard_session';
 			}
 
-			if ($session->isDiscounted() && !$this->valid_for_session_type_discounted)
+			if ($DAO_session->isDiscounted() && !$this->valid_for_session_type_discounted)
 			{
 				$errorArray[] = 'not_valid_for_discounted_session';
 			}
 
-			if ($session->isPrivate() && !$this->valid_for_session_type_private)
+			if ($DAO_session->isPrivate() && !$this->valid_for_session_type_private)
 			{
 				$errorArray[] = 'not_valid_for_private_session';
 			}
 
-			if ($session->isDelivery() && !$this->valid_for_session_type_delivery)
+			if ($DAO_session->isDelivery() && !$this->valid_for_session_type_delivery)
 			{
 				$errorArray[] = 'not_valid_for_delivery_session';
 			}
@@ -1058,7 +1058,7 @@ class CCouponCode extends DAO_Coupon_code
 				}
 
 				// period starts at the time of the session or the time of the order whichever is greater
-				$sessionTime = strtotime($session->session_start);
+				$sessionTime = strtotime($DAO_session->session_start);
 				$orderTime = ($TODDOrder ? strtotime($historicalData[$TODDOrder]['order_time']) : $sessionTime);
 
 				$validTODDPeriodBasis = ($orderTime > $sessionTime ? $orderTime : $sessionTime);
@@ -1073,35 +1073,35 @@ class CCouponCode extends DAO_Coupon_code
 		}
 
 		//ORDER TYPE
-		if ($Order->isStandard() && !$this->valid_for_order_type_standard)
+		if ($DAO_orders->isStandard() && !$this->valid_for_order_type_standard)
 		{
 			$errorArray[] = 'not_valid_for_standard_order';
 		}
 
-		if ($Order->isNewIntroOffer() && !$this->valid_for_order_type_intro)
+		if ($DAO_orders->isNewIntroOffer() && !$this->valid_for_order_type_intro)
 		{
 			$errorArray[] = 'not_valid_for_intro_order';
 		}
 
-		if ($Order->isSampler() && !$this->valid_for_order_type_sampler)
+		if ($DAO_orders->isSampler() && !$this->valid_for_order_type_sampler)
 		{
 			$errorArray[] = 'not_valid_for_sampler_order';
 		}
 
 		// MINIMUM AMOUNT
-		if (!empty($this->minimum_order_amount) && (($Order->grand_total + $Order->coupon_code_discount_total) < $this->minimum_order_amount))
+		if (!empty($this->minimum_order_amount) && (($DAO_orders->grand_total + $DAO_orders->coupon_code_discount_total) < $this->minimum_order_amount))
 		{
 			$errorArray[] = 'minimum_order_amount_not_met';
 		}
 
 		// MINIMUM SERVINGS
-		if (!empty($this->minimum_servings_count) && $Order->servings_total_count < $this->minimum_servings_count)
+		if (!empty($this->minimum_servings_count) && $DAO_orders->servings_total_count < $this->minimum_servings_count)
 		{
 			$errorArray[] = 'minimum_servings_amount_not_met';
 		}
 
 		// MINIMUM ITEMS
-		if (!empty($this->minimum_item_count) && ($Order->menu_items_core_total_count + $Order->menu_items_efl_total_count) < $this->minimum_item_count)
+		if (!empty($this->minimum_item_count) && ($DAO_orders->menu_items_core_total_count + $DAO_orders->menu_items_efl_total_count) < $this->minimum_item_count)
 		{
 			$errorArray[] = array(
 				'minimum_item_amount_not_met',
@@ -1110,7 +1110,7 @@ class CCouponCode extends DAO_Coupon_code
 		}
 
 		// PREFERRED USER
-		if (!empty($Order->user_preferred_discount_total))
+		if (!empty($DAO_orders->user_preferred_discount_total))
 		{
 			if (defined('DD_SERVER_NAME') && DD_SERVER_NAME == 'LIVE')
 			{
@@ -1119,12 +1119,12 @@ class CCouponCode extends DAO_Coupon_code
 		}
 
 		// no coupon codes if customer is ordering a dream rewards discounted order from the front end
-		if ((strpos($_SERVER['REQUEST_URI'], "processor?processor=couponCodeProcessor") !== false) && $Order->dream_rewards_level > 0)
+		if ((strpos($_SERVER['REQUEST_URI'], "processor?processor=couponCodeProcessor") !== false) && $DAO_orders->dream_rewards_level > 0)
 		{
 			$errorArray[] = 'guest_is_ordering_in_DR';
 		}
 
-		if ($this->limit_to_finishing_touch && empty($Order->pcal_sidedish_total))
+		if ($this->limit_to_finishing_touch && empty($DAO_orders->pcal_sidedish_total))
 		{
 			$errorArray[] = 'no_ft_items';
 		}
@@ -1263,7 +1263,7 @@ class CCouponCode extends DAO_Coupon_code
 			// INVENTORY TOUCH POINT
 			$DAO_menu_item_inventory = DAO_CFactory::create('menu_item_inventory');
 			$DAO_menu_item_inventory->menu_id = $menu_id;
-			$DAO_menu_item_inventory->store_id = $Order->getStore()->id;
+			$DAO_menu_item_inventory->store_id = $DAO_orders->getStore()->id;
 			$DAO_menu_item_inventory->getMenuItemInventory(array($this->menu_item_id));
 
 			if ($DAO_menu_item_inventory->find(true))
@@ -1707,7 +1707,7 @@ class CCouponCode extends DAO_Coupon_code
 		$DAO_bundle = $DAO_orders->getBundleObj();
 
 		// if this is a dream taste, the hostess discount is equal to the cost of the dream taste bundle
-		if ($this->coupon_code == 'HOSTESS' && $DAO_session->session_type == CSession::DREAM_TASTE)
+		if ($this->coupon_code == 'HOSTESS' && $DAO_session->isDreamTaste())
 		{
 			return $this->discount_var = $DAO_bundle->price;
 		}
@@ -1799,57 +1799,50 @@ class CCouponCode extends DAO_Coupon_code
 		if ($this->limit_to_core)
 		{
 			$base = $DAO_orders->pcal_core_total;
-			$discount = CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 
-			return $discount;
+			return CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 		}
 
 		if ($this->limit_to_core_and_efl)
 		{
 			$base = $DAO_orders->pcal_core_total + $DAO_orders->pcal_efl_total;
-			$discount = CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 
-			return $discount;
+			return CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 		}
 
 		if ($this->limit_to_finishing_touch)
 		{
 			$base = $DAO_orders->pcal_sidedish_total;
-			$discount = CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 
-			return $discount;
+			return CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 		}
 
 		if ($this->limit_to_mfy_fee)
 		{
 			$base = $DAO_orders->subtotal_service_fee;
-			$discount = CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 
-			return $discount;
+			return CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 		}
 
 		if ($this->limit_to_delivery_fee)
 		{
 			$base = $DAO_orders->subtotal_delivery_fee;
-			$discount = CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 
-			return $discount;
+			return CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 		}
 
 		if ($this->limit_to_recipe_id)
 		{
 			$base = $this->_calculateDiscountedRecipe($DAO_orders);
-			$discount = CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 
-			return $discount;
+			return CTemplate::moneyFormat(($base * ($this->discount_var)) / 100);
 		}
 
 		//TODO: sanity checks
 		$base = $DAO_orders->subtotal_menu_items + $DAO_orders->subtotal_home_store_markup - $DAO_orders->bundle_discount - $DAO_orders->family_savings_discount - $DAO_orders->promo_code_discount_total - $DAO_orders->volume_discount_total;
 		$base = COrders::std_round($base);
-		$discount = COrders::std_round(($base * ($this->discount_var)) / 100);
 
-		return $discount;
+		return COrders::std_round(($base * ($this->discount_var)) / 100);
 	}
 
 	function _calculateDiscountedRecipe($Order)

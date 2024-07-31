@@ -24,6 +24,8 @@ require_once 'includes/DAO/BusinessObject/COrderMinimum.php';
 
 class COrders extends DAO_Orders
 {
+	public $orderShipping = null;
+
 	//Gift Card Consts
 	const GIFT_CARD_SHIPPING = 2.00;
 	//order types
@@ -11989,6 +11991,22 @@ class COrders extends DAO_Orders
 		{
 			return 'TODD';
 		}
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	function orderShipping()
+	{
+		$DAO_orders_shipping = DAO_CFactory::create('orders_shipping', true);
+
+		if ($this->id)
+		{
+			$DAO_orders_shipping->order_id = $this->id;
+			$DAO_orders_shipping->find(true);
+		}
+
+		return $this->orderShipping = $DAO_orders_shipping;
 	}
 
 	/**

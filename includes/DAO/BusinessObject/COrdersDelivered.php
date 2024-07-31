@@ -98,19 +98,9 @@ class COrdersDelivered extends COrders
 		return $this->subtotal_menu_items;
 	}
 
-	public function orderShipping()
-	{
-		$shippingInfo = DAO_CFactory::create('orders_shipping');
-
-		if ($this->id)
-		{
-			$shippingInfo->order_id = $this->id;
-			$shippingInfo->find(true);
-		}
-
-		return $this->orderShipping = $shippingInfo;
-	}
-
+	/**
+	 * @throws Exception
+	 */
 	public function defaultShippingInfo($destZipCode, $SessionObj, $save = false)
 	{
 		$zipcode = new DAO();
