@@ -3,39 +3,41 @@
 		<h2 class="text-uppercase font-weight-semi-bold font-size-medium text-left">Total</h2>
 
 		<!-- Totals -->
-		<?php if ($this->foodState != 'noFood') { if ($this->foodState == 'adequateFood') { ?>
-			<div class="row">
-				<div class="col-md-6 col-8 text-left">
-					<?php if($this->cart_info['order_info']['servings_total_count'] > 0){?>
-						<p>
-							<?php echo $this->cart_info['cart_info_array']['dinners_total_count']; ?> Dinners <?php if (!empty($this->cart_info['cart_info_array']['num_sides']))  { ?>
-								+ <?php echo $this->cart_info['cart_info_array']['num_sides']; ?> Sides and Sweets
-							<?php } ?>
-							<span class="font-italic">(<?php echo $this->cart_info['order_info']['servings_total_count']; ?> Servings /
+		<?php if ($this->foodState != 'noFood') { ?>
+			<?php if ($this->foodState == 'adequateFood') { ?>
+				<div class="row">
+					<div class="col-md-6 col-8 text-left">
+						<?php if($this->cart_info['order_info']['servings_total_count'] > 0){?>
+							<p>
+								<?php echo $this->cart_info['cart_info_array']['dinners_total_count']; ?> Dinners <?php if (!empty($this->cart_info['cart_info_array']['num_sides']))  { ?>
+									+ <?php echo $this->cart_info['cart_info_array']['num_sides']; ?> Sides and Sweets
+								<?php } ?>
+								<span class="font-italic">(<?php echo $this->cart_info['order_info']['servings_total_count']; ?> Servings /
 						Avg. $<span id="checkout-cost_per_serving"><?php echo CTemplate::moneyFormat($this->cart_info["orderObj"]->getAvgCostPerServing()); ?></span> per serving)</span>
-						</p>
-					<?php }else{?>
-						<?php if($this->cart_info['cart_info_array']['num_sides'] > 0){?>
-							<?php echo $this->cart_info['cart_info_array']['num_sides']; ?> Sides and Sweets
+							</p>
+						<?php }else{?>
+							<?php if($this->cart_info['cart_info_array']['num_sides'] > 0){?>
+								<?php echo $this->cart_info['cart_info_array']['num_sides']; ?> Sides and Sweets
+							<?php }?>
 						<?php }?>
-					<?php }?>
+					</div>
+					<div class="col-md-6 col-4 text-right">
+						<p>$<span id="checkout_total-food"><?php echo CTemplate::moneyFormat($this->cart_info["orderObj"]->getFoodTotal()); ?></span></p>
+					</div>
 				</div>
-				<div class="col-md-6 col-4 text-right">
-					<p>$<span id="checkout_total-food"><?php echo CTemplate::moneyFormat($this->cart_info["orderObj"]->getFoodTotal()); ?></span></p>
+			<?php } else { ?>
+				<div class="row">
+					<div class="col-md-6 col-8 text-left">
+						<p>
+							Servings (<?php echo $this->cart_info['order_info']['servings_total_count']; ?>)
+						</p>
+					</div>
+					<div class="col-md-6 col-4 text-right">
+						<p><s>$<span id="checkout_total-food">0.00</span></s></p>
+					</div>
 				</div>
-			</div>
-		<?php } else if ($this->foodState != 'adequateFood' ) { ?>
-			<div class="row">
-				<div class="col-md-6 col-8 text-left">
-					<p>
-						Servings (<?php echo $this->cart_info['order_info']['servings_total_count']; ?>)
-					</p>
-				</div>
-				<div class="col-md-6 col-4 text-right">
-					<p><s>$<span id="checkout_total-food">0.00</span></s></p>
-				</div>
-			</div>
-		<?php } } ?>
+			<?php } ?>
+		<?php } ?>
 
 		<?php if(!empty($this->allow_assembly_fee)) { ?>
 			<?php if( !$this->isEmptyFloat( $this->cart_info['order_info']['subtotal_service_fee'] ) && $this->foodState == 'adequateFood' ) { ?>
@@ -79,7 +81,7 @@
 			</div>
 		</div>
 
-		<?php if(!empty($this->cart_info['order_info']['subtotal_delivery_fee']) && $this->foodState == 'adequateFood' ) { ?>
+		<?php if (!empty($this->cart_info['order_info']['subtotal_delivery_fee']) && $this->foodState == 'adequateFood' ) { ?>
 			<?php if ($this->cart_info["orderObj"]->isShipping()) { ?>
 				<div class="row">
 					<div class="col-md-6 col-8 text-left">
@@ -89,7 +91,7 @@
 						<p><?php if ($this->cart_info["menuObj"]->isEnabled_ShippingDiscount($this->cart_info["storeObj"])) { ?><span class="text-decoration-line-through">($ <?php echo CTemplate::moneyFormat($this->cart_info["orderObj"]->getBoxCount() * 14.99); ?>)</span><?php } ?> $<span id="checkout_total-delivery_fee"><?php echo CTemplate::moneyFormat($this->cart_info['order_info']['subtotal_delivery_fee']); ?></span></p>
 					</div>
 				</div>
-			<?php } else if ($this->cart_info["orderObj"]->isDelivery()) { ?>
+			<?php } else { ?>
 				<div class="row">
 					<div class="col-md-6 col-8 text-left">
 						<p>Delivery Fee</p>
@@ -239,7 +241,6 @@
 			</div>
 
 			<div id="giftcard_container">
-
 				<?php
 				if (!empty($this->cart_info['payment_info'] ) ) {
 					foreach ($this->cart_info['payment_info'] as $id => $paymentInfo) {
@@ -250,38 +251,26 @@
 						} } } ?>
 			</div>
 
-			<div id="creditcard_container" class="row">
-
-				<?php
-				if (false) { // credit card is not added to cart currently
-					//if (!empty($this->cart_info['payment_info'] )) {
-					foreach ($this->cart_info['payment_info'] as $id => $paymentInfo) {
-						if ($paymentInfo['payment_type'] == 'credit_card') {
-							$this->assign('paymentID', $id);
-							$this->assign('paymentInfo', $paymentInfo);
-							include $this->loadTemplate('customer/subtemplate/checkout/checkout_total_credit_card_payment_row.tpl.php');
-						} } } ?>
-			</div>
-
 			<div class="row">
 				<div class="col-md-7 col-7 text-left">
 					<?php if ($this->isEditDeliveredOrder && $this->delta_has_new_total) { ?>
 						<p>New Total</p>
-					<?php } else if($this->isEditDeliveredOrder && !$this->delta_has_new_total) { ?>
+					<?php } else if ($this->isEditDeliveredOrder && !$this->delta_has_new_total) { ?>
 						<p>Total</p>
 					<?php } else { ?>
 						<p>Balance Due</p>
 					<?php } ?>
 				</div>
 				<div class="col-md-5 col-5 text-right">
-					<?php if($this->isEditDeliveredOrder){ ?>
+					<?php if ($this->isEditDeliveredOrder) { ?>
 					<input type="hidden" id="isEditDeliveredOrder" value="true"/>
 					<input type="hidden" id="original_order_cost" value="<?php echo $this->delta_original_order_cost; ?>"/>
 					<p class="">
 						<?php } else { ?>
 					<p class="font-weight-semi-bold">
 						<?php } ?>
-						$<span id="credit_card_amount">0.00</span></p>
+						$<span id="credit_card_amount">0.00</span>
+					</p>
 				</div>
 			</div>
 			<?php include $this->loadTemplate('customer/subtemplate/checkout/checkout_total_edit_order_row.tpl.php');?>
