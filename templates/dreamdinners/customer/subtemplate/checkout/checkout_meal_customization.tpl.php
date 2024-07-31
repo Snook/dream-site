@@ -1,4 +1,4 @@
-<?php if ($this->should_allow_meal_customization || $this->cart_info["storeObj"]->supportsMealCustomization()) { ?>
+<?php if ($this->should_allow_meal_customization && $this->cart_info["storeObj"]->supportsMealCustomization()) { ?>
 	<div class="row mb-2">
 		<div class="col">
 			<h2 class="text-uppercase font-weight-bold font-size-medium-small text-left">Meal Customization<?php if ($this->cart_info["sessionObj"]->isOpenForCustomization($this->cart_info["storeObj"])) { ?>*<?php } ?></h2>
