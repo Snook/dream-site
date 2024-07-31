@@ -30,6 +30,8 @@ class page_gift_card_order extends CPage
 		$Form = new CForm();
 		$Form->Repost = true;
 
+		$tpl->assign('physical_cards_enabled', false);
+
 		$isEditMode = false;
 		//$tpl->assign('edit', false);
 
