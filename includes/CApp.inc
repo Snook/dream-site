@@ -28,7 +28,7 @@ class CApp
 		return self::$_instance;
 	}
 
-	function template()
+	function template(): ?CTemplate
 	{
 		return $this->_template;
 	}

@@ -153,7 +153,7 @@ class COrdersDelivered extends COrders
 	/**
 	 * Call this to recalculate all totals and apply adjustments
 	 */
-	function recalculate($editing = false, $suppressSessionDiscount = false, $rescheduling = false, $userIsOnHold = false)
+	function recalculate($editing = false, $suppressSessionDiscount = false, $rescheduling = false, $userIsOnHold = false): void
 	{
 		$this->PlatePointsRulesVersion = 3;
 
@@ -276,8 +276,6 @@ class COrdersDelivered extends COrders
 		}
 
 		$this->grand_total = $this->subtotal_all_items + $this->subtotal_all_taxes;
-
-		return $this->grand_total;
 	}
 
 	function getBoxCount()
