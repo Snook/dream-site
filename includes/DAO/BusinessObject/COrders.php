@@ -281,12 +281,12 @@ class COrders extends DAO_Orders
 	}
 
 	// use passed in counts if provided otherwise use the item list of the Order object if provided
-	public static function getNumberOfCustomizableMealsFromItems($orderObj, $include_pre_assembled = true)
+	public static function getNumberOfCustomizableMealsFromItems($DAO_orders, $include_pre_assembled = true): int
 	{
 		$entreesCountFinal = 0;
-		if (!empty($orderObj) && !empty($orderObj->items))
+		if (!empty($DAO_orders) && !empty($DAO_orders->items))
 		{
-			$entreesCountFinal = $orderObj->countItems(false, 'core_entrees', !$include_pre_assembled);
+			$entreesCountFinal = $DAO_orders->countItems(false, 'core_entrees', !$include_pre_assembled);
 		}
 
 		return (int)$entreesCountFinal;
@@ -4605,8 +4605,9 @@ class COrders extends DAO_Orders
 
 	/**
 	 * Call this to recalculate all totals and apply adjustments
+	 * @throws Exception
 	 */
-	function recalculate($editing = false, $suppressSessionDiscount = false, $rescheduling = false, $userIsOnHold = false)
+	function recalculate($editing = false, $suppressSessionDiscount = false, $rescheduling = false, $userIsOnHold = false): void
 	{
 		// Initialize non-financials
 		$this->PlatePointsRulesVersion = 3;
@@ -11797,7 +11798,7 @@ class COrders extends DAO_Orders
 		return $servingCount;
 	}
 
-	static public function getItemDiscountedPrice($price, $numServings, $size, $markup)
+	static public function getItemDiscountedPrice($price, $numServings, $size, $markup): float
 	{
 		$discountedPrice = $price;
 
@@ -11834,7 +11835,7 @@ class COrders extends DAO_Orders
 		return $discountedPrice;
 	}
 
-	static public function getCustomerActionStringFrom($FullyQualifiedOrderType)
+	static public function getCustomerActionStringFrom($FullyQualifiedOrderType): string
 	{
 		switch ($FullyQualifiedOrderType)
 		{
@@ -12012,7 +12013,7 @@ class COrders extends DAO_Orders
 	/**
 	 * returns    array('orderInfo'=>$orderArray, 'menuInfo'=>$menuInfo, 'paymentInfo'=>$PaymentInfo,'sessionInfo'=>$sessionData,'customer_name'=>$customerName, 'bookingStatus'=>$booking->status, 'storeInfo'=>$storeInfo);
 	 */
-	static public function buildOrderDetailArrays($DAO_user, $DAO_orders, $viewing_user_type = null, $flatItemsList = false, $getBundleList = false, $allowDeletedSession = false, $isDelivered = false, $orderBy = 'FeaturedFirst')
+	static public function buildOrderDetailArrays($DAO_user, $DAO_orders, $viewing_user_type = null, $flatItemsList = false, $getBundleList = false, $allowDeletedSession = false, $isDelivered = false, $orderBy = 'FeaturedFirst'): array
 	{
 		$booking = DAO_CFactory::create('booking');
 		$session = DAO_CFactory::create('session');

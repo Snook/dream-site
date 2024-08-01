@@ -1,15 +1,15 @@
-<?php if ($this->should_allow_meal_customization || $this->cart_info["storeObj"]->supportsMealCustomization()) { ?>
+<?php if ($this->should_allow_meal_customization && $this->cart_info["storeObj"]->supportsMealCustomization()) { ?>
 	<div class="row mb-2">
 		<div class="col">
 			<h2 class="text-uppercase font-weight-bold font-size-medium-small text-left">Meal Customization<?php if ($this->cart_info["sessionObj"]->isOpenForCustomization($this->cart_info["storeObj"])) { ?>*<?php } ?></h2>
 			<?php if ($this->cart_info["sessionObj"]->isOpenForCustomization($this->cart_info["storeObj"])) { ?>
 				<div id="customization-row">
-					<p class="font-size-small">
-						<?php echo OrdersCustomization::RECIPE_DESCRIPTION; ?>
-						<?php if(!$this->allow_preassembled_customization) { ?>
-					<div class="font-size-small text-danger"><?php echo OrdersCustomization::RECIPE_NO_PRE_ASSEMBLED; ?></div>
+					<?php echo OrdersCustomization::RECIPE_DESCRIPTION; ?>
+					<?php if (!$this->allow_preassembled_customization) { ?>
+						<p class="font-size-small text-danger">
+							Meals marked Pre-Assembled in the cart cannot be customized by the store.
+						</p>
 					<?php } ?>
-					</p>
 					<div class="row py-2 meal-customization-row">
 						<div class="col-12 text-left">
 							<div class="custom-control custom-checkbox">
@@ -18,9 +18,9 @@
 							</div>
 						</div>
 					</div>
-					<?php foreach($this->meal_customization_preferences as $key => $pref) { ?>
+					<?php foreach ($this->meal_customization_preferences as $key => $pref) { ?>
 						<div class="ml-4">
-							<?php switch ($pref->type ) { case 'INPUT': ?>
+							<?php switch ($pref->type) { case 'INPUT': ?>
 								<div>
 									<label class="control-label" for="<?php echo $key ?>"><span class="font-weight-bold"><?php echo $pref->description ?>:</span></label>
 									<input class="form-control" id="<?php echo $key ?>" type="text" data-user_pref="<?php echo $key ?>" data-user_pref_meal="<?php echo $key ?>" size="20" maxlength="15" value="<?php if (!empty($pref->value)) { echo htmlentities($pref->value); } ?>">
@@ -50,7 +50,7 @@
 				</div>
 			<?php } else { ?>
 				<p class="text-orange mb-1">Customization Not Available</p>
-				<p class="font-size-small">The date and time you selected is not available to have customization options. Please <a href="/session" class="font-weight-bold">select a new time</a> marked with a <i class="dd-icon icon-customize text-orange font-size-small"></i> if you want customization to apply to your order.</p>
+				<p class="font-size-small">The date and time you selected is not available to have customization options. Please <a href="/session" class="font-weight-bold">select a new time</a> marked with an <i class="dd-icon icon-customize text-orange font-size-small"></i> if you want customization to apply to your order.</p>
 			<?php } ?>
 		</div>
 	</div>

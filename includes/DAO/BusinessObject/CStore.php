@@ -466,7 +466,7 @@ class CStore extends DAO_Store
 		return null;
 	}
 
-	static function getTestStoresArray($menu_id)
+	static function getTestStoresArray($menu_id): array
 	{
 		if ($menu_id < 251)
 		{
@@ -484,7 +484,7 @@ class CStore extends DAO_Store
 
 	//This impacts showing the menu wheel menu instead of
 	//the standard menu
-	static function isTestMenuStore($menu_id, $store_id)
+	static function isTestMenuStore($menu_id, $store_id): bool
 	{
 		$arrayForMenu = self::getTestStoresArray($menu_id);
 
@@ -496,7 +496,7 @@ class CStore extends DAO_Store
 		return false;
 	}
 
-	function supportsPlatePoints()
+	function supportsPlatePoints(): bool
 	{
 		if (empty($this->supports_plate_points))
 		{
@@ -506,7 +506,7 @@ class CStore extends DAO_Store
 		return true;
 	}
 
-	function supportsMealCustomization()
+	function supportsMealCustomization(): bool
 	{
 		if (empty($this->supports_meal_customization))
 		{
@@ -516,7 +516,7 @@ class CStore extends DAO_Store
 		return true;
 	}
 
-	function supportsLTDRoundup()
+	function supportsLTDRoundup(): bool
 	{
 		if (empty($this->supports_ltd_roundup))
 		{
@@ -526,7 +526,7 @@ class CStore extends DAO_Store
 		return true;
 	}
 
-	function storeSupportsIntroOrders($menu_id = false)
+	function storeSupportsIntroOrders($menu_id = false): bool
 	{
 		if (empty($this->supports_intro_orders))
 		{
@@ -547,7 +547,7 @@ class CStore extends DAO_Store
 		return true;
 	}
 
-	function supportsDelayedPayment()
+	function supportsDelayedPayment(): bool
 	{
 		if ($this->isDistributionCenter())
 		{
@@ -562,12 +562,12 @@ class CStore extends DAO_Store
 		return true;
 	}
 
-	static function storeSupportsStoreSpecificDeposit($store_id, $menu_id = 0)
+	static function storeSupportsStoreSpecificDeposit($store_id, $menu_id = 0): bool
 	{
 		return true;
 	}
 
-	static function storeSupportsReciProfity($store_id, $menu_id = 0)
+	static function storeSupportsReciProfity($store_id, $menu_id = 0): bool
 	{
 
 		if (defined('DD_SERVER_NAME') && DD_SERVER_NAME == 'LIVE')
@@ -597,7 +597,7 @@ class CStore extends DAO_Store
 		return false;
 	}
 
-	function hasAvailableCustomerMenu()
+	function hasAvailableCustomerMenu(): bool
 	{
 		// check if there is at least one customer accessible session
 		$DAO_session_calendar = DAO_CFactory::create('session', true);
@@ -618,7 +618,7 @@ class CStore extends DAO_Store
 		return false;
 	}
 
-	function hasBioPage()
+	function hasBioPage(): bool
 	{
 		if ($this->hasBioPrimary() || $this->hasBioSecondary() || $this->hasBioTeam())
 		{
@@ -628,7 +628,7 @@ class CStore extends DAO_Store
 		return false;
 	}
 
-	function hasBioPrimary()
+	function hasBioPrimary(): bool
 	{
 		if (!empty($this->bio_primary_party_name))
 		{
@@ -638,7 +638,7 @@ class CStore extends DAO_Store
 		return false;
 	}
 
-	function hasBioSecondary()
+	function hasBioSecondary(): bool
 	{
 		if (!empty($this->bio_secondary_party_name))
 		{
@@ -648,7 +648,7 @@ class CStore extends DAO_Store
 		return false;
 	}
 
-	function hasBioTeam()
+	function hasBioTeam(): bool
 	{
 		if (!empty($this->bio_team_description))
 		{
@@ -658,7 +658,7 @@ class CStore extends DAO_Store
 		return false;
 	}
 
-	static function hasPlatePointsTransitionPeriodExpired($store_id)
+	static function hasPlatePointsTransitionPeriodExpired($store_id): bool
 	{
 
 		switch ($store_id)
@@ -674,7 +674,6 @@ class CStore extends DAO_Store
 
 					return false;
 				}
-				break;
 			case 244:
 			case 182:
 			case 200:
@@ -687,7 +686,6 @@ class CStore extends DAO_Store
 
 					return false;
 				}
-				break;
 			case 159:
 				{
 					$cutOff = strtotime('2014-05-01 03:00:00');
@@ -698,7 +696,6 @@ class CStore extends DAO_Store
 
 					return false;
 				}
-				break;
 			case 279:
 			case 300:
 			case 193:
@@ -711,7 +708,6 @@ class CStore extends DAO_Store
 
 					return false;
 				}
-				break;
 			default:
 			{
 				$cutOff = strtotime('2014-07-01 03:00:00');
@@ -2315,6 +2311,9 @@ class CStore extends DAO_Store
 		return null;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function getAveragePrice($menuId, $priceConst)
 	{
 		//	throw new Exception('CStore::getAveragePrice is actually called so better deal with it');
@@ -2336,7 +2335,6 @@ class CStore extends DAO_Store
 
 			default:
 				throw new Exception('unknown markup type');
-				break;
 		}
 	}
 
@@ -2818,9 +2816,9 @@ class CStore extends DAO_Store
 	}
 
 	/**
-	 * @returns list($id, $food_tax, $product_tax);
+	 * @returns array($id, $food_tax, $product_tax);
 	 */
-	function getCurrentSalesTax()
+	function getCurrentSalesTax(): array
 	{
 		$sales_tax = $this->getCurrentSalesTaxObj();
 		if (!$sales_tax)

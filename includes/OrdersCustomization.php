@@ -9,7 +9,6 @@ class OrdersCustomization
 	const SPECIAL_REQUEST_MAX_CHARS = 90;
 
 	const RECIPE_DESCRIPTION = "Don't like the taste of some ingredients? Let us know and we won't add it when we make your meals. Substitution is not an option. Customization is charged based on the number of meals you order. Additional details below*.";
-	const RECIPE_NO_PRE_ASSEMBLED = "Meals marked Pre-Assembled in the cart cannot be customized by the store.";
 
 	const RECIPE_LEGAL = "Dream Dinners is not an allergen-free facility. If you have food allergies, please consider a store assembly date/time where you customize your own meals. Customization of meals will not update the meal nutritional information. The Dream Dinners Team makes all customization orders outside the normal process to adjust for these special requests, therefore, customization fees are charged on the total number of meals ordered. Sides and Sweets items including those that are paired with meals and Pre-assembled Dinners cannot be customized. Contact your local store with additional questions.";
 	// The constructor is private
