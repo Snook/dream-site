@@ -64,6 +64,17 @@ class CMenu extends DAO_Menu
 		$this->whereAdd("menu.global_menu_start_date >= DATE_FORMAT(NOW(),'%Y-%m-%d') OR ( menu.global_menu_start_date <= DATE_FORMAT(NOW(),'%Y-%m-%d') AND menu.global_menu_end_date >= DATE_FORMAT(NOW() - INTERVAL " . $number_of_past_months . " MONTH,'%Y-%m-%d') )");
 	}
 
+	/**
+	 * Quick ability to disable the Backoffice from creating or publishing multiple sessions
+	 *
+	 * @return bool
+	 */
+	function isEnabled_Backoffice_SessionEditing(): bool
+	{
+		//return $this->id <= 279;
+		return true;
+	}
+
 	function isEnabled_DeliveryDiscount($DAO_store): bool
 	{
 		return $this->isEnabled_ShippingDiscount($DAO_store);
