@@ -76,11 +76,11 @@ class ShipStationManager extends ApiManager
 	 *
 	 * @return  ShipStationManager $shipStationManager
 	 */
-	public static function getInstance($storeObj)
+	public static function getInstance($DAO_store)
 	{
-		if (self::$instance == null || $storeObj->id != self::$instance->getCurrentStoreForConfig()->id)
+		if (self::$instance == null || $DAO_store->id != self::$instance->getCurrentStoreForConfig()->id)
 		{
-			self::$instance = new ShipStationManager($storeObj);
+			self::$instance = new ShipStationManager($DAO_store);
 		}
 
 		return self::$instance;
@@ -598,7 +598,7 @@ class ShipStationManager extends ApiManager
 	 * actual ship cost,...
 	 *
 	 *
-	 * @return boolean true if all updated
+	 * @return void true if all updated
 	 */
 	public static function loadOrderShippingInfo()
 	{
@@ -636,7 +636,7 @@ class ShipStationManager extends ApiManager
 
 				if ($DAO_orders->find_DAO_orders(true))
 				{
-					if (!empty($ssorder->trackingNumber))
+					if (!empty($ssorder->trackingNumber) && $ssorder->trackingNumber != $DAO_orders->DAO_orders_shipping->tracking_number)
 					{
 						$copy_DAO_orders_shipping = clone($DAO_orders->DAO_orders_shipping);
 						$DAO_orders->DAO_orders_shipping->status = COrdersShipping::STATUS_SHIPPED;
@@ -654,6 +654,10 @@ class ShipStationManager extends ApiManager
 							//Send Tracking Email to Guest
 							CEmail::sendDeliveredShipmentTrackingEmail($DAO_orders);
 						}
+					}
+					else if (!empty($ssorder->trackingNumber) && $ssorder->trackingNumber == $DAO_orders->DAO_orders_shipping->tracking_number)
+					{
+						$setShippingOnAll = true;
 					}
 					else
 					{
