@@ -80,12 +80,12 @@ class page_admin_create_session extends CPageAdminOnly
 		{
 			$startTS = strtotime(CGPC::do_clean($_REQUEST["selectedCell"], TYPE_STR));
 
-			$Menu = DAO_CFactory::create('menu');
-			$Menu->whereAdd("menu.global_menu_start_date <= '" . CTemplate::dateTimeFormat($startTS, YEAR_MONTH_DAY) . "'");
-			$Menu->whereAdd("menu.global_menu_end_date >= '" . CTemplate::dateTimeFormat($startTS, YEAR_MONTH_DAY) . "'");
-			$Menu->find(true);
+			$DAO_menu = DAO_CFactory::create('menu');
+			$DAO_menu->whereAdd("menu.global_menu_start_date <= '" . CTemplate::dateTimeFormat($startTS, YEAR_MONTH_DAY) . "'");
+			$DAO_menu->whereAdd("menu.global_menu_end_date >= '" . CTemplate::dateTimeFormat($startTS, YEAR_MONTH_DAY) . "'");
+			$DAO_menu->find(true);
 
-			$menu_id = $Menu->id;
+			$menu_id = $DAO_menu->id;
 		}
 		else if (isset($_REQUEST["menu"]))
 		{
@@ -115,15 +115,15 @@ class page_admin_create_session extends CPageAdminOnly
 
 		if ($menu_id)
 		{
-			$Menu = DAO_CFactory::create('menu');
-			$Menu->id = $menu_id;
-			$menu_result = $Menu->find(true);
+			$DAO_menu = DAO_CFactory::create('menu');
+			$DAO_menu->id = $menu_id;
+			$menu_result = $DAO_menu->find(true);
 			if ($menu_result <= 0)
 			{
 				throw new Exception("Error retrieving menu during Session create: $menu_id");
 			}
 
-			if ($Menu->id >= 279)
+			if (!$DAO_menu->isEnabled_Backoffice_SessionEditing())
 			{
 				$tpl->setStatusMsg('This menu is not available for editing yet.');
 				CApp::bounce('/backoffice');
@@ -185,7 +185,7 @@ class page_admin_create_session extends CPageAdminOnly
 
 		$tpl->assign('allowsMealCustomization', $Store->supports_meal_customization);
 
-		$SessionForm->DefaultValues["introductory_slots"] = ($Store->storeSupportsIntroOrders($Menu->id)) ? $Store->default_intro_slots : 0;
+		$SessionForm->DefaultValues["introductory_slots"] = ($Store->storeSupportsIntroOrders($DAO_menu->id)) ? $Store->default_intro_slots : 0;
 
 		if ($Store->close_interval_type == CStore::HOURS)
 		{
@@ -205,17 +205,17 @@ class page_admin_create_session extends CPageAdminOnly
 			$SessionForm->DefaultValues["meal_customization_close_interval_type"] = CStore::FOUR_FULL_DAYS;
 		}
 
-		if (CTemplate::dateTimeFormat(date('Y-m-d', $startTS), YEAR_MONTH_DAY) >= CTemplate::dateTimeFormat($Menu->global_menu_end_date, YEAR_MONTH_DAY))
+		if (CTemplate::dateTimeFormat(date('Y-m-d', $startTS), YEAR_MONTH_DAY) >= CTemplate::dateTimeFormat($DAO_menu->global_menu_end_date, YEAR_MONTH_DAY))
 		{
-			$SessionForm->DefaultValues["session_date"] = CTemplate::dateTimeFormat($Menu->global_menu_start_date, YEAR_MONTH_DAY);
+			$SessionForm->DefaultValues["session_date"] = CTemplate::dateTimeFormat($DAO_menu->global_menu_start_date, YEAR_MONTH_DAY);
 		}
-		else if (CTemplate::dateTimeFormat(date('Y-m-d', $startTS), YEAR_MONTH_DAY) >= CTemplate::dateTimeFormat($Menu->global_menu_start_date, YEAR_MONTH_DAY))
+		else if (CTemplate::dateTimeFormat(date('Y-m-d', $startTS), YEAR_MONTH_DAY) >= CTemplate::dateTimeFormat($DAO_menu->global_menu_start_date, YEAR_MONTH_DAY))
 		{
 			$SessionForm->DefaultValues["session_date"] = CTemplate::dateTimeFormat(date('Y-m-d', $startTS), YEAR_MONTH_DAY);
 		}
 		else
 		{
-			$SessionForm->DefaultValues["session_date"] = CTemplate::dateTimeFormat($Menu->global_menu_start_date, YEAR_MONTH_DAY);
+			$SessionForm->DefaultValues["session_date"] = CTemplate::dateTimeFormat($DAO_menu->global_menu_start_date, YEAR_MONTH_DAY);
 		}
 
 		$SessionForm->DefaultValues["custom_close_interval"] = $Store->close_session_hours;
@@ -364,8 +364,8 @@ class page_admin_create_session extends CPageAdminOnly
 		$SessionForm->AddElement(array(
 			CForm::type => CForm::Date,
 			CForm::required => true,
-			CForm::min => CTemplate::dateTimeFormat($Menu->global_menu_start_date, YEAR_MONTH_DAY),
-			CForm::max => CTemplate::dateTimeFormat($Menu->global_menu_end_date, YEAR_MONTH_DAY),
+			CForm::min => CTemplate::dateTimeFormat($DAO_menu->global_menu_start_date, YEAR_MONTH_DAY),
+			CForm::max => CTemplate::dateTimeFormat($DAO_menu->global_menu_end_date, YEAR_MONTH_DAY),
 			CForm::name => 'session_date'
 		));
 
@@ -627,7 +627,7 @@ class page_admin_create_session extends CPageAdminOnly
 		$tpl->assign('hasDreamtTasteType', array_key_exists(CSession::DREAM_TASTE, $session_types));
 		$tpl->assign('form_create_session', $SessionFormArray);
 		$tpl->assign('allow_assembly_fee', OrdersHelper::allow_assembly_fee($menu_id));
-		$tpl->assign('Menu', $Menu);
+		$tpl->assign('Menu', $DAO_menu);
 
 		if ($SessionForm->value('session_submit'))
 		{
@@ -783,7 +783,7 @@ class page_admin_create_session extends CPageAdminOnly
 
 			$DAO_session->session_start = date("Y-m-d H:i:s", strtotime(CGPC::do_clean($_POST['session_date'], TYPE_STR) . ' ' . CGPC::do_clean($_POST['session_time'], TYPE_STR)));
 
-			if (!$Menu->isTimeStampLegalForMenu(strtotime($DAO_session->session_start)))
+			if (!$DAO_menu->isTimeStampLegalForMenu(strtotime($DAO_session->session_start)))
 			{
 				$tpl->setErrorMsg('The session time is outside of the valid range for this menu. <br /> Note: You can change the menu or session time to correct this. <br /><span style="color:red">Please do not use the back button.</span>');
 			}
@@ -833,7 +833,7 @@ class page_admin_create_session extends CPageAdminOnly
 						$DAO_session->session_discount_id = $rslt;
 					}
 
-					$DAO_session->menu_id = $Menu->id;
+					$DAO_session->menu_id = $DAO_menu->id;
 
 					if (!isset($DAO_session->introductory_slots) || !$Store->storeSupportsIntroOrders($DAO_session->menu_id) || (($DAO_session->session_type != CSession::STANDARD && $DAO_session->session_type != CSession::MADE_FOR_YOU)))
 					{

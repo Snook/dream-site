@@ -368,7 +368,7 @@ class page_admin_publish_sessions extends CPageAdminOnly
 		$start_date = mktime(0, 0, 0, $startMonth, 1, $startYear);
 		$start_date_sql = date("Y-m-d", $start_date);
 
-		$Menu->whereAdd("menu.menu_start >= '$start_date_sql' AND menu.id < 279");
+		$Menu->whereAdd("menu.menu_start >= '$start_date_sql'");
 		$Menu->orderBy("menu.menu_start");
 
 		$Menu->find(true);
@@ -380,18 +380,21 @@ class page_admin_publish_sessions extends CPageAdminOnly
 		$lastMonth = "";
 		while ($Menu->fetch())
 		{
-			$displayString = CTemplate::dateTimeFormat($Menu->menu_start, "%B %Y");
-			$menu_array[$Menu->id] = $displayString;
-			$menu_months[$Menu->id] = $Menu->menu_start;
-
-			if ($defaultMonth == "")
+			if ($Menu->isEnabled_Backoffice_SessionEditing())
 			{
-				if ($currentMenu == $Menu->id)
+				$displayString = CTemplate::dateTimeFormat($Menu->menu_start, "%B %Y");
+				$menu_array[$Menu->id] = $displayString;
+				$menu_months[$Menu->id] = $Menu->menu_start;
+
+				if ($defaultMonth == "")
 				{
-					$defaultMonth = $Menu->id;
+					if ($currentMenu == $Menu->id)
+					{
+						$defaultMonth = $Menu->id;
+					}
 				}
+				$lastMonth = $Menu->id;
 			}
-			$lastMonth = $Menu->id;
 		}
 
 		if ($defaultMonth == "")
