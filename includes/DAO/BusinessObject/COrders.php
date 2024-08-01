@@ -6350,7 +6350,7 @@ class COrders extends DAO_Orders
 
 					// sort items by price high to low
 					usort($items, function ($a, $b) {
-						return $a[1]->override_price < $b[1]->override_price;
+						return $a[1]->override_price <=> $b[1]->override_price;
 					});
 
 					foreach ($items as $itemArray)
