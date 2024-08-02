@@ -182,8 +182,7 @@ class Mail_RFC822 {
         }
 
         if ($this->address === false || isset($this->error)) {
-            require_once 'PEAR.php';
-            return PEAR::raiseError($this->error);
+			trigger_error($this->error, E_USER_WARNING);
         }
 
         // Validate each address individually.  If we encounter an invalid
@@ -192,8 +191,7 @@ class Mail_RFC822 {
             $valid = $this->_validateAddress($address);
 
             if ($valid === false || isset($this->error)) {
-                require_once 'PEAR.php';
-                return PEAR::raiseError($this->error);
+				trigger_error($this->error, E_USER_WARNING);
             }
 
             if (!$this->nestGroups) {
