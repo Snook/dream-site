@@ -329,7 +329,6 @@ class COrders extends DAO_Orders
 
 	static function getOrdersSequenceStatus($order_id, $user_id, $session_type, $sessionStart, $totalServings)
 	{
-
 		if ($totalServings < 36 || ($session_type <> CSession::STANDARD && $session_type <> CSession::SPECIAL_EVENT))
 		{
 			return false;
@@ -351,8 +350,6 @@ class COrders extends DAO_Orders
 		$counting = false;
 		while ($orderHistory->fetch())
 		{
-
-
 			if ($counting)
 			{
 				if ($orderHistory->menu_id == $lastMenuID)
@@ -428,7 +425,6 @@ class COrders extends DAO_Orders
 
 	public static function isPriceGreaterThan($firstFloat, $secondFloat)
 	{
-
 		if (!is_numeric($firstFloat))
 		{
 			return false;
@@ -452,7 +448,6 @@ class COrders extends DAO_Orders
 
 	public static function isPriceLessThan($firstFloat, $secondFloat)
 	{
-
 		if (!is_numeric($firstFloat))
 		{
 			return false;
@@ -476,7 +471,6 @@ class COrders extends DAO_Orders
 
 	public static function isPriceGreaterThanOrEqualTo($firstFloat, $secondFloat)
 	{
-
 		if (!is_numeric($firstFloat))
 		{
 			return false;
@@ -500,7 +494,6 @@ class COrders extends DAO_Orders
 
 	public static function isPriceEqualTo($firstFloat, $secondFloat)
 	{
-
 		if (!is_numeric($firstFloat))
 		{
 			return false;
@@ -650,7 +643,6 @@ class COrders extends DAO_Orders
 
 					if (!$hasFoundFirstReschedule)
 					{
-
 						$retVal[] = array(
 							'time' => $DAO_booking->timestamp_created,
 							'session' => $DAO_booking->session_start,
@@ -704,7 +696,6 @@ class COrders extends DAO_Orders
 					}
 					else
 					{
-
 						$retVal[] = array(
 							'time' => $lastObject->timestamp_updated,
 							'session' => $DAO_booking->session_start,
@@ -758,7 +749,6 @@ class COrders extends DAO_Orders
 
 					if ($numFound == 1)
 					{
-
 						$retVal[] = array(
 							'time' => $DAO_orders->timestamp_created,
 							'session' => $DAO_booking->session_start,
@@ -870,7 +860,6 @@ class COrders extends DAO_Orders
 
 					if ($numFound == 1)
 					{
-
 						$retVal[] = array(
 							'time' => $DAO_orders->timestamp_created,
 							'session' => $DAO_booking->session_start,
@@ -1062,7 +1051,6 @@ class COrders extends DAO_Orders
 
 		foreach ($this->items as $id => $itemObj)
 		{
-
 			if ($itemObj[1]->is_bundle)
 			{
 				$bundleObj = DAO_CFactory::create('bundle');
@@ -1107,7 +1095,6 @@ class COrders extends DAO_Orders
 
 		foreach ($this->items as $id => $itemObj)
 		{
-
 			if ($itemObj[1]->is_bundle)
 			{
 				$bundleObj = DAO_CFactory::create('bundle');
@@ -1794,7 +1781,6 @@ class COrders extends DAO_Orders
 
 	function getGiftCards()
 	{
-
 		$giftcard = false;
 		if (!isset($this->products))
 		{
@@ -1816,7 +1802,6 @@ class COrders extends DAO_Orders
 
 	function isOrderEmpty()
 	{
-
 		if ($this->items && count($this->items))
 		{
 			return false;
@@ -1871,7 +1856,6 @@ class COrders extends DAO_Orders
 
 	function clearObserveOnlyProduct()
 	{
-
 		if (!empty($this->products))
 		{
 			foreach ($this->products as $id => $thisProduct)
@@ -2009,7 +1993,6 @@ class COrders extends DAO_Orders
 
 	function rebuildCartItemsToMatchOrder($CartObj, $menu_id, $order_type)
 	{
-
 		$CartObj->clearMenuItems(false, true);
 
 		$doIntro = false;
@@ -2200,7 +2183,6 @@ class COrders extends DAO_Orders
 	 */
 	static function getUsersOrders($User, $limitQuery = false, $since = false, $menu_id = false, $since_ordered = false, $type_of_order_array = false, $ordering_direction = 'asc', $timeSpanCap = false, $active_only = false, $verify_freezer_inventory = false)
 	{
-
 		if ($since)
 		{
 			$since = "AND s.session_start > '" . $since . "'";
@@ -2347,7 +2329,6 @@ class COrders extends DAO_Orders
 
 				if ($verify_freezer_inventory)
 				{
-
 					$store_id = $Order->store_id;
 					$menu_id = $Order->menuid;
 
@@ -2460,7 +2441,6 @@ class COrders extends DAO_Orders
 	 */
 	static function fetchOrdersForStore($storeId, $limitQuery = false, $since = false, $lastModified = false, $menu_id = false, $since_ordered = false, $type_of_order_array = false, $ordering_direction = 'desc', $timeSpanCap = false, $active_only = false)
 	{
-
 		if ($since)
 		{
 			$since = "AND s.session_start > '" . $since . "'";
@@ -2795,7 +2775,6 @@ class COrders extends DAO_Orders
 
 	function getHiddenItems()
 	{
-
 		if (!$this->items)
 		{
 			return false;
@@ -2970,7 +2949,6 @@ class COrders extends DAO_Orders
 
 	function hasSubscriptionProduct()
 	{
-
 		if (!$this->products)
 		{
 			return false;
@@ -2994,7 +2972,6 @@ class COrders extends DAO_Orders
 		{
 			foreach ($this->products as $id => $thisProduct)
 			{
-
 				if ($thisProduct[1]->item_type == 'ENROLLMENT')
 				{
 					unset($this->products[$id]);
@@ -3229,7 +3206,6 @@ class COrders extends DAO_Orders
 	 */
 	function addProduct($product_obj, $quantity)
 	{
-
 		if (!$product_obj->id)
 		{
 			return;
@@ -3248,7 +3224,6 @@ class COrders extends DAO_Orders
 		//keep em sorted
 		if (array_key_exists($product_obj->id, $this->products))
 		{
-
 			$currentQty = $this->products[$product_obj->id][0];
 
 			$this->products[$product_obj->id] = array(
@@ -3434,7 +3409,6 @@ class COrders extends DAO_Orders
 			{
 				if (isset($orgPricing[$id]))
 				{
-
 					if (!empty($thisItem[1]->markdown_id) && is_numeric($thisItem[1]->markdown_id) && $thisItem[1]->markdown_id > 0)
 					{
 					}
@@ -3546,7 +3520,6 @@ class COrders extends DAO_Orders
 
 				if ($menu_id && $menu_id < 221)
 				{
-
 					if ($couponCode->coupon_code == 'GNOINTRO15')
 					{
 						$couponCode->discount_var = 84.95;
@@ -3621,7 +3594,6 @@ class COrders extends DAO_Orders
 	 */
 	function refresh($DAO_user, $menu_id = false)
 	{
-
 		// must have a menu id
 
 		if (!$menu_id)
@@ -3639,7 +3611,6 @@ class COrders extends DAO_Orders
 
 		if ($DAO_user && $DAO_user->id)
 		{
-
 			//if the user_id is set, make sure it matches the customer passed in
 			if ($this->user_id && ($this->user_id !== $DAO_user->id))
 			{
@@ -3827,7 +3798,6 @@ class COrders extends DAO_Orders
 
 	function applyVolumeDiscount()
 	{
-
 		$NonPromoServings = $this->servings_total_count;
 
 		if ($this->items)
@@ -3894,7 +3864,6 @@ class COrders extends DAO_Orders
 
 		if ($this->family_savings_discount_version == 2 && $NonPromoServings >= 72)
 		{
-
 			$mightUseOldMethod = false;
 			// if there is no session then the order is being calculated prior to session selection.
 			// This only happens in recent menus. so the old method (which needed the menu id for determination)
@@ -3930,7 +3899,6 @@ class COrders extends DAO_Orders
 
 				if ($this->mark_up)
 				{
-
 					$markup_link = DAO_CFactory::create('mark_up_multi_to_volume_discount');
 					$markup_link->mark_up_multi_id = $this->mark_up->id;
 
@@ -3949,7 +3917,6 @@ class COrders extends DAO_Orders
 				// we are looking for false here - a 0 value is legal and must be enforced
 				if ($discount_amount === false)
 				{
-
 					$this->volume_discount_total = 30;
 					$this->volume_discount_id = 1;
 				}
@@ -3965,7 +3932,6 @@ class COrders extends DAO_Orders
 
 	function canApplyVolumeDisount($canAllowVolumeRewardForTransition = false)
 	{
-
 		// No volume discount if any of the below are true
 
 		if ($this->storeAndUserSupportPlatePoints)
@@ -3981,7 +3947,6 @@ class COrders extends DAO_Orders
 		// 2) there is a session discount
 		if (!empty($this->session->session_discount_id))
 		{
-
 			$session_discount = DAO_CFactory::create("session_discount");
 			$session_discount->id = $this->session->session_discount_id;
 
@@ -4010,7 +3975,6 @@ class COrders extends DAO_Orders
 
 	private function getNonDiscountableItemsTotal()
 	{
-
 		$total = 0;
 		$markup = $this->mark_up;
 
@@ -4022,7 +3986,6 @@ class COrders extends DAO_Orders
 
 				if (isset($mi_obj->parentItemId) && isset($this->items[$mi_obj->parentItemId]))
 				{
-
 					//this item has a parent which determines price and servings so decrement quantity and possibly skip this item
 					$qty -= $mi_obj->bundleItemCount;
 					if ($qty <= 0)
@@ -4138,7 +4101,6 @@ class COrders extends DAO_Orders
 
 			if ($rewardData['type'] == 'percent')
 			{
-
 				$nonDiscountableItemsTotal = $this->getNonDiscountableItemsTotal();
 
 				$base = $this->subtotal_menu_items + $this->subtotal_home_store_markup - $nonDiscountableItemsTotal - $this->volume_discount_total;
@@ -4162,7 +4124,6 @@ class COrders extends DAO_Orders
 
 	function isFreePromotionInEffectForSession($store, $session)
 	{
-
 		$sessionStartTS = strtotime($session->session_start);
 
 		// Range of sessions that will have no service fee
@@ -4183,7 +4144,6 @@ class COrders extends DAO_Orders
 
 	function applyServiceFee($editing = false)
 	{
-
 		if ($editing || $this->allowOverrideOfServiceFee)
 		{
 			return;
@@ -4201,7 +4161,6 @@ class COrders extends DAO_Orders
 
 		if ($this->session->session_type == CSession::SPECIAL_EVENT)
 		{
-
 			if ($this->isNewIntroOffer())
 			{
 				return;
@@ -4288,7 +4247,6 @@ class COrders extends DAO_Orders
 
 	function getPointCredits(&$food_portion_of_points_credit, &$fee_portion_of_points_credit, $editing = false, $rescheduling = false, $hasServiceFeeCoupon = false)
 	{
-
 		if ($this->points_discount_total == 0)
 		{
 			$food_portion_of_points_credit = 0;
@@ -4354,7 +4312,6 @@ class COrders extends DAO_Orders
 		}
 		else if ($rescheduling == 'to_mfy')
 		{
-
 			$amountRequested = $this->points_discount_total;
 
 			// Now that there is a service the the split of what is assigned to service fee vs food could change and thus
@@ -4411,7 +4368,6 @@ class COrders extends DAO_Orders
 
 	function summarizeOrderState($food_portion_of_points_credit = false, $fee_portion_of_points_credit = false)
 	{
-
 		$retVal = array();
 
 		$retVal['grand_total'] = $this->grand_total;
@@ -4434,10 +4390,8 @@ class COrders extends DAO_Orders
 		$itemArr = array();
 		if (!empty($this->items))
 		{
-
 			foreach ($this->items as $id => $data)
 			{
-
 				$qty = $data[0];
 				$obj = $data[1];
 
@@ -4539,7 +4493,6 @@ class COrders extends DAO_Orders
 
 	function orderIsCancelledSubscriptionOrder($guest, &$discountRate, &$membership_id)
 	{
-
 		$Session = $this->findSession();
 
 		if (!empty($Session))
@@ -4649,7 +4602,6 @@ class COrders extends DAO_Orders
 
 		if (!empty($this->bundle_id) && isset($this->bundle))
 		{
-
 			$this->applyBundleDiscount();
 		}
 		//$this->applyVolumeDiscount();  no more!
@@ -4688,7 +4640,6 @@ class COrders extends DAO_Orders
 
 		if (isset($this->coupon) && !empty($this->coupon->coupon_code))
 		{
-
 			$UCCode = strtoupper($this->coupon->coupon_code);
 
 			if ($this->coupon && !empty($this->coupon->limit_to_mfy_fee))
@@ -4704,7 +4655,6 @@ class COrders extends DAO_Orders
 
 		if ($this->storeAndUserSupportPlatePoints || $this->is_in_plate_points_program || $userIsOnHold)
 		{
-
 			if (!empty($this->coupon) && $this->coupon->limit_to_finishing_touch)
 			{
 				$this->applyCoupon();
@@ -5081,7 +5031,6 @@ class COrders extends DAO_Orders
 
 	public function pullOutPromoItem()
 	{
-
 		if ($this->items)
 		{
 			foreach ($this->items as $id => &$item)
@@ -5097,7 +5046,6 @@ class COrders extends DAO_Orders
 					$thePromoID = false;
 					if (!empty($this->promo_code_id))
 					{
-
 						$thePromoID = $this->promo_code_id;
 						$this->promo_code_id = null;
 					}
@@ -5217,10 +5165,8 @@ class COrders extends DAO_Orders
 
 		if (!empty($this->session))
 		{
-
 			if ($this->session->session_type == 'TODD')
 			{
-
 				$toddItems = CMenu::getTODDMenuMenbuItemIDsForSession($this->session->id);
 
 				$todd_props = DAO_CFactory::create('session_properties');
@@ -5245,7 +5191,6 @@ class COrders extends DAO_Orders
 		{
 			foreach ($this->items as $item)
 			{
-
 				list($qty, $DAO_menu_item) = $item;
 
 				if (isset($DAO_menu_item->parentItemId) && isset($this->items[$DAO_menu_item->parentItemId]))
@@ -5381,7 +5326,6 @@ class COrders extends DAO_Orders
 	 */
 	private function calculateOtherTotals()
 	{
-
 		$store = $this->getStore();
 		$supportsMOTM = !is_null($store) ? $store->supports_ltd_roundup : false;
 
@@ -5614,10 +5558,8 @@ class COrders extends DAO_Orders
 
 		if (!empty($this->session))
 		{
-
 			if ($this->session->session_type == 'TODD')
 			{
-
 				$toddItems = CMenu::getTODDMenuMenbuItemIDsForSession($this->session->id);
 				$todd_props = DAO_CFactory::create('session_properties');
 				$todd_props->session_id = $this->session->id;
@@ -5736,7 +5678,6 @@ class COrders extends DAO_Orders
 
 		if ($totalServings >= 42)
 		{
-
 			if (!$this->store && isset($this->store_id))
 			{
 				$this->store = DAO_CFactory::create('store');
@@ -5820,7 +5761,6 @@ class COrders extends DAO_Orders
 
 	static function getStorePrice($markup, $itemObj, $qty = 1, $hasLTDPriceSet = false, $storeSupportsMOTM = true)
 	{
-
 		$retVal = 0;
 
 		if (isset($itemObj->override_price))
@@ -6102,7 +6042,6 @@ class COrders extends DAO_Orders
 
 	private function getSidesTotal()
 	{
-
 		$sidesTotal = 0;
 		$markup = $this->mark_up;
 
@@ -6149,7 +6088,6 @@ class COrders extends DAO_Orders
 
 	private function getMenuAddonsTotal()
 	{
-
 		$menuAddonTotal = 0;
 		$markup = $this->mark_up;
 
@@ -6196,7 +6134,6 @@ class COrders extends DAO_Orders
 
 	private function getKidsChoiceTotal()
 	{
-
 		$kidsChoiceTotal = 0;
 		$markup = $this->mark_up;
 
@@ -6243,7 +6180,6 @@ class COrders extends DAO_Orders
 
 	private function getBundlesTotal()
 	{
-
 		$bundlesTotal = 0;
 		$markup = $this->mark_up;
 
@@ -6363,7 +6299,6 @@ class COrders extends DAO_Orders
 						// skip any excluded items
 						if (in_array($itemObj->id, $exclusionList))
 						{
-
 							if (isset($itemObj->override_price))
 							{
 								$exclusionTotal += ($itemObj->override_price * $qty);
@@ -6486,7 +6421,6 @@ class COrders extends DAO_Orders
 								}
 								else if ($itemObj->menu_item_category_id < 5)
 								{
-
 									$preferredTotal += $itemObj->override_price;
 								}
 							}
@@ -6557,7 +6491,6 @@ class COrders extends DAO_Orders
 
 	function getProductSubTotalsByTaxCategory()
 	{
-
 		if (!$this->products)
 		{
 			return array(
@@ -6641,7 +6574,6 @@ class COrders extends DAO_Orders
 
 	function insertEditedItems($sessionIsInPast = true, $removeItemsFromInventory = true)
 	{
-
 		if (!isset($this->family_savings_discount))
 		{
 			$this->family_savings_discount = 0;
@@ -6657,10 +6589,8 @@ class COrders extends DAO_Orders
 		$toddItems = array();
 		if ($this->session)
 		{
-
 			if ($this->session->session_type == 'TODD')
 			{
-
 				$toddItems = CMenu::getTODDMenuMenbuItemIDsForSession($this->session->id);
 
 				$todd_props = DAO_CFactory::create('session_properties');
@@ -6803,7 +6733,6 @@ class COrders extends DAO_Orders
 
 					try
 					{
-
 						$servingQty = $DAO_menu_item->servings_per_item;
 
 						if ($servingQty == 0)
@@ -6845,12 +6774,10 @@ class COrders extends DAO_Orders
 		{
 			foreach ($this->products as $item)
 			{
-
 				list($qty, $product) = $item;
 
 				if ($qty && $product->id)
 				{
-
 					$DAO_order_item = DAO_CFactory::create('order_item');
 					$DAO_order_item->product_id = $product->id;
 					$DAO_order_item->order_id = $this->id;
@@ -6888,23 +6815,19 @@ class COrders extends DAO_Orders
 	 */
 	function removeInitialInventory($menu_id)
 	{
-
 		//add order items
 		if ($this->items)
 		{
 			foreach ($this->items as $item)
 			{
-
 				list($qty, $menu_item) = $item;
 
 				if ($qty && $menu_item->id)
 				{
-
 					try
 					{
 						if (!empty($menu_item->recipe_id))
 						{
-
 							$servingQty = $menu_item->servings_per_item;
 
 							if ($servingQty == 0)
@@ -6950,7 +6873,6 @@ class COrders extends DAO_Orders
 
 		if ($this->session)
 		{
-
 			if ($this->session->session_type == 'TODD')
 			{
 				$toddItems = CMenu::getTODDMenuMenbuItemIDsForSession($this->session->id);
@@ -7129,12 +7051,10 @@ class COrders extends DAO_Orders
 		{
 			foreach ($this->products as $item)
 			{
-
 				list($qty, $product) = $item;
 
 				if ($qty && $product->id)
 				{
-
 					$DAO_order_item = DAO_CFactory::create('order_item');
 					$DAO_order_item->product_id = $product->id;
 					$DAO_order_item->order_id = $this->id;
@@ -7172,7 +7092,6 @@ class COrders extends DAO_Orders
 	 */
 	function insert($inserting_saved_order = false)
 	{
-
 		if (!isset($this->family_savings_discount))
 		{
 			$this->family_savings_discount = 0;
@@ -7435,7 +7354,6 @@ class COrders extends DAO_Orders
 	 */
 	function cancel_preflight()
 	{
-
 		$paymentArray = array();
 
 		if (!$this->can_cancel())
@@ -7459,7 +7377,6 @@ class COrders extends DAO_Orders
 
 		while ($payment->fetch())
 		{
-
 			$thisPayment['id'] = $payment->id;
 			$thisPayment['type'] = $payment->payment_type;
 			$thisPayment['amt'] = sprintf("%01.2f", $payment->total_amount);
@@ -7559,7 +7476,6 @@ class COrders extends DAO_Orders
 
 	function isBundleOrder()
 	{
-
 		if (!empty($this->bundle_id))
 		{
 			return true;
@@ -7835,7 +7751,6 @@ class COrders extends DAO_Orders
 
 	function isFamilySavingsOrder()
 	{
-
 		$Session = $this->findSession();
 
 		if (!empty($Session))
@@ -7883,7 +7798,6 @@ class COrders extends DAO_Orders
 
 		foreach ($this->items as $itemObj)
 		{
-
 			if (isset($itemObj[1]->parentItemId) && isset($itemObj[1]->items[$itemObj[1]->parentItemId]))
 			{
 				//this item has a parent which determines price and servings so decrement quantity and possibly skip this item
@@ -7951,7 +7865,6 @@ class COrders extends DAO_Orders
 
 		foreach ($this->items as $itemObj)
 		{
-
 			if (isset($itemObj[1]->parentItemId) && isset($itemObj[1]->items[$itemObj[1]->parentItemId]))
 			{
 				//this item has a parent which determines price and servings so decrement quantity and possibly skip this item
@@ -8034,7 +7947,6 @@ class COrders extends DAO_Orders
 
 		try
 		{
-
 			$booking->status = CBooking::CANCELLED;
 
 			if ($reason)
@@ -8151,10 +8063,8 @@ class COrders extends DAO_Orders
 
 			while ($order_item->fetch() && $menu_id)
 			{
-
 				try
 				{
-
 					if (!empty($order_item->recipe_id))
 					{
 						//subtract from inventory - that is, increment number sold
@@ -8218,7 +8128,6 @@ class COrders extends DAO_Orders
 			$rewardMsg = "";
 			if ($this->isMostRecentOrder())
 			{
-
 				$UserOld = clone($User);
 				$currentLevel = $User->dream_reward_level;
 				$previousLevel = $currentLevel;
@@ -8233,7 +8142,6 @@ class COrders extends DAO_Orders
 			}
 			else
 			{
-
 				$rewardMsg = "<span style='color:red'><b>Dream Rewards <u>NOT</u> adjusted: </b></span>This order was placed within the Dream Rewards program however " . "the user has placed a more recent order. Please review the user&rsquo;s order history and adjust their reward level manually.";
 
 				CDreamRewardsHistory::recordDreamRewardsEvent($User->id, $this->store_id, $this->id, 3, $User->dream_reward_status, $User->dream_reward_level, $User->dream_reward_status, $User->dream_reward_level, 'cancelled order - level not decremented -  : ' . CAppUtil::truncate($_SERVER['HTTP_REFERER'], 72));
@@ -8301,14 +8209,12 @@ class COrders extends DAO_Orders
 	 */
 	function rescheduleSavedOrder($target_session_id, $Booking, $Order = false)
 	{
-
 		$this->query('START TRANSACTION;');
 
 		try
 		{
 			if ($this->session)
 			{
-
 				$CapacityExists = false;
 				$Bookings = DAO_CFactory::create('booking');
 
@@ -8400,7 +8306,6 @@ class COrders extends DAO_Orders
 	 */
 	function reschedule($orginal_schedule_id, $fadmin_rules = true, $suppress_email = false)
 	{
-
 		$Booking = DAO_CFactory::create('booking');
 		$Store = $this->getStore();
 
@@ -8412,7 +8317,6 @@ class COrders extends DAO_Orders
 			//add booking
 			if ($this->session && ($fadmin_rules || (!$fadmin_rules && $this->session->isOpenForRescheduling($Store))))
 			{
-
 				$Booking->session_id = $this->session->id;
 				$Booking->order_id = $this->id;
 				$Booking->user_id = $this->user_id;
@@ -8441,13 +8345,11 @@ class COrders extends DAO_Orders
 
 				if ($this->order_type != self::DIRECT)
 				{
-
 					$CapacityExists = false;
 					$BookingLocks = DAO_CFactory::create('booking');
 
 					if ($this->session->menu_id > SLOT_STEALING_CUTOFF_MENU)
 					{
-
 						$BookingLocks->query('SELECT status, booking_type FROM booking WHERE session_id=' . $this->session->id . " AND status != 'CANCELLED' AND status != 'RESCHEDULED' AND status != 'SAVED' AND is_deleted = 0 FOR UPDATE ");
 
 						//count active bookings
@@ -8530,7 +8432,6 @@ class COrders extends DAO_Orders
 				// CES 3/17/2006 Allow Fadmin to overbook
 				if ($fadmin_rules || $CapacityExists)
 				{
-
 					//save booking
 					$Booking->order_id = $this->id;
 					$Booking->status = CBooking::ACTIVE;
@@ -8613,7 +8514,6 @@ class COrders extends DAO_Orders
 
 	function removeHardSkipIfNeeded()
 	{
-
 		//Note: this will need to be called when editing from less than 36 servings to >= 36
 		// IF we do not enforce the first order be >= 36 servings
 		if ($this->servings_total_count >= 36 && !empty($this->membership_id))
@@ -8634,7 +8534,6 @@ class COrders extends DAO_Orders
 			$menu_id = $this->findSession()->menu_id;
 			if (in_array($menu_id, $jsonArr))
 			{
-
 				$newJsonArr = array();
 				foreach ($jsonArr as $thisMenuID)
 				{
@@ -8867,7 +8766,6 @@ class COrders extends DAO_Orders
 
 					if ($DAO_booking->booking_type == 'INTRO')
 					{
-
 						$actualAvailableStdSlots = $standard_capacity - ($IntroBookCnt + $StdBookCnt);
 						$actualAvailableIntroSlots = $intro_capacity - $IntroBookCnt;
 
@@ -9009,7 +8907,6 @@ class COrders extends DAO_Orders
 						$successfulGiftCardCount = 0;
 						foreach ($payments as $pay)
 						{
-
 							$paymentIsClearedForInsert = true;
 
 							if ($pay->payment_type == CPayment::GIFT_CARD)
@@ -9396,7 +9293,6 @@ class COrders extends DAO_Orders
 				}
 				else
 				{
-
 					$stdCapRemaining = $standard_capacity - ($StdBookCnt + $IntroBookCnt);
 
 					if ($stdCapRemaining > 0)
@@ -9436,7 +9332,6 @@ class COrders extends DAO_Orders
 
 				if ($this->isBackOfficeOrder() || $CapacityExists)
 				{
-
 					//save booking
 					$DAO_booking->order_id = $this->id;
 					$DAO_booking->status = CBooking::ACTIVE;
@@ -9532,11 +9427,9 @@ class COrders extends DAO_Orders
 
 					try
 					{
-
 						$successfulGiftCardCount = 0;
 						foreach ($payments as $pay)
 						{
-
 							$paymentIsClearedForInsert = true;
 
 							if ($pay->payment_type == CPayment::GIFT_CARD)
@@ -9756,10 +9649,8 @@ class COrders extends DAO_Orders
 	 */
 	function processStoreCreditPayments($sc_payment_array)
 	{
-
 		foreach ($sc_payment_array as $pay)
 		{
-
 			//insert payment record
 			$pay->order_id = $this->id;
 			$rslt = $pay->insert();
@@ -9849,7 +9740,6 @@ class COrders extends DAO_Orders
 	 */
 	function processNewOrderDirectOrder($PaymentArray, $storeCreditArray = false, $giftCardArray = false, $orderIsSaved = false)
 	{
-
 		CLog::RecordDebugTrace('COrders::processNewOrderDirectOrder called for user: ' . $this->user_id, "TR_TRACING");
 
 		$this->recalculate();
@@ -9951,7 +9841,6 @@ class COrders extends DAO_Orders
 				//make gift card payment items
 				foreach ($giftCardArray as $thisGiftCard)
 				{
-
 					if ($thisGiftCard['gc_amount'] <= 0)
 					{
 						continue;
@@ -10026,7 +9915,6 @@ class COrders extends DAO_Orders
 
 		if ($storeCreditArray)
 		{
-
 			foreach ($storeCreditArray as $storeCredit)
 			{
 				$DAO_store_credit = DAO_CFactory::create('store_credit', true);
@@ -10196,7 +10084,6 @@ class COrders extends DAO_Orders
 	 */
 	function addPayment($Payment)
 	{
-
 		CLog::Assert(false, "COrders::addPayment should not be used");
 
 		$DAO_user = DAO_CFactory::create('user', true);
@@ -10298,7 +10185,6 @@ class COrders extends DAO_Orders
 	 */
 	function serializeMe()
 	{
-
 		$parentBundleItems = array();
 
 		$rtn = $this->toArray();
@@ -10308,7 +10194,6 @@ class COrders extends DAO_Orders
 			$rtn['mitems'] = array();
 			foreach ($this->items as $id => $itemInfo)
 			{
-
 				if ($this->family_savings_discount_version == 2 && isset($itemInfo[1]->isPromo) && $itemInfo[1]->isPromo)
 				{
 					$rtn['mitems']['p_' . $id] = $itemInfo[0];
@@ -10633,7 +10518,6 @@ class COrders extends DAO_Orders
 		{
 			foreach ($this->bundle->items as $id => $itemInfo)
 			{
-
 				if (!empty($itemInfo['chosen']))
 				{
 					$itemRetreiver = DAO_CFactory::create('menu_item');
@@ -10736,7 +10620,6 @@ class COrders extends DAO_Orders
 		// postProcess for bundles
 		foreach ($bundleMap as $bid => $bitems)
 		{
-
 			if (!isset($retVal[$bid]['subItems']))
 			{
 				$retVal[$bid]['subItems'] = array();
@@ -10744,7 +10627,6 @@ class COrders extends DAO_Orders
 
 			foreach ($bitems as $mid => $qty)
 			{
-
 				$retVal[$bid]['subItems'][$mid] = $retVal[$mid];
 
 				if ($retVal[$mid]['qty'] > $qty)
@@ -10771,7 +10653,6 @@ class COrders extends DAO_Orders
 		{
 			foreach ($this->items as $id => $itemInfo)
 			{
-
 				if (isset($itemInfo[1]->isPromo) && $itemInfo[1]->isPromo)
 				{
 					$tempMenuItemsArr['p_' . $id] = $itemInfo[0];
@@ -11434,7 +11315,6 @@ class COrders extends DAO_Orders
 	 */
 	public function getPaymentsPending($orderIsCancelled = false)
 	{
-
 		if (!$this->id)
 		{
 			return null;
@@ -11494,7 +11374,6 @@ class COrders extends DAO_Orders
 
 	private function findOrderItems()
 	{
-
 		$order_item = DAO_CFactory::create('order_item');
 		$order_item->order_id = $this->id;
 		$item = DAO_CFactory::create('menu_item');
@@ -11507,7 +11386,6 @@ class COrders extends DAO_Orders
 
 	public function findSession($findSaved = false, $findCancelled = false)
 	{
-
 		if (!empty($this->session))
 		{
 			return $this->session;
@@ -11563,7 +11441,6 @@ class COrders extends DAO_Orders
 
 	public function findMarkup()
 	{
-
 		if ($this->mark_up)
 		{
 			return $this->mark_up;
@@ -11687,17 +11564,20 @@ class COrders extends DAO_Orders
 			{
 				foreach ($subArray as $k => $v)
 				{
-					if (isset($v['is_kids_choice']) && $v['is_kids_choice'] == 1)
+					if (is_array($v))
 					{
-						$retVal += $v['price'];
-					}
-					if (isset($v['is_menu_addon']) && $v['is_menu_addon'] == 1)
-					{
-						$retVal += $v['price'];
-					}
-					if (isset($v['is_chef_touched']) && $v['is_chef_touched'] == 1)
-					{
-						$retVal += $v['price'];
+						if (isset($v['is_kids_choice']) && $v['is_kids_choice'] == 1)
+						{
+							$retVal += $v['price'];
+						}
+						if (isset($v['is_menu_addon']) && $v['is_menu_addon'] == 1)
+						{
+							$retVal += $v['price'];
+						}
+						if (isset($v['is_chef_touched']) && $v['is_chef_touched'] == 1)
+						{
+							$retVal += $v['price'];
+						}
 					}
 				}
 			}
@@ -12241,7 +12121,6 @@ class COrders extends DAO_Orders
 					{
 						if ($Bundle->bundle_type == 'TV_OFFER')
 						{
-
 							if (is_numeric($id) && $item['qty'] && isset($item['bundle_id']) && $item['bundle_id'] > 0)
 							{
 								$item['qty'] = (int)$item['qty'] - 1;
@@ -12260,7 +12139,6 @@ class COrders extends DAO_Orders
 						}
 						else
 						{
-
 							if (is_numeric($id) && $item['qty'] && isset($item['bundle_id']) && $item['bundle_id'] > 0)
 							{
 								$BundleItems[$id] = $menuInfo[$categoryName][$id];
@@ -12425,7 +12303,6 @@ class COrders extends DAO_Orders
 
 			if ($PaymentArr['payment_type'] == 'CC')
 			{
-
 				if (isset($Payment->payment_transaction_number) && $Payment->payment_transaction_number)
 				{
 					$PaymentTopArr['canAutoAdjust'] = true;
@@ -12787,7 +12664,6 @@ class COrders extends DAO_Orders
 			}
 			else
 			{
-
 				// everyone else can see this info.. store owner, employee and fadmin.. but not a customer
 				if (($user_type != CUser::CUSTOMER) && $Payment->payment_transaction_number)
 				{
@@ -12845,7 +12721,6 @@ class COrders extends DAO_Orders
 
 	public static function buildStoreInfoArray($storeObj)
 	{
-
 		$storeInfo = $storeObj->toArray();
 		$storeInfo['image_name'] = $storeObj->getStoreImageName();
 		$storeInfo['map_link'] = $storeObj->generateMapLink();
@@ -12859,7 +12734,6 @@ class COrders extends DAO_Orders
 	 */
 	public static function buildStore($id = false)
 	{
-
 		$daoStore = null;
 		$tpl = CApp::instance()->template();
 		if ($id || isset($_REQUEST['store']))
@@ -13065,7 +12939,6 @@ class COrders extends DAO_Orders
 
 				if ($DAO_menu_item->DAO_order_item->item_count)
 				{
-
 					$tempArr = array(
 						'qty' => $DAO_menu_item->DAO_order_item->item_count,
 						'display_title' => $DAO_menu_item->menu_item_name,
@@ -13154,7 +13027,6 @@ class COrders extends DAO_Orders
 
 		if (!empty($parentItems))
 		{
-
 			foreach ($menuInfo as $categoryName => $subArray)
 			{
 				if (is_array($subArray))
@@ -13189,7 +13061,6 @@ class COrders extends DAO_Orders
 			// Some migrated data has 0 for an item count, look for that condition and try to display something meaningful with a divide by 0 error
 			if (isset($product_order_item->item_count) && $product_order_item->item_count != 0)
 			{
-
 				if ($product_order_item->product_id == COrders::GIFT_CARD_PRODUCT_ID)
 				{
 					continue;
@@ -13328,7 +13199,6 @@ class COrders extends DAO_Orders
 
 		while ($daoMenuItem->fetch())
 		{
-
 			if ($daoMenuItem->pricing_type == CMenuItem::INTRO && $daoMenuItem->category != 'Fast Lane' && $daoMenuItem->category != 'Sides' && $daoMenuItem->servings_per_item == $servings)
 			{
 				$i = $daoMenuItem->id;
@@ -13397,10 +13267,8 @@ class COrders extends DAO_Orders
 			{
 				foreach ($subarray as $id => $data)
 				{
-
 					if (array_key_exists($data['cross_program_grouping_id'], $flattenedArray))
 					{
-
 						unset($auxMenuInfo[$flattenedArray[$data['cross_program_grouping_id']][1]][$flattenedArray[$data['cross_program_grouping_id']][0]]);
 					}
 				}
@@ -13719,7 +13587,6 @@ class COrders extends DAO_Orders
 		$menuItemInfo['markup_discount_scalar'] = 1.0;
 		if (!$isNewPricePlan)
 		{
-
 			if (isset($markup) && $markup->markup_type == CMarkUp::PERCENTAGE)
 			{
 				$menuItemInfo['markup_discount_scalar'] = ($markup->markup_value / 100) + 1.0;
@@ -13769,7 +13636,6 @@ class COrders extends DAO_Orders
 	 */
 	static function buildCompactCustomerCalendarArray($storeObj, $rangeStart, $rangeEnd, $menu_id, $timestamp, $selectedSessionId = false, $programObj = false, $doCheckForOpenSessions = false, $standardSessionsOnly = false, $introRequest = false)
 	{
-
 		$sessionInfo = array();
 		$menuInfo = array();
 
@@ -13934,7 +13800,6 @@ class COrders extends DAO_Orders
 
 	static private function getPreviousMonthSuffix()
 	{
-
 		switch (COrders::$currentMonthSuffix)
 		{
 			case "_jan":
@@ -13968,7 +13833,6 @@ class COrders extends DAO_Orders
 
 	static private function getNextMonthSuffix()
 	{
-
 		switch (COrders::$currentMonthSuffix)
 		{
 			case "_jan":
@@ -14047,7 +13911,6 @@ class COrders extends DAO_Orders
 	 */
 	static function buildDirectOrderCalendarArray($storeObj, $timestamp = false, $selectedSessionId = false, $cutOffTS = false)
 	{
-
 		$sessionInfo = array();
 		$menuInfo = array();
 
@@ -14084,7 +13947,6 @@ class COrders extends DAO_Orders
 		//create session array[ id ] = (menu, session_start, openSlots)
 		while ($daoSession->fetch())
 		{
-
 			$menu_id = $daoSession->menu_id;
 			$session_start = $daoSession->session_start;
 
@@ -14256,10 +14118,8 @@ class COrders extends DAO_Orders
 
 		if ($Order->getItems())
 		{
-
 			foreach ($Order->getItems() as $itemStuff)
 			{
-
 				$entreesfound = true;
 
 				$menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
@@ -14278,7 +14138,6 @@ class COrders extends DAO_Orders
 		{
 			foreach ($Order->getProducts() as $itemStuff)
 			{
-
 				$entreesfound = true;
 				break;
 			}
@@ -14298,7 +14157,6 @@ class COrders extends DAO_Orders
 
 	static function buildPaymentForm($Form, $User = null, $Session = null, $Store = null, $DR_Ordering = false)
 	{
-
 		require_once('DAO/BusinessObject/CPayment.php');
 
 		//set defaults
@@ -14528,7 +14386,6 @@ class COrders extends DAO_Orders
 		//check if session is more than five days away
 		if ($Session)
 		{
-
 			$sessionTS = strtotime($Session->session_start) - 518400; // allow delayed payment 6 days prior
 
 			if ((CApp::$isStoreView || $DR_Ordering) && (strtotime("now") < $sessionTS))
@@ -14553,7 +14410,6 @@ class COrders extends DAO_Orders
 
 function sort_by_price($a, $b)
 {
-
 	if (COrders::isPriceEqualTo($a[1]->store_price, $b[1]->store_price))
 	{
 		return 0;
@@ -14580,7 +14436,6 @@ function items_sorter($a, $b)
 
 	if ($category_order[$a[1]->menu_item_category_id] == $category_order[$b[1]->menu_item_category_id])
 	{
-
 		if ($a[1]->original_order == $b[1]->original_order)
 		{
 			return 0;

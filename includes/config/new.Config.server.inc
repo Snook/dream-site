@@ -83,9 +83,9 @@ switch (SERVER_ENV)
  * */
 // SET THE DB VARS
 const DATA_SOURCE = 'LIVE';
-//const DATA_SOURCE = 'CHORS');
-//const DATA_SOURCE = 'SANDBOX');
-//const DATA_SOURCE = 'BRANCH');
+//const DATA_SOURCE = 'CHORS';
+//const DATA_SOURCE = 'SANDBOX';
+//const DATA_SOURCE = 'BRANCH';
 //const DATA_SOURCE = 'LOCAL';
 
 switch (DATA_SOURCE)
@@ -127,6 +127,7 @@ switch (DATA_SOURCE)
 		define('DB_CART_DATABASE', 'dreamcart');
 		define('DB_CART_SERVER_USERNAME', '');
 		define('DB_CART_SERVER_PASSWORD', '');
+		break;
 	case 'BRANCH':
 		// Main site database
 		define('DB_SERVER', 'localhost');

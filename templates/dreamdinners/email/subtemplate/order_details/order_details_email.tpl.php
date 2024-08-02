@@ -222,7 +222,7 @@
 
 						//$showedCategory = false;
 						if (is_array($subArray))
-							foreach ( $subArray as $id => $item ) { if ( is_numeric($id) && $item['qty'] ) {
+							foreach ( $subArray as $id => $item ) { if ( is_numeric($id) && is_array($item) && $item['qty'] ) {
 
 								/*
 								if (!$showedCategory)
@@ -270,7 +270,8 @@
 									<td class="customersData" style="padding: 5px;" align="right" valign="top">$<?php echo $this->moneyFormat( $item['qty'] * $itemPrice ) ?></td>
 								</tr>
 								<?php
-							} }
+							}
+							}
 					}
 					if( isset( $this->menuInfo['promo_item'] ) ) {
 						$numPromoItemServings = isset($this->menuInfo['promo_item']['servings_per_item']) ? $this->menuInfo['promo_item']['servings_per_item'] : (CMenuItem::translatePricingTypeToNumeric($this->menuInfo['promo_item']['pricing_type']));
