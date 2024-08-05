@@ -249,7 +249,14 @@ class page_admin_session_tools_printing extends CPageAdminOnly
 					$bookings = array();
 					if ($sessionArray['session_type'] === CSession::DELIVERED)
 					{
-						$bookings = array_merge($sessionArray['bookings'], $sessionArray['shipping_bookings']);
+						if (!empty($sessionArray['shipping_bookings']))
+						{
+							$bookings = array_merge($sessionArray['bookings'], $sessionArray['shipping_bookings']);
+						}
+						else
+						{
+							$bookings = $sessionArray['bookings'];
+						}
 					}
 					else
 					{

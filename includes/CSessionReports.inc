@@ -488,34 +488,17 @@ class CSessionReports
 
 	static function convertTimeStamp($sqltime)
 	{
-		$sep = explode(" ", $sqltime);
-		$timesep = explode(":", $sep[1]); // split time into hr, min, sec
-		$newTime = mktime($timesep[0], $timesep[1], $timesep[2]);
-		//$formatTime = date("h:i:s A", $newTime);
-		$formatTime = date("g:i a", $newTime);
-
-		return $formatTime;
+		return CTemplate::formatDateTime('g:i a', $sqltime);
 	}
 
-	// huh ? why two TODO?
 	static function reformatTime($sqltime)
 	{
-		$sep = explode(" ", $sqltime);
-		$timesep = explode(":", $sep[1]); // split time into hr, min, sec
-		$newTime = mktime($timesep[0], $timesep[1], $timesep[2]);
-		$formatTime = date("h:i:s A", $newTime);
-		$finalDate = $sep[0] . ' ' . $formatTime;
-
-		return $finalDate;
+		return CTemplate::formatDateTime('Y-m-d h:i:s A', $sqltime);
 	}
 
 	static function newDayFormat($sqltime)
 	{
-		$sep = explode(" ", $sqltime);
-		$daysep = explode("-", $sep[0]);
-		$newTime = mktime(0, 0, 0, $daysep[1], $daysep[2], $daysep[0]);
-
-		return date("F j, Y", $newTime);
+		return CTemplate::formatDateTime('F j, Y', $sqltime);
 	}
 
 	static function newDayTimeFormat($sqltime)
