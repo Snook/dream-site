@@ -381,7 +381,17 @@ RewriteRule ^location\/([\w-]+)\/?$ /?page=store&id=$1 [NC,L,QSA]
 ## This handles the short/pretty urls for BackOffice
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^backoffice\/([\w-]+)/?$ /?page=admin_$1 [NC,L,QSA,UnsafeAllow3F]
+<IfModule mod_version.c>
+    <IfVersion > 2.4.58>
+        RewriteRule ^backoffice\/([\w-]+)/?$ /?page=admin_$1 [NC,L,QSA,UnsafeAllow3F]
+    </IfVersion>
+    <IfVersion <= 2.4.58>
+        RewriteRule ^backoffice\/([\w-]+)/?$ /?page=admin_$1 [NC,L,QSA]
+    </IfVersion>
+</IfModule>
+<IfModule !mod_version.c>
+    RewriteRule ^backoffice\/([\w-]+)/?$ /?page=admin_$1 [NC,L,QSA]
+</IfModule>
 
 ## Handles /backoffice
 RewriteRule ^backoffice\/?$ /?page=admin_main [NC,L,QSA]
