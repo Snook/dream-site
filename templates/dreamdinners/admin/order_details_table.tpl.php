@@ -284,7 +284,7 @@
 					</tr>
 				</table>
 			</div>
-		<?php } else if ($orderIsPP) { ?>
+		<?php } else if ($orderIsPP && is_array($this->plate_points["current_level"])) { ?>
 			<div class="col">
 				<p class="p-1 mb-1 font-weight-bold border-top border-bottom font-size-medium-small">PLATEPOINTS <?php echo $this->plate_points['current_level']['title']; ?></p>
 				<table>
