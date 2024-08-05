@@ -384,7 +384,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^backoffice\/([\w-]+)/?$ /?page=admin_$1 [NC,L,QSA]
 
 ## Handles /backoffice
-RewriteRule ^backoffice\/?$ /?page=admin_main [NC,L,QSA]
+RewriteRule ^backoffice\/?$ /?page=admin_main [NC,L,QSA,UnsafeAllow3F]
 
 ## Handles /processor
 RewriteRule ^processor\/backoffice\/([\w-]+)\/?$ /ddproc.php?processor=admin_$1 [NC,L,QSA]
