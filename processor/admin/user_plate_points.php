@@ -71,7 +71,6 @@ class processor_admin_user_plate_points extends CPageProcessor
 		// always require a user_id
 		if (empty($_POST['user_id']) || !is_numeric($_POST['user_id']))
 		{
-
 			echo json_encode(array(
 				'processor_success' => false,
 				'processor_message' => 'The user_id is invalid. '
@@ -81,12 +80,11 @@ class processor_admin_user_plate_points extends CPageProcessor
 		}
 
 		$user_id = $_POST['user_id'];
-		$current_page = $_POST['page'];
+		$current_page = (int)$_POST['page'] ?: 0;
 
 		// always require a user_id
 		if (empty($_POST['op']))
 		{
-
 			echo json_encode(array(
 				'processor_success' => false,
 				'processor_message' => 'The operation parameter is invalid. '
@@ -99,19 +97,19 @@ class processor_admin_user_plate_points extends CPageProcessor
 		{
 			case 'next':
 				$next_page = $_POST['next'];
-				$this->next($user_id,$current_page);
+				$this->next($user_id, $current_page);
 				break;
 			case 'prev':
 				$prev_page = $_POST['prev'];
-				$this->prev($user_id,$current_page);
+				$this->prev($user_id, $current_page);
 				break;
 			case 'dd-next':
 				$next_page = $_POST['next'];
-				$this->dinner_dollar_next($user_id,$current_page);
+				$this->dinner_dollar_next($user_id, $current_page);
 				break;
 			case 'dd-prev':
 				$prev_page = $_POST['prev'];
-				$this->dinner_dollar_prev($user_id,$current_page);
+				$this->dinner_dollar_prev($user_id, $current_page);
 				break;
 			default:
 				echo json_encode(array(
@@ -122,14 +120,13 @@ class processor_admin_user_plate_points extends CPageProcessor
 		}
 	}
 
-
-
-	function next($user_id,$current_page){
+	function next($user_id, $current_page)
+	{
 		$current_page++;
 
 		$nextPageStart = $current_page * $this->PAGE_SIZE;
-		$limit = $nextPageStart . ',' .$this->PAGE_SIZE;
-		$data = CPointsUserHistory::getHistory($user_id,$limit);
+		$limit = $nextPageStart . ',' . $this->PAGE_SIZE;
+		$data = CPointsUserHistory::getHistory($user_id, $limit);
 		$tpl = new CTemplate();
 
 		$tpl->assign('rows', $data);
@@ -142,7 +139,8 @@ class processor_admin_user_plate_points extends CPageProcessor
 		$allowNext = ($data && count($data) > 0);
 		$tpl->assign('pagination_next', $allowNext);
 
-		if(!$data){
+		if (!$data)
+		{
 			$tpl->assign('no_more_rows', true);
 		}
 
@@ -157,11 +155,13 @@ class processor_admin_user_plate_points extends CPageProcessor
 		exit;
 	}
 
-	function prev($user_id,$current_page){
+	function prev($user_id, $current_page)
+	{
 		$current_page--;
+
 		$nextPageStart = $current_page * $this->PAGE_SIZE;
-		$limit = $nextPageStart . ',' .$this->PAGE_SIZE;
-		$data = CPointsUserHistory::getHistory($user_id,$limit);
+		$limit = $nextPageStart . ',' . $this->PAGE_SIZE;
+		$data = CPointsUserHistory::getHistory($user_id, $limit);
 
 		$tpl = new CTemplate();
 
@@ -186,14 +186,13 @@ class processor_admin_user_plate_points extends CPageProcessor
 		exit;
 	}
 
-
-
-	function dinner_dollar_next($user_id,$current_page){
+	function dinner_dollar_next($user_id, $current_page)
+	{
 		$current_page++;
 
 		$nextPageStart = $current_page * $this->PAGE_SIZE;
-		$limit = $nextPageStart . ',' .$this->PAGE_SIZE;
-		$data = CStoreCredit::fetchDinnerDollarHistoryByUser($user_id, 'rowcount',$limit);
+		$limit = $nextPageStart . ',' . $this->PAGE_SIZE;
+		$data = CStoreCredit::fetchDinnerDollarHistoryByUser($user_id, 'rowcount', $limit);
 
 		$tpl = new CTemplate();
 
@@ -207,7 +206,8 @@ class processor_admin_user_plate_points extends CPageProcessor
 		$allowNext = ($data && count($data) > 0);
 		$tpl->assign('dinner_dollar_pagination_next', $allowNext);
 
-		if(!$data){
+		if (!$data)
+		{
 			$tpl->assign('dinner_dollar_no_more_rows', true);
 		}
 
@@ -222,11 +222,13 @@ class processor_admin_user_plate_points extends CPageProcessor
 		exit;
 	}
 
-	function dinner_dollar_prev($user_id,$current_page){
+	function dinner_dollar_prev($user_id, $current_page)
+	{
 		$current_page--;
+
 		$nextPageStart = $current_page * $this->PAGE_SIZE;
-		$limit = $nextPageStart . ',' .$this->PAGE_SIZE;
-		$data = CStoreCredit::fetchDinnerDollarHistoryByUser($user_id, 'rowcount',$limit);
+		$limit = $nextPageStart . ',' . $this->PAGE_SIZE;
+		$data = CStoreCredit::fetchDinnerDollarHistoryByUser($user_id, 'rowcount', $limit);
 
 		$tpl = new CTemplate();
 
