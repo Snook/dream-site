@@ -302,6 +302,10 @@ class CPayment extends DAO_Payment
 	}
 
 	//Stale is a reference that is older than a year
+
+	/**
+	 * @throws Exception
+	 */
 	public static function getPaymentsStoredForReference($user_id, $store_id, $exclude_stale = false)
 	{
 		$retVal = array();
@@ -318,8 +322,8 @@ class CPayment extends DAO_Payment
 					FROM user_card_reference AS ucf
 					JOIN store AS st on st.id = ucf.store_id " . $storeClause . "
     				JOIN merchant_accounts AS ma ON st.id = ma.store_id AND ucf.merchant_account_id = ma.id AND ma.is_deleted = 0
-					JOIN payment AS p on p.payment_transaction_number = ucf.card_transaction_number and p.user_id = ucf.user_id
-					WHERE ucf.user_id = $user_id and ucf.is_deleted = 0";
+					JOIN payment AS p on p.payment_transaction_number = ucf.card_transaction_number and p.user_id = ucf.user_id AND p.store_id = st.id AND p.is_deleted = 0
+					WHERE ucf.user_id = $user_id " . $storeClause . " and ucf.is_deleted = 0";
 
 		if ($exclude_stale)
 		{
