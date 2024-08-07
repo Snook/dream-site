@@ -256,7 +256,7 @@ if( !function_exists('translateOrderQuantityType')){
 						<td class="title">Previous Session</td>
 						<td class="value small_value"><?php if (!empty($booking['last_session_attended'])) { ?><?php echo CTemplate::dateTimeFormat($booking['last_session_attended'], MONTH_DAY_YEAR); ?><?php } else { ?>None<?php } ?></td>
 						<td class="title">Orders Completed</td>
-						<td class="value small_value"><a href="/backoffice/order-history?id=<?php echo $booking['user_id']; ?>&back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><?php echo (!empty($booking['bookings_made'])) ? $booking['bookings_made'] : 0; ?></a></td>
+						<td class="value small_value"><a href="/backoffice/order-history?id=<?php echo $booking['user_id']; ?>"><?php echo (!empty($booking['bookings_made'])) ? $booking['bookings_made'] : 0; ?></a></td>
 					</tr>
 					<?php
 					$currentMealPrepPlusMember = false;
