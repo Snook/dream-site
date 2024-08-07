@@ -7,7 +7,7 @@ require_once 'includes/DAO/BusinessObject/CBooking.php';
 class page_admin_order_history extends CPageAdminOnly
 {
 
-	public static $PAGE_SIZE = 10;
+	public static int $PAGE_SIZE = 10;
 
 	function runSiteAdmin()
 	{
@@ -54,6 +54,9 @@ class page_admin_order_history extends CPageAdminOnly
 		$this->runSiteAdmin();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runFranchiseOwner()
 	{
 		ini_set('memory_limit', '72M');
@@ -134,6 +137,9 @@ class page_admin_order_history extends CPageAdminOnly
 		}
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	public static function fetchOrderHistory($user_id, $limit = 15)
 	{
 		$Order = DAO_CFactory::create('orders');
