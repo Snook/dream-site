@@ -78,7 +78,7 @@ class processor_admin_order_history extends CPageProcessor
 		}
 
 		$user_id = $_POST['user_id'];
-		$current_page = (int)$_POST['page'] ? : 0;
+		$current_page = (int)$_POST['page'] ?: 0;
 
 		// always require a user_id
 		if (empty($_POST['op']))
