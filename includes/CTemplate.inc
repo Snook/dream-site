@@ -231,8 +231,6 @@ class CTemplate extends Savant2
 		$existingMsg[] = $toastArray;
 
 		CBrowserSession::setValue('toastMsg', json_encode($existingMsg), false, true, false);
-
-		return $this;
 	}
 
 	function setStatusMsg($msg)
@@ -250,8 +248,6 @@ class CTemplate extends Savant2
 		{
 			CBrowserSession::setValue('statusMsg', addslashes($msg));
 		}
-
-		return $this;
 	}
 
 	function setErrorMsg($msg)
@@ -269,8 +265,6 @@ class CTemplate extends Savant2
 		{
 			CBrowserSession::setValue('errorMsg', addslashes($msg));
 		}
-
-		return $this;
 	}
 
 	function setDebugMsg($msg)
@@ -298,8 +292,6 @@ class CTemplate extends Savant2
 				CBrowserSession::setValue('debugMsg', false);
 			}
 		}
-
-		return $this;
 	}
 
 	static function getUserDetailsLink($user_id, $addBackLink = true)
@@ -602,36 +594,6 @@ class CTemplate extends Savant2
 		$dollarAmount = sprintf("%01.2f", $dollarAmount);
 
 		return $dollarAmount;
-	}
-
-	function bounceBackUrl(): string
-	{
-		if (!empty($_SERVER['HTTP_REFERER']))
-		{
-			$parsedUrl = parse_url($_SERVER['HTTP_REFERER']);
-
-			return $parsedUrl["path"] . ($parsedUrl["query"] ? '?' . $parsedUrl["query"] : null);
-		}
-		else if ($this->is_admin)
-		{
-			return '/backoffice';
-		}
-		else
-		{
-			return '/';
-		}
-	}
-
-	function bounce($path = false): void
-	{
-		if ($path)
-		{
-			CApp::bounce($path);
-		}
-		else
-		{
-			CApp::bounce($this->bounceBackUrl());
-		}
 	}
 
 	/**
