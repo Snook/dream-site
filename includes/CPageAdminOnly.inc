@@ -56,14 +56,14 @@ abstract class CPageAdminOnly
 			//make sure current store is set as one of the fadmin's stores
 			if ($this->CurrentUser->isFranchiseAccess())
 			{
-				$StoreObj = DAO_CFactory::create('store');
-				$StoreObj->query('SELECT store.* FROM store,user_to_store WHERE user_to_store.store_id = store.id AND user_to_store.user_id=' . $this->CurrentUser->id . ' and user_to_store.is_deleted = 0');
+				$DAO_store = DAO_CFactory::create('store');
+				$DAO_store->query('SELECT store.* FROM store,user_to_store WHERE user_to_store.store_id = store.id AND user_to_store.user_id=' . $this->CurrentUser->id . ' and user_to_store.is_deleted = 0');
 
 				$found = false;
 
-				while ($StoreObj->fetch())
+				while ($DAO_store->fetch())
 				{
-					if (CBrowserSession::getCurrentFadminStore() == $StoreObj->id)
+					if (CBrowserSession::getCurrentFadminStore() == $DAO_store->id)
 					{
 						$found = true;
 					}
@@ -71,12 +71,12 @@ abstract class CPageAdminOnly
 
 				if (!$found)
 				{
-					CApp::bounce('/backoffice/location_switch?back=/backoffice/main');
+					CApp::bounce('/backoffice/location-switch');
 				}
 
 				if (empty($this->CurrentUser->fadmin_nda_agree))
 				{
-					CApp::bounce('/backoffice/access-agreement?back=' . urlencode('?' . $_SERVER['QUERY_STRING']));
+					CApp::bounce('/backoffice/access-agreement');
 				}
 			}
 		}
@@ -84,9 +84,7 @@ abstract class CPageAdminOnly
 
 	function runPublic()
 	{
-		//bump back to the main menu
-		CApp::bounce("/backoffice/login");
-		exit;
+		CApp::forceLogin();
 	}
 
 	function runCustomer()

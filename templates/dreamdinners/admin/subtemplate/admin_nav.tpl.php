@@ -77,7 +77,7 @@
 				<?php } ?>
 			</td>
 			<td style="vertical-align:top;width:120px;">
-				<a href="/signout?back=/backoffice/login" class="fadmin_nav fadmin_nav_right">Log Out</a>
+				<a href="/signout" class="fadmin_nav fadmin_nav_right">Log Out</a>
 			</td>
 		</tr>
 		<tr>
