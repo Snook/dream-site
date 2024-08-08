@@ -8,7 +8,6 @@ class page_start_new_test_order extends CPage
 	 */
 	function getRandomStandardSessionNoFail($menu_id, $store_id)
 	{
-
 		$options = array();
 
 		$sessions = DAO_CFactory::create('session');
@@ -61,12 +60,10 @@ class page_start_new_test_order extends CPage
 
 		foreach ($options as $rid => $data)
 		{
-
 			if ($data['avail'] > 6)
 			{
 				if (count($data['mids']) == 2)
 				{
-
 					if (rand(0, 100) > 50)
 					{
 						$selectedMID = $data['mids'][1];
@@ -97,7 +94,6 @@ class page_start_new_test_order extends CPage
 
 	function setUpCartForTests()
 	{
-
 		CCart2::instance()->emptyCartCompletely();
 
 		$CartObj = CCart2::instance();
@@ -116,12 +112,11 @@ class page_start_new_test_order extends CPage
 
 	function runPublic()
 	{
-		CApp::forceLogin('/start-new-test-order');
+		CApp::forceLogin();
 	}
 
 	function runCustomer()
 	{
-
 		$this->setUpCartForTests();
 
 		CApp::bounce("/checkout");

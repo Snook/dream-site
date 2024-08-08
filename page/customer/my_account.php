@@ -9,26 +9,27 @@ require_once('includes/DAO/BusinessObject/CDreamRewardsHistory.php');
 require_once('includes/DAO/BusinessObject/CDreamTasteEvent.php');
 require_once('includes/DAO/BusinessObject/CSession.php');
 
-class page_my_account extends CPage {
+class page_my_account extends CPage
+{
 
-	function runPublic() {
-		CApp::forceLogin('/my-account');
+	function runPublic()
+	{
+		CApp::forceLogin();
 	}
 
 	/**
 	 * @throws Exception
 	 */
-	function runCustomer() {
-
+	function runCustomer()
+	{
 		CApp::forceSecureConnection();
 		$tpl = CApp::instance()->template();
 
-		ini_set('memory_limit','512M');
-
+		ini_set('memory_limit', '512M');
 
 		$User = CUser::getCurrentUser();
 		$User->getUserPreferences();
-		$isPreferred = $User->isUserPreferred() ;
+		$isPreferred = $User->isUserPreferred();
 		if ($isPreferred && !$User->platePointsData['transition_has_expired'])
 		{
 			$User->platePointsData['conversion_data'] = CPointsUserHistory::getPreferredUserConversionData($User);
@@ -44,7 +45,7 @@ class page_my_account extends CPage {
 		$User->addGuestLTDDonationTotals();
 
 		$StoreArray = null;
-		if (!empty( $User->home_store_id))
+		if (!empty($User->home_store_id))
 		{
 			$Store = DAO_CFactory::create('store');
 			$Store->id = $User->home_store_id;
@@ -54,7 +55,7 @@ class page_my_account extends CPage {
 		}
 		else
 		{
-			$StoreArray['telephone_day']  = "No Home Store";
+			$StoreArray['telephone_day'] = "No Home Store";
 		}
 
 		//static function getUsersOrders($User, $limitQuery = false, $since = false, $menu_id = false, $since_ordered = false, $type_of_order_array = false, $ordering_direction = 'asc')
@@ -83,7 +84,7 @@ class page_my_account extends CPage {
 		$nextMonthlyDirectory = strtolower(CTemplate::dateTimeFormat($currentMenuObj->menu_name, FULL_MONTH));
 		if (time() > strtotime('-5 days', strtotime($currentMenuObj->global_menu_end_date)))
 		{
-			$nextMonthlyDirectory = strtolower(CTemplate::dateTimeFormat(strtotime('first day of +1 month', strtotime($currentMenuObj->menu_name)) , FULL_MONTH));
+			$nextMonthlyDirectory = strtolower(CTemplate::dateTimeFormat(strtotime('first day of +1 month', strtotime($currentMenuObj->menu_name)), FULL_MONTH));
 		}
 
 		$printMenus = CMenu::getActiveMenuArray();
@@ -98,57 +99,67 @@ class page_my_account extends CPage {
 		$tpl->assign('user_address', $UserAddy->toArray());
 		$tpl->assign('store', $StoreArray);
 		$tpl->assign('DRState', CDreamRewardsHistory::getCurrentStateForUserShortForm($User));
-		$tpl->assign('customerReferral', CUserReferralSource::getCustomerReferral($User->id) );
+		$tpl->assign('customerReferral', CUserReferralSource::getCustomerReferral($User->id));
 		$tpl->assign('future_orders', $upcomingOrdersArray);
 		$tpl->assign('past_orders', $pastOrdersArray);
 		$tpl->assign('platepoints_history', CPointsUserHistory::getHistory($User->id, 10));
 		$tpl->assign('is_delivered_only', $User->hasDeliveredOrdersOnly());
 	}
 
-	private function sortOrdersByType($allOrders){
-
-		$result = array('In-Store Assembly'=>array(),
-						'Walk-In'=> array(),
-						'Pick Up'=> array(),
-						'Community Pick Up'=>array(),
-						'Delivered'=>array(),
-						'Home Delivery'=>array(),
-						'Other'=>array());
+	private function sortOrdersByType($allOrders)
+	{
+		$result = array(
+			'In-Store Assembly' => array(),
+			'Walk-In' => array(),
+			'Pick Up' => array(),
+			'Community Pick Up' => array(),
+			'Delivered' => array(),
+			'Home Delivery' => array(),
+			'Other' => array()
+		);
 
 		$hasOrders = false;
-		foreach ($allOrders as $order){
+		foreach ($allOrders as $order)
+		{
 			$hasOrders = true;
-			if($order['session_type'] === CSession::DELIVERED){
+			if ($order['session_type'] === CSession::DELIVERED)
+			{
 				$result['Delivered'][] = $order;
 				continue;
 			}
 
-			if($order['session_type_subtype'] === CSession::WALK_IN){
+			if ($order['session_type_subtype'] === CSession::WALK_IN)
+			{
 				$result['Walk-In'][] = $order;
 				continue;
 			}
 
-			if($order['session_type_subtype'] === CSession::DELIVERY){
+			if ($order['session_type_subtype'] === CSession::DELIVERY)
+			{
 				$result['Home Delivery'][] = $order;
 				continue;
 			}
 
-			if($order['session_type_subtype'] === CSession::REMOTE_PICKUP){
+			if ($order['session_type_subtype'] === CSession::REMOTE_PICKUP)
+			{
 				$result['Community Pick Up'][] = $order;
 				continue;
 			}
 
-			if($order['session_type_subtype'] === CSession::REMOTE_PICKUP_PRIVATE){
+			if ($order['session_type_subtype'] === CSession::REMOTE_PICKUP_PRIVATE)
+			{
 				$result['Community Pick Up'][] = $order;
 				continue;
 			}
 
-			if($order['session_type'] === CSession::SPECIAL_EVENT){
+			if ($order['session_type'] === CSession::SPECIAL_EVENT)
+			{
 				$result['Pick Up'][] = $order;
 				continue;
 			}
 
-			if($order['session_type'] === CSession::STANDARD){
+			if ($order['session_type'] === CSession::STANDARD)
+			{
 				$result['In-Store Assembly'][] = $order;
 				continue;
 			}
@@ -156,11 +167,13 @@ class page_my_account extends CPage {
 			$result['Other'][] = $order;
 		}
 
-		if($hasOrders){
+		if ($hasOrders)
+		{
 			return $result;
-		}else{
+		}
+		else
+		{
 			return array();
 		}
-
 	}
 }

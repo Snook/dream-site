@@ -6,7 +6,7 @@ class page_my_events extends CPage
 
 	function runPublic()
 	{
-		CApp::forceLogin('/my-events');
+		CApp::forceLogin();
 	}
 
 	/**
@@ -14,8 +14,7 @@ class page_my_events extends CPage
 	 */
 	function runCustomer()
 	{
-	    ini_set('memory_limit','512M');
-
+		ini_set('memory_limit', '512M');
 
 		$tpl = CApp::instance()->template();
 		$User = CUser::getCurrentUser();
