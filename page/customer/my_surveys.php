@@ -1,9 +1,11 @@
 <?php
-class page_my_surveys extends CPage {
+
+class page_my_surveys extends CPage
+{
 
 	function runPublic(): void
 	{
-		CApp::forceLogin('/my-surveys');
+		CApp::forceLogin(returnUrl: CApp::instance()->template()->bounceBackUrl(currentUrl: true));
 	}
 
 	/**

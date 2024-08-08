@@ -604,9 +604,13 @@ class CTemplate extends Savant2
 		return $dollarAmount;
 	}
 
-	function bounceBackUrl(): string
+	function bounceBackUrl($currentUrl = false): string
 	{
-		if (!empty($_SERVER['HTTP_REFERER']))
+		if ($currentUrl)
+		{
+			return $_SERVER["REQUEST_URI"];
+		}
+		else if (!empty($_SERVER['HTTP_REFERER']))
 		{
 			$parsedUrl = parse_url($_SERVER['HTTP_REFERER']);
 
