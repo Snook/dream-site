@@ -1017,7 +1017,7 @@ class page_admin_reports_cornerstone_movement_contest extends CPageAdminOnly
 		ini_set('memory_limit', '-1');
 		set_time_limit(3600 * 24);
 
-		CApp::forceSecureConnection();
+		
 		$tpl = CApp::instance()->template();
 
 		$hadError = false;

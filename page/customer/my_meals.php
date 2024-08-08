@@ -9,7 +9,7 @@ class page_my_meals extends CPage
 
 	function runPublic()
 	{
-		CApp::forceLogin();
+		CApp::forceLogin(returnUrl: CApp::instance()->template()->bounceBackUrl(currentUrl: true));
 	}
 
 	function runCustomer()
@@ -50,7 +50,6 @@ class page_my_meals extends CPage
 		{
 			$tpl->assign('pagination', false);
 		}
-
 
 		$tpl->assign('no_more_rows', false);
 		if (!$ordersArray)
@@ -137,7 +136,6 @@ class page_my_meals extends CPage
 					}
 					else if (!empty($ratingsArray[$element_id]))
 					{
-
 						$displayRecipes[] = $element_id;
 
 						$displayArray[$order_id]['recipes'][$element_id] = array_merge($displayArray[$order_id]['recipes'][$element_id], $ratingsArray[$element_id]);

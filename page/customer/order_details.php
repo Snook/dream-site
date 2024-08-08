@@ -8,7 +8,7 @@ class page_order_details extends CPage
 
 	function runPublic()
 	{
-		CApp::forceLogin();
+		CApp::forceLogin(returnUrl: CApp::instance()->template()->bounceBackUrl(currentUrl: true));
 	}
 
 	function runCustomer()
@@ -150,19 +150,18 @@ class page_order_details extends CPage
 
 		$tpl->assign('sms_special_case', 'none');
 
-		$tpl->assign('user',$User);
+		$tpl->assign('user', $User);
 
 		//Meal Customization
 		$orderCustomization = OrdersCustomization::getInstance($Order);
 		//these are the settings the store had at the time the order was placed
-		$storeCustomizationSettings =  $orderCustomization->storeCustomizationSettingsToObj();
+		$storeCustomizationSettings = $orderCustomization->storeCustomizationSettingsToObj();
 		$storeCustomizationSettings->initFromCurrentStoreCustomizationSettingsIfNull($Order->getStore());
 		$str = $orderCustomization->mealCustomizationToStringSelectedOnly(',');
-		$tpl->assign('store_allows_meal_customization',$storeCustomizationSettings->allowsMealCustomization());
-		$tpl->assign('store_allows_preassembled_customization',$storeCustomizationSettings->allowsPreAssembledCustomization());
-		$tpl->assign('meal_customization_string',$str);
-		$tpl->assign('order_has_meal_customization',$orderCustomization->hasMealCustomizationPreferencesSet() && $Order->opted_to_customize_recipes);
-
+		$tpl->assign('store_allows_meal_customization', $storeCustomizationSettings->allowsMealCustomization());
+		$tpl->assign('store_allows_preassembled_customization', $storeCustomizationSettings->allowsPreAssembledCustomization());
+		$tpl->assign('meal_customization_string', $str);
+		$tpl->assign('order_has_meal_customization', $orderCustomization->hasMealCustomizationPreferencesSet() && $Order->opted_to_customize_recipes);
 
 		$cantRescheduleReason = "";
 		$tpl->assign('can_reschedule', $Order->can_customer_reschedule($cantRescheduleReason, $OrderDetailsArray['storeInfo']['timezone_id'], $OrderDetailsArray['sessionInfo']['session_start'], $OrderDetailsArray['sessionInfo']['session_type'], $OrderDetailsArray['bookingStatus'], $OrderDetailsArray['sessionInfo']['session_type_subtype']));
@@ -188,8 +187,7 @@ class page_order_details extends CPage
 
 		$tpl->assign('contactStoreInfo', $DAO_store);
 
-		$tpl->assign('customerActionString',  COrders::getCustomerActionStringFrom($FullyQualifiedOrderType));
-
+		$tpl->assign('customerActionString', COrders::getCustomerActionStringFrom($FullyQualifiedOrderType));
 
 		if (!empty($_GET['status']) && $_GET['status'] == 'ec')
 		{
@@ -216,11 +214,7 @@ class page_order_details extends CPage
 
 		$d = CUser::getCurrentUser()->membershipData;
 		$showPlatePointsEnroll = false;
-		if (!$User->isUserPreferred() && $User->platePointsData['status'] != 'active' &&
-			!$User->platePointsData['userIsOnHold'] &&
-			CStore::storeSupportsPlatePoints($OrderDetailsArray['storeInfo']) &&
-			CBrowserSession::getValue('dd_thank_you') &&
-			CUser::getCurrentUser()->membershipData['status'] != CUser::MEMBERSHIP_STATUS_CURRENT)
+		if (!$User->isUserPreferred() && $User->platePointsData['status'] != 'active' && !$User->platePointsData['userIsOnHold'] && CStore::storeSupportsPlatePoints($OrderDetailsArray['storeInfo']) && CBrowserSession::getValue('dd_thank_you') && CUser::getCurrentUser()->membershipData['status'] != CUser::MEMBERSHIP_STATUS_CURRENT)
 		{
 			$showPlatePointsEnroll = true;
 		}

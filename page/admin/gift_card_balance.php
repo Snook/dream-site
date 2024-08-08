@@ -55,7 +55,7 @@ class page_admin_gift_card_balance extends CPageAdminOnly
 	//displays the balance inquiry form
 	function run()
 	{
-		CApp::forceSecureConnection();
+		
 
 		$tpl = CApp::instance()->template();
 

@@ -61,7 +61,7 @@ class page_print extends CPage
 			CApp::bounce();
 		}
 
-		CApp::forceLogin();
+		CApp::forceLogin(returnUrl: CApp::instance()->template()->bounceBackUrl(currentUrl: true));
 	}
 
 	/**

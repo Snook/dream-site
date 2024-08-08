@@ -17,7 +17,7 @@ class page_gift_card_order extends CPage
 	 */
 	function runPublic()
 	{
-		CApp::forceSecureConnection();
+		
 		$this->run();
 	}
 

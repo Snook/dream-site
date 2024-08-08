@@ -89,7 +89,7 @@
     function run()
     {
 
-    	CApp::forceSecureConnection();
+    	
 
     	header('Pragma: no-cache');
     	header("Cache-Control: no-store,no-cache, must-revalidate"); // HTTP/1.1

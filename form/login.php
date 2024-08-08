@@ -17,8 +17,9 @@ class form_login
 	/**
 	 * Builds a login form
 	 * Out: returns a CForm object
+	 * @throws exception
 	 */
-	static function BuildAndProcessForm()
+	static function BuildAndProcessForm(): CForm
 	{
 		$Form = new CForm;
 		$Form->Repost = false;
@@ -112,8 +113,8 @@ class form_login
 			));
 		}
 
-		$user = CUser::getCurrentUser();
-		if (!$user)
+		$DAO_user = CUser::getCurrentUser();
+		if (!$DAO_user)
 		{
 			throw new Exception('user is null');
 		}
@@ -126,7 +127,7 @@ class form_login
 			//authenticate user
 			if ($Form->value('primary_email_login') && $Form->value('password_login'))
 			{
-				if ($user->Authenticate($Form->value('primary_email_login'), $Form->value('password_login')))
+				if ($DAO_user->Authenticate($Form->value('primary_email_login'), $Form->value('password_login')))
 				{
 					$remember_login = false;
 
@@ -135,7 +136,7 @@ class form_login
 						$remember_login = true;
 					}
 
-					$redirectCustomer = $user->Login($remember_login);
+					$redirectCustomer = $DAO_user->Login($remember_login);
 
 					// -------------------------------------------------------------------- handle login attempt at support portal
 					$trigger = empty($_REQUEST["host_url"]) ? false : $_REQUEST["host_url"];
@@ -148,7 +149,14 @@ class form_login
 
 					if (!$suppressBounce)
 					{
-						CApp::bounce($redirectCustomer);
+						if (CBrowserSession::getSessionVariable(key: CBrowserSession::BOUNCE_REQUEST_URI))
+						{
+							CApp::bounce(CBrowserSession::getSessionVariableOnce(key: CBrowserSession::BOUNCE_REQUEST_URI));
+						}
+						else
+						{
+							CApp::bounce($redirectCustomer);
+						}
 					}
 				}
 				else
@@ -165,15 +173,15 @@ class form_login
 		{
 			// no login credentials submitted
 			$browserSession = CBrowserSession::instance();
-			$user = CUser::getCurrentUser();
+			$DAO_user = CUser::getCurrentUser();
 
 			if (CBrowserSession::isPrevious())
 			{
-				$user->joinAdd($browserSession);
-				$user->selectAdd();
-				$user->selectAdd('user.*');
+				$DAO_user->joinAdd($browserSession);
+				$DAO_user->selectAdd();
+				$DAO_user->selectAdd('user.*');
 
-				if ($browserSession->isPrevious && $user->find(true) && $user->id)
+				if ($browserSession->isPrevious && $DAO_user->find(true) && $DAO_user->id)
 				{
 					// user is logged in
 
@@ -188,36 +196,36 @@ class form_login
 						}
 					}
 					// ------------------------------------------------------------------
-					$user->getMembershipStatus(); // Note: without params this method looks for memberships current for today's menu/month.
-					$user->getPlatePointsSummary();
-					$user->getUserPreferences();
-					$user->setMealAndFamilySize();
+					$DAO_user->getMembershipStatus(); // Note: without params this method looks for memberships current for today's menu/month.
+					$DAO_user->getPlatePointsSummary();
+					$DAO_user->getUserPreferences();
+					$DAO_user->setMealAndFamilySize();
 
-					$user->setLogin();
+					$DAO_user->setLogin();
 
 					// CES 09/18/07 also load the browser instance fron the Database as we are now using a value stored with the session.
 					$browserSession->find(true);
 
-					if ($user->isFranchiseAccess())
+					if ($DAO_user->isFranchiseAccess())
 					{
-						$initialStore = !empty($browserSession->current_store_id) ? $browserSession->current_store_id : $user->getInitialFranchiseStore();
+						$initialStore = !empty($browserSession->current_store_id) ? $browserSession->current_store_id : $DAO_user->getInitialFranchiseStore();
 						CStore::setUpFranchiseStore($initialStore);
 					}
 
 					// site admin has 10 minute time out reset on every access
-					if ($user->user_type != CUser::CUSTOMER)
+					if ($DAO_user->user_type != CUser::CUSTOMER)
 					{
-						$browserSession->prolongSession($user);
+						$browserSession->prolongSession($DAO_user);
 					}
 
 					//remove the where clause from the previous join
-					$user->whereAdd(); /// CES ??? Why? No more finds performed on this object - or are there?
+					$DAO_user->whereAdd(); /// CES ??? Why? No more finds performed on this object - or are there?
 				}
 				else
 				{
 					// user is not logged in
-					$user->firstname = "Guest";
-					$user->id = 0;
+					$DAO_user->firstname = "Guest";
+					$DAO_user->id = 0;
 				}
 			}
 		}
@@ -227,19 +235,19 @@ class form_login
 		//until they enter one
 		if (!$suppressBounce)
 		{
-			if ($user->isLoggedIn() && (!$user->primary_email) && (@$_GET['page'] != 'account'))
+			if ($DAO_user->isLoggedIn() && (!$DAO_user->primary_email) && (@$_GET['page'] != 'account'))
 			{
 				CApp::bounce('/account');
 			}
 		}
 
 		//if already signed in, get name
-		$Form->DefaultValues['is_logged_in'] = $user->isLoggedIn();
-		$Form->DefaultValues['user_type'] = $user->user_type;
+		$Form->DefaultValues['is_logged_in'] = $DAO_user->isLoggedIn();
+		$Form->DefaultValues['user_type'] = $DAO_user->user_type;
 
-		if (!empty($user->id))
+		if (!empty($DAO_user->id))
 		{
-		  $Form->DefaultValues['id'] = $user->id;
+			$Form->DefaultValues['id'] = $DAO_user->id;
 		}
 
 		$Form->DefaultValues['home_store_id'] = CBrowserSession::getCurrentStore();
@@ -247,5 +255,3 @@ class form_login
 		return $Form;
 	}
 }
-
-?>

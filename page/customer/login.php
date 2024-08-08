@@ -1,21 +1,12 @@
 <?php
-class page_login extends CPage {
 
-	function runPublic()
+class page_login extends CPage
+{
+	function runPublic(): void
 	{
 		if (CUser::isLoggedIn())
 		{
-			// They don't need to be here if logged in except for on mobile
-			if (!empty($_GET['back']))
-			{
-				CApp::bounce($_GET['back']);
-			}
-			else
-			{
-				CApp::bounce();
-			}
+			CApp::bounce(page: '/my-account');
 		}
-
-		CApp::forceSecureConnection();
 	}
 }

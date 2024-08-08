@@ -7,7 +7,7 @@ class page_admin_password_expired extends CPage {
 
 	function runPublic()
 	{
-		CApp::forceSecureConnection();
+		
 
 		$tpl = CApp::instance()->template();
 

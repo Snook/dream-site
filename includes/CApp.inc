@@ -1,4 +1,7 @@
 <?php
+
+use JetBrains\PhpStorm\NoReturn;
+
 require_once("Config.inc");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/CFactory.php");
@@ -41,6 +44,7 @@ class CApp
 
 	function __construct()
 	{
+		session_start();
 
 		//if (DEBUG)
 		//{
@@ -61,27 +65,6 @@ class CApp
 		//}
 
 		self::$_instance = $this;
-	}
-
-	static function forceSecureConnection()
-	{
-		if (substr(HTTPS_SERVER, 0, 5) == 'https')
-		{
-			if (!self::isSecureConnection())
-			{
-				self::bounce(HTTPS_SERVER . $_SERVER['REQUEST_URI']);
-			}
-		}
-	}
-
-	static function isSecureConnection()
-	{
-		if (($_SERVER['SERVER_PORT'] == 443) || ($_SERVER['SERVER_PORT'] == 8443) || ($_SERVER['SERVER_PORT'] == 9443))
-		{
-			return true;
-		}
-
-		return false;
 	}
 
 	static function approveDirective($locationRequest)
@@ -164,13 +147,6 @@ class CApp
 		// and name the class starting "admin_home_office_".
 		// Links to the page will begin "admin_home_office_"
 		$isHomeOfficeReporting = substr($page, 0, 18) == 'admin_home_office_';
-
-		// Note: all traffic is currently forced to https via .htaccess file
-		// However leave this check in case of failure at the htaccess level [CES 4/6/17]
-		if ($isAdmin)
-		{
-			self::forceSecureConnection();
-		}
 
 		if (!$this->isFrameCompatibilityRequired($page))
 		{
@@ -678,7 +654,6 @@ class CApp
 		// and send back an error rather than a file not found
 		$this->executableFileCheck($processor, true);
 
-		//self::forceSecureConnection();
 		CLog::RecordDebugTrace($processor, "PROC_REQUEST");
 
 		if (!$this->isFrameCompatibilityRequired($processor))
@@ -836,10 +811,10 @@ class CApp
 	 * By default, return the browser to the previous page or main menu or something, user must
 	 * have gone some place verboten.
 	 *
-	 * @param $tryInsecure will try to go back to http if currently on a secure page.ie. going from login back to insecure page
 	 */
-	static function bounce($page = '/', $tryInsecure = false)
+	#[NoReturn] static function bounce($page = '/', $BOUNCE_REQUEST_URI = false): void
 	{
+		$page = $page ?: '/';
 		$q_params = '';
 		$isAdmin = false;
 
@@ -917,6 +892,11 @@ class CApp
 		if (!$isAdmin)
 		{
 			$location = $location . $q_params;
+		}
+
+		if (is_string($BOUNCE_REQUEST_URI))
+		{
+			CBrowserSession::setSessionVariable(key: CBrowserSession::BOUNCE_REQUEST_URI, value: $BOUNCE_REQUEST_URI);
 		}
 
 		header('location: ' . $location);
@@ -1009,23 +989,14 @@ class CApp
 		return false;
 	}
 
-	static function forceLogin($rtnPage = false)
+	static function forceLogin(): void
 	{
 		if (CUser::isLoggedIn())
 		{
 			return;
 		}
 
-		if ($rtnPage)
-		{
-			self::bounce('/login');
-		}
-		else
-		{
-			self::bounce('/login');
-		}
-
-		exit();
+		self::bounce(page: '/login', BOUNCE_REQUEST_URI: CApp::instance()->template()->bounceBackUrl(currentUrl: true));
 	}
 
 	static function forceLocationChoice($rtnPage = false)

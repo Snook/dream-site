@@ -901,7 +901,7 @@ class page_admin_reports_business_health_assessment extends CPageAdminOnly
     function runPage()
 	{
 
-		CApp::forceSecureConnection();
+		
 		$tpl = CApp::instance()->template();
 
 		$hadError = false;

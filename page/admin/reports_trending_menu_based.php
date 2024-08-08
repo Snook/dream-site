@@ -199,7 +199,7 @@ class page_admin_reports_trending_menu_based extends CPageAdminOnly
 	function renderChart()
 	{
 
-		CApp::forceSecureConnection();
+		
 		$tpl = CApp::instance()->template();
 
 		$hadError = false;
