@@ -61,6 +61,8 @@ class page_admin_order_history extends CPageAdminOnly
 	{
 		ini_set('memory_limit', '72M');
 
+		$tpl = CApp::instance()->template();
+
 		$id = false;
 
 		if (isset($_REQUEST['id']) && $_REQUEST['id'])
@@ -70,31 +72,54 @@ class page_admin_order_history extends CPageAdminOnly
 
 		if (!$id)
 		{
-			$this->Template->setErrorMsg("The user id is invalid.")->bounce();
+			$tpl->setErrorMsg("The user id is invalid.");
+
+			if (isset($_REQUEST['back']))
+			{
+				CApp::bounce($_REQUEST['back']);
+			}
+
+			CApp::bounce("/backoffice/main");
 		}
 
-		$DAO_user = DAO_CFactory::create('user');
-		$DAO_user->id = $id;
-		if (!$DAO_user->find(true))
+		if (isset($_REQUEST['back']))
 		{
-			$this->Template->setErrorMsg("The user could not be found.")->bounce();
+			$tpl->assign('back', $_REQUEST['back']);
+		}
+		else
+		{
+			$tpl->assign('back', '/backoffice/user_details?id=' . $id);
 		}
 
-		$this->Template->assign('user', $DAO_user->toArray());
-		$this->Template->assign('user_id', $DAO_user->id);
+		$User = DAO_CFactory::create('user');
+		$User->id = $id;
+		if (!$User->find(true))
+		{
+			$tpl->setErrorMsg("The user could not be found.");
 
-		$Orders = self::fetchOrderHistory($DAO_user->id, self::$PAGE_SIZE);
+			if (isset($_REQUEST['back']))
+			{
+				CApp::bounce($_REQUEST['back']);
+			}
+
+			CApp::bounce("/backoffice/main");
+		}
+
+		$tpl->assign('user', $User->toArray());
+		$tpl->assign('user_id', $User->id);
+
+		$Orders = self::fetchOrderHistory($User->id, self::$PAGE_SIZE);
 
 		//paging control
 		$totalFetchedOrder = count($Orders);
 		$shouldPage = $totalFetchedOrder > (self::$PAGE_SIZE - 3);
-		$this->Template->assign('orders', $Orders);
-		$this->Template->assign('pagination', $shouldPage);
-		$this->Template->assign('pagination_prev', false);
-		$this->Template->assign('pagination_next', true);
-		$this->Template->assign('page_cur', 0);
+		$tpl->assign('orders', $Orders);
+		$tpl->assign('pagination', $shouldPage);
+		$tpl->assign('pagination_prev', false);
+		$tpl->assign('pagination_next', true);
+		$tpl->assign('page_cur', 0);
 
-		$this->Template->assign('active_menus', CMenu::getActiveMenuArray());
+		$tpl->assign('active_menus', CMenu::getActiveMenuArray());
 
 		if (isset($_REQUEST['send_test_reminder_email']) && $_REQUEST['send_test_reminder_email'] = true)
 		{
