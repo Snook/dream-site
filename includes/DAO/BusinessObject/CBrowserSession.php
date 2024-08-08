@@ -146,7 +146,7 @@ class CBrowserSession extends DAO_Browser_sessions
 
 	static public function getSessionVariable($key): mixed
 	{
-		if ($_SESSION[$key])
+		if (key_exists($key, $_SESSION))
 		{
 			return $_SESSION[$key];
 		}
