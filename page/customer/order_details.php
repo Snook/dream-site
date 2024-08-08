@@ -8,7 +8,7 @@ class page_order_details extends CPage
 
 	function runPublic()
 	{
-		CApp::forceLogin();
+		CApp::forceLogin(returnUrl: CApp::instance()->template()->bounceBackUrl(currentUrl: true));
 	}
 
 	function runCustomer()
