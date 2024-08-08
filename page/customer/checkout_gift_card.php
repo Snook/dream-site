@@ -201,7 +201,7 @@ class page_checkout_gift_card extends CPage
 	{
 
 		// -------------------------------------------------initializations/Load Cart and Order
-		CApp::forceSecureConnection();
+		
 
 		CTemplate::noCache();
 
@@ -270,7 +270,7 @@ class page_checkout_gift_card extends CPage
 		// -------------------------------------Setup
 		CTemplate::noCache();
 
-		CApp::forceSecureConnection();
+		
 		ini_set('memory_limit', '96M');
 		$tpl = CApp::instance()->template();
 

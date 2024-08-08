@@ -21,7 +21,7 @@ class page_account_signup extends CPage
 	 */
 	function runPublic()
 	{
-		CApp::forceSecureConnection();
+		
 
 		parent::runPublic();
 
@@ -104,7 +104,7 @@ class page_account_signup extends CPage
 
 	function runCustomer()
 	{
-		CApp::forceSecureConnection();
+		
 		CApp::instance()->bounce('/account', true);
 	}
 }

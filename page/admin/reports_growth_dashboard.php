@@ -524,7 +524,7 @@ class page_admin_reports_growth_dashboard extends CPageAdminOnly
     function runPage()
 	{
 
-		CApp::forceSecureConnection();
+		
 		$tpl = CApp::instance()->template();
 
 		$hadError = false;

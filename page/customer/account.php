@@ -21,7 +21,7 @@ class page_account extends CPage
 	 */
 	function runPublic()
 	{
-		CApp::forceSecureConnection();
+		
 
 		parent::runPublic();
 
@@ -142,7 +142,7 @@ class page_account extends CPage
 	 */
 	function runCustomer()
 	{
-		CApp::forceSecureConnection();
+		
 
 		$tpl = CApp::instance()->template();
 

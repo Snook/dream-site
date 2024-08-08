@@ -1,4 +1,7 @@
 <?php
+
+use JetBrains\PhpStorm\NoReturn;
+
 require_once("Config.inc");
 require_once("DAO/BusinessObject/CUser.php");
 require_once("DAO/CFactory.php");
@@ -62,27 +65,6 @@ class CApp
 		//}
 
 		self::$_instance = $this;
-	}
-
-	static function forceSecureConnection()
-	{
-		if (substr(HTTPS_SERVER, 0, 5) == 'https')
-		{
-			if (!self::isSecureConnection())
-			{
-				self::bounce(HTTPS_SERVER . $_SERVER['REQUEST_URI']);
-			}
-		}
-	}
-
-	static function isSecureConnection()
-	{
-		if (($_SERVER['SERVER_PORT'] == 443) || ($_SERVER['SERVER_PORT'] == 8443) || ($_SERVER['SERVER_PORT'] == 9443))
-		{
-			return true;
-		}
-
-		return false;
 	}
 
 	static function approveDirective($locationRequest)
@@ -165,13 +147,6 @@ class CApp
 		// and name the class starting "admin_home_office_".
 		// Links to the page will begin "admin_home_office_"
 		$isHomeOfficeReporting = substr($page, 0, 18) == 'admin_home_office_';
-
-		// Note: all traffic is currently forced to https via .htaccess file
-		// However leave this check in case of failure at the htaccess level [CES 4/6/17]
-		if ($isAdmin)
-		{
-			self::forceSecureConnection();
-		}
 
 		if (!$this->isFrameCompatibilityRequired($page))
 		{
@@ -679,7 +654,6 @@ class CApp
 		// and send back an error rather than a file not found
 		$this->executableFileCheck($processor, true);
 
-		//self::forceSecureConnection();
 		CLog::RecordDebugTrace($processor, "PROC_REQUEST");
 
 		if (!$this->isFrameCompatibilityRequired($processor))
@@ -838,7 +812,7 @@ class CApp
 	 * have gone some place verboten.
 	 *
 	 */
-	static function bounce($page = '/', $BOUNCE_REQUEST_URI = false)
+	#[NoReturn] static function bounce($page = '/', $BOUNCE_REQUEST_URI = false): void
 	{
 		$page = $page ?: '/';
 		$q_params = '';
@@ -920,7 +894,7 @@ class CApp
 			$location = $location . $q_params;
 		}
 
-		if ($BOUNCE_REQUEST_URI)
+		if (is_string($BOUNCE_REQUEST_URI))
 		{
 			CBrowserSession::setSessionVariable(key: CBrowserSession::BOUNCE_REQUEST_URI, value: $BOUNCE_REQUEST_URI);
 		}

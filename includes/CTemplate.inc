@@ -231,6 +231,8 @@ class CTemplate extends Savant2
 		$existingMsg[] = $toastArray;
 
 		CBrowserSession::setValue('toastMsg', json_encode($existingMsg), false, true, false);
+
+		return $this;
 	}
 
 	function setStatusMsg($msg)
@@ -248,6 +250,8 @@ class CTemplate extends Savant2
 		{
 			CBrowserSession::setValue('statusMsg', addslashes($msg));
 		}
+
+		return $this;
 	}
 
 	function setErrorMsg($msg)
@@ -265,6 +269,8 @@ class CTemplate extends Savant2
 		{
 			CBrowserSession::setValue('errorMsg', addslashes($msg));
 		}
+
+		return $this;
 	}
 
 	function setDebugMsg($msg)
@@ -292,6 +298,8 @@ class CTemplate extends Savant2
 				CBrowserSession::setValue('debugMsg', false);
 			}
 		}
+
+		return $this;
 	}
 
 	static function getUserDetailsLink($user_id, $addBackLink = true)

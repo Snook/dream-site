@@ -136,7 +136,7 @@ class form_login
 						$remember_login = true;
 					}
 
-					$DAO_user->Login($remember_login);
+					$redirectCustomer = $DAO_user->Login($remember_login);
 
 					// -------------------------------------------------------------------- handle login attempt at support portal
 					$trigger = empty($_REQUEST["host_url"]) ? false : $_REQUEST["host_url"];
@@ -149,7 +149,14 @@ class form_login
 
 					if (!$suppressBounce)
 					{
-						CApp::bounce(CBrowserSession::getSessionVariableOnce(key: CBrowserSession::BOUNCE_REQUEST_URI));
+						if (CBrowserSession::getSessionVariable(key: CBrowserSession::BOUNCE_REQUEST_URI))
+						{
+							CApp::bounce(CBrowserSession::getSessionVariableOnce(key: CBrowserSession::BOUNCE_REQUEST_URI));
+						}
+						else
+						{
+							CApp::bounce($redirectCustomer);
+						}
 					}
 				}
 				else

@@ -1117,7 +1117,7 @@ class page_checkout extends CPage
 	 */
 	function runPublic()
 	{
-		CApp::forceSecureConnection();
+		
 		CTemplate::noCache();
 		$tpl = CApp::instance()->template();
 
@@ -1260,7 +1260,7 @@ class page_checkout extends CPage
 
 		$originalOrder = null;
 
-		CApp::forceSecureConnection();
+		
 		ini_set('memory_limit', '96M');
 		$tpl = CApp::instance()->template();
 

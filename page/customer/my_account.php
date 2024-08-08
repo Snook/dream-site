@@ -22,7 +22,7 @@ class page_my_account extends CPage
 	 */
 	function runCustomer()
 	{
-		CApp::forceSecureConnection();
+
 		$tpl = CApp::instance()->template();
 
 		ini_set('memory_limit', '512M');

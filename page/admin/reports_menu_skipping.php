@@ -631,7 +631,7 @@ class page_admin_reports_menu_skipping extends CPageAdminOnly
         set_time_limit(3600 * 24);
 
 
-        CApp::forceSecureConnection();
+        
         $tpl = CApp::instance()->template();
 
         $hadError = false;

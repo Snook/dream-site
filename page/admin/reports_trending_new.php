@@ -394,7 +394,7 @@ class page_admin_reports_trending_new extends CPageAdminOnly
 	function run()
 	{
 
-		CApp::forceSecureConnection();
+		
 		$tpl = CApp::instance()->template();
 
 		$hadError = false;

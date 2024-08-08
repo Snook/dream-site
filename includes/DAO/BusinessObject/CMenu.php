@@ -1738,7 +1738,7 @@ class CMenu extends DAO_Menu
 		$DAO_menu = DAO_CFactory::create('menu', true);
 		if ($active_only)
 		{
-			$DAO_menu->active = 1;
+			$DAO_menu->is_active = 1;
 		}
 		$DAO_menu->orderBy('menu.id DESC');
 		$DAO_menu->limit($x_number_of_menus);
