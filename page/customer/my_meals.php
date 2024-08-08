@@ -9,7 +9,7 @@ class page_my_meals extends CPage
 
 	function runPublic()
 	{
-		CApp::forceLogin();
+		CApp::forceLogin(returnUrl: CApp::instance()->template()->bounceBackUrl(currentUrl: true));
 	}
 
 	function runCustomer()
