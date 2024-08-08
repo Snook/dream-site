@@ -606,7 +606,7 @@ class CTemplate extends Savant2
 		{
 			$parsedUrl = parse_url($_SERVER['HTTP_REFERER']);
 
-			return $parsedUrl["path"] . ($parsedUrl["query"] ? '?' . $parsedUrl["query"] : null);
+			return $parsedUrl["path"] . (!empty($parsedUrl["query"]) ? '?' . $parsedUrl["query"] : null);
 		}
 		else if ($this->is_admin)
 		{
