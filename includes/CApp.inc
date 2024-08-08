@@ -989,7 +989,7 @@ class CApp
 		return false;
 	}
 
-	static function forceLogin($returnUrl = false): void
+	static function forceLogin(): void
 	{
 		if (CUser::isLoggedIn())
 		{
