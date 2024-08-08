@@ -120,7 +120,7 @@ class page_account extends CPage
 						$url = "/";
 					}
 
-					CApp::instance()->bounce($url, true);
+					CApp::instance()->bounce($url);
 				}
 			}
 		}

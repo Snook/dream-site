@@ -41,6 +41,7 @@ class CApp
 
 	function __construct()
 	{
+		session_start();
 
 		//if (DEBUG)
 		//{
@@ -836,10 +837,10 @@ class CApp
 	 * By default, return the browser to the previous page or main menu or something, user must
 	 * have gone some place verboten.
 	 *
-	 * @param $tryInsecure will try to go back to http if currently on a secure page.ie. going from login back to insecure page
 	 */
-	static function bounce($page = '/', $tryInsecure = false)
+	static function bounce($page = '/', $BOUNCE_REQUEST_URI = false)
 	{
+		$page = $page ?: '/';
 		$q_params = '';
 		$isAdmin = false;
 
@@ -917,6 +918,11 @@ class CApp
 		if (!$isAdmin)
 		{
 			$location = $location . $q_params;
+		}
+
+		if ($BOUNCE_REQUEST_URI)
+		{
+			CBrowserSession::setSessionVariable(key: CBrowserSession::BOUNCE_REQUEST_URI, value: $BOUNCE_REQUEST_URI);
 		}
 
 		header('location: ' . $location);
@@ -1009,23 +1015,14 @@ class CApp
 		return false;
 	}
 
-	static function forceLogin($rtnPage = false)
+	static function forceLogin(): void
 	{
 		if (CUser::isLoggedIn())
 		{
 			return;
 		}
 
-		if ($rtnPage)
-		{
-			self::bounce('/login?back=' . urlencode($rtnPage));
-		}
-		else
-		{
-			self::bounce('/login?back=?' . urlencode($_SERVER['QUERY_STRING']));
-		}
-
-		exit();
+		self::bounce(page: '/login', BOUNCE_REQUEST_URI: CApp::instance()->template()->bounceBackUrl(currentUrl: true));
 	}
 
 	static function forceLocationChoice($rtnPage = false)

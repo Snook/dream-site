@@ -74,30 +74,27 @@ function sortByCategoryLabelAlpha($itemOne, $itemTwo)
 
 class page_sides_and_sweets_order_form extends CPage
 {
-	function runPublic()
+	function runPublic(): void
 	{
-		$back = '?' . $_SERVER['QUERY_STRING'];
-		CApp::forceLogin($back);
+		CApp::forceLogin();
 	}
 
 	/**
 	 * @throws Exception
 	 */
-	function runCustomer()
+	function runCustomer(): void
 	{
-		$tpl = CApp::instance()->template();
-
 		$Form = new CForm;
 		$Form->Repost = true;
 		$Form->Bootstrap = true;
 
 		//get user
-		$user = CUser::getCurrentUser();
+		$DAO_user = CUser::getCurrentUser();
 
 		$date = date('Y.m.d', strtotime("-1 days"));
 
 		//get the user's next 3 orders
-		$orderInfoArray = COrders::getUsersOrders($user, 3, $date, false, false, array('STANDARD'), 'asc', false, true);
+		$orderInfoArray = COrders::getUsersOrders($DAO_user, 3, $date, false, false, array('STANDARD'), 'asc', false, true);
 
 		$req_order_id = false;
 		$orderOptions = array();
@@ -122,19 +119,16 @@ class page_sides_and_sweets_order_form extends CPage
 			}
 			else
 			{
-				if (!empty($orderInfoArray))
-				{
-					reset($orderInfoArray);
+				reset($orderInfoArray);
 
-					$req_order_id = key($orderInfoArray);
-				}
+				$req_order_id = key($orderInfoArray);
 			}
 
 			$selectedOrder = $orderInfoArray[$req_order_id];
 
 			foreach ($orderInfoArray as $order)
 			{
-				$orderOptions[$order['id']] = CTemplate::sessionTypeDateTimeFormat($order['session_start'], $order['session_type_subtype'], VERBOSE, false, false, false) . ' - ' . COrders::getCustomerActionStringFrom($order['fully_qualified_order_type']) . ' - ' . $order['store_name'];
+				$orderOptions[$order['id']] = CTemplate::sessionTypeDateTimeFormat($order['session_start'], $order['session_type_subtype'], VERBOSE) . ' - ' . COrders::getCustomerActionStringFrom($order['fully_qualified_order_type']) . ' - ' . $order['store_name'];
 			}
 
 			$Form->DefaultValues['orders'] = $req_order_id;
@@ -172,15 +166,15 @@ class page_sides_and_sweets_order_form extends CPage
 		}
 		else
 		{
-			$store = CStore::getStoreAndOwnerInfo($user->home_store_id);
+			$store = CStore::getStoreAndOwnerInfo($DAO_user->home_store_id);
 		}
 
 		//sort menu item
-		$tpl->assign('store_info', $store);
-		$tpl->assign('menu_items', $menuItems);
-		$tpl->assign('form', $Form->Render());
-		$tpl->assign('haveOrders', !empty($orderInfoArray));
-		$tpl->assign('user', $user);
+		$this->Template->assign('store_info', $store);
+		$this->Template->assign('menu_items', $menuItems);
+		$this->Template->assign('form', $Form->Render());
+		$this->Template->assign('haveOrders', !empty($orderInfoArray));
+		$this->Template->assign('user', $DAO_user);
 
 		//items have been ordered, send store an email
 		if (!empty($_POST['submit']) && $_POST['submit'] == 'submit')
@@ -200,14 +194,14 @@ class page_sides_and_sweets_order_form extends CPage
 
 			if (empty($desiredMenuItems))
 			{
-				$tpl->setStatusMsg('There was an error with your submission, no menu items were selected.');
+				$this->Template->setStatusMsg('There was an error with your submission, no menu items were selected.');
 			}
 			else
 			{
 				$emailVars = array(
 					'store' => $store,
 					'order_details' => $selectedOrder,
-					'user' => $user,
+					'user' => $DAO_user,
 					'desired_items' => $desiredMenuItems,
 					'payment' => ((!empty($_POST['payment']) && $_POST['payment'] == 'card_on_file') ? 'Use credit card on file' : 'Guest will pay at session'),
 					'use_dinner_dollars' => ((!empty($_POST['Use_Dinner_Dollars']) && $_POST['Use_Dinner_Dollars'] == 1) ? 'Yes' : 'No')
@@ -219,10 +213,10 @@ class page_sides_and_sweets_order_form extends CPage
 				$Mail->to_name = $store[0]['store_name'];
 				//$Mail->to_email = 'brandy.latta@dreamdinners.com';
 				$Mail->to_email = $store[0]['email_address'];
-				$Mail->subject = "Sides and Sweets Order Request for " . $user->firstname . ' ' . $user->lastname;
+				$Mail->subject = "Sides and Sweets Order Request for " . $DAO_user->firstname . ' ' . $DAO_user->lastname;
 				$Mail->body_html = CMail::mailMerge('sides_sweets_order_request.html.php', $emailVars);
 				$Mail->body_text = CMail::mailMerge('sides_sweets_order_request.txt.php', $emailVars);
-				$Mail->reply_email = $user->primary_email;
+				$Mail->reply_email = $DAO_user->primary_email;
 				$Mail->template_name = 'admin_generic';
 
 				$Mail->sendEmail();
@@ -233,7 +227,7 @@ class page_sides_and_sweets_order_form extends CPage
 				$data = CStoreActivityLog::renderTemplate('sides_n_sweets_form_alert.tpl.php', $emailVars);
 				CStoreActivityLog::addEvent($store[0]['id'], $data, $eventTime, $typeId);
 
-				$tpl->setStatusMsg('Your Sides and Sweets Order Request has been sent to the store, Thank you.');
+				$this->Template->setStatusMsg('Your Sides and Sweets Order Request has been sent to the store, Thank you.');
 
 				CApp::bounce("/my-account");
 			}
