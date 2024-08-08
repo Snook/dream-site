@@ -1018,11 +1018,11 @@ class CApp
 
 		if ($rtnPage)
 		{
-			self::bounce('/login?back=' . urlencode($rtnPage));
+			self::bounce('/login');
 		}
 		else
 		{
-			self::bounce('/login?back=?' . urlencode($_SERVER['QUERY_STRING']));
+			self::bounce('/login');
 		}
 
 		exit();

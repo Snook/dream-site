@@ -64,114 +64,114 @@ class page_admin_edit_session extends CPageAdminOnly
 			throw new Exception('No session id requested');
 		}
 
-		$Session = DAO_CFactory::create('session');
-		$Session->id = $session_id;
-		$Session->find(true);
+		$DAO_session = DAO_CFactory::create('session');
+		$DAO_session->id = $session_id;
+		$DAO_session->find(true);
 
 		$sessionDetails = CSession::getSessionDetail($session_id, false);
 
-		$Menu = DAO_CFactory::create('menu');
-		$Menu->id = $Session->menu_id;
-		$Menu->find(true);
+		$DAO_menu = DAO_CFactory::create('menu');
+		$DAO_menu->id = $DAO_session->menu_id;
+		$DAO_menu->find(true);
 
-		if ($Menu->id >= 278)
+		if (!$DAO_menu->isEnabled_Backoffice_SessionEditing())
 		{
 			$tpl->setStatusMsg('This menu is not available for editing yet.');
 			CApp::bounce('/backoffice');
 		}
 
-		$Store = DAO_CFactory::create('store');
-		$Store->id = $Session->store_id;
-		$Store->find(true);
+		$DAO_store = DAO_CFactory::create('store');
+		$DAO_store->id = $DAO_session->store_id;
+		$DAO_store->find(true);
 
-		if ($Store->isDistributionCenter())
+		if ($DAO_store->isDistributionCenter())
 		{
-			CApp::bounce('/backoffice/edit-session-delivered?session=' . $Session->id);
+			CApp::bounce('/backoffice/edit-session-delivered?session=' . $DAO_session->id);
 		}
 
-		$Store->getStorePickupLocations();
+		$DAO_store->getStorePickupLocations();
 
-		$tpl->assign('allowsMealCustomization', $Store->supports_meal_customization);
+		$tpl->assign('allowsMealCustomization', $DAO_store->supports_meal_customization);
 
 		// Set up values in form
-		$SessionForm->DefaultValues = array_merge($SessionForm->DefaultValues, $Session->toArray());
+		$SessionForm->DefaultValues = array_merge($SessionForm->DefaultValues, $DAO_session->toArray());
 		if ($SessionForm->DefaultValues["session_password"] == "NULL")
 		{
 			$SessionForm->DefaultValues["session_password"] = "";
 		}
 
-		$markup = $Store->getMarkUpMultiObj($Session->menu_id);
+		$markup = $DAO_store->getMarkUpMultiObj($DAO_session->menu_id);
 
-		if (!empty($Session->session_assembly_fee) || $Session->session_assembly_fee == '0.00')
+		if (!empty($DAO_session->session_assembly_fee) || $DAO_session->session_assembly_fee == '0.00')
 		{
-			$SessionForm->DefaultValues["session_assembly_fee"] = $Session->session_assembly_fee;
+			$SessionForm->DefaultValues["session_assembly_fee"] = $DAO_session->session_assembly_fee;
 		}
 		else if ($markup)
 		{
 			$SessionForm->DefaultValues["session_assembly_fee"] = $markup->assembly_fee;
 		}
 
-		if (!empty($Session->session_delivery_fee) || $Session->session_delivery_fee == '0.00')
+		if (!empty($DAO_session->session_delivery_fee) || $DAO_session->session_delivery_fee == '0.00')
 		{
-			$SessionForm->DefaultValues["session_delivery_fee"] = $Session->session_delivery_fee;
+			$SessionForm->DefaultValues["session_delivery_fee"] = $DAO_session->session_delivery_fee;
 		}
-		else if ($Store->delivery_fee)
+		else if ($DAO_store->delivery_fee)
 		{
-			$SessionForm->DefaultValues["session_delivery_fee"] = $Store->delivery_fee;
+			$SessionForm->DefaultValues["session_delivery_fee"] = $DAO_store->delivery_fee;
 		}
 
-		$tpl->assign('allow_assembly_fee', OrdersHelper::allow_assembly_fee($Session->menu_id));
-		if (!OrdersHelper::allow_assembly_fee($Session->menu_id))
+		$tpl->assign('allow_assembly_fee', OrdersHelper::allow_assembly_fee($DAO_session->menu_id));
+		if (!OrdersHelper::allow_assembly_fee($DAO_session->menu_id))
 		{
 			$SessionForm->DefaultValues['session_assembly_fee'] = 0;
 			if ($markup)
 			{
 				$markup->assembly_fee = '0.00';
 			}
-			$Session->session_assembly_fee = '0.00';
+			$DAO_session->session_assembly_fee = '0.00';
 		}
 
-		$SessionForm->DefaultValues["close_interval_type"] = $Session->determineSessionCloseEnum();
-		$SessionForm->DefaultValues["custom_close_interval"] = $Session->getScheduleCloseInterval();
+		$SessionForm->DefaultValues["close_interval_type"] = $DAO_session->determineSessionCloseEnum();
+		$SessionForm->DefaultValues["custom_close_interval"] = $DAO_session->getScheduleCloseInterval();
 
-		$SessionForm->DefaultValues["meal_customization_close_interval_type"] = $Session->determineSessionMealCustomizationCloseEnum();
+		$SessionForm->DefaultValues["meal_customization_close_interval_type"] = $DAO_session->determineSessionMealCustomizationCloseEnum();
 		if ($SessionForm->DefaultValues["meal_customization_close_interval_type"] == CSession::FOUR_FULL_DAYS)
 		{
 			$SessionForm->DefaultValues["meal_customization_close_interval"] = 96;
 		}
 		else
 		{
-			$SessionForm->DefaultValues["meal_customization_close_interval"] = $Session->getScheduleMealCustomizationCloseInterval();
+			$SessionForm->DefaultValues["meal_customization_close_interval"] = $DAO_session->getScheduleMealCustomizationCloseInterval();
 		}
 
-		$SessionForm->DefaultValues["session_sneak_peak"] = $Session->sneak_peak == 1 ? true : false;
+		$SessionForm->DefaultValues["session_sneak_peak"] = $DAO_session->sneak_peak == 1 ? true : false;
 
-		$numBookings = $Session->get_num_bookings();
+		$numBookings = $DAO_session->get_num_bookings();
 
 		$canEditSessionType = false;
-		if ($Session->isStandard() || $Session->isStandardPrivate() || $Session->isMadeForYou())
+		if ($DAO_session->isStandard() || $DAO_session->isStandardPrivate() || $DAO_session->isMadeForYou())
 		{
 			$canEditSessionType = true;
 		}
 
-		$stmi = DAO_CFactory::create('session_to_menu_item');
-		$stmi->session_id = $Session->id;
-		$stmi->find();
+		$DAO_session_to_menu_item = DAO_CFactory::create('session_to_menu_item');
+		$DAO_session_to_menu_item->session_id = $DAO_session->id;
+		$DAO_session_to_menu_item->find();
 		$stmi_array = array();
-		while ($stmi->fetch())
+		while ($DAO_session_to_menu_item->fetch())
 		{
-			$stmi_array[$stmi->menu_item_id] = $stmi->menu_item_id;
+			$stmi_array[$DAO_session_to_menu_item->menu_item_id] = $DAO_session_to_menu_item->menu_item_id;
 		}
 
 		// Session host
-		$session_properties = DAO_CFactory::create('session_properties');
-		$session_properties->session_id = $Session->id;
-		$session_properties->find(true);
+		$DAO_session_properties = DAO_CFactory::create('session_properties');
+		$DAO_session_properties->session_id = $DAO_session->id;
+		$DAO_session_properties->find(true);
 
-		if (!empty($session_properties->session_host))
+		if (!empty($DAO_session_properties->session_host))
 		{
 			$hostInfo = DAO_CFactory::create('user');
-			$hostInfo->id = $session_properties->session_host;
+			$hostInfo->id = $DAO_session_properties->session_host;
 			$hostInfo->selectAdd();
 			$hostInfo->selectAdd("CONCAT(firstname,' ',lastname) as fullname, primary_email");
 			$hostInfo->find(true);
@@ -179,9 +179,9 @@ class page_admin_edit_session extends CPageAdminOnly
 			$SessionForm->DefaultValues['session_host'] = $hostInfo->primary_email;
 		}
 
-		if ($session_properties->menu_pricing_method)
+		if ($DAO_session_properties->menu_pricing_method)
 		{
-			$SessionForm->DefaultValues["menu_pricing_method"] = $session_properties->menu_pricing_method;
+			$SessionForm->DefaultValues["menu_pricing_method"] = $DAO_session_properties->menu_pricing_method;
 		}
 		else
 		{
@@ -196,23 +196,23 @@ class page_admin_edit_session extends CPageAdminOnly
 			}
 			else
 			{
-				$stmi = DAO_CFactory::create('session_to_menu_item');
-				$stmi->session_id = $Session->id;
-				$stmi->find();
-				while ($stmi->fetch())
+				$DAO_session_to_menu_item = DAO_CFactory::create('session_to_menu_item');
+				$DAO_session_to_menu_item->session_id = $DAO_session->id;
+				$DAO_session_to_menu_item->find();
+				while ($DAO_session_to_menu_item->fetch())
 				{
-					$stmi->delete();
+					$DAO_session_to_menu_item->delete();
 				}
 
-				$Session->delete();
+				$DAO_session->delete();
 
-				if (!empty($Session->is_deleted) && !empty($session_properties->id))
+				if (!empty($DAO_session->is_deleted) && !empty($DAO_session_properties->id))
 				{
-					$session_properties->delete();
+					$DAO_session_properties->delete();
 				}
 
 				// delete any session_rsvp
-				CSession::deleteSessionRSVP($Session->id);
+				CSession::deleteSessionRSVP($DAO_session->id);
 
 				$tpl->setStatusMsg('The session was successfully deleted.');
 				CApp::bounce('/backoffice/session-mgr');
@@ -226,9 +226,9 @@ class page_admin_edit_session extends CPageAdminOnly
 		{
 			if ($_POST['open_close_submit'] == 'Close Session')
 			{
-				$Session->session_publish_state = CSession::CLOSED;
+				$DAO_session->session_publish_state = CSession::CLOSED;
 
-				$rslt = $Session->update();
+				$rslt = $DAO_session->update();
 				if ($rslt)
 				{
 					$tpl->setStatusMsg('The session was closed');
@@ -242,9 +242,9 @@ class page_admin_edit_session extends CPageAdminOnly
 			}
 			else
 			{
-				$Session->session_publish_state = CSession::PUBLISHED;
+				$DAO_session->session_publish_state = CSession::PUBLISHED;
 
-				$rslt = $Session->update();
+				$rslt = $DAO_session->update();
 				if ($rslt)
 				{
 					$tpl->setStatusMsg('The session was opened');
@@ -263,26 +263,26 @@ class page_admin_edit_session extends CPageAdminOnly
 			}
 		}
 
-		$SessionForm->DefaultValues["session_type_subtype"] = $Session->session_type_subtype;
-		$SessionForm->DefaultValues["session_pickup_location"] = $session_properties->store_pickup_location_id;
-		$SessionForm->DefaultValues["fundraiser_recipient"] = $session_properties->fundraiser_id;
-		$SessionForm->DefaultValues["dream_taste_theme"] = $session_properties->dream_taste_event_id;
-		$SessionForm->DefaultValues["session_date"] = CTemplate::dateTimeFormat($Session->session_start, YEAR_MONTH_DAY);
-		$SessionForm->DefaultValues["session_time"] = CTemplate::dateTimeFormat($Session->session_start, HH_MM);
-		$session_end_time = date("Y-m-d H:i:s", strtotime($Session->session_start) + ($Session->duration_minutes * 60));
+		$SessionForm->DefaultValues["session_type_subtype"] = $DAO_session->session_type_subtype;
+		$SessionForm->DefaultValues["session_pickup_location"] = $DAO_session_properties->store_pickup_location_id;
+		$SessionForm->DefaultValues["fundraiser_recipient"] = $DAO_session_properties->fundraiser_id;
+		$SessionForm->DefaultValues["dream_taste_theme"] = $DAO_session_properties->dream_taste_event_id;
+		$SessionForm->DefaultValues["session_date"] = CTemplate::dateTimeFormat($DAO_session->session_start, YEAR_MONTH_DAY);
+		$SessionForm->DefaultValues["session_time"] = CTemplate::dateTimeFormat($DAO_session->session_start, HH_MM);
+		$session_end_time = date("Y-m-d H:i:s", strtotime($DAO_session->session_start) + ($DAO_session->duration_minutes * 60));
 		$SessionForm->DefaultValues["session_end_time"] = CTemplate::dateTimeFormat($session_end_time, HH_MM);
 
-		$SessionForm->DefaultValues["introductory_slots"] = ($Store->storeSupportsIntroOrders($Menu->id)) ? $Session->introductory_slots : 0;
+		$SessionForm->DefaultValues["introductory_slots"] = ($DAO_store->storeSupportsIntroOrders($DAO_menu->id)) ? $DAO_session->introductory_slots : 0;
 
-		$SessionForm->DefaultValues["standard_session_type_subtype"] = ((!empty($Session->session_password) ? CSession::PRIVATE_SESSION : CSession::STANDARD));
+		$SessionForm->DefaultValues["standard_session_type_subtype"] = ((!empty($DAO_session->session_password) ? CSession::PRIVATE_SESSION : CSession::STANDARD));
 		$session_types = array(CSession::STANDARD => 'Assembly');
 
-		if ($Session->isMadeForYou() || $Store->supports_special_events)
+		if ($DAO_session->isMadeForYou() || $DAO_store->supports_special_events)
 		{
 			$session_types = array_merge($session_types, array(CSession::MADE_FOR_YOU => 'Pick Up & Home Delivery'));
 		}
 
-		$DreamTasteTypeInfoArray = CDreamTasteEvent::dreamTasteProperties($Session->menu_id, $Store);
+		$DreamTasteTypeInfoArray = CDreamTasteEvent::dreamTasteProperties($DAO_session->menu_id, $DAO_store);
 		$dream_taste_themes = array('' => 'Select Theme'); // just here to satisfy CForm, overwritten if $DreamTasteTypeInfoArray is true
 
 		if ($DreamTasteTypeInfoArray)
@@ -311,10 +311,10 @@ class page_admin_edit_session extends CPageAdminOnly
 		$fundraiserSelectArray = array('' => 'Select Fundraiser');
 		$fundraiser_themes = array('' => 'Select Fundraiser');
 
-		if ($Session->isFundraiser() || $Store->supports_fundraiser)
+		if ($DAO_session->isFundraiser() || $DAO_store->supports_fundraiser)
 		{
 			// get list of fundraiser themes available for the month
-			$FundraiserTypeInfoArray = CFundraiser::fundraiserProperties($Session->menu_id, $Store);
+			$FundraiserTypeInfoArray = CFundraiser::fundraiserProperties($DAO_session->menu_id, $DAO_store);
 
 			if ($FundraiserTypeInfoArray)
 			{
@@ -339,7 +339,7 @@ class page_admin_edit_session extends CPageAdminOnly
 				}
 
 				// list of fundraisers
-				$fundraiserArray = CFundraiser::storeFundraiserArray($Store);
+				$fundraiserArray = CFundraiser::storeFundraiserArray($DAO_store);
 
 				if (!empty($fundraiserArray))
 				{
@@ -364,21 +364,21 @@ class page_admin_edit_session extends CPageAdminOnly
 			}
 		}
 
-		$leadOpts = CSession::retreiveSessionLeadArray($Store->id, true);
+		$leadOpts = CSession::retreiveSessionLeadArray($DAO_store->id, true);
 
-		if (!empty($Session->session_lead))
+		if (!empty($DAO_session->session_lead))
 		{
-			$SessionForm->DefaultValues["session_lead"] = $Session->session_lead;
+			$SessionForm->DefaultValues["session_lead"] = $DAO_session->session_lead;
 
-			if (!array_key_exists($Session->session_lead, $leadOpts))
+			if (!array_key_exists($DAO_session->session_lead, $leadOpts))
 			{
 				$leadObj = DAO_CFactory::create('user');
-				$leadObj->id = $Session->session_lead;
+				$leadObj->id = $DAO_session->session_lead;
 				$leadObj->selectAdd();
 				$leadObj->selectAdd('firstname, lastname');
 				if ($leadObj->find(true))
 				{
-					$leadOpts[$Session->session_lead] = $leadObj->firstname;
+					$leadOpts[$DAO_session->session_lead] = $leadObj->firstname;
 				}
 				else
 				{
@@ -397,7 +397,7 @@ class page_admin_edit_session extends CPageAdminOnly
 
 		$SessionForm->AddElement(array(
 			CForm::type => CForm::CheckBox,
-			CForm::checked => ((!empty($Session->session_assembly_fee) || ($Session->session_assembly_fee == '0.00')) ? true : false),
+			CForm::checked => ((!empty($DAO_session->session_assembly_fee) || ($DAO_session->session_assembly_fee == '0.00')) ? true : false),
 			CForm::label => '$',
 			CForm::tooltip => 'Enable Override',
 			CForm::name => 'session_assembly_fee_enable'
@@ -411,7 +411,7 @@ class page_admin_edit_session extends CPageAdminOnly
 
 		$SessionForm->AddElement(array(
 			CForm::type => CForm::CheckBox,
-			CForm::checked => ((!empty($Session->session_delivery_fee) || ($Session->session_delivery_fee == '0.00')) ? true : false),
+			CForm::checked => ((!empty($DAO_session->session_delivery_fee) || ($DAO_session->session_delivery_fee == '0.00')) ? true : false),
 			CForm::label => '$',
 			CForm::tooltip => 'Enable Override',
 			CForm::name => 'session_delivery_fee_enable'
@@ -422,7 +422,7 @@ class page_admin_edit_session extends CPageAdminOnly
 			CForm::name => 'session_delivery_fee',
 			CForm::min => '0',
 			CForm::step => '0.01',
-			CForm::attribute => array('data-valdefault' => ((!empty($Store->delivery_fee)) ? $Store->delivery_fee : '0.00'))
+			CForm::attribute => array('data-valdefault' => ((!empty($DAO_store->delivery_fee)) ? $DAO_store->delivery_fee : '0.00'))
 		));
 
 		$SessionForm->AddElement(array(
@@ -434,7 +434,7 @@ class page_admin_edit_session extends CPageAdminOnly
 		$SessionForm->AddElement(array(
 			CForm::type => CForm::DropDown,
 			CForm::disabled => true,
-			CForm::options => array($Menu->id => $Menu->menu_name),
+			CForm::options => array($DAO_menu->id => $DAO_menu->menu_name),
 			CForm::name => 'menu'
 		));
 
@@ -476,8 +476,8 @@ class page_admin_edit_session extends CPageAdminOnly
 			CForm::disabled => (($numBookings > 0) ? true : false),
 			CForm::date => true,
 			CForm::required => true,
-			CForm::min => CTemplate::dateTimeFormat($Menu->global_menu_start_date, YEAR_MONTH_DAY),
-			CForm::max => CTemplate::dateTimeFormat($Menu->global_menu_end_date, YEAR_MONTH_DAY),
+			CForm::min => CTemplate::dateTimeFormat($DAO_menu->global_menu_start_date, YEAR_MONTH_DAY),
+			CForm::max => CTemplate::dateTimeFormat($DAO_menu->global_menu_end_date, YEAR_MONTH_DAY),
 			CForm::name => 'session_date'
 		));
 
@@ -583,7 +583,7 @@ class page_admin_edit_session extends CPageAdminOnly
 
 		$storePickupLocation = array('' => 'Select Location');
 
-		foreach ($Store->remoteLocations as $id => $location)
+		foreach ($DAO_store->remoteLocations as $id => $location)
 		{
 			$storePickupLocation[$id] = array(
 				'title' => $location->location_title . ' - ' . $location->address_line1 . (!empty($location->address_line2) ? ' ' . $location->address_line2 : '') . ', ' . $location->city . ', ' . $location->state_id . ' ' . $location->postal_code,
@@ -605,13 +605,13 @@ class page_admin_edit_session extends CPageAdminOnly
 			'' => 'Pick Up'
 		);
 
-		if ($Store->supports_delivery || $Session->session_type_subtype == CSession::DELIVERY || $Session->session_type_subtype == CSession::DELIVERY_PRIVATE)
+		if ($DAO_store->supports_delivery || $DAO_session->session_type_subtype == CSession::DELIVERY || $DAO_session->session_type_subtype == CSession::DELIVERY_PRIVATE)
 		{
 			$subtypeArray[CSession::DELIVERY] = 'Home Delivery';
 			$subtypeArray[CSession::DELIVERY_PRIVATE] = 'Home Delivery - Private';
 		}
 
-		if (!empty($Store->remoteLocations) && ($Store->supports_offsite_pickup || $Session->session_type_subtype == CSession::REMOTE_PICKUP || $Session->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE))
+		if (!empty($DAO_store->remoteLocations) && ($DAO_store->supports_offsite_pickup || $DAO_session->session_type_subtype == CSession::REMOTE_PICKUP || $DAO_session->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE))
 		{
 			$subtypeArray[CSession::REMOTE_PICKUP] = 'Community Pick Up';
 			$subtypeArray[CSession::REMOTE_PICKUP_PRIVATE] = 'Community Pick Up - Private';
@@ -680,10 +680,10 @@ class page_admin_edit_session extends CPageAdminOnly
 		// ---------------------------------------------- Session Discount
 		$SessionForm->DefaultValues["discount_value"] = 0;
 
-		if ($Session->session_discount_id != null)
+		if ($DAO_session->session_discount_id != null)
 		{
 			$discount = DAO_CFactory::create('session_discount');
-			$discount->id = $Session->session_discount_id;
+			$discount->id = $DAO_session->session_discount_id;
 			if ($discount->find(true))
 			{
 				$SessionForm->DefaultValues["discount_value"] = $discount->discount_var;
@@ -738,64 +738,64 @@ class page_admin_edit_session extends CPageAdminOnly
 		$SessionFormArray = $SessionForm->render(true);
 
 		$tpl->assign('canDelete', (($numBookings > 0) ? false : true));
-		$tpl->assign('Menu', $Menu);
+		$tpl->assign('Menu', $DAO_menu);
 		$tpl->assign('form_create_session', $SessionFormArray);
 
 		if ($SessionForm->value('session_submit'))
 		{
-			$oldSession = clone($Session);
+			$oldSession = clone($DAO_session);
 
 			$sessionFormValuesArray = $SessionForm->values();
-			$Session->setFrom($sessionFormValuesArray);
+			$DAO_session->setFrom($sessionFormValuesArray);
 
-			$Session->sneak_peak = 0;
+			$DAO_session->sneak_peak = 0;
 			if ($SessionForm->value('session_sneak_peak') == true)
 			{
-				$Session->sneak_peak = 1;
+				$DAO_session->sneak_peak = 1;
 			}
 
-			if (empty($Session->session_type))
+			if (empty($DAO_session->session_type))
 			{
-				$Session->session_type = CSession::STANDARD;
+				$DAO_session->session_type = CSession::STANDARD;
 			}
 
 			$leadVal = $SessionForm->value('session_lead');
 			if (!empty($leadVal))
 			{
-				$Session->session_lead = $SessionForm->value('session_lead');
+				$DAO_session->session_lead = $SessionForm->value('session_lead');
 			}
 			else
 			{
-				$Session->session_lead = 'null';
+				$DAO_session->session_lead = 'null';
 			}
 
-			$Session->session_class = $Session->session_type;
-			if ($Session->session_type == CSession::DREAM_TASTE)
+			$DAO_session->session_class = $DAO_session->session_type;
+			if ($DAO_session->session_type == CSession::DREAM_TASTE)
 			{
-				$Session->session_class = CSession::TODD;
+				$DAO_session->session_class = CSession::TODD;
 			}
 
 			if (!isset($_POST['session_password']))
 			{
-				$Session->session_password = "";
+				$DAO_session->session_password = "";
 			}
 
-			if (!empty($_POST['session_assembly_fee_enable']) && OrdersHelper::allow_assembly_fee($Session->menu_id))
+			if (!empty($_POST['session_assembly_fee_enable']) && OrdersHelper::allow_assembly_fee($DAO_session->menu_id))
 			{
-				$Session->session_assembly_fee = CGPC::do_clean($_POST['session_assembly_fee'], TYPE_NUM);
+				$DAO_session->session_assembly_fee = CGPC::do_clean($_POST['session_assembly_fee'], TYPE_NUM);
 			}
 			else
 			{
-				$Session->session_assembly_fee = 'NULL';
+				$DAO_session->session_assembly_fee = 'NULL';
 			}
 
 			if (!empty($_POST['session_delivery_fee_enable']))
 			{
-				$Session->session_delivery_fee = CGPC::do_clean($_POST['session_delivery_fee'], TYPE_NUM);
+				$DAO_session->session_delivery_fee = CGPC::do_clean($_POST['session_delivery_fee'], TYPE_NUM);
 			}
 			else
 			{
-				$Session->session_delivery_fee = 'NULL';
+				$DAO_session->session_delivery_fee = 'NULL';
 			}
 
 			$PP_foundUserAccount = false;
@@ -833,7 +833,7 @@ class page_admin_edit_session extends CPageAdminOnly
 				}
 			}
 
-			if (!isset($Session->store_id))
+			if (!isset($DAO_session->store_id))
 			{
 				throw new Exception("Store not set for edited session.");
 			}
@@ -845,9 +845,9 @@ class page_admin_edit_session extends CPageAdminOnly
 					throw new Exception("Session date was not posted.");
 				}
 
-				$Session->session_start = date("Y-m-d H:i:s", strtotime(CGPC::do_clean($_POST['session_date'], TYPE_STR) . ' ' . CGPC::do_clean($_POST['session_time'], TYPE_STR)));
+				$DAO_session->session_start = date("Y-m-d H:i:s", strtotime(CGPC::do_clean($_POST['session_date'], TYPE_STR) . ' ' . CGPC::do_clean($_POST['session_time'], TYPE_STR)));
 
-				if (!$Menu->isTimeStampLegalForMenu(strtotime($Session->session_start)))
+				if (!$DAO_menu->isTimeStampLegalForMenu(strtotime($DAO_session->session_start)))
 				{
 					$tpl->setErrorMsg('The session time is outside of the valid range for this menu');
 
@@ -855,29 +855,29 @@ class page_admin_edit_session extends CPageAdminOnly
 				}
 			}
 
-			$Session->setCloseSchedulingTime($SessionForm->value("close_interval_type"), $SessionForm->value("custom_close_interval"));
-			if ($Session->session_type == CSession::SPECIAL_EVENT)
+			$DAO_session->setCloseSchedulingTime($SessionForm->value("close_interval_type"), $SessionForm->value("custom_close_interval"));
+			if ($DAO_session->session_type == CSession::SPECIAL_EVENT)
 			{
-				$Session->setMealCustomizationCloseSchedulingTime($SessionForm->value("meal_customization_close_interval_type"), $SessionForm->value("meal_customization_close_interval"));
+				$DAO_session->setMealCustomizationCloseSchedulingTime($SessionForm->value("meal_customization_close_interval_type"), $SessionForm->value("meal_customization_close_interval"));
 			}
 			else
 			{
-				$Session->setMealCustomizationCloseSchedulingTime($SessionForm->value("meal_customization_close_interval_type"), -1);
+				$DAO_session->setMealCustomizationCloseSchedulingTime($SessionForm->value("meal_customization_close_interval_type"), -1);
 			}
 			// determine new type and theme
 			$fadminAcronym = false;
-			if ($Session->session_type == CSession::DREAM_TASTE)
+			if ($DAO_session->session_type == CSession::DREAM_TASTE)
 			{
 				$newDTThemeID = CGPC::do_clean($_POST['dream_taste_theme'], TYPE_STR);
 				$fadminAcronym = $DreamTasteTypeInfoArray[$newDTThemeID]['fadmin_acronym'];
 			}
-			else if ($Session->session_type == CSession::FUNDRAISER)
+			else if ($DAO_session->session_type == CSession::FUNDRAISER)
 			{
 				$newFundraiserThemeID = CGPC::do_clean($_POST['dream_taste_theme'], TYPE_STR);
 				$fadminAcronym = $FundraiserTypeInfoArray[$newFundraiserThemeID]['fadmin_acronym'];
 			}
 
-			if ($Session->doesTimeConflict($fadminAcronym))
+			if ($DAO_session->doesTimeConflict($fadminAcronym))
 			{
 				$tpl->setErrorMsg('The session time and duration conflict with another session.');
 			}
@@ -924,10 +924,10 @@ class page_admin_edit_session extends CPageAdminOnly
 						if (!$rslt)
 						{
 							$tpl->setErrorMsg('The session discount could not be created');
-							$Session->session_discount_id = null;
+							$DAO_session->session_discount_id = null;
 						}
 
-						$Session->session_discount_id = $rslt;
+						$DAO_session->session_discount_id = $rslt;
 					}
 				}
 				else if ($numBookings == 0)
@@ -940,7 +940,7 @@ class page_admin_edit_session extends CPageAdminOnly
 						{
 							$org_discount->delete();
 						}
-						$Session->session_discount_id = 'null';
+						$DAO_session->session_discount_id = 'null';
 					}
 				}
 
@@ -949,81 +949,81 @@ class page_admin_edit_session extends CPageAdminOnly
 				// set them equal here
 				$oldSession->created_by = "";
 
-				if ($Session->session_discount_id === "" || $Session->session_discount_id === 0)
+				if ($DAO_session->session_discount_id === "" || $DAO_session->session_discount_id === 0)
 				{
-					$Session->session_discount_id = 'null';
+					$DAO_session->session_discount_id = 'null';
 				}
 
 				// Make sure mfy and standard don't have passwords if they aren't private sub types
-				if (($Session->isMadeForYou() && $Session->session_type_subtype != CSession::REMOTE_PICKUP_PRIVATE && $Session->session_type_subtype != CSession::DELIVERY_PRIVATE) || ($_POST['standard_session_type_subtype'] == CSession::STANDARD && $Session->session_type_subtype != CSession::PRIVATE_SESSION))
+				if (($DAO_session->isMadeForYou() && $DAO_session->session_type_subtype != CSession::REMOTE_PICKUP_PRIVATE && $DAO_session->session_type_subtype != CSession::DELIVERY_PRIVATE) || ($_POST['standard_session_type_subtype'] == CSession::STANDARD && $DAO_session->session_type_subtype != CSession::PRIVATE_SESSION))
 				{
-					$Session->session_password = "";
+					$DAO_session->session_password = "";
 				}
 
 				if (empty($_POST["session_type_subtype"]))
 				{
-					$Session->session_type_subtype = "null";
+					$DAO_session->session_type_subtype = "null";
 				}
 
-				$rslt = $Session->update($oldSession);
+				$rslt = $DAO_session->update($oldSession);
 
-				if ($rslt || ($rslt === 0 && !$Session->_lastError))
+				if ($rslt || ($rslt === 0 && !$DAO_session->_lastError))
 				{
 					if ($PP_foundUserAccount)
 					{
-						if (isset($session_properties) && isset($session_properties->id))
+						if (isset($DAO_session_properties) && isset($DAO_session_properties->id))
 						{
-							$session_properties->session_id = $Session->id;
-							$session_properties->menu_pricing_method = 'USE_CURRENT';
+							$DAO_session_properties->session_id = $DAO_session->id;
+							$DAO_session_properties->menu_pricing_method = 'USE_CURRENT';
 
-							if ($PP_foundUserAccount && $PP_foundUserAccount !== $session_properties->session_host)
+							if ($PP_foundUserAccount && $PP_foundUserAccount !== $DAO_session_properties->session_host)
 							{
-								$session_properties->session_host = $PP_foundUserAccount;
+								$DAO_session_properties->session_host = $PP_foundUserAccount;
 							}
 
-							$session_properties->store_pickup_location_id = 0;
-							if (empty($Session->session_type_subtype) && ($Session->session_type_subtype == CSession::REMOTE_PICKUP || $Session->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE))
+							$DAO_session_properties->store_pickup_location_id = 0;
+							if (empty($DAO_session->session_type_subtype) && ($DAO_session->session_type_subtype == CSession::REMOTE_PICKUP || $DAO_session->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE))
 							{
-								$session_properties->store_pickup_location_id = CGPC::do_clean($_POST['session_pickup_location'], TYPE_INT);
+								$DAO_session_properties->store_pickup_location_id = CGPC::do_clean($_POST['session_pickup_location'], TYPE_INT);
 							}
 
-							$session_properties->update();
+							$DAO_session_properties->update();
 						}
 						else
 						{
-							$session_properties = DAO_CFactory::create('session_properties');
-							$session_properties->session_id = $Session->id;
-							$session_properties->session_host = $PP_foundUserAccount; // this is validated above
-							$session_properties->menu_pricing_method = 'USE_CURRENT';
+							$DAO_session_properties = DAO_CFactory::create('session_properties');
+							$DAO_session_properties->session_id = $DAO_session->id;
+							$DAO_session_properties->session_host = $PP_foundUserAccount; // this is validated above
+							$DAO_session_properties->menu_pricing_method = 'USE_CURRENT';
 
-							$session_properties->store_pickup_location_id = 0;
-							if (empty($Session->session_type_subtype) && ($Session->session_type_subtype == CSession::REMOTE_PICKUP || $Session->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE))
+							$DAO_session_properties->store_pickup_location_id = 0;
+							if (empty($DAO_session->session_type_subtype) && ($DAO_session->session_type_subtype == CSession::REMOTE_PICKUP || $DAO_session->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE))
 							{
-								$session_properties->store_pickup_location_id = CGPC::do_clean($_POST['session_pickup_location'], TYPE_INT);
+								$DAO_session_properties->store_pickup_location_id = CGPC::do_clean($_POST['session_pickup_location'], TYPE_INT);
 							}
 
-							$session_properties->insert();
+							$DAO_session_properties->insert();
 						}
 					}
 
-					if ($Session->isMadeForYou())
+					if ($DAO_session->isMadeForYou())
 					{
-						if (!empty($Session->session_type_subtype) && ($Session->session_type_subtype == CSession::REMOTE_PICKUP || $Session->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE))
+						if (!empty($DAO_session->session_type_subtype) && ($DAO_session->session_type_subtype == CSession::REMOTE_PICKUP || $DAO_session->session_type_subtype == CSession::REMOTE_PICKUP_PRIVATE))
 						{
-							$session_properties = DAO_CFactory::create('session_properties');
-							$session_properties->session_id = $Session->id;
+							$DAO_session_properties = DAO_CFactory::create('session_properties');
+							$DAO_session_properties->session_id = $DAO_session->id;
 
-							if ($session_properties->find(true))
+							if ($DAO_session_properties->find(true))
 							{
-								$session_properties->store_pickup_location_id = CGPC::do_clean($_POST['session_pickup_location'], TYPE_INT);
-								$session_properties->menu_pricing_method = 'USE_CURRENT';
-								$session_properties->update();
+								$DAO_session_properties->store_pickup_location_id = CGPC::do_clean($_POST['session_pickup_location'], TYPE_INT);
+								$DAO_session_properties->menu_pricing_method = 'USE_CURRENT';
+								$DAO_session_properties->update();
 							}
 							else
 							{
-								$session_properties->store_pickup_location_id = CGPC::do_clean($_POST['session_pickup_location'], TYPE_INT);
-								$session_properties->menu_pricing_method = 'USE_CURRENT';
-								$session_properties->insert();
+								$DAO_session_properties->store_pickup_location_id = CGPC::do_clean($_POST['session_pickup_location'], TYPE_INT);
+								$DAO_session_properties->menu_pricing_method = 'USE_CURRENT';
+								$DAO_session_properties->insert();
 							}
 						}
 					}
@@ -1031,7 +1031,7 @@ class page_admin_edit_session extends CPageAdminOnly
 					if (isset($_POST['do_send_pp_notification']))
 					{
 						$didSendHostessNotification = true;
-						CEmail::sendHostessNotification($PP_hostessEmail, $PP_hostessName, $Session);
+						CEmail::sendHostessNotification($PP_hostessEmail, $PP_hostessName, $DAO_session);
 					}
 
 					$tpl->setStatusMsg('The session has been saved');

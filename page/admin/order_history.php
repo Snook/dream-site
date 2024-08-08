@@ -7,7 +7,7 @@ require_once 'includes/DAO/BusinessObject/CBooking.php';
 class page_admin_order_history extends CPageAdminOnly
 {
 
-	public static $PAGE_SIZE = 10;
+	public static int $PAGE_SIZE = 10;
 
 	function runSiteAdmin()
 	{
@@ -54,11 +54,12 @@ class page_admin_order_history extends CPageAdminOnly
 		$this->runSiteAdmin();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runFranchiseOwner()
 	{
 		ini_set('memory_limit', '72M');
-
-		$tpl = CApp::instance()->template();
 
 		$id = false;
 
@@ -69,54 +70,31 @@ class page_admin_order_history extends CPageAdminOnly
 
 		if (!$id)
 		{
-			$tpl->setErrorMsg("The user id is invalid.");
-
-			if (isset($_REQUEST['back']))
-			{
-				CApp::bounce($_REQUEST['back']);
-			}
-
-			CApp::bounce("/backoffice/main");
+			$this->Template->setErrorMsg("The user id is invalid.")->bounce();
 		}
 
-		if (isset($_REQUEST['back']))
+		$DAO_user = DAO_CFactory::create('user');
+		$DAO_user->id = $id;
+		if (!$DAO_user->find(true))
 		{
-			$tpl->assign('back', $_REQUEST['back']);
-		}
-		else
-		{
-			$tpl->assign('back', '/backoffice/user_details?id=' . $id);
+			$this->Template->setErrorMsg("The user could not be found.")->bounce();
 		}
 
-		$User = DAO_CFactory::create('user');
-		$User->id = $id;
-		if (!$User->find(true))
-		{
-			$tpl->setErrorMsg("The user could not be found.");
+		$this->Template->assign('user', $DAO_user->toArray());
+		$this->Template->assign('user_id', $DAO_user->id);
 
-			if (isset($_REQUEST['back']))
-			{
-				CApp::bounce($_REQUEST['back']);
-			}
-
-			CApp::bounce("/backoffice/main");
-		}
-
-		$tpl->assign('user', $User->toArray());
-		$tpl->assign('user_id', $User->id);
-
-		$Orders = self::fetchOrderHistory($User->id, self::$PAGE_SIZE);
+		$Orders = self::fetchOrderHistory($DAO_user->id, self::$PAGE_SIZE);
 
 		//paging control
 		$totalFetchedOrder = count($Orders);
 		$shouldPage = $totalFetchedOrder > (self::$PAGE_SIZE - 3);
-		$tpl->assign('orders', $Orders);
-		$tpl->assign('pagination', $shouldPage);
-		$tpl->assign('pagination_prev', false);
-		$tpl->assign('pagination_next', true);
-		$tpl->assign('page_cur', 0);
+		$this->Template->assign('orders', $Orders);
+		$this->Template->assign('pagination', $shouldPage);
+		$this->Template->assign('pagination_prev', false);
+		$this->Template->assign('pagination_next', true);
+		$this->Template->assign('page_cur', 0);
 
-		$tpl->assign('active_menus', CMenu::getActiveMenuArray());
+		$this->Template->assign('active_menus', CMenu::getActiveMenuArray());
 
 		if (isset($_REQUEST['send_test_reminder_email']) && $_REQUEST['send_test_reminder_email'] = true)
 		{
@@ -134,6 +112,9 @@ class page_admin_order_history extends CPageAdminOnly
 		}
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	public static function fetchOrderHistory($user_id, $limit = 15)
 	{
 		$Order = DAO_CFactory::create('orders');

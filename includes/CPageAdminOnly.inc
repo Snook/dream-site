@@ -49,6 +49,7 @@ abstract class CPageAdminOnly
 		{
 			$this->Template->assign('UserCurrent', $this->CurrentUser);
 			$this->Template->assign('CurrentBackOfficeStore', $this->CurrentBackOfficeStore);
+			$this->Template->assign('back', $this->Template->bounceBackUrl());
 		}
 
 		if (CApp::instance()->template()->page != 'admin_location_switch' && CApp::instance()->template()->page != 'admin_access_agreement')

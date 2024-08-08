@@ -59,6 +59,9 @@ class processor_admin_user_plate_points extends CPageProcessor
 		$this->mainProcessor();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function mainProcessor()
 	{
 		header('Pragma: no-cache');
@@ -120,6 +123,9 @@ class processor_admin_user_plate_points extends CPageProcessor
 		}
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function next($user_id, $current_page)
 	{
 		$current_page++;
@@ -155,6 +161,9 @@ class processor_admin_user_plate_points extends CPageProcessor
 		exit;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function prev($user_id, $current_page)
 	{
 		$current_page--;
@@ -186,6 +195,9 @@ class processor_admin_user_plate_points extends CPageProcessor
 		exit;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function dinner_dollar_next($user_id, $current_page)
 	{
 		$current_page++;
@@ -222,6 +234,9 @@ class processor_admin_user_plate_points extends CPageProcessor
 		exit;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function dinner_dollar_prev($user_id, $current_page)
 	{
 		$current_page--;
