@@ -1,20 +1,12 @@
 <?php
-/*
- * Created on Jun 7, 2005
- *
- */
-class page_admin_login extends CPage {
 
-	function runPublic()
+use JetBrains\PhpStorm\NoReturn;
+
+class page_admin_login extends CPage
+{
+
+	#[NoReturn] function runPublic(): void
 	{
-		
-
-		$tpl = CApp::instance()->template();
-
-		if (CUser::isLoggedIn() && CUser::getCurrentUser()->user_type != CUser::CUSTOMER)
-		{
-			CApp::bounce('/backoffice/main');
-		}
+		CApp::bounce(page: '/login', BOUNCE_REQUEST_URI: '/backoffice');
 	}
 }
-?>

@@ -620,6 +620,8 @@ class CBrowserSession extends DAO_Browser_sessions
 
 		self::ClearCookie();
 
+		session_regenerate_id(true);
+
 		return true;
 	}
 
