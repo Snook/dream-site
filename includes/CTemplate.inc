@@ -596,6 +596,40 @@ class CTemplate extends Savant2
 		return $dollarAmount;
 	}
 
+	function bounceBackUrl($currentUrl = false): string
+	{
+		if ($currentUrl)
+		{
+			return $_SERVER["REQUEST_URI"];
+		}
+		else if (!empty($_SERVER['HTTP_REFERER']))
+		{
+			$parsedUrl = parse_url($_SERVER['HTTP_REFERER']);
+
+			return $parsedUrl["path"] . ($parsedUrl["query"] ? '?' . $parsedUrl["query"] : null);
+		}
+		else if ($this->is_admin)
+		{
+			return '/backoffice';
+		}
+		else
+		{
+			return '/';
+		}
+	}
+
+	function bounce($path = false): void
+	{
+		if ($path)
+		{
+			CApp::bounce($path);
+		}
+		else
+		{
+			CApp::bounce($this->bounceBackUrl());
+		}
+	}
+
 	/**
 	 * simple method to encrypt or decrypt a plain text string
 	 * initialization vector(IV) has to be the same when encrypting and decrypting

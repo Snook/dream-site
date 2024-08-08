@@ -44,8 +44,9 @@ require_once("DAO/Browser_sessions.php");
 
 class CBrowserSession extends DAO_Browser_sessions
 {
+	const BOUNCE_REQUEST_URI = 'BOUNCE_REQUEST_URI';
 
-	public $isPrevious = false;
+	public bool $isPrevious = false;
 
 	//
 	// constructor
@@ -57,10 +58,10 @@ class CBrowserSession extends DAO_Browser_sessions
 
 	//if we are using a cookie for storage, then the value won't be available until the next request,
 	//so we'll save it here temporarily.
-	private $tempStorage = array();
-	static $currentFadminStoreObj = null;
+	private array $tempStorage = array();
+	static mixed $currentFadminStoreObj = null;
 
-	static public function instance()
+	static public function instance(): ?CBrowserSession
 	{
 		if (self::$session == null)
 		{
@@ -70,7 +71,7 @@ class CBrowserSession extends DAO_Browser_sessions
 		return self::$session;
 	}
 
-	static public function setValueForThisSessionOnly($key, $value = false, $secure = true, $httponly = true)
+	static public function setValueForThisSessionOnly($key, $value = false, $secure = true, $httponly = true): void
 	{
 		$inst = self::instance();
 		$inst->tempStorage[$key] = $value;
@@ -93,7 +94,7 @@ class CBrowserSession extends DAO_Browser_sessions
 	 * Passing in no value will delete the variable, use 0 or 1 for booleans instead,
 	 * You must pass in a duration in seconds
 	 */
-	static public function setValueAndDuration($key, $value = false, $seconds = 0, $secure = true, $httponly = true)
+	static public function setValueAndDuration($key, $value = false, $seconds = 0, $secure = true, $httponly = true): void
 	{
 		$inst = self::instance();
 
@@ -119,7 +120,7 @@ class CBrowserSession extends DAO_Browser_sessions
 		}
 	}
 
-	static public function getSessionCookieName()
+	static public function getSessionCookieName(): string
 	{
 		if (defined('DD_SERVER_NAME') && DD_SERVER_NAME != 'LIVE')
 		{
@@ -131,7 +132,44 @@ class CBrowserSession extends DAO_Browser_sessions
 		}
 	}
 
-	static $siteSpecificCookies = array(
+	static public function setSessionVariable($key, $value = false): void
+	{
+		if (!$value)
+		{
+			unset($_SESSION[$key]);
+		}
+		else
+		{
+			$_SESSION[$key] = $value;
+		}
+	}
+
+	static public function getSessionVariable($key): mixed
+	{
+		if ($_SESSION[$key])
+		{
+			return $_SESSION[$key];
+		}
+
+		return null;
+	}
+
+	static public function getSessionVariableOnce($key): mixed
+	{
+		if (key_exists($key, $_SESSION))
+		{
+			$thisValue = $_SESSION[$key];
+
+			// Delete
+			self::setSessionVariable($key);
+
+			return $thisValue;
+		}
+
+		return null;
+	}
+
+	static array $siteSpecificCookies = array(
 		'cart',
 		'default_store_id',
 		'credit_key'
@@ -140,7 +178,7 @@ class CBrowserSession extends DAO_Browser_sessions
 	/**
 	 * Express method for extending the length that a cart cookie will exist
 	 */
-	static public function refreshCartCookieExpiry()
+	static public function refreshCartCookieExpiry(): void
 	{
 		self::setValue('cart', self::getValue('cart'));
 	}
@@ -149,7 +187,7 @@ class CBrowserSession extends DAO_Browser_sessions
 	 * Wrapper for saving a value into the browser session cache (cookie,session,db,etc)
 	 * Passing in no value will delete the variable, use 0 or 1 for booleans instead
 	 */
-	static public function setValue($key, $value = false, $no_expire = false, $secure = true, $httponly = true)
+	static public function setValue($key, $value = false, $no_expire = false, $secure = true, $httponly = true): void
 	{
 		if (defined('DD_SERVER_NAME') && DD_SERVER_NAME != 'LIVE')
 		{
@@ -171,7 +209,7 @@ class CBrowserSession extends DAO_Browser_sessions
 
 		$DAY = (60 * 60 * 24); //seconds in a day
 
-		if (strpos($key, 'cart') !== false )//cart cookie
+		if (str_contains($key, 'cart'))//cart cookie
 		{
 			setcookie($key, $value, time() + $DAY * 5, "/", COOKIE_DOMAIN, $secure, $httponly); //expire in 5 days
 		}
@@ -183,10 +221,6 @@ class CBrowserSession extends DAO_Browser_sessions
 		{
 			setcookie($key, $value, time() + 60 * 15, "/", COOKIE_DOMAIN, $secure, $httponly); //expire in 15 minutes
 		}
-//		else
-//		{
-//			setcookie($key, $value, time() + $DAY * 60, "/", COOKIE_DOMAIN, $secure, $httponly); //expire in 60 days: cart, firstname etc.
-//		}
 
 		if ($value === false)
 		{
@@ -200,7 +234,7 @@ class CBrowserSession extends DAO_Browser_sessions
 	static public function getValue($key, $default_value = null)
 	{
 		// for testing analytics on order details page
-		if (defined('DD_THANK_YOU_DEBUG') && DD_THANK_YOU_DEBUG == true)
+		if (defined('DD_THANK_YOU_DEBUG') && DD_THANK_YOU_DEBUG)
 		{
 			if ($key == 'dd_thank_you')
 			{
@@ -220,7 +254,7 @@ class CBrowserSession extends DAO_Browser_sessions
 
 		if (defined('TEST_COMMAND_LINE_USING_CART') && DD_SERVER_NAME != 'LIVE')
 		{
-				return DD_SERVER_NAME . "_CLI_CART";
+			return DD_SERVER_NAME . "_CLI_CART";
 		}
 
 		$val = $default_value;
@@ -248,20 +282,24 @@ class CBrowserSession extends DAO_Browser_sessions
 		$val = self::getValue($key, $default_value);
 
 		// clear value
-		self::setValue($key, false);
+		self::setValue($key);
 
 		return $val;
 	}
 
 	// set last viewed store id
-	static public function setLastViewedStore($id)
+	static public function setLastViewedStore($id): void
 	{
 		// set cookie timeout to 2 days (172800 seconds)
 		self::setValueAndDuration('last_viewed_store', $id, 172800);
 	}
 
 	//customer or fadmin home store
-	static public function setCurrentStore($id)
+
+	/**
+	 * @throws Exception
+	 */
+	static public function setCurrentStore($id): void
 	{
 		if (self::getCurrentStore() != $id && is_numeric($id))
 		{
@@ -284,7 +322,7 @@ class CBrowserSession extends DAO_Browser_sessions
 	/*
 	 * Check if the user has visited before
 	 */
-	static function isReturning()
+	static function isReturning(): bool
 	{
 		list ($store, $ignore) = self::getCurrentStore();
 
@@ -301,11 +339,16 @@ class CBrowserSession extends DAO_Browser_sessions
 		$retVal = self::getValue('default_store_id');
 
 		if (isset($retVal) && !is_numeric($retVal))
-		    return null;
+		{
+			return null;
+		}
 
 		return $retVal;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static public function getCurrentFadminStoreType()
 	{
 		$id = self::getCurrentFadminStoreID();
@@ -316,8 +359,6 @@ class CBrowserSession extends DAO_Browser_sessions
 
 		return $Store->store_type;
 	}
-
-
 
 	static public function getLastViewedStore()
 	{
@@ -345,6 +386,9 @@ class CBrowserSession extends DAO_Browser_sessions
 		}
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static public function getCurrentFadminStoreObj()
 	{
 		if (self::$currentFadminStoreObj == null)
@@ -359,11 +403,13 @@ class CBrowserSession extends DAO_Browser_sessions
 		return self::$currentFadminStoreObj;
 	}
 
-	static public function setCurrentFadminStore($store_id)
+	/**
+	 * @throws Exception
+	 */
+	static public function setCurrentFadminStore($store_id): void
 	{
-
-	    if (is_numeric($store_id))
-	    {
+		if (is_numeric($store_id))
+		{
 			$DAO_store = DAO_CFactory::create('store', true);
 			$DAO_store->id = $store_id;
 			$DAO_store->find_DAO_store(true);
@@ -378,10 +424,10 @@ class CBrowserSession extends DAO_Browser_sessions
 			$copy = clone(self::instance());
 			self::instance()->current_store_id = $DAO_store->id;
 			self::instance()->update($copy);
-	    }
+		}
 	}
 
-	static public function setFirstName($name)
+	static public function setFirstName($name): void
 	{
 		self::setValue('firstname', $name, true);
 	}
@@ -391,7 +437,7 @@ class CBrowserSession extends DAO_Browser_sessions
 		return self::getValue('firstname');
 	}
 
-	static public function setLastName($name)
+	static public function setLastName($name): void
 	{
 		self::setValue('lastname', $name, true);
 	}
@@ -401,7 +447,7 @@ class CBrowserSession extends DAO_Browser_sessions
 		return self::getValue('lastname');
 	}
 
-	static public function setCartKey($id)
+	static public function setCartKey($id): void
 	{
 		self::setValue('cart', $id);
 	}
@@ -411,7 +457,7 @@ class CBrowserSession extends DAO_Browser_sessions
 		return self::getValue('cart');
 	}
 
-	static public function isPrevious()
+	static public function isPrevious(): bool
 	{
 		return self::instance()->isPrevious;
 	}
@@ -424,46 +470,37 @@ class CBrowserSession extends DAO_Browser_sessions
 
 		if (!empty($_COOKIE))
 		{
-
 			$session_cookie_name = self::getSessionCookieName();
 
 			if (!empty($_COOKIE[$session_cookie_name]))
 			{
 				$this->browser_session_key = $_COOKIE[$session_cookie_name];
 				$this->isPrevious = true;
-
-				//if (DEBUG) echo "<P>Cookie is $szCookie";
-				return;
 			}
-		}
-		else
-		{
-			//setcookie("chkcookie", true, 0, "/", COOKIE_DOMAIN, true, false);  // expire when browser closes
 		}
 	}
 
-	static function nofollow()
+	static function nofollow(): void
 	{
 		header('X-Robots-Tag: noindex, follow');
 	}
 
-	function cookieDuration($User = null, $keepLoggedIn = false)
+	function cookieDuration($DAO_user = null, $keepLoggedIn = false)
 	{
 		$CookieOneYear = time() + (86400 * 365);
-		$CookieFifteenMin = time() + 60 * 15;
 
-		if (!empty($User->user_type) && $User->user_type != CUser::CUSTOMER)
+		if (!empty($DAO_user->user_type) && $DAO_user->user_type != CUser::CUSTOMER)
 		{
 			// Browser session for all types other than customer
 			$sessionDuration = time() + 60 * FADMIN_TIMEOUT;
 
 			// If type is site admin they can stay logged in
-			if ($User->user_type == CUser::SITE_ADMIN && (defined('ENABLE_SITE_ADMIN_TIMEOUT') && ENABLE_SITE_ADMIN_TIMEOUT != true))
+			if ($DAO_user->user_type == CUser::SITE_ADMIN && (defined('ENABLE_SITE_ADMIN_TIMEOUT') && !ENABLE_SITE_ADMIN_TIMEOUT))
 			{
 				$sessionDuration = $CookieOneYear;
 			}
 		}
-		else if (!empty($User->user_type) && $User->user_type == CUser::CUSTOMER && $keepLoggedIn)
+		else if (!empty($DAO_user->user_type) && $DAO_user->user_type == CUser::CUSTOMER && $keepLoggedIn)
 		{
 			// Customers if checked to remember login, set to one year
 			$sessionDuration = $CookieOneYear;
@@ -527,16 +564,16 @@ class CBrowserSession extends DAO_Browser_sessions
 	*
 	* -------------------------------------------------------------- */
 
-	function prolongSession($User = null)
+	function prolongSession($DAO_user = null): void
 	{
-		$sessionDuration = $this->cookieDuration($User);
+		$sessionDuration = $this->cookieDuration($DAO_user);
 
 		$fadminTimeOut = false;
 
 		// store timeout in a cookie
 		if (defined('FADMIN_TIMEOUT') && FADMIN_TIMEOUT)
 		{
-			if ($User->user_type == CUser::SITE_ADMIN && (defined('ENABLE_SITE_ADMIN_TIMEOUT') && ENABLE_SITE_ADMIN_TIMEOUT != true))
+			if ($DAO_user->user_type == CUser::SITE_ADMIN && (defined('ENABLE_SITE_ADMIN_TIMEOUT') && !ENABLE_SITE_ADMIN_TIMEOUT))
 			{
 				$fadminTimeOut = false;
 			}
@@ -567,7 +604,7 @@ class CBrowserSession extends DAO_Browser_sessions
 	*
 	* -------------------------------------------------------------- */
 
-	function ExpireSession()
+	function ExpireSession(): bool
 	{
 		if (CUser::getCurrentUser()->id)
 		{
@@ -586,7 +623,7 @@ class CBrowserSession extends DAO_Browser_sessions
 		return true;
 	}
 
-	static function ClearCookie()
+	static function ClearCookie(): void
 	{
 		$session_cookie_name = self::getSessionCookieName();
 		setcookie($session_cookie_name, false);
@@ -597,5 +634,3 @@ class CBrowserSession extends DAO_Browser_sessions
 		self::setValue('EDIT_DELIVERED_ORDER');
 	}
 }
-
-?>
