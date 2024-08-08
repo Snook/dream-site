@@ -66,7 +66,7 @@ $iReturn = ini_set( 'include_path',
 ini_get('include_path'));
 
 // secure PHPSESSID cookie
-ini_set('session.name', DD_SERVER_NAME . '_PHPSESSID');
+ini_set('session.name', ((DD_SERVER_NAME != 'LIVE') ? DD_SERVER_NAME . '_PHPSESSID' : 'PHPSESSID'));
 ini_set('session.cookie_domain', COOKIE_DOMAIN);
 ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_secure', 1);
