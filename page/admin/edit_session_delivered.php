@@ -180,8 +180,6 @@ class page_admin_edit_session_delivered extends CPageAdminOnly
 
 				$tpl->setStatusMsg('The session was successfully deleted.');
 				CApp::bounce('/backoffice/session-mgr-delivered');
-
-				return;
 			}
 		}
 
@@ -643,8 +641,10 @@ class page_admin_edit_session_delivered extends CPageAdminOnly
 							$tpl->setErrorMsg('The session discount could not be created');
 							$Session->session_discount_id = null;
 						}
-
-						$Session->session_discount_id = $rslt;
+						else
+						{
+							$Session->session_discount_id = $rslt;
+						}
 					}
 				}
 				else if ($numBookings == 0)
