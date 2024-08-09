@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @author Carl Samuelson
- */
-
 require_once("includes/CPageAdminOnly.inc");
 require_once('includes/DAO/BusinessObject/CSession.php');
 require_once('includes/CSessionReports.inc');
@@ -11,14 +7,12 @@ require_once('includes/CDreamReport.inc');
 require_once('phplib/PHPExcel/PHPExcel.php');
 require_once('ExcelExport.inc');
 require_once('page/admin/reports_goal_management.php');
-require_once('page/admin/reports_p_and_l_input.php');
 
 global $gUse_percentage_of_agr;
 global $gExpensesArray;
 
 function finPerfReportRowsCallback($sheet, &$data, $row, $bottomRightExtent)
 {
-
 	global $gUse_percentage_of_agr;
 	global $gExpensesArray;
 
@@ -255,7 +249,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 
 	function runFinPerfReport()
 	{
-
 		global $gUse_percentage_of_agr;
 		global $gExpensesArray;
 
@@ -482,7 +475,7 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 					throw new Exception("The year is invalid");
 				}
 
-				$storeInfo = page_admin_reports_p_and_l_input::getStoreInfo($store, $curMonth, $curYear);
+				$storeInfo = page_admin_reports_royalty::createRoyaltyArray($store, "01", $curMonth, $curYear);
 
 				$rows = array(
 					"gross_sales" => array(
@@ -595,7 +588,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 
 				if (isset($_POST['show_comparisons']))
 				{
-
 					$headerNames = array(
 						"Financial Performance Report",
 						$monthLabeling,
@@ -715,8 +707,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 			}
 			else // month range
 			{
-
-
 				$labels = array(
 					"gross_sales" => "Gross Sales",
 					"mark_up" => "+ Mark Up",
@@ -797,7 +787,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 
 				if ($rows)
 				{
-
 					$headerNames = array_shift($rows);
 
 					$col = 'A';
@@ -844,7 +833,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 					}
 					else
 					{
-
 						PHPExcel_Shared_String::setThousandsSeparator(",");
 
 						list($css, $html) = writeExcelFile("Test", $headerNames, $rows, true, false, $columnDescs, false, $callbacks, false, true);
@@ -867,7 +855,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 
 	function retrieveStoreDataRange($store_id, $Form, $fromDate, $toDate, $labels)
 	{
-
 		$retVal = array();
 		$tempRows = array();
 
@@ -932,7 +919,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 
 	function retrieveStoreData($store_id, $Form, $selectMonth, $labels, $rows)
 	{
-
 		$query = "select smpl.cost_of_goods_and_services,
                             smpl.employee_wages,
                             smpl.manager_salaries,
@@ -961,7 +947,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 
 		if ($queryObj->fetch())
 		{
-
 			$dieser = $queryObj->toArray();
 			foreach ($dieser as $dbName => $thisField)
 			{
@@ -1034,7 +1019,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 
 		foreach ($rows as $id => &$columns)
 		{
-
 			if (in_array($id, $nonPLArr))
 			{
 				$columns[] = $ranks_and_averages[$id . "_avg"];
@@ -1083,7 +1067,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 
 		foreach ($rows as $id => &$columns)
 		{
-
 			if (in_array($id, $nonPLArr))
 			{
 				$columns[] = $ranks_and_averages[$id . "_avg"];
@@ -1138,7 +1121,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 
 		foreach ($rows as $id => &$columns)
 		{
-
 			if (in_array($id, $nonPLArr))
 			{
 				$columns[] = $ranks_and_averages[$id . "_avg"];
@@ -1192,7 +1174,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 
 			foreach ($rows as $id => &$columns)
 			{
-
 				if (in_array($id, $nonPLArr))
 				{
 					$columns[] = $ranks_and_averages[$id . "_avg"];
@@ -1231,7 +1212,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 
 	function getPandLByMonthAllStores($curMonth, $curYear, &$data, $store_id, $store_trade_area = false, $store_class = false, $opco_id = false, $logData = false)
 	{
-
 		$current_date = mktime(0, 0, 0, $curMonth, 1, $curYear);
 		$current_date_sql = date("Y-m-d", $current_date);
 
@@ -1271,7 +1251,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 
 		while ($p_and_l->fetch())
 		{
-
 			if (!isset($data[$p_and_l->store_id]))
 			{
 				$data[$p_and_l->store_id] = array();
@@ -1282,7 +1261,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 
 			foreach (self::$rankingFields as $fieldData)
 			{
-
 				$thisFieldName = $fieldData['name'];
 
 				if ($fieldData['convert'] && $this->use_percentage_of_agr)
@@ -1375,8 +1353,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 
 	function addPercentiles(&$dataArr)
 	{
-
-
 		$dataArr["mark_up %"] = CTemplate::divide_and_format((float)$dataArr["mark_up"] * 100, $dataArr["gross_sales"], 2);
 		$dataArr["total_discounts %"] = CTemplate::divide_and_format((float)$dataArr["total_discounts"] * 100, $dataArr["gross_sales"], 2);
 
@@ -1393,7 +1369,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 
 	function getOrderInfoByMonthRange($startMonth, $endMonth, &$rows, $store_id, &$headerRow)
 	{
-
 		$startMonthTS = strtotime($startMonth);
 		$month = date("n", $startMonthTS);
 		$year = date("Y", $startMonthTS);
@@ -1447,7 +1422,6 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 
 		while ($session->fetch())
 		{
-
 			$monthLabel = $session->menu_start;
 
 			$nominalMonthParts = explode("-", $monthLabel);
@@ -1876,7 +1850,6 @@ function sort_by_employee_wages($a, $b)
 
 function sort_by_employee_hours($a, $b)
 {
-
 	$fieldName = "employee_hours";
 
 	if (empty($a[$fieldName]) && empty($b[$fieldName]))
@@ -1903,7 +1876,6 @@ function sort_by_employee_hours($a, $b)
 
 function sort_by_manager_hours($a, $b)
 {
-
 	$fieldName = "manager_hours";
 
 	if (empty($a[$fieldName]) && empty($b[$fieldName]))
@@ -2026,7 +1998,6 @@ function sort_by_total_marketing_and_advertising_expense($a, $b)
 
 function sort_by_rent_expense($a, $b)
 {
-
 	global $gUse_percentage_of_agr;
 
 	$fieldName = "rent_expense";
@@ -2059,7 +2030,6 @@ function sort_by_rent_expense($a, $b)
 
 function sort_by_repairs_and_maintenance($a, $b)
 {
-
 	global $gUse_percentage_of_agr;
 
 	$fieldName = "repairs_and_maintenance";
@@ -2092,7 +2062,6 @@ function sort_by_repairs_and_maintenance($a, $b)
 
 function sort_by_utilities($a, $b)
 {
-
 	global $gUse_percentage_of_agr;
 
 	$fieldName = "utilities";
