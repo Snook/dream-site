@@ -273,7 +273,6 @@ class CCouponCode extends DAO_Coupon_code
 
 	function isValidForCurrentPage()
 	{
-
 		if (isset($_REQUEST['processor']) && strpos($_REQUEST['processor'], "cart_add_payment") !== false && $this->is_customer_order_supported == "0")
 		{
 			return 'online_not_supported';
@@ -354,10 +353,25 @@ class CCouponCode extends DAO_Coupon_code
 		return false;
 	}
 
-	/*
-	* 	Returns the DAO couponCodeObject if valid else returns an array of string error codes
-	*/
-	static function isCodeValid($actualCouponCode, $DAO_orders, $menu_id, $editedOrder = false, $orgOrderTime = null, $orgOrderID = null)
+	/**
+	 *    Description
+	 *        Checks the validity of a coupon code based on various conditions and returns either a valid coupon code object or an error code.
+	 *
+	 *    Parameters
+	 *        $actualCouponCode (string): The actual coupon code to be validated.
+	 *        $DAO_orders (object): An object representing the order.
+	 *        $menu_id (integer): The ID of the menu.
+	 *        $editedOrder (boolean, optional): Indicates if the order is being edited. Defaults to false.
+	 *        $orgOrderTime (timestamp, optional): Original order time if the order is being edited.
+	 *        $orgOrderID (integer, optional): Original order ID if the order is being edited.
+	 *
+	 *    Return Value
+	 *        An array containing an error code (string) if the coupon is invalid.
+	 *        A DAO_coupon_code object if the coupon is valid.
+	 *
+	 * @throws Exception
+	 */
+	static function isCodeValid($actualCouponCode, $DAO_orders, $menu_id, $editedOrder = false, $orgOrderTime = null, $orgOrderID = null): array|object
 	{
 		$DAO_coupon_code = DAO_CFactory::create('coupon_code');
 		$DAO_coupon_code->coupon_code = trim($actualCouponCode);
@@ -435,7 +449,7 @@ class CCouponCode extends DAO_Coupon_code
 
 				// if this is a dream taste, the hostess discount is equal to the cost of the dream taste bundle
 				$DAO_session = $DAO_orders->findSession();
-				if ($DAO_coupon_code->coupon_code == 'HOSTESS' && $DAO_session->session_type == CSession::DREAM_TASTE)
+				if ($DAO_session->session_type == CSession::DREAM_TASTE)
 				{
 					$DAO_coupon_code->discount_var = $bundle->price;
 				}
@@ -447,8 +461,8 @@ class CCouponCode extends DAO_Coupon_code
 				$DAO_coupon_code->discount_var = 84.95;
 			}
 
-			// SHORT CIRCUIT EVALUATION EMERGENMCY HACK
-			if (strpos($_SERVER['REQUEST_URI'], "processor?processor=couponCodeProcessor") !== false)
+			// SHORT CIRCUIT EVALUATION EMERGENCY HACK
+			if (str_contains($_SERVER['REQUEST_URI'], "processor?processor=couponCodeProcessor"))
 			{
 				return array('online_not_supported');
 			}
