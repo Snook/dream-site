@@ -313,7 +313,7 @@ class page_payment extends CPage
 
 	function runPublic()
 	{
-		
+
 
 		CTemplate::noCache();
 
@@ -397,7 +397,7 @@ class page_payment extends CPage
 		// -------------------------------------Setup
 		CTemplate::noCache();
 
-		
+
 		ini_set('memory_limit', '96M');
 		$tpl = CApp::instance()->template();
 
@@ -523,9 +523,9 @@ class page_payment extends CPage
 		$tpl->assign('payment_enabled_coupon', true);
 
 		// ----------------------------------------------------validation
-		if ($Cart->getNavigationType() == CTemplate::DELIVERED)
+		if ($DAO_orders->isShipping())
 		{
-			$sessionIsValid = CSession::isSessionValidForDeliveredOrder($DAO_orders->findSession()->id, $DAO_orders->getStore(), $DAO_orders->findSession()->menu_id, false, $DAO_orders->orderAddress->postal_code);
+			$sessionIsValid = CSession::isSessionValidForDeliveredOrder($DAO_orders->findSession()->id, $DAO_orders->getStore(), $DAO_orders->findSession()->menu_id, false, $DAO_orders->orderAddress->postal_code, excludeFull: true);
 			if (!$sessionIsValid)
 			{
 				$tpl->setStatusMsg('The delivery date you selected is unavailable. Please choose a new delivery date below.');
