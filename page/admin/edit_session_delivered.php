@@ -672,7 +672,7 @@ class page_admin_edit_session_delivered extends CPageAdminOnly
 				}
 
 				// Make sure mfy and standard don't have passwords if they aren't private sub types
-				if (($Session->isMadeForYou() && $Session->session_type_subtype != CSession::REMOTE_PICKUP_PRIVATE) || ($_POST['standard_session_type_subtype'] == CSession::STANDARD && $Session->session_type_subtype != CSession::PRIVATE_SESSION))
+				if (($Session->isMadeForYou() && $Session->session_type_subtype != CSession::REMOTE_PICKUP_PRIVATE) || (!empty($_POST['standard_session_type_subtype']) && $_POST['standard_session_type_subtype'] == CSession::STANDARD && $Session->session_type_subtype != CSession::PRIVATE_SESSION))
 				{
 					$Session->session_password = "";
 				}

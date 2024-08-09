@@ -57,6 +57,6 @@ class page_box_delivery_date extends CPage
 
 		$tpl->assign('sessions', $sessionsArray);
 
-		$tpl->assign('selected_session', $OrderObj->getSession()->id);
+		$tpl->assign('selected_session', $OrderObj->getSession()?->id);
 	}
 }

@@ -69,7 +69,7 @@
 								<li data-tooltip="Can not reschedule" style="text-decoration: line-through;">Reschedule</li>
 							<?php } ?>
 							<li><a href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=<?php echo $booking['session_id']; ?>&amp;booking_id=<?php echo $booking['id']; ?>&amp;menuid=<?php echo $booking['menu_id']; ?>" target="_blank">Order Summary</a></li>
-							<li><a href="/backoffice/order-mgr-delivered?user=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Place <?php echo $this->date['this_M']; ?> Order</a></li>
+							<li><a href="/backoffice/order-mgr-delivered?user=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Place Order</a></li>
 							<li><a href="/backoffice/order-history?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Order History</a></li>
 							<li><a href="" class="handle-resend-shipstation" data-order_id="<?php echo $booking['order_id']; ?>">Update ShipStation</a></li>
 						</ul>
