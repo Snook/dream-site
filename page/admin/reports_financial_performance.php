@@ -482,7 +482,7 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 					throw new Exception("The year is invalid");
 				}
 
-				$storeInfo = page_admin_reports_p_and_l_input::getStoreInfo($store, $curMonth, $curYear);
+				$storeInfo = page_admin_reports_royalty::createRoyaltyArray($store, "01", $curMonth, $curYear);
 
 				$rows = array(
 					"gross_sales" => array(
