@@ -1733,9 +1733,9 @@ class PDF_Label extends FPDF_MULTICELLTAG
 			$this->MultiCellTag($this->_Width * .8, 2, "<tfth>$storeName - $storePhone</tfth>", $showBorders, "L", 0);
 		}
 
-		$FoodSafety = "<tftb>FOOD SAFETY ALERT - CAUTION:</tftb> <tfth>This meal may contain raw ingredients that cannot be eaten prior to thorough cooking. Store in freezer until ready to thaw or prepare.</tfth>";
+		$FoodSafety = "<tfth>FOOD SAFETY ALERT - CAUTION: May contain raw ingredients that cannot be eaten prior to thorough cooking. Store in freezer until ready to thaw or prepare.</tfth>";
 		$this->SetXY($_PosX + 3, $_PosY + 72.5);
-		$this->MultiCellTag($this->_Width - 17, 2, $FoodSafety, $showBorders, "L", 0);
+		$this->MultiCellTag($this->_Width - 18, 2.3, $FoodSafety, $showBorders, "L", 0);
 
 		if (!empty($entity['recipe_id']))
 		{
@@ -1785,7 +1785,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 3, $_PosY + 65);
 		$this->MultiCellTag($this->_Width * .8, 2.5, $Assembled_on, $showBorders, "L", 0);
 
-		$FoodSafety = "<tftb>FOOD SAFETY ALERT - CAUTION:</tftb> <tft>This meal may contain raw ingredients that cannot be eaten prior to thorough cooking. Store in freezer until ready to thaw or prepare.</tft> <tftb>Best if prepared within 2-3 months</tftb>";
+		$FoodSafety = "<tftb>FOOD SAFETY ALERT - CAUTION:</tftb><tft>May contain raw ingredients that cannot be eaten prior to thorough cooking. Store in freezer until ready to thaw or prepare.</tft> <tftb>Best if prepared within 2-3 months</tftb>";
 		$this->SetXY($_PosX + 3, $_PosY + 68);
 		$this->MultiCellTag($this->_Width * .8, 2, $FoodSafety, $showBorders, "L", 0);
 

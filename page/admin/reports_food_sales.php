@@ -429,15 +429,7 @@ class page_admin_reports_food_sales extends CPageAdminOnly
 				$processor->setShowStore(true);
 			}
 
-			if ($omit_menu_id)
-			{
-				list($rows, $items) = $processor->getPurchasersInRangeForItems($mySQLDate, $duration, $store_id, $items, $omit_menu_id);
-
-			}
-			else
-			{
-				list($rows, $items) = $processor->getPurchasersInRangeForItems($mySQLDate, $duration, $store_id, $items);
-			}
+			list($rows, $items) = $processor->getPurchasersInRangeForItems($mySQLDate, $duration, $store_id, $items, $omit_menu_id);
 
 			$this->exportExcel($tpl, $rows, $items, $mySQLDate, $duration);
 

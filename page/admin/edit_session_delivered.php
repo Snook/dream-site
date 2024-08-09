@@ -180,8 +180,6 @@ class page_admin_edit_session_delivered extends CPageAdminOnly
 
 				$tpl->setStatusMsg('The session was successfully deleted.');
 				CApp::bounce('/backoffice/session-mgr-delivered');
-
-				return;
 			}
 		}
 
@@ -643,8 +641,10 @@ class page_admin_edit_session_delivered extends CPageAdminOnly
 							$tpl->setErrorMsg('The session discount could not be created');
 							$Session->session_discount_id = null;
 						}
-
-						$Session->session_discount_id = $rslt;
+						else
+						{
+							$Session->session_discount_id = $rslt;
+						}
 					}
 				}
 				else if ($numBookings == 0)
@@ -672,7 +672,7 @@ class page_admin_edit_session_delivered extends CPageAdminOnly
 				}
 
 				// Make sure mfy and standard don't have passwords if they aren't private sub types
-				if (($Session->isMadeForYou() && $Session->session_type_subtype != CSession::REMOTE_PICKUP_PRIVATE) || ($_POST['standard_session_type_subtype'] == CSession::STANDARD && $Session->session_type_subtype != CSession::PRIVATE_SESSION))
+				if (($Session->isMadeForYou() && $Session->session_type_subtype != CSession::REMOTE_PICKUP_PRIVATE) || (!empty($_POST['standard_session_type_subtype']) && $_POST['standard_session_type_subtype'] == CSession::STANDARD && $Session->session_type_subtype != CSession::PRIVATE_SESSION))
 				{
 					$Session->session_password = "";
 				}

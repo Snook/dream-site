@@ -2444,14 +2444,18 @@ class CSession extends DAO_Session
 			order by `session`.session_start limit " . $max_returned);
 	}
 
-	static function isSessionValidForDeliveredOrder($session_id, $StoreObj, $menu_id, $serviceDays = false, $zip = false)
+	/**
+	 * @throws Exception
+	 */
+	static function isSessionValidForDeliveredOrder($session_id, $StoreObj, $menu_id, $serviceDays = false, $zip = false, $excludeFull = false): bool
 	{
 
 		if (!empty($zip) && (empty($serviceDays) || !is_numeric($serviceDays)))
 		{
-			$serviceDaysRetriever = new DAO();
-			$serviceDaysRetriever->query("select service_days from zipcodes where zip = '$zip' limit 1");
-			$serviceDaysRetriever->fetch();
+			$serviceDaysRetriever = DAO_CFactory::create('zipcodes', true);
+			$serviceDaysRetriever->zip = $zip;
+			$serviceDaysRetriever->limit(1);
+			$serviceDaysRetriever->find(true);
 			$serviceDays = $serviceDaysRetriever->service_days;
 			if (empty($serviceDays))
 			{
@@ -2461,7 +2465,7 @@ class CSession extends DAO_Session
 
 		if (!empty($serviceDays) && is_numeric($serviceDays))
 		{
-			$sessionsArray = CSession::getCurrentDeliveredSessionArrayForCustomer($StoreObj, $serviceDays, false, $menu_id);
+			$sessionsArray = CSession::getCurrentDeliveredSessionArrayForCustomer($StoreObj, $serviceDays, false, $menu_id, excludeFull: true);
 
 			foreach ($sessionsArray['sessions'] as $date => $data)
 			{
@@ -2478,21 +2482,30 @@ class CSession extends DAO_Session
 		return false;
 	}
 
-	static function getCurrentDeliveredSessionArrayForCustomer($Store, $service_days = 0, $date = false, $menu_id = false, $open_only = true, $get_bookings = false, $excludeFull = false)
+	/**
+	 * @throws Exception
+	 */
+	static function getCurrentDeliveredSessionArrayForCustomer($Store, $service_days = 0, $date = false, $menu_id = false, $open_only = true, $get_bookings = false, $excludeFull = false): array
 	{
 		return self::getMonthlySessionInfoArrayForDelivered($Store, $date, $menu_id, false, $open_only, $get_bookings, false, $excludeFull, $service_days, 5);
 	}
 
-	static function getCurrentDeliveredSessionArrayForDistributionCenter($Store, $service_days = 0, $date = false, $menu_id = false, $open_only = false, $get_bookings = false, $excludeFull = false)
+	/**
+	 * @throws Exception
+	 */
+	static function getCurrentDeliveredSessionArrayForDistributionCenter($Store, $service_days = 0, $date = false, $menu_id = false, $open_only = false, $get_bookings = false, $excludeFull = false): array
 	{
 		return self::getMonthlySessionInfoArrayForDelivered($Store, $date, $menu_id, false, $open_only, $get_bookings, false, $excludeFull, $service_days, 20);
 	}
 
-	static function getMonthlySessionInfoArrayForDelivered($Store, $date = false, $menu_id = false, $cart_info = false, $open_only = false, $get_bookings = false, $date_is_anchor = false, $excludeFull = false, $customer_view = false, $max_returned = 6)
+	/**
+	 * @throws Exception
+	 */
+	static function getMonthlySessionInfoArrayForDelivered($DAO_store, $date = false, $menu_id = false, $cart_info = false, $open_only = false, $get_bookings = false, $date_is_anchor = false, $excludeFull = false, $customer_view = false, $max_returned = 6): array
 	{
 
-		$Sessions = DAO_CFactory::create('session', true);
-		$Sessions->store_id = $Store->id;
+		$DAO_session = DAO_CFactory::create('session', true);
+		$DAO_session->store_id = $DAO_store->id;
 
 		if (!$date)
 		{
@@ -2531,7 +2544,7 @@ class CSession extends DAO_Session
 			$sessionInfoArray['sessions'] = array();
 
 			// if not false then customer_view is the the number service days for delivery
-			$Sessions->findSessionsEligibleForOrdering($Store, $customer_view, 20);
+			$DAO_session->findSessionsEligibleForOrdering($DAO_store, $customer_view, 20);
 		}
 		else if (!empty($menu_id))
 		{
@@ -2544,25 +2557,25 @@ class CSession extends DAO_Session
 			else
 			{
 				$optionsArray = false;
-				$Sessions->menu_id = $menu_id;
+				$DAO_session->menu_id = $menu_id;
 			}
 
-			$Sessions->findSessionsByMenu($optionsArray);
+			$DAO_session->findSessionsByMenu($optionsArray);
 		}
 		else
 		{
 			list($rangeStart, $rangeEnd) = CCalendar::calculateExpandedMonthRange($curMonthStartTS);
-			$Sessions->findSessionByCalendarRange($Store->id, $rangeStart, $rangeEnd);
+			$DAO_session->findSessionByCalendarRange($DAO_store->id, $rangeStart, $rangeEnd);
 			$sessionInfoArray['sessions'] = self::getDatesFromRange($rangeStart, $rangeEnd);
 		}
 
 		$sessionsIDArray = array();
 		$count = 0;
 
-		while ($Sessions->fetch())
+		while ($DAO_session->fetch())
 		{
 			// sessions with open slots only
-			if ($excludeFull && $Sessions->getRemainingSlots() <= 0)
+			if ($excludeFull && $DAO_session->getRemainingSlots() <= 0)
 			{
 				continue;
 			}
@@ -2570,21 +2583,21 @@ class CSession extends DAO_Session
 			// open sessions only
 			if ($open_only)
 			{
-				if (!$Sessions->isOpen($Store)) // this strictly checks for whether or not we have passed the lockout time for a store (usually 24 hours prior to session start) ...
+				if (!$DAO_session->isOpen($DAO_store)) // this strictly checks for whether or not we have passed the lockout time for a store (usually 24 hours prior to session start) ...
 				{
 					continue;
 				}
 
 				// ... so also check for a session_publish_state of PUBLISHED or SAVED
-				if ($Sessions->session_publish_state != 'SAVED' && $Sessions->session_publish_state != 'PUBLISHED')
+				if ($DAO_session->session_publish_state != 'SAVED' && $DAO_session->session_publish_state != 'PUBLISHED')
 				{
 					continue;
 				}
 			}
 
-			$date = date('Y-m-d', strtotime($Sessions->session_start));
-			$sessionInfoArray['sessions'][$date]['sessions'][$Sessions->id] = $Sessions->id;
-			$sessionsIDArray[$Sessions->id] = $Sessions->id;
+			$date = date('Y-m-d', strtotime($DAO_session->session_start));
+			$sessionInfoArray['sessions'][$date]['sessions'][$DAO_session->id] = $DAO_session->id;
+			$sessionsIDArray[$DAO_session->id] = $DAO_session->id;
 
 			if ($customer_view && ++$count == $max_returned)
 			{
@@ -2660,7 +2673,7 @@ class CSession extends DAO_Session
 			}
 
 			// TODO: when is a delivery date oin the past
-			if (!empty($Store->id) && $thisDate < date('Y-m-d', CTimezones::getAdjustedServerTime($Store)))
+			if (!empty($DAO_store->id) && $thisDate < date('Y-m-d', CTimezones::getAdjustedServerTime($DAO_store)))
 			{
 				$sessionInfoArray['sessions'][$thisDate]['info']['is_past'] = true;
 			}

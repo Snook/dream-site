@@ -57,11 +57,10 @@ class processor_admin_food_sales extends CPageProcessor
 		$this->showStore = $shouldShow;
 	}
 
-	function getPurchasersInRangeForItems($start, $duration, $store, $items, $omit_guests_ordered_since_menu_id = false)
+	function getPurchasersInRangeForItems($start, $duration, $store, $items, $omit_guests_ordered_since_menu_id = false): array
 	{
-
 		$retVal = array();
-		$DAO_Retriever = new DAO();
+		$DAO_Retriever = DAO_CFactory::create('booking');
 
 		$itemNames = array();
 
@@ -87,9 +86,10 @@ class processor_admin_food_sales extends CPageProcessor
 				`booking`.`user_id`
 				FROM `booking`
 				Inner Join `session` ON `booking`.`session_id` = `session`.`id`
+				Inner join store st on st.id = `session`.store_id $storeClause
 				Inner Join `user` ON `booking`.`user_id` = `user`.`id`
 				where booking.is_deleted = 0 and `booking`.status = 'ACTIVE'
-				and  session_publish_state != 'SAVED' $storeClause
+				and  session_publish_state != 'SAVED' 
 				and menu_id >= $menu_id
 				group by user_id");
 
@@ -100,7 +100,7 @@ class processor_admin_food_sales extends CPageProcessor
 
 			if (!empty($curGuestsOfMenu))
 			{
-				$omitUserList = "AND u.id NOT IN(" .  implode(',', $curGuestsOfMenu) . ")";
+				$omitUserList = "AND u.id NOT IN(" . implode(',', $curGuestsOfMenu) . ")";
 			}
 		}
 
@@ -143,14 +143,13 @@ class processor_admin_food_sales extends CPageProcessor
 			left join address ad on ad.user_id = u.id and ad.location_type = 'BILLING' AND ad.is_deleted = 0
 			join store st on st.id = s.store_id $storeClause
 			join order_item oi on oi.order_id = b.order_id and oi.is_deleted = 0
-			join menu_item mi on mi.id = oi.menu_item_id and mi.recipe_id in ("  . implode(",", $items) .  " )
+			join menu_item mi on mi.id = oi.menu_item_id and mi.recipe_id in (" . implode(",", $items) . " )
 			where st.active = 1 and b.status  = 'ACTIVE' and b.is_deleted = 0 
 			group by u.id, mi.recipe_id 
 			order by  session_start, st.id");
 
 		while ($DAO_Retriever->fetch())
 		{
-
 			if (!isset($itemNames[$DAO_Retriever->menu_item_name]))
 			{
 				$itemNames[$DAO_Retriever->menu_item_name] = $DAO_Retriever->menu_item_name . " (" . $DAO_Retriever->recipe_id . ")";
@@ -290,7 +289,7 @@ class processor_admin_food_sales extends CPageProcessor
 			$retVal[$DAO_Retriever->recipe_id] = array(
 				'recipe_id' => $DAO_Retriever->recipe_id,
 				'name' => $DAO_Retriever->menu_item_name,
-				'num_sold' => $DAO_Retriever->num_sold . " (" . $this->convertIfNotSet($DAO_Retriever->full_count) . "/" . $this->convertIfNotSet($DAO_Retriever->half_count) . "/" . $this->convertIfNotSet($DAO_Retriever->four_count). "/" . $this->convertIfNotSet($DAO_Retriever->two_count). ")",
+				'num_sold' => $DAO_Retriever->num_sold . " (" . $this->convertIfNotSet($DAO_Retriever->full_count) . "/" . $this->convertIfNotSet($DAO_Retriever->half_count) . "/" . $this->convertIfNotSet($DAO_Retriever->four_count) . "/" . $this->convertIfNotSet($DAO_Retriever->two_count) . ")",
 				'category' => $this->getCategoryName($DAO_Retriever->menu_item_category_id, $DAO_Retriever->is_store_special),
 				'entree_id' => $DAO_Retriever->entree_id,
 				'menu_id' => $DAO_Retriever->last_menu
@@ -351,19 +350,20 @@ class processor_admin_food_sales extends CPageProcessor
 							group by mi.recipe_id");
 		while ($DAO_Retriever->fetch())
 		{
-			$retVal[$DAO_Retriever->recipe_id]['num_sold'] = $DAO_Retriever->num_sold . " (" . $this->convertIfNotSet($DAO_Retriever->full_count) . "/" . $this->convertIfNotSet($DAO_Retriever->half_count ). "/" . $this->convertIfNotSet($DAO_Retriever->four_count) . "/" . $this->convertIfNotSet($DAO_Retriever->two_count) . ")";
+			$retVal[$DAO_Retriever->recipe_id]['num_sold'] = $DAO_Retriever->num_sold . " (" . $this->convertIfNotSet($DAO_Retriever->full_count) . "/" . $this->convertIfNotSet($DAO_Retriever->half_count) . "/" . $this->convertIfNotSet($DAO_Retriever->four_count) . "/" . $this->convertIfNotSet($DAO_Retriever->two_count) . ")";
 		}
 
 		return $retVal;
 	}
 
-	function convertIfNotSet($val, $char = '-'){
-		if(empty($val)){
+	function convertIfNotSet($val, $char = '-')
+	{
+		if (empty($val))
+		{
 			return $char;
 		}
 
 		return $val;
-
 	}
 
 	function run()
@@ -435,7 +435,6 @@ class processor_admin_food_sales extends CPageProcessor
 
 					if ($_POST['useMenuMonth'] !== 'false')
 					{
-
 						$month = $_POST["month"];
 						$month++;
 						$year = $_POST["year"];
@@ -496,7 +495,6 @@ class processor_admin_food_sales extends CPageProcessor
 			}
 			else if ($_POST['op'] == 'show_purchasers')
 			{
-
 				$mySQLDate = $_POST['range_start'];
 				$duration = $_POST['duration'];
 				$items = $_POST['items'];
@@ -519,14 +517,7 @@ class processor_admin_food_sales extends CPageProcessor
 					}
 				}
 
-				if ($omit_menu_id)
-				{
-					list ($guest_data, $itemNames) = $this->getPurchasersInRangeForItems($mySQLDate, $duration, $store_id, $items, $omit_menu_id);
-				}
-				else
-				{
-					list ($guest_data, $itemNames) = $this->getPurchasersInRangeForItems($mySQLDate, $duration, $store_id, $items);
-				}
+				list ($guest_data, $itemNames) = $this->getPurchasersInRangeForItems($mySQLDate, $duration, $store_id, $items, $omit_menu_id);
 
 				$tpl = new CTemplate();
 				$tpl->assign('guestData', $guest_data);

@@ -1117,7 +1117,7 @@ class page_checkout extends CPage
 	 */
 	function runPublic()
 	{
-		
+
 		CTemplate::noCache();
 		$tpl = CApp::instance()->template();
 
@@ -1260,7 +1260,7 @@ class page_checkout extends CPage
 
 		$originalOrder = null;
 
-		
+
 		ini_set('memory_limit', '96M');
 		$tpl = CApp::instance()->template();
 
@@ -1625,9 +1625,9 @@ class page_checkout extends CPage
 					}
 				}
 
-				if ($Cart->getNavigationType() == CTemplate::DELIVERED)
+				if ($DAO_orders->isShipping())
 				{
-					$sessionIsValid = CSession::isSessionValidForDeliveredOrder($DAO_orders->findSession()->id, $DAO_orders->getStore(), $DAO_orders->findSession()->menu_id, false, $DAO_orders->orderAddress->postal_code);
+					$sessionIsValid = CSession::isSessionValidForDeliveredOrder($DAO_orders->findSession()->id, $DAO_orders->getStore(), $DAO_orders->findSession()->menu_id, false, $DAO_orders->orderAddress->postal_code, excludeFull: true);
 					if (!$sessionIsValid)
 					{
 						$tpl->setStatusMsg('The delivery date you selected is unavailable. Please choose a new delivery date below.');
@@ -1736,7 +1736,6 @@ class page_checkout extends CPage
 					{
 						CApp::bounce('/session');
 					}
-					break;
 				case 'edit_success':
 					try
 					{
@@ -1756,8 +1755,6 @@ class page_checkout extends CPage
 					}
 
 					CApp::bounce('/order-details?status=ec&order=' . $originalOrder->id, true);
-
-					break;
 				case 'success':
 					try
 					{
@@ -1784,9 +1781,6 @@ class page_checkout extends CPage
 					// set a cookie so that analytics only records viewing the thank you page once
 					CBrowserSession::setValue('dd_thank_you', 'checkout', false, true, false);
 					CApp::bounce('/order-details?order=' . $DAO_orders->id, true);
-
-					break;
-
 				case 'failed':
 				default:
 					$tpl->setErrorMsg('An error has occurred in the payment process, please try again later.');
