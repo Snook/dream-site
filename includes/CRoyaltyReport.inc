@@ -134,7 +134,6 @@ class CRoyaltyReport
 
 	static function calculateRoyaltyFee(&$rows, $store_id, $performanceOverride, $order_total, $reporttimedate, &$performanceAppliedValue = 0, $grandopeningdate = null)
 	{
-
 		$varroyalty = 0;
 		$rndRoyalty = 0;
 
@@ -155,7 +154,6 @@ class CRoyaltyReport
 		//	$grandopeningdate = 0;
 		if ($grandopeningdate != null)
 		{
-
 			list($yr, $mo, $da) = explode('-', $grandopeningdate);
 			$da = explode(' ', $da);
 			$da = $da[0];
@@ -336,13 +334,12 @@ class CRoyaltyReport
 
 		while ($booking->fetch())
 		{
-
-			$ProductOrderMemebershipFeeRevenue = CDreamReport::getMembershipFeeRevenue($booking->id, $Day, $Month, $Year, $interval);
-			$booking->grand_total += $ProductOrderMemebershipFeeRevenue;
-			$booking->orders_total += $ProductOrderMemebershipFeeRevenue;
+			$ProductOrderMembershipFeeRevenue = CDreamReport::getMembershipFeeRevenue($booking->id, $Day, $Month, $Year, $interval);
+			$booking->grand_total += (float)$ProductOrderMembershipFeeRevenue;
+			$booking->orders_total += (float)$ProductOrderMembershipFeeRevenue;
 			$DoorDashRevenue = self::getDoorDashRevenueByTimeSpan($Year . "-" . $Month . "-" . $Day, $interval, $booking->id);
-			$booking->grand_total += $DoorDashRevenue;
-			$booking->orders_total += $DoorDashRevenue;
+			$booking->grand_total += (float)$DoorDashRevenue;
+			$booking->orders_total += (float)$DoorDashRevenue;
 
 			$rows [$count++] = $booking->toArray();
 		}
