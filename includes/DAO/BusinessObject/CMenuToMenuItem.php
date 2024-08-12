@@ -85,8 +85,26 @@ class CMenuToMenuItem extends DAO_Menu_to_menu_item
 		return $this->DAO_menu;
 	}
 
+	/**
+	 * @throws Exception
+	 */
+	function isOutOfStock(): bool
+	{
+		if (empty($this->DAO_menu_item_inventory))
+		{
+			$this->DAO_menu_item_inventory = DAO_CFactory::create('menu_item_inventory', true);
+			$this->DAO_menu_item_inventory->recipe_id = $this->DAO_menu_item->recipe_id;
 
-	function isHiddenEverywhere()
+			if ($this->DAO_menu_item_inventory->find(true))
+			{
+				return $this->DAO_menu_item_inventory->isOutOfStock($this->DAO_menu_item->servings_per_item);
+			}
+		}
+
+		return true;
+	}
+
+	function isHiddenEverywhere(): bool
 	{
 		if (!empty($this->is_hidden_everywhere))
 		{
@@ -96,7 +114,7 @@ class CMenuToMenuItem extends DAO_Menu_to_menu_item
 		return false;
 	}
 
-	function isShowOnOrderForm()
+	function isShowOnOrderForm(): bool
 	{
 		if (!empty($this->show_on_order_form))
 		{
@@ -106,7 +124,7 @@ class CMenuToMenuItem extends DAO_Menu_to_menu_item
 		return false;
 	}
 
-	function isShowOnPickSheet()
+	function isShowOnPickSheet(): bool
 	{
 		if (!empty($this->show_on_pick_sheet))
 		{
@@ -116,7 +134,7 @@ class CMenuToMenuItem extends DAO_Menu_to_menu_item
 		return false;
 	}
 
-	function isVisible()
+	function isVisible(): bool
 	{
 		if (!empty($this->is_visible))
 		{

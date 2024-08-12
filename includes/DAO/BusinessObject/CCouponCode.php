@@ -1294,6 +1294,16 @@ class CCouponCode extends DAO_Coupon_code
 			}
 		}
 
+		if (!empty($this->limit_to_recipe_id) && !empty($this->recipe_id))
+		{
+			$DAO_menu_to_menu_item = $this->getDiscountMenuItem($DAO_orders);
+
+			if (!$DAO_menu_to_menu_item || $DAO_menu_to_menu_item->isOutOfStock())
+			{
+				$errorArray[] = 'menu_item_out_of_stock';
+			}
+		}
+
 		$pageResult = $this->isValidForCurrentPage();
 
 		if ($pageResult !== true)
@@ -1304,7 +1314,7 @@ class CCouponCode extends DAO_Coupon_code
 		return $errorArray;
 	}
 
-	function getOrderedBoxTypes($Order)
+	function getOrderedBoxTypes($Order): array
 	{
 		$retVal = array(
 			"has_large" => false,
@@ -1701,6 +1711,7 @@ class CCouponCode extends DAO_Coupon_code
 	 *    CES: 1-30-07 Added $markup override: if supplied use the passed in markup
 	 *    otherwise use the current store markup
 	 *    ability to non-current markup added for order editing
+	 * @throws Exception
 	 */
 	function calculate($DAO_orders, $markup = false)
 	{
@@ -1751,6 +1762,9 @@ class CCouponCode extends DAO_Coupon_code
 		return false;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function _calculateFlat($DAO_orders, $markup)
 	{
 		if ($this->limit_to_core)
@@ -1808,6 +1822,9 @@ class CCouponCode extends DAO_Coupon_code
 		return $this->discount_var;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function _calculatePercent($DAO_orders, $markup)
 	{
 		if ($this->limit_to_core)
@@ -1859,18 +1876,21 @@ class CCouponCode extends DAO_Coupon_code
 		return COrders::std_round(($base * ($this->discount_var)) / 100);
 	}
 
-	function _calculateDiscountedRecipe($Order)
+	/**
+	 * @throws Exception
+	 */
+	function getDiscountMenuItem($DAO_orders)
 	{
-		$DAO_menu_item = DAO_CFactory::create('menu_item');
+		$DAO_menu_item = DAO_CFactory::create('menu_item', true);
 		$DAO_menu_item->recipe_id = $this->recipe_id;
 		$DAO_menu_item->pricing_type = $this->recipe_id_pricing_type;
 
-		$DAO_recipe = DAO_CFactory::create('recipe');
+		$DAO_recipe = DAO_CFactory::create('recipe', true);
 		$DAO_recipe->whereAdd("recipe.recipe_id = menu_item.recipe_id");
 
 		$DAO_menu_to_menu_item = DAO_CFactory::create('menu_to_menu_item');
-		$DAO_menu_to_menu_item->store_id = $Order->store_id;
-		$DAO_menu_to_menu_item->menu_id = $Order->getMenuID();
+		$DAO_menu_to_menu_item->store_id = $DAO_orders->store_id;
+		$DAO_menu_to_menu_item->menu_id = $DAO_orders->getMenuID();
 		$DAO_menu_to_menu_item->selectAdd();
 		$DAO_menu_to_menu_item->selectAdd('menu_to_menu_item.*');
 
@@ -1879,17 +1899,38 @@ class CCouponCode extends DAO_Coupon_code
 		$DAO_menu_to_menu_item->joinAddWhereAsOn($DAO_menu_item);
 		$DAO_menu_to_menu_item->joinAddWhereAsOn($DAO_recipe);
 
-		$DAO_menu_to_menu_item->find(true);
+		if ($DAO_menu_to_menu_item->find(true))
+		{
+			return $DAO_menu_to_menu_item;
+		}
 
-		$this->menu_item_id = $DAO_menu_to_menu_item->menu_item_id;
-
-		return $DAO_menu_to_menu_item->store_price;
+		return false;
 	}
 
-	function _calculateFreeMeal($Order, $markup)
+	/**
+	 * @throws Exception
+	 */
+	function _calculateDiscountedRecipe($DAO_orders)
+	{
+		$DAO_menu_to_menu_item = $this->getDiscountMenuItem($DAO_orders);
+
+		if ($DAO_menu_to_menu_item)
+		{
+			$this->menu_item_id = $DAO_menu_to_menu_item->menu_item_id;
+
+			return $DAO_menu_to_menu_item->store_price;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	function _calculateFreeMeal($DAO_orders, $markup)
 	{
 		$storeDAO = DAO_CFactory::create('store');
-		$storeDAO->id = $Order->store_id;
+		$storeDAO->id = $DAO_orders->store_id;
 		$storeDAO->find(true);
 
 		$itemDAO = CMenuItem::getStoreSpecificItem($storeDAO, $this->menu_item_id);
@@ -1908,13 +1949,16 @@ class CCouponCode extends DAO_Coupon_code
 		}
 
 		// Remove any existing
-		$Order->removeCouponFreeMealItem();
+		$DAO_orders->removeCouponFreeMealItem();
 		// add entree to order if needed
-		$Order->addMenuItem($itemDAO, 1, false, true);
+		$DAO_orders->addMenuItem($itemDAO, 1, false, true);
 
 		return $discount;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function _calculateFreeMenuItem($Order, $markup)
 	{
 		$storeDAO = DAO_CFactory::create('store');
@@ -1944,5 +1988,3 @@ class CCouponCode extends DAO_Coupon_code
 		return $discount;
 	}
 }
-
-?>
