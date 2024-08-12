@@ -6293,7 +6293,7 @@ class CUser extends DAO_User
 	/**
 	 * Checks to see if this user already exists in the db.
 	 */
-	public function exists()
+	public function exists(): bool
 	{
 		if (empty($this->primary_email))
 		{
