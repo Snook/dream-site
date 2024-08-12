@@ -75,7 +75,7 @@
 						Guest is enrolled in PlatePoints
 					<?php } else if (!empty($this->isPartialAccount)) {?>
 						Please change the guest account to a standard account prior to enrolling in PlatePoints.
-					<?php } else if ($this->user->membershipData['enrolled']) {?>
+					<?php } else if (!empty($this->user->membershipData) && $this->user->membershipData['enrolled']) {?>
 						Guest is enrolled in Meal Prep+
 					<?php } else if ($this->platePointsStatus['storeSupportsPlatePoints']) { ?>
 						<?php
