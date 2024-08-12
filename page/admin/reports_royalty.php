@@ -463,10 +463,10 @@ class page_admin_reports_royalty extends CPageAdminOnly
 		$DoorDashFees = CRoyaltyReport::getDoorDashFeesByTimeSpan($year . "-" . $month . "-" . $day, $duration, $store_id);
 
 		$rows['membership_fees'] = CDreamReport::getMembershipFeeRevenue($store_id, $day, $month, $year, $duration);
-		$rows['grand_total'] += $ProductOrderMemebershipFeeRevenue;
-		$rows['total_sales'] += $ProductOrderMemebershipFeeRevenue;
-		$rows['grand_total'] += $DoorDashRevenue;
-		$rows['total_sales'] += $DoorDashRevenue;
+		$rows['grand_total'] += (float)$ProductOrderMemebershipFeeRevenue;
+		$rows['total_sales'] += (float)$ProductOrderMemebershipFeeRevenue;
+		$rows['grand_total'] += (float)$DoorDashRevenue;
+		$rows['total_sales'] += (float)$DoorDashRevenue;
 
 		if ((isset($rows['grand_total']) && $rows['grand_total'] > 0) || $store_id == 57)
 		{
