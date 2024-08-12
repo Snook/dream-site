@@ -27,7 +27,17 @@ class CMenuItemInventory extends DAO_Menu_item_inventory
 
 	function calculateRemaining()
 	{
-		$this->remaining_servings = $this->override_inventory - $this->number_sold;
+		$this->remaining_servings = $this->getRemainingServings();
+	}
+
+	function isOutOfStock($servings): bool
+	{
+		return ($this->getRemainingServings() < (int)$servings);
+	}
+
+	function getRemainingServings(): int
+	{
+		return (int)$this->override_inventory - (int)$this->number_sold;
 	}
 
 	function getMenuItemInventory($menuItemIdArray)
