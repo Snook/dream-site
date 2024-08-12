@@ -1,35 +1,21 @@
 <?php
-include_once('includes/CForm.inc');
 
-/*
- * Created on Jun 7, 2005
- *
- */
+use JetBrains\PhpStorm\NoReturn;
+
+include_once('includes/CForm.inc');
 
 class page_signout extends CPage
 {
 
-	function runPublic()
+	#[NoReturn] function runPublic(): void
 	{
-
 		$sessionKey = CBrowserSession::instance()->browser_session_key;
 		$csrf_protection = new CSRF($sessionKey);
 		$csrf_protection->logout();
 
-		$session = CBrowserSession::instance()->ExpireSession();
+		CBrowserSession::instance()->ExpireSession();
 
-		if (isset($_REQUEST['back']) && $_REQUEST['back'])
-		{
-			CApp::bounce($_REQUEST['back'], true);
-		}
-		else if (isset($_REQUEST['remo']) && $_REQUEST['remo'] = "true")
-		{
-			CApp::bounce('/backoffice/login', true);
-		}
-		else
-		{
-			CApp::bounce('/', true);
-		}
+		CApp::bounce('/');
 	}
 
 }

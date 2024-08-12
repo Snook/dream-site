@@ -458,15 +458,15 @@ class page_admin_reports_royalty extends CPageAdminOnly
 		}
 
 		CDreamReport::getOrderInfoByMonth($store_id, $day, $month, $year, $duration, $rows, 1);
-		$ProductOrderMemebershipFeeRevenue = CDreamReport::getMembershipFeeRevenue($store_id, $day, $month, $year, $duration);
+		$ProductOrderMembershipFeeRevenue = CDreamReport::getMembershipFeeRevenue($store_id, $day, $month, $year, $duration);
 		$DoorDashRevenue = CRoyaltyReport::getDoorDashRevenueByTimeSpan($year . "-" . $month . "-" . $day, $duration, $store_id);
 		$DoorDashFees = CRoyaltyReport::getDoorDashFeesByTimeSpan($year . "-" . $month . "-" . $day, $duration, $store_id);
 
 		$rows['membership_fees'] = CDreamReport::getMembershipFeeRevenue($store_id, $day, $month, $year, $duration);
-		$rows['grand_total'] += $ProductOrderMemebershipFeeRevenue;
-		$rows['total_sales'] += $ProductOrderMemebershipFeeRevenue;
-		$rows['grand_total'] += $DoorDashRevenue;
-		$rows['total_sales'] += $DoorDashRevenue;
+		$rows['grand_total'] += (float)$ProductOrderMembershipFeeRevenue;
+		$rows['total_sales'] += (float)$ProductOrderMembershipFeeRevenue;
+		$rows['grand_total'] += (float)$DoorDashRevenue;
+		$rows['total_sales'] += (float)$DoorDashRevenue;
 
 		if ((isset($rows['grand_total']) && $rows['grand_total'] > 0) || $store_id == 57)
 		{

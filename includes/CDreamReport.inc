@@ -57,9 +57,9 @@ class CDreamReport
 			$rows['order_standard'] = $arr['standard'];
 			$rows['weekid'] = 0;
 			$rows['family_savings_discount'] = $arr['family_savings_discount'];
-			$rows['grand_total'] = $arr['grand_total'];
+			$rows['grand_total'] = (float)$arr['grand_total'];
 			$rows['promos_used'] = $arr['promos'];
-			$rows['total_sales'] = $arr['grand_total'];
+			$rows['total_sales'] = (float)$arr['grand_total'];
 			$rows['dinners_sold'] = $arr['dinners_sold'];
 			$rows['total_sessions'] = $arr['total_sessions'];
 			$rows['sales_tax'] = $arr['sales_tax'];
