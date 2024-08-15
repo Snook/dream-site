@@ -7,6 +7,7 @@ require_once('includes/CDreamReport.inc');
 require_once('phplib/PHPExcel/PHPExcel.php');
 require_once('ExcelExport.inc');
 require_once('page/admin/reports_goal_management.php');
+require_once('page/admin/reports_royalty.php');
 
 global $gUse_percentage_of_agr;
 global $gExpensesArray;
