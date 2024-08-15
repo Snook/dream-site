@@ -159,7 +159,7 @@ if ($this->success == true && $this->interface == 0)
 				//   $pdf->_Line_Height = 4.0; //$pdf->_Get_Height_Chars(9)+$pdf->linespacing;
 				$overrideLineHeight = 4.0;
 				break;
-			case $lines <= 14:
+			case $lines <= 13:
 				$test_instructions = sprintf("<t1>%s</t1>", $entity['instructions']);
 				$overrideLineHeight = 4.0; //$pdf->_Get_Height_Chars(8)+$pdf->linespacing;
 				break;
