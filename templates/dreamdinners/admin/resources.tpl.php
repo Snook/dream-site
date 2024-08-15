@@ -56,8 +56,6 @@
 							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/EuibZbgyjb5ItuWHQQ9pj44BqL68jsQWDWtpTHqUbI-WJg?e=G5de8f" target="_blank">Finance Files</a><br/>
 							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/Ep0hmBj6NVBOhQVLVJFAsiQBVo0VJLPhTCkUei9MuU6H8Q?e=lsHCLZ" target="_blank">Franchise Sales Files</a><br/>
 							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/Eu9rgo4VIVpGtvsgV49K9IEBsLeG-2mV41EI6R9PYkMYuw?e=nxNoLK" target="_blank">Marketing Files</a><br/>
-							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/EgKu2LZ8zCBAsnxRnNKrGuUBODPoDnPpluXmbw0Gtn4PPg?e=m5VEvI" target="_blank">Sales Files</a><br/>
-							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/EpYwg2N6wnpNqcLFFsVOn5wB2nC8g-r5x8pZlnQmf3gM2g?e=VNwCIT" target="_blank">Live Streams &amp; Webinars</a><br/>
 						</td>
 					</tr>
 				</table>
