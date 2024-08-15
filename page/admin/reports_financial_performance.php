@@ -550,7 +550,7 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 					{
 						if (in_array($name, self::$convertFields))
 						{
-							$dater[1] = $dater[1] / $rows['agr_total'][1];
+							$dater[1] = $dater[1] / $rows['agr_total'][1] ?: 1;
 						}
 					}
 				}
