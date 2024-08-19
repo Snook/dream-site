@@ -1792,7 +1792,7 @@ class CSessionToolsPDFDrawer
 
 		// Description
 		$this->pdf->SetXY(CSessionToolsPDF::kLEFT_MARGIN + 10, $yPos + 3.65);
-		$this->pdf->MultiCellTag(146, 3, "<h8>" . html_entity_decode($menuItemArray['entree']->menu_item_description, ENT_QUOTES, 'WINDOWS-1252') . "</h8><t8> (" . number_format($menuItemArray['entree']->nutrition_array['component'][1]['element']['Calories']['value']) . " cal)</t8>", $this->showBorders, 'L');
+		$this->pdf->MultiCellTag(146, 3, "<h8>" . html_entity_decode($menuItemArray['entree']->menu_item_description, ENT_QUOTES, 'WINDOWS-1252') . " (" . number_format($menuItemArray['entree']->nutrition_array['component'][1]['element']['Calories']['value']) . " cal)</h8>", $this->showBorders, 'L');
 		//$this->pdf->MultiCellTag(146, 3, "<h8>" . html_entity_decode($menuItemArray['entree']->menu_item_description, ENT_QUOTES, 'WINDOWS-1252') . "</h8>", $this->showBorders, 'L');
 
 		// ICONS
