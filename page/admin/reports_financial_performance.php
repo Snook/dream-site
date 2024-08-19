@@ -7,6 +7,7 @@ require_once('includes/CDreamReport.inc');
 require_once('phplib/PHPExcel/PHPExcel.php');
 require_once('ExcelExport.inc');
 require_once('page/admin/reports_goal_management.php');
+require_once('page/admin/reports_royalty.php');
 
 global $gUse_percentage_of_agr;
 global $gExpensesArray;
@@ -541,15 +542,13 @@ class page_admin_reports_financial_performance extends CPageAdminOnly
 					$rows['royalty_fee'][1] = $storeInfo['royalty'];
 				}
 
-				$rows['royalty_fee'][1] = $storeInfo['royalty'];
-
 				if ($this->use_percentage_of_agr)
 				{
 					foreach ($rows as $name => &$dater)
 					{
 						if (in_array($name, self::$convertFields))
 						{
-							$dater[1] = $dater[1] / $rows['agr_total'][1];
+							$dater[1] = $dater[1] / $rows['agr_total'][1] ?: 1;
 						}
 					}
 				}

@@ -6,19 +6,22 @@
 			<?php } ?>
 		<?php } else { ?>
 			<?php
-			$counter = 0;
-			$lastItem = count($this->menuInfo['itemList']);
-			foreach ($this->menuInfo['itemList'] as $id => $itemInfo)
+			if (!empty($this->menuInfo['itemList']))
 			{
-				$counter++;
+				$counter = 0;
+				$lastItem = count($this->menuInfo['itemList']);
+				foreach ($this->menuInfo['itemList'] as $id => $itemInfo)
+				{
+					$counter++;
 
-				if ($this->orderInfo['type_of_order'] == COrders::INTRO || $this->orderInfo['type_of_order'] == COrders::DREAM_TASTE || $this->sessionInfo['session_type'] == COrders::FUNDRAISER)
-				{
-					include $this->loadTemplate('customer/subtemplate/order_details_shared/order_details_shared_bundle.tpl.php');
-				}
-				else
-				{
-					include $this->loadTemplate('customer/subtemplate/order_details_shared/order_details_shared_menu_item.tpl.php');
+					if ($this->orderInfo['type_of_order'] == COrders::INTRO || $this->orderInfo['type_of_order'] == COrders::DREAM_TASTE || $this->sessionInfo['session_type'] == COrders::FUNDRAISER)
+					{
+						include $this->loadTemplate('customer/subtemplate/order_details_shared/order_details_shared_bundle.tpl.php');
+					}
+					else
+					{
+						include $this->loadTemplate('customer/subtemplate/order_details_shared/order_details_shared_menu_item.tpl.php');
+					}
 				}
 			}
 			?>
@@ -150,12 +153,12 @@ if (isset($this->menuInfo['free_meal_item']))
 				<div class="col-3"></div>
 			</div>
 		<?php } ?>
-        <?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_bag_fee'])) { ?>
-            <div class="row">
-                <div class="col-9">Bag Fees</div>
-                <div class="col-3"><?php echo $this->moneyFormat($this->orderInfo['subtotal_bag_fee']);?></div>
-            </div>
-        <?php }else{ ?>
+		<?php if (!$this->isEmptyFloat($this->orderInfo['subtotal_bag_fee'])) { ?>
+			<div class="row">
+				<div class="col-9">Bag Fees</div>
+				<div class="col-3"><?php echo $this->moneyFormat($this->orderInfo['subtotal_bag_fee']);?></div>
+			</div>
+		<?php }else{ ?>
 			<?php if ($this->orderInfo['opted_to_bring_bags']) { ?>
 				<div class="row">
 					<div class="col-9">Bag Fees</div>
