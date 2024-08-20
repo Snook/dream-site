@@ -713,13 +713,16 @@ class CForm
 		}
 
 		//	$szBuildString .= ' value="' . $this->value($a[self::name]) . '"';
-		if ($a[self::type] == self::datetimelocal || array_key_exists(self::datetimelocal, $a) && $a[self::datetimelocal])
+		if (!is_object($this->value($a[self::name])) && !is_array($this->value($a[self::name])))
 		{
-			$szBuildString .= ' value="' . CTemplate::dateTimeFormat($this->value($a[self::name]), DATE_TIME_LOCAL) . '"';
-		}
-		else
-		{
-			$szBuildString .= ' value="' . htmlentities($this->value($a[self::name])) . '"';
+			if ($a[self::type] == self::datetimelocal || array_key_exists(self::datetimelocal, $a) && $a[self::datetimelocal])
+			{
+				$szBuildString .= ' value="' . CTemplate::dateTimeFormat($this->value($a[self::name]), DATE_TIME_LOCAL) . '"';
+			}
+			else
+			{
+				$szBuildString .= ' value="' . htmlentities($this->value($a[self::name])) . '"';
+			}
 		}
 
 		$szBuildString .= " />";
