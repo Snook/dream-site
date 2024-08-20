@@ -77,6 +77,9 @@ class processor_account extends CPageProcessor
 		return false;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runAccount()
 	{
 		if (!isset($_POST['op']))
@@ -92,20 +95,20 @@ class processor_account extends CPageProcessor
 
 				if ($this->can['can_post_user_id'] && !empty($_POST['user_id']) && is_numeric($_POST['user_id']))
 				{
-					$User = DAO_CFactory::create('user');
-					$User->id = $_POST['user_id'];
-					$User->find(true);
+					$DAO_user = DAO_CFactory::create('user');
+					$DAO_user->id = $_POST['user_id'];
+					$DAO_user->find(true);
 
 					$update_guest_pref = true;
 				}
 				else
 				{
-					$User = CUser::getCurrentUser();
+					$DAO_user = CUser::getCurrentUser();
 				}
 
-				if ($User)
+				if ($DAO_user)
 				{
-					$User->setUserPreference($_POST['key'], $_POST['value']);
+					$DAO_user->setUserPreference($_POST['key'], $_POST['value']);
 				}
 			}
 
@@ -143,18 +146,18 @@ class processor_account extends CPageProcessor
 
 			if (!empty($update_guest_pref))
 			{
-				$return_prefs = array($User->id => $User->preferences);
+				$return_prefs = array($DAO_user->id => $DAO_user->preferences);
 			}
 			else
 			{
-				$return_prefs = $User->preferences;
+				$return_prefs = $DAO_user->preferences;
 			}
 
 			echo json_encode(array(
 				'processor_success' => true,
 				'processor_message' => 'Preference updated.',
 				(!empty($update_guest_pref) ? 'guest_preferences' : 'user_preferences') => $return_prefs,
-				'date_updated' => CTemplate::dateTimeFormat($User->preferences[$_POST['key']]['timestamp_updated'])
+				'date_updated' => CTemplate::dateTimeFormat($DAO_user->preferences[$_POST['key']]['timestamp_updated'])
 			));
 		}
 
@@ -164,28 +167,28 @@ class processor_account extends CPageProcessor
 
 			if ($this->can['can_post_user_id'] && !empty($_POST['user_id']) && is_numeric($_POST['user_id']))
 			{
-				$User = DAO_CFactory::create('user');
-				$User->id = $_POST['user_id'];
-				$User->find(true);
+				$DAO_user = DAO_CFactory::create('user');
+				$DAO_user->id = $_POST['user_id'];
+				$DAO_user->find(true);
 
 				$update_guest_pref = true;
 			}
 			else
 			{
-				$User = CUser::getCurrentUser();
+				$DAO_user = CUser::getCurrentUser();
 			}
 
-			if ($User)
+			if ($DAO_user)
 			{
-				$User->getUserPreferences();
+				$DAO_user->getUserPreferences();
 
 				if (!empty($update_guest_pref))
 				{
-					$return_prefs = array($User->id => $User->preferences);
+					$return_prefs = array($DAO_user->id => $DAO_user->preferences);
 				}
 				else
 				{
-					$return_prefs = $User->preferences;
+					$return_prefs = $DAO_user->preferences;
 				}
 
 				echo json_encode(array(
@@ -221,15 +224,15 @@ class processor_account extends CPageProcessor
 
 		if ($_POST['op'] == 'request_delete' && !empty($_POST['challenge']))
 		{
-			$User = new CUser();
-			$User->id = CUser::getCurrentUser()->id;
-			$User->fetch();
-			$authenticateResult = $User->Authenticate(CUser::getCurrentUser()->primary_email, $_POST['challenge'], false, false, false, true);
+			$DAO_user = DAO_CFactory::create('user', true);
+			$DAO_user->id = CUser::getCurrentUser()->id;
+			$DAO_user->fetch();
+			$authenticateResult = $DAO_user->Authenticate(CUser::getCurrentUser()->primary_email, $_POST['challenge'], false, false, false, true);
 
 			if ($authenticateResult === true)
 			{
 				// delete account information
-				$result = CUser::getCurrentUser()->handleDeleteAccountRequest();
+				CUser::getCurrentUser()->handleDeleteAccountRequest();
 
 				echo json_encode(array(
 					'processor_success' => true,
