@@ -5008,7 +5008,10 @@ class CUser extends DAO_User
 
 	// returns 'password_reset_mail_sent', 'password_reset_bad_email_format', 'password_reset_email_not_found', or 'password_reset_unexpected_error'
 
-	static function resetPwd($primary_email, $newPwd = false, $suppressUIfunction = false)
+	/**
+	 * @throws Exception
+	 */
+	static function resetPwd(string $primary_email, $newPwd = false, $suppressUIfunction = false): string
 	{
 		$primary_email = trim($primary_email);
 
