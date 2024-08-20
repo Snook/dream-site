@@ -85,11 +85,12 @@
 
 	}
 
-
-
-    function run()
+	 /**
+	  * @throws exception
+	  */
+	 function run()
     {
-    	
+
 
     	header('Pragma: no-cache');
     	header("Cache-Control: no-store,no-cache, must-revalidate"); // HTTP/1.1
@@ -372,7 +373,7 @@
 
          	if (!$designID or $designID < 2 or $designID > 9)
          	{
-         		throw new Exception ("Flipping design ID was not set");
+         		throw new Exception ("Design ID was not set");
          	}
 
          	if ($isVirtualCard)

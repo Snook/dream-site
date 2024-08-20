@@ -17,7 +17,7 @@ class page_gift_card_order extends CPage
 	 */
 	function runPublic()
 	{
-		
+
 		$this->run();
 	}
 
@@ -383,7 +383,7 @@ class page_gift_card_order extends CPage
 
 				if (!$designID || $designID < 2 || $designID > 9)
 				{
-					throw new Exception ("Flipping design ID was not set");
+					throw new Exception ("Design ID was not set");
 				}
 
 				if (isset($_POST['add_submit']))
