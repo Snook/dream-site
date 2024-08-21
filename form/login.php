@@ -33,7 +33,7 @@ class form_login
 		}
 
 		//handle forgotten password
-		if ($_POST && isset($_POST['forgotPassword']) && isset($_POST['forgot_primary_email']))
+		if ($_POST && isset($_POST['forgotPassword']) && is_string($_POST['forgot_primary_email']))
 		{
 			CUser::resetPwd($_POST['forgot_primary_email']);
 		}

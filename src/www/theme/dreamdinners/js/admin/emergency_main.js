@@ -1803,7 +1803,7 @@ function update_session_tool_links()
 	{
 		$('#st_customer_receipt').prop('href', '/backoffice/order-details-view-all?customer_print_view=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
 		$('#st_franchise_receipt').prop('href', '/backoffice/order-details-view-all?session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_entree_summary').prop('href', '/backoffice/reports_select_multi_session?query_submit=1&report_id=2&printer=1&pickSession=2&session_id=' + selected_session_id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_entree_summary').prop('href', '/backoffice/reports-select-multi-session?query_submit=1&report_id=2&printer=1&pickSession=2&session_id=' + selected_session_id + '&back=' + back_path()).prop('target', '_blank');
 		$('#st_side_dish_report').prop('href', '/backoffice/order-details-view-all?issidedish=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
 		$('#st_fast_lane_report').prop('href', '/backoffice/order-details-view-all?ispreassembled=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
 		$('#st_dream_rewards').prop('href', '/backoffice/reports_dream_rewards_for_session?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
@@ -1824,11 +1824,11 @@ function update_session_tool_links()
 	}
 	else
 	{
-		$('#st_customer_receipt').prop('href', '/backoffice/order-details-view-all_multi?customer_print_view=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_franchise_receipt').prop('href', '/backoffice/order-details-view-all_multi?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_entree_summary').prop('href', '/backoffice/reports_select_multi_session?query_submit=1&report_date=' + selected_date + '&report_id=1&printer=1&back=' + back_path()).prop('target', '_blank');
-		$('#st_side_dish_report').prop('href', '/backoffice/order-details-view-all_multi?issidedish=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_fast_lane_report').prop('href', '/backoffice/order-details-view-all_multi?ispreassembled=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_customer_receipt').prop('href', '/backoffice/order-details-view-all-multi?customer_print_view=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_franchise_receipt').prop('href', '/backoffice/order-details-view-all-multi?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_entree_summary').prop('href', '/backoffice/reports-select-multi-session?query_submit=1&report_date=' + selected_date + '&report_id=1&printer=1&back=' + back_path()).prop('target', '_blank');
+		$('#st_side_dish_report').prop('href', '/backoffice/order-details-view-all-multi?issidedish=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_fast_lane_report').prop('href', '/backoffice/order-details-view-all-multi?ispreassembled=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
 		$('#st_dream_rewards').prop('href', '/backoffice/reports_dream_rewards_for_session_multi?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
 		$('#st_future_orders').prop('href', '/backoffice/order-details-view-all_future_multi?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
 		$('#st_session_goal_sheet_print').prop('href', '/backoffice/reports_goal_tracking?multi_session=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&print=true&back=' + back_path()).prop('target', '_blank');

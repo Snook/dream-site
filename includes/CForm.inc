@@ -205,7 +205,10 @@ class CForm
 		$form->ElementID = false;
 
 		// ids required by checkboxes and radios so labels can reference them
-		if (in_array($formElement[CForm::type], array(CForm::CheckBox, CForm::RadioButton)))
+		if (in_array($formElement[CForm::type], array(
+			CForm::CheckBox,
+			CForm::RadioButton
+		)))
 		{
 			$form->ElementID = true;
 		}
@@ -234,7 +237,6 @@ class CForm
 
 	public function setCSRFToken()
 	{
-
 		CLog::Assert(!empty($this->csrf_action_id), "No CSRF action set");
 
 		if (CUser::isLoggedIn())
@@ -284,7 +286,6 @@ class CForm
 			}
 			else
 			{
-
 				$cartKey = CBrowserSession::instance()->getCartKey();
 				if (empty($cartKey))
 				{
@@ -318,7 +319,6 @@ class CForm
 	{
 		if ((!empty($_POST)) && isset($_POST[$elementName]))
 		{
-
 			if ($gpc_type)
 			{
 				$_POST[$elementName] = CGPC::clean_gpc('p', $elementName, $gpc_type, $xss_filter);
@@ -408,7 +408,6 @@ class CForm
 
 	private function __AddTextElement($a)
 	{
-
 		if ($a[self::type] == self::password)
 		{
 			$szBuildString = "<input type='password' name='";
@@ -498,7 +497,7 @@ class CForm
 
 		if (array_key_exists(self::attribute, $a) && $a[self::attribute])
 		{
-			foreach ($a[self::attribute] AS $key => $value)
+			foreach ($a[self::attribute] as $key => $value)
 			{
 				$szBuildString .= ' ' . $key . '="' . $value . '" ';
 			}
@@ -714,15 +713,17 @@ class CForm
 		}
 
 		//	$szBuildString .= ' value="' . $this->value($a[self::name]) . '"';
-		if ($a[self::type] == self::datetimelocal || array_key_exists(self::datetimelocal, $a) && $a[self::datetimelocal])
+		if (!is_object($this->value($a[self::name])) && !is_array($this->value($a[self::name])))
 		{
-			$szBuildString .= ' value="' . CTemplate::dateTimeFormat($this->value($a[self::name]), DATE_TIME_LOCAL) . '"';
+			if ($a[self::type] == self::datetimelocal || array_key_exists(self::datetimelocal, $a) && $a[self::datetimelocal])
+			{
+				$szBuildString .= ' value="' . CTemplate::dateTimeFormat($this->value($a[self::name]), DATE_TIME_LOCAL) . '"';
+			}
+			else
+			{
+				$szBuildString .= ' value="' . htmlentities($this->value($a[self::name])) . '"';
+			}
 		}
-		else
-		{
-			$szBuildString .= ' value="' . htmlentities($this->value($a[self::name])) . '"';
-		}
-
 
 		$szBuildString .= " />";
 
@@ -977,7 +978,6 @@ class CForm
 
 	private function __AddCheckBoxElement($a)
 	{
-
 		if ($this->value($a[self::name]))
 		{
 			$szChecked = 'checked="checked"';
@@ -1011,7 +1011,7 @@ class CForm
 
 		if (array_key_exists(self::attribute, $a) && $a[self::attribute])
 		{
-			foreach ($a[self::attribute] AS $key => $value)
+			foreach ($a[self::attribute] as $key => $value)
 			{
 				$szBuildString .= ' ' . $key . '="' . $value . '" ';
 			}
@@ -1142,7 +1142,6 @@ class CForm
 
 	private function __AddRadioButtonElement($a)
 	{
-
 		$szChecked = '';
 		if ($this->value($a[self::name]) == $a[self::value])
 		{
@@ -1269,7 +1268,6 @@ class CForm
 
 	private function __AddSubmitElement($a)
 	{
-
 		$szBuildString = "<input type='submit' ";
 
 		if (isset($a[self::name]))
@@ -1337,7 +1335,6 @@ class CForm
 
 	private function __AddTextAreaElement($a)
 	{
-
 		$szBuildString = "<textarea ";
 		$szBuildString .= " name='" . $a[self::name] . "' ";
 
@@ -1438,7 +1435,7 @@ class CForm
 
 		if (array_key_exists(self::attribute, $a) && $a[self::attribute])
 		{
-			foreach ($a[self::attribute] AS $dataAttr => $dataVal)
+			foreach ($a[self::attribute] as $dataAttr => $dataVal)
 			{
 				$szBuildString .= ' ' . $dataAttr . '="' . $dataVal . '"';
 			}
@@ -1467,7 +1464,6 @@ class CForm
 
 	private function __AddHiddenElement($a)
 	{
-
 		$szBuildString = "<input type='hidden' name='";
 		$szBuildString .= $a[self::name] . "'";
 
@@ -1505,7 +1501,6 @@ class CForm
 
 	private function __AddLabelElement($a)
 	{
-
 		$szBuildString = "<label name='" . $a[self::name] . "' ";
 
 		if ($this->ElementID)
@@ -1531,7 +1526,6 @@ class CForm
 
 	private function __AddDropDownElement($a)
 	{
-
 		if (empty ($a[self::options]))
 		{
 			throw new Exception("options property needs to be set.");
@@ -1597,7 +1591,6 @@ class CForm
 			$szBuildString .= " data-org_value='" . $a[self::org_value] . "'";
 		}
 
-
 		if (array_key_exists(self::tooltip, $a) && $a[self::tooltip])
 		{
 			$szBuildString .= " data-tooltip='" . $a[self::tooltip] . "' ";
@@ -1615,7 +1608,7 @@ class CForm
 
 		if (array_key_exists(self::attribute, $a) && $a[self::attribute])
 		{
-			foreach ($a[self::attribute] AS $dataAttr => $dataVal)
+			foreach ($a[self::attribute] as $dataAttr => $dataVal)
 			{
 				$szBuildString .= ' ' . $dataAttr . '="' . $dataVal . '"';
 			}
@@ -1643,6 +1636,7 @@ class CForm
 		foreach ($a[self::options] as $optValue => $szOption)
 		{
 			$szOptionArray = false;
+			$currentGroup = '';
 
 			if (is_array($szOption))
 			{
@@ -1652,7 +1646,6 @@ class CForm
 
 			if ($optValue !== 'null')
 			{
-				$currentGroup = '';
 				$optionArray = explode(self::optGroupSeparator, $szOption);
 				if (count($optionArray) == 2)
 				{
@@ -1688,7 +1681,7 @@ class CForm
 				$selectedClause = '';
 				if (isset($currentVal))
 				{
-					$selectedClause = ($this->value($a[self::name]) == $optValue ? 'selected ' : (array_key_exists(self::readonly, $a) && $a[self::readonly] && (($this->value($a[self::name]) != $optValue)) ? 'disabled ' : '' ));
+					$selectedClause = ($this->value($a[self::name]) == $optValue ? 'selected ' : (array_key_exists(self::readonly, $a) && $a[self::readonly] && (($this->value($a[self::name]) != $optValue)) ? 'disabled ' : ''));
 				}
 
 				$dataAttributes = '';
@@ -1697,7 +1690,7 @@ class CForm
 				{
 					if (!empty($szOptionArray['data']))
 					{
-						foreach ($szOptionArray['data'] AS $dataAttr => $dataVal)
+						foreach ($szOptionArray['data'] as $dataAttr => $dataVal)
 						{
 							$dataAttributes .= ' ' . $dataAttr . '="' . $dataVal . '"';
 						}
@@ -1712,6 +1705,7 @@ class CForm
 				$szBuildString .= "<option $inactiveClause $disabledClause $dataAttributes value='$optValue' " . $selectedClause . ">$szOption</option>\n";
 			}
 		}
+
 		if (($currentGroup != $lastGroup) && ($currentGroup != ''))
 		{
 			$szBuildString .= "</optgroup>";
@@ -1729,7 +1723,6 @@ class CForm
 
 	private function __AddDropDownElementWithSubGroups($a)
 	{
-
 		if (empty ($a[self::options]))
 		{
 			throw new Exception("options property needs to be set.");
@@ -1822,7 +1815,6 @@ class CForm
 
 				if ($currentStateGroup != $lastStateGroup)
 				{
-
 					$endopt = "";
 					if ($mustCloseState)
 					{
@@ -1906,7 +1898,7 @@ class CForm
 
 		if (array_key_exists(self::attribute, $a) && $a[self::attribute])
 		{
-			foreach ($a[self::attribute] AS $key => $value)
+			foreach ($a[self::attribute] as $key => $value)
 			{
 				$szBuildString .= ' ' . $key . '="' . $value . '" ';
 			}
@@ -2003,7 +1995,6 @@ class CForm
 
 	private function __AddOpcoDropDown($a)
 	{
-
 		$szBuildString = '<select name="' . $a[self::name] . '"';
 
 		if ($this->ElementID)
@@ -2033,7 +2024,7 @@ class CForm
 
 		if (array_key_exists(self::attribute, $a) && $a[self::attribute])
 		{
-			foreach ($a[self::attribute] AS $key => $value)
+			foreach ($a[self::attribute] as $key => $value)
 			{
 				$szBuildString .= ' ' . $key . '="' . $value . '" ';
 			}
@@ -2090,7 +2081,6 @@ class CForm
 
 	private function __AddRegionDropDown($a)
 	{
-
 		$szBuildString = '<select name="' . $a[self::name] . '"';
 
 		if ($this->ElementID)
@@ -2120,7 +2110,7 @@ class CForm
 
 		if (array_key_exists(self::attribute, $a) && $a[self::attribute])
 		{
-			foreach ($a[self::attribute] AS $key => $value)
+			foreach ($a[self::attribute] as $key => $value)
 			{
 				$szBuildString .= ' ' . $key . '="' . $value . '" ';
 			}
@@ -2259,7 +2249,6 @@ class CForm
 		}
 		else
 		{
-
 			$groupByCity = false;
 			//if (strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') === FALSE)
 			//	$isSafari = false;
@@ -2382,7 +2371,6 @@ class CForm
 		}
 		else
 		{
-
 			//create drop down
 			$options = array();
 			if (!isset($a[self::franchise_filter]))
@@ -2430,7 +2418,6 @@ class CForm
 	 */
 	private function __AddAdminStoreDropDown($a)
 	{
-
 		require_once('DAO/BusinessObject/CStatesAndProvinces.php');
 
 		if (!isset($a[self::name]))
@@ -2469,7 +2456,6 @@ class CForm
 		{
 			$StoreObj->store_type = CStore::DISTRIBUTION_CENTER;
 		}
-
 
 		$numStores = $StoreObj->find();
 
@@ -2528,7 +2514,6 @@ class CForm
 				$a[self::options] = $options;
 				$this->__AddDropDownElement($a);
 			}
-
 		}
 
 		//if the site admin is switching stores, then we want to change their homestore setting
@@ -2542,7 +2527,6 @@ class CForm
 
 	public function __AddFranchiseDropDown($a)
 	{
-
 		if (!isset($a[self::name]))
 		{
 			$a[self::name] = 'franchise_id';
@@ -2577,7 +2561,6 @@ class CForm
 
 	public function __AddReferralSourceDropDown($a)
 	{
-
 		$metaDataArr = form_account::$referralSourceArray;
 		$optionArr = array("" => 'How did you hear about us');
 
@@ -2635,7 +2618,6 @@ class CForm
 	// TODO: LMH this function has really become more specific to Admin Menu editing.. it should be moved into the menu_items.php page
 	public function __AddMenuItemDropDownEditable($a)
 	{
-
 		$Menu = DAO_CFactory::create('menu');
 		$currentMenusOnly = date('Y-m') . '-01';
 		$Menu->selectAdd();
@@ -2682,7 +2664,6 @@ class CForm
 
 	public function __AddMenuItemPanTypeDropDown($a)
 	{
-
 		require_once('DAO/BusinessObject/CMenuItem.php');
 
 		$options = CMenuItem::containerTypes();
@@ -2695,7 +2676,6 @@ class CForm
 
 	public function __AddTimezoneDropDown($a)
 	{
-
 		require_once('DAO/BusinessObject/CTimezones.php');
 
 		if (!isset($a[self::name]))
@@ -2727,7 +2707,6 @@ class CForm
 
 	public function AddElement($a, $setCheckboxes = true)
 	{
-
 		if (empty ($a[self::type]))
 		{
 			throw new exception("type property needs to be set.");
@@ -3022,7 +3001,6 @@ class CForm
 	 ***********************************************************************/
 	public function Render()
 	{
-
 		$rtn = array();
 
 		$rtn['hidden_html'] = "";
@@ -3036,7 +3014,6 @@ class CForm
 
 		if ($this->csrf_protection)
 		{
-
 			$rtn['hidden_html'] .= '<input type="hidden" name="dd_csrf_token" value="' . $this->csrf_protection->dd_csrf_token . '" />';
 		}
 
