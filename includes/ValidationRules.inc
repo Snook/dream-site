@@ -7,13 +7,16 @@ class ValidationRules
 	/**
 	 * Validates an email address, copied from HTML_QuickForm_Rule_Email
 	 *
-	 * @param     string $email Email address
-	 * @param     boolean $checkDomain True if dns check should be performed
+	 * @param string  $email       Email address
+	 * @param boolean $checkDomain True if dns check should be performed
+	 *
 	 * @access    public
 	 * @return    boolean   true if email is valid
 	 */
-	static function validateEmail($email, $checkDomain = false)
+	static function validateEmail(string $email, bool $checkDomain = false): bool
 	{
+		$email = trim($email);
+
 		if (filter_var($email, FILTER_VALIDATE_EMAIL))
 		{
 			if ($checkDomain && function_exists('checkdnsrr'))

@@ -280,10 +280,10 @@ if ($this->print_view == false) {
 							<td colspan="4"><font size="3" color="#480000"><b>Session Tools</b></font></td>
 						</tr>
 						<tr>
-							<td><a target="_print" href="/backoffice/order-details-view-all_multi?report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;back=<?=urlencode($this->form_submit_string)?>">Franchise View <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
-							<td><a target="_print" href="/backoffice/order-details-view-all_multi?customer_print_view=1&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;back=<?=urlencode($this->form_submit_string)?>">Customer View <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
-							<td><a target="_print" href="/backoffice/order-details-view-all_multi?report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;issidedish=1&amp;back=<?=urlencode($this->form_submit_string)?>">Side Dish Report <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
-							<td><a target="_print" href="/backoffice/order-details-view-all_multi?customer_print_view=1&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;ispreassembled=1&amp;back=<?=urlencode($this->form_submit_string)?>">Fast Lane Report <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+							<td><a target="_print" href="/backoffice/order-details-view-all-multi?report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;back=<?=urlencode($this->form_submit_string)?>">Franchise View <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+							<td><a target="_print" href="/backoffice/order-details-view-all-multi?customer_print_view=1&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;back=<?=urlencode($this->form_submit_string)?>">Customer View <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+							<td><a target="_print" href="/backoffice/order-details-view-all-multi?report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;issidedish=1&amp;back=<?=urlencode($this->form_submit_string)?>">Side Dish Report <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+							<td><a target="_print" href="/backoffice/order-details-view-all-multi?customer_print_view=1&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;ispreassembled=1&amp;back=<?=urlencode($this->form_submit_string)?>">Fast Lane Report <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
 						</tr>
 						<tr>
 							<td><a target="_print" href="/backoffice/reports_dream_rewards_for_session_multi?report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;menuid=<?=$this->menu_id?>&amp;back=<?=urlencode($this->form_submit_string)?>">Print Dream Rewards <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
@@ -517,7 +517,7 @@ if ($this->print_view == false) {
 			}
 			else
 			{
-				echo '<a class="fadmin_nav fadmin_subnav" href="/backoffice/reports_select_multi_session?query_submit=1&amp;report_date=' . $this->report_date . '&amp;report_id=1">Summary</a>';
+				echo '<a class="fadmin_nav fadmin_subnav" href="/backoffice/reports-select-multi-session?query_submit=1&amp;report_date=' . $this->report_date . '&amp;report_id=1">Summary</a>';
 			}
 
 			$varTabId = 2;
@@ -539,7 +539,7 @@ if ($this->print_view == false) {
 				}
 				else
 				{
-					echo '<a class="fadmin_nav fadmin_subnav" href="/backoffice/reports_select_multi_session?query_submit=1&amp;report_date=' . $sep[0] . '&amp;report_id=' . $varTabId . '&amp;session_id='. $entity['id'] . '">' . $varcloseString . '</a>';
+					echo '<a class="fadmin_nav fadmin_subnav" href="/backoffice/reports-select-multi-session?query_submit=1&amp;report_date=' . $sep[0] . '&amp;report_id=' . $varTabId . '&amp;session_id='. $entity['id'] . '">' . $varcloseString . '</a>';
 				}
 				$varTabId++;
 			}
@@ -649,11 +649,11 @@ if ($this->print_view == false) {
 			{
 				if ($this->session_type_to_run == 1 && $this->report_type == 1)
 				{
-					$results_display .= ' <a target="_printer" href="/backoffice/reports_select_multi_session?query_submit=1&amp;report_date=' . $sep[0] . '&amp;report_id=1&amp;printer=1&amp;session_id='. $entity['id'] . '">Printer-Friendly Version <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+					$results_display .= ' <a target="_printer" href="/backoffice/reports-select-multi-session?query_submit=1&amp;report_date=' . $sep[0] . '&amp;report_id=1&amp;printer=1&amp;session_id='. $entity['id'] . '">Printer-Friendly Version <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 				}
 				else
 				{
-					$results_display .= ' <a target="_printer" href="/backoffice/reports_select_multi_session?query_submit=1&amp;report_id=' . $this->report_type . '&amp;printer=1&amp;pickSession=2&amp;session_id='. $this->sessionID . '">Printer-Friendly Version <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+					$results_display .= ' <a target="_printer" href="/backoffice/reports-select-multi-session?query_submit=1&amp;report_id=' . $this->report_type . '&amp;printer=1&amp;pickSession=2&amp;session_id='. $this->sessionID . '">Printer-Friendly Version <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 				}
 
 			}
@@ -699,13 +699,7 @@ if ($this->print_view == false) {
 								<table width="100%" class="subheaders" cellpadding="0" cellspacing="0" border="0">
 									<tr>
 										<td width="220" style="padding-left: 2px;"><font color="white"><b>Entr&eacute;e Name</b></font>&nbsp;</td>
-										<?php if ($this->is_test_store) {?>
-											<td width="40"><font color="white"><b>Small Items</b></font></td>
-											<td width="40"><font color="white"><b>Md (3) Items</b></font></td>
-											<td width="40"><font color="white"><b>Md (4) Items</b></font></td>
-										<?php } else { ?>
-											<td width="40"><font color="white"><b>Medium Items</b></font></td>
-										<?php }  ?>
+										<td width="40"><font color="white"><b>Medium Items</b></font></td>
 										<td width="40"><font color="white"><b>Large Items</b></font></td>
 										<td width="40" align="center"><font color="white"><b>Total Items</b></font></td>
 										<td width="40" align="center" ><font color="white"><b>Total Srv</b></font></td>
@@ -750,14 +744,7 @@ if ($this->print_view == false) {
 					$results_display .= '<table width="100%" class="subheaders" cellpadding="0" cellspacing="0" border="0">';
 					$results_display .= '<tr>';
 					$results_display .= '<td class="subheaders" width="200" style="padding-left: 2px;" align="left">' . htmlspecialchars($entree) . '</td>';
-					if ($this->is_test_store) {
-						$results_display .= '<td class="subheaders" width="40" style="padding-right: 0px;" align="center">'. $entity[CMenuItem::TWO] . '</td>';
-						$results_display .= '<td class="subheaders" width="40" style="padding-right: 0px;" align="center">'. $entity[CMenuItem::HALF] . '</td>';
-						$results_display .= '<td class="subheaders" width="40" style="padding-right: 0px;" align="center">'. $entity[CMenuItem::FOUR] . '</td>';
-					} else {
-						$results_display .= '<td class="subheaders" width="40" style="padding-right: 0px;" align="center">'. $entity[CMenuItem::HALF] . '</td>';
-
-					}
+					$results_display .= '<td class="subheaders" width="40" style="padding-right: 0px;" align="center">'. $entity[CMenuItem::HALF] . '</td>';
 					$results_display .= '<td class="subheaders" width="40" style="padding-right: 0px;" align="center">'. $entity[CMenuItem::FULL] . '</td>';
 					$results_display .= '<td class="subheaders" width="40" style="padding-left: 0px;" align="center">'. $quantity . '</td>';
 					$results_display .= '<td class="subheaders" width="40" style="padding-left: 0px;" align="center">' . $servingsCounter . '</td>';
@@ -784,14 +771,7 @@ if ($this->print_view == false) {
 				$results_display .= '<table bgcolor="#989898" width="100%" cellpadding="0" cellspacing="0" border="0">';
 				$results_display .= '<tr>';
 				$results_display .= '<td width="200" style="padding-left: 2px;" align="left"><font color="white"><b>Entr&eacute;e Totals:</b></font></td>';
-				if ($this->is_test_store)
-				{
-					$results_display .= '<td width="40" style="padding-right: 0px;" align="center"><font color="white">' . $twocounter . '</font></td>';
-					$results_display .= '<td width="40" style="padding-right: 0px;" align="center"><font color="white">' . $halfcounter . '</font></td>';
-					$results_display .= '<td width="40" style="padding-right: 0px;" align="center"><font color="white">' . $fourcounter . '</font></td>';
-				}else{
-					$results_display .= '<td width="40" style="padding-right: 0px;" align="center"><font color="white">' . $halfcounter . '</font></td>';
-				}
+				$results_display .= '<td width="40" style="padding-right: 0px;" align="center"><font color="white">' . $halfcounter . '</font></td>';
 				$results_display .= '<td width="40" style="padding-right: 0px;" align="center"><font color="white">'. $fullcounter . '</font></td>';
 				$results_display .= '<td width="40" style="padding-left: 6px;" align="center"><font color="white">'. $varcounter . '</font></td>';
 				$results_display .= '<td width="40" style="padding-left: 0px;" align="center"><font color="white">'. $servingsCounterTotal . '</font></td>';

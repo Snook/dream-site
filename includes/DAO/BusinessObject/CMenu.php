@@ -499,7 +499,7 @@ class CMenu extends DAO_Menu
 	 * @return CMenuItem
 	 * @throws Exception
 	 */
-	function findMenuItemDAO($optionsArray = false)
+	function constructMenuItemDAO(array|bool $optionsArray = false): ?CMenuItem
 	{
 		if (empty($this->id) && empty($optionsArray['join_order_item_order_id']))
 		{
@@ -846,8 +846,16 @@ class CMenu extends DAO_Menu
 
 		$DAO_menu_item->orderBy($optionsArray['orderBy']);
 
-		$DAO_menu_item->find();
+		return $DAO_menu_item;
+	}
 
+	/**
+	 * @throws Exception
+	 */
+	function findMenuItemDAO(array|bool $optionsArray = false): ?CMenuItem
+	{
+		$DAO_menu_item = $this->constructMenuItemDAO($optionsArray);
+		$DAO_menu_item->find();
 		return $DAO_menu_item;
 	}
 

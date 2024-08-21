@@ -650,11 +650,14 @@ class CSessionReports
 		return ($rows);
 	}
 
-	function createAvailableSessionsArray($store)
+	function createAvailableSessionsArray($store_id)
 	{
 		$rows = array();
 		$rows['null'] = '--- Choose a Session ---';
 		$DAO_session = DAO_CFactory::create("session");
+		$DAO_session->store_id = $store_id;
+		$DAO_session->orderBy('session.session_start DESC');
+		$DAO_session->find();
 		while ($DAO_session->fetch())
 		{
 			$isClosed = $DAO_session->session_publish_state;
@@ -2195,6 +2198,11 @@ class CSessionReports
 		return $menuids;
 	}
 
+	/**
+	 * @param $menu_array
+	 *
+	 * @return void
+	 */
 	function setupDisplayByStation(&$menu_array)
 	{
 		$normalSortCoreFl = 200000;
@@ -2238,10 +2246,15 @@ class CSessionReports
 	}
 
 	/**
-	 * @return buildMenuItemsArray
+	 * @param $generalArray
+	 * @param $menu_array
+	 * @param $addDescription
+	 * @param $containerArray
+	 * @param $promo_items
+	 *
+	 * @return array
 	 */
-
-	function buildMenuItemsArray($generalArray, $menu_array, $addDescription, $containerArray, $promo_items)
+	function buildMenuItemsArray($generalArray, $menu_array, $addDescription, $containerArray, $promo_items): array
 	{
 		$isIntro = false;
 		$isLegacy = false;
@@ -2362,7 +2375,14 @@ class CSessionReports
 		return $sessionEntreeTotalArray;
 	}
 
-	function generateAndUpdateProductList(&$productArray, $addDescription = false)
+	/**
+	 * @param $productArray
+	 * @param bool $addDescription
+	 *
+	 * @return void
+	 * @throws Exception
+	 */
+	function generateAndUpdateProductList(&$productArray, bool $addDescription = false)
 	{
 		$varcnt = 0;
 		$count = count($productArray);
@@ -2570,7 +2590,7 @@ class CSessionReports
 		return $payment_array;
 	}
 
-	function BuildCustomerArray($generalArray, $coupon_code_array)
+	function BuildCustomerArray($generalArray, $coupon_code_array): array
 	{
 
 		$sub_customer_array = array();
