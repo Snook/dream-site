@@ -204,6 +204,40 @@ class CMenuItem extends DAO_Menu_item
 				END ASC
 			");
 		}
+		else if ($order == 'Station')
+		{
+			return parent::orderBy("
+				ISNULL(menu_item.station_number), menu_item.station_number ASC,
+			 	/** 
+				*	First sort by menu categories, Specials and Fast Lane (1), then EFL (2), then Sides (3) so they don't affect other sorting parameters
+				*/
+			 	CASE 
+					WHEN menu_item.menu_item_category_id = 1 OR (menu_item.menu_item_category_id = 4 AND menu_item.is_store_special = 0) THEN 1
+					WHEN menu_item.menu_item_category_id = 4 AND menu_item.is_store_special = 1 THEN 2
+					WHEN menu_item.menu_item_category_id = 9 THEN 3
+				END ASC,
+				CASE WHEN menu_item.menu_item_category_id = 9 THEN menu_to_menu_item.is_hidden_everywhere END ASC,
+				menu_to_menu_item.featuredItem DESC,
+				CASE WHEN menu_item.menu_item_category_id = 1 OR (menu_item.menu_item_category_id = 4 AND menu_item.is_store_special = 0) THEN menu_to_menu_item.menu_order_value END ASC,
+				CASE WHEN menu_item.menu_item_category_id = 4 AND menu_item.is_store_special = 1 THEN menu_item.menu_item_name END ASC,
+				/** 
+				*	For Sides, sort the Limited Time Offer first, then Holiday subcategory_label second then sort the other labels alphabetically 
+				*/
+				CASE 
+					WHEN menu_item.menu_item_category_id = 9 AND menu_item.subcategory_label = 'Limited Time Offer' THEN 1
+					WHEN menu_item.menu_item_category_id = 9 AND menu_item.subcategory_label = 'Holiday' THEN 2
+					ELSE menu_item.subcategory_label
+				END ASC,
+				CASE WHEN menu_item.menu_item_category_id = 9 THEN menu_item.is_bundle END DESC,
+				CASE WHEN menu_item.menu_item_category_id = 9 THEN menu_item.menu_item_name END ASC,
+				CASE menu_item.pricing_type
+					WHEN 'TWO' THEN 1
+					WHEN 'HALF' THEN 2
+					WHEN 'FOUR' THEN 3
+					WHEN 'FULL' THEN 4
+				END ASC
+			");
+		}
 
 		return parent::orderBy($order);
 	}
