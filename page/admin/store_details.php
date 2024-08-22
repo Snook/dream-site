@@ -422,6 +422,21 @@ class page_admin_store_details extends CPageAdminOnly
 				));
 
 				$Form->AddElement(array(
+					CForm::type => CForm::DropDown,
+					CForm::disabled => false,
+					CForm::name => 'delivery_radius',
+					CForm::options => array(
+						'0' => 'Do not display',
+						'10' => '10 Miles',
+						'15' => '15 Miles',
+						'20' => '20 Miles',
+						'25' => '25 Miles',
+						'30' => '30 Miles'
+					),
+					CForm::required => false
+				));
+
+				$Form->AddElement(array(
 					CForm::type => CForm::Number,
 					CForm::disabled => false,
 					CForm::name => 'default_bag_fee',

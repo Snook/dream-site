@@ -496,10 +496,13 @@ class CMenu extends DAO_Menu
 	/**
 	 * Creates a CMenuItem object for fetching the items on this menu.
 	 * The menu's id must be set before calling this function.
-	 * @return CMenuItem
+	 *
+	 * @param array|bool $optionsArray
+	 *
+	 * @return CMenuItem|null
 	 * @throws Exception
 	 */
-	function constructMenuItemDAO(array|bool $optionsArray = false): ?CMenuItem
+	function findMenuItemDAO(array|bool $optionsArray = false): ?CMenuItem
 	{
 		if (empty($this->id) && empty($optionsArray['join_order_item_order_id']))
 		{
@@ -846,16 +849,8 @@ class CMenu extends DAO_Menu
 
 		$DAO_menu_item->orderBy($optionsArray['orderBy']);
 
-		return $DAO_menu_item;
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	function findMenuItemDAO(array|bool $optionsArray = false): ?CMenuItem
-	{
-		$DAO_menu_item = $this->constructMenuItemDAO($optionsArray);
 		$DAO_menu_item->find();
+
 		return $DAO_menu_item;
 	}
 

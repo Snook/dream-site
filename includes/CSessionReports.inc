@@ -2285,7 +2285,6 @@ class CSessionReports
 			$subArray[CMenuItem::FULL] = 0;
 			$subArray[CMenuItem::HALF] = 0;
 			$subArray[CMenuItem::INTRO] = 0;
-			$subArray[CMenuItem::INTRO] = 0;
 			$subArray[CMenuItem::LEGACY] = 0;
 
 			$subArray['station_number'] = $fullMenu['station_number'];
