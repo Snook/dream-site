@@ -297,6 +297,16 @@ class CStore extends DAO_Store
 		}
 	}
 
+	function showDeliveryRadius(): bool
+	{
+		if (!empty($this->delivery_radius))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	/*
 	 * Pass in store ID or fully loaded  store object
 	 */
