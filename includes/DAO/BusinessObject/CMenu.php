@@ -855,8 +855,12 @@ class CMenu extends DAO_Menu
 	function findMenuItemDAO(array|bool $optionsArray = false): ?CMenuItem
 	{
 		$DAO_menu_item = $this->constructMenuItemDAO($optionsArray);
-		$DAO_menu_item->find();
-		return $DAO_menu_item;
+		if ($DAO_menu_item->find())
+		{
+			return $DAO_menu_item;
+		}
+
+		return null;
 	}
 
 	/**
