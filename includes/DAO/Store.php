@@ -93,6 +93,7 @@ class DAO_Store extends DAO
 	public $supports_bag_fee;               //tinyint(1)
 	public $default_bag_fee;                  //decimal(4,2)
 	public $delivery_fee;                    // int(1)
+	public $delivery_radius;                    // int(1)
 	public $supports_plate_points_enhancements;// int(1)
 	public $supports_special_events;        // int(1)  not_null unsigned
 	public $supports_custom_todd_pricing;    // int(4)

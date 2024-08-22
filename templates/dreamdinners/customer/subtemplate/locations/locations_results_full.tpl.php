@@ -28,6 +28,9 @@
 												<div class="col text-center">
 													<i class="dd-icon icon-delivery text-green font-size-medium-large align-bottom"></i>
 													<div class="font-italic">Home Delivery</div>
+													<?php if ($store["DAO_store"]->showDeliveryRadius()) { ?>
+														<div class="font-size-small text-muted">Available up to <?php echo $store["DAO_store"]->delivery_radius; ?> miles from the store.</div>
+													<?php } ?>
 												</div>
 											<?php } ?>
 											<?php if ($store["DAO_store"]->hasAvailableSessionType('ASSEMBLY')) { ?>
@@ -86,6 +89,9 @@
 												<div class="col text-center">
 													<i class="dd-icon icon-delivery text-green font-size-medium-large align-bottom"></i>
 													<div class="font-italic">Home Delivery</div>
+													<?php if ($store["DAO_store"]->showDeliveryRadius()) { ?>
+														<div class="font-size-small text-muted">Available up to <?php echo $store["DAO_store"]->delivery_radius; ?> miles from the store.</div>
+													<?php } ?>
 												</div>
 											<?php } ?>
 											<?php if ($store["DAO_store"]->hasAvailableSessionType('ASSEMBLY')) { ?>

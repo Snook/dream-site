@@ -297,6 +297,16 @@ class CStore extends DAO_Store
 		}
 	}
 
+	function showDeliveryRadius(): bool
+	{
+		if (!empty($this->delivery_radius))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	/*
 	 * Pass in store ID or fully loaded  store object
 	 */
@@ -1410,7 +1420,7 @@ class CStore extends DAO_Store
 
 		$DAO_store = DAO_CFactory::create('store', true);
 		$DAO_store->active = 1;
-		$DAO_store->find();
+		$DAO_store->find_DAO_store();
 
 		while ($DAO_store->fetch())
 		{
@@ -1422,7 +1432,7 @@ class CStore extends DAO_Store
 						'lat' => $DAO_store->address_latitude,
 						'lng' => $DAO_store->address_longitude,
 						'name' => $DAO_store->store_name,
-						'url' => '/location/' . $DAO_store->id
+						'url' => $DAO_store->getPrettyUrl()
 					);
 
 					if ($DAO_store->isComingSoon())
