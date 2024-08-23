@@ -156,34 +156,34 @@
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center mb-2">
 						<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pubstyle-chicken-30min-teal-featured-400x400.webp" alt="Pub Style Chicken with Mashed Potatoes" class="img-fluid">
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sweet-sour-chicken-30min-featured-400x400.webp" alt="Sweet and Sour Chicken with Jasmine Rice" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Pub Style Chicken with Mashed Potatoes</h5>
+									<h5 class="card-title">Sweet & Sour Chicken with Jasmine Rice</h5>
 								</div>
-							</div>
-							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/arroz-con-pollo-featured-pan-meal-teal-400x400.webp" alt="Arroz Con Pollo" class="img-fluid">
+						</div>
+						<div class="card border-0 pr-2">
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-turkey-meatloaves-airfryer-featured-400x400.webp" alt="Mini Turkey Meatloaves with Bacon Ranch Green Beans" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Arroz Con Pollo</h5>
+									<h5 class="card-title">Mini Turkey Meatloaves with Bacon Ranch Green Beans</h5>
 								</div>
-							</div>
+						</div>
 
 					</div>
 				</div>
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center">
 						<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/italiano-chicken-orzo-featured-instant-pot-400x400.webp" alt="Italiano Chicken and Orzo" class="img-fluid">
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/loaded-mashed-potato-bowl-new-featured-400x400.webp" alt="Loaded Mashed Potato Bowl" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Italiano Chicken and Orzo</h5>
+									<h5 class="card-title">Loaded Mashed Potato Bowl</h5>
 								</div>
-							</div>
-							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/creamy-buffalo-chicken-sandwich-featured-new-teal-400x400.webp" alt="Creamy Buffalo Chicken Sandwiches" class="img-fluid">
+						</div>
+						<div class="card border-0">
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-pot-pies-kid-pick-orange-featured-400x400.webp" alt="Mini Chicken Pot Pies" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Creamy Buffalo Chicken Sandwiches</h5>
+									<h5 class="card-title">Mini Chicken Pot Pies</h5>
 								</div>
-							</div>
+						</div>
 					</div>
 				</div>
 			</div>

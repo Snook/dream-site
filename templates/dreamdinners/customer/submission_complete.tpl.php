@@ -7,7 +7,7 @@
 
 			</div>
 			<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center">
-				<h2>Submission Complete</h2>
+				<h2>Thank You!</h2>
 			</div>
 			<div class="col-6 col-sm-3 p-0 order-3 order-sm-3 text-right">
 
