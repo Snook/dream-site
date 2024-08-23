@@ -116,14 +116,14 @@ class COrderMinimum extends DAO_Order_minimum
 	 *      3) If no default, return global default for minimum/order type
 	 *
 	 **
-	 * @param $store_id null|id
-	 * @param $menu_id  null|id
+	 * @param $store_id int|null
+	 * @param $menu_id  int|null
 	 *
 	 *
 	 * @return bool true if the store/menu is configured to allow additional ordering
 	 * @throws Exception
 	 */
-	public static function allowsAdditionalOrdering($store_id, $menu_id)
+	public static function allowsAdditionalOrdering(?int $store_id, ?int $menu_id): bool
 	{
 
 		$orderMinimum = DAO_CFactory::create("order_minimum");

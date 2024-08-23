@@ -3,7 +3,7 @@
 	<a href="/backoffice/user_details?id=<?php echo $item['user_id']; ?>" data-toggle="tooltip" title="<?php echo CUser::userTypeText($item['user_type']); ?>" target="_blank"><?php echo $item['user']; ?></a>
 	<b><?php echo $item['type']; ?></b>
 
-	<?php if ($item["digest_user_state"] == 'NEW') { ?>
+	<?php if (array_key_exists('digest_user_state', $item) && $item["digest_user_state"] == 'NEW') { ?>
 		<span class="badge badge-orange badge-pill">New Guest</span>
 	<?php } ?>
 

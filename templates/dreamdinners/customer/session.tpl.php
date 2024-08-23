@@ -1,6 +1,5 @@
 <?php $this->setScript('foot', SCRIPT_PATH . '/customer/vendor/jquery.ba-dotimeout.js'); ?>
 <?php $this->setScript('foot', SCRIPT_PATH . '/customer/session_menu.min.js'); ?>
-<?php $this->setScriptVar('var order_minimum = '.COrderMinimum::asJson($this->order_type,$this->cart_info['store_info']['id'], $this->menu_id).';'); ?>
 
 <?php
 if ($this->isInReschedulingMode)

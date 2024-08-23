@@ -251,7 +251,7 @@
 							<li id="fees_tab_li" data-tabid="feesTab" class="tab<?php if ($this->orderState == 'NEW') { ?> disabled<?php } ?>" data-callback="onFeesTabSelected"  data-deselect_callback="onFeesTabDeselected">Fees</li>
 							<li id="notes_tab_li" data-tabid="notesTab" class="tab<?php if ($this->orderState == 'NEW') { ?> disabled<?php } ?>"   data-callback="onNotesTabSelected"  data-deselect_callback="onNotesTabDeselected">Notes/History</li>
 							<li id="payments_tab_li" data-tabid="discounts_paymentsTab" class="tab<?php if ($this->orderState == 'NEW') { ?> disabled<?php } ?>"  data-callback="onPaymentTabSelected"  data-deselect_callback="onPaymentTabDeselected">Discounts / Payments</li>
-							<?php if ($this->sessionInfo['session_type_subtype'] == CSession::DELIVERY || $this->sessionInfo['session_type_subtype'] == CSession::DELIVERY_PRIVATE) { ?>
+							<?php if (array_key_exists('session_type_subtype', $this->sessionInfo) && ($this->sessionInfo['session_type_subtype'] == CSession::DELIVERY || $this->sessionInfo['session_type_subtype'] == CSession::DELIVERY_PRIVATE)) { ?>
 								<li id="delivery_tab_li" data-tabid="deliveryTab" class="tab<?php if ($this->orderState == 'NEW') { ?> disabled<?php } ?>"  data-callback="onDeliveryTabSelected"  data-deselect_callback="onDeliveryTabDeselected">Delivery</li>
 							<?php } ?>
 
