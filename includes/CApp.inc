@@ -806,6 +806,20 @@ class CApp
 	}
 
 	/**
+	 * Sets a temporary message and bounces to submission-complete page.
+	 *
+	 * @param $message
+	 *
+	 * @return void
+	 */
+	#[NoReturn] static function bounce_SubmissionComplete($message): void
+	{
+		CBrowserSession::setSessionVariable(CBrowserSession::SUBMISSION_MESSAGE, $message);
+
+		self::bounce("/submission-complete");
+	}
+
+	/**
 	 * Forward
 	 *
 	 * By default, return the browser to the previous page or main menu or something, user must

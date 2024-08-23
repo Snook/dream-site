@@ -45,6 +45,7 @@ require_once("DAO/Browser_sessions.php");
 class CBrowserSession extends DAO_Browser_sessions
 {
 	const BOUNCE_REQUEST_URI = 'BOUNCE_REQUEST_URI';
+	const SUBMISSION_MESSAGE = 'SUBMISSION_MESSAGE';
 
 	public bool $isPrevious = false;
 
