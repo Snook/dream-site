@@ -7,7 +7,7 @@
 		<section>
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col text-center" style="max-height: 25rem; overflow: hidden;">
+					<div class="col text-center">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-pot-pies-in-a-snap-headers-1400x600.webp" alt="Mini Pot Pies in a Snap" class="img-fluid">
 					</div>
 				</div>
