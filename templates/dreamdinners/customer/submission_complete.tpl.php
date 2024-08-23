@@ -23,11 +23,7 @@
 			</div>
 		</div>
 
-		<div class="row my-2">
-			<div class="col text-center">
-				<a href="/locations" class="btn btn-lg btn-primary">Get started</a>
-			</div>
-		</div>
+		
 
 		<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted" />
 
@@ -69,7 +65,11 @@
 				</div>
 			</div>
 		</div>
-
+		<div class="row my-2">
+			<div class="col text-center">
+				<a href="/locations" class="btn btn-lg btn-primary">Get started</a>
+			</div>
+		</div>
 	</main>
 
 <?php include $this->loadTemplate('customer/subtemplate/page_footer.tpl.php'); ?>
