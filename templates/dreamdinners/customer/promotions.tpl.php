@@ -66,9 +66,10 @@
 					</div>
 				</div>
 			</div>
+			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 		</section>-->
 		<section>
-			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
+			
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 p-0">
