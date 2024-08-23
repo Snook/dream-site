@@ -21,16 +21,16 @@
 
 	<main role="main">
 
-		<!--<section>
+		<section>
 			<div class="container-fluid">
 				<div class="row mb-5">
 					<div class="col text-center">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/crispy-shrimp-green-beans-in-a-snap-header-1920x600.webp" alt="Family making and eating a meal together" class="img-fluid" />
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-pot-pies-shipping-in-a-snap-headers-1400x600.webp" alt="Family making and eating a meal together" class="img-fluid" />
 					</div>
 				</div>
 			</div>
-		</section>-->
-		<section>
+		</section>
+		<!--<section>
 			<div class="container">
 					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 					  <ol class="carousel-indicators">
@@ -58,7 +58,7 @@
 					  </a>
 					</div>
 			</div>
-		</section>
+		</section>-->
 		<section>
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
@@ -81,7 +81,7 @@
 						</form>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/aug24-shipping-collage-957x657.webp" alt="Shipping Menu" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sep24-shipping-collage-957x657.webp" alt="Shipping Menu" class="img-fluid">
 					</div>
 
 				</div>
@@ -129,26 +129,26 @@
 				<div class="col-sm-12 text-center"><h2 class="mb-1 mt-4 font-weight-bold">Order In a Snap</h2></div>
 				<div class="row">
 					<div class="col-md-6 text-center p-5 my-2">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/back-to-school-600x350.webp" alt="Family eating outside" class="img-fluid">
-						<h3 class="font-weight-bold my-2">Back to School Box</h3>
-						<p class="mb-4">The perfect meal plan for back to school including Cashew Chicken with Noodles, Arroz con Pollo, Chicken Pizzaiola, and Old Fashioned Meatloaf.</p>
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/family-dinner-600x350.webp" alt="Family dinner" class="img-fluid">
+						<h3 class="font-weight-bold my-2">Fan Favorites Box Box</h3>
+						<p class="mb-4">Let us take care of your meal planning with delicious, dinners including Mini Chicken Pot Pies, Mini Turkey Meatloaves with Bacon Ranch Green Beans, Crispy French Onion Chicken, Cheesy Chicken and Broccoli Rice Bake.</p>
 					</div>
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/new-baby-600x350.webp" alt="Couple with new baby and moving boxes" class="img-fluid">
 						<h3 class="font-weight-bold my-2">New Baby Gift Box</h3>
-						<p class="mb-4">Congratulate your friends and family on their new addition with easy, quick dinners including Cashew Chicken with Noodles, Chateau Chicken with Almond Butter Sauce with Orzo, Backyard BBQ Chicken with Bacon Ranch Green Beans, and Pub Style Chicken with Mashed Potatoes.</p>
+						<p class="mb-4">Congratulate your friends and family on their new addition with easy, quick dinners including Mini Turkey Meatloaves with Bacon Ranch Green Beans, Lucky Dragon Pork Tenderloin with Jasmine Rice, Cheesy Chicken and Broccoli Rice Bake, Countryside Chicken over Linguine.</p>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-6 text-center p-5 my-2">
+					<!--<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/noodle-bowl-and-drink-600x350.webp" alt="Family camping" class="img-fluid">
 						<h3 class="font-weight-bold my-2">Fan Favorites Box Box</h3>
 						<p class="mb-4">Let us take care of your meal planning with delicious, dinners including Pub Style Chicken with Mashed Potatoes, Old Fashioned Meatloaf, Cashew Chicken with Noodles, and Chateau Chicken with Almond Butter Sauce with Orzo.</p>
-					</div>
+					</div>-->
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/woman-broken-leg-600x350.webp" alt="Woman with broken leg on couch" class="img-fluid">
 						<h3 class="font-weight-bold my-2">Get Well Box</h3>
-						<p class="mb-4">Send your love when your friends and family aren’t feeling their best with easy, wholesome dinners including Cashew Chicken with Noodles, Arroz con Pollo, Backyard BBQ Chicken with Bacon Ranch Green Beans, Italiano Chicken and Orzo.</p>
+						<p class="mb-4">Send your love when your friends and family aren’t feeling their best with easy, wholesome dinners including Mini Chicken Pot Pies, Loaded Mashed Potato Bowl, Cheesy Chicken and Broccoli Rice Bake, Lasagna Soup.</p>
 					</div>
 				</div>
 			</div>

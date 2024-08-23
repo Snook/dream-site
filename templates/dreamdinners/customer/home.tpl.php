@@ -4,16 +4,16 @@
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
 
 	<main role="main">
-		<!--<section>
+		<section>
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col text-center" style="max-height: 25rem; overflow: hidden;">
-						<img src="<?php echo IMAGES_PATH; ?>/home_content/carne-asada-in-a-snap-header-1920x600.webp" alt="Carne Asada Steak Tacos in a Snap" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-pot-pies-in-a-snap-headers-1400x600.webp" alt="Mini Pot Pies in a Snap" class="img-fluid">
 					</div>
 				</div>
 			</div>
-		</section>-->
-		<section>
+		</section>
+		<!--<section>
 			<div class="container">
 					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 					  <ol class="carousel-indicators">
@@ -42,7 +42,7 @@
 					  </a>
 					</div>
 			</div>
-		</section>
+		</section>-->
 
 
 		<section>
@@ -84,27 +84,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pubstyle-chicken-30min-teal-featured-400x400.webp" alt="Pub Style Chicken with Mashed Potatoes" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sweet-sour-chicken-30min-featured-400x400.webp" alt="Sweet and Sour Chicken with Jasmine Rice" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Pub Style Chicken with Mashed Potatoes</h5>
+									<h5 class="card-title">Sweet & Sour Chicken with Jasmine Rice</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/arroz-con-pollo-featured-pan-meal-teal-400x400.webp" alt="Arroz Con Pollo" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-turkey-meatloaves-airfryer-featured-400x400.webp" alt="Mini Turkey Meatloaves with Bacon Ranch Green Beans" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Arroz Con Pollo</h5>
+									<h5 class="card-title">Mini Turkey Meatloaves with Bacon Ranch Green Beans</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/italiano-chicken-orzo-featured-instant-pot-400x400.webp" alt="Italiano Chicken and Orzo" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/loaded-mashed-potato-bowl-new-featured-400x400.webp" alt="Loaded Mashed Potato Bowl" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Italiano Chicken and Orzo</h5>
+									<h5 class="card-title">Loaded Mashed Potato Bowl</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/creamy-buffalo-chicken-sandwich-featured-new-teal-400x400.webp" alt="Creamy Buffalo Chicken Sandwiches" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-pot-pies-kid-pick-orange-featured-400x400.webp" alt="Mini Chicken Pot Pies" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Creamy Buffalo Chicken Sandwiches</h5>
+									<h5 class="card-title">Mini Chicken Pot Pies</h5>
 								</div>
 							</div>
 						</div>
@@ -226,12 +226,12 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
-						<h2 class="font-weight-bold mt-2">August Fan Favorites</h2>
-						<p class="text-uppercase mb-4">Start your order with our August Fan Favorites Bundle. These 4 dinners are the perfect easy weeknight meal plan. Bundle includes Pub Style Chicken with Mashed Potatoes, Chateau Chicken with Almond Butter Sauce and Orzo, Cashew Chicken and Noodles, and Old Fashioned Meatloaf. Shipping menu items may vary.</p>
+						<h2 class="font-weight-bold mt-2">September Fan Favorites</h2>
+						<p class="text-uppercase mb-4">Start your order with our September Fan Favorites Bundle. These 4 dinners are the perfect easy weeknight meal plan. Bundle includes Mini Chicken Pot Pies, Crispy French Onion Chicken, Mini Turkey Meatloaves with Bacon Ranch Green Beans, and Cheesy Chicken and Broccoli Rice Bake. Shipping menu items may vary.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/aug24-fan-fav-bundle-collage-957x657.webp" alt="Grill Bundle" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sep24-fan-fav-bundle-collage-957x657.webp" alt="Fan Favorite Bundle" class="img-fluid">
 					</div>
 
 				</div>
@@ -242,11 +242,11 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/aug24-back-to-school-bundle-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sep24-lto-bundle-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
 					</div>
 					<div class="col-md-6 text-left p-5 my-5">
-						<h2 class="font-weight-bold mt-2">Back to School Bundle</h2>
-						<p class="text-uppercase mb-4">Get ready to head back to school with these quick and easy kid picks. Our bundle includes BBQ Chip Chicken Tenders with Crispy Shoestring Fries, Italian Stuffed Shells and Chicken Carbonara Bake. Available at select locations, while supplies last. Not available for shipping.</p>
+						<h2 class="font-weight-bold mt-2">French Bread Trio</h2>
+						<p class="text-uppercase mb-4">Choose 3 of your favorite stuffed french bread sandwiches for one price. Great for tailgating, camping, picnics, and parties. Available at select locations in the Sides and Sweets Freezer, while supplies last. Not available for shipping.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 
