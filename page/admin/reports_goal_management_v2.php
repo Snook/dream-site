@@ -832,7 +832,7 @@ class page_admin_reports_goal_management_v2 extends CPageAdminOnly
 				if (!$fb_defaults)
 				{
 					$fb_defaults = $this->getGoalDefaultsFromLastMonth($month, $year);
-					CLog::Record("Need added defaults from last month: " . print_r(fb_defaults, true));
+					CLog::Record("Need added defaults from last month: " . print_r($fb_defaults, true));
 				}
 
 				if (empty($goalObj->average_ticket_goal) || $goalObj->average_ticket_goal == "0.00")
