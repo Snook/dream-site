@@ -51,7 +51,7 @@
 								<div class="card border-0 py-4 px-4 mx-1 text-center">
 									<div class="card-body">
 										<h3 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">$15 OFF Your First Order</h3>
-										<p>Choose from pick up, in-store assembly, home delivery or shipping. Options vary by participating locations.</p>
+										<p>Choose from pick up, in-store assembly, home delivery or shipping. Options vary by participating locations. Available on the August menu only.</p>
 										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-extra-large">15NEW24</span></p>
 										<!--<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>-->
 									</div>
