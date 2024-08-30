@@ -60,7 +60,6 @@ class CTemplate extends Savant2
 	// admin pages built in bootstrap
 	static $bootstrapPages = array(
 		'admin_manage_site_notice',
-		'admin_login',
 		'admin_account',
 		'admin_create_session',
 		'admin_edit_session',
@@ -1229,13 +1228,11 @@ class CTemplate extends Savant2
 			'email' => CUser::getCurrentUser()->primary_email,
 			'telephone_1' => CUser::getCurrentUser()->telephone_1,
 			'email_sha256' => ((!empty(CUser::getCurrentUser()->primary_email)) ? hash('sha256', CUser::getCurrentUser()->primary_email) : null),
-			'store_VR_code' => ((!empty($this->store_VR_code)) ? $this->store_VR_code : 0),
 			'store_DS_tenant' => ((!empty($this->orderDetailsArray["storeInfo"]["dailystory_tenant_uid"])) ? $this->orderDetailsArray["storeInfo"]["dailystory_tenant_uid"] : null),
 			'customer' => CUser::getCurrentUser()->id,
 			'intro_customer' => (CUser::isLoggedIn() && CUser::getCurrentUser()->isNewBundleCustomer()),
 			'page' => ((!empty($this->page)) ? $this->page : false),
 			'page_title' => ((!empty($this->page_title)) ? $this->page_title : 'DreamDinners.com'),
-			//'smfcArray' => json_decode(CBrowserSession::getValue('smfc')),
 			'dd_thank_you' => CBrowserSession::getValue('dd_thank_you'),
 			'vendor' => array(
 				'google' => array(
@@ -1278,22 +1275,6 @@ class CTemplate extends Savant2
 				)
 			)
 		);
-
-		// salesforce email studio
-		/*
-		if (isset($_REQUEST['sfmc_sub']) && isset($_REQUEST['j']) && isset($_REQUEST['l']) && isset($_REQUEST['u']) && isset($_REQUEST['mid']) && isset($_REQUEST['jb']))
-		{
-			$this->head_analytics_array['smfcArray'] = array(
-				'sfmc_sub' => CGPC::do_clean($_REQUEST['sfmc_sub'], TYPE_INT, true),
-				'j' => CGPC::do_clean($_REQUEST['j'], TYPE_INT, true),
-				'l' => CGPC::do_clean($_REQUEST['l'], TYPE_NOHTML, true),
-				'u' => CGPC::do_clean($_REQUEST['u'], TYPE_INT, true),
-				'mid' => CGPC::do_clean($_REQUEST['mid'], TYPE_INT, true),
-				'jb' => CGPC::do_clean($_REQUEST['jb'], TYPE_INT, true)
-			);
-			CBrowserSession::setValue('smfc', json_encode($this->head_analytics_array['smfcArray']), false, true, false); // can't be httponly so javascript can remove the cookie
-		}
-		*/
 
 		return $this->head_analytics_array;
 	}

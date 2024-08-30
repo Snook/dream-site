@@ -20,7 +20,7 @@
 		</tr>
 		<?php if ($this->PlatePointsRulesVersion > 1) { ?>
 			<tr>
-				<td><?= $this->order_minimum_header_label?></td>
+				<td><?php echo $this->order_minimum_header_label ?? ''; ?></td>
 				<td align="left" >&nbsp;&nbsp;</td>
 				<td align="right"><span id="OEH_number_core_servings" style="color:blue;">0</span>/<span id="OEH_required_servings"><?php echo $this->requiredMinimum ?></span></td>
 

@@ -15,10 +15,13 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 		$this->cleanReportInputs();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function exportOrderList($curMonthStartDate, $curMonthInterval, $store, $tpl, $titleString)
 	{
 
-		//$tpl->assign('title_rows', array(array($titleString), array("")));
+		//$this->Template->assign('title_rows', array(array($titleString), array("")));
 
 		$chars = array(
 			"/",
@@ -78,7 +81,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 
 		$digestObj->query($query);
 
-		$tpl->assign("labels", array_pad(array(
+		$this->Template->assign("labels", array_pad(array(
 			"Guest ID",
 			"Order ID",
 			"First Name",
@@ -132,15 +135,21 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			);
 		}
 
-		$tpl->assign('rows', $rows);
+		$this->Template->assign('rows', $rows);
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runEventCoordinator()
 	{
 		$this->currentStore = CApp::forceLocationChoice();
 		$this->runSiteAdmin();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runFranchiseOwner()
 	{
 		$theStores = array();
@@ -158,6 +167,9 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 		$this->runSiteAdmin();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runFranchiseManager()
 	{
 		$theStores = array();
@@ -175,27 +187,37 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 		$this->runSiteAdmin();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runOpsLead()
 	{
 		$this->currentStore = CApp::forceLocationChoice();
 		$this->runSiteAdmin();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runHomeOfficeManager()
 	{
 		// is this person a coach?  If they are, then need to create a customized store drop down
 		$this->runSiteAdmin();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runHomeOfficeStaff()
 	{
 		$this->runSiteAdmin();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runSiteAdmin()
 	{
-		$tpl = CApp::instance()->template();
-
 		$Form = new CForm();
 		$Form->Repost = true;
 
@@ -205,6 +227,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 		$titleString = "";
 		$store = null;
 		$didReturnCustomRollup = false;
+		$currentMonthMenuID = null;
 
 		$showReportTypeSelector = false;
 
@@ -249,7 +272,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 		$todaysMonthTS = strtotime($todaysMonth);
 
 		$monthOptions = array("0" => 'Select a Month');
-		$curMonthOptionNum = date('n', $todaysMonthTS);
+		$curMonthOptionNum = (int)date('n', $todaysMonthTS);
 		$curYearOptionNum = date('Y', $todaysMonthTS);
 
 		for ($x = -2; ; $x++)
@@ -324,7 +347,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			CForm::value => 'dt_custom'
 		));
 
-		$tpl->assign('showReportTypeSelector', $showReportTypeSelector);
+		$this->Template->assign('showReportTypeSelector', $showReportTypeSelector);
 
 		if (empty($_POST['monthMode']))
 		{
@@ -373,11 +396,11 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 
 				if ($todaysMonth == $currentMonth)
 				{
-					$tpl->assign("showCurrentMonth", true);
+					$this->Template->assign("showCurrentMonth", true);
 				}
 				else
 				{
-					$tpl->assign("showCurrentMonth", false);
+					$this->Template->assign("showCurrentMonth", false);
 				}
 			}
 			else if ($monthMode == "current")
@@ -389,7 +412,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 
 				list($curMonthStartDate, $curMonthInterval) = CMenu::getMenuStartandInterval(false, $todaysMonth);
 
-				$tpl->assign("showCurrentMonth", true);
+				$this->Template->assign("showCurrentMonth", true);
 			}
 			else
 			{ // previous
@@ -406,7 +429,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 
 				list($curMonthStartDate, $curMonthInterval) = CMenu::getMenuStartandInterval(false, $currentMonth);
 
-				$tpl->assign("showCurrentMonth", false);
+				$this->Template->assign("showCurrentMonth", false);
 			}
 		}
 		else if (!empty($_REQUEST['override_month']) && $_REQUEST['override_month'] != "Select a Month")
@@ -418,7 +441,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			$currentMonth = date('Y-m-01', strtotime(CGPC::do_clean($_REQUEST['override_month'], TYPE_STR)));
 			$curMonthTS = strtotime($currentMonth);
 			$currentMonthStr = date("F Y", $curMonthTS);
-			$curMonth = date("n", $curMonthTS);
+			$curMonth = (int)date("n", $curMonthTS);
 			$curYear = date("Y", $curMonthTS);
 			if ($futureMonth == $currentMonth)
 			{
@@ -432,7 +455,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			list($curMonthStartDate, $curMonthInterval) = CMenu::getMenuStartandInterval(false, $currentMonth);
 			$currentMonthMenuID = CMenu::getMenuIDByAnchorDate($currentMonth);
 
-			$tpl->assign('selected_menu', $currentMonthMenuID);
+			$this->Template->assign('selected_menu', $currentMonthMenuID);
 		}
 
 		$hadError = false;
@@ -443,11 +466,11 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			"HOME_OFFICE_MANAGER"
 		)))
 		{
-			$tpl->assign('showDeliveredRows', true);
+			$this->Template->assign('showDeliveredRows', true);
 		}
 		else
 		{
-			$tpl->assign('showDeliveredRows', false);
+			$this->Template->assign('showDeliveredRows', false);
 		}
 
 		if ($hasMenu)
@@ -465,20 +488,20 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			$distantMonthLastYear = mktime(0, 0, 0, $curMonth + 2, 1, $curYear - 1);
 			$distantMonthLastYearStr = date("F Y", $distantMonthLastYear);
 
-			$tpl->assign('currentMonthStr', $currentMonthStr);
-			$tpl->assign('previousMonthStr', $previousMonthStr);
-			$tpl->assign('curMonthLastYearStr', $curMonthLastYearStr);
-			$tpl->assign('nextMonthStr', $nextMonthStr);
-			$tpl->assign('nextMonthLastYearStr', $nextMonthLastYearStr);
-			$tpl->assign('distantMonthStr', $distantMonthStr);
-			$tpl->assign('distantMonthLastYearStr', $distantMonthLastYearStr);
-			$tpl->assign('isFutureMonth', $isFutureMonth);
-			$tpl->assign('isDistantMonth', $isDistantMonth);
+			$this->Template->assign('currentMonthStr', $currentMonthStr);
+			$this->Template->assign('previousMonthStr', $previousMonthStr);
+			$this->Template->assign('curMonthLastYearStr', $curMonthLastYearStr);
+			$this->Template->assign('nextMonthStr', $nextMonthStr);
+			$this->Template->assign('nextMonthLastYearStr', $nextMonthLastYearStr);
+			$this->Template->assign('distantMonthStr', $distantMonthStr);
+			$this->Template->assign('distantMonthLastYearStr', $distantMonthLastYearStr);
+			$this->Template->assign('isFutureMonth', $isFutureMonth);
+			$this->Template->assign('isDistantMonth', $isDistantMonth);
 		}
 		else
 		{
 			$hadError = true;
-			$tpl->assign('dashboard_error', 'Please select a menu and a store or stores.');
+			$this->Template->assign('dashboard_error', 'Please select a menu and a store or stores.');
 		}
 
 		if (!$hadError)
@@ -494,7 +517,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 				$titleString = "Order Details for " . $currentMonthStr . " " . $storeInfo->store_name . " " . $storeInfo->city . ", " . $storeInfo->state_id;
 				CLog::RecordReport("New Dashboard Export (Excel Export)", "Store: $store");
 
-				$this->exportOrderList($curMonthStartDate, $curMonthInterval, $store, $tpl, $titleString);
+				$this->exportOrderList($curMonthStartDate, $curMonthInterval, $store, $this->Template, $titleString);
 
 				return;
 			}
@@ -509,7 +532,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 
 			if ($showReportTypeSelector)
 			{
-				$tpl->assign('store_data', CStore::getStoreTreeAsNestedList($ownerID, true, false));
+				$this->Template->assign('store_data', CStore::getStoreTreeAsNestedList($ownerID, true, false));
 			}
 
 			$Form->AddElement(array(
@@ -522,13 +545,13 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 		if ($reportType == 'dt_single_store' && empty($store))
 		{
 			$hadError = true;
-			$tpl->assign('dashboard_error', 'Please select a menu and a store or stores.');
+			$this->Template->assign('dashboard_error', 'Please select a menu and a store or stores.');
 		}
 
 		if ($showReportTypeSelector && empty($_POST['store_array']) && $reportType == 'dt_custom')
 		{
 			$hadError = true;
-			$tpl->assign('dashboard_error', 'Please select a menu and a store or stores.');
+			$this->Template->assign('dashboard_error', 'Please select a menu and a store or stores.');
 		}
 
 		if (!$hadError && $reportType == 'dt_single_store' && CDashboardMenuBased::testForUpdateRequired($store))
@@ -536,12 +559,12 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 
 			if (defined('HOSTED_AS_REPORTING_SERVER') && HOSTED_AS_REPORTING_SERVER)
 			{
-				$tpl->assign('updateRequired', false);
+				$this->Template->assign('updateRequired', false);
 			}
 			else
 			{
-				$tpl->assign('dashboard_error', 'The metrics are currently updating. Please wait. The page will update automatically when the update is complete.');
-				$tpl->assign('updateRequired', true);
+				$this->Template->assign('dashboard_error', 'The metrics are currently updating. Please wait. The page will update automatically when the update is complete.');
+				$this->Template->assign('updateRequired', true);
 				$hadError = true;
 			}
 		}
@@ -557,14 +580,14 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 
 			if ($storeInfo->isDistributionCenter())
 			{
-				$tpl->assign('showDeliveredRows', true);
+				$this->Template->assign('showDeliveredRows', true);
 			}
 			else
 			{
-				$tpl->assign('showDeliveredRows', false);
+				$this->Template->assign('showDeliveredRows', false);
 			}
 
-			$tpl->assign('showAdditionalOrderRows', COrderMinimum::allowsAdditionalOrdering($store, $currentMonthMenuID));
+			$this->Template->assign('showAdditionalOrderRows', COrderMinimum::allowsAdditionalOrdering($store, $currentMonthMenuID));
 
 			// current month AGR
 			$currentAGRMetrics = DAO_CFactory::create('dashboard_metrics_agr_by_menu');
@@ -573,7 +596,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			$currentAGRMetrics->find(true);
 			$currentAGRMetricsArray = $currentAGRMetrics->toArray();
 			CDashboardMenuBased::addMonthStartRevenue($store, $currentMonth, $currentAGRMetricsArray, 'month_start_total_agr');
-			$tpl->assign('curMonthAGRMetrics', $currentAGRMetricsArray);
+			$this->Template->assign('curMonthAGRMetrics', $currentAGRMetricsArray);
 
 			// next month AGR
 			$nextAGRMetrics = DAO_CFactory::create('dashboard_metrics_agr_by_menu');
@@ -582,7 +605,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			$nextAGRMetrics->find(true);
 			$nextAGRMetricsArray = $nextAGRMetrics->toArray();
 			CDashboardMenuBased::addMonthStartRevenue($store, $nextAGRMetricsArray['date'], $nextAGRMetricsArray, 'month_start_total_agr');
-			$tpl->assign('nextMonthAGRMetrics', $nextAGRMetricsArray);
+			$this->Template->assign('nextMonthAGRMetrics', $nextAGRMetricsArray);
 
 			// distant month AGR
 			$distantAGRMetrics = DAO_CFactory::create('dashboard_metrics_agr_by_menu');
@@ -591,7 +614,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			$distantAGRMetrics->find(true);
 			$distantAGRMetricsArray = $distantAGRMetrics->toArray();
 			CDashboardMenuBased::addMonthStartRevenue($store, $distantAGRMetricsArray['date'], $distantAGRMetricsArray, 'month_start_total_agr');
-			$tpl->assign('distMonthAGRMetrics', $distantAGRMetricsArray);
+			$this->Template->assign('distMonthAGRMetrics', $distantAGRMetricsArray);
 
 			// previous month AGR
 			$previousAGRMetrics = DAO_CFactory::create('dashboard_metrics_agr_by_menu');
@@ -600,7 +623,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			$previousAGRMetrics->find(true);
 			$previousAGRMetricsArray = $previousAGRMetrics->toArray();
 			CDashboardMenuBased::addMonthStartRevenue($store, $previousAGRMetricsArray['date'], $previousAGRMetricsArray, 'month_start_total_agr');
-			$tpl->assign('prevMonthAGRMetrics', $previousAGRMetricsArray);
+			$this->Template->assign('prevMonthAGRMetrics', $previousAGRMetricsArray);
 
 			// thisMonthLastYear
 			$thisMonthLastYearAGRMetrics = DAO_CFactory::create('dashboard_metrics_agr_by_menu');
@@ -609,7 +632,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			$thisMonthLastYearAGRMetrics->find(true);
 			$thisMonthLastYearAGRMetricsArray = $thisMonthLastYearAGRMetrics->toArray();
 			CDashboardMenuBased::addMonthStartRevenue($store, $thisMonthLastYearAGRMetricsArray['date'], $thisMonthLastYearAGRMetricsArray, 'month_start_total_agr');
-			$tpl->assign('curMonthLastYearAGRMetrics', $thisMonthLastYearAGRMetricsArray);
+			$this->Template->assign('curMonthLastYearAGRMetrics', $thisMonthLastYearAGRMetricsArray);
 
 			// nextMonthLastYear
 			$nextMonthLastYearAGRMetrics = DAO_CFactory::create('dashboard_metrics_agr_by_menu');
@@ -618,7 +641,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			$nextMonthLastYearAGRMetrics->find(true);
 			$nextMonthLastYearAGRMetricsArray = $nextMonthLastYearAGRMetrics->toArray();
 			CDashboardMenuBased::addMonthStartRevenue($store, $nextMonthLastYearAGRMetricsArray['date'], $nextMonthLastYearAGRMetricsArray, 'month_start_total_agr');
-			$tpl->assign('nextMonthLastYearAGRMetrics', $nextMonthLastYearAGRMetricsArray);
+			$this->Template->assign('nextMonthLastYearAGRMetrics', $nextMonthLastYearAGRMetricsArray);
 
 			// distantMonthLastYear
 			$distantMonthLastYearAGRMetrics = DAO_CFactory::create('dashboard_metrics_agr_by_menu');
@@ -627,7 +650,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			$distantMonthLastYearAGRMetrics->find(true);
 			$distantMonthLastYearAGRMetricsArray = $distantMonthLastYearAGRMetrics->toArray();
 			CDashboardMenuBased::addMonthStartRevenue($store, $distantMonthLastYearAGRMetricsArray['date'], $distantMonthLastYearAGRMetricsArray, 'month_start_total_agr');
-			$tpl->assign('distantMonthLastYearAGRMetrics', $distantMonthLastYearAGRMetricsArray);
+			$this->Template->assign('distantMonthLastYearAGRMetrics', $distantMonthLastYearAGRMetricsArray);
 
 			// current month Guests
 			$currentGuestMetrics = DAO_CFactory::create('dashboard_metrics_guests_by_menu');
@@ -637,13 +660,13 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 
 			$guestMetricsArray = $currentGuestMetrics->toArray();
 			CDashboardMenuBased::addToDateGuestCounts($guestMetricsArray, $store, $curMonthStartDate, $curMonthInterval);
-			$tpl->assign('curMonthGuestMetrics', $guestMetricsArray);
+			$this->Template->assign('curMonthGuestMetrics', $guestMetricsArray);
 
 			$occupiedTasteSessionCount = CDashboardMenuBased::getOccupiedSessionCountForMonth($curMonthStartDate, $curMonthInterval, 'DREAM_TASTE', $store);
-			$tpl->assign('occupiedTasteSessionCount', $occupiedTasteSessionCount);
+			$this->Template->assign('occupiedTasteSessionCount', $occupiedTasteSessionCount);
 
 			$occupiedFundraiserSessionCount = CDashboardMenuBased::getOccupiedSessionCountForMonth($curMonthStartDate, $curMonthInterval, 'FUNDRAISER', $store);
-			$tpl->assign('occupiedFundraiserSessionCount', $occupiedFundraiserSessionCount);
+			$this->Template->assign('occupiedFundraiserSessionCount', $occupiedFundraiserSessionCount);
 		}
 		else if (!$hadError && ($reportType == 'dt_soft_launch' || $reportType == 'dt_non_soft_launch'))
 		{
@@ -678,7 +701,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 				}
 			}
 
-			$tpl->assign('showAdditionalOrderRows', $allowsAdditionalOrdering);
+			$this->Template->assign('showAdditionalOrderRows', $allowsAdditionalOrdering);
 			if (!empty($storeArr))
 			{
 
@@ -697,41 +720,41 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 
 				// current month AGR
 				$curMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth($currentMonth, 'custom', $storeArr);
-				$tpl->assign('curMonthAGRMetrics', $curMonthrollup);
+				$this->Template->assign('curMonthAGRMetrics', $curMonthrollup);
 
 				// next month AGR
 				$nextMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $nextMonth), 'custom', $storeArr);
-				$tpl->assign('nextMonthAGRMetrics', $nextMonthrollup);
+				$this->Template->assign('nextMonthAGRMetrics', $nextMonthrollup);
 
 				// distant month AGR
 				$distMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $distantMonth), 'custom', $storeArr);
-				$tpl->assign('distMonthAGRMetrics', $distMonthrollup);
+				$this->Template->assign('distMonthAGRMetrics', $distMonthrollup);
 
 				$prevMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $previousMonth), 'custom', $storeArr);
-				$tpl->assign('prevMonthAGRMetrics', $prevMonthrollup);
+				$this->Template->assign('prevMonthAGRMetrics', $prevMonthrollup);
 
 				// thisMonthLastYear
 				$curMonthLastYearrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $curMonthLastYear), 'custom', $storeArr);
-				$tpl->assign('curMonthLastYearAGRMetrics', $curMonthLastYearrollup);
+				$this->Template->assign('curMonthLastYearAGRMetrics', $curMonthLastYearrollup);
 
 				// nextMonthLastYear
 				$nextMonthLastYearrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $nextMonthLastYear), 'custom', $storeArr);
-				$tpl->assign('nextMonthLastYearAGRMetrics', $nextMonthLastYearrollup);
+				$this->Template->assign('nextMonthLastYearAGRMetrics', $nextMonthLastYearrollup);
 
 				// distantMonthLastYear
 				$distantMonthLastYearrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $distantMonthLastYear), 'custom', $storeArr);
-				$tpl->assign('distantMonthLastYearAGRMetrics', $distantMonthLastYearrollup);
+				$this->Template->assign('distantMonthLastYearAGRMetrics', $distantMonthLastYearrollup);
 
 				// current Month guests
 				$currentGuestMetrics = CDashboardMenuBased::getRollupGuestNumberdByMonth($currentMonth, 'custom', $storeArr);
 				CDashboardMenuBased::addToDateGuestCounts($currentGuestMetrics, 'custom', $curMonthStartDate, $curMonthInterval, $storeArr);
 
 				$occupiedTasteSessionCount = CDashboardMenuBased::getOccupiedSessionCountForMonth($curMonthStartDate, $curMonthInterval, 'DREAM_TASTE', 'custom', $storeArr);
-				$tpl->assign('occupiedTasteSessionCount', $occupiedTasteSessionCount);
+				$this->Template->assign('occupiedTasteSessionCount', $occupiedTasteSessionCount);
 				$occupiedFundraiserSessionCount = CDashboardMenuBased::getOccupiedSessionCountForMonth($curMonthStartDate, $curMonthInterval, 'FUNDRAISER', 'custom', $storeArr);
-				$tpl->assign('occupiedFundraiserSessionCount', $occupiedFundraiserSessionCount);
+				$this->Template->assign('occupiedFundraiserSessionCount', $occupiedFundraiserSessionCount);
 
-				$tpl->assign('curMonthGuestMetrics', $currentGuestMetrics);
+				$this->Template->assign('curMonthGuestMetrics', $currentGuestMetrics);
 
 				$didReturnCustomRollup = false;
 			}
@@ -762,7 +785,7 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 					}
 				}
 
-				$tpl->assign('showAdditionalOrderRows', $allowsAdditionalOrdering);
+				$this->Template->assign('showAdditionalOrderRows', $allowsAdditionalOrdering);
 				if (!empty($storeArr))
 				{
 
@@ -776,41 +799,41 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 
 					// current month AGR
 					$curMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth($currentMonth, 'custom', $storeArr);
-					$tpl->assign('curMonthAGRMetrics', $curMonthrollup);
+					$this->Template->assign('curMonthAGRMetrics', $curMonthrollup);
 
 					// next month AGR
 					$nextMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $nextMonth), 'custom', $storeArr);
-					$tpl->assign('nextMonthAGRMetrics', $nextMonthrollup);
+					$this->Template->assign('nextMonthAGRMetrics', $nextMonthrollup);
 
 					// distant month AGR
 					$distMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $distantMonth), 'custom', $storeArr);
-					$tpl->assign('distMonthAGRMetrics', $distMonthrollup);
+					$this->Template->assign('distMonthAGRMetrics', $distMonthrollup);
 
 					$prevMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $previousMonth), 'custom', $storeArr);
-					$tpl->assign('prevMonthAGRMetrics', $prevMonthrollup);
+					$this->Template->assign('prevMonthAGRMetrics', $prevMonthrollup);
 
 					// thisMonthLastYear
 					$curMonthLastYearrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $curMonthLastYear), 'custom', $storeArr);
-					$tpl->assign('curMonthLastYearAGRMetrics', $curMonthLastYearrollup);
+					$this->Template->assign('curMonthLastYearAGRMetrics', $curMonthLastYearrollup);
 
 					// nextMonthLastYear
 					$nextMonthLastYearrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $nextMonthLastYear), 'custom', $storeArr);
-					$tpl->assign('nextMonthLastYearAGRMetrics', $nextMonthLastYearrollup);
+					$this->Template->assign('nextMonthLastYearAGRMetrics', $nextMonthLastYearrollup);
 
 					// distantMonthLastYear
 					$distantMonthLastYearrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $distantMonthLastYear), 'custom', $storeArr);
-					$tpl->assign('distantMonthLastYearAGRMetrics', $distantMonthLastYearrollup);
+					$this->Template->assign('distantMonthLastYearAGRMetrics', $distantMonthLastYearrollup);
 
 					// current Month guests
 					$currentGuestMetrics = CDashboardMenuBased::getRollupGuestNumberdByMonth($currentMonth, 'custom', $storeArr);
 					CDashboardMenuBased::addToDateGuestCounts($currentGuestMetrics, 'custom', $curMonthStartDate, $curMonthInterval, $storeArr);
 
 					$occupiedTasteSessionCount = CDashboardMenuBased::getOccupiedSessionCountForMonth($curMonthStartDate, $curMonthInterval, 'DREAM_TASTE', 'custom', $storeArr);
-					$tpl->assign('occupiedTasteSessionCount', $occupiedTasteSessionCount);
+					$this->Template->assign('occupiedTasteSessionCount', $occupiedTasteSessionCount);
 					$occupiedFundraiserSessionCount = CDashboardMenuBased::getOccupiedSessionCountForMonth($curMonthStartDate, $curMonthInterval, 'FUNDRAISER', 'custom', $storeArr);
-					$tpl->assign('occupiedFundraiserSessionCount', $occupiedFundraiserSessionCount);
+					$this->Template->assign('occupiedFundraiserSessionCount', $occupiedFundraiserSessionCount);
 
-					$tpl->assign('curMonthGuestMetrics', $currentGuestMetrics);
+					$this->Template->assign('curMonthGuestMetrics', $currentGuestMetrics);
 
 					$didReturnCustomRollup = true;
 				}
@@ -827,92 +850,92 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 		else if (!$hadError && $reportType == 'dt_corp_stores')
 		{
 			$allowsAdditionalOrdering = COrderMinimum::allowsAdditionalOrderingByStoreType(COrderMinimum::CORPORATE_STORE, $currentMonthMenuID);
-			$tpl->assign('showAdditionalOrderRows', $allowsAdditionalOrdering);
+			$this->Template->assign('showAdditionalOrderRows', $allowsAdditionalOrdering);
 			$titleString = "Dashboard Report for<br />" . $currentMonthStr . "<br />" . "Corporate Stores";
 
 			// current month AGR
 			$curMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth($currentMonth, 'corp_stores');
-			$tpl->assign('curMonthAGRMetrics', $curMonthrollup);
+			$this->Template->assign('curMonthAGRMetrics', $curMonthrollup);
 
 			// next month AGR
 			$nextMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $nextMonth), 'corp_stores');
-			$tpl->assign('nextMonthAGRMetrics', $nextMonthrollup);
+			$this->Template->assign('nextMonthAGRMetrics', $nextMonthrollup);
 
 			// distant month AGR
 			$distMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $distantMonth), 'corp_stores');
-			$tpl->assign('distMonthAGRMetrics', $distMonthrollup);
+			$this->Template->assign('distMonthAGRMetrics', $distMonthrollup);
 
 			$prevMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $previousMonth), 'corp_stores');
-			$tpl->assign('prevMonthAGRMetrics', $prevMonthrollup);
+			$this->Template->assign('prevMonthAGRMetrics', $prevMonthrollup);
 
 			// thisMonthLastYear
 			$curMonthLastYearrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $curMonthLastYear), 'corp_stores');
-			$tpl->assign('curMonthLastYearAGRMetrics', $curMonthLastYearrollup);
+			$this->Template->assign('curMonthLastYearAGRMetrics', $curMonthLastYearrollup);
 
 			// nextMonthLastYear
 			$nextMonthLastYearrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $nextMonthLastYear), 'corp_stores');
-			$tpl->assign('nextMonthLastYearAGRMetrics', $nextMonthLastYearrollup);
+			$this->Template->assign('nextMonthLastYearAGRMetrics', $nextMonthLastYearrollup);
 
 			// distantMonthLastYear
 			$distantMonthLastYearrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $distantMonthLastYear), 'corp_stores');
-			$tpl->assign('distantMonthLastYearAGRMetrics', $distantMonthLastYearrollup);
+			$this->Template->assign('distantMonthLastYearAGRMetrics', $distantMonthLastYearrollup);
 
 			// current Month guests
 			$currentGuestMetrics = CDashboardMenuBased::getRollupGuestNumberdByMonth($currentMonth, 'corp_stores');
 			CDashboardMenuBased::addToDateGuestCounts($currentGuestMetrics, 'corp_stores', $curMonthStartDate, $curMonthInterval);
 
 			$occupiedTasteSessionCount = CDashboardMenuBased::getOccupiedSessionCountForMonth($curMonthStartDate, $curMonthInterval, 'DREAM_TASTE', 'corp_stores');
-			$tpl->assign('occupiedTasteSessionCount', $occupiedTasteSessionCount);
+			$this->Template->assign('occupiedTasteSessionCount', $occupiedTasteSessionCount);
 			$occupiedFundraiserSessionCount = CDashboardMenuBased::getOccupiedSessionCountForMonth($curMonthStartDate, $curMonthInterval, 'FUNDRAISER', 'corp_stores');
-			$tpl->assign('occupiedFundraiserSessionCount', $occupiedFundraiserSessionCount);
+			$this->Template->assign('occupiedFundraiserSessionCount', $occupiedFundraiserSessionCount);
 
-			$tpl->assign('curMonthGuestMetrics', $currentGuestMetrics);
+			$this->Template->assign('curMonthGuestMetrics', $currentGuestMetrics);
 		}
 		else if (!$hadError && $reportType == 'dt_non_corp_stores')
 		{
 
 			$allowsAdditionalOrdering = COrderMinimum::allowsAdditionalOrderingByStoreType(COrderMinimum::NON_CORPORATE_STORE, $currentMonthMenuID);
-			$tpl->assign('showAdditionalOrderRows', $allowsAdditionalOrdering);
+			$this->Template->assign('showAdditionalOrderRows', $allowsAdditionalOrdering);
 			$titleString = "Dashboard Report for<br />" . $currentMonthStr . "<br />" . "Franchise Stores";
 
 			// current month AGR
 			$curMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth($currentMonth, 'non_corp_stores');
-			$tpl->assign('curMonthAGRMetrics', $curMonthrollup);
+			$this->Template->assign('curMonthAGRMetrics', $curMonthrollup);
 
 			// next month AGR
 			$nextMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $nextMonth), 'non_corp_stores');
-			$tpl->assign('nextMonthAGRMetrics', $nextMonthrollup);
+			$this->Template->assign('nextMonthAGRMetrics', $nextMonthrollup);
 
 			// distant month AGR
 			$distMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $distantMonth), 'non_corp_stores');
-			$tpl->assign('distMonthAGRMetrics', $distMonthrollup);
+			$this->Template->assign('distMonthAGRMetrics', $distMonthrollup);
 
 			// previous month AGR
 			$prevMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $previousMonth), 'non_corp_stores');
-			$tpl->assign('prevMonthAGRMetrics', $prevMonthrollup);
+			$this->Template->assign('prevMonthAGRMetrics', $prevMonthrollup);
 
 			// thisMonthLastYear
 			$curMonthLastYearrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $curMonthLastYear), 'non_corp_stores');
-			$tpl->assign('curMonthLastYearAGRMetrics', $curMonthLastYearrollup);
+			$this->Template->assign('curMonthLastYearAGRMetrics', $curMonthLastYearrollup);
 
 			// nextMonthLastYear
 			$nextMonthLastYearrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $nextMonthLastYear), 'non_corp_stores');
-			$tpl->assign('nextMonthLastYearAGRMetrics', $nextMonthLastYearrollup);
+			$this->Template->assign('nextMonthLastYearAGRMetrics', $nextMonthLastYearrollup);
 
 			// distantMonthLastYear
 			$distantMonthLastYearrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $distantMonthLastYear), 'non_corp_stores');
-			$tpl->assign('distantMonthLastYearAGRMetrics', $distantMonthLastYearrollup);
+			$this->Template->assign('distantMonthLastYearAGRMetrics', $distantMonthLastYearrollup);
 
 			// current Month guests
 			$currentGuestMetrics = CDashboardMenuBased::getRollupGuestNumberdByMonth($currentMonth, 'non_corp_stores');
 			CDashboardMenuBased::addToDateGuestCounts($currentGuestMetrics, 'non_corp_stores', $curMonthStartDate, $curMonthInterval);
-			$tpl->assign('curMonthGuestMetrics', $currentGuestMetrics);
+			$this->Template->assign('curMonthGuestMetrics', $currentGuestMetrics);
 
 			$occupiedTasteSessionCount = CDashboardMenuBased::getOccupiedSessionCountForMonth($curMonthStartDate, $curMonthInterval, 'DREAM_TASTE', 'non_corp_stores');
-			$tpl->assign('occupiedTasteSessionCount', $occupiedTasteSessionCount);
+			$this->Template->assign('occupiedTasteSessionCount', $occupiedTasteSessionCount);
 
 			$occupiedFundraiserSessionCount = CDashboardMenuBased::getOccupiedSessionCountForMonth($curMonthStartDate, $curMonthInterval, 'FUNDRAISER', 'non_corp_stores');
-			$tpl->assign('occupiedFundraiserSessionCount', $occupiedFundraiserSessionCount);
+			$this->Template->assign('occupiedFundraiserSessionCount', $occupiedFundraiserSessionCount);
 		}
 		else if (!$hadError && $reportType == 'dt_all_stores')
 		{
@@ -921,44 +944,44 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 
 			// current month AGR
 			$curMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth($currentMonth, 'all_stores');
-			$tpl->assign('curMonthAGRMetrics', $curMonthrollup);
+			$this->Template->assign('curMonthAGRMetrics', $curMonthrollup);
 			// next month AGR
 			$nextMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $nextMonth), 'all_stores');
-			$tpl->assign('nextMonthAGRMetrics', $nextMonthrollup);
+			$this->Template->assign('nextMonthAGRMetrics', $nextMonthrollup);
 
 			// distant month AGR
 			$distMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $distantMonth), 'all_stores');
-			$tpl->assign('distMonthAGRMetrics', $distMonthrollup);
+			$this->Template->assign('distMonthAGRMetrics', $distMonthrollup);
 
 			// previous month AGR
 			$prevMonthrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $previousMonth), 'all_stores');
-			$tpl->assign('prevMonthAGRMetrics', $prevMonthrollup);
+			$this->Template->assign('prevMonthAGRMetrics', $prevMonthrollup);
 
 			// thisMonthLastYear
 			$curMonthLastYearrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $curMonthLastYear), 'all_stores');
-			$tpl->assign('curMonthLastYearAGRMetrics', $curMonthLastYearrollup);
+			$this->Template->assign('curMonthLastYearAGRMetrics', $curMonthLastYearrollup);
 
 			// nextMonthLastYear
 			$nextMonthLastYearrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $nextMonthLastYear), 'all_stores');
-			$tpl->assign('nextMonthLastYearAGRMetrics', $nextMonthLastYearrollup);
+			$this->Template->assign('nextMonthLastYearAGRMetrics', $nextMonthLastYearrollup);
 
 			// distantMonthLastYear
 			$distantMonthLastYearrollup = CDashboardMenuBased::getRollupAGRbyMonth(date("Y-m-01", $distantMonthLastYear), 'all_stores');
-			$tpl->assign('distantMonthLastYearAGRMetrics', $distantMonthLastYearrollup);
+			$this->Template->assign('distantMonthLastYearAGRMetrics', $distantMonthLastYearrollup);
 
 			// current Month guests
 			$currentGuestMetrics = CDashboardMenuBased::getRollupGuestNumberdByMonth($currentMonth, 'all_stores');
 			CDashboardMenuBased::addToDateGuestCounts($currentGuestMetrics, 'all_stores', $curMonthStartDate, $curMonthInterval);
-			$tpl->assign('curMonthGuestMetrics', $currentGuestMetrics);
+			$this->Template->assign('curMonthGuestMetrics', $currentGuestMetrics);
 
 			$occupiedTasteSessionCount = CDashboardMenuBased::getOccupiedSessionCountForMonth($curMonthStartDate, $curMonthInterval, 'DREAM_TASTE', 'all_stores');
-			$tpl->assign('occupiedTasteSessionCount', $occupiedTasteSessionCount);
+			$this->Template->assign('occupiedTasteSessionCount', $occupiedTasteSessionCount);
 
 			$occupiedFundraiserSessionCount = CDashboardMenuBased::getOccupiedSessionCountForMonth($curMonthStartDate, $curMonthInterval, 'FUNDRAISER', 'all_stores');
-			$tpl->assign('occupiedFundraiserSessionCount', $occupiedFundraiserSessionCount);
+			$this->Template->assign('occupiedFundraiserSessionCount', $occupiedFundraiserSessionCount);
 		}
 
-		$tpl->assign("titleString", $titleString);
+		$this->Template->assign("titleString", $titleString);
 
 		/// ------------------------- calculate deltas
 		if (!$hadError && $reportType == 'dt_single_store')
@@ -972,46 +995,46 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			*/
 			$previousAGRDelta = $currentAGRMetrics->total_agr - $previousAGRMetrics->total_agr;
 			$previousAGRDeltaPercent = CTemplate::divide_and_format(($currentAGRMetrics->total_agr - $previousAGRMetrics->total_agr) * 100, $previousAGRMetrics->total_agr, 2);
-			$tpl->assignAndFormatMetricDollars('previousAGRDelta', $previousAGRDelta);
-			$tpl->assignAndFormatMetricPercent('previousAGRDeltaPercent', $previousAGRDeltaPercent);
+			$this->Template->assignAndFormatMetricDollars('previousAGRDelta', $previousAGRDelta);
+			$this->Template->assignAndFormatMetricPercent('previousAGRDeltaPercent', $previousAGRDeltaPercent);
 
 			$curMonthlastYearAGRDelta = $currentAGRMetrics->total_agr - $thisMonthLastYearAGRMetrics->total_agr;
 			$curMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(($currentAGRMetrics->total_agr - $thisMonthLastYearAGRMetrics->total_agr) * 100, $thisMonthLastYearAGRMetrics->total_agr, 2);
-			$tpl->assignAndFormatMetricDollars('curMonthlastYearAGRDelta', $curMonthlastYearAGRDelta);
-			$tpl->assignAndFormatMetricPercent('curMonthlastYearAGRDeltaPercent', $curMonthlastYearAGRDeltaPercent);
+			$this->Template->assignAndFormatMetricDollars('curMonthlastYearAGRDelta', $curMonthlastYearAGRDelta);
+			$this->Template->assignAndFormatMetricPercent('curMonthlastYearAGRDeltaPercent', $curMonthlastYearAGRDeltaPercent);
 
 			$nextMonthlastYearAGRDelta = $nextAGRMetrics->total_agr - $nextMonthLastYearAGRMetrics->total_agr;
 			$nextMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(($nextAGRMetrics->total_agr - $nextMonthLastYearAGRMetrics->total_agr) * 100, $nextMonthLastYearAGRMetrics->total_agr, 2);
-			$tpl->assignAndFormatMetricDollars('nextMonthlastYearAGRDelta', $nextMonthlastYearAGRDelta);
-			$tpl->assignAndFormatMetricPercent('nextMonthlastYearAGRDeltaPercent', $nextMonthlastYearAGRDeltaPercent);
+			$this->Template->assignAndFormatMetricDollars('nextMonthlastYearAGRDelta', $nextMonthlastYearAGRDelta);
+			$this->Template->assignAndFormatMetricPercent('nextMonthlastYearAGRDeltaPercent', $nextMonthlastYearAGRDeltaPercent);
 
 			$distantMonthlastYearAGRDelta = $distantAGRMetrics->total_agr - $distantMonthLastYearAGRMetrics->total_agr;
 			$distantMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(($distantAGRMetrics->total_agr - $distantMonthLastYearAGRMetrics->total_agr) * 100, $distantMonthLastYearAGRMetrics->total_agr, 2);
-			$tpl->assignAndFormatMetricDollars('distantMonthlastYearAGRDelta', $distantMonthlastYearAGRDelta);
-			$tpl->assignAndFormatMetricPercent('distantMonthlastYearAGRDeltaPercent', $distantMonthlastYearAGRDeltaPercent);
+			$this->Template->assignAndFormatMetricDollars('distantMonthlastYearAGRDelta', $distantMonthlastYearAGRDelta);
+			$this->Template->assignAndFormatMetricPercent('distantMonthlastYearAGRDeltaPercent', $distantMonthlastYearAGRDeltaPercent);
 		}
 		else if (!$hadError)
 		{
 
 			$previousAGRDelta = (float)$curMonthrollup['total_agr'] - (float)$prevMonthrollup['total_agr'];
 			$previousAGRDeltaPercent = CTemplate::divide_and_format(((float)$curMonthrollup['total_agr'] - (float)$prevMonthrollup['total_agr']) * 100, $prevMonthrollup['total_agr'], 2);
-			$tpl->assignAndFormatMetricDollars('previousAGRDelta', $previousAGRDelta);
-			$tpl->assignAndFormatMetricPercent('previousAGRDeltaPercent', $previousAGRDeltaPercent);
+			$this->Template->assignAndFormatMetricDollars('previousAGRDelta', $previousAGRDelta);
+			$this->Template->assignAndFormatMetricPercent('previousAGRDeltaPercent', $previousAGRDeltaPercent);
 
 			$curMonthlastYearAGRDelta = (float)$curMonthrollup['total_agr'] - (float)$curMonthLastYearrollup['total_agr'];
 			$curMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(((float)$curMonthrollup['total_agr'] - (float)$curMonthLastYearrollup['total_agr']) * 100, $curMonthLastYearrollup['total_agr'], 2);
-			$tpl->assignAndFormatMetricDollars('curMonthlastYearAGRDelta', $curMonthlastYearAGRDelta);
-			$tpl->assignAndFormatMetricPercent('curMonthlastYearAGRDeltaPercent', $curMonthlastYearAGRDeltaPercent);
+			$this->Template->assignAndFormatMetricDollars('curMonthlastYearAGRDelta', $curMonthlastYearAGRDelta);
+			$this->Template->assignAndFormatMetricPercent('curMonthlastYearAGRDeltaPercent', $curMonthlastYearAGRDeltaPercent);
 
 			$nextMonthlastYearAGRDelta = (float)$nextMonthrollup['total_agr'] - (float)$nextMonthLastYearrollup['total_agr'];
 			$nextMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(((float)$nextMonthrollup['total_agr'] - (float)$nextMonthLastYearrollup['total_agr']) * 100, $nextMonthLastYearrollup['total_agr'], 2);
-			$tpl->assignAndFormatMetricDollars('nextMonthlastYearAGRDelta', $nextMonthlastYearAGRDelta);
-			$tpl->assignAndFormatMetricPercent('nextMonthlastYearAGRDeltaPercent', $nextMonthlastYearAGRDeltaPercent);
+			$this->Template->assignAndFormatMetricDollars('nextMonthlastYearAGRDelta', $nextMonthlastYearAGRDelta);
+			$this->Template->assignAndFormatMetricPercent('nextMonthlastYearAGRDeltaPercent', $nextMonthlastYearAGRDeltaPercent);
 
 			$distantMonthlastYearAGRDelta = (float)$distMonthrollup['total_agr'] - (float)$distantMonthLastYearrollup['total_agr'];
 			$distantMonthlastYearAGRDeltaPercent = CTemplate::divide_and_format(((float)$distMonthrollup['total_agr'] - (float)$distantMonthLastYearrollup['total_agr']) * 100, $distantMonthLastYearrollup['total_agr'], 2);
-			$tpl->assignAndFormatMetricDollars('distantMonthlastYearAGRDelta', $distantMonthlastYearAGRDelta);
-			$tpl->assignAndFormatMetricPercent('distantMonthlastYearAGRDeltaPercent', $distantMonthlastYearAGRDeltaPercent);
+			$this->Template->assignAndFormatMetricDollars('distantMonthlastYearAGRDelta', $distantMonthlastYearAGRDelta);
+			$this->Template->assignAndFormatMetricPercent('distantMonthlastYearAGRDeltaPercent', $distantMonthlastYearAGRDeltaPercent);
 		}
 
 		if (!$hadError)
@@ -1023,17 +1046,15 @@ class page_admin_dashboard_menu_based extends CPageAdminOnly
 			$myRankingsObj->store_id = $store;
 			$myRankingsObj->find(true);
 
-			$tpl->assign('myRankings', $myRankingsObj->toArray());
+			$this->Template->assign('myRankings', $myRankingsObj->toArray());
 		}
 
-		$tpl->assign('didReturnCustomRollup', $didReturnCustomRollup);
+		$this->Template->assign('didReturnCustomRollup', $didReturnCustomRollup);
 
 		$formArray = $Form->render();
-		$tpl->assign('store', $store);
+		$this->Template->assign('store', $store);
 
-		$tpl->assign('form_array', $formArray);
+		$this->Template->assign('form_array', $formArray);
 	}
 
 }
-
-?>

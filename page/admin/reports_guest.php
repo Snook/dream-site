@@ -764,7 +764,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 			$DAO_user->selectAdd("store.store_name");
 			$DAO_user->selectAdd("store.state_id");
 			$DAO_user->selectAdd("user_data_month.user_data_value as birth_month");
-			$DAO_user->selectAdd("CONCAT('https://dreamdinners.com/share/',`user`.id) as share_url");
+			$DAO_user->selectAdd("CONCAT('" . HTTPS_BASE . "share/',`user`.id) as share_url");
 
 			$DAO_user_data_month = DAO_CFactory::create('user_data', true);
 			$DAO_user_data_month->user_data_field_id = 1;

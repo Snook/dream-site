@@ -273,22 +273,22 @@ class CCouponCode extends DAO_Coupon_code
 
 	function isValidForCurrentPage()
 	{
-		if (isset($_REQUEST['processor']) && strpos($_REQUEST['processor'], "cart_add_payment") !== false && $this->is_customer_order_supported == "0")
+		if (isset($_REQUEST['processor']) && str_contains($_REQUEST['processor'], "cart_add_payment") && $this->is_customer_order_supported == "0")
 		{
 			return 'online_not_supported';
 		}
 
-		if (strpos($_SERVER['REQUEST_URI'], "processor?processor=couponCodeProcessor") !== false && $this->is_customer_order_supported == "0")
+		if (str_contains($_SERVER['REQUEST_URI'], "processor?processor=couponCodeProcessor") && $this->is_customer_order_supported == "0")
 		{
 			return 'online_not_supported';
 		}
 
-		if (strpos($_SERVER['REQUEST_URI'], "processor?processor=admin_directOrderCouponCodeProcessor") !== false && $this->is_direct_order_supported == "0")
+		if (str_contains($_SERVER['REQUEST_URI'], "processor?processor=admin_directOrderCouponCodeProcessor") && $this->is_direct_order_supported == "0")
 		{
 			return 'direct_order_not_supported';
 		}
 
-		if ((strpos($_SERVER['REQUEST_URI'], "processor?processor=admin_editOrderCouponCodeProcessor") !== false || strpos($_SERVER['REQUEST_URI'], "processor?processor=admin_editOrderCouponCodeProcessorDelivered") !== false) && $this->is_order_editor_supported == "0")
+		if ((str_contains($_SERVER['REQUEST_URI'], "processor?processor=admin_editOrderCouponCodeProcessor") || str_contains($_SERVER['REQUEST_URI'], "processor?processor=admin_editOrderCouponCodeProcessorDelivered")) && $this->is_order_editor_supported == "0")
 		{
 			return 'order_edit_not_supported';
 		}
@@ -933,10 +933,6 @@ class CCouponCode extends DAO_Coupon_code
 						);
 					}
 				}
-				else
-				{
-					// user is new
-				}
 			}
 
 			if ($this->applicable_customer_type == self::NEW_USER && $hasOrders)
@@ -1133,7 +1129,7 @@ class CCouponCode extends DAO_Coupon_code
 		}
 
 		// no coupon codes if customer is ordering a dream rewards discounted order from the front end
-		if ((strpos($_SERVER['REQUEST_URI'], "processor?processor=couponCodeProcessor") !== false) && $DAO_orders->dream_rewards_level > 0)
+		if ((str_contains($_SERVER['REQUEST_URI'], "processor?processor=couponCodeProcessor")) && $DAO_orders->dream_rewards_level > 0)
 		{
 			$errorArray[] = 'guest_is_ordering_in_DR';
 		}
@@ -1536,10 +1532,6 @@ class CCouponCode extends DAO_Coupon_code
 						);
 					}
 				}
-				else
-				{
-					// user is new
-				}
 			}
 
 			if ($this->applicable_customer_type == self::NEW_USER && $hasOrders)
@@ -1698,10 +1690,7 @@ class CCouponCode extends DAO_Coupon_code
 
 			default:
 				throw new Exception('unrecognized promo type');
-				break;
 		}
-
-		return false;
 	}
 
 	/**
@@ -1758,8 +1747,6 @@ class CCouponCode extends DAO_Coupon_code
 			default:
 				throw new Exception('unrecognized promo type');
 		}
-
-		return false;
 	}
 
 	/**

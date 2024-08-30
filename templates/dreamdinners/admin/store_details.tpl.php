@@ -569,6 +569,12 @@
 					</div>
 				</td>
 			</tr>
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">Home Delivery Radius:</td>
+				<td class="bgcolor_light">
+					<?php echo $this->form_store_details['delivery_radius_html']; ?>
+				</td>
+			</tr>
 			<?php if (!empty($this->form_store_details['supports_bag_fee_html'])) { ?>
 				<tr>
 					<td class="bgcolor_light" style="text-align: right;">Charge Reusable Bag Fees:<br /><span style="font-size:smaller;">(Charges 1 bag per 4 core dinners)</span></td>

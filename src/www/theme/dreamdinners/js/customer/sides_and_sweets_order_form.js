@@ -4,10 +4,21 @@ $(document).on('change', '#orders', function (e) {
 
 });
 
+$(document).on('submit', '#main_form', function (e) {
+
+	if ($(this).hasClass('processing-form'))
+	{
+		e.preventDefault();
+		e.stopPropagation();
+	}
+
+	$(this).addClass('processing-form');
+
+});
+
 $(document).on('change keyup', '[data-menu_item_id]', function (e) {
 
-	$('[data-menu_item_id]').each(function ()
-	{
+	$('[data-menu_item_id]').each(function () {
 		if (Number($(this).val()) > Number($(this).prop('max')))
 		{
 			$(this).val($(this).prop('max'));
@@ -23,8 +34,7 @@ $(document).on('change keyup', '[data-menu_item_id]', function (e) {
 	let total_items = 0;
 	let sub_total = 0.00;
 
-	$('[data-menu_item_id]').each(function ()
-	{
+	$('[data-menu_item_id]').each(function () {
 		total_items += Number($(this).val());
 
 		if (Number($(this).val()) > 0)

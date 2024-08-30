@@ -321,7 +321,7 @@ class CUser extends DAO_User
 		return true;
 	}
 
-	/*
+	/**
 	* A Customer is considered new until they have placed an order
 	*/
 	static function isNewCustomer()
@@ -348,7 +348,37 @@ class CUser extends DAO_User
 
 	static function isUserStaff(): bool
 	{
-		if (!empty(self::getCurrentUser()->user_type) && (self::getCurrentUser()->user_type != self::CUSTOMER && self::getCurrentUser()->user_type != self::GUEST))
+		if (empty(self::getCurrentUser()->user_type))
+		{
+			return false;
+		}
+
+		if (!self::getCurrentUser()->isUserType(user_type: self::CUSTOMER) && !self::getCurrentUser()->isUserType(user_type: self::GUEST))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function isUserGroupHomeOffice(): bool
+	{
+		if ($this->isUserType(user_type: CUser::SITE_ADMIN) || $this->isUserType(user_type: CUser::HOME_OFFICE_MANAGER) || $this->isUserType(user_type: CUser::HOME_OFFICE_STAFF))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function isUserType($user_type): bool
+	{
+		if (empty($this->user_type))
+		{
+			return false;
+		}
+
+		if ($this->user_type == $user_type)
 		{
 			return true;
 		}
@@ -1660,7 +1690,6 @@ class CUser extends DAO_User
 	 */
 	public function hasMinimumQualifyingOrderDefined($store_id, $menu_id)
 	{
-
 		if (!COrderMinimum::allowsAdditionalOrdering($store_id, $menu_id))
 		{
 			return false;//doesn't allow additional ordering
@@ -1707,7 +1736,6 @@ class CUser extends DAO_User
 	 */
 	public function establishMonthlyMinimumQualifyingOrder($menu_id, $store_id)
 	{
-
 		if (!COrderMinimum::allowsAdditionalOrdering($store_id, $menu_id))
 		{
 			return false;//doesn't allow additional ordering
@@ -1765,7 +1793,6 @@ class CUser extends DAO_User
 	 */
 	public function fetchMinimumQualifyingOrderId($menu_id, $store_id)
 	{
-
 		if (!COrderMinimum::allowsAdditionalOrdering($store_id, $menu_id))
 		{
 			return null;//doesn't allow additional ordering
@@ -1939,7 +1966,6 @@ class CUser extends DAO_User
 
 	function anyStoreAllowsMealCustomization()
 	{
-
 		if (is_null($this->id))
 		{
 			return false;
@@ -2038,7 +2064,6 @@ class CUser extends DAO_User
 				}
 				else
 				{
-
 					$storeIDFromSession = CCartStorage::getStoreFromSessionIfExists($cartDAO->cart_contents_id);
 
 					if ($storeIDFromSession)
@@ -2056,7 +2081,6 @@ class CUser extends DAO_User
 
 	function hasOrderForMenu($menu_id)
 	{
-
 		$bookingObj = DAO_CFactory::create('booking');
 		$bookingObj->query("select b.id from booking b join session s on s.id = b.session_id and s.menu_id = $menu_id where b.user_id = {$this->id} and b.status = 'ACTIVE' ");
 		if ($bookingObj->N > 0)
@@ -2307,7 +2331,6 @@ class CUser extends DAO_User
 
 	function hasPendingDreamRewardsOrder($storeID = false)
 	{
-
 		CLog::Assert(is_numeric($storeID), "valid storeID must be passed into hasPendingDreamRewardsOrder");
 
 		$nowTime = time();
@@ -2649,7 +2672,6 @@ class CUser extends DAO_User
 
 	function getReferralRewardQualifyingOrderId()
 	{
-
 		$Order = DAO_CFactory::create('orders');
 		$Order->query("select o.id, o.timestamp_created, s.session_start, o.bundle_id from booking b join orders o on o.id = b.order_id
 					join session s on s.id = b.session_id
@@ -2696,7 +2718,6 @@ class CUser extends DAO_User
 
 	function isFranchiseAccess()
 	{
-
 		if (empty($this->user_type))
 		{
 			return false;
@@ -2712,7 +2733,6 @@ class CUser extends DAO_User
 
 	function getInitialFranchiseStore()
 	{
-
 		if ($this->user_type == self::SITE_ADMIN)
 		{
 			return $this->home_store_id;
@@ -2752,7 +2772,6 @@ class CUser extends DAO_User
 
 	static function registerSubscription($orderDAO, $productDAO)
 	{
-
 		// Do they have an existing subscription? How should we handle that.
 		if (self::isUserEnrolledInDFL($orderDAO->user_id, 2))
 		{
@@ -2767,7 +2786,6 @@ class CUser extends DAO_User
 		$package->product_id = $productDAO->id;
 		if ($package->find(true))
 		{
-
 			$userMembership = DAO_CFactory::create('user_program_membership');
 
 			$userMembership->user_id = $orderDAO->user_id;
@@ -2793,7 +2811,6 @@ class CUser extends DAO_User
 				// time based so calculate end date
 				switch ($package->enrollment_period_type)
 				{
-
 					case 1: // YEAR
 						// CES 6/12/10: subscriptions are now essentially perpetual so set their end date to a distant time
 						$endTS = mktime(0, 0, 0, date("n", $curTimeTS), date("j", $curTimeTS), date("Y", $curTimeTS) + 10);
@@ -2854,7 +2871,6 @@ class CUser extends DAO_User
 
 	function handleDFLOrderPlaced($Order_ID, $programID)
 	{
-
 		// get Enrollment data
 		$enrollment = DAO_CFactory::create('user_program_membership');
 		$enrollment->user_id = $this->id;
@@ -2904,14 +2920,12 @@ class CUser extends DAO_User
 			}
 			else
 			{
-
 				$package = DAO_CFactory::create('enrollment_package');
 				$package->id = $enrollment->enrollment_package_id;
 				if ($package->find(true))
 				{
 					if ($package->enrollment_type_id == 2)
 					{
-
 						// order based so increment count and record order
 						$enrollment->order_count++;
 						if ($package->order_purchase_limit <= $enrollment->orderCount)
@@ -2933,7 +2947,6 @@ class CUser extends DAO_User
 
 	static function isEnrollmentInitiatedForUser($user_id)
 	{
-
 		$enrollment = DAO_CFactory::create('user_program_membership');
 
 		$enrollment->user_id = $user_id;
@@ -2949,7 +2962,6 @@ class CUser extends DAO_User
 
 	static function isUserEnrolledInDFL($user_id, $programID)
 	{
-
 		return false;
 
 		$retVal = false;
@@ -2961,7 +2973,6 @@ class CUser extends DAO_User
 		{
 			if ($enrollment->membership_status == self::DFL_STATUS_ACTIVE)
 			{
-
 				if ($enrollment->enrollment_type_id == 1)
 				{
 					// time span based
@@ -3001,7 +3012,6 @@ class CUser extends DAO_User
 
 	function getDFLStatusDescription()
 	{
-
 		$retVal = array();
 
 		$counter = 0;
@@ -3100,7 +3110,6 @@ class CUser extends DAO_User
 	 */
 	function validate()
 	{
-
 		if (isset($this->user_type))
 		{
 			switch ($this->user_type)
@@ -3486,7 +3495,6 @@ class CUser extends DAO_User
 
 	function getMembershipForMenu($menu_id)
 	{
-
 		$memberShipDAO = new DAO();
 		$memberShipDAO->query("SELECT 
 					poi.id as mid,
@@ -3551,7 +3559,6 @@ class CUser extends DAO_User
 
 		while ($memberShipDAO->fetch())
 		{
-
 			$jsonArr = json_decode($memberShipDAO->product_membership_hard_skip_menu);
 			$skipCount = 0;
 			if (is_array($jsonArr))
@@ -3605,7 +3612,6 @@ class CUser extends DAO_User
 
 		if (!$getSpecificMembership && !$focusOrder)
 		{
-
 			$memberShipDAO = new DAO();
 			$memberShipDAO->query("SELECT 
 					poi.id as mid
@@ -3879,7 +3885,6 @@ class CUser extends DAO_User
 
 			foreach ($membershipDataArr['eligible_menus'] as $menu_id => &$thisMenu)
 			{
-
 				if (!empty($hardSkippedMenuArr) && in_array($menu_id, $hardSkippedMenuArr))
 				{
 					$thisMenu['skipped'] = true;
@@ -3907,7 +3912,6 @@ class CUser extends DAO_User
 					{
 						if ($thisOrder['servings_total_count'] >= 36 && $thisOrder['type_of_order'] == 'STANDARD')
 						{
-
 							if ($focusOrder && $focusOrder = $thisOrder['id'])
 							{
 								$membershipDataArr['focus_order_position'] = $membershipDataArr['months_satisfied'] + 1;
@@ -3948,7 +3952,6 @@ class CUser extends DAO_User
 			$numSoftSkips = 0;
 			foreach ($membershipDataArr['eligible_menus'] as &$thisMenu)
 			{
-
 				if ($memberShipDAO->product_membership_status != self::MEMBERSHIP_STATUS_CURRENT)
 				{
 					$thisMenu['skippable'] = false;
@@ -4460,7 +4463,6 @@ class CUser extends DAO_User
 	// number of meals to order - used by customer ordering logic
 	function setMealAndFamilySize()
 	{
-
 		$settingRetriever = new DAO();
 		$num_feeding_id = HOW_MANY_PEOPLE_FEEDING_FIELD_ID;
 		$settingRetriever->query("select user_data_value, user_data_field_id from user_data where user_id = {$this->id} and user_data_field_id = $num_feeding_id and is_deleted = 0");
@@ -4821,7 +4823,6 @@ class CUser extends DAO_User
 			}
 			else
 			{
-
 				if ($this->user_type != self::CUSTOMER)
 				{
 					// enforce 90 day password cycle
@@ -4829,7 +4830,6 @@ class CUser extends DAO_User
 
 					if ($days_since_last_update > 90)
 					{
-
 						$this->_LoggedIn = false;
 
 						$result = $this->resetPwd($username, false, $suppressUIfunction);
@@ -4859,7 +4859,6 @@ class CUser extends DAO_User
 
 		if ($this->_LoggedIn)
 		{
-
 			if (CBrowserSession::getValue('AAA_landing') == 1)
 			{
 				CUserData::setUserAsAAAReferred($this, 'AAA_referred');
@@ -4903,7 +4902,6 @@ class CUser extends DAO_User
 					}
 					else
 					{
-
 						//we found the referral
 						$sessionObj = DAO_CFactory::create('session');
 						$sessionObj->query("select s.id, s.session_type,
@@ -5024,7 +5022,6 @@ class CUser extends DAO_User
 
 			if ($loginObj->find(true))
 			{
-
 				CLog::RecordNew(CLog::LOGIN, "password reset.$primary_email");
 
 				$cUser = DAO_CFactory::create('user');
@@ -5033,10 +5030,8 @@ class CUser extends DAO_User
 
 				if ($found == 1)
 				{
-
 					if (!$newPwd)
 					{
-
 						list($usec, $sec) = explode(' ', microtime());
 						mt_srand((float)$sec + ((float)$usec * 100000));
 						$cid = md5(uniqid(mt_rand(), true));
@@ -5105,10 +5100,8 @@ class CUser extends DAO_User
 
 	static function getConfirmationId($emailAddress)
 	{
-
 		if ($emailAddress)
 		{
-
 			//based on the user_login id
 			$loginObj = new DAO_User_login();
 			$loginObj->ul_username = $emailAddress;
@@ -5147,7 +5140,6 @@ class CUser extends DAO_User
 	// for users with no email address
 	function updatePassword($newPwd)
 	{
-
 		CLog::RecordDebugTrace("self::updatePassword called for {$this->id}", "NONE", 1, 'DEBUG', true);
 
 		if ($this->user_type == self::CUSTOMER)
@@ -5158,7 +5150,6 @@ class CUser extends DAO_User
 		}
 		else
 		{
-
 			$loginObj = new DAO_User_login();
 			$loginObj->user_id = $this->id;
 			if (!$loginObj->find(true))
@@ -5212,7 +5203,6 @@ class CUser extends DAO_User
 
 		if ($rtn)
 		{
-
 			//if no primary_email, then generate a login/pwd
 			if (!$this->primary_email)
 			{
@@ -5545,7 +5535,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					$dao->card_transaction_number = 'xxxxxxxxx';
@@ -5569,7 +5558,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					$dao->user_data_value = '';
@@ -5592,7 +5580,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					$dao->first_session = null;
@@ -5624,7 +5611,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					$dao->ip_address = '';
@@ -5649,7 +5635,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					$dao->ul_password = null;
@@ -5676,7 +5661,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					//$dao->inviting_user_id = null;
@@ -5702,7 +5686,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					$urd_ids[] = $dao->id;
@@ -5725,7 +5708,6 @@ class CUser extends DAO_User
 			//User Retention Data Follow up
 			if (count($urd_ids) > 0)
 			{
-
 				foreach ($urd_ids as $urd_id)
 				{
 					$dao = DAO_CFactory::create('user_retention_data_follow_up');
@@ -5733,7 +5715,6 @@ class CUser extends DAO_User
 					$dao->find(true);
 					if ($dao->N > 0)
 					{
-
 						while ($dao->fetch())
 						{
 							$dao->result_comments = '';
@@ -5759,7 +5740,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					$dao->description = '';
@@ -5783,7 +5763,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					$dao->payment_transaction_number = '';
@@ -5808,7 +5787,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					$dao->payment_transaction_number = '';
@@ -5833,7 +5811,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					$dao->message = '';
@@ -5859,7 +5836,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					$dao->password = null;
@@ -5883,7 +5859,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					$order_ids[] = $dao->id;
@@ -5908,7 +5883,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					$dao->order_admin_notes = '';
@@ -5937,7 +5911,6 @@ class CUser extends DAO_User
 					$dao->find(true);
 					if ($dao->N > 0)
 					{
-
 						while ($dao->fetch())
 						{
 							//Keeping for Delivery and Delivered in case of sales tax audit we need to keep the home delivery or shipped address only.
@@ -5972,7 +5945,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					$dao->first_name = '';
@@ -6004,7 +5976,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					$dao->referred_user_email = null;
@@ -6030,7 +6001,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					$dao->referred_user_email = null;
@@ -6056,7 +6026,6 @@ class CUser extends DAO_User
 			$dao->find(true);
 			if ($dao->N > 0)
 			{
-
 				while ($dao->fetch())
 				{
 					$dao->firstname = '';
@@ -6136,7 +6105,6 @@ class CUser extends DAO_User
 	*/
 	function update($dataObject = false, $user_type = null)
 	{
-
 		//don't include user_type in the update unless is is passed in
 		$origUserType = $this->user_type;
 		unset($this->user_type);
@@ -6199,7 +6167,6 @@ class CUser extends DAO_User
 
 	function convert_partial($password)
 	{
-
 		/// need to update a few fields as User was not fetched from database
 		$this->user_type = self::CUSTOMER;
 		$this->is_partial_account = 0;
@@ -6251,7 +6218,6 @@ class CUser extends DAO_User
 	 */
 	function updateLastLogin()
 	{
-
 		//this sucks, but there's not really an easy way to update the last_login using
 		//the db to set the timestamp, then update our object.
 		if ($this->id)
@@ -6330,7 +6296,7 @@ class CUser extends DAO_User
 	/**
 	 * Checks to see if this user already exists in the db.
 	 */
-	public function exists()
+	public function exists(): bool
 	{
 		if (empty($this->primary_email))
 		{
@@ -6461,7 +6427,7 @@ class CUser extends DAO_User
 		return false;
 	}
 
-	function getShareURL()
+	function getShareURL(): string
 	{
 		return HTTPS_BASE . 'share/' . $this->id;
 	}
@@ -6664,54 +6630,12 @@ class CUser extends DAO_User
 	}
 
 	/**
-	 * Change the confirmed status of an account to YES
+	 * Return first and last name
+	 *
+	 * @return string
 	 */
-	static public function confirmUser($primary_email)
-	{
-		//set user_login's verified flag to 'YES' only if
-		//it is currently set to 'PENDING'
-		$original = new DAO_User_login();
-		$original->ul_username = $primary_email;
-		$original->ul_verified = 'PENDING';
-		$rslt = $original->find(true);
-		if ($rslt)
-		{
-			$loginRecord = new DAO_User_login();
-			$loginRecord->id = $original->id;
-			$loginRecord->user_id = $original->user_id;
-			$loginRecord->ul_username = $primary_email;
-			$loginRecord->ul_verified = 'YES';
-			$rslt = $loginRecord->update($original);
-		}
-
-		return $rslt;
-	}
-
-	/**
-	 * @return full name string
-	 */
-	public function getName()
+	public function getName(): string
 	{
 		return $this->firstname . ' ' . $this->lastname;
 	}
-
-	public function hasSessionToday()
-	{
-		$booking = DAO_CFactory::create('Booking');
-		$session = DAO_CFactory::create('Session');
-		$booking->user_id = $this->id;
-		$booking->joinAdd($session);
-		$booking->whereAdd('DATEDIFF(CurDate(), session_start) = 0');
-		if ($booking->find())
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
 }
-
-?>

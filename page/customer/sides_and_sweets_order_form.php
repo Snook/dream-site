@@ -40,7 +40,6 @@ function sortBySize($a, $b)
 
 function sortByCategoryLabelAlpha($itemOne, $itemTwo)
 {
-
 	if ($itemOne['category_id'] != 9)
 	{
 		return -1;
@@ -211,25 +210,32 @@ class page_sides_and_sweets_order_form extends CPage
 				$Mail->from_name = null;
 				$Mail->from_email = null;
 				$Mail->to_name = $store[0]['store_name'];
-				//$Mail->to_email = 'brandy.latta@dreamdinners.com';
 				$Mail->to_email = $store[0]['email_address'];
 				$Mail->subject = "Sides and Sweets Order Request for " . $DAO_user->firstname . ' ' . $DAO_user->lastname;
 				$Mail->body_html = CMail::mailMerge('sides_sweets_order_request.html.php', $emailVars);
 				$Mail->body_text = CMail::mailMerge('sides_sweets_order_request.txt.php', $emailVars);
 				$Mail->reply_email = $DAO_user->primary_email;
-				$Mail->template_name = 'admin_generic';
-
+				$Mail->template_name = 'sides_sweets_order_request';
 				$Mail->sendEmail();
 
-				date_default_timezone_set('America/New_York');
+				$Mail = new CMail();
+				$Mail->from_name = $store[0]['store_name'];
+				$Mail->from_email = $store[0]['email_address'];
+				$Mail->to_name = $DAO_user->firstname . ' ' . $DAO_user->lastname;
+				$Mail->to_email = $DAO_user->primary_email;
+				$Mail->subject = "Sides and Sweets Order Request Confirmation";
+				$Mail->body_html = CMail::mailMerge('sides_sweets_order_confirmation.html.php', $emailVars);
+				$Mail->body_text = CMail::mailMerge('sides_sweets_order_confirmation.txt.php', $emailVars);
+				$Mail->reply_email = $store[0]['email_address'];
+				$Mail->template_name = 'sides_sweets_order_confirmation';
+				$Mail->sendEmail();
+
 				$eventTime = date("Y-m-d H:i:s");
 				$typeId = CStoreActivityLog::determineStoreActivityTypeId(CStoreActivityLog::SIDES_ORDER, CStoreActivityLog::SUBTYPE_SIDES_FORM);
 				$data = CStoreActivityLog::renderTemplate('sides_n_sweets_form_alert.tpl.php', $emailVars);
 				CStoreActivityLog::addEvent($store[0]['id'], $data, $eventTime, $typeId);
 
-				$this->Template->setStatusMsg('Your Sides and Sweets Order Request has been sent to the store, Thank you.');
-
-				CApp::bounce("/my-account");
+				CApp::bounce_SubmissionComplete(message: "Your Sides and Sweets order request has been sent to the store, Thank you.");
 			}
 		}
 	}

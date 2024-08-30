@@ -108,9 +108,9 @@ class CApp
 			}
 
 			// otherwise check the standard reporting server list and bail if not found
-			if (strpos($locationRequest, "admin_helpers") === false && strpos($locationRequest, "admin_reports") === false && strpos($locationRequest, "admin_dashboard_new") === false && strpos($locationRequest, "admin_home_office") === false && strpos($locationRequest, "admin_dashboard_menu_based") === false && strpos($locationRequest, "admin_food_sales") === false && strpos($locationRequest, "admin_fundraiser") === false)
+			if (strpos($locationRequest, "admin_helpers") === false && strpos($locationRequest, "admin_reports") === false && strpos($locationRequest, "admin_dashboard_new") === false && strpos($locationRequest, "admin_home_office") === false && strpos($locationRequest, "admin_dashboard_menu_based") === false && strpos($locationRequest, "admin_food_sales") === false && strpos($locationRequest, "admin_fundraiser") === false && strpos($locationRequest, "signout") === false)
 			{
-				if (strpos($locationRequest, "admin_login") === false)
+				if (strpos($locationRequest, "login") === false)
 				{
 					CApp::bounce('/backoffice/reports');
 				}
@@ -806,6 +806,20 @@ class CApp
 	}
 
 	/**
+	 * Sets a temporary message and bounces to submission-complete page.
+	 *
+	 * @param $message
+	 *
+	 * @return void
+	 */
+	#[NoReturn] static function bounce_SubmissionComplete($message): void
+	{
+		CBrowserSession::setSessionVariable(CBrowserSession::SUBMISSION_MESSAGE, $message);
+
+		self::bounce("/submission-complete");
+	}
+
+	/**
 	 * Forward
 	 *
 	 * By default, return the browser to the previous page or main menu or something, user must
@@ -814,84 +828,9 @@ class CApp
 	 */
 	#[NoReturn] static function bounce($page = '/', $BOUNCE_REQUEST_URI = false): void
 	{
-		$page = $page ?: '/';
-		$q_params = '';
-		$isAdmin = false;
-
-		// maintain email conversion query parameters if being bounced
-		$get_params = $_GET; // copy get params
-		$parts = parse_url($page); // parse params from bounce target
-
-		// vars to maintain through bounce
-		$conversionVars = array(
-			'sfmc_sub',
-			'j',
-			'l',
-			'u',
-			'mid',
-			'jb'
-		);
-
-		if (isset($parts['query']))
-		{
-			parse_str($parts['query'], $query); // form array of target query parameters
-
-			$isAdmin = (!empty($query['page']) && substr($query['page'], 0, 6) == 'admin_');
-
-			// remove parameters from get that are in the target so there are no duplicates
-			foreach ($query as $key => $value)
-			{
-				unset($get_params[$key]);
-			}
-
-			// filter all but conversion vars
-			foreach ($get_params as $key => $value)
-			{
-				if (!in_array($key, $conversionVars))
-				{
-					unset($get_params[$key]);
-				}
-			}
-
-			// put the query array back into string
-			if (!empty($get_params))
-			{
-				$q_params = http_build_query($get_params);
-			}
-			// end maintain email conversion
-		}
-
 		if (RECORD_NAVIGATION)
 		{
 			CLog::RecordNavigation($page, "BOUNCE");
-		}
-
-		if (CApp::instance() && CApp::instance()->template() && isset(CApp::instance()->template()->back))
-		{
-			$back = CApp::instance()->template()->back;
-			$location = $back;
-		}
-		else
-		{
-			$location = $page;
-		}
-
-		// check to see if there are already query parameters in the location, if so use & instead of ?
-		if (!empty($get_params) && !empty($q_params))
-		{
-			if (strpos($location, '?'))
-			{
-				$q_params = '&' . $q_params;
-			}
-			else
-			{
-				$q_params = '?' . $q_params;
-			}
-		}
-
-		if (!$isAdmin)
-		{
-			$location = $location . $q_params;
 		}
 
 		if (is_string($BOUNCE_REQUEST_URI))
@@ -899,8 +838,7 @@ class CApp
 			CBrowserSession::setSessionVariable(key: CBrowserSession::BOUNCE_REQUEST_URI, value: $BOUNCE_REQUEST_URI);
 		}
 
-		header('location: ' . $location);
-
+		header('location: ' . $page ?: '/');
 		exit();
 	}
 

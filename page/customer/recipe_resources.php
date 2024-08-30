@@ -42,6 +42,7 @@ class page_recipe_resources extends CPage
 			$menuItem->selectAdd('recipe.recipe_name');
 			$menuItem->selectAdd('recipe.recipe_id');
 			$menuItem->selectAdd('recipe.cooking_instruction_youtube_id');
+			$menuItem->selectAdd('recipe.override_menu_id');
 			$menuItem->selectAdd('menu_item.menu_item_description');
 			$menuItem->joinAdd($recipe, array('useWhereAsOn' => true));
 			$menuItem->groupBy("menu_item.recipe_id");
