@@ -365,6 +365,7 @@ class CTemplate extends Savant2
 
 	/**
 	 * Does the same thing as display, but returns the rendered template instead of echoing it.
+	 * @throws Exception
 	 */
 	function render($tpl = null)
 	{
@@ -390,7 +391,7 @@ class CTemplate extends Savant2
 				}
 				else
 				{
-					throw new Exception($result->text);
+					throw new Exception($result->text . " " . $tpl);
 				}
 			}
 
