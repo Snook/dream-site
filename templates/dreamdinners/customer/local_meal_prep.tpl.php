@@ -23,7 +23,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col text-center">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dinner-reinvented-pubstyle-chicken-1400x400.webp" alt="Dinner Reinvented" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dinner-reinvented-countryside-chicken-1400x400.webp" alt="Dinner Reinvented" class="img-fluid">
 					</div>
 				</div>
 			</div>
@@ -41,7 +41,7 @@
 					</div>
 				</div>
 			</div>
-		</section>-->
+		</section>
 		<section>
 			<div class="container my-5">
 				<div class="" id="" role="tabpanel" aria-labelledby="">
@@ -53,7 +53,7 @@
 										<h3 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">$15 OFF Your First Order</h3>
 										<p>Choose from pick up, in-store assembly, home delivery or shipping. Options vary by participating locations. Available on the August menu only.</p>
 										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-extra-large">15NEW24</span></p>
-										<!--<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>-->
+										<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
 									</div>
 								</div>
 							</div>
@@ -71,7 +71,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section>-->
 
 		<section>
 			<div class="container-fluid my-5 bg-green-light">
@@ -120,27 +120,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pubstyle-chicken-30min-teal-featured-400x400.webp" alt="Pub Style Chicken with Mashed Potatoes" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sweet-sour-chicken-30min-featured-400x400.webp" alt="Sweet and Sour Chicken with Jasmine Rice" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Pub Style Chicken with Mashed Potatoes</h5>
+									<h5 class="card-title">Sweet & Sour Chicken with Jasmine Rice</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/arroz-con-pollo-featured-pan-meal-teal-400x400.webp" alt="Arroz Con Pollo" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-turkey-meatloaves-airfryer-featured-400x400.webp" alt="Mini Turkey Meatloaves with Bacon Ranch Green Beans" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Arroz Con Pollo</h5>
+									<h5 class="card-title">Mini Turkey Meatloaves with Bacon Ranch Green Beans</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/italiano-chicken-orzo-featured-instant-pot-400x400.webp" alt="Italiano Chicken and Orzo" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/loaded-mashed-potato-bowl-new-featured-400x400.webp" alt="Loaded Mashed Potato Bowl" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Italiano Chicken and Orzo</h5>
+									<h5 class="card-title">Loaded Mashed Potato Bowl</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/creamy-buffalo-chicken-sandwich-featured-new-teal-400x400.webp" alt="Creamy Buffalo Chicken Sandwiches" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-pot-pies-kid-pick-orange-featured-400x400.webp" alt="Mini Chicken Pot Pies" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Creamy Buffalo Chicken Sandwiches</h5>
+									<h5 class="card-title">Mini Chicken Pot Pies</h5>
 								</div>
 							</div>
 						</div>
@@ -186,7 +186,7 @@
 					<div class="row my-5">
 						<div class="col-md-7 text-left">
 							<div>
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/arroz_con_pollo_458x344.webp" alt="Arroz Con Pollo" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pulled_pork_banh_mi_sliders_458x344.webp" alt="Pulled Pork Banh Mi Sliders" class="img-fluid" />
 							</div>
 						</div>
 						<div class="col-md-5 text-center mt-4">
@@ -207,11 +207,11 @@
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/customer-testimonials-1400x600.webp" alt="customer testimonials" class="img-fluid">
 					</div>
 				</div>
-				<div class="row mt-4">
+				<!--<div class="row mt-4">
 					<div class="col text-center">
 						<p class="font-italic">Offer valid for new customers or customers that have not placed a Dream Dinners order in more than 12 months. Offer cannot be combined with Dinner Dollars, other coupons or offers. No cash value. Offer can be redeemed once per guest and is not transferrable. Offer expires August 31, 2024. Valid only at participating locations.</p>
 					</div>
-				</div>
+				</div>-->
 			</div>
 		</section>
 

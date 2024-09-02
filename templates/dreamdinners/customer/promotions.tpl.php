@@ -18,7 +18,7 @@
 	</header>
 
 	<main role="main">
-	<!-- offer -->
+	<!-- offer 
 		<section class="bg-cyan-dark">
 			<div class="container mp-5">
 				<div class="row">
@@ -66,17 +66,18 @@
 					</div>
 				</div>
 			</div>
-		</section>
-		<section>
 			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
+		</section>-->
+		<section>
+			
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/aug24-back-to-school-bundle-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sep24-lto-bundle-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
 					</div>
 					<div class="col-md-6 text-left p-5 my-5">
-						<h2 class="font-weight-bold mt-2">Back to School Bundle</h2>
-						<p class="text-uppercase mb-4">Get ready to head back to school with these quick and easy kid picks. Our bundle includes BBQ Chip Chicken Tenders with Crispy Shoestring Fries, Italian Stuffed Shells and Chicken Carbonara Bake. Available at select locations, while supplies last. Not available for shipping.</p>
+						<h2 class="font-weight-bold mt-2">French Bread Trio</h2>
+						<p class="text-uppercase mb-4">Choose 3 of your favorite stuffed french bread sandwiches for one price. Great for tailgating, camping, picnics, and parties. Available at select locations in the Sides and Sweets Freezer, while supplies last. Not available for shipping.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 
