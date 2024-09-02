@@ -8,13 +8,13 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
-						<h1 class="font-weight-bold mt-2">Parent’s Choice, Kid Approved</h1>
+						<h1 class="font-weight-bold mt-2">Parent's Choice, Kid Approved</h1>
 						<p class="text-uppercase mb-4">As life gets busier, choose dinners your family will love. Our tried and true freezer meals are prepped and ready to cook at home. No chopping, shopping or messy clean-up.</p>
 						<a href="/locations" class="btn btn-lg btn-green">Find a Location</a>
 					</div>
 					<div class="col-md-6 p-0">
 						<figure>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/aug24-original-meal-kit-collage-circles-957x657.webp" alt="July Menu" class="img-fluid">
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sep24-original-meal-kit-collage-circles-957x657.webp" alt="September Menu" class="img-fluid">
 						</figure>
 					</div>
 				</div>
