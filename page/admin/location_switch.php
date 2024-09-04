@@ -76,7 +76,7 @@ class page_admin_location_switch extends CPageAdminOnly
 		if (!empty($_POST['store']) && is_numeric($_POST['store']))
 		{
 			CBrowserSession::setCurrentFadminStore($_POST['store']);
-			CApp::bounce($_REQUEST['back']);
+			CApp::bounceBack(fallback: '/backoffice/safe-landing');
 		}
 
 		$StoreObj = DAO_CFactory::create('store');
@@ -92,14 +92,7 @@ class page_admin_location_switch extends CPageAdminOnly
 		{
 			$StoreObj->fetch();
 			CBrowserSession::setCurrentFadminStore($StoreObj->id);
-			if (CBrowserSession::getSessionVariable(key: CBrowserSession::BOUNCE_REQUEST_URI))
-			{
-				CApp::bounce(CBrowserSession::getSessionVariableOnce(key: CBrowserSession::BOUNCE_REQUEST_URI));
-			}
-			else
-			{
-				CApp::bounce('/backoffice/safe-landing');
-			}
+			CApp::bounceBack(fallback: '/backoffice/safe-landing');
 		}
 
 		$Form->DefaultValues['store'] = CBrowserSession::getCurrentFadminStore();

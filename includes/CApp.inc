@@ -927,6 +927,18 @@ class CApp
 		return false;
 	}
 
+	#[NoReturn] static function bounceBack($fallback = false): void
+	{
+		if (CBrowserSession::getSessionVariable(key: CBrowserSession::BOUNCE_REQUEST_URI))
+		{
+			CApp::bounce(CBrowserSession::getSessionVariableOnce(key: CBrowserSession::BOUNCE_REQUEST_URI));
+		}
+		else
+		{
+			CApp::bounce($fallback);
+		}
+	}
+
 	static function forceLogin(): void
 	{
 		if (CUser::isLoggedIn())
