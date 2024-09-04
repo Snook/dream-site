@@ -53,7 +53,7 @@ abstract class CPageAdminOnly
 
 		if (CApp::instance()->template()->page != 'admin_location_switch' && CApp::instance()->template()->page != 'admin_access_agreement')
 		{
-			//make sure current store is set as one of the fadmin's stores
+			//make sure current store is set as one of the backoffice stores
 			if ($this->CurrentUser->isFranchiseAccess())
 			{
 				$DAO_store = DAO_CFactory::create('store');
@@ -71,12 +71,12 @@ abstract class CPageAdminOnly
 
 				if (!$found)
 				{
-					CApp::bounce('/backoffice/location-switch');
+					CApp::bounce(page: '/backoffice/location-switch', BOUNCE_REQUEST_URI: CApp::instance()->template()->bounceBackUrl(currentUrl: true));
 				}
 
 				if (empty($this->CurrentUser->fadmin_nda_agree))
 				{
-					CApp::bounce('/backoffice/access-agreement');
+					CApp::bounce(page: '/backoffice/access-agreement', BOUNCE_REQUEST_URI: CApp::instance()->template()->bounceBackUrl(currentUrl: true));
 				}
 			}
 		}
@@ -92,13 +92,12 @@ abstract class CPageAdminOnly
 		//bump back to the main menu
 		CApp::instance()->template()->setErrorMsg('You do not have permission to access the requested page.');
 		CApp::bounce('/');
-		exit;
 	}
 
 	function runNewEmployee()
 	{
 		unset(CApp::instance()->template()->back);
-		CApp::bounce('/backoffice/safe_landing');
+		CApp::bounce('/backoffice/safe-landing');
 		exit;
 	}
 
@@ -165,7 +164,7 @@ abstract class CPageAdminOnly
 	function runDishwasher()
 	{
 		unset(CApp::instance()->template()->back);
-		CApp::bounce('/backoffice/safe_landing');
+		CApp::bounce('/backoffice/safe-landing');
 		exit;
 	}
 
@@ -337,7 +336,7 @@ abstract class CPageAdminOnly
 			}
 			else
 			{
-				if (strpos($k, 'sl_') === 0)
+				if (str_starts_with($k, 'sl_'))
 				{
 					$_POST[$k] = CGPC::do_clean($_POST[$k], TYPE_INT);
 				}

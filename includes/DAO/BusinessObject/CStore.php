@@ -285,6 +285,9 @@ class CStore extends DAO_Store
 		return $urlArray;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function setUpFranchiseStore($store_id)
 	{
 

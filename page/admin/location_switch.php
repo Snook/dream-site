@@ -63,6 +63,9 @@ class page_admin_location_switch extends CPageAdminOnly
 		return $this->locationSwitch();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function locationSwitch()
 	{
 		$tpl = CApp::instance()->template();
@@ -89,7 +92,14 @@ class page_admin_location_switch extends CPageAdminOnly
 		{
 			$StoreObj->fetch();
 			CBrowserSession::setCurrentFadminStore($StoreObj->id);
-			CApp::bounce($_REQUEST['back']);
+			if (CBrowserSession::getSessionVariable(key: CBrowserSession::BOUNCE_REQUEST_URI))
+			{
+				CApp::bounce(CBrowserSession::getSessionVariableOnce(key: CBrowserSession::BOUNCE_REQUEST_URI));
+			}
+			else
+			{
+				CApp::bounce('/backoffice/safe-landing');
+			}
 		}
 
 		$Form->DefaultValues['store'] = CBrowserSession::getCurrentFadminStore();
