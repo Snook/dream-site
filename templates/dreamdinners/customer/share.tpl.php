@@ -208,8 +208,8 @@
 			</div>
 		</section>
 
-		<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
-		<!-- Menu Highlights-->
+		<!-- <div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
+		Menu Highlights
 		<section>
 			<div class="container my-5">
 				<div class="row">
@@ -257,7 +257,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section>-->
 		<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 		<!-- Testimonials -->
 		<section>
