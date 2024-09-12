@@ -1,9 +1,4 @@
 <?php
-
-/**
- * @author Carl Samuelson
- */
-
 require_once("includes/CPageAdminOnly.inc");
 require_once('includes/DAO/BusinessObject/CSession.php');
 require_once('includes/CSessionReports.inc');
@@ -23,20 +18,15 @@ class page_admin_reports_my_meals extends CPageAdminOnly
 		$this->runSiteAdmin();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runSiteAdmin()
 	{
-
 		$tpl = CApp::instance()->template();
 
 		$Form = new CForm();
 		$Form->Repost = false;
-
-		$total_count = 0;
-
-		$month = 0;
-		$year = 0;
-
-		$report_array = array();
 
 		$Form->AddElement(array(
 			CForm::type => CForm::Submit,
@@ -77,15 +67,11 @@ class page_admin_reports_my_meals extends CPageAdminOnly
 			CForm::name => 'month_popup'
 		));
 
-		$title_range = "";
-
 		if ($Form->value('report_submit') || (isset($_GET['export']) && $_GET['export'] === "xlsx"))
 		{
 			// process for a given month
-			$day = "01";
 			$month = $_REQUEST["month_popup"];
 			$month++;
-			$duration = '1 MONTH';
 			$year = $_REQUEST["year_field_001"];
 
 			$title_range = "Month of " . date("F", mktime(0, 0, 0, $month, 1, $year));
@@ -96,7 +82,6 @@ class page_admin_reports_my_meals extends CPageAdminOnly
 
 			if ($menuObj->findForMonthAndYear($month, $year))
 			{
-
 				$rows = array();
 
 				$labels = array(
@@ -104,12 +89,13 @@ class page_admin_reports_my_meals extends CPageAdminOnly
 					"Store Name",
 					"Recipe ID",
 					"Menu Item Name",
-					"Rating",
-					"Customizations",
+					"Item Type",
 					"Date Rated",
+					"Rating",
 					"Would Order Again",
-					"Item Type"
+					"Customizations"
 				);
+
 				$columnDescs = array();
 
 				$columnDescs['A'] = array(
@@ -139,15 +125,18 @@ class page_admin_reports_my_meals extends CPageAdminOnly
 				);
 				$columnDescs['G'] = array(
 					'align' => 'left',
-					'width' => 'auto'
+					'width' => '6'
 				);
 				$columnDescs['H'] = array(
 					'align' => 'left',
-					'width' => 'auto'
+					'width' => 'auto',
+					'decor' => 'yes_no_condform'
 				);
-
-				$VIP_join_clause = "";
-				$VIP_where_clause = "";
+				$columnDescs['I'] = array(
+					'align' => 'left',
+					'width' => 'auto',
+					'decor' => 'yes_no_condform'
+				);
 
 				$menuObj->fetch();
 				$menu_id = $menuObj->id;
@@ -187,7 +176,6 @@ class page_admin_reports_my_meals extends CPageAdminOnly
 					{
 						$would_order_again = "Unanswered";
 
-
 						if ($surveyObj->favorite === '1')
 						{
 							$would_order_again = 'YES';
@@ -198,12 +186,14 @@ class page_admin_reports_my_meals extends CPageAdminOnly
 						}
 
 						$order_has_customizations = "";
-						if($surveyObj->opted_to_customize_recipes){
+						if ($surveyObj->opted_to_customize_recipes)
+						{
 							$order_has_customizations = "Yes";
 						}
 
 						$storeName = '';
-						if(!is_null($surveyObj->store_name)){
+						if (!is_null($surveyObj->store_name))
+						{
 							$storeName = $surveyObj->store_name;
 						}
 
@@ -214,11 +204,11 @@ class page_admin_reports_my_meals extends CPageAdminOnly
 								$storeName,
 								$surveyObj->recipe_id,
 								$surveyObj->menu_item_name,
-								$surveyObj->rating,
-								$order_has_customizations,
+								$surveyObj->cat,
 								$surveyObj->timestamp_created,
+								$surveyObj->rating,
 								$would_order_again,
-								$surveyObj->cat
+								$order_has_customizations
 							);
 						}
 					}
@@ -243,5 +233,3 @@ class page_admin_reports_my_meals extends CPageAdminOnly
 		$tpl->assign('page_title', 'My Meals Report');
 	}
 }
-
-?>

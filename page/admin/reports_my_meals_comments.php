@@ -1,77 +1,81 @@
 <?php
+require_once("includes/CPageAdminOnly.inc");
+require_once('includes/DAO/BusinessObject/CSession.php');
+require_once('includes/CSessionReports.inc');
+require_once('includes/DAO/BusinessObject/CStoreExpenses.php');
 
-/**
- * @author Carl Samuelson
- */
+class page_admin_reports_my_meals_comments extends CPageAdminOnly
+{
 
- require_once("includes/CPageAdminOnly.inc");
- require_once ('includes/DAO/BusinessObject/CSession.php');
- require_once ('includes/CSessionReports.inc');
- require_once ('includes/DAO/BusinessObject/CStoreExpenses.php');
+	function __construct()
+	{
+		parent::__construct();
+		$this->cleanReportInputs();
+	}
 
- class page_admin_reports_my_meals_comments extends CPageAdminOnly {
-
-	 function __construct()
-	 {
-		 parent::__construct();
-		 $this->cleanReportInputs();
-	 }
-
-
-	function runHomeOfficeManager(){
+	function runHomeOfficeManager()
+	{
 		$this->runSiteAdmin();
 	}
 
- 	function runSiteAdmin() {
-
+	/**
+	 * @throws Exception
+	 */
+	function runSiteAdmin()
+	{
 		$tpl = CApp::instance()->template();
 
 		ini_set('memory_limit', '1000M');
 
 		$Form = new CForm();
-		$Form->Repost = FALSE;
+		$Form->Repost = false;
 
-		$total_count = 0;
+		$Form->AddElement(array(
+			CForm::type => CForm::Submit,
+			CForm::name => 'report_submit',
+			CForm::value => 'Run Report'
+		));
 
-		$month = 0;
-		$year = 0;
-
-		$report_array = array();
-
-		$Form->AddElement(array (CForm::type => CForm::Submit,
- 		CForm::name => 'report_submit', CForm::value => 'Run Report'));
-
-		$month_array = array ('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+		$month_array = array(
+			'January',
+			'February',
+			'March',
+			'April',
+			'May',
+			'June',
+			'July',
+			'August',
+			'September',
+			'October',
+			'November',
+			'December'
+		);
 
 		$year = date("Y");
 
-		$Form->AddElement(array(CForm::type=> CForm::Text,
-						CForm::name => "year_field_001",
-						CForm::required => true,
-						CForm::default_value => $year,
-						CForm::length => 6));
+		$Form->AddElement(array(
+			CForm::type => CForm::Text,
+			CForm::name => "year_field_001",
+			CForm::required => true,
+			CForm::default_value => $year,
+			CForm::length => 6
+		));
 
+		$Form->AddElement(array(
+			CForm::type => CForm::DropDown,
+			CForm::onChangeSubmit => false,
+			CForm::allowAllOption => false,
+			CForm::options => $month_array,
+			CForm::name => 'month_popup'
+		));
 
-		$Form->AddElement(array(CForm::type=> CForm::DropDown,
-					CForm::onChangeSubmit => false,
-					CForm::allowAllOption => false,
-					CForm::options => $month_array,
-					CForm::name => 'month_popup'));
-
-
-		$title_range = "";
-
-
-		if ( $Form->value('report_submit') || (isset($_GET['export']) && $_GET['export'] === "xlsx"))
+		if ($Form->value('report_submit') || (isset($_GET['export']) && $_GET['export'] === "xlsx"))
 		{
-			// process for a given month
-			$day = "01";
 			$month = $_REQUEST["month_popup"];
 			$month++;
-			$duration = '1 MONTH';
 			$year = $_REQUEST["year_field_001"];
 
-			$title_range = "Month of " . date("F", mktime(0,0,0,$month, 1, $year));
+			$title_range = "Month of " . date("F", mktime(0, 0, 0, $month, 1, $year));
 
 			$tpl->assign('report_title_range', $title_range);
 
@@ -79,30 +83,78 @@
 
 			if ($menuObj->findForMonthAndYear($month, $year))
 			{
-
 				$rows = array();
 
-				$labels = array("User Name", "Store Name","Recipe ID", "Menu Item Name", "Comment", "Date Commented",  "Item Type", "Rating", "WOA", "Customizations", "Date Rated");
+				$labels = array(
+					"User Name",
+					"Store Name",
+					"Recipe ID",
+					"Menu Item Name",
+					"Item Type",
+					"Date Rated",
+					"Rating",
+					"Would Order Again",
+					"Customizations",
+					"Comment",
+					"Date Commented"
+				);
+
 				$columnDescs = array();
 
-				$columnDescs['A'] = array('align' => 'left', 'width' => '15');
-				$columnDescs['B'] = array('align' => 'left', 'width' => '15');
-				$columnDescs['C'] = array('align' => 'left', 'width' => '6');
-				$columnDescs['D'] = array('align' => 'left', 'width' => '32');
-				$columnDescs['E'] = array('align' => 'left', 'width' => '50', 'wrap' => true);
-				$columnDescs['F'] = array('align' => 'left', 'width' => 'auto', 'type' => 'datetime');
-				$columnDescs['G'] = array('align' => 'left', 'width' => '6');
-				$columnDescs['H'] = array('align' => 'left', 'width' => 'auto');
-				$columnDescs['I'] = array('align' => 'left', 'width' => '6', 'decor' => 'yes_no_condform');
-				$columnDescs['J'] = array('align' => 'left', 'width' => '6', 'decor' => 'yes_no_condform');
-				$columnDescs['K'] = array('align' => 'left', 'width' => 'auto', 'type' => 'datetime');
+				$columnDescs['A'] = array(
+					'align' => 'left',
+					'width' => 'auto'
+				);
+				$columnDescs['B'] = array(
+					'align' => 'left',
+					'width' => 'auto'
+				);
+				$columnDescs['C'] = array(
+					'align' => 'left',
+					'width' => 'auto'
+				);
+				$columnDescs['D'] = array(
+					'align' => 'left',
+					'width' => 'auto'
+				);
+				$columnDescs['E'] = array(
+					'align' => 'left',
+					'width' => 'auto'
+				);
+				$columnDescs['F'] = array(
+					'align' => 'left',
+					'width' => 'auto',
+					'type' => 'datetime'
+				);
+				$columnDescs['G'] = array(
+					'align' => 'left',
+					'width' => '6'
+				);
+				$columnDescs['H'] = array(
+					'align' => 'left',
+					'width' => 'auto',
+					'decor' => 'yes_no_condform'
+				);
+				$columnDescs['I'] = array(
+					'align' => 'left',
+					'width' => 'auto',
+					'decor' => 'yes_no_condform'
+				);
+				$columnDescs['J'] = array(
+					'align' => 'left',
+					'width' => 'auto',
+					'wrap' => true
+				);
+				$columnDescs['K'] = array(
+					'align' => 'left',
+					'width' => 'auto',
+					'type' => 'datetime'
+				);
 
 				$menuObj->fetch();
 				$menu_id = $menuObj->id;
 
-
 				$surveyObj = DAO_CFactory::create('food_survey_comments');
-
 
 				$surveyObj->query("select iq.*, fs.rating, 
        				if (fs.would_order_again = 1, 'yes', if (fs.would_order_again = 2, 'no', 'unanswered')) as would_order_again, 
@@ -137,26 +189,30 @@
 					while ($surveyObj->fetch())
 					{
 						$storeName = '';
-						if(!is_null($surveyObj->store_name)){
+						if (!is_null($surveyObj->store_name))
+						{
 							$storeName = $surveyObj->store_name;
 						}
-						$rows[] = array($surveyObj->name,
-										$storeName,
-										$surveyObj->recipe_id,
-										$surveyObj->menu_item_name,
-										$surveyObj->comment,
-										$surveyObj->timestamp_created,
-										$surveyObj->cat,
-										$surveyObj->rating,
-										$surveyObj->would_order_again,
-										$surveyObj->opted_to_customize_recipes,
-										$surveyObj->rated_on);
+
+						$rows[] = array(
+							$surveyObj->name,
+							$storeName,
+							$surveyObj->recipe_id,
+							$surveyObj->menu_item_name,
+							$surveyObj->cat,
+							$surveyObj->timestamp_created,
+							$surveyObj->rating,
+							$surveyObj->would_order_again,
+							$surveyObj->opted_to_customize_recipes,
+							$surveyObj->comment,
+							$surveyObj->rated_on
+						);
 					}
 
 					$tpl->assign('labels', $labels);
 					$tpl->assign('rows', $rows);
 					$tpl->assign('rowcount', count($rows));
-					$tpl->assign('col_descriptions', $columnDescs );
+					$tpl->assign('col_descriptions', $columnDescs);
 				}
 			}
 			else
@@ -166,19 +222,11 @@
 
 				$tpl->setErrorMsg("The menu was not found.");
 			}
-
 		}
 
 		$formArray = $Form->render();
 		$tpl->assign('form_session_list', $formArray);
-		$tpl->assign('page_title','My Meals Report');
+		$tpl->assign('page_title', 'My Meals Report');
 	}
 
-
-
-
-
-
 }
-
-?>
