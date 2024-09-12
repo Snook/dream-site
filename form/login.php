@@ -149,14 +149,7 @@ class form_login
 
 					if (!$suppressBounce)
 					{
-						if (CBrowserSession::getSessionVariable(key: CBrowserSession::BOUNCE_REQUEST_URI))
-						{
-							CApp::bounce(CBrowserSession::getSessionVariableOnce(key: CBrowserSession::BOUNCE_REQUEST_URI));
-						}
-						else
-						{
-							CApp::bounce($redirectCustomer);
-						}
+						CApp::bounceBack(fallback: $redirectCustomer);
 					}
 				}
 				else

@@ -14,7 +14,7 @@
 			</div>
 		</section>
 		<!--<section>
-			<div class="container">
+			<div class="container"  style="max-height: 25rem; overflow: hidden;">
 					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 					  <ol class="carousel-indicators">
 						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>

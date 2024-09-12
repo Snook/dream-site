@@ -6,6 +6,27 @@ class COffsitelocation extends DAO_Store_pickup_location
 {
 	static private $OffsitelocationArray = null;
 
+	function generateAddressLinear(): string
+	{
+		$this->address_linear = $this->address_line1 . (!empty($this->address_line2) ? " " . $this->address_line2 : "") . ", " . $this->city  . ", " . $this->state_id . " " .  $this->postal_code . (!empty($this->usps_adc) ? "-" . $this->usps_adc : "");
+
+		return $this->address_linear;
+	}
+
+	function generateAddressWithBreaks(): string
+	{
+		$this->address_with_breaks = $this->address_line1 . (!empty($this->address_line2) ? " " . $this->address_line2 : "") . "\n" . $this->city  . ", " . $this->state_id . " " .  $this->postal_code . (!empty($this->usps_adc) ? "-" . $this->usps_adc : "");
+
+		return $this->address_with_breaks;
+	}
+
+	function generateAddressHTML(): string
+	{
+		$this->address_html = nl2br($this->generateAddressWithBreaks());
+
+		return $this->address_html;
+	}
+
 	static function addUpdatePickupLocation($Store, $data, $edit_id = false)
 	{
 		$DAO_store_pickup_location = DAO_CFactory::create('store_pickup_location');
@@ -66,7 +87,6 @@ class COffsitelocation extends DAO_Store_pickup_location
 			$DAO_store_pickup_location->address_latitude = $data["address_latitude"];
 			$DAO_store_pickup_location->address_longitude = $data["address_longitude"];
 		}
-
 
 		$DAO_store_pickup_location->default_session_override = 'NULL';
 
@@ -240,5 +260,3 @@ class COffsitelocation extends DAO_Store_pickup_location
 	}
 
 }
-
-?>

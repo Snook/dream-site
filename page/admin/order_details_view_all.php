@@ -304,7 +304,10 @@ class page_admin_order_details_view_all extends CPageAdminOnly
 		$tpl->assign('customer_view', $customer_print_view);
 	}
 
-	static function create_view_all_orders($session_id, &$other_details, $customer_print_view, $showDreamRewardsStatus = true, $supportsDinnersForLife = false, $single_booking_id = false, $supportsPlatePoints = false)
+	/**
+	 * @throws Exception
+	 */
+	static function create_view_all_orders($session_id, &$other_details, $customer_print_view, $showDreamRewardsStatus = true, $supportsDinnersForLife = false, $single_booking_id = false, $supportsPlatePoints = false): array
 	{
 		$html_array = array();
 		$filename = null;
@@ -528,6 +531,7 @@ class page_admin_order_details_view_all extends CPageAdminOnly
 
 				$templateEngine->assign('session', $order_info['sessionInfo']);
 				$templateEngine->assign('sessionInfo', $order_info['sessionInfo']);
+				$templateEngine->assign('DAO_session', $order_info['DAO_session']);
 				$templateEngine->assign('customer_name', $order_info['customer_name']);
 				$templateEngine->assign('customerName', $order_info['customer_name']);
 

@@ -144,13 +144,12 @@ class page_admin_access_agreement extends CPageAdminOnly
 
 				$Mail->send(ADMINISTRATOR_EMAIL, ADMINISTRATOR_EMAIL, 'josh.thayer@dreamdinners.com', 'josh.thayer@dreamdinners.com', $DAO_user->firstname . ' ' . $DAO_user->lastname . ' has signed the BackOffice NDA', $emailHTML, null, '', '', null, 'admin_generic');
 
-
 				if ($DAO_user->isUserType(user_type: CUser::NEW_EMPLOYEE) || $DAO_user->isUserType(user_type: CUser::DISHWASHER))
 				{
 					CApp::bounce("/backoffice/safe-landing");
 				}
 
-				CApp::bounce($this->Template->back);
+				CApp::bounceBack(fallback: '/backoffice/safe-landing');
 			}
 			else
 			{
@@ -160,7 +159,7 @@ class page_admin_access_agreement extends CPageAdminOnly
 
 		if (CUser::getCurrentUser()->fadmin_nda_agree == 1 && empty($_GET['read_only']))
 		{
-			CApp::bounce($this->Template->back);
+			CApp::bounceBack(fallback: '/backoffice/safe-landing');
 		}
 
 		$this->Template->assign('hide_navigation', true);

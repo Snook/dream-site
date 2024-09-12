@@ -128,6 +128,11 @@ class CApp
 		return false;
 	}
 
+	/**
+	 * Run a page.
+	 *
+	 * @param string $page The page to run
+	 */
 	function run($page)
 	{
 		$page = str_replace('-', '_', $page);
@@ -895,14 +900,24 @@ class CApp
 		return $canOverride;
 	}
 
-	static function directAccessControlTest($page_or_section_name_id, $user_id)
+	/**
+	 * Checks if the user has direct access to the given page or section.
+	 *
+	 * @param int $page_or_section_name_id The id of the page or section to check.
+	 * @param int $user_id                 The id of the user to check.
+	 *
+	 * @return bool TRUE if the user has direct access, FALSE otherwise.
+	 * @throws Exception
+	 */
+
+	static function directAccessControlTest(int $page_or_section_name_id, int $user_id): bool
 	{
 		if (!CUser::isLoggedIn())
 		{
 			return false;
 		}
 
-		if (CApp::$adminView == false)
+		if (!CApp::$adminView)
 		{
 			return false;
 		}
@@ -917,9 +932,12 @@ class CApp
 			return false;
 		}
 
-		$pageuser = DAO_CFactory::create('access_control_page_user');
-		$pageuser->query("select id from access_control_page_user where user_id = $user_id and access_control_page_id = $page_or_section_name_id and is_deleted = 0");
-		if ($pageuser->N > 0)
+		$DAO_access_control_page_user = DAO_CFactory::create('access_control_page_user');
+		$DAO_access_control_page_user->user_id = $user_id;
+		$DAO_access_control_page_user->access_control_page_id = $page_or_section_name_id;
+		$DAO_access_control_page_user->find();
+
+		if ($DAO_access_control_page_user->N > 0)
 		{
 			return true;
 		}
@@ -927,6 +945,36 @@ class CApp
 		return false;
 	}
 
+	/**
+	 * Bounce back to the referring page, or a fallback page if the referring page is not available.
+	 *
+	 * @param bool|string $fallback The page to bounce to if the referring page is not available.
+	 *
+	 * @return void
+	 */
+	#[NoReturn] static function bounceBack(bool|string $fallback = false): void
+	{
+		// If the referring page is available, bounce to it
+		if (CBrowserSession::getSessionVariable(key: CBrowserSession::BOUNCE_REQUEST_URI))
+		{
+			CApp::bounce(CBrowserSession::getSessionVariableOnce(key: CBrowserSession::BOUNCE_REQUEST_URI));
+		}
+		// Otherwise, bounce to the fallback page
+		else
+		{
+			CApp::bounce($fallback);
+		}
+	}
+
+	/**
+	 * Force a login if the user is not already logged in.
+	 *
+	 * This function will check if the user is logged in, and if not, will bounce the user to the login
+	 * page. The bounce will include a CBrowserSession::BOUNCE_REQUEST_URI value that will
+	 * automatically bounce the user back to the referring page after a successful login.
+	 *
+	 * @return void
+	 */
 	static function forceLogin(): void
 	{
 		if (CUser::isLoggedIn())
@@ -954,8 +1002,6 @@ class CApp
 		{
 			self::bounce('/backoffice/location_switch?back=?' . urlencode($_SERVER['QUERY_STRING']));
 		}
-
-		exit();
 	}
 
 	static function getFreshDeskFirstName()
@@ -1082,7 +1128,6 @@ class CApp
 				$redirect = $redirectURL . '?' . $data;
 
 				CApp::bounce($redirect);
-				exit;
 			}
 			else
 			{
@@ -1119,7 +1164,6 @@ class CApp
 			$redirectURL = "https://" . $dest_url . "/login/sso?" . "name=" . urlencode(utf8_encode($fullName)) . "&email=" . urlencode(utf8_encode($email)) . "&timestamp=" . urlencode(utf8_encode($ts)) . "&hash=" . $encodedAPIKey;
 
 			CApp::bounce($redirectURL);
-			exit;
 		}
 		else
 		{
