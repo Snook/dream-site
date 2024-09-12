@@ -546,7 +546,10 @@ class COrders extends DAO_Orders
 		}
 	}
 
-	public static function getOrderHistory($order_id, $returnBooking = true, $returnSessionDetails = false)
+	/**
+	 * @throws Exception
+	 */
+	public static function getOrderHistory(int $order_id, bool $returnBooking = true, bool $returnSessionDetails = false): array
 	{
 		$retVal = array();
 
@@ -574,15 +577,23 @@ class COrders extends DAO_Orders
 							o.subtotal_meal_customization_fee,
 							o.order_customization,
 							od.user_state AS digest_user_state,
-							CONCAT(u1.firstname, ' ', u1.lastname) as creator,
-							CONCAT(u2.firstname, ' ',u2.lastname) as updator,
+							CONCAT(u1.firstname, ' ', u1.lastname) AS creator,
+							CONCAT(u2.firstname, ' ',u2.lastname) AS updator,
 							u1.id as creator_id, 
 							u2.id as updator_id,
 							o.timestamp_created, 
 							o.timestamp_updated,
 							o.order_type as order_type,
-							SUM(mi.is_store_special * oi.item_count) total_efl_item_count,
-							SUM(mi.is_chef_touched * oi.item_count) total_side_item_count
+							SUM(
+								CASE WHEN mi.is_store_special = 1 AND COALESCE(mi.is_bundle, 0) = 0 THEN oi.item_count
+									ELSE 0
+								END
+							) AS total_efl_item_count,
+							SUM(
+								CASE WHEN mi.is_chef_touched = 1 AND COALESCE(mi.is_bundle, 0) = 0 THEN oi.item_count
+									ELSE 0
+								END
+							) AS total_side_item_count
 							from orders o
 							left join user u1 on o.created_by = u1.id
 							left join user u2 on o.updated_by = u2.id
