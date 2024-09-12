@@ -11905,8 +11905,8 @@ class COrders extends DAO_Orders
 	 */
 	static public function buildOrderDetailArrays($DAO_user, $DAO_orders, $viewing_user_type = null, $flatItemsList = false, $getBundleList = false, $allowDeletedSession = false, $isDelivered = false, $orderBy = 'FeaturedFirst')
 	{
-		$booking = DAO_CFactory::create('booking');
-		$session = DAO_CFactory::create('session');
+		$booking = DAO_CFactory::create('booking', true);
+		$session = DAO_CFactory::create('session', true);
 
 		$booking->order_id = $DAO_orders->id;
 		$booking->whereAdd();
@@ -11926,7 +11926,7 @@ class COrders extends DAO_Orders
 			$session->is_deleted = null;
 		}
 
-		if (!$session->find(true))
+		if (!$session->find_DAO_session(true))
 		{
 			throw new Exception('Session not found in buildOrderDetailArrays()');
 		}
@@ -12247,6 +12247,7 @@ class COrders extends DAO_Orders
 			'bookingInfo' => $booking->toArray(),
 			'paymentInfo' => $PaymentInfo,
 			'sessionInfo' => $sessionData,
+			'DAO_session' => clone $session,
 			'customer_name' => $customerName,
 			'bookingStatus' => $booking->status,
 			'storeInfo' => $storeInfo,

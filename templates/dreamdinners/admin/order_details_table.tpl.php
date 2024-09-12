@@ -233,23 +233,27 @@
 					</tr>
 				<?php } ?>
 
-				<?php if (true /*!isset($this->is_customer_franchise_report) || !$this->is_customer_franchise_report*/) { // Don't show on customer/franchise report ?>
-					<tr>
-						<td class="font-weight-bold">Confirmation Number:</td>
-						<td><?php echo $this->orderInfo['order_confirmation']; ?></td>
-					</tr>
-					<tr>
-						<td class="font-weight-bold">Order Type:</td>
-						<td>
-							<?php echo ucfirst(strtolower($this->orderInfo['order_type'])); ?>
-							<?php if (isset($this->otherDetails) && COrders::menuInfoHasIntroOrder($this->otherDetails['0']['menuInfo']) == '1') { ?>
-								(Meal Prep Starter Pack)
-							<?php } else if (isset($this->otherDetails) && COrders::menuInfoHasIntroOrder($this->otherDetails['0']['menuInfo']) == '2') { ?>
-								(Menu Sampler)
-							<?php } ?>
-						</td>
-					</tr>
-				<?php } ?>
+				<tr>
+					<td class="font-weight-bold">Confirmation Number:</td>
+					<td><?php echo $this->orderInfo['order_confirmation']; ?></td>
+				</tr>
+				<tr>
+					<td class="font-weight-bold">Order Type:</td>
+					<td>
+						<?php echo ucfirst(strtolower($this->orderInfo['order_type'])); ?>
+						<?php if (isset($this->otherDetails) && COrders::menuInfoHasIntroOrder($this->otherDetails['0']['menuInfo']) == '1') { ?>
+							(Meal Prep Starter Pack)
+						<?php } else if (isset($this->otherDetails) && COrders::menuInfoHasIntroOrder($this->otherDetails['0']['menuInfo']) == '2') { ?>
+							(Menu Sampler)
+						<?php } ?>
+					</td>
+				</tr>
+				<tr>
+					<td class="font-weight-bold">Session Type:</td>
+					<td>
+						<?php echo $this->sessionInfo["session_type_title"]; ?>
+					</td>
+				</tr>
 			</table>
 		</div>
 
@@ -374,6 +378,16 @@
 				</div>
 			</div>
 		<?php } ?>
+
+		<?php if (!empty($this->DAO_session) && $this->DAO_session->isRemotePickup()) { ?>
+			<div class="col">
+				<p class="p-1 mb-1 font-weight-bold border-top border-bottom font-size-medium-small">Community Pick Up Details</p>
+				<div class="p-1">
+					<div><?php echo $this->DAO_session->DAO_store_pickup_location->generateAddressHTML(); ?></div>
+				</div>
+			</div>
+		<?php } ?>
+
 		<?php if (!empty($this->user->preferences[CUser::USER_ACCOUNT_NOTE]['value']) || !empty($this->orderInfo['order_user_notes'])
 			|| ($customerView == false && (!empty($this->orderInfo['guest_carryover_notes']) || !empty($this->orderInfo['order_admin_notes'])))) { ?>
 			<?php if (!empty($this->user->preferences[CUser::USER_ACCOUNT_NOTE]['value'])) { // if order instructions ?>
