@@ -157,7 +157,6 @@ class CSession extends DAO_Session
 	 */
 	static function generateDeliveredBlackoutSession($dateStr, $menu_id, $allDistributionCenters = true, $specificDistCenterId = null)
 	{
-
 		$date = DateTime::createFromFormat('Y-m-d', $dateStr);
 
 		$DAO_store = DAO_CFactory::create('store', true);
@@ -177,7 +176,6 @@ class CSession extends DAO_Session
 
 	static function generateDeliveredSessionsForMenu($menu_id)
 	{
-
 		$menuInfo = CMenu::getMenuInfo($menu_id);
 
 		$startDate = new DateTime($menuInfo['global_menu_start_date']);
@@ -262,7 +260,6 @@ class CSession extends DAO_Session
 
 	static function generateWalkInSessionsForMenu($menu_id, $addOnly = false)
 	{
-
 		$menuInfo = CMenu::getMenuInfo($menu_id);
 
 		$startDate = new DateTime($menuInfo['global_menu_start_date']);
@@ -275,7 +272,6 @@ class CSession extends DAO_Session
 
 		while ($stores->fetch())
 		{
-
 			$cursorDate = clone($startDate);
 			while ($cursorDate != $endDate)
 			{
@@ -733,10 +729,8 @@ class CSession extends DAO_Session
 		{
 			while ($userObj->fetch())
 			{
-
 				if ($userObj->firstname != "Operations")
 				{
-
 					if (isset($dupeDetector[$userObj->firstname]))
 					{
 						$userObj->firstname .= ' ' . ucfirst(substr($userObj->lastname, 0, 1));
@@ -1020,8 +1014,6 @@ class CSession extends DAO_Session
 
 	function findDirectOrderCalendarRange($store_id, $rangeStart, $rangeEnd)
 	{
-
-
 		return $this->query("SELECT 
 			count(distinct sr.id) as num_rsvps, 
 			available_slots - (count(distinct booking.id) + count(distinct sr.id)) AS 'remaining_slots',
@@ -1260,7 +1252,6 @@ class CSession extends DAO_Session
 	 */
 	function allowedCustomization($storeObj)
 	{
-
 		if (!is_object($storeObj))
 		{
 			$storeObj = DAO_CFactory::create('store');
@@ -1468,7 +1459,6 @@ class CSession extends DAO_Session
 	 */
 	function isOpenForRescheduling($DAO_store)
 	{
-
 		$today = CTimezones::getAdjustedTime($DAO_store, mktime(0, 0, 0, date("n"), date("j"), date("Y")));
 		// midnight this morning
 		$cutoff = $today + (86400 * 5);
@@ -1966,7 +1956,6 @@ class CSession extends DAO_Session
 
 	function get_num_bookings()
 	{
-
 		$bookings = DAO_CFactory::create('booking');
 
 		$bookings->whereAdd("session_id = $this->id and status = 'ACTIVE'");
@@ -2175,7 +2164,7 @@ class CSession extends DAO_Session
 			return false;
 		}
 
-		if (!$this->isStandard() && !$this->isStandardPrivate()  && !$this->isMadeForYou())
+		if (!$this->isStandard() && !$this->isStandardPrivate() && !$this->isMadeForYou())
 		{
 			return false;
 		}
@@ -2402,33 +2391,56 @@ class CSession extends DAO_Session
 		return $sessionArray;
 	}
 
-	function getSessionProperties()
+	/**
+	 * Loads session properties from the database if they haven't been loaded yet.
+	 *
+	 * The properties are stored in the $this->session_properties object.
+	 *
+	 * If the session has a host, the host's user object is also loaded and stored in
+	 * $this->session_properties->session_host_info.
+	 *
+	 * @throws Exception
+	 */
+	function getSessionProperties(): void
 	{
 		if (empty($this->session_properties))
 		{
-			$sessionprop = DAO_CFactory::create('session_properties');
-			$sessionprop->session = $this->id;
-			$sessionprop->find();
+			$DAO_session_properties = DAO_CFactory::create('session_properties');
+			$DAO_session_properties->session = $this->id;
+			$DAO_session_properties->find();
 
-			$this->session_properties = clone($sessionprop);
+			$this->session_properties = clone($DAO_session_properties);
 
-			if (!empty($sessionprop->session_host))
+			if (!empty($DAO_session_properties->session_host))
 			{
-				$sessionhost = DAO_CFactory::create('user');
-				$sessionhost->id = $sessionprop->session_host;
-				$sessionhost->find();
+				$DAO_user = DAO_CFactory::create('user');
+				$DAO_user->id = $DAO_session_properties->session_host;
+				$DAO_user->find();
 
-				$this->session_properties->session_host_info = clone($sessionhost);
+				$this->session_properties->session_host_info = clone($DAO_user);
 			}
 		}
 	}
 
-	function findSessionsEligibleForOrdering($storeObj, $serviceDays, $max_returned = 6)
+	/**
+	 * Finds sessions eligible for ordering for a given store and service days.
+	 *
+	 * This method will fetch up to $max_returned sessions that are eligible for ordering and meet the service days criteria.
+	 * Eligible sessions are defined as ones that are not deleted, have available slots, and support delivery/shipping.
+	 * The method will also filter out sessions that have bookings that exceed the available slots.
+	 *
+	 * @param CStore $DAO_store    The store object to filter sessions by
+	 * @param int    $serviceDays  The number of service days to filter sessions by
+	 * @param int    $max_returned The maximum number of sessions to return
+	 *
+	 * @throws DateMalformedStringException
+	 */
+	function findSessionsEligibleForOrdering(CStore $DAO_store, int $serviceDays, int $max_returned = 6): void
 	{
 		$orgServiceDays = $serviceDays;
 		$deliveryDayFilter = $serviceDays - 1;
-		$serviceDays++;  // TODO: Is there a threshhold prior to which today can be considered the first day?
-		$todayTS = CTimezones::getAdjustedTime($storeObj, time());
+		$serviceDays++;  // TODO: Is there a threshold prior to which today can be considered the first day?
+		$todayTS = CTimezones::getAdjustedTime($DAO_store, time());
 		$today = new DateTime(date("Y-m-d H:i:s", $todayTS));
 		$today->modify("+$serviceDays days");
 		$earliestDeliveryDate = $today->format("Y-m-d");
@@ -2437,7 +2449,7 @@ class CSession extends DAO_Session
 		$this->query("select 
 			`session`.*,
 			(`session`.available_slots - count(booking.id)) AS 'remaining_slots'
-			from (select * from `session` where `session`.store_id = " . $storeObj->id . " and DATE(`session`.session_start) >= '" . $earliestDeliveryDate . "' and `session`.delivered_supports_delivery > '" . $deliveryDayFilter . "' and `session`.is_deleted = 0 order by `session`.session_start limit 20) as `session`
+			from (select * from `session` where `session`.store_id = " . $DAO_store->id . " and DATE(`session`.session_start) >= '" . $earliestDeliveryDate . "' and `session`.delivered_supports_delivery > '" . $deliveryDayFilter . "' and `session`.is_deleted = 0 order by `session`.session_start limit 20) as `session`
 			join `session` as session_2 on session_2.session_start = DATE_SUB(`session`.session_start, INTERVAL " . $orgServiceDays . " DAY) and session_2.store_id = `session`.store_id and session_2.is_deleted = 0 and session_2.delivered_supports_shipping > 0
 			LEFT JOIN booking ON booking.session_id = `session`.id  AND booking.status = 'ACTIVE' and booking.is_deleted = 0
 			group by `session`.id
@@ -2449,7 +2461,6 @@ class CSession extends DAO_Session
 	 */
 	static function isSessionValidForDeliveredOrder($session_id, $StoreObj, $menu_id, $serviceDays = false, $zip = false, $excludeFull = false): bool
 	{
-
 		if (!empty($zip) && (empty($serviceDays) || !is_numeric($serviceDays)))
 		{
 			$serviceDaysRetriever = DAO_CFactory::create('zipcodes', true);
@@ -2503,7 +2514,6 @@ class CSession extends DAO_Session
 	 */
 	static function getMonthlySessionInfoArrayForDelivered($DAO_store, $date = false, $menu_id = false, $cart_info = false, $open_only = false, $get_bookings = false, $date_is_anchor = false, $excludeFull = false, $customer_view = false, $max_returned = 6): array
 	{
-
 		$DAO_session = DAO_CFactory::create('session', true);
 		$DAO_session->store_id = $DAO_store->id;
 
@@ -2543,7 +2553,7 @@ class CSession extends DAO_Session
 		{
 			$sessionInfoArray['sessions'] = array();
 
-			// if not false then customer_view is the the number service days for delivery
+			// if not false then customer_view is the number service days for delivery
 			$DAO_session->findSessionsEligibleForOrdering($DAO_store, $customer_view, 20);
 		}
 		else if (!empty($menu_id))
@@ -2890,7 +2900,6 @@ class CSession extends DAO_Session
 			// any session not intro or event
 			if (!empty($session_type_limit) && $session_type_limit == CSession::ALL_STANDARD)
 			{
-
 				if (!$DAO_session->isStandardSessionValid($DAO_store))
 				{
 					continue;
@@ -3204,8 +3213,6 @@ class CSession extends DAO_Session
 
 	function fetchFadminAcronym()
 	{
-
-
 		$acronymLookup = DAO_CFactory::create('session');
 		$query = "SELECT
        			dtet.fadmin_acronym
@@ -3704,7 +3711,6 @@ class CSession extends DAO_Session
 	 */
 	function getDeliveredBookingsForSession($getShippingBookings = false)
 	{
-
 		if ($getShippingBookings)
 		{
 			$nextDayDelivery = new DateTime($this->session_start);
@@ -4423,5 +4429,3 @@ class CSession extends DAO_Session
 		return '';
 	}
 }
-
-?>

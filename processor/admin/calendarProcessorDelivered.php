@@ -56,6 +56,9 @@ class processor_admin_calendarProcessorDelivered extends CPageProcessor
 		$this->runFranchiseOwner();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function runFranchiseOwner()
 	{
 
@@ -118,5 +121,3 @@ class processor_admin_calendarProcessorDelivered extends CPageProcessor
 	}
 
 }
-
-?>
