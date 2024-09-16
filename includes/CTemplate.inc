@@ -450,7 +450,6 @@ class CTemplate extends Savant2
 		// is there a script from the compiler?
 		if (!$result || $this->isError($result))
 		{
-
 			if ($setScript)
 			{
 				$this->_script = null;
@@ -465,7 +464,6 @@ class CTemplate extends Savant2
 		}
 		else
 		{
-
 			if ($setScript)
 			{
 				$this->_script = $result;
@@ -524,7 +522,6 @@ class CTemplate extends Savant2
 
 	function assignAndFormatMetricPercent($name, $value)
 	{
-
 		if ($value < 0)
 		{
 			$formattedValue = "<span style='color:red'>" . $value . "%</span>";
@@ -539,7 +536,6 @@ class CTemplate extends Savant2
 
 	function assignAndFormatMetricDollars($name, $value)
 	{
-
 		$absValue = number_format(abs($value), 2);
 
 		if ($value < 0)
@@ -810,7 +806,6 @@ class CTemplate extends Savant2
 
 	static function dateTimeFormat($dateStr, $format = NORMAL, $store = false, $toolTipFormat = false)
 	{
-
 		if (!isset($dateStr) || $dateStr == "" || $dateStr == "1970-01-01 00:00:01")
 		{
 			return "unavailable";
@@ -1243,36 +1238,8 @@ class CTemplate extends Savant2
 						'purchase' => $gtag_Purchase
 					)
 				),
-				'twitter' => array(
-					'enabled' => false,
-				),
 				'dailystory' => array(
 					'enabled' => true
-				),
-				'nextdoor' => array(
-					'enabled' => false
-				),
-				'truuconversion' => array(
-					'enabled' => true
-				),
-				'wisepop' => array(
-					'enabled' => false,
-					/*
-							'enabled' => in_array(((!empty($this->page)) ? $this->page : false), array(
-								'meal_prep_dinners',
-								'meal_prep_delivery',
-								'meal_prep_starter_pack',
-								'local_meal_prep',
-								'meal_prep_company',
-								'prepared_meals',
-								'session_menu',
-								'email_signup',
-								'order_details',
-								'sp1n2',
-								'sp3c1al',
-								'spec1al3'
-							))
-					*/
 				)
 			)
 		);
