@@ -96,9 +96,7 @@ abstract class CPageAdminOnly
 
 	function runNewEmployee()
 	{
-		unset(CApp::instance()->template()->back);
 		CApp::bounce('/backoffice/safe-landing');
-		exit;
 	}
 
 	function runFranchiseStaff()
@@ -163,9 +161,7 @@ abstract class CPageAdminOnly
 
 	function runDishwasher()
 	{
-		unset(CApp::instance()->template()->back);
 		CApp::bounce('/backoffice/safe-landing');
-		exit;
 	}
 
 	abstract function runSiteAdmin();

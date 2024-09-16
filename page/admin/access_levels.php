@@ -230,7 +230,7 @@ class page_admin_access_levels extends CPageAdminOnly
 
 							$Mail = new CMail();
 
-							$Mail->send(ADMINISTRATOR_EMAIL, ADMINISTRATOR_EMAIL, ADMINISTRATOR_EMAIL, ADMINISTRATOR_EMAIL, $Customer->firstname . ' ' . $Customer->lastname . ' has lost BackOffice access', '<a href="' . HTTPS_SERVER . '/backoffice/user_details?id=' . $Customer->id . '">' . $Customer->firstname . ' ' . $Customer->lastname . '</a> has been set to Customer status and no longer has access to the BackOffice. BackOffice NDA has been reset to "unaccepted".', null, '', '', null, 'admin_generic');
+							$Mail->send(ADMINISTRATOR_EMAIL, ADMINISTRATOR_EMAIL, ADMINISTRATOR_EMAIL, ADMINISTRATOR_EMAIL, $Customer->firstname . ' ' . $Customer->lastname . ' has lost BackOffice access', '<a href="' . HTTPS_SERVER . '/backoffice/user-details?id=' . $Customer->id . '">' . $Customer->firstname . ' ' . $Customer->lastname . '</a> has been set to Customer status and no longer has access to the BackOffice. BackOffice NDA has been reset to "unaccepted".', null, '', '', null, 'admin_generic');
 						}
 					}
 

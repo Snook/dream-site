@@ -47,7 +47,7 @@ $SHOWYEAR = false;
 				<?php foreach ($this->rows as $user_element) { ?>
 					<?php foreach ($user_element as $entity) { ?>
 						<tr>
-							<td <?php if (count($user_element) > 1) { ?>class="font-weight-bold"<?php } ?>><a href="/backoffice/user_details?id=<?php echo $entity['user_id']; ?>"><?php echo $entity['user_id']; ?></a></td>
+							<td <?php if (count($user_element) > 1) { ?>class="font-weight-bold"<?php } ?>><a href="/backoffice/user-details?id=<?php echo $entity['user_id']; ?>"><?php echo $entity['user_id']; ?></a></td>
 							<td>
 								<div class="mb-2"><?php echo $entity['firstname']; ?> <?php echo $entity['lastname']; ?></div>
 								<div><a href="/backoffice/email?id=<?php echo $entity['user_id']; ?>"><?php echo $entity['primary_email']; ?></a></div>
@@ -57,7 +57,7 @@ $SHOWYEAR = false;
 							<td><?php echo $entity['amount']; ?></td>
 							<td><?php echo $entity['expiration_date']; ?></td>
 							<td><?php echo $entity['description']; ?></td>
-							<td><a href="/backoffice/user_details?id=<?php echo $entity['referred_guest_id']; ?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $entity['referred_guest']; ?></a></td>
+							<td><a href="/backoffice/user-details?id=<?php echo $entity['referred_guest_id']; ?>"><?php echo $entity['referred_guest']; ?></a></td>
 						</tr>
 					<?php } ?>
 				<?php } ?>

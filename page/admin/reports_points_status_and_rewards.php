@@ -129,7 +129,7 @@ class page_admin_reports_points_status_and_rewards extends CPageAdminOnly
 			{
 				// problem
 				$tpl->setErrorMsg("There was a problem retrieving the PLATEPOINTS data for this day/session.");
-				CApp::bounce($_REQUEST['back']);
+				CApp::bounce('/backoffice');
 			}
 		}
 
@@ -193,7 +193,7 @@ class page_admin_reports_points_status_and_rewards extends CPageAdminOnly
 						if (!$platePointsData['due_reward_for_current_level'])
 						{
 							$giftReceivedID = CPointsUserHistory::getGiftIDReceivedForLevel($platePointsData['current_level'], $Users->id);
-	
+
 							if ($giftReceivedID)
 							{
 								$platePointsData['gift_display_str'] = CPointsUserHistory::getGiftDisplayString($giftReceivedID);

@@ -1,6 +1,6 @@
 <div>
 	&#8226; <?php echo CTemplate::dateTimeFormat($item['time'], TIME, $this->store, CONCISE); ?>
-	<a href="/backoffice/user_details?id=<?php echo $item['user_id']; ?>" data-toggle="tooltip" title="<?php echo CUser::userTypeText($item['user_type']); ?>" target="_blank"><?php echo $item['user']; ?></a>
+	<a href="/backoffice/user-details?id=<?php echo $item['user_id']; ?>" data-toggle="tooltip" title="<?php echo CUser::userTypeText($item['user_type']); ?>" target="_blank"><?php echo $item['user']; ?></a>
 	<b><?php echo $item['type']; ?></b>
 
 	<?php if (array_key_exists('digest_user_state', $item) && $item["digest_user_state"] == 'NEW') { ?>

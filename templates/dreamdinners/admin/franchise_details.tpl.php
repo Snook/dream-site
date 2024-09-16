@@ -101,7 +101,7 @@
 			<li data-tabid="<?php echo $store['id']; ?>" data-tooltip="<?php echo $store['store_name']; ?>" class="tab<?php if ($count == 1) { ?> selected<?php } ?><?php echo (empty($store['active'])) ? ' inactive' : '' ?>"><?php echo $store['state_id']; ?>, <?php echo $store['city']; ?></li>
 		<?php } ?>
 		<?php } ?>
-		<?php if ($this->permission['can_add_store']) { ?><li data-tabid="add_store" data-tooltip="Add New Store" class="tab" data-link="/backoffice/create-store?franchise_id=<?php echo $this->franchise['id']; ?>&back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">+</li><?php } ?>
+		<?php if ($this->permission['can_add_store']) { ?><li data-tabid="add_store" data-tooltip="Add New Store" class="tab" data-link="/backoffice/create-store?franchise_id=<?php echo $this->franchise['id']; ?>">+</li><?php } ?>
 		</ul>
 	</div>
 
@@ -171,9 +171,9 @@
 					<?php foreach ($store['personnel'] as $user_id => $userInfo) { ?>
 					<tr>
 						<td class="bgcolor_light"><a href="/backoffice/access-levels?id=<?php echo $user_id; ?>"><?php echo CUser::userTypeText($userInfo['user_type']); ?></a></td>
-						<td class="bgcolor_light"><a href="/backoffice/user_details?id=<?php echo $user_id; ?>"><?php echo $userInfo['firstname']; ?> <?php echo $userInfo['lastname']; ?></a></td>
+						<td class="bgcolor_light"><a href="/backoffice/user-details?id=<?php echo $user_id; ?>"><?php echo $userInfo['firstname']; ?> <?php echo $userInfo['lastname']; ?></a></td>
 						<td class="bgcolor_light"><a href="/backoffice/email?id=<?php echo $user_id; ?>"><?php echo $userInfo['primary_email']; ?></a></td>
-						<td class="bgcolor_light"><a href="/backoffice/user_details?id=<?php echo $user_id; ?>"><?php echo (!empty($userInfo['last_login'])) ? CTemplate::dateTimeFormat($userInfo['last_login'], MONTH_DAY_YEAR) : 'Never'; ?></a></td>
+						<td class="bgcolor_light"><a href="/backoffice/user-details?id=<?php echo $user_id; ?>"><?php echo (!empty($userInfo['last_login'])) ? CTemplate::dateTimeFormat($userInfo['last_login'], MONTH_DAY_YEAR) : 'Never'; ?></a></td>
 						<td class="bgcolor_light" style="text-align:center;"><?php echo (!empty($userInfo['fadmin_nda_agree'])) ? 'Yes' : '<span style="color: red;">No</span>'; ?></td>
 						<td class="bgcolor_light" style="text-align:center;"><a href="/location/<?php echo $store['id']; ?>"><?php echo (!empty($userInfo['display_to_public'])) ? 'Yes' : 'No'; ?></a></td>
 					</tr>

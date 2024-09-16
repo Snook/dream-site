@@ -150,7 +150,7 @@
 
 	<div style="padding: 10px !important; margin-bottom: 10px; background-color: #F1E8D8 !important; -webkit-box-shadow: 0px 0px 6px 1px rgba(0,0,0,.1); -moz-box-shadow: 0px 0px 6px 1px rgba(0,0,0,.1); box-shadow: 0px 0px 6px 1px rgba(0,0,0,.1);">
 
-		<div style="margin-bottom: 10px;">Last Updated: <?php echo ($this->timestamp_updated) ? CTemplate::dateTimeFormat($this->timestamp_updated) : 'Never'; ?><?php if ($this->timestamp_updated) { ?> by <a href="/backoffice/user_details?id=<?php echo $this->updated_by_user_id; ?>"><?php echo $this->updated_by_firstname; ?> <?php echo $this->updated_by_lastname; ?></a> <?php } ?></div>
+		<div style="margin-bottom: 10px;">Last Updated: <?php echo ($this->timestamp_updated) ? CTemplate::dateTimeFormat($this->timestamp_updated) : 'Never'; ?><?php if ($this->timestamp_updated) { ?> by <a href="/backoffice/user-details?id=<?php echo $this->updated_by_user_id; ?>"><?php echo $this->updated_by_firstname; ?> <?php echo $this->updated_by_lastname; ?></a> <?php } ?></div>
 		<div><?php echo $this->form_store_details['submit_html']; ?></div>
 
 	</div>

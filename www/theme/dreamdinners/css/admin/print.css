@@ -30,8 +30,7 @@ body {
 
 #app_maint_message,
 #app_fadmin_maint_message,
-.dev_branch_message,
-.emergency_mode_message {
+.dev_branch_message {
 	display: none;
 }
 

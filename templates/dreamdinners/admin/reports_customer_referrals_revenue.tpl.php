@@ -66,7 +66,7 @@ if ($this->report_submitted == TRUE) {
 
 			foreach( $this->labels as $info ){
 			if ($info == "User ID") {
-				$url = '<a target="_blank" href="/backoffice/user_details?id=' . $array_entity[$info]  .   '">' . $array_entity[$info] . '</a>';
+				$url = '<a target="_blank" href="/backoffice/user-details?id=' . $array_entity[$info]  .   '">' . $array_entity[$info] . '</a>';
 
 
 			 	echo '<td>' . $url . '</td>';

@@ -257,10 +257,7 @@ class page_admin_edit_session extends CPageAdminOnly
 				$SessionForm->DefaultValues['session_publish_state'] = CSession::PUBLISHED;
 			}
 
-			if (isset($_GET['back']))
-			{
-				CApp::bounce($_GET['back']);
-			}
+			CApp::bounce('/backoffice/session-mgr');
 		}
 
 		$SessionForm->DefaultValues["session_type_subtype"] = $DAO_session->session_type_subtype;
@@ -1035,11 +1032,7 @@ class page_admin_edit_session extends CPageAdminOnly
 					}
 
 					$tpl->setStatusMsg('The session has been saved');
-
-					if (isset($_GET['back']))
-					{
-						CApp::bounce($_GET['back']);
-					}
+					CApp::bounce('/backoffice/session-mgr');
 				}
 				else
 				{

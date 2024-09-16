@@ -63,7 +63,7 @@
 		<?php if (!empty($this->surveys[$id])) { ?>
 		<?php foreach($this->surveys[$id] AS $sid => $survey) { ?>
 		<tr id="survey_row-<?php echo $survey['id']; ?>">
-			<td class="bgcolor_light"><a href="/backoffice/user_details?id=<?php echo $survey['user_id']; ?>"><?php echo ucfirst($survey['firstname']); ?> <?php echo ucfirst($survey['lastname']); ?></a></td>
+			<td class="bgcolor_light"><a href="/backoffice/user-details?id=<?php echo $survey['user_id']; ?>"><?php echo ucfirst($survey['firstname']); ?> <?php echo ucfirst($survey['lastname']); ?></a></td>
 			<td class="bgcolor_light" style="text-align:center;" id="size_select_td-<?php echo $survey['id']; ?>"><?php if (!empty($survey['timestamp_received'])) { ?><?php echo CTemplate::dateTimeFormat($survey['timestamp_received'], MONTH_DAY_YEAR); ?><?php } else { ?><select id="size_select-<?php echo $survey['id']; ?>" name="size_select-<?php echo $survey['id']; ?>"><option value="0" selected="selected">Size</option><option value="HALF">3-srv</option><option value="FULL" >6-srv</option></select> <input type="button" class="btn btn-primary btn-sm" id="size_select_submit-<?php echo $survey['id']; ?>" name="size_select_submit-<?php echo $survey['id']; ?>" value="Guest Received" /><?php } ?></td>
 			<td class="bgcolor_light" style="text-align:center;">
 				<?php if (!empty($survey['timestamp_completed'])) { ?>

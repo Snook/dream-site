@@ -106,7 +106,7 @@
 						<tr>
 							<td style="text-align: right;">Customer Name:&nbsp;</td>
 							<td style="font-weight: bold;">
-								<a href="/backoffice/user_details?id=<?php echo $this->user['id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']);?>">
+								<a href="/backoffice/user-details?id=<?php echo $this->user['id']; ?>">
 									<?php echo $this->user_obj->firstname; ?> <?php echo $this->user_obj->lastname; ?>
 								</a>
 								<?php if (!empty($this->plate_points) && $this->plate_points['status'] == 'active') { ?>

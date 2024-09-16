@@ -281,7 +281,7 @@ function onClearFillWindow()
 
 function onEditClick(id)
 {
-	bounce("/backoffice/edit-session?session=" + id + "&back=/backoffice/publish_sessions");
+	bounce("/backoffice/edit-session?session=" + id);
 }
 
 function onSessionClick(id)

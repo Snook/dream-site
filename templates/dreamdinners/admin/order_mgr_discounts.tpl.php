@@ -153,7 +153,7 @@
 								?>
 
 								<li style="list-style-type: none !important;"></li>
-								<li style="list-style-type: none !important;"><a href="/backoffice/user-plate-points?id=<?php echo $this->user['id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']);?>" target="_blank">Full Dinner Dollar/PlatePoint History</a></li>
+								<li style="list-style-type: none !important;"><a href="/backoffice/user-plate-points?id=<?php echo $this->user['id']; ?>" target="_blank">Full Dinner Dollar/PlatePoint History</a></li>
 							</ul>
 						</div>
 					</div>

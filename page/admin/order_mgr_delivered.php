@@ -97,18 +97,13 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 		//force reload if Back button is pressed
 		CTemplate::noCache();
 
-		if (isset($_REQUEST['back']))
-		{
-			$tpl->assign('back', $_REQUEST['back']);
-		}
-
 		if (empty($_REQUEST['order']) || !is_numeric($_REQUEST['order']))
 		{
 			// New orders must be provided a store id and a user id
 			if (empty($_REQUEST['user']) || !is_numeric($_REQUEST['user']))
 			{
 				$tpl->setErrorMsg("There was a problem with the user ID specified.");
-				CApp::bounce("/backoffice/main");
+				CApp::bounce("/backoffice");
 			}
 
 			$this->originalOrder = new COrdersDelivered(true);
@@ -145,7 +140,7 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 				else
 				{
 					$tpl->setErrorMsg("There was a problem with the order ID specified.");
-					CApp::bounce("/backoffice/main");
+					CApp::bounce("/backoffice");
 					// TODO: or we could leave them here with a NEW order
 				}
 			}
@@ -191,15 +186,7 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 		if (!CStore::userHasAccessToDistributionCenter($this->originalOrder->store_id, $this->orderState))
 		{
 			$tpl->setErrorMsg('You do not have access privileges for this order.');
-
-			if (isset($_REQUEST['back']))
-			{
-				CApp::bounce($_REQUEST['back']);
-			}
-			else
-			{
-				CApp::bounce('/backoffice/main');
-			}
+			CApp::bounce('/backoffice');
 		}
 
 		$this->User = DAO_CFactory::create('user');
@@ -1138,8 +1125,6 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 						COrders::sendEditedOrderConfirmationEmail($this->User, $this->originalOrder);
 					}
 
-					$tpl->assign('back', "/backoffice/order-mgr-delivered?order=" . $this->originalOrder->id);
-
 					CApp::bounce("/backoffice/order-mgr-delivered?order=" . $this->originalOrder->id);
 				}
 				catch (Exception $e)
@@ -1325,7 +1310,6 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 						$itemsOversold = $this->originalOrder->getInvExceptionItemsString();
 
 						$tpl->setErrorMsg('Inventory has changed since the order was started and an item has run out of stock. Please review the order and try again. Items adjusted are:<br />' . $itemsOversold);
-						//	header('Location: '.$_SERVER['REQUEST_URI']);
 						throw new Exception("INV_EXC");
 					}
 
@@ -1410,8 +1394,6 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 					{
 						COrdersDelivered::sendEditedOrderConfirmationEmail($this->User, $this->originalOrder);
 					}
-
-					$tpl->assign('back', "/backoffice/order-mgr-thankyou?order=" . $this->originalOrder->id);
 
 					CApp::bounce("/backoffice/order-mgr-thankyou?order=" . $this->originalOrder->id);
 				}
@@ -3119,5 +3101,3 @@ page_admin_order_mgr_delivered extends CPageAdminOnly
 	}
 
 }
-
-?>

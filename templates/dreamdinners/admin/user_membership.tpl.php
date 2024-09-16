@@ -17,7 +17,7 @@
 		<div class="row my-4">
 			<div class="col text-center">
 				<h1>Dream Dinners Meal Prep+</h1>
-				<h2><a href="/backoffice/user_details?id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a></h2>
+				<h2><a href="/backoffice/user-details?id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a></h2>
 			</div>
 		</div>
 

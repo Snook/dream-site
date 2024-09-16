@@ -610,15 +610,6 @@ class page_admin_user_details extends CPageAdminOnly
 				$this->canEditInfo = false;
 			}
 
-			if (isset($_REQUEST['back']))
-			{
-				$tpl->assign('back', $_REQUEST['back']);
-			}
-			else
-			{
-				$tpl->assign('back', '/backoffice/list-users');
-			}
-
 			switch ($AdminUser->user_type)
 			{
 				case CUser::SITE_ADMIN :
@@ -859,5 +850,3 @@ class page_admin_user_details extends CPageAdminOnly
 		}
 	}
 }
-
-?>

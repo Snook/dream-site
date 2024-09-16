@@ -6,11 +6,6 @@
 		$this->topnav = 'guests';
 	}
 
-	if (empty($this->back) && !empty($_REQUEST['back']))
-	{
-		$this->back = $_REQUEST['back'];
-	}
-
 	$store_id = false;
 
 	if (CUser::getCurrentUser()->isFranchiseAccess())
@@ -106,9 +101,6 @@
 				<?php } ?>
 			</td>
 			<td style="vertical-align:top;">
-				<?php if (isset($this->back)) { ?>
-					<a href="<?php echo $this->back; ?>" class="fadmin_nav fadmin_nav_right">Back</a>
-				<?php } ?>
 				<?php if (isset($this->helpLinkSection)) { ?>
 					<a href="javascript:window.open('/backoffice/help-system?section=<?php echo $this->helpLinkSection; ?>', 'dd_help', 'toolbar=no,menubar=no,width=675,height=575');" class="fadmin_nav fadmin_nav_right"><img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/help.png" alt="Print" style="vertical-align:middle;" /> Page Help</a>
 				<?php } ?>

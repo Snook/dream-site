@@ -403,7 +403,7 @@
 		  $session_id = $tarray['session_id'];
 
 		  array_splice($tarray, $colcount, count($tarray));
-			$tarray['id'] = "=HYPERLINK(\"" . HTTPS_BASE . "backoffice/user_details?id=" . $tarray['id'] ."\", \"" . 'Link to User: ' . $tarray['id'] . "\")";
+			$tarray['id'] = "=HYPERLINK(\"" . HTTPS_BASE . "backoffice/user-details?id=" . $tarray['id'] ."\", \"" . 'Link to User: ' . $tarray['id'] . "\")";
 			$tarray['order_id'] = "=HYPERLINK(\"" . HTTPS_BASE . "backoffice/order-mgr?order=" . $tarray['order_id'] ."\", \"" . 'Link to Order: ' . $tarray['order_id'] . "\")";
 			$tarray['session_start'] = "=HYPERLINK(\"" . HTTPS_BASE . "backoffice/main?session=" . $session_id."\", \"" .  CTemplate::dateTimeFormat($tarray['session_start']) . "\")";
 

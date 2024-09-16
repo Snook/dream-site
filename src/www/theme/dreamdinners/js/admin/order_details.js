@@ -37,15 +37,15 @@ function sendDreamTasteInviteHostess()
 
 function Edit()
 {
-	bounce('/backoffice/order-mgr?order=' + order_id + '&back=' + back_path());
+	bounce('/backoffice/order-mgr?order=' + order_id);
 }
 
 function SessionDetails()
 {
-	bounce('/backoffice?session=' + session_id + '&back=' + back_path());
+	bounce('/backoffice?session=' + session_id);
 }
 
 function GuestDetails()
 {
-	bounce('/backoffice/user_details?id=' + user_id + '&back=' + back_path());
+	bounce('/backoffice/user-details?id=' + user_id);
 }

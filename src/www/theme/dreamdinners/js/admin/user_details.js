@@ -8,9 +8,7 @@ function viewPlatePoints(user_id)
 	var config = {
 		action: '/backoffice/user-plate-points',
 		input: {
-			user_id: user_id,
-			back: back_path()
-
+			user_id: user_id
 		}
 	};
 
@@ -24,9 +22,7 @@ function printEnrollmentForm(user_id)
 			action: '/backoffice/user-plate-points',
 			input: {
 				user_id: user_id,
-				back: back_path(),
 				print_enrollment_form: 'true'
-
 			}
 		};
 	create_and_submit_form(config);
@@ -43,7 +39,7 @@ function markAccountDataRequestCompleteConfirm(user_id)
 		modal: true,
 		confirm: function () {
 
-			bounce('/backoffice/user_details?id=' + user_id + '&action=confirmAccountInfoSent');
+			bounce('/backoffice/user-details?id=' + user_id + '&action=confirmAccountInfoSent');
 
 		}
 	});
@@ -57,7 +53,7 @@ function deleteUserConfirm(user_id)
 		modal: true,
 		confirm: function () {
 
-			bounce('/backoffice/user_details?id=' + user_id + '&action=delete');
+			bounce('/backoffice/user-details?id=' + user_id + '&action=delete');
 
 		}
 	});
@@ -71,7 +67,7 @@ function unsetHomeStore(user_id)
 		modal: true,
 		confirm: function () {
 
-			bounce('/backoffice/user_details?id=' + user_id + '&action=unsethome');
+			bounce('/backoffice/user-details?id=' + user_id + '&action=unsethome');
 
 		}
 	});

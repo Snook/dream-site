@@ -94,23 +94,23 @@
 			{
 				?>
 				<tr class="bgcolor_<?php echo ($counter++ % 2 == 0) ? 'light' : 'lighter'; ?>">
-					<td style="white-space:nowrap;"><a href="/backoffice/user_details?id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->rows->firstname; ?></a></td>
-					<td style="white-space:nowrap;"><a href="/backoffice/user_details?id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->rows->lastname; ?></a></td>
-					<td style="white-space:nowrap;"><a href="/backoffice/email?id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->rows->primary_email; ?></a></td>
+					<td style="white-space:nowrap;"><a href="/backoffice/user-details?id=<?php echo $this->rows->id; ?>"><?php echo $this->rows->firstname; ?></a></td>
+					<td style="white-space:nowrap;"><a href="/backoffice/user-details?id=<?php echo $this->rows->id; ?>"><?php echo $this->rows->lastname; ?></a></td>
+					<td style="white-space:nowrap;"><a href="/backoffice/email?id=<?php echo $this->rows->id; ?>"><?php echo $this->rows->primary_email; ?></a></td>
 					<?php if ($this->support_corporate_crate_search) { ?>
-						<td style="white-space:nowrap;"><a href="/backoffice/email?id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->rows->secondary_email; ?></a></td>
+						<td style="white-space:nowrap;"><a href="/backoffice/email?id=<?php echo $this->rows->id; ?>"><?php echo $this->rows->secondary_email; ?></a></td>
 					<?php } ?>
 					<td style="white-space:nowrap;text-align:center;"><?php echo $this->telephoneFormat($this->rows->telephone_1); ?></td>
-					<td style="white-space:nowrap;text-align:center;"><a href="/backoffice/user_details?id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" class="btn btn-primary btn-sm" >View Acct</a></td>
+					<td style="white-space:nowrap;text-align:center;"><a href="/backoffice/user-details?id=<?php echo $this->rows->id; ?>" class="btn btn-primary btn-sm" >View Acct</a></td>
 					<td style="white-space:nowrap;text-align:center;"><a href="/backoffice/list-users?edit_last_for=<?php echo $this->rows->id; ?>" class="btn btn-primary btn-sm" data-tooltip="<?php echo addToolTip($this->rows->id); ?>">Edit Last Order</a></td>
-					<td style="white-space:nowrap;text-align:center;"><a href="/backoffice/order-history?id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" class="btn btn-primary btn-sm">Orders</td>
+					<td style="white-space:nowrap;text-align:center;"><a href="/backoffice/order-history?id=<?php echo $this->rows->id; ?>" class="btn btn-primary btn-sm">Orders</td>
 					<?php if ($this->canPlaceOrder == true && ($this->rows->is_partial_account === "0" || $this->rows->is_partial_account === 0)) { ?>
-						<td style="white-space:nowrap;text-align:center;"><a class="btn btn-primary btn-sm" href="/backoffice/order-mgr?user=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->thisMonthStr; ?></a></td>
-						<td style="white-space:nowrap;text-align:center;"><a class="btn btn-primary btn-sm" href="/backoffice/order-mgr?user=<?php echo $this->rows->id; ?>&amp;month=<?php echo $this->nextMonthTimestamp; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->nextMonthStr; ?></a></td>
+						<td style="white-space:nowrap;text-align:center;"><a class="btn btn-primary btn-sm" href="/backoffice/order-mgr?user=<?php echo $this->rows->id; ?>"><?php echo $this->thisMonthStr; ?></a></td>
+						<td style="white-space:nowrap;text-align:center;"><a class="btn btn-primary btn-sm" href="/backoffice/order-mgr?user=<?php echo $this->rows->id; ?>&amp;month=<?php echo $this->nextMonthTimestamp; ?>"><?php echo $this->nextMonthStr; ?></a></td>
 					<?php } else { ?>
-						<td style="white-space:nowrap;text-align:center;" colspan="2"><a class="btn btn-primary btn-sm" href="/backoffice/account?upgrade=true&amp;id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Upgrade Account</a></td>
+						<td style="white-space:nowrap;text-align:center;" colspan="2"><a class="btn btn-primary btn-sm" href="/backoffice/account?upgrade=true&amp;id=<?php echo $this->rows->id; ?>">Upgrade Account</a></td>
 					<?php } ?>
-					<td style="white-space:nowrap;text-align:right;"><a href="/backoffice/user_details?id=<?php echo $this->rows->id; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $this->rows->id; ?></a></td>
+					<td style="white-space:nowrap;text-align:right;"><a href="/backoffice/user-details?id=<?php echo $this->rows->id; ?>"><?php echo $this->rows->id; ?></a></td>
 				</tr>
 			<?php } ?>
 			<?php } ?>

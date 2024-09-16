@@ -96,23 +96,6 @@ class form_login
 			CForm::value => 'Log in'
 		));
 
-		if (isset($_GET['back']) && $_GET['back'])
-		{
-			$Form->AddElement(array(
-				CForm::type => CForm::Hidden,
-				CForm::name => "back",
-				CForm::value => $_GET['back']
-			));
-		}
-		else
-		{
-			$Form->AddElement(array(
-				CForm::type => CForm::Hidden,
-				CForm::name => "back",
-				CForm::value => $_SERVER['REQUEST_URI']
-			));
-		}
-
 		$DAO_user = CUser::getCurrentUser();
 		if (!$DAO_user)
 		{

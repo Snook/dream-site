@@ -590,7 +590,7 @@ include $this->loadTemplate('admin/page_header.tpl.php');  ?>
 
 										?>
 
-										<td class="<?php echo $add_class;?> session_cell" id="ses_<?php ?><?php echo $thisSession['session_id'];?>"><a href="/backoffice?session=<?php echo $thisSession['session_id'];?>&back=/backoffice/reports-goal-management-v2"><?php echo $sessionTime;?></a></td>
+										<td class="<?php echo $add_class;?> session_cell" id="ses_<?php ?><?php echo $thisSession['session_id'];?>"><a href="/backoffice?session=<?php echo $thisSession['session_id'];?>"><?php echo $sessionTime;?></a></td>
 
 										<?php if ($thisSession['session_type'] != "Taste" && $thisSession['session_type'] != "Fundraiser" ) { ?>
 

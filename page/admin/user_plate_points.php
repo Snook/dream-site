@@ -401,15 +401,6 @@ class page_admin_user_plate_points extends CPageAdminOnly
 			}
 		}
 
-		if (!empty($_REQUEST['back']))
-		{
-			$tpl->assign('back', $_REQUEST['back']);
-		}
-		else
-		{
-			$tpl->assign('back', '/backoffice/user_details?id=' . $userID);
-		}
-
 		$userObj = DAO_CFactory::create('user');
 		$userObj->id = $userID;
 
@@ -419,15 +410,6 @@ class page_admin_user_plate_points extends CPageAdminOnly
 		if (!$userObj->find(true))
 		{
 			throw new Exception('User not found in user_plate_points.');
-		}
-
-		if (isset($_REQUEST['back']))
-		{
-			$tpl->assign('back', urldecode($_REQUEST['back']));
-		}
-		else
-		{
-			$tpl->assign('back', '/backoffice/user_details?id=' . $userID);
 		}
 
 		if (isset($_REQUEST['print_enrollment_form']))
@@ -747,5 +729,3 @@ class page_admin_user_plate_points extends CPageAdminOnly
 		return $returnVal;
 	}
 }
-
-?>

@@ -37,12 +37,12 @@
 			<div class="col">
 				<h1 id="fadash">BackOffice</h1>
 				<div class="list-group">
-					<a class="list-group-item list-group-item-action" href="/backoffice/main" target="_blank">View Home</a>
+					<a class="list-group-item list-group-item-action" href="/backoffice" target="_blank">View Home</a>
 					<a class="list-group-item list-group-item-action" href="/backoffice/order-history?id=<?php echo $this->current_user_id; ?>" target="_blank">View Orders</a>
 					<a class="list-group-item list-group-item-action" href="/backoffice/order-mgr?user=<?php echo $this->current_user_id; ?>" target="_blank">Add Order</a>
-					<a class="list-group-item list-group-item-action" href="/backoffice/user_details?id=<?php echo $this->current_user_id; ?>" target="_blank">View Account</a>
+					<a class="list-group-item list-group-item-action" href="/backoffice/user-details?id=<?php echo $this->current_user_id; ?>" target="_blank">View Account</a>
 					<a class="list-group-item list-group-item-action" href="/backoffice/account?id=<?php echo $this->current_user_id; ?>" target="_blank">Edit Account</a>
-					<a class="list-group-item list-group-item-action" href="/backoffice/store_details?id=175" target="_blank">View Store Information - Mill Creek</a>
+					<a class="list-group-item list-group-item-action" href="/backoffice/store-details?id=175" target="_blank">View Store Information - Mill Creek</a>
 					<a class="list-group-item list-group-item-action" href="/backoffice/session-mgr" target="_blank">View <?php echo $this->current_menu_name; ?>Calendar</a>
 					<a class="list-group-item list-group-item-action" href="/backoffice/create-session?menu=<?php echo $this->current_menu_id; ?>" target="_blank">Create Session</a>
 					<a class="list-group-item list-group-item-action" href="/backoffice/session_template_mgr" target="_blank">View Session Template Manager</a>
