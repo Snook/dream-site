@@ -83,15 +83,8 @@ class page_admin_user_membership extends CPageAdminOnly
 
 		if (!$Store->supports_membership && !$Store->supports_new_memberships)
 		{
-
-			$toURL = "/backoffice/main";
-			if (!empty($_REQUEST['back']))
-			{
-				$toURL = $_REQUEST['back'];
-			}
-
 			$tpl->setErrorMsg("This store does not support Meal Prep+.");
-			CApp::bounce($toURL);
+			CApp::bounce('/backoffice');
 		}
 
 		$tpl->assign('supports_new_memberships', $Store->supports_new_memberships);

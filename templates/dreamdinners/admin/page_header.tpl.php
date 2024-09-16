@@ -15,20 +15,9 @@
 
 <?php include $this->loadTemplate('admin/application_maintenance_msg.tpl.php'); ?>
 
-<?php if ($this->emergency_mode) {
-	include $this->loadTemplate('admin/subtemplate/emergency_mode_banner.tpl.php');
-} ?>
-
 <?php if (empty($this->print_view) || $this->print_view != true)
 {
-	if ($this->emergency_mode)
-	{
-		include $this->loadTemplate('admin/subtemplate/emergency_admin_nav.tpl.php');
-	}
-	else
-	{
-		include $this->loadTemplate('admin/subtemplate/admin_nav.tpl.php');
-	}
+	include $this->loadTemplate('admin/subtemplate/admin_nav.tpl.php');
 }
 ?>
 

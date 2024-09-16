@@ -1,10 +1,3 @@
-<?php
-$backNavigation = '';
-if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
-{
-	$backNavigation = '?back='.urlencode($_SERVER['REQUEST_URI']);
-}
-?>
 <?php if (new DateTime() >= new DateTime('2024-04-01') && new DateTime() < new DateTime('2024-08-27')) { ?>
 	<?php if (!CUser::isLoggedIn() || CUser::getCurrentUser()->isNewBundleCustomer()) { ?>
 		<div class="alert alert-cyan-dark text-white text-uppercase alert-dismissible fade collapse mb-0" role="alert" data-dismiss-session-alert="promotional-banner">
@@ -76,7 +69,7 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 								<a class="nav-link" href="/gift">Gift</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link login_sign_in<?php if (CUser::isLoggedIn()) { ?> collapse<?php } ?>" href="/login<?php echo $backNavigation;?>">Sign In</a>
+								<a class="nav-link login_sign_in<?php if (CUser::isLoggedIn()) { ?> collapse<?php } ?>" href="/login">Sign In</a>
 								<div class="dropdown login_signed_in<?php if (!CUser::isLoggedIn()) { ?> collapse<?php } ?>">
 									<a class="nav-link dropdown-toggle text-white-space-nowrap" href="/my-account" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										Hi, <span class="login_first_name"><?php echo CUser::getCurrentUser()->firstname; ?></span>
@@ -91,7 +84,7 @@ if(array_key_exists('page', $_REQUEST) || array_key_exists('static', $_REQUEST))
 											<a class="dropdown-item nav-link" href="/my-events">My events</a>
 										<?php } ?>
 										<a class="dropdown-item nav-link" href="/account">Edit account</a>
-										<a class="dropdown-item nav-link" href="/signout<?php echo (property_exists($this,'logout_navigation_page') ?  $this->logout_navigation_page:''); ?>">Sign Out</a>
+										<a class="dropdown-item nav-link" href="/signout">Sign Out</a>
 
 										<?php if (CUser::isUserStaff()) { ?>
 											<div class="dropdown-divider"></div>

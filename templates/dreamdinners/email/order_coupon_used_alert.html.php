@@ -15,7 +15,7 @@
 <table role="presentation" width="650" border="0" cellspacing="0" cellpadding="8">
 	<tr>
 		<td><p class="sectionhead"><b>CUSTOMER INFORMATION</b></p>
-			Name: <a href="<?php echo HTTPS_SERVER; ?>/backoffice/user_details?id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a><br />
+			Name: <a href="<?php echo HTTPS_SERVER; ?>/backoffice/user-details?id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a><br />
 			Email:&nbsp;<?php echo $this->customer_primary_email; ?>
 			<p>&nbsp; </p>
 			<p class="sectionhead"><b>Coupon Used</b></p>

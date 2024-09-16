@@ -88,7 +88,7 @@ function saveGuestCarryoverNotes_<?php echo $guest_carryover_note_user_id; ?>()
 //]]>
 </script>
 <div style="width:98%;">
-	<div id="guest_carryover_notes_read_<?php echo $guest_carryover_note_user_id; ?>"><?php if (!$this->emergency_mode) {?><input type="button" value="Edit" class="btn btn-primary btn-sm" onclick="editGuestCarryoverNotes_<?php echo $guest_carryover_note_user_id; ?>()" style="float:right;margin-left:4px;margin-bottom:4px;" /><?php } ?>
+	<div id="guest_carryover_notes_read_<?php echo $guest_carryover_note_user_id; ?>"><input type="button" value="Edit" class="btn btn-primary btn-sm" onclick="editGuestCarryoverNotes_<?php echo $guest_carryover_note_user_id; ?>()" style="float:right;margin-left:4px;margin-bottom:4px;" />
 		<span id="guest_carryover_note_<?php echo $guest_carryover_note_user_id; ?>" <?php if ($guest_carryover_notes_set && !empty($guestNote->hide_carryover_notes)) { ?>style="display:none;"<?php } ?>><?php echo $guest_carryover_notes; ?></span>
 		<?php if ($guest_carryover_notes_set && !empty($guestNote->hide_carryover_notes)) { ?><span id="show_guest_carryover_note_<?php echo $guest_carryover_note_user_id; ?>"><input type="button" value="View Note" class="btn btn-primary btn-sm" onclick="showGuestCarryoverNotes_<?php echo $guest_carryover_note_user_id; ?>()" /></span><?php } ?>
 	</div>

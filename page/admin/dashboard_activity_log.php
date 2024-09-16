@@ -61,13 +61,6 @@ class page_admin_dashboard_activity_log extends CPageAdminOnly
 
 	function runSiteAdmin()
 	{
-		$this->Template->assign('back', '/backoffice/main');
-
-		if (!empty($_REQUEST['back']))
-		{
-			$this->Template->assign('back', $_REQUEST['back']);
-		}
-
 		$storeForm = new CForm();
 		$storeForm->Repost = true;
 		$storeForm->Bootstrap = true;

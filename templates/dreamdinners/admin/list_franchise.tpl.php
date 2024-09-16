@@ -67,8 +67,8 @@
 	</tr>
 	<?php } ?>
 	<tr>
-		<td class="bgcolor_light"><a href="/backoffice/franchise-details?id=<?php echo $row['id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $row['id']; ?></a></td>
-		<td class="bgcolor_light"><a href="/backoffice/franchise-details?id=<?php echo $row['id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $row['franchise_name']; ?></a></td>
+		<td class="bgcolor_light"><a href="/backoffice/franchise-details?id=<?php echo $row['id']; ?>"><?php echo $row['id']; ?></a></td>
+		<td class="bgcolor_light"><a href="/backoffice/franchise-details?id=<?php echo $row['id']; ?>"><?php echo $row['franchise_name']; ?></a></td>
 		<td class="bgcolor_light" style="text-align: center;"><?php echo (!empty($row['active'])) ? '<span style="color:green;">Yes</span>' : '<span style="color:red;">No</span>'; ?></td>
 		<td class="bgcolor_light" style="text-align: center;"><?php echo CTemplate::dateTimeFormat($row['timestamp_created'], MONTH_DAY_YEAR); ?></td>
 		<td class="bgcolor_light" style="text-align: center;"><?php echo CTemplate::dateTimeFormat($row['timestamp_updated'], MONTH_DAY_YEAR); ?></td>

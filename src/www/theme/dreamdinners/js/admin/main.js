@@ -1462,8 +1462,7 @@ function handle_reschedule_button()
 					'store_id': $(this).data('store_id'),
 					'menus': $(this).data('menu_id'),
 					'menu_id': $(this).data('menu_id'),
-					'order_id': $(this).data('order_id'),
-					'back_address': back_path()
+					'order_id': $(this).data('order_id')
 				})
 			});
 
@@ -2223,19 +2222,19 @@ function handle_session_tools()
 	// Dashboard Snapshot
 	$('#ds_goal_tracking').on('click', function (e) {
 
-		bounce('/backoffice/reports-goal-management-v2?date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path());
+		bounce('/backoffice/reports-goal-management-v2?date=' + selected_date + '&store_id=' + STORE_DETAILS.id);
 
 	});
 
 	$('#ds_trending').on('click', function (e) {
 
-		bounce('/backoffice/reports-trending-menu-based?date=' + selected_date + '&store=' + STORE_DETAILS.id + '&back=' + back_path());
+		bounce('/backoffice/reports-trending-menu-based?date=' + selected_date + '&store=' + STORE_DETAILS.id);
 
 	});
 
 	$('#ds_dashboard').on('click', function (e) {
 
-		bounce('/backoffice/dashboard-menu-based?override_month=' + selected_date + '&store=' + STORE_DETAILS.id + '&back=' + back_path());
+		bounce('/backoffice/dashboard-menu-based?override_month=' + selected_date + '&store=' + STORE_DETAILS.id);
 
 	});
 
@@ -2244,7 +2243,7 @@ function handle_session_tools()
 
 		if (view_session == true)
 		{
-			bounce('/backoffice/edit-session?session=' + selected_session_id + '&back=' + back_path());
+			bounce('/backoffice/edit-session?session=' + selected_session_id);
 		}
 
 	});
@@ -2253,7 +2252,7 @@ function handle_session_tools()
 
 		if (view_session == true)
 		{
-			bounce('/backoffice/email?session=' + selected_session_id + '&back=' + back_path());
+			bounce('/backoffice/email?session=' + selected_session_id);
 		}
 
 	});
@@ -2318,7 +2317,7 @@ function handle_session_tools()
 
 		if (view_session != true)
 		{
-			bounce('/backoffice/create-session?date=' + selected_date + '&menu=' + selected_menu_id + '&back=' + back_path());
+			bounce('/backoffice/create-session?date=' + selected_date + '&menu=' + selected_menu_id);
 		}
 
 	});
@@ -2329,59 +2328,59 @@ function update_session_tool_links()
 {
 	if (view_session == true)
 	{
-		$('#st_customer_receipt').prop('href', '/backoffice/order-details-view-all?customer_print_view=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_franchise_receipt').prop('href', '/backoffice/order-details-view-all?session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_entree_summary').prop('href', '/backoffice/reports-select-multi-session?query_submit=1&report_id=2&printer=1&pickSession=2&session_id=' + selected_session_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_side_dish_report').prop('href', '/backoffice/order-details-view-all?issidedish=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_fast_lane_report').prop('href', '/backoffice/order-details-view-all?ispreassembled=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_dream_rewards').prop('href', '/backoffice/reports_dream_rewards_for_session?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_future_orders').prop('href', '/backoffice/order-details-view-all_future?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_session_goal_sheet_print').prop('href', '/backoffice/reports_goal_tracking?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&print=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_session_goal_sheet_xls').prop('href', '/backoffice/reports_goal_tracking?export=xlsx&hideheaders=true&csvfilename=SessionGoalSheet&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&back=' + back_path());
-		$('#st_print_labels').prop('href', '/backoffice/reports-customer-menu-item-labels?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
-		$('#st_print_labels_w_breaks').prop('href', '/backoffice/reports-customer-menu-item-labels?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&break=1&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
+		$('#st_customer_receipt').prop('href', '/backoffice/order-details-view-all?customer_print_view=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id).prop('target', '_blank');
+		$('#st_franchise_receipt').prop('href', '/backoffice/order-details-view-all?session_id=' + selected_session_id + '&menuid=' + selected_menu_id).prop('target', '_blank');
+		$('#st_entree_summary').prop('href', '/backoffice/reports-select-multi-session?query_submit=1&report_id=2&printer=1&pickSession=2&session_id=' + selected_session_id).prop('target', '_blank');
+		$('#st_side_dish_report').prop('href', '/backoffice/order-details-view-all?issidedish=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id).prop('target', '_blank');
+		$('#st_fast_lane_report').prop('href', '/backoffice/order-details-view-all?ispreassembled=1&session_id=' + selected_session_id + '&menuid=' + selected_menu_id).prop('target', '_blank');
+		$('#st_dream_rewards').prop('href', '/backoffice/reports_dream_rewards_for_session?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id).prop('target', '_blank');
+		$('#st_future_orders').prop('href', '/backoffice/order-details-view-all_future?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id).prop('target', '_blank');
+		$('#st_session_goal_sheet_print').prop('href', '/backoffice/reports_goal_tracking?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&print=true').prop('target', '_blank');
+		$('#st_session_goal_sheet_xls').prop('href', '/backoffice/reports_goal_tracking?export=xlsx&hideheaders=true&csvfilename=SessionGoalSheet&session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&report_submit=true');
+		$('#st_print_labels').prop('href', '/backoffice/reports-customer-menu-item-labels?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
+		$('#st_print_labels_w_breaks').prop('href', '/backoffice/reports-customer-menu-item-labels?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&break=1&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
 		$('#st_print_labels_by_dinner').prop('href', '/backoffice/reports-customer-menu-item-labels?session_id=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&order_by=dinner&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
 		$('#st_print_enrollment_forms').prop('href', '/backoffice/user-plate-points?session_id=' + selected_session_id + '&print_sessions_forms=true').prop('target', '_blank');
-		$('#st_plate_points_status_and_rewards_report').prop('href', '/backoffice/reports_points_status_and_rewards?session_id=' + selected_session_id + '&back=' + back_path());
-		$('#st_customer_menu_core').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_current').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&cur=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_freezer').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&freezer=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_nutrition').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&nutrition=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_freezer').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_freezer_nutrition').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&nutrition=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_daily_boxes_shipped').prop('href', '/backoffice/reports_delivered_daily_boxes?type=shipping&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_daily_boxes_delivered').prop('href', '/backoffice/reports_delivered_daily_boxes?type=delivering&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_plate_points_status_and_rewards_report').prop('href', '/backoffice/reports_points_status_and_rewards?session_id=' + selected_session_id);
+		$('#st_customer_menu_core').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true').prop('target', '_blank');
+		$('#st_customer_menu_core_current').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&cur=true').prop('target', '_blank');
+		$('#st_customer_menu_freezer').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&freezer=true').prop('target', '_blank');
+		$('#st_customer_menu_nutrition').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&nutrition=true').prop('target', '_blank');
+		$('#st_customer_menu_core_freezer').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true').prop('target', '_blank');
+		$('#st_customer_menu_core_freezer_nutrition').prop('href', '/backoffice/session-tools-printing?do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&nutrition=true').prop('target', '_blank');
+		$('#st_daily_boxes_shipped').prop('href', '/backoffice/reports_delivered_daily_boxes?type=shipping&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id).prop('target', '_blank');
+		$('#st_daily_boxes_delivered').prop('href', '/backoffice/reports_delivered_daily_boxes?type=delivering&do=print&session=' + selected_session_id + '&store_id=' + STORE_DETAILS.id).prop('target', '_blank');
 
 	}
 	else
 	{
-		$('#st_customer_receipt').prop('href', '/backoffice/order-details-view-all-multi?customer_print_view=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_franchise_receipt').prop('href', '/backoffice/order-details-view-all-multi?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_entree_summary').prop('href', '/backoffice/reports-select-multi-session?query_submit=1&report_date=' + selected_date + '&report_id=1&printer=1&back=' + back_path()).prop('target', '_blank');
-		$('#st_side_dish_report').prop('href', '/backoffice/order-details-view-all-multi?issidedish=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_fast_lane_report').prop('href', '/backoffice/order-details-view-all-multi?ispreassembled=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_dream_rewards').prop('href', '/backoffice/reports_dream_rewards_for_session_multi?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_future_orders').prop('href', '/backoffice/order-details-view-all_future_multi?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_session_goal_sheet_print').prop('href', '/backoffice/reports_goal_tracking?multi_session=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&print=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_session_goal_sheet_xls').prop('href', '/backoffice/reports_goal_tracking?export=xlsx&hideheaders=true&csvfilename=SessionGoalSheetSummary&multi_session=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&back=' + back_path());
-		$('#st_print_labels').prop('href', '/backoffice/reports-customer-menu-item-labels-multi?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
-		$('#st_print_labels_w_breaks').prop('href', '/backoffice/reports-customer-menu-item-labels-multi?labels_per_sheet=4&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&back=' + back_path() + '&break=1&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
-		$('#st_print_labels_by_dinner').prop('href', '/backoffice/reports-customer-menu-item-labels-multi?labels_per_sheet=4&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&order_by=dinner&back=' + back_path() + '&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
+		$('#st_customer_receipt').prop('href', '/backoffice/order-details-view-all-multi?customer_print_view=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id).prop('target', '_blank');
+		$('#st_franchise_receipt').prop('href', '/backoffice/order-details-view-all-multi?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id).prop('target', '_blank');
+		$('#st_entree_summary').prop('href', '/backoffice/reports-select-multi-session?query_submit=1&report_date=' + selected_date + '&report_id=1&printer=1').prop('target', '_blank');
+		$('#st_side_dish_report').prop('href', '/backoffice/order-details-view-all-multi?issidedish=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id).prop('target', '_blank');
+		$('#st_fast_lane_report').prop('href', '/backoffice/order-details-view-all-multi?ispreassembled=1&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id).prop('target', '_blank');
+		$('#st_dream_rewards').prop('href', '/backoffice/reports_dream_rewards_for_session_multi?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id).prop('target', '_blank');
+		$('#st_future_orders').prop('href', '/backoffice/order-details-view-all_future_multi?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id).prop('target', '_blank');
+		$('#st_session_goal_sheet_print').prop('href', '/backoffice/reports_goal_tracking?multi_session=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&report_submit=true&print=true').prop('target', '_blank');
+		$('#st_session_goal_sheet_xls').prop('href', '/backoffice/reports_goal_tracking?export=xlsx&hideheaders=true&csvfilename=SessionGoalSheetSummary&multi_session=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&report_submit=true');
+		$('#st_print_labels').prop('href', '/backoffice/reports-customer-menu-item-labels-multi?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
+		$('#st_print_labels_w_breaks').prop('href', '/backoffice/reports-customer-menu-item-labels-multi?labels_per_sheet=4&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&break=1&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
+		$('#st_print_labels_by_dinner').prop('href', '/backoffice/reports-customer-menu-item-labels-multi?labels_per_sheet=4&report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&menuid=' + selected_menu_id + '&order_by=dinner&suppressFastlane=' + suppress_fastlane_labels).prop('target', '_blank');
 		$('#st_print_enrollment_forms').prop('href', '/backoffice/user-plate-points?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&print_days_forms=true').prop('target', '_blank');
-		$('#st_plate_points_status_and_rewards_report').prop('href', '/backoffice/reports_points_status_and_rewards?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path());
-		$('#st_customer_menu_core').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_current').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&cur=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_freezer').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&freezer=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_nutrition').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&nutrition=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_freezer').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_customer_menu_core_freezer_nutrition').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&nutrition=true&back=' + back_path()).prop('target', '_blank');
-		$('#st_daily_boxes_shipped').prop('href', '/backoffice/reports_delivered_daily_boxes?type=shipping&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
-		$('#st_daily_boxes_delivered').prop('href', '/backoffice/reports_delivered_daily_boxes?type=delivering&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&back=' + back_path()).prop('target', '_blank');
+		$('#st_plate_points_status_and_rewards_report').prop('href', '/backoffice/reports_points_status_and_rewards?report_date=' + selected_date + '&store_id=' + STORE_DETAILS.id);
+		$('#st_customer_menu_core').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true').prop('target', '_blank');
+		$('#st_customer_menu_core_current').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&cur=true').prop('target', '_blank');
+		$('#st_customer_menu_freezer').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&freezer=true').prop('target', '_blank');
+		$('#st_customer_menu_nutrition').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&nutrition=true').prop('target', '_blank');
+		$('#st_customer_menu_core_freezer').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true').prop('target', '_blank');
+		$('#st_customer_menu_core_freezer_nutrition').prop('href', '/backoffice/session-tools-printing?do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id + '&core=true&freezer=true&nutrition=true').prop('target', '_blank');
+		$('#st_daily_boxes_shipped').prop('href', '/backoffice/reports_delivered_daily_boxes?type=shipping&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id).prop('target', '_blank');
+		$('#st_daily_boxes_delivered').prop('href', '/backoffice/reports_delivered_daily_boxes?type=delivering&do=print&date=' + selected_date + '&store_id=' + STORE_DETAILS.id).prop('target', '_blank');
 	}
 
-	$('#st_finishing_touch_pick_sheet').prop('href', '/backoffice/finishing-touch-printable-form?store_id=' + STORE_DETAILS.id + '&menu_id=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-	$('#st_print_generic_labels').prop('href', '/backoffice/reports-customer-menu-item-labels?store_id=' + STORE_DETAILS.id + '&interface=1&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
-	$('#st_print_generic_nutrition_labels').prop('href', '/backoffice/reports-menu-item-nutritional-labels?store_id=' + STORE_DETAILS.id + '&interface=1&menuid=' + selected_menu_id + '&back=' + back_path()).prop('target', '_blank');
+	$('#st_finishing_touch_pick_sheet').prop('href', '/backoffice/finishing-touch-printable-form?store_id=' + STORE_DETAILS.id + '&menu_id=' + selected_menu_id).prop('target', '_blank');
+	$('#st_print_generic_labels').prop('href', '/backoffice/reports-customer-menu-item-labels?store_id=' + STORE_DETAILS.id + '&interface=1&menuid=' + selected_menu_id).prop('target', '_blank');
+	$('#st_print_generic_nutrition_labels').prop('href', '/backoffice/reports-menu-item-nutritional-labels?store_id=' + STORE_DETAILS.id + '&interface=1&menuid=' + selected_menu_id).prop('target', '_blank');
 }
 
 function handle_guest_search()
@@ -2395,8 +2394,7 @@ function handle_guest_search()
 				'page': 'admin_list_users',
 				'search_type': $('#gs_search_type').val(),
 				'all_stores': ($('#gs_search_all').is(':checked') ? 1 : 0),
-				'q': $('#gs_search_value').val(),
-				'back': back_path()
+				'q': $('#gs_search_value').val()
 			})
 		});
 

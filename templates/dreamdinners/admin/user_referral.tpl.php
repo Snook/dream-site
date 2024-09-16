@@ -10,11 +10,7 @@
 	<strong>Store:</strong> <?php echo $this->form['store_html']; ?><br /><br />
 <?php } ?>
 	<table style="width: 100%;"><tr><td>
-				<?php if (isset($_REQUEST['back'])) { ?>
-					<input type="button" value="Back" onClick="bounce('<?= $_REQUEST['back']?>');">
-				<?php } else { ?>
-					<input type="button" value="Back" onClick="bounce('/backoffice/user_details?id=<?= $this->customer_id?>');">
-				<?php } ?>
+			<input type="button" value="Back" onClick="bounce('/backoffice/user-details?id=<?= $this->customer_id?>');">
 
 			</td><td width="95%" style="text-align:center;"><h3 >Who Referred <?php echo $this->customerName; ?></h3>
 			</td></tr></table>
@@ -50,7 +46,7 @@
 				<tr>
 					<td><button style="height:20px; font-size:10px;"
 								onclick="useGuestAccount(<?php echo $i; ?>, '<?php echo $ref['email']; ?>', <?php echo $ref['user_id']; ?>, <?php echo ($ref['is_pending']) ? "true" : "false"?>, <?php echo ($ref['inPP']) ? "true" : "false"?> );">Select</button></td>
-					<td class="bgcolor_light"><a href="<?php echo CTemplate::getUserDetailsLink($ref['user_id']);?>"><?=$ref['name']?></a></td>
+					<td class="bgcolor_light"><a href="/backoffice/user-details?id=<?php echo $ref['user_id']; ?>"><?=$ref['name']?></a></td>
 					<td class="bgcolor_light"><?=$ref['email']?></td>
 					<td class="bgcolor_light"><?=$ref['type']?></td>
 					<td class="bgcolor_light"><?=CTemplate::dateTimeFormat($ref['date'], NORMAL, $this->store_id, CONCISE)?></td>

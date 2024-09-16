@@ -5,7 +5,7 @@
 <?php $this->setOnLoad("PlatePoints_init('".$this->userObj->id."');");?>
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
-	<h2 style="margin-bottom: 10px;">PlatePoints History for <a href="/backoffice/user_details?id=<?php echo $this->userObj->id; ?>"><?php echo $this->userObj->firstname; ?> <?php echo $this->userObj->lastname; ?></a></h2>
+	<h2 style="margin-bottom: 10px;">PlatePoints History for <a href="/backoffice/user-details?id=<?php echo $this->userObj->id; ?>"><?php echo $this->userObj->firstname; ?> <?php echo $this->userObj->lastname; ?></a></h2>
 
 
 	<div class="collapse" id="plate_points_head">

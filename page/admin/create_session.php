@@ -982,10 +982,7 @@ class page_admin_create_session extends CPageAdminOnly
 							CEmail::sendHostessNotification($PP_User->primary_email, $PP_User->firstname . ' ' . $PP_User->lastname, $DAO_session);
 						}
 
-						if (isset($_GET['back']))
-						{
-							CApp::bounce($_GET['back']);
-						}
+						CApp::bounce('/backoffice/session-mgr');
 					}
 					else
 					{

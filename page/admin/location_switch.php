@@ -121,5 +121,3 @@ class page_admin_location_switch extends CPageAdminOnly
 		$tpl->assign('form_location_switch', $formArray);
 	}
 }
-
-?>

@@ -77,7 +77,7 @@
 				<img src="<?php echo ADMIN_IMAGES_PATH; ?>/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" class="img-fluid">
 			</a>
 			<div class="nav-item">
-				<button class="btn btn-sm btn-outline-green" value="Change" onclick="bounce('/backoffice/location_switch?back=' + back_path());">
+				<button class="btn btn-sm btn-outline-green" value="Change" onclick="bounce('/backoffice/location-switch">
 					<?php echo (!empty(CStore::getFranchiseStore()->store_name)) ? CStore::getFranchiseStore()->store_name : 'Store not set'; ?>
 				</button>
 			</div>

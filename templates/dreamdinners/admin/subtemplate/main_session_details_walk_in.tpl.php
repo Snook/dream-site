@@ -45,7 +45,7 @@
 	<?php if (!empty($this->session_info['created_by'])) { ?>
 		<tr>
 			<td class="label">Created By</td>
-			<td colspan="3" class="value"><a href="/backoffice/user_details?id=<?php echo $this->session_info['created_by']; ?>"><?php echo $this->session_info['created_by_firstname']; ?> <?php echo $this->session_info['created_by_lastname']; ?></a></td>
+			<td colspan="3" class="value"><a href="/backoffice/user-details?id=<?php echo $this->session_info['created_by']; ?>"><?php echo $this->session_info['created_by_firstname']; ?> <?php echo $this->session_info['created_by_lastname']; ?></a></td>
 		</tr>
 		<tr>
 			<td class="label">Created</td>
@@ -55,7 +55,7 @@
 	<?php if (!empty($this->session_info['updated_by'])) { ?>
 		<tr>
 			<td class="label">Updated By</td>
-			<td colspan="3" class="value"><a href="/backoffice/user_details?id=<?php echo $this->session_info['updated_by']; ?>"><?php echo $this->session_info['updated_by_firstname']; ?> <?php echo $this->session_info['updated_by_lastname']; ?></a></td>
+			<td colspan="3" class="value"><a href="/backoffice/user-details?id=<?php echo $this->session_info['updated_by']; ?>"><?php echo $this->session_info['updated_by_firstname']; ?> <?php echo $this->session_info['updated_by_lastname']; ?></a></td>
 		</tr>
 		<tr>
 			<td class="label">Updated</td>

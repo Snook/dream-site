@@ -288,16 +288,6 @@ class page_admin_user_referral extends CPageAdminOnly {
 
 		processor_admin_guestSearch::initSeachPanel($tpl, $store);
 
-		if (isset($_REQUEST['back']))
-		{
-			$tpl->assign('back', $_REQUEST['back'] );
-
-		}
-		else
-		{
-			$tpl->assign('back', '/backoffice/user_details?id=' . $user_id);
-		}
-
 		$doubleReferralRewardInEffect = false;
 		$now = time();
 		if ($now > strtotime('2020-04-02 00:00:00') && $now < (strtotime('2020-06-04 03:00:00')))
@@ -642,5 +632,3 @@ class page_admin_user_referral extends CPageAdminOnly {
 	}
 
 }
-
-?>

@@ -13,7 +13,7 @@
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
 	<h1 id="fadash"><?php echo $this->page_title; ?> -
-		<a id="selected_date_link" href="/backoffice/main"><span id="selected_day"><?php echo CTemplate::dateTimeFormat($this->adjusted_server_time, VERBOSE_DATE); ?></span><span id="selected_session"></span></a>
+		<a id="selected_date_link" href="/backoffice"><span id="selected_day"><?php echo CTemplate::dateTimeFormat($this->adjusted_server_time, VERBOSE_DATE); ?></span><span id="selected_session"></span></a>
 		<img src="<?php echo ADMIN_IMAGES_PATH; ?>/style/throbber_circle.gif" class="img_valign img_throbber_circle" data-tooltip="Processing" alt="Processing"/>
 	</h1>
 

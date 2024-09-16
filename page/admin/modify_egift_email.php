@@ -34,11 +34,6 @@ class page_admin_modify_egift_email extends CPageAdminOnly {
 		$OrderRetreiver->id = CGPC::do_clean($_REQUEST['gcOrder'],TYPE_INT);
 		$OrderRetreiver->find(true);
 
-		if (!empty($_REQUEST['back']))
-		{
-			$tpl->assign('back', $_REQUEST['back']);
-		}
-
 		$Form = new CForm();
 
 		$Form->Repost = FALSE;
@@ -86,6 +81,3 @@ class page_admin_modify_egift_email extends CPageAdminOnly {
 
 
 }
-
-
-?>

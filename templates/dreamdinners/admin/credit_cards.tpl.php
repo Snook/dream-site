@@ -24,11 +24,7 @@
 
 
 <table width="1200"><tr><td>
-<?php if (isset($_REQUEST['back'])) { ?>
-	<input type="button" value="Back" onClick="window.location = '<?= $_REQUEST['back']?>';">
-<?php } else { ?>
-	<input type="button" value="Back" onClick="window.location = '/backoffice/user_details?id=<?= $this->customer_id?>';">
-<?php } ?>
+<input type="button" value="Back" onClick="window.location = '/backoffice/user-details?id=<?= $this->customer_id?>';">
 </td><td width="95%" style="text-align:center;"><h3>Viewing Credit Cards for: <?=$this->customer_first?> <?=$this->customer_last?></h3>
 </td></tr></table>
 

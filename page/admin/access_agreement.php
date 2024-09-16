@@ -113,8 +113,6 @@ class page_admin_access_agreement extends CPageAdminOnly
 	 */
 	function runAccessAgreement()
 	{
-		$this->Template->assign('back', '/backoffice');
-
 		if (!empty($_POST['agree_to_nda']) && !empty($_POST['agree_to_nda_submit']))
 		{
 			$DAO_store = DAO_CFactory::create('store');

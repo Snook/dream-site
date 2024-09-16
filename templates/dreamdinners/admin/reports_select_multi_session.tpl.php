@@ -98,7 +98,7 @@ include $this->loadTemplate('admin/page_header.tpl.php');
 
 		function PrintLabelsForSummary(urlpass)
 		{
-			var baseURL = "/backoffice/reports-customer-menu-item-labels-multi?report_date=<?=$this->report_date?>&store_id=<?=$this->store_id?>&menuid=<?=$this->menu_id?>&back=<?=urlencode($this->form_submit_string)?>";
+			var baseURL = "/backoffice/reports-customer-menu-item-labels-multi?report_date=<?=$this->report_date?>&store_id=<?=$this->store_id?>&menuid=<?=$this->menu_id?>";
 			baseURL += urlpass;
 			var item = document.getElementsByName("FastLane");
 			var suppress="&fastlane="+item[0].checked;
@@ -280,21 +280,21 @@ if ($this->print_view == false) {
 							<td colspan="4"><font size="3" color="#480000"><b>Session Tools</b></font></td>
 						</tr>
 						<tr>
-							<td><a target="_print" href="/backoffice/order-details-view-all-multi?report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;back=<?=urlencode($this->form_submit_string)?>">Franchise View <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
-							<td><a target="_print" href="/backoffice/order-details-view-all-multi?customer_print_view=1&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;back=<?=urlencode($this->form_submit_string)?>">Customer View <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
-							<td><a target="_print" href="/backoffice/order-details-view-all-multi?report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;issidedish=1&amp;back=<?=urlencode($this->form_submit_string)?>">Side Dish Report <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
-							<td><a target="_print" href="/backoffice/order-details-view-all-multi?customer_print_view=1&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;ispreassembled=1&amp;back=<?=urlencode($this->form_submit_string)?>">Fast Lane Report <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+							<td><a target="_print" href="/backoffice/order-details-view-all-multi?report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>">Franchise View <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+							<td><a target="_print" href="/backoffice/order-details-view-all-multi?customer_print_view=1&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>">Customer View <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+							<td><a target="_print" href="/backoffice/order-details-view-all-multi?report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;issidedish=1">Side Dish Report <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+							<td><a target="_print" href="/backoffice/order-details-view-all-multi?customer_print_view=1&amp;report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;ispreassembled=1">Fast Lane Report <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
 						</tr>
 						<tr>
-							<td><a target="_print" href="/backoffice/reports_dream_rewards_for_session_multi?report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;menuid=<?=$this->menu_id?>&amp;back=<?=urlencode($this->form_submit_string)?>">Print Dream Rewards <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
-							<td><a target="_print" href="/backoffice/order-details-view-all_future_multi?report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;back=<?=urlencode($this->form_submit_string)?>">Future Orders <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+							<td><a target="_print" href="/backoffice/reports_dream_rewards_for_session_multi?report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;menuid=<?=$this->menu_id?>">Print Dream Rewards <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
+							<td><a target="_print" href="/backoffice/order-details-view-all_future_multi?report_date=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>">Future Orders <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
 							<td><a target="_print" href="/backoffice/reports_goal_tracking?multi_session=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;report_submit=true&amp;print=true">Session Goal Sheet <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
 							<td><a href="/backoffice/reports_goal_tracking?export=xlsx&amp;hideheaders=true&amp;csvfilename=SessionGoalSheetSummary&amp;multi_session=<?=$this->report_date?>&amp;store_id=<?=$this->store_id?>&amp;report_submit=true">Session Goal Sheet <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/page_excel.png" alt="Excel" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>
 						</tr>
 						<?php if ($this->menu_id > 137) { ?>
 							<tr>
 								<td colspan="4">
-									<a target="_print" href="/backoffice/finishing-touch-printable-form?store_id=<?= $this->store_id ?>&amp;menu_id=<?= $this->menu_id ?>&amp;back=<?= urlencode($this->form_submit_string) ?>">Print
+									<a target="_print" href="/backoffice/finishing-touch-printable-form?store_id=<?= $this->store_id ?>&amp;menu_id=<?= $this->menu_id ?>">Print
 																																																									 Sides &amp; Sweets Pick Sheet <img src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;"/></a></td>
 							</tr>
 						<?php } ?>
@@ -340,12 +340,12 @@ if ($this->print_view == false) {
 					if ($this->report_type ==2 && $this->session_type_to_run == 2)
 					{
 						$results_display .= "<tr>";
-						$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all?session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Franchise View <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
-						$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Customer View <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+						$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all?session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '">Franchise View <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+						$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '">Customer View <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 
 						if ($this->menu_id >= 77 ) {
-							$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all?session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;issidedish=1&amp;back='.urlencode($this->form_submit_string).'">Side Dish Report <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
-							$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;ispreassembled=1&amp;back='.urlencode($this->form_submit_string).'">Fast Lane Report <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+							$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all?session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;issidedish=1">Side Dish Report <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+							$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;ispreassembled=1">Fast Lane Report <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 						}
 						else
 						{
@@ -358,7 +358,7 @@ if ($this->print_view == false) {
 
 						if ($this->menu_id > 137)
 						{
-							$results_display .= '<tr><td colspan="4"><a target="_print" href="/backoffice/finishing-touch-printable-form?store_id=' . $this->store_id . '&amp;menu_id=' . $this->menu_id . '&amp;back=' . urlencode($this->form_submit_string) . '">Print Sides &amp; Sweets Pick Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td></tr>';
+							$results_display .= '<tr><td colspan="4"><a target="_print" href="/backoffice/finishing-touch-printable-form?store_id=' . $this->store_id . '&amp;menu_id=' . $this->menu_id . '">Print Sides &amp; Sweets Pick Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td></tr>';
 						}
 
 
@@ -366,8 +366,8 @@ if ($this->print_view == false) {
 						{
 
 							$results_display .= "<tr>" ;
-							$results_display .= '<td><a target="_print" href="/backoffice/reports_dream_rewards_for_session?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Print Dream Rewards <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
-							$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all_future?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;back='.urlencode($this->form_submit_string).'">Future Orders <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+							$results_display .= '<td><a target="_print" href="/backoffice/reports_dream_rewards_for_session?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '">Print Dream Rewards <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+							$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all_future?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '">Future Orders <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 							$results_display .= '<td><a target="_print" href="/backoffice/reports_goal_tracking?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;report_submit=true&amp;print=true">Session Goal Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 							$results_display .= '<td><a href="/backoffice/reports_goal_tracking?export=xlsx&amp;hideheaders=true&amp;csvfilename=SessionGoalSheet&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;report_submit=true">Session Goal Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/page_excel.png" alt="Excel" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 							$results_display .= "</tr>" . "\n";
@@ -379,7 +379,7 @@ if ($this->print_view == false) {
 
 							$results_display .= "<tr>" . "\n";
 
-							$url1 = '/backoffice/reports-customer-menu-item-labels?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string);
+							$url1 = '/backoffice/reports-customer-menu-item-labels?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id;
 
 							$results_display .= '<td colspan="1"><a onclick="PrintLabels(\'' . $url1 . '\');" href="#">Print Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 							$results_display .= '<td colspan="1"><a onclick="PrintLabels(\'' . $url1 . '&amp;break=1\');" href="#">Print Labels w/ Breaks <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
@@ -392,7 +392,7 @@ if ($this->print_view == false) {
 							$results_display .= "</tr>" . "\n";
 
 							$results_display .= "<tr>" ;
-							$results_display .= '<td colspan="4"><a target="_print" href="/backoffice/reports-customer-menu-item-labels?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;interface=1&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Print Generic Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+							$results_display .= '<td colspan="4"><a target="_print" href="/backoffice/reports-customer-menu-item-labels?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;interface=1&amp;menuid=' . $this->menu_id . '">Print Generic Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 							$results_display .= "</tr>" . "\n";
 						}
 					}
@@ -400,15 +400,15 @@ if ($this->print_view == false) {
 					{
 						$results_display .= "<tr>" ;
 
-						$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all?session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($_SERVER['REQUEST_URI']).'">Franchise View <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+						$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all?session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '">Franchise View <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 
-						$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($_SERVER['REQUEST_URI']).'">Customer View <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>' ;
+						$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '">Customer View <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>' ;
 
 						if ($this->menu_id >= 77 )
 						{
-							$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all?session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;issidedish=1&amp;back='.urlencode($_SERVER['REQUEST_URI']).'">Side Dish Report <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+							$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all?session_id=' . $this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;issidedish=1">Side Dish Report <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 							$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all?customer_print_view=1&amp;session_id=' .
-								$this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;ispreassembled=1&amp;back='.urlencode($_SERVER['REQUEST_URI']).'">Fast Lane Report <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>' ;
+								$this->sessionID . '&amp;menuid=' . $this->menu_id . '&amp;ispreassembled=1">Fast Lane Report <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>' ;
 						}
 						else
 						{
@@ -420,15 +420,15 @@ if ($this->print_view == false) {
 
 
 						$results_display .= "<tr>" ;
-						$results_display .= '<td><a target="_print" href="/backoffice/reports_dream_rewards_for_session?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Print Dream Rewards <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
-						$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all_future?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;back='.urlencode($this->form_submit_string).'">Future Orders <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+						$results_display .= '<td><a target="_print" href="/backoffice/reports_dream_rewards_for_session?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '">Print Dream Rewards <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+						$results_display .= '<td><a target="_print" href="/backoffice/order-details-view-all_future?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '">Future Orders <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 						$results_display .= '<td><a target="_print" href="/backoffice/reports_goal_tracking?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;report_submit=true&amp;print=true">Session Goal Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 						$results_display .= '<td><a href="/backoffice/reports_goal_tracking?export=xlsx&amp;hideheaders=true&amp;csvfilename=SessionGoalSheet&amp;session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;report_submit=true">Session Goal Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/page_excel.png" alt="Excel" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 						$results_display .= "</tr>" . "\n";
 
 						if ($this->menu_id > 137)
 						{
-							$results_display .= '<tr><td colspan="4"><a target="_print" href="/backoffice/finishing-touch-printable-form?store_id=' . $this->store_id . '&amp;menu_id=' . $this->menu_id . '&amp;back=' . urlencode($this->form_submit_string) . '">Print Sides &amp; Sweets Pick Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td></tr>';
+							$results_display .= '<tr><td colspan="4"><a target="_print" href="/backoffice/finishing-touch-printable-form?store_id=' . $this->store_id . '&amp;menu_id=' . $this->menu_id . '">Print Sides &amp; Sweets Pick Sheet <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td></tr>';
 						}
 
 
@@ -442,7 +442,7 @@ if ($this->print_view == false) {
 
 							$results_display .= "<tr>" . "\n";
 
-							$url1 = '/backoffice/reports-customer-menu-item-labels?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string);
+							$url1 = '/backoffice/reports-customer-menu-item-labels?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;menuid=' . $this->menu_id;
 
 							$results_display .= '<td colspan="1"><a href="#" onclick="PrintLabels(\'' . $url1 . '\');">Print Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 							$results_display .= '<td colspan="1"><a href="#" onclick="PrintLabels(\'' . $url1 . '&amp;break=1\');">Print Labels w/ Breaks <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
@@ -455,7 +455,7 @@ if ($this->print_view == false) {
 							$results_display .= "</tr>" . "\n";
 
 							$results_display .= "<tr>" ;
-							$results_display .= '<td colspan="4"><a target="_print" href="/backoffice/reports-customer-menu-item-labels?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;interface=1&amp;menuid=' . $this->menu_id . '&amp;back='.urlencode($this->form_submit_string).'">Print Generic Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
+							$results_display .= '<td colspan="4"><a target="_print" href="/backoffice/reports-customer-menu-item-labels?session_id=' . $this->sessionID . '&amp;store_id=' . $this->store_id . '&amp;interface=1&amp;menuid=' . $this->menu_id . '">Print Generic Labels <img src="' . ADMIN_IMAGES_PATH . '/icon/printer.png" alt="Print" style="vertical-align:middle;margin-bottom:.25em;" /></a></td>';
 							$results_display .= "</tr>" . "\n";
 
 						}
@@ -1126,7 +1126,7 @@ if ($this->print_view == false) {
 
 						if ($entity['is_partial_account'])
 						{
-							$additional_info .= '<br />Partial Account (<a href="/backoffice/account?upgrade=true&amp;id='.$customers_id.'&amp;back='.urlencode($_SERVER['REQUEST_URI']). '">Upgrade Account</a>)';
+							$additional_info .= '<br />Partial Account (<a href="/backoffice/account?upgrade=true&amp;id='.$customers_id.'">Upgrade Account</a>)';
 						}
 
 						// PRINT OUT USER INFORMATION
@@ -1136,26 +1136,26 @@ if ($this->print_view == false) {
 							{
 								if ($this->report_type ==2 && $this->session_type_to_run == 2)
 								{
-									$results_display .= '<td width="190"><a href="/backoffice/user_details?id=' . $customers_id . '&amp;back='.urlencode($this->form_submit_string). '"><b>' . $varFirstName . ' ' . $varLastName . '</b></a>' .  $additional_info . '</td>';
+									$results_display .= '<td width="190"><a href="/backoffice/user-details?id=' . $customers_id . '"><b>' . $varFirstName . ' ' . $varLastName . '</b></a>' .  $additional_info . '</td>';
 								}
 								else
 								{
-									$results_display .= '<td width="190"><a href="/backoffice/user_details?id=' . $customers_id . '&amp;back='.urlencode($_SERVER['REQUEST_URI']). '"><b>' . $varFirstName . ' ' . $varLastName . '</b></a>'  . $additional_info . '</td>';
+									$results_display .= '<td width="190"><a href="/backoffice/user-details?id=' . $customers_id . '"><b>' . $varFirstName . ' ' . $varLastName . '</b></a>'  . $additional_info . '</td>';
 								}
 
 								if ($this->print_view == false)
 								{
 									$canEditURL = "";
-									$viewOrderURL = '<a href="/backoffice/order-mgr-thankyou?order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><font color="#333366">View Order</font></a><br />';
+									$viewOrderURL = '<a href="/backoffice/order-mgr-thankyou?order=' . $order_id . '"><font color="#333366">View Order</font></a><br />';
 									if (CSessionReports::can_edit_order($this->printdate, $this->store_id))
 									{
 										if ($entity['is_partial_account'])
 										{
-											$canEditURL .= '<a href="/backoffice/order-mgr?order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><font color="#cc0000">Edit Order</font></a><br />';
+											$canEditURL .= '<a href="/backoffice/order-mgr?order=' . $order_id . '"><font color="#cc0000">Edit Order</font></a><br />';
 										}
 										else
 										{
-											$canEditURL .= '<a href="/backoffice/order-mgr?order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><font color="#cc0000">Edit Order</font></a><br />';
+											$canEditURL .= '<a href="/backoffice/order-mgr?order=' . $order_id . '"><font color="#cc0000">Edit Order</font></a><br />';
 										}
 									}
 
@@ -1165,7 +1165,7 @@ if ($this->print_view == false) {
 									}
 									else
 									{
-										$placeOrderULR = '<a href="/backoffice/order-mgr?user=' . $customers_id . '&amp;back='.urlencode($this->form_submit_string).'"><font color="#333366">Place Order</font></a>';
+										$placeOrderULR = '<a href="/backoffice/order-mgr?user=' . $customers_id . '"><font color="#333366">Place Order</font></a>';
 									}
 
 									$results_display .= '<td width="100" align="left">';
@@ -1194,8 +1194,8 @@ if ($this->print_view == false) {
 
 								if (isset($this->payment_failed_balance_due_array[$entity['customer_id']][$entity['order_id']]['balance_due']))
 								{
-									$viewOrderURL = '<a href="/backoffice/order-mgr-thankyou?order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><b>$' . $this->payment_failed_balance_due_array[$entity['customer_id']][$entity['order_id']]['balance_due'] . '</b></a>';
-									$viewOrderURLBalanceDue = '<a href="/backoffice/order-mgr-thankyou?order=' . $order_id . '&amp;back='.urlencode($this->form_submit_string).'"><b>Balance Due:</b></a>';
+									$viewOrderURL = '<a href="/backoffice/order-mgr-thankyou?order=' . $order_id . '"><b>$' . $this->payment_failed_balance_due_array[$entity['customer_id']][$entity['order_id']]['balance_due'] . '</b></a>';
+									$viewOrderURLBalanceDue = '<a href="/backoffice/order-mgr-thankyou?order=' . $order_id . '"><b>Balance Due:</b></a>';
 
 									$results_display .= '<tr><td width="90">' . $viewOrderURLBalanceDue . '</td><td style="color:#FF6A6A;font-weight:bold;text-align:right">' . $viewOrderURL . '</td></tr>';
 								}
@@ -1227,7 +1227,7 @@ if ($this->print_view == false) {
 						$results_display .= '</tr>';
 						if (isset($entity['referring_user_email']) && !empty($entity['referring_user_email']))
 						{
-							$results_display .= "<tr><td></td><td colspan='3' style='background-color:#CCDDDD'>Referred By: <b><a href='/backoffice/user_details?id=" . $entity['referring_user_id'] . "' >" . $entity['referring_user_name'] . "</a></b></td></tr>";
+							$results_display .= "<tr><td></td><td colspan='3' style='background-color:#CCDDDD'>Referred By: <b><a href='/backoffice/user-details?id=" . $entity['referring_user_id'] . "' >" . $entity['referring_user_name'] . "</a></b></td></tr>";
 							$results_display .= "<tr><td></td><td colspan='3' style='background-color:#CCDDDD'>Referral Type: <b>" . CCustomerReferral::$ShortOriginationDescription[$entity['referral_type']] . "</b></td></tr>";
 						}
 						// This is set for guest carryover notes

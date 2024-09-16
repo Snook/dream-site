@@ -46,11 +46,7 @@ function accessChange()
 <?php if (isset($this->form['store_html'])) { ?>
 	<strong>Store:</strong> <?php echo $this->form['store_html']; ?><br /><br />
 <?php } ?>
-<?php if (isset($_REQUEST['back'])) { ?>
-	<input type="button" class="btn btn-primary btn-sm" value="Back" onclick="window.location = '<?php echo  $_REQUEST['back']?>';">
-<?php } else { ?>
-	<input type="button" class="btn btn-primary btn-sm" value="Back" onclick="window.location = '/backoffice/user_details?id=<?php echo  $this->id?>';">
-<?php } ?>
+<input type="button" class="btn btn-primary btn-sm" value="Back" onclick="window.location = '/backoffice/user-details?id=<?php echo  $this->id?>';">
 
 Access Level for: <b><?php echo $this->firstname; ?> <?php echo $this->lastname; ?></b>
 
@@ -102,7 +98,7 @@ Access Level for: <b><?php echo $this->firstname; ?> <?php echo $this->lastname;
 </tr>
 <?php foreach ($this->users_stores as $store_id => $thisStore) { ?>
 <tr>
-	<td class="bgcolor_light"><?php if ($this->isAdmin || (!empty($this->currentStoreID) && $this->currentStoreID  == $store_id)) { ?><a href="/backoffice/store_details?id=<?php echo $thisStore['id']; ?>"><?php echo $thisStore['name']; ?></a><?php } else { ?><?php echo $thisStore['name']; ?><?php } ?></td>
+	<td class="bgcolor_light"><?php if ($this->isAdmin || (!empty($this->currentStoreID) && $this->currentStoreID  == $store_id)) { ?><a href="/backoffice/store-details?id=<?php echo $thisStore['id']; ?>"><?php echo $thisStore['name']; ?></a><?php } else { ?><?php echo $thisStore['name']; ?><?php } ?></td>
 <?php if ($this->isAdmin || (!empty($this->currentStoreID) && $this->currentStoreID  == $store_id)) { ?>
 	<td class="bgcolor_light" style="text-align: center;"><input type="checkbox" data-show_on_customer="<?php echo $thisStore['uts_id']; ?>" <?php echo ($thisStore['display'] ? 'checked="checked"' : ''); ?> /></td>
 	<td class="bgcolor_light"><input type="text" style="width: 300px;" data-display_text="<?php echo $thisStore['uts_id']; ?>" value="<?php echo htmlentities($thisStore['text']); ?>"

@@ -169,7 +169,7 @@ function print_trending_report()
 	var targ = $('#reports_trending_form')[0].target;
 	var act = $('#reports_trending_form')[0].action;
 	$('#reports_trending_form')[0].target = "_print";
-	$('#reports_trending_form')[0].action = "/backoffice/reports_trending?print=true";
+	$('#reports_trending_form')[0].action = "/backoffice/reports-trending?print=true";
 
 	$('#reports_trending_form').submit();
 
@@ -182,7 +182,7 @@ function export_trending_report()
 {
 	var targ = $('#reports_trending_form')[0].target;
 	var act = $('#reports_trending_form')[0].action;
-	$('#reports_trending_form')[0].action = "/backoffice/reports_trending?export=xlsx";
+	$('#reports_trending_form')[0].action = "/backoffice/reports-trending?export=xlsx";
 
 	$('#reports_trending_form').submit();
 

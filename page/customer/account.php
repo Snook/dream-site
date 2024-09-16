@@ -21,7 +21,7 @@ class page_account extends CPage
 	 */
 	function runPublic()
 	{
-		
+
 
 		parent::runPublic();
 
@@ -110,17 +110,7 @@ class page_account extends CPage
 				if ($User->Authenticate($Form->value('primary_email'), $Form->value('password')))
 				{
 					$User->Login();
-
-					if (isset($_REQUEST['back']) && $_REQUEST['back'])
-					{
-						$url = $_REQUEST['back'];
-					}
-					else
-					{
-						$url = "/";
-					}
-
-					CApp::instance()->bounce($url);
+					CApp::instance()->bounce();
 				}
 			}
 		}
@@ -142,7 +132,7 @@ class page_account extends CPage
 	 */
 	function runCustomer()
 	{
-		
+
 
 		$tpl = CApp::instance()->template();
 

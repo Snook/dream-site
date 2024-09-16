@@ -59,10 +59,8 @@
 			CApp::bounce('/backoffice/order-mgr?order=' . $_POST['order_id'] . '&tabs=mgr.sessionsTab');
 		}
 
-		CApp::bounce('/backoffice/main');
+		CApp::bounce('/backoffice');
 
 	 }
 
 }
-
-?>

@@ -83,31 +83,8 @@ class CApp
 			exit(0);
 		}
 
-		// Check for malicious "back" param
-		if (isset($_REQUEST['back']))
-		{
-			$cleanedBackURL = CGPC::do_clean($_REQUEST['back'], TYPE_STR, true);
-			if (isset($_GET['back']))
-			{
-				$_GET['back'] = $cleanedBackURL;
-			}
-
-			$_REQUEST['back'] = $cleanedBackURL;
-		}
-
 		if (defined('HOSTED_AS_REPORTING_SERVER') && HOSTED_AS_REPORTING_SERVER)
 		{
-
-			// If we are hosting as an emergency reporting server then check a white list and return if legal
-			if (defined('DESIGNATE_AS_EMERGENCY_REPORTING_SERVER') && DESIGNATE_AS_EMERGENCY_REPORTING_SERVER)
-			{
-				if (strpos($locationRequest, "admin_emergency_main") !== false || strpos($locationRequest, "admin_fadmin_home") !== false || strpos($locationRequest, "admin_order_details_view_all_multi") !== false || strpos($locationRequest, "admin_order_details_view_all") !== false || strpos($locationRequest, "admin_order_mgr_processor") !== false || strpos($locationRequest, "admin_list_users") !== false || strpos($locationRequest, "admin_user_details") !== false || strpos($locationRequest, "admin_order_history") !== false || strpos($locationRequest, "admin_nutritional_summary") !== false || strpos($locationRequest, "admin_session_tools_printing") !== false || strpos($locationRequest, "admin_order_details_view_all_future_multi") !== false || strpos($locationRequest, "admin_user_plate_points") !== false || strpos($locationRequest, "print") !== false || strpos($locationRequest, "admin_finishing_touch_printable_form") !== false)
-				{
-					return;
-				}
-			}
-
-			// otherwise check the standard reporting server list and bail if not found
 			if (strpos($locationRequest, "admin_helpers") === false && strpos($locationRequest, "admin_reports") === false && strpos($locationRequest, "admin_dashboard_new") === false && strpos($locationRequest, "admin_home_office") === false && strpos($locationRequest, "admin_dashboard_menu_based") === false && strpos($locationRequest, "admin_food_sales") === false && strpos($locationRequest, "admin_fundraiser") === false && strpos($locationRequest, "signout") === false)
 			{
 				if (strpos($locationRequest, "login") === false)
@@ -996,11 +973,11 @@ class CApp
 
 		if ($rtnPage)
 		{
-			self::bounce('/backoffice/location_switch?back=' . urlencode($rtnPage));
+			self::bounce('/backoffice/location-switch?back=' . urlencode($rtnPage));
 		}
 		else
 		{
-			self::bounce('/backoffice/location_switch?back=?' . urlencode($_SERVER['QUERY_STRING']));
+			self::bounce('/backoffice/location-switch?back=?' . urlencode($_SERVER['QUERY_STRING']));
 		}
 	}
 

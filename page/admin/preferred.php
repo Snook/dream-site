@@ -47,19 +47,6 @@ class page_admin_preferred extends CPageAdminOnly
 			$id = null;
 		}
 
-		if (isset($_REQUEST['back']))
-		{
-			$tpl->assign('back', $_REQUEST['back']);
-		}
-		else if ($id)
-		{
-			$tpl->assign('back', '/backoffice/user_details?id=' . $id);
-		}
-		else
-		{
-			$tpl->assign('back', '/backoffice/list_users');
-		}
-
 		//get customer's name
 		if ($id)
 		{

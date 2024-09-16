@@ -2,7 +2,7 @@
 <?php $this->assign('topnav', 'tools'); ?>
 <?php include $this->loadTemplate('admin/page_header.tpl.php'); ?>
 
-<h1>Event log for <a href="/backoffice/user_details?id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a></h1>
+<h1>Event log for <a href="/backoffice/user-details?id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a></h1>
 
 <form action="/backoffice/user-event-log" method="GET">
 <input type="hidden" name="id" value="<?php echo $this->user->id; ?>">

@@ -101,7 +101,7 @@ class page_admin_franchise_details extends CPageAdminOnly
 
 				$tpl->setStatusMsg('The store has been deleted');
 				//jump to same page without deleteStore action
-				CApp::bounce('/backoffice/franchise-details?id=' . $id . '&back=' . $_REQUEST['back']);
+				CApp::bounce('/backoffice/franchise-details?id=' . $id);
 			}
 		}
 

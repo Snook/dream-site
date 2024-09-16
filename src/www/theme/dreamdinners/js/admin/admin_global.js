@@ -1752,7 +1752,7 @@ $(function () {
 												else
 												{
 													// if there is no data-select_function then the button navigates to user_details
-													bounce('/backoffice/user_details?id=' + $(this).data('user_id'));
+													bounce('/backoffice/user-details?id=' + $(this).data('user_id'));
 												}
 											});
 										}
@@ -1942,7 +1942,7 @@ $(function () {
 								label: 'Manage',
 								className: 'btn-success',
 								callback: function () {
-									bounce('/backoffice/user-plate-points?id=' + user_id + '&back=' + back_path());
+									bounce('/backoffice/user-plate-points?id=' + user_id);
 								}
 							},
 							close: {
@@ -1965,7 +1965,6 @@ $(function () {
 		e.preventDefault();
 
 		let backoffice_change_store = {
-			'back': back_path(),
 			'dialog': null
 		}
 
@@ -1995,8 +1994,7 @@ $(function () {
 								processor: 'admin_helpers',
 								op: 'store_selector',
 								do: 'selector_select',
-								store: store,
-								back: backoffice_change_store.back
+								store: store
 							},
 							success: function (json) {
 								if (json.processor_success)

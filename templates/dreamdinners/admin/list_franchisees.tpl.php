@@ -64,12 +64,12 @@
 	</tr>
 	<?php foreach( $this->rows as $id => $row ) { ?>
 	<tr>
-		<td class="bgcolor_light"><a href="/backoffice/user_details?id=<?php echo $row['user_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $row['user_id']; ?></a></td>
+		<td class="bgcolor_light"><a href="/backoffice/user-details?id=<?php echo $row['user_id']; ?>"><?php echo $row['user_id']; ?></a></td>
 		<td class="bgcolor_light"><?php echo $row['lastname']; ?></td>
 		<td class="bgcolor_light"><?php echo $row['firstname']; ?></td>
-		<td class="bgcolor_light"><a href="/backoffice/email?id=<?php echo $row['user_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $row['primary_email']; ?></a></td>
+		<td class="bgcolor_light"><a href="/backoffice/email?id=<?php echo $row['user_id']; ?>"><?php echo $row['primary_email']; ?></a></td>
 		<td class="bgcolor_light"><?php echo (!empty($row['telephone_day'])) ? $row['telephone_day'] : 'None'; ?></td>
-		<td class="bgcolor_light"><a href="/backoffice/franchise-details?id=<?php echo $row['franchise_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $row['franchise_name']; ?></a></td>
+		<td class="bgcolor_light"><a href="/backoffice/franchise-details?id=<?php echo $row['franchise_id']; ?>"><?php echo $row['franchise_name']; ?></a></td>
 		<td class="bgcolor_light"><?php if ( $row['active'] ) echo 'yes'; else echo 'no';?></td>
 	</tr>
 	<?php } ?>
