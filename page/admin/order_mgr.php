@@ -102,18 +102,13 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$tpl->setStatusMsg("Warning: Saved orders do not occupy a session slot however the session to which this order is saved is currently full.");
 		}
 
-		if (isset($_REQUEST['back']))
-		{
-			$tpl->assign('back', $_REQUEST['back']);
-		}
-
 		if (empty($_REQUEST['order']) || !is_numeric($_REQUEST['order']))
 		{
 			// New orders must be provided a store id and a user id
 			if (empty($_REQUEST['user']) || !is_numeric($_REQUEST['user']))
 			{
 				$tpl->setErrorMsg("There was a problem with the user ID specified.");
-				CApp::bounce("/backoffice/main");
+				CApp::bounce("/backoffice");
 			}
 
 			$this->originalOrder = DAO_CFactory::create('orders');
@@ -158,7 +153,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 			if (!$this->originalOrder->find(true))
 			{
 				$tpl->setErrorMsg("An order with the id " . $this->originalOrder->id . " was not found. Please double check the order number, if the issue persists, please contact support.");
-				CApp::bounce("/backoffice/main");
+				CApp::bounce("/backoffice");
 			}
 
 			$booking = DAO_CFactory::create('booking', true);
@@ -185,7 +180,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 				else
 				{
 					$tpl->setErrorMsg("There was a problem with the order ID specified.");
-					CApp::bounce("/backoffice/main");
+					CApp::bounce("/backoffice");
 					// TODO: or we could leave them here with a NEW order
 				}
 			}
@@ -237,15 +232,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		if (!CStore::userHasAccessToStore($this->originalOrder->store_id))
 		{
 			$tpl->setErrorMsg('You do not have access privileges for this order.');
-
-			if (isset($_REQUEST['back']))
-			{
-				CApp::bounce($_REQUEST['back']);
-			}
-			else
-			{
-				CApp::bounce('/backoffice/main');
-			}
+			CApp::bounce('/backoffice');
 		}
 
 		// get orders_address object
@@ -264,7 +251,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 		if (!CStore::userHasAccessToStore($this->daoStore->id))
 		{
-			CApp::bounce('/backoffice/main');
+			CApp::bounce('/backoffice');
 		}
 
 		if (CUser::getCurrentUser()->isFranchiseAccess() && $this->orderState != 'NEW')
@@ -275,7 +262,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 				$storeName = $this->daoStore->store_name;
 				$tpl->setErrorMsg("This order (#{$this->originalOrder->id}) was placed at a different store. Please change to the $storeName store to edit it.");
-				CApp::bounce('/backoffice/main');
+				CApp::bounce('/backoffice');
 			}
 		}
 
@@ -310,9 +297,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 			// Shipping session, bounce to shipping order manager
 			if ($Session->isDelivered())
 			{
-				unset($_GET['back']);
-				unset($tpl->back);
-
 				CApp::bounce('/backoffice/order-mgr-delivered?order=' . $this->originalOrder->id);
 			}
 
@@ -2274,8 +2258,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 						COrders::sendEditedOrderConfirmationEmail($this->User, $this->originalOrder);
 					}
 
-					$tpl->assign('back', "/backoffice/order-mgr-thankyou?order=" . $this->originalOrder->id);
-
 					CApp::bounce("/backoffice/order-mgr-thankyou?order=" . $this->originalOrder->id);
 				}
 				catch (Exception $e)
@@ -2638,7 +2620,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 						$itemsOversold = $this->originalOrder->getInvExceptionItemsString();
 
 						$tpl->setErrorMsg('Inventory has changed since the order was started and an item has run out of stock. Please review the order and try again. Items adjusted are:<br />' . $itemsOversold);
-						//	header('Location: '.$_SERVER['REQUEST_URI']);
 						throw new Exception("INV_EXC");
 					}
 
@@ -2756,8 +2737,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 					{
 						COrders::sendEditedOrderConfirmationEmail($this->User, $this->originalOrder);
 					}
-
-					$tpl->assign('back', "/backoffice/order-mgr-thankyou?order=" . $this->originalOrder->id);
 
 					CApp::bounce("/backoffice/order-mgr-thankyou?order=" . $this->originalOrder->id);
 				}
@@ -4994,5 +4973,3 @@ class page_admin_order_mgr extends CPageAdminOnly
 		}
 	}
 }
-
-?>

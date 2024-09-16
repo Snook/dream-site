@@ -31,7 +31,7 @@ include $this->loadTemplate('admin/page_header.tpl.php');
 		<?php foreach ($this->stuff as $error) { ?>
 			<tr class="bgcolor_light">
 				<td style="white-space: nowrap;"><?php echo $error['timestamp_created'] ?></td>
-				<td><a href="/backoffice/user_details?id=<?php echo $error['user_id'] ?>"><?php echo $error['user_id'] ?></a></td>
+				<td><a href="/backoffice/user-details?id=<?php echo $error['user_id'] ?>"><?php echo $error['user_id'] ?></a></td>
 				<td><?php echo $error['ip_address'] ?></td>
 				<td><a href="/backoffice/errors?log_type=<?php echo $error['log_type'] ?>"><?php echo $error['log_type'] ?></a></td>
 				<td><?php echo $error['event_hint'] ?></td>

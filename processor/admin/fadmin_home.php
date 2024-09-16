@@ -11,9 +11,6 @@ require_once("processor/admin/processMetrics.php");
 
 class processor_admin_fadmin_home extends CPageProcessor
 {
-
-	private $emergency_mode = false;
-
 	function __construct()
 	{
 		$this->inputTypeMap['note'] = TYPE_NOCLEAN;
@@ -66,11 +63,6 @@ class processor_admin_fadmin_home extends CPageProcessor
 
 	function mainProcessor()
 	{
-		if (defined('DESIGNATE_AS_EMERGENCY_REPORTING_SERVER') && DESIGNATE_AS_EMERGENCY_REPORTING_SERVER)
-		{
-			$this->emergency_mode = true;
-		}
-
 		if (!empty($_POST['op']))
 		{
 			// Get user plateploints tooltip
@@ -238,12 +230,7 @@ class processor_admin_fadmin_home extends CPageProcessor
 
 				$tpl->assign('store_supports_plate_points', CStore::storeSupportsPlatePoints($session_info_array[$session_id]['store_id']));
 
-				if ($this->emergency_mode)
-				{
-					$session_details = $tpl->fetch('admin/subtemplate/emergency_main_session_details.tpl.php');
-					$booking_details = $tpl->fetch('admin/subtemplate/emergency_main_booked_guests.tpl.php');
-				}
-				else if ($sessionData['session_type'] === CSession::DELIVERED)
+				if ($sessionData['session_type'] === CSession::DELIVERED)
 				{
 					$session_details = $tpl->fetch('admin/subtemplate/main_session_details_delivered.tpl.php');
 					$booking_details = $tpl->fetch('admin/subtemplate/main_booked_guests_delivered.tpl.php');
@@ -313,11 +300,7 @@ class processor_admin_fadmin_home extends CPageProcessor
 				foreach ($session_info_array as $session_id => $session_info)
 				{
 					$tpl->assign('session_info', $session_info_array[$session_id]);
-					if ($this->emergency_mode)
-					{
-						$booking_details .= $tpl->fetch('admin/subtemplate/emergency_main_booked_guests.tpl.php');
-					}
-					else if ($session_info_array[$session_id]['session_type'] === CSession::DELIVERED)
+					if ($session_info_array[$session_id]['session_type'] === CSession::DELIVERED)
 					{
 						$tpl->assign('session_info', $session_info_delivered[$session_id]);
 						$booking_details = $tpl->fetch('admin/subtemplate/main_booked_guests_delivered.tpl.php');

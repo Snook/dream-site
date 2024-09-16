@@ -64,7 +64,7 @@ class page_admin_store_details extends CPageAdminOnly
 		}
 		else if (!$id)
 		{
-			CApp::bounce('/backoffice/list_stores');
+			CApp::bounce('/backoffice/list-stores');
 		}
 
 		if (!empty($id) && is_numeric($id))
@@ -78,16 +78,7 @@ class page_admin_store_details extends CPageAdminOnly
 					$DAO_store->delete();
 					$this->Template->setStatusMsg('The store has been deleted');
 
-					// jump to same page without deleteStore action
-
-					if (!empty($_POST['back']))
-					{
-						CApp::bounce(urldecode($_POST['back']));
-					}
-					else
-					{
-						CApp::bounce('/backoffice/list_stores');
-					}
+					CApp::bounce('/backoffice/list-stores');
 				}
 			}
 
@@ -1822,7 +1813,7 @@ class page_admin_store_details extends CPageAdminOnly
 					}
 
 					$this->Template->setToastMsg(array('message' => 'The store properties have been updated.'));
-					CApp::bounce('/backoffice/store_details?id=' . $id);
+					CApp::bounce('/backoffice/store-details?id=' . $id);
 				}
 			}
 
@@ -1841,15 +1832,6 @@ class page_admin_store_details extends CPageAdminOnly
 			$this->Template->assign('store', $storeArray);
 			$this->Template->assign('form_store_details', $Form->Render());
 		}
-
-		$back = '/backoffice/list_stores';
-
-		if (array_key_exists('back', $_GET) && $_GET['back'])
-		{
-			$back = $_GET['back'];
-		}
-
-		$this->Template->assign('back', $back);
 	}
 
 	private function setupStoreBioFormFields(&$Form, $tpl, $disabledForm = false)
@@ -1965,5 +1947,3 @@ class page_admin_store_details extends CPageAdminOnly
 		return $times;
 	}
 }
-
-?>

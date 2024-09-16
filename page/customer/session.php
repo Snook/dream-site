@@ -250,15 +250,6 @@ class page_session extends CPage
 		$isInReschedulingMode = false;
 		if (isset($_REQUEST['reschedule']) && is_numeric($_REQUEST['reschedule']))
 		{
-			if (!empty($_REQUEST['back']))
-			{
-				$backlink = $_REQUEST['back'];
-			}
-			else
-			{
-				$backlink = "/my-account";
-			}
-
 			$order_id = $_REQUEST['reschedule'];
 			$DAO_orders = DAO_CFactory::create('orders');
 			$DAO_orders->id = $order_id;
@@ -299,7 +290,7 @@ class page_session extends CPage
 			if ($approval !== true)
 			{
 				$tpl->setErrorMsg($cantRescheduleReason);
-				CApp::bounce($backlink);
+				CApp::bounce('/my-account');
 			}
 
 			if (isset($_POST['target']) && is_numeric($_POST['target']))

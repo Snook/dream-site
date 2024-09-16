@@ -111,7 +111,7 @@ function storeChange(obj)
 	document.getElementById('coupon_optout_form').submit();
 }
 
-function resetPage(url)
+function resetPage()
 {
-	window.location = url;
+	bounce(window.location.href);
 }

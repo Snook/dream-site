@@ -101,20 +101,20 @@ if( !function_exists('translateOrderQuantityType')){
 				<tr>
 					<td rowspan="<?php echo $rowspan;?>" class="value guest">
 
-						<a class="guestname" id="gd_guest-<?php echo $booking['id']; ?>" href="/backoffice/user_details?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" data-user_id="<?php echo $booking['user_id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>"><?php echo $booking['firstname']; ?> <?php echo $booking['lastname']; ?></a>
+						<a class="guestname" id="gd_guest-<?php echo $booking['id']; ?>" href="/backoffice/user-details?id=<?php echo $booking['user_id']; ?>" data-user_id="<?php echo $booking['user_id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>"><?php echo $booking['firstname']; ?> <?php echo $booking['lastname']; ?></a>
 
 						<div style="float: right;">
 							<?php if (!empty($booking['corporate_crate_client']) && !empty($booking['corporate_crate_client']->is_active)) { ?><img alt="<?php echo $booking['corporate_crate_client']->company_name; ?>" src="<?php echo ADMIN_IMAGES_PATH; ?>/corporate/<?php echo $booking['corporate_crate_client']->icon_path; ?>_icon.png" class="float-right ml-1" data-tooltip="<?php echo $booking['corporate_crate_client']->company_name; ?>" /><?php } ?>
 							<?php if ($booking['user_type'] != CUser::CUSTOMER) { ?><img alt="Dream Dinners Staff" src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/dreamdinners.png" class="float-right ml-1" data-tooltip="Dream Dinners Staff" /><?php } ?>
-							<?php if ($booking['user']->membershipData['enrolled']) { ?><a href="/backoffice/user_membership?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img alt="Meal Prep+" data-tooltip="Meal Prep+" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/membership/badge-membership-16x16.png" class="float-right ml-1" /></a><?php } ?>
+							<?php if ($booking['user']->membershipData['enrolled']) { ?><a href="/backoffice/user_membership?id=<?php echo $booking['user_id']; ?>"><img alt="Meal Prep+" data-tooltip="Meal Prep+" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/membership/badge-membership-16x16.png" class="float-right ml-1" /></a><?php } ?>
 							<?php if ($booking['user']->platePointsData['status'] == 'active' || $booking['user']->platePointsData['userIsOnHold']) { ?>
 								<?php if ($booking['user']->platePointsData['userIsOnHold']) { ?>
-									<a href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PlatePoints On Hold" data-tooltip="PlatePoints On Hold" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-hold-16x16.png" class="float-right ml-1" /></a>
+									<a href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PlatePoints On Hold" data-tooltip="PlatePoints On Hold" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-hold-16x16.png" class="float-right ml-1" /></a>
 								<?php } else { ?>
-									<a href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PlatePoints <?php echo $booking['user']->platePointsData['current_level']['title'];?>" data-tooltip="PlatePoints <?php echo $booking['user']->platePointsData['current_level']['title'];?>" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-<?php echo $booking['user']->platePointsData['current_level']['image'];?>-16x16.png" class="float-right ml-1" /></a>
+									<a href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PlatePoints <?php echo $booking['user']->platePointsData['current_level']['title'];?>" data-tooltip="PlatePoints <?php echo $booking['user']->platePointsData['current_level']['title'];?>" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-<?php echo $booking['user']->platePointsData['current_level']['image'];?>-16x16.png" class="float-right ml-1" /></a>
 								<?php } ?>
 							<?php } ?>
-							<?php if (!empty($booking['preferred_type'])) { ?><a href="/backoffice/preferred?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><img alt="Preferred Guest" src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/star_grey.png" class="float-right ml-1" data-tooltip="Preferred Guest" /></a><?php } ?>
+							<?php if (!empty($booking['preferred_type'])) { ?><a href="/backoffice/preferred?id=<?php echo $booking['user_id']; ?>"><img alt="Preferred Guest" src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/star_grey.png" class="float-right ml-1" data-tooltip="Preferred Guest" /></a><?php } ?>
 							<?php if (empty($booking['user']->preferences['TC_DELAYED_PAYMENT_AGREE']['value'])) { ?><img alt="Delayed Payment terms" data-delayed_payment_tc="<?php echo $booking['user_id']; ?>" src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/money_dollar.png" style="cursor: pointer; float: right; margin-left: 4px;" data-tooltip="Has not agreed to Delayed Payment terms" /><?php } ?>
 							<?php if (!empty($booking['is_birthday_month'])) { ?><img alt="Happy Birthday" src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/cake.png" class="float-right ml-1" data-tooltip="Birthday this Month" /><?php } ?>
 							<div class="clear"></div>
@@ -123,18 +123,18 @@ if( !function_exists('translateOrderQuantityType')){
 						<div id="gd_guest_menu-<?php echo $booking['id']; ?>" class="guest_menu_div">
 							<ul class="guest_menu">
 
-								<li><a href="/backoffice/user_details?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">View Guest</a></li>
-								<li><a href="/backoffice/account?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Edit Guest</a></li>
-								<li><a href="/backoffice/email?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Email Guest</a></li>
+								<li><a href="/backoffice/user-details?id=<?php echo $booking['user_id']; ?>">View Guest</a></li>
+								<li><a href="/backoffice/account?id=<?php echo $booking['user_id']; ?>">Edit Guest</a></li>
+								<li><a href="/backoffice/email?id=<?php echo $booking['user_id']; ?>">Email Guest</a></li>
 
 								<?php if ($booking['status'] != CBooking::RESCHEDULED) { ?>
 									<li><a data-view_order_details="<?php echo $booking['id']; ?>" data-booking_id="<?php echo $booking['id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>"
-										   href="/backoffice/order-history?id=<?php echo $booking['user_id']; ?>&amp;order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">View Order</a></li>
+										   href="/backoffice/order-history?id=<?php echo $booking['user_id']; ?>&amp;order=<?php echo $booking['order_id']; ?>">View Order</a></li>
 								<?php } ?>
 								<?php if (!empty($booking['can_edit'])) { ?>
-									<li><a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Edit Order</a></li>
+									<li><a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>">Edit Order</a></li>
 								<?php } else { ?>
-									<li><a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Edit Payments</a></li>
+									<li><a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>">Edit Payments</a></li>
 
 								<?php } ?>
 								<?php if (!empty($booking['can_reschedule'])) { ?>
@@ -142,11 +142,11 @@ if( !function_exists('translateOrderQuantityType')){
 								<?php } else { ?>
 									<li data-tooltip="Can not reschedule" style="text-decoration: line-through;">Reschedule</li>
 								<?php } ?>
-								<li><a href="/backoffice/order-mgr?user=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Place <?php echo $this->date['this_M']; ?> Order</a></li>
-								<li><a href="/backoffice/order-mgr?user=<?php echo $booking['user_id']; ?>&amp;month=<?php echo $this->date['next_M_time']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Place <?php echo $this->date['next_M']; ?> Order</a></li>
-								<li><a href="/backoffice/order-history?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Order History</a></li>
+								<li><a href="/backoffice/order-mgr?user=<?php echo $booking['user_id']; ?>">Place <?php echo $this->date['this_M']; ?> Order</a></li>
+								<li><a href="/backoffice/order-mgr?user=<?php echo $booking['user_id']; ?>&amp;month=<?php echo $this->date['next_M_time']; ?>">Place <?php echo $this->date['next_M']; ?> Order</a></li>
+								<li><a href="/backoffice/order-history?id=<?php echo $booking['user_id']; ?>">Order History</a></li>
 								<?php if (false && $this->store_supports_plate_points && $booking['dream_rewards_version'] != 3) { ?>
-									<li><a href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>&amp;print_enrollment_form=true&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" target="_blank">PP Enroll Form</a></li>
+									<li><a href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>&amp;print_enrollment_form=true" target="_blank">PP Enroll Form</a></li>
 								<?php } ?>
 
 								<?php if ($booking['status'] != CBooking::SAVED) { ?>
@@ -190,9 +190,9 @@ if( !function_exists('translateOrderQuantityType')){
 					<td class="title">Balance Due</td>
 					<td class="value small_value">
 						<?php if (!empty($booking['can_edit'])) { ?>
-						<a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">
+						<a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>">
 							<?php } else { ?>
-							<a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">
+							<a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>">
 								<?php } ?>
 								<span class="<?php echo $booking['balance_due_css']; ?>" <?php if ($booking['balance_due'] != '0.00') { ?>
 									data-tooltip="Balance due to <?php echo ($booking['balance_due'] > 0) ? 'store' : 'guest'; ?>"<?php } ?>><?php echo $booking['balance_due_text']; ?>
@@ -203,9 +203,9 @@ if( !function_exists('translateOrderQuantityType')){
 					<tr>
 						<?php if ($booking['user']->membershipData['status'] == CUser::MEMBERSHIP_STATUS_CURRENT) { ?>
 							<td class="title">MP+ Progress</td>
-							<td class="value small_value"><a href="/backoffice/user_membership?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><?php echo $booking['user']->membershipData['display_strings']['progress']; ?></a></td>
+							<td class="value small_value"><a href="/backoffice/user_membership?id=<?php echo $booking['user_id']; ?>"><?php echo $booking['user']->membershipData['display_strings']['progress']; ?></a></td>
 							<td class="title">MP+ Skip Avail</td>
-							<td class="value small_value"><a href="/backoffice/user_membership?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><?php echo $booking['user']->membershipData['remaining_skips_available']; ?></a></td>
+							<td class="value small_value"><a href="/backoffice/user_membership?id=<?php echo $booking['user_id']; ?>"><?php echo $booking['user']->membershipData['remaining_skips_available']; ?></a></td>
 						<?php } else  {?>
 							<?php if (($booking['dream_reward_status'] != 1 && $booking['dream_reward_status'] != 3) || $booking['dream_rewards_version'] == 3) { ?>
 								<td class="title">Dinner Dollars</td>
@@ -217,7 +217,7 @@ if( !function_exists('translateOrderQuantityType')){
 									if ($booking['dream_rewards_version'] < 3) { ?>
 										Yes
 									<?php } else { ?>
-										<div><span data-pp_user_lifetime_points="<?php echo $booking['user_id']; ?>"><a id="pp_credit_<?php echo $booking['user_id']; ?>_<?php echo $booking['order_id']; ?>" href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">$<?php echo CTemplate::moneyFormat($booking['user']->platePointsData['available_credit']); ?></a></span></div>
+										<div><span data-pp_user_lifetime_points="<?php echo $booking['user_id']; ?>"><a id="pp_credit_<?php echo $booking['user_id']; ?>_<?php echo $booking['order_id']; ?>" href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>">$<?php echo CTemplate::moneyFormat($booking['user']->platePointsData['available_credit']); ?></a></span></div>
 									<?php } } else { ?>
 									<?php if ($booking['dream_reward_status'] == 5) { ?>
 										On Hold
@@ -239,9 +239,9 @@ if( !function_exists('translateOrderQuantityType')){
 										<?php }
 									} else { ?>
 										<?php if ($booking['dream_reward_status'] == 5) { ?>
-											<a class="btn btn-primary btn-sm" href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">PlatePoints</a>
+											<a class="btn btn-primary btn-sm" href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>">PlatePoints</a>
 										<?php } else { ?>
-											<a class="btn btn-primary btn-sm" href="/backoffice/account?id=<?php echo $booking['user_id']; ?>&amp;pp_enroll=1&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>">Enroll in PlatePoints</a>
+											<a class="btn btn-primary btn-sm" href="/backoffice/account?id=<?php echo $booking['user_id']; ?>&amp;pp_enroll=1">Enroll in PlatePoints</a>
 										<?php } ?>
 									<?php }
 								}?>
@@ -256,7 +256,7 @@ if( !function_exists('translateOrderQuantityType')){
 						<td class="title">Previous Session</td>
 						<td class="value small_value"><?php if (!empty($booking['last_session_attended'])) { ?><?php echo CTemplate::dateTimeFormat($booking['last_session_attended'], MONTH_DAY_YEAR); ?><?php } else { ?>None<?php } ?></td>
 						<td class="title">Orders Completed</td>
-						<td class="value small_value"><a href="/backoffice/order-history?id=<?php echo $booking['user_id']; ?>&back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>"><?php echo (!empty($booking['bookings_made'])) ? $booking['bookings_made'] : 0; ?></a></td>
+						<td class="value small_value"><a href="/backoffice/order-history?id=<?php echo $booking['user_id']; ?>"><?php echo (!empty($booking['bookings_made'])) ? $booking['bookings_made'] : 0; ?></a></td>
 					</tr>
 					<?php
 					$currentMealPrepPlusMember = false;
@@ -336,7 +336,7 @@ if( !function_exists('translateOrderQuantityType')){
 						Order Summary
 						<div style="float: right;">
 							<?php if (!empty($booking['can_edit'])) { ?>
-								<a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" class="btn btn-primary btn-sm">Edit Order</a>
+								<a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>" class="btn btn-primary btn-sm">Edit Order</a>
 
 								<?php if ($booking['status'] == CBooking::SAVED) { ?>
 									<span id="gd_delete_order-<?php echo $booking['id']; ?>" data-user_id="<?php echo $booking['user_id']; ?>" data-store_id="<?php echo $booking['store_id']; ?>" data-session_id="<?php echo $booking['session_id']; ?>" data-order_id="<?php echo $booking['order_id']; ?>" class="btn btn-primary btn-sm">Delete Order</span>
@@ -345,7 +345,7 @@ if( !function_exists('translateOrderQuantityType')){
 								<?php } ?>
 
 							<?php } else { ?>
-								<a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $booking['session_id']; ?>" class="btn btn-primary btn-sm">Edit Payments</a>
+								<a href="/backoffice/order-mgr?order=<?php echo $booking['order_id']; ?>" class="btn btn-primary btn-sm">Edit Payments</a>
 
 								<span data-tooltip="Cancel order period has expired" class="btn btn-primary btn-sm disabled">Cancel Order</span>
 							<?php } ?>
@@ -400,7 +400,7 @@ if( !function_exists('translateOrderQuantityType')){
 							<?php if (!empty($this->session_info['dream_taste_can_rsvp_upgrade'])) { ?>
 								<input type="button" class="btn btn-primary btn-sm" value="Upgrade Order" onclick="hostessDreamTasteOrder(<?php echo $this->session_info['id']; ?>, '<?php echo CTemplate::dateTimeFormat($this->session_info['session_start']); ?>', <?php echo $session_rsvp->user->id; ?>);" />
 							<?php } ?>
-							<a class="btn btn-primary btn-sm" href="/backoffice/user_details?id=<?php echo $session_rsvp->user->id; ?>&amp;back=/%3Fpage%3Dadmin_main%26session%3D<?php echo $this->session_info['id']; ?>">View Guest</a></li>
+							<a class="btn btn-primary btn-sm" href="/backoffice/user-details?id=<?php echo $session_rsvp->user->id; ?>">View Guest</a></li>
 							<span class="btn btn-primary btn-sm cancel_session_rsvp" data-user_id="<?php echo $session_rsvp->user->id; ?>" data-session_id="<?php echo $this->session_info['id']; ?>">Cancel RSVP</span>
 						</td>
 					</tr>

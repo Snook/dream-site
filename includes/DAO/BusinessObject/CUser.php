@@ -4951,10 +4951,6 @@ class CUser extends DAO_User
 		{
 			$redirectCustomer = '/';
 		}
-		else if (!empty($_POST['back']))
-		{
-			$redirectCustomer = $_POST['back'];
-		}
 
 		if ($this->user_type != self::CUSTOMER)
 		{
@@ -4968,18 +4964,6 @@ class CUser extends DAO_User
 				)))
 			{
 				$redirectCustomer = '/backoffice';
-			}
-
-			if (!empty($_GET['back']))
-			{
-				$redirectCustomer = $_GET['back'];
-			}
-		}
-		else
-		{
-			if (!empty($_GET['back']))
-			{
-				$redirectCustomer = $_GET['back'];
 			}
 		}
 

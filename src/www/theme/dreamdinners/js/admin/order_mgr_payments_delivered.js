@@ -844,7 +844,7 @@ function processPayment()
 				}
 				else if (json.message == "Not logged in")
 				{
-					$('#payment_proc_mess').html('<span style="color:red;font-weight:bold;">Session timed out, please <a href="' + back_path() + '">[login]</a> again.</span>');
+					$('#payment_proc_mess').html('<span style="color:red;font-weight:bold;">Session timed out, please <a href="/login">[login]</a> again.</span>');
 				}
 				else
 				{
@@ -989,7 +989,7 @@ function processDelayedPaymentStatus()
 			}
 			else if (json.message == "Not logged in")
 			{
-				$('#payment_proc_mess').html('<span style="color:red;font-weight:bold;">Session timed out, please <a href="' + back_path() + '">[login]</a> again.</span>');
+				$('#payment_proc_mess').html('<span style="color:red;font-weight:bold;">Session timed out, please <a href="/login">[login]</a> again.</span>');
 			}
 			else
 			{
@@ -1061,7 +1061,7 @@ function processPointToTransaction()
 			}
 			else if (json.message == "Not logged in")
 			{
-				$('#payment_proc_mess').html('<span style="color:red;font-weight:bold;">Session timed out, please <a href="' + back_path() + '">[login]</a> again.</span>');
+				$('#payment_proc_mess').html('<span style="color:red;font-weight:bold;">Session timed out, please <a href="/login">[login]</a> again.</span>');
 			}
 			else
 			{

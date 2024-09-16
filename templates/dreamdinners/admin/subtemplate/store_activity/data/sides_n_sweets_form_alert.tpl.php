@@ -1,4 +1,4 @@
-<a href="<?php echo HTTPS_BASE; ?>backoffice/user_details?id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a>  would like the following freezer items added to their order on <a href="<?php echo HTTPS_BASE; ?>backoffice/order-mgr?order=<?php echo $this->order_details['id']; ?>"><?php echo CTemplate::dateTimeFormat($this->order_details['session_start'], VERBOSE); ?></a><br>
+<a href="<?php echo HTTPS_BASE; ?>backoffice/user-details?id=<?php echo $this->user->id; ?>"><?php echo $this->user->firstname; ?> <?php echo $this->user->lastname; ?></a>  would like the following freezer items added to their order on <a href="<?php echo HTTPS_BASE; ?>backoffice/order-mgr?order=<?php echo $this->order_details['id']; ?>"><?php echo CTemplate::dateTimeFormat($this->order_details['session_start'], VERBOSE); ?></a><br>
 <br>
 Payment method: <?php echo $this->payment; ?><br>
 Use Dinner Dollars: <?php echo $this->use_dinner_dollars; ?><br>

@@ -74,21 +74,7 @@ class page_admin_order_history extends CPageAdminOnly
 		{
 			$tpl->setErrorMsg("The user id is invalid.");
 
-			if (isset($_REQUEST['back']))
-			{
-				CApp::bounce($_REQUEST['back']);
-			}
-
-			CApp::bounce("/backoffice/main");
-		}
-
-		if (isset($_REQUEST['back']))
-		{
-			$tpl->assign('back', $_REQUEST['back']);
-		}
-		else
-		{
-			$tpl->assign('back', '/backoffice/user_details?id=' . $id);
+			CApp::bounce("/backoffice");
 		}
 
 		$User = DAO_CFactory::create('user');
@@ -96,13 +82,7 @@ class page_admin_order_history extends CPageAdminOnly
 		if (!$User->find(true))
 		{
 			$tpl->setErrorMsg("The user could not be found.");
-
-			if (isset($_REQUEST['back']))
-			{
-				CApp::bounce($_REQUEST['back']);
-			}
-
-			CApp::bounce("/backoffice/main");
+			CApp::bounce("/backoffice");
 		}
 
 		$tpl->assign('user', $User->toArray());
@@ -297,5 +277,3 @@ class page_admin_order_history extends CPageAdminOnly
 	}
 
 }
-
-?>

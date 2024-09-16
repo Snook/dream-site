@@ -23,7 +23,7 @@ class page_admin_merchant extends CPageAdminOnly
 
 		if (!$store_id)
 		{
-			CApp::bounce('/backoffice/list_stores');
+			CApp::bounce('/backoffice/list-stores');
 		}
 
 		if ($store_id)
@@ -165,8 +165,7 @@ class page_admin_merchant extends CPageAdminOnly
 					}
 				}
 
-				//reload the page
-				CApp::bounce($_POST['back']);
+				CApp::bounce('/backoffice/list-stores');
 			}
 			else
 			{
@@ -186,12 +185,5 @@ class page_admin_merchant extends CPageAdminOnly
 
 			$tpl->assign('form_merchant', $Form->render());
 		}
-
-		if (!empty($_SERVER['HTTP_REFERER']))
-		{
-			$tpl->assign('back', $_SERVER['HTTP_REFERER']);
-		}
 	}
 }
-
-?>

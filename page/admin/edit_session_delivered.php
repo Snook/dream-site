@@ -219,10 +219,7 @@ class page_admin_edit_session_delivered extends CPageAdminOnly
 				$SessionForm->DefaultValues['session_publish_state'] = CSession::PUBLISHED;
 			}
 
-			if (isset($_GET['back']))
-			{
-				CApp::bounce($_GET['back']);
-			}
+			CApp::bounce('/backoffice/session-mgr-delivered');
 		}
 		//flip for blackout on UI
 		$SessionForm->DefaultValues["delivered_supports_shipping"] = ($Session->delivered_supports_shipping === '0') ? true : false;
@@ -747,11 +744,7 @@ class page_admin_edit_session_delivered extends CPageAdminOnly
 					}
 
 					$tpl->setStatusMsg('The session has been saved');
-
-					if (isset($_GET['back']))
-					{
-						CApp::bounce($_GET['back']);
-					}
+					CApp::bounce('/backoffice/session-mgr-delivered');
 				}
 				else
 				{

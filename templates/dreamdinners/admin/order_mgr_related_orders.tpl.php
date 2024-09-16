@@ -37,8 +37,8 @@
 		<td class="order_history_cell" colspan="8" style="text-align: right;">
 
 			<?php if ($this->current_order != $order['order_id'] ) { ?>
-				<a class="btn btn-primary btn-sm" href="/backoffice/order-history?id=<?php echo $order['user_id']; ?>&amp;order=<?php echo $order['order_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">View Order</a>
-				<?php if ($order['canEdit']) { ?><a class="btn btn-primary btn-sm" href="/backoffice/order-mgr?order=<?=$order['order_id'];?>&back=<?=urlencode($_SERVER['REQUEST_URI'])?>">Edit</a><?php } ?>
+				<a class="btn btn-primary btn-sm" href="/backoffice/order-history?id=<?php echo $order['user_id']; ?>&amp;order=<?php echo $order['order_id']; ?>">View Order</a>
+				<?php if ($order['canEdit']) { ?><a class="btn btn-primary btn-sm" href="/backoffice/order-mgr?order=<?=$order['order_id'];?>">Edit</a><?php } ?>
 			<?php } ?>
 
 			<?php if (!empty($order['order_admin_notes']) || !empty($order['order_user_notes'])) { ?><a class="btn btn-primary btn-sm" id="view_notes-<?= $order['order_id'] ?>" data-order_id="<?= $order['order_id'] ?>">Notes</a><?php } ?>
@@ -118,8 +118,8 @@
 		<td class="order_history_cell" colspan="7" style="text-align: right;">
 
 			<?php if ($this->current_order != $order['order_id'] ) { ?>
-				<a class="btn btn-primary btn-sm" href="/backoffice/order-history?id=<?php echo $order['user_id']; ?>&amp;order=<?php echo $order['order_id']; ?>&amp;back=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">View Order</a>
-				<?php if ($order['can_edit']) { ?><a class="btn btn-primary btn-sm" href="/backoffice/order-mgr?order=<?=$order['order_id'];?>&back=<?=urlencode($_SERVER['REQUEST_URI'])?>">Edit</a><?php } ?>
+				<a class="btn btn-primary btn-sm" href="/backoffice/order-history?id=<?php echo $order['user_id']; ?>&amp;order=<?php echo $order['order_id']; ?>">View Order</a>
+				<?php if ($order['can_edit']) { ?><a class="btn btn-primary btn-sm" href="/backoffice/order-mgr?order=<?=$order['order_id'];?>">Edit</a><?php } ?>
 			<?php } ?>
 
 			<?php if (!empty($order['order_admin_notes']) || !empty($order['order_user_notes'])) { ?><a class="btn btn-primary btn-sm" id="view_notes-<?= $order['order_id'] ?>" data-order_id="<?= $order['order_id'] ?>">Notes</a><?php } ?>

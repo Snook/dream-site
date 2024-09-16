@@ -1752,7 +1752,7 @@ $(function () {
 												else
 												{
 													// if there is no data-select_function then the button navigates to user_details
-													bounce('/backoffice/user_details?id=' + $(this).data('user_id'));
+													bounce('/backoffice/user-details?id=' + $(this).data('user_id'));
 												}
 											});
 										}
@@ -1942,7 +1942,7 @@ $(function () {
 								label: 'Manage',
 								className: 'btn-success',
 								callback: function () {
-									bounce('/backoffice/user-plate-points?id=' + user_id + '&back=' + back_path());
+									bounce('/backoffice/user-plate-points?id=' + user_id);
 								}
 							},
 							close: {

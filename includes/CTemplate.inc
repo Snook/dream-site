@@ -76,7 +76,6 @@ class CTemplate extends Savant2
 	);
 
 	protected $debugInfoArray = array();
-	protected $emergency_mode = false;
 
 	public $page;
 	public $is_admin = false;
@@ -128,11 +127,6 @@ class CTemplate extends Savant2
 		if (substr($this->page, 0, 6) == 'admin_')
 		{
 			$this->is_admin = true;
-		}
-
-		if (defined('DESIGNATE_AS_EMERGENCY_REPORTING_SERVER') && DESIGNATE_AS_EMERGENCY_REPORTING_SERVER)
-		{
-			$this->emergency_mode = true;
 		}
 
 		if (!$template_path)
@@ -299,18 +293,6 @@ class CTemplate extends Savant2
 		}
 
 		return $this;
-	}
-
-	static function getUserDetailsLink($user_id, $addBackLink = true)
-	{
-		$retVal = "/backoffice/user_details?id=" . $user_id;
-
-		if ($addBackLink)
-		{
-			$retVal .= "&back=" . urlencode($_SERVER['REQUEST_URI']);
-		}
-
-		return $retVal;
 	}
 
 	/**
@@ -490,20 +472,6 @@ class CTemplate extends Savant2
 			'useLib1_8' => false,
 			'suppress_labels_display' => false
 		));
-	}
-
-	function assignBackBtn($defaultUrl = '/')
-	{
-		if (array_key_exists('back', $_REQUEST) && $_REQUEST['back'])
-		{
-			$back = $_REQUEST['back'];
-		}
-		else
-		{
-			$back = $defaultUrl;
-		}
-
-		$this->assign('back', $back);
 	}
 
 	static function formatDecimal($number)

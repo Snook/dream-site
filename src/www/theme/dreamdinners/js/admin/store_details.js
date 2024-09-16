@@ -427,10 +427,10 @@ function handle_delete_store()
 			title: 'Delete Store',
 			message: 'Are you sure you want to <span style="color: red; font-weight: bold;">permanently delete</span> this store from all of Dream Dinners?',
 			confirm: function () {
-				bounce('/backoffice/store_details?id=' + store_id + '&action=deleteStore');
+				bounce('/backoffice/store-details?id=' + store_id + '&action=deleteStore');
 
 				create_and_submit_form({
-					action: '/backoffice/store_details?id' + store_id,
+					action: '/backoffice/store-details?id' + store_id,
 					input: ({
 						action: 'deleteStore',
 						id: store_id

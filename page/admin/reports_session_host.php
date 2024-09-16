@@ -458,7 +458,7 @@ class page_admin_reports_session_host extends CPageAdminOnly
             $tarray['session_start'] = CTemplate::dateTimeFormat($tarray['session_start']);
             $tarray['session_start'] = "=HYPERLINK(\"" . HTTPS_BASE . "backoffice/main?session=" . $tarray['session_id'] . "\", \"{$tarray['session_start']}\")";
             $thisHost = $tarray['session_host'];
-            $tarray['session_host'] = "=HYPERLINK(\"" . HTTPS_BASE. "backoffice/user_details?id=" . $tarray['session_host'] . "\", \"{$tarray['session_host']}\")";
+            $tarray['session_host'] = "=HYPERLINK(\"" . HTTPS_BASE. "backoffice/user-details?id=" . $tarray['session_host'] . "\", \"{$tarray['session_host']}\")";
             $tarray['primary_email'] = "=HYPERLINK(\"" . HTTPS_BASE . "backoffice/email?id=" . $thisHost . "\", \"{$tarray['primary_email']}\")";
 
             $tarray['firstname'] = htmlspecialchars($tarray['firstname']);

@@ -42,12 +42,12 @@ function handle_owner_links()
 
 		if (manage_action == 'view')
 		{
-			bounce('/backoffice/user_details?id=' + user_id + '&back=' + back_path());
+			bounce('/backoffice/user-details?id=' + user_id);
 		}
 
 		if (manage_action == 'edit')
 		{
-			bounce('/backoffice/account?id=' + user_id + '&back=' + back_path());
+			bounce('/backoffice/account?id=' + user_id);
 		}
 
 		if (manage_action == 'delete')
@@ -86,7 +86,7 @@ function handle_store_links()
 
 		if (manage_action == 'view')
 		{
-			bounce('/backoffice/store_details?id=' + store_id + '&back=' + back_path());
+			bounce('/backoffice/store-details?id=' + store_id);
 		}
 
 		if (manage_action == 'archive')
@@ -115,11 +115,10 @@ function handle_store_links()
 					dd_toast({message: 'Deleting Store'});
 
 					create_and_submit_form({
-						action: '/backoffice/store_details?id=' + store_id,
+						action: '/backoffice/store-details?id=' + store_id,
 						input: ({
 							action: 'deleteStore',
-							id: store_id,
-							back: back_path()
+							id: store_id
 						})
 					});
 

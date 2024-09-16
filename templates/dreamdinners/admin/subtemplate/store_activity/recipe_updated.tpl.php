@@ -1,7 +1,7 @@
 <div>
 	&#8226; <?php echo CTemplate::dateTimeFormat($item['time'], TIME, $this->store, CONCISE); ?>
 	<?php if (!empty($item['user_id'])) { ?>
-		<span data-tooltip="<?php echo $item['user_type']; ?>"><a href="/backoffice/user_details?id=<?php echo $item['user_id']; ?>" target="_blank"><?php echo $item['firstname']; ?> <?php echo $item['lastname']; ?></a></span>
+		<span data-tooltip="<?php echo $item['user_type']; ?>"><a href="/backoffice/user-details?id=<?php echo $item['user_id']; ?>" target="_blank"><?php echo $item['firstname']; ?> <?php echo $item['lastname']; ?></a></span>
 	<?php } ?>
 	<b><?php echo $item['action']; ?></b>
 	<?php echo $item['menu_name']; ?>

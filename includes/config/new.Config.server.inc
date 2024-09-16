@@ -205,8 +205,6 @@ switch (SERVER_ENV)
 		define("PFP_TEST_MODE", true);
 		define("USE_CORPORATE_TEST_ACCOUNT", 175); // Kennewick for test credit card
 
-		define('DESIGNATE_AS_EMERGENCY_REPORTING_SERVER', false);
-
 		define("DEVELOPMENT_MODE", true); // In development mode Failed Assertions throw and exception
 		define("ALLOW_TV_OFFER_IF_PREVIOUS", true);
 		define("DEBIT_GIFT_CARD_TESTMODE", true);
@@ -265,8 +263,6 @@ switch (SERVER_ENV)
 		// ECommerce
 		define("PFP_TEST_MODE", false);// Live = false
 		define("USE_CORPORATE_TEST_ACCOUNT", false);// Live = false
-
-		define('DESIGNATE_AS_EMERGENCY_REPORTING_SERVER', false);
 
 		define("DEVELOPMENT_MODE", false); // Live = false
 		define("ALLOW_TV_OFFER_IF_PREVIOUS", false); // Live = false

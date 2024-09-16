@@ -96,23 +96,6 @@ class form_login
 			CForm::value => 'Log in'
 		));
 
-		if (isset($_GET['back']) && $_GET['back'])
-		{
-			$Form->AddElement(array(
-				CForm::type => CForm::Hidden,
-				CForm::name => "back",
-				CForm::value => $_GET['back']
-			));
-		}
-		else
-		{
-			$Form->AddElement(array(
-				CForm::type => CForm::Hidden,
-				CForm::name => "back",
-				CForm::value => $_SERVER['REQUEST_URI']
-			));
-		}
-
 		$DAO_user = CUser::getCurrentUser();
 		if (!$DAO_user)
 		{
@@ -143,7 +126,7 @@ class form_login
 
 					if ($trigger && defined('REMAUTHSTRNEW') && ($_REQUEST["host_url"] == "support.dreamdinners.com" || $_REQUEST["host_url"] == "support.lovingwithfood.com"))
 					{
-						CApp::signupOrLoginToFreshDeskSupportPortalNew($_REQUEST,false, true, $_REQUEST["host_url"]);
+						CApp::signupOrLoginToFreshDeskSupportPortalNew($_REQUEST, false, true, $_REQUEST["host_url"]);
 					}
 					//---------------------------------------------------------------------
 
@@ -185,7 +168,7 @@ class form_login
 					{
 						if (isset($_GET['page']) && $_GET['page'] != "signout")
 						{
-							CApp::signupOrLoginToFreshDeskSupportPortalNew($_REQUEST,false, true);
+							CApp::signupOrLoginToFreshDeskSupportPortalNew($_REQUEST, false, true);
 						}
 					}
 					// ------------------------------------------------------------------

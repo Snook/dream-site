@@ -1,10 +1,4 @@
 <?php
-/*
- * Created on Sep 1, 2005
- *
- * To change the template for this generated file go to
- * Window - Preferences - PHPeclipse - PHP - Code Templates
- */
 require_once("includes/CPageAdminOnly.inc");
 require_once 'includes/CCalendar.inc';
 require_once 'includes/DAO/BusinessObject/CSession.php';
@@ -78,7 +72,7 @@ class page_admin_session_mgr_delivered extends CPageAdminOnly
 			//site admin
 			//does the location stuff for the site admin, adds the dropdown, checks the url for a store id first
 			//CForm ::storedropdown always sets the default to the last chosen store
-			$storeMenuForm->DefaultValues['store'] = array_key_exists('store',$_GET) ? CGPC::do_clean($_GET['store'],TYPE_INT) : null;
+			$storeMenuForm->DefaultValues['store'] = array_key_exists('store', $_GET) ? CGPC::do_clean($_GET['store'], TYPE_INT) : null;
 
 			$storeMenuForm->addElement(array(
 				CForm::type => CForm::AdminStoreDropDown,
@@ -169,7 +163,7 @@ class page_admin_session_mgr_delivered extends CPageAdminOnly
 
 		if (isset($_POST["menus"]))
 		{
-			$storeMenuForm->DefaultValues['menus'] = CGPC::do_clean($_POST["menus"],TYPE_STR);
+			$storeMenuForm->DefaultValues['menus'] = CGPC::do_clean($_POST["menus"], TYPE_STR);
 		}
 		else
 		{
@@ -264,7 +258,6 @@ class page_admin_session_mgr_delivered extends CPageAdminOnly
 			$shipping_bookings_count = count($shipping_bookings);
 			$remaining_slots = $Sessions->available_slots - $shipping_bookings_count;
 
-
 			if (!$isCurrent)
 			{
 				if ($thisSessionTimeTS < $cueMonthMidPointTS) // previous menu
@@ -306,7 +299,6 @@ class page_admin_session_mgr_delivered extends CPageAdminOnly
 			$dateOnly = Date("n", $thisSessionTimeTS) . "/" . Date("j", $thisSessionTimeTS) . "/" . Date("Y", $thisSessionTimeTS);
 			$timeOnly = Date("G", $thisSessionTimeTS) . ":" . Date("i", $thisSessionTimeTS);
 			$isOpen = $Sessions->isOpen($Store);
-
 
 			self::$sessionArray[$dateOnly][$Sessions->id] = array(
 				'time' => $timeOnly,
@@ -373,7 +365,6 @@ class page_admin_session_mgr_delivered extends CPageAdminOnly
 		{
 			$lastCurrentTS = strtotime($tsCurrentMenuGlobalEndDate);
 		}
-
 
 		$todayMarkerRangeStart = mkTime(0, 0, 0, $todaysMonth, $todaysDay, $todaysYear);
 		$todayMarkerRangeEnd = mkTime(0, 0, 0, $todaysMonth, $todaysDay, $todaysYear);
@@ -461,8 +452,6 @@ function populateCallback($Date)
 				$IntroSlots = $dayItem['remainingIntroSlots'];
 			}
 
-
-
 			if (!$dayItem['isOpen'])
 			{
 				$image = ADMIN_IMAGES_PATH . '/calendar/session_closed.png';
@@ -484,32 +473,20 @@ function populateCallback($Date)
 				$editClick = 'onmouseover="hiliteIcon(' . $dayItem['id'] . ', 4);" onmouseout="unHiliteIcon(' . $dayItem['id'] . ', 4);"';
 			}
 
-//			if($dayItem['delivered_supports_delivery'] ){
-//
-//				$dayItem['session_type_fadmin_acronym'] = 'D';
-//				$dayItem['session_type_string'] = 'delivery';
-//				$sessionTypeNote = CCalendar::dayItemTypeNote($dayItem);
-//
-//				$itemList[$count++] = '<a href="/backoffice/edit-session?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr">
-//				<img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign">
-//				</a>' . $sessionTypeNote . '<a href="/backoffice/main_delivered?session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Pick Ups: ' . $dayItem['remainingSlots'] . '">&nbsp;' . $dayItem['remainingSlots'] .'</a>';
-//			}
-
-			if( $dayItem['delivered_supports_shipping']){
-
+			if ($dayItem['delivered_supports_shipping'])
+			{
 				$dayItem['session_type_fadmin_acronym'] = 'P';
 				$dayItem['session_type_string'] = 'pickup';
 				$dayItem['session_type_title'] = 'Pickup';
 				$sessionTypeNote = CCalendar::dayItemTypeNote($dayItem);
 
-				$itemList[$count++] = '<a href="/backoffice/edit-session-delivered?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr-delivered">
+				$itemList[$count++] = '<a href="/backoffice/edit-session-delivered?session=' . $dayItem['id'] . '">
 				<img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign">
-				</a>' . $sessionTypeNote . '<a href="/backoffice/main_delivered?session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Pick Ups: ' . $dayItem['remainingSlots'] . '">&nbsp;' . $dayItem['remainingSlots'] .'</a>';
+				</a>' . $sessionTypeNote . '<a href="/backoffice/main_delivered?session=' . $dayItem['id'] . '" class="' . $linkClass . '" data-tooltip="Remaining Pick Ups: ' . $dayItem['remainingSlots'] . '">&nbsp;' . $dayItem['remainingSlots'] . '</a>';
 			}
 
-
-			if(!$dayItem['delivered_supports_delivery']  && !$dayItem['delivered_supports_shipping']){
-
+			if (!$dayItem['delivered_supports_delivery'] && !$dayItem['delivered_supports_shipping'])
+			{
 				$dayItem['session_type_fadmin_acronym'] = 'PB';
 				$dayItem['session_type_string'] = 'pickup_blackout';
 				$dayItem['session_type_title'] = 'Pickup Blackout';
@@ -520,27 +497,29 @@ function populateCallback($Date)
 				$dayItem['session_type_title'] = 'Delivery Blackout';
 				$sessionNoteDelivery = CCalendar::dayItemTypeNote($dayItem);
 
-				$itemList[$count++] = '<a href="/backoffice/edit-session-delivered?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr-delivered">
+				$itemList[$count++] = '<a href="/backoffice/edit-session-delivered?session=' . $dayItem['id'] . '">
 				<img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign">
-				</a>' . $sessionNotePickup.$sessionNoteDelivery;
-			}else if(!$dayItem['delivered_supports_delivery'] ){
-
+				</a>' . $sessionNotePickup . $sessionNoteDelivery;
+			}
+			else if (!$dayItem['delivered_supports_delivery'])
+			{
 				$dayItem['session_type_fadmin_acronym'] = 'DB';
 				$dayItem['session_type_string'] = 'delivery_blackout';
 				$dayItem['session_type_title'] = 'Delivery Blackout';
 				$sessionNoteDelivery = CCalendar::dayItemTypeNote($dayItem);
 
-				$itemList[$count++] = '<a href="/backoffice/edit-session-delivered?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr-delivered">
+				$itemList[$count++] = '<a href="/backoffice/edit-session-delivered?session=' . $dayItem['id'] . '">
 				<img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign">
-				</a>' .$sessionNoteDelivery;
-			}else if(!$dayItem['delivered_supports_shipping']){
-
+				</a>' . $sessionNoteDelivery;
+			}
+			else if (!$dayItem['delivered_supports_shipping'])
+			{
 				$dayItem['session_type_fadmin_acronym'] = 'PB';
 				$dayItem['session_type_string'] = 'pickup_blackout';
 				$dayItem['session_type_title'] = 'Pickup Blackout';
 				$sessionNotePickup = CCalendar::dayItemTypeNote($dayItem);
 
-				$itemList[$count++] = '<a href="/backoffice/edit-session-delivered?session=' . $dayItem['id'] . '&amp;back=/backoffice/session-mgr-delivered">
+				$itemList[$count++] = '<a href="/backoffice/edit-session-delivered?session=' . $dayItem['id'] . '">
 				<img name="' . $dayItem['time'] . '" id="' . $dayItem['id'] . '" src="' . $image . '" ' . $editClick . ' class="img_valign">
 				</a>' . $sessionNotePickup;
 			}
@@ -552,5 +531,3 @@ function populateCallback($Date)
 		$styleOverride
 	);
 }
-
-?>

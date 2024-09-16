@@ -1897,7 +1897,10 @@ class form_account
 		return $inviting_user_email;
 	}
 
-	static function process_account_creation($tpl, $bounceTo = false)
+	/**
+	 * @throws Exception
+	 */
+	static function process_account_creation($tpl, $bounceTo = false): CForm
 	{
 		$Form = new CForm;
 		$Form->Repost = false;
@@ -1946,17 +1949,7 @@ class form_account
 					}
 					else
 					{
-						// HACK ALERT: somehow a second slash is added to the REQUEST_URI
-
-						$destination = $_SERVER['REQUEST_URI'];
-						if (strpos($destination, "//") === 0)
-						{
-							$destination = ltrim($destination, "/");
-							$destination = "/" . $destination;
-						}
-
-						// relaod this page so it can re-render as logged in
-						CApp::instance()->bounce($destination, true);
+						CApp::instance()->bounce();
 					}
 				}
 			}
@@ -2014,5 +2007,3 @@ class form_account
 		return $rslt;
 	}
 }
-
-?>

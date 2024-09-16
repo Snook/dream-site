@@ -168,7 +168,7 @@ class page_admin_main_delivered extends CPageAdminOnly
 
 		if ($Store->store_type !== CStore::DISTRIBUTION_CENTER)
 		{
-			CApp::bounce('/backoffice/main');
+			CApp::bounce('/backoffice');
 		}
 
 		// temp hack for Sean Harris
@@ -221,5 +221,3 @@ class page_admin_main_delivered extends CPageAdminOnly
 		$tpl->assign('store', $Store);
 	}
 }
-
-?>

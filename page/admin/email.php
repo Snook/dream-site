@@ -115,20 +115,6 @@ class page_admin_email extends CPageAdminOnly
 		}
 
 		$tpl->assign('recipient_list', $recipientArray);
-
-		if (!empty($_GET['back']))
-		{
-			$tpl->assign('back', $_GET['back']);
-		}
-		else if (!empty($user_id))
-		{
-			$tpl->assign('back', '/backoffice/user_details?id=' . $user_id);
-		}
-		else
-		{
-			$tpl->assign('back', '/backoffice/main');
-		}
-
 		$tpl->assign('extensions', '.' . implode(' .', CMAIL::allowedExtensions()));
 		$tpl->assign('sizelimit', floor(CMail::SIZELIMIT / 1024 / 1024) . 'MB');
 		$tpl->assign('js_extensions', "'" . implode("','", CMAIL::allowedExtensions()) . "'");

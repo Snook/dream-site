@@ -59,7 +59,7 @@ class page_admin_menu_inventory_mgr extends CPageAdminOnly
 
 		if (CBrowserSession::getCurrentFadminStoreType() === CStore::DISTRIBUTION_CENTER)
 		{
-			CApp::bounce('/backoffice/main');
+			CApp::bounce('/backoffice');
 		}
 
 		// ------------------------------ figure out active store and create store widget if necessary
@@ -1595,5 +1595,3 @@ class page_admin_menu_inventory_mgr extends CPageAdminOnly
 		return $mainarray;
 	}
 }
-
-?>
