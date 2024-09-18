@@ -2896,6 +2896,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		$tpl->assign('user', $this->User->toArray());
 		$tpl->assign('orderInfo', $OrderDetailsArray['orderInfo']);
 		$tpl->assign('paymentInfo', $OrderDetailsArray['paymentInfo']);
+		$tpl->assign('DAO_session', $OrderDetailsArray["DAO_session"]);
 		$tpl->assign('sessionInfo', $OrderDetailsArray['sessionInfo']);
 		$tpl->assign('storeInfo', $OrderDetailsArray['storeInfo']);
 		$tpl->assign('DAO_menu', $this->daoMenu);

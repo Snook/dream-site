@@ -171,6 +171,7 @@ class page_order_details extends CPage
 		$tpl->assign('orderInfo', $OrderDetailsArray['orderInfo']);
 		$tpl->assign('menuInfo', $OrderDetailsArray['menuInfo']);
 		$tpl->assign('paymentInfo', $OrderDetailsArray['paymentInfo']);
+		$tpl->assign('DAO_session', $OrderDetailsArray['DAO_session']);
 		$tpl->assign('sessionInfo', $OrderDetailsArray['sessionInfo']);
 		$tpl->assign('storeInfo', $OrderDetailsArray['storeInfo']);
 

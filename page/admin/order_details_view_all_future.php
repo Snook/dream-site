@@ -203,7 +203,7 @@ class page_admin_order_details_view_all_future extends CPageAdminOnly
 
 					$session_detail = $order_info['sessionInfo'];
 					$session_start = $session_detail['session_start'];
-
+					$templateEngine->assign('DAO_session', $order_info["DAO_session"]);
 					$templateEngine->assign('session', $order_info['sessionInfo']);
 					$templateEngine->assign('sessionInfo', $order_info['sessionInfo']);
 					$templateEngine->assign('customer_name', $order_info['customer_name']);

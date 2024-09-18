@@ -1994,6 +1994,7 @@ class page_admin_order_mgr_test extends CPageAdminOnly
 		$tpl->assign('orderInfo', $OrderDetailsArray['orderInfo']);
 		$tpl->assign('paymentInfo', $OrderDetailsArray['paymentInfo']);
 		$tpl->assign('sessionInfo', $OrderDetailsArray['sessionInfo']);
+		$tpl->assign('DAO_session', $OrderDetailsArray['DAO_session']);
 		$tpl->assign('storeInfo', $OrderDetailsArray['storeInfo']);
 
 		$Form->AddElement(array(
