@@ -657,6 +657,10 @@ class ShipStationManager extends ApiManager
 						}
 					}
 				}
+				else
+				{
+					TransientDataStore::updateDataClass($recordId, TransientDataStore::SHIPPING_SHIP_NOTIFICATION_FAILED);
+				}
 			}
 		}
 	}
