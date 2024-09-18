@@ -383,6 +383,7 @@
 			<div class="col">
 				<p class="p-1 mb-1 font-weight-bold border-top border-bottom font-size-medium-small">Community Pick Up Details</p>
 				<div class="p-1">
+					<div class="font-weight-bold"><?php echo $this->DAO_session->DAO_store_pickup_location->location_title; ?></div>
 					<div><?php echo $this->DAO_session->DAO_store_pickup_location->generateAddressHTML(); ?></div>
 				</div>
 			</div>
