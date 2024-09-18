@@ -51,6 +51,9 @@ class processor_admin_shipstation_manager extends CPageProcessor
 		$this->shipstationAction();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	function shipstationAction()
 	{
 		header('Pragma: no-cache');
@@ -171,5 +174,3 @@ class processor_admin_shipstation_manager extends CPageProcessor
 		}
 	}
 }
-
-?>
