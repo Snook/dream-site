@@ -26,15 +26,15 @@ class TransientDataStore extends DAO_Transient_data_store
 	private $_db = false;
 
 	/**
-	 * @param $data_class enum (SHIPPING_RATE_CACHE,TAX_RATE_CACHE,SHIPPING_TRACKING_CACHE,SHIPPING_SHIP_NOTIFICATION_DONE,SHIPPING_SHIP_NOTIFICATION_NEW)
+	 * @param $data_class (SHIPPING_RATE_CACHE,TAX_RATE_CACHE,SHIPPING_TRACKING_CACHE,SHIPPING_SHIP_NOTIFICATION_DONE,SHIPPING_SHIP_NOTIFICATION_NEW)
 	 * @param $data_reference
-	 * @param $limit      number of rows to fetch
+	 * @param $limit      int of rows to fetch
 	 *
 	 * @return array (successful=>boolean, error_message=>string, data_class=string, data_id=long, data=blob,
 	 * expires=timestamp)
 	 * @throws Exception
 	 */
-	public static function retrieveData($data_class, $data_reference = null, $limit = 1): array
+	public static function retrieveData($data_class, $data_reference = null, int $limit = 1): array
 	{
 		$DAO_transient_data_store = DAO_CFactory::create('transient_data_store', true);
 		$DAO_transient_data_store->data_class = $data_class;
@@ -177,5 +177,3 @@ class TransientDataStore extends DAO_Transient_data_store
 	}
 
 }
-
-?>

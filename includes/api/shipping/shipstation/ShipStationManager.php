@@ -151,7 +151,6 @@ class ShipStationManager extends ApiManager
 	 */
 	public function getOrders($filters)
 	{
-
 		$this->enforceApiRateLimit();
 
 		$this->cleanNulls($filters);
@@ -177,7 +176,6 @@ class ShipStationManager extends ApiManager
 	 */
 	public function getAllOrders($filters)
 	{
-
 		$allOrders = array();
 		$searchResult = $this->getOrders($filters);
 		if (!empty($searchResult))
@@ -334,7 +332,6 @@ class ShipStationManager extends ApiManager
 
 	public function deleteOrder($orderId)
 	{
-
 		// Enforce API requests cap //
 
 		$this->enforceApiRateLimit();
@@ -359,7 +356,6 @@ class ShipStationManager extends ApiManager
 
 	public function getShipments($shipmentWrapper, $useCache = true)
 	{
-
 		if ($useCache && $shipmentWrapper->isCached())
 		{
 			return $shipmentWrapper->restoreFromCache();
@@ -394,7 +390,6 @@ class ShipStationManager extends ApiManager
 
 	public function getRates($rateWrapper)
 	{
-
 		if ($rateWrapper->isCached())
 		{
 			return $rateWrapper->restoreFromCache();
@@ -432,7 +427,6 @@ class ShipStationManager extends ApiManager
 
 	public function createLabel($filters)
 	{
-
 		$this->enforceApiRateLimit();
 
 		$this->cleanNulls($filters);
@@ -454,7 +448,6 @@ class ShipStationManager extends ApiManager
 
 	public function getCarriers()
 	{
-
 		$this->enforceApiRateLimit();
 
 		$response = $this->sendGetRequest($this->endpoint . $this->methodsPaths['getCarriers']);
@@ -476,7 +469,6 @@ class ShipStationManager extends ApiManager
 
 	public function getCarrier($carrierCode)
 	{
-
 		$this->enforceApiRateLimit();
 
 		$response = $this->sendGetRequest($this->endpoint . $this->methodsPaths['getCarrier'] . '?carrierCode=' . $carrierCode);
@@ -498,7 +490,6 @@ class ShipStationManager extends ApiManager
 
 	public function getPackages($carrierCode)
 	{
-
 		$this->enforceApiRateLimit();
 
 		$response = $this->sendGetRequest($this->endpoint . $this->methodsPaths['getPackages'] . '?carrierCode=' . $carrierCode);
@@ -597,12 +588,19 @@ class ShipStationManager extends ApiManager
 	 * shipstation and then update order_shipping info...e.g. tracking number,
 	 * actual ship cost,...
 	 *
-	 *
-	 * @return void true if all updated
+	 * @throws Exception
 	 */
-	public static function loadOrderShippingInfo()
+	public static function loadOrderShippingInfo($DAO_transient_data_store = false): void
 	{
-		$recordToProcess = TransientDataStore::retrieveData(TransientDataStore::SHIPPING_SHIP_NOTIFICATION_NEW);
+		if ($DAO_transient_data_store)
+		{
+			$recordToProcess = $DAO_transient_data_store->toArray();
+			$recordToProcess['successful'] = true;
+		}
+		else
+		{
+			$recordToProcess = TransientDataStore::retrieveData(TransientDataStore::SHIPPING_SHIP_NOTIFICATION_NEW);
+		}
 
 		if ($recordToProcess['successful'])
 		{
@@ -613,7 +611,6 @@ class ShipStationManager extends ApiManager
 			$qs = $url_components['query'];
 			parse_str($qs, $queryParams);
 
-			$shipStationMgrInstance = null;
 			try
 			{
 				$shipStationMgrInstance = ShipStationManager::getInstanceFromShipStationStore($queryParams['storeID']);
@@ -628,54 +625,39 @@ class ShipStationManager extends ApiManager
 
 			$batchWrapper = $shipStationMgrInstance->loadOrderShippingInfoFromBatch(new ShipStationOrderBatchWrapper($url));
 
-			$setShippingOnAll = true;
 			foreach ($batchWrapper->getShipments() as $ssorder)
 			{
-				$DAO_orders = DAO_CFactory::create('orders', true);
-				$DAO_orders->id = $ssorder->orderKey;
-
-				if ($DAO_orders->find_DAO_orders(true))
+				if (is_numeric($ssorder->orderKey))
 				{
-					if (!empty($ssorder->trackingNumber) && $ssorder->trackingNumber != $DAO_orders->DAO_orders_shipping->tracking_number)
+					$DAO_orders = DAO_CFactory::create('orders', true);
+					$DAO_orders->id = $ssorder->orderKey;
+
+					if ($DAO_orders->find_DAO_orders(true))
 					{
-						$copy_DAO_orders_shipping = clone($DAO_orders->DAO_orders_shipping);
-						$DAO_orders->DAO_orders_shipping->status = COrdersShipping::STATUS_SHIPPED;
-						$DAO_orders->DAO_orders_shipping->tracking_number = $ssorder->trackingNumber;
-						$DAO_orders->DAO_orders_shipping->tracking_number_received = date('Y-m-d H:i:s');
-						$DAO_orders->DAO_orders_shipping->shipping_cost = $ssorder->shipmentCost;
-						$DAO_orders->DAO_orders_shipping->shipping_tax = 0.00;//$ssorder->shipping_tax;
-						$rslt = $DAO_orders->DAO_orders_shipping->update($copy_DAO_orders_shipping);
-						if (!$rslt)
+						if (!empty($ssorder->trackingNumber) && $ssorder->trackingNumber != $DAO_orders->DAO_orders_shipping->tracking_number)
 						{
-							$setShippingOnAll = false;
+							$copy_DAO_orders_shipping = clone($DAO_orders->DAO_orders_shipping);
+							$DAO_orders->DAO_orders_shipping->status = COrdersShipping::STATUS_SHIPPED;
+							$DAO_orders->DAO_orders_shipping->tracking_number = $ssorder->trackingNumber;
+							$DAO_orders->DAO_orders_shipping->tracking_number_received = date('Y-m-d H:i:s');
+							$DAO_orders->DAO_orders_shipping->shipping_cost = $ssorder->shipmentCost;
+							$DAO_orders->DAO_orders_shipping->shipping_tax = 0.00;//$ssorder->shipping_tax;
+
+							if ($DAO_orders->DAO_orders_shipping->update($copy_DAO_orders_shipping))
+							{
+								//Send Tracking Email to Guest
+								CEmail::sendDeliveredShipmentTrackingEmail($DAO_orders);
+								TransientDataStore::updateDataClass($recordId, TransientDataStore::SHIPPING_SHIP_NOTIFICATION_DONE);
+							}
 						}
-						else
+						else if (!empty($ssorder->trackingNumber) && $ssorder->trackingNumber == $DAO_orders->DAO_orders_shipping->tracking_number)
 						{
-							//Send Tracking Email to Guest
-							CEmail::sendDeliveredShipmentTrackingEmail($DAO_orders);
+							// Tracking number already populated but the data store is not updated yet for some reason
+							TransientDataStore::updateDataClass($recordId, TransientDataStore::SHIPPING_SHIP_NOTIFICATION_DONE);
 						}
-					}
-					else if (!empty($ssorder->trackingNumber) && $ssorder->trackingNumber == $DAO_orders->DAO_orders_shipping->tracking_number)
-					{
-						$setShippingOnAll = true;
-					}
-					else
-					{
-						$setShippingOnAll = false;
 					}
 				}
 			}
-
-			if ($setShippingOnAll)
-			{
-				TransientDataStore::updateDataClass($recordId, TransientDataStore::SHIPPING_SHIP_NOTIFICATION_DONE);
-			}
-
-			return $setShippingOnAll;
-		}
-		else
-		{
-			return false;
 		}
 	}
 
@@ -688,21 +670,18 @@ class ShipStationManager extends ApiManager
 	 */
 	public function loadOrderShippingInfoFromUrl($url)
 	{
-
 		return $this->loadOrderShippingInfoFromBatch(new ShipStationOrderBatchWrapper($url));
 	}
 
 	/**
 	 * Used to gather information based on the webhook callback
 	 *
-	 * @param $batchWrapper containing url returned from the webhook
+	 * @param $batchWrapper // containing url returned from the webhook
 	 *
-	 * @return false|stdClass Json containing the information return from the service
+	 * @return false|ShipStationOrderBatchWrapper Json containing the information return from the service
 	 */
-	public function loadOrderShippingInfoFromBatch($batchWrapper)
+	public function loadOrderShippingInfoFromBatch($batchWrapper): bool|ShipStationOrderBatchWrapper
 	{
-
-
 		if ($batchWrapper->isCached())
 		{
 			return $batchWrapper->restoreFromCache();
@@ -730,5 +709,3 @@ class ShipStationManager extends ApiManager
 		return $this->authorization;
 	}
 }
-
-?>
