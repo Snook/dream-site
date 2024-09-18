@@ -211,7 +211,7 @@ class processor_admin_fadmin_home_order_details extends CPageProcessor
 				$orderArray = $order->toArray();
 
 				$orderArray['number_servings'] = $order->getNumberServings();
-
+				$tpl->assign('DAO_session', $order_info["DAO_session"]);
 				$tpl->assign('sessionInfo', $order_info['sessionInfo']);
 				$tpl->assign('menuInfo', $menuInfo);
 				$tpl->assign('orderInfo', $order_info['orderInfo']);
