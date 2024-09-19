@@ -962,7 +962,7 @@ class CApp
 		self::bounce(page: '/login', BOUNCE_REQUEST_URI: CApp::instance()->template()->bounceBackUrl(currentUrl: true));
 	}
 
-	static function forceLocationChoice($rtnPage = false)
+	static function forceLocationChoice()
 	{
 		$store = CBrowserSession::getCurrentFadminStore();
 
@@ -971,14 +971,7 @@ class CApp
 			return $store;
 		}
 
-		if ($rtnPage)
-		{
-			self::bounce('/backoffice/location-switch?back=' . urlencode($rtnPage));
-		}
-		else
-		{
-			self::bounce('/backoffice/location-switch?back=?' . urlencode($_SERVER['QUERY_STRING']));
-		}
+		self::bounce(page: '/backoffice/location-switch', BOUNCE_REQUEST_URI: CApp::instance()->template()->bounceBackUrl(currentUrl: true));
 	}
 
 	static function getFreshDeskFirstName()
