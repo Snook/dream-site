@@ -971,7 +971,7 @@ class CApp
 			return $store;
 		}
 
-		self::bounce('/backoffice/location-switch');
+		self::bounce(page: '/backoffice/location-switch', BOUNCE_REQUEST_URI: CApp::instance()->template()->bounceBackUrl(currentUrl: true));
 	}
 
 	static function getFreshDeskFirstName()
