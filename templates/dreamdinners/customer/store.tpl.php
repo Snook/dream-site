@@ -155,7 +155,7 @@
 			<div class="row mb-2 no-gutters">
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center mb-2">
-						<<div class="card border-0 pr-4">
+						<div class="card border-0 pr-4">
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/kung-pao-chicken-30min-featured-400x400.webp" alt="Kung Pao Chicken with Jasmine Rice" class="img-fluid">
 								<div class="card-body">
 									<h5 class="card-title">Kung Pao Chicken with Jasmine Rice</h5>

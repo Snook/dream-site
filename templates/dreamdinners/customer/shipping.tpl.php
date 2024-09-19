@@ -131,12 +131,12 @@
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/family-dinner-600x350.webp" alt="Family dinner" class="img-fluid">
 						<h3 class="font-weight-bold my-2">Fan Favorites Box Box</h3>
-						<p class="mb-4">Let us take care of your meal planning with delicious, dinners including Mini Chicken Pot Pies, Mini Turkey Meatloaves with Bacon Ranch Green Beans, Crispy French Onion Chicken, Cheesy Chicken and Broccoli Rice Bake.</p>
+						<p class="mb-4">Let us take care of your meal planning with delicious, dinners including Sheet Pan Kielbasa &amp; Potatoes, Chicken Parmesan, Sweet Chipotle Chicken over Egg Noodles, and Cattleman's Pie.</p>
 					</div>
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/new-baby-600x350.webp" alt="Couple with new baby and moving boxes" class="img-fluid">
 						<h3 class="font-weight-bold my-2">New Baby Gift Box</h3>
-						<p class="mb-4">Congratulate your friends and family on their new addition with easy, quick dinners including Mini Turkey Meatloaves with Bacon Ranch Green Beans, Lucky Dragon Pork Tenderloin with Jasmine Rice, Cheesy Chicken and Broccoli Rice Bake, Countryside Chicken over Linguine.</p>
+						<p class="mb-4">Congratulate your friends and family on their new addition with easy, quick dinners including Sheet Pan Kielbasa &amp; Potatoes, Sweet Chipotle Chicken over Egg Noodles, Bruschetta Chicken with Orzo, and Butternut Squash Ravioli with Caramelized Onions.</p>
 					</div>
 				</div>
 				<div class="row">
@@ -148,7 +148,7 @@
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/woman-broken-leg-600x350.webp" alt="Woman with broken leg on couch" class="img-fluid">
 						<h3 class="font-weight-bold my-2">Get Well Box</h3>
-						<p class="mb-4">Send your love when your friends and family aren’t feeling their best with easy, wholesome dinners including Mini Chicken Pot Pies, Loaded Mashed Potato Bowl, Cheesy Chicken and Broccoli Rice Bake, Lasagna Soup.</p>
+						<p class="mb-4">Send your love when your friends and family aren't feeling their best with easy, dinners including Sheet Pan Kielbasa &amp; Potatoes, Chicken Parmesan, Sweet Chipotle Chicken over Egg Noodles, and White Bean, Bacon and Spinach Soup with Cheddar Biscuits.</p>
 					</div>
 				</div>
 			</div>
