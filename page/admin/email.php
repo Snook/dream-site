@@ -4,55 +4,83 @@ require_once('CMail.inc');
 
 class page_admin_email extends CPageAdminOnly
 {
-	function runManufacturerStaff()
+	/**
+	 * @throws Exception
+	 */
+	function runManufacturerStaff(): void
 	{
 		$this->sendEmail();
 	}
 
-	function runFranchiseStaff()
+	/**
+	 * @throws Exception
+	 */
+	function runFranchiseStaff(): void
 	{
 		$this->sendEmail();
 	}
 
-	function runFranchiseLead()
+	/**
+	 * @throws Exception
+	 */
+	function runFranchiseLead(): void
 	{
 		$this->sendEmail();
 	}
 
-	function runFranchiseManager()
+	/**
+	 * @throws Exception
+	 */
+	function runFranchiseManager(): void
 	{
 		$this->sendEmail();
 	}
 
-	function runFranchiseOwner()
+	/**
+	 * @throws Exception
+	 */
+	function runFranchiseOwner(): void
 	{
 		$this->sendEmail();
 	}
 
-	function runEventCoordinator()
+	/**
+	 * @throws Exception
+	 */
+	function runEventCoordinator(): void
 	{
 		$this->sendEmail();
 	}
 
-	function runOpsLead()
+	/**
+	 * @throws Exception
+	 */
+	function runOpsLead(): void
 	{
 		$this->sendEmail();
 	}
 
-	function runHomeOfficeManager()
+	/**
+	 * @throws Exception
+	 */
+	function runHomeOfficeManager(): void
 	{
 		$this->sendEmail();
 	}
 
-	function runSiteAdmin()
+	/**
+	 * @throws Exception
+	 */
+	function runSiteAdmin(): void
 	{
 		$this->sendEmail();
 	}
 
-	function sendEmail()
+	/**
+	 * @throws Exception
+	 */
+	function sendEmail(): void
 	{
-		$tpl = CApp::instance()->template();
-
 		$user_id = CGPC::do_clean((!empty($_REQUEST['id']) ? $_REQUEST['id'] : false), TYPE_INT);
 		$session_id = CGPC::do_clean((!empty($_REQUEST['session']) ? $_REQUEST['session'] : false), TYPE_INT);
 
@@ -78,7 +106,7 @@ class page_admin_email extends CPageAdminOnly
 		{
 			$Session = CSession::getSessionDetailArray($session_id);
 
-			foreach ($Session[$session_id]['bookings'] AS $booking_id => $booking)
+			foreach ($Session[$session_id]['bookings'] AS $booking)
 			{
 				if ($booking['status'] == CBooking::ACTIVE)
 				{
@@ -114,10 +142,10 @@ class page_admin_email extends CPageAdminOnly
 			}
 		}
 
-		$tpl->assign('recipient_list', $recipientArray);
-		$tpl->assign('extensions', '.' . implode(' .', CMAIL::allowedExtensions()));
-		$tpl->assign('sizelimit', floor(CMail::SIZELIMIT / 1024 / 1024) . 'MB');
-		$tpl->assign('js_extensions', "'" . implode("','", CMAIL::allowedExtensions()) . "'");
+		$this->Template->assign('recipient_list', $recipientArray);
+		$this->Template->assign('extensions', '.' . implode(' .', CMAIL::allowedExtensions()));
+		$this->Template->assign('sizelimit', floor(CMail::SIZELIMIT / 1024 / 1024) . 'MB');
+		$this->Template->assign('js_extensions', "'" . implode("','", CMAIL::allowedExtensions()) . "'");
 
 		$Form = new CForm();
 		$Form->htmlspecialcharsOnRepost = true;
@@ -150,7 +178,7 @@ class page_admin_email extends CPageAdminOnly
 				$fromOptionsEmail[$store->email_address] = 'Dream Dinners ' . $store->store_name . ' &lt;' . $store->email_address . '&gt;';
 			}
 
-			if (strpos($adminUser->primary_email, "dreamdinners.com") !== false)
+			if (str_contains($adminUser->primary_email, "dreamdinners.com"))
 			{
 				$fromOptions[$adminUser->primary_email] = array(
 					'email' => $adminUser->primary_email,
@@ -232,16 +260,17 @@ class page_admin_email extends CPageAdminOnly
 								$attachment_file = false;
 								if (isset($_FILES['email_attachment']) && $_FILES['email_attachment']['name'] != '')
 								{
-									$ext = array_pop(explode('.', strtolower(basename($_FILES['email_attachment']['name']))));
+									$array = explode('.', strtolower(basename($_FILES['email_attachment']['name'])));
+									$ext = array_pop($array);
 
 									if ($_FILES['email_attachment']['error'])
 									{
-										$tpl->setStatusMsg('Attachment error, file size may be too large. Limit ' . CMail::SIZELIMIT / 1024 / 1024 . 'MB');
+										$this->Template->setStatusMsg('Attachment error, file size may be too large. Limit ' . CMail::SIZELIMIT / 1024 / 1024 . 'MB');
 										$sendmail = false;
 									}
 									else if (!in_array($ext, CMail::allowedExtensions()))
 									{
-										$tpl->setStatusMsg('Invalid file extension. (' . $ext . ')');
+										$this->Template->setStatusMsg('Invalid file extension. (' . $ext . ')');
 										$sendmail = false;
 									}
 									else
@@ -289,24 +318,24 @@ class page_admin_email extends CPageAdminOnly
 
 									CUserHistory::recordUserEvent(CUser::getCurrentUser()->id, CUser::getCurrentUser()->home_store_id, 'null', 600, 'null', 'null', $log_string);
 
-									$tpl->setStatusMsg('Your message has been sent to ' . $Recipient->firstname . ' ' . $Recipient->lastname);
+									$this->Template->setStatusMsg('Your message has been sent to ' . $Recipient->firstname . ' ' . $Recipient->lastname);
 								}
 								else
 								{
-									$tpl->setStatusMsg('Could not send this email. Please try again.');
+									$this->Template->setStatusMsg('Could not send this email. Please try again.');
 								}
 							}
 						}
 
-						CApp::bounce($tpl->back);
+						CApp::bounce('/backoffice');
 					}
 				}
 				else
 				{
-					$tpl->setErrorMsg("Please supply recipients");
+					$this->Template->setErrorMsg("Please supply recipients");
 				}
 			}
-			catch (exception $e)
+			catch (exception)
 			{
 				throw new exception('email could not be sent');
 			}
@@ -399,7 +428,7 @@ class page_admin_email extends CPageAdminOnly
 
 		if (!empty($session_id))
 		{
-			foreach ($Session[$session_id]['bookings'] AS $booking_id => $booking)
+			foreach ($Session[$session_id]['bookings'] AS $booking)
 			{
 				if ($booking['status'] == CBooking::ACTIVE)
 				{
@@ -433,8 +462,6 @@ class page_admin_email extends CPageAdminOnly
 		));
 
 		//set template vars
-		$tpl->assign('email_form', $Form->Render());
+		$this->Template->assign('email_form', $Form->Render());
 	}
 }
-
-?>
