@@ -1965,7 +1965,6 @@ $(function () {
 		e.preventDefault();
 
 		let backoffice_change_store = {
-			'back': back_path(),
 			'dialog': null
 		}
 
@@ -1995,8 +1994,7 @@ $(function () {
 								processor: 'admin_helpers',
 								op: 'store_selector',
 								do: 'selector_select',
-								store: store,
-								back: backoffice_change_store.back
+								store: store
 							},
 							success: function (json) {
 								if (json.processor_success)
