@@ -155,39 +155,38 @@
 			<div class="row mb-2 no-gutters">
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center mb-2">
-						<div class="card border-0 pr-4">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sweet-sour-chicken-30min-featured-400x400.webp" alt="Sweet and Sour Chicken with Jasmine Rice" class="img-fluid">
+						<<div class="card border-0 pr-4">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/kung-pao-chicken-30min-featured-400x400.webp" alt="Kung Pao Chicken with Jasmine Rice" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Sweet & Sour Chicken with Jasmine Rice</h5>
+									<h5 class="card-title">Kung Pao Chicken with Jasmine Rice</h5>
 								</div>
-						</div>
-						<div class="card border-0 pr-2">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-turkey-meatloaves-airfryer-featured-400x400.webp" alt="Mini Turkey Meatloaves with Bacon Ranch Green Beans" class="img-fluid">
+							</div>
+							<div class="card border-0 pr-2">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/hearty-braised-beef-crockpot-featured-400x400.webp" alt="Hearty Braised Beef with Autumn Vegetables" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Mini Turkey Meatloaves with Bacon Ranch Green Beans</h5>
+									<h5 class="card-title">Hearty Braised Beef with Autumn Vegetables</h5>
 								</div>
-						</div>
+							</div>
 
 					</div>
 				</div>
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center">
 						<div class="card border-0 pr-4">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/loaded-mashed-potato-bowl-new-featured-400x400.webp" alt="Loaded Mashed Potato Bowl" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sheet-pan-kielbalsa-new-featured-400x400.webp" alt="Sheet Pan Kielbasa & Potatoes" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Loaded Mashed Potato Bowl</h5>
+									<h5 class="card-title">Sheet Pan Kielbasa & Potatoes</h5>
 								</div>
-						</div>
-						<div class="card border-0">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-pot-pies-kid-pick-orange-featured-400x400.webp" alt="Mini Chicken Pot Pies" class="img-fluid">
+							</div>
+							<div class="card border-0">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-philly-kid-pick-featured-400x400.webp" alt="Chicken Philly Cheesesteaks" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Mini Chicken Pot Pies</h5>
+									<h5 class="card-title">Chicken Philly Cheesesteaks</h5>
 								</div>
-						</div>
+							</div>
 					</div>
 				</div>
 			</div>
-
 			<div class="row">
 				<div class="col">
 					<a href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/order" class="btn btn-primary btn-block">Start your order</a>

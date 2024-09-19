@@ -84,27 +84,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sweet-sour-chicken-30min-featured-400x400.webp" alt="Sweet and Sour Chicken with Jasmine Rice" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/kung-pao-chicken-30min-featured-400x400.webp" alt="Kung Pao Chicken with Jasmine Rice" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Sweet & Sour Chicken with Jasmine Rice</h5>
+									<h5 class="card-title">Kung Pao Chicken with Jasmine Rice</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-turkey-meatloaves-airfryer-featured-400x400.webp" alt="Mini Turkey Meatloaves with Bacon Ranch Green Beans" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/hearty-braised-beef-crockpot-featured-400x400.webp" alt="Hearty Braised Beef with Autumn Vegetables" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Mini Turkey Meatloaves with Bacon Ranch Green Beans</h5>
+									<h5 class="card-title">Hearty Braised Beef with Autumn Vegetables</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/loaded-mashed-potato-bowl-new-featured-400x400.webp" alt="Loaded Mashed Potato Bowl" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sheet-pan-kielbalsa-new-featured-400x400.webp" alt="Sheet Pan Kielbasa & Potatoes" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Loaded Mashed Potato Bowl</h5>
+									<h5 class="card-title">Sheet Pan Kielbasa & Potatoes</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-pot-pies-kid-pick-orange-featured-400x400.webp" alt="Mini Chicken Pot Pies" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-philly-kid-pick-featured-400x400.webp" alt="Chicken Philly Cheesesteaks" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Mini Chicken Pot Pies</h5>
+									<h5 class="card-title">Chicken Philly Cheesesteaks</h5>
 								</div>
 							</div>
 						</div>
@@ -226,12 +226,12 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
-						<h2 class="font-weight-bold mt-2">September Fan Favorites</h2>
-						<p class="text-uppercase mb-4">Start your order with our September Fan Favorites Bundle. These 4 dinners are the perfect easy weeknight meal plan. Bundle includes Mini Chicken Pot Pies, Crispy French Onion Chicken, Mini Turkey Meatloaves with Bacon Ranch Green Beans, and Cheesy Chicken and Broccoli Rice Bake. Shipping menu items may vary.</p>
+						<h2 class="font-weight-bold mt-2">October Fan Favorites</h2>
+						<p class="text-uppercase mb-4">o	Start your order with our october fan favorite bundle. These 4 dinners are the perfect easy weeknight meal plan and includes including Chicken Parmesan, Cattleman's Pie, Cheese Lovers Manicotti, and Sheet Pan Kielbasa &amp; Potatoes. Shipping menu items may vary.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sep24-fan-fav-bundle-collage-957x657.webp" alt="Fan Favorite Bundle" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/oct24-fan-fav-bundle-collage-957x657.webp" alt="Fan Favorite Bundle" class="img-fluid">
 					</div>
 
 				</div>
@@ -242,11 +242,11 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sep24-lto-bundle-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/oct24-lto-bundle-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
 					</div>
 					<div class="col-md-6 text-left p-5 my-5">
-						<h2 class="font-weight-bold mt-2">French Bread Trio</h2>
-						<p class="text-uppercase mb-4">Choose 3 of your favorite stuffed french bread sandwiches for one price. Great for tailgating, camping, picnics, and parties. Available at select locations in the Sides and Sweets Freezer, while supplies last. Not available for shipping.</p>
+						<h2 class="font-weight-bold mt-2">Thanksgiving Burger Bundle</h2>
+						<p class="text-uppercase mb-4">Our Thanksgiving Burger Bundle includes three stuffing-seasoned turkey burgers with a cranberry mayo and French fried onions on brioche buns, served with Sweet Potato Fries and gravy dip. Plus, it comes with your choice of a seasonal cookie. Available at select locations in the Sides and Sweets Freezer, while supplies last. Not available for shipping.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 

@@ -25,11 +25,6 @@
 			<ul>
 				<li><a href="/how-it-works">How It Works</a> - Learn Dream Dinners works.</li>
 			</ul>
-			<h4>Share</h4>
-
-			<ul>
-				<li><a href="/share">Share</a> - Share Dream Dinners with friends and family to earn rewards.</li>
-			</ul>
 
 			<h4>View Menu</h4>
 
@@ -74,11 +69,6 @@
 				<li><a href="/locations">Locations</a> - Find a meal prep location near you.</li>
 				<li><a href="/shipping">Shipping</a> - Dinners shipped to your door.</li>
 
-			<h4>PlatePoints</h4>
-
-			<ul>
-				<li><a href="/platepoints">PlatePoints</a> - Our rewards program.</li>
-			</ul>
 
 			<h4>Recipe Resources</h4>
 
@@ -86,11 +76,6 @@
 				<li><a href="/recipe-resources">Cooking Instructions and Nutritionals</a> - Search  for cooking instructions and nutritionals.</li>
 			</ul>
 
-			<h4>Gift Cards</h4>
-
-			<ul>
-				<li><a href="/gift-card-order">Gift Cards</a> - Buy gift cards or check a balance.</li>
-			</ul>
 
 			<h4>About Us</h4>
 

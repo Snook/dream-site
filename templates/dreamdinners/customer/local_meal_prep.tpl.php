@@ -23,55 +23,11 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col text-center">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dinner-reinvented-countryside-chicken-1400x400.webp" alt="Dinner Reinvented" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dinner-reinvented-cattlemans-pie-1400x400.webp" alt="Dinner Reinvented" class="img-fluid">
 					</div>
 				</div>
 			</div>
 		</section>
-		<!-- offer banner
-		<section class="bg-cyan-dark">
-			<div class="container mp-5">
-				<div class="row">
-					<div class="col">
-						<div class="text-center">
-							<h2 class="mt-5 mb-1 font-weight-bold text-center text-white">Exclusive New Customer Offer</h2>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/white-swash-320x12.webp" alt="swash">
-							<p class="mt-1 mb-5 font-weight-bold text-center text-white">Try Us Today with One of the Following Offers</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		<section>
-			<div class="container my-5">
-				<div class="" id="" role="tabpanel" aria-labelledby="">
-					<div class="row my-2">
-						<div class="col">
-							<div class="card-group">
-								<div class="card border-0 py-4 px-4 mx-1 text-center">
-									<div class="card-body">
-										<h3 class="font-weight-bold font-have-heart-two mt-2 font-size-extra-extra-large">$15 OFF Your First Order</h3>
-										<p>Choose from pick up, in-store assembly, home delivery or shipping. Options vary by participating locations. Available on the August menu only.</p>
-										<p>Use code: <span class="font-weight-bold font-have-heart-two font-size-extra-large">15NEW24</span></p>
-										<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col">
-							<div class="card-group">
-								<div class="card border-0 py-4 px-4 mx-1 text-center">
-									<div class="card-body text-center">
-										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chelsee-hood-458x344.webp" alt="Dream Dinners Home Delivery" class="img-fluid mb-3" />
-									</div>
-									
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>-->
 
 		<section>
 			<div class="container-fluid my-5 bg-green-light">
@@ -120,27 +76,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sweet-sour-chicken-30min-featured-400x400.webp" alt="Sweet and Sour Chicken with Jasmine Rice" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/kung-pao-chicken-30min-featured-400x400.webp" alt="Kung Pao Chicken with Jasmine Rice" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Sweet & Sour Chicken with Jasmine Rice</h5>
+									<h5 class="card-title">Kung Pao Chicken with Jasmine Rice</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-turkey-meatloaves-airfryer-featured-400x400.webp" alt="Mini Turkey Meatloaves with Bacon Ranch Green Beans" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/hearty-braised-beef-crockpot-featured-400x400.webp" alt="Hearty Braised Beef with Autumn Vegetables" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Mini Turkey Meatloaves with Bacon Ranch Green Beans</h5>
+									<h5 class="card-title">Hearty Braised Beef with Autumn Vegetables</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/loaded-mashed-potato-bowl-new-featured-400x400.webp" alt="Loaded Mashed Potato Bowl" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sheet-pan-kielbalsa-new-featured-400x400.webp" alt="Sheet Pan Kielbasa & Potatoes" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Loaded Mashed Potato Bowl</h5>
+									<h5 class="card-title">Sheet Pan Kielbasa & Potatoes</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-pot-pies-kid-pick-orange-featured-400x400.webp" alt="Mini Chicken Pot Pies" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-philly-kid-pick-featured-400x400.webp" alt="Chicken Philly Cheesesteaks" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Mini Chicken Pot Pies</h5>
+									<h5 class="card-title">Chicken Philly Cheesesteaks</h5>
 								</div>
 							</div>
 						</div>
@@ -186,7 +142,7 @@
 					<div class="row my-5">
 						<div class="col-md-7 text-left">
 							<div>
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pulled_pork_banh_mi_sliders_458x344.webp" alt="Pulled Pork Banh Mi Sliders" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pork_marsala_family_458x344.webp" alt="Pork Marsala" class="img-fluid" />
 							</div>
 						</div>
 						<div class="col-md-5 text-center mt-4">
