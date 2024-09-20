@@ -1,9 +1,4 @@
-<?php // page_admin_create_store.php
-
-/**
- * @author Lynn Hook
- */
-
+<?php
 require_once('includes/CPageAdminOnly.inc');
 require_once('includes/DAO/BusinessObject/CSession.php');
 require_once('includes/CRoyaltyReport.inc');
@@ -170,7 +165,6 @@ class page_admin_reports_royalty extends CPageAdminOnly
 
 			if ($report_type_to_run == 4)
 			{
-
 				if ($supports_LTD)
 				{
 					$labels = array(
@@ -398,12 +392,20 @@ class page_admin_reports_royalty extends CPageAdminOnly
 		}
 	}
 
-	static function createRoyaltyArray($store_id, $day, $month, $year, $duration = false)
+	/**
+	 * Create an array for a single store's royalty report.
+	 *
+	 * @param int $store_id The id of the store.
+	 * @param string $day The day of the month.
+	 * @param int $month The month of the year.
+	 * @param int $year The year.
+	 * @param string $duration The time duration for the report.
+	 * @return ?array The array of data for the store's royalty report.
+	 *
+	 * @throws Exception
+	 */
+	static function createRoyaltyArray(int $store_id, $day, $month, $year, $duration = false): ?array
 	{
-
-		$orgMonthRequest = $month;
-		$orgYearRequest = $year;
-
 		$rows = array();
 		$foundentry = false;
 		$isTransitionMonth = false;
@@ -423,9 +425,7 @@ class page_admin_reports_royalty extends CPageAdminOnly
 		$DAO_store->selectAdd('supports_ltd_roundup');
 		$DAO_store->find(true);
 
-		$storeIsDC = $DAO_store->isDistributionCenter();
-
-		if ((($year == 2018 && $month >= 9) || $year > 2018) && !$storeIsDC)
+		if ((($year == 2018 && $month >= 9) || $year > 2018) && !$DAO_store->isDistributionCenter())
 		{
 			$needsSalesForceFee = true;
 		}
@@ -513,7 +513,7 @@ class page_admin_reports_royalty extends CPageAdminOnly
 			$expenseData = $instance->findExpenseDataByMonth($store_id, $day, $month, $year, $duration);
 			CDreamReport::calculateFees($rows, $store_id, $haspermanceoverride, $expenseData, $giftCertValues, $programdiscounts, $rows['fundraising_total'], $rows['ltd_menu_item_value'], $rows['subtotal_delivery_fee'], $rows['delivery_tip'], $rows['subtotal_bag_fee'], $DoorDashFees, $marketingFee, $royaltyFee, $DAO_store->grand_opening_date, $month, $year);
 
-			if ($storeIsDC)
+			if ($DAO_store->isDistributionCenter())
 			{
 				$marketingFee = 0;
 			}
@@ -541,7 +541,7 @@ class page_admin_reports_royalty extends CPageAdminOnly
 				unset($rows['ltd_round_up_value']);
 			}
 
-			if ($haspermanceoverride == true)
+			if ($haspermanceoverride)
 			{
 				$rows['used_performance_override'] = true;
 			}
@@ -557,7 +557,7 @@ class page_admin_reports_royalty extends CPageAdminOnly
 			}
 		}
 
-		if ($foundentry == false)
+		if (!$foundentry)
 		{
 			return null;
 		}

@@ -44,7 +44,7 @@
 
 	<tr>
 		<td style="font-weight:bold;">&nbsp;&nbsp;&nbsp;&nbsp;Less Discounts & Adjustments Not Subject to Royalty & Mktg Fees:<span style="color:red;">*</span></td>
-		<td>(<?php echo CSessionReports::formatCurrency($array_entity['grand_total_less_taxes'] - $array_entity['total_less_discounts']); ?>)</td>
+		<td>(<?php echo CSessionReports::formatCurrency($array_entity['grand_total_less_taxes'] - $array_entity['total_less_discounts'] + $array_entity['adjustments']); ?>)</td>
 	</tr>
 	<tr>
 		<td style="font-weight:bold; font-size:larger;">Total Sales (AGR) Subject to Royalties & National Marketing Fees:</td>
