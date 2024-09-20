@@ -1931,6 +1931,19 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 		return $retArray;
 	}
 
+	/**
+	 * @param array $rows The data to be modified.
+	 * @param int $store The store to be queried.
+	 * @param int $Day The day of the month to be queried.
+	 * @param int $Month The month of the year to be queried.
+	 * @param int $Year The year to be queried.
+	 * @param int $interval The interval of time to be queried.
+	 * @param array $unsetArray An array of column names to be unset.
+	 * @param bool $isMenuMonth Whether this is a menu month or not.
+	 * @param mixed $menuMonthMonthYear The month and year of the menu month.
+	 *
+	 * @return void
+	 */
 	function setMembershipFeeData(&$rows, $store, $Day, $Month, $Year, $interval, $unsetArray, $isMenuMonth = false, $menuMonthMonthYear = false)
 	{
 		$lastRow = array_pop($rows);
