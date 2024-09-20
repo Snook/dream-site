@@ -147,7 +147,6 @@ class CDreamReport
 			$week = $arr['week'];
 			if (array_key_exists($week, $rows))
 			{
-
 				$rows[$week][CMenuItem::HALF] = 0;
 				$rows[$week][CMenuItem::FULL] = 0;
 				$rows[$week][CMenuItem::INTRO] = 0;
@@ -206,7 +205,6 @@ class CDreamReport
 			$ts = $arr['datestamp'];
 			if (array_key_exists($ts, $rows))
 			{
-
 				$premium = isset($arr['premium']) ? $arr['premium'] : 0;
 				$directorder = isset($arr['direct_order']) ? $arr['direct_order'] : 0;
 				$prefUser = isset($arr['preferred_user']) ? $arr['preferred_user'] : 0;
@@ -305,13 +303,11 @@ class CDreamReport
 	// *******************************************
 	static function nextMonthSignUps($storeid, $Day, $Month, $Year, $interval, &$rows, $byWeek = false)
 	{
-
 		$current_date = mktime(0, 0, 0, $Month, $Day, $Year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 
 		if ($byWeek)
 		{
-
 			$sqlstr2 = "Select WEEK(s.session_start) as week,
 							o.store_id as store_id,
 						 	count(DISTINCT o.id) as total_orders,
@@ -342,7 +338,6 @@ class CDreamReport
 
 			while ($object2->fetch())
 			{
-
 				$arr = $object2->toArray();
 				if (array_key_exists($arr['week'], $rows))
 				{
@@ -359,8 +354,6 @@ class CDreamReport
 		}
 		else
 		{
-
-
 			$sqlstr = "Select DAY(s.session_start) as day,
 							o.store_id as store_id,
 						 	count(DISTINCT o.id) as total_orders,
@@ -456,7 +449,6 @@ class CDreamReport
 
 	static function getMembershipFeeRevenue($store, $day, $month, $year, $duration)
 	{
-
 		$current_date = mktime(0, 0, 0, $month, $day, $year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 
@@ -480,7 +472,6 @@ class CDreamReport
 
 	static function getMembershipFeeTaxes($store, $day, $month, $year, $duration)
 	{
-
 		$current_date = mktime(0, 0, 0, $month, $day, $year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 
@@ -503,7 +494,6 @@ class CDreamReport
 
 	static function getMembershipFeeRevenueByMenuID($store, $menu_id)
 	{
-
 		$menuObj = new DAO();
 		$menuObj->query("select global_menu_end_date, global_menu_start_date from menu where id = $menu_id");
 		$menuObj->fetch();
@@ -561,7 +551,6 @@ class CDreamReport
 
 	static function nextMonthSignUpsByMonth($storeid, $Day, $Month, $Year, $interval, &$total_signups)
 	{
-
 		$current_date = mktime(0, 0, 0, $Month, $Day, $Year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 
@@ -700,7 +689,6 @@ class CDreamReport
 			//$ts = strtotime($arr['datestamp']);
 			if (array_key_exists($ts, $rows))
 			{
-
 				$rows[$ts]['session_count'] = $arr['sessions'];
 				$rows[$ts]['session_standard'] = $arr['standard'];
 				$rows[$ts]['session_quicksix'] = $arr['quicksix'];
@@ -1091,10 +1079,8 @@ class CDreamReport
 			$weekid = $element['week'];
 			if (array_key_exists($weekid, $rows))
 			{
-
 				if ($element['expense_type'] == CStoreExpenses::SYSCO || $element['expense_type'] == CStoreExpenses::OTHER)
 				{
-
 					if (!isset($rows[$weekid]['food_cost']))
 					{
 						$rows[$weekid]['food_cost'] = $element['total_cost'];
@@ -1196,7 +1182,6 @@ class CDreamReport
 			}
 			else if ($proccess_direction == 'MONTH')
 			{
-
 				if (isset($promos_type_arr[$id][CMenuItem::FULL]))
 				{
 					$additional_food_cost += $promos_type_arr[$id][CMenuItem::FULL] * $employeePrice;
@@ -1257,7 +1242,6 @@ class CDreamReport
 
 		if (!empty($programValues['programdiscounts']))
 		{
-
 			$discounts += $programValues['programdiscounts'];
 		}
 
@@ -1313,5 +1297,3 @@ class CDreamReport
 	}
 
 }
-
-?>

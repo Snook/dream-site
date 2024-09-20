@@ -13,7 +13,6 @@ require_once('ExcelExport.inc');
 
 function sessionTimeSort($a, $b)
 {
-
 	$aTime = strtotime($a['session_start']);
 	$bTime = strtotime($b['session_start']);
 
@@ -36,7 +35,6 @@ function sessionTimeSort($a, $b)
 
 function finStatReportRowsCallback($sheet, $data, $row, $bottomRightExtent)
 {
-
 	if ($data['session_type'] == 'Adjustment')
 	{
 		$styleArray = array(
@@ -295,7 +293,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 				if ($Form->value('menu_or_calendar') == 'menu')
 				{
-
 					$month = $_REQUEST["month_popup"];
 					$month++;
 					$year = $_REQUEST["year_field_001"];
@@ -364,7 +361,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 			if (count($sessionData))
 			{
-
 				if ($store == 'all')
 				{
 					$adjustments = $this->getStoreExpenseDataForNation($day, $month, $year, $duration, $unsetArray, $isMenuMonth, $menuMonthMonthYear);
@@ -443,7 +439,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 					for ($x = 0; $x < 10; $x++)
 					{
-
 						if ($x == 2)
 						{
 							$columnDescs[$col] = array(
@@ -522,7 +517,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 					for ($x = 0; $x < 9; $x++)
 					{
-
 						if ($x == 4)
 						{
 							$columnDescs[$col] = array(
@@ -703,7 +697,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 				$labels = array_merge($labels, $label3);
 				for ($x = 0; $x < 9; $x++)
 				{
-
 					if ($x == 3)
 					{
 						$columnDescs[$colSecondChar . $col] = array(
@@ -775,7 +768,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 					for ($x = 0; $x < 16; $x++)
 					{
-
 						if ($x == 7)
 						{
 							$columnDescs[$colSecondChar . $col] = array(
@@ -829,7 +821,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 					for ($x = 0; $x < 14; $x++)
 					{
-
 						if ($x == 6)
 						{
 							$columnDescs[$colSecondChar . $col] = array(
@@ -961,7 +952,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 		while ($session->fetch())
 		{
-
 			$thisVal = array(
 				'session_id' => $session->id,
 				'donated' => $session->donated_gift_cert,
@@ -1008,7 +998,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 		while ($session->fetch())
 		{
-
 			$thisVal = array(
 				'donated' => $session->donated_gift_cert,
 				'voucher' => $session->voucher_gift_cert,
@@ -1054,7 +1043,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 		}
 		else
 		{
-
 			$query = "select s.id as session_id, s.session_start, s.session_type, s.available_slots, count(if (od.user_state = 'NEW', 1, null)) as new_guests, count(if (od.user_state = 'REACQUIRED', 1, null)) as reac_guests,
 						 count(if (od.user_state = 'EXISTING', 1, null)) as ex_guests, count(od.id) as total_guests, sum(orders.servings_total_count) as servings, 0 as ft_count, 0 as non_fl_count, 0 as fl_count, ";
 		}
@@ -1088,7 +1076,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 		if (!$suppressLTDDonationColumn)
 		{
-
 			$query .= "0.0 as door_dash_fees, 0.0 as sales_adjustments, '' as adj_comments, 0.0 as referral_reward_direct, 0.0 as referral_reward_iaf, 0.0 as referral_reward_taste, 0.0 as certs_voucher,
 						 0.0 as certs_donated, 0.0 as certs_scrip, sum(ifnull(orders.fundraiser_value, 0)) * -1 as fundraiser_value, 
 							sum(ifnull(orders.subtotal_ltd_menu_item_value,0)) * -1 as ltd_menu_item_value_2, sum(ifnull(orders.subtotal_delivery_fee, 0)) * -1 as subtotal_delivery_fee_2, sum(ifnull(orders.delivery_tip, 0)) * -1 as delivery_tip_2, 0.0 as subtotal_program_discounts, ";
@@ -1099,7 +1086,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 		}
 		else
 		{
-
 			$query .= "0.0 as door_dash_fees, 0.0 as sales_adjustments, '' as adj_comments, 0.0 as referral_reward_direct, 0.0 as referral_reward_iaf, 0.0 as referral_reward_taste, 0.0 as certs_voucher,
 						 0.0 as certs_donated, 0.0 as certs_scrip, sum(ifnull(orders.fundraiser_value, 0)) * -1 as fundraiser_value, 0, sum(ifnull(orders.subtotal_delivery_fee, 0)) * -1 as subtotal_delivery_fee_2, sum(ifnull(orders.delivery_tip, 0)) * -1 as delivery_tip_2, 0.0 as subtotal_program_discounts, ";
 
@@ -1109,7 +1095,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 		if ($store_id == 'all')
 		{
-
 			$query .= "from booking
 						inner join session s on booking.session_id = s.id
 						inner join store st on st.id = s.store_id
@@ -1151,7 +1136,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 		while ($booking->fetch())
 		{
-
 			$vartemp = $booking->toArray();
 			if ($store_id == 'all' && $isMenuMonth)
 			{
@@ -1229,7 +1213,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 			}
 			else
 			{
-
 				if (!empty($programdiscounts[$vartemp['session_id']]))
 				{
 					$temparray = $programdiscounts[$vartemp['session_id']];
@@ -1638,10 +1621,8 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 		while ($doorDashObj->fetch())
 		{
-
 			if ($isMenuMonth)
 			{
-
 				if (isset($dataRevenue[$menuMonthMonthYear][$doorDashObj->store_id]))
 				{
 					$dataRevenue[$menuMonthMonthYear][$doorDashObj->store_id] += $doorDashObj->doordashRev;
@@ -1707,17 +1688,25 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 		);
 	}
 
-	function getStoreExpenseData($store_id, $Day, $Month, $Year, $interval, $unsetArray)
+	/**
+	 * @throws Exception
+	 */
+	function getStoreExpenseData($store_id, $Day, $Month, $Year, $interval, $unsetArray): array
 	{
-
 		$data = array();
 		$current_date = mktime(0, 0, 0, $Month, $Day, $Year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
-		$arr = null;
-		$varstr = "select store_expenses.entry_date, store_expenses.expense_type, store_expenses.notes, store_expenses.units, store_expenses.total_cost
-		From store_expenses Where store_expenses.entry_date >= '" . $current_date_sql . "' AND  store_expenses.entry_date < DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") and store_id = " . $store_id . " and store_expenses.is_deleted = 0 and store_expenses.expense_type in ('FUNDRAISER_DOLLARS', 'ESCRIP_PAYMENTS','SALES_ADJUSTMENTS') order by entry_date, id DESC";
-		$store_expenses = DAO_CFactory::create("store_expenses");
-		$store_expenses->query($varstr);
+		$DAO_store_expenses = DAO_CFactory::create("store_expenses");
+		$DAO_store_expenses->query("select
+			store_expenses.entry_date, 
+			store_expenses.expense_type, 
+			store_expenses.notes, 
+			store_expenses.units, 
+			store_expenses.total_cost
+			From store_expenses 
+			Where store_expenses.entry_date >= '" . $current_date_sql . "' AND store_expenses.entry_date < DATE_ADD('" . $current_date_sql . "',INTERVAL " . $interval . ") 
+			and store_id = " . $store_id . " and store_expenses.is_deleted = 0 and store_expenses.expense_type in ('FUNDRAISER_DOLLARS', 'ESCRIP_PAYMENTS','SALES_ADJUSTMENTS') 
+			order by entry_date, id DESC");
 
 		if (isset($unsetArray['referral_reward_taste']))
 		{
@@ -1728,9 +1717,9 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 			$pad_amount = 41 - count($unsetArray);
 		}
 
-		while ($store_expenses->fetch())
+		while ($DAO_store_expenses->fetch())
 		{
-			$arr = $store_expenses->toArray();
+			$arr = $DAO_store_expenses->toArray();
 			$ts = date("Y-m-d 00:00:00", strtotime($arr['entry_date']));
 
 			$newEntity = array(
@@ -1748,6 +1737,7 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 			{
 				$newEntity = array_merge($newEntity, array(
 					"",
+					"",
 					'total_cost' => $arr['total_cost'],
 					'expense_type' => $arr['expense_type'] . ' - ' . $arr['notes'],
 					"",
@@ -1758,13 +1748,15 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 					"",
 					"",
 					"",
-					$arr['total_cost']
+					"",
+					"",
 				));
 			}
 			else
 			{
 				$newEntity = array_merge($newEntity, array(
 					"",
+					"",
 					'total_cost' => $arr['total_cost'],
 					'expense_type' => $arr['expense_type'] . ' - ' . $arr['notes'],
 					"",
@@ -1776,7 +1768,8 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 					"",
 					"",
 					"",
-					$arr['total_cost']
+					"",
+					"",
 				));
 			}
 
@@ -1788,8 +1781,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 	function getStoreExpenseDataForNation($Day, $Month, $Year, $interval, $unsetArray, $isMenuMonth = false, $menuMonthMonthYear = false)
 	{
-
-
 		// TODO    $groupClause =
 
 		$data = array();
@@ -1805,7 +1796,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 		while ($store_expenses->fetch())
 		{
-
 			$arr = $store_expenses->toArray();
 
 			if ($arr['expense_type'] != 'SALES_ADJUSTMENTS')
@@ -1815,7 +1805,6 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 
 			if ($isMenuMonth)
 			{
-
 				if (isset($data[$menuMonthMonthYear][$store_expenses->store_id][$store_expenses->expense_type]))
 				{
 					$data[$menuMonthMonthYear][$store_expenses->store_id][$store_expenses->expense_type] += $store_expenses->total_cost;
@@ -1917,46 +1906,44 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 		$current_date = mktime(0, 0, 0, $month, $day, $year);
 		$current_date_sql = date("Y-m-d 00:00:00", $current_date);
 
-		$obj = new DAO();
-		$obj->query("select CONCAT(MONTH(po.timestamp_created), ' ', YEAR(po.timestamp_created)) as month_year, po.store_id, SUM(poi.item_cost) as totes_revs from product_orders po
+		$DAO_product_orders = new DAO();
+		$DAO_product_orders->query("select CONCAT(MONTH(po.timestamp_created), ' ', YEAR(po.timestamp_created)) as month_year, po.store_id, SUM(poi.item_cost) as totes_revs from product_orders po
 					join product_orders_items poi on poi.product_orders_id = po.id and poi.is_deleted = 0
 					where po.timestamp_created >= '$current_date_sql' and po.timestamp_created <= DATE_ADD('$current_date_sql',INTERVAL 
 					$duration) and po.is_deleted = 0 group by CONCAT(MONTH(po.timestamp_created), ' ', YEAR(po.timestamp_created)), po.store_id");
-		while ($obj->fetch())
+		while ($DAO_product_orders->fetch())
 		{
-			if (empty($obj->totes_revs))
+			if (empty($DAO_product_orders->totes_revs))
 			{
-				$obj->totes_revs = 0;
+				$DAO_product_orders->totes_revs = 0;
 			}
 
-			if ($isMenuMonth)
+			if (isset($retArray[$DAO_product_orders->month_year][$DAO_product_orders->store_id]))
 			{
-
-				if (isset($retArray[$menuMonthMonthYear][$obj->store_id]))
-				{
-					$retArray[$menuMonthMonthYear][$obj->store_id] += $obj->totes_revs;
-				}
-				else
-				{
-					$retArray[$menuMonthMonthYear][$obj->store_id] = $obj->totes_revs;
-				}
+				$retArray[$DAO_product_orders->month_year][$DAO_product_orders->store_id] += $DAO_product_orders->totes_revs;
 			}
 			else
 			{
-				if (isset($retArray[$obj->month_year][$obj->store_id]))
-				{
-					$retArray[$obj->month_year][$obj->store_id] += $obj->totes_revs;
-				}
-				else
-				{
-					$retArray[$obj->month_year][$obj->store_id] = $obj->totes_revs;
-				}
+				$retArray[$DAO_product_orders->month_year][$DAO_product_orders->store_id] = $DAO_product_orders->totes_revs;
 			}
 		}
 
 		return $retArray;
 	}
 
+	/**
+	 * @param array $rows The data to be modified.
+	 * @param int $store The store to be queried.
+	 * @param int $Day The day of the month to be queried.
+	 * @param int $Month The month of the year to be queried.
+	 * @param int $Year The year to be queried.
+	 * @param int $interval The interval of time to be queried.
+	 * @param array $unsetArray An array of column names to be unset.
+	 * @param bool $isMenuMonth Whether this is a menu month or not.
+	 * @param mixed $menuMonthMonthYear The month and year of the menu month.
+	 *
+	 * @return void
+	 */
 	function setMembershipFeeData(&$rows, $store, $Day, $Month, $Year, $interval, $unsetArray, $isMenuMonth = false, $menuMonthMonthYear = false)
 	{
 		$lastRow = array_pop($rows);
@@ -2042,5 +2029,3 @@ class page_admin_reports_financial_statistic_v2 extends CPageAdminOnly
 		return $retVal;
 	}
 }
-
-?>
