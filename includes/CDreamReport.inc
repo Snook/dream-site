@@ -1283,7 +1283,7 @@ class CDreamReport
 
 		$pretaxAmount -= $DoorDashCommissions;
 
-		$rows['total_less_discounts'] = $pretaxAmount - $adjustments;
+		$rows['total_less_discounts'] = $pretaxAmount;
 
 		$rows['adjustments'] = $adjustments;
 
