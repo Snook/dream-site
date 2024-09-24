@@ -7,57 +7,133 @@ require_once('includes/DAO/BusinessObject/CStore.php');
 
 class processor_admin_helpers extends CPageProcessor
 {
-	function runSiteAdmin()
+	/**
+	 * Run the helpers for the site admin role.
+	 *
+	 * @access public
+	 * @return void
+	 * @throws Exception
+	 */
+	function runSiteAdmin(): void
 	{
 		$this->runHelpers();
 	}
 
-	function runHomeOfficeManager()
+	/**
+	 * Run the helpers for the Home Office Manager role.
+	 *
+	 * @access public
+	 * @return void
+	 * @throws Exception
+	 */
+	function runHomeOfficeManager(): void
 	{
 		$this->runHelpers();
 	}
 
-	function runFranchiseOwner()
+	/**
+	 * Run the helpers for the Franchise Owner role.
+	 *
+	 * @access public
+	 * @return void
+	 * @throws Exception
+	 */
+	function runFranchiseOwner(): void
 	{
 		$this->runHelpers();
 	}
 
-	function runFranchiseManager()
+	/**
+	 * Run the helpers for the Franchise Manager role.
+	 *
+	 * @access public
+	 * @return void
+	 * @throws Exception
+	 */
+	function runFranchiseManager(): void
 	{
 		$this->runHelpers();
 	}
 
-	function runFranchiseStaff()
+	/**
+	 * Run the helpers for the Franchise Staff role.
+	 *
+	 * @access public
+	 * @return void
+	 * @throws Exception
+	 */
+	function runFranchiseStaff(): void
 	{
 		$this->runHelpers();
 	}
 
-	function runFranchiseLead()
+	/**
+	 * Run the helpers for the Franchise Lead role.
+	 *
+	 * @access public
+	 * @return void
+	 * @throws Exception
+	 */
+	function runFranchiseLead(): void
 	{
 		$this->runHelpers();
 	}
 
-	function runEventCoordinator()
+	/**
+	 * Run the helpers for the Event Coordinator role.
+	 *
+	 * @return void
+	 * @throws Exception
+	 */
+	function runEventCoordinator(): void
 	{
 		$this->runHelpers();
 	}
 
-	function runOpsLead()
+	/**
+	 * Run the helpers for the Ops Lead role.
+	 *
+	 * @access public
+	 * @return void
+	 * @throws Exception
+	 */
+	function runOpsLead(): void
 	{
 		$this->runHelpers();
 	}
 
-	function runOpsSupport()
+	/**
+	 * Run the helpers for the Ops Support role.
+	 *
+	 * @access public
+	 * @return void
+	 * @throws Exception
+	 */
+	function runOpsSupport(): void
 	{
 		$this->runHelpers();
 	}
 
-	function runDishwasher()
+	/**
+	 * Run the helpers for the Dishwasher role.
+	 *
+	 * @access public
+	 * @return void
+	 * @throws Exception
+	 */
+	function runDishwasher(): void
 	{
 		$this->runHelpers();
 	}
 
-	function runHelpers()
+	/**
+	 * Provides various helper functions for the backoffice.
+	 *
+	 * @access public
+	 * @return void
+	 * @throws Exception
+	 */
+	function runHelpers(): void
 	{
 		header('Pragma: no-cache');
 		header("Cache-Control: no-store,no-cache, must-revalidate"); // HTTP/1.1
@@ -190,28 +266,28 @@ class processor_admin_helpers extends CPageProcessor
 				{
 					$DAO_orders->order_confirmation = $req_order_identifier;
 				}
+
+				if ($DAO_orders->find(true))
+				{
+					CAppUtil::processorMessageEcho(array(
+						'processor_success' => true,
+						'processor_message' => 'Order found.',
+						'bounce_to' => '/backoffice/order-history?id=' . $DAO_orders->user_id . '&order=' . $DAO_orders->id
+					));
+				}
+				else
+				{
+					CAppUtil::processorMessageEcho(array(
+						'processor_success' => false,
+						'processor_message' => 'There was no order found by that ID.'
+					));
+				}
 			}
 			else
 			{
 				CAppUtil::processorMessageEcho(array(
 					'processor_success' => false,
 					'processor_message' => 'No order ID was specified.'
-				));
-			}
-
-			if ($DAO_orders->find(true))
-			{
-				CAppUtil::processorMessageEcho(array(
-					'processor_success' => true,
-					'processor_message' => 'Order found.',
-					'bounce_to' => '/backoffice/order-history?id=' . $DAO_orders->user_id . '&order=' . $DAO_orders->id
-				));
-			}
-			else
-			{
-				CAppUtil::processorMessageEcho(array(
-					'processor_success' => false,
-					'processor_message' => 'There was no order found by that ID.'
 				));
 			}
 		}
@@ -273,7 +349,6 @@ class processor_admin_helpers extends CPageProcessor
 					'processor_message' => 'Selector fetched.',
 					'form' => $formArray['change_store-selector_html']
 				));
-
 			}
 
 			if (!empty($_POST['do']) && $_POST['do'] == 'selector_select')
@@ -291,5 +366,3 @@ class processor_admin_helpers extends CPageProcessor
 		}
 	}
 }
-
-?>

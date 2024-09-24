@@ -1999,7 +1999,7 @@ $(function () {
 							success: function (json) {
 								if (json.processor_success)
 								{
-									bounce(decodeURIComponent(backoffice_change_store.back));
+									bounce(window.location.href);
 								}
 								else
 								{
