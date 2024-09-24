@@ -311,17 +311,16 @@
 				<tr>
 					<td class="guest_details_list_name">SMS Preferences</td>
 					<td class="guest_details_list_item">
-
-						<input
+						<select
 								data-sms_pref="false"
 								id="text_message_opt_in"
 								data-user_pref="text_message_opt_in"
-								data-user_pref_value_check="OPTED_IN"
-								data-user_pref_value_uncheck="OPTED_OUT"
-								data-user_id="<?php echo $this->user['id']; ?>"
-								type="checkbox"
-								<?php if ($this->user['preferences'][CUser::TEXT_MESSAGE_OPT_IN]['value'] == 'OPTED_IN') {?>checked="checked"<?php } ?> />
-						<label for="text_message_opt_in"><span>Opt-in to receive text messages from the store.</span></label><br />
+								data-user_id="<?php echo $this->user['id']; ?>">
+							<option value="UNANSWERED" <?php if ($this->user['preferences'][CUser::TEXT_MESSAGE_OPT_IN]['value'] == 'UNANSWERED') {?>selected<?php } ?>>Unanswered</option>
+							<option value="OPTED_IN" <?php if ($this->user['preferences'][CUser::TEXT_MESSAGE_OPT_IN]['value'] == 'OPTED_IN') {?>selected<?php } ?>>Opted In</option>
+							<option value="OPTED_OUT" <?php if ($this->user['preferences'][CUser::TEXT_MESSAGE_OPT_IN]['value'] == 'OPTED_OUT') {?>selected<?php } ?>>Opted Out</option>
+						</select>
+						<label for="text_message_opt_in">Receive SMS Texts</label>
 
 						<div class="collapse"  data-sms_dlog_comp="true" >
 							<div class="col">

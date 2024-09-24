@@ -9,7 +9,7 @@ require_once('includes/DAO/BusinessObject/CUserReferralSource.php');
 class form_account
 {
 
-	static $referralSourceArrayOld = array(
+	static array $referralSourceArrayOld = array(
 		CUserReferralSource::CUSTOMER_REFERRAL => array(
 			CForm::placeholder => 'Email of Friend Who Referred You',
 			CForm::email => true
@@ -40,7 +40,7 @@ class form_account
 		)
 	);
 
-	public static $referralSourceArray = array(
+	public static array $referralSourceArray = array(
 		CUserReferralSource::CUSTOMER_REFERRAL => array(
 			CForm::placeholder => 'Friend Referral',
 			CForm::email => true
@@ -72,12 +72,16 @@ class form_account
 
 	);
 
-	static $forwardTo = '/my-account'; //switched to auto-confirm
-	static public $originalCustomerReferral = false;
+	static string $forwardTo = '/my-account'; //switched to auto-confirm
+	static public bool $originalCustomerReferral = false;
 
-	static function sanitizeAccountFields()
+	/**
+	 * Sanitizes the input fields for the account form.
+	 *
+	 * Sanitizes all the fields in the account form using the CGPC::do_clean() method.
+	 */
+	static function sanitizeAccountFields(): void
 	{
-
 		if (isset($_POST['firstname']))
 		{
 			$_POST['firstname'] = CGPC::do_clean($_POST['firstname'], TYPE_STR);
@@ -563,13 +567,15 @@ class form_account
 		return $Form;
 	}
 
-	static function _saveForm($Form, $DAO_user, $adminAdd = false, $suppressBounce = false, $suppressEmail = false, $SFICurrentValues = false, $fadminStoreID = false, $isConvertingFromPartial = false, $billingAddrRequired = true, $noAddress = false)
+	/**
+	 * @throws Exception
+	 */
+	static function _saveForm($Form, $DAO_user, $adminAdd = false, $suppressBounce = false, $suppressEmail = false, $SFICurrentValues = false, $fadminStoreID = false, $isConvertingFromPartial = false, $billingAddrRequired = true, $noAddress = false): bool
 	{
 		$error = false;
 
 		if ($_POST && isset($_POST['submit_account']))
 		{
-
 			$enrollment_success = false;
 
 			$tpl = CApp::instance()->template();
@@ -689,7 +695,6 @@ class form_account
 
 			if (false && !CApp::$adminView)
 			{
-
 				if ($Form->value('birthday_month') == null || $Form->value('birthday_month') == "")
 				{
 					$tpl->setErrorMsg('Please choose a birthday month.');
@@ -727,7 +732,7 @@ class form_account
 					$tpl->setErrorMsg('Passwords cannot be based on dictionary words.');
 					$error = true;
 				}
-				else if (!empty($szUsername) && ((strstr(strtolower($szPassword), strtolower($Form->value('firstname'))) !== false) || (strstr(strtolower($szPassword), strtolower($Form->value('lastname'))) !== false) || (strstr(strtolower($szPassword), strtolower($szUsername)) !== false)))
+				else if (!empty($szUsername) && ((str_contains(strtolower($szPassword), strtolower($Form->value('firstname')))) || (str_contains(strtolower($szPassword), strtolower($Form->value('lastname')))) || (str_contains(strtolower($szPassword), strtolower($szUsername)))))
 				{
 					$tpl->setErrorMsg('Passwords cannot be based on your name or email address.');
 					$error = true;
@@ -845,7 +850,7 @@ class form_account
 
 				$platePointsEnrollmentMessage = "";
 
-				// check with pimary_email for partial account
+				// check with primary_email for partial account
 				// if it exists then update user and insert user_login and address
 				if ($DAO_user->partial_account_exists())
 				{
@@ -903,7 +908,11 @@ class form_account
 
 							if (!empty($_POST['sms_opt_in']))
 							{
-								$DAO_user->setUserPreference(CUser::TEXT_MESSAGE_OPT_IN, 'OPTED_IN');
+								$DAO_user->setUserPreference(CUser::TEXT_MESSAGE_OPT_IN, CUser::OPTED_IN);
+							}
+							else
+							{
+								$DAO_user->setUserPreference(CUser::TEXT_MESSAGE_OPT_IN, CUser::OPTED_OUT);
 							}
 
 							// Agree to Dream Dinners T&C, should be true here anyhow
@@ -1002,7 +1011,6 @@ class form_account
 
 									if (CPointsUserHistory::isElgibleForBirthdayRewardAtEnrollment($DAO_user->home_store_id, $month, $DAO_user->id))
 									{
-
 										$metaData = CPointsUserHistory::getEventMetaData(CPointsUserHistory::BIRTHDAY_MONTH);
 										$eventComment = 'Earned $' . $metaData['credit'] . ' birthday Dinner Dollars!';
 
@@ -1318,7 +1326,6 @@ class form_account
 
 		if ($_POST && isset($_POST['submit_account']))
 		{
-
 			$enrollment_success = false;
 
 			$tpl = CApp::instance()->template();
@@ -1690,7 +1697,6 @@ class form_account
 
 									if (CPointsUserHistory::isElgibleForBirthdayRewardAtEnrollment($User->home_store_id, $month, $User->id))
 									{
-
 										$metaData = CPointsUserHistory::getEventMetaData(CPointsUserHistory::BIRTHDAY_MONTH);
 										$eventComment = 'Earned $' . $metaData['credit'] . ' birthday Dinner Dollars!';
 
@@ -1852,7 +1858,6 @@ class form_account
 
 				if ($rslt !== false)
 				{
-
 					$tpl->setToastMsg(array('message' => 'The account has been updated.'));
 				}
 				else
@@ -1868,7 +1873,6 @@ class form_account
 
 	static function setUpReferral($tpl)
 	{
-
 		$inviting_user_email = false;
 		$userHasAIFReferral = false;
 
@@ -1935,7 +1939,6 @@ class form_account
 		//
 		if ($_POST && isset($_POST['submit_account']) && !$error)
 		{
-
 			//authenticate user
 			if ($Form->value('primary_email') && $Form->value('password'))
 			{
