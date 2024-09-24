@@ -2,10 +2,14 @@
 
 class CAppUtil
 {
-	/*
-	*  If a common html entity is present, convert to Windows Latin charset. Used by FPDF based labels
-	*/
-	static function toPDFCharConversions($inStr)
+	/**
+	 * If a common HTML entity is present, convert to Windows Latin charset. Used by FPDF-based labels.
+	 *
+	 * @param string $inStr The string to convert
+	 *
+	 * @return string The converted string
+	 */
+	static function toPDFCharConversions(string $inStr): string
 	{
 		$chars = array(
 			"'",
@@ -15,7 +19,7 @@ class CAppUtil
 			"&",
 			"\x99"
 		);
-		$ents = array(
+		$entities = array(
 			"&rsquo;",
 			"&eacute;",
 			"&ldquo;",
@@ -24,10 +28,19 @@ class CAppUtil
 			"&trade;"
 		);
 
-		return str_replace($ents, $chars, $inStr);
+		return str_replace($entities, $chars, $inStr);
 	}
 
-	static function return_string_or_json($string, $assoc_array = false)
+	/**
+	 * Attempt to decode a JSON string. If the string is not valid JSON,
+	 * return the string unchanged.
+	 *
+	 * @param string  $string      The string to decode
+	 * @param boolean $assoc_array If true, return the data as an associative array
+	 *
+	 * @return mixed The decoded JSON string, or the original string if not valid JSON
+	 */
+	static function return_string_or_json(string $string, bool $assoc_array = false): mixed
 	{
 		// decode the JSON data
 		$result = json_decode($string, $assoc_array);
@@ -46,27 +59,34 @@ class CAppUtil
 		return $result;
 	}
 
-	static function processorMessageEcho($messageArray, $noexit = false, $json_encode_options = false)
+	/**
+	 * Output a JSON encoded associative array as a message to the processor
+	 * and exit the script unless $no_exit is set to true.
+	 *
+	 * @param array    $messageArray        associative array to be JSON encoded
+	 * @param bool     $no_exit             if set to true, the script won't exit
+	 * @param bool|int $json_encode_options options for json_encode()
+	 */
+	static function processorMessageEcho(array $messageArray, bool $no_exit = false, bool|int $json_encode_options = false): void
 	{
 		echo json_encode($messageArray, $json_encode_options);
 
-		if (empty($noexit))
+		if (empty($no_exit))
 		{
 			exit;
 		}
 	}
 
-	static function generateUniqueString($length = 20)
+	/**
+	 * Generate a unique string by combining a timestamp with a random string of characters from a provided pool.
+	 *
+	 * @param int $length the length of the random string to generate, defaults to 20
+	 *
+	 * @return string the generated unique string
+	 */
+	static function generateUniqueString(int $length = 20): string
 	{
 		$pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-
-		// set pool of possible char
-		if ($pool == "")
-		{
-			$pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-			$pool .= "abcdefghijklmnopqrstuvwxyz";
-			$pool .= "0123456789";
-		}// end if
 
 		mt_srand((double)microtime() * 1000000);
 
@@ -80,7 +100,15 @@ class CAppUtil
 		return (dechex(time()) . $unique_id);
 	}
 
-	static function truncate($string, $limit = 30)
+	/**
+	 * Truncates a string to a certain length, appending an ellipsis if it exceeds that length.
+	 *
+	 * @param string $string The string to truncate.
+	 * @param int    $limit  The maximum length of the string, defaults to 30.
+	 *
+	 * @return string The truncated string.
+	 */
+	static function truncate(string $string, int $limit = 30): string
 	{
 		if (strlen($string) > $limit)
 		{
@@ -90,25 +118,14 @@ class CAppUtil
 		return $string;
 	}
 
-	static function truncateTextAddElipsis(&$text, $cutOffIndex)
-	{
-		$retVal = wordwrap($text, $cutOffIndex);
-		$retVal = explode("\n", $retVal);
-
-		if (isset($retVal[1]) && strlen($retVal[1]) > 1)
-		{
-			$retVal = $retVal[0] . '...';
-		}
-		else
-		{
-			$retVal = $retVal[0];
-		}
-
-		return $retVal;
-	}
-
-	//utility function to convert key for use by PHP's mycrypt library
-	static function hexToStr($hex)
+	/**
+	 * Convert a hexadecimal string into a regular string.
+	 *
+	 * @param string $hex a hexadecimal string
+	 *
+	 * @return string the converted string
+	 */
+	static function hexToStr(string $hex): string
 	{
 		$string = '';
 		for ($i = 0; $i < strlen($hex) - 1; $i += 2)
@@ -119,7 +136,16 @@ class CAppUtil
 		return $string;
 	}
 
-	static function hexDigit($inStr)
+	/**
+	 * Converts a string into a hexadecimal string where each character of the string is converted to 2 characters in the new string.
+	 * The high-order 4 bits of each character in the original string are converted to the first character in the new string and the low-order
+	 * 4 bits are converted to the second character in the new string.
+	 *
+	 * @param string $inStr The string to convert
+	 *
+	 * @return string The converted string
+	 */
+	static function hexDigit(string $inStr): string
 	{
 		$HEX = array(
 			'0',
@@ -153,7 +179,19 @@ class CAppUtil
 		return $outStr;
 	}
 
-	static function utf8ize($d)
+	/**
+	 * Ensures that all strings in an array or string are encoded as UTF-8.
+	 *
+	 * If the input is an array, this function iterates over it recursively and
+	 * applies the same logic to each element.  If the element is a string, it
+	 * is converted to UTF-8 using utf8_encode.  If the element is not a string,
+	 * it is left unchanged.
+	 *
+	 * @param array|string $d The array or string to convert.
+	 *
+	 * @return array|string The converted array or string.
+	 */
+	static function utf8ize(array|string $d): array|string
 	{
 		if (is_array($d))
 		{
@@ -170,110 +208,146 @@ class CAppUtil
 		return $d;
 	}
 
-	static function validateGoogleCaptchaResponse($response)
-    {
-        /*
-        {
-              "success": true|false,
-              "challenge_ts": timestamp,  // timestamp of the challenge load (ISO format yyyy-MM-dd'T'HH:mm:ssZZ)
-              "hostname": string,         // the hostname of the site where the reCAPTCHA was solved
-              "error-codes": [...]        // optional
-        }
-        */
-        $content ="secret=" . CAPTCHA_SECRET .  "&response=" . $response;
-
-
-        $curl = curl_init("https://www.google.com/recaptcha/api/siteverify");
-        curl_setopt($curl, CURLOPT_HEADER, false);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-      //  curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: application/json; charset=UTF-8", "Accept: json"));
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
-
-        $json_response = curl_exec($curl);
-
-        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
-        if ( $status != 200)
-        {
-            CLog::RecordNew(CLog::ERROR, "validateGoogleCaptchaResponse Error: call to URL \r\n https://www.google.com/recaptcha/api/siteverify failed with status \r\n $status, response \r\n $response, curl_error \r\n" . curl_error($curl) . ", curl_errno \r\n" . curl_errno($curl), "", "", true);
-            return false;
-        }
-
-        $result = json_decode($json_response, true);
-
-        curl_close($curl);
-
-        if (!$result['success'])
-        {
-            CLog::RecordNew(CLog::NOTICE, "Captcha Failure", "", "", false);
-        }
-
-        return $result['success'];
-    }
-
-    static function get_value_in_xml($element_name, $xml, $content_only = true) {
-        if ($xml == false) {
-            return false;
-        }
-        $found = preg_match('#<'.$element_name.'(?:\s+[^>]+)?>(.*?)'.
-            '</'.$element_name.'>#s', $xml, $matches);
-        if ($found != false) {
-            if ($content_only) {
-                return $matches[1];  //ignore the enclosing tags
-            } else {
-                return $matches[0];  //return the full pattern match
-            }
-        }
-        // No match found: return false.
-        return false;
-    }
-
-
-    // returns a valid 10 digit string or false
-    static function normalizePhoneNumber($phoneNumber)
-    {
-
-        $allNumbers =  preg_replace('/\D/', '', $phoneNumber);
-
-        if (strlen($allNumbers) == 10)
-        {
-            if ($allNumbers[0] == "1")
-            {
-                // must be a partial number
-                // https://en.wikipedia.org/wiki/Category:Area_codes_in_the_United_States
-                return false;
-            }
-
-            return "1" . $allNumbers;
-        }
-        else if (strlen($allNumbers) == 11)
-        {
-            if ($allNumbers[0] == "1")
-            {
-                return $allNumbers;
-            }
-
-            return false;
-        }
-
-        return false;
-
-
-    }
-
-    public static function fedexTrackingUrl($trackingNumber)
+	/**
+	 * Validate a Google reCaptcha response.
+	 *
+	 * @param string $response The user's response to the reCaptcha challenge.
+	 *
+	 * @return boolean True if the response is valid, false if not.
+	 */
+	static function validateGoogleCaptchaResponse(string $response): bool
 	{
-		return "https://www.fedex.com/fedextrack/?tracknumbers={$trackingNumber}&cntry_code=us";
+		/*
+		{
+			  "success": true|false,
+			  "challenge_ts": timestamp,  // timestamp of the challenge load (ISO format yyyy-MM-dd'T'HH:mm:ssZZ)
+			  "hostname": string,         // the hostname of the site where the reCAPTCHA was solved
+			  "error-codes": [...]        // optional
+		}
+		*/
+		$content = "secret=" . CAPTCHA_SECRET . "&response=" . $response;
+
+		$curl = curl_init("https://www.google.com/recaptcha/api/siteverify");
+		curl_setopt($curl, CURLOPT_HEADER, false);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+		//  curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: application/json; charset=UTF-8", "Accept: json"));
+		curl_setopt($curl, CURLOPT_POST, true);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+
+		$json_response = curl_exec($curl);
+
+		$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+		if ($status != 200)
+		{
+			CLog::RecordNew(CLog::ERROR, "validateGoogleCaptchaResponse Error: call to URL \r\n https://www.google.com/recaptcha/api/siteverify failed with status \r\n $status, response \r\n $response, curl_error \r\n" . curl_error($curl) . ", curl_errno \r\n" . curl_errno($curl), "", "", true);
+
+			return false;
+		}
+
+		$result = json_decode($json_response, true);
+
+		curl_close($curl);
+
+		if (!$result['success'])
+		{
+			CLog::RecordNew(CLog::NOTICE, "Captcha Failure");
+		}
+
+		return $result['success'];
 	}
 
-	public static function upsTrackingUrl($trackingNumber)
+	/**
+	 * Finds the value of an element in an XML string.
+	 *
+	 * @param string $element_name The name of the XML element to search for.
+	 * @param string $xml          The XML string to search in.
+	 * @param bool   $content_only Whether to return only the content of the element
+	 *                             (i.e., exclude the enclosing tags), or the full pattern match (i.e.,
+	 *                             include the enclosing tags).  Defaults to true.
+	 *
+	 * @return string|false The value of the element if found, otherwise false.
+	 */
+	static function get_value_in_xml(string $element_name, string $xml, bool $content_only = true): bool|string
 	{
-		return "https://wwwapps.ups.com/tracking/tracking.cgi?tracknum={$trackingNumber}";
+		if (!$xml)
+		{
+			return false;
+		}
+		$found = preg_match('#<' . $element_name . '(?:\s+[^>]+)?>(.*?)' . '</' . $element_name . '>#s', $xml, $matches);
+		if ($found)
+		{
+			if ($content_only)
+			{
+				return $matches[1];  //ignore the enclosing tags
+			}
+			else
+			{
+				return $matches[0];  //return the full pattern match
+			}
+		}
+
+		// No match found: return false.
+		return false;
+	}
+
+	/**
+	 * Returns a valid 10-digit string or false.
+	 *
+	 * @param string $phoneNumber
+	 *
+	 * @return string|false
+	 */
+	static function normalizePhoneNumber(string $phoneNumber): bool|string
+	{
+		$allNumbers = preg_replace('/\D/', '', $phoneNumber);
+
+		if (strlen($allNumbers) == 10)
+		{
+			if ($allNumbers[0] == "1")
+			{
+				// must be a partial number
+				// https://en.wikipedia.org/wiki/Category:Area_codes_in_the_United_States
+				return false;
+			}
+
+			return "1" . $allNumbers;
+		}
+		else if (strlen($allNumbers) == 11)
+		{
+			if ($allNumbers[0] == "1")
+			{
+				return $allNumbers;
+			}
+
+			return false;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param string $trackingNumber
+	 *
+	 * @return string
+	 */
+	public static function fedexTrackingUrl(string $trackingNumber): string
+	{
+		return "https://www.fedex.com/fedextrack/?tracknumbers=$trackingNumber&cntry_code=us";
+	}
+
+	/**
+	 * Returns the URL for a given UPS tracking number.
+	 *
+	 * @param string $trackingNumber
+	 *
+	 * @return string
+	 */
+	public static function upsTrackingUrl(string $trackingNumber): string
+	{
+		return "https://wwwapps.ups.com/tracking/tracking.cgi?tracknum=$trackingNumber";
 	}
 
 }
-
-?>
