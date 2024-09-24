@@ -1999,7 +1999,7 @@ $(function () {
 							success: function (json) {
 								if (json.processor_success)
 								{
-									window.location.reload();
+									bounce(window.location.href);
 								}
 								else
 								{
