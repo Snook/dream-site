@@ -321,9 +321,13 @@ class CStore extends DAO_Store
 	}
 
 	/**
-	 * @throws Exception
+	 * Sets up the current franchise store.
+	 *
+	 * @param int $store_id The ID of the store to set up as the current franchise store.
+	 *
+	 * @throws Exception If the store is not found.
 	 */
-	static function setUpFranchiseStore($store_id)
+	static function setUpFranchiseStore(int $store_id): void
 	{
 		//set the current store name
 		self::$_currentFadminStore = DAO_CFactory::create('store');
@@ -334,6 +338,11 @@ class CStore extends DAO_Store
 		}
 	}
 
+	/**
+	 * Returns true if the delivery radius is set for this store, false otherwise.
+	 *
+	 * @return bool
+	 */
 	function showDeliveryRadius(): bool
 	{
 		if (!empty($this->delivery_radius))
@@ -344,7 +353,7 @@ class CStore extends DAO_Store
 		return false;
 	}
 
-	/*
+	/**
 	 * Pass in store ID or fully loaded  store object
 	 */
 	static function getParentStoreID($store)
@@ -876,7 +885,7 @@ class CStore extends DAO_Store
 		$DAO_site_message->query("(SELECT
 			site_message.*
 			FROM site_message
-			INNER JOIN site_message_to_store ON site_message.id = site_message_to_store.site_message_id AND site_message_to_store.store_id = '" . $this->id . "' AND site_message_to_store.is_deleted = 0 
+			INNER JOIN site_message_to_store ON site_message.id = site_message_to_store.site_message_id AND site_message_to_store.store_id = '" . $this->id . "' AND site_message_to_store.is_deleted = 0
 			WHERE site_message.audience = 'STORE'
 			AND site_message.message_start <= NOW()
 			AND site_message.message_end >= NOW()
@@ -889,7 +898,7 @@ class CStore extends DAO_Store
 		UNION (SELECT
 			site_message.*
 			FROM site_message
-			INNER JOIN site_message_to_store ON site_message.id = site_message_to_store.site_message_id AND site_message_to_store.store_id = '" . $this->id . "' AND site_message_to_store.is_deleted = 0 
+			INNER JOIN site_message_to_store ON site_message.id = site_message_to_store.site_message_id AND site_message_to_store.store_id = '" . $this->id . "' AND site_message_to_store.is_deleted = 0
 			WHERE site_message.audience = 'STORE'
 			AND site_message.message_start <= NOW()
 			AND site_message.message_end >= NOW()
@@ -1542,7 +1551,7 @@ class CStore extends DAO_Store
 
 		if ($user_id)
 		{
-			$storeObj->query("SELECT  store.store_name, store.state_id, store.city, store.id, store.active, store.is_corporate_owned, store.store_type 
+			$storeObj->query("SELECT  store.store_name, store.state_id, store.city, store.id, store.active, store.is_corporate_owned, store.store_type
 								FROM store, user_to_store WHERE user_to_store.store_id = store.id AND user_to_store.user_id = $user_id and user_to_store.is_deleted = 0");
 		}
 		else if ($get_inactive_stores)
@@ -2236,7 +2245,7 @@ class CStore extends DAO_Store
 		}
 
 		$store = DAO_CFactory::create('store');
-		$store->query("SELECT 
+		$store->query("SELECT
 			" . $selectFields . ",
  			sp.state_name
  			FROM store AS s
