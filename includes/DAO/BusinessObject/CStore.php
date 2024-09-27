@@ -178,7 +178,7 @@ class CStore extends DAO_Store
 
 	function getPrettyUrl($full_url = false)
 	{
-		if(!empty($this->DAO_short_url) && !empty($this->DAO_short_url->short_url))
+		if (!empty($this->DAO_short_url) && !empty($this->DAO_short_url->short_url))
 		{
 			$store_short_url = $this->DAO_short_url->getPrettyUrl($full_url);
 		}
@@ -190,9 +190,11 @@ class CStore extends DAO_Store
 		return $store_short_url;
 	}
 
-	/*
+	/**
 	 * Get the available session types for active menus
 	 *
+	 * @return array with keys that are the available session types
+	 * @throws Exception
 	 */
 	function getAvailableSessionTypes()
 	{
@@ -236,7 +238,21 @@ class CStore extends DAO_Store
 		return self::$_AvailableSessionTypes[$this->id];
 	}
 
-	function hasAvailableSessionType($session_type = false)
+	/**
+	 * Returns true if the store has any available sessions of the specified type, false otherwise.
+	 *
+	 * If $session_type is an array, returns true if the store has available sessions for ANY of the types in the array.
+	 *
+	 * If $session_type is a string, returns true if the store has available sessions of EXACTLY the specified type.
+	 *
+	 * If $session_type is empty, returns false.
+	 *
+	 * @param bool|array|string $session_type The session type(s) to check for
+	 *
+	 * @return bool
+	 * @throws Exception
+	 */
+	function hasAvailableSessionType(bool|array|string $session_type = false): bool
 	{
 		$sessionTypesArray = $this->getAvailableSessionTypes();
 
@@ -247,6 +263,7 @@ class CStore extends DAO_Store
 		else if (is_array($session_type))
 		{
 			$intersection = array_intersect_key($sessionTypesArray, array_flip($session_type));
+
 			return !empty($intersection);
 		}
 		else if ($session_type)
@@ -257,9 +274,16 @@ class CStore extends DAO_Store
 		return false;
 	}
 
-	function getStoreId()
+	/**
+	 * Gets the store ID as a string, either as the short url or the numerical ID.
+	 *
+	 * If the store has a short url, returns that. Otherwise, returns the numerical ID.
+	 *
+	 * @return string|int
+	 */
+	function getStoreId(): string|int
 	{
-		if(!empty($this->DAO_short_url) && !empty($this->DAO_short_url->short_url))
+		if (!empty($this->DAO_short_url) && !empty($this->DAO_short_url->short_url))
 		{
 			return $this->DAO_short_url->short_url;
 		}
@@ -269,7 +293,18 @@ class CStore extends DAO_Store
 		}
 	}
 
-	function getVanityUrlArray()
+	/**
+	 * Get an array of vanity URLs for this store.
+	 *
+	 * Vanity URLs are URLs like "ddn.dreamdinners.com/short-url" that redirect to
+	 * the store's location page. This function returns an array of ShortUrl objects
+	 * that represent the vanity URLs for this store. Note that this function returns
+	 * all vanity URLs, including deleted ones.
+	 *
+	 * @return array An array of ShortUrl objects, keyed by the ID of the ShortUrl.
+	 * @throws Exception
+	 */
+	function getVanityUrlArray(): array
 	{
 		$urlArray = array();
 
@@ -277,7 +312,7 @@ class CStore extends DAO_Store
 		$DAO_short_url->store_id = $this->id;
 		$DAO_short_url->find_includeDeleted();
 
-		while($DAO_short_url->fetch())
+		while ($DAO_short_url->fetch())
 		{
 			$urlArray[$DAO_short_url->id] = clone($DAO_short_url);
 		}
@@ -286,11 +321,14 @@ class CStore extends DAO_Store
 	}
 
 	/**
-	 * @throws Exception
+	 * Sets up the current franchise store.
+	 *
+	 * @param int $store_id The ID of the store to set up as the current franchise store.
+	 *
+	 * @throws Exception If the store is not found.
 	 */
-	static function setUpFranchiseStore($store_id)
+	static function setUpFranchiseStore(int $store_id): void
 	{
-
 		//set the current store name
 		self::$_currentFadminStore = DAO_CFactory::create('store');
 		self::$_currentFadminStore->id = $store_id;
@@ -300,6 +338,11 @@ class CStore extends DAO_Store
 		}
 	}
 
+	/**
+	 * Returns true if the delivery radius is set for this store, false otherwise.
+	 *
+	 * @return bool
+	 */
 	function showDeliveryRadius(): bool
 	{
 		if (!empty($this->delivery_radius))
@@ -310,7 +353,7 @@ class CStore extends DAO_Store
 		return false;
 	}
 
-	/*
+	/**
 	 * Pass in store ID or fully loaded  store object
 	 */
 	static function getParentStoreID($store)
@@ -582,7 +625,6 @@ class CStore extends DAO_Store
 
 	static function storeSupportsReciProfity($store_id, $menu_id = 0): bool
 	{
-
 		if (defined('DD_SERVER_NAME') && DD_SERVER_NAME == 'LIVE')
 		{
 			//SLC, MC & Corvallis support all menus
@@ -673,10 +715,8 @@ class CStore extends DAO_Store
 
 	static function hasPlatePointsTransitionPeriodExpired($store_id): bool
 	{
-
 		switch ($store_id)
 		{
-
 			case 119:
 				{
 					$cutOff = strtotime('2014-03-01 03:00:00');
@@ -841,7 +881,7 @@ class CStore extends DAO_Store
 		$DAO_site_message->query("(SELECT
 			site_message.*
 			FROM site_message
-			INNER JOIN site_message_to_store ON site_message.id = site_message_to_store.site_message_id AND site_message_to_store.store_id = '" . $this->id . "' AND site_message_to_store.is_deleted = 0 
+			INNER JOIN site_message_to_store ON site_message.id = site_message_to_store.site_message_id AND site_message_to_store.store_id = '" . $this->id . "' AND site_message_to_store.is_deleted = 0
 			WHERE site_message.audience = 'STORE'
 			AND site_message.message_start <= NOW()
 			AND site_message.message_end >= NOW()
@@ -854,7 +894,7 @@ class CStore extends DAO_Store
 		UNION (SELECT
 			site_message.*
 			FROM site_message
-			INNER JOIN site_message_to_store ON site_message.id = site_message_to_store.site_message_id AND site_message_to_store.store_id = '" . $this->id . "' AND site_message_to_store.is_deleted = 0 
+			INNER JOIN site_message_to_store ON site_message.id = site_message_to_store.site_message_id AND site_message_to_store.store_id = '" . $this->id . "' AND site_message_to_store.is_deleted = 0
 			WHERE site_message.audience = 'STORE'
 			AND site_message.message_start <= NOW()
 			AND site_message.message_end >= NOW()
@@ -876,7 +916,6 @@ class CStore extends DAO_Store
 
 	static function storeInPlatePointsTest($store_id)
 	{
-
 		return true;
 		/*
 		$eligible_stores = array(119, 159, 182, 200, 244, 279, 300, 193);
@@ -996,9 +1035,17 @@ class CStore extends DAO_Store
 
 	function storeIsClosing($DAO_menu)
 	{
-		$applicableStoreIds = array(37, 73, 76, 105, 103, 121, 286);
+		$applicableStoreIds = array(
+			37,
+			73,
+			76,
+			105,
+			103,
+			121,
+			286
+		);
 
-		if(in_array($this->id, $applicableStoreIds))
+		if (in_array($this->id, $applicableStoreIds))
 		{
 			$DAO_order_minimum = DAO_CFactory::create('order_minimum', true);
 			$DAO_order_minimum->store_id = $this->id;
@@ -1500,12 +1547,11 @@ class CStore extends DAO_Store
 
 		if ($user_id)
 		{
-			$storeObj->query("SELECT  store.store_name, store.state_id, store.city, store.id, store.active, store.is_corporate_owned, store.store_type 
+			$storeObj->query("SELECT  store.store_name, store.state_id, store.city, store.id, store.active, store.is_corporate_owned, store.store_type
 								FROM store, user_to_store WHERE user_to_store.store_id = store.id AND user_to_store.user_id = $user_id and user_to_store.is_deleted = 0");
 		}
 		else if ($get_inactive_stores)
 		{
-
 			if ($via_menu_id)
 			{
 				$storeObj->query("SELECT store_name, state_id, city, id, active, is_corporate_owned, store.store_type FROM store WHERE is_deleted = 0 and not isnull(first_menu_supported) and $via_menu_id >= first_menu_supported
@@ -1736,7 +1782,6 @@ class CStore extends DAO_Store
 	//will only return true if is test store for all menus in array
 	static function isCoreTestStoreAcrossMenus($store_id, $menu_id_array)
 	{
-
 		foreach ($menu_id_array as $menu_id)
 		{
 			if ($menu_id < 247)
@@ -1847,7 +1892,7 @@ class CStore extends DAO_Store
 		CSession::INTRO,
 		CSession::ALL_STANDARD,
 		CSession::EVENT
-	),$excludeMenuIds = false, $UserObj = false, $excludeWalking = false)
+	),                                $excludeMenuIds = false, $UserObj = false, $excludeWalking = false)
 	{
 		if (empty($UserObj))
 		{
@@ -1897,7 +1942,7 @@ class CStore extends DAO_Store
 
 			foreach ($sessionTypesArray as $sessionType)
 			{
-				$sessionsArray = CSession::getMonthlySessionInfoArray($this, $menu['start_date'], $mid, $sessionType, true, true, false, false, false,false, $excludeWalking);
+				$sessionsArray = CSession::getMonthlySessionInfoArray($this, $menu['start_date'], $mid, $sessionType, true, true, false, false, false, false, $excludeWalking);
 
 				if (!array_key_exists($sessionType, $sessionArray['info']['session_type']))
 				{
@@ -2001,7 +2046,7 @@ class CStore extends DAO_Store
 		$DAO_user->oderBy("user.user_type DESC, user.firstname ASC");
 		$DAO_user->find();
 
-		while($DAO_user->fetch())
+		while ($DAO_user->fetch())
 		{
 			$this->PersonnelArray[$DAO_user->id] = clone $DAO_user;
 		}
@@ -2036,7 +2081,7 @@ class CStore extends DAO_Store
 		$DAO_user->oderBy("user.user_type DESC, user.firstname ASC");
 		$DAO_user->find();
 
-		while($DAO_user->fetch())
+		while ($DAO_user->fetch())
 		{
 			$this->OwnerArray[$DAO_user->id] = clone $DAO_user;
 		}
@@ -2060,7 +2105,6 @@ class CStore extends DAO_Store
 
 			if ($store->fetch())
 			{
-
 				$uts = DAO_CFactory::create('user_to_store');
 				$User = DAO_CFactory::create('user');
 
@@ -2147,7 +2191,7 @@ class CStore extends DAO_Store
 		$Maint = DAO_CFactory::create('site_message');
 
 		$hoClause = " AND sm.home_office_managed = '0' ";
-		if($includeHomeOfficeManaged)
+		if ($includeHomeOfficeManaged)
 		{
 			$hoClause = '';
 		}
@@ -2197,7 +2241,7 @@ class CStore extends DAO_Store
 		}
 
 		$store = DAO_CFactory::create('store');
-		$store->query("SELECT 
+		$store->query("SELECT
 			" . $selectFields . ",
  			sp.state_name
  			FROM store AS s
@@ -2902,7 +2946,6 @@ class CStore extends DAO_Store
 
 	function customizationFeeForMealCount($applicableMealCount)
 	{
-
 		if (is_null($applicableMealCount) || $applicableMealCount == 0)
 		{
 			return 0;
@@ -2971,7 +3014,6 @@ class CStore extends DAO_Store
 	 */
 	function setCurrentSalesTax($current_food_tax, $current_product_tax, $current_service_tax, $current_enrollment_tax, $current_delivery_tax = 0.0, $current_bag_fee_tax = 0.0): void
 	{
-
 		list($id, $food_tax, $total_tax, $service_tax, $enrollment_tax, $delivery_tax, $bag_fee_tax) = $this->getCurrentSalesTax();
 		if (((string)$current_food_tax != (string)$food_tax) || ((string)$current_product_tax != (string)$total_tax) || ((string)$current_service_tax != (string)$service_tax) || ((string)$current_enrollment_tax != (string)$enrollment_tax) || ((string)$current_delivery_tax != (string)$delivery_tax) || ((string)$current_bag_fee_tax != (string)$bag_fee_tax))
 		{
@@ -3120,18 +3162,16 @@ class CStore extends DAO_Store
 		return false;
 	}
 
-
-
 	function generateAddressLinear(): string
 	{
-		$this->address_linear = $this->address_line1 . (!empty($this->address_line2) ? " " . $this->address_line2 : "") . ", " . $this->city  . ", " . $this->state_id . " " .  $this->postal_code . (!empty($this->usps_adc) ? "-" . $this->usps_adc : "");
+		$this->address_linear = $this->address_line1 . (!empty($this->address_line2) ? " " . $this->address_line2 : "") . ", " . $this->city . ", " . $this->state_id . " " . $this->postal_code . (!empty($this->usps_adc) ? "-" . $this->usps_adc : "");
 
 		return $this->address_linear;
 	}
 
 	function generateAddressWithBreaks(): string
 	{
-		$this->address_with_breaks = $this->address_line1 . (!empty($this->address_line2) ? " " . $this->address_line2 : "") . "\n" . $this->city  . ", " . $this->state_id . " " .  $this->postal_code . (!empty($this->usps_adc) ? "-" . $this->usps_adc : "");
+		$this->address_with_breaks = $this->address_line1 . (!empty($this->address_line2) ? " " . $this->address_line2 : "") . "\n" . $this->city . ", " . $this->state_id . " " . $this->postal_code . (!empty($this->usps_adc) ? "-" . $this->usps_adc : "");
 
 		return $this->address_with_breaks;
 	}

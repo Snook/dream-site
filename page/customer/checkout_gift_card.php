@@ -16,7 +16,6 @@ require_once('payment/PayPalProcess.php');
 require_once('includes/CAppUtil.inc');
 require_once('page/customer/checkout.php');
 
-
 class page_checkout_gift_card extends CPage
 {
 
@@ -199,9 +198,7 @@ class page_checkout_gift_card extends CPage
 	 */
 	function runPublic()
 	{
-
 		// -------------------------------------------------initializations/Load Cart and Order
-		
 
 		CTemplate::noCache();
 
@@ -270,7 +267,6 @@ class page_checkout_gift_card extends CPage
 		// -------------------------------------Setup
 		CTemplate::noCache();
 
-		
 		ini_set('memory_limit', '96M');
 		$tpl = CApp::instance()->template();
 
@@ -293,7 +289,7 @@ class page_checkout_gift_card extends CPage
 			if ($_POST['remove'] == "gift_card_purchase" && !$this->runAsGuest)
 			{
 				$Cart->removeGiftCardOrder($_POST['gcoid']);
-                $gc_orders = $Cart->getGiftCardOrders();
+				$gc_orders = $Cart->getGiftCardOrders();
 
 				if (empty($gc_orders))
 				{
@@ -336,21 +332,19 @@ class page_checkout_gift_card extends CPage
 
 		if (isset($_POST['checkout_submit']))
 		{
-            $captcha_error = false;
+			$captcha_error = false;
 
-            if (isset($_POST['g-recaptcha-response']))
-            {
-                  if (!CAppUtil::validateGoogleCaptchaResponse($_POST['g-recaptcha-response']))
-                  {
-                      $captcha_error = "Captcha Invalid";
-
-                  }
-            }
-            else
-            {
-                $captcha_error = "No Captcha response provided";
-
-            }
+			if (isset($_POST['g-recaptcha-response']))
+			{
+				if (!CAppUtil::validateGoogleCaptchaResponse($_POST['g-recaptcha-response']))
+				{
+					$captcha_error = "Captcha Invalid";
+				}
+			}
+			else
+			{
+				$captcha_error = "No Captcha response provided";
+			}
 
 			if (!$Form->validate_CSRF_token())
 			{
@@ -360,7 +354,6 @@ class page_checkout_gift_card extends CPage
 			}
 			else if (!$captcha_error)
 			{
-
 				$guestID = null;
 				$GuestEmail = false;
 
@@ -405,14 +398,14 @@ class page_checkout_gift_card extends CPage
 				}
 			}
 			else
-            {
-                $tpl->setErrorMsg("The submission was rejected as a possible security issue. If this was a legitimate submission please contact Dream Dinners support.");
-                $Form->setCSRFToken();
-            }
+			{
+				$tpl->setErrorMsg("The submission was rejected as a possible security issue. If this was a legitimate submission please contact Dream Dinners support.");
+				$Form->setCSRFToken();
+			}
 		}
 		else
 		{
-            $Form->setCSRFToken();
+			$Form->setCSRFToken();
 		}
 
 		$tpl->assign('has_gift_card', !empty($gc_orders));
@@ -546,7 +539,7 @@ class page_checkout_gift_card extends CPage
 			{
 				require_once 'includes/payment/PayPalProcess.php';
 				$process = new PayPalProcess();
-				$result = $process->processGiftCardOrder($guestEmail, $creditCardArray['ccNameOnCard'], $giftcardTotal, $creditCardArray['ccNumber'], $creditCardArray['ccMonth'], $creditCardArray['ccYear'], $creditCardArray['ccSecurityCode'], $creditCardArray['billing_postal_code'], $creditCardArray['billing_address'],'S',$creditCardArray['city'],$creditCardArray['state_id']);
+				$result = $process->processGiftCardOrder($guestEmail, $creditCardArray['ccNameOnCard'], $giftcardTotal, $creditCardArray['ccNumber'], $creditCardArray['ccMonth'], $creditCardArray['ccYear'], $creditCardArray['ccSecurityCode'], $creditCardArray['billing_postal_code'], $creditCardArray['billing_address'], 'S', $creditCardArray['city'], $creditCardArray['state_id']);
 
 				$payPalResult = $process->getResult();
 				$refNum = $payPalResult['PNREF'];
@@ -561,47 +554,45 @@ class page_checkout_gift_card extends CPage
 			if ($result[0] == 'success')
 			{
 				$updatedGiftCardArray = array();
-                $GiftCardSystemFailure = false;
-                $voidList = array();
-                $hasVoidedCCPayment = false;
+				$GiftCardSystemFailure = false;
+				$voidList = array();
+				$hasVoidedCCPayment = false;
 				foreach ($giftCardObjArray as $thisGCOrderObj)
 				{
-
 					$confirmNumber = COrders::generateConfirmationNum();
 
 					if ($thisGCOrderObj->media_type == 'PHYSICAL')
 					{
 						$result = CGiftCard::completePhysicalCardPurchaseTransaction($thisGCOrderObj->id, $guestEmail, $obfNum, $refNum, $creditCardArray['ccType'], $creditCardArray['ccNameOnCard'], $creditCardArray['billing_address'], $creditCardArray['billing_postal_code'], $confirmNumber, 'CUST_CART', 'null', $guestID);
 
-						if (!$result) {
-                            // update failed - should be rare - email and event trace generated in completePhysicalCardPurchaseTransaction
-                            // paid and processed flags and other updates should not have occurred but you should probably investigate if it happens
-                            $tpl->setErrorMsg("An error occurred when recording your Gift card order. Please contact Dream Dinners customer support at (360) 804-2020.");
+						if (!$result)
+						{
+							// update failed - should be rare - email and event trace generated in completePhysicalCardPurchaseTransaction
+							// paid and processed flags and other updates should not have occurred but you should probably investigate if it happens
+							$tpl->setErrorMsg("An error occurred when recording your Gift card order. Please contact Dream Dinners customer support at (360) 804-2020.");
 
-                            if (!$hasVoidedCCPayment)
-                            {
-                                $process = new PayPalProcess();
-                                $voidResult = $process->voidGiftCardPayment($guestEmail, $refNum);
-                                if ($voidResult != 'success')
-                                {
-                                    CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com');
-                                }
+							if (!$hasVoidedCCPayment)
+							{
+								$process = new PayPalProcess();
+								$voidResult = $process->voidGiftCardPayment($guestEmail, $refNum);
+								if ($voidResult != 'success')
+								{
+									CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com');
+								}
 
-                                $hasVoidedCCPayment = true;
-                            }
+								$hasVoidedCCPayment = true;
+							}
 
-                            $GiftCardSystemFailure = true;
-
+							$GiftCardSystemFailure = true;
 						}
 						else
-                        {
-                            $updatedGiftCardArray[] = $result;
-                        }
-
+						{
+							$updatedGiftCardArray[] = $result;
+						}
 					}
 					else
 					{
-                        list($newAccountNumber, $thisTransID, $AuthCode) = CGiftCard::obtainAccountNumberAndLoadWithRetry($thisGCOrderObj->initial_amount, 'M', $thisGCOrderObj->to_name, $thisGCOrderObj->recipient_email_address);
+						list($newAccountNumber, $thisTransID, $AuthCode) = CGiftCard::obtainAccountNumberAndLoadWithRetry($thisGCOrderObj->initial_amount, 'M', $thisGCOrderObj->to_name, $thisGCOrderObj->recipient_email_address);
 
 						if ($newAccountNumber)
 						{
@@ -609,100 +600,100 @@ class page_checkout_gift_card extends CPage
 
 							if (!$result)
 							{
-                                // update failed - should be EXCEEDINGLY rare - email and event trace generated in completeNewAccountTransaction
-                                // GC Load wil be rolled back - paid and processed flags and other updates should not have occurred but you should probably investigate if it happens
+								// update failed - should be EXCEEDINGLY rare - email and event trace generated in completeNewAccountTransaction
+								// GC Load wil be rolled back - paid and processed flags and other updates should not have occurred but you should probably investigate if it happens
 								$tpl->setErrorMsg("An error occurred when recording your eGift card order. Please try again later or contact Dream Dinners customer support at (360) 804-2020.");
-                                $GiftCardSystemFailure = true;
+								$GiftCardSystemFailure = true;
 
-                                if (!$hasVoidedCCPayment)
-                                {
-                                    $process = new PayPalProcess();
-                                    $voidResult = $process->voidGiftCardPayment($guestEmail, $refNum);
-                                    if ($voidResult != 'success')
-                                    {
-                                        CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com');
-                                    }
+								if (!$hasVoidedCCPayment)
+								{
+									$process = new PayPalProcess();
+									$voidResult = $process->voidGiftCardPayment($guestEmail, $refNum);
+									if ($voidResult != 'success')
+									{
+										CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com');
+									}
 
-                                    $hasVoidedCCPayment = true;
-                                }
-
-                            }
+									$hasVoidedCCPayment = true;
+								}
+							}
 							else
-                            {
-                                $result->new_account_number = $newAccountNumber;
-                                $updatedGiftCardArray[] = $result;
-                                $voidList[$thisTransID] = array("transID" => $thisTransID, "authCode" => $AuthCode, "GCO" => $thisGCOrderObj);
-                            }
+							{
+								$result->new_account_number = $newAccountNumber;
+								$updatedGiftCardArray[] = $result;
+								$voidList[$thisTransID] = array(
+									"transID" => $thisTransID,
+									"authCode" => $AuthCode,
+									"GCO" => $thisGCOrderObj
+								);
+							}
 						}
 						else
 						{
 							//handle this very nasty problem
 							CLog::RecordIntense("obtainAccountNumberAndLoad Failure", 'ryan.snook@dreamdinners.com');
-                            if (!$hasVoidedCCPayment)
-                            {
-                                $process = new PayPalProcess();
-                                $voidResult = $process->voidGiftCardPayment($guestEmail, $refNum);
-                                if ($voidResult != 'success')
-                                {
-                                    CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com');
-                                }
+							if (!$hasVoidedCCPayment)
+							{
+								$process = new PayPalProcess();
+								$voidResult = $process->voidGiftCardPayment($guestEmail, $refNum);
+								if ($voidResult != 'success')
+								{
+									CLog::RecordIntense("Failure in attempting to void CreditCard payment after Gift Card System failure.", 'ryan.snook@dreamdinners.com');
+								}
 
-                                $hasVoidedCCPayment = true;
-                            }
+								$hasVoidedCCPayment = true;
+							}
 
-                            $GiftCardSystemFailure = true;
-                            $tpl->setErrorMsg("An error occurred when recording your Gift card order. Please contact Dream Dinners customer support at (360) 804-2020.");
+							$GiftCardSystemFailure = true;
+							$tpl->setErrorMsg("An error occurred when recording your Gift card order. Please contact Dream Dinners customer support at (360) 804-2020.");
 						}
 					}
 				} // end GC loop
 
 				if (!$GiftCardSystemFailure)
 				{
-                    $paymentData = array(
-                        'credit_card_number' => $creditCardArray['ccNumber'],
-                        'billing_name' => $creditCardArray['ccNameOnCard'],
-                        'billing_address' => $creditCardArray['billing_address'],
-                        'billing_zip' => $creditCardArray['billing_postal_code'],
-                        'primary_email' => $guestEmail,
-                        'payment_card_type' => $creditCardArray['ccType'],
-                        'purchase_date' => date("Y-m-d H:i:s")
-                    );
+					$paymentData = array(
+						'credit_card_number' => $creditCardArray['ccNumber'],
+						'billing_name' => $creditCardArray['ccNameOnCard'],
+						'billing_address' => $creditCardArray['billing_address'],
+						'billing_zip' => $creditCardArray['billing_postal_code'],
+						'primary_email' => $guestEmail,
+						'payment_card_type' => $creditCardArray['ccType'],
+						'purchase_date' => date("Y-m-d H:i:s")
+					);
 
-                    // send a separate confirmation
-                    CGiftCard::sendGCOrderReceiptEmail($updatedGiftCardArray, $paymentData, $giftcardTotal);
+					// send a separate confirmation
+					CGiftCard::sendGCOrderReceiptEmail($updatedGiftCardArray, $paymentData, $giftcardTotal);
 
-                    foreach($updatedGiftCardArray as $ThisGCO)
-                    {
-                        if ($ThisGCO->media_type = 'VIRTUAL')
-                        {
-                            CGiftCard::sendVirtualGiftCard($ThisGCO, $ThisGCO->new_account_number);
-                        }
-                    }
-
-
-                }
+					foreach ($updatedGiftCardArray as $ThisGCO)
+					{
+						if ($ThisGCO->media_type = 'VIRTUAL')
+						{
+							CGiftCard::sendVirtualGiftCard($ThisGCO, $ThisGCO->new_account_number);
+						}
+					}
+				}
 				else
-                {
-                    foreach($voidList as $thisTransID => $TransData)
-                    {
-                        $voidResult = CGiftCard::voidTransaction($thisTransID, $TransData['authCode']);
+				{
+					foreach ($voidList as $thisTransID => $TransData)
+					{
+						$voidResult = CGiftCard::voidTransaction($thisTransID, $TransData['authCode']);
 
-                        if (!$voidResult)
-                        {
-                            CLog::RecordNew(CLog::ERROR, "Error voiding transaction durng failure: " . $thisTransID);
-                        }
-                        else
-                        {
-                            // TODO: revert update to gift_card_order and record in event log
-                            $reverter = new DAO();
-                            $reverter->query("update gift_card_order set paid = 0, processed = 0, gift_card_account_number = null where id = " . $TransData["GCO"]->id);
+						if (!$voidResult)
+						{
+							CLog::RecordNew(CLog::ERROR, "Error voiding transaction durng failure: " . $thisTransID);
+						}
+						else
+						{
+							// TODO: revert update to gift_card_order and record in event log
+							$reverter = new DAO();
+							$reverter->query("update gift_card_order set paid = 0, processed = 0, gift_card_account_number = null where id = " . $TransData["GCO"]->id);
+						}
+					}
 
-                        }
-                    }
-
-                    $giftCardFailureOnlySoAddCardsBackToTheCart = true;
-                    CLog::RecordNew(CLog::ERROR, "GC System failure. voided Credit Card and any suucessful GC loads.");
-                }
+					$giftCardFailureOnlySoAddCardsBackToTheCart = true;
+					CLog::RecordNew(CLog::ERROR, "GC System failure. voided Credit Card and any suucessful GC loads.");
+				}
 			} // end CC success
 			else if ($result[0] == 'validationError')
 			{
@@ -717,7 +708,6 @@ class page_checkout_gift_card extends CPage
 		}
 		else
 		{
-
 			$tpl->setErrorMsg('We apologize but it appears that the Gift Card system is unresponsive. Please try the order again later or contact Dream Dinners customer support at (360) 804-2020');
 			$hadError = true;
 		}
