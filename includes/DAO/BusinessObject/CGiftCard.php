@@ -73,7 +73,6 @@ class CGiftCard extends DAO_Gift_card_transaction
 
 	static function checkBalanceDebitGiftCard($gift_card_number)
 	{
-
 		if (!is_numeric($gift_card_number))
 		{
 			CLog::RecordNew(CLog::DEBUG, "GC_DEBUG: Non numeric entry in checkBalanceDebitGiftCard");
@@ -265,11 +264,39 @@ class CGiftCard extends DAO_Gift_card_transaction
 		}
 	}
 
+	/**
+	 * This function is used to complete a transaction for a gift card purchase.
+	 *
+	 * This function is called by client code after a gift card purchase has been confirmed.
+	 *
+	 * It updates the gift_card_orders table with transaction data and marks the order as paid.
+	 *
+	 * It also calls the stored procedure store_gcan to generate a gift card number.
+	 *
+	 * If the order cannot be found, or if the update fails, it logs an error and returns null.
+	 *
+	 * @param int      $GC_Order_id         The ID of the gift card order to complete.
+	 * @param string   $purchaser_email     The email address of the purchaser.
+	 * @param string   $CC_Num              The credit card number.
+	 * @param string   $transaction_id      The transaction id.
+	 * @param string   $card_type           The type of credit card.
+	 * @param string   $accountNumber       The gift card number.
+	 * @param string   $billing_name        The name of the billing address.
+	 * @param string   $billing_address     The billing address.
+	 * @param string   $billing_zip         The billing zip code.
+	 * @param string   $confirmation_number The confirmation number.
+	 * @param string   $UI                  The user interface used for the transaction.
+	 * @param bool|int $order_id            The ID of the order.
+	 * @param bool|int $user_id             The ID of the user.
+	 *
+	 * @return CGiftCard|null The CGiftCard object if the update is successful, null otherwise.
+	 * @throws Exception
+	 */
 	static function completeNewAccountTransaction($GC_Order_id, $purchaser_email, $CC_Num, $transaction_id, $card_type, $accountNumber, $billing_name, $billing_address, $billing_zip, $confirmation_number, $UI = 'UNKNOWN', $order_id = false, $user_id = false)
 	{
-		$gcOrderObj = DAO_CFactory::create('gift_card_order');
-		$gcOrderObj->id = $GC_Order_id;
-		if (!$gcOrderObj->find(true))
+		$DAO_gift_card_order = DAO_CFactory::create('gift_card_order');
+		$DAO_gift_card_order->id = $GC_Order_id;
+		if (!$DAO_gift_card_order->find(true))
 		{
 			// gift_card_orders update failed - should never happen
 			CLog::RecordIntense("Cannot find order in completeNewAccountTransaction - Order ID = $GC_Order_id - Acct number: $accountNumber", 'ryan.snook@dreamdinners.com');
@@ -280,34 +307,34 @@ class CGiftCard extends DAO_Gift_card_transaction
 			return null;
 		}
 
-		$gcOldObj = clone($gcOrderObj);
+		$gcOldObj = clone($DAO_gift_card_order);
 
-		$gcOrderObj->purchase_date = date("Y-m-d H:i:s");
-		$gcOrderObj->transaction_ui = $UI;
-		$gcOrderObj->email = $purchaser_email;
-		$gcOrderObj->payment_card_number = $CC_Num;
-		$gcOrderObj->payment_card_type = $card_type;
-		$gcOrderObj->cc_ref_number = $transaction_id;
-		$gcOrderObj->billing_name = $billing_name;
-		$gcOrderObj->billing_address = $billing_address;
-		$gcOrderObj->billing_zip = $billing_zip;
-		$gcOrderObj->ip_address = $_SERVER['REMOTE_ADDR'];
-		$gcOrderObj->order_confirm_id = $confirmation_number;
+		$DAO_gift_card_order->purchase_date = date("Y-m-d H:i:s");
+		$DAO_gift_card_order->transaction_ui = $UI;
+		$DAO_gift_card_order->email = $purchaser_email;
+		$DAO_gift_card_order->payment_card_number = $CC_Num;
+		$DAO_gift_card_order->payment_card_type = $card_type;
+		$DAO_gift_card_order->cc_ref_number = $transaction_id;
+		$DAO_gift_card_order->billing_name = $billing_name;
+		$DAO_gift_card_order->billing_address = $billing_address;
+		$DAO_gift_card_order->billing_zip = $billing_zip;
+		$DAO_gift_card_order->ip_address = $_SERVER['REMOTE_ADDR'];
+		$DAO_gift_card_order->order_confirm_id = $confirmation_number;
 
-		$gcOrderObj->paid = 1;
-		$gcOrderObj->processed = 1;
+		$DAO_gift_card_order->paid = 1;
+		$DAO_gift_card_order->processed = 1;
 
 		if ($order_id)
 		{
-			$gcOrderObj->order_id = $order_id;
+			$DAO_gift_card_order->order_id = $order_id;
 		}
 
 		if ($user_id)
 		{
-			$gcOrderObj->user_id = $user_id;
+			$DAO_gift_card_order->user_id = $user_id;
 		}
 
-		$result = $gcOrderObj->update($gcOldObj);
+		$result = $DAO_gift_card_order->update($gcOldObj);
 
 		if ($result === false)
 		{
@@ -321,12 +348,12 @@ class CGiftCard extends DAO_Gift_card_transaction
 		else
 		{
 			$message = CCrypto::encode(base64_encode($accountNumber));
-			$gcOrderObj->query("Call store_gcan('$message', {$gcOrderObj->id})");
+			$DAO_gift_card_order->query("Call store_gcan('$message', {$DAO_gift_card_order->id})");
 			//self::sendVirtualGiftCard($gcOrderObj, $accountNumber);
 			// sendVirtualGiftCard is now called for all cards by client code after all processing is complete
 		}
 
-		return $gcOrderObj;
+		return $DAO_gift_card_order;
 	}
 
 	static function completePhysicalCardPurchaseTransaction($GC_Order_id, $purchaser_email, $CC_Num, $transaction_id, $card_type, $billing_name, $billing_address, $billing_zip, $confirmation_number, $UI = 'UNKNOWN', $order_id = false, $user_id = false)
@@ -387,7 +414,6 @@ class CGiftCard extends DAO_Gift_card_transaction
 
 	static function obtainAccountNumberAndLoadWithRetry($trans_amount, $POS_type = 'M', $toName = "none", $toEMailAddress = "none")
 	{
-
 		$attemptCount = 0;
 		$transId = COrders::generateConfirmationNum();
 
@@ -446,8 +472,6 @@ class CGiftCard extends DAO_Gift_card_transaction
 
 	static function obtainAccountNumberAndLoad($trans_amount, $transId, $POS_type = 'M', $firstName = 'none', $toEMailAddress = "none")
 	{
-
-
 		$post_string = 'Auth_Request=' . chr(2) . '<Request>
 				<Merchant_Number>' . DEBIT_GIFT_CARD_MERCHANT_NUMBER . '</Merchant_Number>
 				<Terminal_ID>' . DEBIT_GIFT_CARD_TERMINAL_ID . '</Terminal_ID>
@@ -888,7 +912,6 @@ class CGiftCard extends DAO_Gift_card_transaction
 	*/
 	static function addUnprocessedVirtualCardOrder($design_type, $trans_amount, $to_name, $from_name, $message, $recipient_email, $transaction_UI = 'UNKNOWN')
 	{
-
 		$gcOrder = DAO_CFactory::create('gift_card_order');
 
 		$gcOrder->initial_amount = $trans_amount;
@@ -910,7 +933,6 @@ class CGiftCard extends DAO_Gift_card_transaction
 
 	static function editUnprocessedVirtualCardOrder($order_id, $design_type, $trans_amount, $to_name, $from_name, $message, $recipient_email, $transaction_UI = 'UNKNOWN')
 	{
-
 		$gcOrder = DAO_CFactory::create('gift_card_order');
 		$gcOrder->id = $order_id;
 		if ($gcOrder->find(true))
@@ -940,7 +962,6 @@ class CGiftCard extends DAO_Gift_card_transaction
 	*/
 	static function addUnprocessedPhysicalCardOrder($design_type, $trans_amount, $to_name, $from_name, $message, $shipping_first_name, $shipping_last_name, $shipping_address_1, $shipping_address_2, $shipping_state, $shipping_zip, $shipping_city, $transaction_UI = 'UNKNOWN', $store_id = false)
 	{
-
 		$gcOrder = DAO_CFactory::create('gift_card_order');
 
 		$gcOrder->first_name = $shipping_first_name;
@@ -977,7 +998,6 @@ class CGiftCard extends DAO_Gift_card_transaction
 
 	static function editUnprocessedPhysicalCardOrder($order_id, $design_type, $trans_amount, $to_name, $from_name, $message, $shipping_first_name, $shipping_last_name, $shipping_address_1, $shipping_address_2, $shipping_state, $shipping_zip, $shipping_city, $transaction_UI = 'UNKNOWN', $store_id = false)
 	{
-
 		$gcOrder = DAO_CFactory::create('gift_card_order');
 		$gcOrder->id = $order_id;
 		if ($gcOrder->find(true))
@@ -1013,7 +1033,6 @@ class CGiftCard extends DAO_Gift_card_transaction
 
 	static function purchaseDebitGiftCard($trans_amount, $SH_amount, $ccRef, $card_number, $card_type, $first_name, $last_name, $address_1, $address_2, $state, $zip, $city, $email, $paid = 0, $user_id = 'null', $transaction_UI = 'UNKNOWN', $store_id = false)
 	{
-
 		$gcOrder = DAO_CFactory::create('gift_card_order');
 
 		$gcOrder->first_name = $first_name;
@@ -1082,7 +1101,6 @@ class CGiftCard extends DAO_Gift_card_transaction
 
 		if ($front_end_ordering)
 		{
-
 			if ($order_id)
 			{
 				$gcList->paid = '1';
@@ -1210,7 +1228,6 @@ class CGiftCard extends DAO_Gift_card_transaction
 
 	static function sendConfirmationEmail($gcOrder, $totalPurchaseAmount, $giftcardArray, $toEmail)
 	{
-
 		try
 		{
 			$Mail = new CMail();
@@ -1328,7 +1345,6 @@ class CGiftCard extends DAO_Gift_card_transaction
 
 	static function sendVirtualGiftCard($gcOrderObj, $account_number)
 	{
-
 		try
 		{
 			$Mail = new CMail();
@@ -1408,7 +1424,6 @@ class CGiftCard extends DAO_Gift_card_transaction
 
 	static function getStoreDetails($storeId = false)
 	{
-
 		$retVal = array();
 
 		if (defined('DEBIT_GIFT_CARD_TESTMODE') && DEBIT_GIFT_CARD_TESTMODE === true)
@@ -1476,7 +1491,22 @@ class CGiftCard extends DAO_Gift_card_transaction
 		$filename = REPORT_OUTPUT_BASE . '/gift_card_order_report/dream_dinners_orders_' . date("m-d-y") . '.csv';
 
 		$list = array(
-			array('Amount', 'First Name', 'Last Name', 'Address 1', 'Address 2', 'City', 'State', 'Zip', 'Merchant_ID', 'Design Name', 'To Name', 'From Name', 'Message', 'ORDER_ID')
+			array(
+				'Amount',
+				'First Name',
+				'Last Name',
+				'Address 1',
+				'Address 2',
+				'City',
+				'State',
+				'Zip',
+				'Merchant_ID',
+				'Design Name',
+				'To Name',
+				'From Name',
+				'Message',
+				'ORDER_ID'
+			)
 		);
 
 		$processed_ids = array();
@@ -1491,7 +1521,7 @@ class CGiftCard extends DAO_Gift_card_transaction
 
 		while ($DAO_Gift_card_order->fetch())
 		{
-			$list[] = array (
+			$list[] = array(
 				$DAO_Gift_card_order->initial_amount,
 				$DAO_Gift_card_order->first_name,
 				$DAO_Gift_card_order->last_name,
@@ -1511,7 +1541,7 @@ class CGiftCard extends DAO_Gift_card_transaction
 			array_push($processed_ids, $DAO_Gift_card_order->id);
 		}
 
-		if(!empty($processed_ids))
+		if (!empty($processed_ids))
 		{
 			$fp = fopen($filename, 'w');
 
