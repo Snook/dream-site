@@ -1049,6 +1049,36 @@ class CApp
 		}
 	}
 
+	/**
+	 * If in DEV mode, return true.
+	 * @return bool
+	 */
+	static function wind_down_Sandbox(): bool
+	{
+		if (DEBUG && (defined('SERVER_ENV') && (SERVER_ENV == 'DEV')))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * If in debug mode, and the server environment is live, returns true
+	 * This allows code to be executed or skipped in the live environment, but
+	 * still allows it to be tested in the dev environment.
+	 * @return bool
+	 */
+	static function wind_down_Live(): bool
+	{
+		if (DEBUG && (defined('SERVER_ENV') && (SERVER_ENV == 'LIVE')))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	static function signupOrLoginToFreshDeskSupportPortalNew($request, $ts = false, $from_login = false, $dest_url = "support.dreamdinners.com")
 	{
 		if ((CUser::isLoggedIn() || $from_login) && defined('REMAUTHSTRNEW') && CUser::getCurrentUser()->user_type != CUser::CUSTOMER)
