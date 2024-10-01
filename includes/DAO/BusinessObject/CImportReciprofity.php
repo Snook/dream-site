@@ -327,11 +327,6 @@ class CImportReciprofity extends DAO
 
 	public static function sanityCheck(&$rows, $updateExistingMenu = false, $hasLabels = false)
 	{
-		if (CApp::wind_down_Sandbox())
-		{
-			return true;
-		}
-
 		// sanity check, see if we can find any issues with the data
 		$sanity = array(
 			'recipe_ids' => array(),
@@ -387,24 +382,10 @@ class CImportReciprofity extends DAO
 				$pricing_type = CMenuItem::FULL;
 			}
 
-			//$internalRecipeID =  trim($col[RECIPE_ID], " \n\r\t\v\0LM");
-
 			$internalRecipeIDArr = explode("_", $col[RECIPE_ID]);
 			$internalRecipeID = $internalRecipeIDArr[0];
 			$col['recipe_id'] = $internalRecipeID;
 			$col['pricing_type'] = $pricing_type;
-
-			/*
-			// check for duplicate subsort ids
-			if (empty($sanity['subsort_ids'][$col[MENU_SUBSORT]]))
-			{
-				$sanity['subsort_ids'][$col[MENU_SUBSORT]] = $col[MENU_SUBSORT];
-			}
-			else
-			{
-				return "Duplicate subsort ID: Row " . $row . " - " . $col[RECIPE_NAME];
-			}
-			*/
 
 			// check for missing food cost
 			if (!is_numeric($col[FOOD_COST]))
@@ -445,14 +426,8 @@ class CImportReciprofity extends DAO
 		}
 
 		// bypass these if doing an update to an already imported menu
-		if (!$updateExistingMenu)
+		if (!CApp::wind_down_Sandbox() && !$updateExistingMenu)
 		{
-
-//			if (empty($sanity['available_intro']) || count($sanity['available_intro']) <> 12)
-//			{
-//				return "Too few or too many intro items, should be 12 items";
-//			}
-
 			if (empty($sanity['available_dreamtaste']) || count($sanity['available_dreamtaste']) <> 5)
 			{
 				return "Too few or too many Meal Prep Workshop items, should be 5 items";
