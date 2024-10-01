@@ -6062,19 +6062,19 @@ class COrders extends DAO_Orders
 			{
 				list($qty, $mi_obj) = $item;
 
-				if (isset($mi_obj->parentItemId) && isset($this->items[$mi_obj->parentItemId]))
+				if ($mi_obj->isMenuItem_SidesSweets())
 				{
-					//this item has a parent which determines price and servings so decrement quantity and possibly skip this item
-					$qty -= $mi_obj->bundleItemCount;
-
-					if ($qty <= 0)
+					if (!empty($mi_obj->DAO_order_item->parent_menu_item_id))
 					{
-						continue;
-					}
-				}
+						//this item has a parent which determines price and servings so decrement quantity and possibly skip this item
+						$qty -= $mi_obj->DAO_order_item->bundle_item_count;
 
-				if ($mi_obj->is_side_dish)
-				{
+						if ($qty <= 0)
+						{
+							continue;
+						}
+					}
+
 					if (isset($mi_obj->override_price))
 					{
 						$sidesTotal += ($mi_obj->override_price * $qty);
@@ -10386,9 +10386,9 @@ class COrders extends DAO_Orders
 
 		while ($DAO_menu_item->fetch())
 		{
-			$DAO_menu_item->parentItemId = 'NULL';
+			$DAO_menu_item->parentItemId = null;
 			$DAO_menu_item->bundleItemCount = 0;
-			$DAO_menu_item->bundle_id = 'NULL';
+			$DAO_menu_item->bundle_id = null;
 			$DAO_menu_item->ltd_menu_item_value = 0;
 			$DAO_menu_item->markdown_id = false;
 			$DAO_menu_item->markdown_value = 0;
