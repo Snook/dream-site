@@ -1055,7 +1055,7 @@ class CApp
 	 */
 	static function wind_down_Sandbox(): bool
 	{
-		if (DEBUG && (defined('SERVER_ENV') && (SERVER_ENV == 'DEV' OR SERVER_ENV == 'TEST')))
+		if (defined('SERVER_ENV') && (SERVER_ENV == 'DEV' OR SERVER_ENV == 'TEST'))
 		{
 			return true;
 		}
@@ -1071,7 +1071,7 @@ class CApp
 	 */
 	static function wind_down_Live(): bool
 	{
-		if (DEBUG && (defined('SERVER_ENV') && (SERVER_ENV == 'LIVE')))
+		if (defined('SERVER_ENV') && SERVER_ENV == 'LIVE')
 		{
 			return true;
 		}
