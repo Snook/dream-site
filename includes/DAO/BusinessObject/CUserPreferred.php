@@ -297,7 +297,6 @@ class CUserPreferred extends DAO_User_preferred
 							}
 							else if ($countIncluded < $remaining && !in_array($item->id, $exclusionList) && ($item->menu_item_category_id < 4 || ($item->menu_item_category_id < 5 && ($item->menu_item_category_id == 4 && $item->is_store_special == 0))))
 							{
-
 								$sumIncludedCost += $item->override_price;
 								$countIncluded++;
 
@@ -329,10 +328,16 @@ class CUserPreferred extends DAO_User_preferred
 							continue;
 						}
 
+						if (!empty($item->parentItemId))
+						{
+							//dont include in calculation
+							continue;
+						}
+
 						for ($i = 0; $i < $item->item_count; $i++)
 						{
 							//Sides and Sweets
-							if ($preferredObj->include_sides && ($item->menu_item_category_id > 4 || ($item->menu_item_category_id == 4 && $item->is_store_special == 1)))
+							if (!empty($preferredObj->include_sides) && $item->isMenuItem_SidesSweets())
 							{
 								if (is_null($item->override_price))
 								{
