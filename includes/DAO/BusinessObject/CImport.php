@@ -265,6 +265,11 @@ class CImport extends DAO
 
 	public static function sanityCheck($rows, $updateExistingMenu = false)
 	{
+		if (CApp::wind_down_Sandbox())
+		{
+			return true;
+		}
+
 		// sanity check, see if we can find any issues with the data
 		$sanity = array(
 			'recipe_ids' => array(),
