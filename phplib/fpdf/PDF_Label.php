@@ -1834,7 +1834,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 	{
 		$alternate_instruction_type = array();
 
-		if(!empty($entity['instructions_air_fryer']))
+		if (!empty($entity['instructions_air_fryer']))
 		{
 			$alternate_instruction_type[] = 'air fryer';
 		}
@@ -1890,11 +1890,14 @@ class PDF_Label extends FPDF_MULTICELLTAG
 
 		$_PosY = $this->_Margin_Top + ($this->_COUNTY * (100));
 
-		$this->SetXY($_PosX + 3, $_PosY + 10);
-		$this->MultiCellTag($this->_Width, $this->_Line_Height, "<color>Dream Dinners</color>", $showBorders, "L", 0);
+		if (!Capp::wind_down_Sandbox())
+		{
+			$this->SetXY($_PosX + 3, $_PosY + 10);
+			$this->MultiCellTag($this->_Width, $this->_Line_Height, "<color>Dream Dinners</color>", $showBorders, "L", 0);
 
-		$this->SetXY($_PosX + 3, $_PosY + 14);
-		$this->MultiCellTag($this->_Width, $this->_Line_Height, "<t8>Sides & Sweets</t8>", $showBorders, "L", 0);
+			$this->SetXY($_PosX + 3, $_PosY + 14);
+			$this->MultiCellTag($this->_Width, $this->_Line_Height, "<t8>Sides & Sweets</t8>", $showBorders, "L", 0);
+		}
 
 		$this->SetXY($_PosX + 3, $_PosY + 20);
 		//		$this->MultiCellTag($this->_Width, $this->_Line_Height, $title, $showBorders, "L", 0);
@@ -1912,19 +1915,22 @@ class PDF_Label extends FPDF_MULTICELLTAG
 			$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), MONTH_DAY_YEAR);
 		}
 
-		$this->SetXY($_PosX + 61, $_PosY + 10);
-		$this->MultiCellTag($this->_Width * .4, $this->_Line_Height, "<t8>Assembled " . $dateFormatted . "</t8>", $showBorders, "R", 0);
-
-		if (!empty($entity['best_prepared_by']))
+		if (!Capp::wind_down_Sandbox())
 		{
-			$this->SetXY($_PosX + 61, $_PosY + 14);
-			$this->MultiCellTag($this->_Width * .4, $this->_Line_Height, "<tftb>" . $entity['best_prepared_by'] . "</tftb>", $showBorders, "R", 0);
-		}
+			$this->SetXY($_PosX + 61, $_PosY + 10);
+			$this->MultiCellTag($this->_Width * .4, $this->_Line_Height, "<t8>Assembled " . $dateFormatted . "</t8>", $showBorders, "R", 0);
 
-		if ($this->hasAlternateInstructions($entity))
-		{
-			$this->SetXY($_PosX + 3, $_PosY + 31);
-			$this->MultiCellTag($this->_Width, $this->_Line_Height, "<t1>*Scan the QR code to get " . $this->getAlternateInstructionString($entity) . " instructions*</t1>", $showBorders, "L", 0);
+			if (!empty($entity['best_prepared_by']))
+			{
+				$this->SetXY($_PosX + 61, $_PosY + 14);
+				$this->MultiCellTag($this->_Width * .4, $this->_Line_Height, "<tftb>" . $entity['best_prepared_by'] . "</tftb>", $showBorders, "R", 0);
+			}
+
+			if ($this->hasAlternateInstructions($entity))
+			{
+				$this->SetXY($_PosX + 3, $_PosY + 31);
+				$this->MultiCellTag($this->_Width, $this->_Line_Height, "<t1>*Scan the QR code to get " . $this->getAlternateInstructionString($entity) . " instructions*</t1>", $showBorders, "L", 0);
+			}
 		}
 
 		$instructions = trim(preg_replace('/\t+/', '', $instructions));
@@ -1936,17 +1942,20 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 3, $_PosY + 35 + $pushDown);
 		$this->MultiCellTag($this->_Width, $overrideLineHeight, $instructions, $showBorders, "L", 0);
 
-		if (!empty($entity['recipe_id']))
+		if (!Capp::wind_down_Sandbox())
 		{
-			$this->SetXY($_PosX + 114, $_PosY + 9);
-			$this->Image($this->getRecipeQrCodePath($entity['recipe_id'], false), null, null, 18);
-		}
+			if (!empty($entity['recipe_id']))
+			{
+				$this->SetXY($_PosX + 114, $_PosY + 9);
+				$this->Image($this->getRecipeQrCodePath($entity['recipe_id'], false), null, null, 18);
+			}
 
-		if (!empty($entity['store_name']) && !empty($entity['store_phone']) && $entity['store_name'] != "Not Available")
-		{
-			$addr = $entity['address_line1'] . ', ' . $entity['address_line2'] . ', ' . $entity['city'] . ', ' . $entity['state_id'] . ' ' . $entity['postal_code'];
-			$this->SetXY($_PosX + 3, $_PosY + 89);
-			$this->MultiCellTag($this->_Width * .9, 1, "<tt>" . $entity['store_name'] . " - " . $entity['store_phone'] . " - " . $addr . "</tt>", $showBorders, "L", 0);
+			if (!empty($entity['store_name']) && !empty($entity['store_phone']) && $entity['store_name'] != "Not Available")
+			{
+				$addr = $entity['address_line1'] . ', ' . $entity['address_line2'] . ', ' . $entity['city'] . ', ' . $entity['state_id'] . ' ' . $entity['postal_code'];
+				$this->SetXY($_PosX + 3, $_PosY + 89);
+				$this->MultiCellTag($this->_Width * .9, 1, "<tt>" . $entity['store_name'] . " - " . $entity['store_phone'] . " - " . $addr . "</tt>", $showBorders, "L", 0);
+			}
 		}
 
 		$this->SetXY($_PosX + 3, $_PosY + 91);
@@ -2011,33 +2020,35 @@ class PDF_Label extends FPDF_MULTICELLTAG
 			$this->MultiCellTag($this->_Width, $overrideLineHeight, $instructions, $showBorders, "L", 0);
 		}
 
-		if (!empty($menuItemArray['session_start']))    // session data
+		if (!Capp::wind_down_Sandbox())
 		{
-
-			$assemble_verbiage = 'Assembled ';
-			$shortDate = $menuItemArray['session_start'];
-			if (array_key_exists('order_id', $menuItemArray))
+			if (!empty($menuItemArray['session_start']))    // session data
 			{
-				$shortDate = CTemplate::dateTimeFormat($menuItemArray['session_start_database'], CONCISE_NO_SECONDS);
-				$assemble_verbiage = 'Ordered for ';
-			}
-			else
-			{
-				$shortDate = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), VERBOSE_MONTH_YEAR);
-				if ($menuItemArray['show_long_date'])
+				$assemble_verbiage = 'Assembled ';
+				$shortDate = $menuItemArray['session_start'];
+				if (array_key_exists('order_id', $menuItemArray))
 				{
-					$shortDate = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), MONTH_DAY_YEAR);
+					$shortDate = CTemplate::dateTimeFormat($menuItemArray['session_start_database'], CONCISE_NO_SECONDS);
+					$assemble_verbiage = 'Ordered for ';
 				}
+				else
+				{
+					$shortDate = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), VERBOSE_MONTH_YEAR);
+					if ($menuItemArray['show_long_date'])
+					{
+						$shortDate = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), MONTH_DAY_YEAR);
+					}
+				}
+
+				$this->SetXY($_PosX + 45, $_PosY + 11);
+				$this->MultiCellTag($this->_Width * .5, $this->_Line_Height, "<t7>" . $assemble_verbiage . $shortDate . "</t7>", $showBorders, "R", 0);
 			}
 
-			$this->SetXY($_PosX + 45, $_PosY + 11);
-			$this->MultiCellTag($this->_Width * .5, $this->_Line_Height, "<t7>" . $assemble_verbiage . $shortDate . "</t7>", $showBorders, "R", 0);
-		}
-
-		if (!empty($menuItemArray['best_prepared_by']))
-		{
-			$this->SetXY($_PosX + 58, $_PosY + 14);
-			$this->MultiCellTag($this->_Width * .4, $this->_Line_Height, "<tftb>" . $menuItemArray['best_prepared_by'] . "</tftb>", $showBorders, "R", 0);
+			if (!empty($menuItemArray['best_prepared_by']))
+			{
+				$this->SetXY($_PosX + 58, $_PosY + 14);
+				$this->MultiCellTag($this->_Width * .4, $this->_Line_Height, "<tftb>" . $menuItemArray['best_prepared_by'] . "</tftb>", $showBorders, "R", 0);
+			}
 		}
 
 		if (!empty($menuItemArray['meal_customization']))
@@ -2073,8 +2084,11 @@ class PDF_Label extends FPDF_MULTICELLTAG
 			}
 		}
 
-		$this->SetXY($_PosX + 3, $_PosY + 10);
-		$this->MultiCellTag($this->_Width, $this->_Line_Height, "<color>DREAM DINNERS</color>", $showBorders, "L", 0);
+		if (!Capp::wind_down_Sandbox())
+		{
+			$this->SetXY($_PosX + 3, $_PosY + 10);
+			$this->MultiCellTag($this->_Width, $this->_Line_Height, "<color>DREAM DINNERS</color>", $showBorders, "L", 0);
+		}
 
 		if (!empty($menuItemArray['firstname']))    // customer data
 		{
@@ -2104,14 +2118,17 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$iconListIconWidth = 3;
 		$hasIcon = false;
 
-		foreach ($menuItemArray['icons'] as $icon)
+		if (!Capp::wind_down_Sandbox())
 		{
-			if ($icon['print_meal_detail_enabled'] && $icon['show'])
+			foreach ($menuItemArray['icons'] as $icon)
 			{
-				$this->SetXY($_PosX + $iconListX, $_PosY + $iconListY);
-				$this->Image(ASSETS_PATH . '/pdf_label/' . $icon['png_icon'], null, null, $iconListIconWidth);
-				$iconListX += $iconListIconWidth;
-				$hasIcon = true;
+				if ($icon['print_meal_detail_enabled'] && $icon['show'])
+				{
+					$this->SetXY($_PosX + $iconListX, $_PosY + $iconListY);
+					$this->Image(ASSETS_PATH . '/pdf_label/' . $icon['png_icon'], null, null, $iconListIconWidth);
+					$iconListX += $iconListIconWidth;
+					$hasIcon = true;
+				}
 			}
 		}
 
@@ -2129,23 +2146,32 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 3, $_PosY + $yOff);
 		$this->MultiCellTag($this->_Width * .6, $this->_Line_Height, $servingType, $showBorders, "L", 0);
 
-		if ($this->hasAlternateInstructions($menuItemArray))
+		if (!Capp::wind_down_Sandbox())
 		{
-			$this->SetXY($_PosX + 3, $_PosY + 4 + $yOff);
-			$this->MultiCellTag($this->_Width, $this->_Line_Height, "<t1>*Scan the QR code to get " . $this->getAlternateInstructionString($menuItemArray) . " instructions*</t1>", $showBorders, "L", 0);
+			if ($this->hasAlternateInstructions($menuItemArray))
+			{
+				$this->SetXY($_PosX + 3, $_PosY + 4 + $yOff);
+				$this->MultiCellTag($this->_Width, $this->_Line_Height, "<t1>*Scan the QR code to get " . $this->getAlternateInstructionString($menuItemArray) . " instructions*</t1>", $showBorders, "L", 0);
+			}
 		}
 
-		if (!empty($menuItemArray['recipe_id']))
+		if (!Capp::wind_down_Sandbox())
 		{
-			$this->SetXY($_PosX + 111, $_PosY + 9);
-			$this->Image($this->getRecipeQrCodePath($menuItemArray['recipe_id'], false), null, null, 18);
+			if (!empty($menuItemArray['recipe_id']))
+			{
+				$this->SetXY($_PosX + 111, $_PosY + 9);
+				$this->Image($this->getRecipeQrCodePath($menuItemArray['recipe_id'], false), null, null, 18);
+			}
 		}
 
-		if (!empty($menuItemArray['store_name']) && !empty($menuItemArray['store_phone']) && $menuItemArray['store_name'] != "Not Available")
+		if (!Capp::wind_down_Sandbox())
 		{
-			$addr = $menuItemArray['address_line1'] . ', ' . $menuItemArray['address_line2'] . ', ' . $menuItemArray['city'] . ', ' . $menuItemArray['state_id'] . ' ' . $menuItemArray['postal_code'];
-			$this->SetXY($_PosX + 3, $_PosY + 89);
-			$this->MultiCellTag($this->_Width * .85, 1, "<tt>" . $menuItemArray['store_name'] . " - " . $menuItemArray['store_phone'] . " - " . $addr . "</tt>", $showBorders, "L", 0);
+			if (!empty($menuItemArray['store_name']) && !empty($menuItemArray['store_phone']) && $menuItemArray['store_name'] != "Not Available")
+			{
+				$addr = $menuItemArray['address_line1'] . ', ' . $menuItemArray['address_line2'] . ', ' . $menuItemArray['city'] . ', ' . $menuItemArray['state_id'] . ' ' . $menuItemArray['postal_code'];
+				$this->SetXY($_PosX + 3, $_PosY + 89);
+				$this->MultiCellTag($this->_Width * .85, 1, "<tt>" . $menuItemArray['store_name'] . " - " . $menuItemArray['store_phone'] . " - " . $addr . "</tt>", $showBorders, "L", 0);
+			}
 		}
 
 		$this->SetXY($_PosX + 3, $_PosY + 91);
@@ -2153,7 +2179,6 @@ class PDF_Label extends FPDF_MULTICELLTAG
 
 		if (!empty($menuItemArray['item_number']))
 		{
-
 			$this->SetXY($_PosX, $_PosY + 91);
 			$this->MultiCellTag($this->_Width, 1, '<tft>(Item ' . $menuItemArray['item_number'] . ' of ' . $menuItemArray['total_items'] . ')</tft>', $showBorders, "R", 0);
 		}
@@ -2180,7 +2205,6 @@ class PDF_Label extends FPDF_MULTICELLTAG
 
 		if (!file_exists($path) || $forceQrRegen)
 		{
-
 			/*$ecc: This parameter specifies the error correction capability of QR. It has 4 levels L, M, Q and H.
 			$pixel_Size: This specifies the pixel size of QR.
 			$frame_Size: This specifies the size of Qr. It is from level 1-10.*/ //			QRcode::png(HTTPS_SERVER . '/item?recipe='.$recipeId,$path,QR_ECLEVEL_L,3,4,false,0xFFFFFF,
@@ -2197,7 +2221,6 @@ class PDF_Label extends FPDF_MULTICELLTAG
 
 		if (!file_exists($path) || $forceQrRegen)
 		{
-
 			/*$ecc: This parameter specifies the error correction capability of QR. It has 4 levels L, M, Q and H.
 			$pixel_Size: This specifies the pixel size of QR.
 			$frame_Size: This specifies the size of Qr. It is from level 1-10.*/ //			QRcode::png(HTTPS_SERVER . '/item?recipe='.$recipeId,$path,QR_ECLEVEL_L,3,4,false,0xFFFFFF,
@@ -2294,7 +2317,6 @@ class PDF_Label extends FPDF_MULTICELLTAG
 
 		if (!empty($entity['item_number']))
 		{
-
 			$this->SetXY($_PosX + 3, $_PosY + 76.5);
 			$this->MultiCellTag($this->_Width, 2.5, '<t1>(Item ' . $entity['item_number'] . ' of ' . $entity['total_items'] . ')</t1>', $showBorders, "R", 0);
 		}
