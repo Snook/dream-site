@@ -894,18 +894,21 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$_PosX -= $this->_Margin_Right;
 		$_PosY = $this->_Margin_Top + ($this->_COUNTY * (108));
 
-		if ($isSide)
+		if (!CApp::wind_down_Sandbox())
 		{
-			$this->SetXY($_PosX + 100, $_PosY);
-			$this->MultiCellTag($this->_Width, $this->_Line_Height, "<title>DREAM DINNERS</title>", $showBorders, "L", 0);
+			if ($isSide)
+			{
+				$this->SetXY($_PosX + 100, $_PosY);
+				$this->MultiCellTag($this->_Width, $this->_Line_Height, "<title>DREAM DINNERS</title>", $showBorders, "L", 0);
 
-			$this->SetXY($_PosX + 100, $_PosY + 2.65);
-			$this->MultiCellTag($this->_Width, $this->_Line_Height, "<t7>Sides & Sweets</t7>", $showBorders, "L", 0);
-		}
-		else
-		{
-			$this->SetXY($_PosX + 95, $_PosY);
-			$this->MultiCellTag($this->_Width, $this->_Line_Height, "<color>DREAM DINNERS</color>", $showBorders, "L", 0);
+				$this->SetXY($_PosX + 100, $_PosY + 2.65);
+				$this->MultiCellTag($this->_Width, $this->_Line_Height, "<t7>Sides & Sweets</t7>", $showBorders, "L", 0);
+			}
+			else
+			{
+				$this->SetXY($_PosX + 95, $_PosY);
+				$this->MultiCellTag($this->_Width, $this->_Line_Height, "<color>DREAM DINNERS</color>", $showBorders, "L", 0);
+			}
 		}
 
 		$yRelative = 2;
@@ -1160,10 +1163,13 @@ class PDF_Label extends FPDF_MULTICELLTAG
 			$this->MultiCellTag(90, 2.5, "<db2>" . $entity['info']['ingredients'] . "</db2>", $showBorders, "L", 0);
 		}
 
-		if (!empty($entity['info']['recipe_id']))
+		if (!CApp::wind_down_Sandbox())
 		{
-			$this->SetXY($_PosX + 122, $_PosY + 82.60);
-			$this->Image($this->getNutritionQrCodePath($entity['info']['recipe_id'], false), null, null, 12);
+			if (!empty($entity['info']['recipe_id']))
+			{
+				$this->SetXY($_PosX + 122, $_PosY + 82.60);
+				$this->Image($this->getNutritionQrCodePath($entity['info']['recipe_id'], false), null, null, 12);
+			}
 		}
 
 		//Allergens
@@ -1182,11 +1188,14 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 43, $_PosY + 92);
 		$this->MultiCellTag(75, 1.5, "<db8>Variations in ingredients and preparation, as well as substitutions, will increase or decrease any stated nutritional values. Items may vary by store, may not be available at all locations, and are subject to change.</db8>", $showBorders, "L", 0);
 
-		if (!empty($Store))
+		if (!CApp::wind_down_Sandbox())
 		{
-			// Manufactured by
-			$this->SetXY($_PosX + 43, $_PosY + 95);
-			$this->MultiCellTag(60, 1.5, "<db8>Manufactured by: " . $Store->store_name . ", " . $Store->address_line1 . ((!empty($Store->address_line2)) ? ', ' . $Store->address_line2 : '') . ", " . $Store->city . ", " . $Store->state_id . " " . $Store->postal_code . ".</db8>", $showBorders, "L", 0);
+			if (!empty($Store))
+			{
+				// Manufactured by
+				$this->SetXY($_PosX + 43, $_PosY + 95);
+				$this->MultiCellTag(60, 1.5, "<db8>Manufactured by: " . $Store->store_name . ", " . $Store->address_line1 . ((!empty($Store->address_line2)) ? ', ' . $Store->address_line2 : '') . ", " . $Store->city . ", " . $Store->state_id . " " . $Store->postal_code . ".</db8>", $showBorders, "L", 0);
+			}
 		}
 
 		$this->_COUNTX++;
