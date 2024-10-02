@@ -9,6 +9,8 @@ require_once("CMailHandlers.inc");
 
 try
 {
+	ini_set('memory_limit','-1');
+
 	$DAO_gift_card_order = DAO_CFactory::create('gift_card_order');
 
 	$DAO_gift_card_order->query("select id, gift_card_account_number from gift_card_order WHERE NOT ISNULL(gift_card_account_number) AND (ISNULL(clear_card_number) or clear_card_number='') order by id desc");
