@@ -6467,8 +6467,6 @@ class COrders extends DAO_Orders
 					if (!$preferred->include_sides)
 					{
 						$totalAvailableToDiscount -= $sidesTotal;
-						$totalAvailableToDiscount -= $kidsChoiceTotal;
-						$totalAvailableToDiscount -= $menuAddonsTotal;
 						$totalAvailableToDiscount -= $bundlesTotal;
 					}
 
