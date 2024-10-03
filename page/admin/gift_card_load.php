@@ -96,8 +96,10 @@ class page_admin_gift_card_load extends CPageAdminOnly
 
 	function run()
 	{
-
-		
+		if (CApp::wind_down_Live())
+		{
+			Capp::bounce('/backoffice/gift-card-management');
+		}
 
 		header('Pragma: no-cache');
 		header("Cache-Control: no-store,no-cache, must-revalidate"); // HTTP/1.1

@@ -721,16 +721,6 @@ class CUser extends DAO_User
 				'title' => 'Gift Cards',
 				'link' => '/backoffice/gift-card-management',
 				'submenu' => array(
-					'admin_gift_card_management_load' => array(
-						'access' => true,
-						'title' => 'Load Gift Card',
-						'link' => '/backoffice/gift-card-load',
-					),
-					'admin_gift_card_management_order' => array(
-						'access' => true,
-						'title' => 'Order New Gift Card',
-						'link' => '/backoffice/gift-card-order',
-					),
 					'admin_gift_card_management_balance' => array(
 						'access' => true,
 						'title' => 'Gift Card Balance',
@@ -1294,16 +1284,6 @@ class CUser extends DAO_User
 				'title' => 'Gift Cards',
 				'link' => '/backoffice/gift-card-management',
 				'submenu' => array(
-					'admin_gift_card_management_load' => array(
-						'access' => true,
-						'title' => 'Load Gift Card',
-						'link' => '/backoffice/gift-card-load',
-					),
-					'admin_gift_card_management_order' => array(
-						'access' => true,
-						'title' => 'Order New Gift Card',
-						'link' => '/backoffice/gift-card-order',
-					),
 					'admin_gift_card_management_balance' => array(
 						'access' => true,
 						'title' => 'Gift Card Balance',
