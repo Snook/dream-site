@@ -77,8 +77,11 @@ class page_locations extends CPage
 			$tpl->assign('state', CStatesAndProvinces::GetName($req_get_state));
 		}
 
-		$tpl->setScript('foot', SCRIPT_PATH . '/customer/vendor/simplemaps/usmap.js');
-		$tpl->setScriptVar('var simplemaps_usmap_mapdata = ' . json_encode(CStore::getSimpleMapsStoreArray()) . ';');
+		if (!Capp::wind_down_Live())
+		{
+			$tpl->setScript('foot', SCRIPT_PATH . '/customer/vendor/simplemaps/usmap.js');
+			$tpl->setScriptVar('var simplemaps_usmap_mapdata = ' . json_encode(CStore::getSimpleMapsStoreArray()) . ';');
+		}
 
 		$tpl->assign('cart_info', CUser::getCartIfExists());
 		$tpl->assign('sticky_nav_bottom_disable', true);
