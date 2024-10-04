@@ -94,7 +94,6 @@ else
 			</div>
 		</div>
 
-		<?php if (!Capp::wind_down_Live()) { ?>
 		<hr />
 
 		<h2 class="col-lg-6  mx-auto col-sm-12 text-center my-5">Availability by State</h2>
@@ -104,7 +103,6 @@ else
 				<div id="map"></div>
 			</div>
 		</div>
-		<?php } ?>
 	</div>
 
 <?php include $this->loadTemplate('customer/subtemplate/page_footer.tpl.php'); ?>
