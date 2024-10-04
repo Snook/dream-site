@@ -1071,7 +1071,7 @@ class CApp
 	 */
 	static function wind_down_Live(): bool
 	{
-		if (defined('SERVER_ENV') && SERVER_ENV == 'LIVE')
+		if (defined('SERVER_ENV') && SERVER_ENV == 'LIVE' || CApp::wind_down_Sandbox())
 		{
 			return true;
 		}
