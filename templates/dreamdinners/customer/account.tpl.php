@@ -73,6 +73,12 @@
 						<?php include $this->loadTemplate('customer/subtemplate/account/account_demographics.tpl.php'); ?>
 					</div>
 
+					<!--<div class="col-md-6 col-xl-4">
+						<?php if(!$this->isPreferred ) { ?>
+							<?php include $this->loadTemplate('customer/subtemplate/account/account_platepoints.tpl.php'); ?>
+						<?php } ?>
+					</div>-->
+
 				</div>
 
 				<?php if(!empty($this->isCreate) && $this->isCreate ) { ?>
