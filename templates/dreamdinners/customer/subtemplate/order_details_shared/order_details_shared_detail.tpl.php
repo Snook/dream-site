@@ -126,6 +126,47 @@
 			</div>
 		</div>
 	<?php } ?>
+	<!--<div class="row mb-4 d-print-none">
+		<?php if ($this->showPlatePointsEnroll) { ?>
+			<div class="col text-center bg-cyan-extra-light">
+				<h3 class="font-weight-bold mb-2 mt-5 text-orange">Join PlatePoints, Our Rewards Program</h3>
+				<p>Earn PlatePoints as you meal prep with Dream Dinners. Apply your earned rewards at checkout.</p>
+				<div class="form-row text-center" id="plate-points-checkbox">
+					<div class="form-group pl-3">
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" name="enroll_in_plate_points" id="enroll_in_plate_points">
+							<label for="enroll_in_plate_points" class="custom-control-label text-center">Enroll me in PlatePoints. I agree to the <a href="/terms#platepoints" target="_blank">program terms.</a></label>
+						</div>
+					</div>
+				</div>
+				<div class="form-row collapse" id="plate-points-fields">
+					<div class="form-group col-md-12 mt-2">
+						<div class="row ml-1">
+							Birthday
+						</div>
+						<div class="row">
+							<div class="col-md-6 pr-md-1 mb-2 mb-md-0">
+								<?php echo $this->form_plate_points['birthday_month_html']; ?>
+							</div>
+							<div class="col-md-6 pl-md-1">
+								<?php echo $this->form_plate_points['birthday_year_html']; ?>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-md-12 mt-2">
+						<button name="handle-plate-points-enroll" id="handle-plate-points-enroll" class="btn btn-primary btn-block btn-spinner" data-user_id="<?php echo $this->user->id ?>" value="Join Now">Join Now</button>
+					</div>
+				</div>
+				<p><i>*Ability to spend rewards is available at participating locations.</i></p>
+			</div>
+		<?php } else { ?>
+			<div class="col text-center bg-cyan-extra-light">
+				<h3 class="font-weight-bold mb-2 mt-5 text-orange">Rate Your Meals</h3>
+				<p>Did you know rating your meals helps us decide on future menus? If you want to see your favorites back on the menu, make sure you are rating your meals each month. Plus, you can see your ratings and personal notes about meals on the menu! Visit your My Reviews page in your account and rate your meals today. Plus, if your are enrolled in PlatePoints you earn 5 points for every meal you rate.</p>
+				<a class="btn btn-secondary mt-3 mb-5" href="/my-meals">Start Rating My Meals</a>
+			</div>
+		<?php } ?>
+	</div>-->
 
 	<?php include $this->loadTemplate('customer/subtemplate/order_details_shared/order_details_shared.tpl.php'); ?>
 
