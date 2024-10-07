@@ -690,7 +690,7 @@ class page_payment extends CPage
 
 		$platePointsStatus = CPointsUserHistory::getPlatePointsStatus($OrderStore, CUser::getCurrentUser());
 
-		if (isset($_POST['enroll_in_plate_points']))
+		if (false && isset($_POST['enroll_in_plate_points']))
 		{
 			$SFICurrentValues = CUserData::buildSFIFormElementsNew($Form, $User, false);
 			$enrollment_success = CPointsUserHistory::handleEvent($User, CPointsUserHistory::OPT_IN);
