@@ -691,7 +691,7 @@ class page_admin_user_plate_points extends CPageAdminOnly
 
 		$Orders->query("select b.order_id as order_id, s.session_start, s.id as session_id from booking b
 			join user u on u.id = b.user_id and u.dream_rewards_version = 3 and (u.dream_reward_status = 1 or u.dream_reward_status = 3) and u.is_deleted = 0
-			join session s on s.id = b.session_id and s.session_start <= '$now' and DATEDIFF('$now',s.session_start) < 45
+			join session s on s.id = b.session_id and s.menu_id <= 278 and s.session_start <= '$now' and DATEDIFF('$now',s.session_start) < 45
 			join orders o on o.id = b.order_id and o.is_in_plate_points_program = 1 and o.is_deleted = 0 and o.points_are_actualized = 0
 			where b.`status` = 'ACTIVE' and b.no_show = 0 and b.user_id = {$userObj->id}");
 

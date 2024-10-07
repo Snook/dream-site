@@ -1632,10 +1632,12 @@ class processor_admin_order_mgr_processor_delivered extends CPageProcessor
 		$OrderObj->reconstruct();
 		$OrderObj->refreshForEditing();
 
-
-		if ($userObj->dream_rewards_version == 3 && ($userObj->dream_reward_status == 1 || $userObj->dream_reward_status == 3))
+		if ($Session->menu_id <= 278)
 		{
-			$OrderObj->is_in_plate_points_program = 1;
+			if ($userObj->dream_rewards_version == 3 && ($userObj->dream_reward_status == 1 || $userObj->dream_reward_status == 3))
+			{
+				$OrderObj->is_in_plate_points_program = 1;
+			}
 		}
 
 		// Recheck allowed PLATEPOINTS and cap if necessary

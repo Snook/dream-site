@@ -1151,6 +1151,11 @@ class CPointsUserHistory extends DAO_Points_user_history
 			return false;
 		}
 
+		if (!empty($orderObj->menu_id) && $orderObj->menu_id <= 278)
+		{
+			return false;
+		}
+
 		$eventRecord = DAO_CFactory::create('points_user_history');
 
 		if (is_object($user_id_or_obj) && get_class($user_id_or_obj) == 'CUser')
