@@ -31,11 +31,7 @@
 					<div class="col-8">
 						<h2 class="font-weight-bold text-uppercase font-size-medium"><?php echo CUser::getCurrentUser()->firstname . " " . CUser::getCurrentUser()->lastname; ?></h2>
 
-						<?php if (CUser::getCurrentUser()->membershipData['status'] == CUser::MEMBERSHIP_STATUS_CURRENT) { ?>
-
-							<?php include $this->loadTemplate('customer/subtemplate/my_account/my_account_membership_status.tpl.php'); ?>
-
-						<?php } else if (CUser::getCurrentUser()->platePointsData['status'] == 'active') { ?>
+						<?php if (CUser::getCurrentUser()->platePointsData['status'] == 'active') { ?>
 							<div class="row mb-2">
 								<div class="col">
 									<p class="text-uppercase">Points <?php echo number_format(200 - intVal(CUser::getCurrentUser()->platePointsData['points_until_next_credit'])); ?> of 200</p>
@@ -56,27 +52,6 @@
 
 				</div>
 
-				<?php if (!$this->isPreferred) { ?>
-					<?php if (CUser::getCurrentUser()->platePointsData['status'] == 'active') { ?>
-
-						<?php //include $this->loadTemplate('customer/subtemplate/my_account/my_account_platepoints_status.tpl.php'); ?>
-
-					<?php } else if (false){//!CUser::getCurrentUser()->platePointsData['userIsOnHold']) { ?>
-
-						<div class="row mb-4">
-							<div class="col text-center py-2 bg-image-platepoints">
-								<h3 class="font-weight-bold mb-2 mt-4">Join PlatePoints, Our Rewards Program</h3>
-								<p>Accrue PlatePoints as you meal prep with Dream Dinners. Apply your earned rewards at checkout.</p>
-								<a class="btn btn-secondary mt-3 mb-4" href="/account?pp_enroll=1">Enroll today</a>
-								<p><i>*Ability to spend rewards is available at participating locations.</i></p>
-							</div>
-						</div>
-
-					<?php } ?>
-				<?php } ?>
-
-				<!--<?php include $this->loadTemplateIfElse('customer/subtemplate/my_account/monthly/' . $this->monthlyDirectory . '/my_account_monthly.tpl.php', 'customer/subtemplate/my_account/monthly/default/my_account_monthly.tpl.php'); ?>-->
-
 				<div class="row mb-3">
 					<div class="col p-0">
 						<a class="btn btn-primary btn-lg btn-block" href="/session-menu" id="my_account_start">Start order</a>
@@ -91,50 +66,6 @@
 						<?php } ?>
 					</div>
 				<?php } ?>
-			
-			</div>
-
-			<div class="col-md-6 mb-2">
-				<div class="row">
-					<div class="col p-4 bg-gray">
-						<h5 class="font-weight-bold text-uppercase">Tell your friends</h5>
-						<p><!--Share Dream Dinners and receive referral rewards for each NEW friend that completes an order.--> Dream Dinners is easier than ever! Share your personal referral link to introduce your friends and family to Dream Dinners. You get 10 Dinner Dollars for every referral and they get a free dinner* on us!</p>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text">Your link</span>
-							</div>
-							<input type="text" id="my_share_pp_link" class="form-control" aria-label="Your referral link" value="<?php echo HTTPS_BASE; ?>share/<?php echo CUser::getCurrentUser()->id; ?>" readonly />
-							<div class="input-group-append">
-								<button class="input-group-text btn-clip" data-toggle="tooltip" data-placement="top" title="Copy link to clipboard"  data-clipboard-target="#my_share_pp_link" ><i class="fas fa-clipboard-list"></i></button>
-							</div>
-							<div class="input-group-append">
-								<a class="input-group-text" data-toggle="tooltip" data-placement="top" title="Download QR code" href="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&amp;op=referral&amp;d=1&amp;s=10&amp;id=<?php echo CUser::getCurrentUser()->id; ?>" ><i class="fas fa-qrcode"></i></a>
-							</div>
-						</div>
-
-						<button class="btn btn-cyan btn-block mb-4"
-								data-share-social="facebook,twitter"
-								data-share-title="Dream Dinners"
-								data-share-text="Dream Dinners is my solution to making homemade dinners for the family."
-								data-share-url="<?php echo HTTPS_BASE; ?>share/<?php echo CUser::getCurrentUser()->id; ?>">
-							<i class="dd-icon icon-share2 mr-2"></i> Share
-						</button>
-
-						<div class="row pt-2">
-							<div class="col-md-4 col-xl-2 text-center">
-								<a href="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&amp;op=referral&amp;s=10&amp;id=<?php echo CUser::getCurrentUser()->id; ?>" target="_blank">
-									<img class="img-fluid" src="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&amp;op=referral&amp;s=5&amp;id=<?php echo CUser::getCurrentUser()->id; ?>"></a>
-								<p class="font-weight-light font-size-small">(<a href="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&amp;op=referral&amp;d=1&amp;s=10&amp;id=<?php echo CUser::getCurrentUser()->id; ?>">Download</a>)</p>
-							</div>
-							<div class="col-md-8 col-xl-10">
-								<p class="font-weight-bold">Your Referral QR Code</p>
-								<p class="mb-0">Save and print this code to share. Anyone can easily scan and order to help you earn rewards even faster!</p>
-								<p class="p-1 text-muted font-italic font-size-small">*Free dinner available to new guests with code SHARE. Rewards and free dinner available at participating store locations.</p>
-							</div>
-						</div>
-
-					</div>
-				</div>
 
 			</div>
 
@@ -189,7 +120,7 @@
 				</div>
 			<?php } ?>
 
-			
+
 
 			<?php if (!$this->is_delivered_only) { ?>
 				<div class="col-xl-6 mb-2 bg-gray-light">
