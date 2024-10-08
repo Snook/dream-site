@@ -86,6 +86,9 @@ class page_admin_reports_guest extends CPageAdminOnly
 	 */
 	function guestReport(): void
 	{
+		set_time_limit(100000);
+		ini_set('memory_limit','-1');
+
 		$this->Form = new CForm();
 		$this->Form->Repost = true;
 		$this->Form->Bootstrap = true;
@@ -193,6 +196,19 @@ class page_admin_reports_guest extends CPageAdminOnly
 						'data-datetime-start' => 'false',
 						'data-datetime-end' => 'false',
 						'data-multi-store-select' => $this->allowStoreSelect
+					)
+				),
+				'gift-card-balance' => array(
+					'title' => 'Virtual Gift Card Balance',
+					'data' => array(
+						'data-description' => 'List of virtual gift card purchases and the balance remaining since Date Time.',
+						'data-month-start' => 'false',
+						'data-month-end' => 'false',
+						'data-date-start' => 'false',
+						'data-date-end' => 'false',
+						'data-datetime-start' => 'true',
+						'data-datetime-end' => 'false',
+						'data-multi-store-select' => 'false'
 					)
 				)
 			)
@@ -320,7 +336,96 @@ class page_admin_reports_guest extends CPageAdminOnly
 				case 'preferred-user':
 					$this->export_UserPreferred();
 					break;
+				case 'gift-card-balance':
+					$this->export_GiftCardBalance();
+					break;
 			}
+		}
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	function export_GiftCardBalance(): void
+	{
+		if ($this->Form->value('datetime_start') && $this->Form->value('datetime_start'))
+		{
+			$DAO_gift_card_order = DAO_CFactory::create('gift_card_order');
+			$DAO_gift_card_order->query("SELECT 
+				gift_card_order.clear_card_number,
+				gift_card_order.purchase_date,
+				gift_card_order.initial_amount,
+				gift_card_transaction.transaction_amount,
+				gift_card_order.initial_amount - COALESCE(gift_card_transaction.transaction_amount, 0) as remaining_balance,
+				gift_card_order.recipient_email_address,
+				gift_card_order.to_name as recipient_name,
+				gift_card_order.email as purchaser_email,
+				gift_card_order.from_name as purchaser_name,
+				gift_card_order.billing_name,
+				gift_card_order.billing_address,
+				gift_card_order.billing_zip,
+				gift_card_order.payment_card_type,
+				gift_card_order.payment_card_number
+				FROM `gift_card_order`
+				left join (SELECT 
+					gift_card_transaction.clear_card_number,
+					SUM(gift_card_transaction.transaction_amount) as transaction_amount
+					FROM `gift_card_transaction`
+					JOIN `gift_card_order` ON gift_card_transaction.clear_card_number = gift_card_order.clear_card_number and gift_card_order.clear_card_number IS NOT NULL AND gift_card_order.media_type = 'VIRTUAL' and gift_card_order.purchase_date >= '" . CTemplate::formatDateTime(timeStamp: $this->Form->value('datetime_start')) . "'
+					GROUP BY gift_card_transaction.clear_card_number
+					ORDER BY gift_card_order.purchase_date DESC) AS gift_card_transaction on gift_card_transaction.clear_card_number = gift_card_order.clear_card_number
+				WHERE gift_card_order.clear_card_number IS NOT NULL 
+				AND gift_card_order.media_type = 'VIRTUAL'
+				and gift_card_order.processed = 1
+				and gift_card_order.paid = 1
+				and gift_card_order.purchase_date >= '" . CTemplate::formatDateTime(timeStamp: $this->Form->value('datetime_start')) . "'
+				GROUP BY gift_card_order.clear_card_number
+				ORDER BY gift_card_order.purchase_date DESC");
+
+			$labels = array(
+				"Card number",
+				"Purchase date",
+				"Initial amount",
+				"Transaction amount",
+				"Remaining balance",
+				"Recipient email address",
+				"Recipient name",
+				"Purchaser email",
+				"Purchaser name",
+				"Billing name",
+				"Billing address",
+				"Billing zip",
+				"Payment card type",
+				"Payment card number"
+			);
+
+			$rows = array();
+
+			while ($DAO_gift_card_order->fetch())
+			{
+				$rows[] = array(
+					'Card number' => $DAO_gift_card_order->clear_card_number,
+					'Purchase date' => $DAO_gift_card_order->purchase_date,
+					'Initial amount' => $DAO_gift_card_order->initial_amount,
+					'Transaction amount' => $DAO_gift_card_order->transaction_amount,
+					'Remaining balance' => $DAO_gift_card_order->remaining_balance,
+					'Recipient email address' => $DAO_gift_card_order->recipient_email_address,
+					'Recipient name' => $DAO_gift_card_order->recipient_name,
+					'Purchaser email' => $DAO_gift_card_order->purchaser_email,
+					'Purchaser name' => $DAO_gift_card_order->purchaser_name,
+					'Billing name' => $DAO_gift_card_order->billing_name,
+					'Billing address' => $DAO_gift_card_order->billing_address,
+					'Billing zip' => $DAO_gift_card_order->billing_zip,
+					'Payment card type' => $DAO_gift_card_order->payment_card_type,
+					'Payment card number' => $DAO_gift_card_order->payment_card_number,
+				);
+			}
+
+			$this->Template->downloadReport('report_gift_card_balance', $rows, $labels);
+		}
+		else
+		{
+			$this->Template->setErrorMsg('Report requires Date Time selection');
 		}
 	}
 
