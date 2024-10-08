@@ -8642,7 +8642,7 @@ class COrders extends DAO_Orders
 		$DAO_user->id = $this->user_id;
 		$DAO_user->find(true);
 
-		if ($this->menu_id <= 278 && CPointsUserHistory::userIsActiveInProgram($DAO_user))
+		if (!empty($this->menu_id) && $this->menu_id <= 278 && CPointsUserHistory::userIsActiveInProgram($DAO_user))
 		{
 			$this->is_in_plate_points_program = 1;
 		}
@@ -9159,7 +9159,7 @@ class COrders extends DAO_Orders
 		$DAO_user->id = $this->user_id;
 		$DAO_user->find(true);
 
-		if ($this->menu_id <= 278 && CPointsUserHistory::userIsActiveInProgram($DAO_user))
+		if (!empty($this->menu_id) && $this->menu_id <= 278 && CPointsUserHistory::userIsActiveInProgram($DAO_user))
 		{
 			$this->is_in_plate_points_program = 1;
 		}
