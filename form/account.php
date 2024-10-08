@@ -879,7 +879,7 @@ class form_account
 							}
 
 							//PLATEPOINTS enrollee?
-							if (isset($_POST['enroll_in_plate_points']))
+							if (false && isset($_POST['enroll_in_plate_points']))
 							{
 								$enrollment_success = CPointsUserHistory::handleEvent($DAO_user, CPointsUserHistory::OPT_IN);
 
@@ -1221,7 +1221,7 @@ class form_account
 							CUserData::saveSFIFormElementsNew($Form, $DAO_user, $SFICurrentValues);
 
 							//PLATEPOINTS enrollee?
-							if (isset($_POST['enroll_in_plate_points']))
+							if (false && isset($_POST['enroll_in_plate_points']))
 							{
 								$enrollment_success = CPointsUserHistory::handleEvent($DAO_user, CPointsUserHistory::OPT_IN);
 
@@ -1580,7 +1580,7 @@ class form_account
 						if ($rslt !== false)
 						{
 							//PLATEPOINTS enrollee?
-							if (isset($_POST['enroll_in_plate_points']))
+							if (false && isset($_POST['enroll_in_plate_points']))
 							{
 								$enrollment_success = CPointsUserHistory::handleEvent($User, CPointsUserHistory::OPT_IN);
 

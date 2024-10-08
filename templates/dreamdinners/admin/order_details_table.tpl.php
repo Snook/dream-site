@@ -295,7 +295,7 @@
 					<tr>
 						<td class="align-top">
 							<table>
-								<?php if (!$this->isEmptyFloat($this->plate_points['points_this_order'])) { ?>
+								<?php if ($this->DAO_session->DAO_menu->id <= 278 && !$this->isEmptyFloat($this->plate_points['points_this_order'])) { ?>
 									<tr>
 										<td class="font-weight-bold">Points earned this order:</td>
 										<td><?php echo number_format($this->plate_points['points_this_order']); ?></td>

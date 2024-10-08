@@ -188,7 +188,7 @@ class CPointsUserHistory extends DAO_Points_user_history
 
 	static function isElgibleForBirthdayRewardAtEnrollment($store_id, $monthNumber, $user_id)
 	{
-		if(date("m") > 7 || date("Y") > 2023)
+		if (date("m") > 7 || date("Y") > 2023)
 		{
 			//No longer awarding DD for Birthdays
 			return false;
@@ -240,9 +240,7 @@ class CPointsUserHistory extends DAO_Points_user_history
 			}
 
 			return false;
-
 		}
-
 	}
 
 	static function getLevelDetailsByPoints($points)
@@ -353,7 +351,6 @@ class CPointsUserHistory extends DAO_Points_user_history
 
 			if ($overall_count == 1)
 			{
-
 				if (!$orderData['is_in_plate_points_program'])
 				{
 					$is_disqualified = true;
@@ -462,7 +459,6 @@ class CPointsUserHistory extends DAO_Points_user_history
 
 	static function getLevelDetailsByLevel($level)
 	{
-
 		if (array_key_exists($level, self::$platePointLevelData))
 		{
 			return self::$platePointLevelData[$level];
@@ -565,7 +561,6 @@ class CPointsUserHistory extends DAO_Points_user_history
 
 		if ($streakData['focusOrderInOriginalStreak'])
 		{
-
 			for ($x = 1; $x <= $streakData['InitialStreakOrderCount']; $x++)
 			{
 				if ($x == 1)
@@ -767,15 +762,12 @@ class CPointsUserHistory extends DAO_Points_user_history
 
 	static function forceGuestToLevel_NoReward($level, $user_id = false, $email = false)
 	{
-
 		if (!$user_id)
 		{
-
 			$UserObjIDFetcher = new DAO();
 			$UserObjIDFetcher->query("select u.id from dreamsite.user u where u.primary_email = '$email'");
 			if ($UserObjIDFetcher->N == 0)
 			{
-
 				$UserObjIDFetcher2 = new DAO();
 				$UserObjIDFetcher2->query("select u.id from dreamsite.user u where u.secondary_email = '$email'");
 				if ($UserObjIDFetcher2->N == 0)
@@ -808,8 +800,6 @@ class CPointsUserHistory extends DAO_Points_user_history
 
 		if ($UserObj->dream_rewards_version == 3 and ($UserObj->dream_reward_status == 1 || $UserObj->dream_reward_status == 3))
 		{
-
-
 			$secondUserObj = new DAO();
 			$secondUserObj->query("select puh.user_id, puh.total_points from dreamsite.points_user_history puh
     	        where puh.user_id = $user_id order by id desc limit 1");
@@ -820,7 +810,6 @@ class CPointsUserHistory extends DAO_Points_user_history
 
 			if ($currentPoints >= $neededPoints)
 			{
-
 				return 'already_at_level';
 			}
 
@@ -851,7 +840,6 @@ class CPointsUserHistory extends DAO_Points_user_history
 
 	static function getGiftIDReceivedForLevel($levelDetail, $user_id)
 	{
-
 		$eventRecord = DAO_CFactory::create('points_user_history');
 		$eventRecord->query("select * from points_user_history where event_type = 'PHYSICAL_REWARD_RECEIVED' and is_deleted = 0 and user_id = $user_id");
 		while ($eventRecord->fetch())
@@ -881,6 +869,9 @@ class CPointsUserHistory extends DAO_Points_user_history
 		return false;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function userDuePhysicalRewardForLevel($levelDetail, $user_id, $orderObj = false, $streakData = false)
 	{
 		$userCurrentlyDueReward = true;
@@ -1047,14 +1038,29 @@ class CPointsUserHistory extends DAO_Points_user_history
 		);
 	}
 
-	static function userIsActiveInProgram($userObj)
+	/**
+	 * @throws Exception
+	 */
+	static function wind_down_PlatePoints(): bool
+	{
+		// No rewards after Nov 1 2024
+		if (CTemplate::formatDateTime(timeStamp: TIMENOW) >= '2024-11-01 00:00:00')
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	static function userIsActiveInProgram($userObj): bool
 	{
 		if (($userObj->dream_reward_status == 1 || $userObj->dream_reward_status == 3) && $userObj->dream_rewards_version == 3)
 		{
 			return true;
 		}
-
-
 
 		return false;
 	}
@@ -1135,8 +1141,21 @@ class CPointsUserHistory extends DAO_Points_user_history
 		self::$deferredProcessQueue[$inEventName] = $inEventData;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function handleEvent($user_id_or_obj, $event, $meta_array = false, $orderObj = null)
 	{
+		if (CPointsUserHistory::wind_down_PlatePoints())
+		{
+			return false;
+		}
+
+		if (!empty($orderObj->menu_id) && $orderObj->menu_id <= 278)
+		{
+			return false;
+		}
+
 		$eventRecord = DAO_CFactory::create('points_user_history');
 
 		if (is_object($user_id_or_obj) && get_class($user_id_or_obj) == 'CUser')
@@ -1187,7 +1206,6 @@ class CPointsUserHistory extends DAO_Points_user_history
 
 			case self::OPT_IN:
 				{
-
 					$hasHomeStore = !(empty($userObj->home_store_id));
 
 					$tranistionHasExpired = false;
@@ -1393,7 +1411,6 @@ class CPointsUserHistory extends DAO_Points_user_history
 
 			foreach ($final_list as $id => $data)
 			{
-
 				$data['user_is_preferred'] = $userIsPreferred;
 
 				switch ($id)
@@ -1616,7 +1633,6 @@ class CPointsUserHistory extends DAO_Points_user_history
 	// Note: if any other $userObj fields are needed check client code to be sure they are providing the added fields
 	static function getDR2ConversionData($userObj)
 	{
-
 		$retVal = array();
 		$orders = DAO_CFactory::create('orders');
 		$orders->query("select o.id, o.grand_total, o.in_store_order, s.session_start, o.in_store_order as in_store, (o.grand_total - o.subtotal_all_taxes) as points_basis from booking b
@@ -1968,7 +1984,6 @@ class CPointsUserHistory extends DAO_Points_user_history
 
 	function handleRewardDreamTasteHost($userObj, $meta_array)
 	{
-
 		// prerequisites
 		// user is in program
 		if (!self::userIsActiveInProgram($userObj))
@@ -2017,8 +2032,6 @@ class CPointsUserHistory extends DAO_Points_user_history
 
 	function handleAchievementAwardEvent($eventData, $userObj)
 	{
-
-
 		// add to history
 		$this->user_id = $eventData['user_id'];
 		$this->event_type = self::ACHIEVEMENT_AWARD;
@@ -2161,7 +2174,8 @@ class CPointsUserHistory extends DAO_Points_user_history
 			$birthday_month_award_expire_month = $meta_array['month'] + 1;
 			$year = date("Y");
 			$current_month = date("m");
-			if($birthday_month_award_expire_month < $current_month){
+			if ($birthday_month_award_expire_month < $current_month)
+			{
 				//expiration is for next year...this case only really would have happened in December
 				//for example, if guest has b-day of Jan 5
 				//then the point awarded in Dec of 2022 should have an expiry Feb 15 2023, not Feb 15 2022
@@ -2171,7 +2185,7 @@ class CPointsUserHistory extends DAO_Points_user_history
 		}
 
 		//End birthday points starting August 2023
-		if($meta_array['month'] >= 8 || $meta_array['year'] > 2023)
+		if ($meta_array['month'] >= 8 || $meta_array['year'] > 2023)
 		{
 			return false;
 		}
@@ -2242,9 +2256,10 @@ class CPointsUserHistory extends DAO_Points_user_history
 		{
 			return;
 		}  // quietly return if not
-		$default_points_allocated =  400;
+		$default_points_allocated = 400;
 		$requested_points = array_key_exists('points_earned', $meta_array) ? $meta_array['points_earned'] : $default_points_allocated;
-		if($requested_points <= 0 || trim($requested_points) == ''){
+		if ($requested_points <= 0 || trim($requested_points) == '')
+		{
 			$requested_points = $default_points_allocated;
 		}
 		// add to history
@@ -2658,7 +2673,6 @@ class CPointsUserHistory extends DAO_Points_user_history
 
 	function handleConversionEvent($userObj)
 	{
-
 		$optin_event = DAO_CFactory::create('points_user_history');
 		$optin_event->userIsPreferred = $this->userIsPreferred;
 		$optin_event->handleOptInEvent($userObj);
@@ -2719,7 +2733,6 @@ class CPointsUserHistory extends DAO_Points_user_history
 
 	function handlePointsToCreditConversionEvent($amount, $user_id_or_obj, $additional_comments = "", $suppressEmail = false)
 	{
-
 		if ($amount == 0)
 		{
 			return false;
@@ -2845,10 +2858,8 @@ class CPointsUserHistory extends DAO_Points_user_history
 
 			if ($convertableTally >= self::REWARD_INTERVAL)
 			{
-
 				if ($this->userIsPreferred)
 				{
-
 					$this->handleProgramExceptionEvent($userObj, 'Preferred user was awarded points but credit allocation was skipped.');
 
 					return;
@@ -2858,7 +2869,6 @@ class CPointsUserHistory extends DAO_Points_user_history
 				$creditObj->dollar_value = $convertableTally / 40; // 200 div by 40 = $5
 				$creditObj->user_id = $userObj->id;
 				$expiration_date = mktime(0, 0, 0, date("n"), date("j") + CPointsUserHistory::DINNER_DOLLAR_EXPIRATION_DAYS, date("Y"));
-
 
 				$creditObj->expiration_date = date("Y-m-d 03:00:00", $expiration_date);
 
@@ -2870,7 +2880,7 @@ class CPointsUserHistory extends DAO_Points_user_history
 				if (is_array($infoArray))
 				{
 					$infoArray['dollars_added'] += $creditObj->dollar_value;
-					$infoArray['dollars_expire'] = $creditObj->expiration_date ;
+					$infoArray['dollars_expire'] = $creditObj->expiration_date;
 				}
 
 				$convertedSoFar = 0;
@@ -3039,5 +3049,3 @@ class CPointsUserHistory extends DAO_Points_user_history
 		return true;
 	}
 }
-
-?>

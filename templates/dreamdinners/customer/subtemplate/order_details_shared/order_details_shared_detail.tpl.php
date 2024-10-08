@@ -126,7 +126,7 @@
 			</div>
 		</div>
 	<?php } ?>
-	<div class="row mb-4 d-print-none">
+	<!--<div class="row mb-4 d-print-none">
 		<?php if ($this->showPlatePointsEnroll) { ?>
 			<div class="col text-center bg-cyan-extra-light">
 				<h3 class="font-weight-bold mb-2 mt-5 text-orange">Join PlatePoints, Our Rewards Program</h3>
@@ -166,7 +166,7 @@
 				<a class="btn btn-secondary mt-3 mb-5" href="/my-meals">Start Rating My Meals</a>
 			</div>
 		<?php } ?>
-	</div>
+	</div>-->
 
 	<?php include $this->loadTemplate('customer/subtemplate/order_details_shared/order_details_shared.tpl.php'); ?>
 

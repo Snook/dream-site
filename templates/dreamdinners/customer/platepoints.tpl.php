@@ -22,12 +22,12 @@
 	<main class="container">
 		<div class="row mb-5">
 			<div class="col text-center my-1">
-				<h2 class="font-weight-bold mb-2 mt-5" style="color: #f07722;">Reward Yourself!</h2>
-				<h3>We dreamed up a new way to earn points.</h3>
+				<h2 class="font-weight-bold mb-2 mt-5">We are discontinuing our loyalty program, PlatePoints.</h2>
+				<h3>The last day to earn points on purchases and other activities is October 31, 2024. You will still be able to redeem your earned Dinner Dollars until their expiration date. We will share future program updates in 2025. Please reach out to your local store with any questions or to learn more about upcoming store promotions. </h3>
 			</div>
 		</div>
 
-		<div class="row my-1">
+		<!--<div class="row my-1">
 			<div class="col">
 				<div class="card-group text-center mb-2">
 					<div class="card border-0">
@@ -71,7 +71,7 @@
 							</div>
 						</div>
 					</div>
-					<!--<div class="card border-0 bg-cyan-light">
+					<div class="card border-0 bg-cyan-light">
 						<div class="card-body">
 							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/platepoints-arrow-orange-down-icon-60x175.png" alt="Platepoints Orange Arrow">
 						</div>
@@ -88,7 +88,7 @@
 
 							</div>
 						</div>
-					</div>-->
+					</div>
 				</div>
 
 				<div class="row">
@@ -172,6 +172,6 @@
 			<div class="col">
 				<p class="font-italic text-muted font-size-small">*Double points are earned when you place a qualifying order before, during or within 7 days of your current months visit. All Dinner Dollars expire within 45 days. Apply to an order within the 45-day window to redeem. Dinner Dollars cannot be used to discount shipping or home delivery fees. Dinner Dollars may be redeemed at participating locations. Dinner Dollars are non-transferrable. Preferred guests are not eligible to enroll in the PlatePoints program. Dinner Dollars cannot be combined with other offers.</p>
 			</div>
-		</div>
+		</div>-->
 	</main>
 <?php include $this->loadTemplate('customer/subtemplate/page_footer.tpl.php'); ?>
