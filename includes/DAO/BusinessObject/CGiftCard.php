@@ -631,6 +631,7 @@ class CGiftCard extends DAO_Gift_card_transaction
 					$gcTrans->transaction_amount = $trans_amount;
 					$gcTrans->pos_type = $POS_type;
 					$gcTrans->auth_ref_number = $retarr['Auth_Reference'];
+					$gcTrans->clear_card_number = $gift_card_number;
 					$gcTrans->gift_card_number = str_repeat('X', (strlen($gift_card_number) - 4)) . substr($gift_card_number, -4);
 					$gcTrans->cc_ref_number = $ccRef;
 					if (!$storeId || empty($storeId))
@@ -722,6 +723,7 @@ class CGiftCard extends DAO_Gift_card_transaction
 					$gcTrans->transaction_amount = $trans_amount;
 					$gcTrans->pos_type = $POS_type;
 					$gcTrans->auth_ref_number = $retarr['Auth_Reference'];
+					$gcTrans->clear_card_number = $gift_card_number;
 					$gcTrans->gift_card_number = str_repeat('X', (strlen($gift_card_number) - 4)) . substr($gift_card_number, -4);
 					$gcTrans->cc_ref_number = $ccRef;
 					if (!$storeId || empty($storeId))
@@ -842,6 +844,7 @@ class CGiftCard extends DAO_Gift_card_transaction
 				$gcTrans->transaction_amount = $trans_amount;
 				$gcTrans->pos_type = $POS_type;
 				$gcTrans->auth_ref_number = $retarr['Auth_Reference'];
+				$gcTrans->clear_card_number = $gift_card_number;
 				$gcTrans->gift_card_number = str_repeat('X', (strlen($gift_card_number) - 4)) . substr($gift_card_number, -4);
 
 				if (is_null($ccNum))
