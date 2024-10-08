@@ -834,8 +834,15 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 43, $_PosY + 69.5);
 		$this->MultiCellTag(60, 1.5, "<db8>May Contain: Milk, Eggs, Fish, Shellfish, Tree Nuts, Peanuts, Wheat, Soybeans, Sesame.</db8>", $showBorders, "L", 0);
 
+		$_warning = 'Variations in ingredients and preparation, as well as substitutions, will increase or decrease any stated nutritional values.';
+
+		if (!CApp::wind_down_Sandbox())
+		{
+			$_warning .= ' Items may vary by store, may not be available at all locations, and are subject to change.';
+		}
+
 		$this->SetXY($_PosX + 43, $_PosY + 71);
-		$this->MultiCellTag(60, 1.5, "<db8>Variations in ingredients and preparation, as well as substitutions, will increase or decrease any stated nutritional values. Items may vary by store, may not be available at all locations, and are subject to change.</db8>", $showBorders, "L", 0);
+		$this->MultiCellTag(60, 1.5, "<db8>" . $_warning . "</db8>", $showBorders, "L", 0);
 
 		if (!empty($Store))
 		{
@@ -1185,8 +1192,15 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 43, $_PosY + 90.5);
 		$this->MultiCellTag(77, 1.5, "<db8>May Contain: Milk, Eggs, Fish, Shellfish, Tree Nuts, Peanuts, Wheat, Soybeans, Sesame.</db8>", $showBorders, "L", 0);
 
+		$_warning = 'Variations in ingredients and preparation, as well as substitutions, will increase or decrease any stated nutritional values.';
+
+		if (!CApp::wind_down_Sandbox())
+		{
+			$_warning .= ' Items may vary by store, may not be available at all locations, and are subject to change.';
+		}
+
 		$this->SetXY($_PosX + 43, $_PosY + 92);
-		$this->MultiCellTag(75, 1.5, "<db8>Variations in ingredients and preparation, as well as substitutions, will increase or decrease any stated nutritional values. Items may vary by store, may not be available at all locations, and are subject to change.</db8>", $showBorders, "L", 0);
+		$this->MultiCellTag(75, 1.5, "<db8>" . $_warning . "</db8>", $showBorders, "L", 0);
 
 		if (!CApp::wind_down_Sandbox())
 		{
@@ -1537,8 +1551,15 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 42, $_PosY + 72.75);
 		$this->MultiCellTag(60, 1.5, "<db8>May Contain: Milk, Eggs, Fish, Shellfish, Tree Nuts, Peanuts, Wheat, Soybeans, Sesame.</db8>", $showBorders, "L", 0);
 
+		$_warning = 'Variations in ingredients and preparation, as well as substitutions, will increase or decrease any stated nutritional values.';
+
+		if (!CApp::wind_down_Sandbox())
+		{
+			$_warning .= ' Items may vary by store, may not be available at all locations, and are subject to change.';
+		}
+
 		$this->SetXY($_PosX + 42, $_PosY + 74.25);
-		$this->MultiCellTag(60, 1.5, "<db8>Variations in ingredients and preparation, as well as substitutions, will increase or decrease any stated nutritional values. Items may vary by store, may not be available at all locations, and are subject to change.</db8>", $showBorders, "L", 0);
+		$this->MultiCellTag(60, 1.5, "<db8>" . $_warning . "</db8>", $showBorders, "L", 0);
 
 		// Assembled by
 		$this->SetXY($_PosX + 2, $_PosY + 62.25);
