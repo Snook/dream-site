@@ -1164,7 +1164,7 @@ class COrdersDelivered extends COrders
 		$Customer->id = $this->user_id;
 		$Customer->find(true);
 
-		if ($this->menu_id <= 278 && CPointsUserHistory::userIsActiveInProgram($Customer))
+		if (!empty($this->menu_id) && $this->menu_id <= 278 && CPointsUserHistory::userIsActiveInProgram($Customer))
 		{
 			$this->is_in_plate_points_program = 1;
 		}
@@ -1628,7 +1628,7 @@ class COrdersDelivered extends COrders
 		$Customer->id = $this->user_id;
 		$Customer->find(true);
 
-		if ($this->menu_id <= 278 && CPointsUserHistory::userIsActiveInProgram($Customer))
+		if (!empty($this->menu_id) && $this->menu_id <= 278 && CPointsUserHistory::userIsActiveInProgram($Customer))
 		{
 			$this->is_in_plate_points_program = 1;
 		}
