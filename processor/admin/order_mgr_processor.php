@@ -1618,7 +1618,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 		$DAO_session = $DAO_orders->findSession(true);
 		$DAO_orders->reconstruct();
 
-		if ($DAO_orders->menu_id <= 278)
+		if (!empty($DAO_orders->menu_id) && $DAO_orders->menu_id <= 278)
 		{
 			if ($DAO_user->dream_rewards_version == 3 && ($DAO_user->dream_reward_status == 1 || $DAO_user->dream_reward_status == 3))
 			{
