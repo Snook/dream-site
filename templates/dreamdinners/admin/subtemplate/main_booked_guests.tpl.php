@@ -226,25 +226,14 @@ if( !function_exists('translateOrderQuantityType')){
 									<?php } ?>
 								<?php } ?>
 							</td>
-							<td class="title">PlatePoints Pending</td>
+							<td class="title">PlatePoints</td>
 							<td class="value small_value">
 								<?php if($booking['preferred_somewhere']){?>
 									Not Eligible
 								<?php }else{
-									if (($booking['dream_reward_status'] == 1 || $booking['dream_reward_status'] == 3) && $booking['dream_rewards_version'] == 3) {
-										if ($booking['can_confirm_order']) { ?>
-											<span id="pp_co_<?php echo $booking['user_id']; ?>_<?php echo $booking['order_id']; ?>"><a class="btn btn-primary btn-sm" href="javascript:confirm_order_attended('<?php echo $booking['user_id'];?>', '<?php echo $booking['order_id'];?>');"> <?php echo $booking['points_this_order'];?> Points<br />Confirm Order</a></span>
-										<?php } else { ?>
-											<span id="pp_co_<?php echo $booking['user_id']; ?>_<?php echo $booking['order_id']; ?>"><?php echo $booking['points_this_order'];?> Points</span>
-										<?php }
-									} else { ?>
-										<?php if ($booking['dream_reward_status'] == 5) { ?>
-											<a class="btn btn-primary btn-sm" href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>">PlatePoints</a>
-										<?php } else { ?>
-											<a class="btn btn-primary btn-sm" href="/backoffice/account?id=<?php echo $booking['user_id']; ?>&amp;pp_enroll=1">Enroll in PlatePoints</a>
-										<?php } ?>
-									<?php }
-								}?>
+									if (($booking['dream_reward_status'] == 1 || $booking['dream_reward_status'] == 3) && $booking['dream_rewards_version'] == 3) { ?>
+											<?php echo $booking['points_this_order'];?> Points
+									<?php } }?>
 							</td>
 						<?php } ?>
 						<td class="title">No Show</td>

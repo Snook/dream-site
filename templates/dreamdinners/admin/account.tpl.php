@@ -77,23 +77,6 @@
 						Please change the guest account to a standard account prior to enrolling in PlatePoints.
 					<?php } else if (!empty($this->user->membershipData) && $this->user->membershipData['enrolled']) {?>
 						Guest is enrolled in Meal Prep+
-					<?php } else if ($this->platePointsStatus['storeSupportsPlatePoints']) { ?>
-						<?php
-						CForm::formElement(array(
-							CForm::type => CForm::CheckBox,
-							CForm::name => 'enroll_in_plate_points',
-							CForm::attribute => array(
-								'data-user_id' => ((!empty($this->user_id) ? $this->user_id : 'false')),
-								'data-user_in_dr2' => (($this->platePointsStatus['userIsEligibleForDRConversion'] ? 'true' : 'false')),
-								'data-user_preferred' => (($this->platePointsStatus['userIsPreferred'] ? 'true' : 'false')),
-								'data-transition_period_has_expired' => (($this->platePointsStatus['transitionPeriodHasExpired'] ? 'true' : 'false')),
-							),
-							CForm::label => 'Enroll in PLATEPOINTS'
-						));
-						?>
-						<div>
-							<span id="dr_guest_opt_out_message" style="display:<?php echo ($this->platePointsStatus['user_has_opted_out_of_plate_points'] ? '' : 'none')?>"><i>This guest has opted out of the PlatePoints program.</i></span>
-						</div>
 					<?php } ?>
 				</div>
 

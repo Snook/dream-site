@@ -63,14 +63,14 @@
 
 					<?php } else if (false){//!CUser::getCurrentUser()->platePointsData['userIsOnHold']) { ?>
 
-						<div class="row mb-4">
+						<!--<div class="row mb-4">
 							<div class="col text-center py-2 bg-image-platepoints">
 								<h3 class="font-weight-bold mb-2 mt-4">Join PlatePoints, Our Rewards Program</h3>
 								<p>Accrue PlatePoints as you meal prep with Dream Dinners. Apply your earned rewards at checkout.</p>
 								<a class="btn btn-secondary mt-3 mb-4" href="/account?pp_enroll=1">Enroll today</a>
 								<p><i>*Ability to spend rewards is available at participating locations.</i></p>
 							</div>
-						</div>
+						</div>-->
 
 					<?php } ?>
 				<?php } ?>
@@ -98,7 +98,7 @@
 				<div class="row">
 					<div class="col p-4 bg-gray">
 						<h5 class="font-weight-bold text-uppercase">Tell your friends</h5>
-						<p><!--Share Dream Dinners and receive referral rewards for each NEW friend that completes an order.--> Dream Dinners is easier than ever! Share your personal referral link to introduce your friends and family to Dream Dinners. You get 10 Dinner Dollars for every referral and they get a free dinner* on us!</p>
+						<p>Dream Dinners is easier than ever! Share your personal referral link to introduce your friends and family to Dream Dinners.</p>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Your link</span>
@@ -120,7 +120,7 @@
 							<i class="dd-icon icon-share2 mr-2"></i> Share
 						</button>
 
-						<div class="row pt-2">
+						<!--<div class="row pt-2">
 							<div class="col-md-4 col-xl-2 text-center">
 								<a href="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&amp;op=referral&amp;s=10&amp;id=<?php echo CUser::getCurrentUser()->id; ?>" target="_blank">
 									<img class="img-fluid" src="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&amp;op=referral&amp;s=5&amp;id=<?php echo CUser::getCurrentUser()->id; ?>"></a>
@@ -129,9 +129,9 @@
 							<div class="col-md-8 col-xl-10">
 								<p class="font-weight-bold">Your Referral QR Code</p>
 								<p class="mb-0">Save and print this code to share. Anyone can easily scan and order to help you earn rewards even faster!</p>
-								<p class="p-1 text-muted font-italic font-size-small">*Free dinner available to new guests with code SHARE. Rewards and free dinner available at participating store locations.</p>
+								<p class="p-1 text-muted font-italic font-size-small"></p>
 							</div>
-						</div>
+						</div>-->
 
 					</div>
 				</div>
@@ -272,9 +272,9 @@
 										<li class="list-group-item">$<?php echo $credit['dollar_value']; ?>, expires <?php echo CTemplate::dateTimeFormat($credit['expiration_date'], FULL_MONTH_DAY_YEAR); ?></li>
 									<?php } ?>
 								</ul>
-								<div class="font-italic font-size-small text-muted">PLATEPOINTS Dinner Dollars can only be used at participating stores and on items above your standard order, Sides &amp; Sweets freezer items and service fees.</div>
+								<div class="font-italic font-size-small text-muted">PLATEPOINTS Dinner Dollars can only be used at participating stores.</div>
 								<?php if (empty($this->store['supports_plate_points'])) { ?>
-									<div class="font-italic font-size-small text-muted">Your independently-owned Home Store is not currently participating in the PLATEPOINTS program. You will be able to earn PLATEPOINTS and participate in non-spend activities, but Dinner Dollars earned and gifts cannot be redeemed at a non-participating store or on a Delivered order.</div>
+									<div class="font-italic font-size-small text-muted">Your independently-owned Home Store is not currently participating in the PLATEPOINTS program.</div>
 								<?php } ?>
 							</div>
 						<?php } ?>
