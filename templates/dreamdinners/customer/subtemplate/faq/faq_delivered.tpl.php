@@ -2,7 +2,7 @@
 	<div class="card">
 		<div class="card-header" id="heading-DLVRD-One">
 			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-DLVRD-One" aria-expanded="false" aria-controls="collapse-DLVRD-One">
-				What is the current delivery area for Dream Dinners Delivered™, and when will it be available nationwide?
+				What is the current shipping area for Dream Dinners, and when will it be available nationwide?
 			</button>
 		</div>
 		<div id="collapse-DLVRD-One" class="collapse" aria-labelledby="heading-DLVRD-One" data-parent="#accordion-DLVRD">
@@ -20,19 +20,19 @@
 		</div>
 		<div id="collapse-DLVRD-Two" class="collapse" aria-labelledby="heading-DLVRD-Two" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				Yes, you can purchase multiples of your favorite dinners.
+				Yes, you can purchase two each of your favorite dinners in each box.
 			</div>
 		</div>
 	</div>
 	<div class="card">
 		<div class="card-header" id="heading-DLVRD-Three">
 			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-DLVRD-Three" aria-expanded="false" aria-controls="collapse-DLVRD-Three">
-				What if I want to order more than three dinners?
+				What if I want to order more dinners?
 			</button>
 		</div>
 		<div id="collapse-DLVRD-Three" class="collapse" aria-labelledby="heading-DLVRD-Three" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				Great idea! You can order as many boxes of delicious dinners as you want to be delivered on the same day.
+				You can order as many boxes of delicious dinners as you want to be delivered on the same day.
 			</div>
 		</div>
 	</div>
@@ -56,7 +56,7 @@
 		</div>
 		<div id="collapse-DLVRD-Five" class="collapse" aria-labelledby="heading-DLVRD-Five" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				Our menu changes every 4 or 5 weeks on Thursday mornings. Each menu is based on the month, but we do not follow a traditional calendar schedule. Watch your email for new menu launches.
+				Our menu changes every 4 or 5 weeks. Each menu is based on the month, but we do not follow a traditional calendar schedule. Watch your email for new menu launches.
 			</div>
 		</div>
 	</div>
@@ -68,7 +68,7 @@
 		</div>
 		<div id="collapse-DLVRD-Six" class="collapse" aria-labelledby="heading-DLVRD-Six" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				A medium box contains 3 dinners that each feed 2 – 3 people is $89. A large box contains 3 dinners that each feed 4 – 6 people is $159.
+				A medium box contains 4 dinners that each feed 2 – 3 people is $109.99. A large box contains 3 dinners that each feed 4 – 6 people is $159.
 			</div>
 		</div>
 	</div>
@@ -92,7 +92,7 @@
 		</div>
 		<div id="collapse-DLVRD-Eight" class="collapse" aria-labelledby="heading-DLVRD-Eight" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				All Dream Dinners meals are carefully hand packed in a Styrofoam cooler or insulated liners with either frozen gel packs or dry ice and are delivered via UPS.
+				All Dream Dinners meals are carefully hand packed with insulated liners with either frozen gel packs or dry ice and are delivered via UPS.
 			</div>
 		</div>
 	</div>
@@ -152,22 +152,6 @@
 		</div>
 	</div>
 	<div class="card">
-		<div class="card-header" id="heading-DLVRD-Thirteen">
-			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-DLVRD-Thirteen" aria-expanded="false" aria-controls="collapse-DLVRD-Thirteen">
-				How do I read the temperature tag included in my Dream Dinners box?
-			</button>
-		</div>
-		<div id="collapse-DLVRD-Thirteen" class="collapse" aria-labelledby="heading-DLVRD-Thirteen" data-parent="#accordion-DLVRD">
-			<div class="card-body">
-				In order to track the temperature of your Dream Dinners box, we have included an easy to read temperature tag.
-				<p>If all the dots on the temperature tag are white, meals can be placed directly into your freezer for later use or allow them to thaw in your refrigerator and prepare them over the next few days.</p>
-				<p>If the small, or both small and medium sized dots are red and your proteins are still frozen solid or contain ice crystals, the meal may be frozen for later use (even if some of the sauces are slightly thawed).</p>
-				<p>If the small, or both the small and medium sized dots are red and the meal is as cold as if refrigerated, store in your refrigerator and prepare over the next 3 days.  Do not refreeze.</p>
-				<p>If the large dot is partially red and the meal is as cold as if refrigerated, store meal in your refrigerator and prepare the same day.</p>
-				<p>If all dots are solid red the food has been exposed to temperatures that may make it unsafe to consume. If a meal feels warmer than refrigerator temperature, contact our Customer Support Department at support@dreamdinners.com to receive a replacement meal.</p>
-			</div>
-		</div>
-	<div class="card">
 		<div class="card-header" id="heading-DLVRD-Fourteen">
 			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-DLVRD-Fourteen" aria-expanded="false" aria-controls="collapse-DLVRD-Fourteen">
 				I lost the cooking instructions, where can I find them?
@@ -204,42 +188,6 @@
 		</div>
 	</div>
 	<div class="card">
-		<div class="card-header" id="heading-DLVRD-Seventeen">
-			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-DLVRD-Seventeen" aria-expanded="false" aria-controls="collapse-DLVRD-Seventeen">
-				Can I earn PLATEPOINTS when I purchase a Delivered Box?
-			</button>
-		</div>
-		<div id="collapse-DLVRD-Seventeen" class="collapse" aria-labelledby="heading-DLVRD-Seventeen" data-parent="#accordion-DLVRD">
-			<div class="card-body">
-				No, you can not earn PLATEPOINTS on your Delivered purchases at this time.
-			</div>
-		</div>
-	</div>
-	<div class="card">
-		<div class="card-header" id="heading-DLVRD-Eighteen">
-			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-DLVRD-Eighteen" aria-expanded="false" aria-controls="collapse-DLVRD-Eighteen">
-				Can I use my Dinner Dollars towards the purchase of a Delivered Box?
-			</button>
-		</div>
-		<div id="collapse-DLVRD-Eighteen" class="collapse" aria-labelledby="heading-DLVRD-Eighteen" data-parent="#accordion-DLVRD">
-			<div class="card-body">
-				No, you can not use Dinner Dollars on your Delivered purchases at this time.
-			</div>
-		</div>
-	</div>
-	<div class="card">
-		<div class="card-header" id="heading-DLVRD-Nineteen">
-			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-DLVRD-Nineteen" aria-expanded="false" aria-controls="collapse-DLVRD-Nineteen">
-				Can I earn referral rewards on Delivered Box orders?
-			</button>
-		</div>
-		<div id="collapse-DLVRD-Nineteen" class="collapse" aria-labelledby="heading-DLVRD-Nineteen" data-parent="#accordion-DLVRD">
-			<div class="card-body">
-				Not currently.
-			</div>
-		</div>
-	</div>
-	<div class="card">
 		<div class="card-header" id="heading-DLVRD-Twenty">
 			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-DLVRD-Twenty" aria-expanded="false" aria-controls="collapse-DLVRD-Twenty">
 				I need to change my delivery date or food items. What do I do?
@@ -247,7 +195,7 @@
 		</div>
 		<div id="collapse-DLVRD-Twenty" class="collapse" aria-labelledby="heading-DLVRD-Twenty" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				If you need to reschedule or cancel your order, please contact us 6 days prior to your delivery date at support@dreamdinners.com or 360-804-2020. Cancellations with 6 or more days' notice will receive a full refund. Cancellations with 5 or fewer days' notice will be subject to a 25% restocking fee. Orders cannot be canceled or rescheduled once meals have been shipped.
+				If you need to reschedule or cancel your order, please contact us 6 days prior to your delivery date. Cancellations with 6 or more days' notice will receive a full refund. Cancellations with 5 or fewer days' notice will be subject to a 25% restocking fee. Orders cannot be canceled or rescheduled once meals have been shipped.
 			</div>
 		</div>
 	</div>
@@ -259,31 +207,20 @@
 		</div>
 		<div id="collapse-DLVRD-TwentyOne" class="collapse" aria-labelledby="heading-DLVRD-TwentyOne" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				If you need to update the address submitted with your order, please contact support as soon as possible. The address in your account is for reference on future orders and they do not affect submitted orders.
+				If you need to update the address submitted with your order, please contact us as soon as possible. The address in your account is for reference on future orders and they do not affect submitted orders.
 			</div>
 		</div>
 	</div>
-	<div class="card">
-		<div class="card-header" id="heading-DLVRD-Twentytwo">
-			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-DLVRD-Twentytwo" aria-expanded="false" aria-controls="collapse-DLVRD-Twentytwo">
-				I am a member of Meal Prep+, do I get my discount on a Delivered Box?
-			</button>
-		</div>
-		<div id="collapse-DLVRD-Twentytwo" class="collapse" aria-labelledby="heading-DLVRD-Twentytwo" data-parent="#accordion-DLVRD">
-			<div class="card-body">
-				Not at this time.
-			</div>
-		</div>
-	</div>
+	
 	<div class="card">
 		<div class="card-header" id="heading-DLVRD-Twentythree">
 			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-DLVRD-Twentythree" aria-expanded="false" aria-controls="collapse-DLVRD-Twentythree">
-				I am a preferred guest; do I get my discount on a Delivered Box?
+				I am a preferred guest; do I get my discount on a shipped box?
 			</button>
 		</div>
 		<div id="collapse-DLVRD-Twentythree" class="collapse" aria-labelledby="heading-DLVRD-Twentythree" data-parent="#accordion-DLVRD">
 			<div class="card-body">
-				No, preferred guests do not receive a discount on their Delivered purchases.
+				No, preferred guests do not receive a discount on their shipped purchases.
 			</div>
 		</div>
 	</div>

@@ -1,52 +1,26 @@
 <?php if (empty($this->sticky_nav_bottom_disable)) { ?>
-	<?php if (defined('ENABLE_HELP_SEARCH') && ENABLE_HELP_SEARCH == true) { ?>
-		<section>
-			<div class="container-fluid footer-nav border-bottom border-top border-green-dark py-2 mt-5 bg-white d-lg-none d-print-none">
-				<div class="row">
-
-					<a href="/how-it-works" class="col-3 px-0 text-center font-size-small">
-						<i class="dd-icon icon-measuring_cup font-size-medium-large text-green"></i>
-						<div>How it Works</div>
-					</a>
-					<a href="/session-menu" class="col-3 px-0 text-center font-size-small">
-						<i class="dd-icon icon-cart font-size-medium-large text-green mr-1"></i>
-						<div>Order</div>
-					</a>
-					<a href="#" class="col-3 px-0 text-center font-size-small help-search-launcher">
-						<i class="dd-icon icon-information-solid font-size-medium-large text-green mr-1"></i>
-						<div>Help</div>
-					</a>
-					<a href="#" data-toggle="collapse" data-target="#main-sidenav" aria-expanded="false" aria-label="Toggle main navigation" class="col-2 px-0 text-center font-size-small">
-						<i class="dd-icon icon-ellipsis font-size-medium-large text-green"></i>
-						<div>More</div>
-					</a>
-				</div>
+	<section>
+		<div class="container-fluid footer-nav border-bottom border-top border-green-dark py-2 mt-5 bg-white d-lg-none d-print-none">
+			<div class="row">
+				<a href="/browse-menu" class="col-4 pr-0 text-center font-size-small">
+					<i class="dd-icon icon-table_setting font-size-medium-large text-green"></i>
+					<div>Menu Preview</div>
+				</a>
+				<a href="/how-it-works" class="col-3 px-0 text-center font-size-small">
+					<i class="dd-icon icon-measuring_cup font-size-medium-large text-green"></i>
+					<div>How it Works</div>
+				</a>
+				<a href="/session-menu" class="col-2 px-0 text-center font-size-small">
+					<i class="dd-icon icon-cart font-size-medium-large text-green mr-1"></i>
+					<div>Order</div>
+				</a>
+				<a href="#" data-toggle="collapse" data-target="#main-sidenav" aria-expanded="false" aria-label="Toggle main navigation" class="col-2 px-0 text-center font-size-small">
+					<i class="dd-icon icon-ellipsis font-size-medium-large text-green"></i>
+					<div>More</div>
+				</a>
 			</div>
-		</section>
-	<?php }else { ?>
-		<section>
-			<div class="container-fluid footer-nav border-bottom border-top border-green-dark py-2 mt-5 bg-white d-lg-none d-print-none">
-				<div class="row">
-					<a href="/browse-menu" class="col-4 pr-0 text-center font-size-small">
-						<i class="dd-icon icon-table_setting font-size-medium-large text-green"></i>
-						<div>Menu Preview</div>
-					</a>
-					<a href="/how-it-works" class="col-3 px-0 text-center font-size-small">
-						<i class="dd-icon icon-measuring_cup font-size-medium-large text-green"></i>
-						<div>How it Works</div>
-					</a>
-					<a href="/session-menu" class="col-2 px-0 text-center font-size-small">
-						<i class="dd-icon icon-cart font-size-medium-large text-green mr-1"></i>
-						<div>Order</div>
-					</a>
-					<a href="#" data-toggle="collapse" data-target="#main-sidenav" aria-expanded="false" aria-label="Toggle main navigation" class="col-2 px-0 text-center font-size-small">
-						<i class="dd-icon icon-ellipsis font-size-medium-large text-green"></i>
-						<div>More</div>
-					</a>
-				</div>
-			</div>
-		</section>
-	<?php } ?>
+		</div>
+	</section>
 <?php } ?>
 
 <footer class="bg-green-dark text-white p-5 mt-5 d-print-none">
@@ -59,10 +33,8 @@
 				<a class="list-group-item bg-green-dark text-white py-0" href="/shipping">Shipping</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/browse-menu">Menu Preview</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/share">Share</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/my-account">My Account</a>			
-				<?php if (defined('ENABLE_HELP_SEARCH') && ENABLE_HELP_SEARCH == true) { ?>
-					<a class="list-group-item bg-green-dark text-white py-0 help-search-launcher" href="#">Help</a>
-				<?php } ?>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/my-account">My Account</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/help">Help</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/gift-card-order">Gift Cards</a>
 			</div>
 		</div>
@@ -97,7 +69,6 @@
 					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/session-mgr">Calendar</a>
 					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/menu-inventory-mgr">Inventory Manager</a>
 					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/menu-editor">Menu Editor</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/gift-card-management">Gift Cards</a>
 				</div>
 			<?php } ?>
 		</div>
@@ -106,7 +77,6 @@
 				<div class="col text-center text-xl-right">
 					<a href="https://instagram.com/dreamdinners" rel="noopener" class="text-decoration-hover-none font-size-extra-large text-green-light mr-3" target="_blank"><i class="fab fa-instagram"></i></a>
 					<a href="https://facebook.com/dreamdinners" rel="noopener" class="text-decoration-hover-none font-size-extra-large text-green-light mr-3" target="_blank"><i class="fab fa-facebook-f"></i></a>
-					<a href="https://pinterest.com/dreamdinners" rel="noopener" class="text-decoration-hover-none font-size-extra-large text-green-light" target="_blank"><i class="fab fa-pinterest"></i></a>
 				</div>
 			</div>
 		</div>
