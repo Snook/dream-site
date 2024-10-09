@@ -59,7 +59,7 @@
 				<a class="list-group-item bg-green-dark text-white py-0" href="/shipping">Shipping</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/browse-menu">Menu Preview</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/share">Share</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/my-account">My Account</a>			
+				<a class="list-group-item bg-green-dark text-white py-0" href="/my-account">My Account</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/help">Help</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/gift-card-order">Gift Cards</a>
 			</div>

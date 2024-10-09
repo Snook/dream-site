@@ -40,9 +40,7 @@
 						<h3 id="platepoints" class="mb-3 semibold-subtitle">PlatePoints</h3>
 						<div class="mb-4"><?php include $this->loadTemplate('customer/subtemplate/faq/faq_platepoints.tpl.php'); ?></div>
 						<h3 id="shipping" class="mb-3 semibold-subtitle">Shipping</h3>
-						<div class="mb-4"><?php include $this->loadTemplate('customer/subtemplate/faq/faq_delivered..tpl.php'); ?></div>
-
-
+						<div class="mb-4"><?php include $this->loadTemplate('customer/subtemplate/faq/faq_delivered.tpl.php'); ?></div>
 					</div>
 				</div>
 			</div>
