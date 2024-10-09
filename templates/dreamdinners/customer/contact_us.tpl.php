@@ -29,26 +29,21 @@
 						<address>
 							<strong>Dream Dinners <?php echo $storeInfo['store_name']; ?></strong>
 							<div><?php echo (!empty($storeInfo['address_line2'])) ? $storeInfo['address_line1'] . ', ' . $storeInfo['address_line2'] : $storeInfo['address_line1']; ?>, <?php echo $storeInfo['city']; ?>, <?php echo $storeInfo['state_id']; ?> <?php echo $storeInfo['postal_code']; ?></div>
-							<div><abbr title="Phone">P:</abbr> <?php echo $storeInfo['telephone_day']; ?></div>
+							<div><?php echo $storeInfo['telephone_day']; ?></div>
 							<div><a href="mailto:<?php echo $storeInfo['email_address']; ?>"><?php echo $storeInfo['email_address']; ?></a></div>
 						</address>
 					</div>
 				</div>
 			<?php } ?>
 		<?php } ?>
-        <div class="row mb-5">
-			<div class="col text-center">
-				<h2 class="font-weight-semi-bold font-size-medium mb-md-4">FAQs</h2>
-				<p class="mb-md-4"><a href="https://bugbase.dreamdinners.me/support/home" target="_blank" class="help-search-launcher">Browse our list of help topics</a> to find answers to your questions.</p>
-			</div>
-		</div>
+
 		<div class="row mb-5">
 			<div class="col text-center">
 				<h2 class="font-weight-semi-bold font-size-medium mb-md-4">Corporate guest services &amp; website support</h2>
 				<address>
 					<strong>Dream Dinners, Inc.</strong>
 					<div>P.O. Box #889, Snohomish, WA 98291</div>
-					<div><abbr title="Phone">P:</abbr> 360-804-2020</div>
+					<div>360-804-2020</div>
 					<div><a href="mailto:customerservice@dreamdinners.com">customerservice@dreamdinners.com</a></div>
 				</address>
 			</div>
