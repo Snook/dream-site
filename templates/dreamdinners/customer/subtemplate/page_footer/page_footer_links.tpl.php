@@ -1,52 +1,26 @@
 <?php if (empty($this->sticky_nav_bottom_disable)) { ?>
-	<?php if (defined('ENABLE_HELP_SEARCH') && ENABLE_HELP_SEARCH == true) { ?>
-		<section>
-			<div class="container-fluid footer-nav border-bottom border-top border-green-dark py-2 mt-5 bg-white d-lg-none d-print-none">
-				<div class="row">
-
-					<a href="/how-it-works" class="col-3 px-0 text-center font-size-small">
-						<i class="dd-icon icon-measuring_cup font-size-medium-large text-green"></i>
-						<div>How it Works</div>
-					</a>
-					<a href="/session-menu" class="col-3 px-0 text-center font-size-small">
-						<i class="dd-icon icon-cart font-size-medium-large text-green mr-1"></i>
-						<div>Order</div>
-					</a>
-					<a href="/help" class="col-3 px-0 text-center font-size-small">
-						<i class="dd-icon icon-information-solid font-size-medium-large text-green mr-1"></i>
-						<div>Help</div>
-					</a>
-					<a href="#" data-toggle="collapse" data-target="#main-sidenav" aria-expanded="false" aria-label="Toggle main navigation" class="col-2 px-0 text-center font-size-small">
-						<i class="dd-icon icon-ellipsis font-size-medium-large text-green"></i>
-						<div>More</div>
-					</a>
-				</div>
+	<section>
+		<div class="container-fluid footer-nav border-bottom border-top border-green-dark py-2 mt-5 bg-white d-lg-none d-print-none">
+			<div class="row">
+				<a href="/browse-menu" class="col-4 pr-0 text-center font-size-small">
+					<i class="dd-icon icon-table_setting font-size-medium-large text-green"></i>
+					<div>Menu Preview</div>
+				</a>
+				<a href="/how-it-works" class="col-3 px-0 text-center font-size-small">
+					<i class="dd-icon icon-measuring_cup font-size-medium-large text-green"></i>
+					<div>How it Works</div>
+				</a>
+				<a href="/session-menu" class="col-2 px-0 text-center font-size-small">
+					<i class="dd-icon icon-cart font-size-medium-large text-green mr-1"></i>
+					<div>Order</div>
+				</a>
+				<a href="#" data-toggle="collapse" data-target="#main-sidenav" aria-expanded="false" aria-label="Toggle main navigation" class="col-2 px-0 text-center font-size-small">
+					<i class="dd-icon icon-ellipsis font-size-medium-large text-green"></i>
+					<div>More</div>
+				</a>
 			</div>
-		</section>
-	<?php }else { ?>
-		<section>
-			<div class="container-fluid footer-nav border-bottom border-top border-green-dark py-2 mt-5 bg-white d-lg-none d-print-none">
-				<div class="row">
-					<a href="/browse-menu" class="col-4 pr-0 text-center font-size-small">
-						<i class="dd-icon icon-table_setting font-size-medium-large text-green"></i>
-						<div>Menu Preview</div>
-					</a>
-					<a href="/how-it-works" class="col-3 px-0 text-center font-size-small">
-						<i class="dd-icon icon-measuring_cup font-size-medium-large text-green"></i>
-						<div>How it Works</div>
-					</a>
-					<a href="/session-menu" class="col-2 px-0 text-center font-size-small">
-						<i class="dd-icon icon-cart font-size-medium-large text-green mr-1"></i>
-						<div>Order</div>
-					</a>
-					<a href="#" data-toggle="collapse" data-target="#main-sidenav" aria-expanded="false" aria-label="Toggle main navigation" class="col-2 px-0 text-center font-size-small">
-						<i class="dd-icon icon-ellipsis font-size-medium-large text-green"></i>
-						<div>More</div>
-					</a>
-				</div>
-			</div>
-		</section>
-	<?php } ?>
+		</div>
+	</section>
 <?php } ?>
 
 <footer class="bg-green-dark text-white p-5 mt-5 d-print-none">
