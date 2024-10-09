@@ -12,7 +12,7 @@
 						<i class="dd-icon icon-cart font-size-medium-large text-green mr-1"></i>
 						<div>Order</div>
 					</a>
-					<a href="#" class="col-3 px-0 text-center font-size-small help-search-launcher">
+					<a href="/help" class="col-3 px-0 text-center font-size-small">
 						<i class="dd-icon icon-information-solid font-size-medium-large text-green mr-1"></i>
 						<div>Help</div>
 					</a>
@@ -60,9 +60,7 @@
 				<a class="list-group-item bg-green-dark text-white py-0" href="/browse-menu">Menu Preview</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/share">Share</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/my-account">My Account</a>			
-				<?php if (defined('ENABLE_HELP_SEARCH') && ENABLE_HELP_SEARCH == true) { ?>
-					<a class="list-group-item bg-green-dark text-white py-0 help-search-launcher" href="#">Help</a>
-				<?php } ?>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/help">Help</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/gift-card-order">Gift Cards</a>
 			</div>
 		</div>
@@ -97,7 +95,6 @@
 					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/session-mgr">Calendar</a>
 					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/menu-inventory-mgr">Inventory Manager</a>
 					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/menu-editor">Menu Editor</a>
-					<a class="list-group-item bg-green-dark text-white py-0" href="/backoffice/gift-card-management">Gift Cards</a>
 				</div>
 			<?php } ?>
 		</div>
@@ -106,7 +103,6 @@
 				<div class="col text-center text-xl-right">
 					<a href="https://instagram.com/dreamdinners" rel="noopener" class="text-decoration-hover-none font-size-extra-large text-green-light mr-3" target="_blank"><i class="fab fa-instagram"></i></a>
 					<a href="https://facebook.com/dreamdinners" rel="noopener" class="text-decoration-hover-none font-size-extra-large text-green-light mr-3" target="_blank"><i class="fab fa-facebook-f"></i></a>
-					<a href="https://pinterest.com/dreamdinners" rel="noopener" class="text-decoration-hover-none font-size-extra-large text-green-light" target="_blank"><i class="fab fa-pinterest"></i></a>
 				</div>
 			</div>
 		</div>
