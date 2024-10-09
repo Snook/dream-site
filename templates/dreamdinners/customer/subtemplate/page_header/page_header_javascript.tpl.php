@@ -24,5 +24,5 @@ if(isset($this->head_script))
 	};
 	!function(){if("function"!=typeof window.FreshworksWidget){var n=function(){n.q.push(arguments)};n.q=[],window.FreshworksWidget=n}}()
 </script>
-<script type='text/javascript' src='https://widget.freshworks.com/widgets/13000000649.js' async defer></script>
+<script type='text/javascript' src=' https://widget.freshworks.com/widgets/13000000649.js' async defer></script>
 <?php } ?>

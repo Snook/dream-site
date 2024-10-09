@@ -1618,7 +1618,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 		$DAO_session = $DAO_orders->findSession(true);
 		$DAO_orders->reconstruct();
 
-		if (!empty($DAO_orders->menu_id) && $DAO_orders->menu_id <= 278)
+		if (!empty($DAO_session->menu_id) && $DAO_session->menu_id <= 278)
 		{
 			if ($DAO_user->dream_rewards_version == 3 && ($DAO_user->dream_reward_status == 1 || $DAO_user->dream_reward_status == 3))
 			{
@@ -3122,7 +3122,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 		$DAO_orders->is_deleted = 0;
 		$DAO_orders->product_items_total_count = 0;
 		$DAO_orders->order_type = 'DIRECT';
-		if (!empty($DAO_orders->menu_id) && $DAO_orders->menu_id <= 278)
+		if (!empty($DAO_session->menu_id) && $DAO_session->menu_id <= 278)
 		{
 			if ($DAO_user->dream_rewards_version == 3 && ($DAO_user->dream_reward_status == 1 || $DAO_user->dream_reward_status == 3))
 			{
