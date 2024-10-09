@@ -337,7 +337,7 @@ class CUserPreferred extends DAO_User_preferred
 						for ($i = 0; $i < $item->item_count; $i++)
 						{
 							//Sides and Sweets
-							if (!empty($preferredObj->include_sides) && $item->isMenuItem_SidesSweets())
+							if (!empty($preferredObj->include_sides) && ($item->isMenuItem_SidesSweets() || $item->isMenuItem_EFL()))
 							{
 								if (is_null($item->override_price))
 								{
@@ -395,5 +395,3 @@ class CUserPreferred extends DAO_User_preferred
 		return $result;
 	}
 }
-
-?>
