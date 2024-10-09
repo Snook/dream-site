@@ -168,7 +168,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="card">
+	<!--<div class="card">
 		<div class="card-header" id="heading-DD-Fourteen">
 			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-DD-Fourteen" aria-expanded="false" aria-controls="collapse-DD-Fourteen">
 				Can I order additional menu items, side dishes and desserts with the Meal Prep Starter Pack?
@@ -205,7 +205,7 @@
 		</div>
 	</div>
 
-	<!--<div class="card">
+	<div class="card">
 		<div class="card-header" id="heading-DD-Eighteen">
 			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-DD-Eighteen" aria-expanded="false" aria-controls="collapse-DD-Eighteen">
 				Can I send my friends a link to this Meal Prep Starter Pack?
@@ -216,7 +216,7 @@
 				Yes! Please send your friends to <a href="/">dreamdinners.com</a>, and have them click on the Meal Prep Starter Pack button on our home page.
 			</div>
 		</div>
-	</div>-->
+	</div>
 	<div class="card">
 		<div class="card-header" id="heading-DD-Nineteen">
 			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-DD-Nineteen" aria-expanded="false" aria-controls="collapse-DD-Nineteen">
@@ -277,7 +277,7 @@
 			</div>
 		</div>
 	</div>-->
-	<div class="card">
+	<!--<div class="card">
 		<div class="card-header" id="heading-DD-Twentyfour">
 			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-DD-Twentyfour" aria-expanded="false" aria-controls="collapse-DD-Twentyfour">
 				How can I rate my meals?
@@ -300,8 +300,8 @@
 		<div id="collapse-DD-Twentyfive" class="collapse" aria-labelledby="heading-DD-Twentyfive" data-parent="#accordion-DD">
 			<div class="card-body">
 				<p>We look forward with great anticipation to the day that we have the opportunity to serve you and your community. We are, however, a franchise organization and our stores are owned and operated by individuals who are qualified to purchase and invest in owning their own Dream Dinners business. As such, our desire to expand is directly related to connecting with strategic-partners to join us on our journey to make a difference in the lives of families across the nation. Please continue to watch our website for updates and for new location notifications.</p>
-				<!--<p>If you are interested in starting or owning a Dream Dinners Franchise in your area, <a href="/franchise_info">click here to visit our Franchise Information site</a>.</p>-->
+				<p>If you are interested in starting or owning a Dream Dinners Franchise in your area, <a href="/franchise_info">click here to visit our Franchise Information site</a>.</p>
 			</div>
 		</div>
-	</div>
+	</div>-->
 </div>

@@ -94,7 +94,6 @@
 											<a class="dropdown-item nav-link" href="/backoffice/session-mgr">Calendar</a>
 											<a class="dropdown-item nav-link" href="/backoffice/menu-inventory-mgr">Inventory Manager</a>
 											<a class="dropdown-item nav-link" href="/backoffice/menu-editor">Menu Editor</a>
-											<a class="dropdown-item nav-link" href="/backoffice/gift-card-management">Gift Cards</a>
 										<?php } ?>
 
 										<?php if (defined('DEV_BASE_NAME') && DEV_BASE_NAME) { ?>
@@ -141,9 +140,7 @@
 	<a class="dropdown-item" href="/promotions">Promotions</a>
 	<a class="dropdown-item" href="/gift-card-order">Gift Cards</a>
 	<a class="dropdown-item" href="/about-us">About Us</a>
-	<?php if (defined('ENABLE_HELP_SEARCH') && ENABLE_HELP_SEARCH == true) { ?>
-		<a class="dropdown-item help-search-launcher" href="#">Help</a>
-	<?php } ?>
+	<a class="dropdown-item" href="/help">Help</a>
 	<?php if (!CUser::isLoggedIn()) { ?>
 		<a class="btn btn-primary btn-block" href="/login">Sign In</a>
 	<?php } ?>
@@ -155,7 +152,6 @@
 		<a class="dropdown-item" href="/backoffice/session-mgr">Calendar</a>
 		<a class="dropdown-item" href="/backoffice/menu-inventory-mgr">Inventory Manager</a>
 		<a class="dropdown-item" href="/backoffice/menu-editor">Menu Editor</a>
-		<a class="dropdown-item" href="/backoffice/gift-card-management">Gift Cards</a>
 	<?php } ?>
 
 	<?php if (defined('DEV_BASE_NAME') && DEV_BASE_NAME) { ?>

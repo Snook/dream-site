@@ -7,33 +7,7 @@
 		</div>
 		<div id="collapse-GC-One" class="collapse" aria-labelledby="heading-GC-One" data-parent="#accordion-GC">
 			<div class="card-body">
-				<p>Yes! Looking for a gift that will delight not only the recipient, but everyone else at the table as well? Dream Dinners gift cards are an excellent gift for family, friends and co-workers, as well as a customer appreciation gift or employee reward.</p>
-				<p>Gift Cards are easily mailed directly to a family member or friend in any city where there is a Dream Dinners location. You can purchase multiple cards and give them away personally or send an eGift card instantly via email! Dream Dinners Gift Cards are available through our website and in stores and are redeemable at any Dream Dinners location.</p>
-			</div>
-		</div>
-	</div>
-	<div class="card">
-		<div class="card-header" id="heading-GC-Two">
-			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-GC-Two" aria-expanded="false" aria-controls="collapse-GC-Two">
-				What is the difference between a &quot;Traditional&quot; gift card and an &quot;eGift&quot; card?
-			</button>
-		</div>
-		<div id="collapse-GC-Two" class="collapse" aria-labelledby="heading-GC-Two" data-parent="#accordion-GC">
-			<div class="card-body">
-				<p>Traditional gift cards are the standard plastic gift cards that that can be purchased in Dream Dinners stores or online and shipped via standard mail (2-6 business days). Our eGift cards are virtual gift cards that are sent instantly via email and can be used immediately by the recipient.</p>
-				<p>Both gift cards types work identically as a form of payment when making a purchase at DreamDinners.com.</p>
-			</div>
-		</div>
-	</div>
-	<div class="card">
-		<div class="card-header" id="heading-GC-Three">
-			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-GC-Three" aria-expanded="false" aria-controls="collapse-GC-Three">
-				Can I give away or share my Gift Card with someone else?
-			</button>
-		</div>
-		<div id="collapse-GC-Three" class="collapse" aria-labelledby="heading-GC-Three" data-parent="#accordion-GC">
-			<div class="card-body">
-				Yes, treat your gift cards like cash. They can be redeemed by anyone with the Gift Card details.
+				<p>No. We have discontinued our national gift card program. Contact your local store to purchase a gift certificate or learn about available gifting options.</p>
 			</div>
 		</div>
 	</div>
@@ -69,7 +43,7 @@
 		</div>
 		<div id="collapse-GC-Six" class="collapse" aria-labelledby="heading-GC-Six" data-parent="#accordion-GC">
 			<div class="card-body">
-				<a href="/gift-card-balance">Click here to check your current balance.</a>
+				<a href="/gift-card-order">Click here to check your current balance.</a>
 			</div>
 		</div>
 	</div>
@@ -98,28 +72,5 @@
 			</div>
 		</div>
 	</div>
-	<div class="card">
-		<div class="card-header" id="heading-GC-Nine">
-			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-GC-Nine" aria-expanded="false" aria-controls="collapse-GC-Nine">
-				How long does it take to receive a gift card that I purchased online?
-			</button>
-		</div>
-		<div id="collapse-GC-Nine" class="collapse" aria-labelledby="heading-GC-Nine" data-parent="#accordion-GC">
-			<div class="card-body">
-				Traditional gift cards are shipped via standard mail in 2-6 business days. Virtual eGift cards are sent via email instantly after purchase and can be used immediately.
-			</div>
-		</div>
-	</div>
-	<div class="card">
-		<div class="card-header" id="heading-GC-Ten">
-			<button class="btn btn-link text-left text-white-space-wrap collapsed" data-toggle="collapse" data-target="#collapse-GC-Ten" aria-expanded="false" aria-controls="collapse-GC-Ten">
-				Are Dream Dinners gift cards redeemable at any other locations?
-			</button>
-		</div>
-		<div id="collapse-GC-Ten" class="collapse" aria-labelledby="heading-GC-Ten" data-parent="#accordion-GC">
-			<div class="card-body">
-				Dream Dinners gift cards are only redeemable at Dream Dinners' stores.
-			</div>
-		</div>
-	</div>
+
 </div>
