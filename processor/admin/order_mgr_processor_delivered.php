@@ -1796,8 +1796,6 @@ class processor_admin_order_mgr_processor_delivered extends CPageProcessor
 					$OrderObj->query("update orders set order_confirmation = '{$OrderObj->order_confirmation}' where id = {$OrderObj->id}");
 					$OrderObj->removeInitialInventory();
 
-					// TODO: set default Dist ctr?
-					//$userObj->setHomeStore($OrderObj->store_id);
 					// Increment DreamRewards Status if Appropriate
 
 					CCustomerReferral::updateAsOrderedIfEligible($userObj, $OrderObj);

@@ -8566,12 +8566,18 @@ class COrders extends DAO_Orders
 		}
 	}
 
-	function postProcessActivatedOrder($Store, $Customer, $emptyCart = false)
+	/**
+	 * @throws Exception
+	 */
+	function postProcessActivatedOrder($DAO_store, $DAO_user, $emptyCart = false): void
 	{
 		CLog::RecordDebugTrace('COrders::postProcessActivatedOrder called for order: ' . $this->id, "TR_TRACING");
 
 		try
 		{
+			// Update Home Store
+			$DAO_user->setHomeStore($DAO_store->id);
+
 			// On the live server we must eat exceptions here as the order has been committed at thgis point.  If an excpetion occurs here and is alloe
 			if ($this->points_discount_total > 0)
 			{
@@ -8582,7 +8588,7 @@ class COrders extends DAO_Orders
 			// if this fails, we will not stop the order no matter what
 			// Additionally, if this is too slow, we may need to create a cron job that will look these up nightly :(
 			CUserRetentionData::updateUserRetentionInfo($this->user_id, $this->id, $this->store_id);
-			COrdersDigest::recordNewOrder($this, $Store);
+			COrdersDigest::recordNewOrder($this, $DAO_store);
 
 			// insert orders_address
 			if ($this->session->isDelivery())

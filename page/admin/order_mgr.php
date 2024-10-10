@@ -89,7 +89,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 	function runOrderManager()
 	{
-
 		ini_set('memory_limit', '128M');
 		set_time_limit(1800);
 		$tpl = CApp::instance()->template();
@@ -125,12 +124,10 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 				try
 				{
-
 					$processor->doSetSessionAndSave(true, true);
 				}
 				catch (Exception $e)
 				{
-
 					if ($e->getCode() == processor_admin_order_mgr_processor::dd_general_exception_code && strpos($e->getMessage(), "no open slots") !== false)
 					{
 						$tpl->setErrorMsg("The session has no open slots for this order. Please return to the Sessions and Menu Page and select a new session.");
@@ -146,7 +143,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 		}
 		else
 		{
-
 			// Get the original order
 			$this->originalOrder = DAO_CFactory::create('orders');
 			$this->originalOrder->id = CGPC::do_clean($_REQUEST['order'], TYPE_INT);
@@ -259,7 +255,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$currentFadminStore = CBrowserSession::getCurrentFadminStore();
 			if ($this->originalOrder->store_id != $currentFadminStore)
 			{
-
 				$storeName = $this->daoStore->store_name;
 				$tpl->setErrorMsg("This order (#{$this->originalOrder->id}) was placed at a different store. Please change to the $storeName store to edit it.");
 				CApp::bounce('/backoffice');
@@ -635,7 +630,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 		{
 			foreach ($items as $menu_item)
 			{
-
 				if (array_key_exists($menu_item[1]->id, $bundleItems['bundle']) && $bundleItems['bundle'][$menu_item[1]->id]['chosen'])
 				{
 					$items[$menu_item[1]->id][0]--;
@@ -659,7 +653,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 		{
 			foreach ($items as $menu_item)
 			{
-
 				$orgQuantities[$menu_item[1]->id] = $menu_item[0];
 
 				if ($menu_item[1]->order_item_ltd_menu_item)
@@ -827,7 +820,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 		while ($Store_Credit->fetch())
 		{
-
 			$this->Store_Credit_Array[$Store_Credit->id] = array(
 				'Source' => $Store_Credit->credit_card_number,
 				'Amount' => $Store_Credit->amount,
@@ -926,7 +918,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 			foreach ($menuInfo as $categoryName => $subArray)
 			{
-
 				if (is_array($subArray))
 				{
 					foreach ($subArray as $item => $menu_item)
@@ -938,7 +929,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 						if (is_numeric($item) && !($menu_item['is_chef_touched']))
 						{
-
 							$qtyName = self::QUANTITY_PREFIX . $menu_item['id'];
 
 							$keyUpHandlerName = 'qtyUpdate';
@@ -995,7 +985,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 								{
 									if ($addRemaining > $EntreeToInventoryMap[$menu_item['entree_id']]['org_remaining'])
 									{
-
 										$reduceTo = intval($EntreeToInventoryMap[$menu_item['entree_id']]['org_remaining'] / $menu_item['servings_per_item']);
 
 										$Form->DefaultValues[$qtyName] = $reduceTo;
@@ -1169,7 +1158,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 			$index = 0;
 			foreach ($ctsArray as $id => &$data)
 			{
-
 				$qtyName = self::QUANTITY_PREFIX . $id;
 
 				if (!isset($orgQuantities[$id]))
@@ -1992,7 +1980,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 			if ($maxAvailablePPCredit > 0 && empty($activeUP) && empty($originalUP))
 			{
-
 				if ($this->originalOrder->points_discount_total == 0)
 				{
 					$Form->DefaultValues['plate_points_discount'] = "";
@@ -2092,7 +2079,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 			if ($refPaymentTypeData)
 			{
-
 				$refPaymentTypeDataByRefID = array();
 
 				foreach ($refPaymentTypeData as $cc_id => $pay_data)
@@ -2221,7 +2207,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 		// ------------------------- Process Edits
 		if (isset($_POST['submit_changes']) && $_POST['submit_changes'] == "true")
 		{
-
 			CLog::RecordDebugTrace('order_mgr submission handling called for order: ' . $this->originalOrder->id, "TR_TRACING");
 
 			if (!$Form->validate_CSRF_token())
@@ -2262,7 +2247,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 				}
 				catch (Exception $e)
 				{
-
 					$Form->setCSRFToken();
 
 					$tpl->setErrorMsg("(#e1) A problem occurred during order processing. <br />" . $e->getMessage());
@@ -2410,7 +2394,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 				// -------------------------------------------------------------------- process misc Subtotals
 				if (isset($_POST['misc_food_subtotal']))
 				{
-
 					if (empty($_POST['misc_food_subtotal']) || !is_numeric($_POST['misc_food_subtotal']))
 					{
 						$this->originalOrder->misc_food_subtotal = 0;
@@ -2520,7 +2503,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 					// PlatePoints Discount
 					if (isset($_POST['plate_points_discount']))
 					{
-
 						if (empty($_POST['plate_points_discount']))
 						{
 							$_POST['plate_points_discount'] = 0;
@@ -2616,7 +2598,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 					if (!$this->originalOrder->verifyAdequateInventory())
 					{
-
 						$itemsOversold = $this->originalOrder->getInvExceptionItemsString();
 
 						$tpl->setErrorMsg('Inventory has changed since the order was started and an item has run out of stock. Please review the order and try again. Items adjusted are:<br />' . $itemsOversold);
@@ -2742,7 +2723,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 				}
 				catch (Exception $e)
 				{
-
 					$this->originalOrder->points_discount_total = $originalOrderPriorToUpdate->points_discount_total;
 
 					$this->originalOrder->query('ROLLBACK;');
@@ -2782,10 +2762,8 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 			if (!empty($this->originalOrder->bundle_id) && $this->originalOrder->bundle_id != 'null')
 			{
-
 				if ($Session->session_type == CSession::DREAM_TASTE)
 				{
-
 					$dreamEventProperties = CDreamTasteEvent::sessionProperties($Session->id);
 
 					$theBundle = DAO_CFactory::create('bundle');
@@ -2947,7 +2925,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 	private function removeCouponFreeMealFromDisplayItems(&$Order, &$menuInfo, &$orgQuantities)
 	{
-
 		$coupon = $Order->getCoupon();
 		if ($coupon && $coupon->discount_method == 'FREE_MEAL')
 		{
@@ -2964,7 +2941,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 	static function buildUserPreferredArray($order, $user, $store_id)
 	{
-
 		$activePreferred = DAO_CFactory::create('user_preferred');
 		$activePreferred->user_id = $user->id;
 		if ($activePreferred->findActive($store_id))
@@ -3080,7 +3056,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 		$refPayArray = array();
 		if ($origPayment->find())
 		{
-
 			while ($origPayment->fetch())
 			{
 				if ($origPayment->is_delayed_payment)
@@ -3114,7 +3089,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 	function assignRefundsToPayments(&$paymentInfo, &$refTransArray = false)
 	{
-
 		$sensiblePaymentArray = array();
 		foreach ($paymentInfo as $k => $arrItem)
 		{
@@ -3165,7 +3139,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 			{
 				if (isset($payment['current_refunded_amount']) && $payment['current_refunded_amount'] > 0)
 				{
-
 					$amountStr = "<span style='color:red'>$" . CTemplate::moneyFormat($payment['current_refunded_amount']) . " ($" . CTemplate::moneyFormat($payment['total'] - $payment['current_refunded_amount']) . " remaining)</span>";
 					$paymentInfo[$payment['payment_ord_num']]['current_refunded_amount'] = array(
 						'title' => 'Currently Refunded',
@@ -3192,7 +3165,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 	public static function buildPaymentForm($tpl, $Form, $numPayments, $Store, $order_state, $sessionObj = false, $addRefType = true, $addDPAdjustType = false, $refPaymentTypeData = false, $order_is_locked = false)
 	{
-
 		$cardOptions = array('null' => 'Card Type');
 		$creditCardArray = $Store->getCreditCardTypes();
 		if ($creditCardArray)
@@ -3637,7 +3609,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 	function getCreditableStoreCreditPaymentTotal()
 	{
-
 		// first get all payments
 		$scPayment = DAO_CFactory::create('payment');
 		$scPayment->order_id = $this->originalOrder->id;
@@ -3669,7 +3640,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 	function getCreditableGiftCardPaymentTotal()
 	{
-
 		// first get all payments
 		$gcPayment = DAO_CFactory::create('payment');
 		$gcPayment->order_id = $this->originalOrder->id;
@@ -3870,7 +3840,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 	function getReferencedTransactions($isCreditToCustomer = false, $override_prefix = false)
 	{
-
 		if ($override_prefix)
 		{
 			$prefix = $override_prefix;
@@ -3926,7 +3895,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 	function processReferences($origPayments, $newPayment)
 	{
-
 		$counter = 0;
 
 		foreach ($origPayments as $id => $origPayment)
@@ -3994,7 +3962,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 	function processCC($paymentNumber, $newPayment)
 	{
-
 		$newPayment->payment_type = CPayment::CC;
 
 		if ($paymentNumber == 1)
@@ -4063,7 +4030,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 		//check if user has billing address, if not then create one from address info entered
 		if (!empty($addr) && !empty($state_id) && !empty($city) && !empty($zip) && !empty($this->originalOrder->user_id))
 		{
-
 			$userObj = DAO_CFactory::create('user');
 			$userObj->id = $this->originalOrder->user_id;
 			if ($userObj->find(true))
@@ -4199,7 +4165,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 	function processDebitGiftCard($newPayment)
 	{
-
 		if (!ValidationRules::isValidPositiveDecimal($_POST['debit_gift_card_amount']))
 		{
 			throw new Exception('Debit Gift Card Transaction failed. The amount was invalid.');
@@ -4342,7 +4307,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 		$origPayments = $this->getReferencedTransactions(true);        // true means we are crediting customer
 		if (!empty($origPayments))  // if not empty then processReferences used our payment object
 		{
-
 			$newPayment = DAO_CFactory::create('payment');
 			$newPayment->user_id = $this->originalOrder->user_id;
 			$newPayment->store_id = $this->originalOrder->store_id;
@@ -4388,7 +4352,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 		foreach ($orgGCPayments as $id => $obj)
 		{
-
 			// TODO: This is really a lot more complex:
 			// the available funds that can be credited to store credit are the total of STORE_CREDIT payments minus the REFUND_STORE_CREDIT payments
 			// but the amount available for a particular STORE_CREDIT payment must be calculated for that particular payment.
@@ -4442,7 +4405,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 	function getStoreCreditArray()
 	{
-
 		$retVal = array();
 
 		$storeCredit = DAO_CFactory::create('payment');
@@ -4469,7 +4431,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 		foreach ($orgGCPayments as $id => $obj)
 		{
-
 			if ($obj->total_amount <= $amountToCreditForThisPayment)
 			{
 				$amountToCreditForThisPayment = $obj->total_amount;
@@ -4515,7 +4476,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 	function getDebitGiftCardArray()
 	{
-
 		$retVal = array();
 
 		$giftCard = DAO_CFactory::create('payment');
@@ -4616,7 +4576,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 	 */
 	public static function addMenuItemsToOrder($OrderObj, $orgPrices, &$newAddonQty, &$newAddonAmount, $introPricing, $ltdOrderedMealsArray)
 	{
-
 		$array = $_REQUEST;
 
 		//get menu from session
@@ -4630,7 +4589,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 		{
 			if (isset($item[1]->markdown_id) && is_numeric($item[1]->markdown_id) && $item[1]->markdown_id > 0)
 			{
-
 				// We also need the original price - the passed in org price reflects the markdown so further calculations are off unless we restore marked up price
 				$markedUpPrice = CTemplate::moneyFormat($orgPrices[$id] / ((100 - $item[1]->markdown_value) / 100));
 
@@ -4684,7 +4642,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 		$Session = $OrderObj->findSession();
 		if ($Session->session_type == CSession::DREAM_TASTE)
 		{
-
 			$dreamEventProperties = CDreamTasteEvent::sessionProperties($Session->id);
 
 			$theBundle = DAO_CFactory::create('bundle');
@@ -4733,7 +4690,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 
 		if ($Session->session_type == CSession::FUNDRAISER)
 		{
-
 			$fundraiserEventProperties = CFundraiser::fundraiserEventSessionProperties($Session);
 
 			$theBundle = DAO_CFactory::create('bundle');
@@ -4788,7 +4744,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 						$menuItemInfo->query($query);
 						if ($menuItemInfo->fetch())
 						{
-
 							$OrderObj->addMenuItem($menuItemInfo, 1, true);
 						}
 					}
@@ -4950,7 +4905,6 @@ class page_admin_order_mgr extends CPageAdminOnly
 	{
 		if (isset($_POST['PendingDP']) && is_numeric($_POST['PendingDP']) && ($_POST['PendingDPAmount'] < $_POST['OriginalPendingDPAmount'] || $_POST['payment1_type'] == 'DPADJUST'))
 		{
-
 			$orgAmount = $_POST['OriginalPendingDPAmount'];
 			$adjAmount = $_POST['PendingDPAmount'];
 

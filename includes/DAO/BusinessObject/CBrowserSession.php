@@ -295,8 +295,6 @@ class CBrowserSession extends DAO_Browser_sessions
 		self::setValueAndDuration('last_viewed_store', $id, 172800);
 	}
 
-	//customer or fadmin home store
-
 	/**
 	 * @throws Exception
 	 */
@@ -307,15 +305,12 @@ class CBrowserSession extends DAO_Browser_sessions
 			if (!empty($id))
 			{
 				self::setValue('default_store_id', $id, true);
+
 				if (CUser::isLoggedIn())
 				{
-					$User = CUser::getCurrentUser();
-					$User->setHomeStore($id);
+					$DAO_user = CUser::getCurrentUser();
+					$DAO_user->setHomeStore($id);
 				}
-				//set the current store name
-				$Store = DAO_CFactory::create('store');
-				$Store->id = $id;
-				$Store->find(true);
 			}
 		}
 	}
@@ -341,7 +336,7 @@ class CBrowserSession extends DAO_Browser_sessions
 
 		if (isset($retVal) && !is_numeric($retVal))
 		{
-		    return null;
+			return null;
 		}
 
 		return $retVal;

@@ -945,7 +945,6 @@ class page_payment extends CPage
 
 						// if there is a gift card - the email function is informed and delivers the message
 						COrders::sendConfirmationEmail($theUser, $DAO_orders, $DAO_orders->getGiftCards());
-						$theUser->setHomeStore($DAO_orders->store_id);
 						CCustomerReferral::updateAsOrderedIfEligible($theUser, $DAO_orders);
 						$Cart->emptyCart();
 					}
