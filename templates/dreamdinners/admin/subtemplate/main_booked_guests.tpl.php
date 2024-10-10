@@ -226,9 +226,11 @@ if( !function_exists('translateOrderQuantityType')){
 									<?php } ?>
 								<?php } ?>
 							</td>
-							<td class="title">PlatePoints Pending</td>
+							<td class="title">PlatePoints</td>
 							<td class="value small_value">
-								<?php if($booking['preferred_somewhere']){?>
+								<?php if ($booking["menu_id"] > 278) { ?>
+									Program Discontinued
+								<?php } else if($booking['preferred_somewhere']){?>
 									Not Eligible
 								<?php }else{
 									if (($booking['dream_reward_status'] == 1 || $booking['dream_reward_status'] == 3) && $booking['dream_rewards_version'] == 3) {
