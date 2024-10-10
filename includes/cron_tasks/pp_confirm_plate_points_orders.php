@@ -14,7 +14,7 @@ try
 		exit;
 	}
 
-	if (CTemplate::formatDateTime(timeStamp: TIMENOW) >= '2024-11-07 00:00:00')
+	if (CTemplate::formatDateTime() >= '2024-11-07 00:00:00')
 	{
 		exit;
 	}
