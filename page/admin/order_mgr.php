@@ -1966,7 +1966,7 @@ class page_admin_order_mgr extends CPageAdminOnly
 		$tpl->assign('storeSupportsPlatePoints', $this->storeSupportsPlatePoints);
 
 		$maxAvailablePPCredit = 0;
-		if (($this->userIsPlatePointsGuest && $this->storeSupportsPlatePoints && $this->originalOrder->is_in_plate_points_program) || $orderIsEligibleForMembershipDiscount)
+		if (($this->userIsPlatePointsGuest && $this->storeSupportsPlatePoints) || $orderIsEligibleForMembershipDiscount)
 		{
 			$tpl->assign('isPlatePointsOrder', true);
 
