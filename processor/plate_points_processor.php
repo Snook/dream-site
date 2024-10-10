@@ -307,18 +307,21 @@ class processor_plate_points_processor extends CPageProcessor
 		{
 			list($results, $platePointsStatus) = CPointsUserHistory::handleEvent($this->user_id, CPointsUserHistory::ORDER_CONFIRMED, "", $orderObj);
 
-			$result = array_pop($results);
+			if ($results)
+			{
+				$result = array_pop($results);
 
-			$credits = CPointsCredits::getAvailableCreditForUser($this->user_id);
+				$credits = CPointsCredits::getAvailableCreditForUser($this->user_id);
 
-			echo json_encode(array(
-				'processor_success' => $result['success'],
-				'processor_message' => $result['message'],
-				'platepoints_status' => $platePointsStatus,
-				'points_this_order' => $result['points_awarded'],
-				'pending_points' => $result['pending_points'],
-				'total_credit' => $credits
-			));
+				echo json_encode(array(
+					'processor_success' => $result['success'],
+					'processor_message' => $result['message'],
+					'platepoints_status' => $platePointsStatus,
+					'points_this_order' => $result['points_awarded'],
+					'pending_points' => $result['pending_points'],
+					'total_credit' => $credits
+				));
+			}
 		}
 		catch (Exception $e)
 		{

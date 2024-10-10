@@ -107,11 +107,13 @@ if( !function_exists('translateOrderQuantityType')){
 							<?php if (!empty($booking['corporate_crate_client']) && !empty($booking['corporate_crate_client']->is_active)) { ?><img alt="<?php echo $booking['corporate_crate_client']->company_name; ?>" src="<?php echo ADMIN_IMAGES_PATH; ?>/corporate/<?php echo $booking['corporate_crate_client']->icon_path; ?>_icon.png" class="float-right ml-1" data-tooltip="<?php echo $booking['corporate_crate_client']->company_name; ?>" /><?php } ?>
 							<?php if ($booking['user_type'] != CUser::CUSTOMER) { ?><img alt="Dream Dinners Staff" src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/dreamdinners.png" class="float-right ml-1" data-tooltip="Dream Dinners Staff" /><?php } ?>
 							<?php if ($booking['user']->membershipData['enrolled']) { ?><a href="/backoffice/user_membership?id=<?php echo $booking['user_id']; ?>"><img alt="Meal Prep+" data-tooltip="Meal Prep+" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/membership/badge-membership-16x16.png" class="float-right ml-1" /></a><?php } ?>
-							<?php if ($booking['user']->platePointsData['status'] == 'active' || $booking['user']->platePointsData['userIsOnHold']) { ?>
-								<?php if ($booking['user']->platePointsData['userIsOnHold']) { ?>
-									<a href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PlatePoints On Hold" data-tooltip="PlatePoints On Hold" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-hold-16x16.png" class="float-right ml-1" /></a>
-								<?php } else { ?>
-									<a href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PlatePoints <?php echo $booking['user']->platePointsData['current_level']['title'];?>" data-tooltip="PlatePoints <?php echo $booking['user']->platePointsData['current_level']['title'];?>" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-<?php echo $booking['user']->platePointsData['current_level']['image'];?>-16x16.png" class="float-right ml-1" /></a>
+							<?php if ($booking["menu_id"] <= 278) { ?>
+								<?php if ($booking['user']->platePointsData['status'] == 'active' || $booking['user']->platePointsData['userIsOnHold']) { ?>
+									<?php if ($booking['user']->platePointsData['userIsOnHold']) { ?>
+										<a href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PlatePoints On Hold" data-tooltip="PlatePoints On Hold" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-hold-16x16.png" class="float-right ml-1" /></a>
+									<?php } else { ?>
+										<a href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>"><img data-user_id_pp_tooltip="<?php echo $booking['user']->id; ?>" alt="PlatePoints <?php echo $booking['user']->platePointsData['current_level']['title'];?>" data-tooltip="PlatePoints <?php echo $booking['user']->platePointsData['current_level']['title'];?>" src="<?php echo ADMIN_IMAGES_PATH; ?>/style/platepoints/badge-<?php echo $booking['user']->platePointsData['current_level']['image'];?>-16x16.png" class="float-right ml-1" /></a>
+									<?php } ?>
 								<?php } ?>
 							<?php } ?>
 							<?php if (!empty($booking['preferred_type'])) { ?><a href="/backoffice/preferred?id=<?php echo $booking['user_id']; ?>"><img alt="Preferred Guest" src="<?php echo ADMIN_IMAGES_PATH; ?>/icon/star_grey.png" class="float-right ml-1" data-tooltip="Preferred Guest" /></a><?php } ?>
@@ -226,14 +228,27 @@ if( !function_exists('translateOrderQuantityType')){
 									<?php } ?>
 								<?php } ?>
 							</td>
-							<td class="title">PlatePoints</td>
+							<td class="title"><?php if ($booking["menu_id"] <= 278) { ?>PlatePoints<?php } ?></td>
 							<td class="value small_value">
-								<?php if($booking['preferred_somewhere']){?>
-									Not Eligible
-								<?php }else{
-									if (($booking['dream_reward_status'] == 1 || $booking['dream_reward_status'] == 3) && $booking['dream_rewards_version'] == 3) { ?>
-											<?php echo $booking['points_this_order'];?> Points
-									<?php } }?>
+								<?php if ($booking["menu_id"] <= 278) { ?>
+									<?php if ($booking['preferred_somewhere']) { ?>
+										Not Eligible
+									<?php } else { ?>
+										<?php if (($booking['dream_reward_status'] == 1 || $booking['dream_reward_status'] == 3) && $booking['dream_rewards_version'] == 3) { ?>
+											<?php if ($booking['can_confirm_order']) { ?>
+												<span id="pp_co_<?php echo $booking['user_id']; ?>_<?php echo $booking['order_id']; ?>"><a class="btn btn-primary btn-sm" href="javascript:confirm_order_attended('<?php echo $booking['user_id'];?>', '<?php echo $booking['order_id'];?>');"> <?php echo $booking['points_this_order'];?> Points<br />Confirm Order</a></span>
+											<?php } else { ?>
+												<span id="pp_co_<?php echo $booking['user_id']; ?>_<?php echo $booking['order_id']; ?>"><?php echo $booking['points_this_order'];?> Points</span>
+											<?php } ?>
+										<?php } else { ?>
+											<?php if ($booking['dream_reward_status'] == 5) { ?>
+												<a class="btn btn-primary btn-sm" href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>">PlatePoints</a>
+											<?php } else { ?>
+												Not enrolled
+											<?php } ?>
+										<?php } ?>
+									<?php } ?>
+								<?php } ?>
 							</td>
 						<?php } ?>
 						<td class="title">No Show</td>

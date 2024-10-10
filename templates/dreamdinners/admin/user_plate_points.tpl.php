@@ -41,7 +41,7 @@
 
 
 
-<?php if (false && isset($this->points_form)) { ?>
+<?php if (isset($this->points_form)) { ?>
 
 	<form id="points_form" name="points_form" method="post">
 		<div style="border:green solid 1px; background-color:#F1E8D8; padding:2px; margin:4px;">
@@ -85,6 +85,14 @@
 		</div>
 	</form>
 
+	<form id="convert_form" name="convert_form" method="post">
+		<div style="border:green solid 1px; background-color:#F1E8D8; padding:2px; margin:4px; height:40px;">
+			<div style="float:left;"><h3>Convert available Points to Dinner Dollars</h3></div>
+			<div style="float:right;">
+				<?php echo $this->convert_form['convert_points_html'];?>
+			</div>
+		</div>
+	</form>
 <?php  } ?>
 
 

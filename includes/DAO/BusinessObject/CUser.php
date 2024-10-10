@@ -322,8 +322,8 @@ class CUser extends DAO_User
 	}
 
 	/**
-	* A Customer is considered new until they have placed an order
-	*/
+	 * A Customer is considered new until they have placed an order
+	 */
 	static function isNewCustomer()
 	{
 		if (self::$_current == null)
@@ -4659,6 +4659,9 @@ class CUser extends DAO_User
 	*
 	* -------------------------------------------------------------- */
 
+	/**
+	 * @throws Exception
+	 */
 	function Authenticate($username, $password, $id = false, $oauth = false, $defeatLockoutCheck = false, $suppressUIfunction = false)
 	{
 		$username = trim($username);
@@ -4749,6 +4752,11 @@ class CUser extends DAO_User
 			$this->joinAdd($loginObj);
 			$this->selectAdd();
 			$this->selectAdd('user.*, user_login.uses_bcrypt, user_login.ul_password, user_login.ul_password2, user_login.last_password_update');
+
+			if (defined('ENABLE_CUSTOMER_SITE') && !ENABLE_CUSTOMER_SITE)
+			{
+				$this->whereAdd("user.user_type != '" . CUser::GUEST . "' AND user.user_type != '" . CUser::CUSTOMER . "'");
+			}
 
 			$rslt = $this->find(true);
 
@@ -4995,6 +5003,10 @@ class CUser extends DAO_User
 
 				$cUser = DAO_CFactory::create('user');
 				$cUser->id = $loginObj->user_id;
+				if (defined('ENABLE_CUSTOMER_SITE') && !ENABLE_CUSTOMER_SITE)
+				{
+					$cUser->whereAdd("user.user_type != '" . CUser::GUEST . "' AND user.user_type != '" . CUser::CUSTOMER . "'");
+				}
 				$found = $cUser->find(true);
 
 				if ($found == 1)
