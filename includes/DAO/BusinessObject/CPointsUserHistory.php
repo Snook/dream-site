@@ -1146,11 +1146,6 @@ class CPointsUserHistory extends DAO_Points_user_history
 	 */
 	static function handleEvent($user_id_or_obj, $event, $meta_array = false, $orderObj = null)
 	{
-		if (CPointsUserHistory::wind_down_PlatePoints())
-		{
-			return false;
-		}
-
 		if (!empty($orderObj->menu_id) && $orderObj->menu_id <= 278)
 		{
 			return false;
