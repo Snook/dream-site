@@ -1981,7 +1981,6 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 
 					$DAO_orders->removeInitialInventory($DAO_orders->findSession()->menu_id);
 
-					$DAO_user->setHomeStore($DAO_orders->store_id);
 					// Increment DreamRewards Status if Appropriate
 
 					CCustomerReferral::updateAsOrderedIfEligible($DAO_user, $DAO_orders);
