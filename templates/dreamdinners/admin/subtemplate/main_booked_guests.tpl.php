@@ -244,7 +244,7 @@ if( !function_exists('translateOrderQuantityType')){
 											<?php if ($booking['dream_reward_status'] == 5) { ?>
 												<a class="btn btn-primary btn-sm" href="/backoffice/user-plate-points?id=<?php echo $booking['user_id']; ?>">PlatePoints</a>
 											<?php } else { ?>
-												<a class="btn btn-primary btn-sm" href="/backoffice/account?id=<?php echo $booking['user_id']; ?>&amp;pp_enroll=1">Enroll in PlatePoints</a>
+												Not enrolled
 											<?php } ?>
 										<?php } ?>
 									<?php } ?>
