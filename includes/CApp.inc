@@ -83,6 +83,17 @@ class CApp
 			exit(0);
 		}
 
+		if (defined('ENABLE_CUSTOMER_SITE') && !ENABLE_CUSTOMER_SITE)
+		{
+			if (strpos($locationRequest, "index") === false && strpos($locationRequest, "admin_") === false && strpos($locationRequest, "signout") === false)
+			{
+				if (strpos($locationRequest, "login") === false)
+				{
+					CApp::bounce('/backoffice/reports');
+				}
+			}
+		}
+
 		if (defined('HOSTED_AS_REPORTING_SERVER') && HOSTED_AS_REPORTING_SERVER)
 		{
 			if (strpos($locationRequest, "admin_helpers") === false && strpos($locationRequest, "admin_reports") === false && strpos($locationRequest, "admin_dashboard_new") === false && strpos($locationRequest, "admin_home_office") === false && strpos($locationRequest, "admin_dashboard_menu_based") === false && strpos($locationRequest, "admin_food_sales") === false && strpos($locationRequest, "admin_fundraiser") === false && strpos($locationRequest, "signout") === false)

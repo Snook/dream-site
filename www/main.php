@@ -48,6 +48,13 @@ else if (strpos(strtolower(urldecode($_SERVER['REQUEST_URI'])), '<script>') !== 
 	echo "Internal Server Error";
 	exit(0);
 }
+else if (defined('ENABLE_CUSTOMER_SITE') && !ENABLE_CUSTOMER_SITE)
+{
+	CApp::approveDirective('index');
+
+	$app = new CApp();
+	$app->run('index');
+}
 else
 {
 	CApp::approveDirective(DEFAULT_PAGE);

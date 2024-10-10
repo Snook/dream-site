@@ -14,11 +14,6 @@ try
 		exit;
 	}
 
-	if (CTemplate::formatDateTime(timeStamp: TIMENOW) >= '2024-11-07 00:00:00')
-	{
-		exit;
-	}
-
 	$Orders = DAO_CFactory::create('customer_referral');
 
 	$Orders->query("select b.order_id as order_id, s.session_start, s.id as session_id from booking b

@@ -11,11 +11,13 @@
 
 				<?php include $this->loadTemplate('customer/subtemplate/login/login_form.tpl.php'); ?>
 
-				<div class="col-lg-4 col-md-6 mx-auto mt-4">
-					<a class="text-body text-decoration-hover-underline" href="/account-signup">Don't have an account? <span class="sign-up">sign up</span></a>
-				</div>
+				<?php if (!defined('ENABLE_CUSTOMER_SITE') || ENABLE_CUSTOMER_SITE) { ?>
+					<div class="col-lg-4 col-md-6 mx-auto mt-4">
+						<a class="text-body text-decoration-hover-underline" href="/account-signup">Don't have an account? <span class="sign-up">sign up</span></a>
+					</div>
+				<?php } ?>
 
-				</div>
+			</div>
 		</div>
 	</main>
 

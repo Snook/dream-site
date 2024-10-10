@@ -87,6 +87,8 @@
 	</noscript>
 <?php } ?>
 
-<?php if (empty($this->no_navigation) || $this->no_navigation != true) { include $this->loadTemplate('customer/subtemplate/page_header/page_header_navigation.tpl.php'); } ?>
+<?php if (!defined('ENABLE_CUSTOMER_SITE') || ENABLE_CUSTOMER_SITE) { ?>
+	<?php if (empty($this->no_navigation) || $this->no_navigation != true) { include $this->loadTemplate('customer/subtemplate/page_header/page_header_navigation.tpl.php'); } ?>
+<?php } ?>
 
 <?php include $this->loadTemplate('customer/subtemplate/page_header/page_header_message_maintenance.tpl.php'); ?>
