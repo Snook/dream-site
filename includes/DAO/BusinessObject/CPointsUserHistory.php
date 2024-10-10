@@ -1488,7 +1488,7 @@ class CPointsUserHistory extends DAO_Points_user_history
 		$bookingObj = DAO_CFactory::create('booking');
 		$bookingObj->query("select o.id, o.grand_total - (o.subtotal_all_taxes + o.subtotal_service_fee + o.subtotal_delivery_fee + o.subtotal_products) as basis, s.session_start, o.in_store_order from booking b
 							join orders o on o.id = b.order_id and o.points_are_actualized = 0 and o.is_in_plate_points_program = 1
-							join session s on s.id = b.session_id
+							join session s on s.id = b.session_id AND s.menu_id <= '278'
 							where b.user_id = $user_id and b.status = 'ACTIVE' and DATEDIFF(DATE(now()),DATE(s.session_start)) < 7
 							order by s.session_start");
 
