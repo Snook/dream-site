@@ -24,7 +24,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 	<link rel="manifest" href="<?php echo IMAGES_PATH; ?>/style/favicon/manifest.json" crossorigin="use-credentials">
 	<link rel="mask-icon" href="<?php echo IMAGES_PATH; ?>/style/favicon/safari-pinned-tab.svg" color="#829c2a">
-	<meta name="application-name" content="Dream Dinners"/>
+	<meta name="application-name" content="Dream Dinners" />
 	<meta name="theme-color" content="#829c2a">
 	<meta name="apple-mobile-web-app-title" content="Dream Dinners">
 	<meta name="apple-mobile-web-app-status-bar-style" content="#512b1b">
@@ -46,17 +46,15 @@
 <body>
 
 <div class="container">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm">
-				One of three columns
-			</div>
-			<div class="col-sm">
-				One of three columns
-			</div>
-			<div class="col-sm">
-				One of three columns
-			</div>
+	<div class="row">
+		<div class="col-sm">
+			One of three columns
+		</div>
+		<div class="col-sm">
+			One of three columns
+		</div>
+		<div class="col-sm">
+			One of three columns
 		</div>
 	</div>
 </div>
