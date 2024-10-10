@@ -3050,7 +3050,10 @@ class CUser extends DAO_User
 		}
 	}
 
-	function setHomeStore($store_id)
+	/**
+	 * @throws Exception
+	 */
+	function setHomeStore($store_id): void
 	{
 		$DAO_user = DAO_CFactory::create('user', true);
 		$DAO_user->id = $this->id;
@@ -3072,10 +3075,12 @@ class CUser extends DAO_User
 			if ($DAO_user->DAO_store->isFranchise())
 			{
 				$DAO_user->home_store_id = $DAO_user->DAO_store->id;
+				$this->home_store_id = $DAO_user->DAO_store->id;
 			}
 			else if ($DAO_user->DAO_store->isDistributionCenter())
 			{
 				$DAO_user->distribution_center_id = $DAO_user->DAO_store->id;
+				$this->distribution_center_id = $DAO_user->DAO_store->id;
 			}
 
 			$DAO_user->update($org_DAO_user);

@@ -92,8 +92,6 @@ class page_admin_order_mgr_thankyou extends CPageAdminOnly
 
 		$User->getMembershipStatus($Order->id);
 
-		$User->setHomeStore($Order->store_id);
-
 		$orderInfoArray = COrders::buildOrderDetailArrays($User, $Order, false,false,false, false,$isDeliveredOrder	);
 
 		$nextMenuTimeStamp = CMenu::getNextMenuTimestamp($orderInfoArray['menuInfo']['menu_id']);

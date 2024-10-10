@@ -1075,14 +1075,15 @@ class COrdersDelivered extends COrders
 	// and a bare bones order row. Update the order row as much as possible and message the store and guest.
 	// This should be a rare occurence
 
-	/*
+	/**
 	 * Called upon callback from PayFlow after successful CC process
 	 *
 	 *
 	 *
-	*/
+	 * @throws Exception
+	 */
 
-	function postProcessActivatedOrder($Store, $Customer, $emptyCart = false)
+	function postProcessActivatedOrder($DAO_store, $DAO_user, $emptyCart = false): void
 	{
 		CLog::RecordDebugTrace('COrders::postProcessActivatedOrder called for delivered order: ' . $this->id, "TR_TRACING");
 
@@ -1102,8 +1103,10 @@ class COrdersDelivered extends COrders
 
 		try
 		{
+			// Update Home Store
+			$DAO_user->setHomeStore($DAO_store->id);
 
-			COrdersDigest::recordNewOrder($this, $Store);
+			COrdersDigest::recordNewOrder($this, $DAO_store);
 
 			// insert orders_address
 			if (isset($this->orderAddress) && is_a($this->orderAddress, 'DAO_Orders_address') && empty($this->orderAddress->id))
