@@ -1,7 +1,0 @@
-grep -RPn "(passthru|shell_exec|system|phpinfo|base64_decode|chmod|mkdir|fopen|fclose|readfile|php_uname|eval|tcpflood|udpflood|edoced_46esab) *\(" /DreamSite
-
-grep -RPn "(passthru|shell_exec|system|phpinfo|base64_decode|chmod|mkdir|readfile|php_uname|eval|tcpflood|udpflood|edoced_46esab) *\(" /DreamSite > result.txt
-
-find . -type f | xargs zgrep "POST.*200" | awk '{print $7 }' | sort | uniq -c | sort -n
-
-find /DreamSite -type f -ctime -5 -exec stat -c "%z %y %x %U %a %h %s %n" {} \; | sort -rn
