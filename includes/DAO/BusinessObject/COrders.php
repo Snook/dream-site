@@ -6064,10 +6064,10 @@ class COrders extends DAO_Orders
 
 				if ($mi_obj->isMenuItem_SidesSweets())
 				{
-					if (!empty($mi_obj->DAO_order_item->parent_menu_item_id))
+					if (!empty($mi_obj->parentItemId))
 					{
 						//this item has a parent which determines price and servings so decrement quantity and possibly skip this item
-						$qty -= $mi_obj->DAO_order_item->bundle_item_count;
+						$qty -= $mi_obj->bundleItemCount;
 
 						if ($qty <= 0)
 						{
@@ -6226,6 +6226,7 @@ class COrders extends DAO_Orders
 
 	/**
 	 * Apply to total calculation
+	 * @throws Exception
 	 */
 	private function applyPreferred()
 	{
@@ -6289,12 +6290,13 @@ class COrders extends DAO_Orders
 
 				$qtyFull = 0;
 				$qtyHalf = 0;
+				$preferredTotal = 0;
 				$countIncludedItems = 0;
 				$totalOrderItemCount = 0;
 
 				if ($this->items)
 				{
-					$items = $this->items;
+					$items = $this->getItems();
 
 					// sort items by price high to low
 					usort($items, function ($a, $b) {
@@ -6338,18 +6340,18 @@ class COrders extends DAO_Orders
 						}
 
 						// only one item can be promo
-						if (isset($itemObj->isPromo) && !empty($itemObj->isPromo))
+						if (!empty($itemObj->isPromo))
 						{
 							$qty--;
 						}
 
 						// only one item can be free meal
-						if (isset($itemObj->isFreeMeal) && !empty($itemObj->isFreeMeal))
+						if (!empty($itemObj->isFreeMeal))
 						{
 							$qty--;
 						}
 
-						if (!empty($qty))
+						if (!empty($qty) && empty($itemObj->is_bundle))
 						{
 							if ($countIncludedItems < $preferredCapacity->remainingObj->countRemaining || $preferredCapacity->remainingObj->type == CUserPreferred::PREFERRED_CAP_NONE)
 							{
@@ -6391,6 +6393,11 @@ class COrders extends DAO_Orders
 					{
 						$itemObj = $itemArray[1];
 						if (!$preferred->include_sides && ($itemObj->is_side_dish || $itemObj->is_kids_choice || $itemObj->is_menu_addon || $itemObj->is_chef_touched || $itemObj->menu_item_category_id == 9))
+						{
+							continue;
+						}
+
+						if (!empty($itemObj->is_bundle))
 						{
 							continue;
 						}
@@ -6465,7 +6472,7 @@ class COrders extends DAO_Orders
 				if (is_null($discountTotalObj))
 				{
 					$totalAvailableToDiscount = $base;
-					if (!$preferred->include_sides)
+					if (empty($preferred->include_sides))
 					{
 						$totalAvailableToDiscount -= $sidesTotal;
 						$totalAvailableToDiscount -= $bundlesTotal;

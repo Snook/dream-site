@@ -3079,6 +3079,9 @@ class CUser extends DAO_User
 			}
 			else if ($DAO_user->DAO_store->isDistributionCenter())
 			{
+				$DAO_user->home_store_id = $DAO_user->DAO_store->id;
+				$this->home_store_id = $DAO_user->DAO_store->id;
+
 				$DAO_user->distribution_center_id = $DAO_user->DAO_store->id;
 				$this->distribution_center_id = $DAO_user->DAO_store->id;
 			}
