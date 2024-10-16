@@ -526,6 +526,9 @@ class CMenuItem extends DAO_Menu_item
 
 	function digestMenuItem()
 	{
+		$this->parentItemId = null;
+		$this->bundleItemCount = null;
+
 		$this->menu_item_name_truncated = (strlen($this->menu_item_name) > 50 ? substr($this->menu_item_name, 0, 50) . "..." : $this->menu_item_name);
 		$this->display_title = $this->menu_item_name; // legacy support
 		$this->display_description = stripslashes($this->menu_item_description); // legacy support

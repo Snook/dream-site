@@ -3674,17 +3674,18 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 
 	/**
 	 * @return ($order, $success, $msg)
+	 * @throws Exception
 	 */
-	function addMenuItemsToOrder($OrderObj, $orgPrices, $items, $isIntroOrder, $introItems, $subItemsArr, $ltdOrderedMealsArray)
+	function addMenuItemsToOrder($DAO_orders, $orgPrices, $items, $isIntroOrder, $introItems, $subItemsArr, $ltdOrderedMealsArray)
 	{
 
 		//get menu from session
-		$menu_id = $OrderObj->findSession()->menu_id;
+		$menu_id = $DAO_orders->findSession()->menu_id;
 
 		$addFinishingTouchOnly = false;
 
 		// The order->items currently has the original mark down id and value.  Record these here and then re-apply them after rebuilding the list
-		$oldItems = $OrderObj->getItems();
+		$oldItems = $DAO_orders->getItems();
 
 		$oldMarkdowns = array();
 
@@ -3708,11 +3709,11 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 		}
 
 		//clear existing menu items
-		$OrderObj->clearItemsUnsafe();
+		$DAO_orders->clearItemsUnsafe();
 
 		if ($isIntroOrder)
 		{
-			$activeBundle = CBundle::getActiveBundleForMenu($menu_id, $OrderObj->store_id);
+			$activeBundle = CBundle::getActiveBundleForMenu($menu_id, $DAO_orders->store_id);
 
 			$selectedBIs = array();
 			foreach ($introItems as $k => $v)
@@ -3725,20 +3726,20 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 
 			if (empty($selectedBIs))
 			{
-				$OrderObj->bundle_id = $activeBundle->id;
+				$DAO_orders->bundle_id = $activeBundle->id;
 			}
 			else
 			{
 
-				$OrderObj->addBundle($activeBundle, $selectedBIs);
+				$DAO_orders->addBundle($activeBundle, $selectedBIs);
 			}
 		}
 		else
 		{
-			$OrderObj->addBundle(null);
+			$DAO_orders->addBundle(null);
 		}
 
-		$Session = $OrderObj->findSession();
+		$Session = $DAO_orders->findSession();
 		if ($Session->session_type == CSession::DREAM_TASTE)
 		{
 			$dreamEventProperties = CDreamTasteEvent::sessionProperties($Session->id);
@@ -3766,7 +3767,7 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 				$theBundle->price = 34.99;
 			}
 
-			$OrderObj->addTasteBundle($theBundle, $selectedBIs);
+			$DAO_orders->addTasteBundle($theBundle, $selectedBIs);
 
 			$addFinishingTouchOnly = true;
 		}
@@ -3788,15 +3789,15 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 				$selectedBIs[$k] = $v;
 			}
 
-			$OrderObj->addTasteBundle($theBundle, $selectedBIs);
+			$DAO_orders->addTasteBundle($theBundle, $selectedBIs);
 
 			$addFinishingTouchOnly = true;
 		}
 
-		$getStoreMenu = CMenu::storeSpecificMenuExists($menu_id, $OrderObj->store_id);
+		$getStoreMenu = CMenu::storeSpecificMenuExists($menu_id, $DAO_orders->store_id);
 
 		//look for coupon code
-		if (isset($_POST['coupon_id']) && !empty($_POST['coupon_id']))
+		if (!empty($_POST['coupon_id']))
 		{
 			$Coupon = DAO_CFactory::create('coupon_code');
 			$Coupon->id = $_POST['coupon_id'];
@@ -3807,19 +3808,19 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 
 				if ($Coupon->discount_method == CCouponCode::FREE_MEAL && !empty($Coupon->menu_item_id))
 				{
-					$menuItemInfo = DAO_CFactory::create('menu_item');
+					$DAO_menu_item = DAO_CFactory::create('menu_item');
 					if ($getStoreMenu)
 					{
-						$query = "SELECT mmi.override_price AS override_price, mi.* FROM menu_item  mi " . "LEFT JOIN menu_to_menu_item mmi ON mi.id = mmi.menu_item_id AND mmi.store_id = " . $OrderObj->store_id . " AND mmi.menu_id = " . $menu_id . " AND mmi.is_deleted = 0 " . "WHERE mi.id = " . $Coupon->menu_item_id . " AND mi.is_deleted = 0";
+						$query = "SELECT mmi.override_price AS override_price, mi.* FROM menu_item  mi " . "LEFT JOIN menu_to_menu_item mmi ON mi.id = mmi.menu_item_id AND mmi.store_id = " . $DAO_orders->store_id . " AND mmi.menu_id = " . $menu_id . " AND mmi.is_deleted = 0 " . "WHERE mi.id = " . $Coupon->menu_item_id . " AND mi.is_deleted = 0";
 					}
 					else
 					{
 						$query = "SELECT mmi.override_price AS override_price, mi.* FROM menu_item  mi " . "LEFT JOIN menu_to_menu_item mmi ON mi.id = mmi.menu_item_id AND mmi.store_id IS NULL AND mmi.menu_id = " . $menu_id . " AND mmi.is_deleted = 0 " . "WHERE mi.id = " . $Coupon->menu_item_id . " AND mi.is_deleted = 0";
 					}
-					$menuItemInfo->query($query);
-					if ($menuItemInfo->fetch())
+					$DAO_menu_item->query($query);
+					if ($DAO_menu_item->fetch())
 					{
-						$OrderObj->addMenuItem($menuItemInfo, 1, false, true);
+						$DAO_orders->addMenuItem($DAO_menu_item, 1, false, true);
 					}
 				}
 			}
@@ -3831,27 +3832,27 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 		{
 			$DAO_menu = DAO_CFactory::create('menu', true);
 			$DAO_menu->id = $menu_id;
-			$menuItemInfo = $DAO_menu->findMenuItemDAO(array(
-				'join_order_item_order_id' => array($OrderObj->id),
-				'menu_to_menu_item_store_id' => (!empty($OrderObj->store_id)) ? $OrderObj->store_id : 'NULL',
+			$DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
+				'join_order_item_order_id' => array($DAO_orders->id),
+				'menu_to_menu_item_store_id' => (!empty($DAO_orders->store_id)) ? $DAO_orders->store_id : 'NULL',
 				'exclude_menu_item_category_core' => false,
 				'exclude_menu_item_category_efl' => false,
 				'exclude_menu_item_category_sides_sweets' => false,
 				'menu_item_id_list' => $menu_item_ids
 			));
 
-			while ($menuItemInfo->fetch())
+			while ($DAO_menu_item->fetch())
 			{
-				if ($addFinishingTouchOnly && !$menuItemInfo->isMenuItem_SidesSweets())
+				if ($addFinishingTouchOnly && !$DAO_menu_item->isMenuItem_SidesSweets())
 				{
 					continue;
 				}
 
-				$qty = $items[$menuItemInfo->id];
+				$qty = $items[$DAO_menu_item->id];
 
-				if ($menuItemInfo->is_bundle && $qty > 0)
+				if ($DAO_menu_item->is_bundle && $qty > 0)
 				{
-					$subItems = CBundle::getBundleMenuInfoForMenuItem($menuItemInfo->id, $menu_id, $OrderObj->store_id);
+					$subItems = CBundle::getBundleMenuInfoForMenuItem($DAO_menu_item->id, $menu_id, $DAO_orders->store_id);
 					$subItemKeys = array();
 					foreach ($subItemsArr as $itemKey => $qtySubItems)
 					{
@@ -3861,60 +3862,59 @@ class processor_admin_order_mgr_processor extends CPageProcessor
 						}
 					}
 
-					$subItemInfo = $DAO_menu->findMenuItemDAO(array(
-						'join_order_item_order_id' => array($OrderObj->id),
-						'menu_to_menu_item_store_id' => (!empty($OrderObj->store_id)) ? $OrderObj->store_id : 'NULL',
+					$sub_DAO_menu_item = $DAO_menu->findMenuItemDAO(array(
+						'join_order_item_order_id' => array($DAO_orders->id),
+						'menu_to_menu_item_store_id' => (!empty($DAO_orders->store_id)) ? $DAO_orders->store_id : 'NULL',
 						'exclude_menu_item_category_core' => false,
 						'exclude_menu_item_category_efl' => false,
 						'exclude_menu_item_category_sides_sweets' => false,
 						'menu_item_id_list' => implode(",", $subItemKeys)
 					));
 
-					while ($subItemInfo->fetch())
+					while ($sub_DAO_menu_item->fetch())
 					{
-						$subqty = $subItemsArr[$subItemInfo->id];
+						$subqty = $subItemsArr[$sub_DAO_menu_item->id];
 						if ($subqty)
 						{
-							$subItemInfo->parentItemId = $menuItemInfo->id;
-							$subItemInfo->bundleItemCount = $subqty;
-							$OrderObj->addMenuItem($subItemInfo, $subqty);
+							$sub_DAO_menu_item->parentItemId = $DAO_menu_item->id;
+							$sub_DAO_menu_item->bundleItemCount = $subqty;
+							$DAO_orders->addMenuItem($sub_DAO_menu_item, $subqty);
 						}
 					}
 				}
 
 				if ($qty)
 				{
-
-					if (isset($oldMarkdowns[$menuItemInfo->id]))
+					if (isset($oldMarkdowns[$DAO_menu_item->id]))
 					{
-						$menuItemInfo->override_price = $oldMarkdowns[$menuItemInfo->id]['marked_up_price'];
-						$menuItemInfo->markdown_id = $oldMarkdowns[$menuItemInfo->id]['markdown_id'];
-						$menuItemInfo->markdown_value = $oldMarkdowns[$menuItemInfo->id]['markdown_value'];
+						$DAO_menu_item->override_price = $oldMarkdowns[$DAO_menu_item->id]['marked_up_price'];
+						$DAO_menu_item->markdown_id = $oldMarkdowns[$DAO_menu_item->id]['markdown_id'];
+						$DAO_menu_item->markdown_value = $oldMarkdowns[$DAO_menu_item->id]['markdown_value'];
 					}
 
-					if (in_array($menuItemInfo->id, $ltdOrderedMealsArray))
+					if (in_array($DAO_menu_item->id, $ltdOrderedMealsArray))
 					{
-						$menuItemInfo->order_item_ltd_menu_item = true;
+						$DAO_menu_item->order_item_ltd_menu_item = true;
 						//if the item was ordered originally then forcing to org pricing adds the donation
 						// If it's a new MotM item then we need to update the price here
 
-						$menuItemInfo->override_price = COrders::getStorePrice($OrderObj->findMarkUp(), $menuItemInfo, 1);
-						if (!empty($orgPrices) && !is_null($orgPrices[$menuItemInfo->id]))
+						$DAO_menu_item->override_price = COrders::getStorePrice($DAO_orders->findMarkUp(), $DAO_menu_item, 1);
+						if (!empty($orgPrices) && !is_null($orgPrices[$DAO_menu_item->id]))
 						{
-							$menuItemInfo->override_price = $orgPrices[$menuItemInfo->id];
+							$DAO_menu_item->override_price = $orgPrices[$DAO_menu_item->id];
 						}
 					}
 					else
 					{
-						$menuItemInfo->order_item_ltd_menu_item = false;
+						$DAO_menu_item->order_item_ltd_menu_item = false;
 					}
 
-					$OrderObj->addMenuItem($menuItemInfo, $qty);
+					$DAO_orders->addMenuItem($DAO_menu_item, $qty);
 				}
 			}
 		}
 
-		return $OrderObj;
+		return $DAO_orders;
 	}
 
 	function processStoreCredits($amountToUse, $Store_Credit_Array, $OrderObj)
