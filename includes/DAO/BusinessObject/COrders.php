@@ -6063,10 +6063,10 @@ class COrders extends DAO_Orders
 
 				if ($mi_obj->isMenuItem_SidesSweets())
 				{
-					if (!empty($mi_obj->DAO_order_item->parent_menu_item_id))
+					if (!empty($mi_obj->parentItemId))
 					{
 						//this item has a parent which determines price and servings so decrement quantity and possibly skip this item
-						$qty -= $mi_obj->DAO_order_item->bundle_item_count;
+						$qty -= $mi_obj->bundleItemCount;
 
 						if ($qty <= 0)
 						{
@@ -6464,7 +6464,7 @@ class COrders extends DAO_Orders
 				if (is_null($discountTotalObj))
 				{
 					$totalAvailableToDiscount = $base;
-					if (!$preferred->include_sides)
+					if (empty($preferred->include_sides))
 					{
 						$totalAvailableToDiscount -= $sidesTotal;
 						$totalAvailableToDiscount -= $bundlesTotal;
