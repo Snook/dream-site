@@ -1112,7 +1112,7 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 			if ($thisRow['dream_rewards_version'] == 3)
 			{
 				$isInPlatePoints = true;
-				$lifetimePoints = CPointsUserHistory::getCurrentPointsLevel($thisRow['id']);
+				$lifetimePoints = CPointsUserHistory::getCurrentUnconvertedPoints($thisRow['id']);
 
 				list($curLevel, $nextLevel) = CPointsUserHistory::getLevelDetailsByPoints($lifetimePoints);
 				$newStatus = $curLevel['title'];
