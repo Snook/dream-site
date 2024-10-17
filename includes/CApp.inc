@@ -1060,7 +1060,7 @@ class CApp
 
 	static function wind_down_Generic_Labels(): bool
 	{
-		if (defined('GENERIC_LABEL_USERS') && GENERIC_LABEL_USERS && in_array(CUser::getCurrentUser()->id, GENERIC_LABEL_USERS))
+		if (CApp::wind_down_Sandbox() || (defined('GENERIC_LABEL_USERS') && GENERIC_LABEL_USERS && in_array(CUser::getCurrentUser()->id, GENERIC_LABEL_USERS)))
 		{
 			return true;
 		}
@@ -1090,7 +1090,7 @@ class CApp
 	 */
 	static function wind_down_Live(): bool
 	{
-		if (defined('SERVER_ENV') && SERVER_ENV == 'LIVE' || CApp::wind_down_Sandbox() || CApp::wind_down_Generic_Labels())
+		if (defined('SERVER_ENV') && SERVER_ENV == 'LIVE' || CApp::wind_down_Sandbox())
 		{
 			return true;
 		}
