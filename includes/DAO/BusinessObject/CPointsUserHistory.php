@@ -1460,9 +1460,9 @@ class CPointsUserHistory extends DAO_Points_user_history
 
 	static function getCurrentPointsLevel($user_id)
 	{
+		// get all unconverted points
 		$historyObj = DAO_CFactory::create('points_user_history');
-		$historyObj->query("select sum(points_allocated) as total_points_allocated from points_user_history
-				where user_id = $user_id and is_deleted = 0");
+		$historyObj->query("select sum(points_allocated - points_converted) as total_points_allocated from points_user_history where (points_allocated - points_converted) > 0 and is_deleted = 0 and user_id = $user_id order by id");
 		$historyObj->fetch();
 
 		return $historyObj->total_points_allocated;
