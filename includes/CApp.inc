@@ -523,7 +523,6 @@ class CApp
 
 	function isFrameCompatibilityRequired($processor)
 	{
-
 		if (strpos($processor, "payflow") !== false)
 		{
 			return true;
@@ -642,7 +641,6 @@ class CApp
 	*/
 	function process($processor)
 	{
-
 		// File check: Do this early for efficency and so a malicious processor string can do no harm
 		// and send back an error rather than a file not found
 		$this->executableFileCheck($processor, true);
@@ -831,7 +829,7 @@ class CApp
 			CBrowserSession::setSessionVariable(key: CBrowserSession::BOUNCE_REQUEST_URI, value: $BOUNCE_REQUEST_URI);
 		}
 
-		header('location: ' . $page ?: '/');
+		header('location: ' . $page ? : '/');
 		exit();
 	}
 
@@ -1060,13 +1058,23 @@ class CApp
 		}
 	}
 
+	static function wind_down_Generic_Labels(): bool
+	{
+		if (defined('GENERIC_LABEL_USERS') && GENERIC_LABEL_USERS && in_array(CUser::getCurrentUser()->id, GENERIC_LABEL_USERS))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	/**
 	 * If in DEV mode, return true.
 	 * @return bool
 	 */
 	static function wind_down_Sandbox(): bool
 	{
-		if (defined('SERVER_ENV') && (SERVER_ENV == 'DEV' OR SERVER_ENV == 'TEST'))
+		if (defined('SERVER_ENV') && (SERVER_ENV == 'DEV' or SERVER_ENV == 'TEST'))
 		{
 			return true;
 		}
@@ -1082,7 +1090,7 @@ class CApp
 	 */
 	static function wind_down_Live(): bool
 	{
-		if (defined('SERVER_ENV') && SERVER_ENV == 'LIVE' || CApp::wind_down_Sandbox())
+		if (defined('SERVER_ENV') && SERVER_ENV == 'LIVE' || CApp::wind_down_Sandbox() || CApp::wind_down_Generic_Labels())
 		{
 			return true;
 		}
@@ -1094,13 +1102,11 @@ class CApp
 	{
 		if ((CUser::isLoggedIn() || $from_login) && defined('REMAUTHSTRNEW') && CUser::getCurrentUser()->user_type != CUser::CUSTOMER)
 		{
-
 			$remoteauthkey = REMAUTHSTRNEW;
 
 			$redirectURL = $_REQUEST['redirect_uri'];
 			if (isset($redirectURL) && !empty($redirectURL))
 			{
-
 				$nonce = $_REQUEST['nonce'];
 				$clientID = $_REQUEST['client_id'];
 				$response_type = $_REQUEST['response_type'];
@@ -1157,7 +1163,6 @@ class CApp
 	{
 		if ((CUser::isLoggedIn() || $from_login) && defined('REMAUTHSTR') && CUser::getCurrentUser()->user_type != CUser::CUSTOMER)
 		{
-
 			$remoteauthkey = REMAUTHSTR;
 
 			$email = CUser::getCurrentUser()->primary_email;
@@ -1201,7 +1206,6 @@ if (true/*!DEBUG*/)
 
 function errorHandler($errno, $errstr, $errfile, $errline)
 {
-
 	if ($errno == 0)
 	{
 		return true;
