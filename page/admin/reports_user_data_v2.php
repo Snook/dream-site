@@ -851,7 +851,7 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 				{
 					if ($supportsPlatePoints && $isInPlatePoints)
 					{
-						$thisGuest['plate_points'] = $this->getPPLifeTimePoints($thisGuest);
+						$thisGuest['plate_points'] = $this->getPPUnconvertedPoints($thisGuest);
 					}
 				}
 
@@ -1112,7 +1112,8 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 			if ($thisRow['dream_rewards_version'] == 3)
 			{
 				$isInPlatePoints = true;
-				$lifetimePoints = CPointsUserHistory::getCurrentUnconvertedPoints($thisRow['id']);
+				$unconvertedPoints = CPointsUserHistory::getCurrentUnconvertedPoints($thisRow['id']);
+				$lifetimePoints = CPointsUserHistory::getCurrentPointsLevel($thisRow['id']);
 
 				list($curLevel, $nextLevel) = CPointsUserHistory::getLevelDetailsByPoints($lifetimePoints);
 				$newStatus = $curLevel['title'];
@@ -1122,7 +1123,7 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 					$newStatus = "On Hold (" . $curLevel['title'] . ")";
 				}
 
-				$thisRow['points_status'] = $lifetimePoints;
+				$thisRow['points_status'] = $unconvertedPoints;
 			}
 			else
 			{
@@ -1145,6 +1146,9 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 	{
 		return CPointsUserHistory::getCurrentPointsLevel($thisRow['id']);
 	}
-}
 
-?>
+	function getPPUnconvertedPoints($thisRow)
+	{
+		return CPointsUserHistory::getCurrentUnconvertedPoints($thisRow['id']);
+	}
+}
