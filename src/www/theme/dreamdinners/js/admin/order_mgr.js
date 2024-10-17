@@ -8316,16 +8316,6 @@ function calculateTotal()
 	// enforce a few rules by disallowing checkout
 	if ($('#submit_changes').length)
 	{
-
-		if (servings > 0 || sideDishQty > 0 || addonsSubtotal > 0)
-		{
-			$('#submit_changes').prop("disabled", false);
-		}
-		else
-		{
-			$('#submit_changes').prop("disabled", true);
-		}
-
 		if (directDiscountVal >= (Number(preTaxTotal) + Number(directDiscountVal)) && preTaxTotal != 0)
 		{
 			$('#submit_changes').prop("disabled", true);
