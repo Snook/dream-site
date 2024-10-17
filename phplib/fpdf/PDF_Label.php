@@ -836,7 +836,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 
 		$_warning = 'Variations in ingredients and preparation, as well as substitutions, will increase or decrease any stated nutritional values.';
 
-		if (!CApp::wind_down_Sandbox())
+		if (!CApp::wind_down_Generic_Labels())
 		{
 			$_warning .= ' Items may vary by store, may not be available at all locations, and are subject to change.';
 		}
@@ -901,7 +901,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$_PosX -= $this->_Margin_Right;
 		$_PosY = $this->_Margin_Top + ($this->_COUNTY * (108));
 
-		if (!CApp::wind_down_Sandbox())
+		if (!CApp::wind_down_Generic_Labels())
 		{
 			if ($isSide)
 			{
@@ -1170,7 +1170,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 			$this->MultiCellTag(90, 2.5, "<db2>" . $entity['info']['ingredients'] . "</db2>", $showBorders, "L", 0);
 		}
 
-		if (!CApp::wind_down_Sandbox())
+		if (!CApp::wind_down_Generic_Labels())
 		{
 			if (!empty($entity['info']['recipe_id']))
 			{
@@ -1194,7 +1194,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 
 		$_warning = 'Variations in ingredients and preparation, as well as substitutions, will increase or decrease any stated nutritional values.';
 
-		if (!CApp::wind_down_Sandbox())
+		if (!CApp::wind_down_Generic_Labels())
 		{
 			$_warning .= ' Items may vary by store, may not be available at all locations, and are subject to change.';
 		}
@@ -1202,7 +1202,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 43, $_PosY + 92);
 		$this->MultiCellTag(75, 1.5, "<db8>" . $_warning . "</db8>", $showBorders, "L", 0);
 
-		if (!CApp::wind_down_Sandbox())
+		if (!CApp::wind_down_Generic_Labels())
 		{
 			if (!empty($Store))
 			{
@@ -1553,7 +1553,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 
 		$_warning = 'Variations in ingredients and preparation, as well as substitutions, will increase or decrease any stated nutritional values.';
 
-		if (!CApp::wind_down_Sandbox())
+		if (!CApp::wind_down_Generic_Labels())
 		{
 			$_warning .= ' Items may vary by store, may not be available at all locations, and are subject to change.';
 		}
@@ -1920,7 +1920,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 
 		$_PosY = $this->_Margin_Top + ($this->_COUNTY * (100));
 
-		if (!Capp::wind_down_Sandbox())
+		if (!Capp::wind_down_Generic_Labels())
 		{
 			$this->SetXY($_PosX + 3, $_PosY + 10);
 			$this->MultiCellTag($this->_Width, $this->_Line_Height, "<color>Dream Dinners</color>", $showBorders, "L", 0);
@@ -1945,7 +1945,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 			$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), MONTH_DAY_YEAR);
 		}
 
-		if (!Capp::wind_down_Sandbox())
+		if (!Capp::wind_down_Generic_Labels())
 		{
 			$this->SetXY($_PosX + 61, $_PosY + 10);
 			$this->MultiCellTag($this->_Width * .4, $this->_Line_Height, "<t8>Assembled " . $dateFormatted . "</t8>", $showBorders, "R", 0);
@@ -1972,7 +1972,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 3, $_PosY + 35 + $pushDown);
 		$this->MultiCellTag($this->_Width, $overrideLineHeight, $instructions, $showBorders, "L", 0);
 
-		if (!Capp::wind_down_Sandbox())
+		if (!Capp::wind_down_Generic_Labels())
 		{
 			if (!empty($entity['recipe_id']))
 			{
@@ -2050,7 +2050,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 			$this->MultiCellTag($this->_Width, $overrideLineHeight, $instructions, $showBorders, "L", 0);
 		}
 
-		if (!Capp::wind_down_Sandbox())
+		if (!Capp::wind_down_Generic_Labels())
 		{
 			if (!empty($menuItemArray['session_start']))    // session data
 			{
@@ -2114,7 +2114,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 			}
 		}
 
-		if (!Capp::wind_down_Sandbox())
+		if (!Capp::wind_down_Generic_Labels())
 		{
 			$this->SetXY($_PosX + 3, $_PosY + 10);
 			$this->MultiCellTag($this->_Width, $this->_Line_Height, "<color>DREAM DINNERS</color>", $showBorders, "L", 0);
@@ -2148,7 +2148,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$iconListIconWidth = 3;
 		$hasIcon = false;
 
-		if (!Capp::wind_down_Sandbox())
+		if (!Capp::wind_down_Generic_Labels())
 		{
 			foreach ($menuItemArray['icons'] as $icon)
 			{
@@ -2176,7 +2176,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 3, $_PosY + $yOff);
 		$this->MultiCellTag($this->_Width * .6, $this->_Line_Height, $servingType, $showBorders, "L", 0);
 
-		if (!Capp::wind_down_Sandbox())
+		if (!Capp::wind_down_Generic_Labels())
 		{
 			if ($this->hasAlternateInstructions($menuItemArray))
 			{
@@ -2185,7 +2185,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 			}
 		}
 
-		if (!Capp::wind_down_Sandbox())
+		if (!Capp::wind_down_Generic_Labels())
 		{
 			if (!empty($menuItemArray['recipe_id']))
 			{
@@ -2194,7 +2194,7 @@ class PDF_Label extends FPDF_MULTICELLTAG
 			}
 		}
 
-		if (!Capp::wind_down_Sandbox())
+		if (!Capp::wind_down_Generic_Labels())
 		{
 			if (!empty($menuItemArray['store_name']) && !empty($menuItemArray['store_phone']) && $menuItemArray['store_name'] != "Not Available")
 			{
