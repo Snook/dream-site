@@ -121,14 +121,16 @@ class form_login
 
 					$redirectCustomer = $DAO_user->Login($remember_login);
 
-					// -------------------------------------------------------------------- handle login attempt at support portal
-					$trigger = empty($_REQUEST["host_url"]) ? false : $_REQUEST["host_url"];
-
-					if ($trigger && defined('REMAUTHSTRNEW') && ($_REQUEST["host_url"] == "support.dreamdinners.com" || $_REQUEST["host_url"] == "support.lovingwithfood.com"))
+					// handle login attempt at support portal
+					if (defined('USE_FRESHDESK_SUPPORT') && USE_FRESHDESK_SUPPORT)
 					{
-						CApp::signupOrLoginToFreshDeskSupportPortalNew($_REQUEST, false, true, $_REQUEST["host_url"]);
+						$trigger = empty($_REQUEST["host_url"]) ? false : $_REQUEST["host_url"];
+
+						if ($trigger && defined('REMAUTHSTRNEW') && ($_REQUEST["host_url"] == "support.dreamdinners.com" || $_REQUEST["host_url"] == "support.lovingwithfood.com"))
+						{
+							CApp::signupOrLoginToFreshDeskSupportPortalNew($_REQUEST, false, true, $_REQUEST["host_url"]);
+						}
 					}
-					//---------------------------------------------------------------------
 
 					if (!$suppressBounce)
 					{
@@ -161,17 +163,20 @@ class form_login
 				{
 					// user is logged in
 
-					// -----------------------------------------------------------------handle access from support portal
-					$trigger = empty($_REQUEST["host_url"]) ? false : $_REQUEST["host_url"];
-
-					if ($trigger && defined('REMAUTHSTRNEW') && $_REQUEST["host_url"] == "support.dreamdinners.com")
+					// handle access from support portal
+					if (defined('USE_FRESHDESK_SUPPORT') && USE_FRESHDESK_SUPPORT)
 					{
-						if (isset($_GET['page']) && $_GET['page'] != "signout")
+						$trigger = empty($_REQUEST["host_url"]) ? false : $_REQUEST["host_url"];
+
+						if ($trigger && defined('REMAUTHSTRNEW') && $_REQUEST["host_url"] == "support.dreamdinners.com")
 						{
-							CApp::signupOrLoginToFreshDeskSupportPortalNew($_REQUEST, false, true);
+							if (isset($_GET['page']) && $_GET['page'] != "signout")
+							{
+								CApp::signupOrLoginToFreshDeskSupportPortalNew($_REQUEST, false, true);
+							}
 						}
 					}
-					// ------------------------------------------------------------------
+
 					$DAO_user->getMembershipStatus(); // Note: without params this method looks for memberships current for today's menu/month.
 					$DAO_user->getPlatePointsSummary();
 					$DAO_user->getUserPreferences();
