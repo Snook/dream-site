@@ -8717,7 +8717,7 @@ class COrders extends DAO_Orders
 		try
 		{
 			//add booking
-			if (($this->items || $this->products) && $this->session && ($this->isBackOfficeOrder() || ($this->session->isOpen($DAO_store) && $this->session->session_publish_state == CSession::PUBLISHED)))
+			if ($this->session && ($this->isBackOfficeOrder() || ($this->session->isOpen($DAO_store) && $this->session->session_publish_state == CSession::PUBLISHED)))
 			{
 				$intro_capacity = $this->session->introductory_slots;
 				$standard_capacity = $this->session->available_slots;
@@ -9232,7 +9232,7 @@ class COrders extends DAO_Orders
 		try
 		{
 			//add booking
-			if (($this->items || $this->products) && $this->session && ($this->isBackOfficeOrder() || ($this->session->isOpen($DAO_store) && $this->session->session_publish_state == CSession::PUBLISHED)))
+			if ($this->session && ($this->isBackOfficeOrder() || ($this->session->isOpen($DAO_store) && $this->session->session_publish_state == CSession::PUBLISHED)))
 			{
 				$intro_capacity = $this->session->introductory_slots;
 				$standard_capacity = $this->session->available_slots;
