@@ -692,7 +692,14 @@ class page_admin_menu_inventory_mgr extends CPageAdminOnly
 		$tpl->assign('store_id', $store_id);
 
 		// ------------------------------------------ Build menu array and wdiget
-		$menus = CMenu::getLastXMenus(4);
+		if (CApp::wind_down_Sandbox())
+		{
+			$menus = CMenu::getLastXMenus(12);
+		}
+		else
+		{
+			$menus = CMenu::getLastXMenus(4);
+		}
 		$lastActiveMenuId = null;
 		$menuOptions = array();
 		$currentMenu = CMenu::getCurrentMenuId();

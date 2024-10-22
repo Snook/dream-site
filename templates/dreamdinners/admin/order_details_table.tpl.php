@@ -301,12 +301,10 @@
 										<td><?php echo number_format($this->plate_points['points_this_order']); ?></td>
 									</tr>
 								<?php } ?>
-								<?php if (!empty($this->plate_points['available_credit'])) { ?>
 									<tr>
 										<td class="font-weight-bold">Available Dinner Dollars:</td>
 										<td>$<?php echo CTemplate::moneyFormat($this->plate_points['available_credit']); ?></td>
 									</tr>
-								<?php } ?>
 								<?php if (count($this->plate_points['all_expiring_credits']) > 0) {
 									$credit_count = 0;
 
