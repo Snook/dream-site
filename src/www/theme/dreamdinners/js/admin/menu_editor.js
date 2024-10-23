@@ -1,4 +1,4 @@
-const limit_visible_efl = 8;
+const limit_visible_efl = 15;
 const limit_visible_sides = 25;
 
 $('#menu-editor-nav > [data-toggle="tab"]').on('shown.bs.tab', function (event) {
