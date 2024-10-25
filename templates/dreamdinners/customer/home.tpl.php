@@ -260,8 +260,8 @@
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
 						<h2 class="font-weight-bold mt-2">Share Easy Dinners with Your Friends</h2>
-						<p class="text-uppercase mb-4">You can earn rewards when you share Dream Dinners with your friends and family. They get the convenience of ready-to-cook dinners and you earn rewards.</p>
-						<a href="/share" class="btn btn-lg btn-green">Learn How</a>
+						<p class="text-uppercase mb-4">They get the convenience of ready-to-cook dinners and a choice between a free dinner or free shipping.</p>
+						<a href="/share" class="btn btn-lg btn-green">Learn More</a>
 					</div>
 					<div class="col-md-6 p-0">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/friends-dinner-together-957x657.webp" alt="Friends Dinner" class="img-fluid">
