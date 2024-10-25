@@ -11,7 +11,6 @@
 				<div class="row my-5">
 					<div class="col mb-4 text-center">
 						<h1 class="font-weight-bold font-have-heart-two font-size-extra-extra-large mt-2">Friends Don't Let Friends Struggle With Dinner</h1>
-						<h3>Share your love of Dream Dinners and this special offer. Plus, you can earn referral Dinner Dollars.</h3>
 					</div>
 				</div>
 			</div>
@@ -68,35 +67,6 @@
 								</div>
 							</div>
 						</div>
-						<!--<div class="col">
-							<div class="card-group">
-								<div class="card border-0 py-4 px-4 mx-1 text-left">
-									<div class="card-body text-center">
-										<img src="<?php echo IMAGES_PATH; ?>/landing_pages/piggybank-green-150x159.png" alt="Piggybank" class="img-fluid" />
-									</div>
-									<div class="card-body">
-										<h4 class="card-title">Give a Dinner, Earn Rewards</h4>
-										<p class="card-text">Share your personal referral link to introduce your friends and family to Dream Dinners. You get 10 Dinner Dollars for every referral and they get a free dinner on us.</p>
-										<?php if (!CUser::isLoggedIn()) { ?>
-											<p class="card-text"><a href="/my-account">Log in to My Account</a> to get your referral link.</p>
-										<?php } else { ?>
-											<div class="input-group mb-3">
-												<div class="input-group-prepend">
-													<span class="input-group-text">Your link</span>
-												</div>
-												<input type="text" id="my_share_pp_link" class="form-control" aria-label="Your referral link" value="<?php echo HTTPS_BASE; ?>share/<?php echo CUser::getCurrentUser()->id; ?>">
-												<div class="input-group-append">
-													<button class="input-group-text btn-clip" data-toggle="tooltip" data-placement="top" title="Copy link to clipboard"  data-clipboard-target="#my_share_pp_link" ><i class="fas fa-clipboard-list"></i></button>
-												</div>
-												<div class="input-group-append">
-													<a class="input-group-text" data-toggle="tooltip" data-placement="top" title="Download QR code" href="<?php echo HTTPS_BASE; ?>processor?processor=qr_code&amp;op=referral&amp;d=1&amp;s=10&amp;id=<?php echo CUser::getCurrentUser()->id; ?>" ><i class="fas fa-qrcode"></i></a>
-												</div>
-											</div>
-										<?php } ?>
-									</div>
-								</div>
-							</div>
-						</div>-->
 					</div>
 				</div>
 			</div>
@@ -207,57 +177,6 @@
 				</div>
 			</div>
 		</section>
-
-		<!-- <div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
-		Menu Highlights
-		<section>
-			<div class="container my-5">
-				<div class="row">
-					<div class="col">
-						<div class="text-center">
-							<h2 class="mt-4 mb-4 font-weight-bold">Meals Made In A Snap</h2>
-						</div>
-					</div>
-				</div>
-				<div class="row my-5">
-					<div class="col">
-						<div class="card-group text-center mb-2">
-							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pubstyle-chicken-30min-teal-featured-400x400.webp" alt="Pub Style Chicken with Mashed Potatoes" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Pub Style Chicken with Mashed Potatoes</h5>
-								</div>
-							</div>
-							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/arroz-con-pollo-featured-pan-meal-teal-400x400.webp" alt="Arroz Con Pollo" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Arroz Con Pollo</h5>
-								</div>
-							</div>
-							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/italiano-chicken-orzo-featured-instant-pot-400x400.webp" alt="Italiano Chicken and Orzo" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Italiano Chicken and Orzo</h5>
-								</div>
-							</div>
-							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/creamy-buffalo-chicken-sandwich-featured-new-teal-400x400.webp" alt="Creamy Buffalo Chicken Sandwiches" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Creamy Buffalo Chicken Sandwiches</h5>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div>
-					<div class="col">
-						<div class="text-center">
-							<a href="/locations" class="btn btn-lg btn-primary">See Your Local Menu Options</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>-->
 		<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 		<!-- Testimonials -->
 		<section>
@@ -302,7 +221,7 @@
 		</section>
 		<div class="container">
 			<div class="row my-5 text-center">
-				<p class="mt-4"><i>Fine Print: The free dinner voucher and free shipping voucher is for new guests who have never been to Dream Dinners. The voucher has no cash value and is not for sale; it is good for one redemption per a household, and recipient must be at least 18 years old. Not valid combined with any other offers or promotions. Code is only valid at participating locations.</i></p>
+				<p class="mt-4"><i>Fine Print: The free dinner voucher and free shipping voucher is for new guests who have never been to Dream Dinners. The voucher has no cash value and is not for sale; it is good for one redemption per a household, and recipient must be at least 18 years old. Not valid combined with any other offers or promotions. Code is only valid at participating locations. Code expires on December 31, 2024 and can be applied once to any menu in 2024. Not valid on 2025 menus.</i></p>
 			</div>
 		</div>
 
