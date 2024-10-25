@@ -23,7 +23,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col text-center">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dinner-reinvented-cattlemans-pie-1400x400.webp" alt="Dinner Reinvented" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dinner-reinvented-1400x400.webp" alt="Dinner Reinvented" class="img-fluid">
 					</div>
 				</div>
 			</div>
@@ -76,27 +76,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/kung-pao-chicken-30min-featured-400x400.webp" alt="Kung Pao Chicken with Jasmine Rice" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sirloin-fried-rice-under30-orng-featured-menu-item-400x400.webp" alt="Sizzling Sirloin Fried Rice" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Kung Pao Chicken with Jasmine Rice</h5>
+									<h5 class="card-title">Sizzling Sirloin Fried Rice</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/hearty-braised-beef-crockpot-featured-400x400.webp" alt="Hearty Braised Beef with Autumn Vegetables" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-chili-crockpot-orng-featured-menu-item-400x400.webp" alt="Chicken and White Bean Chili" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Hearty Braised Beef with Autumn Vegetables</h5>
+									<h5 class="card-title">Chicken and White Bean Chili</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sheet-pan-kielbalsa-new-featured-400x400.webp" alt="Sheet Pan Kielbasa & Potatoes" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/bacon-mac-3-cheese-pan-featured-menu-item-400x400.webp" alt="Bacon Mac N Three Cheese Bake" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Sheet Pan Kielbasa & Potatoes</h5>
+									<h5 class="card-title">Bacon Mac N Three Cheese Bake</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-philly-kid-pick-featured-400x400.webp" alt="Chicken Philly Cheesesteaks" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/meatloaf-milano-air-fryer-featured-menu-item-400x400.webp" alt="Meatloaf Milano with Mashed Potatoes" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Philly Cheesesteaks</h5>
+									<h5 class="card-title">Meatloaf Milano with Mashed Potatoes</h5>
 								</div>
 							</div>
 						</div>
@@ -142,7 +142,7 @@
 					<div class="row my-5">
 						<div class="col-md-7 text-left">
 							<div>
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/pork_marsala_family_458x344.webp" alt="Pork Marsala" class="img-fluid" />
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/orange-asian-chicken-450x300.webp" alt="Orange Chicken" class="img-fluid" />
 							</div>
 						</div>
 						<div class="col-md-5 text-center mt-4">
