@@ -18,19 +18,17 @@
 	</header>
 
 	<main role="main">
-	
 		<section>
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
-					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/oct24-lto-bundle-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
-					</div>
 					<div class="col-md-6 text-left p-5 my-5">
-						<h2 class="font-weight-bold mt-2">Thanksgiving Burger Bundle</h2>
-						<p class="text-uppercase mb-4">Our Thanksgiving Burger Bundle includes three stuffing-seasoned turkey burgers with a cranberry mayo and French fried onions on brioche buns, served with Sweet Potato Fries and gravy dip. Plus, it comes with your choice of a seasonal cookie. Available at select locations in the Sides and Sweets Freezer, while supplies last. Not available for shipping.</p>
+						<h2 class="font-weight-bold mt-2">Thanksgiving Dinner Bundle</h2>
+						<p class="text-uppercase mb-4">Our Thanksgiving bundle includes a holiday turkey with compound butter, Pumpkin Praline Trifle for dessert, and your choice three side dishes! Not available for shipping.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
-
+					<div class="col-md-6 p-0">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/thanksgiving-dinner-957x657.webp" alt="Thanksgiving" class="img-fluid">
+					</div>
 
 				</div>
 			</div>

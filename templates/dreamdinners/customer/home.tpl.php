@@ -84,27 +84,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/kung-pao-chicken-30min-featured-400x400.webp" alt="Kung Pao Chicken with Jasmine Rice" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sirloin-fried-rice-under30-orng-featured-menu-item-400x400.webp" alt="Sizzling Sirloin Fried Rice" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Kung Pao Chicken with Jasmine Rice</h5>
+									<h5 class="card-title">Sizzling Sirloin Fried Rice</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/hearty-braised-beef-crockpot-featured-400x400.webp" alt="Hearty Braised Beef with Autumn Vegetables" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-chili-crockpot-orng-featured-menu-item-400x400.webp" alt="Chicken and White Bean Chili" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Hearty Braised Beef with Autumn Vegetables</h5>
+									<h5 class="card-title">Chicken and White Bean Chili</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sheet-pan-kielbalsa-new-featured-400x400.webp" alt="Sheet Pan Kielbasa & Potatoes" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/bacon-mac-3-cheese-pan-featured-menu-item-400x400.webp" alt="Bacon Mac N Three Cheese Bake" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Sheet Pan Kielbasa & Potatoes</h5>
+									<h5 class="card-title">Bacon Mac N Three Cheese Bake</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-philly-kid-pick-featured-400x400.webp" alt="Chicken Philly Cheesesteaks" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/meatloaf-milano-air-fryer-featured-menu-item-400x400.webp" alt="Meatloaf Milano with Mashed Potatoes" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Philly Cheesesteaks</h5>
+									<h5 class="card-title">Meatloaf Milano with Mashed Potatoes</h5>
 								</div>
 							</div>
 						</div>
@@ -226,18 +226,18 @@
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
-						<h2 class="font-weight-bold mt-2">October Fan Favorites</h2>
-						<p class="text-uppercase mb-4">Start your order with our october fan favorite bundle. These 4 dinners are the perfect easy weeknight meal plan and includes including Chicken Parmesan, Cattleman's Pie, Cheese Lovers Manicotti, and Sheet Pan Kielbasa &amp; Potatoes. Shipping menu items may vary.</p>
+						<h2 class="font-weight-bold mt-2">Thanksgiving Dinner Bundle</h2>
+						<p class="text-uppercase mb-4">Our Thanksgiving bundle includes a holiday turkey with compound butter, Pumpkin Praline Trifle for dessert, and your choice three side dishes! Not available for shipping.</p>
 						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/oct24-fan-fav-bundle-collage-957x657.webp" alt="Fan Favorite Bundle" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/thanksgiving-dinner-957x657.webp" alt="Thanksgiving" class="img-fluid">
 					</div>
 
 				</div>
 			</div>
 		</section>
-		<section>
+		<!--<section>
 			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
@@ -253,15 +253,15 @@
 
 				</div>
 			</div>
-		</section>
+		</section>-->
 		<section>
 			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
 					<div class="col-md-6 text-left p-5 my-5">
 						<h2 class="font-weight-bold mt-2">Share Easy Dinners with Your Friends</h2>
-						<p class="text-uppercase mb-4">You can earn rewards when you share Dream Dinners with your friends and family. They get the convenience of ready-to-cook dinners and you earn rewards.</p>
-						<a href="/share" class="btn btn-lg btn-green">Learn How</a>
+						<p class="text-uppercase mb-4">They get the convenience of ready-to-cook dinners and a choice between a free dinner or free shipping.</p>
+						<a href="/share" class="btn btn-lg btn-green">Learn More</a>
 					</div>
 					<div class="col-md-6 p-0">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/friends-dinner-together-957x657.webp" alt="Friends Dinner" class="img-fluid">
