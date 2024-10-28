@@ -2344,6 +2344,8 @@ class CUser extends DAO_User
 
 	function isCCPA_Enabled()
 	{
+		return false;
+
 		if (DD_SERVER_NAME != 'LIVE')
 		{
 			return true;
