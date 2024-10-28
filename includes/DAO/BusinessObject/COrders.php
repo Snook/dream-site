@@ -10611,7 +10611,7 @@ class COrders extends DAO_Orders
 					'is_visible' => $itemInfo[1]->DAO_menu_to_menu_item->is_visible,
 					'is_preassembled' => $itemInfo[1]->is_preassembled,
 					'menu_item_name' => $itemInfo[1]->menu_item_name,
-					'price' => $this->getStorePrice($this->mark_up, $itemInfo[1], 1, true),
+					'price' => $itemInfo[1]->getStorePrice($this->mark_up),
 					'servings_per_item' => $itemInfo[1]->servings_per_item,
 					'servings_per_container_display' => $itemInfo[1]->servings_per_container_display,
 					'pricing_type_info' => $itemInfo[1]->pricing_type_info,
