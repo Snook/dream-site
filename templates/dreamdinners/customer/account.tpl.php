@@ -207,25 +207,25 @@
 								<div class="ml-4">
 									<?php switch ($pref->type ) {
 										case 'INPUT': ?>
-										<div class="">
-											<br>
-											<label class="control-label" for="<?php echo $key ?>"><span class="font-weight-bold"><?php echo $pref->description ?>:</span></label>
-											<input id="<?php echo $key ?>" type="text" style="width: 300px;display: inline;" data-user_pref="<?php echo $key ?>" size="20" maxlength="15" class="form-control" value="<?php if (!empty($pref->value)) { echo htmlentities($pref->value); } ?>"></input>
-										</div>
-										<?php break; case 'CHECKBOX': ?>
-										<div class="custom-control custom-switch">
-											<input class="custom-control-input"  id="<?php echo $key ?>" data-user_pref="<?php echo $key ?>" data-user_pref_value_check="OPTED_IN" data-user_pref_value_uncheck="OPTED_OUT" type="checkbox" <?php if ($pref->value == 'OPTED_IN' ) {?>checked="checked"<?php } ?> />
-											<label class="custom-control-label" for="<?php echo $key ?>"><span class="font-weight-bold"><?php echo $pref->description ?></span></label> <span class="font-size-small"><?php if(!empty($pref->information)){ ?><span data-toggle="tooltip" class="fa fa-info-circle" data-placement="top" title="<?php echo $pref->information ?>"></span><?php } ?>
-										</div>
-										<?php break; case 'SPECIAL_REQUEST': ?>
+											<div class="">
+												<br>
+												<label class="control-label" for="<?php echo $key ?>"><span class="font-weight-bold"><?php echo $pref->description ?>:</span></label>
+												<input id="<?php echo $key ?>" type="text" style="width: 300px;display: inline;" data-user_pref="<?php echo $key ?>" size="20" maxlength="15" class="form-control" value="<?php if (!empty($pref->value)) { echo htmlentities($pref->value); } ?>"></input>
+											</div>
+											<?php break; case 'CHECKBOX': ?>
+											<div class="custom-control custom-switch">
+												<input class="custom-control-input"  id="<?php echo $key ?>" data-user_pref="<?php echo $key ?>" data-user_pref_value_check="OPTED_IN" data-user_pref_value_uncheck="OPTED_OUT" type="checkbox" <?php if ($pref->value == 'OPTED_IN' ) {?>checked="checked"<?php } ?> />
+												<label class="custom-control-label" for="<?php echo $key ?>"><span class="font-weight-bold"><?php echo $pref->description ?></span></label> <span class="font-size-small"><?php if(!empty($pref->information)){ ?><span data-toggle="tooltip" class="fa fa-info-circle" data-placement="top" title="<?php echo $pref->information ?>"></span><?php } ?>
+											</div>
+											<?php break; case 'SPECIAL_REQUEST': ?>
 											<?php if (!empty($pref->details)) { ?>
-													<div class="custom-control custom-switch">
-														<input class="custom-control-input"  id="<?php echo $key ?>" data-user_pref="<?php echo $key ?>" data-user_pref_value_check="OPTED_IN" data-user_pref_value_uncheck="OPTED_OUT" type="checkbox" <?php if ($pref->value == 'OPTED_IN' ) {?>checked="checked"<?php } ?> />
-														<label class="custom-control-label" for="<?php echo $key ?>"><span class="font-weight-bold"><?php echo $pref->description ?></span></label> <span class="font-size-small"><?php if(!empty($pref->information)){ ?><span data-toggle="tooltip" class="fa fa-info-circle" data-placement="top" title="<?php echo $pref->information ?>"></span><?php } ?>
+												<div class="custom-control custom-switch">
+													<input class="custom-control-input"  id="<?php echo $key ?>" data-user_pref="<?php echo $key ?>" data-user_pref_value_check="OPTED_IN" data-user_pref_value_uncheck="OPTED_OUT" type="checkbox" <?php if ($pref->value == 'OPTED_IN' ) {?>checked="checked"<?php } ?> />
+													<label class="custom-control-label" for="<?php echo $key ?>"><span class="font-weight-bold"><?php echo $pref->description ?></span></label> <span class="font-size-small"><?php if(!empty($pref->information)){ ?><span data-toggle="tooltip" class="fa fa-info-circle" data-placement="top" title="<?php echo $pref->information ?>"></span><?php } ?>
 														<br><span class="font-italic font-size-small font-weight-bold">( <?php echo htmlentities($pref->details);?> )</span>
-													</div>
+												</div>
 											<?php } ?>
-										<?php break; } ?>
+											<?php break; } ?>
 								</div>
 							<?php } ?>
 
@@ -284,7 +284,9 @@
 									</div>
 								<?php } ?>
 							</div>
-							<p class="font-size-small font-italic">We will work to process all verified requests within 45 days pursuant to the CCPA. If we need an extension for up to an additional 45 days in order to process your request, we will provide you with an explanation for the delay. Please view our <a href="/privacy">Privacy Policy</a> for additional information.</p>
+							<?php if (CUser::getCurrentUser()->isCCPA_Enabled()) { ?>
+								<p class="font-size-small font-italic">We will work to process all verified requests within 45 days pursuant to the CCPA. If we need an extension for up to an additional 45 days in order to process your request, we will provide you with an explanation for the delay. Please view our <a href="/privacy">Privacy Policy</a> for additional information.</p>
+							<?php } ?>
 						</div>
 					<?php }?>
 
