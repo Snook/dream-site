@@ -426,7 +426,7 @@ class CImportReciprofity extends DAO
 		}
 
 		// bypass these if doing an update to an already imported menu
-		if (!CApp::wind_down_Sandbox() && !$updateExistingMenu)
+		if (!CApp::wind_down_Live() && !$updateExistingMenu)
 		{
 			if (empty($sanity['available_dreamtaste']) || count($sanity['available_dreamtaste']) <> 5)
 			{
