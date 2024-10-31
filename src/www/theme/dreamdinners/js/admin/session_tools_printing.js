@@ -5,6 +5,24 @@ function session_tools_printing_init()
 
 function handle_submit_print()
 {
+	$(document).on('change', '#menus', function (e) {
+
+		if ($(this).val() > 280)
+		{
+			$('#dream_taste').prop({
+				'disabled': true,
+				'checked': false
+			});
+		}
+		else
+		{
+			$('#dream_taste').prop({
+				'disabled': false,
+			});
+		}
+
+	});
+
 	$('[data-print_menu]').bind('change', function() {
 
 		$('#submit_menus').addClass('disabled');
