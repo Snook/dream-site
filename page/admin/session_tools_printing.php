@@ -222,9 +222,12 @@ class page_admin_session_tools_printing extends CPageAdminOnly
 
 				if (!empty($_GET['dream_taste']) && $_GET['dream_taste'] == 'true')
 				{
-					$docSetData->loadBundleMenuData('DREAM_TASTE');
+					if ($menu_id <= 280)
+					{
+						$docSetData->loadBundleMenuData('DREAM_TASTE');
 
-					$docSetPrinter->printGenericDreamTasteMenuPDF();
+						$docSetPrinter->printGenericDreamTasteMenuPDF();
+					}
 				}
 
 				if (!empty($_GET['recipe_expert']) && $_GET['recipe_expert'] == 'true')
