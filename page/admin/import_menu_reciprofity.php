@@ -508,7 +508,7 @@ class page_admin_import_menu_reciprofity extends CPageAdminOnly
 			WHERE m.is_deleted = '0'
 			GROUP BY m.id
 			ORDER BY m.id DESC
-			LIMIT 6");
+			LIMIT 12");
 
 		$menuArray = array(0 => 'Select Menu');
 		$menu_count = 0;
