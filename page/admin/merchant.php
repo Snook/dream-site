@@ -11,7 +11,7 @@ class page_admin_merchant extends CPageAdminOnly
 
 		// Lock it down to 2 key accounts
 		$AdminUser = CUser::getCurrentUser();
-		if ($AdminUser->id != 212112) // josh thayer access only
+		if ($AdminUser->id != 212112 && $AdminUser->id != 534280) // josh thayer and brandy access only
 		{
 			CApp::bounce('/backoffice/access-error?topnavname=stores&pagename=Edit Merchant Info');
 		}
