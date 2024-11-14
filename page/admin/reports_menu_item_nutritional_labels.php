@@ -341,7 +341,7 @@ class page_admin_reports_menu_item_nutritional_labels extends CPageAdminOnly
 			));
 		}
 
-		if (count($ft_options) > 1)
+		if (!empty($ft_options) && count($ft_options) > 1)
 		{
 			$Form->AddElement(array(
 				CForm::type => CForm::DropDown,
