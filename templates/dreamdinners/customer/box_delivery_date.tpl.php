@@ -9,7 +9,8 @@
 			</div>
 			<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center col-print-12">
 				<h2>Select <span class="d-none d-md-inline">your</span> <span class="font-weight-bold text-green">delivery</span> date</h2>
-				<!--<p>NOTE: If you would like to receive your Complete Thanksgiving Dinner box in time to cook and serve for Thanksgiving, be sure to <b>select a delivery date on or before Friday, November 19th</b>. These items take 3-4 days to thaw in your fridge. </p>-->
+				<?php if (new DateTime() >= new DateTime('2024-12-01') && new DateTime() < new DateTime('2024-12-31')) { ?>
+				<p>NOTE: Due to the holidays this year, UPS will be unable to ship for us between December 23rd and January 1st. Order by December 13th to get delivery before the holidays! We apologize for the inconvenience.</p><?php } ?>
 			</div>
 		</div>
 	</header>
