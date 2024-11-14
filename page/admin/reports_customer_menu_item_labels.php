@@ -312,13 +312,14 @@ class page_admin_reports_customer_menu_item_labels extends CPageAdminOnly
 				}
 			}
 
+			$ft_options = array();
+
 			if (empty($ft_arr))
 			{
 				$tpl->setStatusMsg("Sorry, instructional sets for this menu's Sides &amp; Sweets items are not currently available.  Please check back again at a later time.");
 			}
 			else
 			{
-				$ft_options = array();
 				$ft_options[0] = "-- Next, Pick a Sides &amp; Sweets Item --";
 
 				foreach ($ft_arr as $element)
