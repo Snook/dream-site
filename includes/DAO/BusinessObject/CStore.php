@@ -399,6 +399,26 @@ class CStore extends DAO_Store
 		return $DAO_store->find_DAO_store();
 	}
 
+	function hasNewUrl(): bool
+	{
+		if (!empty($this->new_store_url))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function showNewUrl(): bool
+	{
+		if (!$this->hasNewUrl())
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	static function getAvailableStoreJobArray($store_id)
 	{
 		$job_array = self::getStoreJobArray($store_id);

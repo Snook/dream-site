@@ -782,6 +782,18 @@
 			<tr>
 				<td class="bgcolor_dark catagory_row" colspan="2">Home Office Use</td>
 			</tr>
+
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">New Store URL</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['new_store_url_html']; ?></td>
+			</tr>
+
+			<tr>
+				<td class="bgcolor_light" style="text-align: right;">New Store Email</td>
+				<td class="bgcolor_light"><?php echo $this->form_store_details['new_store_email_html']; ?></td>
+			</tr>
+
+
 			<?php if( isset( $this->form_store_details['home_office_id_html'] ) ) { ?>
 				<tr>
 					<td class="bgcolor_light" style="text-align: right;">Home Office ID</td>

@@ -27,6 +27,8 @@ class DAO_Store extends DAO
 	public $state_id;                        // string(2)  not_null multiple_key
 	public $country_id;                        // string(2)  multiple_key
 	public $postal_code;                    // string(10)
+	public $new_store_email;                    // varchar(255)
+	public $new_store_url;                    // varchar(255)
 	public $usps_adc;                        // string(4)
 	public $address_latitude;                // real(12)  not_null multiple_key
 	public $address_longitude;                // real(12)  not_null multiple_key
