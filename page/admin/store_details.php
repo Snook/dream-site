@@ -205,6 +205,20 @@ class page_admin_store_details extends CPageAdminOnly
 				));
 
 				$Form->AddElement(array(
+					CForm::type => CForm::Text,
+					CForm::disabled => false,
+					CForm::name => "new_store_url",
+					CForm::required => false
+				));
+
+				$Form->AddElement(array(
+					CForm::type => CForm::Text,
+					CForm::disabled => false,
+					CForm::name => "new_store_email",
+					CForm::required => false
+				));
+
+				$Form->AddElement(array(
 					CForm::type => CForm::EMail,
 					CForm::disabled => false,
 					CForm::name => "email_address",
