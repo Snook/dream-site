@@ -76,32 +76,32 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-marsala-30min-featured-400x400.webp" alt="Chicken Marsala with Mushrooms and Mashed Potatoes" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Chicken Marsala with Mushrooms &amp; Mashed Potatoes</h5>
-								</div>
-							</div>
-							<div class="card border-0 pr-2">
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/beef-bourguignon-crockpot-featured-400x400.webp" alt="Beef Bourguignon" class="img-fluid">
 								<div class="card-body">
 									<h5 class="card-title">Beef Bourguignon</h5>
 								</div>
 							</div>
-							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-enchiladas-featured-pan-400x400.webp" alt="Chicken Enchiladas" class="img-fluid">
+							<div class="card border-0 pr-2">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-marsala-30min-featured-400x400.webp" alt="Chicken Marsala with Mushrooms and Mashed Potatoes" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Enchiladas</h5>
+									<h5 class="card-title">Chicken Marsala with Mushrooms &amp; Mashed Potatoes</h5>
 								</div>
 							</div>
-							<div class="card border-0">
+							<div class="card border-4">
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/golden-shrimp-entertaining-featured-400x400.webp" alt="Golden Shrimp with Parmesan Risotto" class="img-fluid">
 								<div class="card-body">
 									<h5 class="card-title">Golden Shrimp with Parmesan Risotto</h5>
 								</div>
 							</div>
+							<div class="card border-0 pr-0">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-enchiladas-featured-pan-400x400.webp" alt="Chicken Enchiladas" class="img-fluid">
+								<div class="card-body">
+									<h5 class="card-title">Chicken Enchiladas</h5>
+								</div>
+							</div>
 						</div>
 					</div>
-			</div>
+				</div>
 		</section>
 		<section>
 			<div class="container-fluid my-5 bg-cyan-dark" id="local">
