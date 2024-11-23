@@ -14,7 +14,7 @@
 					</div>
 					<div class="col-md-6 p-0">
 						<figure>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/nov24-original-meal-kit-collage-circles-957x657.webp" alt="Menu Highlight" class="img-fluid">
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dec24-original-meal-kit-collage-circles-957x657.webp" alt="Menu Highlight" class="img-fluid">
 						</figure>
 					</div>
 				</div>
@@ -41,55 +41,7 @@
 				</div>
 			  </div>
 		</section>
-		<!--<section>
-		 <div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
-			<div class="container">
-				<div class="row">
-					<div class="col my-3">
-						<div class="text-center">
-							<h2 class="my-3">Kid Pick Menu Recommendations</h2>
-						</div>
-					</div>
-				</div>
-
-				<div class="row my-4">
-					<div class="col">
-						<div class="card-group text-center">
-							<div class="card border-0 mx-1">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-turkey-hand-pies-circle-458x344.webp" alt="Mini Turkey and Vegetable Hand Pies" class="img-fluid" />
-								<div class="card-body">
-									<p class="card-text">Mini Turkey and Vegetable Hand Pies</p>
-								</div>
-							</div>
-							<div class="card border-0 mx-1">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/cod-fish-n-chips-circle-458x344.webp" alt="Cod Fish n Chips" class="img-fluid" />
-								<div class="card-body">
-									<p class="card-text">Cod Fish n Chips</p>
-								</div>
-							</div>
-							<div class="card border-0 mx-1">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mexican-lasagna-circle-458x344.webp" alt="Mexican Beef Tortilla Bake" class="img-fluid" />
-								<div class="card-body">
-									<p class="card-text">Mexican Beef Tortilla Bake</p>
-								</div>
-							</div>
-							<div class="card border-0 mx-1">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken_pizzaiola_family_circle_458x344.webp" alt="Chicken Pizzaiola" class="img-fluid" />
-								<div class="card-body">
-									<p class="card-text">Chicken Pizzaiola</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-				<div class="row my-4">
-					<div class="col text-center">
-						<a href="/locations" class="btn btn-lg btn-primary">Get Cooking</a>
-					</div>
-				</div>
-			</div>
-		</section>-->
+		
 		<!-- Ways We Can Serve You-->
 		<section>
 			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>

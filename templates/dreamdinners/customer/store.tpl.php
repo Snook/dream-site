@@ -152,37 +152,38 @@
 					</div>
 				</div>
 			</div>
+			
 			<div class="row mb-2 no-gutters">
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center mb-2">
 						<div class="card border-0 pr-4">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/sirloin-fried-rice-under30-orng-featured-menu-item-400x400.webp" alt="Sizzling Sirloin Fried Rice" class="img-fluid">
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-marsala-30min-featured-400x400.webp" alt="Chicken Marsala with Mushrooms and Mashed Potatoes" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Sizzling Sirloin Fried Rice</h5>
-						</div>
-						</div>
-						<div class="card border-0 pr-2">
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-chili-crockpot-orng-featured-menu-item-400x400.webp" alt="Chicken and White Bean Chili" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Chicken and White Bean Chili</h5>
+									<h5 class="card-title">Chicken Marsala with Mushrooms &amp; Mashed Potatoes</h5>
 								</div>
+							</div>
+						<div class="card border-0 pr-2">
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/beef-bourguignon-crockpot-featured-400x400.webp" alt="Beef Bourguignon" class="img-fluid">
+							<div class="card-body">
+								<h5 class="card-title">Beef Bourguignon</h5>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center">
 						<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/bacon-mac-3-cheese-pan-featured-menu-item-400x400.webp" alt="Bacon Mac N Three Cheese Bake" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Bacon Mac N Three Cheese Bake</h5>
-								</div>
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-enchiladas-featured-pan-400x400.webp" alt="Chicken Enchiladas" class="img-fluid">
+							<div class="card-body">
+								<h5 class="card-title">Chicken Enchiladas</h5>
 							</div>
-							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/meatloaf-milano-air-fryer-featured-menu-item-400x400.webp" alt="Meatloaf Milano with Mashed Potatoes" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Meatloaf Milano with Mashed Potatoes</h5>
-								</div>
+						</div>
+						<div class="card border-0">
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/golden-shrimp-entertaining-featured-400x400.webp" alt="Golden Shrimp with Parmesan Risotto" class="img-fluid">
+							<div class="card-body">
+								<h5 class="card-title">Golden Shrimp with Parmesan Risotto</h5>
 							</div>
+						</div>
 					</div>
 				</div>				
 			</div>
