@@ -36,13 +36,13 @@
 			<div class="container-fluid my-5">
 				<div class="container">
 					<div class="row my-5">
-						<div class="col-md-5 text-center mt-4">
+						<div class="col-md-6 text-center mt-4">
 						  <h2 class="font-weight-bold font-have-heart-two font-size-extra-extra-large"><strong>Pairs Well With</strong></h2>
 						  <h3>Hope's Chocolate Chunk Cookies</h3>
 						  <p>All-natural ingredients and chips of rich, semi-sweet gourmet chocolate chunks--enough to satisfy the most discerning chocolate lovers. Nothing pairs better for an evening by the fire than cookies and hot cocoa.</p>
 						  <a href="/session_menu" class="btn btn-lg btn-primary btn-cyan-dark">ORDER NOW</a>
 						</div>
-						<div class="col-md-7 text-left">
+						<div class="col-md-6 text-left">
 							<div>
 								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chocolate-chunk-cookies-circle-458x344.webp" alt="Hopes Chocolate Chunk Cookies" class="img-fluid" />
 							</div>

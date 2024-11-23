@@ -38,7 +38,7 @@
 					<div class="row my-5">
 						<div class="col-md-6 text-center mt-4">
 						  <h2 class="font-weight-bold font-have-heart-two font-size-extra-extra-large"><strong>Pairs Well With</strong></h2>
-							<h3>Hope’s Triple Chocolate Cookies</h3>
+							<h3>Hope's Triple Chocolate Cookies</h3>
 							<p>This sweet treat consists of Dutch cocoa, white chocolate and thick semisweet chips. This chocolate lover’s dream pairs well with our delicious Peppermint Hot Chocolate.</p>
 						  <a href="/session_menu" class="btn btn-lg btn-primary btn-cyan-dark">ORDER NOW</a>
 						</div>
