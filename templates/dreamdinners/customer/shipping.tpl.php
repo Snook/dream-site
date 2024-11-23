@@ -5,19 +5,7 @@
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
 
 
-	<!--<header class="container my-5">
-		<div class="row">
-			<div class="col-6 col-sm-3 p-0 order-2 order-sm-1">
 
-			</div>
-			<div class="col-12 col-sm-6 p-sm-0 order-1 order-sm-2 mb-4 mb-sm-0 text-center">
-
-			</div>
-			<div class="col-6 col-sm-3 p-0 order-3 order-sm-3 text-center">
-
-			</div>
-		</div>
-	</header>-->
 
 	<main role="main">
 
@@ -30,35 +18,6 @@
 				</div>
 			</div>
 		</section>
-		<!--<section>
-			<div class="container">
-					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-					  <ol class="carousel-indicators">
-						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-					  </ol>
-					  <div class="carousel-inner">
-						<div class="carousel-item active">
-						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-customer-aug24-15off-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer">
-						</div>
-						<div class="carousel-item">
-						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/summer-family-shipping-in-a-snap-collage-1400x600.webp?auto=yes" alt="Dinner in a Snap">
-						</div>
-						<div class="carousel-item">
-						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/travel-may24-1400x600.webp?auto=yes" alt="Travel with Dream Dinners">
-						</div>
-					  </div>
-					  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="sr-only">Previous</span>
-					  </a>
-					  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="sr-only">Next</span>
-					  </a>
-					</div>
-			</div>
-		</section>-->
 		<section>
 			<div class="container-fluid my-5">
 				<div class="row hero-double">
@@ -81,7 +40,7 @@
 						</form>
 					</div>
 					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/nov24-shipping-collage-957x657.webp" alt="Shipping Menu" class="img-fluid">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dec24-shipping-collage-957x657.webp" alt="Shipping Menu" class="img-fluid">
 					</div>
 
 				</div>
@@ -124,7 +83,7 @@
 			</div>
 		</section>
 
-		<section>
+		<!--<section>
 			<div class="container-fluid my-5">
 				<div class="col-sm-12 text-center"><h2 class="mb-1 mt-4 font-weight-bold">Order In a Snap</h2></div>
 				<div class="row">
@@ -140,11 +99,11 @@
 					</div>
 				</div>
 				<div class="row">
-					<!--<div class="col-md-6 text-center p-5 my-2">
+					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/noodle-bowl-and-drink-600x350.webp" alt="Family camping" class="img-fluid">
 						<h3 class="font-weight-bold my-2">Fan Favorites Box Box</h3>
 						<p class="mb-4">Let us take care of your meal planning with delicious, dinners including Pub Style Chicken with Mashed Potatoes, Old Fashioned Meatloaf, Cashew Chicken with Noodles, and Chateau Chicken with Almond Butter Sauce with Orzo.</p>
-					</div>-->
+					</div>
 					<div class="col-md-6 text-center p-5 my-2">
 						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/woman-broken-leg-600x350.webp" alt="Woman with broken leg on couch" class="img-fluid">
 						<h3 class="font-weight-bold my-2">Get Well Box</h3>
@@ -152,7 +111,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section>-->
 		<section class="bg-green-light">
 			<div class="container my-5 mp-5">
 				<div class="row">
@@ -250,26 +209,6 @@
 				</div>
 			</div>
 		</section>
-
-
-		<!--<div class="border-bottom border-green-dark mb-3 mx-5"></div>
-		<section>
-			<div class="container">
-				<div class="row my-5">
-					<div class="col-md-6 mb-6 text-left">
-						<h3 class="my-4">OUR GUESTS LOVE US</h3>
-						<p>Hear how our guest Kellie uses our prepared dinners to make dinnertime easier for her family.</p>
-
-						<p><a href="/session-menu" data-gaq_cat="original" data-gaq_action="Order Now" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Order Now</a></p>
-					</div>
-					<div class="col-md-6 text-right">
-						<div class="embed-responsive embed-responsive-16by9">
-							<iframe class="embed-responsive-item" loading="lazy" src="https://www.youtube.com/embed/IBMWQ1Z5sDw?rel=0&amp;controls=0" allowfullscreen></iframe>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>-->
 	</main>
 
 <?php include $this->loadTemplate('customer/subtemplate/page_footer.tpl.php'); ?>
