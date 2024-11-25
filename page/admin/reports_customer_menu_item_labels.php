@@ -185,7 +185,7 @@ class page_admin_reports_customer_menu_item_labels extends CPageAdminOnly
 
 			// Get menu info
 			$DAO_menu = DAO_CFactory::create('menu', true);
-			$DAO_menu->limit(12);
+			$DAO_menu->limit(18);
 			$DAO_menu->orderBy("menu.id DESC");
 			$DAO_menu->find();
 			$menu_array = array();
