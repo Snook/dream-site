@@ -140,6 +140,7 @@
 								<li><a href="/backoffice/reports-guest?report=guest-birthdays">Guest Birthdays</a></li>
 								<li><a href="/backoffice/reports-guest?report=guest-with-dinner-dollars">Guests with Expiring Dinner Dollars</a></li>
 								<li><a href="/backoffice/reports-guest?report=preferred-user">Preferred Users</a></li>
+								<li><a href="/backoffice/reports-guest?report=gift-card-balance">Virtual Gift Card Balance</a></li>
 							</ul>
 						</li>
 					</ul>
