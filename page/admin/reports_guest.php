@@ -102,7 +102,7 @@ class page_admin_reports_guest extends CPageAdminOnly
 		$this->Form->DefaultValues['month_end'] = date("Y-m");
 		$this->Form->DefaultValues['date_start'] = date("Y-m-01");
 		$this->Form->DefaultValues['date_end'] = date("Y-m-d", strtotime("last day of this month"));
-		$this->Form->DefaultValues['datetime_start'] = date("Y-m-d");
+		$this->Form->DefaultValues['datetime_start'] = date("Y-m-d", strtotime('2023-01-01 00:00:00'));
 		$this->Form->DefaultValues['datetime_end'] = date("Y-m-d", strtotime('+1 year'));
 		$this->Form->DefaultValues['query_set'] = 'query_with_sessions';
 		$this->Form->DefaultValues['filter_guest_info'] = true;
