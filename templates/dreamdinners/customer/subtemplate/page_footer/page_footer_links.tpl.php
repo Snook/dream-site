@@ -83,7 +83,7 @@
 	</div>
 </footer>
 
-<section class="container-fluid py-2 d-print-none">
+<!--<section class="container-fluid py-2 d-print-none">
 	<div class="row">
 		<div class="col-6 text-right">
 			<a href="https://dreamdinnersfranchise.com" rel="noopener" target="_blank"><img loading="lazy" src="<?php echo IMAGES_PATH; ?>/main/footer-2.png" class="img-fluid" alt="Dream Dinners Franchise"></a>
@@ -92,7 +92,7 @@
 			<a href="https://dreamdinnersfoundation.org/" rel="noopener" target="_blank"><img loading="lazy" src="<?php echo IMAGES_PATH; ?>/main/footer-3.png" class="img-fluid" alt="Dream Dinners Foundation"></a>
 		</div>
 	</div>
-</section>
+</section>-->
 
 <section>
 	<div class="container-fluid">

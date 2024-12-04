@@ -1,7 +1,15 @@
 <div class="row mb-5">
 	<div class="col text-center">
 		<ul class="nav justify-content-around">
-			<?php if (!$this->DAO_store->isComingSoon()) { ?>
+			<?php if (!$this->DAO_store->hasAvailableCustomerMenu() && $this->DAO_store->hasNewUrl()) { ?>
+				<li>
+					<a class="m-auto nav-link text-uppercase font-weight-bold" href="<?php echo $this->DAO_store->new_store_url; ?>" rel="follow">
+						<i class="dd-icon icon-cart font-size-extra-extra-large text-green-dark m-4 d-block"></i>
+						Order Now
+					</a>
+					<p class="text-center font-weight-bold">Order from our new site!</p>
+				</li>
+			<?php } else if (!$this->DAO_store->isComingSoon()) { ?>
 				<li>
 					<a class="m-auto nav-link text-uppercase font-weight-bold" href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/order" rel="nofollow">
 						<i class="dd-icon icon-cart font-size-extra-extra-large text-green-dark m-4 d-block"></i>

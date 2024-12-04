@@ -152,11 +152,11 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="row mb-2 no-gutters">
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center mb-2">
-						
+
 						<div class="card border-0 pr-4">
 							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/beef-bourguignon-crockpot-featured-400x400.webp" alt="Beef Bourguignon" class="img-fluid">
 							<div class="card-body">
@@ -165,15 +165,15 @@
 						</div>
 						<div class="card border-0 pr-2">
 							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-marsala-30min-featured-400x400.webp" alt="Chicken Marsala with Mushrooms and Mashed Potatoes" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Chicken Marsala with Mushrooms &amp; Mashed Potatoes</h5>
-								</div>
+							<div class="card-body">
+								<h5 class="card-title">Chicken Marsala with Mushrooms &amp; Mashed Potatoes</h5>
 							</div>
+						</div>
 					</div>
 				</div>
 				<div class="col-12 col-lg-6">
 					<div class="card-group text-center">
-						
+
 						<div class="card border-0 pr-4">
 							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/golden-shrimp-entertaining-featured-400x400.webp" alt="Golden Shrimp with Parmesan Risotto" class="img-fluid">
 							<div class="card-body">
@@ -187,11 +187,16 @@
 							</div>
 						</div>
 					</div>
-				</div>				
+				</div>
 			</div>
 			<div class="row">
 				<div class="col">
-					<a href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/order" class="btn btn-primary btn-block">Start your order</a>
+					<?php if (!$this->DAO_store->hasAvailableCustomerMenu() && $this->DAO_store->hasNewUrl()) { ?>
+						<a href="<?php echo $this->DAO_store->new_store_url; ?>" class="btn btn-primary btn-block">Start your order</a>
+						<p class="text-center font-weight-bold">Order from our new site!</p>
+					<?php } else { ?>
+						<a href="<?php echo $this->DAO_store->getPrettyUrl(); ?>/order" class="btn btn-primary btn-block">Start your order</a>
+					<?php } ?>
 				</div>
 			</div>
 			<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted" />

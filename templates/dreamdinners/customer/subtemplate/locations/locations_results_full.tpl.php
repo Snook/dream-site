@@ -107,7 +107,12 @@
 											<?php if ($store["DAO_store"]->isComingSoon()) { ?>
 												<span class="btn btn-default w-100 btn-select-checked">Coming Soon!</span>
 											<?php } else if (!$store["DAO_store"]->hasAvailableCustomerMenu()) { ?>
-												<span class="btn btn-primary w-100 disabled">Menu not available</span>
+												<?php if (!$store["DAO_store"]->showNewUrl()) { ?>
+													<span class="btn btn-primary w-100 disabled">Menu not available</span>
+												<?php } else { ?>
+													<a href="<?php echo $store["DAO_store"]->new_store_url; ?>" rel="follow" class="btn btn-primary w-100 btn-spinner">View Menu &amp; Order</a>
+													<p class="text-center font-weight-bold">Order from our new site!</p>
+												<?php } ?>
 											<?php } else { ?>
 												<?php if ($store["type"] == 'COMMUNITY_PICK_UP') { ?>
 													<a href="<?php echo $store["DAO_store"]->getPrettyUrl(); ?>/community-pick-up#<?php echo $store["DAO_store_pickup_location"]->generateAnchor(); ?>" rel="nofollow" class="btn btn-primary w-100 btn-spinner">View Pick Up Times</a>
