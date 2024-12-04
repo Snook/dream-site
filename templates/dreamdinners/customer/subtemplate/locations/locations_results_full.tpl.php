@@ -138,7 +138,7 @@
 										<?php echo CTemplate::recaptcha_mailHideHtml($store["DAO_store"]->email_address, 'Email Store'); ?>
 									</div>
 
-									<?php if ($store["type"] != 'COMMUNITY_PICK_UP') { ?>
+									<?php if ($store["DAO_store"]->hasAvailableCustomerMenu() && $store["type"] != 'COMMUNITY_PICK_UP') { ?>
 										<div class="row mt-4">
 											<div class="col">
 												<a href="<?php echo $store["DAO_store"]->getPrettyUrl(); ?>/calendar" class="btn btn-primary w-100 btn-spinner">View store events</a>
