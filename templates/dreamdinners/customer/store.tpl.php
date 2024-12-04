@@ -57,7 +57,7 @@
 					<div class="d-md-none"><a href="tel:<?php echo $this->DAO_store->telephone_day; ?>"><?php echo $this->DAO_store->telephone_day; ?></a></div>
 					<div class="d-none d-md-block"><?php echo $this->DAO_store->telephone_day; ?></div>
 					<?php echo (!empty($this->DAO_store->telephone_sms)) ? 'Text us at '.$this->DAO_store->telephone_sms . '<br />' : ''; ?>
-					<?php echo (!empty($this->DAO_store->email_address)) ? CTemplate::recaptcha_mailHideHtml($this->DAO_store->email_address, 'Email Store') . '<br />' : ''; ?>
+					<?php echo (!empty($this->DAO_store->email_address)) ? CTemplate::recaptcha_mailHideHtml($this->DAO_store->new_store_email ?: $this->DAO_store->email_address, 'Email Store') . '<br />' : ''; ?>
 
 					<a href="https://instagram.com/<?php echo (!empty($this->DAO_store->social_instagram)) ? $this->DAO_store->social_instagram : 'dreamdinners'; ?>" class="text-decoration-hover-none font-size-large text-green-light mr-3" target="_blank"><i class="fab fa-instagram"></i></a>
 					<!--<a href="https://twitter.com/<?php echo (!empty($this->DAO_store->social_twitter)) ? $this->DAO_store->social_twitter : 'dreamdinners'; ?>" class="text-decoration-hover-none font-size-large text-green-light mr-3" target="_blank"><i class="fab fa-twitter"></i></a>-->
