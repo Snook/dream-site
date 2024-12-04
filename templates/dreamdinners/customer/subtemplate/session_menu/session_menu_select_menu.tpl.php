@@ -15,15 +15,28 @@
 		<div class="row mt-2 collapse sm-row-change-menu">
 			<div class="col">
 				<div class="row justify-content-center">
-					<?php foreach ($this->customerCalendarArray['no_closed_walkin']['menu'] as $mid => $menuInfo) { ?>
-						<?php if (!empty($menuInfo['session_type']['ALL_STANDARD'])) { ?>
-							<div class="col-12 col-md-auto">
-								<a href="/menu/<?php echo $this->cart_info['storeObj']->id; ?>-<?php echo $menuInfo['DAO_menu']->menu_name_abbr; ?>" class="btn btn-primary w-100 mb-2 <?php if ($mid == $this->cart_info['menu_id'] && $this->cart_info['cart_info_array']['navigation_type'] == CTemplate::ALL_STANDARD) { ?>disabled<?php } ?>">
-									<i class="dd-icon icon-<?php echo strtolower($menuInfo['DAO_menu']->menu_month); ?> font-size-medium-small align-middle"></i>
-									<span class="px-4"><?php echo $menuInfo['DAO_menu']->menu_month; ?> menu</span>
-								</a>
-							</div>
+					<?php if (!empty($this->customerCalendarArray['no_closed_walkin']['menu'])) { ?>
+						<?php foreach ($this->customerCalendarArray['no_closed_walkin']['menu'] as $mid => $menuInfo) { ?>
+							<?php if (!empty($menuInfo['session_type']['ALL_STANDARD'])) { ?>
+								<div class="col-12 col-md-auto">
+									<a href="/menu/<?php echo $this->cart_info['storeObj']->id; ?>-<?php echo $menuInfo['DAO_menu']->menu_name_abbr; ?>" class="btn btn-primary w-100 mb-2 <?php if ($mid == $this->cart_info['menu_id'] && $this->cart_info['cart_info_array']['navigation_type'] == CTemplate::ALL_STANDARD) { ?>disabled<?php } ?>">
+										<i class="dd-icon icon-<?php echo strtolower($menuInfo['DAO_menu']->menu_month); ?> font-size-medium-small align-middle"></i>
+										<span class="px-4"><?php echo $menuInfo['DAO_menu']->menu_month; ?> menu</span>
+									</a>
+								</div>
+							<?php } ?>
 						<?php } ?>
+					<?php } ?>
+
+					<?php if ((empty($this->customerCalendarArray['no_closed_walkin']['menu']) || max(array_keys($this->customerCalendarArray['no_closed_walkin']['menu'])) == 280) && $this->cart_info["storeObj"]->showNewUrl()) { ?>
+						<div class="col-12 col-md-auto">
+							<a href="<?php echo $this->cart_info['storeObj']->new_store_url; ?>" class="btn btn-primary w-100 mb-2">
+								<i class="dd-icon icon-<?php echo (max(array_keys($this->customerCalendarArray['no_closed_walkin']['menu'])) == 280) ? 'january' : 'february'; ?> font-size-medium-small align-middle"></i>
+								<span class="px-4"><?php echo (max(array_keys($this->customerCalendarArray['no_closed_walkin']['menu'])) == 280) ? 'January' : 'February'; ?> menu</span>
+								<i class="fas fa-external-link-alt font-size-medium-small align-middle"></i>
+							</a>
+							<p class="text-center font-weight-bold">Order from our new site!</p>
+						</div>
 					<?php } ?>
 				</div>
 			</div>
