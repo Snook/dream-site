@@ -135,7 +135,7 @@
 										<a href="tel:<?php echo $store["DAO_store"]->telephone_day; ?>" class="text-decoration-none text-body"><?php echo $store["DAO_store"]->telephone_day; ?></a>
 									</div>
 									<div>
-										<?php echo CTemplate::recaptcha_mailHideHtml($store["DAO_store"]->email_address, 'Email Store'); ?>
+										<?php echo CTemplate::recaptcha_mailHideHtml($store["DAO_store"]->new_store_email ?: $store["DAO_store"]->email_address, 'Email Store'); ?>
 									</div>
 
 									<?php if ($store["DAO_store"]->hasAvailableCustomerMenu() && $store["type"] != 'COMMUNITY_PICK_UP') { ?>
