@@ -14,7 +14,7 @@ My membership savings to date is $<?php echo CTemplate::moneyFormat($this->membe
 <?php } else if (!empty($this->plate_points) && $this->plate_points['status'] == 'active') { ?>
 PlatePoints
 --------------------
-<?php if (!$this->isEmptyFloat($this->plate_points['points_this_order'])) { ?>
+<?php if (false && !$this->isEmptyFloat($this->plate_points['points_this_order'])) { ?>
 Points earned this order: <?php echo number_format($this->plate_points['points_this_order']); ?>
 <?php } ?>
 <?php if (!empty($this->plate_points['available_credit'])) { ?>
