@@ -4,33 +4,8 @@
 <?php include $this->loadTemplate('customer/subtemplate/page_header.tpl.php'); ?>
 
 	<main role="main">
-	<section>
-		<!--<section>
-			<div class="container-fluid my-5">
-				<div class="row hero-double">
-					<div class="col-md-6 text-left p-5 my-5">
-						<h1 class="font-weight-bold font-have-heart-two mt-2">No idea what to cook this week?</h1>
-						<p class="text-uppercase mb-4">No problem.<br>We planned and prepped your meals for you!</p>
-						<a href="/locations" class="btn btn-lg btn-green">Order Now</a>
-					</div>
-					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/may24-local-meal-prep-collage-957x657.webp" alt="May Menu" class="img-fluid">
-					</div>
-
-				</div>
-			</div>
-		</section>-->
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col text-center">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dinner-reinvented-beef-bourguignon-1400x400.webp" alt="Dinner Reinvented" class="img-fluid">
-					</div>
-				</div>
-			</div>
-		</section>
-
 		<section>
-			<div class="container-fluid my-5 bg-green-light">
+			<div class="container-fluid my-5">
 				<div class="container">
 					<div class="row my-5">
 						<div class="col-md-5 text-center mt-5">
@@ -61,47 +36,24 @@
 				</div>
 			</div>
 		</section>
-		<!-- Menu Highlights-->
 		<section>
-			<div class="container my-5"id="menu">
-				<div class="row">
-					<div class="col">
-						<div class="text-center">
-							<h2 class="mt-4 mb-4 font-weight-bold font-have-heart-two font-size-extra-extra-large">FEATURED ON THE MENU THIS MONTH</h2>
+		<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
+			<div class="container-fluid my-5">
+				<div class="container">
+					<div class="row my-5">
+						<div class="col-md-7 text-left">
+							<div>
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/Salisbury_Meatballs_with_Mushroom_Gravy_458x344.webp" alt="Salisbury Meatballs" class="img-fluid" />
+							</div>
+						</div>
+						<div class="col-md-5 text-center mt-4">
+						  <h2 class="font-weight-bold font-have-heart-two font-size-extra-extra-large"><strong>DELICIOUS RECIPES</strong></h2>
+						  <p>Our monthly menu has a variety of tasty meals to fit your family’s needs. We assemble your meals just for you from fresh ingredients, then freeze them for optimal freshness. This means they are ready to cook and enjoy whenever you need them.</p>
+						  <a href="/browse-menu" class="btn btn-lg btn-primary btn-cyan-dark">VIEW MENU</a>
 						</div>
 					</div>
 				</div>
-
-				<div class="row my-5">
-					<div class="col">
-						<div class="card-group text-center mb-2">
-							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/beef-bourguignon-crockpot-featured-400x400.webp" alt="Beef Bourguignon" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Beef Bourguignon</h5>
-								</div>
-							</div>
-							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-marsala-30min-featured-400x400.webp" alt="Chicken Marsala with Mushrooms and Mashed Potatoes" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Chicken Marsala with Mushrooms &amp; Mashed Potatoes</h5>
-								</div>
-							</div>
-							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/golden-shrimp-entertaining-featured-400x400.webp" alt="Golden Shrimp with Parmesan Risotto" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Golden Shrimp with Parmesan Risotto</h5>
-								</div>
-							</div>
-							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-enchiladas-featured-pan-400x400.webp" alt="Chicken Enchiladas" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Chicken Enchiladas</h5>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+			</div>
 		</section>
 		<section>
 			<div class="container-fluid my-5 bg-cyan-dark" id="local">
@@ -135,40 +87,8 @@
 				</div>
 			</div>
 		</section>
-		<section>
-			<div class="container-fluid my-5">
-				<div class="container">
-					<div class="row my-5">
-						<div class="col-md-7 text-left">
-							<div>
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini_beef_tostada_cups_458x344.webp" alt="Mini Beef Tostada Cups" class="img-fluid" />
-							</div>
-						</div>
-						<div class="col-md-5 text-center mt-4">
-						  <h2 class="font-weight-bold font-have-heart-two font-size-extra-extra-large"><strong>DELICIOUS RECIPES</strong></h2>
-						  <p>Our monthly menu has a variety of tasty meals to fit your family’s needs. We assemble your meals just for you from fresh ingredients, then freeze them for optimal freshness. This means they are ready to cook and enjoy whenever you need them.</p>
-						  <a href="/browse-menu" class="btn btn-lg btn-primary btn-cyan-dark">VIEW MENU</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		<!-- Testimonials -->
-		<section>
-			<div class="container-fluid">
-				<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
-				<div class="row mt-4">
-					<div class="col text-center">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/customer-testimonials-1400x600.webp" alt="customer testimonials" class="img-fluid">
-					</div>
-				</div>
-				<!--<div class="row mt-4">
-					<div class="col text-center">
-						<p class="font-italic">Offer valid for new customers or customers that have not placed a Dream Dinners order in more than 12 months. Offer cannot be combined with Dinner Dollars, other coupons or offers. No cash value. Offer can be redeemed once per guest and is not transferrable. Offer expires August 31, 2024. Valid only at participating locations.</p>
-					</div>
-				</div>-->
-			</div>
-		</section>
+		
+		
 
 	</main>
 

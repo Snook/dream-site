@@ -13,38 +13,6 @@
 				</div>
 			</div>
 		</section>
-		<!--<section>
-			<div class="container"  style="max-height: 25rem; overflow: hidden;">
-					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-					  <ol class="carousel-indicators">
-						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-					  </ol>
-					  <div class="carousel-inner">
-						<div class="carousel-item active">
-						  <a href="/local-meal-prep"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/new-customer-aug24-15off-1400x600.webp?auto=yes" alt="New Customer Exclusive Offer"></a>
-						</div>
-						<div class="carousel-item">
-						  <a href="/session-menu"><img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/back-to-school-1400x600.webp?auto=yes" alt="Back to School"></a>
-						</div>
-						<div class="carousel-item">
-						  <img class="d-block w-100" src="<?php echo IMAGES_PATH; ?>/landing_pages/travel-may24-1400x600.webp?auto=yes" alt="Travel with Dream Dinners">
-						</div>
-					  </div>
-					  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="sr-only">Previous</span>
-					  </a>
-					  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="sr-only">Next</span>
-					  </a>
-					</div>
-			</div>
-		</section>-->
-
-
 		<section>
 			<div class="container my-5">
 				<div class="col-lg-10 mx-lg-auto">
@@ -84,27 +52,27 @@
 					<div class="col">
 						<div class="card-group text-center mb-2">
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/beef-bourguignon-crockpot-featured-400x400.webp" alt="Beef Bourguignon" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/rio-fajitas-30min-400x400.webp" alt="Rio Grande Chicken Fajitas" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Beef Bourguignon</h5>
+									<h5 class="card-title">Rio Grande Chicken Fajitas</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-marsala-30min-featured-400x400.webp" alt="Chicken Marsala with Mushrooms and Mashed Potatoes" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/salisbury-meatballs-instant-pot-400x400.webp" alt="Salisbury Meatballs with Mushroom Gravy" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Marsala with Mushrooms &amp; Mashed Potatoes</h5>
+									<h5 class="card-title">Salisbury Meatballs with Mushroom Gravy</h5>
 								</div>
 							</div>
 							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/golden-shrimp-entertaining-featured-400x400.webp" alt="Golden Shrimp with Parmesan Risotto" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/smoked-sausage-penne-pan-meal-400x400.webp" alt="Smoked Sausage Penne Pasta" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Golden Shrimp with Parmesan Risotto</h5>
+									<h5 class="card-title">Smoked Sausage Penne Pasta</h5>
 								</div>
 							</div>
 							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-enchiladas-featured-pan-400x400.webp" alt="Chicken Enchiladas" class="img-fluid">
+								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicago-chicken-under-500-400x400.webp" alt="Chicago Style Chicken with Roasted Potato Wedges" class="img-fluid">
 								<div class="card-body">
-									<h5 class="card-title">Chicken Enchiladas</h5>
+									<h5 class="card-title">Chicago Style Chicken with Roasted Potato Wedges</h5>
 								</div>
 							</div>
 						</div>
@@ -221,57 +189,7 @@
 				</div>
 			</div>
 		</section>
-		<section>
-			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
-			<div class="container-fluid my-5">
-				<div class="row hero-double">
-					<div class="col-md-6 text-left p-5 my-5">
-						<h2 class="font-weight-bold mt-2">December Fan Favorites Bundle</h2>
-						<p class="text-uppercase mb-4">Start your order with our December Fan Favorite Bundle. These 4 dinners are the perfect easy weeknight meal plan and includes Chicken Marsala with Mushrooms & Mashed Potatoes, Fully Loaded Chicken and Potato Soup, Firehouse Three Cheese Pasta with Meatballs, and Chicken Enchiladas.</p>
-						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
-					</div>
-					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dec24-bundle-collage-957x657.webp" alt="Fan Favorites" class="img-fluid">
-					</div>
-
-				</div>
-			</div>
-		</section>
-		<section>
-			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
-			<div class="container-fluid my-5">
-				<div class="row hero-double">
-					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dec24-lto-bundle-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
-					</div>
-					<div class="col-md-6 text-left p-5 my-5">
-						<h2 class="font-weight-bold mt-2">Holiday Breakfast Bundle</h2>
-						<p class="text-uppercase mb-4">Start prepping your holiday menu by ordering our Holiday Breakfast Bundle featuring our Breakfast Bacon Frittata, Country Potato Bake and your choice of French Toast Bake. Easy and delicious! This breakfast bundle is perfect for Christmas morning, New Year's Day or to feed a houseful of visiting family. Add one on to your December order. Available at select locations in the Sides and Sweets Freezer, while supplies last. Not available for shipping.</p>
-						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
-					</div>
-
-
-				</div>
-			</div>
-		</section>
-		<section>
-			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
-			<div class="container-fluid my-5">
-				<div class="row hero-double">
-					<div class="col-md-6 text-left p-5 my-5">
-						<h2 class="font-weight-bold mt-2">Share Easy Dinners with Your Friends</h2>
-						<p class="text-uppercase mb-4">They get the convenience of ready-to-cook dinners and a choice between a free dinner or free shipping.</p>
-						<a href="/share" class="btn btn-lg btn-green">Learn More</a>
-					</div>
-					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/friends-dinner-together-957x657.webp" alt="Friends Dinner" class="img-fluid">
-					</div>
-
-				</div>
-			</div>
-		</section>
-
-		<!-- Instagram -->
+	<!-- Instagram -->
 		<section>
 			<div class="container-fluid my-5">
 				<div class="row px-2 px-lg-5 py-5 bg-light">
