@@ -14,7 +14,7 @@
 					</div>
 					<div class="col-md-6 p-0">
 						<figure>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dec24-original-meal-kit-collage-circles-957x657.webp" alt="Menu Highlight" class="img-fluid">
+							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/jan25-shipping-collage-circles-957x657.webp" alt="Menu Highlight" class="img-fluid">
 						</figure>
 					</div>
 				</div>
@@ -94,24 +94,6 @@
 				</div>
 			</div>
 		</section>
-		<section>
-			<div class="container">
-				<div class="row my-5">
-					<div class="col-md-6 mb-6 text-left">
-							<h3 class="my-4">OUR GUESTS LOVE US</h3>
-						<p>Hear what our guest Ashley and her daughters have to say about how Dream Dinners has made dinnertime easier at her house.</p>
-
-						<p><a href="/locations" data-gaq_cat="original" data-gaq_action="Order Now" data-gaq_label="Landing Page" class="btn btn-lg btn-primary">Order Now</a></p>
-					</div>
-					<div class="col-md-6 text-right">
-						<div class="embed-responsive embed-responsive-16by9">
-						<iframe class="embed-responsive-item" loading="lazy" src="https://www.youtube.com/embed/iSh8gXjsT6w?rel=0&amp;controls=0" allowfullscreen></iframe>
-					</div>
-				</div>
-			  </div>
-			</div>
-
-
 	</main>
 
 <?php include $this->loadTemplate('customer/subtemplate/page_footer.tpl.php'); ?>

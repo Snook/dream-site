@@ -16,24 +16,6 @@
 				</div>
 			</div>
 		</section>
-		<section>
-			<div class="container">
-				<div class="row my-5">
-					<div class="col-md-7 text-left">
-						<h3><strong>Buy 3 Dinners, Get 1 Free*</strong></h3>
-						<p>Place an order for 3 or more dinners, get a free medium Baked Penne Chicken Alfredo as our gift to you. </p>
-						<p>Use this code at checkout: <span class="font-weight-bold font-have-heart-two font-size-large">TRYUS</span></p>
-						<p class="my-3"><a href="/locations" class="btn btn-lg btn-green">ORDER NOW</a></p>
-					</div>
-					<div class="col-md-5 mb-6">
-						<div>
-							<img src="<?php echo IMAGES_PATH; ?>/landing_pages/1108-baked-penne-chicken-alfredo-family-circle-458x344.webp" alt="Baked Penne Chicken Alfredo" class="img-fluid mb-3" />
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
 		<!-- How it works -->
 		<section>
 			<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
@@ -140,104 +122,7 @@
 			</div>
 		</section>
 
-		<!--<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
-		 Menu Highlights
-		<section>
-			<div class="container my-5">
-				<div class="row">
-					<div class="col">
-						<div class="text-center">
-							<h2 class="mt-4 mb-4 font-weight-bold">Meals Made In A Snap</h2>
-						</div>
-					</div>
-				</div>
-				<div class="row my-5">
-					<div class="col">
-						<div class="card-group text-center mb-2">
-							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-turkey-hand-pies-featured-kid-pick-400x400.webp" alt="Mini Turkey and Vegetable Hand Pies" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Mini Turkey and Vegetable Hand Pies</h5>
-								</div>
-							</div>
-							<div class="card border-0 pr-2">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/chicken-pizzaiola-featured-pan-meal-400x400.webp" alt="Chicken Pizzaiola" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Chicken Pizzaiola</h5>
-								</div>
-							</div>
-							<div class="card border-0 pr-4">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/italiano-chicken-orzo-featured-30min-less-400x400.webp" alt="Italiano Chicken and Orzo" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Italiano Chicken and Orzo</h5>
-								</div>
-							</div>
-							<div class="card border-0">
-								<img src="<?php echo IMAGES_PATH; ?>/landing_pages/beef-bourguignon-featured-instant-pot-400x400.webp" alt="Beef Bourguignon" class="img-fluid">
-								<div class="card-body">
-									<h5 class="card-title">Beef Bourguignon</h5>
-								</div>
-							</div>
-
-						</div>
-					</div>
-				</div>
-				<div>
-					<div class="col">
-						<div class="text-center">
-							<a href="/locations" class="btn btn-lg btn-primary">See Your Local Menu Options</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>-->
-		<div class="border-top mb-3 mx-5" style="border-top: #b9bf33 dotted 5px !important;"></div>
-		<!-- Testimonials -->
-		<section>
-			<div class="container-fluid my-5">
-				<div class="row px-2 px-lg-5 py-5">
-					<div class="col-lg-8 offset-lg-2 text-center">
-						<h2 class="text-center"><strong>Hear what our guests have to say...</strong></h2>
-						<div class="row my-4">
-							<div class="col">
-								<div class="card-group text-center">
-									<div class="card border-0 mx-1">
-										<div class="embed-responsive embed-responsive-16by9">
-											<iframe class="embed-responsive-item" loading="lazy" src="https://www.youtube.com/embed/IBMWQ1Z5sDw?rel=0&amp;controls=0" allowfullscreen></iframe>
-										</div>
-										<div class="card-body">
-											<h5 class="card-title">Kelly T.<br>Encinitas, CA</h5>
-										</div>
-									</div>
-									<div class="card border-0 mx-1">
-										<div class="embed-responsive embed-responsive-16by9">
-											<iframe class="embed-responsive-item" loading="lazy" src="https://www.youtube.com/embed/MrsU9fG2w3I?rel=0&amp;controls=0" allowfullscreen></iframe>
-										</div>
-										<div class="card-body">
-											<h5 class="card-title">Brittnie  B.<br>Missouri City, TX</h5>
-										</div>
-									</div>
-									<div class="card border-0 mx-1">
-										<div class="embed-responsive embed-responsive-16by9">
-											<iframe class="embed-responsive-item" loading="lazy" src="https://www.youtube.com/embed/iSh8gXjsT6w?rel=0&amp;controls=0" allowfullscreen></iframe>
-										</div>
-										<div class="card-body">
-											<h5 class="card-title">Ashley J.<br>Tucson, AZ</h5>
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		<div class="container">
-			<div class="row my-5 text-center">
-				<p class="mt-4"><i>Fine Print: The free dinner voucher is for new guests who have never been to Dream Dinners. The voucher has no cash value and is not for sale; it is good for one redemption per a household, and recipient must be at least 18 years old. Not valid combined with any other offers or promotions. Code is only valid at participating locations.</i></p>
-			</div>
-		</div>
+	
 
 	</main>
 

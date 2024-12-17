@@ -32,9 +32,7 @@
 				<a class="list-group-item bg-green-dark text-white py-0" href="/locations">Locations</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/shipping">Shipping</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/browse-menu">Menu Preview</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/share">Share</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/my-account">My Account</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/help">Help</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/gift-card-order">Gift Cards</a>
 			</div>
 		</div>
@@ -43,7 +41,7 @@
 			<div class="list-group list-group-flush">
 				<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/about-us">About Us</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/our-food">Our Food</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/job-opportunities">Careers</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/help">Help</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/contact-us">Contact Us</a>
 			</div>
 		</div>
@@ -52,8 +50,6 @@
 			<div class="list-group list-group-flush">
 				<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/how-it-works">How It Works</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/gift">Gift</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/platepoints">PlatePoints</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/promotions">Promotions</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/fundraisers">Fundraisers</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/recipe-resources">Recipe Resources</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="https://blog.dreamdinners.com" rel="noopener" target="_blank">Our Blog</a>
@@ -72,27 +68,9 @@
 				</div>
 			<?php } ?>
 		</div>
-		<div class="<?php if (CUser::isUserStaff()) { ?>col-md-8<?php } ?> col-lg-12 col-xl-4 mt-4">
-			<div class="row">
-				<div class="col text-center text-xl-right">
-					<a href="https://instagram.com/dreamdinners" rel="noopener" class="text-decoration-hover-none font-size-extra-large text-green-light mr-3" target="_blank"><i class="fab fa-instagram"></i></a>
-					<a href="https://facebook.com/dreamdinners" rel="noopener" class="text-decoration-hover-none font-size-extra-large text-green-light mr-3" target="_blank"><i class="fab fa-facebook-f"></i></a>
-				</div>
-			</div>
-		</div>
 	</div>
 </footer>
 
-<!--<section class="container-fluid py-2 d-print-none">
-	<div class="row">
-		<div class="col-6 text-right">
-			<a href="https://dreamdinnersfranchise.com" rel="noopener" target="_blank"><img loading="lazy" src="<?php echo IMAGES_PATH; ?>/main/footer-2.png" class="img-fluid" alt="Dream Dinners Franchise"></a>
-		</div>
-		<div class="col-6 text-left">
-			<a href="https://dreamdinnersfoundation.org/" rel="noopener" target="_blank"><img loading="lazy" src="<?php echo IMAGES_PATH; ?>/main/footer-3.png" class="img-fluid" alt="Dream Dinners Foundation"></a>
-		</div>
-	</div>
-</section>-->
 
 <section>
 	<div class="container-fluid">
@@ -103,7 +81,6 @@
 					<li class="list-inline-item"><a class="text-white d-print-none" href="/terms">Terms</a></li>
 					<li class="list-inline-item"><a class="text-white d-print-none" href="/privacy">Privacy</a></li>
 					<li class="list-inline-item"><a class="text-white d-print-none" href="/cookies">Cookies</a></li>
-					<li class="list-inline-item"><a class="text-white d-print-none" href="/sitemap">Sitemap</a></li>
 				</ul>
 			</div>
 		</div>

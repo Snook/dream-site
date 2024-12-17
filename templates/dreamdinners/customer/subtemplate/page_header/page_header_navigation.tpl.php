@@ -19,7 +19,6 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	<a class="navbar-brand d-block d-lg-none mr-0" href="/">
-		<!--<img class="img-fluid" src="<?php echo IMAGES_PATH; ?>/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" />-->
 		<img class="img-fluid" src="<?php echo IMAGES_PATH; ?>/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" />
 	</a>
 	<?php if (CUser::isLoggedIn()) { ?>
@@ -30,9 +29,6 @@
 			<a class="dropdown-item" href="/my-account">My Account</a>
 			<a class="dropdown-item" href="/my-meals">My Reviews</a>
 			<a class="dropdown-item" href="/my-meals?tab=nav-past_orders">My Orders</a>
-			<?php if (!CUser::hasDeliveredOrdersOnly()) { ?>
-				<a class="dropdown-item" href="/my-events">My Events</a>
-			<?php } ?>
 			<a class="dropdown-item" href="/account">Edit Account</a>
 			<a class="dropdown-item" href="/signout">Sign Out</a>
 		</div>
@@ -45,7 +41,6 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-6 col-xl-4 d-lg-block d-none mx-auto">
-					<!--<a href="/"><img class="img-fluid" src="<?php echo IMAGES_PATH; ?>/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" /></a>-->
 					<a href="/"><img class="img-fluid" src="<?php echo IMAGES_PATH; ?>/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" /></a>
 				</div>
 			</div>
@@ -62,11 +57,8 @@
 							<li class="nav-item">
 								<a class="nav-link" href="/browse-menu">Menu Preview</a>
 							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="/how-it-works">How it works</a>
-							</li>
 							<li class="nav-item d-block d-lg-none d-xl-block">
-								<a class="nav-link" href="/gift">Gift</a>
+								<a class="nav-link" href="/how-it-works">How it works</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link login_sign_in<?php if (CUser::isLoggedIn()) { ?> collapse<?php } ?>" href="/login">Sign In</a>
@@ -79,10 +71,6 @@
 										<a class="dropdown-item nav-link" href="/my-account">My account</a>
 										<a class="dropdown-item nav-link" href="/my-meals">My reviews</a>
 										<a class="dropdown-item nav-link" href="/my-meals?tab=nav-past_orders">My orders</a>
-
-										<?php if (!CUser::hasDeliveredOrdersOnly()) { ?>
-											<a class="dropdown-item nav-link" href="/my-events">My events</a>
-										<?php } ?>
 										<a class="dropdown-item nav-link" href="/account">Edit account</a>
 										<a class="dropdown-item nav-link" href="/signout">Sign Out</a>
 
@@ -134,12 +122,6 @@
 	<a class="dropdown-item" href="/locations">Locations</a>
 	<a class="dropdown-item" href="/shipping">Shipping</a>
 	<a class="dropdown-item" href="/recipe-resources">Recipe Resources</a>
-	<a class="dropdown-item" href="/share">Share</a>
-	<a class="dropdown-item" href="/platepoints">PLATEPOINTS</a>
-	<a class="dropdown-item" href="/fundraisers">Fundraisers</a>
-	<a class="dropdown-item" href="/promotions">Promotions</a>
-	<a class="dropdown-item" href="/gift-card-order">Gift Cards</a>
-	<a class="dropdown-item" href="/about-us">About Us</a>
 	<a class="dropdown-item" href="/help">Help</a>
 	<?php if (!CUser::isLoggedIn()) { ?>
 		<a class="btn btn-primary btn-block" href="/login">Sign In</a>

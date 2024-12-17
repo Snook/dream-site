@@ -19,18 +19,11 @@
 
 	<main role="main">
 		<section>
-			<div class="container-fluid my-5">
-				<div class="row hero-double">
-					<div class="col-md-6 p-0">
-						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/dec24-lto-bundle-collage-circles-957x657.webp" alt="Specials" class="img-fluid">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col text-center">
+						<p>Please reach out to your local store for promotions and partnership inquiries.</p>
 					</div>
-					<div class="col-md-6 text-left p-5 my-5">
-						<h2 class="font-weight-bold mt-2">Holiday Breakfast Bundle</h2>
-						<p class="text-uppercase mb-4">Start prepping your holiday menu by ordering our Holiday Breakfast Bundle featuring our Breakfast Bacon Frittata, Country Potato Bake and your choice of French Toast Bake. Easy and delicious! This breakfast bundle is perfect for Christmas morning, New Year's Day or to feed a houseful of visiting family. Add one on to your December order. Available at select locations in the Sides and Sweets Freezer, while supplies last. Not available for shipping.</p>
-						<a href="/session-menu" class="btn btn-lg btn-green">Order Now</a>
-					</div>
-
-
 				</div>
 			</div>
 		</section>
