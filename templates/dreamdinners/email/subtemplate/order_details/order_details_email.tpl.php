@@ -130,7 +130,7 @@
 											<tr align="center">
 												<td colspan="2"></td>
 											</tr>
-											<?php if ($this->DAO_session->DAO_menu->id <= 278 && !$this->isEmptyFloat($this->plate_points['points_this_order'])) { ?>
+											<?php if (false && $this->DAO_session->DAO_menu->id <= 278 && !$this->isEmptyFloat($this->plate_points['points_this_order'])) { ?>
 												<tr>
 													<td>Points earned this order:</td>
 													<td><?php echo number_format($this->plate_points['points_this_order']); ?></td>

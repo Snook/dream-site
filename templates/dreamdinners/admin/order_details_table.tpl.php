@@ -257,7 +257,7 @@
 			</table>
 		</div>
 
-		<?php if ($orderIsMPP || $userIsMPP) { ?>
+		<?php if (false && ($orderIsMPP || $userIsMPP)) { ?>
 			<div class="col">
 				<p class="p-1 mb-1 font-weight-bold border-top border-bottom font-size-medium-small">Meal Prep+</p>
 				<table>
@@ -288,7 +288,7 @@
 					</tr>
 				</table>
 			</div>
-		<?php } else if ($orderIsPP && is_array($this->plate_points["current_level"])) { ?>
+		<?php } else if (false && $orderIsPP && is_array($this->plate_points["current_level"])) { ?>
 			<div class="col">
 				<p class="p-1 mb-1 font-weight-bold border-top border-bottom font-size-medium-small">PLATEPOINTS <?php echo $this->plate_points['current_level']['title']; ?></p>
 				<table>

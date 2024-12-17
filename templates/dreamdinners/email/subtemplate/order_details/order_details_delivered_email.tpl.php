@@ -63,7 +63,7 @@
 							</table>
 						<?php } ?>
 
-						<?php if (!empty($this->plate_points) && $this->plate_points['status'] == 'active') { ?>
+						<?php if (false && !empty($this->plate_points) && $this->plate_points['status'] == 'active') { ?>
 							<!--PLATEPOINTS details-->
 							<table role="presentation" width="100%" style="width:100%;">
 

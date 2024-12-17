@@ -12,7 +12,7 @@
 <?php } ?>
 <?php if ($this->no_more_rows) { ?>
 	<h3 style="padding-left:20px">No More Data</h3>
-<?php } else{ ?>
+<?php } else { ?>
 	<table class="table table-sm table-striped text-center <?php if ($this->userObj->PlatePointsData["userIsOnHold"]) {echo 'text-muted'; } ?>">
 		<tr>
 			<th class="bgcolor_medium header_row">Type</th>
