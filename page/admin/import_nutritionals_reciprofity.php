@@ -499,7 +499,18 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 
 				foreach ($theseNuts as $thisNut)
 				{
+					$numberComponentOfNut = array();
 					$origVal = $thisNut;
+					preg_match('!\d+\.*\d*!', $thisNut, $numberComponentOfNut, PREG_OFFSET_CAPTURE);
+					if (count($numberComponentOfNut) != 1)
+					{
+						// let's not handle this anymore ... just bail so we know this happened
+						throw new Exception("Invalid Nutrition Amount: " . $thisLabel);
+					}
+					else
+					{
+						$thisNut = $numberComponentOfNut[0][0];
+					}
 
 					$inputHasLessThan = '';
 					if (strpos($origVal, "<") === 0)
@@ -1107,7 +1118,18 @@ class page_admin_import_nutritionals_reciprofity extends CPageAdminOnly
 
 				foreach ($theseNuts as $thisNut)
 				{
+					$numberComponentOfNut = array();
 					$origVal = $thisNut;
+					preg_match('!\d+\.*\d*!', $thisNut, $numberComponentOfNut, PREG_OFFSET_CAPTURE);
+					if (count($numberComponentOfNut) != 1)
+					{
+						// let's not handle this anymore ... just bail so we know this happened
+						throw new Exception("Invalid Nutrition Amount: " . $thisLabel);
+					}
+					else
+					{
+						$thisNut = $numberComponentOfNut[0][0];
+					}
 
 					$inputHasLessThan = '';
 					if (strpos($origVal, "<") === 0)
