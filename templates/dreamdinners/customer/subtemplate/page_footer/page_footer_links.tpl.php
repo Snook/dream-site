@@ -33,15 +33,15 @@
 				<a class="list-group-item bg-green-dark text-white py-0" href="/shipping">Shipping</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/browse-menu">Menu Preview</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/my-account">My Account</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/gift-card-order">Gift Cards</a>
+				
 			</div>
 		</div>
 		<div class="col-md-4 col-lg-3 col-xl-2">
 			<p class="font-weight-bold text-uppercase pl-1 mt-4 mt-md-0">Our Company</p>
 			<div class="list-group list-group-flush">
-				<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/about-us">About Us</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/our-food">Our Food</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/help">Help</a>
+				<a class="list-group-item bg-green-dark text-white py-0" href="/gift-card-order">Gift Cards</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/contact-us">Contact Us</a>
 			</div>
 		</div>
@@ -49,10 +49,8 @@
 			<p class="font-weight-bold text-uppercase pl-1 mt-4 mt-md-0">Learn More</p>
 			<div class="list-group list-group-flush">
 				<a class="list-group-item bg-green-dark text-white py-0 border-top-0" href="/how-it-works">How It Works</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="/gift">Gift</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/fundraisers">Fundraisers</a>
 				<a class="list-group-item bg-green-dark text-white py-0" href="/recipe-resources">Recipe Resources</a>
-				<a class="list-group-item bg-green-dark text-white py-0" href="https://blog.dreamdinners.com" rel="noopener" target="_blank">Our Blog</a>
 			</div>
 		</div>
 		<div class="col-md-4 col-lg-3 col-xl-2">
