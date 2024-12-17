@@ -10,7 +10,6 @@
  </tr>
  <tr>
   <td width="15%" align="right"><img src="<?php echo EMAIL_IMAGES_PATH?>/email/icons/menu-icon.gif" width="70" height="67" /></td>
-  <td width="85%" align="left">Plan to order in-store for your next session. Save time by <a href="<?php echo HTTPS_BASE?>session-menu">ordering online or just take a peek at next month's menu</a> before you arrive and you'll be all set to order when you come in.</td>
  </tr>
 </table>
 
