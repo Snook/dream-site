@@ -29,10 +29,7 @@
 				</li>
 				<li><strong>Looking to use the grill or your air fryer.</strong> Scan the QR code on the cooking instructions to see alternate cooking methods. </li>
 			</ul>
-			<p style="font-family:Arial, Helvetica, sans-serif; font-size: 16px; color: #444444;">Enjoy your dinners with your family! When you need more meals, place another order at <a href"https://dreamdinners.com/session-menu">DreamDinners.com</a>. Want more meals this month? You can order extras of your favorites, grab a few sides or sweets or try something new. Our menu changes monthly, with at least 17 delicious recipes to choose from.
-
-
-
+			<p style="font-family:Arial, Helvetica, sans-serif; font-size: 16px; color: #444444;">Enjoy your dinners with your family! When you need more meals, place another order at <a href"https://dreamdinners.com/session-menu">DreamDinners.com</a>. Want more meals this month? You can order extras of your favorites, grab a few sides or sweets or try something new. Our menu changes monthly, with at least 17 delicious recipes to choose from.</p>
 			<hr>
 			<p style="font-family:Arial, Helvetica, sans-serif; font-size: 16px; color: #444444;">If you have any questions, please reach out to us at <?php echo $this->DAO_booking->DAO_store->telephone_day; ?> or via email by replying.</p>
 			<p style="font-family:Arial, Helvetica, sans-serif; font-size: 16px; color: #444444;">&nbsp; </p>

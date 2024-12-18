@@ -409,6 +409,16 @@ class CStore extends DAO_Store
 		return false;
 	}
 
+	function getNewUrl(): bool|string
+	{
+		if (!$this->hasNewUrl())
+		{
+			return false;
+		}
+
+		return $this->new_store_url;
+	}
+
 	function showNewUrl(): bool
 	{
 		if (!$this->hasNewUrl())

@@ -1200,14 +1200,14 @@ class CTemplate extends Savant2
 			'dd_thank_you' => CBrowserSession::getValue('dd_thank_you'),
 			'vendor' => array(
 				'google' => array(
-					'enabled' => true,
+					'enabled' => false,
 					'analytics_id' => GOOGLE_ANALYTICS_ID,
 					'gtag' => array(
 						'purchase' => $gtag_Purchase
 					)
 				),
 				'dailystory' => array(
-					'enabled' => true
+					'enabled' => false
 				)
 			)
 		);
