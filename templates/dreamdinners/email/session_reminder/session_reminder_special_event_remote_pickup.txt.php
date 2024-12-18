@@ -15,7 +15,7 @@ Community Pick Up Location:
 What to Expect
  - We will have your dinners ready when you arrive. Bring your cooler to take them home.
  - Add on a few of our delicious sides, breakfast and sweets <?php echo HTTPS_BASE; ?>freezer from our Sides and Sweets Freezer.
- - Place your next order to reserve your preferred community pick up spot. <?php echo HTTPS_BASE; ?>session-menu
+ - Place your next order to reserve your preferred community pick up spot. <?php echo $this->DAO_store->getMenuURL(); ?>
 
 
 ---------------------------------------------------
