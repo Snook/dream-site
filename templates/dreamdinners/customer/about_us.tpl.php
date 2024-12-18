@@ -25,12 +25,10 @@
 					<div class="col-md-10 mx-auto bg-image-mission p-5">
 						<p class="font-size-large text-uppercase text-center"><br/>
 							At Dream Dinners, <span class="font-weight-bold">our mission</span> is to make gathering around the family table a cornerstone of daily life.<br/>
-                        </p>
+						</p>
 					</div>
 				</div>
 			</div>
-		</section>
-		
 		</section>
 
 	</main>
