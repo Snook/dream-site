@@ -12,7 +12,7 @@ We have your delivery address as
 What to Expect
  - Be home and ready to place your first 3 meals in the fridge to thaw and the rest in the freezer.
  - Add on a few of our delicious sides, breakfast and sweets <?php echo HTTPS_BASE; ?>freezer from our Sides and Sweets Freezer.
- - Place your next order to reserve your preferred delivery time. <?php echo HTTPS_BASE; ?>session-menu
+ - Place your next order to reserve your preferred delivery time. <?php echo $this->DAO_store->getMenuURL(); ?>
 
 
 ---------------------------------------------------

@@ -26,7 +26,7 @@
 			<ol>
 				<li>We will have your dinners ready when you arrive. Bring your cooler to take them home.</li>
 				<li>Add a few of our delicious sides, breakfast and sweets to your order by <a href="<?php echo HTTPS_BASE; ?>freezer">completing your request today.</a></li>
-				<li><a href="<?php echo HTTPS_BASE; ?>session-menu">Place your next order to reserve your preferred community pick up spot.</a></li>
+				<li><a href="<?php echo $this->DAO_store->getMenuURL(); ?>">Place your next order to reserve your preferred community pick up spot.</a></li>
 			</ol>
 
 			<p>We look forward to seeing you soon.</p>

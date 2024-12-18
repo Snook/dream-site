@@ -409,11 +409,11 @@ class CStore extends DAO_Store
 		return false;
 	}
 
-	function getNewUrl(): bool|string
+	function getMenuURL(): string
 	{
 		if (!$this->hasNewUrl())
 		{
-			return false;
+			return HTTPS_BASE . 'session-menu';
 		}
 
 		return $this->new_store_url;

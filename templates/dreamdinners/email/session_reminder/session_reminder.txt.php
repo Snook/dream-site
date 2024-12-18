@@ -7,7 +7,7 @@ It's almost time to assemble your meals. We're looking forward to seeing you <?p
 
 Tips
  - Add on a few of our delicious sides, breakfast and sweets <?php echo HTTPS_BASE; ?>freezer from our Sides and Sweets Freezer.
- - Place your next order online. <?php echo HTTPS_BASE; ?>session-menu
+ - Place your next order online. <?php echo $this->DAO_store->getMenuURL(); ?>
  - Be on time.
  - Bring your cooler
 
