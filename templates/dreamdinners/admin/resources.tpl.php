@@ -17,7 +17,7 @@
 					</tr>
 					<tr>
 						<td>
-							<a href="https://support.dreamdinners.com/" target="_blank">Dream Dinners Support</a><br/>
+							<a href="mailto:support@dreamdinners.com" target="_blank">Dream Dinners Support</a><br/>
 							<a href="https://login.microsoftonline.com " target="_blank">Dream Dinners Webmail Login</a><br/>
 							<a href="/backoffice/link_utility">Link Creation Utility</a><br/>
 							<a href="/print?menu=<?php echo $this->current_menu_id; ?>&amp;store=<?php echo $this->CurrentBackOfficeStore->id; ?>" target="Print_Menu">Print Menu <?php echo $this->current_menu_name; ?> - <?php echo $this->CurrentBackOfficeStore->store_name; ?></a><br/>
@@ -36,7 +36,6 @@
 							<a href="https://manager.paypal.com/" target="_blank">PayPal Manager</a><br/>
 							<a href="https://www.bargreen.com/" target="_blank">Bargreen Ellingson (smallwares)</a><br/>
 							<a href="https://www.wasserstrom.com/" target="_blank">Wasserstrom Supplies &amp; Equipment</a><br/>
-							<a href="https://dreamdinners.facebook.com/" target="_blank">Workplace</a><br/>
 							<a href="https://dreamdinners.ourproshop.com" target="_blank">Vistaprint ProShop</a><br/>
 							<a href="https://dreammerch.com" target="_blank">Estore</a><br/>
 						</td>
