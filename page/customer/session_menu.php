@@ -135,6 +135,11 @@ class page_session_menu extends CPage
 		// no available menu with customer accessible sessions
 		if ($oldestMenuWithOpenSession === false)
 		{
+			if ($DAO_store->hasNewUrl())
+			{
+				CApp::bounce($DAO_store->new_store_url);
+			}
+
 			$tpl->setStatusMsg($DAO_store->store_name . " has no available menus at this time.");
 			CApp::bounce('/locations');
 		}
