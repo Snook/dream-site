@@ -170,7 +170,6 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 
 		if (isset($_POST['submit_report']))
 		{
-
 			$nowTime = "now()";
 			$nowDate = "'" . date("Y-m-d H:i:s", time()) . "'";
 			if (is_numeric($store))
@@ -238,7 +237,6 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 			}
 			else
 			{
-
 				if ($sectionSwitches['df_DR_STATUS'] || $sectionSwitches['df_DR_LEVEL'])
 				{
 					$innerOptionalColumns .= ", u.dream_reward_status, u.dream_reward_level, u.dream_rewards_version";
@@ -406,7 +404,6 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 
 			if ($sectionSwitches['df_PROFILE_DATA'])
 			{
-
 				$query = "select GROUP_CONCAT(urs.source ORDER BY urs.id SEPARATOR '|') as referral_source, GROUP_CONCAT(urs.meta ORDER BY urs.id SEPARATOR '|') as ref_source_data, oq.* from ( " . $query . ") as oq left join user_referral_source urs on oq.id = urs.user_id and urs.is_deleted = 0 group by oq.id";
 			}
 
@@ -414,7 +411,6 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 
 			if (($sectionSwitches['df_INSTRUCTIONS'] || $sectionSwitches['df_CUSTOMIZATIONS']) && $_POST['guest_type'] == 'has_future_sessions')
 			{
-
 				$instructionsClause = '';
 				if ($sectionSwitches['df_INSTRUCTIONS'])
 				{
@@ -481,7 +477,6 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 
 			if ($sectionSwitches['df_DR_STATUS'])
 			{
-
 				$columnDescs[$thirdSecondChar . $colSecondChar . $col] = array(
 					'align' => 'center',
 					'width' => 14
@@ -791,7 +786,6 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 							}
 							else if ($thisFieldID == 1)
 							{
-
 								$month = current($Values);
 
 								if (is_numeric($month))
@@ -810,6 +804,29 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 							next($Values);
 						}
 					}
+
+					$birthday = "";
+
+					if (!empty($thisDataSet[0]) || !empty($thisDataSet[1]))
+					{
+						$date = new DateTime('2000-01-01');
+
+						if (!empty($thisDataSet[0]))
+						{
+							// Set the year of the DateTime object
+							$date->setDate($date->format('Y'), date("m", strtotime($thisDataSet[0])), $date->format('d'));
+						}
+
+						if (!empty($thisDataSet[1]))
+						{
+							// Set the year of the DateTime object
+							$date->setDate($thisDataSet[1], $date->format('m'), $date->format('d'));
+						}
+
+						$birthday = $date->format('Y-m-d');
+					}
+
+					array_unshift($thisDataSet, $birthday);
 
 					$thisGuest = array_merge($thisGuest, $thisDataSet);
 				}
@@ -925,7 +942,6 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 
 				if ($sectionSwitches['df_CUSTOMIZATIONS'] && $_POST['guest_type'] == 'has_future_sessions')
 				{
-
 					if (!empty($customization_order_ids))
 					{
 						$orderIds = explode('|', $customization_order_ids);
@@ -968,6 +984,7 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 				//	array(1 => 1, 15 => 2, 2 => 3, 10 => 4, 17 => 5, 18 => 6, 20 => 7, 3 => 8, 4 => 9, 5 => 10, 6 => 11, 7 => 12, 11 => 13, 16 => 14);
 
 				$profileMetaArray = array(
+					0 => "Birthday",
 					1 => "Birthday Month",
 					15 => "Year of Birth",
 					2 => "Number of Children",
@@ -1108,7 +1125,6 @@ class page_admin_reports_user_data_v2 extends CPageAdminOnly
 
 		if ($thisRow['dream_reward_status'] == 1 || $thisRow['dream_reward_status'] == 3 || $thisRow['dream_reward_status'] == 5)
 		{
-
 			if ($thisRow['dream_rewards_version'] == 3)
 			{
 				$isInPlatePoints = true;
