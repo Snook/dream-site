@@ -183,11 +183,19 @@
 										</button>
 									</div>
 								<?php } else { ?>
-									<div class="mt-4">
-										<div class="alert alert-warning">
-											We can ship to you, but our fridge is currently empty. We are busy prepping our new menu. Check back soon for a new selection of meals.
+									<?php if (!$this->delivered->DAO_store->hasNewUrl()) { ?>
+										<div class="mt-4">
+											<div class="alert alert-warning">
+												We can ship to you, but our fridge is currently empty. We are busy prepping our new menu. Check back soon for a new selection of meals.
+											</div>
 										</div>
-									</div>
+									<?php } else { ?>
+										<div class="mt-4">
+											<a class="btn btn-primary w-100 btn-spinner" href="<?php echo $this->delivered->DAO_store->new_store_url; ?>">
+												View Menu &amp; Order
+											</a>
+										</div>
+									<?php } ?>
 								<?php } ?>
 							<?php } ?>
 							<?php if (!empty($this->state_has_delivered)) { ?>
