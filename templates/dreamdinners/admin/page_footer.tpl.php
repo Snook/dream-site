@@ -11,7 +11,7 @@
 
 	<div id="footerlinks" class="footerlinks" style="text-align:center;">
 		<?php if (empty($this->hide_navigation)) { // hidden for some pages, ie admin_access_agreement ?>
-			<a href="/backoffice/resources">Resources</a> |
+			<a href="/backoffice/resources">Resources</a> &bull;
 			<a id="helpdesk_footer_link" href="mailto:support@dreamdinners.com" target="_blank" >Email Support</a>
 		<?php  } ?>
 	</div>
