@@ -62,7 +62,6 @@
 				<div class="col-12 mb-2"><a href="/" data-confirm-nav="You are still logged in as an admin! Are you sure you would like to visit the customer site as an admin user.">Customer Site</a></div>
 				<div class="col-12 mb-2"><a class="helpdesk-popup" href="https://support.dreamdinners.com" target="_blank">Support Request</a></div>
 				<div class="col-12 mb-2"><a href="https://support.dreamdinners.com" target="_blank">Support Portal</a></div>
-				<div class="col-12 mb-2"><a href="https://dreamdinners.workplace.com" target="_blank">Workplace</a></div>
 			</div>
 		</div>
 	</div>
