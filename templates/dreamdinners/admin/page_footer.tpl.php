@@ -1,10 +1,10 @@
 
 <?php if (empty($this->suppress_table_wrapper)) { ?>
-<div class="clear"></div>
+	<div class="clear"></div>
 
-</td>
-</tr>
-</table>
+	</td>
+	</tr>
+	</table>
 <?php } ?>
 
 <?php if (empty($this->print_view) || $this->print_view != true) { ?>
