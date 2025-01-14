@@ -28,7 +28,7 @@
 						<?php } ?>
 					<?php } ?>
 
-					<?php if ((empty($this->customerCalendarArray['no_closed_walkin']['menu']) || max(array_keys($this->customerCalendarArray['no_closed_walkin']['menu'])) == 280) && $this->cart_info["storeObj"]->showNewUrl()) { ?>
+					<?php if ($this->cart_info["storeObj"]->showNewUrl()) { ?>
 						<div class="col-12 col-md-auto">
 							<a href="<?php echo $this->cart_info['storeObj']->new_store_url; ?>" class="btn btn-primary w-100 mb-2">
 								<i class="dd-icon icon-<?php echo (max(array_keys($this->customerCalendarArray['no_closed_walkin']['menu'])) == 280) ? 'january' : 'february'; ?> font-size-medium-small align-middle"></i>
