@@ -1743,13 +1743,16 @@ class PDF_Label extends FPDF_MULTICELLTAG
 		$this->SetXY($_PosX + 3, $_PosY + 23 + $pushDown);
 		$this->MultiCellTag($this->_Width - $rPadding, $overrideLineHeight, $instructions, $showBorders, "L", 0);
 
-		$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), VERBOSE_MONTH_YEAR);
-		if ($entity['show_long_date'])
+		if (!Capp::wind_down_Generic_Labels())
 		{
-			$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), MONTH_DAY_YEAR);
+			$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), VERBOSE_MONTH_YEAR);
+			if ($entity['show_long_date'])
+			{
+				$dateFormatted = CTemplate::dateTimeFormat(date("Y-m-d H:i:s"), MONTH_DAY_YEAR);
+			}
+			$this->SetXY($_PosX + 53, $_PosY + 5.5);
+			$this->MultiCellTag($this->_Width * .5 - $rPadding, $this->_Line_Height, "<t7h>Assembled " . $dateFormatted . "</t7h>", $showBorders, "R", 0);
 		}
-		$this->SetXY($_PosX + 53, $_PosY + 5.5);
-		$this->MultiCellTag($this->_Width * .5 - $rPadding, $this->_Line_Height, "<t7h>Assembled " . $dateFormatted . "</t7h>", $showBorders, "R", 0);
 
 		if (!empty($entity['best_prepared_by']))
 		{
