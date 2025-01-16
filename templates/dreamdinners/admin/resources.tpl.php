@@ -50,11 +50,11 @@
 					</tr>
 					<tr>
 						<td>
-							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/Enp9qWgW6plGrINO0wyEHp8BuAXJuTb1-GbnPitkJ-9q2A?e=y06mcP" target="_blank">Monthly Packet Files</a><br/>
-							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/EmxdVerU2eNAuNCoZsquGiMBCbbSMql_-Et0Aw-e7NTMQQ?e=31SQE6" target="_blank">The Pantry Training and Files</a><br/>
-							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/EuibZbgyjb5ItuWHQQ9pj44BqL68jsQWDWtpTHqUbI-WJg?e=G5de8f" target="_blank">Finance Files</a><br/>
-							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/Ep0hmBj6NVBOhQVLVJFAsiQBVo0VJLPhTCkUei9MuU6H8Q?e=lsHCLZ" target="_blank">Franchise Sales Files</a><br/>
-							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/Eu9rgo4VIVpGtvsgV49K9IEBsLeG-2mV41EI6R9PYkMYuw?e=nxNoLK" target="_blank">Marketing Files</a><br/>
+							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/Enp9qWgW6plGrINO0wyEHp8BuAXJuTb1-GbnPitkJ-9q2A?e=ZbvHM4" target="_blank">Monthly Packet</a><br/>
+							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/EggdLnRxM2lIldWSzbyYD9IBpLxZ9xukfJbMtdkLQ5IZzA?e=Te7RPr" target="_blank">Transition Videos</a><br/>
+							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/EmxdVerU2eNAuNCoZsquGiMBCbbSMql_-Et0Aw-e7NTMQQ?e=HGFdCV" target="_blank">The Pantry - Training</a><br/>
+							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/EuibZbgyjb5ItuWHQQ9pj44BqL68jsQWDWtpTHqUbI-WJg?e=rUWkNc" target="_blank">Finance Files</a><br/>
+							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/Eu9rgo4VIVpGtvsgV49K9IEBsLeG-2mV41EI6R9PYkMYuw?e=bgMeQF" target="_blank">Marketing Files</a><br/>
 						</td>
 					</tr>
 				</table>
