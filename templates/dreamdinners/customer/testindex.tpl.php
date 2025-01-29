@@ -12,41 +12,38 @@
 	<link href="/theme/dreamdinners/css/customer/dreamdinners.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-white px-sm-5 py-sm-4 mb-5">
-	<a class="d-block d-lg-none mx-auto" href="/">
-		<img class="img-fluid" src="/theme/dreamdinners/images/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" />
-	</a>
-	<div class="collapse navbar-collapse">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-6 col-xl-4 d-lg-block d-none mx-auto">
-					<a href="/"><img class="img-fluid" src="/theme/dreamdinners/images/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" /></a>
-				</div>
-				<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted">
-			</div>
-		</div>
-	</div>
-</nav>
-
-<header class="container my-5">
-		<div class="row mb-3">
-			<div class="col text-center">
-				<h1>Dream Dinners Locations</h1>
-				<h3 class="font-have-heart-two">We offer real food, made from scratch, so your life can feel a little easier.</h3>
-				<p></p>
-			</div>
-		</div>
-	</header>
-
-	<section>
-		<div class="container mb-5">
-				<div class="row mb-3">
-					<div class="col">
-						<h3 class="text-uppercase font-weight-bold text-center">Find Your Location Below</h3>
+		<nav class="navbar navbar-expand-lg navbar-light bg-white px-sm-5 py-sm-4 mb-5 text-center">
+				<img class="img-fluid" src="/theme/dreamdinners/images/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" />
+			<div class="collapse navbar-collapse">
+				<div class="container-fluid">
+					<div class="row text-center">
+						<div class="col-lg-6 col-xl-4 d-lg-block d-none mx-auto">
+							<a href="/"><img class="img-fluid" src="/theme/dreamdinners/images/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" /></a>
+						</div>
 					</div>
 				</div>
+			</div>
+		</nav>
+		<section>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col text-center">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-pot-pies-in-a-snap-headers-1400x600.webp" alt="Mini Pot Pies in a Snap" class="img-fluid">
+					</div>
+				</div>
+			</div>
+			<header class="container my-5">
+				<div class="row mb-3">
+					<div class="col text-center">
+						<h1>Dream Dinners Locations</h1>
+						<h3 class="font-have-heart-two">We offer real food, made from scratch, so your life can feel a little easier.</h3>
+						<p>We do all of the shopping, chopping, prepping, and clean up. Most of our meals cook in less than 30 minutes, leaving you more time to do the things you love. Find your local store to get started.</p>
+					</div>
+				</div>
+			</header>
+		</section>
 
+<section>	
 <div class="container">
 	<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
 		<div class="col mb-4">
@@ -342,6 +339,6 @@
 
 	</div>
 </div>
-
+</section>
 </body>
 </html>
