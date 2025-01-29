@@ -201,16 +201,6 @@
 		<div class="col mb-4">
 			<div class="card">
 				<div class="card-body">
-					<h3 class="text-uppercase font-weight-bold text-center">Kansas</h3>
-					<h5 class="card-title">Overland Park Store</h5>
-					<p class="card-text">6517 W. 119th St<br />Overland Park, KS 66209</p>
-					<a href="https://dreamdinnersmidwest.com" class="btn btn-primary btn-block">View website</a>
-				</div>
-			</div>
-		</div>
-		<div class="col mb-4">
-			<div class="card">
-				<div class="card-body">
 					<h3 class="text-uppercase font-weight-bold text-center">Indiana</h3>
 					<h5 class="card-title">Lafayette Store</h5>
 					<p class="card-text">210 Meijer Drive<br />Lafayette, IN 47905</p>
@@ -218,6 +208,16 @@
 				</div>
 			</div>
 		</div>		
+		<div class="col mb-4">
+			<div class="card">
+				<div class="card-body">
+					<h3 class="text-uppercase font-weight-bold text-center">Kansas</h3>
+					<h5 class="card-title">Overland Park Store</h5>
+					<p class="card-text">6517 W. 119th St<br />Overland Park, KS 66209</p>
+					<a href="https://dreamdinnersmidwest.com" class="btn btn-primary btn-block">View website</a>
+				</div>
+			</div>
+		</div>			
 		<div class="col mb-4">
 			<div class="card">
 				<div class="card-body">

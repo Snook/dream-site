@@ -12,42 +12,40 @@
 	<link href="/theme/dreamdinners/css/customer/dreamdinners.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-white px-sm-5 py-sm-4 mb-5">
+		<nav class="navbar navbar-expand-lg navbar-light bg-white px-sm-5 py-sm-4 mb-2 text-center">
 	<a class="d-block d-lg-none mx-auto" href="/">
 		<img class="img-fluid" src="/theme/dreamdinners/images/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" />
 	</a>
 	<div class="collapse navbar-collapse">
 		<div class="container-fluid">
-			<div class="row">
+			<div class="row text-center">
 				<div class="col-lg-6 col-xl-4 d-lg-block d-none mx-auto">
 					<a href="/"><img class="img-fluid" src="/theme/dreamdinners/images/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" /></a>
-				</div>
-				
+				</div>				
 			</div>
 		</div>
 	</div>
 </nav>
-
-<header class="container my-5">
-<hr class="border-green-light border-width-3-5-imp my-5 border-top-style-dotted">
-		<div class="row mb-3">
-			<div class="col text-center">
-				<h1>Dream Dinners Locations</h1>
-				<h3 class="font-have-heart-two">We offer real food, made from scratch, so your life can feel a little easier.</h3>
-				<p></p>
-			</div>
-		</div>
-	</header>
-
-	<section>
-		<div class="container mb-5">
-				<div class="row mb-3">
-					<div class="col">
-						<h3 class="text-uppercase font-weight-bold text-center">Find Your Local Store</h3>
+		<section>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col text-center">
+						<img src="<?php echo IMAGES_PATH; ?>/landing_pages/mini-pot-pies-in-a-snap-headers-1400x600.webp" alt="Mini Pot Pies in a Snap" class="img-fluid">
 					</div>
 				</div>
+			</div>
+			<header class="container my-5">
+				<div class="row mb-3">
+					<div class="col text-center">
+						<h1>Dream Dinners Meal Prep Stores</h1>
+						<h3 class="font-have-heart-two">We offer real food, made from scratch, so your life can feel a little easier.</h3>
+						<p>We do all of the shopping, chopping, prepping, and clean up. Most of our meals cook in less than 30 minutes, leaving you more time to do the things you love. Find your local store to get started.</p>
+					</div>
+				</div>
+			</header>
+		</section>
 
+<section>	
 <div class="container">
 	<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
 		<div class="col mb-4">
@@ -203,16 +201,6 @@
 		<div class="col mb-4">
 			<div class="card">
 				<div class="card-body">
-					<h3 class="text-uppercase font-weight-bold text-center">Kansas</h3>
-					<h5 class="card-title">Overland Park Store</h5>
-					<p class="card-text">6517 W. 119th St<br />Overland Park, KS 66209</p>
-					<a href="https://dreamdinnersmidwest.com" class="btn btn-primary btn-block">View website</a>
-				</div>
-			</div>
-		</div>
-		<div class="col mb-4">
-			<div class="card">
-				<div class="card-body">
 					<h3 class="text-uppercase font-weight-bold text-center">Indiana</h3>
 					<h5 class="card-title">Lafayette Store</h5>
 					<p class="card-text">210 Meijer Drive<br />Lafayette, IN 47905</p>
@@ -220,6 +208,16 @@
 				</div>
 			</div>
 		</div>		
+		<div class="col mb-4">
+			<div class="card">
+				<div class="card-body">
+					<h3 class="text-uppercase font-weight-bold text-center">Kansas</h3>
+					<h5 class="card-title">Overland Park Store</h5>
+					<p class="card-text">6517 W. 119th St<br />Overland Park, KS 66209</p>
+					<a href="https://dreamdinnersmidwest.com" class="btn btn-primary btn-block">View website</a>
+				</div>
+			</div>
+		</div>			
 		<div class="col mb-4">
 			<div class="card">
 				<div class="card-body">
@@ -333,6 +331,17 @@
 
 	</div>
 </div>
-
+</section>
+<section>
+	<div class="container-fluid">
+		<div class="row bg-green-dark">
+			<div class="col">
+				<ul class="list-inline font-size-small text-white text-center m-3">
+					<li class="list-inline-item"><a class="text-white" href="/">&copy; Dream Dinners, Inc.</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
 </body>
 </html>
