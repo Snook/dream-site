@@ -37,7 +37,7 @@
 			<header class="container my-5">
 				<div class="row mb-3">
 					<div class="col text-center">
-						<h1>Dream Dinners Locations</h1>
+						<h1>Dream Dinners Meal Prep Stores</h1>
 						<h3 class="font-have-heart-two">We offer real food, made from scratch, so your life can feel a little easier.</h3>
 						<p>We do all of the shopping, chopping, prepping, and clean up. Most of our meals cook in less than 30 minutes, leaving you more time to do the things you love. Find your local store to get started.</p>
 					</div>
