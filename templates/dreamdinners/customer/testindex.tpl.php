@@ -12,7 +12,7 @@
 	<link href="/theme/dreamdinners/css/customer/dreamdinners.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-		<nav class="navbar navbar-expand-lg navbar-light bg-white px-sm-5 py-sm-4 mb-5 text-center">
+		<nav class="navbar navbar-expand-lg navbar-light bg-white px-sm-5 py-sm-4 mb-2 text-center">
 	<a class="d-block d-lg-none mx-auto" href="/">
 		<img class="img-fluid" src="/theme/dreamdinners/images/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" />
 	</a>
@@ -331,6 +331,17 @@
 
 	</div>
 </div>
+</section>
+<section>
+	<div class="container-fluid">
+		<div class="row bg-green-dark">
+			<div class="col">
+				<ul class="list-inline font-size-small text-white text-center m-3">
+					<li class="list-inline-item"><a class="text-white" href="/">&copy; Dream Dinners, Inc.</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </section>
 </body>
 </html>
