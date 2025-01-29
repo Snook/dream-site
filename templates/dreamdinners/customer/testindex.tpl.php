@@ -13,17 +13,19 @@
 </head>
 <body>
 		<nav class="navbar navbar-expand-lg navbar-light bg-white px-sm-5 py-sm-4 mb-5 text-center">
-				<img class="img-fluid" src="/theme/dreamdinners/images/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" />
-			<div class="collapse navbar-collapse">
-				<div class="container-fluid">
-					<div class="row text-center">
-						<div class="col-lg-6 col-xl-4 d-lg-block d-none mx-auto">
-							<a href="/"><img class="img-fluid" src="/theme/dreamdinners/images/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" /></a>
-						</div>
-					</div>
-				</div>
+	<a class="d-block d-lg-none mx-auto" href="/">
+		<img class="img-fluid" src="/theme/dreamdinners/images/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" />
+	</a>
+	<div class="collapse navbar-collapse">
+		<div class="container-fluid">
+			<div class="row text-center">
+				<div class="col-lg-6 col-xl-4 d-lg-block d-none mx-auto">
+					<a href="/"><img class="img-fluid" src="/theme/dreamdinners/images/style/logo/dream-dinners-logo.png" alt="Dream Dinners logo" /></a>
+				</div>				
 			</div>
-		</nav>
+		</div>
+	</div>
+</nav>
 		<section>
 			<div class="container-fluid">
 				<div class="row">
@@ -93,16 +95,6 @@
 					<h5 class="card-title">Pasadena Store</h5>
 					<p class="card-text">1274 E Colorado Blvd<br />Pasadena, CA 91106</p>
 					<a href="https://dreamdinnerspasadena.com" class="btn btn-primary btn-block">View website</a>
-				</div>
-			</div>
-		</div>
-		<div class="col mb-4">
-			<div class="card">
-				<div class="card-body">
-					<h3 class="text-uppercase font-weight-bold text-center">California</h3>
-					<h5 class="card-title">La Mesa Store</h5>
-					<p class="card-text">5208 Jackson Drive, Suite 116<br />La Mesa, CA 91942</p>
-					<a href="https://lamesadreamdinners.com" class="btn btn-primary btn-block">View website</a>
 				</div>
 			</div>
 		</div>
@@ -180,7 +172,7 @@
 			<div class="card">
 				<div class="card-body">
 					<h3 class="text-uppercase font-weight-bold text-center">Colorado</h3>
-					<h5 class="card-title">North Colorado Springs Store</h5>
+					<h5 class="card-title">Colorado Springs Store</h5>
 					<p class="card-text">5578 Powers Center Point<br />Colorado Springs, CO 80920</p>
 					<a href="https://dreamdinnerscoloradosprings.com" class="btn btn-primary btn-block">View website</a>
 				</div>
