@@ -43,7 +43,7 @@
 				<div class="row">
 					<div class="col">
 						<div class="text-center">
-							<h2 class="mt-4 mb-4 font-weight-bold">Meals Made In A Snap</h2>
+							<h2 class="mt-4 mb-4 font-weight-bold">Homemade, Made Easy®</h2>
 						</div>
 					</div>
 				</div>
