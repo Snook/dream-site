@@ -168,7 +168,9 @@
 										$evenColumn = !$evenColumn;
 										?>
 										<th scope="col" colspan="3" class="<?php echo  $colClass ; ?> IM_header thick_left_border"><h3>Week <?php echo  $weekNum; ?></h3>
+											<?php if ($weekData["dt_week_start"] && $weekData["dt_week_end"]) { ?>
 											<div><?php echo $weekData["dt_week_start"]->format('M j'); ?> - <?php echo !$weekData['final'] ? $weekData["dt_week_end"]->modify('-1 day')->format('M j') : $weekData["dt_week_end"]->format('M j'); ?></div>
+											<?php } ?>
 											<span style="margin-bottom:2px;" class="btn btn-primary btn-sm" id="finalize_week_<?php echo  $weekNum; ?>">Finalize</span><span style="font-weight:bold; font-size: 12pt;">&#9317;</span><br />
 											<span data-week_start="<?php echo $weekData['week_start']; ?>" id="export_week_<?php echo  $weekNum; ?>_sales" class="btn btn-primary btn-sm">Export</span>
 										</th>
