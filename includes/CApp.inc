@@ -89,7 +89,7 @@ class CApp
 			{
 				if (strpos($locationRequest, "login") === false)
 				{
-					CApp::bounce('/backoffice/reports');
+					CApp::bounce('/');
 				}
 			}
 		}

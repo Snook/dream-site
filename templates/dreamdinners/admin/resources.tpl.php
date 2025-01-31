@@ -19,11 +19,7 @@
 						<td>
 							<a href="mailto:support@dreamdinners.com" target="_blank">Dream Dinners Support</a><br/>
 							<a href="https://login.microsoftonline.com " target="_blank">Dream Dinners Webmail Login</a><br/>
-							<a href="/backoffice/link_utility">Link Creation Utility</a><br/>
 							<a href="/print?menu=<?php echo $this->current_menu_id; ?>&amp;store=<?php echo $this->CurrentBackOfficeStore->id; ?>" target="Print_Menu">Print Menu <?php echo $this->current_menu_name; ?> - <?php echo $this->CurrentBackOfficeStore->store_name; ?></a><br/>
-							<a href="/print?menu=<?php echo $this->next_menu_id; ?>&amp;store=<?php echo $this->CurrentBackOfficeStore->id; ?>"  target="Print_Menu">Print Menu <?php echo $this->next_menu_name; ?> - <?php echo $this->CurrentBackOfficeStore->store_name; ?></a><br/>
-							<a href="/backoffice/signature_generator">Signature Generator</a><br/>
-							<a href="https://view.monday.com/1949008947-34ae0641cf7d934d1b2de3fcd067f6bc?r=use1" target="_blank">Company Event Calendar</a><br/>
 						</td>
 					</tr>
 					<tr>
@@ -50,9 +46,10 @@
 					</tr>
 					<tr>
 						<td>
-							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/Enp9qWgW6plGrINO0wyEHp8BuAXJuTb1-GbnPitkJ-9q2A?e=ZbvHM4" target="_blank">Monthly Packet</a><br/>
+							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/EgsUeqhDzulHmWlGEWMBTnEBzgYOlKNH_mNRLZBU9nmzrg?e=90ijaa" target="_blank">All Folders</a><br/>
+							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/Enp9qWgW6plGrINO0wyEHp8BuAXJuTb1-GbnPitkJ-9q2A?e=ZbvHM4" target="_blank">Monthly Packets</a><br/>
 							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/EggdLnRxM2lIldWSzbyYD9IBpLxZ9xukfJbMtdkLQ5IZzA?e=Te7RPr" target="_blank">Transition Videos</a><br/>
-							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/EmxdVerU2eNAuNCoZsquGiMBCbbSMql_-Et0Aw-e7NTMQQ?e=HGFdCV" target="_blank">The Pantry - Training</a><br/>
+							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/EmxdVerU2eNAuNCoZsquGiMBCbbSMql_-Et0Aw-e7NTMQQ?e=HGFdCV" target="_blank">The Pantry</a><br/>
 							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/EuibZbgyjb5ItuWHQQ9pj44BqL68jsQWDWtpTHqUbI-WJg?e=rUWkNc" target="_blank">Finance Files</a><br/>
 							<a href="https://dreamdinners-my.sharepoint.com/:f:/p/externalfiles/Eu9rgo4VIVpGtvsgV49K9IEBsLeG-2mV41EI6R9PYkMYuw?e=bgMeQF" target="_blank">Marketing Files</a><br/>
 						</td>
