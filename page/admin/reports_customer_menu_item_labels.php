@@ -291,13 +291,14 @@ class page_admin_reports_customer_menu_item_labels extends CPageAdminOnly
 
 			CLog::RecordReport('Session/Labels Generic', "Menu: $menu_id ~ Store: $store_id");
 
+			$options = array();
+
 			if (empty($arr))
 			{
 				$tpl->setStatusMsg("Sorry, instructional sets for this menu's entrees are not currently available.  Please check back again at a later time.");
 			}
 			else
 			{
-				$options = array();
 				$options[0] = "-- Next, Pick a Menu Item --";
 
 				foreach ($arr as $element)
