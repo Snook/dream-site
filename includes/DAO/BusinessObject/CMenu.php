@@ -1385,11 +1385,16 @@ class CMenu extends DAO_Menu
 	static function getMenuByDate($Ymd)
 	{
 		$DAO_menu = DAO_CFactory::create('menu');
-		$DAO_menu->id = 281;
-		//$DAO_menu->whereAdd("menu.global_menu_end_date >= '" . $Ymd . "'");
-		//$DAO_menu->orderBy("menu.global_menu_end_date");
+		$DAO_menu->whereAdd("menu.global_menu_end_date >= '" . $Ymd . "'");
+		$DAO_menu->orderBy("menu.global_menu_end_date");
 		$DAO_menu->limit(1);
-		$DAO_menu->find(true);
+
+		if (!$DAO_menu->find(true))
+		{
+			$DAO_menu = DAO_CFactory::create('menu');
+			$DAO_menu->id = 281;
+			$DAO_menu->find(true);
+		}
 
 		return $DAO_menu->toArray();
 	}
