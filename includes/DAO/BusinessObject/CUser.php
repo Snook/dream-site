@@ -5052,7 +5052,7 @@ class CUser extends DAO_User
 				}
 				else
 				{
-					CLog::RecordIntense("User obj was deleted but email exists in undeleted row in user login: user_id#" . $loginObj->user_id, "ryan.snook@dreamdinners.com");
+					//CLog::RecordIntense("User obj was deleted but email exists in undeleted row in user login: user_id#" . $loginObj->user_id, "ryan.snook@dreamdinners.com");
 					// display the message so bad dudes learn nothing
 					if (!$suppressUIfunction)
 					{
