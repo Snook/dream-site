@@ -279,13 +279,14 @@ class page_admin_reports_menu_item_nutritional_labels extends CPageAdminOnly
 			$ft_arr[$daoMenuItem->id] = clone $daoMenuItem;
 		}
 
+		$options = array();
+
 		if (empty($arr))
 		{
 			$tpl->setStatusMsg("Sorry, nutrition information for this menu's entrees are not currently available.  Please check back again at a later time.");
 		}
 		else
 		{
-			$options = array();
 			$options[0] = "-- Next, Pick a Menu Item --";
 
 			foreach ($arr as $element)
