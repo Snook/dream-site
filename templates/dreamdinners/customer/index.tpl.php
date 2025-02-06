@@ -73,7 +73,7 @@
 				<div class="card-body">
 					<h3 class="text-uppercase font-weight-bold text-center">California</h3>
 					<h5 class="card-title">Encinitas Store</h5>
-					<p class="card-text">339 A North El Camino Real<br />Encinitas, CA 92024</p>
+					<p class="card-text">339 N El Camino Real, Suite A<br />Encinitas, CA 92024</p>
 					<a href="https://dreamdinnersnorthcounty.com" class="btn btn-primary btn-block">View website</a>
 				</div>
 			</div>
@@ -223,7 +223,7 @@
 				<div class="card-body">
 					<h3 class="text-uppercase font-weight-bold text-center">Massachusetts</h3>
 					<h5 class="card-title">Framingham Store</h5>
-					<p class="card-text">847 Edgell Rd<br />Framinghoam, MA 01701</p>
+					<p class="card-text">847 Edgell Rd<br />Framingham, MA 01701</p>
 					<a href="https://dreamdinnersnewengland.com" class="btn btn-primary btn-block">View website</a>
 				</div>
 			</div>
